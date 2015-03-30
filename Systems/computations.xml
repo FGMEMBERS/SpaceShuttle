@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<system>
+	<channel name="Acceleration">
+		<fcs_function name="accelerations/a-pilot-ft_sec2">
+		<function>
+		<pow>
+		<sum>
+		<pow>
+			<property>accelerations/a-pilot-x-ft_sec2</property>
+			<value>2.0</value>	
+		</pow>
+		<pow>
+			<property>accelerations/a-pilot-y-ft_sec2</property>
+			<value>2.0</value>	
+		</pow>
+		<pow>
+			<property>accelerations/a-pilot-z-ft_sec2</property>
+			<value>2.0</value>	
+		</pow>
+		</sum>
+		<value>0.5</value>
+		</pow>
+		</function>
+		</fcs_function>
+	</channel>
+</system>

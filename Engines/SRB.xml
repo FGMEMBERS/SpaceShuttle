@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
+    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<rocket_engine name="SRB">
+  <isp>                   268.0  </isp>
+  <maxthrottle>           1.04  </maxthrottle>
+  <minthrottle>           0.47  </minthrottle>
+  <slfuelflowmax unit="LBS/SEC">  9797.0  </slfuelflowmax>
+  <sloxiflowmax unit="LBS/SEC">   1632.0  </sloxiflowmax>-->
+<!-- all two engines -->
+ <!--<slfuelflowmax unit="LBS/SEC">  14847.0  </slfuelflowmax>
+  <sloxiflowmax unit="LBS/SEC">   2474.0  </sloxiflowmax>-->
+</rocket_engine>
+
+
