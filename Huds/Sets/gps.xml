@@ -11,6 +11,22 @@
 
 	<!-- Orbital stuff -->
  	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
 		<width>2</width>
 		<height>2</height>
 		<format>Apoapsis:%4.2f km</format>
@@ -23,6 +39,22 @@
 
 
 	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
 		<width>2</width>
 		<height>2</height>
 		<x>100</x>
@@ -32,6 +64,61 @@
 			<property>/fdm/jsbsim/systems/orbital/periapsis-indicated-km</property>
 		</input>
        </label>	
+
+	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<y>-10</y>
+		<format>Inclination:%4.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>/fdm/jsbsim/systems/orbital/inclination-deg</property>
+		</input>
+       </label>	
+
+	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>100</x>
+		<y>-10</y>
+		<format>Asc. node lon:%4.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>/fdm/jsbsim/systems/orbital/ascending-node-lon-deg</property>
+		</input>
+       </label>
 
  	<label>
 		<width>2</width>
@@ -78,7 +165,7 @@
 		<width>2</width>
 		<height>2</height>
 		<y>-41</y>
-		<format>GS:%7.5fkm/s</format>
+		<format>GS:%2.2f km/s</format>
 		<halign>left</halign>
 		<input>
 			<property>/instrumentation/gps/indicated-ground-speed-kt</property>
@@ -101,6 +188,22 @@
 
 
      <label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
 		<width>2</width>
 		<height>2</height>
 		<x>460</x>
@@ -108,10 +211,28 @@
 		<format>Pitch rate:%2.2f deg/s</format>
 		<halign>left</halign>
 		<input>
-			<property>orientation/pitch-rate-degps</property>
+			<!--<property>orientation/pitch-rate-degps</property>-->
+			<property>fdm/jsbsim/velocities/q-rad_sec</property>
+			<factor>57.2957</factor>-
 		</input>
      </label>
       <label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
 		<width>2</width>
 		<height>2</height>
 		<x>460</x>
@@ -119,10 +240,32 @@
 		<format>Roll rate:%2.2f deg/s</format>
 		<halign>left</halign>
 		<input>
-			<property>orientation/roll-rate-degps</property>
+			<property>fdm/jsbsim/velocities/p-rad_sec</property>
+			<factor>57.2957</factor>
+			<!--<property>orientation/roll-rate-degps</property>-->
 		</input>
      </label>
+
+ 	
+  
+
      <label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
 		<width>2</width>
 		<height>2</height>
 		<x>460</x>
@@ -130,9 +273,180 @@
 		<format>Yaw rate:%2.2f deg/s</format>
 		<halign>left</halign>
 		<input>
-			<property>orientation/yaw-rate-degps</property>
+			<!--<property>orientation/yaw-rate-degps</property>-->
+			<property>fdm/jsbsim/velocities/r-rad_sec</property>
+			<factor>57.2957</factor>
 		</input>
      </label>
+
+
+ 	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>20</y>
+		<format>Dynamical pressure:%2.2f psf</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/aero/qbar-psf</property>
+		</input>
+     </label>
+
+    <label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>10</y>
+		<format>Nose temperature:%2.2f F</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/systems/thermal/nose-temperature-F-indicated</property>
+		</input>
+     </label>
+
+<!-- Gliding stuff - only shown in final stage HUD mode -->
+
+    <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>60</y>
+		<format>Glide ratio:%2.2f </format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/aero/coefficient/GS</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>50</y>
+		<format>Ground speed:%3.0f kt</format>
+		<halign>left</halign>
+		<input>
+			<property>velocities/groundspeed-kt</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>40</y>
+		<format>Vertical speed:%4d ft/min</format>
+		<halign>left</halign>
+		<input>
+			<property>velocities/vertical-speed-fps</property>
+			<factor>60.0</factor>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>20</y>
+		<format>Gear:         %s</format>
+		<halign>left</halign>
+		<input>
+			<property>controls/shuttle/gear-string</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>10</y>
+		<format>Speed brake: %s</format>
+		<halign>left</halign>
+		<input>
+			<property>controls/shuttle/speedbrake-string</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>00</y>
+		<format>Drag chute:   %s</format>
+		<halign>left</halign>
+		<input>
+			<property>controls/shuttle/drag-chute-string</property>
+		</input>
+     </label>
+
 
 <!-- engine status display showing functionality and whether engine is ignited -->
     

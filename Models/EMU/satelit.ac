@@ -1,6 +1,6 @@
 AC3Db
 MATERIAL "DefaultWhite" rgb 1.0000 1.0000 1.0000  amb 1.0000 1.0000 1.0000  emis 1.0000 1.0000 1.0000  spec 1.0000 1.0000 1.0000  shi 10 trans 0.0000
-MATERIAL "spstob_eal_1.004" rgb 0.60 0.75 0.90  amb 0.60 0.75 0.90  emis 0.60 0.75 0.90  spec 0.60 0.75 0.90  shi 31 trans 0.0000
+MATERIAL "spstob_eal_1.004" rgb 0.60 0.75 0.90  amb 0.60 0.75 0.90  emis 0.0 0.0 0.0  spec 0.60 0.75 0.90  shi 31 trans 0.0000
 OBJECT world
 name "Blender_export__satelit.ac"
 kids 1

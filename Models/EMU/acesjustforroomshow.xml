@@ -19,17 +19,7 @@
  </condition> 
 </animation>
 
-<animation>   
-  </animation>
 
-  <!--<animation>
-   <type>material</type>    
-    <emission>
-      <factor>1</factor>
-      <red>   0.25 </red>
-      <green> 0.25 </green>
-      <blue>  0.25 </blue>
-    </emission>
-  </animation>-->
+
 
 </PropertyList>

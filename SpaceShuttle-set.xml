@@ -29,6 +29,9 @@
 	<fcs>
 		<parachute_reef_pos_norm type="float"> 0 </parachute_reef_pos_norm>
 		<control-mode type="int"> 0 </control-mode>
+		<rcs-pitch-mode type="int">1</rcs-pitch-mode>
+		<rcs-roll-mode type="int">1</rcs-roll-mode>
+		<rcs-yaw-mode type="int">1</rcs-yaw-mode>
 	</fcs>
 	<rcs>
 		<pod1-up-fire-roll type="float">0.0</pod1-up-fire-roll>
@@ -83,10 +86,14 @@
        <EMU type="int">0</EMU>
        <robotarm type="float">0</robotarm> 
        <door>
-        <position type="float">0</position>
+        	<position type="float">0</position>
       </door>
       <parachute type="int">0</parachute>
       <control-system-string type="string">Thrust Vectoring</control-system-string>
+      <hud-mode>0</hud-mode>
+      <gear-string>up</gear-string>
+      <speedbrake-string>in</speedbrake-string>
+      <drag-chute-string>in</drag-chute-string>
     </shuttle>
     
     <lighting>
@@ -247,8 +254,20 @@
 
 
 <key>
+	<name>c</name>
+	<desc>deploy drag chute</desc>
+</key>
+<key>
 	<name>d</name>
 	<desc>drop external tank</desc>
+</key>
+<key>
+	<name>m</name>
+	<desc>switch RCS rotation/translation</desc>
+</key>
+<key>
+	<name>s</name>
+	<desc>deploy speed brake</desc>
 </key>
 <key>
 	<name>Keypad 4</name>
@@ -315,6 +334,8 @@ If you managed to control launch course and climb, after a few minutes, velocity
 Orbital maneuvering
 ===================
 
+(You can start at this phase with --aircraft=SpaceShuttle-orbit)
+
 Controls now switch to the reaction control system (RCS). Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll rates in the HUD. Do not leave controls uncentered at any point after maneuvering, not even a bit, you will regret it!
 
 4: roll left
@@ -327,6 +348,55 @@ Controls now switch to the reaction control system (RCS). Best use the keys to f
 
 Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 240 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation'). Wait till your altitude rises to the apoapsis, then lower the nose about 15 degrees below the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be down) and use thrust control to ignite the OMS engines for a few minutes. Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit.
 
+The RCS can also be used in translation mode, switching between modes is done using the 'm' key. In translational mode, the key mapping is
+
+4: left
+6: right
+2: down
+8: up
+[: backward
+]: forward
+5: cut thrust
+
+Without a visual reference point, the effect of translational thruster firings are hard to gauge.
+
+De-orbiting
+===========
+
+Orient the shuttle 180 degrees to the flightpath using the RCS ('retrograde') and ignite the OMS engines about 5000 miles prior to your desired landing area. Observe the drop of the periapsis, continue the burn till the periapsis has reached zero. Orient the shuttle prograde and pitch up to 40 degrees.
+
+The vertical velocity will now build rapidly as the Shuttle is on a descending ballistic trajectory. The first signs of the atmosphere will be felt at around 400.000 ft altitude, which is known as the entry interface ('EI').
+
+Entry
+=====
+
+(You can start at this phase with --aircraft=SpaceShuttle-entry)
+
+The atmosphere drag will cause a tendency for the Shuttle to pitch down - use the RCS to counter that tendency, maintaining 40 degrees pitch angle is crucial. As aerodynamical forces increase, control authority for roll, pitch and yaw will gradually be transferred to aerodynamical surfaces, resulting in callouts.
+
+Lift will finally be produced and slow the vertical motion - this will keep nose temperature and deceleration g-load within acceptable limits. Once the descent stops, you need to make sure the shuttle doesn't bounce and reduce lift. Do not reduce pitch (AoA) as you would usually do or you will burn. Rather, roll the shuttle to a high bank-angle (up to 70 degrees) maintaining high AoA.
+
+Use symmetric high bank angle maneuvers ('roll reversals') if you want to stay on your ground track, asymmetric ones if you want to aim your ground track to the landing site. The amount of high bank angle flown dictates descent rate and hence deceleration and thermal load - use this to manage your entry trajectory (the full theory is too complex to squeeze this into here).
+
+Aim and manage the entry trajectory into the TAEM interface.
+
+Terminal Area Energy Management
+===============================
+
+(You can start at this phase with --aircraft=SpaceShuttle-TAEM)
+
+You should be about 60 miles from the landing site at 85.000 ft with Mach 2.5 and control is fully aerodynamical. Maintain a descent rate of about 10.000 ft/min, initially on a shallow glideslope, all the way slowing down. Overfly the landing site at about 49.000 ft transiting to subsonic velocities, continute to fly straight till about 32.000 to 36.000 ft (dependent on how much you expect to turn for heading alignment).
+
+Turn around onto your landing course, glideslope should be -15 degrees, descent rate still 10.000 ft/min. You should reach 10.000 ft altitude about 7 miles from the runway.
+
+Landing
+=======
+
+(You can start at this phase with --aircraft=SpaceShuttle-approach)
+
+Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway).
+
+Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed) and apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
 </text>
 </help>
@@ -360,6 +430,15 @@ Your apoapsis should be where you want to go (say 650 km), your periapsis about 
   </binding>
  </key>
 
+ <key n="99">
+   <name>c</name>
+   <desc>Deploy drag chute</desc>  
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.deploy_chute()</script>
+          </binding>	  
+     </key>
+
  <key n="100">
   <name>d</name>
   <desc>Drop external tank</desc>
@@ -367,7 +446,16 @@ Your apoapsis should be where you want to go (say 650 km), your periapsis about 
    <command>nasal</command>
    <script>SpaceShuttle.external_tank_separate()</script>
   </binding>
- 
+ </key>
+
+ <key n="109">
+  <name>m</name>
+  <desc>RCS mode</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>SpaceShuttle.switch_control_mode()</script>
+  </binding>
  </key>
     
     <key n="115">
@@ -380,14 +468,7 @@ Your apoapsis should be where you want to go (say 650 km), your periapsis about 
         </binding>	
      </key>
      
-     <key n="258">
-          <name>F2</name>
-          <desc>Parachute</desc>  
-          <binding>
-            <command>property-toggle</command>
-            <property>sim/multiplay/generic/int[3]</property>
-          </binding>	  
-     </key>
+
 
    </keyboard>
   </input>                     
@@ -407,6 +488,7 @@ Your apoapsis should be where you want to go (say 650 km), your periapsis about 
  <nasal>      
     <SpaceShuttle>
       <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
+      <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
     </SpaceShuttle> 
     
   </nasal>

@@ -303,6 +303,25 @@
  		</greater-than>
 	</condition>
   </model>
+
+<!-- RCS nose forward -->
+
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+      <offsets>
+		 <x-m>-17.0</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>-2.0</z-m>
+		 <pitch-deg>180.0</pitch-deg>
+
+	 </offsets>	
+	<condition>
+		<greater-than>
+		<property>/fdm/jsbsim/propulsion/engine[11]/thrust-lbs</property>
+ 		<value>0</value>
+ 		</greater-than>
+	</condition>
+  </model>
     
 <!-- RCS pod 1 left -->
  <model>
@@ -361,6 +380,22 @@
 	</condition>
   </model>
 
+<!-- RCS pod 1 rear -->
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+      <offsets>
+		 <x-m>13.0</x-m>
+		 <y-m>-3.4</y-m>
+		 <z-m>0.0</z-m>
+	 </offsets>	
+	<condition>
+		<greater-than>
+		<property>/fdm/jsbsim/propulsion/engine[16]/thrust-lbs</property>
+ 		<value>0</value>
+ 		</greater-than>
+	</condition>
+  </model>
+
 
 <!-- RCS pod 2 right -->
  <model>
@@ -375,7 +410,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[9]/thrust-lbs</property>
+		<property>/fdm/jsbsim/propulsion/engine[20]/thrust-lbs</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -414,6 +449,23 @@
 	<condition>
 		<greater-than>
 		<property>/fdm/jsbsim/propulsion/engine[18]/thrust-lbs</property>
+ 		<value>0</value>
+ 		</greater-than>
+	</condition>
+  </model>
+
+<!-- RCS pod 2 rear -->
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+      <offsets>
+		 <x-m>13.0</x-m>
+		 <y-m>3.4</y-m>
+		 <z-m>0.0</z-m>
+
+	 </offsets>	
+	<condition>
+		<greater-than>
+		<property>/fdm/jsbsim/propulsion/engine[21]/thrust-lbs</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -700,12 +752,20 @@
        <z-m> 1.22 </z-m>
        <pitch-deg>90</pitch-deg>
      </offsets>
-                        <condition>
-			 <greater-than>
-				<property>sim/multiplay/generic/float[0]</property>
-				<value>45</value>
-			 </greater-than>
-                        </condition>
+        <condition>
+	<and>
+		<greater-than>
+		<property>sim/multiplay/generic/float[0]</property>
+		<value>45</value>
+		</greater-than>
+    
+		<greater-than>
+			<property>/controls/shuttle/parachute</property>
+			<value>0</value>
+		</greater-than>
+	</and>
+	</condition>
+
 </model>  
 
 <model>
@@ -716,16 +776,20 @@
        <z-m>-6.85 </z-m>
        <pitch-deg>90</pitch-deg>
      </offsets>
-                        <condition>
+       <condition>
        <and>
-			 <greater-than>
-				<property>sim/multiplay/generic/float[0]</property>
-				<value>1</value>
-			 </greater-than> 
-			 <less-than>
-				<property>sim/multiplay/generic/float[0]</property>
-				<value>44.999</value>
-			 </less-than>       
+		<greater-than>
+			<property>sim/multiplay/generic/float[0]</property>
+			<value>1</value>
+		</greater-than> 
+		<less-than>
+			<property>sim/multiplay/generic/float[0]</property>
+			<value>44.999</value>
+		</less-than>  
+		<greater-than>
+			<property>/controls/shuttle/parachute</property>
+			<value>0</value>
+		</greater-than>     
 	</and>
       </condition>
 </model>

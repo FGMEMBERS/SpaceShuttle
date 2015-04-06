@@ -12,136 +12,12 @@
 
  <fileheader>
   <author>Thorsten Renk</author>
-  <filecreationdate>03-2015</filecreationdate>
-  <version>$Revison: 4$</version>
+  <filecreationdate>04-2015</filecreationdate>
+  <version>$Revision: 4$</version>
   <description>Space Shuttle Model JSBSim</description>
  </fileheader>
 
-<!--
-  File:     shuttle.xml
-  Inputs:
-    name:          shuttle
-    type:          three-engine transonic transport
-    max weight:    240000 lb                   82499 kg
-    wing span:     78.06 ft                    23.79 m    ok
-    length:        122.17 ft                  37.237 m    ok
-    wing area:     2691.25 sq-ft              250 qm      ok
-    gear type:     tricycle
-    retractable?:  yes
-    # engines:     3
-    engine type:   rocket
-    engine layout: aft fuselage
-    yaw damper?    yes
-  Outputs:
-    wing loading:  89.18 lb/sq-ft
-    CL-alpha:      4.4 per radian
-    CL-0:          0.2
-    CL-max:        1.2
-    CD-0:          0.019
-    K:             0.042
- 
- http://www.bernd-leitenberger.de/shuttle-mission.shtml
- 
-Gesamtsystem:
 
-Startmasse 1.992.500 kg                        4.392.710 lb  ok
-
-Orbiter:
-
-Maximale Startmasse: 110900 kg                    244492 lb  ok
-maximale Nutzlast: 29500 kg                        65036 lb  ok
-maximale zurückgeführte Nutzlast: 14500 kg         31967 lb
-Landemasse leer: 70800 kg                         156087 lb
-Trockengewicht 68060 kg                           150046 lb
-Höhe: 16.4 m
-Länge: 37.2 m
-Spannweite: 23.8 m
-Flügelfläche: 250 m²
-
-Subsysteme:
-
-Struktur: 22450 kg                                  49493 lb
-Haupttriebwerke und Schubgerüst: 12000 kg           26455 lb
-Wärmeschutz: 11400 kg                               25132 lb
-OMS und RCS Treibstoffe: 9370 kg                    20657 lb
-Lande- und Dockeinrichtungen: 4300 kg                9480 lb
-Elektrische Stromversorgung: 3670 kg                 8090 lb
-Hilfstriebwerke: 2370 kg                             5225 lb
-Hydraulik: 2370 kg                                   5225 lb
-Elektronikausrüstung: 2050 kg                        4519 lb
-Klimaausrüstung / Lebenserhaltung: 1940 kg
-Verlustmassen (Gase, Abwasser, Sprengvorrichtungen): 1800 kg
-Flüssigkeiten + Resttreibstoffe: 1620 kg
-Steuerruder: 835 kg
-Ausrüstung für Besatzung: 630 kg
-Besatzung: 550 kg
-Reserve: 5700 kg                                     12566 lb
-
-Besatzung 3-7 (Notfälle 10)
-Missionsdauer nominal: 7 Tage
-Mit zusätzlicher Ausrüstung maximal: 30 Tage
-
-Triebwerke
-
-3 x SSME:
-
-Triebstoffe: LOX / LH2
-Schub Boden 1668 kN
-Schub Vakuum: 2090 kN Nominell, 2270 kN (109 %)
-Regelbereich: 50-109 %
-Länge: 4.3 m
-Gewicht: 2880 kg                                   6349 lb
-Spezifischer Impuls Vakuum: 4462 m/s
-Spezifischer Impuls Boden: 3560 m/s
-Brennzeit: 480 Sekunden
-Lebensdauer: maximal 55 Flüge
-Brennkammerdruck: 200 Bar
-
-2 x OMS
-
-Treibstoffe: NTO / MMH
-Schub: 26.7 kN
-max. Geschwindigkeitsänderung: 305 m/s
-je weiterer Zusatztank: 152 m/s
-spezifischer Impuls: 3020 m/s.
-
-38 x RCS
-
-Treibstoffe: NTO / MMH
-Schub: 3.87 kN
-
-Energieversorgung
-
-3 Brennstoffzellen mit je 7 kW Nennleistung (maximal 10 kW)
-3 Hilfsgeneratoren mit katalytischer Hydrazinzersetzung / Turbine je 5 kW Leistung
-3 Nickelcadmiumbatterien von je 10 Ah
-Hydrauliksystem: 4 Hydrazin Turbinen mit je 150 PS Leistung
-
-Externer Tank
-
-Höhe: 46,85 m
-Durchmesser: 8,38 m                                              ok
-Startmasse: 734200 kg                              1618634 lb    ok
-Leermasse: 31300 kg                                  69004 lb
-Tankvolumen LOX: 552 m³
-Tankvolumen LH2: 1535 m³
-
-Feststoffbooster
-
-Länge: 45,4 m
-Durchmesser: 3,71 m                                            ok
-Startmasse: 573700 kg                              1264792 lb  ok
-Leermasse: 82500 kg                                 181881 lb
-Schub am Boden: 11830 kN
-spezifischer Impuls (Durchschnitt): 2538 m/s
-Brennzeit: 120 sec
-
-Gesamtmasse: 111+734+573+573= 1.990 t
-
-Cockpit wiew:
-http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?IR=T
-
--->
 
  <metrics>
    <wingarea  unit="FT2"> 2691.25 </wingarea>
@@ -237,12 +113,12 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 <y> 0.00 </y>
 <z> -6.95 </z>
 </location>
-<static_friction> 0.80 </static_friction>
-<dynamic_friction> 0.20 </dynamic_friction>
+<static_friction> 0.40 </static_friction>
+<dynamic_friction> 0.10 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 90000.00 </spring_coeff>
 <damping_coeff unit="LBS/FT/SEC"> 30000.00 </damping_coeff>
-<max_steer unit="DEG"> 20.00 </max_steer>
+<max_steer unit="DEG"> 15.00 </max_steer>
 <brake_group>NONE</brake_group>
 <retractable>1</retractable>
 </contact>
@@ -253,8 +129,8 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 <y> -4.2 </y>
 <z>-6.85 </z>
 </location>
-<static_friction> 0.80 </static_friction>
-<dynamic_friction> 0.20 </dynamic_friction>
+<static_friction> 0.40 </static_friction>
+<dynamic_friction> 0.10 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
 <damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
@@ -269,8 +145,8 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 <y> 4.2 </y>
 <z>-6.85 </z>
 </location>
-<static_friction> 0.80 </static_friction>
-<dynamic_friction> 0.20 </dynamic_friction>
+<static_friction> 0.40 </static_friction>
+<dynamic_friction> 0.10 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
 <damping_coeff unit="LBS/FT/SEC"> 210000.00 </damping_coeff>
@@ -331,41 +207,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <damping_coeff unit="LBS/FT/SEC"> 82500.00 </damping_coeff>
  </contact>
 
-  <contact type="STRUCTURE" name="FRONT2_LEG">
-   <location unit="IN">
-     <x> 300.00 </x>
-     <y>-300.00 </y>
-     <z> 400.00 </z>
-   </location>
-   <static_friction>  0.80 </static_friction>
-   <dynamic_friction> 0.50 </dynamic_friction>
-   <spring_coeff unit="LBS/FT">      412500.00 </spring_coeff>
-   <damping_coeff unit="LBS/FT/SEC"> 82500.00 </damping_coeff>
- </contact>
-
-  <contact type="STRUCTURE" name="LEFT_LEG">
-   <location unit="IN">
-     <x> 300.00 </x>
-     <y>-300.00 </y>
-     <z> -80.00 </z>
-   </location>
-   <static_friction>  0.80 </static_friction>
-   <dynamic_friction> 0.50 </dynamic_friction>
-   <spring_coeff unit="LBS/FT">      412500.00 </spring_coeff>
-   <damping_coeff unit="LBS/FT/SEC"> 82500.00 </damping_coeff>
- </contact>
-
-  <contact type="STRUCTURE" name="RIGHT_LEG">
-   <location unit="IN">
-     <x> 300.00 </x>
-     <y> 300.00 </y>
-     <z> -80.00 </z>
-   </location>
-   <static_friction>  0.80 </static_friction>
-   <dynamic_friction> 0.50 </dynamic_friction>
-   <spring_coeff unit="LBS/FT">      412500.00 </spring_coeff>
-   <damping_coeff unit="LBS/FT/SEC"> 82500.00 </damping_coeff>
- </contact>
+ 
 
  </ground_reactions>
 
@@ -503,8 +345,10 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
        <y> -6.10 </y>
        <z>-10.6 </z>
      </location>
-     <capacity unit="LBS"> 1264825.0 </capacity>
-     <contents unit="LBS"> 1264825.0 </contents>
+     <!--<capacity unit="LBS"> 1264825.0 </capacity>
+     <contents unit="LBS"> 1264825.0 </contents>-->
+      <capacity unit="LBS">1114092.6</capacity>
+      <contents unit="LBS">1114092.6</contents>
   </tank>
 
  <engine file="SRB">
@@ -540,8 +384,10 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
        <y> 6.10 </y>
        <z>-10.6 </z>
      </location>
-     <capacity unit="LBS"> 1264825.0 </capacity>
-     <contents unit="LBS"> 1264825.0 </contents>
+     <!--<capacity unit="LBS"> 1264825.0 </capacity>
+     <contents unit="LBS"> 1264825.0 </contents>-->
+      <capacity unit="LBS">1114092.6</capacity>
+      <contents unit="LBS">1114092.6</contents>
   </tank>
   
 
@@ -1090,9 +936,23 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  
  </propulsion>
 
+<!-- Flight Control routines - this block has airfoils and thrust vectoring commands, the RCS is under Systems -->
+
+
  <flight_control name="FCS: shuttle">
 
+ 
+
   <channel name="Pitch">
+
+  <switch name="Disable airfoil pitch if thrust vectoring is used">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 0
+			</test>
+		<output>fcs/airfoil-factor-pitch</output>
+		</switch>
+
    <summer name="Pitch Trim Sum">
       <input>fcs/elevator-cmd-norm</input>
       <input>fcs/pitch-trim-cmd-norm</input>
@@ -1105,17 +965,23 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <aerosurface_scale name="Elevator Control">
       <input>fcs/pitch-trim-sum</input>
       <range>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -0.70 </min>
+        <max>  0.44 </max>
       </range>
-      <output>fcs/elevator-pos-rad</output>
+      <output>fcs/elevator-pos-rad-command</output>
    </aerosurface_scale>
 
-   <aerosurface_scale name="elevator normalization">
-      <input>fcs/elevator-pos-rad</input>
+   <pure_gain name="Actual Elevator Motion">
+	<input>fcs/elevator-pos-rad-command</input>
+	<gain>fcs/airfoil-factor-pitch</gain>
+	<output>fcs/elevator-pos-rad</output>
+   </pure_gain>
+
+   <aerosurface_scale name="Elevator Normalization">
+      <input>fcs/elevator-pos-rad-command</input>
       <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -0.70 </min>
+        <max>  0.44 </max>
       </domain>
       <range>
         <min> -1 </min>
@@ -1209,7 +1075,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 	<atan>
 		<quotient>
 		<difference>
-			<value>10.63</value>
+			<value>16.17</value>
 			<property>inertia/cg-z-in</property>
 
 		</difference>
@@ -1230,11 +1096,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 
 
   <aerosurface_scale name= "Pitch thrust command SSME 1">
-   <input>fcs/elevator-pos-rad</input>
+   <input>fcs/elevator-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.17 </min>
@@ -1244,11 +1110,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale>
 
   <aerosurface_scale name= "Pitch thrust command SSME 2">
-   <input>fcs/elevator-pos-rad</input>
+   <input>fcs/elevator-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.17 </min>
@@ -1258,11 +1124,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale>
 
   <aerosurface_scale name= "Pitch thrust command SSME 3">
-   <input>fcs/elevator-pos-rad</input>
+   <input>fcs/elevator-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.17 </min>
@@ -1272,11 +1138,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale>
 
   <aerosurface_scale name= "Pitch thrust command SRB 1">
-   <input>fcs/elevator-pos-rad</input>
+   <input>fcs/elevator-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.14 </min>
@@ -1286,11 +1152,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale> 
 
   <aerosurface_scale name= "Pitch thrust command SRB 2">
-   <input>fcs/elevator-pos-rad</input>
+   <input>fcs/elevator-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.14 </min>
@@ -1303,6 +1169,15 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
   </channel>
 
   <channel name="Roll">
+
+  <switch name="Disable airfoil roll if thrust vectoring is used">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 0
+			</test>
+		<output>fcs/airfoil-factor-roll</output>
+		</switch>
+
    <summer name="Roll Trim Sum">
       <input>fcs/aileron-cmd-norm</input>
       <input>fcs/roll-trim-cmd-norm</input>
@@ -1318,7 +1193,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
         <min> -0.35 </min>
         <max>  0.35 </max>
       </range>
-      <output>fcs/left-aileron-pos-rad</output>
+      <output>fcs/left-aileron-pos-rad-command</output>
    </aerosurface_scale>
 
    <aerosurface_scale name="Right Aileron Control">
@@ -1327,11 +1202,23 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
         <min> -0.35 </min>
         <max>  0.35 </max>
       </range>
-      <output>fcs/right-aileron-pos-rad</output>
+      <output>fcs/right-aileron-pos-rad-command</output>
    </aerosurface_scale>
 
+  <pure_gain name="Actual Left Aileron Motion">
+	<input>fcs/left-aileron-pos-rad-command</input>
+	<gain>fcs/airfoil-factor-roll</gain>
+	<output>fcs/left-aileron-pos-rad</output>
+   </pure_gain>
+
+  <pure_gain name="Actual Right Aileron Motion">
+	<input>fcs/right-aileron-pos-rad-command</input>
+	<gain>fcs/airfoil-factor-roll</gain>
+	<output>fcs/right-aileron-pos-rad</output>
+   </pure_gain>
+
    <aerosurface_scale name="left aileron normalization">
-      <input>fcs/left-aileron-pos-rad</input>
+      <input>fcs/left-aileron-pos-rad-command</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -1344,7 +1231,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    </aerosurface_scale>
 
    <aerosurface_scale name="right aileron normalization">
-      <input>fcs/right-aileron-pos-rad</input>
+      <input>fcs/right-aileron-pos-rad-command</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -1357,11 +1244,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    </aerosurface_scale>
 
   <aerosurface_scale name= "Roll thrust command SSME 1">
-   <input>fcs/left-aileron-pos-rad</input>
+   <input>fcs/left-aileron-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.17 </min>
@@ -1371,11 +1258,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale>
 
   <aerosurface_scale name= "Roll thrust command SSME 2">
-   <input>fcs/right-aileron-pos-rad</input>
+   <input>fcs/right-aileron-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> 0.17 </min>
@@ -1419,21 +1306,6 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <!-- roll commands for SSME 1 and 2 creates a yaw moment since they have a sum net pitch angle -->
    <!-- this needs to be compensated -->
 
-  <!--<switch name="Thrust adjustment for SSME 1 if positive yaw">
-			<default value="0.0"/>
-			<test value="1.0">
-				propulsion/engine[0]/pitch-angle-rad GT propulsion/engine[1]/pitch-angle-rad
-			</test>
-			<output>propulsion/engine[0]/thrust-adjust</output>
-	</switch>
-
- <switch name="Thrust adjustment for SSME 2 if negative yaw">
-			<default value="0.0"/>
-			<test value="1.0">
-				propulsion/engine[0]/pitch-angle-rad LT propulsion/engine[1]/pitch-angle-rad
-			</test>
-			<output>propulsion/engine[1]/thrust-adjust</output>
-	</switch>-->
 
  <fcs_function name ="Thrust reduction correction SSME 1">
 	<function>
@@ -1478,11 +1350,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 
 
   <aerosurface_scale name= "Roll thrust command SRB 1">
-   <input>fcs/left-aileron-pos-rad</input>
+   <input>fcs/left-aileron-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.14 </min>
@@ -1492,11 +1364,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale>
 
   <aerosurface_scale name= "Roll thrust command SRB 2">
-   <input>fcs/right-aileron-pos-rad</input>
+   <input>fcs/right-aileron-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> 0.14 </min>
@@ -1530,6 +1402,15 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
   </channel>
 
   <channel name="Yaw">
+
+  <switch name="Disable airfoil yaw if thrust vectoring is used">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 0
+			</test>
+		<output>fcs/airfoil-factor-yaw</output>
+		</switch>
+
    <summer name="Rudder Command Sum">
       <input>fcs/rudder-cmd-norm</input>
       <input>fcs/yaw-trim-cmd-norm</input>
@@ -1596,28 +1477,34 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
         <min> -0.35 </min>
         <max>  0.35 </max>
       </range>
-      <output>fcs/rudder-pos-rad</output>
+      <output>fcs/rudder-pos-rad-command</output>
    </aerosurface_scale>
 
+  <pure_gain name="Actual Rudder Motion">
+	<input>fcs/rudder-pos-rad-command</input>
+	<gain>fcs/airfoil-factor-yaw</gain>
+	<output>fcs/rudder-pos-rad</output>
+   </pure_gain>
+
    <aerosurface_scale name="rudder normalization">
-      <input>fcs/rudder-pos-rad</input>
+      <input>fcs/rudder-pos-rad-command</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
       </domain>
       <range>
-        <min> -1 </min>
-        <max>  1 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
       </range>
       <output>fcs/rudder-pos-norm</output>
    </aerosurface_scale>
 
  <aerosurface_scale name= "Yaw thrust command SRB 1">
-   <input>fcs/rudder-pos-rad</input>
+   <input>fcs/rudder-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.14 </min>
@@ -1627,11 +1514,11 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
  </aerosurface_scale> 
 
  <aerosurface_scale name= "Yaw thrust command SRB 2">
-   <input>fcs/rudder-pos-rad</input>
+   <input>fcs/rudder-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
    <range>
         <min> -0.14 </min>
@@ -1736,12 +1623,18 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <input>fcs/rudder-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
-   <range>
+   <!-- this is a hack, in reality the ET inertia reduces yaw response, but JSBSim can't-->
+   <!-- include extended tank inertia, so we limit it in the FCS by not using the full gimbal range-->
+   <!--<range>
         <min> -0.17 </min>
         <max>  0.17 </max>
+   </range>-->
+  <range>
+        <min> -0.05 </min>
+        <max>  0.05 </max>
    </range>
    <output>propulsion/engine[0]/yaw-angle-rad</output>
  </aerosurface_scale> 
@@ -1761,12 +1654,16 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <input>fcs/rudder-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
-   <range>
+   <!--<range>
         <min> -0.17 </min>
         <max>  0.17 </max>
+   </range>-->
+   <range>
+        <min> -0.05 </min>
+        <max>  0.05 </max>
    </range>
    <output>propulsion/engine[1]/yaw-angle-rad</output>
  </aerosurface_scale> 
@@ -1786,19 +1683,23 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
    <input>fcs/rudder-pos-norm</input>
    <zero_centered>false</zero_centered>
    <domain>
-        <min> -0.35 </min>
-        <max>  0.35 </max>
+        <min> -1.0 </min>
+        <max>  1.0 </max>
    </domain>
-   <range>
+   <!--<range>
         <min> -0.17 </min>
         <max>  0.17 </max>
+   </range>-->
+   <range>
+        <min> -0.05 </min>
+        <max>  0.05 </max>
    </range>
    <output>propulsion/engine[2]/yaw-angle-rad</output>
  </aerosurface_scale> 
 
   </channel>
 
-  <channel name="Flaps">
+  <!--<channel name="Flaps">
    <kinematic name="Flaps Control">
      <input>fcs/flap-cmd-norm</input>
      <traverse>
@@ -1835,7 +1736,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
       <output>fcs/flap-pos-norm</output>
    </aerosurface_scale>
 
-  </channel>
+  </channel>-->
 
   <channel name="Landing Gear">
    <kinematic name="Gear Control">
@@ -1878,16 +1779,18 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
   <channel name="chute">
    <fcs_function name="fcs/parachute_reef_pos_norm">
     <function>
-     <sum>
+     <product>
+      <value>0.5</value>
       <property>/controls/shuttle/parachute</property>      
-     </sum>
+     </product>
     </function>
     <clipto>
      <min>0.0</min>
      <max>1.0</max>
     </clipto>
    </fcs_function>
-  <pure_gain name="metrics/Schute-sqft">
+
+  <pure_gain name="metrics/chute-sqft">
     <input>fcs/parachute_reef_pos_norm</input>
     <gain> 600.0 </gain> <!-- Area of braking chute = ca 650-->
    </pure_gain>
@@ -1900,203 +1803,204 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
 
  <aerodynamics>
 
+  <function name="aero/coefficient/K">
+	<product>
+		<value>0.5</value>
+		<sum>	
+		<value>1.0</value>
+			<pow>
+			<abs>
+				<difference>	
+				<value>1.0</value>
+				<pow>
+					<quotient>	
+					<property>velocities/mach</property>
+					<value>1.25</value>
+					</quotient>
+					<value>2.0</value>
+				</pow>
+				</difference>
+			</abs>
+			<value>0.5</value>
+			</pow>
+		</sum>
+	</product>
+  </function>
+
+  <function name="aero/coefficient/CLtest">
+	<product>
+	<sum>
+			<value>-0.053</value>
+			<product>
+				<value>2.73</value>
+				<property>aero/alpha-rad</property>			
+			</product>
+			<product>
+				<value>-1.55</value>
+				<pow>
+					<property>aero/alpha-rad</property>
+					<value>2.0</value>
+				</pow>
+			</product>
+		</sum>
+		<pow>
+		<property>aero/coefficient/K</property>
+		<sum>
+			<value>-1.01</value>
+			<product>
+				<property>aero/alpha-rad</property>
+				<value>1.1</value>
+			</product>
+		</sum>
+		</pow>
+	</product> 
+
+  </function>
+
+
+ 
+  <function name="aero/coefficient/CDtest">
+<product>
+        	
+    		<sum>
+			<value>0.01</value>
+			<product>
+				<value>0.028</value>
+				<pow>
+					<property>velocities/mach</property>
+					<value>1.4</value>
+				</pow>			
+			</product>
+			<product>
+				<value>1.79</value>
+				<pow>
+					<property>aero/alpha-rad</property>
+					<value>2.0</value>
+				</pow>
+			</product>
+		</sum>
+		<pow>
+		<property>aero/coefficient/K</property>
+		<sum>
+			<value>-1.4</value>
+			<product>
+				<property>aero/alpha-rad</property>
+				<value>1.5</value>
+			</product>
+		</sum>
+		</pow>
+	</product> 
+</function>
+
+ <function name="aero/coefficient/GS">
+	<quotient>
+		<property>aero/coefficient/CLtest</property>
+		<property>aero/coefficient/CDtest</property>
+	</quotient>
+ </function>
+
+
   <axis name="LIFT">
-
-    <function name="aero/coefficient/CLalpha">
-      <description>Lift_due_to_alpha</description>
-      <product>
-          <property>aero/qbar-psf</property>
-          <property>metrics/Sw-sqft</property>
-          <table>
-			<independentVar lookup="row">aero/alpha-rad</independentVar>
-			<independentVar lookup="column">velocities/mach</independentVar>
-			<tableData> 
-	 0.30	 0.40	 0.50	 0.90
--0.79	-2.69	-2.66	-2.61	-2.54
--0.61	-2.64	-2.62	-2.59	-2.52
--0.52	-2.45	-2.43	-2.39	-2.33
--0.35	-1.74	-1.74	-1.74	-1.69
--0.18	-0.84	-0.85	-0.85	-0.83
- 0.00	 0.00	 0.00	 0.00	 0.00
- 0.18	 0.89	 0.90	 0.90	 0.88
- 0.35	 2.11	 2.11	 2.11	 2.05
- 0.52	 3.33	 3.31	 3.28	 3.19
- 0.61	 3.68	 3.62	 3.53	 3.44
- 0.79	 3.17	 3.22	 3.28	 3.19
-			</tableData>
-		</table>
-	</product> <!--  0.20 -0.680, 0.00 0.200, 0.23 1.200, 0.60 0.600  -->
-    </function>
-
-    <function name="aero/coefficient/dCLflap">
-       <description>Delta_Lift_due_to_flaps</description>
-       <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <table>
-                  <independentVar>fcs/flap-pos-deg</independentVar>
-                  <tableData>
-                      0.0000	0.000	
-                      4.0000	0.001	
-                      8.0000	0.002	
-                     12.0000	0.003                     
-                  </tableData>
-              </table>
-       </product>
-    </function>
-
-    <function name="aero/coefficient/dCLsb">
-       <description>Delta_Lift_due_to_speedbrake</description>
-       <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>fcs/speedbrake-pos-norm</property>
-           <value>-0.25</value>
-       </product>
-    </function>
-      
-    <function name="aero/coefficient/CLde">
-       <description>Lift_due_to_Elevator_Deflection</description>
-       <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>fcs/elevator-pos-rad</property>
-           <value>0.2</value>
-       </product>
-    </function>
-
-    <!-- Parachute -1.4 war -0.4-->
-    <function name="aero/coefficient/dClpc">
-    <description>Delta_Lift_due_to_chute</description>
-    <product>
-     <property>aero/qbar-psf</property>
-     <property>metrics/Schute-sqft</property>    
-     <property>fcs/parachute_reef_pos_norm</property>
-     <value>-0.2</value>
-    </product>
-   </function>
-  <!-- Parachute -->
-    
-    
+	<function name="aero/coefficient/CL">
+	<description>2d parametrization of the lift as function of AoA and Mach number</description>
+	<product>
+        	<property>aero/qbar-psf</property>
+         	<property>metrics/Sw-sqft</property>
+    		<sum>
+			<value>-0.053</value>
+			<product>
+				<value>2.73</value>
+				<property>aero/alpha-rad</property>			
+			</product>
+			<product>
+				<value>-1.55</value>
+				<pow>
+					<property>aero/alpha-rad</property>
+					<value>2.0</value>
+				</pow>
+			</product>
+		</sum>
+		<pow>
+		<property>aero/coefficient/K</property>
+		<sum>
+			<value>-1.01</value>
+			<product>
+				<property>aero/alpha-rad</property>
+				<value>1.1</value>
+			</product>
+		</sum>
+		</pow>
+	</product> 
+	</function>   
   </axis>
 
   <axis name="DRAG">
+	<function name="aero/coefficient/CD">
+	<description>2d parametrization of the drag as function of AoA and Mach number</description>
+	<product>
+        	<property>aero/qbar-psf</property>
+         	<property>metrics/Sw-sqft</property>
+    		<sum>
+			<value>0.01</value>
+			<product>
+				<value>0.028</value>
+				<pow>
+					<property>velocities/mach</property>
+					<value>1.4</value>
+				</pow>			
+			</product>
+			<product>
+				<value>1.79</value>
+				<pow>
+					<property>aero/alpha-rad</property>
+					<value>2.0</value>
+				</pow>
+			</product>
+		</sum>
+		<pow>
+		<property>aero/coefficient/K</property>
+		<sum>
+			<value>-1.4</value>
+			<product>
+				<property>aero/alpha-rad</property>
+				<value>1.5</value>
+			</product>
+		</sum>
+		</pow>
+	</product> 
+	</function>   
 
-    <function name="aero/coefficient/CD0">
-       <description>Drag_at_zero_lift</description>
-       <product>
-          <property>aero/qbar-psf</property>
-          <property>metrics/Sw-sqft</property>
-          <table>
-            <independentVar lookup="row">aero/alpha-rad</independentVar>
-            <tableData>
-             -1.57    1.500
-             -0.26    0.025
-              0.00    0.019
-              0.26    0.025
-              1.57    1.500
-            </tableData>
-          </table>
-       </product>
-    </function>
+	<function name="aero/coefficient/CDgear">
+        	<description>Drag of landing gear</description>
+         	<product>
+           		<property>aero/qbar-psf</property>
+           		<property>metrics/Sw-sqft</property>
+           		<property>gear/gear-pos-norm</property>
+           		<value>0.013</value>
+         	</product>
+   	</function>
 
-    <function name="aero/coefficient/CDi">
-       <description>Induced_drag</description>
-         <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>aero/cl-squared</property>
-           <value>0.042</value>
-         </product>
-    </function>
+    	<function name="aero/coefficient/CDSb">
+       	<description>Drag of the tail speedbrake</description>
+         	<product>
+           		<property>aero/qbar-psf</property>
+           		<property>metrics/Sw-sqft</property>
+           		<property>fcs/speedbrake-pos-norm</property>
+           		<value>0.019</value>
+         	</product>
+    	</function>
 
-    <function name="aero/coefficient/CDmach">
-       <description>Drag_due_to_mach</description>
-        <product>
-          <property>aero/qbar-psf</property>
-          <property>metrics/Sw-sqft</property>
-          <table>
-            <independentVar lookup="row">velocities/mach</independentVar>
-            <tableData>
-                0.00      0.000
-                0.79      0.000
-                1.10      0.023
-                1.80      0.015
-            </tableData>
-          </table>
-        </product>
-    </function>
+	<function name="aero/coefficient/CDpc">
+    	<description>Drag of braking parachute</description>
+    		<product>
+     			<property>aero/qbar-psf</property>
+     			<property>metrics/chute-sqft</property>    
+     			<property>fcs/parachute_reef_pos_norm</property>
+     			<value>0.25</value>
+    			</product>
+   	</function>
 
-    <function name="aero/coefficient/CDflap">
-       <description>Drag_due_to_flaps</description>
-         <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>fcs/flap-pos-deg</property>
-           <value> 0.00040 </value>
-         </product>
-    </function>
 
-    <function name="aero/coefficient/CDgear">
-       <description>Drag_due_to_gear</description>
-         <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>gear/gear-pos-norm</property>
-           <value>0.013</value>
-         </product>
-    </function>
-
-    <function name="aero/coefficient/CDsb">
-       <description>Drag_due_to_speedbrakes</description>
-         <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>fcs/speedbrake-pos-norm</property>
-           <value>0.019</value>
-         </product>
-    </function>
-    
-    <function name="aero/coefficient/CDbeta">
-       <description>Drag_due_to_sideslip</description>
-       <product>
-          <property>aero/qbar-psf</property>
-          <property>metrics/Sw-sqft</property>
-          <table>
-            <independentVar lookup="row">aero/beta-rad</independentVar>
-            <tableData>
-              -1.57    1.230
-              -0.26    0.050
-               0.00    0.000
-               0.26    0.050
-               1.57    1.230
-            </tableData>
-          </table>
-       </product>
-    </function>
-
-    <function name="aero/coefficient/CDde">
-       <description>Drag_due_to_Elevator_Deflection</description>
-       <product>
-           <property>aero/qbar-psf</property>
-           <property>metrics/Sw-sqft</property>
-           <property>fcs/elevator-pos-norm</property>
-           <value>0.04</value>
-       </product>
-    </function>
-
-    <!-- Parachute 0.4 war -0.4-->
-    <function name="aero/coefficient/CDpc">
-    <description>Drag_due_to_chute</description>
-    <product>
-     <property>aero/qbar-psf</property>
-     <property>metrics/Schute-sqft</property>    
-     <property>fcs/parachute_reef_pos_norm</property>
-     <value>0.25</value>
-    </product>
-   </function>
-  <!-- Parachute -->
-    
   </axis>
 
   <axis name="SIDE">
@@ -2157,13 +2061,28 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
           <property>metrics/Sw-sqft</property>
           <property>metrics/bw-ft</property>
           <property>fcs/left-aileron-pos-rad</property>
-          <table>
+          <!--<table>
             <independentVar lookup="row">velocities/mach</independentVar>
             <tableData>
               0.0    0.100
               2.0    0.033
             </tableData>
-          </table>
+          </table>-->
+ 	<table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <independentVar lookup="column">position/h-sl-ft</independentVar>
+                  <tableData>
+                                0.0000	80000.0000
+                              0.0000	0.0500	0.0500
+                              0.4000	0.0700	0.0500
+                              0.6000	0.0800	0.0500
+                              1.0000	0.1100	0.0500
+                              1.4000	0.0800	0.0600
+                              1.6000	0.0700	0.0600
+                              2.4000	0.0600	0.0500
+                              6.0000	0.0300	0.0200
+                   </tableData>
+         </table>
        </product>
     </function>
 
@@ -2192,6 +2111,18 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
            <property>metrics/cbarw-ft</property>
            <property>aero/alpha-rad</property>
            <value>-0.6</value>
+	   <!-- the shuttle enters at 40 deg AoA, and to my knowledge that's irreversible, so there needs to be -->
+	   <!-- a reduction in the counter-acting force at high AoA -->
+	   <!-- the concept as such is sound, but the table is guesswork -->
+	  <table>
+		<independentVar lookup="row">aero/alpha-rad</independentVar>
+		<tableData>
+			0.0	1.0
+			0.5	0.6
+			0.7	0.2
+			1.5	0.1
+		</tableData>
+	  </table>
        </product>
     </function>
 
@@ -2220,7 +2151,8 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
            <property>metrics/cbarw-ft</property>
            <property>aero/ci2vel</property>
            <property>velocities/q-aero-rad_sec</property>
-           <value>-17</value>
+           <!--<value>-17</value>-->
+	  <value>-70</value>
        </product>
     </function>
 
@@ -2300,7 +2232,7 @@ http://www.businessinsider.com/breathtaking-images-of-the-space-shuttle-2013-9?I
     <function>
       <product>
         <property>aero/qbar-psf</property>
-        <property>metrics/Schute-sqft</property>
+        <property>metrics/chute-sqft</property>
 	<property>fcs/parachute_reef_pos_norm</property>
         <value> 0.3 </value> <!-- Full drag coefficient -->
       </product>

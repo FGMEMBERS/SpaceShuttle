@@ -9,6 +9,7 @@
 				simulation/sim-time-sec GT 0.1
 			</test>
 		</switch>
+
 	</channel>
 
 	<channel name="Orbital">
@@ -231,6 +232,168 @@
 		</function>
 		</fcs_function>
 
+	<!-- inclination calculator - find the orbital plane vector, then dot against +z direction--> 
+
+
+		<fcs_function name="systems/orbital/plane-x">
+		<function>
+			<difference>
+				<product>
+					<property>position/eci-y-ft</property>
+					<property>velocities/eci-z-fps</property>
+				</product>
+				<product>
+					<property>position/eci-z-ft</property>
+					<property>velocities/eci-y-fps</property>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/plane-y">
+		<function>
+			<difference>
+				<product>
+					<property>position/eci-z-ft</property>
+					<property>velocities/eci-x-fps</property>
+				</product>
+				<product>
+					<property>position/eci-x-ft</property>
+					<property>velocities/eci-z-fps</property>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/plane-z">
+		<function>
+			<difference>
+				<product>
+					<property>position/eci-x-ft</property>
+					<property>velocities/eci-y-fps</property>
+				</product>
+				<product>
+					<property>position/eci-y-ft</property>
+					<property>velocities/eci-x-fps</property>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/plane-norm">
+		<function>
+			<quotient>
+			<value>1.0</value>
+			<pow>
+				<sum>
+				<pow>
+					<property>systems/orbital/plane-x</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/orbital/plane-y</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/orbital/plane-z</property>
+					<value>2.0</value>
+				</pow>
+				</sum>
+				<value>0.5</value>
+			</pow>
+			</quotient>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/orbital/inclination-rad">
+		<function>
+			<acos>
+				<product>
+					<property>systems/orbital/plane-norm</property>
+					<property>systems/orbital/plane-z</property>
+				</product>
+			</acos>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/inclination-deg">
+		<function>
+			<product>
+				<property>systems/orbital/inclination-rad</property>
+				<value>57.29578</value>	
+			</product>
+		</function>
+		</fcs_function>
+
+		
+
+		<fcs_function name="systems/orbital/ascending-node-lon-rad">
+		<function>
+			<acos>
+				<quotient>
+				<product>
+					<property>systems/orbital/plane-y</property>
+					<value>-1.0</value>
+				</product>
+				<pow>
+				<sum>
+				<pow>
+					<property>systems/orbital/plane-x</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/orbital/plane-y</property>
+					<value>2.0</value>
+				</pow>	
+				</sum>
+				<value>0.5</value>			
+				</pow>
+				</quotient>
+			</acos>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/ascending-node-lon-deg-raw">
+		<function>
+			<product>
+				<property>systems/orbital/ascending-node-lon-rad</property>
+				<value>57.29578</value>	
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/orbital/ascending-node-lon-deg-corr">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/orbital/plane-x GT 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/orbital/ascending-node-lon-deg">
+		<function>
+			<sum>
+			<product>
+				<property>systems/orbital/ascending-node-lon-deg-raw</property>
+				<property>systems/orbital/ascending-node-lon-deg-corr</property>
+			</product>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/orbital/ascending-node-lon-deg-corr</property>
+				</difference>
+				<difference>
+				<value>360.0</value>
+				<property>systems/orbital/ascending-node-lon-deg-raw</property>
+				</difference>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 	</channel>
+
+
+
 
 </system>

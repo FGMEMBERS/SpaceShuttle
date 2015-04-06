@@ -68,7 +68,7 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
          </and>
         </condition>
 	<delay-sec>1</delay-sec>
-	</wind>              
+	</wind>             
 
 	<!-- Booster  -->
 
@@ -84,8 +84,8 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 			<max>1.0</max>
 		</volume>
 		<pitch>
-			<value>1.0</value>
-			<factor>0.01</factor>
+			<property>/controls/engines/engine[3]/throttle</property>
+			<factor>0.14</factor>
 		</pitch>
 	</booster>
 	
@@ -94,16 +94,17 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 	<main>
 		<name>main</name>
 		<mode>looped</mode>
-		<path>Aircraft/SpaceShuttle/Sounds/rumble.wav</path>
+		<path>Sounds/rumble.wav</path>
 		<volume>
 			<property>/engines/engine[0]/thrust_lb</property>
-			<factor>0.0006</factor>
+			<factor>0.01</factor>
 			<offset>0.0</offset>
 			<min>0.0</min>
 			<max>1.0</max>
 		</volume>	
 		<pitch>
-			<factor>0.05</factor>
+			<min>0.01</min>
+			<max>0.01</max>
 		</pitch>
 	</main>
 
@@ -152,39 +153,176 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 	<OMS>
 		<name>OMS</name>
 		<mode>looped</mode>
-		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-TDU-Engine.wav</path>		
+		<path>Aircraft/SpaceShuttle/Sounds/rumble.wav</path>		
 		  <condition>
 		    <greater-than>
-			<property>sim/multiplay/generic/float[18]</property>
+			<property>/engines/engine[5]/thrust_lb</property>
 			<value>0</value>
 		    </greater-than>
 		  </condition>
 		  <volume>
-			<factor>1.0</factor>
-			<offset>0.0</offset>
-			<min>0.0</min>
-			<max>0.4</max>
+			<min>1.0</min>
+			<max>1.0</max>
 		</volume>
 	</OMS>
 	
-	<OMS-out>
-		<name>OMS-out</name>
-		<mode>once</mode>
-		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-TDU-Engine-Once.wav</path>		
-		  <condition>   
-		    <less-than>
-			<property>sim/multiplay/generic/float[6]</property>
-			<value>10</value>
-		    </less-than>
+	
+
+	
+	<RCS>
+		<name>RCS</name>
+		<mode>looped</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/rumble.wav</path>		
+		  <condition>
+			<or>
+		    <greater-than>
+			<property>/engines/engine[7]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[8]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[9]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[10]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[11]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[12]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[13]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[14]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[15]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[16]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[17]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[18]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[19]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[20]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[21]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			</or>
 		  </condition>
 		  <volume>
-			<factor>1.0</factor>
-			<offset>1.0</offset>
+			<min>0.8</min>
+			<max>0.8</max>
+		</volume>
+		<pitch>
 			<min>0.4</min>
 			<max>0.4</max>
+		</pitch>
+	</RCS>
+	<RCS1>
+		<name>RCS1</name>
+		<mode>once</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-TDU-Engine-Once.wav</path>		
+		  <condition>
+			<or>
+		    <greater-than>
+			<property>/engines/engine[7]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[8]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[9]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[10]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[11]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[12]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[13]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[14]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[15]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[16]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[17]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[18]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[19]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[20]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			<greater-than>
+			<property>/engines/engine[21]/thrust_lb</property>
+			<value>0</value>
+		    </greater-than>
+			</or>
+		  </condition>
+		  <volume>
+			<min>0.2</min>
+			<max>0.2</max>
 		</volume>
-	</OMS-out>
-
+		<pitch>
+			<min>0.001</min>
+			<max>0.001</max>
+		</pitch>
+	</RCS1>
 
 	<!-- robotarm  -->
 
