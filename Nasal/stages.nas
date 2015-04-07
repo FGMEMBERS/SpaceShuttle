@@ -117,6 +117,8 @@ else
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");
 	}
 
+SpaceShuttle.check_limits_ascent();
+
 	
 settimer(launch_loop, 1.0);
 }

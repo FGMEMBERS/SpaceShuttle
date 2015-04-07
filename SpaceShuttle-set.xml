@@ -503,6 +503,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     <SpaceShuttle>
       <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
       <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
+      <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
     </SpaceShuttle> 
     
   </nasal>
