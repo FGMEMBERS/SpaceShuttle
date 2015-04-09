@@ -21,8 +21,7 @@
 <condition>
 
     <greater-than>
-     <!--<property>/fdm/jsbsim/systems/thermal/nose-temperature-F</property>-->
-	<value>3000</value>
+     <property>/fdm/jsbsim/systems/thermal/nose-temperature-F</property>
      <value>2000.0</value>
     </greater-than>
 
