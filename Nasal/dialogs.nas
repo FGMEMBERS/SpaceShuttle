@@ -39,6 +39,26 @@ else if (site_string == "Edwards Air Force Base")
 	lat = 34.096;
 	lon = -117.884;
 	}
+else if (site_string == "White Sands Space Harbor")
+	{
+	lat = 32.943;
+	lon = -106.420;
+	}
+else if (site_string == "Zaragoza Airport")
+	{
+	lat = 41.666;
+	lon = -1.042;
+	}
+else if (site_string == "RAF Fairford")
+	{
+	lat = 51.682;
+	lon = -1.79;
+	}
+else if (site_string == "Banjul International Airport")
+	{
+	lat = 13.337;
+	lon = -16.652;
+	}
 
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
