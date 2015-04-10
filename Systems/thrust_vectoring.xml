@@ -96,7 +96,7 @@
 			<output>propulsion/engine[6]/pitch-angle-rad</output>
    		</fcs_function>
 
-		<fcs_function name="Yaw SSME 1  to CoG">
+		<fcs_function name="Yaw SSME 1 to CoG">
 		 <function>
 			<product>
 			<value>-1.0</value>	
@@ -117,7 +117,7 @@
 			<output>propulsion/engine[0]/yaw-to-CoG</output>
    		</fcs_function>
 
- 		<fcs_function name="Yaw SSME 2  to CoG">
+ 		<fcs_function name="Yaw SSME 2 to CoG">
  		<function>
 			<product>
 			<value>-1.0</value>	
@@ -138,7 +138,7 @@
 			<output>propulsion/engine[1]/yaw-to-CoG</output>
    		</fcs_function>
 
-  		<fcs_function name="Yaw OMS 1  to CoG">
+  		<fcs_function name="Yaw OMS 1 to CoG">
   		<function>
 			<product>
 			<value>-1.0</value>	
@@ -159,7 +159,7 @@
 			<output>propulsion/engine[5]/yaw-angle-rad</output>
    		</fcs_function>
 
-  		<fcs_function name="Yaw OMS 2  to CoG">
+  		<fcs_function name="Yaw OMS 2 to CoG">
   		<function>
 			<product>
 			<value>-1.0</value>	
@@ -734,7 +734,7 @@
 
 	<channel name="Mapping of the commanded pitch angles to the actual value dependent on control mode">
 
-		<fcs_function name="Pitch SSME 1">
+		<fcs_function name="fcs/pitch-ssme-1">
 			<function>
 				<sum>
 				<product>
@@ -750,7 +750,7 @@
 			<output>propulsion/engine[0]/pitch-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Yaw SSME 1">
+		<fcs_function name="fcs/yaw/ssme-1">
 			<function>
 				<sum>
 				<product>
@@ -766,7 +766,7 @@
 			<output>propulsion/engine[0]/yaw-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Pitch SSME 2">
+		<fcs_function name="fcs/pitch-ssme-2">
 			<function>
 				<sum>
 				<product>
@@ -782,7 +782,7 @@
 			<output>propulsion/engine[1]/pitch-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Yaw SSME 2">
+		<fcs_function name="fcs/yaw-ssme-2">
 			<function>
 				<sum>
 				<product>
@@ -798,7 +798,7 @@
 			<output>propulsion/engine[1]/yaw-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Pitch SSME 3">
+		<fcs_function name="fcs/pitch-ssme-3">
 			<function>
 				<sum>
 				<product>
@@ -814,7 +814,7 @@
 			<output>propulsion/engine[2]/pitch-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Yaw SSME 1">
+		<fcs_function name="fcs/yaw-ssme-3">
 			<function>
 				<sum>
 				<product>
@@ -830,7 +830,7 @@
 			<output>propulsion/engine[2]/yaw-angle-rad</output>
 		</fcs_function>
 
-		<fcs_function name="Pitch SRB 1">
+		<fcs_function name="fcs/pitch-srb-1">
 			<function>
 				<sum>
 				<product>
@@ -843,10 +843,10 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[3]/pitch-angle-rad</output>
+			<output>propulsion/engine[3]/pitch-angle-rad-cmd</output>
 		</fcs_function>
 
-		<fcs_function name="Yaw SRB 1">
+		<fcs_function name="fcs/yaw-srb-1">
 			<function>
 				<sum>
 				<product>
@@ -859,10 +859,10 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[3]/yaw-angle-rad</output>
+			<output>propulsion/engine[3]/yaw-angle-rad-cmd</output>
 		</fcs_function>
 
-		<fcs_function name="Pitch SRB 2">
+		<fcs_function name="fcs/pitch-srb-2">
 			<function>
 				<sum>
 				<product>
@@ -875,10 +875,10 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[4]/pitch-angle-rad</output>
+			<output>propulsion/engine[4]/pitch-angle-rad-cmd</output>
 		</fcs_function>
 
-		<fcs_function name="Yaw SRB 2">
+		<fcs_function name="fcs/yaw-srb-2">
 			<function>
 				<sum>
 				<product>
@@ -891,8 +891,70 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[4]/yaw-angle-rad</output>
+			<output>propulsion/engine[4]/yaw-angle-rad-cmd</output>
 		</fcs_function>
+
+		<!-- finite response time of the gimbal actuators -->
+
+		<kinematic name="fcs/pitch-srb-1-kin">
+			<input>propulsion/engine[3]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[3]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-srb-1-kin">
+			<input>propulsion/engine[3]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[3]/yaw-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/pitch-srb-2-kin">
+			<input>propulsion/engine[4]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[4]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-srb-2-kin">
+			<input>propulsion/engine[4]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[4]/yaw-angle-rad</output>
+		</kinematic>
 
 
 	</channel>
