@@ -134,6 +134,8 @@
             <gear-string>up</gear-string>
             <speedbrake-string>in</speedbrake-string>
             <drag-chute-string>in</drag-chute-string>
+	    <SRB-static-model type="bool">true</SRB-static-model>	    
+	    <ET-static-model type="bool">true</ET-static-model>
         </shuttle>
 
         <lighting>
