@@ -115,6 +115,21 @@
  		</condition>
 </model>
 
+<!--<model>
+<path>Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml</path>
+		<offsets>
+			<x-m>-10.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>-10.0</z-m>
+		</offsets>
+		<condition>
+		<not>
+			<property>/controls/shuttle/ET-static-model</property>
+			<value>1</value>
+		</not>
+ 		</condition>
+</model>-->
+
 <model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
 		<offsets>
