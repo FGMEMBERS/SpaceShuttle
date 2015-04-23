@@ -505,7 +505,22 @@ var switch_detailed_control_mode = func {
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
-if (current_mode == 1) 
+if ((current_mode == 0) or (current_mode == 10))
+	# this is a request to manually switch to RCS from thrust vectoring before the
+	# tank is disconnected to null rates before the tank is dropped
+	# we can't go back, we check the engines are really off
+	{
+	var thrust1  = getprop("/engines/engine[0]/thrust_lb");
+	var thrust2  = getprop("/engines/engine[1]/thrust_lb");
+	var thrust3  = getprop("/engines/engine[2]/thrust_lb");
+
+	if ((thrust1 == 0) and (thrust2 == 0) and (thrust3 = 0))
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+		setprop("/controls/shuttle/control-system-string", "RCS rotation");
+		}
+	}
+else if (current_mode == 1) 
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
@@ -653,16 +668,19 @@ if ((getprop("/gear/gear[1]/wow") == 0) or (slowdown_loop_flag ==1)) {return;}
 
 setprop("/sim/messages/copilot", "Touchdown!");
 slowdown_loop_flag = 1;
-settimer(slowdown_loop, 5.0);
+slowdown_loop();
+#settimer(slowdown_loop, 5.0);
 }
 
 var slowdown_loop = func {
 
-if (getprop("/gear/gear[1]/rollspeed-ms") < 0.1)
+if ((getprop("/gear/gear[1]/rollspeed-ms") < 0.1) and (getprop("/velocities/groundspeed-kt") < 10.0))
 	{
 	setprop("/sim/messages/copilot", "Wheels stop!");
 	return;
 	}
+
+SpaceShuttle.check_limits_touchdown();
 
 
 settimer(slowdown_loop,1.0);
@@ -789,6 +807,7 @@ if (getprop("/sim/presets/stage") == 4)
 
 setlistener("/engines/engine[0]/thrust_lb", func {launch_loop_start();},0,0);
 setlistener("/gear/gear[1]/wow", func {slowdown_loop_start();},0,0);
+setlistener("/gear/gear[0]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
 setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
 
