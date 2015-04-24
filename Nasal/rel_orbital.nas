@@ -320,22 +320,6 @@ return model;
 var init_tank = func {
 
 
-# make sure the orbiter is not rotating
-	
-var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec");
-var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec");
-var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec");
-
-# safe rates for ET separation are
-# roll rate < 1.25 deg/s
-# pitch rate <0.5 deg/s
-# yaw rate < 0.5 deg/s
-
-if ((math.abs(pitch_rate) > 0.013089) and (math.abs(roll_rate) > 0.02181 ) and (math.abs(yaw_rate) > 0.013089)) 
-	{
-	setprop("/sim/messages/copilot", "Unsafe attitude for ET separation, reduce rotation rates.");	
-	return;
-	}
 
 
 var pitch = getprop("/orientation/pitch-deg");
@@ -376,10 +360,9 @@ setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
 setprop("/controls/flight/elevator", 1);
 
 settimer( func{
-	setprop("/controls/flight/elevator", 0);
-	setprop("/fdm/jsbsim/systems/fcs/control-mode", 1);
-
-	}, 3.0);
+	controls.centerFlightControls();
+	control_to_rcs();
+	}, 5.0);
 
 settimer(func { 
 		etState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
