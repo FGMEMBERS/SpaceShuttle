@@ -48,6 +48,9 @@
 		    <tire-nose-condition type="double">1.0</tire-nose-condition>
 		    <tire-left-condition type="double">1.0</tire-left-condition>
 		    <tire-right-condition type="double">1.0</tire-right-condition>
+ 	            <gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
+		    <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
+		    <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
 		    <tps-condition type="double">1.0</tps-condition>
 		</failures>
                 <orbital>

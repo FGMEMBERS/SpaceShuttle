@@ -869,6 +869,8 @@ if (getprop("/sim/presets/stage") == 4)
 setlistener("/engines/engine[0]/thrust_lb", func {launch_loop_start();},0,0);
 setlistener("/gear/gear[1]/wow", func {slowdown_loop_start();},0,0);
 setlistener("/gear/gear[0]/wow", func {check_limits_touchdown();},0,0);
+setlistener("/gear/gear[1]/wow", func {check_limits_touchdown();},0,0);
+setlistener("/gear/gear[2]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
 setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
 
