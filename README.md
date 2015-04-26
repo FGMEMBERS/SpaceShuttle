@@ -85,6 +85,6 @@ Controls now switch to the reaction control system (RCS). Best use the keys to f
 
 Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 240 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation'). Wait till your altitude rises to the apoapsis, then lower the nose about 15 degrees below the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be down) and use thrust control to ignite the OMS engines for a few minutes ('prograde burn'). Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit.
 
-By Thorsten B
+By Thorsten R
 On:
 http://forum.flightgear.org/viewtopic.php?f=4&t=25747
