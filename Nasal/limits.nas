@@ -15,6 +15,22 @@ var droop_warn = 0;
 var gear_extension_warn = 0;
 var Nx_warn = 0;
 var tailscrape_warn = 0;
+var chute_warn = 0;
+var vspeed_warn = 0;
+
+# the limit simulation mode determines what we do when limits are violated
+
+var limit_simulation_mode = 1;
+
+
+
+var set_limit_mode = func {
+
+limit_simulation_mode = getprop("/fdm/jsbsim/systems/failures/limit-simulation-mode");
+
+}
+
+setlistener("/fdm/jsbsim/systems/failures/limit-simulation-mode", set_limit_mode, 0,0);
 
 
 #########################
@@ -34,6 +50,12 @@ if ((qbar > 819.0) and (qbar_warn == 1))
 	setprop("/sim/messages/copilot", "Dynamical pressure exceeds limits!");
 	fail_flag = 1;
 	qbar_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_destroy();
+		}
+
 	}
 else if ((qbar > 800.0) and (qbar_warn == 0))
 	{
@@ -53,6 +75,11 @@ if (v_inertial > 12000.0)
 		{
 		setprop("/sim/messages/copilot", "ET heat load exceeds limits!");
 		fail_flag = 1;
+
+		if (limit_simulation_mode == 1)
+			{
+			SpaceShuttle.orbiter_destroy();
+			}
 		}
 	else if ((altitude < 300000.0) and(droop_warn == 0))
 		{
@@ -74,6 +101,12 @@ if (((Nx > 3.9) or (Nx < -0.5)) and (agl_altitude > 100))
 	{
 	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
 	fail_flag = 1;
+	
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_destroy();
+		}
+	
 	}
 else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100))
 	{
@@ -81,6 +114,19 @@ else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100
 	Nx_warn = 1;
 	settimer(func {Nx_warn = 0;}, 10.0);
 	}
+
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
+
 
 }
 
@@ -120,7 +166,9 @@ var fail_flag = 0;
 # tailscrape angle is 15 degrees
 
 var pitch = getprop("/orientation/pitch-deg");
-
+var pitch_rate = getprop("orientation/pitch-rate-degps");
+var airspeed = getprop("/velocities/airspeed-kt");
+var vspeed = getprop("/velocities/vertical-speed-fps");
 
 if ((pitch > 15.0) and (tailscrape_warn == 1))
 	{
@@ -137,17 +185,20 @@ else if ((pitch > 14.0) and (tailscrape_warn == 0))
 
 # safe touchdown vertical speed is 6 to 9 fps
 
-var vspeed = getprop("/velocities/vertical-speed-fps");
 
 if (vspeed < -9.0) 
 	{
-	setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");
+	if (vspeed_warn == 0)
+		{setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");}
+	vspeed_warn = 1;
 	fail_flag = 1;
+	#print("vspeed: ", vspeed);
+
+	if (limit_simulation_mode == 1) {SpaceShuttle.fail_gear_on_touchdown(vspeed);}
 	}
 
 # derotation should not be faster than 2 deg/s
 
-var pitch_rate = getprop("orientation/pitch-rate-degps");
 
 if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
 	{
@@ -157,14 +208,28 @@ if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
 
 # drag chute pin fails for airspeed > 230 kt upon deployment
 
-var airspeed = getprop("/velocities/airspeed-kt");
 
-if ((airspeed > 230.0) and (getprop("/controls/shuttle/parachute") >0 ))
+if ((airspeed > 230.0) and (getprop("/controls/shuttle/parachute") >0 ) and (chute_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "Above drag chute deployment speed!");
 	fail_flag = 1;
+	chute_warn = 1;
+	
+	if (limit_simulation_mode == 1) {SpaceShuttle.fail_chute_pin();}	
+	
 	}
 
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
 
 
 }
