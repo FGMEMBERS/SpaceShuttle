@@ -329,6 +329,8 @@ setprop("/controls/engines/engine[2]/ignited-hud", " ");
 
 launch_message_flag = 5;
 
+#SpaceShuttle.init_tank();
+
 settimer(control_to_rcs, 2.0);
 settimer(orbital_loop,2.0);
 
@@ -484,6 +486,17 @@ else if (current_mode ==10)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",0);
 	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring (gimbal)");	
 	}
+else if (current_mode == 50)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",51);
+	setprop("/sim/messages/copilot", "MMU rotation");
+	}
+else if (current_mode == 51)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",50);
+	setprop("/sim/messages/copilot", "MMU translation");
+	}
+
 	
 }
 
