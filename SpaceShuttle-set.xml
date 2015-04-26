@@ -250,9 +250,11 @@
             <path>Aircraft/SpaceShuttle/Sounds/SpaceShuttle-Sounds.xml</path>
         </sound>
 
+
         <submodels>
             <serviceable type="bool">true</serviceable>
-            <path>Aircraft/SpaceShuttle/Models/EMU/submodels.xml</path>
+            <!--<path>Aircraft/SpaceShuttle/Models/EMU/submodels.xml</path>-->
+	    <path>Aircraft/SpaceShuttle/Models/submodels.xml</path>
         </submodels>
 
 
