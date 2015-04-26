@@ -337,6 +337,24 @@ else if (current_mode ==10)
 }
 
 
+var switch_detailed_control_mode = func {
+
+var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+
+if (current_mode == 1) 
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
+	}
+else if (current_mode == 20)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+	setprop("/controls/shuttle/control-system-string", "RCS rotation");
+	}
+
+	
+}
+
 ###########################################################################
 # the deorbit loop primarily checks when to transfer control authority from
 # RCS to the airfoils
