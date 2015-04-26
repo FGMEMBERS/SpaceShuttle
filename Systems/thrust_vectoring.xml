@@ -593,8 +593,8 @@
 
 		<pid name="systems/vectoring/SRB-roll">
 			<input>systems/vectoring/roll-rate-error</input>
-			<kp> 1.0 </kp>
-			<ki> 1.5 </ki>
+			<kp> 2.0 </kp>
+			<ki> 0.5 </ki>
 			<kd> 0.1</kd>
 			<clipto>
 				<min> -0.14 </min>
@@ -604,8 +604,8 @@
 
 		<pid name="systems/vectoring/SSME-roll">
 			<input>systems/vectoring/roll-rate-error</input>
-			<kp> 1.0 </kp>
-			<ki> 1.5 </ki>
+			<kp> 2.0 </kp>
+			<ki> 0.5 </ki>
 			<kd> 0.1</kd>
 			<clipto>
 				<min> -0.17 </min>

@@ -2,6 +2,15 @@
 
 <system>
 
+	<!-- the following modes are implemented: -->
+
+	<!-- 1:  RCS rotation - stick controls thrust -->
+	<!-- 2:  RCS translation - stick controls thrust -->
+	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
+	<!-- 20: RCS DAP-A - precision attitude hold, stick controls rate -->
+	<!-- 21: RCS DAP-B - propellant conserving attitude hold, stick controls rate -->
+	<!-- 22: RCS ROT TAIL ONLY - nose thrusters are off, stick controls thrust --> 
+
 
 	<channel name="DAP modes">
 		<switch name="systems/fcs/dap-master">
@@ -12,12 +21,28 @@
 			</test>
 		</switch>
 
+		<!-- the problem to solve is that thrusters shouldn't run forever to minimize errors -->
+		<!-- so we stop them at a deadband - but then they take forever to correct in minute -->
+		<!-- bursts, so before they reach the deadband, they get a burst enhancement factor -->
+		<!-- to kick the state of the orbiter well into the deadband -->
+		<!-- this minimizes stationkeeping effort -->
+
 		<switch name="systems/fcs/rcs-deadband-rotation">
 			<default value="0.001"/>
-			<test  value="0.1">
+			<test  value="0.01">
 				systems/fcs/control-mode == 21
 			</test>
 		</switch>
+
+		<switch name="systems/fcs/rcs-burst-rotation">
+			<default value="0.0015"/>
+			<test  value="0.015">
+				systems/fcs/control-mode == 21
+			</test>
+		</switch>
+
+
+		<!-- pitch -->
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
@@ -30,13 +55,12 @@
 			</difference>
 		</function>
 		</fcs_function>
-
 		
 	
 		<pid name="systems/rcs/dap-pitch">
 			<input>systems/rcs/pitch-rate-error</input>
 			<kp> 15.0 </kp>
-			<ki> 0.5 </ki>
+			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
 				<min> -1.0 </min>
@@ -45,11 +69,38 @@
 			<output>systems/rcs/dap-pitch-cmd</output>
 		</pid>
 
-		<deadband name="systems/rcs/dap-pitch-cmd-deadband">
-			<input>systems/rcs/dap-pitch-cmd</input>
-			<width>0.001</width>
-		</deadband>
 
+		<fcs_function name="systems/rcs/dap-pitch-cmd-abs">
+		<function>
+			<abs>
+				<property>systems/rcs/dap-pitch-cmd</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/dap-pitch-cmd-burst">
+		<function>
+			<product>
+				<value>25.0</value>
+				<property>systems/rcs/dap-pitch-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		
+
+		<switch name="systems/rcs/dap-pitch-cmd-deadband">
+			<default value="systems/rcs/dap-pitch-cmd"/>
+			<test value="0.0">
+				systems/rcs/dap-pitch-cmd-abs LT systems/fcs/rcs-deadband-rotation
+			</test>
+			<test value="systems/rcs/dap-pitch-cmd-burst">
+				systems/rcs/dap-pitch-cmd-abs LT systems/fcs/rcs-burst-rotation
+			</test>
+		</switch>
+
+		<!-- roll -->
+	
 		<fcs_function name="systems/rcs/roll-rate-error">
 		<function>
 			<difference>
@@ -75,10 +126,86 @@
 			<output>systems/rcs/dap-roll-cmd</output>
 		</pid>
 
-		<deadband name="systems/rcs/dap-roll-cmd-deadband">
-			<input>systems/rcs/dap-roll-cmd</input>
-			<width><value>0.001</value></width>
-		</deadband>
+		<fcs_function name="systems/rcs/dap-roll-cmd-abs">
+		<function>
+			<abs>
+				<property>systems/rcs/dap-roll-cmd</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/dap-roll-cmd-burst">
+		<function>
+			<product>
+				<value>25.0</value>
+				<property>systems/rcs/dap-roll-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs/dap-roll-cmd-deadband">
+			<default value="systems/rcs/dap-roll-cmd"/>
+			<test value="0.0">
+				systems/rcs/dap-roll-cmd-abs LT systems/fcs/rcs-deadband-rotation
+			</test>
+			<test value="systems/rcs/dap-roll-cmd-burst">
+				systems/rcs/dap-roll-cmd-abs LT systems/fcs/rcs-burst-rotation
+			</test>
+		</switch>
+
+		<!-- yaw -->
+
+		<fcs_function name="systems/rcs/yaw-rate-error">
+		<function>
+			<difference>
+				<property>velocities/r-rad_sec</property>
+				<product>
+  					<property>fcs/rudder-pos-norm</property>
+					<value>-0.05</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+	
+		<pid name="systems/rcs/dap-yaw">
+			<input>systems/rcs/yaw-rate-error</input>
+			<kp> 15.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/rcs/dap-yaw-cmd</output>
+		</pid>
+
+		<fcs_function name="systems/rcs/dap-yaw-cmd-abs">
+		<function>
+			<abs>
+				<property>systems/rcs/dap-yaw-cmd</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/dap-yaw-cmd-burst">
+		<function>
+			<product>
+				<value>25.0</value>
+				<property>systems/rcs/dap-yaw-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs/dap-yaw-cmd-deadband">
+			<default value="systems/rcs/dap-yaw-cmd"/>
+			<test value="0.0">
+				systems/rcs/dap-yaw-cmd-abs LT systems/fcs/rcs-deadband-rotation
+			</test>
+			<test value="systems/rcs/dap-yaw-cmd-burst">
+				systems/rcs/dap-yaw-cmd-abs LT systems/fcs/rcs-burst-rotation
+			</test>
+		</switch>
 
 
 	</channel>
@@ -116,6 +243,7 @@
 				systems/fcs/control-mode == 3
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
 			</test>
 		</switch>
 
@@ -126,6 +254,12 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-nose-active">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 22
+			</test>
+		</switch>
 	
 
 
@@ -177,12 +311,22 @@
 
 		<fcs_function name="systems/rcs/rudder-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/rudder-cmd-norm</property>
 				<abs>
 					<property>fcs/rudder-cmd-norm</property>
 				</abs>
 				</product>
+				<product>
+					<property>systems/fcs/dap-master</property>
+					<property>systems/rcs/dap-yaw-cmd-deadband</property>
+				</product>
+				</sum>
 			</function>
 		</fcs_function>
 
@@ -391,7 +535,7 @@
 		<switch name="systems/rcs/nose-left-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -410,7 +554,7 @@
 		<switch name="systems/rcs/nose-right-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -428,7 +572,7 @@
 		<switch name="systems/rcs/pod1-left-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -446,7 +590,7 @@
 		<switch name="systems/rcs/pod2-right-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -468,7 +612,7 @@
 		<switch name="systems/rcs/pod1-up-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -487,7 +631,7 @@
 		<switch name="systems/rcs/pod2-down-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -506,7 +650,7 @@
 		<switch name="systems/rcs/pod1-down-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -525,7 +669,7 @@
 		<switch name="systems/rcs/pod2-up-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -547,7 +691,7 @@
 		<switch name="systems/rcs/pod1-back-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -565,7 +709,7 @@
 		<switch name="systems/rcs/pod2-back-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -583,7 +727,7 @@
 		<switch name="systems/rcs/nose-down-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -601,7 +745,7 @@
 		<switch name="systems/rcs/pod1-up-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -620,7 +764,7 @@
 		<switch name="systems/rcs/pod2-up-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -639,7 +783,7 @@
 		<switch name="systems/rcs/nose-fwd-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -657,7 +801,7 @@
 		<switch name="systems/rcs/nose-up-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -675,7 +819,7 @@
 		<switch name="systems/rcs/pod1-down-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -694,7 +838,7 @@
 		<switch name="systems/rcs/pod2-down-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -1112,10 +1256,13 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-up">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-up-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[7]</output>
 		</fcs_function>
@@ -1123,40 +1270,52 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-down">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[8]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-left">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-left-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[9]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-right">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-right-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[10]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-fwd">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-fwd-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[11]</output>
 		</fcs_function>
