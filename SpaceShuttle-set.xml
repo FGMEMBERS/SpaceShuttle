@@ -15,6 +15,7 @@
                     <remaining-distance-nm type="double">0.0</remaining-distance-nm>
                 </entry_guidance>
 		<failures>
+		    <limit-simulation-mode type="int">1</limit-simulation-mode>
 		    <ssme1-condition type="double">1.0</ssme1-condition>
 		    <ssme2-condition type="double">1.0</ssme2-condition>
 		    <ssme3-condition type="double">1.0</ssme3-condition>
@@ -365,6 +366,13 @@
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
                     </item>
+			<item n="2">
+                        <label>Limits and Failures</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.limits_dlg.open()</script>
+                        </binding>
+                    </item>
 
                 </menu>
             </default>
@@ -385,14 +393,22 @@
                 <name>d</name>
                 <desc>drop external tank</desc>
             </key>
+           <key>
+                <name>Ctrl-d</name>
+                <desc>force drop external tank</desc>
+            </key>
             <key>
                 <name>m</name>
-                <desc>switch RCS rotation/translation</desc>
+                <desc>switch FCS modes</desc>
             </key>
             <key>
                 <name>M</name>
                 <desc>switch RCS DAP modes</desc>
             </key>
+	    <key>
+	        <name>Ctrl-m</name>
+                <desc>override FCS mode selection</desc>
+	    </key>
             <key>
                 <name>s</name>
                 <desc>deploy speed brake</desc>
@@ -427,46 +443,54 @@
             </key>
             <text>
 
-                Put into launch position using --altitude=214 --pitch=90, into orbit using --altitude=500000 --uBody=27400, these exist also as presets SpaceShuttle-launch-set and SpaceShuttle-orbit-set.
 
-                Currently the flight dynamics is tested only for launch and orbital maneuvering, entry and landing will most likely not work properly!
 
-                Ignition sequence
-                =================
 
-                Ignition of the main engines is done via throttle - SSME 1 to 3 ignite as soon as the throttle reaches 65%. This is not enough to achieve liftoff for the normal launch mass of the shutte, however main engine ignition triggers SRB ignition three seconds later. Once both SRBs ignite, the shuttle will lift off the path rapidly.
 
-                Initial launch
-                ==============
+Ignition sequence
+=================
 
-                Upon ascent, the shuttle is controlled via thrust vectoring of both SSME and SRB. Initially, with the strong SRB thrusters far from the CoG, the launch stack is very maneuverable - don't get used to it.
+(You can start at this phase with --aircraft=SpaceShuttle-launch)
 
-                Once clearing the pad, rotate to the desired launch course, then pull the launch stack gently out of the vertical to an about 70 degree inverted climb (the ride into orbit is done head down...). The external tank is very top-heavy (most of its mass is in the oxygen tank on its top) - take care that the stack doesn't topple too far out of the vertical, or you will never recover. Initially aerodynamical forces on the orbiter will require sizable thrust vectoring, as you clear the atmosphere the need will gradually go away as the flight control systems automatically vector each engine through the CoG.
+Ignition of the main engines is done via throttle - SSME 1 to 3 ignite as soon as the throttle reaches 65%. This is not enough to achieve liftoff for the normal launch mass of the shutte, however main engine ignition triggers SRB ignition three seconds later. Once both SRBs ignite, the shuttle will lift off the path rapidly.
 
-                There are two thrust vectoring mode available (switch via m) - in Thrust Vevtoring (gimbal) the stick controls the pitch and yaw angles of the engines directly - this gives a good impression how  rocket flies, but is fairly challenging. Using Thrust Vectoring, the stick controls pitch, yaw and roll rates and neutral stick commands attitude hold. This is a fairly well stabilized mode in which the shuttle can be controlled and launched to a target inclination rather precisely.
+Initial launch
+==============
 
-                SRB thrust can not be throttled, however the main engine can, and you will see a callout to throttle back the main engine to 65% after 34 seconds to avoid the highest dynamical pressure during ascent to damage the vehicle (damage is currently not modeled, but will be called out).
+Upon ascent, the shuttle is controlled via thrust vectoring of both SSME and SRB. Initially, with the strong SRB thrusters far from the CoG, the launch stack is very maneuverable - don't get used to it.
 
-                SRB separation
-                ==============
+Once clearing the pad, rotate to the desired launch course, then pull the launch stack gently out of the vertical to an about 70 degree inverted climb (the ride into orbit is done head down...). The external tank is very top-heavy (most of its mass is in the oxygen tank on its top) - take care that the stack doesn't topple too far out of the vertical, or you will never recover. Initially aerodynamical forces on the orbiter will require sizable thrust vectoring, as you clear the atmosphere the need will gradually go away as the flight control systems automatically vector each engine through the CoG.
 
-                SRBs will burn about 128 seconds before they are disconnected. At this point you should be on your launch course, out of the atmosphere at around 200.000 ft and still on a 70 degree climb. Once the SRBs connect, most of your thrust will be gone and since the main engines are very close to the central axis, thrust vectoring efficiency will be dramatically reduced.
+There are two thrust vectoring mode available (switch via m) - in Thrust Vevtoring (gimbal) the stick controls the pitch and yaw angles of the engines directly - this gives a good impression how  rocket flies, but is fairly challenging. Using Thrust Vectoring, the stick controls pitch, yaw and roll rates and neutral stick commands attitude hold. This is a fairly well stabilized mode in which the shuttle can be controlled and launched to a target inclination rather precisely.
 
-                In addition, you are not in vacuum, so any yaw, pitch or roll motion will continue indefinitely till it is countered by opposite thrust. The most important thing is to stay on your launch course - if you get a strong yaw drift, you will never make orbit.
+SRB thrust can not be throttled, however the main engine can, and you will see a callout to throttle back the main engine to 65% after 34 seconds to avoid the highest dynamical pressure during ascent to damage the vehicle (damage is currently not modeled, but will be called out).
 
-                Roll the orbiter out of inverted position, decrease climbing angle to 30-40 degrees and try to hold launch course and climb. Watch vertical speed and altitude - pull up once vertical speed starts to reduce to zero to maintain current altitude, don't worry if you start dropping for a minute, if you manage to reach orbital speed it won't matter. Try to level off at about 650.000 ft.
+SRB separation
+==============
 
-                Orbital insertion
-                =================
+SRBs will burn about 128 seconds before they are disconnected. At this point you should be on your launch course, out of the atmosphere at around 200.000 ft and still on a 70 degree climb. Once the SRBs connect, most of your thrust will be gone and since the main engines are very close to the central axis, thrust vectoring efficiency will be dramatically reduced.
 
-                If you managed to control launch course and climb, after a few minutes, velocity over ground should climb to 7 km/s. As the tank empties, thrust gets more powerful again, watch g-forces and throttle back as needed to keep the load below 3 g. Eventually you should see the periapsis coming up above zero, meaning that you are about to reach orbit (there'll be another callout). Timing is critical, watch the apoapsis till it reaches the orbital altitude you want to reach, then cut thrust fast and drop the external tank.
+In addition, you are not in vacuum, so any yaw, pitch or roll motion will continue indefinitely till it is countered by opposite thrust. The most important thing is to stay on your launch course - if you get a strong yaw drift, you will never make orbit.
 
-                Orbital maneuvering
-                ===================
+Roll the orbiter out of inverted position, decrease climbing angle to 30-40 degrees and try to hold launch course and climb. Watch vertical speed and altitude - pull up once vertical speed starts to reduce to zero to maintain current altitude, don't worry if you start dropping for a minute, if you manage to reach orbital speed it won't matter. Try to level off at about 650.000 ft.
 
-                (You can start at this phase with --aircraft=SpaceShuttle-orbit)
+Orbital insertion
+=================
 
-                Controls now switch to the reaction control system (RCS). Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll rates in the HUD. Do not leave controls uncentered at any point after maneuvering, not even a bit, you will regret it!
+If you managed to control launch course and climb, after a few minutes, velocity over ground should climb to 7 km/s. As the tank empties, thrust gets more powerful again, watch g-forces and throttle back as needed to keep the load below 3 g. Eventually you should see the periapsis coming up above zero, meaning that you are about to reach orbit (there'll be another callout). Timing is critical, watch the apoapsis till it reaches the orbital altitude you want to reach, then cut thrust fast.
+
+
+
+Orbital maneuvering
+===================
+
+(You can start at this phase with --aircraft=SpaceShuttle-orbit)
+
+Start by dropping the external tank (d). Controls will transfer to the reaction control system (RCS). The co-orbiting tank makes for an excellent target to maneuver around.
+
+If MECO happened in a bad state, the Shuttle will rotate at this point and dropping the tank is unsafe and the key won't work. Either use the override switch (Ctrl-d) to drop the tank anyway and risk damage to the shuttle or manually change control mode to RCS (using Ctrl-m), null the rotation and drop the tank afterwards.
+
+Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll rates in the HUD. Do not leave controls uncentered at any point after maneuvering, not even a bit, you will regret it!
 
                 4: roll left
                 6: roll right
@@ -476,9 +500,9 @@
                 ]: yaw right
                 5: cut thrust
 
-                Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 240 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation'). Wait till your altitude rises to the apoapsis, then lower the nose about 15 degrees below the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be down) and use thrust control to ignite the OMS engines for a few minutes. Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit.
+Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 240 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation'). Wait till your altitude rises to the apoapsis, then lower the nose about 15 degrees below the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be down) and use thrust control to ignite the OMS engines for a few minutes. Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit.
 
-                The RCS can also be used in translation mode, switching between modes is done using the 'm' key. In translational mode, the key mapping is
+The RCS can also be used in translation mode, switching between modes is done using the 'm' key. In translational mode, the key mapping is
 
                 4: left
                 6: right
@@ -488,45 +512,47 @@
                 ]: forward
                 5: cut thrust
 
-                Without a visual reference point, the effect of translational thruster firings are hard to gauge.
+Without a visual reference point, the effect of translational thruster firings are hard to gauge.
 
-                De-orbiting
-                ===========
+De-orbiting
+===========
 
-                Orient the shuttle 180 degrees to the flightpath using the RCS ('retrograde') and ignite the OMS engines about 5000 miles prior to your desired landing area. Observe the drop of the periapsis, continue the burn till the periapsis has reached zero. Orient the shuttle prograde and pitch up to 40 degrees.
+Orient the shuttle 180 degrees to the flightpath using the RCS ('retrograde') and ignite the OMS engines about 5000 miles prior to your desired landing area. Observe the drop of the periapsis, continue the burn till the periapsis has reached zero. Orient the shuttle prograde and pitch up to 40 degrees.
 
-                The vertical velocity will now build rapidly as the Shuttle is on a descending ballistic trajectory. The first signs of the atmosphere will be felt at around 400.000 ft altitude, which is known as the entry interface ('EI').
+The vertical velocity will now build rapidly as the Shuttle is on a descending ballistic trajectory. The first signs of the atmosphere will be felt at around 400.000 ft altitude, which is known as the entry interface ('EI').
 
-                Entry
-                =====
+Entry
+=====
 
-                (You can start at this phase with --aircraft=SpaceShuttle-entry)
+(You can start at this phase with --aircraft=SpaceShuttle-entry)
 
-                The atmosphere drag will cause a tendency for the Shuttle to pitch down - use the RCS to counter that tendency, maintaining 40 degrees pitch angle is crucial. As aerodynamical forces increase, control authority for roll, pitch and yaw will gradually be transferred to aerodynamical surfaces, resulting in callouts.
+The atmosphere drag will cause a tendency for the Shuttle to pitch down - use the RCS to counter that tendency, maintaining 40 degrees pitch angle is crucial. As aerodynamical forces increase, control authority for roll, pitch and yaw will gradually be transferred to aerodynamical surfaces, resulting in callouts.
 
-                Lift will finally be produced and slow the vertical motion - this will keep nose temperature and deceleration g-load within acceptable limits. Once the descent stops, you need to make sure the shuttle doesn't bounce and reduce lift. Do not reduce pitch (AoA) as you would usually do or you will burn. Rather, roll the shuttle to a high bank-angle (up to 70 degrees) maintaining high AoA.
+Lift will finally be produced and slow the vertical motion - this will keep nose temperature and deceleration g-load within acceptable limits. Once the descent stops, you need to make sure the shuttle doesn't bounce and reduce lift. Do not reduce pitch (AoA) as you would usually do or you will burn. Rather, roll the shuttle to a high bank-angle (up to 70 degrees) maintaining high AoA.
 
-                Use symmetric high bank angle maneuvers ('roll reversals') if you want to stay on your ground track, asymmetric ones if you want to aim your ground track to the landing site. The amount of high bank angle flown dictates descent rate and hence deceleration and thermal load - use this to manage your entry trajectory (the full theory is too complex to squeeze this into here).
+Use symmetric high bank angle maneuvers ('roll reversals') if you want to stay on your ground track, asymmetric ones if you want to aim your ground track to the landing site. The amount of high bank angle flown dictates descent rate and hence deceleration and thermal load - use this to manage your entry trajectory (the full theory is too complex to squeeze this into here).
 
-                Aim and manage the entry trajectory into the TAEM interface.
+Both a guidance computer determining the required deceleration to reach the landing site and a groundtrack map are available in the shuttle menu to asist in flying a good entry trajectory.
 
-                Terminal Area Energy Management
-                ===============================
+Aim and manage the entry trajectory into the TAEM interface.
 
-                (You can start at this phase with --aircraft=SpaceShuttle-TAEM)
+Terminal Area Energy Management
+===============================
 
-                You should be about 60 miles from the landing site at 85.000 ft with Mach 2.5 and control is fully aerodynamical. Maintain a descent rate of about 10.000 ft/min, initially on a shallow glideslope, all the way slowing down. Overfly the landing site at about 49.000 ft transiting to subsonic velocities, continute to fly straight till about 32.000 to 36.000 ft (dependent on how much you expect to turn for heading alignment).
+(You can start at this phase with --aircraft=SpaceShuttle-TAEM)
 
-                Turn around onto your landing course, glideslope should be -15 degrees, descent rate still 10.000 ft/min. You should reach 10.000 ft altitude about 7 miles from the runway.
+You should be about 60 miles from the landing site at 85.000 ft with Mach 2.5 and control is fully aerodynamical. Maintain a descent rate of about 10.000 ft/min, initially on a shallow glideslope, all the way slowing down. Overfly the landing site at about 49.000 ft transiting to subsonic velocities, continute to fly straight till about 32.000 to 36.000 ft (dependent on how much you expect to turn for heading alignment).
 
-                Landing
-                =======
+Turn around onto your landing course, glideslope should be -15 degrees, descent rate still 10.000 ft/min. You should reach 10.000 ft altitude about 7 miles from the runway.
 
-                (You can start at this phase with --aircraft=SpaceShuttle-approach)
+Landing
+=======
 
-                Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway).
+(You can start at this phase with --aircraft=SpaceShuttle-approach)
 
-                Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed) and apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
+Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway).
+
+Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed) and apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
             </text>
         </help>
@@ -538,15 +564,26 @@
     <input>
         <keyboard>
 
-  	<key n="68">
-                <name>D</name>
-                <desc>test ET</desc>
-                <repeatable type="bool">false</repeatable>
-                <binding>
-                    <command>nasal</command>
-                    <script>SpaceShuttle.init_tank()</script>
-                </binding>
-            </key>
+	    <key n="4"> 
+  		<name>Ctrl+d</name>
+  		<desc>Force external tank drop</desc>
+ 		<repeatable type="bool">false</repeatable>
+  		<binding>
+   			<command>nasal</command>
+			<script>SpaceShuttle.force_external_tank_separate()</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="13"> 
+  		<name>Ctrl+m</name>
+  		<desc>Switch major FCS control modes</desc>
+ 		<repeatable type="bool">false</repeatable>
+  		<binding>
+   			<command>nasal</command>
+			<script>SpaceShuttle.switch_major_control_mode()</script>
+  		</binding>
+ 	    </key>
+
 
             <key n="69">
                 <name>E</name>
