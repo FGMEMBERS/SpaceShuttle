@@ -142,6 +142,7 @@ Nasal/entry_guidance.nas -text
 Nasal/failures.nas -text
 Nasal/limits.nas -text
 Nasal/map.nas -text
+Nasal/rel_orbital.nas -text
 Nasal/stages.nas -text
 Sounds/SpaceShuttle-Sounds.xml -text
 Sounds/SpaceShuttleLaunchAudio.wav -text svneol=unset#unset
