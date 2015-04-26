@@ -104,14 +104,18 @@
 			<z-m>-10.0</z-m>
 		</offsets>
 		<condition>
- 		 <greater-than>
+ 		 <!--<greater-than>
 			<property>/consumables/fuel/tank/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>
+ 		 </greater-than>-->
+		<equals>
+			<property>/controls/shuttle/ET-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
 </model>
 
-<!--<model>
+<model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
 		<offsets>
 			<x-m> -5.2 </x-m>
@@ -120,10 +124,14 @@
 			<roll-deg>90.0</roll-deg>
 		</offsets>
                 <condition>
- 		 <greater-than>
+ 		<!-- <greater-than>
 			<property>/consumables/fuel/tank[1]/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>
+ 		 </greater-than>-->
+		<equals>
+			<property>/controls/shuttle/SRB-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
 </model>
 
@@ -136,19 +144,23 @@
 			<roll-deg>-90.0</roll-deg>
 		</offsets>
 		<condition>
- 		 <greater-than>
+ 		 <!--<greater-than>
 			<property>/consumables/fuel/tank[2]/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>
+ 		 </greater-than>-->
+		<equals>
+			<property>/controls/shuttle/SRB-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
-</model>-->
+</model>
 
  
 
 
 <!-- SRB exhaust flame-->
 
-<!-- <model>
+<!--  <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
     <offsets>
 		 <x-m>14.5</x-m>
@@ -159,7 +171,7 @@
 	 </offsets>	
   </model>
   
-  <model>
+ <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
       <offsets>
 		 <x-m>14.5</x-m>

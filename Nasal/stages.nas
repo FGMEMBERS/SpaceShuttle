@@ -179,11 +179,16 @@ setprop("/sim/messages/copilot", "Reduce throttle and prepare  orbital insertion
 
 }
 
-
+####################################################################################
+# Silent version of SRB separation
 # this is used for start in later mission stages - doesn't use the simulation of the
 # SRB separation dynamics, just removes the weight and fuel
+####################################################################################
+
 
 var SRB_separate_silent = func {
+
+setprop("/controls/shuttle/SRB-static-model", 0);
 
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
@@ -201,9 +206,14 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 # this function is used to simulate the actual SRB separation dynamics driven by the separation motors
 # which are implemented as external force acting on previously slaved and then released submodels
 
+
+####################################################################################
+# Explicit model for SRB separation using ballistic submodel dynamics
+####################################################################################
+
 var SRB_separate = func {
 
-
+setprop("/controls/shuttle/SRB-static-model", 0);
 
 setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
 setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
@@ -214,35 +224,57 @@ var roll_rad = getprop("/ai/models/ballistic[0]/orientation/roll-deg") * math.pi
 
 # now we have pitch, yaw and roll and need to convert it to heading and elevation
 
-var alpha_rad = math.asin(math.sin(roll_rad) * math.cos(pitch_rad));
-var beta_rad = math.asin(math.cos(roll_rad)/math.cos(alpha_rad));
+# force in +-y direction
 
-alpha_deg = alpha_rad * 180.0/math.pi;
-beta_deg = beta_rad * 180.0/math.pi;
-var beta1_deg = beta_deg + hdg_deg;
-var beta2_deg = beta1_deg + 180.0;
+#var alpha_rad = math.asin(math.sin(roll_rad) * math.cos(pitch_rad));
+#var beta_rad = math.asin(math.cos(roll_rad)/math.cos(alpha_rad));
+#alpha_deg = alpha_rad * 180.0/math.pi;
+#beta_deg = beta_rad * 180.0/math.pi;
+#var beta1_deg = beta_deg + hdg_deg;
+#var beta2_deg = beta1_deg + 180.0;
+
+#############################
+# force in (+-y,z) direction
+
+var alpha1_rad = math.asin(0.707 * math.cos(pitch_rad) * (math.sin(roll_rad) - math.cos(roll_rad)));
+var alpha2_rad = math.asin(0.707 * math.cos(pitch_rad) * (math.sin(roll_rad) - math.cos(roll_rad)));
+
+var beta1_rad = math.asin(0.707 * (math.sin(roll_rad) + math.cos(roll_rad)) / math.cos(alpha1_rad));
+var beta2_rad = math.asin(0.707 * (math.sin(roll_rad) - math.cos(roll_rad)) / math.cos(alpha2_rad));
+
+var alpha1_deg =alpha1_rad * 180.0/math.pi;
+var alpha2_deg =alpha2_rad * 180.0/math.pi;
+
+alpha1_deg = -alpha1_deg;
+alpha2_deg = -alpha2_deg;
+
+var beta1_deg = beta1_rad * 180.0/math.pi + hdg_deg + 180.0;
+var beta2_deg = beta2_rad * 180.0/math.pi + hdg_deg + 180.0;
+
+#######################
+# force in z-direction
+
+#var alpha_rad = math.asin(-math.cos(roll_rad) * math.cos(pitch_rad));
+#var beta_rad = math.asin(math.sin(roll_rad)/math.cos(alpha_rad));
+
+#var alpha_deg = alpha_rad * 180.0/math.pi;
+#var beta_deg = beta_rad * 180.0/math.pi + hdg_deg;
+#alpha_deg = - alpha_deg;
+#beta_deg = beta_deg + 180.0;
 
 
-if (beta1_deg < 0.0) {beta1_deg = beta1_deg + 360.0;}
-if (beta2_deg < 0.0) {beta2_deg = beta2_deg + 360.0;}
+setprop("/controls/shuttle/forces/srb1/force-lb", 448000.0);
+setprop("/controls/shuttle/forces/srb1/force-azimuth-deg", beta1_deg);
+setprop("/controls/shuttle/forces/srb1/force-elevation-deg", alpha1_deg);
 
-
-#print("Heading: ", beta2_deg,  "Elevation: ", alpha_deg);
-#print("Heading1: ", beta1_deg,  "Elevation1: ", -alpha_deg);
-
-setprop("/controls/shuttle/forces/srb1/force-lb", 148000.0);
-setprop("/controls/shuttle/forces/srb1/force-azimuth-deg", beta2_deg);
-setprop("/controls/shuttle/forces/srb1/force-elevation-deg", alpha_deg);
-
-setprop("/controls/shuttle/forces/srb2/force-lb", 148000.0);
-setprop("/controls/shuttle/forces/srb2/force-azimuth-deg",  beta1_deg);
-setprop("/controls/shuttle/forces/srb2/force-elevation-deg", -alpha_deg);
+setprop("/controls/shuttle/forces/srb2/force-lb", 448000.0);
+setprop("/controls/shuttle/forces/srb2/force-azimuth-deg",  beta2_deg);
+setprop("/controls/shuttle/forces/srb2/force-elevation-deg", alpha2_deg);
 
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
 
-#setprop("/consumables/fuel/tank[1]/level-norm",0.0);
-#setprop("/consumables/fuel/tank[2]/level-norm",0.0);
+
 
 setprop("/controls/engines/engine[3]/status-hud", "X");
 setprop("/controls/engines/engine[4]/status-hud", "X");
@@ -267,6 +299,46 @@ setprop("/controls/shuttle/forces/srb2/force-lb", 0.0);
 }
 
 
+####################################################################################
+# Silent version of external tank separation, just does the job
+####################################################################################
+
+var external_tank_separate_silent = func {
+
+setprop("/controls/shuttle/ET-static-model", 0);
+
+
+setprop("/consumables/fuel/tank[0]/level-norm",0.0);
+
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 0.0);
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 0.0);
+
+# and set throttles to zero
+
+setprop("/controls/engines/engine[0]/throttle", 0.0);
+setprop("/controls/engines/engine[1]/throttle", 0.0);
+setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/controls/engines/engine[0]/status-hud", "X");
+setprop("/controls/engines/engine[1]/status-hud", "X");
+setprop("/controls/engines/engine[2]/status-hud", "X");
+
+setprop("/controls/engines/engine[0]/ignited-hud", " ");
+setprop("/controls/engines/engine[1]/ignited-hud", " ");
+setprop("/controls/engines/engine[2]/ignited-hud", " ");
+
+launch_message_flag = 5;
+
+settimer(control_to_rcs, 2.0);
+settimer(orbital_loop,2.0);
+
+
+}
+
+####################################################################################
+# Explicit external tank separation using submodels
+####################################################################################
+
 var external_tank_separate = func {
 
 if (SRB_message_flag < 2)
@@ -281,6 +353,14 @@ setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 0.0);
 
 setprop("/sim/messages/copilot", "External tank separation!");
+
+setprop("/controls/shuttle/ET-static-model", 0);
+
+# release the ballistic submodel
+# setprop("/ai/models/ballistic[2]/controls/slave-to-ac",0);
+
+
+
 
 # and set throttle to zero
 
@@ -699,13 +779,13 @@ setlistener("/gear/gear[1]/wow", func {slowdown_loop_start();},0,0);
 setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
 setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
 
-# since the SRBs and the ET are implemented as slaved ballistic submodels, we need to trigger their
+# since the SRBs  are implemented as slaved ballistic submodels, we need to trigger their
 # attachment - this apparently does not work if the parameter is simply set at startup
 # (nothing is ever easy) so we need to do it with a delay
 
 if (getprop("/sim/presets/stage") ==0)
 	{
-	settimer( func {setprop("/controls/shuttle/SRB-attach", 1);}, 1.0);
+	settimer( func {setprop("/controls/shuttle/SRB-attach", 1);}, 1.0);	
 	}
 
 
@@ -717,7 +797,7 @@ if (getprop("/position/altitude-ft") > 350000.0) # we start in orbit
 	settimer(set_speed, 0.5);
 	SRB_separate_silent();
 	gear_up();
-	external_tank_separate();
+	external_tank_separate_silent();
 	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
@@ -729,7 +809,7 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	settimer(set_speed, 0.5);
 	SRB_separate_silent();
 	gear_up();
-	external_tank_separate();
+	external_tank_separate_silent();
 	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
@@ -753,7 +833,7 @@ if (getprop("/sim/presets/stage") == 4) # we start with the final approach
 	settimer(set_speed, 0.5);
 	SRB_separate_silent();
 	gear_up();
-	external_tank_separate();
+	external_tank_separate_silent();
 	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
