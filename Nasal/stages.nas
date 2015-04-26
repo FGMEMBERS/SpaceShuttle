@@ -313,7 +313,7 @@ var switch_control_mode = func {
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
-if (current_mode == 1) 
+if ((current_mode == 1) or (current_mode == 20) or (current_mode == 21) or (current_mode == 22))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
 	setprop("/controls/shuttle/control-system-string", "RCS translation");
@@ -347,6 +347,16 @@ if (current_mode == 1)
 	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
 	}
 else if (current_mode == 20)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",21);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-B");
+	}
+else if (current_mode == 21)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",22);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT TAIL ONLY");
+	}
+else if (current_mode == 22)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
