@@ -181,14 +181,21 @@ setprop("/sim/messages/copilot", "Reduce throttle and prepare  orbital insertion
 
 var SRB_separate = func {
 
+setprop("/controls/shuttle/SRB-drop", 1);
+
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
+
+setprop("/consumables/fuel/tank[1]/level-norm",0.0);
+setprop("/consumables/fuel/tank[2]/level-norm",0.0);
 
 setprop("/controls/engines/engine[3]/status-hud", "X");
 setprop("/controls/engines/engine[4]/status-hud", "X");
 
 setprop("/controls/engines/engine[3]/ignited-hud", " ");
 setprop("/controls/engines/engine[4]/ignited-hud", " ");
+
+
 
 setprop("/sim/messages/copilot", "SRB separation!");
 setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
