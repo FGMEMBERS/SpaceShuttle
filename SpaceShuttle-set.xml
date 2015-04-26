@@ -318,22 +318,7 @@
             </config>
         </view>
 
-      
-
-
         <view n="100">
-            <name>HUD only</name>
-            <type>lookfrom</type>
-            <internal archive="y">true</internal>
-            <config>
-                <from-model type="bool">true</from-model>
-                <x-offset-m archive="y" type="double">0</x-offset-m>
-                <y-offset-m archive="y" type="double">4.94</y-offset-m>
-                <z-offset-m archive="y" type="double">-32.5</z-offset-m>
-            </config>
-        </view>
-
-  	<view n="101">
             <name>EVA</name>
             <type>lookfrom</type>
             <internal archive="y">true</internal>
@@ -345,6 +330,21 @@
 		<heading-offset-deg archive="y" type="double">180.0</heading-offset-deg>
             </config>
         </view>
+
+
+        <view n="101">
+            <name>HUD only</name>
+            <type>lookfrom</type>
+            <internal archive="y">true</internal>
+            <config>
+                <from-model type="bool">true</from-model>
+                <x-offset-m archive="y" type="double">0</x-offset-m>
+                <y-offset-m archive="y" type="double">4.94</y-offset-m>
+                <z-offset-m archive="y" type="double">-32.5</z-offset-m>
+            </config>
+        </view>
+
+
 
 
         <menubar>
