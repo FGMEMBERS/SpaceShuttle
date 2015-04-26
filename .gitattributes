@@ -109,6 +109,8 @@ Models/Parachutes/Main-Parachute.ac -text
 Models/Parachutes/test.xml -text
 Models/SpaceShuttle.xml -text
 Models/Stsheat.jpg -text svneol=unset#unset
+Models/cockpit.ac -text
+Models/cockpit.xml -text
 Models/et[!!-~]all.png -text svneol=unset#unset
 Models/et.ac -text
 Models/external-fuel-tank.xml -text
