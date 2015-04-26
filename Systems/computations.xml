@@ -109,5 +109,16 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/thermal/entry-flame-alpha">
+		<function>
+			<difference>
+			<product>
+				<property>systems/thermal/nose-temperature-F</property>
+				<value>0.001</value>
+			</product>
+			<value>2.0</value>
+			</difference>
+		</function>
+		</fcs_function>
 	</channel>
 </system>
