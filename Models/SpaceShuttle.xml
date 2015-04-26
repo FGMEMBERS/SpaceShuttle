@@ -521,6 +521,36 @@
 	</condition>
   </model>
 
+<!-- entry fire trail-->
+
+ <model>
+   <path>Aircraft/SpaceShuttle/Models/Effects/entry_flame.xml</path>
+    <offsets>
+		 <x-m>-10.0</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>-6.0</z-m>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>	
+  </model>
+
+<animation>
+  <object-name>re-entry-plasma</object-name>
+  <type>rotate</type>
+  <property>/orientation/pitch-deg</property>
+  <factor>-1.0</factor>
+  <offset-deg>0</offset-deg>
+  <center>
+   <x-m> 0.0</x-m>
+   <y-m> 0.0   </y-m>
+   <z-m> 0.0</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
 
 
   <!-- doors animation -->
