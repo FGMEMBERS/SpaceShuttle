@@ -128,6 +128,7 @@ Models/spstob_e.png -text svneol=unset#unset
 Models/srb.ac -text
 Models/srb_all.png -text svneol=unset#unset
 Nasal/dialogs.nas -text
+Nasal/limits.nas -text
 Nasal/stages.nas -text
 Sounds/SpaceShuttle-Sounds.xml -text
 Sounds/SpaceShuttleLaunchAudio.wav -text svneol=unset#unset
