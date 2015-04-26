@@ -105,13 +105,13 @@
 		</offsets>
 		<condition>
  		 <greater-than>
-+			<property>/consumables/fuel/tank/level-lbs</property>
+			<property>/consumables/fuel/tank/level-lbs</property>
  			<value>0</value>
  		 </greater-than>
  		</condition>
 </model>
 
-<model>
+<!--<model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
 		<offsets>
 			<x-m> -5.2 </x-m>
@@ -121,7 +121,7 @@
 		</offsets>
                 <condition>
  		 <greater-than>
-+			<property>/consumables/fuel/tank[1]/level-lbs</property>
+			<property>/consumables/fuel/tank[1]/level-lbs</property>
  			<value>0</value>
  		 </greater-than>
  		</condition>
@@ -137,18 +137,18 @@
 		</offsets>
 		<condition>
  		 <greater-than>
-+			<property>/consumables/fuel/tank[2]/level-lbs</property>
+			<property>/consumables/fuel/tank[2]/level-lbs</property>
  			<value>0</value>
  		 </greater-than>
  		</condition>
-</model>
+</model>-->
 
  
 
 
 <!-- SRB exhaust flame-->
 
- <model>
+<!-- <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
     <offsets>
 		 <x-m>14.5</x-m>
@@ -168,7 +168,7 @@
 		 <pitch-deg>0</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
-  </model>
+  </model>-->
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>

@@ -120,5 +120,40 @@
 			</difference>
 		</function>
 		</fcs_function>
+
+		<switch name="systems/various/srb-burning">
+			<default value="0.0"/>
+			<test value="1.0">
+				propulsion/engine[3]/thrust-lbs GT 100
+			</test>
+		</switch>	
+		
+		<kinematic name="systems/various/srb-flame-alpha">
+			<input>systems/various/srb-burning</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>4.0</time>
+				</setting>
+			</traverse>
+			<output>systems/various/srb-flame-alpha</output>
+		</kinematic>
+
+		<fcs_function name="systems/various/srb-flame-trail-alpha">
+		<function>
+			<product>
+				<property>systems/various/srb-flame-alpha</property>
+				<value>0.25</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+	
+		
 	</channel>
 </system>
