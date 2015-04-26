@@ -338,16 +338,49 @@ settimer(orbital_loop,2.0);
 }
 
 ####################################################################################
-# Explicit external tank separation using submodels
+# Explicit external tank separation using a Nasal controlled submodel
 ####################################################################################
 
 var external_tank_separate = func {
+
+# we can drop the tank only once
+if (getprop("/controls/shuttle/ET-static-model") == 0) {return;}
+
+# make sure the orbiter is not rotating
+	
+var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec");
+var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec");
+var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec");
+
+# safe rates for ET separation are
+# roll rate < 1.25 deg/s
+# pitch rate <0.5 deg/s
+# yaw rate < 0.5 deg/s
+
+#print("Checking limits!");
+
+if ((math.abs(pitch_rate) > 0.013089) or (math.abs(roll_rate) > 0.02181 ) or (math.abs(yaw_rate) > 0.013089)) 
+	{
+	setprop("/sim/messages/copilot", "Unsafe attitude for ET separation, reduce rotation rates.");	
+	return;
+	}
+
+force_external_tank_separate();
+
+}
+
+var force_external_tank_separate = func {
 
 if (SRB_message_flag < 2)
 	{	
 	setprop("/sim/messages/copilot", "Can't separate tank while SRBs are connected!");
 	return;
 	}
+
+
+
+# we can drop the tank only once
+if (getprop("/controls/shuttle/ET-static-model") == 0) {return;}
 
 setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 
@@ -380,7 +413,7 @@ setprop("/controls/engines/engine[2]/ignited-hud", " ");
 
 launch_message_flag = 5;
 
-settimer(control_to_rcs, 2.0);
+#settimer(control_to_rcs, 2.0);
 settimer(orbital_loop,2.0);
 }
 
@@ -460,6 +493,33 @@ settimer(orbital_loop, 1.0);
 
 
 
+
+var switch_major_control_mode = func {
+
+var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+
+if ((current_mode == 0) or (current_mode == 10))
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+	setprop("/controls/shuttle/control-system-string", "RCS rotation");
+	}
+else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22))
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
+	setprop("/controls/shuttle/control-system-string", "RCS / Aero");
+	}
+else if (current_mode == 3)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",4);	
+	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+	}
+else if (current_mode == 4)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",0);
+	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring (gimbal)");	
+	}
+	
+}
 
 
 var switch_control_mode = func {
@@ -649,6 +709,7 @@ var current_state = getprop("/controls/shuttle/parachute");
 if (current_state == 0)
 	{
 	setprop("/controls/shuttle/parachute",1);
+	SpaceShuttle.check_limits_touchdown();
 	}
 if (current_state == 1)
 	{
@@ -829,7 +890,7 @@ if (getprop("/position/altitude-ft") > 350000.0) # we start in orbit
 	settimer(set_speed, 0.5);
 	SRB_separate_silent();
 	gear_up();
-	external_tank_separate_silent();
+	if (getprop("/sim/presets/stage") == 2) {external_tank_separate_silent();}
 	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);

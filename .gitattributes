@@ -1,6 +1,7 @@
 * text=auto !eol
 Dialogs/MapOfEarth.png -text svneol=unset#unset
 Dialogs/entry_guidance.xml -text
+Dialogs/limits.xml -text
 Dialogs/propellant.xml -text
 Engines/OMS.xml -text
 Engines/OMS_nozzle.xml -text

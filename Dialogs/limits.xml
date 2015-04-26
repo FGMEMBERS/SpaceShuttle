@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>limits</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Limits and failures</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Limit simulation</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+
+   	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>limit-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/gui/dialogs/SpaceShuttle/limits/limit-mode</property>
+		 <value>soft</value>
+		 <value>realistic</value>
+		 <value>hard</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>limit-selection</object-name>
+        	 </binding>
+      	</combo>
+
+</group>
+
+<group> 
+<layout>table</layout>
+
+    <textbox>
+      <name>basic description</name>
+      <halign>fill</halign>
+      <stretch>true</stretch>
+      <pref-width>250</pref-width>
+      <pref-height>100</pref-height>
+      <slider>0</slider>
+      <editable>false</editable>
+      <wrap>true</wrap>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/limits/limit-mode-description</property>
+    </textbox>
+
+
+</group>
+
+
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
