@@ -538,6 +538,16 @@
     <input>
         <keyboard>
 
+  	<key n="68">
+                <name>D</name>
+                <desc>test ET</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.init_tank()</script>
+                </binding>
+            </key>
+
             <key n="69">
                 <name>E</name>
                 <desc>start/finish EVA</desc>

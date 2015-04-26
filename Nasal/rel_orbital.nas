@@ -1,10 +1,26 @@
+###########################################################################
+# this file contains several techniques to maintain other objects in orbit
+# 
+# * shuttle-relative coordinate management (for EVA view)
+# * independently computed simple ballistic FDM (for tank)
+# (* analytic Kepler orbit)
+###########################################################################
+
+
 var etState = {};
 var evaState = {};
-#var dummy_handler = {};
+var etCoord = {};
+var etModel = {};
 
 var eva_loop_flag = 0;
+var tank_loop_flag = 0;
+var delta_lon = 0.0;
 
-#view.manager.register("EVA", dummy_handler);
+var ft_to_m = 0.30480;
+var m_to_ft = 1.0/ft_to_m;
+var earth_rotation_deg_s = 0.0041666666666666;
+
+var offset_vec = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -31,13 +47,15 @@ var stateVector = {
 
 		var dt = getprop("/sim/time/delta-sec");
 
+		me.x = me.x + me.vx * dt + 0.5 * ax * dt * dt;
+		me.y = me.y + me.vy * dt + 0.5 * ay * dt * dt;
+		me.z = me.z + me.vz * dt + 0.5 * az * dt * dt;
+
 		me.vx = me.vx + ax * dt;
 		me.vy = me.vy + ay * dt;
 		me.vz = me.vz + az * dt;
 	
-		me.x = me.x + me.vx * dt;
-		me.y = me.y + me.vy * dt;
-		me.z = me.z + me.vz * dt;
+		
 
 		me.yaw_rate = me.yaw_rate + a_yaw * dt;
 		me.pitch_rate = me.pitch_rate + a_pitch * dt;
@@ -89,6 +107,11 @@ append(out, z1);
 return out;
 }
 
+
+###########################################################################
+# EVA control routines
+###########################################################################
+
 var toggle_EVA = func {
 
 if (getprop("/sim/current-view/name") != "EVA")
@@ -99,7 +122,23 @@ if (getprop("/sim/current-view/name") != "EVA")
 var control = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
 if ((control != 50) and (control != 51))
-	{start_EVA();}
+	{
+	# make sure the orbiter is not rotating
+	
+	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec");
+	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec");
+	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec");
+
+	if ((math.abs(pitch_rate) < 0.000174) and (math.abs(roll_rate) < 0.000174) and (math.abs(yaw_rate) < 0.000174)) 
+		{
+		start_EVA();
+		}
+	else
+		{
+		setprop("/sim/messages/copilot", "Null orbiter rotation rates before spacewalk!");
+		return;
+		}
+	}
 
 else
 	{
@@ -227,47 +266,186 @@ if (eva_loop_flag == 1) {settimer(EVA_loop, 0.0);}
 }
 
 
+###########################################################################
+# external tank control routines
+###########################################################################
+
+
+var place_model = func(path, lat, lon, alt, heading, pitch, roll) {
+
+
+
+var m = props.globals.getNode("models", 1);
+		for (var i = 0; 1; i += 1)
+			if (m.getChild("model", i, 0) == nil)
+				break;
+var model = m.getChild("model", i, 1);
+
+
+
+setprop("/controls/shuttle/et-ballistic/latitude-deg", lat);
+setprop("/controls/shuttle/et-ballistic/longitude-deg", lon);
+setprop("/controls/shuttle/et-ballistic/elevation-ft", alt);
+setprop("/controls/shuttle/et-ballistic/heading-deg", heading);
+setprop("/controls/shuttle/et-ballistic/pitch-deg", pitch);
+setprop("/controls/shuttle/et-ballistic/roll-deg", roll);
+
+
+var etmodel = props.globals.getNode("/controls/shuttle/et-ballistic", 1);
+var latN = etmodel.getNode("latitude-deg",1);
+var lonN = etmodel.getNode("longitude-deg",1);
+var altN = etmodel.getNode("elevation-ft",1);
+var headN = etmodel.getNode("heading-deg",1);
+var pitchN = etmodel.getNode("pitch-deg",1);
+var rollN = etmodel.getNode("roll-deg",1);
+
+
+
+model.getNode("path", 1).setValue(path);
+model.getNode("latitude-deg-prop", 1).setValue(latN.getPath());
+model.getNode("longitude-deg-prop", 1).setValue(lonN.getPath());
+model.getNode("elevation-ft-prop", 1).setValue(altN.getPath());
+model.getNode("heading-deg-prop", 1).setValue(headN.getPath());
+model.getNode("pitch-deg-prop", 1).setValue(pitchN.getPath());
+model.getNode("roll-deg-prop", 1).setValue(rollN.getPath());
+model.getNode("load", 1).remove();
+
+
+return model;
+}
+
+
+
+
 var init_tank = func {
+
+
+# make sure the orbiter is not rotating
+	
+var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec");
+var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec");
+var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec");
+
+# safe rates for ET separation are
+# roll rate < 1.25 deg/s
+# pitch rate <0.5 deg/s
+# yaw rate < 0.5 deg/s
+
+if ((math.abs(pitch_rate) > 0.013089) and (math.abs(roll_rate) > 0.02181 ) and (math.abs(yaw_rate) > 0.013089)) 
+	{
+	setprop("/sim/messages/copilot", "Unsafe attitude for ET separation, reduce rotation rates.");	
+	return;
+	}
+
 
 var pitch = getprop("/orientation/pitch-deg");
 var yaw =getprop("/orientation/heading-deg");
 var roll = getprop("/orientation/roll-deg");
 
-etState = stateVector.new (0,0.0,0,0.0,0.0,0.0,yaw, pitch, roll);
 
 
-setprop("/controls/shuttle/orbital/tank-pitch-deg", 0.0);
-setprop("/controls/shuttle/orbital/tank-yaw-deg", 0.0);
-setprop("/controls/shuttle/orbital/tank-roll-deg", 0.0);
+etCoord = geo.aircraft_position() ;
 
-#print (etState.pitch);
+print(etCoord.x(), " ", etCoord.y, " ", etCoord.z);
 
-#settimer(update_tank,2.0);
 
-update_tank();
+etState = stateVector.new (etCoord.x(),etCoord.y(),etCoord.z(),0,0,0,yaw, pitch, roll);
+
+etModel = place_model("Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml", etCoord.lat(), etCoord.lon(), etCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+# seems we need small offsets in velocity to get a small separation velocity
+# this looks odd but the error we need to correct is actually a function
+# of the framerate, so we need to include dt here
+# what we do is to pre-empt the correction here and during the first two frames compute
+# it explicitly so that the tank is always at rest when the shuttle pushes off
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+# now we always push the the orbiter away from the tank
+
+var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
+setprop("/controls/flight/elevator", 1);
+
+settimer( func{
+	setprop("/controls/flight/elevator", 0);
+	setprop("/fdm/jsbsim/systems/fcs/control-mode", 1);
+
+	}, 3.0);
+
+settimer(func { 
+		etState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		etState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		etState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		tank_loop_flag = 1;
+		update_tank(); },0);
 }
 
 var update_tank = func {
 
-#print("Hello");
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec");
 
-var pitch = getprop("/orientation/pitch-deg");
-var yaw = getprop("/orientation/heading-deg");
-var roll = getprop("/orientation/roll-deg");
 
-setprop("/controls/shuttle/orbital/tank-pitch-deg", pitch - etState.pitch );
-setprop("/controls/shuttle/orbital/tank-yaw-deg", yaw- etState.yaw);
-setprop("/controls/shuttle/orbital/tank-roll-deg", roll - etState.roll);
 
-var accx = -getprop("/fdm/jsbsim/accelerations/a-pilot-x-ft_sec2") * 0.3048;
-var accy = getprop("/fdm/jsbsim/accelerations/a-pilot-y-ft_sec2") * 0.3048;
-var accz = getprop("/fdm/jsbsim/accelerations/a-pilot-z-ft_sec2") * 0.3048;
 
-etState.update(accx,accy,accz,0.0,0.0,0.0);
 
-setprop("/controls/shuttle/orbital/tank-x-m", etState.x);
-setprop("/controls/shuttle/orbital/tank-y-m", etState.y);
-setprop("/controls/shuttle/orbital/tank-z-m", etState.z);
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
 
-settimer(update_tank,0.0);
+var G = [etState.x, etState.y, etState.z]; 
+var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
+var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048;
+G[0] = -G[0]/Gnorm * g;
+G[1] = -G[1]/Gnorm * g;
+G[2] = -G[2]/Gnorm * g;
+
+etState.update(G[0], G[1], G[2], 0.0,0.0,0.0);
+etCoord.set_xyz(etState.x, etState.y, etState.z);
+etCoord.set_lon(etCoord.lon() - delta_lon);
+
+if (tank_loop_flag < 3)
+	{
+	if (tank_loop_flag ==1)
+		{
+		offset_vec = [etCoord.x()-shuttleCoord.x(), etCoord.y()-shuttleCoord.y(),etCoord.z()-shuttleCoord.z()];
+		}
+	if (tank_loop_flag == 2)
+		{
+		var offset1_vec = [etCoord.x()-shuttleCoord.x(), etCoord.y()-shuttleCoord.y(),etCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec[0]) / dt, (offset1_vec[1] - offset_vec[1]) / dt, (offset1_vec[2] - offset_vec[2]) / dt];
+		print(v_offset_vec[0], " ", v_offset_vec[1], " ", v_offset_vec[2]);
+
+		offset_vec = offset1_vec;
+		etState.vx = etState.vx - v_offset_vec[0];
+		etState.vy = etState.vy - v_offset_vec[1];
+		etState.vz = etState.vz - v_offset_vec[2];
+
+		}
+	tank_loop_flag = tank_loop_flag + 1;
+
+
+	}
+
+
+setprop("/controls/shuttle/et-ballistic/latitude-deg", etCoord.lat());
+setprop("/controls/shuttle/et-ballistic/longitude-deg", etCoord.lon());
+setprop("/controls/shuttle/et-ballistic/elevation-ft", etCoord.alt() * m_to_ft);
+
+var dist = shuttleCoord.distance_to(etCoord);
+
+if (dist > 5000.0) 
+	{
+	print ("ET simulation ends");
+	etModel.remove();
+	tank_loop_flag = 0;
+	}
+
+if (tank_loop_flag >0 ) {settimer(update_tank,0.0);}
 }

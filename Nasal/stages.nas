@@ -358,9 +358,9 @@ setprop("/sim/messages/copilot", "External tank separation!");
 
 setprop("/controls/shuttle/ET-static-model", 0);
 
-# release the ballistic submodel
-# setprop("/ai/models/ballistic[2]/controls/slave-to-ac",0);
+# release the Nasal-computed ballistic model
 
+SpaceShuttle.init_tank();
 
 
 
