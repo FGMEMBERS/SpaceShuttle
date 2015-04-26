@@ -11,6 +11,9 @@
 		
 <offsets>
   <heading-deg>-180</heading-deg>
+	<x-m>-10.0</x-m>
+	<y-m>0.0</y-m>
+	<z-m>-10.0</z-m>
 </offsets>  
 
  <animation>
@@ -18,7 +21,7 @@
  </animation>
 
 <!-- position -->
-	<animation>
+<!--	<animation>
   	<type>translate</type>
   	<property>/controls/shuttle/orbital/tank-x-m</property>
   	<axis>
@@ -46,11 +49,11 @@
    		<y>0</y>
    		<z>1</z>
   	</axis>
- 	</animation>	
+ 	</animation>	-->
 
 
 <!-- pitch -->
-      <animation>
+ <!--     <animation>
         <type>rotate</type>
         <property>/controls/shuttle/orbital/tank-pitch-deg</property>
         <factor>1.0</factor>
@@ -66,7 +69,7 @@
         </axis>
       </animation>
 
-      <!-- roll -->
+
       <animation>
         <type>rotate</type>
         <property>/controls/shuttle/orbital/tank-roll-deg</property>
@@ -84,7 +87,7 @@
       </animation>
 
 
-   <!-- yaw -->
+
       <animation>
         <type>rotate</type>
         <property>/controls/shuttle/orbital/tank-yaw-deg</property>
@@ -99,7 +102,7 @@
           <y>0</y>
           <z>1</z>
         </axis>
-      </animation>
+      </animation>-->
 
   
 
