@@ -131,6 +131,9 @@ Models/spstob_4.png -text svneol=unset#unset
 Models/spstob_e.png -text svneol=unset#unset
 Models/srb.ac -text
 Models/srb_all.png -text svneol=unset#unset
+Models/tranbg.png -text svneol=unset#unset
+Nasal/PFD/PFD.svg -text
+Nasal/PFD/PFD_main.nas -text
 Nasal/dialogs.nas -text
 Nasal/entry_guidance.nas -text
 Nasal/limits.nas -text
