@@ -67,12 +67,12 @@ var Nx = getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm");
 
 if ((Nx > 3.9) or (Nx < -0.5))
 	{
-	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	#setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
 	fail_flag = 1;
 	}
 else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
+	#setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
 	Nx_warn = 1;
 	settimer(func {Nx_warn = 0;}, 10.0);
 	}

@@ -44,6 +44,10 @@
 	<value>Vandenberg Air Force Base</value>
 	<value>Kennedy Space Center</value>
 	<value>Edwards Air Force Base</value>
+	<value>White Sands Space Harbor</value>
+	<value>Zaragoza Airport</value>
+	<value>RAF Fairford</value>
+	<value>Banjul International Airport</value>
         <binding>
           <command>dialog-apply</command>
           <object-name>site-selection</object-name>

@@ -95,7 +95,7 @@
         	<position type="float">0</position>
       </door>
       <parachute type="int">0</parachute>
-      <control-system-string type="string">Thrust Vectoring</control-system-string>
+      <control-system-string type="string">Thrust Vectoring (gimbal)</control-system-string>
       <hud-mode>0</hud-mode>
       <gear-string>up</gear-string>
       <speedbrake-string>in</speedbrake-string>

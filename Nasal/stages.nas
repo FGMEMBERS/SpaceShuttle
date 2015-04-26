@@ -323,6 +323,16 @@ else if (current_mode ==2)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
+else if (current_mode ==0)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",10);
+	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring");	
+	}
+else if (current_mode ==10)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",0);
+	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring (gimbal)");	
+	}
 	
 }
 
