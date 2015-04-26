@@ -129,7 +129,8 @@ Models/spstob_2.png -text svneol=unset#unset
 Models/spstob_3.png -text svneol=unset#unset
 Models/spstob_4.png -text svneol=unset#unset
 Models/spstob_e.png -text svneol=unset#unset
-Models/srb-falling.xml -text
+Models/srb-left.xml -text
+Models/srb-right.xml -text
 Models/srb.ac -text
 Models/srb_all.png -text svneol=unset#unset
 Models/submodels.xml -text
