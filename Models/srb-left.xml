@@ -14,11 +14,21 @@
   <roll-deg>-90</roll-deg>
 </offsets>  
 
+<animation>
+<type>select</type>
+<object-name>srb</object-name>
+<condition>
+	<not>
+		<property>/controls/shuttle/SRB-static-model</property>
+		<value>1</value>
+	</not>
+</condition>
+</animation>
 
 <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
     <offsets>
-		 <x-m>-10.0</x-m>
+		 <x-m>-14.5</x-m>
 		 <y-m>0</y-m>
 		 <z-m>0</z-m>
 		 <pitch-deg>180</pitch-deg>

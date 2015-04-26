@@ -29,6 +29,7 @@
 		<function>	
 			<product>
 			<pow>
+			<max>
 			<product>
 				<pow>
 					<property>velocities/u-aero-fps</property>
@@ -39,6 +40,8 @@
 					<value>0.1</value>
 				</pow>
 			</product>
+			<value>0.0</value>
+			</max>
 			<value>0.25</value>
 			</pow>
 			<table>
