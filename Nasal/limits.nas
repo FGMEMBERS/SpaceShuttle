@@ -139,7 +139,7 @@ else if ((pitch > 14.0) and (tailscrape_warn == 0))
 
 var vspeed = getprop("/velocities/vertical-speed-fps");
 
-if (vspeed > 9.0) 
+if (vspeed < -9.0) 
 	{
 	setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");
 	fail_flag = 1;
@@ -152,6 +152,16 @@ var pitch_rate = getprop("orientation/pitch-rate-degps");
 if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
 	{
 	setprop("/sim/messages/copilot", "Derotation exceeds nose wheel structural limits!");
+	fail_flag = 1;
+	}
+
+# drag chute pin fails for airspeed > 230 kt upon deployment
+
+var airspeed = getprop("/velocities/airspeed-kt");
+
+if ((airspeed > 230.0) and (getprop("/controls/shuttle/parachute") >0 ))
+	{
+	setprop("/sim/messages/copilot", "Above drag chute deployment speed!");
 	fail_flag = 1;
 	}
 
