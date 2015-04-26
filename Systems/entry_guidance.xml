@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Entry groundtrack guidance">
+
+	<switch name="systems/entry_guidance/guidance-active">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/entry_guidance/guidance-mode == 1
+			</test>
+	</switch>
+
+	
+	<fcs_function name="systems/entry_guidance/aero-deceleration-g">
+		<function>
+		<quotient>
+			<pow>
+				<sum>
+				<pow>
+					<property>forces/fbx-aero-lbs</property>
+					<value>2.0</value>				
+				</pow>
+				<pow>
+					<property>forces/fby-aero-lbs</property>
+					<value>2.0</value>				
+				</pow>
+				<pow>
+					<property>forces/fbz-aero-lbs</property>
+					<value>2.0</value>				
+				</pow>
+				</sum>
+				<value>0.5</value>
+			</pow>			
+			<property>inertia/weight-lbs</property>
+		</quotient>
+		</function>		
+	</fcs_function>
+
+	<fcs_function name="systems/entry_guidance/ground-relative-velocity-fps">
+		<function>
+		<pow>
+			<sum>
+				<pow>
+					<property>velocities/v-east-fps</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>velocities/v-north-fps</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+		</pow>
+		</function>
+	</fcs_function>
+
+	<fcs_function name="systems/entry_guidance/groundtrack-course-deg-raw">
+		<function>
+		<product>
+			<atan2>
+					<property>velocities/v-east-fps</property>
+					<property>velocities/v-north-fps</property>
+			</atan2>
+		<value>57.2957</value>
+		</product>
+		</function>
+	</fcs_function>
+
+	<switch name="systems/entry_guidance/groundtrack-course-adjust">
+			<default value="0.0"/>
+			<test  value="360.0">
+				systems/entry_guidance/groundtrack-course-deg-raw LT 0
+			</test>
+	</switch>
+	
+	<fcs_function name="systems/entry_guidance/groundtrack-course-deg">
+		<function>
+			<sum>
+				<property>systems/entry_guidance/groundtrack-course-adjust</property>
+				<property>systems/entry_guidance/groundtrack-course-deg-raw</property>
+			</sum>
+		</function>
+	</fcs_function>
+
+
+	<fcs_function name="systems/entry_guidance/target-deceleration-g">
+		<function>
+		<product>
+			<quotient>
+			<difference>
+			<quotient>
+			<product>
+				<difference>
+					<property>systems/entry_guidance/ground-relative-velocity-fps</property>
+					<value>2500.0</value>
+				</difference>
+				<property>systems/entry_guidance/ground-relative-velocity-fps</property>
+			</product>
+			<max>
+				<product>
+				<difference>
+					<property>systems/entry_guidance/remaining-distance-nm</property>
+					<value>60.0</value>
+				</difference>
+				<value>6080.0</value>
+				</product>
+				<value>100.0</value>
+			</max>
+			</quotient>
+			<quotient>
+			<pow>
+				<difference>
+					<property>systems/entry_guidance/ground-relative-velocity-fps</property>
+					<value>2500.0</value>
+				</difference>
+				<value>2.0</value>
+			</pow>
+			<max>
+				<product>
+				<difference>
+					<property>systems/entry_guidance/remaining-distance-nm</property>
+					<value>60.0</value>
+				</difference>
+				<value>6080.0</value>
+				<value>2.0</value>
+				</product>
+				<value>100.0</value>
+			</max>
+			</quotient>
+			</difference>
+			<value>29.90088</value>
+			</quotient>
+			<property>systems/entry_guidance/guidance-active</property>
+		</product>
+		</function>
+	</fcs_function>
+
+	<fcs_function name="systems/entry_guidance/delta-azimuth-deg">
+		<function>
+			<product>
+			<difference>
+				<property>systems/entry_guidance/groundtrack-course-deg</property>
+				<property>systems/entry_guidance/target-azimuth-deg</property>
+			</difference>
+			<property>systems/entry_guidance/guidance-active</property>
+			</product>
+		</function>
+	</fcs_function>
+
+	
+
+		
+
+	</channel>
+</system>
+

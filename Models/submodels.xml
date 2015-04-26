@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<PropertyList>
+
+<submodel>
+  <name>SRB-left-submodel</name>
+  <model>Aircraft/SpaceShuttle/Models/srb-left.xml</model>
+  <trigger>/controls/shuttle/SRB-attach</trigger>
+  <repeat>false</repeat>
+  <count>1</count>
+  <speed>30.0</speed>
+  <wind>false</wind>
+  <aero-stabilised>true</aero-stabilised>
+  <eda>1.42</eda>
+  <cd>0.75</cd>
+  <weight>181881.0</weight>
+  <x-offset>17.06</x-offset>
+  <y-offset>-20.83</y-offset>
+  <z-offset>-34.77</z-offset>
+  <pitch-offset>0</pitch-offset>
+  <yaw-offset>0</yaw-offset>
+  <life>100</life>
+  <delay>0</delay>
+  <impact>false</impact>
+  <slaved>true</slaved>
+  <external-force>true</external-force>
+  <force-path>/controls/shuttle/forces/srb1</force-path>
+</submodel>
+
+<submodel>
+  <name>SRB-right-submodel</name>
+  <model>Aircraft/SpaceShuttle/Models/srb-right.xml</model>
+  <trigger>/controls/shuttle/SRB-attach</trigger>
+  <repeat>false</repeat>
+  <count>1</count>
+  <speed>30.0</speed>
+  <wind>false</wind>
+  <aero-stabilised>true</aero-stabilised>
+  <eda>1.42</eda>
+  <cd>0.75</cd>
+  <weight>181881.0</weight>
+  <x-offset>17.06</x-offset>
+  <y-offset> 20.83</y-offset>
+  <z-offset>-34.77</z-offset>
+  <pitch-offset>0</pitch-offset>
+  <yaw-offset>0</yaw-offset>
+  <life>100</life>
+  <delay>0</delay>
+  <impact>false</impact>
+  <slaved>true</slaved>
+  <external-force>true</external-force>
+  <force-path>/controls/shuttle/forces/srb2</force-path>
+</submodel>
+
+
+</PropertyList>
