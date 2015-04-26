@@ -10,7 +10,7 @@
   </simulation>
   <systems>
 	<entry_guidance>
-		<guidance-mode type="int">1</guidance-mode>
+		<guidance-mode type="int">0</guidance-mode>
 		<target-azimuth-deg type="float">0.0</target-azimuth-deg>
 		<remaining-distance-nm type="float">0.0</remaining-distance-nm>
 	</entry_guidance>
@@ -267,6 +267,35 @@
    </config>
 </view>
 
+<view n="100">
+   <name>HUD only</name>
+   <type>lookfrom</type>
+   <internal archive="y">true</internal>
+   <config>
+    <from-model type="bool">true</from-model>
+    <x-offset-m archive="y" type="double">0</x-offset-m>
+    <y-offset-m archive="y" type="double">4.94</y-offset-m>
+    <z-offset-m archive="y" type="double">-32.5</z-offset-m>
+   </config>
+</view>
+
+
+<menubar>
+	<default>
+		<menu n="50">
+			<label>Space Shuttle</label>
+					<item n="0">
+						<label>Entry Guidance</label>
+						<binding>
+							<command>nasal</command>
+							<script>SpaceShuttle.entry_guidance_dlg.open()</script>
+						</binding>
+					</item>  
+
+		</menu>
+	</default>
+  </menubar>    
+
 <chase-distance-m type="double" archive="y">-65.0</chase-distance-m>
 
 <help>
@@ -491,7 +520,9 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 
 
    </keyboard>
-  </input>                     
+  </input>    
+
+             
   
 
  <payload>

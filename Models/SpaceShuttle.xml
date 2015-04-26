@@ -1,6 +1,21 @@
 <PropertyList>
 	<path>shuttle_o2.ac</path>
 
+   
+   <!-- heat shield glow -->
+
+  <animation>
+    <type>material</type>
+   <object-name>heatshield</object-name>	
+   <emission>
+      <factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
+      <red>   1.0 </red>
+      <green> 0.2 </green>
+      <blue>  0.1 </blue>
+    </emission>
+  </animation>
+
+
 
     <!-- ******************************************************************* -->
     <!-- Cockpit                                                             -->
