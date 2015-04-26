@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
-<!-- Orbiter (Space Shuttle) taken from KuhnIndustries http://www.blendswap.com/blends/view/74692 
+<!-- STS (Space Shuttle) Cockpit model based on Chris Kuhn's excellent mesh : ref KuhnIndustries  http://www.blendswap.com/blends/view/74692 
+     under licence Creative Commons. http://creativecommons.org/licenses/by/3.0/
      Flightgear version by Richard Harrison; rjh@zaretto.com 2015-04-06 -->
 
 <PropertyList>
