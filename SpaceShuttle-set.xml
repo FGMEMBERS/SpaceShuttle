@@ -241,9 +241,23 @@
   <view n="0">
    <internal archive="y">true</internal>
    <config>
-    <x-offset-m archive="y" type="double">0</x-offset-m>
-    <y-offset-m archive="y" type="double">4.94</y-offset-m>
-    <z-offset-m archive="y" type="double">-32.5</z-offset-m>
+    <x-offset-m archive="y" type="double">-0.653125</x-offset-m>
+    <y-offset-m archive="y" type="double">-0.1708984375</y-offset-m>
+    <z-offset-m archive="y" type="double">-11.6</z-offset-m>
+       <default-field-of-view-deg>75</default-field-of-view-deg>
+       <limits>
+           <enabled type="bool">false</enabled>
+           <!--<left>
+               <heading-max-deg type="double">140</heading-max-deg>
+               <x-offset-max-m type="double">0.20</x-offset-max-m>
+               <x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
+           </left>
+           <right>
+               <heading-max-deg type="double">140</heading-max-deg>
+               <x-offset-max-m type="double">0.20</x-offset-max-m>
+               <x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
+           </right>-->
+       </limits>
    </config>
 </view>
 
