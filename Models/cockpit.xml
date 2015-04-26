@@ -6,4 +6,27 @@
 
 <PropertyList>
     <path>cockpit.ac</path>
+    <animation>
+        <object-name>DisplayL1</object-name>
+        <type>material</type>
+        <condition>
+            <!--<greater-than>
+                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+                <value>0</value>
+            </greater-than>-->
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode</factor-prop>
+            <red>  1.000</red>
+            <green>0.576</green>
+            <blue> 0.161</blue>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+
 </PropertyList>
