@@ -2254,10 +2254,11 @@
     </direction>
   </force>
  </external_reactions> 
- <!-- Parachute -->
+
  
  <system file="orbital_parameters"></system>
  <system file="rcs_control"></system>
  <system file="computations"></system>
+ <system file="entry_guidance"></system>
  
 </fdm_config>
