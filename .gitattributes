@@ -1,4 +1,5 @@
 * text=auto !eol
+Dialogs/MapOfEarth.png -text svneol=unset#unset
 Dialogs/entry_guidance.xml -text
 Dialogs/propellant.xml -text
 Engines/OMS.xml -text
@@ -132,6 +133,7 @@ Models/srb_all.png -text svneol=unset#unset
 Nasal/dialogs.nas -text
 Nasal/entry_guidance.nas -text
 Nasal/limits.nas -text
+Nasal/map.nas -text
 Nasal/stages.nas -text
 Sounds/SpaceShuttle-Sounds.xml -text
 Sounds/SpaceShuttleLaunchAudio.wav -text svneol=unset#unset
