@@ -2,6 +2,43 @@
 
 <system>
 
+
+	<channel name="DAP modes">
+		<switch name="systems/fcs/dap-master">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 20
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs/pitch-rate-error">
+		<function>
+			<difference>
+				<property>velocities/q-rad_sec</property>
+				<product>
+  					<property>fcs/elevator-pos-norm</property>
+					<value>-0.05</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+	
+		<pid name="systems/rcs/dap-pitch">
+			<input>systems/rcs/pitch-rate-error</input>
+			<kp> 15.0 </kp>
+			<ki> 0.5 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/rcs/dap-pitch-cmd</output>
+		</pid>
+
+
+	</channel>
+
+
 	<channel name="RCS controls">
 
 		<!-- zero all unused thrusters -->
@@ -31,9 +68,8 @@
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 1
-			</test>
-			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
 			</test>
 		</switch>
 
@@ -62,12 +98,22 @@
 
 		<fcs_function name="systems/rcs/elevator-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/elevator-cmd-norm</property>
-				<abs>
-					<property>fcs/elevator-cmd-norm</property>
-				</abs>
+					<abs>
+						<property>fcs/elevator-cmd-norm</property>
+					</abs>
 				</product>
+				<product>
+					<property>systems/fcs/dap-master</property>
+					<property>systems/rcs/dap-pitch-cmd</property>
+				</product>
+				</sum>
 			</function>
 		</fcs_function>
 
@@ -163,7 +209,7 @@
 		<switch name="systems/rcs/nose-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/rcs/elevator-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -182,7 +228,7 @@
 		<switch name="systems/rcs/nose-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/rcs/elevator-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -203,7 +249,7 @@
 		<switch name="systems/rcs/pod1-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/rcs/elevator-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -224,7 +270,7 @@
 		<switch name="systems/rcs/pod2-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/rcs/elevator-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -244,7 +290,7 @@
 		<switch name="systems/rcs/pod1-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/rcs/elevator-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -265,7 +311,7 @@
 		<switch name="systems/rcs/pod2-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/rcs/elevator-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 

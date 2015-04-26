@@ -948,7 +948,7 @@
 
   <switch name="Disable airfoil pitch if thrust vectoring is used">
 			<default value="1.0"/>
-			<test logic="OE" value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
 			</test>
