@@ -198,9 +198,9 @@ var reset_view = func {
 	setprop("/sim/current-view/pitch-offset-deg", 0.0);
 	setprop("/sim/current-view/yaw-offset-deg", 180.0);
 	setprop("/sim/current-view/roll-offset-deg", 0.0);
-	setprop("/sim/view[101]/config/heading-offset-deg",180.0);
-	setprop("/sim/view[101]/config/pitch-offset-deg", 0.0);
-	setprop("/sim/view[101]/config/roll-offset-deg", 0.0);
+	setprop("/sim/view[100]/config/heading-offset-deg",180.0);
+	setprop("/sim/view[100]/config/pitch-offset-deg", 0.0);
+	setprop("/sim/view[100]/config/roll-offset-deg", 0.0);
 }
 
 var EVA_loop = func {
@@ -250,9 +250,9 @@ setprop("/sim/current-view/y-offset-m", evaState.z);
 setprop("/sim/current-view/x-offset-m", evaState.y);
 setprop("/sim/current-view/z-offset-m", evaState.x);
 
-setprop("/sim/view[101]/config/heading-offset-deg", evaState.yaw);
-setprop("/sim/view[101]/config/pitch-offset-deg", evaState.pitch);
-setprop("/sim/view[101]/config/roll-offset-deg", evaState.roll);
+setprop("/sim/view[100]/config/heading-offset-deg", evaState.yaw);
+setprop("/sim/view[100]/config/pitch-offset-deg", evaState.pitch);
+setprop("/sim/view[100]/config/roll-offset-deg", evaState.roll);
 
 setprop("/sim/current-view/heading-offset-deg", evaState.yaw);
 setprop("/sim/current-view/pitch-offset-deg", evaState.pitch);
@@ -342,6 +342,7 @@ var pitch = getprop("/orientation/pitch-deg");
 var yaw =getprop("/orientation/heading-deg");
 var roll = getprop("/orientation/roll-deg");
 
+var lon = getprop("/position/longitude-deg");
 
 
 etCoord = geo.aircraft_position() ;
@@ -349,7 +350,7 @@ etCoord = geo.aircraft_position() ;
 print(etCoord.x(), " ", etCoord.y, " ", etCoord.z);
 
 
-etState = stateVector.new (etCoord.x(),etCoord.y(),etCoord.z(),0,0,0,yaw, pitch, roll);
+etState = stateVector.new (etCoord.x(),etCoord.y(),etCoord.z(),0,0,0,yaw, pitch - lon, roll);
 
 etModel = place_model("Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml", etCoord.lat(), etCoord.lon(), etCoord.alt() * m_to_ft, yaw,pitch,roll);
 
@@ -427,16 +428,25 @@ if (tank_loop_flag < 3)
 		etState.vy = etState.vy - v_offset_vec[1];
 		etState.vz = etState.vz - v_offset_vec[2];
 
+		etCoord.set_xyz(shuttleCoord.x(), shuttleCoord.y(), shuttleCoord.z());
+		etCoord.set_lon(etCoord.lon() + delta_lon);
+
+		etState.x = etCoord.x();
+		etState.y = etCoord.y();
+		etState.z = etCoord.z();
+
+		etCoord.set_lon(etCoord.lon() - delta_lon);
 		}
 	tank_loop_flag = tank_loop_flag + 1;
 
 
 	}
 
-
+var lon = getprop("/position/longitude-deg");
 setprop("/controls/shuttle/et-ballistic/latitude-deg", etCoord.lat());
 setprop("/controls/shuttle/et-ballistic/longitude-deg", etCoord.lon());
 setprop("/controls/shuttle/et-ballistic/elevation-ft", etCoord.alt() * m_to_ft);
+setprop("/controls/shuttle/et-ballistic/pitch-deg", etState.pitch + lon);
 
 var dist = shuttleCoord.distance_to(etCoord);
 
