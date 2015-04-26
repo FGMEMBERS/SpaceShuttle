@@ -1,0 +1,994 @@
+<?xml version="1.0"?>
+
+<system>
+	<channel name="CoG-pointing pitch and yaw angles of engines">
+
+ 		  <fcs_function name="Pitch SSME 1 2 to CoG">
+			<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>-136.0</value>
+					<property>inertia/cg-z-in</property>
+
+				</difference>
+				<difference>
+					<value>700.0</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[0]/pitch-to-CoG</output>
+			<output>propulsion/engine[1]/pitch-to-CoG</output>
+   		</fcs_function>
+
+
+
+   		<fcs_function name="Pitch SSME 3 to CoG">
+			<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>-39.4</value>
+					<property>inertia/cg-z-in</property>
+				</difference>
+				<difference>
+					<value>700.0</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[2]/pitch-to-CoG</output>
+   		</fcs_function>
+
+   		<fcs_function name="Pitch SRB 1 2 to CoG">
+			<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>-417.32</value>
+					<property>inertia/cg-z-in</property>
+				</difference>
+				<difference>
+					<value>720.0</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[3]/pitch-to-CoG</output>
+			<output>propulsion/engine[4]/pitch-to-CoG</output>
+		   </fcs_function>
+
+	
+
+  		 <fcs_function name="Pitch OMS 1 2 to CoG">
+			<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>16.17</value>
+					<property>inertia/cg-z-in</property>
+				</difference>
+				<difference>
+					<value>700.0</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[5]/pitch-angle-rad</output>
+			<output>propulsion/engine[6]/pitch-angle-rad</output>
+   		</fcs_function>
+
+		<fcs_function name="Yaw SSME 1 to CoG">
+		 <function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>-53.0</value>
+					<property>inertia/cg-y-in</property>
+				</difference>
+				<difference>
+					<value>700</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[0]/yaw-to-CoG</output>
+   		</fcs_function>
+
+ 		<fcs_function name="Yaw SSME 2 to CoG">
+ 		<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>53.0</value>
+					<property>inertia/cg-y-in</property>
+				</difference>
+				<difference>
+					<value>700</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[1]/yaw-to-CoG</output>
+   		</fcs_function>
+
+  		<fcs_function name="Yaw OMS 1 to CoG">
+  		<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>-60.0</value>
+					<property>inertia/cg-y-in</property>
+				</difference>
+				<difference>
+					<value>700</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[5]/yaw-angle-rad</output>
+   		</fcs_function>
+
+  		<fcs_function name="Yaw OMS 2 to CoG">
+  		<function>
+			<product>
+			<value>-1.0</value>	
+			<atan>
+				<quotient>
+				<difference>
+					<value>60.0</value>
+					<property>inertia/cg-y-in</property>
+				</difference>
+				<difference>
+					<value>700</value>
+					<property>inertia/cg-x-in</property>
+				</difference>
+				</quotient>
+			</atan>
+			</product>
+   			</function>
+			<output>propulsion/engine[6]/yaw-angle-rad</output>
+   		</fcs_function>
+	</channel>
+
+
+
+	<channel name="Thrust vectoring with engine gimbal control">	
+
+		<switch name="systems/vectoring/vectoring-gimbal-master">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/control-mode == 0
+			</test>
+		</switch>
+
+		<aerosurface_scale name= "Pitch thrust command SSME 1">
+		   <input>fcs/elevator-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+ 		  <domain>
+  		      <min> -1.0 </min>
+  		      <max>  1.0 </max>
+ 		  </domain>
+ 		  <range>
+  		      <min> -0.17 </min>
+   		     <max>  0.17 </max>
+  		 </range>
+  		 <output>propulsion/engine[0]/SSME-pitch</output>
+		 </aerosurface_scale>
+
+		  <aerosurface_scale name= "Pitch thrust command SSME 2">
+ 		  <input>fcs/elevator-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+  		 <domain>
+   		     <min> -1.0 </min>
+   		     <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+    		    <min> -0.17 </min>
+   		     <max>  0.17 </max>
+  		 </range>
+  		 <output>propulsion/engine[1]/SSME-pitch</output>
+ 		</aerosurface_scale>
+
+ 		 <aerosurface_scale name= "Pitch thrust command SSME 3">
+  		 <input>fcs/elevator-pos-norm</input>
+  		 <zero_centered>false</zero_centered>
+  		 <domain>
+   		     <min> -1.0 </min>
+   		     <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+    		    <min> -0.17 </min>
+    		    <max>  0.17 </max>
+  		 </range>
+  		 <output>propulsion/engine[2]/SSME-pitch</output>
+		 </aerosurface_scale>
+
+ 		 <aerosurface_scale name= "Pitch thrust command SRB 1">
+  		 <input>fcs/elevator-pos-norm</input>
+   		<zero_centered>false</zero_centered>
+  		 <domain>
+   		     <min> -1.0 </min>
+   		     <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+   	    	    <min> -0.14 </min>
+    		    <max>  0.14 </max>
+  		 </range>
+  		 <output>propulsion/engine[3]/SRB-pitch</output>
+ 		</aerosurface_scale> 
+
+ 		 <aerosurface_scale name= "Pitch thrust command SRB 2">
+ 		  <input>fcs/elevator-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+ 		  <domain>
+ 		       <min> -1.0 </min>
+ 		       <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+  		      <min> -0.14 </min>
+  		      <max>  0.14 </max>
+  		 </range>
+ 		  <output>propulsion/engine[4]/SRB-pitch</output>
+ 		</aerosurface_scale> 
+
+		<aerosurface_scale name= "Roll thrust command SSME 1">
+ 		  <input>fcs/left-aileron-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+  		 <domain>
+ 		      <min> -1.0 </min>
+  		      <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+   		     <min> -0.17 </min>
+   		     <max>  0.17 </max>
+  		 </range>
+  		 <output>propulsion/engine[0]/SSME-roll</output>
+		 </aerosurface_scale>
+
+  		<aerosurface_scale name= "Roll thrust command SSME 2">
+  		 <input>fcs/right-aileron-pos-norm</input>
+   		<zero_centered>false</zero_centered>
+  		 <domain>
+    		    <min> -1.0 </min>
+     		   <max>  1.0 </max>
+ 		  </domain>
+ 		  <range>
+   		     <min> 0.17 </min>
+      		  <max> -0.17 </max>
+  		 </range>
+ 		  <output>propulsion/engine[1]/SSME-roll</output>
+		 </aerosurface_scale>
+
+		 <summer name="SSME 1 roll Sum">
+ 		     <input>propulsion/engine[0]/SSME-pitch</input>
+   		   <input>propulsion/engine[0]/SSME-roll</input>
+    		  <input>propulsion/engine[0]/pitch-to-CoG</input>
+    		  <clipto>
+     		   <min> -0.45 </min>
+     		   <max>  -0.10 </max>
+    		  </clipto>
+			<output>propulsion/engine[0]/pitch-angle-rad-gsys</output>
+  		 </summer>
+
+		  <summer name="SSME 2 roll Sum">
+ 		     <input>propulsion/engine[1]/SSME-pitch</input>
+ 		     <input>propulsion/engine[1]/SSME-roll</input>
+  		    <input>propulsion/engine[1]/pitch-to-CoG</input>
+  		    <clipto>
+   		     <min> -0.45 </min>
+   		     <max>  -0.10 </max>
+  		    </clipto>
+			<output>propulsion/engine[1]/pitch-angle-rad-gsys</output>
+ 		  </summer>
+
+ 		 <summer name="SSME 3 roll Sum">
+  		    <input>propulsion/engine[2]/SSME-pitch</input>
+   		   <input>propulsion/engine[2]/pitch-to-CoG</input>
+   		   <clipto>
+   		     <min> -0.45 </min>
+   		     <max>  -0.10 </max>
+    		  </clipto>
+			<output>propulsion/engine[2]/pitch-angle-rad-gsys</output>
+  		 </summer>
+
+  		 <!-- roll commands for SSME 1 and 2 creates a yaw moment since they have a sum net pitch angle -->
+   		 <!-- this needs to be compensated -->
+		 <!-- in addition, this allows to implement failure modes -->
+
+
+		 <fcs_function name ="Thrust reduction correction SSME 1">
+			<function>
+				<product>
+					<min>
+					<quotient>
+					<cos>
+						<property>propulsion/engine[1]/pitch-angle-rad-gsys</property>
+					 </cos>
+					 <cos>
+						<property>propulsion/engine[0]/pitch-angle-rad-gsys</property>
+					 </cos>
+					</quotient>
+					<value>1.0</value>
+					</min>
+					<property>fcs/throttle-pos-norm[0]</property>
+					<property>systems/failures/ssme1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[0]</output>
+		 </fcs_function>
+
+		<fcs_function name ="Thrust reduction correction SSME 2">
+			<function>
+				<product>
+					<min>
+					<quotient>
+					<cos>
+						<property>propulsion/engine[0]/pitch-angle-rad-gsys</property>
+		 			</cos>
+					 <cos>
+						<property>propulsion/engine[1]/pitch-angle-rad-gsys</property>
+					 </cos>
+					</quotient>
+					<value>1.0</value>
+					</min>
+					<property>fcs/throttle-pos-norm[1]</property>
+					<property>systems/failures/ssme2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[1]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction SSME 3">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[2]</property>
+					<property>systems/failures/ssme3-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[2]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction OMS 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[5]</property>
+					<property>systems/failures/oms1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[5]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction OMS 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[6]</property>
+					<property>systems/failures/oms2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[6]</output>
+ 		</fcs_function>
+
+
+
+ 		 <aerosurface_scale name= "Roll thrust command SRB 1">
+  		<input>fcs/left-aileron-pos-norm</input>
+  		 <zero_centered>false</zero_centered>
+  		 <domain>
+  		      <min> -1.0 </min>
+  		      <max>  1.0 </max>
+ 		  </domain>
+  		 <range>
+    		    <min> -0.14 </min>
+   		     <max>  0.14 </max>
+ 		  </range>
+  		 <output>propulsion/engine[3]/SRB-roll</output>
+ 		</aerosurface_scale>
+
+ 		 <aerosurface_scale name= "Roll thrust command SRB 2">
+ 		  <input>fcs/right-aileron-pos-norm</input>
+  		 <zero_centered>false</zero_centered>
+  		 <domain>
+   		     <min> -1.0 </min>
+ 		       <max>  1.0 </max>
+ 		  </domain>
+  		 <range>
+ 		       <min> 0.14 </min>
+  		      <max>  -0.14 </max>
+  		 </range>
+  		 <output>propulsion/engine[4]/SRB-roll</output>
+ 		</aerosurface_scale>
+
+ 		 <summer name="SRB 1 roll Sum">
+   		   <input>propulsion/engine[3]/SRB-pitch</input>
+  		    <input>propulsion/engine[3]/SRB-roll</input>
+  		    <input>propulsion/engine[3]/pitch-to-CoG</input>
+  		    <clipto>
+   		     <min> -0.14 </min>
+    		    <max>  0.14 </max>
+     		 </clipto>
+			<output>propulsion/engine[3]/pitch-angle-rad-gsys</output>
+ 		  </summer>
+
+ 		<summer name="SRB 2 roll Sum">
+ 		     <input>propulsion/engine[4]/SRB-pitch</input>
+ 		     <input>propulsion/engine[4]/SRB-roll</input>
+  		    <input>propulsion/engine[4]/pitch-to-CoG</input>
+  		    <clipto>
+   		     <min> -0.14 </min>
+   		     <max>  0.14 </max>
+   		   </clipto>
+			<output>propulsion/engine[4]/pitch-angle-rad-gsys</output>
+ 		  </summer>
+
+		<aerosurface_scale name= "Yaw thrust command SRB 1">
+ 		  <input>fcs/rudder-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+  		 <domain>
+  		      <min> -1.0 </min>
+   		     <max>  1.0 </max>
+ 		  </domain>
+  		 <range>
+  		      <min> -0.14 </min>
+  		      <max>  0.14 </max>
+  		 </range>
+  		 <output>propulsion/engine[3]/yaw-angle-rad-gsys</output>
+ 		</aerosurface_scale> 
+
+		 <aerosurface_scale name= "Yaw thrust command SRB 2">
+ 		  <input>fcs/rudder-pos-norm</input>
+  		 <zero_centered>false</zero_centered>
+   		<domain>
+   		     <min> -1.0 </min>
+   		     <max>  1.0 </max>
+  		 </domain>
+  		 <range>
+  		      <min> -0.14 </min>
+  		      <max>  0.14 </max>
+ 		  </range>
+  		 <output>propulsion/engine[4]/yaw-angle-rad-gsys</output>
+ 		</aerosurface_scale> 
+
+ 
+
+		 <aerosurface_scale name= "Yaw thrust command SSME 1">
+ 		  <input>fcs/rudder-pos-norm</input>
+  		 <zero_centered>false</zero_centered>
+ 		  <domain>
+  		      <min> -1.0 </min>
+  		      <max>  1.0 </max>
+ 		  </domain>
+ 		  <!-- this is a hack, in reality the ET inertia reduces yaw response, but JSBSim can't-->
+  		 <!-- include extended tank inertia, so we limit it in the FCS by not using the full gimbal range-->
+  		 <!--<range>
+  		      <min> -0.17 </min>
+ 		       <max>  0.17 </max>
+		   </range>-->
+		  <range>
+ 		       <min> -0.05 </min>
+ 		       <max>  0.05 </max>
+		   </range>
+ 		  <output>propulsion/engine[0]/yaw-angle-rad-gsys</output>-
+		 </aerosurface_scale> 
+
+  		<summer name="SSME 1  yaw Sum">
+  		    <input>propulsion/engine[0]/yaw-angle-rad-gsys</input>
+  		    <input>propulsion/engine[0]/yaw-to-CoG</input>
+  		    <clipto>
+  		      <min> -0.1 </min>
+   		     <max>  0.2  </max>
+    		  </clipto>
+			<output>propulsion/engine[0]/yaw-angle-rad-gsys</output>
+  		 </summer>
+
+
+ 		<aerosurface_scale name= "Yaw thrust command SSME 2">
+ 		  <input>fcs/rudder-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+ 		  <domain>
+  		      <min> -1.0 </min>
+  		      <max>  1.0 </max>
+ 		  </domain>
+  		 <!--<range>
+  		      <min> -0.17 </min>
+  		      <max>  0.17 </max>
+  		 </range>-->
+  		 <range>
+   		     <min> -0.05 </min>
+   		     <max>  0.05 </max>
+  		 </range>
+  		 <output>propulsion/engine[1]/yaw-angle-rad-gsys</output>
+ 		</aerosurface_scale> 
+
+ 		<summer name="SSME 2  yaw Sum">
+ 		     <input>propulsion/engine[1]/yaw-angle-rad-gsys</input>
+  		    <input>propulsion/engine[1]/yaw-to-CoG</input>
+   		   <clipto>
+    		    <min> -0.2 </min>
+    		    <max>  0.1  </max>
+    		  </clipto>
+			<output>propulsion/engine[1]/yaw-angle-rad-gsys</output>
+  		 </summer>
+
+
+		 <aerosurface_scale name= "Yaw thrust command SSME 3">
+ 		  <input>fcs/rudder-pos-norm</input>
+ 		  <zero_centered>false</zero_centered>
+ 		  <domain>
+   		     <min> -1.0 </min>
+  		      <max>  1.0 </max>
+  		 </domain>
+   		<!--<range>
+   		     <min> -0.17 </min>
+    		    <max>  0.17 </max>
+   		</range>-->
+   		<range>
+    		    <min> -0.05 </min>
+    			    <max>  0.05 </max>
+  		 </range>
+  		 <output>propulsion/engine[2]/yaw-angle-rad-gsys</output>-
+		 </aerosurface_scale> 
+
+
+	</channel>
+
+
+
+
+	<channel name="Thrust Vectoring with rate control">
+
+		<!-- PID error control routines -->
+
+		<switch name="systems/vectoring/vectoring-rate-master">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/control-mode == 10
+			</test>
+		</switch>
+
+		<fcs_function name="systems/vectoring/pitch-rate-error">
+		<function>
+			<difference>
+				<property>velocities/q-rad_sec</property>
+				<product>
+  					<property>fcs/elevator-pos-norm</property>
+					<value>-0.1</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<pid name="systems/vectoring/SRB-pitch">
+			<input>systems/vectoring/pitch-rate-error</input>
+			<kp> 1.0 </kp>
+			<ki> 1.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.14 </min>
+        			<max>  0.14 </max>
+			</clipto>
+		</pid>
+
+		<pid name="systems/vectoring/SSME-pitch">
+			<input>systems/vectoring/pitch-rate-error</input>
+			<kp> 1.0 </kp>
+			<ki> 1.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.17 </min>
+        			<max>  0.17 </max>
+			</clipto>
+		</pid>
+
+		<fcs_function name="systems/vectoring/roll-rate-error">
+		<function>
+			<difference>
+				<property>velocities/p-rad_sec</property>
+				<product>
+  					<property>fcs/left-aileron-pos-norm</property>
+					<value>0.3</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<pid name="systems/vectoring/SRB-roll">
+			<input>systems/vectoring/roll-rate-error</input>
+			<kp> 2.0 </kp>
+			<ki> 0.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.14 </min>
+        			<max>  0.14 </max>
+			</clipto>
+		</pid>
+
+		<pid name="systems/vectoring/SSME-roll">
+			<input>systems/vectoring/roll-rate-error</input>
+			<kp> 2.0 </kp>
+			<ki> 0.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.17 </min>
+        			<max>  0.17 </max>
+			</clipto>
+		</pid>
+
+  		<pure_gain name="systems/vectoring/SRB-left-roll">
+			<input>systems/vectoring/SRB-roll</input>
+			<gain>-1.0</gain>
+   		</pure_gain>
+
+		<pure_gain name="systems/vectoring/SRB-right-roll">
+			<input>systems/vectoring/SRB-roll</input>
+			<gain>1.0</gain>
+   		</pure_gain>
+
+		<pure_gain name="systems/vectoring/SSME-left-roll">
+			<input>systems/vectoring/SSME-roll</input>
+			<gain>-1.0</gain>
+   		</pure_gain>
+
+		<pure_gain name="systems/vectoring/SSME-right-roll">
+			<input>systems/vectoring/SSME-roll</input>
+			<gain>1.0</gain>
+   		</pure_gain>
+
+
+		<fcs_function name="systems/vectoring/yaw-rate-error">
+		<function>
+			<difference>
+				<property>velocities/r-rad_sec</property>
+				<product>
+  					<property>fcs/rudder-pos-norm</property>
+					<value>-0.1</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/vectoring/SRB-yaw">
+			<input>systems/vectoring/yaw-rate-error</input>
+			<kp> 1.0 </kp>
+			<ki> 1.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.14 </min>
+        			<max>  0.14 </max>
+			</clipto>
+			<output>propulsion/engine[3]/yaw-angle-rad-rsys</output>
+			<output>propulsion/engine[4]/yaw-angle-rad-rsys</output>
+		</pid>
+
+		<pid name="systems/vectoring/SSME-yaw">
+			<input>systems/vectoring/yaw-rate-error</input>
+			<kp> 1.0 </kp>
+			<ki> 1.5 </ki>
+			<kd> 0.1</kd>
+			<clipto>
+				<min> -0.17 </min>
+        			<max>  0.17 </max>
+			</clipto>
+			<output>propulsion/engine[0]/yaw-angle-rad-rsys</output>
+			<output>propulsion/engine[1]/yaw-angle-rad-rsys</output>
+			<output>propulsion/engine[2]/yaw-angle-rad-rsys</output>
+		</pid>
+
+		<!-- summers for the individual contributions -->
+
+		<summer name="SRB 1 pitch motion sum">
+      			<input>systems/vectoring/SRB-pitch</input>
+     			<input>systems/vectoring/SRB-left-roll</input>
+      			<input>propulsion/engine[3]/pitch-to-CoG</input>
+      			<clipto>
+        			<min> -0.14 </min>
+        			<max>  0.14 </max>
+      			</clipto>
+			<output>propulsion/engine[3]/pitch-angle-rad-rsys</output>
+   		</summer>
+
+ 		<summer name="SRB 2 pitch motion sum">
+      			<input>systems/vectoring/SRB-pitch</input>
+      			<input>systems/vectoring/SRB-right-roll</input>
+      			<input>propulsion/engine[4]/pitch-to-CoG</input>
+      			<clipto>
+        			<min> -0.14 </min>
+        			<max>  0.14 </max>
+      			</clipto>
+			<output>propulsion/engine[4]/pitch-angle-rad-rsys</output>
+   		</summer>
+
+ 		<summer name="SSME 1 pitch motion Sum">
+      			<input>systems/vectoring/SSME-pitch</input>
+      			<input>systems/vectoring/SSME-left-roll</input>
+      			<input>propulsion/engine[0]/pitch-to-CoG</input>
+      			<clipto>
+        			<min> -0.45 </min>
+        			<max>  -0.10 </max>
+      			</clipto>
+			<output>propulsion/engine[0]/pitch-angle-rad-rsys</output>
+   		</summer>
+
+  		<summer name="SSME 2 pitch motion Sum">
+      			<input>systems/vectoring/SSME-pitch</input>
+      			<input>systems/vectoring/SSME-right-roll</input>
+      			<input>propulsion/engine[1]/pitch-to-CoG</input>
+      				<clipto>
+        			<min> -0.45 </min>
+        			<max>  -0.10 </max>
+      			</clipto>
+			<output>propulsion/engine[1]/pitch-angle-rad-rsys</output>
+   		</summer>
+
+  		<summer name="SSME 3 pitch motion Sum">
+      			<input>systems/vectoring/SSME-pitch</input>
+      			<input>propulsion/engine[2]/pitch-to-CoG</input>
+      			<clipto>
+        			<min> -0.45 </min>
+        			<max>  -0.10 </max>
+      			</clipto>
+			<output>propulsion/engine[2]/pitch-angle-rad-rsys</output>
+   		</summer>
+
+	</channel>
+
+
+	<channel name="Mapping of the commanded pitch angles to the actual value dependent on control mode">
+
+		<fcs_function name="fcs/pitch-ssme-1">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[0]/pitch-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[0]/pitch-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[0]/pitch-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/yaw/ssme-1">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[0]/yaw-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[0]/yaw-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[0]/yaw-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/pitch-ssme-2">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[1]/pitch-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[1]/pitch-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[1]/pitch-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/yaw-ssme-2">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[1]/yaw-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[1]/yaw-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[1]/yaw-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/pitch-ssme-3">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[2]/pitch-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[2]/pitch-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[2]/pitch-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/yaw-ssme-3">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[2]/yaw-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[2]/yaw-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[2]/yaw-angle-rad</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/pitch-srb-1">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[3]/pitch-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[3]/pitch-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[3]/pitch-angle-rad-cmd</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/yaw-srb-1">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[3]/yaw-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[3]/yaw-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[3]/yaw-angle-rad-cmd</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/pitch-srb-2">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[4]/pitch-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[4]/pitch-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[4]/pitch-angle-rad-cmd</output>
+		</fcs_function>
+
+		<fcs_function name="fcs/yaw-srb-2">
+			<function>
+				<sum>
+				<product>
+					<property>propulsion/engine[4]/yaw-angle-rad-rsys</property>
+					<property>systems/vectoring/vectoring-rate-master</property>
+				</product>
+				<product>
+					<property>propulsion/engine[4]/yaw-angle-rad-gsys</property>
+					<property>systems/vectoring/vectoring-gimbal-master</property>
+				</product>
+				</sum>				
+			</function>
+			<output>propulsion/engine[4]/yaw-angle-rad-cmd</output>
+		</fcs_function>
+
+		<!-- finite response time of the gimbal actuators -->
+
+		<kinematic name="fcs/pitch-srb-1-kin">
+			<input>propulsion/engine[3]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[3]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-srb-1-kin">
+			<input>propulsion/engine[3]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[3]/yaw-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/pitch-srb-2-kin">
+			<input>propulsion/engine[4]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[4]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-srb-2-kin">
+			<input>propulsion/engine[4]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-0.14</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>0.14</position>
+					<time>0.05</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[4]/yaw-angle-rad</output>
+		</kinematic>
+
+
+	</channel>
+</system>

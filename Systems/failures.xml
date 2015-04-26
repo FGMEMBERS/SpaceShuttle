@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Gear and tire damage simulation">
+
+	<!-- rolling friction adjustments for blown tires -->
+
+		<switch name="systems/failures/tire-nose-friction">
+			<default value="0.02"/>
+			<test value="0.1">
+				systems/failures/tire-nose-condition == 0.0
+			</test>
+			<output> gear/unit[0]/rolling_friction_coeff </output>
+		</switch>
+
+		<switch name="systems/failures/tire-left-friction">
+			<default value="0.02"/>
+			<test value="0.1">
+				systems/failures/tire-left-condition == 0.0
+			</test>
+			<output> gear/unit[1]/rolling_friction_coeff </output>
+		</switch>
+
+		<switch name="systems/failures/tire-right-friction">
+			<default value="0.02"/>
+			<test value="0.1">
+				systems/failures/tire-right-condition == 0.0
+			</test>
+			<output> gear/unit[2]/rolling_friction_coeff </output>
+		</switch>
+
+	<!-- contact point position adjustment for damaged gear struts -->
+
+		<switch name="systems/failures/gearstrut-nose-position">
+			<default value="gear/unit[0]/z-position"/>
+			<test value="-219.0">
+				systems/failures/gearstrut-nose-condition == 0.0
+			</test>
+			<output> gear/unit[0]/z-position </output>
+		</switch>
+
+		<switch name="systems/failures/gearstrut-left-position">
+			<default value="gear/unit[1]/z-position"/>
+			<test value="-229.0">
+				systems/failures/gearstrut-left-condition == 0.0
+			</test>
+			<output> gear/unit[1]/z-position </output>
+		</switch>
+
+		<switch name="systems/failures/gearstrut-right-position">
+			<default value="gear/unit[2]/z-position"/>
+			<test value="-229">
+				systems/failures/gearstrut-right-condition == 0.0
+			</test>
+			<output> gear/unit[2]/z-position </output>
+		</switch>		
+	
+	<!-- friction adjustment for damaged gear struts -->
+
+		<switch name="systems/failures/gearstrut-nose-friction">
+			<default value="gear/unit[0]/rolling_friction_coeff"/>
+			<test value="0.4">
+				systems/failures/gearstrut-nose-condition == 0.0
+			</test>
+			<output> gear/unit[0]/rolling_friction_coeff </output>
+		</switch>
+
+		<switch name="systems/failures/gearstrut-left-friction">
+			<default value="gear/unit[1]/rolling_friction_coeff"/>
+			<test value="0.4">
+				systems/failures/gearstrut-left-condition == 0.0
+			</test>
+			<output> gear/unit[1]/rolling_friction_coeff </output>
+		</switch>
+
+		<switch name="systems/failures/gearstrut-right-friction">
+			<default value="gear/unit[2]/rolling_friction_coeff"/>
+			<test value="0.4">
+				systems/failures/gearstrut-right-condition == 0.0
+			</test>
+			<output> gear/unit[2]/rolling_friction_coeff </output>
+		</switch>
+
+		
+
+
+	</channel>
+
+</system>
