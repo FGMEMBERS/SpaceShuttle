@@ -160,6 +160,7 @@ Systems/computations.xml -text
 Systems/entry_guidance.xml -text
 Systems/orbital_parameters.xml -text
 Systems/rcs_control.xml -text
+Systems/thrust_vectoring.xml -text
 /shuttle.xml -text
 /shuttle_Earthview.png -text svneol=unset#unset
 /thumbnail.jpg -text svneol=unset#unset

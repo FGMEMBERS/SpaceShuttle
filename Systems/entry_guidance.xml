@@ -99,7 +99,10 @@
 			</product>
 			<max>
 				<product>
-				<property>systems/entry_guidance/remaining-distance-nm</property>
+				<difference>
+					<property>systems/entry_guidance/remaining-distance-nm</property>
+					<value>60.0</value>
+				</difference>
 				<value>6080.0</value>
 				</product>
 				<value>100.0</value>
@@ -115,7 +118,10 @@
 			</pow>
 			<max>
 				<product>
-				<property>systems/entry_guidance/remaining-distance-nm</property>
+				<difference>
+					<property>systems/entry_guidance/remaining-distance-nm</property>
+					<value>60.0</value>
+				</difference>
 				<value>6080.0</value>
 				<value>2.0</value>
 				</product>
