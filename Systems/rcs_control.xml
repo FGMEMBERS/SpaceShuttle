@@ -10,6 +10,7 @@
 	<!-- 20: RCS DAP-A - precision attitude hold, stick controls rate -->
 	<!-- 21: RCS DAP-B - propellant conserving attitude hold, stick controls rate -->
 	<!-- 22: RCS ROT TAIL ONLY - nose thrusters are off, stick controls thrust --> 
+	<!-- 23: RCS ROT NOSE ONLY - tail pod thrusters are off, stick controls thrust -->
 
 
 	<channel name="DAP modes">
@@ -244,6 +245,7 @@
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
 			</test>
 		</switch>
 
@@ -258,6 +260,13 @@
 			<default value="1.0"/>
 			<test value="0.0">
 				systems/fcs/control-mode == 22
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-tail-active">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 23
 			</test>
 		</switch>
 	
@@ -1262,6 +1271,7 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-up-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[7]</output>
@@ -1276,6 +1286,7 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-down-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[8]</output>
@@ -1289,6 +1300,7 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-left-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[9]</output>
@@ -1302,6 +1314,7 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-right-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[10]</output>
@@ -1315,6 +1328,7 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-fwd-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[11]</output>
@@ -1324,10 +1338,14 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-up">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-up-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-up-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[12]</output>
 		</fcs_function>
@@ -1335,30 +1353,42 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-down">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-down-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[13]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod1-left">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-left-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-left-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[14]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod1-back">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-back-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-back-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[16]</output>
 		</fcs_function>
@@ -1366,10 +1396,14 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-up">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-up-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-up-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[17]</output>
 		</fcs_function>
@@ -1377,30 +1411,42 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-down">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-down-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[18]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod2-right">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-right-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-right-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[20]</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod2-back">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-back-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-back-condition</property>
+			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[21]</output>
 		</fcs_function>

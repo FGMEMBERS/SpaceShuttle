@@ -11,72 +11,106 @@
             <systems>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
-                    <target-azimuth-deg type="float">0.0</target-azimuth-deg>
-                    <remaining-distance-nm type="float">0.0</remaining-distance-nm>
+                    <target-azimuth-deg type="double">0.0</target-azimuth-deg>
+                    <remaining-distance-nm type="double">0.0</remaining-distance-nm>
                 </entry_guidance>
-
+		<failures>
+		    <ssme1-condition type="double">1.0</ssme1-condition>
+		    <ssme2-condition type="double">1.0</ssme2-condition>
+		    <ssme3-condition type="double">1.0</ssme3-condition>
+		    <srb1-condition type="double">1.0</srb1-condition>
+		    <srb2-condition type="double">1.0</srb2-condition>
+		    <oms1-condition type="double">1.0</oms1-condition>
+		    <oms2-condition type="double">1.0</oms2-condition>
+		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
+		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
+		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
+		    <rcs-nose-right-condition type="double">1.0</rcs-nose-right-condition>
+		    <rcs-nose-fwd-condition type="double">1.0</rcs-nose-fwd-condition>
+		    <rcs-pod1-down-condition type="double">1.0</rcs-pod1-down-condition>
+		    <rcs-pod1-up-condition type="double">1.0</rcs-pod1-up-condition>
+		    <rcs-pod1-left-condition type="double">1.0</rcs-pod1-left-condition>
+		    <rcs-pod1-back-condition type="double">1.0</rcs-pod1-back-condition>
+		    <rcs-pod2-down-condition type="double">1.0</rcs-pod2-down-condition>
+		    <rcs-pod2-up-condition type="double">1.0</rcs-pod2-up-condition>
+		    <rcs-pod2-right-condition type="double">1.0</rcs-pod2-right-condition>
+		    <rcs-pod2-back-condition type="double">1.0</rcs-pod2-back-condition>
+		    <airfoils-pitch-condition type="double">1.0</airfoils-pitch-condition>
+		    <airfoils-yaw-condition type="double">1.0</airfoils-yaw-condition>
+		    <airfoils-roll-condition type="double">1.0</airfoils-roll-condition>
+		    <aero-structure-condition type="double">1.0</aero-structure-condition>
+		    <controls-condition type="double">1.0</controls-condition>
+		    <speedbrake-condition type="double">1.0</speedbrake-condition>
+		    <speedbrake-control type="int">1.0</speedbrake-control>
+		    <drag-chute-condition type="double">1.0</drag-chute-condition>
+		    <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
+		    <tire-nose-condition type="double">1.0</tire-nose-condition>
+		    <tire-left-condition type="double">1.0</tire-left-condition>
+		    <tire-right-condition type="double">1.0</tire-right-condition>
+		    <tps-condition type="double">1.0</tps-condition>
+		</failures>
                 <orbital>
-                    <gm type="float">14.07644180e15</gm>
-                    <semimajor-axis-length-ft type="float">0.0</semimajor-axis-length-ft>
-                    <eccentricity type="float">0.0</eccentricity>
-                    <apoapsis-ft type="float">0.0</apoapsis-ft>
-                    <apoapsis-km type="float">0.0</apoapsis-km>
-                    <apoapsis-indicated-km type="float">0.0</apoapsis-indicated-km>
-                    <apoapsis-hunderds-km type="float">0.0</apoapsis-hunderds-km>
-                    <apoapsis-tens-km type="float">0.0</apoapsis-tens-km>
-                    <apoapsis-ones-km type="float">0.0</apoapsis-ones-km>
-                    <periapsis-ft type="float">0.0</periapsis-ft>
-                    <periapsis-km type="float">0.0</periapsis-km>
-                    <periapsis-indicated-km type="float">0.0</periapsis-indicated-km>
-                    <periapsis-hunderds-km type="float">0.0</periapsis-hunderds-km>
-                    <periapsis-tens-km type="float">0.0</periapsis-tens-km>
-                    <periapsis-ones-km type="float">0.0</periapsis-ones-km>
+                    <gm type="double">14.07644180e15</gm>
+                    <semimajor-axis-length-ft type="double">0.0</semimajor-axis-length-ft>
+                    <eccentricity type="double">0.0</eccentricity>
+                    <apoapsis-ft type="double">0.0</apoapsis-ft>
+                    <apoapsis-km type="double">0.0</apoapsis-km>
+                    <apoapsis-indicated-km type="double">0.0</apoapsis-indicated-km>
+                    <apoapsis-hunderds-km type="double">0.0</apoapsis-hunderds-km>
+                    <apoapsis-tens-km type="double">0.0</apoapsis-tens-km>
+                    <apoapsis-ones-km type="double">0.0</apoapsis-ones-km>
+                    <periapsis-ft type="double">0.0</periapsis-ft>
+                    <periapsis-km type="double">0.0</periapsis-km>
+                    <periapsis-indicated-km type="double">0.0</periapsis-indicated-km>
+                    <periapsis-hunderds-km type="double">0.0</periapsis-hunderds-km>
+                    <periapsis-tens-km type="double">0.0</periapsis-tens-km>
+                    <periapsis-ones-km type="double">0.0</periapsis-ones-km>
                 </orbital>
                 <fcs>
-                    <parachute_reef_pos_norm type="float"> 0 </parachute_reef_pos_norm>
+                    <parachute_reef_pos_norm type="double"> 0 </parachute_reef_pos_norm>
                     <control-mode type="int"> 0 </control-mode>
                     <rcs-pitch-mode type="int">1</rcs-pitch-mode>
                     <rcs-roll-mode type="int">1</rcs-roll-mode>
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
                 </fcs>
                 <rcs>
-                    <pod1-up-fire-roll type="float">0.0</pod1-up-fire-roll>
-                    <pod1-up-raw-pitch type="float">0.0</pod1-up-raw-pitch>
-                    <pod1-up-raw-roll type="float">0.0</pod1-up-raw-roll>
-                    <pod1-up-raw type="float">0.0</pod1-up-raw>
-                    <thrust-pod1-up type="float">0.0</thrust-pod1-up>
+                    <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
+                    <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
+                    <pod1-up-raw-roll type="double">0.0</pod1-up-raw-roll>
+                    <pod1-up-raw type="double">0.0</pod1-up-raw>
+                    <thrust-pod1-up type="double">0.0</thrust-pod1-up>
 
-                    <pod2-up-fire-roll type="float">0.0</pod2-up-fire-roll>
-                    <pod2-up-raw-pitch type="float">0.0</pod2-up-raw-pitch>
-                    <pod2-up-raw-roll type="float">0.0</pod2-up-raw-roll>
-                    <pod2-up-raw type="float">0.0</pod2-up-raw>
-                    <thrust-pod2-up type="float">0.0</thrust-pod2-up>
+                    <pod2-up-fire-roll type="double">0.0</pod2-up-fire-roll>
+                    <pod2-up-raw-pitch type="double">0.0</pod2-up-raw-pitch>
+                    <pod2-up-raw-roll type="double">0.0</pod2-up-raw-roll>
+                    <pod2-up-raw type="double">0.0</pod2-up-raw>
+                    <thrust-pod2-up type="double">0.0</thrust-pod2-up>
 
-                    <pod1-down-fire-roll type="float">0.0</pod1-down-fire-roll>
-                    <pod1-down-raw-pitch type="float">0.0</pod1-down-raw-pitch>
-                    <pod1-down-raw-roll type="float">0.0</pod1-down-raw-roll>
-                    <pod1-down-raw type="float">0.0</pod1-down-raw>
-                    <thrust-pod1-down type="float">0.0</thrust-pod1-down>
+                    <pod1-down-fire-roll type="double">0.0</pod1-down-fire-roll>
+                    <pod1-down-raw-pitch type="double">0.0</pod1-down-raw-pitch>
+                    <pod1-down-raw-roll type="double">0.0</pod1-down-raw-roll>
+                    <pod1-down-raw type="double">0.0</pod1-down-raw>
+                    <thrust-pod1-down type="double">0.0</thrust-pod1-down>
 
-                    <pod2-down-fire-roll type="float">0.0</pod2-down-fire-roll>
-                    <pod2-down-raw-pitch type="float">0.0</pod2-down-raw-pitch>
-                    <pod2-down-raw-roll type="float">0.0</pod2-down-raw-roll>
-                    <pod2-down-raw type="float">0.0</pod2-down-raw>
-                    <thrust-pod2-down type="float">0.0</thrust-pod2-down>
+                    <pod2-down-fire-roll type="double">0.0</pod2-down-fire-roll>
+                    <pod2-down-raw-pitch type="double">0.0</pod2-down-raw-pitch>
+                    <pod2-down-raw-roll type="double">0.0</pod2-down-raw-roll>
+                    <pod2-down-raw type="double">0.0</pod2-down-raw>
+                    <thrust-pod2-down type="double">0.0</thrust-pod2-down>
 
-                    <nose-up-fire-roll type="float">0.0</nose-up-fire-roll>
-                    <nose-up-raw-pitch type="float">0.0</nose-up-raw-pitch>
-                    <nose-up-raw-roll type="float">0.0</nose-up-raw-roll>
-                    <nose-up-raw type="float">0.0</nose-up-raw>
-                    <thrust-nose-up type="float">0.0</thrust-nose-up>
+                    <nose-up-fire-roll type="double">0.0</nose-up-fire-roll>
+                    <nose-up-raw-pitch type="double">0.0</nose-up-raw-pitch>
+                    <nose-up-raw-roll type="double">0.0</nose-up-raw-roll>
+                    <nose-up-raw type="double">0.0</nose-up-raw>
+                    <thrust-nose-up type="double">0.0</thrust-nose-up>
 
-                    <nose-down-fire-roll type="float">0.0</nose-down-fire-roll>
-                    <nose-down-raw-pitch type="float">0.0</nose-down-raw-pitch>
-                    <nose-down-raw-roll type="float">0.0</nose-down-raw-roll>
-                    <nose-down-raw type="float">0.0</nose-down-raw>
-                    <thrust-nose-down type="float">0.0</thrust-nose-down>
+                    <nose-down-fire-roll type="double">0.0</nose-down-fire-roll>
+                    <nose-down-raw-pitch type="double">0.0</nose-down-raw-pitch>
+                    <nose-down-raw-roll type="double">0.0</nose-down-raw-roll>
+                    <nose-down-raw type="double">0.0</nose-down-raw>
+                    <thrust-nose-down type="double">0.0</thrust-nose-down>
 
-                    <thrust-normalizer type="float">0.0</thrust-normalizer>
+                    <thrust-normalizer type="double">0.0</thrust-normalizer>
                 </rcs>
             </systems>
         </jsbsim>
@@ -583,6 +617,7 @@
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
 

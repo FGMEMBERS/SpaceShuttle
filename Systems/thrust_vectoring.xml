@@ -323,7 +323,8 @@
   		 </summer>
 
   		 <!-- roll commands for SSME 1 and 2 creates a yaw moment since they have a sum net pitch angle -->
-   		<!-- this needs to be compensated -->
+   		 <!-- this needs to be compensated -->
+		 <!-- in addition, this allows to implement failure modes -->
 
 
 		 <fcs_function name ="Thrust reduction correction SSME 1">
@@ -341,6 +342,7 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[0]</property>
+					<property>systems/failures/ssme1-condition</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[0]</output>
@@ -361,9 +363,40 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[1]</property>
+					<property>systems/failures/ssme2-condition</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[1]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction SSME 3">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[2]</property>
+					<property>systems/failures/ssme3-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[2]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction OMS 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[5]</property>
+					<property>systems/failures/oms1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[5]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust reduction correction OMS 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[6]</property>
+					<property>systems/failures/oms2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[6]</output>
  		</fcs_function>
 
 
