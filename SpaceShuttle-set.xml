@@ -9,6 +9,12 @@
    	<gravitational-torque type="bool">true</gravitational-torque>
   </simulation>
   <systems>
+	<entry_guidance>
+		<guidance-mode type="int">1</guidance-mode>
+		<target-azimuth-deg type="float">0.0</target-azimuth-deg>
+		<remaining-distance-nm type="float">0.0</remaining-distance-nm>
+	</entry_guidance>
+
     	<orbital>
 		<gm type="float">14.07644180e15</gm>
 		<semimajor-axis-length-ft type="float">0.0</semimajor-axis-length-ft>
@@ -504,6 +510,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
       <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
       <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
       <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
+      <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
     </SpaceShuttle> 
     
   </nasal>

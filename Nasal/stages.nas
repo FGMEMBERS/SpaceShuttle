@@ -348,7 +348,7 @@ if ((qbar > 10.0) and (deorbit_stage_flag == 0))
 	deorbit_stage_flag = 1;
 	}
 
-if ((qbar > 20.0) and   (deorbit_stage_flag == 1))
+if ((qbar > 40.0) and   (deorbit_stage_flag == 1))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/rcs-pitch-mode", 0);
 	setprop("/sim/messages/copilot", "Pitch control to aero.");
@@ -370,6 +370,8 @@ if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 	setprop("/controls/shuttle/hud-mode",3);
 	return;
 	}
+
+SpaceShuttle.update_entry_guidance();
 
 settimer(deorbit_loop,1.0);
 }
@@ -455,6 +457,20 @@ print(getprop("/position/altitude-ft"));
 settimer(log_loop,0.0);
 }
 
+
+var geotest= func {
+var pos1 = geo.Coord.new();
+pos1.set_latlon(45.0,-100.0,1000.0);
+
+var pos2 = geo.Coord.new();
+pos2.set_latlon(45.0,20.0,1000.0);
+
+var d = pos1.distance_to(pos2);
+
+var course = pos1.course_to(pos2);
+print ("Distance: ", d, "Course: ", course);
+
+}
 
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
