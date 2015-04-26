@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -31,5 +29,27 @@
     <life> 600 </life>
     <randomness>1.0</randomness>
   </submodel>
+
+<submodel>
+  <name>SRB-submodel</name>
+  <model>Aircraft/SpaceShuttle/Models/srb-falling.xml</model>
+  <trigger>/controls/shuttle/SRB-drop</trigger>
+  <repeat>true</repeat>
+  <count>2</count>
+  <speed>0</speed>
+  <wind>false</wind>
+  <aero-stabilised>true</aero-stabilised>
+  <eda>1.42</eda>
+  <cd>0.75</cd>
+  <weight>500</weight>
+  <x-offset>-5.2</x-offset>
+  <y-offset>-6.35</y-offset>
+  <z-offset>-10.6</z-offset>
+  <pitch-offset>0</pitch-offset>
+  <yaw-offset>0</yaw-offset>
+  <life>900</life>
+  <delay>0</delay>
+  <impact>false</impact>
+</submodel>
 
 </PropertyList>

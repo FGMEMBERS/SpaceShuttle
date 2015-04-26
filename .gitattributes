@@ -129,8 +129,10 @@ Models/spstob_2.png -text svneol=unset#unset
 Models/spstob_3.png -text svneol=unset#unset
 Models/spstob_4.png -text svneol=unset#unset
 Models/spstob_e.png -text svneol=unset#unset
+Models/srb-falling.xml -text
 Models/srb.ac -text
 Models/srb_all.png -text svneol=unset#unset
+Models/submodels.xml -text
 Models/tranbg.png -text svneol=unset#unset
 Nasal/PFD/PFD.svg -text
 Nasal/PFD/PFD_main.nas -text
