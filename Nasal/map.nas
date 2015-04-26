@@ -6,6 +6,7 @@ var graph = {};
 var samples = [];
 var history = [];
 
+var update_loop_flag = 0;
 
 
 var delete_from_vector = func(vec, index) {
@@ -34,8 +35,21 @@ return 400.0 + lon /180. * 400.0;
 
 var create_map = func {
 
-var window = canvas.Window.new([800,400],"dialog");
+var window = canvas.Window.new([800,400],"dialog").set("title", "Trajectory Map");
+
+# we need to explicitly re-define this to get a handle to stop the update loop
+# upon closing the window
+
+window.del = func()
+{
+  #print("Cleaning up...\n");
+  update_loop_flag = 0;
+  call(canvas.Window.del, [], me);
+};
+
+
 var mapCanvas = window.createCanvas().set("background", canvas.style.getColor("bg_color"));
+
 var root = mapCanvas.createGroup();
 
 
@@ -55,7 +69,7 @@ sym_landing_site.setScale(0.6);
 graph = root.createChild("group");
 
 
-
+update_loop_flag = 1;
 map_update();
 
 }
@@ -63,6 +77,7 @@ map_update();
 
 var map_update = func {
 
+if (update_loop_flag == 0 ) {return;}
 
 var lat = getprop("/position/latitude-deg");
 var lon = getprop("/position/longitude-deg");
@@ -89,9 +104,6 @@ var plot = graph.createChild("path", "data")
                                    .moveTo(history[0][0],history[0][1]); 
 
 		
-                   #foreach(var set; history) {
-                   #                            plot.lineTo( set[0], set[1] );
-                   #}
 
 		for (var i = 1; i< (size(history)-1); i=i+1)
 			{
