@@ -1415,7 +1415,7 @@
            		<property>aero/qbar-psf</property>
            		<property>metrics/Sw-sqft</property>
            		<property>gear/gear-pos-norm</property>
-           		<value>0.014</value>
+           		<value>0.0154</value>
          	</product>
    	</function>
 
@@ -1425,7 +1425,7 @@
            		<property>aero/qbar-psf</property>
            		<property>metrics/Sw-sqft</property>
            		<property>fcs/speedbrake-pos-norm</property>
-           		<value>0.0232</value>
+           		<value>0.0252</value>
          	</product>
     	</function>
 

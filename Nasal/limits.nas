@@ -14,6 +14,8 @@ var qbar_warn = 0;
 var droop_warn = 0;
 var gear_extension_warn = 0;
 var Nx_warn = 0;
+var tailscrape_warn = 0;
+
 
 #########################
 # limits for ascent
@@ -27,10 +29,11 @@ var fail_flag = 0;
 
 var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 
-if (qbar > 819.0)
+if ((qbar > 819.0) and (qbar_warn == 1))
 	{
 	setprop("/sim/messages/copilot", "Dynamical pressure exceeds limits!");
 	fail_flag = 1;
+	qbar_warn = 2;
 	}
 else if ((qbar > 800.0) and (qbar_warn == 0))
 	{
@@ -104,3 +107,54 @@ if ((getprop("/controls/gear/gear-down") == 1) and (keas > 312))
 	}
 }
 
+#################################
+# limits for touchdown
+#################################
+
+
+var check_limits_touchdown = func {
+
+
+var fail_flag = 0;
+
+# tailscrape angle is 15 degrees
+
+var pitch = getprop("/orientation/pitch-deg");
+
+
+if ((pitch > 15.0) and (tailscrape_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Tailscrape!");
+	tailscrape_warn = 2;
+	fail_flag = 1;
+	}
+else if ((pitch > 14.0) and (tailscrape_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Beware of tailscrape - nose down!");
+	tailscrape_warn = 1;
+	settimer(func {qbar_warn = 0;}, 10.0);
+	}
+
+# safe touchdown vertical speed is 6 to 9 fps
+
+var vspeed = getprop("/velocities/vertical-speed-fps");
+
+if (vspeed > 9.0) 
+	{
+	setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");
+	fail_flag = 1;
+	}
+
+# derotation should not be faster than 2 deg/s
+
+var pitch_rate = getprop("orientation/pitch-rate-degps");
+
+if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
+	{
+	setprop("/sim/messages/copilot", "Derotation exceeds nose wheel structural limits!");
+	fail_flag = 1;
+	}
+
+
+
+}
