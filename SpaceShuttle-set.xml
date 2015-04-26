@@ -291,6 +291,13 @@
 							<script>SpaceShuttle.entry_guidance_dlg.open()</script>
 						</binding>
 					</item>  
+					<item n="1">
+						<label>Map</label>
+						<binding>
+							<command>nasal</command>
+							<script>SpaceShuttle.create_map()</script>
+						</binding>
+					</item>  
 
 		</menu>
 	</default>
@@ -456,6 +463,16 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 
  <input>
   <keyboard>
+
+ <key n="77">
+  <name>M</name>
+  <desc>RCS detailed mode</desc>
+  <repeatable type="bool">false</repeatable>
+  <binding>
+   <command>nasal</command>
+   <script>SpaceShuttle.switch_detailed_control_mode()</script>
+  </binding>
+ </key>
 
 <key n="91">
   <name>[</name>

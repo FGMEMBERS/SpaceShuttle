@@ -8,6 +8,14 @@
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-deadband-rotation">
+			<default value="0.001"/>
+			<test  value="0.1">
+				systems/fcs/control-mode == 21
 			</test>
 		</switch>
 
@@ -22,6 +30,8 @@
 			</difference>
 		</function>
 		</fcs_function>
+
+		
 	
 		<pid name="systems/rcs/dap-pitch">
 			<input>systems/rcs/pitch-rate-error</input>
@@ -34,6 +44,41 @@
 			</clipto>
 			<output>systems/rcs/dap-pitch-cmd</output>
 		</pid>
+
+		<deadband name="systems/rcs/dap-pitch-cmd-deadband">
+			<input>systems/rcs/dap-pitch-cmd</input>
+			<width>0.001</width>
+		</deadband>
+
+		<fcs_function name="systems/rcs/roll-rate-error">
+		<function>
+			<difference>
+				<property>velocities/p-rad_sec</property>
+				<product>
+  					<property>fcs/left-aileron-pos-norm</property>
+					<value>0.05</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+	
+		<pid name="systems/rcs/dap-roll">
+			<input>systems/rcs/roll-rate-error</input>
+			<kp> -25.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/rcs/dap-roll-cmd</output>
+		</pid>
+
+		<deadband name="systems/rcs/dap-roll-cmd-deadband">
+			<input>systems/rcs/dap-roll-cmd</input>
+			<width><value>0.001</value></width>
+		</deadband>
 
 
 	</channel>
@@ -70,6 +115,7 @@
 				systems/fcs/control-mode == 1
 				systems/fcs/control-mode == 3
 				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
 			</test>
 		</switch>
 
@@ -80,6 +126,8 @@
 			</test>
 		</switch>
 
+	
+
 
 
 	<!-- we pre-filter the commands to get more sensitive response at low thrust -->
@@ -87,12 +135,22 @@
 
 		<fcs_function name="systems/rcs/aileron-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/aileron-cmd-norm</property>
 				<abs>
 					<property>fcs/aileron-cmd-norm</property>
 				</abs>
 				</product>
+				<product>
+					<property>systems/fcs/dap-master</property>
+					<property>systems/rcs/dap-roll-cmd-deadband</property>
+				</product>
+				</sum>
 			</function>
 		</fcs_function>
 
@@ -111,7 +169,7 @@
 				</product>
 				<product>
 					<property>systems/fcs/dap-master</property>
-					<property>systems/rcs/dap-pitch-cmd</property>
+					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
 				</sum>
 			</function>
@@ -133,7 +191,7 @@
 		<switch name="systems/rcs/pod1-up-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/rcs/aileron-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -152,7 +210,7 @@
 		<switch name="systems/rcs/pod1-down-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/rcs/aileron-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -170,7 +228,7 @@
 		<switch name="systems/rcs/pod2-up-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/rcs/aileron-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -188,7 +246,7 @@
 		<switch name="systems/rcs/pod2-down-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/rcs/aileron-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
