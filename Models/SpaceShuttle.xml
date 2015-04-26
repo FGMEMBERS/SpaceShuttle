@@ -2,7 +2,19 @@
 	<path>shuttle_o2.ac</path>
 
 
-<!-- man for the moon, pick the little windows on the top to activate him -->
+    <!-- ******************************************************************* -->
+    <!-- Cockpit                                                             -->
+    <!-- ******************************************************************* -->
+    <model>
+        <path>cockpit.xml</path>
+        <offsets>
+            <x-m> 0 </x-m>
+            <y-m> 0 </y-m>
+            <z-m> 0 </z-m>
+        </offsets>
+    </model>
+    
+    <!-- man for the moon, pick the little windows on the top to activate him -->
 
 <model>
     <path>Aircraft/SpaceShuttle/Models/EMU/acesjustforroomshow.xml</path>
