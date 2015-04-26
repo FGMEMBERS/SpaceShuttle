@@ -368,12 +368,28 @@ if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
+	glide_loop();
 	return;
 	}
 
-SpaceShuttle.update_entry_guidance();
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
+	{SpaceShuttle.update_entry_guidance();}
 
 settimer(deorbit_loop,1.0);
+}
+
+
+###########################################################################
+# the glide loop watches limits during descent
+###########################################################################
+
+var glide_loop = func {
+
+
+SpaceShuttle.update_entry_guidance();
+
+settimer(glide_loop,1.0);
 }
 
 
