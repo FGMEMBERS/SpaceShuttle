@@ -309,6 +309,7 @@
       <title>Space Shuttle</title>
 
 
+
 <key>
 	<name>c</name>
 	<desc>deploy drag chute</desc>
@@ -320,6 +321,10 @@
 <key>
 	<name>m</name>
 	<desc>switch RCS rotation/translation</desc>
+</key>
+<key>
+	<name>M</name>
+	<desc>switch RCS DAP modes</desc>
 </key>
 <key>
 	<name>s</name>
@@ -371,7 +376,9 @@ Upon ascent, the shuttle is controlled via thrust vectoring of both SSME and SRB
 
 Once clearing the pad, rotate to the desired launch course, then pull the launch stack gently out of the vertical to an about 70 degree inverted climb (the ride into orbit is done head down...). The external tank is very top-heavy (most of its mass is in the oxygen tank on its top) - take care that the stack doesn't topple too far out of the vertical, or you will never recover. Initially aerodynamical forces on the orbiter will require sizable thrust vectoring, as you clear the atmosphere the need will gradually go away as the flight control systems automatically vector each engine through the CoG.
 
-SRB thrust can not be throttled, however the main engine can, and you will see a callout to throttle back the main engine to 65% after 34 seconds to avoid the highest dynamical pressure during ascent to damage the vehicle (damage is currently not modeled).
+There are two thrust vectoring mode available (switch via m) - in Thrust Vevtoring (gimbal) the stick controls the pitch and yaw angles of the engines directly - this gives a good impression how  rocket flies, but is fairly challenging. Using Thrust Vectoring, the stick controls pitch, yaw and roll rates and neutral stick commands attitude hold. This is a fairly well stabilized mode in which the shuttle can be controlled and launched to a target inclination rather precisely.
+
+SRB thrust can not be throttled, however the main engine can, and you will see a callout to throttle back the main engine to 65% after 34 seconds to avoid the highest dynamical pressure during ascent to damage the vehicle (damage is currently not modeled, but will be called out).
 
 SRB separation
 ==============
@@ -415,6 +422,8 @@ The RCS can also be used in translation mode, switching between modes is done us
 5: cut thrust
 
 Without a visual reference point, the effect of translational thruster firings are hard to gauge.
+
+Using M switches through the various Digital Autopilot (DAP) modes of the RCS. In rotational mode, DAP-A and DAP-B are attitude-stabilized modes in which the stick controls the rates directly and stick neutral commands current attitude to be held. Of the two, DAP-B is more sloppy and hence less propellant-demanding. TAIL ONLY is a mode in which the nose thruster pods are de-activated which is used during atmospheric entry. Since the pod thrusters are not vectored through the CoG, there is significant mode mixing.
 
 De-orbiting
 ===========
