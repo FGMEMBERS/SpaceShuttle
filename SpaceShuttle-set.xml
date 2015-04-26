@@ -318,6 +318,9 @@
             </config>
         </view>
 
+      
+
+
         <view n="100">
             <name>HUD only</name>
             <type>lookfrom</type>
@@ -327,6 +330,19 @@
                 <x-offset-m archive="y" type="double">0</x-offset-m>
                 <y-offset-m archive="y" type="double">4.94</y-offset-m>
                 <z-offset-m archive="y" type="double">-32.5</z-offset-m>
+            </config>
+        </view>
+
+  	<view n="101">
+            <name>EVA</name>
+            <type>lookfrom</type>
+            <internal archive="y">true</internal>
+            <config>
+                <from-model type="bool">true</from-model>
+                <x-offset-m archive="y" type="double">0</x-offset-m>
+                <y-offset-m archive="y" type="double">-3.5</y-offset-m>
+                <z-offset-m archive="y" type="double">-7.5</z-offset-m>
+		<heading-offset-deg archive="y" type="double">180.0</heading-offset-deg>
             </config>
         </view>
 
@@ -522,6 +538,18 @@
     <input>
         <keyboard>
 
+            <key n="69">
+                <name>E</name>
+                <desc>start/finish EVA</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.toggle_EVA()</script>
+                </binding>
+            </key>
+
+
+
             <key n="77">
                 <name>M</name>
                 <desc>RCS detailed mode</desc>
@@ -614,6 +642,7 @@
 
     <nasal>
         <SpaceShuttle>
+	    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
