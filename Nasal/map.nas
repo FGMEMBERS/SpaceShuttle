@@ -1,8 +1,40 @@
 
 
+var sym_shuttle = {};
+var sym_landing_site = {};
+var graph = {};
+var samples = [];
+var history = [];
+
+
+
+var delete_from_vector = func(vec, index) {
+
+var n = index+1;
+
+var vec_end = subvec(vec, n);
+
+setsize(vec, n-1);
+return vec~vec_end;
+	
+}
+
+
+var lat_to_y = func (lat) {
+
+return 200.0 - lat /90. * 200.0;
+
+}
+
+var lon_to_x = func (lon) {
+
+return 400.0 + lon /180. * 400.0;
+
+}
+
 var create_map = func {
 
-var window = canvas.Window.new([800,600],"dialog");
+var window = canvas.Window.new([800,400],"dialog");
 var mapCanvas = window.createCanvas().set("background", canvas.style.getColor("bg_color"));
 var root = mapCanvas.createGroup();
 
@@ -12,13 +44,103 @@ var child=root.createChild("image")
                                    .setFile( path )
                                    .setTranslation(0,0)
                                    .setSize(800,400);
+sym_shuttle = mapCanvas.createGroup();
+canvas.parsesvg(sym_shuttle, "/Nasal/canvas/map/Images/boeingAirplane.svg");
+sym_shuttle.setScale(0.2);
 
-var mapLayout = canvas.HBoxLayout.new();
-# assign it to the Canvas
-mapCanvas.setLayout(mapLayout);
+sym_landing_site = mapCanvas.createGroup();
+canvas.parsesvg(sym_landing_site, "/gui/dialogs/images/ndb_symbol.svg");
+sym_landing_site.setScale(0.6);
 
-var label = canvas.gui.widgets.Label.new(root, canvas.style, {wordWrap: 0}); 
-label.setText("Shuttle");
-mapLayout.addItem(label);
+graph = root.createChild("group");
+
+
+
+map_update();
 
 }
+
+
+var map_update = func {
+
+
+var lat = getprop("/position/latitude-deg");
+var lon = getprop("/position/longitude-deg");
+
+var x =  lon_to_x(lon);
+var y =  lat_to_y(lat);
+
+
+var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
+
+sym_shuttle.setTranslation(x,y);
+sym_shuttle.setRotation(heading);
+
+x = lon_to_x(landing_site.lon()) - 10.0;
+y = lat_to_y(landing_site.lat()) - 10.0;
+
+sym_landing_site.setTranslation(x,y);
+
+
+
+var plot = graph.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(0,0,1)
+                                   .moveTo(history[0][0],history[0][1]); 
+
+		
+                   #foreach(var set; history) {
+                   #                            plot.lineTo( set[0], set[1] );
+                   #}
+
+		for (var i = 1; i< (size(history)-1); i=i+1)
+			{
+			var set = history[i+1];
+			if (history[i+1][0] > history[i][0])
+				{
+				plot.lineTo(set[0], set[1]);
+				}
+			else
+				{
+				plot.moveTo(set[0], set[1]);
+				}
+			}
+
+
+settimer(map_update, 1.0);
+
+}
+
+
+var history_init = func {
+
+var lat = getprop("/position/latitude-deg");
+var lon = getprop("/position/longitude-deg");
+var x =  lon_to_x(lon);
+var y =  lat_to_y(lat);
+
+for (var i = 0; i < 1000; i = i+1)
+	{
+	var set = [x,y];
+	append(history,set);
+	}
+history_update();
+
+}
+
+var history_update = func {
+
+history = delete_from_vector(history,0);
+
+var lat = getprop("/position/latitude-deg");
+var lon = getprop("/position/longitude-deg");
+var x =  lon_to_x(lon);
+var y =  lat_to_y(lat);
+
+append(history, [x,y]);
+
+settimer(history_update, 10.0);
+}
+
+
+history_init();
