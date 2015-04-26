@@ -63,16 +63,18 @@ if (v_inertial > 12000.0)
 # ascent safe acceleration limits are Nx = [0:3.11] g, Ny = [-0.18: 0.18] g, Nz = [-0.06:0.73] g 
 # but they're translational accelerations - we check only Nx
 
+var agl_altitude = getprop("/position/altitude-agl-ft");
+
 var Nx = getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm");
 
-if ((Nx > 3.9) or (Nx < -0.5))
+if (((Nx > 3.9) or (Nx < -0.5)) and (agl_altitude > 100)) 
 	{
-	#setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
 	fail_flag = 1;
 	}
-else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0))
+else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100))
 	{
-	#setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
+	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
 	Nx_warn = 1;
 	settimer(func {Nx_warn = 0;}, 10.0);
 	}

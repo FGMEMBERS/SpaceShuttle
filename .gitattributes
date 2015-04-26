@@ -138,6 +138,7 @@ Nasal/PFD/PFD.svg -text
 Nasal/PFD/PFD_main.nas -text
 Nasal/dialogs.nas -text
 Nasal/entry_guidance.nas -text
+Nasal/failures.nas -text
 Nasal/limits.nas -text
 Nasal/map.nas -text
 Nasal/stages.nas -text
@@ -166,6 +167,7 @@ Sounds/wind-8khz.wav -text svneol=unset#unset
 /SpaceShuttle-set.xml -text
 Systems/computations.xml -text
 Systems/entry_guidance.xml -text
+Systems/failures.xml -text
 Systems/orbital_parameters.xml -text
 Systems/rcs_control.xml -text
 Systems/thrust_vectoring.xml -text
