@@ -104,10 +104,6 @@
 			<z-m>-10.0</z-m>
 		</offsets>
 		<condition>
- 		 <!--<greater-than>
-			<property>/consumables/fuel/tank/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>-->
 		<equals>
 			<property>/controls/shuttle/ET-static-model</property>
 			<value>1</value>
@@ -115,20 +111,6 @@
  		</condition>
 </model>
 
-<!--<model>
-<path>Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml</path>
-		<offsets>
-			<x-m>-10.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>-10.0</z-m>
-		</offsets>
-		<condition>
-		<not>
-			<property>/controls/shuttle/ET-static-model</property>
-			<value>1</value>
-		</not>
- 		</condition>
-</model>-->
 
 <model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
@@ -139,10 +121,6 @@
 			<roll-deg>90.0</roll-deg>
 		</offsets>
                 <condition>
- 		<!-- <greater-than>
-			<property>/consumables/fuel/tank[1]/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>-->
 		<equals>
 			<property>/controls/shuttle/SRB-static-model</property>
 			<value>1</value>
@@ -159,10 +137,6 @@
 			<roll-deg>-90.0</roll-deg>
 		</offsets>
 		<condition>
- 		 <!--<greater-than>
-			<property>/consumables/fuel/tank[2]/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>-->
 		<equals>
 			<property>/controls/shuttle/SRB-static-model</property>
 			<value>1</value>
@@ -173,29 +147,8 @@
  
 
 
-<!-- SRB exhaust flame-->
+<!-- SRB exhaust smoke-->
 
-<!--  <model>
-   <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
-    <offsets>
-		 <x-m>14.5</x-m>
-		 <y-m>-6.2</y-m>
-		 <z-m>-10.4</z-m>
-		 <pitch-deg>0</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>
-  
- <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
-      <offsets>
-		 <x-m>14.5</x-m>
-		 <y-m>6.2</y-m>
-		 <z-m>-10.4</z-m>
-		 <pitch-deg>0</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>-->
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
@@ -263,7 +216,8 @@
 	 </offsets>	
   </model>
 
-
+  <!-- RCS thruster flames -->
+ 
   <!-- RCS nose up -->
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
@@ -576,22 +530,22 @@
 	 </offsets>	
   </model>
 
-<animation>
-  <object-name>re-entry-plasma</object-name>
-  <type>rotate</type>
-  <property>/orientation/pitch-deg</property>
-  <factor>-1.0</factor>
-  <offset-deg>0</offset-deg>
-  <center>
-   <x-m> 0.0</x-m>
-   <y-m> 0.0   </y-m>
-   <z-m> 0.0</z-m>
-  </center>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
+ <animation>
+  	<object-name>re-entry-plasma</object-name>
+  	<type>rotate</type>
+  	<property>/orientation/pitch-deg</property>
+  	<factor>-1.0</factor>
+  	<offset-deg>0</offset-deg>
+  	<center>
+   		<x-m> 0.0</x-m>
+   		<y-m> 0.0   </y-m>
+   		<z-m> 0.0</z-m>
+  	</center>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
  </animation>
 
 
@@ -773,25 +727,7 @@
      </condition>
 </model>
 
-<!--lets set some fire to the OMS-main engines, 2 are iluminated-->
 
-<model>
-  <path>Aircraft/SpaceShuttle/Models/Lights/strobe-red5.xml</path>	
-		<offsets>
-                 <x-m> 13.10 </x-m>
-                 <y-m> -2.20 </y-m>
-                 <z-m> -0.250 </z-m>
-		</offsets>
-</model> 
-
-<model>
-   <path>Aircraft/SpaceShuttle/Models/Lights/strobe-red5.xml</path>
-     <offsets>
-       <x-m> 13.10 </x-m>
-       <y-m> 2.20 </y-m>
-       <z-m> -0.250 </z-m>
-     </offsets>
-</model>
 
 <!--more smoke ! -->
 
