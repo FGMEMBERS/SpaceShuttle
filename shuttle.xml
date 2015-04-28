@@ -1235,7 +1235,7 @@
 
   <channel name="Speedbrake">
    <kinematic name="Speedbrake Control">
-     <input>fcs/speedbrake-cmd-norm</input>
+     <input>/controls/shuttle/speedbrake</input>
      <traverse>
        <setting>
           <position> 0 </position>
@@ -1382,6 +1382,18 @@
  </function>
 
 
+ <function name="aero/coefficient/ground_effect">
+      <table>
+        <independentVar lookup="row">position/h-agl-ft</independentVar>
+         <tableData>
+           13.0		1.25
+	   20.0		1.10
+	   30.0		1.05
+	   40.0		1.00
+         </tableData>
+      </table>
+   </function>
+
   <axis name="LIFT">
 	<function name="aero/coefficient/CL">
 	<description>2d parametrization of the lift as function of AoA and Mach number</description>
@@ -1413,6 +1425,7 @@
 		</sum>
 		</pow>
 	<property>systems/failures/aero-structure-condition</property>
+	<property>aero/coefficient/ground_effect</property>
 	</product> 
 	</function>   
   </axis>
@@ -1777,7 +1790,7 @@
            <property>metrics/Sw-sqft</property>
            <property>metrics/bw-ft</property>
            <property>fcs/left-aileron-pos-rad</property>
- 	   <!--<value>57.2975</value>
+ 	   <value>57.2975</value>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -1791,8 +1804,8 @@
 			  10.0	-0.00035
 			  20.0	-0.00035    
                   </tableData>
-         </table>-->
-           <value>0</value>
+         </table>
+           <!--<value>0</value>-->
        </product>
     </function>
 

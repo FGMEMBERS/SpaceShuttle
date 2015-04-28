@@ -697,6 +697,35 @@ else if (speedbrake_state == 1)
 
 }
 
+var increase_speedbrake = func {
+
+var speedbrake_state = getprop("/controls/shuttle/speedbrake");
+
+speedbrake_state = speedbrake_state+ 0.2;
+if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
+
+setprop("/controls/shuttle/speedbrake", speedbrake_state);
+
+if (speedbrake_state == 1.0) {speedbrake_string = "out";}
+else {speedbrake_string = int(speedbrake_state * 100.0)~"%";}
+
+setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
+}
+
+var decrease_speedbrake = func {
+
+var speedbrake_state = getprop("/controls/shuttle/speedbrake");
+
+speedbrake_state = speedbrake_state - 0.2;
+if (speedbrake_state < 0.0) {speedbrake_state = 0.0;}
+
+setprop("/controls/shuttle/speedbrake", speedbrake_state);
+
+if (speedbrake_state == 0.0) {speedbrake_string = "in";}
+else {speedbrake_string = int(speedbrake_state * 100.0)~"%";}
+
+setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
+}
 
 
 var deploy_chute = func {
@@ -882,7 +911,7 @@ setlistener("/gear/gear[0]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[1]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[2]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
-setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
+# setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
 
 # since the SRBs  are implemented as slaved ballistic submodels, we need to trigger their
 # attachment - this apparently does not work if the parameter is simply set at startup

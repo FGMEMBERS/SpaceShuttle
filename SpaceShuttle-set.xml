@@ -134,10 +134,11 @@
             </door>
             <parachute type="int">0</parachute>
             <control-system-string type="string">Thrust Vectoring (gimbal)</control-system-string>
-            <hud-mode>0</hud-mode>
-            <gear-string>up</gear-string>
-            <speedbrake-string>in</speedbrake-string>
-            <drag-chute-string>in</drag-chute-string>
+            <hud-mode type="int">0</hud-mode>
+            <gear-string type="string">up</gear-string>
+            <speedbrake-string type="string">in</speedbrake-string>
+	    <speedbrake type="double">0.0</speedbrake>
+            <drag-chute-string type="string">in</drag-chute-string>
 	    <SRB-static-model type="bool">true</SRB-static-model>	    
 	    <ET-static-model type="bool">true</ET-static-model>
         </shuttle>
@@ -610,6 +611,16 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
                 </binding>
             </key>
 
+      	    <key n="83">
+                <name>S</name>
+                <desc>decrease speedbrake</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.decrease_speedbrake()</script>
+                </binding>
+            </key>
+
             <key n="91">
                 <name>[</name>
                 <desc>Move rudder left</desc>
@@ -662,11 +673,10 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 
             <key n="115">
                 <name>s</name>
-                <desc>Speedbreakes on Rudder, left and right</desc>
-                <binding>
-                    <command>property-toggle</command>
-                    <property>controls/flight/speedbrake</property>
-                    <value>true</value>
+                <desc>increase speedbrake</desc>
+                  <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.increase_speedbrake()</script>
                 </binding>
             </key>
 
