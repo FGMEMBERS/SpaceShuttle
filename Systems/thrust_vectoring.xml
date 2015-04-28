@@ -627,7 +627,7 @@
 		<pid name="systems/vectoring/SRB-roll">
 			<input>systems/vectoring/roll-rate-error</input>
 			<kp> 2.0 </kp>
-			<ki> 0.5 </ki>
+			<ki> 1.0 </ki>
 			<kd> 0.1</kd>
 			<clipto>
 				<min> -0.14 </min>

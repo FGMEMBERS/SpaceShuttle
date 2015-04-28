@@ -597,6 +597,11 @@ else if (current_mode == 21)
 	}
 else if (current_mode == 22)
 	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
+	}
+else if (current_mode == 24)
+	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
@@ -618,7 +623,7 @@ var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 
 if ((qbar > 10.0) and (deorbit_stage_flag == 0))
 	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
+	#setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
 	setprop("/controls/shuttle/control-system-string", "RCS / Aero");
 	setprop("/fdm/jsbsim/systems/fcs/rcs-roll-mode", 0);
 	setprop("/sim/messages/copilot", "Roll control to aero.");
@@ -799,6 +804,11 @@ if (getprop("/sim/presets/stage") == 2)
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
 	setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 200.0);
+	
+	settimer( func {
+			setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
+			setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
+			}, 2.0);
 	deorbit_loop();
 	}
 
