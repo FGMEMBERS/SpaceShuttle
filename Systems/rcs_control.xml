@@ -44,6 +44,12 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-entry-mode">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/control-mode == 24
+			</test>
+		</switch>
 
 		<!-- pitch -->
 
@@ -69,8 +75,40 @@
 				<min> -1.0 </min>
         			<max>  1.0 </max>
 			</clipto>
-			<output>systems/rcs/dap-pitch-cmd</output>
+			<output>systems/rcs/dap-pitch-cmd-orbit</output>
 		</pid>
+
+
+
+		<pid name="systems/rcs/dap-pitch-entry">
+			<input>systems/rcs/pitch-rate-error</input>
+			<kp> 40.0 </kp>
+			<ki> 15.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/rcs/dap-pitch-cmd-entry</output>
+		</pid>
+
+		<fcs_function name="systems/rcs/dap-pitch-cmd">
+		<function>
+			<sum>
+				<product>
+					<property>systems/fcs/rcs-entry-mode</property>
+					<property>systems/rcs/dap-pitch-cmd-entry</property>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-entry-mode</property>
+					</difference>
+					<property>systems/rcs/dap-pitch-cmd-orbit</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
 
 
 		<fcs_function name="systems/rcs/dap-pitch-cmd-abs">
@@ -170,9 +208,30 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs/beta-error">
+		<function>		
+			<product>
+				<property>aero/beta-rad</property>
+				<value>-0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/yaw-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/fcs/rcs-entry-mode</property>
+					<property>systems/rcs/beta-error</property>
+				</product>
+				<property>systems/rcs/yaw-rate-error</property>
+			</sum>
+		</function>
+		</fcs_function>
+
 	
 		<pid name="systems/rcs/dap-yaw">
-			<input>systems/rcs/yaw-rate-error</input>
+			<input>systems/rcs/yaw-error</input>
 			<kp> 15.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>

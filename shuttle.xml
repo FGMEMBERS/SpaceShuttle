@@ -1082,6 +1082,21 @@
 		<output>fcs/airfoil-factor-yaw</output>
 		</switch>
 
+  <switch name="Disable automatic rudder in orbit">
+			<default value="1.0"/>
+			<test  logic="OR" value="0.0">
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 24
+			</test>
+		<output>fcs/automatic-rudder</output>
+  </switch>
+
    <summer name="Rudder Command Sum">
       <input>fcs/rudder-cmd-norm</input>
       <input>fcs/yaw-trim-cmd-norm</input>
@@ -1136,6 +1151,7 @@
    <!-- ultimately rudder input is supposed to be a bias of the error - not in yet -->
    <fcs_function name="fcs/beta-error-rad">
 	 <function>
+		<product>
 	 	<difference>
 			<product>
 				<property>aero/beta-rad</property>
@@ -1143,6 +1159,7 @@
 			</product>
 			<value>0.0</value>
 		</difference>
+		</product>
 	</function>
   </fcs_function>
 
@@ -1157,8 +1174,10 @@
 	</clipto>
   </pid>
 
-  <scheduled_gain name="fcs/beta-controller-corrected">
-      <input>fcs/beta-controller</input>
+  <fcs_function name="fcs/beta-controller-corrected">
+      <function>
+      <product>
+      <property>fcs/beta-controller</property>
       <table>
         <independentVar lookup="row">velocities/mach</independentVar>
         <tableData>
@@ -1167,7 +1186,10 @@
 	   4.0	  3.0	     
         </tableData>
       </table>
-   </scheduled_gain>
+      <property>fcs/automatic-rudder</property>
+      </product>
+      </function>
+   </fcs_function>
 
 
 
@@ -1381,6 +1403,24 @@
 	</quotient>
  </function>
 
+  <function name="aero/coefficient/CN">
+  <description>Normal force coefficient</description>
+	<sum>
+		<product>
+			<property>aero/coefficient/CLtest</property>
+			<cos>
+				<property>aero/alpha-rad</property>			
+			</cos>
+		</product>
+		<product>
+			<property>aero/coefficient/CDtest</property>
+			<sin>
+				<property>aero/alpha-rad</property>			
+			</sin>
+		</product>
+	</sum>
+  </function>
+
 
  <function name="aero/coefficient/ground_effect">
       <table>
@@ -1502,6 +1542,8 @@
 
 
   </axis>
+
+
 
   <axis name="SIDE">
 
@@ -1651,11 +1693,12 @@
            <property>metrics/Sw-sqft</property>
            <property>metrics/cbarw-ft</property>
            <property>aero/alpha-rad</property>
-           <value>-0.6</value>
+	   <value>-0.05</value>
+           <!--<value>-0.6</value>-->
 	   <!-- the shuttle enters at 40 deg AoA, and to my knowledge that's irreversible, so there needs to be -->
 	   <!-- a reduction in the counter-acting force at high AoA -->
 	   <!-- the concept as such is sound, but the table is guesswork -->
-	  <table>
+	  <!--<table>
 		<independentVar lookup="row">aero/alpha-rad</independentVar>
 		<tableData>
 			0.0	1.0
@@ -1663,7 +1706,7 @@
 			0.7	0.2
 			1.5	0.1
 		</tableData>
-	  </table>
+	  </table>-->
        </product>
     </function>
 

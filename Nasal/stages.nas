@@ -505,10 +505,10 @@ if ((current_mode == 0) or (current_mode == 10))
 	}
 else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22))
 	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
-	setprop("/controls/shuttle/control-system-string", "RCS / Aero");
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
 	}
-else if (current_mode == 3)
+else if ((current_mode == 24) or (current_mode == 3))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",4);	
 	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
@@ -597,14 +597,11 @@ else if (current_mode == 21)
 	}
 else if (current_mode == 22)
 	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
-	}
-else if (current_mode == 24)
-	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
+
+
 
 	
 }
