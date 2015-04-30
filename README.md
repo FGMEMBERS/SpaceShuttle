@@ -6,38 +6,6 @@
 
 <a href="http://users.jyu.fi/~trenk/files/SpaceShuttle.tgz">Download</a> 
 
-The SpaceShuttle by Thorsten et al has been struck down from FGMEMBERS by petition of the authors.
-==
-
-http://forum.flightgear.org/viewtopic.php?f=42&t=26043&start=120#p241072
-
-IAHM-COL wrote
---
-
-------------------
->There is no need to request for authors "authorization". The authorization is already given. As soon as one releases GPL, the authorization to do it is granted. I will say "graciously" "generously" "altruistically" granted. And I would not ever call such advantages provided by GPL "abhorrent" .
--------------------
-
-Thorsten Renk petition of removal
---
-
-(You may want to read the 'abhorrent' sentence again... chances are you didn't catch its meaning.)
-
-I think you're confusing authorization with consent. GPL legally allows you to do what you do without obtaining my consent, or even against it. That does not mean that by publishing GPL you automatically have my consent.
-
-You're claiming that FGMEMBERS is not a parasitic development - yet what I can see is that you copy work regardless of the consent of the authors, with the sole purpose of enhancing the appeal of your repository. How, please, is this not parasitic?
-
-I would understand if you copy work if people want to work with it. But I'm not seeing that.
-
-I have repeatedly stated that I don't share your goals and that I see what you're doing here in the forum as divisive. Therefore, I ask you please to remove my work from your repository. I don't want to be part of this.
-
-I'm not asking you to remove anything I have freely given to you, I am asking you to remove something you have grabbed against my stated intention to not make it widely available yet. I don't think you should single-handedly get to make such decisions without consulting anyone - this would seem, to use a metaphor you are yourself so fond of - tyrannical.
-
-Let me stress again that I recognize that the GPL gives you a legal right, but that you do not have my consent, nor ever cared for it. Yet if you have anything like the respect for the work of authors you profess to have, please respect my wish and remove my contribution from your repository.
-
-Thanks.
-
-
 ThorstenR Wrote @ <http://forum.flightgear.org/viewtopic.php?f=4&t=25747&start=75#p237994>
 
 * Now uses the more realistic SRB definitions from the JSBSim repo

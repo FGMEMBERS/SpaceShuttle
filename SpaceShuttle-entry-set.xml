@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!-- this puts the Shuttle into the entry interface -->
+
+<PropertyList include="SpaceShuttle-set.xml">
+<sim>
+  <description>NASA Space Shuttle Atlantis (re-entry)</description>
+  <presets>
+	<altitude-ft>400000.0</altitude-ft>
+	<stage type="int">2</stage>
+  </presets>
+</sim>
+
+
+
+
+</PropertyList>

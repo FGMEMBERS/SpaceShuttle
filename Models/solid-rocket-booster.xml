@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<PropertyList>
+  
+	<path>srb.ac</path>
+		
+<offsets>
+  <heading-deg>-180</heading-deg>
+</offsets>  
+
+<!--<animation>
+<type>select</type>
+ 
+ <condition>
+  <and>
+    <equals>
+     <property>sim/multiplay/generic/int[7]</property>
+     <value>1</value>
+    </equals>
+    
+    <greater-than>
+     <property>sim/multiplay/generic/float[5]</property>
+     <value>10</value>
+    </greater-than>
+  </and>
+ </condition>
+ 
+</animation>-->
+
+</PropertyList>
+ 

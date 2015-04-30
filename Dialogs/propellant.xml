@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>propellant</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Propellant and payload</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>External tank</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>external-tank</name>
+      <row>2</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>1618634.00</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[0]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>external-tank</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>2</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[0]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> liquid hydrogen/oxygen</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <label>SRB 1</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>SRB1</name>
+      <row>3</row>
+      <col>1</col>
+      <min>0.0</min>
+      <!--<max>1264825.0</max>-->
+      <max>1114092.6</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[1]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>SRB1</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>3</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[1]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> ammonium perchlorate composite</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>3</col>
+    </text>
+
+<text>
+      <label>SRB 2</label>
+      <halign>left</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>SRB2</name>
+      <row>4</row>
+      <col>1</col>
+      <min>0.0</min>
+      <!--<max>1264825.0</max>-->
+      <max>1114092.6</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[2]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>SRB2</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>4</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[2]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> ammonium perchlorate composite</label>
+      <halign>left</halign>
+      <row>4</row>
+      <col>3</col>
+    </text>
+
+<text>
+      <label>OMS</label>
+      <halign>left</halign>
+      <row>5</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>OMS</name>
+      <row>5</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>24982.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[3]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>OMS</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>5</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[3]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide/ hydrazine</label>
+      <halign>left</halign>
+      <row>5</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>RCS 1</label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS1</name>
+      <row>6</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>4341.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[4]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS1</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>6</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[4]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide/ hydrazine</label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>3</col>
+    </text>
+
+<text>
+      <label>RCS 2</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS2</name>
+      <row>7</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>2784.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[5]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS2</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>7</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[5]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide/ hydrazine</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>3</col>
+    </text>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+   
+    <text>
+      <label>total weight</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <row>8</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/weight-lbs</property>
+    </text> 
+    
+</group>
+
+
+
+
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
