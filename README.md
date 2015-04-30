@@ -16,7 +16,7 @@ IAHM-COL wrote
 
 ------------------
 >There is no need to request for authors "authorization". The authorization is already given. As soon as one releases GPL, the authorization to do it is granted. I will say "graciously" "generously" "altruistically" granted. And I would not ever call such advantages provided by GPL "abhorrent" .
--------------------
+
 
 Thorsten Renk petition of removal
 --
