@@ -193,7 +193,7 @@
 		</switch>
 
 		<aerosurface_scale name= "Pitch thrust command SSME 1">
-		   <input>fcs/elevator-pos-norm</input>
+		   <input>fcs/elevator-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -207,7 +207,7 @@
 		 </aerosurface_scale>
 
 		  <aerosurface_scale name= "Pitch thrust command SSME 2">
- 		  <input>fcs/elevator-pos-norm</input>
+ 		  <input>fcs/elevator-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -221,7 +221,7 @@
  		</aerosurface_scale>
 
  		 <aerosurface_scale name= "Pitch thrust command SSME 3">
-  		 <input>fcs/elevator-pos-norm</input>
+  		 <input>fcs/elevator-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -235,7 +235,7 @@
 		 </aerosurface_scale>
 
  		 <aerosurface_scale name= "Pitch thrust command SRB 1">
-  		 <input>fcs/elevator-pos-norm</input>
+  		 <input>fcs/elevator-cmd-norm</input>
    		<zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -249,7 +249,7 @@
  		</aerosurface_scale> 
 
  		 <aerosurface_scale name= "Pitch thrust command SRB 2">
- 		  <input>fcs/elevator-pos-norm</input>
+ 		  <input>fcs/elevator-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
  		       <min> -1.0 </min>
@@ -263,7 +263,7 @@
  		</aerosurface_scale> 
 
 		<aerosurface_scale name= "Roll thrust command SSME 1">
- 		  <input>fcs/left-aileron-pos-norm</input>
+ 		  <input>fcs/aileron-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
  		      <min> -1.0 </min>
@@ -277,7 +277,7 @@
 		 </aerosurface_scale>
 
   		<aerosurface_scale name= "Roll thrust command SSME 2">
-  		 <input>fcs/right-aileron-pos-norm</input>
+  		 <input>fcs/aileron-cmd-norm</input>
    		<zero_centered>false</zero_centered>
   		 <domain>
     		    <min> -1.0 </min>
@@ -402,7 +402,7 @@
 
 
  		 <aerosurface_scale name= "Roll thrust command SRB 1">
-  		<input>fcs/left-aileron-pos-norm</input>
+  		<input>fcs/aileron-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
   		      <min> -1.0 </min>
@@ -416,7 +416,7 @@
  		</aerosurface_scale>
 
  		 <aerosurface_scale name= "Roll thrust command SRB 2">
- 		  <input>fcs/right-aileron-pos-norm</input>
+ 		  <input>fcs/aileron-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -452,7 +452,7 @@
  		  </summer>
 
 		<aerosurface_scale name= "Yaw thrust command SRB 1">
- 		  <input>fcs/rudder-pos-norm</input>
+ 		  <input>fcs/rudder-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
   		      <min> -1.0 </min>
@@ -466,7 +466,7 @@
  		</aerosurface_scale> 
 
 		 <aerosurface_scale name= "Yaw thrust command SRB 2">
- 		  <input>fcs/rudder-pos-norm</input>
+ 		  <input>fcs/rudder-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
    		<domain>
    		     <min> -1.0 </min>
@@ -482,7 +482,7 @@
  
 
 		 <aerosurface_scale name= "Yaw thrust command SSME 1">
- 		  <input>fcs/rudder-pos-norm</input>
+ 		  <input>fcs/rudder-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -513,7 +513,7 @@
 
 
  		<aerosurface_scale name= "Yaw thrust command SSME 2">
- 		  <input>fcs/rudder-pos-norm</input>
+ 		  <input>fcs/rudder-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -542,7 +542,7 @@
 
 
 		 <aerosurface_scale name= "Yaw thrust command SSME 3">
- 		  <input>fcs/rudder-pos-norm</input>
+ 		  <input>fcs/rudder-cmd-norm</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
    		     <min> -1.0 </min>
@@ -581,7 +581,7 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-pos-norm</property>
+  					<property>fcs/elevator-cmd-norm</property>
 					<value>-0.1</value>
 				</product>
 			</difference>
@@ -616,7 +616,7 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/left-aileron-pos-norm</property>
+  					<property>fcs/aileron-cmd-norm</property>
 					<value>0.3</value>
 				</product>
 			</difference>
@@ -672,7 +672,7 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-pos-norm</property>
+  					<property>fcs/rudder-cmd-norm</property>
 					<value>-0.1</value>
 				</product>
 			</difference>
