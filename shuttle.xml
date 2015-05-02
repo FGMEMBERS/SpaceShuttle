@@ -949,9 +949,24 @@
 		<output>fcs/airfoil-factor-pitch</output>
 		</switch>
 
+   <fcs_function name="Pitch Auto Trim">
+	<function>
+	<table>
+        <independentVar lookup="row">velocities/mach</independentVar>
+        <tableData>
+           0.0     0.00
+           5.0     0.00
+	   10.0	   -0.25
+	   20.0	   -0.5
+        </tableData>
+      </table>
+	</function>
+   </fcs_function>
+
    <summer name="Pitch Trim Sum">
       <input>fcs/elevator-cmd-norm</input>
       <input>fcs/pitch-trim-cmd-norm</input>
+      <input>fcs/pitch-auto-trim</input>
       <clipto>
         <min> -1 </min>
         <max>  1 </max>
@@ -1085,14 +1100,7 @@
   <switch name="Disable automatic rudder in orbit">
 			<default value="1.0"/>
 			<test  logic="OR" value="0.0">
-				systems/fcs/control-mode == 1
-				systems/fcs/control-mode == 2
-				systems/fcs/control-mode == 3
-				systems/fcs/control-mode == 20
-				systems/fcs/control-mode == 21
-				systems/fcs/control-mode == 22
-				systems/fcs/control-mode == 23
-				systems/fcs/control-mode == 24
+				velocities/mach GT 10.0
 			</test>
 		<output>fcs/automatic-rudder</output>
   </switch>
@@ -1302,6 +1310,8 @@
 
 <!-- aerodynamical data is taken from 'Aerodynamical design of the Space Shuttle Orbiter', Bornemann and Surber -->
 <!-- Rockwell International Space Systems Group -->
+<!-- and 'Entry Dynamics of Space Shuttle Orbiter With Longitudinal Stability and Control -->
+<!-- Uncertainties at Supersonic and Hypersonic Speeds', Stone and Powell, NASA -->
 
 <!-- except for lift and drag which is a 2-dim parametrization of wind tunnel data by Dilao and Fonsecq -->
 
@@ -1740,6 +1750,29 @@
    </product>
    </function>
 
+   <!-- Date points from 'Entry dynamics ...', extrapolated to Mach 10 -->
+
+  <function name ="aero/coefficient/CmSB">
+   <description>Pitching_moment_due_to_speedbrake</description>
+   <product>
+   	<property>aero/qbar-psf</property>
+   	<property>metrics/Sw-sqft</property>
+       	<property>metrics/cbarw-ft</property>
+        <property>fcs/speedbrake-pos-norm</property>
+	<table>
+	<independentVar lookup="row">aero/alpha-rad</independentVar>
+	<independentVar lookup="column">velocities/mach</independentVar>
+		<tableData>
+			1.5	3.0	5.0	10.0
+		-10.0	0.046	0.031	0.025	0.0125
+		10.0	0.030	0.015	0.0094	0.0043
+		30.0	0.022	0.0077	0.0028	0.0013
+		50.0	0.015	0.0005	0.0	0.0
+		</tableData>
+	  </table>
+   </product>
+  </function>
+
 <!--<function name ="aero/coefficient/Cmtest">
    <description>Pitch_moment_as_function_of_alpha_elevator_and_Mach_number</description>
    <product>
@@ -1857,6 +1890,7 @@
        </product>
     </function>
 
+    <!-- table 2 from 'Separate Surface Control' -->
     <function name="aero/coefficient/Cnr">
        <description>Yaw_moment_due_to_yaw_rate</description>
        <product>
@@ -1865,7 +1899,42 @@
            <property>metrics/bw-ft</property>
            <property>aero/bi2vel</property>
            <property>velocities/r-aero-rad_sec</property>
-           <value>-0.15</value>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                   	2.48	-0.594
+			2.99	-0.68
+			3.15	-0.717
+			3.98	-0.676
+			4.47	-0.655
+			9.98	-0.19	   
+                  </tableData>
+         </table>
+           <!--<value>-0.15</value>-->
+       </product>
+    </function>
+
+     <!-- table 2 from 'Separate Surface Control' -->
+    <function name="aero/coefficient/Cnp">
+       <description>Yaw_moment_due_to_roll_rate</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>metrics/bw-ft</property>
+           <property>aero/bi2vel</property>
+           <property>velocities/p-aero-rad_sec</property>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                   	2.48	0.057
+			2.99	0.029
+			3.15	0.012
+			3.98	0.0036
+			4.47	-0.0048
+			9.98	-0.036	   
+                  </tableData>
+         </table>
+           <!--<value>0.0</value>-->
        </product>
     </function>
 

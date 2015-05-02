@@ -51,6 +51,13 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-entry-roll-compensation-veto">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 24
+			</test>
+		</switch>
+
 		<!-- pitch -->
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
@@ -58,7 +65,7 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-pos-norm</property>
+  					<property>fcs/elevator-cmd-norm</property>
 					<value>-0.05</value>
 				</product>
 			</difference>
@@ -147,7 +154,7 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/left-aileron-pos-norm</property>
+  					<property>fcs/aileron-cmd-norm</property>
 					<value>0.05</value>
 				</product>
 			</difference>
@@ -201,7 +208,7 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-pos-norm</property>
+  					<property>fcs/rudder-cmd-norm</property>
 					<value>-0.05</value>
 				</product>
 			</difference>
@@ -212,7 +219,7 @@
 		<function>		
 			<product>
 				<property>aero/beta-rad</property>
-				<value>-0.5</value>
+				<value>-1.0</value>
 			</product>
 		</function>
 		</fcs_function>
@@ -220,10 +227,7 @@
 		<fcs_function name="systems/rcs/yaw-error">
 		<function>
 			<sum>
-				<product>
-					<property>systems/fcs/rcs-entry-mode</property>
-					<property>systems/rcs/beta-error</property>
-				</product>
+				<property>systems/rcs/beta-error</property>
 				<property>systems/rcs/yaw-rate-error</property>
 			</sum>
 		</function>
@@ -231,7 +235,7 @@
 
 	
 		<pid name="systems/rcs/dap-yaw">
-			<input>systems/rcs/yaw-error</input>
+			<input>systems/rcs/yaw-rate-error</input>
 			<kp> 15.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
@@ -239,8 +243,44 @@
 				<min> -1.0 </min>
         			<max>  1.0 </max>
 			</clipto>
-			<output>systems/rcs/dap-yaw-cmd</output>
+			<output>systems/rcs/dap-yaw-cmd-orbit</output>
 		</pid>
+
+		<!-- the RCS yaw jets need to ensure stability during entry against -->
+		<!-- the beta-induced yawing moment -->
+		<!-- at full thrust a cluster can barely hold against beta = 2 at qbar = 400 psf-->
+		<!-- so the gains need to be really agressive -->
+		<!-- we fire full thrust at 0.25 degrees offset -->
+
+		<pid name="systems/rcs/dap-yaw-entry">
+			<input>systems/rcs/beta-error</input>
+			<kp> 240.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 220.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/rcs/dap-yaw-cmd-entry</output>
+		</pid>
+
+		<fcs_function name="systems/rcs/dap-yaw-cmd">
+		<function>
+			<sum>
+				<product>
+					<property>systems/fcs/rcs-entry-mode</property>
+					<property>systems/rcs/dap-yaw-cmd-entry</property>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-entry-mode</property>
+					</difference>
+					<property>systems/rcs/dap-yaw-cmd-orbit</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/rcs/dap-yaw-cmd-abs">
 		<function>
@@ -320,7 +360,7 @@
 
 		<switch name="systems/fcs/rcs-nose-active">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 24
 			</test>
@@ -695,6 +735,7 @@
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-up-fire-yaw</property>
 				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<value>0.66</value>
 			</product>
 		</function>
@@ -714,6 +755,7 @@
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-down-fire-yaw</property>
 				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<value>0.66</value>
 			</product>
 		</function>
@@ -733,6 +775,7 @@
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-down-fire-yaw</property>
 				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<value>-0.66</value>
 			</product>
 		</function>
@@ -752,6 +795,7 @@
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-up-fire-yaw</property>
 				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<value>-0.66</value>
 			</product>
 		</function>
