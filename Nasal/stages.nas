@@ -725,6 +725,31 @@ setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 }
 
 
+var bodyflap_up = func {
+
+var bodyflap_state = getprop("/controls/shuttle/bodyflap-pos-rad");
+
+if (bodyflap_state == -0.315) {bodyflap_state = -0.25;}
+else if (bodyflap_state == -0.25) {bodyflap_state = 0.0;}
+else if (bodyflap_state == 0.0) {bodyflap_state = 0.25;}
+else if (bodyflap_state == 0.25) {bodyflap_state = 0.315;}
+
+setprop("/controls/shuttle/bodyflap-pos-rad", bodyflap_state);
+}
+
+var bodyflap_down = func {
+
+var bodyflap_state = getprop("/controls/shuttle/bodyflap-pos-rad");
+
+if (bodyflap_state == -0.25) {bodyflap_state = -0.315;}
+else if (bodyflap_state == 0.0) {bodyflap_state = -0.25;}
+else if (bodyflap_state == 0.25) {bodyflap_state = 0.0;}
+else if (bodyflap_state == 0.315) {bodyflap_state = 0.25;}
+
+setprop("/controls/shuttle/bodyflap-pos-rad", bodyflap_state);
+}
+
+
 var deploy_chute = func {
 
 var wheels_down = getprop("/fdm/jsbsim/gear/wow");

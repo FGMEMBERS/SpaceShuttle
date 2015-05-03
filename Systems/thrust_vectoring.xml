@@ -591,7 +591,7 @@
 
 		<pid name="systems/vectoring/SRB-pitch">
 			<input>systems/vectoring/pitch-rate-error</input>
-			<kp> 1.0 </kp>
+			<kp> 2.0 </kp>
 			<ki> 1.5 </ki>
 			<kd> 0.1</kd>
 			<clipto>

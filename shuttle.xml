@@ -970,15 +970,34 @@
 
    <fcs_function name="Pitch Auto Trim">
 	<function>
+	<product>
 	<table>
-        <independentVar lookup="row">velocities/mach</independentVar>
-        <tableData>
-           0.0     0.00
-           5.0     0.00
-	   10.0	   -0.25
-	   20.0	   -0.5
-        </tableData>
-      </table>
+        	<independentVar lookup="row">velocities/mach</independentVar>
+        	<tableData>
+          	 0.0     0.00
+          	 5.0     0.00
+	 	  10.0	   -0.25
+		   20.0	   -0.5
+        	</tableData>
+      	</table>
+	<property>aero/orbiter-config</property>
+	</product>
+	</function>
+   </fcs_function>
+
+  <fcs_function name="Launch Auto Trim">
+	<function>
+	<product>
+	<table>
+        	<independentVar lookup="row">velocities/mach</independentVar>
+        	<tableData>
+          	0.0	0.2
+		1.5	0.2
+		2.5	0.0
+        	</tableData>
+      	</table>
+	<property>aero/launch-config</property>
+	</product>
 	</function>
    </fcs_function>
 
@@ -1001,11 +1020,24 @@
       <output>fcs/elevator-pos-rad-command</output>
    </aerosurface_scale>
 
-   <pure_gain name="Actual Elevator Motion">
+   <!--<pure_gain name="Actual Elevator Motion">
 	<input>fcs/elevator-pos-rad-command</input>
 	<gain>fcs/airfoil-factor-pitch</gain>
 	<output>fcs/elevator-pos-rad</output>
-   </pure_gain>
+   </pure_gain>-->
+
+   <fcs_function name="Actual Elevator Motion">
+	<function>
+	<sum>
+		<product>
+			<property>fcs/elevator-pos-rad-command</property>
+			<property>fcs/airfoil-factor-pitch</property>
+		</product>
+		<property>fcs/launch-auto-trim</property>
+	</sum>
+	</function>
+	<output>fcs/elevator-pos-rad</output>
+   </fcs_function>
 
    <aerosurface_scale name="Elevator Normalization">
       <input>fcs/elevator-pos-rad-command</input>
@@ -1300,6 +1332,24 @@
 
   </channel>
  
+
+  <channel name="Bodyflap">
+   <kinematic name="Bodyflap Control">
+     <input>/controls/shuttle/bodyflap-pos-rad</input>
+     <traverse>
+	<setting>
+          <position> -1.0 </position>
+          <time>     0 </time>
+       </setting>
+       <setting>
+          <position> 1.0 </position>
+          <time>     9 </time>
+       </setting>
+     </traverse>
+     <output>fcs/bodyflap-pos-rad</output>
+   </kinematic>
+
+  </channel>
  
  <!-- Parachute -->
   <channel name="chute">
@@ -1333,7 +1383,10 @@
 <!-- Uncertainties at Supersonic and Hypersonic Speeds', Stone and Powell, NASA -->
 <!-- except for lift and drag which is a 2-dim parametrization of wind tunnel data by Dilao and Fonsecq -->
 
-<!-- aero data used for launch stack is largely guesswork right now -->
+<!-- aero data used for launch stack is from 'Space shuttle: Determination of the aerodynamic -->
+<!-- interference between the space shuttle orbiter, external tank, and solid rocket booster on -->
+<!-- a 0.004 scale ascent configuration', Ramsey, Buchholz, Allen, Dehart, NASA -->
+
 
  <aerodynamics>
   
@@ -1620,14 +1673,25 @@
     </function>
 
    <function name="aero/coefficient/Clb-launch">
-       <description>Roll_moment_due_to_beta</description>
+       <description>Roll_moment_due_to_beta_launch_vehicle</description>
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>metrics/bw-ft</property>
            <property>aero/beta-rad</property>
 	   <property>aero/launch-config</property>
-           <value>-0.1</value>
+	   <value>-0.05</value>
+	   <!--<value>0.0</value>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                   	0.5	-0.0062
+			1.0	-0.008
+			1.5	-0.008
+			3.0	-0.004
+			5.0	-0.0025	   
+                  </tableData>
+         </table>-->
        </product>
     </function>
 
@@ -1795,7 +1859,7 @@
        	<property>metrics/cbarw-ft</property>
         <property>fcs/speedbrake-pos-norm</property>
 	<table>
-	<independentVar lookup="row">aero/alpha-rad</independentVar>
+	<independentVar lookup="row">aero/alpha-deg</independentVar>
 	<independentVar lookup="column">velocities/mach</independentVar>
 		<tableData>
 			1.5	3.0	5.0	10.0
@@ -1808,6 +1872,35 @@
    </product>
   </function>
 
+  <!-- Date points from 'Entry dynamics ...', extrapolated to Mach 10 -->
+  <!-- normalization is unusual - the table is for -11.5 deg deflection --> 
+
+  <function name ="aero/coefficient/CmBF">
+   <description>Pitching_moment_due_to_Body_Flap</description>
+   <product>
+   	<property>aero/qbar-psf</property>
+   	<property>metrics/Sw-sqft</property>
+       	<property>metrics/cbarw-ft</property>
+        <property>fcs/bodyflap-pos-rad</property>
+	<value>-5.0</value>
+	<table>
+	<independentVar lookup="row">aero/alpha-deg</independentVar>
+	<independentVar lookup="column">velocities/mach</independentVar>
+		<tableData>
+			1.5	3.0	5.0	10.0
+		-10.0	0.005	0.0	0.0	0.0
+		20.0	0.01	0.005	0.002	0.0012
+		30.0	0.017	0.01	0.006	0.0032
+		50.0	0.038	0.03	0.02	0.012
+		</tableData>
+	  </table>
+   </product>
+  </function>
+
+
+
+    <!-- Data from "Determination of the aerodynamic interference between the space shuttle orbiter, -->
+    <!--	external tank, and solid rocket booster" using O/T5/S1 config-->
 
     <function name="aero/coefficient/Cmalpha-launch">
        <description>Pitch_moment_due_to_alpha_launch_vehicle</description>
@@ -1817,7 +1910,19 @@
            <property>metrics/cbarw-ft</property>
            <property>aero/alpha-rad</property>
 	   <property>aero/launch-config</property>
+	   <!--<value>57.2975</value>-->
 	   <value>-0.05</value>
+	   <!--<table>
+		<independentVar lookup="row">velocities/mach</independentVar>
+		<tableData>
+			0.5	-0.0165
+			1.0	-0.022
+			1.5	-0.0142
+			2.0	-0.0085
+			3.0	-0.006
+			5.0	-0.0055
+		</tableData>
+	  </table>-->
        </product>
     </function>
 
@@ -1900,13 +2005,24 @@
 
 
     <function name="aero/coefficient/Cnb-launch">
-       <description>Yaw_moment_due_to_beta</description>
+       <description>Yaw_moment_due_to_beta_launch_vehicle</description>
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>metrics/bw-ft</property>
            <property>aero/beta-rad</property>
 	   <property>aero/launch-config</property>
+	   <!--<value>0.0</value>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                  	0.5	0.016
+			1.0	0.022
+			1.5	0.017
+			3.0	0.010
+			5.0	0.008
+                  </tableData>
+         </table>-->
 	   <value>0.12</value>
 	</product>
    </function>
@@ -1937,7 +2053,7 @@
     </function>
 
     <function name="aero/coefficient/Cnr-launch">
-       <description>Yaw_moment_due_to_yaw_rate</description>
+       <description>Yaw_moment_due_to_yaw_rate_launch_vehicle</description>
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
