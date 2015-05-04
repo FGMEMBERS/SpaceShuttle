@@ -602,7 +602,7 @@
 
 		<pid name="systems/vectoring/SSME-pitch">
 			<input>systems/vectoring/pitch-rate-error</input>
-			<kp> 1.0 </kp>
+			<kp> 2.0 </kp>
 			<ki> 1.5 </ki>
 			<kd> 0.1</kd>
 			<clipto>
@@ -933,12 +933,12 @@
 			<input>propulsion/engine[3]/pitch-angle-rad-cmd</input>
 			<traverse>
 				<setting>
-					<position>-0.14</position>
+					<position>-1.0</position>
 					<time>0</time>
 				</setting>
 				<setting>
-					<position>0.14</position>
-					<time>0.05</time>
+					<position>1.0</position>
+					<time>3.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[3]/pitch-angle-rad</output>
@@ -948,12 +948,12 @@
 			<input>propulsion/engine[3]/yaw-angle-rad-cmd</input>
 			<traverse>
 				<setting>
-					<position>-0.14</position>
+					<position>-1.0</position>
 					<time>0</time>
 				</setting>
 				<setting>
-					<position>0.14</position>
-					<time>0.05</time>
+					<position>1.0</position>
+					<time>3.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[3]/yaw-angle-rad</output>
@@ -963,12 +963,12 @@
 			<input>propulsion/engine[4]/pitch-angle-rad-cmd</input>
 			<traverse>
 				<setting>
-					<position>-0.14</position>
+					<position>-1.0</position>
 					<time>0</time>
 				</setting>
 				<setting>
-					<position>0.14</position>
-					<time>0.05</time>
+					<position>1.0</position>
+					<time>3.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[4]/pitch-angle-rad</output>
@@ -978,12 +978,12 @@
 			<input>propulsion/engine[4]/yaw-angle-rad-cmd</input>
 			<traverse>
 				<setting>
-					<position>-0.14</position>
+					<position>-1.0</position>
 					<time>0</time>
 				</setting>
 				<setting>
-					<position>0.14</position>
-					<time>0.05</time>
+					<position>1.0</position>
+					<time>3.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[4]/yaw-angle-rad</output>

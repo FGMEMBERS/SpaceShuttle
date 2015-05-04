@@ -1680,8 +1680,8 @@
            <property>metrics/bw-ft</property>
            <property>aero/beta-rad</property>
 	   <property>aero/launch-config</property>
-	   <value>-0.05</value>
-	   <!--<value>0.0</value>
+	   <!--<value>-0.05</value>-->
+	   <value>57.2975</value>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -1691,7 +1691,7 @@
 			3.0	-0.004
 			5.0	-0.0025	   
                   </tableData>
-         </table>-->
+         </table>
        </product>
     </function>
 
@@ -1910,19 +1910,19 @@
            <property>metrics/cbarw-ft</property>
            <property>aero/alpha-rad</property>
 	   <property>aero/launch-config</property>
-	   <!--<value>57.2975</value>-->
-	   <value>-0.05</value>
-	   <!--<table>
-		<independentVar lookup="row">velocities/mach</independentVar>
-		<tableData>
-			0.5	-0.0165
-			1.0	-0.022
+	   <!--<value>-0.05</value>-->
+	   <value>57.2975</value>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+		   	0.5	-0.0165 
+		   	1.0	-0.022
 			1.5	-0.0142
 			2.0	-0.0085
 			3.0	-0.006
-			5.0	-0.0055
-		</tableData>
-	  </table>-->
+			5.0	-0.0055 
+                  </tableData>
+         </table>
        </product>
     </function>
 
@@ -2012,7 +2012,7 @@
            <property>metrics/bw-ft</property>
            <property>aero/beta-rad</property>
 	   <property>aero/launch-config</property>
-	   <!--<value>0.0</value>
+	   <value>57.2975</value>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -2022,8 +2022,8 @@
 			3.0	0.010
 			5.0	0.008
                   </tableData>
-         </table>-->
-	   <value>0.12</value>
+         </table>
+	   <!--<value>0.12</value>-->
 	</product>
    </function>
 
