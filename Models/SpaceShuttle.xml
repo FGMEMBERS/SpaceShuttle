@@ -775,7 +775,7 @@
         <condition>
 	<and>
 		<greater-than>
-		<property>sim/multiplay/generic/float[0]</property>
+		<property>gear/gear[1]/rollspeed-ms</property>
 		<value>45</value>
 		</greater-than>
     

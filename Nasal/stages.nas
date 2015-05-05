@@ -8,6 +8,7 @@ var slowdown_loop_flag = 0;
 var SRB_message_flag = 0;
 var MECO_message_flag = 0;
 var launch_message_flag = 0;
+var WONG_message_flag =0;
 var SRB_burn_timer = 0.0;
 var deorbit_stage_flag = 0;
 
@@ -791,6 +792,12 @@ slowdown_loop();
 }
 
 var slowdown_loop = func {
+
+if ((getprop("/gear/gear[0]/wow") == 1) and (WONG_message_flag == 0))
+	{
+	setprop("/sim/messages/copilot", "Weight on nose gear.");
+	WONG_message_flag = 1;
+	}
 
 if ((getprop("/gear/gear[1]/rollspeed-ms") < 0.1) and (getprop("/velocities/groundspeed-kt") < 10.0))
 	{

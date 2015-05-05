@@ -1637,9 +1637,42 @@
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>aero/beta-rad</property>
-           <value>-1</value>
+           <!--<value>-1</value>-->
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                        2.48	-0.81
+			2.99	-0.75
+			3.51	-0.66
+			3.98	-0.60
+			4.47	-0.54
+			9.98	-0.38
+                  </tableData>
+         </table>
        </product>
     </function>
+
+   <!--<function name="aero/coefficient/CYdr">
+       <description>Side_force_due_to_rudder</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+	   <property>metrics/bw-ft</property>
+           <property>fcs/rudder-pos-rad</property>
+	   <property>systems/failures/airfoils-yaw-condition</property>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                        2.48	0.064
+			2.99	0.049
+			3.51	0.037
+			3.98	0.031
+			4.47	0.027
+			9.98	0.0
+                  </tableData>
+         </table>
+       </product>
+    </function>-->
 
   </axis>
 
