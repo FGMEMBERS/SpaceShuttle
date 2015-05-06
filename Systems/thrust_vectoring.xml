@@ -780,7 +780,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[0]/pitch-angle-rad</output>
+			<output>propulsion/engine[0]/pitch-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/yaw/ssme-1">
@@ -796,7 +796,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[0]/yaw-angle-rad</output>
+			<output>propulsion/engine[0]/yaw-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/pitch-ssme-2">
@@ -812,7 +812,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[1]/pitch-angle-rad</output>
+			<output>propulsion/engine[1]/pitch-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/yaw-ssme-2">
@@ -828,7 +828,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[1]/yaw-angle-rad</output>
+			<output>propulsion/engine[1]/yaw-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/pitch-ssme-3">
@@ -844,7 +844,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[2]/pitch-angle-rad</output>
+			<output>propulsion/engine[2]/pitch-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/yaw-ssme-3">
@@ -860,7 +860,7 @@
 				</product>
 				</sum>				
 			</function>
-			<output>propulsion/engine[2]/yaw-angle-rad</output>
+			<output>propulsion/engine[2]/yaw-angle-rad-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="fcs/pitch-srb-1">
@@ -928,6 +928,99 @@
 		</fcs_function>
 
 		<!-- finite response time of the gimbal actuators -->
+		<!-- for some weird reason, kinematic alter normalization of the output -->
+		<!-- unless they're defined from -1 to 1, so we can't just use the actual range -->
+
+		<kinematic name="fcs/pitch-ssme-1-kin">
+			<input>propulsion/engine[0]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[0]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-ssme-1-kin">
+			<input>propulsion/engine[0]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[0]/yaw-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/pitch-ssme-2-kin">
+			<input>propulsion/engine[1]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[1]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-ssme-2-kin">
+			<input>propulsion/engine[1]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[1]/yaw-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/pitch-ssme-3-kin">
+			<input>propulsion/engine[2]/pitch-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[2]/pitch-angle-rad</output>
+		</kinematic>
+
+		<kinematic name="fcs/yaw-ssme-3-kin">
+			<input>propulsion/engine[2]/yaw-angle-rad-cmd</input>
+			<traverse>
+				<setting>
+					<position>-1.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>3.0</time>
+				</setting>
+				</traverse>
+			<output>propulsion/engine[2]/yaw-angle-rad</output>
+		</kinematic>
+
 
 		<kinematic name="fcs/pitch-srb-1-kin">
 			<input>propulsion/engine[3]/pitch-angle-rad-cmd</input>
