@@ -5,15 +5,29 @@
    <!-- heat shield glow -->
 
   <animation>
-    <type>material</type>
-   <object-name>heatshield</object-name>	
-   <emission>
-      <factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
-      <red>   1.0 </red>
-      <green> 0.2 </green>
-      <blue>  0.1 </blue>
-    </emission>
+    	<type>material</type>
+   	<object-name>heatshield</object-name>	
+   	<emission>
+      		<factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
+      		<red>   1.0 </red>
+      		<green> 0.2 </green>
+		<blue>  0.1 </blue>
+    	</emission>
   </animation>
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    	<object-name>heatshield</object-name>
+   	<object-name>spaceshutt_spstob</object-name>
+   	<object-name>spaceshutt_spstob.001</object-name>
+	<object-name>spaceshutt_spstob_1</object-name>
+	<object-name>spaceshutt_spstob_2</object-name>
+	<object-name>spaceshutt_spstob_4</object-name>
+	<object-name>spaceshutt_spstob_3</object-name>
+	<object-name>cockpit-front-glass-outside</object-name>
+ </effect>
+
+ 
 
 
 
