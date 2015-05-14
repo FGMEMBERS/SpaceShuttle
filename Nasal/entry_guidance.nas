@@ -43,7 +43,7 @@ var course = pos.course_to(landing_site);
 
 var flag = 0;
 
-if ((distance < 3000.0) or (distance > 6000.0))
+if ((distance < 2000.0) or (distance > 6000.0))
 	{
 	flag = 1;
 	}

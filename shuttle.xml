@@ -1225,7 +1225,7 @@
   <pid name="fcs/beta-controller">
 	<input>fcs/beta-error-rad</input>
 	<kp> 30.0 </kp>
-	<ki> 0.5 </ki>
+	<ki> 0.0 </ki>
 	<kd> 15.0</kd>
 	<clipto>
 		<min> -0.35 </min>
@@ -1257,21 +1257,37 @@
       <input>fcs/beta-controller-corrected</input>
       <!--<input>fcs/yaw-damper-final</input>-->
       <clipto>
-        <min> -1 </min>
-        <max>  1 </max>
+        <min> -0.35 </min>
+        <max>  0.35 </max>
       </clipto>
+      <output>fcs/rudder-pos-rad-command</output>
    </summer>
 
-   <aerosurface_scale name="Rudder Control">
+   <!--<aerosurface_scale name="Rudder Control">
       <input>fcs/rudder-sum</input>
       <range>
         <min> -0.35 </min>
         <max>  0.35 </max>
       </range>
       <output>fcs/rudder-pos-rad-command</output>
-   </aerosurface_scale>
+   </aerosurface_scale>-->
 
-  <pure_gain name="Actual Rudder Motion">
+  <kinematic name="Rudder Movement">
+	<input>fcs/rudder-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>1.0</time>
+		</setting>
+		</traverse>
+	<output>fcs/rudder-pos-rad-motion</output>
+   </kinematic>
+
+   <pure_gain name="Actual Rudder Motion">
 	<input>fcs/rudder-pos-rad-command</input>
 	<gain>fcs/airfoil-factor-yaw</gain>
 	<output>fcs/rudder-pos-rad</output>
@@ -1652,12 +1668,11 @@
        </product>
     </function>
 
-   <!--<function name="aero/coefficient/CYdr">
+   <function name="aero/coefficient/CYdr">
        <description>Side_force_due_to_rudder</description>
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
-	   <property>metrics/bw-ft</property>
            <property>fcs/rudder-pos-rad</property>
 	   <property>systems/failures/airfoils-yaw-condition</property>
 	   <table>
@@ -1672,7 +1687,7 @@
                   </tableData>
          </table>
        </product>
-    </function>-->
+    </function>
 
   </axis>
 
@@ -1728,6 +1743,8 @@
        </product>
     </function>
 
+    <!-- table 2 from 'Separate Surface Control' -->
+
     <function name="aero/coefficient/Clp">
        <description>Roll_moment_due_to_roll_rate</description>
        <product>
@@ -1736,6 +1753,31 @@
            <property>metrics/bw-ft</property>
            <property>aero/bi2vel</property>
            <property>velocities/p-aero-rad_sec</property>
+	   <property>aero/orbiter-config</property>
+            <!--<table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                        2.48	-0.2358
+			2.99	-0.2331
+			3.51	-0.2324
+			3.98	-0.2253
+			4.47	-0.2094
+			9.98	-0.2332 
+                  </tableData>
+         </table>-->
+	<value>-1.4</value>
+       </product>
+    </function>
+
+    <function name="aero/coefficient/Clp-launch">
+       <description>Roll_moment_due_to_roll_rate</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>metrics/bw-ft</property>
+           <property>aero/bi2vel</property>
+           <property>velocities/p-aero-rad_sec</property>
+	   <property>aero/launch-config</property>
            <!--<value>-0.4</value>-->
 	   <value>-1.4</value>-->
        </product>
@@ -1933,7 +1975,7 @@
 
 
     <!-- Data from "Determination of the aerodynamic interference between the space shuttle orbiter, -->
-    <!--	external tank, and solid rocket booster" using O/T5/S1 config-->
+    <!-- external tank, and solid rocket booster" using O/T5/S1 config-->
 
     <function name="aero/coefficient/Cmalpha-launch">
        <description>Pitch_moment_due_to_alpha_launch_vehicle</description>
@@ -2018,6 +2060,7 @@
            <property>aero/beta-rad</property>
 	   <property>aero/orbiter-config</property>
  	   <value>57.2975</value>
+	   <sum>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -2032,6 +2075,21 @@
 			  20.0	-0.0011    
                   </tableData>
          </table>
+	 <table>
+                  <independentVar lookup="row">fcs/elevator-pos-deg</independentVar>
+		  <independentVar lookup="column">velocities/mach</independentVar>
+                  <tableData>
+                       		0.6		3.0
+			-40.0	-0.0013		0.0003
+			-30.0	-0.001		0.0002
+			-20.0	-0.0007		0.0001
+			-10.0	-0.0004		0.00005
+			0.0	0.0		0.0	
+			10.0	0.0004		-0.00005
+			20.0	0.0001		-0.00008
+                  </tableData>
+         </table>
+	 </sum>
            <!--<value>0.12</value>-->
        </product>
     </function>
