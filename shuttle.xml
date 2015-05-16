@@ -1657,6 +1657,27 @@
        </product>
     </function>
 
+   <function name="aero/coefficient/CYda">
+       <description>Side_force_due_to_aileron</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>fcs/left-aileron-pos-rad</property>
+	   <property>systems/failures/airfoils-yaw-condition</property>
+	   <table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                        2.48	0.02038
+			2.99	0.02241
+			3.51	0.01873
+			3.98	0.01375
+			4.47	0.01501
+			9.98	0.02215
+                  </tableData>
+         </table>
+       </product>
+    </function>
+
   </axis>
 
   <axis name="ROLL">
@@ -1750,6 +1771,8 @@
        </product>
     </function>
 
+    <!-- table 2 from 'Separate Surface Control' -->
+
     <function name="aero/coefficient/Clr">
        <description>Roll_moment_due_to_yaw_rate</description>
        <product>
@@ -1758,7 +1781,18 @@
            <property>metrics/bw-ft</property>
            <property>aero/bi2vel</property>
            <property>velocities/r-aero-rad_sec</property>
-           <value>0.15</value>
+           <!--<value>0.15</value>-->
+		<table>
+                  <independentVar lookup="row">velocities/mach</independentVar>
+                  <tableData>
+                        2.48	0.08294
+			2.99	0.06157
+			3.51	0.05322
+			3.98	0.04442
+			4.47	0.04321
+			9.98	0.05337
+                  </tableData>
+         </table>
        </product>
     </function>
 
