@@ -1028,6 +1028,7 @@
 
    <fcs_function name="Actual Elevator Motion">
 	<function>
+	<product>
 	<sum>
 		<product>
 			<property>fcs/elevator-pos-rad-command</property>
@@ -1035,6 +1036,8 @@
 		</product>
 		<property>fcs/launch-auto-trim</property>
 	</sum>
+	<property>systems/failures/airfoils-pitch-condition</property>
+	</product>
 	</function>
 	<output>fcs/elevator-pos-rad</output>
    </fcs_function>
@@ -1663,7 +1666,7 @@
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>fcs/left-aileron-pos-rad</property>
-	   <property>systems/failures/airfoils-yaw-condition</property>
+	   <property>systems/failures/airfoils-roll-condition</property>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -1691,6 +1694,7 @@
            <property>aero/beta-rad</property>
 	   <property>aero/orbiter-config</property>
 	   <value>57.2975</value>
+	   <sum>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -1705,6 +1709,20 @@
 			  20.0	-0.0018     
                   </tableData>
          </table>
+	<table>
+                  <independentVar lookup="row">fcs/elevator-pos-deg</independentVar>
+		  <independentVar lookup="column">velocities/mach</independentVar>
+                  <tableData>
+                       		0.6		3.0
+			-40.0	0.0015		0.0005
+			-30.0	0.0009		0.00035
+			-10.0	0.00025		0.0001
+			0.0	0.0		0.0	
+			10.0	0.0002		-0.00015
+			20.0	0.0004		-0.0002
+                  </tableData>
+         </table>
+	 </sum>
            <!--<value>-0.1</value>-->
        </product>
     </function>
@@ -1796,6 +1814,9 @@
        </product>
     </function>
 
+
+    <!-- base coefficients and dependence on elevator deflection from 'Aerodynamical design...'-->
+
     <function name="aero/coefficient/Clda">
        <description>Roll_moment_due_to_aileron</description>
        <product>
@@ -1805,6 +1826,7 @@
           <property>fcs/left-aileron-pos-rad</property>
 	  <property>systems/failures/airfoils-roll-condition</property>
  	  <value>57.2975</value>
+	   <product>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -1819,6 +1841,21 @@
 			  20.0	0.0014     
                   </tableData>
          </table>
+	<table>
+                  <independentVar lookup="row">fcs/elevator-pos-deg</independentVar>
+		  <independentVar lookup="column">velocities/mach</independentVar>
+                  <tableData>
+                       		0.6		3.0
+			-40	0.119		0.250
+			-30	0.119		0.313
+			-20	0.214		0.563
+			-10	0.833		0.750
+			0.0	1.000		1.000
+			10.0	0.952		1.375
+			20.0	0.881		1.875
+		</tableData>
+	</table>
+  	</product>
  	<!--<table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <independentVar lookup="column">position/h-sl-ft</independentVar>
@@ -2220,6 +2257,7 @@
            <property>fcs/left-aileron-pos-rad</property>
 	   <property>aero/orbiter-config</property>
  	   <value>57.2975</value>
+	   <product>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -2234,6 +2272,22 @@
 			  20.0	-0.00035    
                   </tableData>
          </table>
+	<table>
+                  <independentVar lookup="row">fcs/elevator-pos-deg</independentVar>
+		  <independentVar lookup="column">velocities/mach</independentVar>
+                  <tableData>
+                       		0.6		3.0
+			-40.0	0.454		-0.666
+			-30.0	0.909		-0.666
+			-20.0	1.500		-0.500
+			-10.0	1.363		0.000	
+			0.0	1.000		1.000
+			10.0	0.363		2.000
+			20.0	-0.45		4.000
+		</tableData>
+	</table>
+
+	 </product>
            <!--<value>0</value>-->
        </product>
     </function>
