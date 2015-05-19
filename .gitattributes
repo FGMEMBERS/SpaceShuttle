@@ -1,0 +1,158 @@
+* text=auto !eol
+Dialogs/propellant.xml -text svneol=unset#application/xml
+Engines/OMS.xml -text svneol=unset#application/xml
+Engines/OMS_nozzle.xml -text svneol=unset#application/xml
+Engines/RCS.xml -text svneol=unset#application/xml
+Engines/RCS_nozzle.xml -text svneol=unset#application/xml
+Engines/SRB.xml -text svneol=unset#application/xml
+Engines/SRB_nozzle.xml -text svneol=unset#application/xml
+Engines/SSME.xml -text svneol=unset#application/xml
+Engines/SSME_nozzle.xml -text svneol=unset#application/xml
+Huds/Instruments/compass.xml -text svneol=unset#application/xml
+Huds/Instruments/gload.xml -text svneol=unset#application/xml
+Huds/Instruments/ladder.xml -text svneol=unset#application/xml
+Huds/Instruments/latitude.xml -text svneol=unset#application/xml
+Huds/Instruments/longitude.xml -text svneol=unset#application/xml
+Huds/Instruments/runway.xml -text svneol=unset#application/xml
+Huds/Instruments/turn-bank-indicator.xml -text svneol=unset#application/xml
+Huds/NTPS.xml -text svneol=unset#application/xml
+Huds/README -text
+Huds/Sets/autopilot.xml -text svneol=unset#application/xml
+Huds/Sets/controls.xml -text svneol=unset#application/xml
+Huds/Sets/coordinates.xml -text svneol=unset#application/xml
+Huds/Sets/gps.xml -text svneol=unset#application/xml
+Huds/Sets/parameters.xml -text svneol=unset#application/xml
+Huds/default.xml -text svneol=unset#application/xml
+Huds/f16.xml -text svneol=unset#application/xml
+Huds/minimal.xml -text svneol=unset#application/xml
+Huds/tachiametric-sight.xml -text svneol=unset#application/xml
+Models/EMU/acesjustforroomshow.ac -text
+Models/EMU/acesjustforroomshow.xml -text
+Models/EMU/robotarm.ac -text
+Models/EMU/robotarm.xml -text svneol=unset#application/xml
+Models/EMU/satelit-int.xml -text svneol=unset#application/xml
+Models/EMU/satelit.ac -text
+Models/EMU/satelit.xml -text svneol=unset#application/xml
+Models/EMU/spstob_2.png -text svneol=unset#image/png
+Models/EMU/spstob_e.png -text svneol=unset#image/png
+Models/EMU/submodels.xml -text svneol=unset#application/xml
+Models/Effects/OMS_flame.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame.ac -text
+Models/Effects/RCS_flame.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame1.ac -text
+Models/Effects/RCS_flame2.ac -text
+Models/Effects/RCS_flame3.ac -text
+Models/Effects/RCS_flame4.ac -text
+Models/Effects/RCS_flame5.ac -text
+Models/Effects/RCS_flame_element.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame_element1.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame_element2.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame_element3.xml -text svneol=unset#application/xml
+Models/Effects/RCS_flame_particles.xml -text svneol=unset#application/xml
+Models/Effects/SRB_flame.xml -text svneol=unset#application/xml
+Models/Effects/SRB_launch_smoke.xml -text svneol=unset#application/xml
+Models/Effects/SRB_smoke.xml -text svneol=unset#application/xml
+Models/Effects/annulus.png -text svneol=unset#image/png
+Models/Effects/boom.xml -text svneol=unset#application/xml
+Models/Effects/engine-fire.ac -text
+Models/Effects/engine-fire.xml -text svneol=unset#application/xml
+Models/Effects/fx.png -text svneol=unset#image/png
+Models/Effects/puff.rgb -text
+Models/Effects/smoke.png -text svneol=unset#image/png
+Models/Effects/smoke_engine2.xml -text svneol=unset#application/xml
+Models/Effects/strake-vortex.xml -text svneol=unset#application/xml
+Models/Effects/thrusters.png -text svneol=unset#image/png
+Models/Effects/trails-minni1.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni11.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni12.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni13.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni14.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni15.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni16.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni17.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni2.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni3.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni4.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni5.xml -text svneol=unset#application/xml
+Models/Effects/trails-minni6.xml -text svneol=unset#application/xml
+Models/Effects/trails.xml -text svneol=unset#application/xml
+Models/Lights/StrobeLight.xml -text svneol=unset#application/xml
+Models/Lights/WhiteLight.ac -text
+Models/Lights/WhiteLight.xml -text svneol=unset#application/xml
+Models/Lights/beacon.xml -text svneol=unset#application/xml
+Models/Lights/light-gradient-lamp.png -text svneol=unset#image/png
+Models/Lights/light_spot.png -text svneol=unset#image/png
+Models/Lights/lights.ac -text
+Models/Lights/lights.png -text svneol=unset#image/png
+Models/Lights/strobe-green.ac -text
+Models/Lights/strobe-green.rgb -text
+Models/Lights/strobe-green.xml -text svneol=unset#application/xml
+Models/Lights/strobe-orange.ac -text
+Models/Lights/strobe-orange.rgb -text
+Models/Lights/strobe-red.ac -text
+Models/Lights/strobe-red.rgb -text
+Models/Lights/strobe-red.xml -text svneol=unset#application/xml
+Models/Lights/strobe-red5.xml -text svneol=unset#application/xml
+Models/Lights/strobe-white.ac -text
+Models/Lights/strobe-white.rgb -text
+Models/Lights/strobe-white.xml -text svneol=unset#application/xml
+Models/Lights/strobe-yellow.ac -text
+Models/Lights/strobe-yellow.rgb -text
+Models/Lights/strobe-yellow.xml -text svneol=unset#application/xml
+Models/Lights/strobe.ac -text
+Models/Lights/strobe.xml -text svneol=unset#application/xml
+Models/Lights/txt_lights_exterior.png -text svneol=unset#image/png
+Models/Parachutes/Brake-Parachute.xml -text svneol=unset#application/xml
+Models/Parachutes/Brake-Parachute1.xml -text svneol=unset#application/xml
+Models/Parachutes/Brake-Parachute2.xml -text svneol=unset#application/xml
+Models/Parachutes/Main-Parachute.ac -text
+Models/Parachutes/test.xml -text
+Models/SpaceShuttle.xml -text
+Models/Stsheat.jpg -text svneol=unset#image/jpeg
+Models/et[!!-~]all.png -text svneol=unset#image/png
+Models/et.ac -text
+Models/external-fuel-tank.xml -text svneol=unset#application/xml
+Models/external-tank-disconnected.xml -text svneol=unset#application/xml
+Models/shuttle_o2.ac -text
+Models/shuttle_o2c.ac -text
+Models/solid-rocket-booster.xml -text svneol=unset#application/xml
+Models/spstob_1.png -text svneol=unset#image/png
+Models/spstob_1c.png -text svneol=unset#image/png
+Models/spstob_1hot.png -text svneol=unset#image/png
+Models/spstob_2.png -text svneol=unset#image/png
+Models/spstob_3.png -text svneol=unset#image/png
+Models/spstob_4.png -text svneol=unset#image/png
+Models/spstob_e.png -text svneol=unset#image/png
+Models/srb.ac -text
+Models/srb_all.png -text svneol=unset#image/png
+Nasal/dialogs.nas -text
+Nasal/stages.nas -text
+Sounds/SpaceShuttle-Sounds.xml -text svneol=unset#application/xml
+Sounds/SpaceShuttleLaunchAudio.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Antennas-Turn.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Deorbit-Burning.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Fairings-Separation.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Radiators-Turn.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-Stage-1-Separation.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-TDU-Engine-Once.wav -text svneol=unset#audio/x-wav
+Sounds/Vostok-1-TDU-Engine.wav -text svneol=unset#audio/x-wav
+Sounds/flaps-backup1.wav -text svneol=unset#audio/x-wav
+Sounds/flaps.wav -text svneol=unset#audio/x-wav
+Sounds/gear.wav -text svneol=unset#audio/x-wav
+Sounds/rumble.wav -text svneol=unset#audio/x-wav
+Sounds/touchdown-backup1.wav -text svneol=unset#audio/x-wav
+Sounds/touchdown.wav -text svneol=unset#audio/x-wav
+Sounds/wind-8khz.wav -text svneol=unset#audio/x-wav
+/SpaceShuttle-TAEM-set.xml -text svneol=unset#application/xml
+/SpaceShuttle-approach-set.xml -text svneol=unset#application/xml
+/SpaceShuttle-entry-set.xml -text svneol=unset#application/xml
+/SpaceShuttle-launch-set.xml -text svneol=unset#application/xml
+/SpaceShuttle-orbit-set.xml -text svneol=unset#application/xml
+/SpaceShuttle-set.xml -text svneol=unset#application/xml
+Systems/computations.xml -text svneol=unset#application/xml
+Systems/orbital_parameters.xml -text svneol=unset#application/xml
+Systems/rcs_control.xml -text svneol=unset#application/xml
+/shuttle.xml -text svneol=unset#application/xml
+/shuttle_Earthview.png -text svneol=unset#image/png
+/thumbnail.jpg -text svneol=unset#image/jpeg

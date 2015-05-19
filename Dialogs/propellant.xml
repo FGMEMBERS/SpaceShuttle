@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<name>propellant</name>
+	<name>external_loads</name>
 	<layout>vbox</layout>
 	<default-padding>1</default-padding>
 	<modal>false</modal>
@@ -261,33 +261,10 @@
       <col>3</col>
     </text>
 
-	<empty>
-		<pref-height>12</pref-height>
-	</empty>
-
    
-    <text>
-      <label>total weight</label>
-      <halign>left</halign>
-      <row>8</row>
-      <col>0</col>
-    </text>
-
-    <text>
-      <row>8</row>
-      <col>2</col>
-      <halign>right</halign>
-      <label>12345678</label>
-      <format>%.f lb</format>
-      <live>true</live>
-      <property>/fdm/jsbsim/inertia/weight-lbs</property>
-    </text> 
+    
     
 </group>
-
-
-
-
 
 
 
