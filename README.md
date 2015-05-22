@@ -2,11 +2,11 @@ LICENSE
 =======
 
 Content on the Space Shuttle has mixed licenses
-* http://www.blendswap.com/blends/view/74692: The Cockpit, Imported by R. Harrison,  is covered under [b] Creative Commons License CC-BY [b]
-* Work of the Shuttle also available on FGAddon is covered under [b] GPLv2.0 or
-later [/b]
-* Work of the Shuttle only available on Thorsten Renk repository is currently
-with [b]undescribed license[/b] but it is submitted to copyrights by its author.
+* http://www.blendswap.com/blends/view/74692: The Cockpit, Imported by R. Harrison,  is covered under <b> Creative Commons License CC-BY </b>
+* Work of the Shuttle also available on FGAddon is covered under <b> GPLv2.0 or
+later </b>
+* http://sourceforge.net/p/fgspaceshuttledev/code/ci/master/tree/: Work of the Shuttle only available on Thorsten Renk repository is currently
+with <b>undescribed license</b> but it is submitted to copyrights by its author.
 
 
 ![Thorsten image](http://users.jyu.fi/~trenk/pics/shuttle_FG06.jpg)
