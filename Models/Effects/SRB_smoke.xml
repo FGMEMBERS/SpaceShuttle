@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <!--###################################################################################
+    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
+    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -19,24 +21,19 @@
 			<roll-deg>0.0</roll-deg>
 			<pitch-deg>90.0</pitch-deg>
 			<heading-deg>0.0</heading-deg>
-	<condition>
-	<and>
-		<or>
-    		<greater-than>
-     			<property>/engines/engine[3]/thrust_lb</property>
-     			<value>100</value>
-    		</greater-than>
-		<greater-than>
-     			<property>/engines/engine[4]/thrust_lb</property>
-     			<value>100</value>
-    		</greater-than>
-		</or>
-		<equals>
-			<property>/controls/shuttle/SRB-static-model</property>
-			<value>1</value>
-		</equals>
-	</and>
-	</condition>
+<condition>
+	<or>
+    <greater-than>
+     <property>/engines/engine[3]/thrust_lb</property>
+     <value>100</value>
+    </greater-than>
+<greater-than>
+     <property>/engines/engine[4]/thrust_lb</property>
+     <value>100</value>
+    </greater-than>
+	</or>
+    
+</condition>
 		 
 	 <attach>world</attach>
 	 
@@ -114,7 +111,7 @@
 			 </size>
 		 </end>
 		 <life-sec>
-			 <value>120</value>
+			 <value>55</value>
 		 </life-sec>
 		 <mass-kg>0.35</mass-kg>
 		 <radius-m>0.70</radius-m>

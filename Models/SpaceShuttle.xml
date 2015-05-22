@@ -1,35 +1,8 @@
 <PropertyList>
 	<path>shuttle_o2.ac</path>
 
-   
-   <!-- heat shield glow -->
 
-  <animation>
-    <type>material</type>
-   <object-name>heatshield</object-name>	
-   <emission>
-      <factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
-      <red>   1.0 </red>
-      <green> 0.2 </green>
-      <blue>  0.1 </blue>
-    </emission>
-  </animation>
-
-
-
-    <!-- ******************************************************************* -->
-    <!-- Cockpit                                                             -->
-    <!-- ******************************************************************* -->
-    <model>
-        <path>cockpit.xml</path>
-        <offsets>
-            <x-m> 0 </x-m>
-            <y-m> 0 </y-m>
-            <z-m> 0 </z-m>
-        </offsets>
-    </model>
-    
-    <!-- man for the moon, pick the little windows on the top to activate him -->
+<!-- man for the moon, pick the little windows on the top to activate him -->
 
 <model>
     <path>Aircraft/SpaceShuttle/Models/EMU/acesjustforroomshow.xml</path>
@@ -104,31 +77,12 @@
 			<z-m>-10.0</z-m>
 		</offsets>
 		<condition>
- 		 <!--<greater-than>
-			<property>/consumables/fuel/tank/level-lbs</property>
+ 		 <greater-than>
++			<property>/consumables/fuel/tank/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>-->
-		<equals>
-			<property>/controls/shuttle/ET-static-model</property>
-			<value>1</value>
-		</equals>
+ 		 </greater-than>
  		</condition>
 </model>
-
-<!--<model>
-<path>Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml</path>
-		<offsets>
-			<x-m>-10.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>-10.0</z-m>
-		</offsets>
-		<condition>
-		<not>
-			<property>/controls/shuttle/ET-static-model</property>
-			<value>1</value>
-		</not>
- 		</condition>
-</model>-->
 
 <model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
@@ -139,14 +93,10 @@
 			<roll-deg>90.0</roll-deg>
 		</offsets>
                 <condition>
- 		<!-- <greater-than>
-			<property>/consumables/fuel/tank[1]/level-lbs</property>
+ 		 <greater-than>
++			<property>/consumables/fuel/tank[1]/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>-->
-		<equals>
-			<property>/controls/shuttle/SRB-static-model</property>
-			<value>1</value>
-		</equals>
+ 		 </greater-than>
  		</condition>
 </model>
 
@@ -159,14 +109,10 @@
 			<roll-deg>-90.0</roll-deg>
 		</offsets>
 		<condition>
- 		 <!--<greater-than>
-			<property>/consumables/fuel/tank[2]/level-lbs</property>
+ 		 <greater-than>
++			<property>/consumables/fuel/tank[2]/level-lbs</property>
  			<value>0</value>
- 		 </greater-than>-->
-		<equals>
-			<property>/controls/shuttle/SRB-static-model</property>
-			<value>1</value>
-		</equals>
+ 		 </greater-than>
  		</condition>
 </model>
 
@@ -175,7 +121,7 @@
 
 <!-- SRB exhaust flame-->
 
-<!--  <model>
+ <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
     <offsets>
 		 <x-m>14.5</x-m>
@@ -186,7 +132,7 @@
 	 </offsets>	
   </model>
   
- <model>
+  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
       <offsets>
 		 <x-m>14.5</x-m>
@@ -195,7 +141,7 @@
 		 <pitch-deg>0</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
-  </model>-->
+  </model>
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
@@ -563,36 +509,6 @@
 	</condition>
   </model>
 
-<!-- entry fire trail-->
-
- <model>
-   <path>Aircraft/SpaceShuttle/Models/Effects/entry_flame.xml</path>
-    <offsets>
-		 <x-m>-10.0</x-m>
-		 <y-m>0.0</y-m>
-		 <z-m>-6.0</z-m>
-		 <pitch-deg>90</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>
-
-<animation>
-  <object-name>re-entry-plasma</object-name>
-  <type>rotate</type>
-  <property>/orientation/pitch-deg</property>
-  <factor>-1.0</factor>
-  <offset-deg>0</offset-deg>
-  <center>
-   <x-m> 0.0</x-m>
-   <y-m> 0.0   </y-m>
-   <z-m> 0.0</z-m>
-  </center>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
- </animation>
 
 
   <!-- doors animation -->
