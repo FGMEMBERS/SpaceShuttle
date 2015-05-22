@@ -155,6 +155,36 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/various/ssme-flame-collimation">
+		<function>
+			<sum>
+			<value>0.2</value>
+			<product>
+				<value>0.8</value>
+				<difference>
+				<value>1.0</value>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+				</difference>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/various/ssme-flame-density">
+		<function>
+		<product>
+			<value>0.2</value>
+			<quotient>
+			<property>propulsion/engine[0]/thrust-lbs</property>
+			<value>510000.0</value>
+			</quotient>
+		</product>
+		</function>			
+		</fcs_function>
+
 
 	
 		

@@ -72,7 +72,7 @@
                 </orbital>
                 <fcs>
                     <parachute_reef_pos_norm type="double"> 0 </parachute_reef_pos_norm>
-                    <control-mode type="int"> 0 </control-mode>
+                    <control-mode type="int"> 10 </control-mode>
                     <rcs-pitch-mode type="int">1</rcs-pitch-mode>
                     <rcs-roll-mode type="int">1</rcs-roll-mode>
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
@@ -115,7 +115,7 @@
                     <thrust-nose-down type="double">0.0</thrust-nose-down>
 
                     <thrust-normalizer type="double">0.0</thrust-normalizer>
-                </rcs>
+                </rcs>	
             </systems>
         </jsbsim>
     </fdm>
@@ -133,7 +133,7 @@
                 <position type="float">0</position>
             </door>
             <parachute type="int">0</parachute>
-            <control-system-string type="string">Thrust Vectoring (gimbal)</control-system-string>
+            <control-system-string type="string">Thrust Vectoring</control-system-string>
             <hud-mode type="int">0</hud-mode>
             <gear-string type="string">up</gear-string>
             <speedbrake-string type="string">in</speedbrake-string>
@@ -570,6 +570,12 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
             </text>
         </help>
 
+	<systems>
+		<property-rule n="100"> 
+    			<name>ssme-flame-computation</name> 	
+    			<path>Systems/ssme-flame-computation.xml</path>  
+  		</property-rule>
+	</systems>
     </sim>
 
     <!-- Key mapping -->

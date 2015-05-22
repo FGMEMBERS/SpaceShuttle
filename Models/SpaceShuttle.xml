@@ -42,6 +42,31 @@
             <z-m> 0 </z-m>
         </offsets>
     </model>
+
+  <!-- SSME Motors Placements -->
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME1.xml</path>
+  </model>
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME2.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> -1.5 </y-m>
+      <z-m> -2.5 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME3.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 1.5 </y-m>
+      <z-m> -2.5 </z-m>
+    </offsets>
+  </model>
+
     
     <!-- man for the moon, pick the little windows on the top to activate him -->
 
@@ -695,7 +720,7 @@
 
 
 <!--SSME flames -->
-<model>
+<!--<model>
     <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
      <offsets>
        <x-m> 7.5 </x-m>
@@ -739,7 +764,7 @@
  	<value>0</value>
  	</greater-than>
      </condition>
-</model>
+</model>-->
 
 
 
