@@ -294,6 +294,14 @@ settimer(SRB_separation_motor_off, 1.2);
 
 var SRB_separation_motor_off = func {
 
+setprop("/controls/shuttle/forces/srb1/force-lb", 1.0);
+setprop("/controls/shuttle/forces/srb2/force-lb", 1.0);
+
+settimer(SRB_separation_motor_flame_off, 2.0);
+}
+
+var SRB_separation_motor_flame_off = func {
+
 setprop("/controls/shuttle/forces/srb1/force-lb", 0.0);
 setprop("/controls/shuttle/forces/srb2/force-lb", 0.0);
 
