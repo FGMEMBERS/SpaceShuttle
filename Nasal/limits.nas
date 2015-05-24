@@ -14,6 +14,7 @@ var qbar_warn = 0;
 var droop_warn = 0;
 var gear_extension_warn = 0;
 var Nx_warn = 0;
+var CBW_warn = 0;
 var tailscrape_warn = 0;
 var chute_warn = 0;
 var vspeed_warn = 0;
@@ -113,6 +114,30 @@ else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100
 	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
 	Nx_warn = 1;
 	settimer(func {Nx_warn = 0;}, 10.0);
+	}
+
+# wing bending moment coeff at max. qbar needs to be |CBW| < 0.18
+
+var CBW = getprop("/fdm/jsbsim/systems/various/wing-bending-moment");
+
+
+if ((math.abs(CBW) > 2458000.0) and (CBW_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Wing bending moment exceeds limits!");
+	fail_flag = 1;
+	CBW_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_destroy();
+		}
+
+	}
+else if ((math.abs(CBW) > 700000.0) and (CBW_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Wing bending moment approaches safety limits! Watch AoA!");
+	CBW_warn = 1;
+	settimer(func {CBW_warn = 0;}, 10.0);
 	}
 
 
