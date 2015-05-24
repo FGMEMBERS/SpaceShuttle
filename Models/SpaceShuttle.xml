@@ -18,6 +18,10 @@
  <effect>
     <inherits-from>Effects/space</inherits-from>
     	<object-name>heatshield</object-name>
+	<object-name>inboard-elevon-left</object-name>
+	<object-name>inboard-elevon-right</object-name>
+	<object-name>outboard-elevon-left</object-name>
+	<object-name>outboard-elevon-right</object-name>
    	<object-name>spaceshutt_spstob</object-name>
    	<object-name>spaceshutt_spstob.001</object-name>
 	<object-name>spaceshutt_spstob_1</object-name>
@@ -67,7 +71,19 @@
     </offsets>
   </model>
 
+<!-- Enterprise air data boom -->
+
     
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/air-data-boom.ac</path>
+	<condition>
+		<equals>
+			<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			<value>1</value>
+		</equals>
+ 	</condition>
+  </model>
+
     <!-- man for the moon, pick the little windows on the top to activate him -->
 
 <model>
@@ -587,6 +603,71 @@
   	</axis>
  </animation>
 
+<!-- elevon movement -->
+
+ <animation>
+	<object-name>inboard-elevon-left</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg</property>
+  	<factor>1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> 10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>outboard-elevon-left</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg</property>
+  	<factor>1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> 10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>inboard-elevon-right</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg</property>
+  	<factor>-1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> -10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>outboard-elevon-right</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg</property>
+  	<factor>-1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> -10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
 
   <!-- doors animation -->
 

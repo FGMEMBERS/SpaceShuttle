@@ -588,6 +588,11 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     			<path>Systems/ssme-flame-computation.xml</path>  
   		</property-rule>
 	</systems>
+	<config>
+		<shuttle>
+			<approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
+		</shuttle>
+	</config>
     </sim>
 
     <!-- Key mapping -->

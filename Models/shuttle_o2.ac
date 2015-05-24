@@ -5,7 +5,7 @@ MATERIAL "DefaultWhite" rgb 0.643137 1 0.643137  amb 0.2 0.2 0.2  emis 0 0 0  sp
 OBJECT world
 kids 13
 OBJECT poly
-name "flap-left"
+name "inboard-elevon-left"
 loc 10.9807 -4.57536 5.32794
 texture "spstob_1.png"
 crease 45.000000
@@ -52,7 +52,7 @@ refs 3
 6 0.4401 0.469
 kids 0
 OBJECT poly
-name "elevon-right"
+name "outboard-elevon-right"
 loc 10.7135 -4.58402 -10.0745
 texture "spstob_1.png"
 crease 45.000000
@@ -115,7 +115,7 @@ refs 3
 9 0.4395 0.4794
 kids 0
 OBJECT poly
-name "elevon-left"
+name "outboard-elevon-left"
 loc 10.7135 -4.58402 10.0745
 texture "spstob_1.png"
 crease 45.000000
@@ -176,7 +176,7 @@ refs 3
 8 0.5083 0.4077
 kids 0
 OBJECT poly
-name "flap-right"
+name "inboard-elevon-right"
 loc 10.9807 -4.57536 -5.32794
 texture "spstob_1.png"
 crease 45.000000

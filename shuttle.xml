@@ -1097,7 +1097,7 @@
    </aerosurface_scale>
 
    <aerosurface_scale name="Right Aileron Control">
-      <input>fcs/roll-trim-sum</input>
+      <input>-fcs/roll-trim-sum</input>
       <range>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -1276,11 +1276,55 @@
       </range>
       <output>fcs/rudder-pos-norm</output>
    </aerosurface_scale>
-
-
-
   </channel>
 
+  <channel name="Inboard elevon left">
+ 	<summer name="Inboard elevon left sum">
+      		<input>fcs/elevator-pos-deg</input>
+      		<input>fcs/left-aileron-pos-deg</input>
+      		<clipto>
+        		<min> -40.0 </min>
+        		<max>  25.0 </max>
+      		</clipto>
+      		<output>fcs/inboard-elevon-left-pos-deg</output>
+   	</summer>
+  </channel>
+
+  <channel name="Outboard elevon left">
+ 	<summer name="Outboard elevon left sum">
+      		<input>fcs/elevator-pos-deg</input>
+      		<input>fcs/left-aileron-pos-deg</input>
+      		<clipto>
+        		<min> -40.0 </min>
+        		<max>  25.0 </max>
+      		</clipto>
+      		<output>fcs/outboard-elevon-left-pos-deg</output>
+   	</summer>
+  </channel>
+
+  <channel name="Inboard elevon right">
+ 	<summer name="Inboard elevon right sum">
+      		<input>fcs/elevator-pos-deg</input>
+      		<input>fcs/right-aileron-pos-deg</input>
+      		<clipto>
+        		<min> -40.0 </min>
+        		<max>  25.0 </max>
+      		</clipto>
+      		<output>fcs/inboard-elevon-right-pos-deg</output>
+   	</summer>
+  </channel>
+
+  <channel name="Outboard elevon right">
+ 	<summer name="Outboard elevon right sum">
+      		<input>fcs/elevator-pos-deg</input>
+      		<input>fcs/right-aileron-pos-deg</input>
+      		<clipto>
+        		<min> -40.0 </min>
+        		<max>  25.0 </max>
+      		</clipto>
+      		<output>fcs/outboard-elevon-right-pos-deg</output>
+   	</summer>
+  </channel>
 
 
   <channel name="Landing Gear">
