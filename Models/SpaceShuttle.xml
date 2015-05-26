@@ -84,6 +84,12 @@
  	</condition>
   </model>
 
+<!-- OMS exhaust and rear RCS modules -->
+
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/OMSPods.ac</path>
+  </model>
+
     <!-- man for the moon, pick the little windows on the top to activate him -->
 
 <model>
