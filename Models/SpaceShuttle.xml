@@ -84,7 +84,19 @@
  	</condition>
   </model>
 
-<!-- OMS exhaust and rear RCS modules -->
+<!-- Enterprise tail cone -->
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/TailCone.ac</path>
+	<condition>
+		<equals>
+			<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			<value>1</value>
+		</equals>
+ 	</condition>
+  </model>
+
+<!-- OMS thruster exhaust and rear RCS modules -->
 
  <model>
     <path>Aircraft/SpaceShuttle/Models/OMSPods.ac</path>

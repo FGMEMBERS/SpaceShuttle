@@ -165,7 +165,7 @@
 <dynamic_friction> 0.20 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 3550000.00 </spring_coeff>
-<damping_coeff unit="LBS/FT/SEC"> 210000.00 </damping_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 1100000.00 </damping_coeff>
 </contact>
 
 <contact type="STRUCTURE" name="RIGHT_SRB">
@@ -178,7 +178,7 @@
 <dynamic_friction> 0.20 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 3550000.00 </spring_coeff>
-<damping_coeff unit="LBS/FT/SEC"> 210000.00 </damping_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 1100000.00 </damping_coeff>
 </contact>
 
 <contact type="STRUCTURE" name="FICTIONAL CENTER">
@@ -191,7 +191,7 @@
 <dynamic_friction> 0.20 </dynamic_friction>
 <rolling_friction> 0.02 </rolling_friction>
 <spring_coeff unit="LBS/FT"> 1100000.00 </spring_coeff>
-<damping_coeff unit="LBS/FT/SEC"> 210000.00 </damping_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 1100000.00 </damping_coeff>
 </contact>
 
 
