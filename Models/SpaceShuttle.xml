@@ -15,21 +15,7 @@
     	</emission>
   </animation>
 
- <effect>
-    <inherits-from>Effects/space</inherits-from>
-    	<object-name>heatshield</object-name>
-	<object-name>inboard-elevon-left</object-name>
-	<object-name>inboard-elevon-right</object-name>
-	<object-name>outboard-elevon-left</object-name>
-	<object-name>outboard-elevon-right</object-name>
-   	<object-name>spaceshutt_spstob</object-name>
-   	<object-name>spaceshutt_spstob.001</object-name>
-	<object-name>spaceshutt_spstob_1</object-name>
-	<object-name>spaceshutt_spstob_2</object-name>
-	<object-name>spaceshutt_spstob_4</object-name>
-	<object-name>spaceshutt_spstob_3</object-name>
-	<object-name>cockpit-front-glass-outside</object-name>
- </effect>
+
 
  
 
@@ -952,6 +938,23 @@
       </condition>
 </model>
 
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    	<object-name>heatshield</object-name>
+    	<object-name>TailCone</object-name>
+	<object-name>inboard-elevon-left</object-name>
+	<object-name>inboard-elevon-right</object-name>
+	<object-name>outboard-elevon-left</object-name>
+	<object-name>outboard-elevon-right</object-name>
+   	<object-name>spaceshutt_spstob</object-name>
+   	<object-name>spaceshutt_spstob.001</object-name>
+	<object-name>spaceshutt_spstob_1</object-name>
+	<object-name>spaceshutt_spstob_2</object-name>
+	<object-name>spaceshutt_spstob_4</object-name>
+	<object-name>spaceshutt_spstob_3</object-name>
+	<object-name>cockpit-front-glass-outside</object-name>
+ </effect>
 
 
 </PropertyList>
