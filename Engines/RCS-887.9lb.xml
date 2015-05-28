@@ -5,11 +5,10 @@
     ###################################################################################
 -->
 
-<rocket_engine name="RCS thruster">
+<rocket_engine name="RCS single thruster nose module 887.9 lb vacuum thrust">
 	<isp>               289 </isp>
 	<maxthrottle>      1.00 </maxthrottle>
 	<minthrottle>      0.00 </minthrottle>
-	<sloxiflowmax>    5.502 </sloxiflowmax>
-	<slfuelflowmax>   3.528 </slfuelflowmax>
+	<sloxiflowmax>    1.872 </sloxiflowmax>
+	<slfuelflowmax>   1.200 </slfuelflowmax>
 </rocket_engine>
-
