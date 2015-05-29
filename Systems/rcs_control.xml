@@ -335,8 +335,23 @@
 		<output>fcs/throttle-pos-norm[19]</output>
 		<!--<output>fcs/throttle-pos-norm[20]</output>-->
 		<!--<output>fcs/throttle-pos-norm[21]</output>-->
+		<output>fcs/throttle-pos-norm[22]</output>
+		<output>fcs/throttle-pos-norm[23]</output>
+		<output>fcs/throttle-pos-norm[24]</output>
+		<output>fcs/throttle-pos-norm[25]</output>
+		<output>fcs/throttle-pos-norm[26]</output>
+		<output>fcs/throttle-pos-norm[27]</output>
+		<output>fcs/throttle-pos-norm[28]</output>
+		<output>fcs/throttle-pos-norm[29]</output>
+		<output>fcs/throttle-pos-norm[30]</output>
+		<output>fcs/throttle-pos-norm[31]</output>
+		<output>fcs/throttle-pos-norm[32]</output>
+		<output>fcs/throttle-pos-norm[33]</output>
+		<output>fcs/throttle-pos-norm[34]</output>
+		<output>fcs/throttle-pos-norm[35]</output>
 		</fcs_function>
 
+	
 
 		<switch name="systems/fcs/rcs-thrust-factor-rotation">
 			<default value="0.0"/>
@@ -1557,6 +1572,19 @@
 		</function>
 		<output>fcs/throttle-pos-norm[21]</output>
 		</fcs_function>
+
+		<!--<fcs_function name="systems/fcs/rcs-throttle-test">
+			<function>
+				<value>1.0</value>
+			</function>
+			<output>fcs/throttle-pos-norm[29]</output>
+			<output>fcs/throttle-pos-norm[30]</output>
+			<output>fcs/throttle-pos-norm[31]</output>
+			<output>fcs/throttle-pos-norm[32]</output>
+			<output>fcs/throttle-pos-norm[33]</output>
+			<output>fcs/throttle-pos-norm[34]</output>
+			<output>fcs/throttle-pos-norm[35]</output>
+		</fcs_function>-->
 
 	</channel>
 
