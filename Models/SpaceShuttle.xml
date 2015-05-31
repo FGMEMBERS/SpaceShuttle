@@ -290,7 +290,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[7]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-up</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -309,7 +309,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-down</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -326,7 +326,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-down</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -345,7 +345,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[9]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-left</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -365,7 +365,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[10]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-right</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -384,7 +384,7 @@
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[11]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-fwd</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -394,16 +394,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>-90.0</roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[14]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-left</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -413,16 +413,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[12]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-up</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -432,16 +432,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[13]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-down</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -451,13 +451,13 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[16]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-back</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -468,16 +468,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>90.0</roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[20]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-right</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -487,16 +487,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[17]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-up</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -506,16 +506,16 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[18]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-down</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -525,14 +525,14 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[21]/thrust-lbs</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-back</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -542,10 +542,10 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
       <offsets>
-		 <x-m>14.0</x-m>
-		 <y-m>-1.82</y-m>
-		 <z-m>0.0</z-m>
-		 <pitch-deg>0</pitch-deg>
+		 <x-m>15.5</x-m>
+		 <y-m>-2.22</y-m>
+		 <z-m>0.7</z-m>
+		 <pitch-deg>-16</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>
 	<condition>
@@ -562,10 +562,10 @@
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
       <offsets>
-		 <x-m>14.0</x-m>
-		 <y-m>1.82</y-m>
-		 <z-m>0.0</z-m>
-		 <pitch-deg>0</pitch-deg>
+		 <x-m>15.5</x-m>
+		 <y-m>2.22</y-m>
+		 <z-m>0.7</z-m>
+		 <pitch-deg>-16</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
 	<condition>
