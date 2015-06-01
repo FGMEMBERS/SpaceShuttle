@@ -957,7 +957,8 @@
 	<object-name>omsLeftBase</object-name>
 	<object-name>omsLeft</object-name>
 	<object-name>omsRightBase</object-name>
-	<object-name>omsRight</object-name>
+	<object-name>omsRight</object-name>	
+	<object-name>spaceshutt_spstob_eal</object-name>
  </effect>
 
 

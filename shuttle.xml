@@ -308,6 +308,8 @@
      <priority>1</priority>
   </tank>
  
+ 
+
 
 <!-- SRB -->
 
@@ -324,7 +326,6 @@
       <yaw>   0.00 </yaw>
     </orient>    
     <feed>1</feed>
-    
     <thruster file="SRB_nozzle">
      <location unit="M">
       <x> 18.28 </x>
@@ -360,8 +361,7 @@
       <roll>  0.00 </roll>
       <yaw>   0.00 </yaw>
     </orient>    
-    <feed>2</feed>
-    
+    <feed>2</feed>  
     <thruster file="SRB_nozzle">
      <location unit="M">
       <x> 18.28 </x>
@@ -385,7 +385,18 @@
       <capacity unit="LBS">1114092.6</capacity>
       <contents unit="LBS">1114092.6</contents>
   </tank>
-  
+
+
+ <tank type="FUEL" number="3">
+     <location unit="M">
+       <x> -15.00 </x>
+       <y> 0.00 </y>
+       <z>-10.6 </z>
+     </location>
+     <capacity unit="LBS"> 10.00 </capacity>
+     <contents unit="LBS"> 0.00 </contents>
+     <priority>1</priority>
+  </tank>  
 
 <!-- OMS -->
 
@@ -394,7 +405,7 @@
    <engine file="OMS">
     <location unit="M">
       <x> 17.0 </x>
-       <y> -1.52 </y>
+       <y> -2.2 </y>
        <z> 0.27 </z>
     </location>
     <orient unit="DEG">
@@ -402,11 +413,12 @@
       <roll>  0.00 </roll>
       <yaw>   0.00 </yaw>
     </orient>    
-    <feed>3</feed>    
+    <feed>4</feed>   
+    <feed>5</feed>     
     <thruster file="OMS_nozzle">
      <location unit="M">
       <x> 17.0 </x>
-       <y> -1.52 </y>
+       <y> -2.2 </y>
        <z> 0.27 </z>
     </location>
      <orient unit="DEG">
@@ -430,7 +442,8 @@
       <roll>  0.00 </roll>
       <yaw>   0.00 </yaw>
     </orient>    
-     <feed>3</feed>    
+     <feed>6</feed>   
+     <feed>7</feed>     
     <thruster file="OMS_nozzle">
      <location unit="M">
       <x> 17.0 </x>
@@ -446,17 +459,57 @@
     </engine>
 
 
+ <!-- left OMS pod tank -->
+ 
+  <tank type="OXIDIZER" number="4">
+     <location unit="M">
+       <x>  0.00 </x>
+       <y>  0.00 </y>
+       <z>  0.00 </z>
+     </location>
+     <capacity unit="LBS"> 7773.00 </capacity>
+     <contents unit="LBS"> 7773.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="FUEL" number="5">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 4718.00 </capacity>
+     <contents unit="LBS"> 4718.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+ <!-- right OMS pod tank-->
+
+  <tank type="OXIDIZER" number="6">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 7773.00 </capacity>
+     <contents unit="LBS"> 7773.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="FUEL" number="7">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 4718.00 </capacity>
+     <contents unit="LBS"> 4718.00 </contents>
+     <priority>2</priority>
+  </tank>
+
 
  
-
-<!-- ongoing work - define all thrusters of the RCS individually -->
-
-<!-- up: -90 pitch down: 90 pitch, left: 90 yaw, right: -90 yaw, fwd: -180 yaw, back: 0.0 yaw 
- nose feeds from tanks 4,5 pod1 from 6,7 pod2 from 8,9 -->
-
-<!-- nose module thrusters get 40 cm spacing, with with F?D and F?L ~ 80 cm Y displacement and 40 cm Z displacement -->
-<!-- (note that thrust vector does not attach precisely at nozzle surface position) -->
-
+<!-- RCS thrusters -->
 
 <!-- the normal thrusters - ISP 289 s, nominal thrust about 870 lb each -->
 
@@ -474,8 +527,8 @@
       <roll>   0.00 </roll>
       <yaw> 181.70    </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -505,8 +558,8 @@
       <roll>   0.00 </roll>
       <yaw>  180 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -534,9 +587,8 @@
       <roll>   0.00 </roll>
       <yaw>   178.30 </yaw>
     </orient>
-
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -566,8 +618,8 @@
       <roll>   0.00 </roll>
       <yaw>   91.7 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -596,8 +648,8 @@
       <roll>   0.00 </roll>
       <yaw>   91.4 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -626,8 +678,8 @@
       <roll>   0.00 </roll>
       <yaw>   -91.7 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -655,8 +707,8 @@
       <roll>   0.00 </roll>
       <yaw>   -91.4 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -684,8 +736,8 @@
       <roll>   0.00 </roll>
       <yaw>   199.91 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -713,8 +765,8 @@
       <roll>   0.00 </roll>
       <yaw>   180.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -742,8 +794,8 @@
       <roll>   0.00 </roll>
       <yaw>   160.09 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.0</x>
@@ -771,8 +823,8 @@
       <roll>   0.00 </roll>
       <yaw>   -91.8 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.2</x>
@@ -801,8 +853,8 @@
       <roll>   0.00 </roll>
       <yaw>   91.8 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.2</x>
@@ -830,8 +882,8 @@
       <roll>   0.00 </roll>
       <yaw>   -91.6 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-14.8</x>
@@ -859,8 +911,8 @@
       <roll>   0.00 </roll>
       <yaw>   91.6 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-14.8</x>
@@ -891,8 +943,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -920,8 +972,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -950,8 +1002,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -979,8 +1031,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1008,8 +1060,8 @@
       <roll>   0.00 </roll>
       <yaw>    90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.55</x>
@@ -1037,8 +1089,8 @@
       <roll>   0.00 </roll>
       <yaw>    90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1066,8 +1118,8 @@
       <roll>   0.00 </roll>
       <yaw>    90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1095,8 +1147,8 @@
       <roll>   0.00 </roll>
       <yaw>    90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1125,8 +1177,8 @@
       <roll>   0.00 </roll>
       <yaw>    -90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.55</x>
@@ -1154,8 +1206,8 @@
       <roll>   0.00 </roll>
       <yaw>    -90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1183,8 +1235,8 @@
       <roll>   0.00 </roll>
       <yaw>    -90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1212,8 +1264,8 @@
       <roll>   0.00 </roll>
       <yaw>    -90.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1241,8 +1293,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1270,8 +1322,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1299,8 +1351,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1328,8 +1380,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1357,8 +1409,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1386,8 +1438,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.00 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1415,8 +1467,8 @@
       <roll>   0.00 </roll>
       <yaw>    50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1444,8 +1496,8 @@
       <roll>   0.00 </roll>
       <yaw>    50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1473,8 +1525,8 @@
       <roll>   0.00 </roll>
       <yaw>    50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1502,8 +1554,8 @@
       <roll>   0.00 </roll>
       <yaw>    -50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>16.85</x>
@@ -1531,8 +1583,8 @@
       <roll>   0.00 </roll>
       <yaw>    -50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.15</x>
@@ -1560,8 +1612,8 @@
       <roll>   0.00 </roll>
       <yaw>    -50.80 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1591,8 +1643,8 @@
       <roll>  0.00 </roll>
       <yaw>  -91.8    </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.4</x>
@@ -1620,8 +1672,8 @@
       <roll>  0.00 </roll>
       <yaw>  91.8    </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>12</feed>
+    <feed>13</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>-15.4</x>
@@ -1649,8 +1701,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.0 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1678,8 +1730,8 @@
       <roll>   0.00 </roll>
       <yaw>    0.0 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1707,8 +1759,8 @@
       <roll>   0.00 </roll>
       <yaw>    90.0 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>8</feed>
+    <feed>9</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1736,8 +1788,8 @@
       <roll>   0.00 </roll>
       <yaw>    -90.0 </yaw>
     </orient>
-    <feed>4</feed>
-    <feed>5</feed>    
+    <feed>10</feed>
+    <feed>11</feed>    
     <thruster file="RCS_nozzle">     
       <location unit="M">
       <x>17.45</x>
@@ -1754,44 +1806,85 @@
 
 
 
-  <!--tank definitions -->
 
- <!-- OMS - at the moment both tanks together at the CoG-->
+
+
  
-  <tank type="FUEL" number="3">
-     <location unit="IN">
-       <x> 1.00 </x>
-       <y>   0.00 </y>
-       <z>-100.00 </z>
+ <!-- RCS tanks - -->
+ 
+ <!-- left OMS pod -->
+
+    <tank type="OXIDIZER" number="8">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
      </location>
-     <capacity unit="LBS"> 24982.00 </capacity>
-     <contents unit="LBS"> 24982.00 </contents>
+     <capacity unit="LBS"> 1477.00 </capacity>
+     <contents unit="LBS"> 1477.00 </contents>
      <priority>2</priority>
   </tank>
- 
- <!-- RCS tanks - at the moment all three together at the CoG-->
- 
-                <tank type="OXIDIZER" number="4">
-			<location unit="IN">
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -4.251 </z>
-			</location>
-			<capacity unit="LBS"> 4341.00 </capacity>
-			<contents unit="LBS"> 4341.00 </contents>
-		</tank>
 
-		<tank type="FUEL" number="5">
-			<location unit="IN">
-				<x> 0.0 </x>
-				<y> 0.0 </y>
-				<z> -4.251 </z>
-			</location>
-			<capacity unit="LBS"> 2784.00 </capacity>
-			<contents unit="LBS"> 2784.00 </contents>
-		</tank>
+  <tank type="FUEL" number="9">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 928.00 </capacity>
+     <contents unit="LBS"> 928.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+ <!-- right OMS pod -->
+
+   <tank type="OXIDIZER" number="10">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 1477.00 </capacity>
+     <contents unit="LBS"> 1477.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="FUEL" number="11">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 928.00 </capacity>
+     <contents unit="LBS"> 928.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+ <!-- nose module pod -->
+
+   <tank type="OXIDIZER" number="12">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 1477.00 </capacity>
+     <contents unit="LBS"> 1477.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="FUEL" number="13">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> 0.00 </z>
+     </location>
+     <capacity unit="LBS"> 928.00 </capacity>
+     <contents unit="LBS"> 928.00 </contents>
+     <priority>2</priority>
+   </tank>
  
-<!--new tanks for control engines  end-->
+
  
  </propulsion>
 
