@@ -1827,6 +1827,13 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
 			</test>
 		<output>fcs/airfoil-factor-pitch</output>
 		</switch>
@@ -1929,6 +1936,13 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
 			</test>
 		<output>fcs/airfoil-factor-roll</output>
 		</switch>
@@ -2018,6 +2032,13 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
 			</test>
 		<output>fcs/airfoil-factor-yaw</output>
 		</switch>
