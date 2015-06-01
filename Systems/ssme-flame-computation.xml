@@ -18,4 +18,11 @@
    <output>/sim/systems/various/ssme-flame-density</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/various/oms-flame-density</input>
+   <output>/sim/systems/various/oms-flame-density</output>
+ </filter>
+
  </PropertyList>

@@ -4,6 +4,7 @@
   <name>ssme-flame</name>
   <inherits-from>Effects/thrust-flame</inherits-from>
   <parameters>
+    <flame_radius_fraction type="float">0.133</flame_radius_fraction>
     <flame_color_low_r>0.9</flame_color_low_r>
     <flame_color_low_g>0.7</flame_color_low_g>
     <flame_color_low_b>0.5</flame_color_low_b>

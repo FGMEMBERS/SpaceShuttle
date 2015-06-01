@@ -158,9 +158,9 @@
 		<fcs_function name="systems/various/ssme-flame-collimation">
 		<function>
 			<sum>
-			<value>0.2</value>
+			<value>0.15</value>
 			<product>
-				<value>0.8</value>
+				<value>0.85</value>
 				<difference>
 				<value>1.0</value>
 				<quotient>
@@ -180,6 +180,19 @@
 			<quotient>
 			<property>propulsion/engine[0]/thrust-lbs</property>
 			<value>510000.0</value>
+			</quotient>
+		</product>
+		</function>			
+		</fcs_function>
+
+
+		<fcs_function name="systems/various/oms-flame-density">
+		<function>
+		<product>
+			<value>0.5</value>
+			<quotient>
+			<property>propulsion/engine[5]/thrust-lbs</property>
+			<value>6000.0</value>
 			</quotient>
 		</product>
 		</function>			

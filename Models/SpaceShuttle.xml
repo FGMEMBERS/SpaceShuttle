@@ -279,7 +279,7 @@
  
   <!-- RCS nose up -->
   <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-17.0</x-m>
 		 <y-m>0.0</y-m>
@@ -298,7 +298,7 @@
 
  <!-- RCS nose down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>1.6</y-m>
@@ -315,7 +315,7 @@
 	</condition>
   </model>
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>-1.6</y-m>
@@ -334,7 +334,7 @@
 
 <!-- RCS nose left -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>-1.6</y-m>
@@ -354,7 +354,7 @@
 <!-- RCS nose right -->
 
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>1.6</y-m>
@@ -374,7 +374,7 @@
 <!-- RCS nose forward -->
 
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-17.0</x-m>
 		 <y-m>0.0</y-m>
@@ -392,7 +392,7 @@
     
 <!-- RCS pod 1 left -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
@@ -411,7 +411,7 @@
 
 <!-- RCS pod 1 up -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
@@ -430,7 +430,7 @@
 
 <!-- RCS pod 1 down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
@@ -449,7 +449,7 @@
 
 <!-- RCS pod 1 rear -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
@@ -466,7 +466,7 @@
 
 <!-- RCS pod 2 right -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
@@ -485,7 +485,7 @@
 
 <!-- RCS pod 2 up -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
@@ -504,7 +504,7 @@
 
 <!-- RCS pod 2 down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
@@ -523,7 +523,7 @@
 
 <!-- RCS pod 2 rear -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
@@ -540,7 +540,7 @@
 
 <!-- OMS 1 -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.5</x-m>
 		 <y-m>-2.22</y-m>
@@ -560,7 +560,7 @@
 
 <!-- OMS 2 -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame_alt.xml</path>
       <offsets>
 		 <x-m>15.5</x-m>
 		 <y-m>2.22</y-m>
@@ -954,6 +954,10 @@
 	<object-name>spaceshutt_spstob_4</object-name>
 	<object-name>spaceshutt_spstob_3</object-name>
 	<object-name>cockpit-front-glass-outside</object-name>
+	<object-name>omsLeftBase</object-name>
+	<object-name>omsLeft</object-name>
+	<object-name>omsRightBase</object-name>
+	<object-name>omsRight</object-name>
  </effect>
 
 

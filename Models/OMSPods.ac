@@ -1,6 +1,6 @@
 AC3Db
 MATERIAL "DefaultWhite" rgb 1.0000 1.0000 1.0000  amb 0.2000 0.2000 0.2000  emis 0.0000 0.0000 0.0000  spec 0.5000 0.5000 0.5000  shi 10 trans 0.0000
-MATERIAL "Material.001" rgb 0.8000 0.8000 0.8000  amb 1.0000 1.0000 1.0000  emis 0.0000 0.0000 0.0000  spec 0.2500 0.2500 0.2500  shi 50 trans 0.0000
+MATERIAL "Material.001" rgb 0.8000 0.8000 0.8000  amb 0.2000 0.2000 0.2000  emis 0.0000 0.0000 0.0000  spec 0.2500 0.2500 0.2500  shi 50 trans 0.0000
 OBJECT world
 name "Blender_export__OMSPods1.ac"
 kids 2
@@ -1712,7 +1712,7 @@ refs 4
 212 0 0
 kids 13
 OBJECT poly
-name "omeLeftBase"
+name "omsLeftBase"
 numvert 91
 13.9106798 -1.3838294 1.5370679
 14.4064741 -1.3083059 1.6407354
@@ -2408,7 +2408,7 @@ refs 4
 89 0 0
 kids 1
 OBJECT poly
-name "omeLeft"
+name "omsLeft"
 numvert 660
 14.2410803 -1.3639625 1.9197956
 16.0451756 -0.8944008 1.5744053
@@ -11828,7 +11828,7 @@ refs 4
 215 0 0
 kids 13
 OBJECT poly
-name "omeRightBase"
+name "omsRightBase"
 numvert 91
 13.9106798 -1.3838294 -1.5370679
 14.4064741 -1.3083059 -1.6407354
@@ -12524,7 +12524,7 @@ refs 4
 39 0 0
 kids 1
 OBJECT poly
-name "omeRight"
+name "omsRight"
 numvert 660
 14.2410803 -1.3639625 -1.9197956
 16.0451756 -0.8944008 -1.5744053
