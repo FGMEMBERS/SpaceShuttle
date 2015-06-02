@@ -386,6 +386,7 @@
       <contents unit="LBS">1114092.6</contents>
   </tank>
 
+<!-- this will later be the ET oxidizer - now we just reserve the index -->
 
  <tank type="FUEL" number="3">
      <location unit="M">
@@ -463,9 +464,9 @@
  
   <tank type="OXIDIZER" number="4">
      <location unit="M">
-       <x>  0.00 </x>
-       <y>  0.00 </y>
-       <z>  0.00 </z>
+       <x>  14.00 </x>
+       <y> -2.20 </y>
+       <z>  0.27 </z>
      </location>
      <capacity unit="LBS"> 7773.00 </capacity>
      <contents unit="LBS"> 7773.00 </contents>
@@ -474,9 +475,9 @@
 
   <tank type="FUEL" number="5">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 14.00 </x>
+       <y> -2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 4718.00 </capacity>
      <contents unit="LBS"> 4718.00 </contents>
@@ -487,9 +488,9 @@
 
   <tank type="OXIDIZER" number="6">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 14.00 </x>
+       <y> 2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 7773.00 </capacity>
      <contents unit="LBS"> 7773.00 </contents>
@@ -498,9 +499,9 @@
 
   <tank type="FUEL" number="7">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 14.00 </x>
+       <y> 2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 4718.00 </capacity>
      <contents unit="LBS"> 4718.00 </contents>
@@ -1816,9 +1817,9 @@
 
     <tank type="OXIDIZER" number="8">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 12.00 </x>
+       <y> -2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 1477.00 </capacity>
      <contents unit="LBS"> 1477.00 </contents>
@@ -1827,9 +1828,9 @@
 
   <tank type="FUEL" number="9">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 12.00 </x>
+       <y> -2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 928.00 </capacity>
      <contents unit="LBS"> 928.00 </contents>
@@ -1840,9 +1841,9 @@
 
    <tank type="OXIDIZER" number="10">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 12.00 </x>
+       <y> 2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 1477.00 </capacity>
      <contents unit="LBS"> 1477.00 </contents>
@@ -1851,9 +1852,9 @@
 
   <tank type="FUEL" number="11">
      <location unit="M">
-       <x> 0.00 </x>
-       <y> 0.00 </y>
-       <z> 0.00 </z>
+       <x> 12.00 </x>
+       <y> 2.20 </y>
+       <z> 0.27 </z>
      </location>
      <capacity unit="LBS"> 928.00 </capacity>
      <contents unit="LBS"> 928.00 </contents>
@@ -1864,9 +1865,9 @@
 
    <tank type="OXIDIZER" number="12">
      <location unit="M">
-       <x> 0.00 </x>
+       <x> -15.50 </x>
        <y> 0.00 </y>
-       <z> 0.00 </z>
+       <z> -3.60 </z>
      </location>
      <capacity unit="LBS"> 1477.00 </capacity>
      <contents unit="LBS"> 1477.00 </contents>
@@ -1875,9 +1876,9 @@
 
   <tank type="FUEL" number="13">
      <location unit="M">
-       <x> 0.00 </x>
+       <x> -15.50 </x>
        <y> 0.00 </y>
-       <z> 0.00 </z>
+       <z> -3.60 </z>
      </location>
      <capacity unit="LBS"> 928.00 </capacity>
      <contents unit="LBS"> 928.00 </contents>
@@ -1927,6 +1928,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-pitch</output>
 		</switch>
@@ -2036,6 +2038,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-roll</output>
 		</switch>
@@ -2132,6 +2135,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-yaw</output>
 		</switch>

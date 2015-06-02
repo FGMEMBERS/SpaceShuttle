@@ -512,7 +512,7 @@ if ((current_mode == 0) or (current_mode == 10))
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
-else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22))
+else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode==26))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
 	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
@@ -540,7 +540,7 @@ if ((current_mode == 1) or (current_mode == 20) or (current_mode == 21) or (curr
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
 	setprop("/controls/shuttle/control-system-string", "RCS translation");
 	}
-else if (current_mode ==2)
+else if ((current_mode ==2) or (current_mode == 26))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
@@ -609,7 +609,16 @@ else if (current_mode == 22)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
-
+else if (current_mode == 2)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
+	setprop("/controls/shuttle/control-system-string", "RCS translation ATT HLD");
+	}
+else if (current_mode == 26)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
+	setprop("/controls/shuttle/control-system-string", "RCS translation");
+	}
 
 
 	

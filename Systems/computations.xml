@@ -160,7 +160,7 @@
 			<sum>
 			<value>0.15</value>
 			<product>
-				<value>0.85</value>
+				<value>0.4</value>
 				<difference>
 				<value>1.0</value>
 				<quotient>
@@ -196,6 +196,15 @@
 			</quotient>
 		</product>
 		</function>			
+		</fcs_function>
+
+		<fcs_function name="systems/various/oms-fuel-fraction">
+		<function>
+			<quotient>
+				<property>/consumables/fuel/tank[4]/level-lbs</property>
+				<value>7773.0</value>
+			</quotient>
+		</function>
 		</fcs_function>
 
 	<!-- This is the wing bending moment from Carl F. Ehrlich, 'Why the Wings stay on' -->

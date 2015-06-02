@@ -10,9 +10,12 @@
 	<!-- 20: RCS DAP-A - precision attitude hold, stick controls rate -->
 	<!-- 21: RCS DAP-B - propellant conserving attitude hold, stick controls rate -->
 	<!-- 22: RCS ROT TAIL ONLY - nose thrusters are off, stick controls thrust --> 
-	<!-- 23: RCS ROT NOSE ONLY - tail pod thrusters are off, stick controls thrust -->
+	<!-- * 23: RCS ROT NOSE ONLY - tail pod thrusters are off, stick controls thrust -->
 	<!-- 24: RCS ROT ENTRY - nose thrusters are off, stick controls rate -->
-
+	<!-- * 25: RCS ROT Vernier - precision attitude hold using verniers, stick controls rate -->
+	<!-- 26: RCS TRANS ATT-HLD - translational mode commanding attitude hold -->
+	<!-- * 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
+	<!-- * 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 
 	<channel name="DAP modes">
 		<switch name="systems/fcs/dap-master">
@@ -51,6 +54,13 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-trans-att-hold">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/control-mode == 26
+			</test>
+		</switch>
+
 		<switch name="systems/fcs/rcs-entry-roll-compensation-veto">
 			<default value="1.0"/>
 			<test value="0.0">
@@ -75,6 +85,10 @@
 				<product>
   					<property>fcs/elevator-cmd-norm</property>
 					<value>-0.05</value>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
 				</product>
 			</difference>
 		</function>
@@ -164,6 +178,10 @@
 				<product>
   					<property>fcs/aileron-cmd-norm</property>
 					<value>0.05</value>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
 				</product>
 			</difference>
 		</function>
@@ -218,6 +236,10 @@
 				<product>
   					<property>fcs/rudder-cmd-norm</property>
 					<value>-0.05</value>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
 				</product>
 			</difference>
 		</function>
@@ -386,13 +408,15 @@
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 26
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rcs-thrust-factor-translation">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 26
 			</test>
 		</switch>
 
@@ -438,6 +462,15 @@
 			</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs/aileron-att-cmd-norm-filtered">
+			<function>
+				<product>
+					<property>systems/fcs/rcs-trans-att-hold</property>
+					<property>systems/rcs/dap-roll-cmd-deadband</property>
+				</product>
+			</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rcs/elevator-cmd-norm-filtered">
 			<function>
 				<sum>
@@ -455,7 +488,20 @@
 					<property>systems/fcs/dap-master</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
+				<product>
+					<property>systems/fcs/rcs-trans-att-hold</property>
+					<property>systems/rcs/dap-pitch-cmd-deadband</property>
+				</product>
 				</sum>
+			</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/elevator-att-cmd-norm-filtered">
+			<function>
+				<product>
+					<property>systems/fcs/rcs-trans-att-hold</property>
+					<property>systems/rcs/dap-pitch-cmd-deadband</property>
+				</product>
 			</function>
 		</fcs_function>
 
@@ -476,16 +522,78 @@
 					<property>systems/fcs/dap-master</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
+				<product>
+					<property>systems/fcs/rcs-trans-att-hold</property>
+					<property>systems/rcs/dap-yaw-cmd-deadband</property>
+				</product>
 				</sum>
 			</function>
 		</fcs_function>
+
+		<fcs_function name="systems/rcs/rudder-att-cmd-norm-filtered">
+			<function>
+				<product>
+					<property>systems/fcs/rcs-trans-att-hold</property>
+					<property>systems/rcs/dap-yaw-cmd-deadband</property>
+				</product>
+			</function>
+		</fcs_function>
+
+	<!-- we may have 'attitude hold' commanded for translational modes, in which case -->
+	<!-- airfoil command norms do not contain the proper rotation commands -->
+
+		<fcs_function name="systems/rcs/aileron-rot-cmd-norm-filtered">
+			<function>
+				<sum>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				</product>
+				<property>systems/rcs/aileron-att-cmd-norm-filtered</property>
+				</sum>
+			</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/elevator-rot-cmd-norm-filtered">
+			<function>
+				<sum>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				</product>
+				<property>systems/rcs/elevator-att-cmd-norm-filtered</property>
+				</sum>
+			</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/rudder-rot-cmd-norm-filtered">
+			<function>
+				<sum>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				</product>
+				<property>systems/rcs/rudder-att-cmd-norm-filtered</property>
+				</sum>
+			</function>
+		</fcs_function>
+
 
 	<!-- roll thrust patterns -->
 
 		<switch name="systems/rcs/pod1-up-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered LT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -495,7 +603,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-up-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<value>-1.0</value>
 			</product>
 		</function>
@@ -504,7 +612,7 @@
 		<switch name="systems/rcs/pod1-down-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered GT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -514,7 +622,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-down-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -522,7 +630,7 @@
 		<switch name="systems/rcs/pod2-up-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered GT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -532,7 +640,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-up-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -540,7 +648,7 @@
 		<switch name="systems/rcs/pod2-down-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered LT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -550,7 +658,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-down-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<value>-1.0</value>
 			</product>
 		</function>
@@ -559,7 +667,7 @@
 		<switch name="systems/rcs/nose-right-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered LT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -570,7 +678,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-right-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>-0.35</value>
 			</product>
@@ -580,7 +688,7 @@
 		<switch name="systems/rcs/nose-left-fire-roll">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/aileron-cmd-norm-filtered GT 0
+				systems/rcs/aileron-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -591,7 +699,7 @@
 				<property>systems/fcs/rcs-roll-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-left-fire-roll</property>
-				<property>systems/rcs/aileron-cmd-norm-filtered</property>
+				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>0.35</value>
 			</product>
@@ -603,7 +711,7 @@
 		<switch name="systems/rcs/nose-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered GT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -614,7 +722,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-up-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -622,7 +730,7 @@
 		<switch name="systems/rcs/nose-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered LT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -633,7 +741,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-down-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 				<value>-1.0</value>
 			</product>
 		</function>
@@ -643,7 +751,7 @@
 		<switch name="systems/rcs/pod1-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered LT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -654,7 +762,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-up-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 				<value>-0.5</value>
 			</product>
 		</function>
@@ -664,7 +772,7 @@
 		<switch name="systems/rcs/pod2-up-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered LT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -675,7 +783,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-up-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 				<value>-0.5</value>
 			</product>
 		</function>
@@ -684,7 +792,7 @@
 		<switch name="systems/rcs/pod1-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered GT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -695,7 +803,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-down-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 				<value>0.5</value>
 			</product>
 		</function>
@@ -705,7 +813,7 @@
 		<switch name="systems/rcs/pod2-down-fire-pitch">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/elevator-cmd-norm-filtered GT 0
+				systems/rcs/elevator-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -716,7 +824,7 @@
 				<property>systems/fcs/rcs-pitch-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-down-fire-pitch</property>
-				<property>systems/rcs/elevator-cmd-norm-filtered</property>
+				<property>systems/rcs/elevator-rot-cmd-norm-filtered</property>
 				<value>0.5</value>
 			</product>
 		</function>
@@ -727,7 +835,7 @@
 		<switch name="systems/rcs/nose-left-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered LT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -737,7 +845,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-left-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<value>-1.0</value>
 			</product>
 		</function>
@@ -746,7 +854,7 @@
 		<switch name="systems/rcs/nose-right-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered GT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -756,7 +864,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/nose-right-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -764,7 +872,7 @@
 		<switch name="systems/rcs/pod1-left-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered GT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -774,7 +882,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-left-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -782,7 +890,7 @@
 		<switch name="systems/rcs/pod2-right-fire-yaw">
 			<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered LT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -792,7 +900,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-right-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<value>-1.0</value>
 			</product>
 		</function>
@@ -804,7 +912,7 @@
 		<switch name="systems/rcs/pod1-up-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered GT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -814,7 +922,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-up-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>0.55</value>
@@ -825,7 +933,7 @@
 		<switch name="systems/rcs/pod2-down-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered GT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -835,7 +943,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-down-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>0.55</value>
@@ -846,7 +954,7 @@
 		<switch name="systems/rcs/pod1-down-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered LT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -856,7 +964,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod1-down-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>-0.55</value>
@@ -867,7 +975,7 @@
 		<switch name="systems/rcs/pod2-up-fire-yaw">
 		<default value="0.0"/>
 			<test value="1.0">
-				systems/rcs/rudder-cmd-norm-filtered LT 0
+				systems/rcs/rudder-rot-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -877,7 +985,7 @@
 				<property>systems/fcs/rcs-yaw-mode</property>
 				<property>systems/fcs/rcs-thrust-factor-rotation</property>
 				<property>systems/rcs/pod2-up-fire-yaw</property>
-				<property>systems/rcs/rudder-cmd-norm-filtered</property>
+				<property>systems/rcs/rudder-rot-cmd-norm-filtered</property>
 				<property>systems/fcs/rcs-entry-roll-compensation-veto</property>
 				<property>systems/fcs/rcs-modemixing-damper</property>
 				<value>-0.55</value>
@@ -1016,7 +1124,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod1-up-fire-z</property>
 				<property>systems/rcs/elevator-cmd-norm-filtered</property>
-				<value>-0.59</value>
+				<difference>
+				<value>-0.61</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</difference>
 			</product>
 		</function>
 		</fcs_function>
@@ -1034,7 +1148,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod2-up-fire-z</property>
 				<property>systems/rcs/elevator-cmd-norm-filtered</property>
-				<value>-0.59</value>
+				<difference>
+				<value>-0.61</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</difference>
 			</product>
 		</function>
 		</fcs_function>
@@ -1071,7 +1191,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod1-down-fire-z</property>
 				<property>systems/rcs/elevator-cmd-norm-filtered</property>
-				<value>0.61</value>
+				<sum>
+				<value>0.635</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</sum>
 			</product>
 		</function>
 		</fcs_function>
@@ -1089,7 +1215,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod2-down-fire-z</property>
 				<property>systems/rcs/elevator-cmd-norm-filtered</property>
-				<value>0.61</value>
+				<sum>
+				<value>0.635</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</sum>
 			</product>
 		</function>
 		</fcs_function>
@@ -1128,7 +1260,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod1-left-fire-y</property>
 				<property>systems/rcs/aileron-cmd-norm-filtered</property>
-				<value>0.62</value>
+				<sum>
+				<value>0.635</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</sum>
 			</product>
 		</function>
 		</fcs_function>
@@ -1203,7 +1341,13 @@
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
 				<property>systems/rcs/pod2-right-fire-y</property>
 				<property>systems/rcs/aileron-cmd-norm-filtered</property>
-				<value>-0.62</value>
+				<difference>
+				<value>-0.635</value>
+				<product>
+					<property>systems/various/oms-fuel-fraction</property>
+					<value>0.1</value>
+				</product>
+				</difference>
 			</product>
 		</function>
 		</fcs_function>
