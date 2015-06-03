@@ -14,8 +14,8 @@
 	<!-- 24: RCS ROT ENTRY - nose thrusters are off, stick controls rate -->
 	<!-- 25: RCS DAP-A Vernier - precision attitude hold using verniers, stick controls rate -->
 	<!-- 26: RCS TRANS ATT-HLD - translational mode commanding attitude hold -->
-	<!-- * 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
-	<!-- * 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
+	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
+	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 
 	<channel name="DAP modes">
 		<switch name="systems/fcs/dap-master">
@@ -57,8 +57,9 @@
 
 		<switch name="systems/fcs/rcs-trans-att-hold">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 28
 			</test>
 		</switch>
 
@@ -83,6 +84,15 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-low-z">
+			<default value="1.0"/>
+			<test logic = "OR" value="0.0">
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
+			</test>
+		</switch>
+
+
 		<!-- for error-rate controlled modes, we don't need to fire compensating thrusters -->
 
 		<switch name="systems/fcs/rcs-modemixing-damper">
@@ -91,6 +101,8 @@
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 28
 			</test>
 		</switch>
 
@@ -437,6 +449,7 @@
 				systems/fcs/control-mode == 24
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 28
 			</test>
 		</switch>
 
@@ -445,6 +458,8 @@
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 2
 				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
 			</test>
 		</switch>
 
@@ -1127,7 +1142,7 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/rcs/pod1-back-raw">
+		<fcs_function name="systems/rcs/pod1-back-raw-x">
 		<function>
 			<product>
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
@@ -1145,7 +1160,7 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/rcs/pod2-back-raw">
+		<fcs_function name="systems/rcs/pod2-back-raw-x">
 		<function>
 			<product>
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
@@ -1185,7 +1200,7 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/rcs/nose-fwd-raw">
+		<fcs_function name="systems/rcs/nose-fwd-raw-x">
 		<function>
 			<product>
 				<property>systems/fcs/rcs-thrust-factor-translation</property>
@@ -1539,6 +1554,35 @@
 		</function>
 		</fcs_function>-->
 
+		<!-- for the low-z modes, upward firing thrusters have to be converted to forward/backward -->
+
+		<fcs_function name="systems/rcs/nose-pods-low-z-raw">
+		<function>
+			<product>
+				<max>
+					<property>systems/rcs/nose-up-raw-z</property>
+					<property>systems/rcs/pod1-up-raw-z</property>
+					<property>systems/rcs/pod2-up-raw-z</property>
+				</max>
+				<difference>
+					<value>1.0</value>
+					<property>systems/fcs/rcs-low-z</property>
+				</difference>
+			</product>
+		</function>
+		</fcs_function>
+
+		<!-- now sum channels for the individual modules -->
+
+		<fcs_function name="systems/rcs/nose-fwd-raw">
+		<function>
+			<sum>
+				<property>systems/rcs/nose-fwd-raw-x</property>
+				<property>systems/rcs/nose-pods-low-z-raw</property>
+			</sum>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rcs/nose-leftdown-raw">
 		<function>
 			<sum>	
@@ -1613,6 +1657,15 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs/pod1-back-raw">
+		<function>
+			<sum>
+				<property>systems/rcs/pod1-back-raw-x</property>
+				<property>systems/rcs/nose-pods-low-z-raw</property>
+			</sum>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rcs/pod1-up-raw">
 		<function>
 			<sum>
@@ -1645,6 +1698,15 @@
 			<sum>
 				<property>systems/rcs/pod1-left-raw-yaw</property>
 				<property>systems/rcs/pod1-left-raw-y</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-back-raw">
+		<function>
+			<sum>
+				<property>systems/rcs/pod2-back-raw-x</property>
+				<property>systems/rcs/nose-pods-low-z-raw</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -1837,6 +1899,7 @@
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
+			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[16]</output>
@@ -1852,6 +1915,7 @@
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
+			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[15]</output>
@@ -1867,6 +1931,7 @@
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
+			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[14]</output>
@@ -1883,6 +1948,7 @@
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod1-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
+			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[33]</output>
@@ -1953,6 +2019,7 @@
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod2-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
+			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[36]</output>
