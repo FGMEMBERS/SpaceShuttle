@@ -289,10 +289,20 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-up</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-centerup</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-leftup</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-rightup</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -303,13 +313,13 @@
 		 <x-m>-16.5</x-m>
 		 <y-m>1.6</y-m>
 		 <z-m>-3.0</z-m>
-		 <pitch-deg>40</pitch-deg>
-		 <roll-deg>0</roll-deg>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>45</roll-deg>
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-down</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-rightdown</property>
  		<value>0</value>
  		</greater-than>
 	</condition>
@@ -320,13 +330,13 @@
 		 <x-m>-16.5</x-m>
 		 <y-m>-1.6</y-m>
 		 <z-m>-3.0</z-m>
-		 <pitch-deg>40</pitch-deg>
-		 <roll-deg>0</roll-deg>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>-45</roll-deg>
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-down</property>
+		<property>/fdm/jsbsim/systems/rcs/thrust-nose-leftdown</property>
  		<value>0</value>
  		</greater-than>
 	</condition>

@@ -512,7 +512,7 @@ if ((current_mode == 0) or (current_mode == 10))
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
-else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode==26))
+else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode ==23) or (current_mode==26))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
 	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
@@ -535,7 +535,7 @@ var switch_control_mode = func {
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
-if ((current_mode == 1) or (current_mode == 20) or (current_mode == 21) or (current_mode == 22))
+if ((current_mode == 1) or (current_mode == 20) or (current_mode == 21) or (current_mode == 22) or (current_mode == 23))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
 	setprop("/controls/shuttle/control-system-string", "RCS translation");
@@ -606,13 +606,18 @@ else if (current_mode == 21)
 	}
 else if (current_mode == 22)
 	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",23);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT NOSE ONLY");
+	}
+else if (current_mode == 23)
+	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
 else if (current_mode == 2)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
-	setprop("/controls/shuttle/control-system-string", "RCS translation ATT HLD");
+	setprop("/controls/shuttle/control-system-string", "RCS TRANS ATT HLD");
 	}
 else if (current_mode == 26)
 	{
