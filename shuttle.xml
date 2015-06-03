@@ -1928,6 +1928,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-pitch</output>
@@ -2038,6 +2039,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-roll</output>
@@ -2135,6 +2137,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 			</test>
 		<output>fcs/airfoil-factor-yaw</output>

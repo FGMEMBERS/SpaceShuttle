@@ -12,7 +12,7 @@
 	<!-- 22: RCS ROT TAIL ONLY - nose thrusters are off, stick controls thrust --> 
 	<!-- 23: RCS ROT NOSE ONLY - tail pod thrusters are off, stick controls thrust -->
 	<!-- 24: RCS ROT ENTRY - nose thrusters are off, stick controls rate -->
-	<!-- * 25: RCS DAP-A Vernier - precision attitude hold using verniers, stick controls rate -->
+	<!-- 25: RCS DAP-A Vernier - precision attitude hold using verniers, stick controls rate -->
 	<!-- 26: RCS TRANS ATT-HLD - translational mode commanding attitude hold -->
 	<!-- * 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
 	<!-- * 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
@@ -24,6 +24,7 @@
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 25
 			</test>
 		</switch>
 
@@ -68,11 +69,28 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-default-thrusters">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 25
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-vernier-gain">
+			<default value="1.0"/>
+			<test value="50.0">
+				systems/fcs/control-mode == 25
+			</test>
+		</switch>
+
+		<!-- for error-rate controlled modes, we don't need to fire compensating thrusters -->
+
 		<switch name="systems/fcs/rcs-modemixing-damper">
 			<default value="1.0"/>
 			<test value="0.0">
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 25
 			</test>
 		</switch>
 
@@ -80,6 +98,7 @@
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
+			<product>
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
@@ -91,6 +110,8 @@
 					</difference>
 				</product>
 			</difference>
+			<property>systems/fcs/rcs-vernier-gain</property>
+			</product>
 		</function>
 		</fcs_function>
 		
@@ -173,6 +194,7 @@
 	
 		<fcs_function name="systems/rcs/roll-rate-error">
 		<function>
+			<product>
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
@@ -184,6 +206,8 @@
 					</difference>
 				</product>
 			</difference>
+			<property>systems/fcs/rcs-vernier-gain</property>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -231,6 +255,7 @@
 
 		<fcs_function name="systems/rcs/yaw-rate-error">
 		<function>
+			<product>
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
@@ -242,6 +267,8 @@
 					</difference>
 				</product>
 			</difference>
+			<property>systems/fcs/rcs-vernier-gain</property>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -408,6 +435,7 @@
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 23
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 			</test>
 		</switch>
@@ -1681,7 +1709,7 @@
 
 
 
-	<!-- then assign to thrusters -->
+	<!-- then assign the commands to actual thrusters - first the default set -->
 
 
 		<!--<fcs_function name="systems/rcs/thrust-nose-up">
@@ -1727,6 +1755,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-left-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[10]</output>
@@ -1742,6 +1771,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-right-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[12]</output>
@@ -1757,6 +1787,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[7]</output>
@@ -1773,6 +1804,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[18]</output>
@@ -1788,6 +1820,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[17]</output>
@@ -1803,6 +1836,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[16]</output>
@@ -1817,6 +1851,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[15]</output>
@@ -1831,6 +1866,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[14]</output>
@@ -1846,6 +1882,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod1-up-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[33]</output>
@@ -1863,6 +1900,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod1-down-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[39]</output>
@@ -1879,6 +1917,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod1-left-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[25]</output>
@@ -1896,6 +1935,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod1-back-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[23]</output>
@@ -1912,6 +1952,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod2-up-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[36]</output>
@@ -1929,6 +1970,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod2-down-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[42]</output>
@@ -1945,6 +1987,7 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod2-right-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[29]</output>
@@ -1962,10 +2005,124 @@
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
 			<property>systems/failures/rcs-pod2-back-condition</property>
+			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[21]</output>
 		<output>fcs/throttle-pos-norm[22]</output>
+		</fcs_function>
+
+
+
+	<!-- Vernier thrusters -->
+
+
+		<fcs_function name="systems/rcs/thrust-vernier-nose-right">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/nose-rightdown-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-right-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[45]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/thrust-vernier-nose-left">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/nose-leftdown-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/failures/rcs-nose-left-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[46]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/thrust-vernier-pod1-down">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/pod1-down-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-down-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[47]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/thrust-vernier-pod2-down">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/pod2-down-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-down-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[48]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/thrust-vernier-pod1-left">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/pod1-left-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod1-left-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[49]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/thrust-vernier-pod2-right">
+		<function>
+			<product>
+			<quotient>
+				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/thrust-normalizer</property>
+			</quotient>
+			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/failures/rcs-pod2-right-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-default-thrusters</property>
+			</difference>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[50]</output>
 		</fcs_function>
 
 		<!--<fcs_function name="systems/fcs/rcs-throttle-test">
