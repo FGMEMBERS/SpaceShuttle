@@ -3365,6 +3365,7 @@
 
  
  <system file="orbital_parameters"></system>
+ <system file="rcs_hardware"></system>
  <system file="rcs_control"></system>
  <system file="computations"></system>
  <system file="entry_guidance"></system>

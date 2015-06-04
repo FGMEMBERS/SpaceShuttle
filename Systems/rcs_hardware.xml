@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="RCS helium and propellant system">
+
+		<!-- compute helium-driven pressure at the fuel and oxidizer tanks -->
+
+		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs-hardware/left-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-left-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-left-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-right-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-right-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-fwd-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-fwd-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/left-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-left-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/right-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-right-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+	 	<switch name="systems/rcs-hardware/fwd-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/fwd-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-fwd-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[9]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[8]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[11]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[10]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[13]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[12]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<!-- if the tanks are not connected to the helium, they empty by blow-down -->
+		<!-- in this case we need to sample/hold the original pressure and fuel -->
+		<!-- fraction at disconnect -->
+
+		<switch name="systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-left-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/left-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-right-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/right-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-fwd-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/fwd-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/left-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/left-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/right-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/right-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/fwd-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/fwd-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<!-- here should be a model of blow-down -->
+
+		<!-- dependent on valve settings, compute whether a thruster can receive fuel -->
+
+		<fcs_function name="systems/rcs-hardware/L1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L1L-fuel-available</output>
+		<output>systems/rcs-hardware/L1U-fuel-available</output>
+		<output>systems/rcs-hardware/L1A-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L2L-fuel-available</output>
+		<output>systems/rcs-hardware/L2U-fuel-available</output>
+		<output>systems/rcs-hardware/L2D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L3L-fuel-available</output>
+		<output>systems/rcs-hardware/L3A-fuel-available</output>
+		<output>systems/rcs-hardware/L3D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L4L-fuel-available</output>
+		<output>systems/rcs-hardware/L4U-fuel-available</output>
+		<output>systems/rcs-hardware/L4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L5L-fuel-available</output>
+		<output>systems/rcs-hardware/L5D-fuel-available</output>
+		</fcs_function>		
+		
+
+
+	</channel>
+</system>

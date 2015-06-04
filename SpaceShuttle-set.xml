@@ -115,7 +115,65 @@
                     <thrust-nose-down type="double">0.0</thrust-nose-down>
 
                     <thrust-normalizer type="double">0.0</thrust-normalizer>
-                </rcs>	
+                </rcs>
+		<rcs-hardware>
+		    <helium-left-rcs-pressure-1-psia type="double">280.0</helium-left-rcs-pressure-1-psia>
+		    <helium-right-rcs-pressure-1-psia type="double">280.0</helium-right-rcs-pressure-1-psia>
+		    <helium-fwd-rcs-pressure-1-psia type="double">280.0</helium-fwd-rcs-pressure-1-psia>
+
+  		    <helium-left-rcs-pressure-2-psia type="double">280.0</helium-left-rcs-pressure-2-psia>
+		    <helium-right-rcs-pressure-2-psia type="double">280.0</helium-right-rcs-pressure-2-psia>
+		    <helium-fwd-rcs-pressure-2-psia type="double">280.0</helium-fwd-rcs-pressure-2-psia>
+
+		    <helium-left-rcs-valve-A-status type="int">1</helium-left-rcs-valve-A-status>
+		    <helium-left-rcs-valve-B-status type="int">1</helium-left-rcs-valve-B-status>
+		    <helium-right-rcs-valve-A-status type="int">1</helium-right-rcs-valve-A-status>
+		    <helium-right-rcs-valve-B-status type="int">1</helium-right-rcs-valve-B-status>
+		    <helium-fwd-rcs-valve-A-status type="int">1</helium-fwd-rcs-valve-A-status>
+		    <helium-fwd-rcs-valve-B-status type="int">1</helium-fwd-rcs-valve-B-status>
+
+  		    <fuel-left-rcs-pressure-psia type="double">250.0</fuel-left-rcs-pressure-psia>
+  		    <fuel-right-rcs-pressure-psia type="double">250.0</fuel-right-rcs-pressure-psia>
+  		    <fuel-fwd-rcs-pressure-psia type="double">250.0</fuel-fwd-rcs-pressure-psia> 
+		    <oxidizer-left-rcs-pressure-psia type="double">250.0</oxidizer-left-rcs-pressure-psia>
+  		    <oxidizer-right-rcs-pressure-psia type="double">250.0</oxidizer-right-rcs-pressure-psia>
+  		    <oxidizer-fwd-rcs-pressure-psia type="double">250.0</oxidizer-fwd-rcs-pressure-psia> 
+
+		    <tank-right-rcs-valve-12-status type="int">1</tank-right-rcs-valve-12-status>
+		    <tank-right-rcs-valve-345A-status type="int">1</tank-right-rcs-valve-345A-status>
+		    <tank-right-rcs-valve-345B-status type="int">1</tank-right-rcs-valve-345B-status>
+
+		    <tank-left-rcs-valve-12-status type="int">1</tank-left-rcs-valve-12-status>
+		    <tank-left-rcs-valve-345A-status type="int">1</tank-left-rcs-valve-345A-status>
+		    <tank-left-rcs-valve-345B-status type="int">1</tank-left-rcs-valve-345B-status>
+
+		    <tank-fwd-rcs-valve-12-status type="int">1</tank-fwd-rcs-valve-12-status>
+		    <tank-fwd-rcs-valve-345-status type="int">1</tank-fwd-rcs-valve-345-status>
+
+		    <mfold-right-rcs-valve-1-status type="int">1</mfold-right-rcs-valve-1-status>
+		    <mfold-right-rcs-valve-2-status type="int">1</mfold-right-rcs-valve-2-status>
+		    <mfold-right-rcs-valve-3-status type="int">1</mfold-right-rcs-valve-3-status>
+		    <mfold-right-rcs-valve-4-status type="int">1</mfold-right-rcs-valve-4-status>
+		    <mfold-right-rcs-valve-5-status type="int">1</mfold-right-rcs-valve-5-status>
+	
+		    <mfold-left-rcs-valve-1-status type="int">1</mfold-left-rcs-valve-1-status>
+		    <mfold-left-rcs-valve-2-status type="int">1</mfold-left-rcs-valve-2-status>
+		    <mfold-left-rcs-valve-3-status type="int">1</mfold-left-rcs-valve-3-status>
+		    <mfold-left-rcs-valve-4-status type="int">1</mfold-left-rcs-valve-4-status>
+		    <mfold-left-rcs-valve-5-status type="int">1</mfold-left-rcs-valve-5-status>
+
+		    <mfold-fwd-rcs-valve-1-status type="int">1</mfold-fwd-rcs-valve-1-status>
+		    <mfold-fwd-rcs-valve-2-status type="int">1</mfold-fwd-rcs-valve-2-status>
+		    <mfold-fwd-rcs-valve-3-status type="int">1</mfold-fwd-rcs-valve-3-status>
+		    <mfold-fwd-rcs-valve-4-status type="int">1</mfold-fwd-rcs-valve-4-status>
+		    <mfold-fwd-rcs-valve-5-status type="int">1</mfold-fwd-rcs-valve-5-status>
+		
+		    <crossfeed-left-rcs-valve-12-status type="int">0</crossfeed-left-rcs-valve-12-status>	 
+		    <crossfeed-left-rcs-valve-345-status type="int">0</crossfeed-left-rcs-valve-345-status>	     
+		    <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>	
+		    <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>	      
+
+		</rcs-hardware>	
             </systems>
         </jsbsim>
     </fdm>
@@ -211,7 +269,7 @@
         <description>NASA Space Shuttle Atlantis</description>
         <flight-model>jsb</flight-model>
         <aero>shuttle</aero>
-        <author>Thorsten Renk (flight dynamics), NASA and HerbyW (3D)</author>
+        <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), NASA, japreja and HerbyW (3D)</author>
 
         <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
 
