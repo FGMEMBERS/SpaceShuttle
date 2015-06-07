@@ -181,14 +181,184 @@
 			</test>
 		</switch>
 
-		<!-- here should be a model of blow-down -->
+		<!-- fuel and oxidizer pressure if helium is connected -either pressure regulator valve driven -->
+		<!-- or equal to helium pressure -->
+
+		<fcs_function name="systems/rcs-hardware/tanks-left-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-left-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-left-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-right-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-right-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-right-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-fwd-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-fwd-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-fwd-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<!-- blow-down pressure is determined from sample/hold pressure and fuel fraction -->
+
+		<fcs_function name="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<!-- fuel can flow if either the tank is pressurized or the blowdown pressure is sufficient -->
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/left-rcs-pressurized == 1
+				systems/rcs-hardware/left-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/left-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/right-rcs-pressurized == 1
+				systems/rcs-hardware/right-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/right-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/fwd-rcs-pressurized == 1
+				systems/rcs-hardware/fwd-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/fwd-rcs-fuel-fraction
+			</test>
+		</switch>
 
 		<!-- dependent on valve settings, compute whether a thruster can receive fuel -->
 
 		<fcs_function name="systems/rcs-hardware/L1-fuel-available">
 		<function>
 			<product>
-				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
 				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
 				<property>systems/rcs-hardware/mfold-left-rcs-valve-1-status</property>
 			</product>
@@ -201,7 +371,7 @@
 		<fcs_function name="systems/rcs-hardware/L2-fuel-available">
 		<function>
 			<product>
-				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
 				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
 				<property>systems/rcs-hardware/mfold-left-rcs-valve-2-status</property>
 			</product>
@@ -214,7 +384,7 @@
 		<fcs_function name="systems/rcs-hardware/L3-fuel-available">
 		<function>
 			<product>
-				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
 				<max>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
@@ -230,7 +400,7 @@
 		<fcs_function name="systems/rcs-hardware/L4-fuel-available">
 		<function>
 			<product>
-				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
 				<max>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
@@ -246,7 +416,7 @@
 		<fcs_function name="systems/rcs-hardware/L5-fuel-available">
 		<function>
 			<product>
-				<property>systems/rcs-hardware/left-rcs-pressurized</property>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
 				<max>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
 					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
@@ -256,9 +426,147 @@
 		</function>
 		<output>systems/rcs-hardware/L5L-fuel-available</output>
 		<output>systems/rcs-hardware/L5D-fuel-available</output>
+		</fcs_function>	
+
+
+		<fcs_function name="systems/rcs-hardware/R1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R1R-fuel-available</output>
+		<output>systems/rcs-hardware/R1U-fuel-available</output>
+		<output>systems/rcs-hardware/R1A-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R2R-fuel-available</output>
+		<output>systems/rcs-hardware/R2U-fuel-available</output>
+		<output>systems/rcs-hardware/R2D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R3R-fuel-available</output>
+		<output>systems/rcs-hardware/R3A-fuel-available</output>
+		<output>systems/rcs-hardware/R3D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R4R-fuel-available</output>
+		<output>systems/rcs-hardware/R4U-fuel-available</output>
+		<output>systems/rcs-hardware/R4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R5R-fuel-available</output>
+		<output>systems/rcs-hardware/R5D-fuel-available</output>
 		</fcs_function>		
 		
+		<fcs_function name="systems/rcs-hardware/F1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F1L-fuel-available</output>
+		<output>systems/rcs-hardware/F1U-fuel-available</output>
+		<output>systems/rcs-hardware/F1D-fuel-available</output>
+		<output>systems/rcs-hardware/F1L-fuel-available</output>
+		</fcs_function>
 
+		<fcs_function name="systems/rcs-hardware/F2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F2R-fuel-available</output>
+		<output>systems/rcs-hardware/F2U-fuel-available</output>
+		<output>systems/rcs-hardware/F2D-fuel-available</output>
+		<output>systems/rcs-hardware/F2F-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F3L-fuel-available</output>
+		<output>systems/rcs-hardware/F3U-fuel-available</output>
+		<output>systems/rcs-hardware/F3D-fuel-available</output>
+		<output>systems/rcs-hardware/F3F-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F4R-fuel-available</output>
+		<output>systems/rcs-hardware/F4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F5L-fuel-available</output>
+		<output>systems/rcs-hardware/F5R-fuel-available</output>
+		</fcs_function>
 
 	</channel>
 </system>
