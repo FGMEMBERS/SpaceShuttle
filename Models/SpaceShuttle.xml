@@ -253,15 +253,15 @@
 	<condition>
 		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-centerup</property>
+		<property>/engines/engine[15]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-leftup</property>
+		<property>/engines/engine[16]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-rightup</property>
+		<property>/engines/engine[14]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
 		</or>
@@ -280,10 +280,16 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-rightdown</property>
+		<property>/engines/engine[17]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[19]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
  <model>
@@ -297,10 +303,16 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-leftdown</property>
+		<property>/engines/engine[18]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[20]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -316,10 +328,16 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-left</property>
+		<property>/engines/engine[10]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[11]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -336,10 +354,16 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-right</property>
+		<property>/engines/engine[12]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[13]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -355,10 +379,20 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-nose-fwd</property>
+		<property>/engines/engine[7]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[8]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[9]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
     
@@ -374,10 +408,24 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-left</property>
+		<property>/engines/engine[25]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[26]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[27]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[28]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -393,10 +441,20 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-up</property>
+		<property>/engines/engine[33]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[34]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[35]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -412,10 +470,20 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-down</property>
+		<property>/engines/engine[39]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[40]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[41]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -428,10 +496,16 @@
 		 <z-m>-0.2</z-m>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod1-back</property>
+		<property>/engines/engine[23]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[24]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -448,10 +522,24 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-right</property>
+		<property>/engines/engine[29]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[30]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[31]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[32]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -467,10 +555,20 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-up</property>
+		<property>/engines/engine[36]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[37]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[38]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -486,10 +584,20 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-down</property>
+		<property>/engines/engine[42]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[43]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[44]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
@@ -503,10 +611,16 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/systems/rcs/thrust-pod2-back</property>
+		<property>/engines/engine[21]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[22]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
