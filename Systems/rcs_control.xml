@@ -384,58 +384,7 @@
 
 	<channel name="RCS controls">
 
-		<!-- zero all unused thrusters -->
-		<fcs_function name="systems/fcs/rcs-throttle-zero">
-			<function>
-				<value>0.0</value>
-			</function>
-		<!--<output>fcs/throttle-pos-norm[7]</output>-->
-		<!--<output>fcs/throttle-pos-norm[8]</output>-->
-		<!--<output>fcs/throttle-pos-norm[9]</output>-->
-		<!--<output>fcs/throttle-pos-norm[10]</output>-->
-		<!--<output>fcs/throttle-pos-norm[11]</output>-->
-		<!--<output>fcs/throttle-pos-norm[12]</output>-->
-		<!--<output>fcs/throttle-pos-norm[13]</output>-->
-		<!--<output>fcs/throttle-pos-norm[14]</output>-->
-		<output>fcs/throttle-pos-norm[15]</output>
-		<!--<output>fcs/throttle-pos-norm[16]</output>-->
-		<!--<output>fcs/throttle-pos-norm[17]</output>-->
-		<!--<output>fcs/throttle-pos-norm[18]</output>-->
-		<output>fcs/throttle-pos-norm[19]</output>
-		<!--<output>fcs/throttle-pos-norm[20]</output>-->
-		<!--<output>fcs/throttle-pos-norm[21]</output>-->
-		<output>fcs/throttle-pos-norm[22]</output>
-		<output>fcs/throttle-pos-norm[23]</output>
-		<output>fcs/throttle-pos-norm[24]</output>
-		<output>fcs/throttle-pos-norm[25]</output>
-		<output>fcs/throttle-pos-norm[26]</output>
-		<output>fcs/throttle-pos-norm[27]</output>
-		<output>fcs/throttle-pos-norm[28]</output>
-		<output>fcs/throttle-pos-norm[29]</output>
-		<output>fcs/throttle-pos-norm[30]</output>
-		<output>fcs/throttle-pos-norm[31]</output>
-		<output>fcs/throttle-pos-norm[32]</output>
-		<output>fcs/throttle-pos-norm[33]</output>
-		<output>fcs/throttle-pos-norm[34]</output>
-		<output>fcs/throttle-pos-norm[35]</output>
-		<output>fcs/throttle-pos-norm[36]</output>
-		<output>fcs/throttle-pos-norm[37]</output>
-		<output>fcs/throttle-pos-norm[38]</output>
-		<output>fcs/throttle-pos-norm[39]</output>
-		<output>fcs/throttle-pos-norm[40]</output>
-		<output>fcs/throttle-pos-norm[41]</output>
-		<output>fcs/throttle-pos-norm[42]</output>
-		<output>fcs/throttle-pos-norm[43]</output>
-		<output>fcs/throttle-pos-norm[44]</output>
-		<output>fcs/throttle-pos-norm[45]</output>
-		<output>fcs/throttle-pos-norm[46]</output>
-		<output>fcs/throttle-pos-norm[47]</output>
-		<output>fcs/throttle-pos-norm[48]</output>
-		<output>fcs/throttle-pos-norm[49]</output>
-		<output>fcs/throttle-pos-norm[50]</output>
-		</fcs_function>
-
-	
+		
 
 		<switch name="systems/fcs/rcs-thrust-factor-rotation">
 			<default value="0.0"/>
@@ -1774,39 +1723,6 @@
 	<!-- then assign the commands to actual thrusters - first the default set -->
 
 
-		<!--<fcs_function name="systems/rcs/thrust-nose-up">
-		<function>
-			<product>
-			<quotient>
-				<property>systems/rcs/nose-up-raw</property>
-				<property>systems/rcs/thrust-normalizer</property>
-			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
-			<property>systems/failures/rcs-nose-up-condition</property>
-			</product>
-		</function>
-		<output>fcs/throttle-pos-norm[14]</output>
-		<output>fcs/throttle-pos-norm[15]</output>
-		<output>fcs/throttle-pos-norm[16]</output>
-		</fcs_function>
-
-
-		<fcs_function name="systems/rcs/thrust-nose-down">
-		<function>
-			<product>
-			<quotient>
-				<property>systems/rcs/nose-down-raw</property>
-				<property>systems/rcs/thrust-normalizer</property>
-			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
-			<property>systems/failures/rcs-nose-down-condition</property>
-			</product>
-		</function>
-		<output>fcs/throttle-pos-norm[17]</output>
-		<output>fcs/throttle-pos-norm[18]</output>
-		<output>fcs/throttle-pos-norm[19]</output>
-		<output>fcs/throttle-pos-norm[20]</output>
-		</fcs_function>-->
 
 		<fcs_function name="systems/rcs/thrust-nose-left">
 		<function>
@@ -1820,8 +1736,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[10]</output>
-		<output>fcs/throttle-pos-norm[11]</output>
+		<output>systems/rcs/F1L-fire-cmd</output>
+		<output>systems/rcs/F3L-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-right">
@@ -1836,8 +1752,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[12]</output>
-		<output>fcs/throttle-pos-norm[13]</output>
+		<output>systems/rcs/F2R-fire-cmd</output>
+		<output>systems/rcs/F4R-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-fwd">
@@ -1852,9 +1768,9 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[7]</output>
-		<output>fcs/throttle-pos-norm[8]</output>
-		<output>fcs/throttle-pos-norm[9]</output>
+		<output>systems/rcs/F2F-fire-cmd</output>
+		<output>systems/rcs/F3F-fire-cmd</output>
+		<output>systems/rcs/F1F-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-leftdown">
@@ -1869,8 +1785,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[18]</output>
-		<output>fcs/throttle-pos-norm[20]</output>
+		<output>systems/rcs/F1D-fire-cmd</output>
+		<output>systems/rcs/F3D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-rightdown">
@@ -1885,8 +1801,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[17]</output>
-		<output>fcs/throttle-pos-norm[19]</output>
+		<output>systems/rcs/F2D-fire-cmd</output>
+		<output>systems/rcs/F4D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-leftup">
@@ -1902,7 +1818,7 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[16]</output>
+		<output>systems/rcs/F1U-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-centerup">
@@ -1918,7 +1834,7 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[15]</output>
+		<output>systems/rcs/F3U-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-nose-rightup">
@@ -1934,8 +1850,8 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[14]</output>
-		</fcs_function>-->
+		<output>systems/rcs/F2U-fire-cmd</output>
+		</fcs_function>
 
 
 		<fcs_function name="systems/rcs/thrust-pod1-up">
@@ -1951,9 +1867,9 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[33]</output>
-		<output>fcs/throttle-pos-norm[34]</output>
-		<output>fcs/throttle-pos-norm[35]</output>
+		<output>systems/rcs/L4U-fire-cmd</output>
+		<output>systems/rcs/L2U-fire-cmd</output>
+		<output>systems/rcs/L1U-fire-cmd</output>
 		</fcs_function>
 
 
@@ -1969,9 +1885,9 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[39]</output>
-		<output>fcs/throttle-pos-norm[40]</output>
-		<output>fcs/throttle-pos-norm[41]</output>
+		<output>systems/rcs/L4D-fire-cmd</output>
+		<output>systems/rcs/L2D-fire-cmd</output>
+		<output>systems/rcs/L3D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod1-left">
@@ -1986,10 +1902,10 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[25]</output>
-		<output>fcs/throttle-pos-norm[26]</output>
-		<output>fcs/throttle-pos-norm[27]</output>
-		<output>fcs/throttle-pos-norm[28]</output>
+		<output>systems/rcs/L4L-fire-cmd</output>
+		<output>systems/rcs/L2L-fire-cmd</output>
+		<output>systems/rcs/L3L-fire-cmd</output>
+		<output>systems/rcs/L1L-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod1-back">
@@ -2004,8 +1920,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[23]</output>
-		<output>fcs/throttle-pos-norm[24]</output>
+		<output>systems/rcs/L3A-fire-cmd</output>
+		<output>systems/rcs/L1A-fire-cmd</output>
 		</fcs_function>
 
 
@@ -2022,9 +1938,9 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[36]</output>
-		<output>fcs/throttle-pos-norm[37]</output>
-		<output>fcs/throttle-pos-norm[38]</output>
+		<output>systems/rcs/R4U-fire-cmd</output>
+		<output>systems/rcs/R2U-fire-cmd</output>
+		<output>systems/rcs/R1U-fire-cmd</output>
 		</fcs_function>
 
 
@@ -2040,9 +1956,9 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[42]</output>
-		<output>fcs/throttle-pos-norm[43]</output>
-		<output>fcs/throttle-pos-norm[44]</output>
+		<output>systems/rcs/R4D-fire-cmd</output>
+		<output>systems/rcs/R2D-fire-cmd</output>
+		<output>systems/rcs/R3D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod2-right">
@@ -2057,10 +1973,10 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[29]</output>
-		<output>fcs/throttle-pos-norm[30]</output>
-		<output>fcs/throttle-pos-norm[31]</output>
-		<output>fcs/throttle-pos-norm[32]</output>
+		<output>systems/rcs/R4R-fire-cmd</output>
+		<output>systems/rcs/R2R-fire-cmd</output>
+		<output>systems/rcs/R3R-fire-cmd</output>
+		<output>systems/rcs/R1R-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-pod2-back">
@@ -2075,8 +1991,8 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[21]</output>
-		<output>fcs/throttle-pos-norm[22]</output>
+		<output>systems/rcs/R3A-fire-cmd</output>
+		<output>systems/rcs/R1A-fire-cmd</output>
 		</fcs_function>
 
 
@@ -2099,7 +2015,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[45]</output>
+		<output>systems/rcs/F5R-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-vernier-nose-left">
@@ -2117,7 +2033,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[46]</output>
+		<output>systems/rcs/F5L-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-vernier-pod1-down">
@@ -2135,7 +2051,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[47]</output>
+		<output>systems/rcs/L5D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-vernier-pod2-down">
@@ -2153,7 +2069,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[48]</output>
+		<output>systems/rcs/R5D-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-vernier-pod1-left">
@@ -2171,7 +2087,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[49]</output>
+		<output>systems/rcs/L5L-fire-cmd</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs/thrust-vernier-pod2-right">
@@ -2189,7 +2105,7 @@
 			</difference>
 			</product>
 		</function>
-		<output>fcs/throttle-pos-norm[50]</output>
+		<output>systems/rcs/R5R-fire-cmd</output>
 		</fcs_function>
 
 		<!--<fcs_function name="systems/fcs/rcs-throttle-test">

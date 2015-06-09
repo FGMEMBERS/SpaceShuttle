@@ -88,36 +88,11 @@
     <path>Aircraft/SpaceShuttle/Models/OMSPods.ac</path>
   </model>
 
-    <!-- man for the moon, pick the little windows on the top to activate him -->
 
-<model>
-    <path>Aircraft/SpaceShuttle/Models/EMU/acesjustforroomshow.xml</path>
-     <offsets>
-       <x-m> -12.30 </x-m>
-       <y-m> 1.10 </y-m>
-       <z-m> -2.92 </z-m>
-       <heading-deg>90.0</heading-deg>
-     </offsets>
-</model>  
-  
-<animation>
- <type>pick</type>
-  <object-name>spaceshutt_spstob_4</object-name>
-  <visible>true</visible>
- <action>
-  <button>0</button>
-   <binding>
-    <command>property-toggle</command>
-     <property>sim/multiplay/generic/int[5]</property>
-     <value>0</value>
-     <value>1</value>
-   </binding>
- </action>
-</animation>
 
-<!-- satelit, click it to launch a satelit -->
+<!-- airlock module -->
 <model>
-    <path>Aircraft/SpaceShuttle/Models/EMU/satelit-int.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/PayloadBay/airlock_module.ac</path>
      <offsets>
        <x-m> 0.0 </x-m>
        <y-m> 0.0 </y-m>
@@ -126,20 +101,7 @@
      </offsets>
 </model>
 
-<animation>
- <type>pick</type>
-  <object-name>spaceshutt_spstob_eal</object-name>
-  <visible>true</visible>
- <action>
-  <button>0</button>
-   <binding>
-    <command>property-toggle</command>
-     <property>sim/multiplay/generic/int[9]</property>
-     <value>0</value>
-     <value>1</value>
-   </binding>
- </action>
-</animation>
+
 
 <!-- robotarm, click it to activate -->
 

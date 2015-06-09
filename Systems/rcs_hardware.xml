@@ -513,7 +513,7 @@
 		<output>systems/rcs-hardware/F1L-fuel-available</output>
 		<output>systems/rcs-hardware/F1U-fuel-available</output>
 		<output>systems/rcs-hardware/F1D-fuel-available</output>
-		<output>systems/rcs-hardware/F1L-fuel-available</output>
+		<output>systems/rcs-hardware/F1F-fuel-available</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/F2-fuel-available">
@@ -568,5 +568,497 @@
 		<output>systems/rcs-hardware/F5R-fuel-available</output>
 		</fcs_function>
 
+	</channel>
+
+	<!-- the RCS control routines provide output in terms of firing commands for the thrusters -->
+	<!-- the RCS hardware simulation checks whether the thruster is operational and has the required fuel -->
+	
+	<channel name="RCS hardware thruster firing simulation">
+
+		<fcs_function name="systems/rcs-hardware/F2F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2F-fire-cmd</property>
+				<property>systems/rcs-hardware/F2F-fuel-available</property>
+				<property>systems/failures/rcs-F2F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[7]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3F-fire-cmd</property>
+				<property>systems/rcs-hardware/F3F-fuel-available</property>
+				<property>systems/failures/rcs-F3F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[8]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1F-fire-cmd</property>
+				<property>systems/rcs-hardware/F1F-fuel-available</property>
+				<property>systems/failures/rcs-F1F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[9]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1L-fire-cmd</property>
+				<property>systems/rcs-hardware/F1L-fuel-available</property>
+				<property>systems/failures/rcs-F1L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[10]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3L-fire-cmd</property>
+				<property>systems/rcs-hardware/F3L-fuel-available</property>
+				<property>systems/failures/rcs-F3L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[11]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2R-fire-cmd</property>
+				<property>systems/rcs-hardware/F2R-fuel-available</property>
+				<property>systems/failures/rcs-F2R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[12]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F4R-fire-cmd</property>
+				<property>systems/rcs-hardware/F4R-fuel-available</property>
+				<property>systems/failures/rcs-F4R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[13]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs-hardware/F2U-fuel-available</property>
+				<property>systems/failures/rcs-F2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[14]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs-hardware/F3U-fuel-available</property>
+				<property>systems/failures/rcs-F3U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[15]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs-hardware/F1U-fuel-available</property>
+				<property>systems/failures/rcs-F1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[16]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs-hardware/F2D-fuel-available</property>
+				<property>systems/failures/rcs-F2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[17]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs-hardware/F1D-fuel-available</property>
+				<property>systems/failures/rcs-F1D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[18]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs-hardware/F4D-fuel-available</property>
+				<property>systems/failures/rcs-F4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[19]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs-hardware/F3D-fuel-available</property>
+				<property>systems/failures/rcs-F3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[20]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3A-fire-cmd</property>
+				<property>systems/rcs-hardware/R3A-fuel-available</property>
+				<property>systems/failures/rcs-R3A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[21]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R1A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1A-fire-cmd</property>
+				<property>systems/rcs-hardware/R1A-fuel-available</property>
+				<property>systems/failures/rcs-R1A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[22]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3A-fire-cmd</property>
+				<property>systems/rcs-hardware/L3A-fuel-available</property>
+				<property>systems/failures/rcs-L3A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[23]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1A-fire-cmd</property>
+				<property>systems/rcs-hardware/L1A-fuel-available</property>
+				<property>systems/failures/rcs-L1A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[24]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4L-fire-cmd</property>
+				<property>systems/rcs-hardware/L4L-fuel-available</property>
+				<property>systems/failures/rcs-L4L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[25]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2L-fire-cmd</property>
+				<property>systems/rcs-hardware/L2L-fuel-available</property>
+				<property>systems/failures/rcs-L2L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[26]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3L-fire-cmd</property>
+				<property>systems/rcs-hardware/L3L-fuel-available</property>
+				<property>systems/failures/rcs-L3L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[27]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1L-fire-cmd</property>
+				<property>systems/rcs-hardware/L1L-fuel-available</property>
+				<property>systems/failures/rcs-L1L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[28]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4R-fire-cmd</property>
+				<property>systems/rcs-hardware/R4R-fuel-available</property>
+				<property>systems/failures/rcs-R4R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[29]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2R-fire-cmd</property>
+				<property>systems/rcs-hardware/R2R-fuel-available</property>
+				<property>systems/failures/rcs-R2R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[30]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3R-fire-cmd</property>
+				<property>systems/rcs-hardware/R3R-fuel-available</property>
+				<property>systems/failures/rcs-R3R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[31]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R1R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1R-fire-cmd</property>
+				<property>systems/rcs-hardware/R1R-fuel-available</property>
+				<property>systems/failures/rcs-R1R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[32]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4U-fire-cmd</property>
+				<property>systems/rcs-hardware/L4U-fuel-available</property>
+				<property>systems/failures/rcs-L4U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[33]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2U-fire-cmd</property>
+				<property>systems/rcs-hardware/L2U-fuel-available</property>
+				<property>systems/failures/rcs-L2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[34]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1U-fire-cmd</property>
+				<property>systems/rcs-hardware/L1U-fuel-available</property>
+				<property>systems/failures/rcs-L1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[35]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4U-fire-cmd</property>
+				<property>systems/rcs-hardware/R4U-fuel-available</property>
+				<property>systems/failures/rcs-R4U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[36]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2U-fire-cmd</property>
+				<property>systems/rcs-hardware/R2U-fuel-available</property>
+				<property>systems/failures/rcs-R2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[37]</output>
+		</fcs_function>
+	
+		<fcs_function name="systems/rcs-hardware/R1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1U-fire-cmd</property>
+				<property>systems/rcs-hardware/R1U-fuel-available</property>
+				<property>systems/failures/rcs-R1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[38]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4D-fire-cmd</property>
+				<property>systems/rcs-hardware/L4D-fuel-available</property>
+				<property>systems/failures/rcs-L4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[39]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2D-fire-cmd</property>
+				<property>systems/rcs-hardware/L2D-fuel-available</property>
+				<property>systems/failures/rcs-L2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[40]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3D-fire-cmd</property>
+				<property>systems/rcs-hardware/L3D-fuel-available</property>
+				<property>systems/failures/rcs-L3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[41]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4D-fire-cmd</property>
+				<property>systems/rcs-hardware/R4D-fuel-available</property>
+				<property>systems/failures/rcs-R4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[42]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2D-fire-cmd</property>
+				<property>systems/rcs-hardware/R2D-fuel-available</property>
+				<property>systems/failures/rcs-R2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[43]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3D-fire-cmd</property>
+				<property>systems/rcs-hardware/R3D-fuel-available</property>
+				<property>systems/failures/rcs-R3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[44]</output>
+		</fcs_function>
+
+		<!-- the Vernier thrusters -->
+
+		<fcs_function name="systems/rcs-hardware/F5R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F5R-fire-cmd</property>
+				<property>systems/rcs-hardware/F5R-fuel-available</property>
+				<property>systems/failures/rcs-F5R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[45]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F5L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F5L-fire-cmd</property>
+				<property>systems/rcs-hardware/F5L-fuel-available</property>
+				<property>systems/failures/rcs-F5L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[46]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L5D-fire-cmd</property>
+				<property>systems/rcs-hardware/L5D-fuel-available</property>
+				<property>systems/failures/rcs-L5D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[47]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R5D-fire-cmd</property>
+				<property>systems/rcs-hardware/R5D-fuel-available</property>
+				<property>systems/failures/rcs-R5D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[48]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L5L-fire-cmd</property>
+				<property>systems/rcs-hardware/L5L-fuel-available</property>
+				<property>systems/failures/rcs-L5L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[49]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R5R-fire-cmd</property>
+				<property>systems/rcs-hardware/R5R-fuel-available</property>
+				<property>systems/failures/rcs-R5R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[50]</output>
+		</fcs_function>
 	</channel>
 </system>

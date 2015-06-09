@@ -52,6 +52,50 @@
 		    <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
 		    <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
 		    <tps-condition type="double">1.0</tps-condition>
+		    <rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
+		    <rcs-F3F-condition type="double">1.0</rcs-F3F-condition>
+		    <rcs-F1F-condition type="double">1.0</rcs-F1F-condition>
+		    <rcs-F1L-condition type="double">1.0</rcs-F1L-condition>
+		    <rcs-F3L-condition type="double">1.0</rcs-F3L-condition>
+		    <rcs-F2R-condition type="double">1.0</rcs-F2R-condition>
+		    <rcs-F4R-condition type="double">1.0</rcs-F4R-condition>
+	            <rcs-F2U-condition type="double">1.0</rcs-F2U-condition>
+		    <rcs-F3U-condition type="double">1.0</rcs-F3U-condition>
+		    <rcs-F1U-condition type="double">1.0</rcs-F1U-condition>
+		    <rcs-F2D-condition type="double">1.0</rcs-F2D-condition>
+		    <rcs-F1D-condition type="double">1.0</rcs-F1D-condition>
+		    <rcs-F4D-condition type="double">1.0</rcs-F4D-condition>
+		    <rcs-F3D-condition type="double">1.0</rcs-F3D-condition>
+		    <rcs-F5R-condition type="double">1.0</rcs-F5R-condition>
+		    <rcs-F5L-condition type="double">1.0</rcs-F5L-condition>
+		    <rcs-R3A-condition type="double">1.0</rcs-R3A-condition>
+		    <rcs-R1A-condition type="double">1.0</rcs-R1A-condition>
+ 		    <rcs-L3A-condition type="double">1.0</rcs-L3A-condition>
+		    <rcs-L1A-condition type="double">1.0</rcs-L1A-condition>
+		    <rcs-L4L-condition type="double">1.0</rcs-L4L-condition>
+		    <rcs-L2L-condition type="double">1.0</rcs-L2L-condition>
+		    <rcs-L3L-condition type="double">1.0</rcs-L3L-condition>
+		    <rcs-L1L-condition type="double">1.0</rcs-L1L-condition>
+ 		    <rcs-R4R-condition type="double">1.0</rcs-R4R-condition>
+ 		    <rcs-R2R-condition type="double">1.0</rcs-R2R-condition>
+ 		    <rcs-R3R-condition type="double">1.0</rcs-R3R-condition>
+ 		    <rcs-R1R-condition type="double">1.0</rcs-R1R-condition>
+		    <rcs-L4U-condition type="double">1.0</rcs-L4U-condition>
+		    <rcs-L2U-condition type="double">1.0</rcs-L2U-condition>
+		    <rcs-L1U-condition type="double">1.0</rcs-L1U-condition>
+		    <rcs-R4U-condition type="double">1.0</rcs-R4U-condition>
+		    <rcs-R2U-condition type="double">1.0</rcs-R2U-condition>
+		    <rcs-R1U-condition type="double">1.0</rcs-R1U-condition>
+		    <rcs-L4D-condition type="double">1.0</rcs-L4D-condition>
+		    <rcs-L2D-condition type="double">1.0</rcs-L2D-condition>
+		    <rcs-L3D-condition type="double">1.0</rcs-L3D-condition>
+		    <rcs-R4D-condition type="double">1.0</rcs-R4D-condition>
+		    <rcs-R2D-condition type="double">1.0</rcs-R2D-condition>
+		    <rcs-R3D-condition type="double">1.0</rcs-R3D-condition>
+		    <rcs-L5D-condition type="double">1.0</rcs-L5D-condition>
+		    <rcs-R5D-condition type="double">1.0</rcs-R5D-condition>
+		    <rcs-L5L-condition type="double">1.0</rcs-L5L-condition>
+		    <rcs-R5R-condition type="double">1.0</rcs-R5R-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -261,8 +305,11 @@
         </doors>
         <robotarm-norm type="float">0</robotarm-norm>
     </instrumentation>
-
-
+  
+  <!-- create the node at startup, will be overwritten later -->
+   <position>
+	<sea-level-radius-ft>26000000.0</sea-level-radius-ft>
+   </position>
 
 
     <sim>
@@ -379,7 +426,6 @@
 
         <submodels>
             <serviceable type="bool">true</serviceable>
-            <!--<path>Aircraft/SpaceShuttle/Models/EMU/submodels.xml</path>-->
 	    <path>Aircraft/SpaceShuttle/Models/submodels.xml</path>
         </submodels>
 
