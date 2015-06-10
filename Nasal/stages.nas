@@ -1,5 +1,6 @@
 
 # stage management for the Space Shuttle
+# Thorsten Renk 2015
 
 
 
@@ -78,6 +79,16 @@ if ((t_elapsed > 54.0) and (launch_message_flag ==1))
 	{
 	setprop("/sim/messages/copilot", "t+54 s: throttle up!");
 	launch_message_flag =2;
+	}
+
+for (var i = 0; i < 3; i=i+1)
+	{
+	if (t_elapsed > SpaceShuttle.failure_time_ssme[i])
+		{
+		SpaceShuttle.failure_time_ssme[i] = 10000.0;
+		setprop("/fdm/jsbsim/systems/failures/ssme"~(i+1)~"-condition", 0.0);
+		setprop("/sim/messages/copilot", "Engine "~(i+1)~" flameout!");
+		}
 	}
 
 if ((external_tank_fuel < 0.05) and (MECO_message_flag == 0))

@@ -178,7 +178,11 @@
 		<product>
 			<value>0.2</value>
 			<quotient>
-			<property>propulsion/engine[0]/thrust-lbs</property>
+			<max>
+				<property>propulsion/engine[0]/thrust-lbs</property>
+				<property>propulsion/engine[1]/thrust-lbs</property>
+				<property>propulsion/engine[2]/thrust-lbs</property>
+			</max>
 			<value>510000.0</value>
 			</quotient>
 		</product>

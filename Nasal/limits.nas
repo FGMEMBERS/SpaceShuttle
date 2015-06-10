@@ -133,12 +133,14 @@ if ((math.abs(CBW) > 2458000.0) and (CBW_warn == 1))
 		}
 
 	}
-else if ((math.abs(CBW) > 700000.0) and (CBW_warn == 0))
+else if ((math.abs(CBW) > 2000000.0) and (CBW_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "Wing bending moment approaches safety limits! Watch AoA!");
 	CBW_warn = 1;
 	settimer(func {CBW_warn = 0;}, 10.0);
 	}
+
+
 
 
 if (limit_simulation_mode ==2)

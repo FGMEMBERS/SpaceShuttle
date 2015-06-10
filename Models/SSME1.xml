@@ -45,23 +45,6 @@
  </animation>
 
 
-
-<!--<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 8.5 </x-m>
-       <y-m> 1.5 </y-m>
-       <z-m> -0.55 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[2]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>-->
-
 <model>
 <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire-alt.xml</path>
      <offsets>
