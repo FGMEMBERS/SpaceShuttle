@@ -1884,8 +1884,41 @@
      <contents unit="LBS"> 928.00 </contents>
      <priority>2</priority>
    </tank>
- 
 
+<!-- Hydrazine tanks for the three APUs -->
+ 
+<tank type="FUEL" number="14">
+     <location unit="M">
+       <x> -8.50 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 350.00 </capacity>
+     <contents unit="LBS"> 350.00 </contents>
+     <priority>2</priority>
+   </tank>
+
+<tank type="FUEL" number="15">
+     <location unit="M">
+       <x> -8.50 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 350.00 </capacity>
+     <contents unit="LBS"> 350.00 </contents>
+     <priority>2</priority>
+   </tank>
+
+<tank type="FUEL" number="16">
+     <location unit="M">
+       <x> -8.50 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 350.00 </capacity>
+     <contents unit="LBS"> 350.00 </contents>
+     <priority>2</priority>
+   </tank>
  
  </propulsion>
 
@@ -3365,6 +3398,7 @@
 
  
  <system file="orbital_parameters"></system>
+ <system file="apu_hydraulics.xml"></system>
  <system file="rcs_hardware"></system>
  <system file="rcs_control"></system>
  <system file="computations"></system>

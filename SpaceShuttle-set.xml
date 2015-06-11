@@ -96,6 +96,12 @@
 		    <rcs-R5D-condition type="double">1.0</rcs-R5D-condition>
 		    <rcs-L5L-condition type="double">1.0</rcs-L5L-condition>
 		    <rcs-R5R-condition type="double">1.0</rcs-R5R-condition>
+		    <apu1-condition type="double">1.0</apu1-condition>
+		    <apu2-condition type="double">1.0</apu2-condition>
+		    <apu3-condition type="double">1.0</apu3-condition>
+		    <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
+		    <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
+		    <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -121,6 +127,21 @@
                     <rcs-roll-mode type="int">1</rcs-roll-mode>
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
                 </fcs>
+		<apu>
+		    <apu n="0">
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">1</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+		    </apu>
+    		    <apu n="1">
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+		    </apu>
+		</apu>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
                     <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
