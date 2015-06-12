@@ -128,18 +128,42 @@
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
                 </fcs>
 		<apu>
+			<init-hydraulics-on type="int">0</init-hydraulics-on>
 		    <apu n="0">
+			<apu-controller-power type="int">0</apu-controller-power>
 			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
-			<fuel-valve-status type="int">1</fuel-valve-status>
+			<fuel-valve-status type="int">0</fuel-valve-status>
 			<apu-speed-select type="int">0</apu-speed-select>
 			<apu-operate type="int">0</apu-operate>
 			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
 			<apu-rpm-target type="double">1.0</apu-rpm-target>
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 		    </apu>
     		    <apu n="1">
+			<apu-controller-power type="int">0</apu-controller-power>
 			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">0</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+		    </apu>
+ 		    <apu n="2">
+			<apu-controller-power type="int">0</apu-controller-power>
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">0</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 		    </apu>
 		</apu>
                 <rcs>
@@ -450,7 +474,7 @@
 	    <path>Aircraft/SpaceShuttle/Models/submodels.xml</path>
         </submodels>
 
-
+        <checklists include="SpaceShuttle-checklists.xml"/>
 
         <view n="0">
             <internal archive="y">true</internal>
@@ -508,21 +532,28 @@
             <default>
                 <menu n="50">
                     <label>Space Shuttle</label>
-                    <item n="0">
+		    <item n="0">
+                        <label>APU and hydraulics</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.apu_dlg.open()</script>
+                        </binding>
+                    </item>
+                    <item n="1">
                         <label>Entry Guidance</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.entry_guidance_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="1">
+                    <item n="2">
                         <label>Map</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
                     </item>
-			<item n="2">
+			<item n="3">
                         <label>Limits and Failures</label>
                         <binding>
                             <command>nasal</command>
@@ -903,6 +934,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
         </SpaceShuttle>
 
     </nasal>
+
 
     <import>
         <path>Huds/Sets/controls.xml</path>

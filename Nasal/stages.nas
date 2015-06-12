@@ -882,6 +882,30 @@ print ("Distance: ", d, "Course: ", course);
 
 }
 
+# if we start in certain mission parts, we need to have hydraulics on
+
+var hydraulics_on = func {
+
+setprop("/fdm/jsbsim/systems/apu/init-hydraulics-on", 1);
+settimer( func {setprop("/fdm/jsbsim/systems/apu/init-hydraulics-on", 0);}, 10.0);
+
+setprop("/fdm/jsbsim/systems/apu/apu/apu-controller-power", 1);
+setprop("/fdm/jsbsim/systems/apu/apu/fuel-valve-status", 1);
+settimer( func { setprop("/fdm/jsbsim/systems/apu/apu/apu-operate", 1);}, 0.1);
+settimer( func {setprop("/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select", 1);}, 0.2);
+
+setprop("/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status", 1);
+settimer( func { setprop("/fdm/jsbsim/systems/apu/apu[1]/apu-operate", 1);}, 0.1);
+settimer( func {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select", 1);}, 0.2);
+
+setprop("/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status", 1);
+settimer( func { setprop("/fdm/jsbsim/systems/apu/apu[2]/apu-operate", 1);}, 0.1);
+settimer( func {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select", 1);}, 0.2);
+}
+
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -1023,12 +1047,22 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	SRB_separate_silent();
 	gear_up();
 	external_tank_separate_silent();
-	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[3]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[4]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[5]/level-norm",0.0);
+	setprop("/consumables/fuel/tank[0]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[1]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[2]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[4]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[5]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[6]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[7]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[8]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[9]/level-lbs",92.8);
+	setprop("/consumables/fuel/tank[10]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[11]/level-lbs",92.8);
+	setprop("/consumables/fuel/tank[12]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[13]/level-lbs",92.8);
+
+	hydraulics_on();
 
 	# transfer controls to aero
 
@@ -1047,12 +1081,22 @@ if (getprop("/sim/presets/stage") == 4) # we start with the final approach
 	SRB_separate_silent();
 	gear_up();
 	external_tank_separate_silent();
-	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[3]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[4]/level-norm",0.0);
-	setprop("/consumables/fuel/tank[5]/level-norm",0.0);
+	setprop("/consumables/fuel/tank[0]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[1]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[2]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[4]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[5]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[6]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[7]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[8]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[9]/level-lbs",92.8);
+	setprop("/consumables/fuel/tank[10]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[11]/level-lbs",92.8);
+	setprop("/consumables/fuel/tank[12]/level-lbs",147.7);
+	setprop("/consumables/fuel/tank[13]/level-lbs",92.8);
+
+	hydraulics_on();
 
 	# transfer controls to aero
 

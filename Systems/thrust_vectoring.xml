@@ -771,10 +771,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[0]/pitch-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[0]/pitch-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>
@@ -787,10 +789,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[0]/yaw-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[0]/yaw-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>
@@ -803,10 +807,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[1]/pitch-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[1]/pitch-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>
@@ -819,10 +825,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[1]/yaw-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[1]/yaw-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>
@@ -835,10 +843,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[2]/pitch-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[2]/pitch-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>
@@ -851,10 +861,12 @@
 			<function>
 				<sum>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[2]/yaw-angle-rad-rsys</property>
 					<property>systems/vectoring/vectoring-rate-master</property>
 				</product>
 				<product>
+					<property>systems/apu/hyd-pressure-available</property>
 					<property>propulsion/engine[2]/yaw-angle-rad-gsys</property>
 					<property>systems/vectoring/vectoring-gimbal-master</property>
 				</product>

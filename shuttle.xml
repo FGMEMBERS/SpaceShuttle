@@ -2038,6 +2038,7 @@
 		<property>fcs/launch-auto-trim</property>
 	</sum>
 	<property>systems/failures/airfoils-pitch-condition</property>
+	<property>systems/apu/hyd-pressure-available</property>
 	</product>
 	</function>
 	<output>fcs/elevator-pos-rad</output>
@@ -2734,6 +2735,7 @@
            <property>metrics/Sw-sqft</property>
            <property>fcs/left-aileron-pos-rad</property>
 	   <property>systems/failures/airfoils-roll-condition</property>
+	   <property>systems/apu/hyd-pressure-available</property>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
                   <tableData>
@@ -2892,6 +2894,7 @@
           <property>metrics/bw-ft</property>
           <property>fcs/left-aileron-pos-rad</property>
 	  <property>systems/failures/airfoils-roll-condition</property>
+	  <property>systems/apu/hyd-pressure-available</property>
  	  <value>57.2975</value>
 	   <product>
 	   <table>
@@ -2949,6 +2952,7 @@
            <property>metrics/bw-ft</property>
            <property>fcs/rudder-pos-rad</property>
 	   <property>systems/failures/airfoils-yaw-condition</property>
+	   <property>systems/apu/hyd-pressure-available</property>
 	   <value>57.2975</value>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
@@ -3294,6 +3298,7 @@
            <property>metrics/bw-ft</property>
            <property>fcs/rudder-pos-rad</property>
 	   <property>systems/failures/airfoils-yaw-condition</property>
+	   <property>systems/apu/hyd-pressure-available</property>
 	   <value>57.2975</value>
 	   <table>
                   <independentVar lookup="row">velocities/mach</independentVar>
@@ -3323,6 +3328,7 @@
            <property>metrics/bw-ft</property>
            <property>fcs/left-aileron-pos-rad</property>
 	   <property>aero/orbiter-config</property>
+	   <property>systems/apu/hyd-pressure-available</property>
  	   <value>57.2975</value>
 	   <product>
 	   <table>

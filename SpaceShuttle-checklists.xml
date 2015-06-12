@@ -1,0 +1,97 @@
+ <PropertyList>
+  <checklist>
+    <title>Pre-launch</title>  
+    <item>
+      <name>APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>operate switch</name>
+      <value>START</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+    
+  </checklist>
+
+ </PropertyList>
