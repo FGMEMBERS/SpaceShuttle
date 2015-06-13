@@ -151,8 +151,17 @@
 			</test>
 		</switch>
 
+		<switch name="systems/apu/apu/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu/hyd-circ-pump-cmd == 1
+				systems/apu/apu/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/apu/apu/hyd-pressure-psia">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/apu/apu/hyd-pump-rpm</property>
@@ -161,8 +170,15 @@
 				<value>3000.0</value>
 				<property>systems/apu/apu/hyd-pressure-factor</property>
 			</product>
+			<product>
+				<property>systems/apu/apu/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
+
+
 
 	</channel>
 
@@ -316,8 +332,17 @@
 			</test>
 		</switch>
 
+		<switch name="systems/apu/apu[1]/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/apu/apu[1]/hyd-pressure-psia">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/apu/apu[1]/hyd-pump-rpm</property>
@@ -326,8 +351,15 @@
 				<value>3000.0</value>
 				<property>systems/apu/apu[1]/hyd-pressure-factor</property>
 			</product>
+			<product>
+				<property>systems/apu/apu[1]/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
+
+
 
 	</channel>
 
@@ -480,8 +512,17 @@
 			</test>
 		</switch>
 
+		<switch name="systems/apu/apu[2]/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/apu/apu[2]/hyd-pressure-psia">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/apu/apu[2]/hyd-pump-rpm</property>
@@ -490,8 +531,15 @@
 				<value>3000.0</value>
 				<property>systems/apu/apu[2]/hyd-pressure-factor</property>
 			</product>
+			<product>
+				<property>systems/apu/apu[2]/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
+
+
 
 	</channel>
 
@@ -499,22 +547,25 @@
 	
 		<switch name="systems/apu/hyd-1-pressurized">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="AND" value="1.0">
 				systems/apu/apu/hyd-pressure-psia GT 2400
+				systems/apu/apu/hyd-circ-pump == 0
 			</test>
 		</switch>
 
 		<switch name="systems/apu/hyd-2-pressurized">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="AND" value="1.0">
 				systems/apu/apu[1]/hyd-pressure-psia GT 2400
+				systems/apu/apu[1]/hyd-circ-pump == 0
 			</test>
 		</switch>
 
 		<switch name="systems/apu/hyd-3-pressurized">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="AND" value="1.0">
 				systems/apu/apu[2]/hyd-pressure-psia GT 2400
+				systems/apu/apu[2]/hyd-circ-pump == 0
 			</test>
 		</switch>
 

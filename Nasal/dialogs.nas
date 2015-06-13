@@ -12,6 +12,7 @@ var scenario_string_none = " ";
 
 var scenario_string_single_engine_failure = "During ascent, a single main engine will fail. Dependent on payload, launch inclination and when the failure occurs, the Shuttle may no longer be able to reach orbit, requiring to follow an abort procedure.";
 
+var scenario_string_stuck_speedbrake = "During the final aerodynamical glide phase, the speedbrake gets stuck. Dependent on when and in what position this happens, TAEM needs to be modified and the aim point for the final approach changed. Deploy gear early to make use of its high drag.";
 
 var propellant_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant/dialog","Aircraft/SpaceShuttle/Dialogs/propellant.xml");
 var entry_guidance_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/entry_guidance/dialog","Aircraft/SpaceShuttle/Dialogs/entry_guidance.xml");
@@ -71,6 +72,11 @@ else if (scenario_string == "ascent single engine failure")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_single_engine_failure);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 1);
+	}
+else if (scenario_string == "stuck speedbrake")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_stuck_speedbrake);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 31);
 	}
 
 }

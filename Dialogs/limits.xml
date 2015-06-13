@@ -92,6 +92,7 @@
         	 <property>/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario</property>
 		 <value>none</value>
 		 <value>ascent single engine failure</value>
+		 <value>stuck speedbrake</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>failure-scenario</object-name>

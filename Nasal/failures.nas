@@ -6,7 +6,22 @@
 # we simulate failures due to limit violations as well as failure scenarios without a particular cause
 
 
+
+# the failure hash stores information about components which refuse to acknowledge a command
+
+var failure_cmd = {
+	speedbrake:1,
+	ssme1: 1,
+	ssme2: 1,
+	ssme3: 1
+	};
+
+
+
+
+##############################################
 #### failures caused by limit violations #####
+##############################################
 
 
 #### explosion of the orbiter on ascent, nothing remains functional
@@ -99,7 +114,16 @@ if (getprop("/gear/gear[2]/wow") == 1)
 	}
 }
 
-#### failure scenarios #####
+##########################################
+#### user-selected failure scenarios #####
+##########################################
+
+# ID 1-10 refer to ascent
+# ID 11-20 refer to in-orbit failures
+# ID 21-30 refer to entry failures
+# ID 31-40 refer to aerodynamical phase failure scenarios
+
+
 
 
 var failure_time_ssme = [10000.0, 10000.0, 10000.0];
@@ -112,10 +136,23 @@ var scenario_ID = getprop("/fdm/jsbsim/systems/failures/failure-scenario-ID");
 if (scenario_ID == 0)
 	{
 	failure_time_ssme = [10000.0, 10000.0, 10000.0];
+	failure_cmd.speedbrake = 1;
 	}
 else if (scenario_ID == 1)
 	{
 	init_one_engine_failure();
+	}
+else if (scenario_ID == 31)
+	{
+	failure_cmd.speedbrake = 0.3;
+	var rn = rand();
+	if (rn > 0.5) 
+		{
+		setprop("/controls/shuttle/speedbrake", 0.8);
+		setprop("/controls/shuttle/speedbrake-string","80%");
+		}
+	
+
 	}
 
 }

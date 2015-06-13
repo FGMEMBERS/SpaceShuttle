@@ -140,6 +140,7 @@
 			<apu-rpm-target type="double">1.0</apu-rpm-target>
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 		    </apu>
     		    <apu n="1">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -152,6 +153,7 @@
 			<apu-rpm-target type="double">1.0</apu-rpm-target>
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 		    </apu>
  		    <apu n="2">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -164,6 +166,7 @@
 			<apu-rpm-target type="double">1.0</apu-rpm-target>
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 		    </apu>
 		</apu>
                 <rcs>

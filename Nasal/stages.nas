@@ -748,6 +748,12 @@ var increase_speedbrake = func {
 
 var speedbrake_state = getprop("/controls/shuttle/speedbrake");
 
+if (rand() > SpaceShuttle.failure_cmd.speedbrake)
+	{
+	SpaceShuttle.failure_cmd.speedbrake = 0;
+	return;
+	}
+
 speedbrake_state = speedbrake_state+ 0.2;
 if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
 
@@ -760,6 +766,12 @@ setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 }
 
 var decrease_speedbrake = func {
+
+if (rand() > SpaceShuttle.failure_cmd.speedbrake)
+	{
+	SpaceShuttle.failure_cmd.speedbrake = 0;
+	return;
+	}
 
 var speedbrake_state = getprop("/controls/shuttle/speedbrake");
 

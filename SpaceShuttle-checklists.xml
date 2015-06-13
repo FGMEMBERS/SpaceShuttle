@@ -1,8 +1,14 @@
  <PropertyList>
   <checklist>
     <title>Pre-launch</title>  
+
     <item>
-      <name>APU controller power</name>
+      <name>T-8:00 essential buses to fuel cells</name>
+      <value>CONNECTED</value>
+    </item>
+
+    <item>
+      <name>T-6:15 APU controller power</name>
       <value>ON</value>
       <condition>
 	<and>
@@ -15,7 +21,7 @@
     </item>
 
    <item>
-      <name>APU fuel valve</name>
+      <name>T-6:15 APU fuel valve</name>
       <value>OPEN</value>
       <condition>
 	<and>
@@ -28,12 +34,12 @@
     </item>
 
    <item>
-      <name>ready to start indicator</name>
+      <name>T-6:15 ready to start indicator</name>
       <value>READY</value>
       <condition>
 	<and>
         <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
           <value>1</value>
         </equals>
 	</and>
@@ -41,7 +47,7 @@
     </item>
 
    <item>
-      <name>operate switch</name>
+      <name>T-5:00 operate switch</name>
       <value>START</value>
       <condition>
 	<and>
@@ -54,7 +60,7 @@
     </item>
 
    <item>
-      <name>verify RPM </name>
+      <name>T-5:00 verify RPM </name>
       <value>> 58.000</value>
       <condition>
 	<and>
@@ -67,7 +73,7 @@
     </item>
 
    <item>
-      <name>hyd pump pressure</name>
+      <name>T-5:00 hyd pump pressure</name>
       <value>HIGH</value>
       <condition>
 	<and>
@@ -80,7 +86,7 @@
     </item>
 
    <item>
-      <name>verify hydraulic pressure </name>
+      <name>T-5:00 verify hydraulic pressure </name>
       <value>> 2400 psi</value>
       <condition>
 	<and>
@@ -91,7 +97,268 @@
 	</and>
       </condition>     
     </item>
+
+    <item>
+      <name>T-3:25 verify main engine gimbal</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
+      <name>T-2.00 start O2 flow, visor</name>
+      <value>CLOSED</value>
+    </item>
     
+   <item>
+      <name>T-0:07 main engine ignition sequence</name>
+      <value>START</value>
+   <condition>
+	<and>
+        <greater-than>
+          <property>/controls/engines/engine/throttle</property>
+          <value>0.0</value>
+        </greater-than>
+	</and>
+      </condition>
+    </item>
+
+
+
+  </checklist>
+
+  <checklist>
+    <title>Post MECO</title>  
+
+    <item>
+	<name>rotation rates</name>
+	<value>NULL</value>
+	<condition>
+	  <and>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/q-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/q-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/p-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/p-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/r-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/r-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>	
+	  </and>
+	</condition>
+    </item>
+
+    <item>
+      <name>external tank</name>
+      <value>SEPARATE</value>
+      <condition>
+	<equals>
+	  <property>/controls/shuttle/ET-static-model</property>
+	  <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify DAP switch to</name>
+      <value>RCS</value>
+      <condition>
+	<or>
+	<greater-than>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>19</value>
+	</greater-than>
+	<equals>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>1</value>
+	</equals>
+	<equals>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>2</value>
+	</equals>
+	</or>
+      </condition>
+    </item>
+
+   <item>
+      <name>APU operate switches</name>
+      <value>STOP</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>0</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>0</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>APU controller power</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+ 	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+ 	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>One hydraulic circulation pump</name>
+      <value>ON</value>
+    <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>  
+  </item>
+
+
+
+    <item>
+      <name>verify orbital parameters</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>visually inspect ET</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>determine whether OMS burn is required</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>orient spacecraft for OMS burn</name>
+      <value></value>
+    </item>
+  </checklist>
+
+  <checklist>
+    <title>Post orbital insertion</title>  
+
+    <item>
+      <name>set RCS and OMS heaters to</name>
+      <value>AUTO</value>
+    </item>
+
+    <item>
+      <name>set radiator valves to</name>
+      <value>AUTO</value>
+    </item>
+
+    <item>
+      <name>payload bay floodlights</name>
+      <value>ON</value>
+    </item>
+
+    <item>
+      <name>payload bay doors</name>
+      <value>OPEN</value>
+      <condition>
+	<equals>
+	 <property>/sim/multiplay/generic/float[3]</property>
+	 <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>Ku-band antenna</name>
+      <value>DEPLOY</value>
+    </item>
+
+    <item>
+      <name>verify freon cooling loop operations</name>
+      <value>NOMINAL</value>
+    </item>
+
+    <item>
+      <name>flash evaporators</name>
+      <value>SECURE</value>
+    </item>
+
+    <item>
+      <name>star tracker doors</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>set star tracker</name>
+      <value>ACTIVE</value>
+    </item>
+
+    <item>
+      <name>set APU steam vent heaters</name>
+      <value>ACTIVE</value>
+    </item>
+
   </checklist>
 
  </PropertyList>
