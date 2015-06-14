@@ -3405,6 +3405,7 @@
  
  <system file="orbital_parameters"></system>
  <system file="apu_hydraulics.xml"></system>
+ <system file="electrical_power.xml"></system>
  <system file="rcs_hardware"></system>
  <system file="rcs_control"></system>
  <system file="computations"></system>

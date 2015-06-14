@@ -1061,4 +1061,134 @@
 		<output>fcs/throttle-pos-norm[50]</output>
 		</fcs_function>
 	</channel>
+
+	<channel name="RCS thermal control">
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-fwd-A-status</property>
+				<property>systems/rcs-hardware/heater-fwd-B-status</property>
+				</max>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-left-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-left-A-status</property>
+				<property>systems/rcs-hardware/heater-left-B-status</property>
+				</max>
+				<value>0.18</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-right-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-right-A-status</property>
+				<property>systems/rcs-hardware/heater-right-B-status</property>
+				</max>
+				<value>0.18</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-1-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-1-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-2-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-2-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-3-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-3-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-4-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-4-status</property>
+				<value>0.04</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-5-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-5-status</property>
+				<value>0.02</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-1-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-1-status</property>
+				<value>0.14</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-2-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-2-status</property>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-3-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-3-status</property>
+				<value>0.14</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-4-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-4-status</property>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-5-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-5-status</property>
+				<value>0.04</value>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
 </system>

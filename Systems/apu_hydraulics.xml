@@ -178,6 +178,15 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/apu/apu/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
 
 
 	</channel>
@@ -359,6 +368,15 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/apu/apu[1]/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
 
 
 	</channel>
@@ -536,6 +554,15 @@
 				<value>2600.0</value>
 			</product>
 			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
 		</function>
 		</fcs_function>
 

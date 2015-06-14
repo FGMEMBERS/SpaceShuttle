@@ -274,38 +274,6 @@
       </visible>
     </text>
 
-
-	
-     <!--<text>
-      <row>5</row>
-      <col>1</col>
-      <halign>center</halign>
-      <label>12345678</label>
-      <format>%d </format>
-      <live>true</live>
-      <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
-    </text> 
-
-  <text>
-      <row>5</row>
-      <col>2</col>
-      <halign>center</halign>
-      <label>12345678</label>
-      <format>%d </format>
-      <live>true</live>
-      <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start</property>
-    </text> 
-
-  <text>
-      <row>5</row>
-      <col>3</col>
-      <halign>center</halign>
-      <label>12345678</label>
-      <format>%d </format>
-      <live>true</live>
-      <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start</property>
-    </text> -->
-
    <button>
  	<row>7</row>
         <col>1</col>

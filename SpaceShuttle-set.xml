@@ -102,6 +102,9 @@
 		    <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
 		    <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
 		    <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
+		    <fc1-condition type="double">1.0</fc1-condition>
+		    <fc2-condition type="double">1.0</fc2-condition>
+		    <fc3-condition type="double">1.0</fc3-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -169,6 +172,32 @@
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 		    </apu>
 		</apu>
+		<electrical>
+		    <fc>
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>
+		    <fc n="1">
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>
+		    <fc n="2">
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>	
+		    <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
+		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
+		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>		
+		</electrical>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
                     <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
@@ -264,6 +293,27 @@
 		    <crossfeed-left-rcs-valve-345-status type="int">0</crossfeed-left-rcs-valve-345-status>	     
 		    <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>	
 		    <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>	      
+
+		    <heater-left-A-status type="int">0</heater-left-A-status>
+		    <heater-left-B-status type="int">0</heater-left-B-status>
+
+    		    <heater-right-A-status type="int">0</heater-right-A-status>
+		    <heater-right-B-status type="int">0</heater-right-B-status>
+
+		    <heater-fwd-A-status type="int">0</heater-fwd-A-status>
+		    <heater-fwd-B-status type="int">0</heater-fwd-B-status>
+
+		    <heater-fwd-1-status type="int">0</heater-fwd-1-status>
+		    <heater-fwd-2-status type="int">0</heater-fwd-2-status>
+		    <heater-fwd-3-status type="int">0</heater-fwd-3-status>
+		    <heater-fwd-4-status type="int">0</heater-fwd-4-status>
+		    <heater-fwd-5-status type="int">0</heater-fwd-5-status>
+
+   		    <heater-pod-1-status type="int">0</heater-pod-1-status>
+		    <heater-pod-2-status type="int">0</heater-pod-2-status>
+		    <heater-pod-3-status type="int">0</heater-pod-3-status>
+		    <heater-pod-4-status type="int">0</heater-pod-4-status>
+		    <heater-pod-5-status type="int">0</heater-pod-5-status>
 
 		</rcs-hardware>	
             </systems>
@@ -542,21 +592,28 @@
                             <script>SpaceShuttle.apu_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="1">
+ 		    <item n="1">
+                        <label>RCS and OMS thermal control</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rcs_oms_thermal_dlg.open()</script>
+                        </binding>
+                    </item>
+                    <item n="2">
                         <label>Entry Guidance</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.entry_guidance_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="2">
+                    <item n="3">
                         <label>Map</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
                     </item>
-			<item n="3">
+			<item n="4">
                         <label>Limits and Failures</label>
                         <binding>
                             <command>nasal</command>
