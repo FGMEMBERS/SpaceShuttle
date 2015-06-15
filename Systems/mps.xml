@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 
+<!-- Main Propulsion System hardware simulation for the Space Shuttle -->
+<!-- Thorsten Renk 2015 -->
 
 <!-- Internal JSB engine numbering differs from NASA numbering for historical reasons -->
 <!-- NASA engine 1: center engine    JSBSim SSME-1, engine[0]: left engine -->
@@ -113,6 +115,92 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<!-- each engine needs the hydraulics system to actuate valves, otherwise it is in lockup -->
+		<!-- SYS 1 actuates center engine, SYS 2 left engine and SYS 3 right engine -->
+		<!-- alternatively it can end up in electrical lockup -->
+
+		<switch name="systems/mps/engine/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-2-pressurized == 1
+				systems/apu/apu[1]/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 0
+				systems/mps/engine/electric-lockup == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[1]/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-3-pressurized == 1
+				systems/apu/apu[2]/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[1]/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/hydraulic-power == 0
+				systems/mps/engine[1]/electric-lockup == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-1-pressurized == 1
+				systems/apu/apu/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[2]/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/hydraulic-power == 0
+				systems/mps/engine[2]/electric-lockup == 1
+			</test>
+		</switch>
+
+		<!-- gimbal control has extra redundancy with two systems gimbaling each engine -->
+		<!-- center engine uses SYS 1 and SYS 3 -->
+		<!-- left   engine uses SYS 1 and SYS 2 -->
+		<!-- right  engine uses SYS 2 and SYS 3 -->
+
+
+		<switch name="systems/mps/engine/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 1
+				systems/mps/engine[2]/hydraulic-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 1
+				systems/mps/engine[1]/hydraulic-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/hydraulic-power == 1
+				systems/mps/engine[1]/hydraulic-power == 1
+			</test>
+		</switch>
 
 	</channel>
 

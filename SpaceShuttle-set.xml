@@ -144,6 +144,7 @@
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
 		    </apu>
     		    <apu n="1">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -157,6 +158,7 @@
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
 		    </apu>
  		    <apu n="2">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -170,6 +172,7 @@
 			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
 		    </apu>
 		</apu>
 		<electrical>
@@ -203,16 +206,19 @@
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
 		    </engine>
 		    <engine n="1">
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
 		    </engine>
 		    <engine n="2">
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
 		    </engine>
 		</mps>
                 <rcs>

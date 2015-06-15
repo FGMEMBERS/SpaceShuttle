@@ -10,6 +10,7 @@ var SRB_message_flag = 0;
 var MECO_message_flag = 0;
 var launch_message_flag = 0;
 var WONG_message_flag =0;
+var lockup_message_flag = 0;
 var SRB_burn_timer = 0.0;
 var deorbit_stage_flag = 0;
 
@@ -128,6 +129,18 @@ else
 	{
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");
 	}
+
+var lockup_eng1 = getprop("/fdm/jsbsim/systems/mps/engine/lockup");
+var lockup_eng2 = getprop("/fdm/jsbsim/systems/mps/engine[1]/lockup");
+var lockup_eng3 = getprop("/fdm/jsbsim/systems/mps/engine[2]/lockup");
+
+if ((lockup_eng1 == 1) and (SpaceShuttle.failure_cmd.ssme1 == 1))
+	{ssme_lockup(0);}
+if ((lockup_eng2 == 1) and (SpaceShuttle.failure_cmd.ssme2 == 1))
+	{ssme_lockup(1);}
+if ((lockup_eng3 == 1) and (SpaceShuttle.failure_cmd.ssme3 == 1))
+	{ssme_lockup(2);}
+
 
 SpaceShuttle.check_limits_ascent();
 
@@ -722,6 +735,10 @@ settimer(glide_loop,1.0);
 }
 
 
+###########################################################################
+# helper functions for control state management
+###########################################################################
+
 var show_gear_state = func {
 
 var gear_state = getprop("/controls/gear/gear-down");
@@ -812,9 +829,35 @@ else if (bodyflap_state == 0.315) {bodyflap_state = 0.25;}
 setprop("/controls/shuttle/bodyflap-pos-rad", bodyflap_state);
 }
 
+# cutoff switches for SSME
+
 var ssme_cutoff = func (n) {
 
 setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
+
+}
+
+# lockup - engine can no longer be throttled
+
+var ssme_lockup = func (n) {
+
+print ("SSME lockup ", n);
+
+var number = 0;
+
+if (n==0) {number = 2; SpaceShuttle.failure_cmd.ssme1 = 0;}
+if (n==1) {number = 3; SpaceShuttle.failure_cmd.ssme2 = 0;}
+if (n==2) {number = 1; SpaceShuttle.failure_cmd.ssme3 = 0;}
+
+
+if (lockup_message_flag == 0)
+	{
+	setprop("/sim/messages/copilot", "Lockup of engine "~number~"!");
+	lockup_message_flag =1;	
+	}
+setprop("/sim/input/selected/engine["~n~"]",0);
+
+
 
 }
 
@@ -1032,6 +1075,11 @@ setlistener("/gear/gear[1]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[2]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
 # setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
+
+#setlistener("/fdm/jsbsim/systems/mps/engine/electric-lockup", func {ssme_lockup(0);},0,0);
+#setlistener("/fdm/jsbsim/systems/mps/engine[1]/lockup", func {ssme_lockup(1);},0,0);
+#setlistener("/fdm/jsbsim/systems/mps/engine[2]/lockup", func {ssme_lockup(2);},0,0);
+
 
 # since the SRBs  are implemented as slaved ballistic submodels, we need to trigger their
 # attachment - this apparently does not work if the parameter is simply set at startup
