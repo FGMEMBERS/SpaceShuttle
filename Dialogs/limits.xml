@@ -93,6 +93,7 @@
 		 <value>none</value>
 		 <value>ascent single engine failure</value>
 		 <value>stuck speedbrake</value>
+		 <value>burst tire</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>failure-scenario</object-name>

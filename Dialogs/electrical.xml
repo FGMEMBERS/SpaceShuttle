@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>electrical</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Electrical Power</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Fuel Cell 1</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>Fuel Cell 2</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>Fuel Cell 3</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <label>Reactant valves</label>
+      <halign>center</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+
+    <checkbox>
+        <name>fc1-valve</name>
+ 	<row>3</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+          <label>valve 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc1-valve</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc2-valve</name>
+ 	<row>3</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+          <label>valve 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc2-valve</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc3-valve</name>
+ 	<row>3</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+          <label>valve 3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc3-valve</object-name>
+          </binding>
+        </checkbox>
+
+
+   <text>
+      <label>Controller power</label>
+      <halign>center</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+
+    <checkbox>
+        <name>fc1-controller</name>
+ 	<row>4</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/electrical/fc/fc-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc1-controller</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc2-controller</name>
+ 	<row>4</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc2-controller</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc3-controller</name>
+ 	<row>4</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc3-controller</object-name>
+          </binding>
+        </checkbox>
+
+
+    <button>
+ 	<row>5</row>
+        <col>1</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>5</row>
+        <col>2</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>5</row>
+        <col>3</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+	</binding>
+   </button>
+
+   <text>
+      <label>ready for load</label>
+      <halign>center</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+  
+   <text>
+      <row>6</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+			<value>1</value>
+		</less-than>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+			<value>1</value>
+		</less-than>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
+			<value>1</value>
+		</less-than>
+      </visible>
+    </text>
+
+ <text>
+      <label>Bus connector status</label>
+      <halign>center</halign>
+      <row>7</row>
+      <col>0</col>
+    </text>
+
+
+    <checkbox>
+        <name>fc1-connector</name>
+ 	<row>7</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc1-connector</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc2-connector</name>
+ 	<row>7</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc2-connector</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc3-connector</name>
+ 	<row>7</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc3-connector</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+ <text>
+      <label>Bus voltages</label>
+      <halign>center</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.1f V</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/electrical/bus1-voltage</property>
+    </text> 
+
+    <text>
+      <row>1</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.1f V</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/electrical/bus2-voltage</property>
+    </text> 
+
+    <text>
+      <row>1</row>
+      <col>3</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.1f V</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/electrical/bus3-voltage</property>
+    </text> 
+
+
+ </group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -154,6 +154,10 @@ else if (scenario_ID == 31)
 	
 
 	}
+else if (scenario_ID == 32)
+	{
+	setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+	}
 
 }
 

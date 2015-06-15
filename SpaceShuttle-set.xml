@@ -198,6 +198,23 @@
 		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
 		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>		
 		</electrical>
+		<mps>
+		    <engine>
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+		    </engine>
+		    <engine n="1">
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+		    </engine>
+		    <engine n="2">
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+		    </engine>
+		</mps>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
                     <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
@@ -585,35 +602,60 @@
             <default>
                 <menu n="50">
                     <label>Space Shuttle</label>
-		    <item n="0">
-                        <label>APU and hydraulics</label>
+
+		    <item>
+			<label>--- Systems ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+		    <item>
+                        <label>APU and Hydraulics</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.apu_dlg.open()</script>
                         </binding>
                     </item>
- 		    <item n="1">
+		    <item>
+                        <label>Electrical Power</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.electrical_dlg.open()</script>
+                        </binding>
+                    </item>
+ 		    <item>
                         <label>RCS and OMS thermal control</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.rcs_oms_thermal_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="2">
+
+		    <item>
+			<label>--- Avionics ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+                    <item>
                         <label>Entry Guidance</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.entry_guidance_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="3">
-                        <label>Map</label>
+                    <item>
+                        <label>Trajectory Map</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
-                    </item>
-			<item n="4">
+                     </item>
+
+		    <item>
+			<label>--- Configuration ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+			<item>
                         <label>Limits and Failures</label>
                         <binding>
                             <command>nasal</command>
@@ -630,7 +672,20 @@
         <help>
             <title>Space Shuttle</title>
 
+  	     <key>
+                <name>Ctrl-q</name>
+                <desc>engine 1 cutoff switch</desc>
+            </key>
 
+  	     <key>
+                <name>Ctrl-w</name>
+                <desc>engine 2 cutoff switch</desc>
+            </key>
+
+  	     <key>
+                <name>Ctrl-e</name>
+                <desc>engine 3 cutoff switch</desc>
+            </key>
 
             <key>
                 <name>c</name>
@@ -840,6 +895,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		</binding>
  	    </key>
 
+	    <key n="5">
+  		<name>Ctrl+e</name>
+  		<desc>Cutoff switch engine 3</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(1)</script>
+  		</binding>
+ 	    </key>
+
  	    <key n="13"> 
   		<name>Ctrl+m</name>
   		<desc>Switch major FCS control modes</desc>
@@ -847,6 +911,24 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		<binding>
    			<command>nasal</command>
 			<script>SpaceShuttle.switch_major_control_mode()</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="17">
+  		<name>Control+q</name>
+  		<desc>Cutoff switch engine 1</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(2)</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="23">
+  		<name>Control+w</name>
+  		<desc>Cutoff switch engine 2</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(0)</script>
   		</binding>
  	    </key>
 

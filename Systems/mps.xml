@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+
+<!-- Internal JSB engine numbering differs from NASA numbering for historical reasons -->
+<!-- NASA engine 1: center engine    JSBSim SSME-1, engine[0]: left engine -->
+<!-- NASA engine 2: left engine      JSBSim SSME-2, engine[1]: right engine -->
+<!-- NASA engine 3: right engine     JSBSim SSME-3, engine[2]: center engine -->
+
+<system>
+	<channel name="Main propulsion system control">
+
+		<!-- the engine controllers draw power from different buses so that any -->
+		<!-- one failure leaves full control and any two failures leave two engines -->
+
+		<switch name="systems/mps/engine/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus1-power-available == 1
+				systems/mps/engine/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus2-power-available == 1
+				systems/mps/engine/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus2-power-available == 1
+				systems/mps/engine[1]/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus3-power-available == 1
+				systems/mps/engine[1]/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus1-power-available == 1
+				systems/mps/engine[2]/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus3-power-available == 1
+				systems/mps/engine[2]/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/controller-A-power == 1
+				systems/mps/engine/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/controller-A-power == 1
+				systems/mps/engine[1]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/controller-A-power == 1
+				systems/mps/engine[2]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mps/engine/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine/controller-power</property>
+				<property>systems/failures/ssme1-condition</property>
+				<property>systems/mps/engine/run-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	  	<fcs_function name="systems/mps/engine[1]/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine[1]/controller-power</property>
+				<property>systems/failures/ssme2-condition</property>
+				<property>systems/mps/engine[1]/run-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/engine[2]/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine[2]/controller-power</property>
+				<property>systems/failures/ssme3-condition</property>
+				<property>systems/mps/engine[2]/run-cmd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+</system>

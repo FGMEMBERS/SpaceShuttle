@@ -812,6 +812,11 @@ else if (bodyflap_state == 0.315) {bodyflap_state = 0.25;}
 setprop("/controls/shuttle/bodyflap-pos-rad", bodyflap_state);
 }
 
+var ssme_cutoff = func (n) {
+
+setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
+
+}
 
 var deploy_chute = func {
 
