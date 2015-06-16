@@ -3,8 +3,37 @@
     <title>Pre-launch</title>  
 
     <item>
+      <name>Electrical systems check</name>
+    </item>
+
+    <item>
       <name>T-8:00 essential buses to fuel cells</name>
       <value>CONNECTED</value>
+    </item>
+
+    <item>
+      <name>T-8:00 verify SSME controlers</name>
+      <value>POWERED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-power</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-power</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+
+    <item>
+      <name>APU and hydraulics startup</name>
     </item>
 
     <item>
@@ -14,6 +43,14 @@
 	<and>
         <equals>
           <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
           <value>1</value>
         </equals>
 	</and>
@@ -42,6 +79,14 @@
           <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
           <value>1</value>
         </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
 	</and>
       </condition>     
     </item>
@@ -53,6 +98,14 @@
 	<and>
         <equals>
           <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
           <value>1</value>
         </equals>
 	</and>
@@ -68,6 +121,14 @@
           <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
           <value>58000</value>
         </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
 	</and>
       </condition>     
     </item>
@@ -79,6 +140,14 @@
 	<and>
         <equals>
           <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
           <value>1</value>
         </equals>
 	</and>
@@ -94,8 +163,20 @@
           <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
           <value>2400</value>
         </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
 	</and>
       </condition>     
+    </item>
+
+    <item>
+      <name>Final preparations</name>
     </item>
 
     <item>

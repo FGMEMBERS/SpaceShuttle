@@ -82,13 +82,41 @@ if ((t_elapsed > 54.0) and (launch_message_flag ==1))
 	launch_message_flag =2;
 	}
 
+
+
 for (var i = 0; i < 3; i=i+1)
 	{
 	if (t_elapsed > SpaceShuttle.failure_time_ssme[i])
 		{
-		SpaceShuttle.failure_time_ssme[i] = 10000.0;
-		setprop("/fdm/jsbsim/systems/failures/ssme"~(i+1)~"-condition", 0.0);
-		setprop("/sim/messages/copilot", "Engine "~(i+1)~" flameout!");
+		var scenario_ID = getprop("/fdm/jsbsim/systems/failures/failure-scenario-ID");
+		if (scenario_ID == 1)
+			{		
+			SpaceShuttle.failure_time_ssme[i] = 10000.0;
+			setprop("/fdm/jsbsim/systems/failures/ssme"~(i+1)~"-condition", 0.0);
+			setprop("/sim/messages/copilot", "Engine "~(i+1)~" flameout!");
+			}
+		else if (scenario_ID == 2)
+			{
+			SpaceShuttle.failure_time_ssme[i] = 10000.0;
+			var rn = rand();
+			if (rn < 0.2)
+				{
+				setprop("/fdm/jsbsim/systems/failures/hyd"~(i+1)~"-pump-condition", 0.0);
+				}
+			else if (rn < 0.5)
+				{
+				setprop("/fdm/jsbsim/systems/failures/apu"~(i+1)~"-condition", 0.0);
+				}
+			else if (rn < 0.7)
+				{
+				setprop("/fdm/jsbsim/systems/apu/apu["~i~"]/apu-rpm-rnd", 0.7);
+				}
+			else
+				{
+				setprop("/fdm/jsbsim/systems/mps/engine["~i~"]/electric-lockup", 1);
+				}
+
+			}
 		}
 	}
 

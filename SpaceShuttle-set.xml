@@ -207,19 +207,31 @@
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
 			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
 		    </engine>
 		    <engine n="1">
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
 			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
 		    </engine>
 		    <engine n="2">
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
 			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
 			<run-cmd type="int">1</run-cmd>
 			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
 		    </engine>
+		    <helium-isolation-valve-P-status type="int">1</helium-isolation-valve-P-status>
+		    <helium-isolation-valve-Px-status type="int">1</helium-isolation-valve-Px-status>
+		    <limit-shutdown-enable type="int">1</limit-shutdown-enable>
+		    <propellant-dump-cmd type="int">0</propellant-dump-cmd>
+		    <backup-LH2-valve-status type="int">0</backup-LH2-valve-status>
+		    <LH2-ullage-status type="int">0</LH2-ullage-status>
 		</mps>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
@@ -626,6 +638,13 @@
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.electrical_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Main Propulsion System</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.mps_dlg.open()</script>
                         </binding>
                     </item>
  		    <item>

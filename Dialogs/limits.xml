@@ -92,6 +92,7 @@
         	 <property>/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario</property>
 		 <value>none</value>
 		 <value>ascent single engine failure</value>
+		 <value>ascent single engine lockup</value>
 		 <value>stuck speedbrake</value>
 		 <value>burst tire</value>
         	 <binding>

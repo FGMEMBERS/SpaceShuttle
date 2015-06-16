@@ -142,6 +142,10 @@ else if (scenario_ID == 1)
 	{
 	init_one_engine_failure();
 	}
+else if (scenario_ID == 2)
+	{
+	init_one_engine_failure();
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;
@@ -175,6 +179,7 @@ for (var i =0; i<3; i=i+1)
 	}
 
 }
+
 
 
 
