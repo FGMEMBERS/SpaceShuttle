@@ -102,6 +102,46 @@
 </model>
 
 
+<!-- landing gear -->
+<model>
+  <offsets>
+       <x-m> 0.0 </x-m>
+       <y-m> 0.0 </y-m>
+       <z-m> 0.7 </z-m>
+       <heading-deg>0.0</heading-deg>
+   </offsets>
+  <path>Aircraft/SpaceShuttle/Models/LandingGear-rear.ac</path>
+        <condition>
+		<and>
+		<equals>
+			<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+			<value>1</value>
+		</equals>
+		<equals>
+			<property>/controls/shuttle/ET-static-model</property>
+			<value>0</value>
+		</equals>
+		</and>
+ 	</condition>
+</model>
+
+<model>
+  <path>Aircraft/SpaceShuttle/Models/LandingGear-front.ac</path>
+        <condition>
+		<and>
+		<equals>
+			<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+			<value>1</value>
+		</equals>
+		<equals>
+			<property>/controls/shuttle/ET-static-model</property>
+			<value>0</value>
+		</equals>
+		</and>
+ 	</condition>
+</model>
+
+
 
 <!-- robotarm, click it to activate -->
 
@@ -841,101 +881,6 @@
  </animation>
  
 
-
-<!--Light for Gears! there are no gears, so I set some lights to the spot of earthcontact -->
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> -15.00 </x-m>
-       <y-m> 0.00 </y-m>
-       <z-m> -6.85 </z-m>
-     </offsets>
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> 4.70 </x-m>
-       <y-m> -4.2 </y-m>
-       <z-m>-6.85 </z-m>
-     </offsets>
-     
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> 4.70 </x-m>
-       <y-m> 4.2 </y-m>
-       <z-m>-6.85 </z-m>
-     </offsets>
-     
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
-
-
-
-<!--SSME flames -->
-<!--<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.5 </x-m>
-       <y-m> 1.5 </y-m>
-       <z-m> -0.55 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[0]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.6 </x-m>
-       <y-m> 0.05 </y-m>
-       <z-m> -3.20 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[1]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.6 </x-m>
-       <y-m> 2.90 </y-m>
-       <z-m> -3.20 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[2]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>-->
 
 
 
