@@ -210,6 +210,10 @@
     <title>Post MECO</title>  
 
     <item>
+      <name>External tank separation</name>
+    </item>
+
+    <item>
 	<name>rotation rates</name>
 	<value>NULL</value>
 	<condition>
@@ -272,6 +276,142 @@
 	</equals>
 	</or>
       </condition>
+    </item>
+
+    <item>
+      <name>visually inspect ET</name>
+      <value></value>
+    </item>
+
+
+
+    <item>
+      <name>Propellant dump</name>
+    </item>
+
+   <item>
+      <name>verify LH2 prevalves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify LO2 prevalves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify helium system</name>
+      <value>PRESSURIZED</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-system-pressurized</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LO2 manifold pressurization valve</name>
+      <value>OPEN</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LH2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set propellant dump sequence to</name>
+      <value>START</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>wait for dump sequence</name>
+      <value>COMPLETED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[17]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[18]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LO2 manifold pressurization valve</name>
+      <value>CLOSED</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <value>0</value>
+        </equals>
+      </condition>     
+    </item>
+
+
+    <item>
+      <name>Shut down APU</name>
     </item>
 
    <item>
@@ -359,14 +499,12 @@
   </item>
 
 
-
     <item>
-      <name>verify orbital parameters</name>
-      <value></value>
+      <name>Plan orbital insertion</name>
     </item>
 
     <item>
-      <name>visually inspect ET</name>
+      <name>verify orbital parameters</name>
       <value></value>
     </item>
 
@@ -383,6 +521,10 @@
 
   <checklist>
     <title>Post OMS-1 burn</title> 
+
+    <item>
+      <name>Shut down main propulsion system</name>
+    </item>
 
     <item>
       <name>all engine controller power switches</name>
@@ -445,7 +587,62 @@
 	</and>
       </condition>   
     </item>
+
+    <item>
+      <name>Fuel line vacuum inerting</name>
+    </item>
  
+   <item>
+      <name> for 2 minutes, set LH2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name> for 2 minutes, set LO2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name> LO2 and LH2 outboard valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-outboard-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
   </checklist>
 
 
@@ -532,6 +729,27 @@
     </item>
 
     <item>
+      <name>set MPS/TVC isolation valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[1]/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[2]/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>	
+	</and>
+      </condition>
+    </item>
+
+    <item>
       <name>set radiator valves to</name>
       <value>AUTO</value>
     </item>
@@ -592,6 +810,27 @@
       <value>FREE</value>
     </item>
 
+   <item>
+      <name>MPS He A isolation valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
     <item>
       <name>APU pre-start procedures</name>
       <value></value>
@@ -605,6 +844,27 @@
     <item>
       <name>single APU</name>
       <value>START</value>
+    </item>
+
+    <item>
+      <name>set MPS/TVC isolation valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[1]/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[2]/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>	
+	</and>
+      </condition>
     </item>
 
   </checklist>
