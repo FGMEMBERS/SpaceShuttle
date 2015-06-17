@@ -34,6 +34,10 @@ setprop("/controls/engines/engine[0]/ignited-hud","x");
 setprop("/controls/engines/engine[1]/ignited-hud","x");
 setprop("/controls/engines/engine[2]/ignited-hud","x");
 
+# fill the feed lines
+setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
+setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
+
 settimer(SRB_ignite, 3.0);
 settimer(gear_up, 5.0);	
 	
@@ -1128,6 +1132,11 @@ if (getprop("/position/altitude-ft") > 350000.0) # we start in orbit
 	SRB_separate_silent();
 	gear_up();
 	if (getprop("/sim/presets/stage") == 2) {external_tank_separate_silent();}
+	else
+		{
+		setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
+		setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
+		}
 	setprop("/consumables/fuel/tank[0]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[1]/level-norm",0.0);
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);

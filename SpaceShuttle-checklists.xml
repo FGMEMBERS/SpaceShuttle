@@ -12,7 +12,7 @@
     </item>
 
     <item>
-      <name>T-8:00 verify SSME controlers</name>
+      <name>T-8:00 verify SSME controllers</name>
       <value>POWERED</value>
       <condition>
 	<and>
@@ -382,6 +382,74 @@
   </checklist>
 
   <checklist>
+    <title>Post OMS-1 burn</title> 
+
+    <item>
+      <name>all engine controller power switches</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-power</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-power</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-power</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+
+    <item>
+      <name>all He isolation valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-P-status</property>
+          <value>0</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-Px-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+ 
+  </checklist>
+
+
+  <checklist>
     <title>Post orbital insertion</title>  
 
     <item>
@@ -515,5 +583,117 @@
     </item>
 
   </checklist>
+
+  <checklist>
+    <title>Pre de-orbit burn</title>  
+
+    <item>
+      <name>Verify OMS gimbal</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
+      <name>APU pre-start procedures</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>maneuver to correct de-orbit burn attitude</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>single APU</name>
+      <value>START</value>
+    </item>
+
+  </checklist>
+
+  <checklist>
+    <title>Pre-entry</title>  
+
+    <item>
+      <name>forward RCS</name>
+      <value>DUMP</value>
+    </item>
+
+    <item>
+      <name>remaining APUs</name>
+      <value>START</value>
+    </item>
+
+   <item>
+      <name>verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>forward RCS manifold valves</name>
+      <value>CLOSED</value>
+    </item>
+
+
+
+
+  </checklist>
+
 
  </PropertyList>

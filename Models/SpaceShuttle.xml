@@ -733,6 +733,24 @@
   	</axis>
  </animation>
 
+<!-- main propulsion system fuel dump -->
+
+<model>
+<path>Aircraft/SpaceShuttle/Models/Effects/propellant-dump.xml</path>
+     <offsets>
+       <x-m> 15.5 </x-m>
+       <y-m> 0.0</y-m>
+       <z-m> -2.5 </z-m>
+       <pitch-deg>-8.0</pitch-deg>
+     </offsets>
+   <condition>
+ 	<equals>
+	<property>/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+ 	<value>1</value>
+ 	</equals>
+     </condition>
+</model>
+
 <!-- elevon movement -->
 
  <animation>

@@ -438,8 +438,8 @@
 	<legend>dump sequence start</legend>
 	<default>false</default>
 	<binding>
-              <command>property-toggle</command>
-	      <property>/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+		<command>nasal</command>
+                <script>SpaceShuttle.fuel_dump_start()</script>
 	</binding>
    </button>
 
@@ -466,6 +466,32 @@
  	  <binding>
               <command>dialog-apply</command>
               <object-name>ullage-LH2</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>manifold-LH2</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/LH2-manifold-valve-status</property>
+          <label>manifold press LH2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>manifold-LH2</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>manifold-LO2</name>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <label>manifold press LO2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>manifold-LO2</object-name>
           </binding>
       </checkbox>
 

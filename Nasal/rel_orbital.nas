@@ -356,7 +356,7 @@ var vzoffset = 0.0;
 # now we always push the the orbiter away from the tank
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
+setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
 setprop("/controls/flight/elevator", 1);
 
 settimer( func{

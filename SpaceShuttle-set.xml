@@ -226,13 +226,38 @@
 			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
 			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
 		    </engine>
+		    <helium>
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
+		    <helium n="1">
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
+		    <helium n="2">
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
 		    <helium-isolation-valve-P-status type="int">1</helium-isolation-valve-P-status>
 		    <helium-isolation-valve-Px-status type="int">1</helium-isolation-valve-Px-status>
 		    <limit-shutdown-enable type="int">1</limit-shutdown-enable>
 		    <propellant-dump-cmd type="int">0</propellant-dump-cmd>
 		    <backup-LH2-valve-status type="int">0</backup-LH2-valve-status>
 		    <LH2-ullage-status type="int">0</LH2-ullage-status>
+		    <LH2-manifold-valve-status type="int">0</LH2-manifold-valve-status>
+		    <LO2-manifold-valve-status type="int">0</LO2-manifold-valve-status>
+		    <propellant-dump-density type="double">0.2</propellant-dump-density>
+		    <propellant-dump-force-lb type="double">0.0</propellant-dump-force-lb>
 		</mps>
+		<propellant>
+			<LO2-inboard-status type="int">0</LO2-inboard-status>
+			<LO2-outboard-status type="int">0</LO2-outboard-status>
+			<LH2-inboard-status type="int">0</LH2-inboard-status>
+			<LH2-outboard-status type="int">0</LH2-outboard-status>
+			<LO2-left-prevalve-status type="int">1</LO2-left-prevalve-status>
+			<LO2-center-prevalve-status type="int">1</LO2-center-prevalve-status>
+			<LO2-right-prevalve-status type="int">1</LO2-right-prevalve-status>
+			<LH2-left-prevalve-status type="int">1</LH2-left-prevalve-status>
+			<LH2-center-prevalve-status type="int">1</LH2-center-prevalve-status>
+			<LH2-right-prevalve-status type="int">1</LH2-right-prevalve-status>
+		</propellant>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
                     <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
@@ -645,6 +670,13 @@
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.mps_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Propellant Fill/Drain</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.propellant_fd_dlg.open()</script>
                         </binding>
                     </item>
  		    <item>
@@ -1092,6 +1124,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
         <SpaceShuttle>
 	    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
+            <file>Aircraft/SpaceShuttle/Nasal/housekeeping.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>

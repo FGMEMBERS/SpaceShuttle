@@ -204,4 +204,44 @@
 
 	</channel>
 
+	<channel name="Main propulsion system helium flow">
+
+		<!-- the helium system provides emergency power for valves and shutdown -->
+		<!-- and is used for the propellant dump -->
+
+		<switch name="systems/mps/helium/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/helium-isolation-valve-A-status == 1
+				systems/mps/engine/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[1]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[1]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[2]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[2]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium-system-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/helium/pressurized == 1
+				systems/mps/helium[1]/pressurized == 1
+				systems/mps/helium[2]/pressurized == 1
+			</test>
+		</switch>
+
+
+	</channel>
 </system>

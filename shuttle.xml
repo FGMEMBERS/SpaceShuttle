@@ -1919,7 +1919,31 @@
      <contents unit="LBS"> 350.00 </contents>
      <priority>2</priority>
    </tank>
- 
+
+<!-- virtual tanks to simulate fuel trapped in the feed lines, to be dumped after MECO --> 
+
+  <tank type="FUEL" number="17">
+     <location unit="M">
+       <x> 14.00 </x>
+       <y>  0.00 </y>
+       <z>  2.50 </z>
+     </location>
+     <capacity unit="LBS"> 600.00 </capacity>
+     <contents unit="LBS"> 0.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="OXIDIZER" number="18">
+     <location unit="M">
+       <x> 14.00 </x>
+       <y>  0.00 </y>
+       <z>  2.50 </z>
+     </location>
+     <capacity unit="LBS"> 4800.00 </capacity>
+     <contents unit="LBS"> 0.00 </contents>
+     <priority>2</priority>
+  </tank>
+
  </propulsion>
 
 <!-- Flight Control routines - this block has airfoils -->
@@ -3372,8 +3396,26 @@
  </aerodynamics>
 
  
- <!-- Parachute 0.3 war 1.4--> 
+
  <external_reactions>
+  <force name="propellant_dump" frame="BODY">
+    <function>
+      <property>systems/mps/propellant-dump-force-lb</property>
+    </function>
+    <location unit="M">
+      <x> 17.0</x>
+      <y> 0</y>
+      <z>-2.5</z>
+    </location>
+    <direction>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+ <!-- Parachute--> 
+
   <force name="parachute" frame="WIND">
     <function>
       <product>
