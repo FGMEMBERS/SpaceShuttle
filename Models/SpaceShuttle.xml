@@ -107,7 +107,7 @@
   <offsets>
        <x-m> 0.0 </x-m>
        <y-m> 0.0 </y-m>
-       <z-m> 0.7 </z-m>
+       <z-m> 0.12 </z-m>
        <heading-deg>0.0</heading-deg>
    </offsets>
   <path>Aircraft/SpaceShuttle/Models/LandingGear-rear.ac</path>

@@ -92,6 +92,8 @@
 				<property>systems/mps/engine/controller-power</property>
 				<property>systems/failures/ssme1-condition</property>
 				<property>systems/mps/engine/run-cmd</property>
+				<property>systems/propellant/LO2-left-prevalve-status</property>
+				<property>systems/propellant/LH2-left-prevalve-status</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -102,6 +104,8 @@
 				<property>systems/mps/engine[1]/controller-power</property>
 				<property>systems/failures/ssme2-condition</property>
 				<property>systems/mps/engine[1]/run-cmd</property>
+				<property>systems/propellant/LO2-right-prevalve-status</property>
+				<property>systems/propellant/LH2-right-prevalve-status</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -112,6 +116,8 @@
 				<property>systems/mps/engine[2]/controller-power</property>
 				<property>systems/failures/ssme3-condition</property>
 				<property>systems/mps/engine[2]/run-cmd</property>
+				<property>systems/propellant/LO2-center-prevalve-status</property>
+				<property>systems/propellant/LH2-center-prevalve-status</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -241,6 +247,53 @@
 				systems/mps/helium[2]/pressurized == 1
 			</test>
 		</switch>
+	</channel>
+
+	<channel name="Main propulsion tanks vent if valves open">
+
+		<switch name="systems/propellant/LO2-drain-open">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/propellant/LO2-inboard-status == 1
+				systems/propellant/LO2-outboard-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/propellant/LH2-drain-open">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/propellant/LH2-inboard-status == 1
+				systems/propellant/LH2-outboard-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/propellant/LO2-drain-rate">
+		<function>
+			<product>
+				<property>systems/propellant/LO2-drain-open</property>
+				<value>-50.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/propellant/LH2-drain-rate">
+		<function>
+			<product>
+				<property>systems/propellant/LH2-drain-open</property>
+				<value>-50.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/propellant/total-ET-drain-rate">
+		<function>
+			<sum>
+				<property>systems/propellant/LO2-drain-rate</property>
+				<property>systems/propellant/LH2-drain-rate</property>
+			</sum>
+		</function>
+		<output>propulsion/tank/external-flow-rate-pps</output>
+		</fcs_function>
 
 
 	</channel>
