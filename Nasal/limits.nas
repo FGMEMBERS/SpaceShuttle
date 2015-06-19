@@ -18,6 +18,7 @@ var CBW_warn = 0;
 var tailscrape_warn = 0;
 var chute_warn = 0;
 var vspeed_warn = 0;
+var TPS_ET_warn =0;
 
 # the limit simulation mode determines what we do when limits are violated
 
@@ -157,6 +158,45 @@ if (limit_simulation_mode ==2)
 
 }
 
+
+#########################
+# limits for entry
+#########################
+
+var check_limits_entry = func {
+
+var fail_flag = 0;
+
+# ET umbilical doors need to be closed
+
+var T = getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F");
+var ET_door_state = getprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos") * getprop("/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos");
+
+if ((T > 1000) and (ET_door_state == 0))
+	{
+	setprop("/sim/messages/copilot", "Thermal protection failure!");
+	fail_flag = 1;
+	TPS_ET_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_destroy();
+		}	
+
+	}
+
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
+}
 
 #################################
 # limits for approach and landing

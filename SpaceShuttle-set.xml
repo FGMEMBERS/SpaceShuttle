@@ -201,6 +201,18 @@
 		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
 		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>		
 		</electrical>
+		<mechanical>
+			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
+			<et-door-cl-latch-pos type="double">1.0</et-door-cl-latch-pos>
+			<et-door-left-latch-cmd type="int">0</et-door-left-latch-cmd>
+			<et-door-left-latch-pos type="double">0.0</et-door-left-latch-pos>
+			<et-door-right-latch-cmd type="int">0</et-door-right-latch-cmd>
+			<et-door-right-latch-pos type="double">0.0</et-door-right-latch-pos>
+			<et-door-left-cmd type="int">0</et-door-left-cmd>
+			<et-door-left-pos type="double">0.0</et-door-left-pos>
+			<et-door-right-cmd type="int">0</et-door-right-cmd>
+			<et-door-right-pos type="double">0.0</et-door-right-pos>
+		</mechanical>
 		<mps>
 		    <engine>
 			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
@@ -670,6 +682,13 @@
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.mps_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Mechanical Systems</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.mechanical_dlg.open()</script>
                         </binding>
                     </item>
 		    <item>

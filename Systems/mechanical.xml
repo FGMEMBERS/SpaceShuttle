@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="ET umbilical door">
+
+
+		<switch name="systems/mechanical/et-door-cl-latch-target">
+			<default value="systems/mechanical/et-door-cl-latch-pos"/>
+			<test  value="systems/mechanical/et-door-cl-latch-cmd">
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-left-target">
+			<default value="systems/mechanical/et-door-left-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-left-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-left-latch-target">
+			<default value="systems/mechanical/et-door-left-latch-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-left-latch-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/mechanical/et-door-left-pos == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-right-target">
+			<default value="systems/mechanical/et-door-right-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-right-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-right-latch-target">
+			<default value="systems/mechanical/et-door-right-latch-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-right-latch-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/mechanical/et-door-right-pos == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+			
+		<kinematic name="systems/mechanical/et-door-cl-latch-pos">
+			<input>systems/mechanical/et-door-cl-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-left-latch-pos">
+			<input>systems/mechanical/et-door-left-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-right-latch-pos">
+			<input>systems/mechanical/et-door-right-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-right-pos">
+			<input>systems/mechanical/et-door-right-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>24.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-left-pos">
+			<input>systems/mechanical/et-door-left-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>24.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+	</channel>
+</system>

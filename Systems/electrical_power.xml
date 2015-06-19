@@ -21,7 +21,6 @@
 		</switch>
 
 		<kinematic name="systems/electrical/fc/fc-ready-for-load-transit">
-			<default value="0.0"/>
 			<input>systems/electrical/fc/fc-running</input>
 			<traverse>
 				<setting>
@@ -75,7 +74,6 @@
 		</switch>
 
 		<kinematic name="systems/electrical/fc[1]/fc-ready-for-load-transit">
-			<default value="0.0"/>
 			<input>systems/electrical/fc[1]/fc-running</input>
 			<traverse>
 				<setting>

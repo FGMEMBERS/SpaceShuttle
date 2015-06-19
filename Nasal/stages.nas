@@ -750,6 +750,10 @@ if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
 	{SpaceShuttle.update_entry_guidance();}
 
+SpaceShuttle.check_limits_entry();
+
+
+
 settimer(deorbit_loop,1.0);
 }
 
