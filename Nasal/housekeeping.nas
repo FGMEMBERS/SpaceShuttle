@@ -139,3 +139,127 @@ setprop("/fdm/jsbsim/propulsion/tank[17]/external-flow-rate-pps", LH2_dump_rate)
 
 settimer(func {fuel_dump_loop(counter +1 ) },  1.0);
 }
+
+
+#########################################################################################
+# Auotmatic payload bay opening sequence consists of first unlatching the centerline, then
+# left and right gangs, then opening right door, finally left door
+#########################################################################################
+
+
+var payload_bay_door_open_auto = func (stage) {
+
+
+var power = getprop("/fdm/jsbsim/systems/electrical/total-available-power-kW");
+
+if (power == 0.0) {return;}
+
+if (stage == 0)
+	{
+	# first open latch gangs 5-8 and 9-12
+	print("PBD open stage 0");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (1);}, 24.0);
+	}
+
+if (stage == 1)
+	{
+	# first open latch gangs 1-4 and 13-16
+	print("PBD open stage 1");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (2);}, 24.0);
+	}
+
+if (stage == 2)
+	{
+	# unlatch right door
+	print("PBD open stage 2");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (3);}, 34.0);
+	}
+
+if (stage == 3)
+	{
+	# open right door
+	print("PBD open stage 3");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (4);}, 68.0);
+	}
+
+if (stage == 4)
+	{
+	# unlatch left door
+	print("PBD open stage 4");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (5);}, 34.0);
+	}
+
+if (stage == 5)
+	{
+	# open left door
+	print("PBD open stage 5");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", 1);
+	}
+
+
+}
+
+
+var payload_bay_door_close_auto = func (stage) {
+
+
+var power = getprop("/fdm/jsbsim/systems/electrical/total-available-power-kW");
+
+if (power == 0.0) {return;}
+
+if (stage == 0)
+	{
+	# close left door
+	print("PBD close stage 0");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (1);}, 68.0);
+	}
+if (stage == 1)
+	{
+	# latch left door
+	print("PBD close stage 1");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd", 0);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (2);}, 34.0);
+	}
+if (stage == 2)
+	{
+	# close right door
+	print("PBD close stage 2");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (3);}, 68.0);
+	}
+if (stage == 3)
+	{
+	# latch right door
+	print("PBD close stage 3");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd", 0);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (4);}, 34.0);
+	}
+if (stage == 4)
+	{
+	# close latch gangs 1-4 and 13-16
+	print("PBD close stage 4");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd", 0);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (5);}, 24.0);
+	}
+if (stage == 5)
+	{
+	# close latch gangs 5-8 and 9-12
+	print("PBD close stage 5");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", 0);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", 0);
+	}
+
+}

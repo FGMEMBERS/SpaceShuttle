@@ -199,7 +199,8 @@
 		    </fc>	
 		    <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
 		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
-		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>		
+		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
+		    <init-electrical-on type="double">14.0</init-electrical-on>		
 		</electrical>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -212,6 +213,26 @@
 			<et-door-left-pos type="double">0.0</et-door-left-pos>
 			<et-door-right-cmd type="int">0</et-door-right-cmd>
 			<et-door-right-pos type="double">0.0</et-door-right-pos>
+			<pb-door-cl1-4-latch-cmd type="int">0</pb-door-cl1-4-latch-cmd>
+			<pb-door-cl1-4-latch-pos type="double">0.0</pb-door-cl1-4-latch-pos>
+			<pb-door-cl5-8-latch-cmd type="int">0</pb-door-cl5-8-latch-cmd>
+			<pb-door-cl5-8-latch-pos type="double">0.0</pb-door-cl5-8-latch-pos>
+			<pb-door-cl9-12-latch-cmd type="int">0</pb-door-cl9-12-latch-cmd>
+			<pb-door-cl9-12-latch-pos type="double">0.0</pb-door-cl9-12-latch-pos>
+			<pb-door-cl13-16-latch-cmd type="int">0</pb-door-cl13-16-latch-cmd>
+			<pb-door-cl13-16-latch-pos type="double">0.0</pb-door-cl13-16-latch-pos>
+			<pb-door-left-fwd-latch-cmd type="int">0</pb-door-left-fwd-latch-cmd>
+			<pb-door-left-fwd-latch-pos type="double">0.0</pb-door-left-fwd-latch-pos>
+			<pb-door-left-aft-latch-cmd type="int">0</pb-door-left-aft-latch-cmd>
+			<pb-door-left-aft-latch-pos type="double">0.0</pb-door-left-aft-latch-pos>
+			<pb-door-right-fwd-latch-cmd type="int">0</pb-door-right-fwd-latch-cmd>
+			<pb-door-right-fwd-latch-pos type="double">0.0</pb-door-right-fwd-latch-pos>
+			<pb-door-right-aft-latch-cmd type="int">0</pb-door-right-aft-latch-cmd>
+			<pb-door-right-aft-latch-pos type="double">0.0</pb-door-right-aft-latch-pos>
+			<pb-door-left-cmd type="int">0</pb-door-left-cmd>
+			<pb-door-left-pos type="int">0.0</pb-door-left-pos>
+			<pb-door-right-cmd type="int">0</pb-door-right-cmd>
+			<pb-door-right-pos type="int">0.0</pb-door-right-pos>
 		</mechanical>
 		<mps>
 		    <engine>

@@ -286,6 +286,7 @@
       			<input>systems/electrical/bus1-max-power-output-kW</input>
      			<input>systems/electrical/bus2-max-power-output-kW</input>
       			<input>systems/electrical/bus3-max-power-output-kW</input>
+			<input>systems/electrical/init-electrical-on</input>
    		</summer>
 
 		<fcs_function name="systems/electrical/generic-power-demand-kW">

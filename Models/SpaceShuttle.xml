@@ -817,39 +817,14 @@
   	</axis>
  </animation>
 
-  <!-- doors animation -->
+  <!-- Payload bay opening-->
 
-<animation>
-<type>pick</type>
-<object-name>spaceshutt_spstob</object-name>
-<object-name>spaceshutt_spstob.001</object-name>
-
-<visible>true</visible>
-<action>
-<button>0</button>
-
-
-<binding>
-<command>property-toggle</command>
-<property>/controls/shuttle/door/position</property>
-<value>0</value>
-<value>1</value>
-</binding>
-
-<binding>
-<command>property-interpolate</command>
-<property>sim/multiplay/generic/float[3]</property>
-<property>/controls/shuttle/door/position</property> <!-- the value to interpolate to, is 1 -->
-<rate>0.10</rate><!-- 10 seconds to 0 from 1 or 1 to 0 -->
-</binding>
-</action>
-</animation>
 
  
  <animation>
   <type>rotate</type>
   <object-name>spaceshutt_spstob</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
+  <property>/fdm/jsbsim/systems/mechanical/pb-door-left-animation</property>
   <interpolation>
     <entry>
       <ind>0.2</ind>
@@ -875,7 +850,7 @@
  <animation>
   <type>rotate</type>
   <object-name>spaceshutt_spstob.001</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
+  <property>/fdm/jsbsim/systems/mechanical/pb-door-right-animation</property>
   <interpolation>
     <entry>
       <ind>0.2</ind>
