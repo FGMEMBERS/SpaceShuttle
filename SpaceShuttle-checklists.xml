@@ -593,7 +593,7 @@
     </item>
  
    <item>
-      <name> for 2 minutes, set LH2 drain/fill valves</name>
+      <name>for 2 minutes, set LH2 drain/fill valves</name>
       <value>OPEN</value>
       <condition>
 	<and>
@@ -610,7 +610,7 @@
     </item>
 
    <item>
-      <name> for 2 minutes, set LO2 drain/fill valves</name>
+      <name>for 2 minutes, set LO2 drain/fill valves</name>
       <value>OPEN</value>
       <condition>
 	<and>
@@ -627,7 +627,7 @@
     </item>
 
    <item>
-      <name> LO2 and LH2 outboard valves</name>
+      <name>LO2 and LH2 outboard valves</name>
       <value>CLOSED</value>
       <condition>
 	<and>
@@ -643,11 +643,64 @@
       </condition>     
     </item>
 
+   <item>
+     <name>Close ET umbilical door</name>
+   </item>
+
+   <item>
+      <name>centerline latches to</name>
+      <value>STOW</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+          <value>0</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>door positions to</name>
+      <value>CLOSE</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>door latch positions to</name>
+      <value>LATCHED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
   </checklist>
 
 
   <checklist>
     <title>Post orbital insertion</title>  
+
+    <item>
+      <name>MPS saving and RCS preparation</name>
+    </item>
 
     <item>
       <name>set RCS and OMS heaters to</name>
@@ -754,20 +807,52 @@
       <value>AUTO</value>
     </item>
 
+
+
+    <item>
+      <name>Open Payload Bay doors</name>
+    </item>
+
     <item>
       <name>payload bay floodlights</name>
       <value>ON</value>
     </item>
 
     <item>
-      <name>payload bay doors</name>
+      <name>power to electromechanical actuators</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-power</property>
+	  <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>door auto opening switch</name>
       <value>OPEN</value>
       <condition>
 	<equals>
-	 <property>/sim/multiplay/generic/float[3]</property>
-	 <value>0</value>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+	  <value>1</value>
 	</equals>
       </condition>
+    </item>
+
+    <item>
+      <name>verify payload bay doors</name>
+      <value>OPEN</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+	 <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>Prepare orbital operations</name>
     </item>
 
     <item>

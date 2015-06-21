@@ -233,6 +233,10 @@
 			<pb-door-left-pos type="int">0.0</pb-door-left-pos>
 			<pb-door-right-cmd type="int">0</pb-door-right-cmd>
 			<pb-door-right-pos type="int">0.0</pb-door-right-pos>
+			<pb-door-sys1-enable type="int">0</pb-door-sys1-enable>
+			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
+			<pb-door-indicator type="double">0</pb-door-indicator>
+			<pb-door-auto-switch type="int">0</pb-door-auto-switch>
 		</mechanical>
 		<mps>
 		    <engine>

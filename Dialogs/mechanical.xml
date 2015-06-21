@@ -326,6 +326,121 @@
   </group>
 
 
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+ 
+  <group>
+  <layout>table</layout>
+
+    <text>
+      <label>Payload bay door</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>pbd-sys1</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable</property>
+          <label>SYS 1 enable</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pbd-sys1</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>pbd-sys2</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-sys2-enable</property>
+          <label>SYS 2 enable</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pbd-sys2</object-name>
+          </binding>
+    </checkbox>
+
+    <text>
+      <label>close</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>pbd-switch</name>
+      <row>2</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>pbd-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>open</label>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>closed</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>open</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>/////</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>1</value>
+		</less-than>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>0</value>
+		</greater-than>
+		</and>
+      </visible>
+    </text>
+
+   </group>
 
 
 	<empty>

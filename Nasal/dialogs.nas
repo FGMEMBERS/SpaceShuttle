@@ -162,9 +162,25 @@ setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon", lon);
 SpaceShuttle.landing_site.set_latlon(lat,lon);
 
+}
+
+
+var pb_door_manager = func {
+
+var cmd = getprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch");
+
+if (cmd == -1)
+	{
+	SpaceShuttle.payload_bay_door_close_auto(0);
+	}
+else if (cmd == 1)
+	{
+	SpaceShuttle.payload_bay_door_open_auto(0);
+	}
 
 }
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", update_scenario);
+setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manager,0,0);

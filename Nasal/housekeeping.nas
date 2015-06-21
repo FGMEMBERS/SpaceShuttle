@@ -150,7 +150,7 @@ settimer(func {fuel_dump_loop(counter +1 ) },  1.0);
 var payload_bay_door_open_auto = func (stage) {
 
 
-var power = getprop("/fdm/jsbsim/systems/electrical/total-available-power-kW");
+var power = getprop("/fdm/jsbsim/systems/mechanical/pb-door-power");
 
 if (power == 0.0) {return;}
 
@@ -158,6 +158,7 @@ if (stage == 0)
 	{
 	# first open latch gangs 5-8 and 9-12
 	print("PBD open stage 0");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0.5);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", 1);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", 1);
 	settimer( func{ payload_bay_door_open_auto (1);}, 24.0);
@@ -203,16 +204,20 @@ if (stage == 5)
 	# open left door
 	print("PBD open stage 5");
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", 1);
+	settimer( func{ payload_bay_door_open_auto (6);}, 68.0);
 	}
-
-
+if (stage == 6)
+	{
+	print("PBD opening finished.");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 1);
+	}
 }
 
 
 var payload_bay_door_close_auto = func (stage) {
 
 
-var power = getprop("/fdm/jsbsim/systems/electrical/total-available-power-kW");
+var power = getprop("/fdm/jsbsim/systems/mechanical/pb-door-power");
 
 if (power == 0.0) {return;}
 
@@ -260,6 +265,12 @@ if (stage == 5)
 	print("PBD close stage 5");
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", 0);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", 0);
+	settimer( func{ payload_bay_door_close_auto (6);}, 24.0);
+	}
+if (stage == 6)
+	{
+	print("PBD closing finished.");
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0);
 	}
 
 }

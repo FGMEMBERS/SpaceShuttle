@@ -125,31 +125,55 @@
 		<!-- JSBSim init quirk - to initialize the right way, it seems best -->
 		<!-- to define closed door and latch positions as 0 -->
 
+		<switch name="systems/mechanical/pb-door-power-on">
+			<default value="0.0"/>
+			<test logic="OR" value ="1.0">
+				systems/mechanical/pb-door-sys1-enable == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-power">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power-on == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-move">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power == 1
+				systems/mechanical/pb-door-auto-switch NE 0
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/pb-door-cl1-4-latch-target">
 			<default value="systems/mechanical/pb-door-cl1-4-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-cl1-4-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 			</test>
 		</switch>
 
 		<switch name="systems/mechanical/pb-door-cl5-8-latch-target">
 			<default value="systems/mechanical/pb-door-cl5-8-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-cl5-8-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 			</test>
 		</switch>
 
 		<switch name="systems/mechanical/pb-door-cl9-12-latch-target">
 			<default value="systems/mechanical/pb-door-cl9-12-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-cl9-12-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 			</test>
 		</switch>
 
 		<switch name="systems/mechanical/pb-door-cl13-16-latch-target">
 			<default value="systems/mechanical/pb-door-cl13-16-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-cl13-16-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 			</test>
 		</switch>
 
@@ -222,7 +246,7 @@
 		<switch name="systems/mechanical/pb-door-right-fwd-latch-target">
 			<default value="systems/mechanical/pb-door-right-fwd-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-right-fwd-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
 		</switch>
@@ -230,7 +254,7 @@
 		<switch name="systems/mechanical/pb-door-right-aft-latch-target">
 			<default value="systems/mechanical/pb-door-right-aft-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-right-aft-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
 		</switch>
@@ -274,7 +298,7 @@
 		<switch name="systems/mechanical/pb-door-left-fwd-latch-target">
 			<default value="systems/mechanical/pb-door-left-fwd-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-left-fwd-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
 		</switch>
@@ -282,7 +306,7 @@
 		<switch name="systems/mechanical/pb-door-left-aft-latch-target">
 			<default value="systems/mechanical/pb-door-left-aft-latch-pos"/>
 			<test  value="systems/mechanical/pb-door-left-aft-latch-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
 		</switch>
@@ -326,7 +350,7 @@
 		<switch name="systems/mechanical/pb-door-right-target">
 			<default value="systems/mechanical/pb-door-right-pos"/>
 			<test  value="systems/mechanical/pb-door-right-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 				systems/mechanical/pb-door-right-latch-status == 1
 			</test>
@@ -349,7 +373,7 @@
 		<switch name="systems/mechanical/pb-door-left-target">
 			<default value="systems/mechanical/pb-door-left-pos"/>
 			<test  value="systems/mechanical/pb-door-left-cmd">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 				systems/mechanical/pb-door-left-latch-status == 1
 				systems/mechanical/pb-door-right-pos == 1.0
