@@ -743,6 +743,13 @@
                             <script>SpaceShuttle.entry_guidance_dlg.open()</script>
                         </binding>
                     </item>
+           	    <item>
+                        <label>Orbiter Temperature Distribution</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.temperature_dlg.open()</script>
+                        </binding>
+                    </item>
                     <item>
                         <label>Trajectory Map</label>
                         <binding>
@@ -1174,6 +1181,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
 
