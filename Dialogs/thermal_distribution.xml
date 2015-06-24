@@ -170,6 +170,12 @@
       <col>0</col>
     </text>
 
+   <text>
+      <label>interior</label>
+      <halign>center</halign>
+      <row>8</row>
+      <col>1</col>
+    </text>
 
 
    <text>
@@ -191,6 +197,16 @@
 
    <text>
       <row>9</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K</property>
+    </text> 
+
+   <text>
+      <row>9</row>
       <col>2</col>
       <halign>center</halign>
       <label>12345678</label>
@@ -199,8 +215,69 @@
       <property>/fdm/jsbsim/systems/thermal-distribution/tps-temperature-K</property>
     </text> 
 
+   <text>
+      <label>freon loop in</label>
+      <halign>center</halign>
+      <row>10</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <label>freon loop out</label>
+      <halign>center</halign>
+      <row>10</row>
+      <col>1</col>
+    </text>
+
+ <text>
+      <row>11</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K</property>
+    </text> 
+
+    <checkbox>
+        <name>water-loop</name>
+ 	<row>12</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/thermal-distribution/water-loop-switch</property>
+          <label>water loop</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>water-loop</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <row>12</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>freon loop</label>
+    </text> 
+
+    <slider>
+      <name>freon-loop</name>
+      <row>12</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>1.00</max>
+      <step>0.1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>freon-loop</object-name>
+      </binding>
+    </slider>
+
+
+
       <button>
- 	<row>10</row>
+ 	<row>13</row>
         <col>0</col>
 	<legend>start</legend>
 	<default>false</default>
@@ -211,7 +288,7 @@
    </button>
 
    <text>
-      <row>10</row>
+      <row>13</row>
       <col>2</col>
       <halign>center</halign>
       <label>12345678</label>
