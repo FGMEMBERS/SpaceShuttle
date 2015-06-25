@@ -101,17 +101,11 @@
      </offsets>
 </model>
 
-
 <!-- landing gear -->
+
 <model>
-  <offsets>
-       <x-m> 0.0 </x-m>
-       <y-m> 0.0 </y-m>
-       <z-m> 0.12 </z-m>
-       <heading-deg>0.0</heading-deg>
-   </offsets>
-  <path>Aircraft/SpaceShuttle/Models/LandingGear-rear.ac</path>
-        <condition>
+  <path>Aircraft/SpaceShuttle/Models/LandingGears.ac</path>
+    <condition>
 		<and>
 		<equals>
 			<property>/fdm/jsbsim/gear/gear-pos-norm</property>
@@ -122,26 +116,61 @@
 			<value>0</value>
 		</equals>
 		</and>
- 	</condition>
+	</condition>
 </model>
 
-<model>
-  <path>Aircraft/SpaceShuttle/Models/LandingGear-front.ac</path>
-        <condition>
-		<and>
-		<equals>
-			<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-			<value>1</value>
-		</equals>
-		<equals>
-			<property>/controls/shuttle/ET-static-model</property>
-			<value>0</value>
-		</equals>
-		</and>
- 	</condition>
-</model>
-
-
+ <!-- Spin to wheels -->
+ <animation>
+	<type>spin</type>
+	<object-name>Rim</object-name>
+	<object-name>Tire</object-name>
+	<property>gear/gear[0]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>-16.22062</x-m>
+		<y-m>0.00000</y-m>
+		<z-m>-6.31655</z-m>
+	</center>
+ </animation>
+ <animation>
+	<type>spin</type>
+	<object-name>Rim.002</object-name>
+	<object-name>Rim.003</object-name>
+	<property>gear/gear[1]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>4.0584</x-m>
+		<y-m>-3.44991</y-m>
+		<z-m>-7.44747</z-m>
+	</center>
+ </animation>
+ <animation>
+	<type>spin</type>
+	<object-name>Rim.001</object-name>
+	<object-name>Rim.004</object-name>
+	<property>gear/gear[2]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>4.0584</x-m>
+		<y-m>3.44994</y-m>
+		<z-m>-7.44747</z-m>
+	</center>
+ </animation>
 
 <!-- robotarm, click it to activate -->
 
