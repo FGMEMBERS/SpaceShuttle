@@ -46,6 +46,49 @@ return x[0] * y[0] + x[1] * y[1] + x[2] * y[2];
 }
 
 
+var sunpos = func {
+
+
+var sec_to_rad = 2.0 * math.pi/86400;
+var time = getprop("/sim/time/utc/day-seconds");
+var sun_angle_rad = getprop("/sim/time/sun-angle-rad");
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+
+var alpha = time * sec_to_rad + lon + math.pi;
+
+sun_z = math.cos(alpha)* math.cos(-lat);
+sun_y = -math.sin(alpha);
+sun_x = math.cos(alpha) * math.sin(-lat);
+
+
+var local_sunvec = [sun_x, sun_y, sun_z];
+
+var heading = getprop("/orientation/heading-deg");
+var pitch = getprop("/orientation/pitch-deg");
+var roll = getprop("/orientation/roll-deg");
+
+if (sun_z < -0.35) {local_sunvec = [0.0, 0.0, 0.0];}
+
+
+var sun_oriented = SpaceShuttle.orientTaitBryanPassive(local_sunvec, heading, pitch, roll);
+
+return [sun_oriented[0], sun_oriented[1], sun_oriented[2]];
+}
+
+
+var earthpos = func {
+
+var heading = getprop("/orientation/heading-deg");
+var pitch = getprop("/orientation/pitch-deg");
+var roll = getprop("/orientation/roll-deg");
+
+var down = [0.0, 0.0, -1.0];
+
+return SpaceShuttle.orientTaitBryanPassive(down, heading, pitch, roll);
+
+}
+
 var thermal_management_init = func {
 
 setprop("/fdm/jsbsim/systems/thermal-distribution/time", 0.0);
@@ -79,7 +122,7 @@ coupling = heat_transfer.new(10, 100);
 append(coupling_array1, coupling);
 
 
-var cabin = thermal_mass.new (3400.0, 897.0, 283.5, 0.6, [0.0, 1.0, 0.0], 32.0, coupling_array1);
+var cabin = thermal_mass.new (3400.0, 897.0, 283.5, 0.6, [-.707, 0.0, 0.707], 32.0, coupling_array1);
 append(thermal_array, cabin);
 
 # left fuselage
@@ -88,6 +131,8 @@ var coupling_array2 = [];
 coupling = heat_transfer.new(5, 60.0);
 append(coupling_array2, coupling);
 coupling = heat_transfer.new(3, 60.0);
+append(coupling_array2, coupling);
+coupling = heat_transfer.new(7, 60.0);
 append(coupling_array2, coupling);
 
 var left_fuselage = thermal_mass.new (10200.0, 897.0, 283.5, 0.6, [0.0, -1.0, 0.0], 192.0, coupling_array2);
@@ -112,6 +157,8 @@ var coupling_array4 = [];
 coupling = heat_transfer.new(5, 60.0);
 append(coupling_array4, coupling);
 coupling = heat_transfer.new(3, 60.0);
+append(coupling_array4, coupling);
+coupling = heat_transfer.new(7, 60.0);
 append(coupling_array4, coupling);
 
 var right_fuselage = thermal_mass.new (10200.0, 897.0, 283.5, 0.6, [0.0, 1.0, 0.0], 192.0, coupling_array4);
@@ -140,7 +187,7 @@ append(thermal_array, heat_shield);
 # left OMS pod
 
 var coupling_array6 = [];
-coupling = heat_transfer.new(7, 30.0);
+coupling = heat_transfer.new(7, 90.0);
 append(coupling_array6, coupling);
 
 var left_pod = thermal_mass.new (3400.0, 897.0, 283.5, 0.6, [0.0, -1.0, 0.0], 20.0, coupling_array6);
@@ -149,13 +196,17 @@ append(thermal_array, left_pod);
 # aft fuselage
 
 var coupling_array7 = [];
+coupling = heat_transfer.new(2, 60.0);
+append(coupling_array7, coupling);
+coupling = heat_transfer.new(4, 60.0);
+append(coupling_array7, coupling);
 coupling = heat_transfer.new(5, 60.0);
 append(coupling_array7, coupling);
 coupling = heat_transfer.new(3, 60.0);
 append(coupling_array7, coupling);
-coupling = heat_transfer.new(6, 30.0);
+coupling = heat_transfer.new(6, 90.0);
 append(coupling_array7, coupling);
-coupling = heat_transfer.new(8, 30.0);
+coupling = heat_transfer.new(8, 90.0);
 append(coupling_array7, coupling);
 
 var aft_fuselage = thermal_mass.new (9520.0, 897.0, 283.5, 0.6, [1.0, 0.0, 0.0], 40.0, coupling_array7);
@@ -164,7 +215,7 @@ append(thermal_array, aft_fuselage);
 # right OMS pod
 
 var coupling_array8 = [];
-coupling = heat_transfer.new(7, 30.0);
+coupling = heat_transfer.new(7, 90.0);
 append(coupling_array8, coupling);
 
 var right_pod = thermal_mass.new (3400.0, 897.0, 283.5, 0.6, [0.0, 1.0, 0.0], 20.0, coupling_array8);
@@ -192,6 +243,13 @@ var pressure_vessel = thermal_mass.new (3400.0, 1012.0, 283.5, 0.4, [0.0, 1.0, 0
 pressure_vessel.source = 980.0;
 append(thermal_array, pressure_vessel);
 
+# freon
+
+var coupling_array11 = [];
+
+var freon = thermal_mass.new (200.0, 1000.0, 310.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
+append(thermal_array, freon);
+
 write_temperatures();
 
 thermal_management_loop();
@@ -211,29 +269,42 @@ setprop("/fdm/jsbsim/systems/thermal-distribution/aft-temperature-K", thermal_ar
 setprop("/fdm/jsbsim/systems/thermal-distribution/right-pod-temperature-K", thermal_array[8].temperature);
 setprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K", thermal_array[9].temperature);
 setprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K", thermal_array[10].temperature);
+setprop("/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K", thermal_array[11].temperature);
+
+if (thermal_array[9].temperature > 310.0)
+	{setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", 310.0);}
+else
+	{setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", thermal_array[9].temperature);}
+
 }
 
 
 var compute_radiative_balance = func{
 
 
-var sun_normal = [0.707, 0.0, 0.707];
+sun_normal = sunpos();
+sun_normal[0] = -sun_normal[0];
+var earth_normal = earthpos();
+earth_normal[0] = - earth_normal[0];
 
+print(sun_normal[0], " ", sun_normal[1], " ", sun_normal[2]);
 
 for (var i = 0; i< size(thermal_array); i=i+1)
 	{
 	var NdotS = dot (sun_normal, thermal_array[i].normal);
 	if (NdotS < 0.0) {NdotS = 0.0;}
 
-	var influx = 1360.0 * NdotS  * thermal_array[i].area * rad_timestep * thermal_array[i].albedo;
+	var EdotS = dot (earth_normal, thermal_array[i].normal);
+	if (EdotS < 0.0) {EdotS = 0.0;}
+
+	var influx = 1360.0 * NdotS  * thermal_array[i].area * rad_timestep * (1.0 -thermal_array[i].albedo);
+	influx = influx + 85.0 * EdotS * thermal_array[i].area * rad_timestep;
+
 	var outflux = thermal_array[i].area  * sigma * math.pow(thermal_array[i].temperature,4.0) * rad_timestep;
 	thermal_array[i].thermal_energy = thermal_array[i].thermal_energy + influx - outflux;
 	thermal_array[i].temperature = thermal_array[i].thermal_energy / thermal_array[i].mass /thermal_array[i].heat_capacity;
 
-#	if (i==3)
-#		{
-#		print("Payload bay influx: ", influx /rad_timestep / thermal_array[i].area, " outflux: ", outflux /rad_timestep / thermal_array[i].area);
-#		}
+
 
 	}
 
@@ -241,11 +312,6 @@ var time = getprop("/fdm/jsbsim/systems/thermal-distribution/time") ;
 
 setprop("/fdm/jsbsim/systems/thermal-distribution/time", time + 1.0);
 
-#print(time, " ", thermal_array[10].temperature);
-#if (time > 30.0)
-#	{
-#	thermal_array[5].source = 0.0;
-#	}
 
 }
 
@@ -338,6 +404,8 @@ var state = getprop("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch"
 
 thermal_array[9].sink = 1900.0 * state; 
 thermal_array[10].sink = 16000.0 * state; 
+
+thermal_array[11].source = 17900 * state;
 
 }
 

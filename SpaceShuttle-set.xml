@@ -414,8 +414,8 @@
 
 		</rcs-hardware>	
 		<thermal-distribution>
-			<freon-loop-switch type="double">0.0</freon-loop-switch>
-			<water-loop-switch type="int">0</water-loop-switch>
+			<freon-loop-switch type="double">0.4</freon-loop-switch>
+			<water-loop-switch type="int">1</water-loop-switch>
 		</thermal-distribution>
             </systems>
         </jsbsim>

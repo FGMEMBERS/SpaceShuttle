@@ -239,6 +239,16 @@
       <property>/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K</property>
     </text> 
 
+ <text>
+      <row>11</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K</property>
+    </text> 
+
     <checkbox>
         <name>water-loop</name>
  	<row>12</row>
