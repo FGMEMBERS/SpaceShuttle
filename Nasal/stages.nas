@@ -1123,6 +1123,8 @@ setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
 # attachment - this apparently does not work if the parameter is simply set at startup
 # (nothing is ever easy) so we need to do it with a delay
 
+
+
 if (getprop("/sim/presets/stage") ==0)
 	{
 	settimer( func {setprop("/controls/shuttle/SRB-attach", 1);}, 1.0);	

@@ -4,7 +4,7 @@
 
 var thermal_array = [];
 
-var loop_timestep = 0.1;
+var loop_timestep = 1.0;
 var rad_timestep = 60.0;
 var sigma = 5.67e-8; 
 
@@ -227,7 +227,7 @@ var coupling_array9 = [];
 coupling = heat_transfer.new(10, 800.0);
 append(coupling_array9, coupling);
 
-var avionics = thermal_mass.new (680.0, 1012.0, 283.5, 1.0, [0.0, 1.0,0.0], 0.0, coupling_array9);
+var avionics = thermal_mass.new (680.0, 1012.0, 293.5, 1.0, [0.0, 1.0,0.0], 0.0, coupling_array9);
 avionics.source = 14000.0;
 append(thermal_array, avionics);
 
@@ -239,7 +239,7 @@ append(coupling_array10, coupling);
 coupling = heat_transfer.new(1, 100);
 append(coupling_array10, coupling);
 
-var pressure_vessel = thermal_mass.new (3400.0, 1012.0, 283.5, 0.4, [0.0, 1.0, 0.0], 2.0, coupling_array10);
+var pressure_vessel = thermal_mass.new (3400.0, 1012.0, 293.5, 0.4, [0.0, 1.0, 0.0], 2.0, coupling_array10);
 pressure_vessel.source = 980.0;
 append(thermal_array, pressure_vessel);
 
@@ -271,10 +271,12 @@ setprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K", therm
 setprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K", thermal_array[10].temperature);
 setprop("/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K", thermal_array[11].temperature);
 
-if (thermal_array[9].temperature > 310.0)
-	{setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", 310.0);}
-else
-	{setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", thermal_array[9].temperature);}
+var freon_in_temp = thermal_array[9].temperature;
+if (freon_in_temp > 310.0) {freon_in_temp = 310.0;} 
+if (thermal_array[11].temperature > freon_in_temp) {freon_in_temp = thermal_array[11].temperature;}
+
+setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", freon_in_temp);
+
 
 }
 
@@ -287,7 +289,7 @@ sun_normal[0] = -sun_normal[0];
 var earth_normal = earthpos();
 earth_normal[0] = - earth_normal[0];
 
-print(sun_normal[0], " ", sun_normal[1], " ", sun_normal[2]);
+#print(sun_normal[0], " ", sun_normal[1], " ", sun_normal[2]);
 
 for (var i = 0; i< size(thermal_array); i=i+1)
 	{
@@ -324,6 +326,8 @@ for (var i = 0; i< size(thermal_array); i=i+1)
 	var sink = thermal_array[i].sink * rad_timestep;
 	thermal_array[i].thermal_energy = thermal_array[i].thermal_energy + source - sink;
 	thermal_array[i].temperature = thermal_array[i].thermal_energy / thermal_array[i].mass /thermal_array[i].heat_capacity;
+
+	#if (i==11) {print("source: ", source, " sink: ", sink);}
 
 	}
 }
@@ -362,11 +366,58 @@ for (var i = 0; i< size(thermal_array); i=i+1)
 }
 
 
+var adjust_water = func {
+
+var capacity = getprop("/fdm/jsbsim/systems/atcs/water-loop-heat-transfer");
+
+if (capacity==0.0) {capacity = 30.0;}
+
+thermal_array[9].transfer[0].capacity = capacity;
+thermal_array[10].transfer[0].capacity = capacity;
+
+}
+
+
+var adjust_freon = func {
+
+var T_target = getprop("/fdm/jsbsim/systems/thermal-distribution/interior-set-temperature-K");
+
+var T = thermal_array[10].temperature;
+var DT = math.abs(T - T_target);
+var step = 0.03 * DT;
+
+var state = getprop("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch");
+
+
+if (T > T_target)
+	{
+	var new_state = state + step;
+	if (new_state > 1.0) {new_state = 1.0;}
+
+	setprop("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch", new_state);		
+	}
+else
+	{
+	var new_state = state - step;
+	if (new_state < 0.0) {new_state = 0.0;}
+
+	setprop("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch", new_state);
+	}
+
+
+
+freon_loop_manager();
+
+}
+
 var thermal_management_loop = func {
 
 compute_radiative_balance();
 compute_source_sink();
 compute_transfers();
+
+adjust_water();
+adjust_freon();
 
 write_temperatures();
 
@@ -400,14 +451,28 @@ var freon_loop_manager = func {
 
 var state = getprop("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch");
 
+var sink_capacity = getprop("/fdm/jsbsim/systems/atcs/freon-sink-capacity");
+
 #print("Freon loop to ", state);
 
-thermal_array[9].sink = 1900.0 * state; 
-thermal_array[10].sink = 16000.0 * state; 
+thermal_array[9].sink = 0.106 * sink_capacity * state; 
+thermal_array[10].sink = 0.894 * sink_capacity * state; 
 
-thermal_array[11].source = 17900 * state;
+#print(sink_capacity);
 
+thermal_array[11].source = sink_capacity * state;
+
+var rad_dump_capacity = getprop("/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity");
+thermal_array[11].area = 41.5 * rad_dump_capacity / 17900.0;
+
+var fes_sink = getprop("/fdm/jsbsim/systems/atcs/fes-heat-dump-capacity");
+
+thermal_array[11].sink = fes_sink * state;
 }
 
-setlistener("/fdm/jsbsim/systems/thermal-distribution/water-loop-switch", func { water_loop_manager();},0,0);
-setlistener("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch", func { freon_loop_manager();},0,0);
+#setlistener("/fdm/jsbsim/systems/thermal-distribution/water-loop-switch", func { water_loop_manager();},0,0);
+#setlistener("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch", func { freon_loop_manager();},0,0);
+
+# automatically run the loop at startup
+
+settimer(thermal_management_init, 3.0);

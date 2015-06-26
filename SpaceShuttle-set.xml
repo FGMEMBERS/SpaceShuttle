@@ -175,6 +175,24 @@
 			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
 		    </apu>
 		</apu>
+		<atcs>
+		    <freon-pump-1-status type="int">1</freon-pump-1-status>
+		    <freon-pump-2-status type="int">1</freon-pump-2-status>
+ 		    <water-pump-1-status type="int">0</water-pump-1-status>
+		    <water-pump-2-status type="int">1</water-pump-2-status>
+		    <rad-controller-1-status type="int">0</rad-controller-1-status>
+		    <rad-controller-2-status type="int">0</rad-controller-2-status>
+		    <out-temp-hi-status type="int">0</out-temp-hi-status>
+		    <flow-bypass-1-status type="int">0</flow-bypass-1-status>
+		    <flow-bypass-2-status type="int">0</flow-bypass-2-status>
+		    <fes-controller-A-status type="int">0</fes-controller-A-status>
+		    <fes-controller-B-status type="int">0</fes-controller-B-status>
+		    <fes-controller-sec-status type="int">0</fes-controller-sec-status>
+		    <fes-hi-load-status type="int">1</fes-hi-load-status>
+		    <fes-heater-left-status type="int">0</fes-heater-left-status>
+		    <fes-heater-right-status type="int">0</fes-heater-right-status>
+		    <fes-heater-hiload-status type="int">0</fes-heater-hiload-status>
+		</atcs>
 		<electrical>
 		    <fc>
 			<reactant-valve-status type="int">1</reactant-valve-status>
@@ -416,6 +434,9 @@
 		<thermal-distribution>
 			<freon-loop-switch type="double">0.4</freon-loop-switch>
 			<water-loop-switch type="int">1</water-loop-switch>
+			<interior-set-temperature-K type="double">293.0</interior-set-temperature-K>
+			<interior-temperature-K type="double">293.0</interior-temperature-K>
+			<freon-out-temperature-K type="double">200.0</freon-out-temperature-K>
 		</thermal-distribution>
             </systems>
         </jsbsim>
@@ -697,6 +718,13 @@
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.apu_dlg.open()</script>
+                        </binding>
+                    </item>
+    		    <item>
+                        <label>Active Thermal Control System</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.atcs_dlg.open()</script>
                         </binding>
                     </item>
 		    <item>

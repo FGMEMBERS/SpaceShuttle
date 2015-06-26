@@ -119,6 +119,7 @@
     </text>
 
    <checkbox>
+        <halign>left</halign>
         <name>fwd-1</name>
  	<row>3</row>
         <col>0</col>
@@ -133,6 +134,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>fwd-2</name>
  	<row>3</row>
         <col>1</col>
@@ -147,6 +149,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>fwd-3</name>
  	<row>3</row>
         <col>2</col>
@@ -161,6 +164,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>fwd-4</name>
  	<row>3</row>
         <col>3</col>
@@ -175,6 +179,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>fwd-5</name>
  	<row>3</row>
         <col>4</col>
@@ -189,6 +194,7 @@
       </checkbox>  
 
    <checkbox>
+        <halign>left</halign>
         <name>pod-1</name>
  	<row>4</row>
         <col>0</col>
@@ -203,6 +209,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>pod-2</name>
  	<row>4</row>
         <col>1</col>
@@ -217,6 +224,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>pod-3</name>
  	<row>4</row>
         <col>2</col>
@@ -231,6 +239,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>pod-4</name>
  	<row>4</row>
         <col>3</col>
@@ -245,6 +254,7 @@
       </checkbox> 
 
    <checkbox>
+        <halign>left</halign>
         <name>pod-5</name>
  	<row>4</row>
         <col>4</col>
