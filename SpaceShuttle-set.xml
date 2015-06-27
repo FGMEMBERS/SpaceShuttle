@@ -105,6 +105,13 @@
 		    <fc1-condition type="double">1.0</fc1-condition>
 		    <fc2-condition type="double">1.0</fc2-condition>
 		    <fc3-condition type="double">1.0</fc3-condition>
+		    <radiator-condition type="double">1.0</radiator-condition>
+		    <fes-topping-condition type="double">1.0</fes-topping-condition>
+		    <fes-hiload-condition type="double">1.0</fes-hiload-condition>
+		    <freon-pump-1-condition type="double">1.0</freon-pump-1-condition>
+		    <freon-pump-2-condition type="double">1.0</freon-pump-2-condition>
+    		    <water-pump-1-condition type="double">1.0</water-pump-1-condition>
+		    <water-pump-2-condition type="double">1.0</water-pump-2-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -183,9 +190,9 @@
 		    <rad-controller-1-status type="int">0</rad-controller-1-status>
 		    <rad-controller-2-status type="int">0</rad-controller-2-status>
 		    <out-temp-hi-status type="int">0</out-temp-hi-status>
-		    <flow-bypass-1-status type="int">0</flow-bypass-1-status>
-		    <flow-bypass-2-status type="int">0</flow-bypass-2-status>
-		    <fes-controller-A-status type="int">0</fes-controller-A-status>
+		    <flow-bypass-1-status type="int">1</flow-bypass-1-status>
+		    <flow-bypass-2-status type="int">1</flow-bypass-2-status>
+		    <fes-controller-A-status type="int">1</fes-controller-A-status>
 		    <fes-controller-B-status type="int">0</fes-controller-B-status>
 		    <fes-controller-sec-status type="int">0</fes-controller-sec-status>
 		    <fes-hi-load-status type="int">1</fes-hi-load-status>
@@ -437,6 +444,7 @@
 			<interior-set-temperature-K type="double">293.0</interior-set-temperature-K>
 			<interior-temperature-K type="double">293.0</interior-temperature-K>
 			<freon-out-temperature-K type="double">200.0</freon-out-temperature-K>
+			<computation-timestep-s type="double">10.0</computation-timestep-s>
 		</thermal-distribution>
             </systems>
         </jsbsim>
@@ -795,6 +803,14 @@
 			<enabled>false</enabled>
 		    </item>
 
+		    <item>
+                        <label>Simulation Options</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.options_dlg.open()</script>
+                        </binding>
+                    </item>
+
 			<item>
                         <label>Limits and Failures</label>
                         <binding>
@@ -1016,6 +1032,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	<config>
 		<shuttle>
 			<approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
+			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
 		</shuttle>
 	</config>
     </sim>

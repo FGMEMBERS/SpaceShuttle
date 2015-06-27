@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>simulation</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Simulation and Rendering Options</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Simulation</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	
+	<text>
+      		<label>Thermal system computation speed</label>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>real</label>
+      		<halign>center</halign>
+      		<row>1</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>thermal-speed-switch</name>
+      		<row>1</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>2</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/thermal-system-computation-speed</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>thermal-speed-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>accelerated</label>
+      		<halign>center</halign>
+      		<row>1</row>
+     	 	<col>3</col>
+    	</text>
+	
+
+</group>
+
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
+

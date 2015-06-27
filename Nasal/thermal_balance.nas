@@ -5,7 +5,7 @@
 var thermal_array = [];
 
 var loop_timestep = 1.0;
-var rad_timestep = 60.0;
+var rad_timestep = 10.0;
 var sigma = 5.67e-8; 
 
 
@@ -421,7 +421,10 @@ adjust_freon();
 
 write_temperatures();
 
+loop_timestep = getprop("/fdm/jsbsim/systems/thermal-distribution/computation-timestep-s");
+var speedup = getprop("/sim/speed-up");
 
+loop_timestep = loop_timestep/speedup;
 
 settimer (thermal_management_loop, loop_timestep);
 }

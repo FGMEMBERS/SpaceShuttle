@@ -1926,7 +1926,7 @@
      <location unit="M">
        <x> 14.00 </x>
        <y>  0.00 </y>
-       <z>  2.50 </z>
+       <z> -2.50 </z>
      </location>
      <capacity unit="LBS"> 600.00 </capacity>
      <contents unit="LBS"> 0.00 </contents>
@@ -1937,12 +1937,26 @@
      <location unit="M">
        <x> 14.00 </x>
        <y>  0.00 </y>
-       <z>  2.50 </z>
+       <z> -2.50 </z>
      </location>
      <capacity unit="LBS"> 4800.00 </capacity>
      <contents unit="LBS"> 0.00 </contents>
      <priority>2</priority>
   </tank>
+
+
+<!-- four water tanks with 165 lb capacity each for flash evaporator system --> 
+
+  <tank type="FUEL" number="19">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 660.00 </capacity>
+     <contents unit="LBS"> 660.00 </contents>
+     <priority>2</priority>
+   </tank>
 
  </propulsion>
 
@@ -3454,6 +3468,7 @@
  <system file="mps.xml"></system>
  <system file="rcs_hardware"></system>
  <system file="rcs_control"></system>
+ <system file="eclss"></system>
  <system file="computations"></system>
  <system file="entry_guidance"></system>
  <system file="thrust_vectoring"></system>

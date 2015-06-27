@@ -555,6 +555,8 @@ if (alt < 400000.0)
 	
 	}
 
+SpaceShuttle.check_limits_orbit();
+
 settimer(orbital_loop, 1.0);
 }
 

@@ -26,10 +26,12 @@
 			<sum>
 			<product>
 				<property>systems/atcs/water-pump-1-active</property>
+				<property>systems/failures/water-pump-1-condition</property>
 				<value>600.0</value>
 			</product>
 			<product>
 				<property>systems/atcs/water-pump-2-active</property>
+				<property>systems/failures/water-pump-2-condition</property>
 				<value>600.0</value>
 			</product>
 			</sum>
@@ -82,6 +84,10 @@
                           	10.0	17900.0
                   	</tableData>
          		</table>
+			<max>
+				<property>systems/failures/freon-pump-1-condition</property>
+				<property>systems/failures/freon-pump-2-condition</property>
+			</max>
 			</product>
 		</function>		
 		</fcs_function>
@@ -107,8 +113,8 @@
 			<test logic="AND" value="1.0">
 				systems/atcs/rad-controller-active == 1	
 				systems/atcs/rad-flow-active == 1
-				<!--systems/mechanical/pb-door-left-pos == 1
-				systems/mechanical/pb-door-right-pos == 1-->
+				systems/mechanical/pb-door-left-pos == 1
+				systems/mechanical/pb-door-right-pos == 1
 			</test>
 		</switch>
 
@@ -116,6 +122,7 @@
 		<function>
 			<product>
 				<property>systems/atcs/rad-heat-dump-active</property>
+				<property>systems/failures/radiator-condition</property>
 				<value>17900.0</value>
 			</product>
 		</function>
@@ -142,6 +149,7 @@
 			<test logic="AND" value="1.0">
 				systems/atcs/fes-controller-active == 1
 				systems/electrical/total-available-power-kW GT 0.0
+				propulsion/tank[19]/contents-lbs GT 0
 			</test>
 		</switch>
 
@@ -154,12 +162,36 @@
 					<property>systems/atcs/fes-hi-load-status</property>
 				</difference>
 				<property>systems/atcs/fes-active</property>
-				<value>3000.0</value>
+				<property>systems/failures/fes-topping-condition</property>
+				<value>7250.0</value>
 			</product>
 			<product>
 				<property>systems/atcs/fes-hi-load-status</property>
 				<property>systems/atcs/fes-active</property>
-				<value>18000.0</value>
+				<value>19300.0</value>
+				<property>systems/failures/fes-hiload-condition</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-water-consumption-lbs">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/atcs/fes-hi-load-status</property>
+				</difference>
+				<property>systems/atcs/fes-active</property>
+				<value>-0.0068</value>
+				<property>systems/thermal-distribution/freon-loop-switch</property>
+			</product>
+			<product>
+				<property>systems/atcs/fes-hi-load-status</property>
+				<property>systems/atcs/fes-active</property>
+				<value>-0.01833</value>
+				<property>systems/thermal-distribution/freon-loop-switch</property>
 			</product>
 			</sum>
 		</function>

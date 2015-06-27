@@ -803,8 +803,41 @@
     </item>
 
     <item>
-      <name>set radiator valves to</name>
+      <name>Radiator deployment</name>
+    </item>
+
+    <item>
+      <name>set radiator valves from bypass to</name>
       <value>AUTO</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+	    <value>0</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set radiator controllers to</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>1</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>1</value>
+	  </equals>
+	</and>
+      </condition>
     </item>
 
 
@@ -863,12 +896,35 @@
     <item>
       <name>verify freon cooling loop operations</name>
       <value>NOMINAL</value>
+      <condition>
+	<greater-than>
+	  <property>/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity</property>
+	  <value>0.0</value>
+	</greater-than>
+      </condition>
     </item>
 
     <item>
-      <name>flash evaporators</name>
-      <value>SECURE</value>
+      <name>set flash evaporator controllers to</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+	    <value>0</value>
+	  </equals>
+	</and>
+      </condition>
     </item>
+
 
     <item>
       <name>star tracker doors</name>
@@ -917,8 +973,70 @@
     </item>
 
     <item>
-      <name>APU pre-start procedures</name>
-      <value></value>
+      <name>Pre-start procedures for single APU</name>
+    </item>
+
+    <item>
+      <name>APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
     </item>
 
     <item>
@@ -926,9 +1044,96 @@
       <value></value>
     </item>
 
+
+
     <item>
-      <name>single APU</name>
+      <name>Start a single APU</name>
+    </item>
+
+
+
+   <item>
+      <name>operate switch</name>
       <value>START</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<or>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<or>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</or>
+      </condition>     
     </item>
 
     <item>
@@ -958,14 +1163,99 @@
     <title>Pre-entry</title>  
 
     <item>
+      <name>Prepare forward RCS</name>
+    </item>
+
+    <item>
       <name>forward RCS</name>
       <value>DUMP</value>
     </item>
 
     <item>
-      <name>remaining APUs</name>
-      <value>START</value>
+      <name>forward RCS manifold valves</name>
+      <value>CLOSED</value>
     </item>
+
+    <item>
+      <name>Start remaining APUs</name>
+    </item>
+
+<item>
+      <name>APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>Ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>Operate switch</name>
+      <value>START</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
 
    <item>
       <name>verify RPM </name>
@@ -1030,10 +1320,7 @@
       </condition>     
     </item>
 
-    <item>
-      <name>forward RCS manifold valves</name>
-      <value>CLOSED</value>
-    </item>
+
 
 
 

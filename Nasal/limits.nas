@@ -19,6 +19,7 @@ var tailscrape_warn = 0;
 var chute_warn = 0;
 var vspeed_warn = 0;
 var TPS_ET_warn =0;
+var avionics_bay_heat_warn = 0;
 
 # the limit simulation mode determines what we do when limits are violated
 
@@ -158,6 +159,58 @@ if (limit_simulation_mode ==2)
 
 }
 
+
+#########################
+# limits in orbit
+#########################
+
+
+var check_limits_orbit = func {
+
+
+var fail_flag = 0;
+
+# avionics bay temperature needs to be < 130 F (328 K)
+
+var T = getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K");
+
+
+
+if ((T > 335.0) and (avionics_bay_heat_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Total avionics failure!");
+	fail_flag = 1;
+	avionics_bay_heat_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}
+
+	}
+else if ((T > 328.0) and (avionics_bay_heat_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	avionics_bay_heat_warn = 1;
+	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
+	}
+
+	
+
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
+
+
+}
 
 #########################
 # limits for entry

@@ -37,6 +37,8 @@ var mechanical_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mechanicall/d
 
 var mps_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mps/dialog","Aircraft/SpaceShuttle/Dialogs/mps.xml");
 
+var options_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/options/dialog","Aircraft/SpaceShuttle/Dialogs/options.xml");
+
 var temperature_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/temperature/dialog","Aircraft/SpaceShuttle/Dialogs/thermal_distribution.xml");
 
 var propellant_fd_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant_fd/dialog","Aircraft/SpaceShuttle/Dialogs/propellant_fill_drain.xml");
@@ -184,7 +186,28 @@ else if (cmd == 1)
 
 }
 
+
+var thermal_speed_manager = func {
+
+var cmd = getprop("/sim/config/shuttle/thermal-system-computation-speed");
+
+if (cmd == 0)
+	{
+	setprop("/fdm/jsbsim/systems/thermal-distribution/computation-timestep-s", 10.0);
+	}
+else if (cmd == 1)
+	{
+	setprop("/fdm/jsbsim/systems/thermal-distribution/computation-timestep-s", 1.0);
+	}
+else if (cmd == 2)
+	{
+	setprop("/fdm/jsbsim/systems/thermal-distribution/computation-timestep-s", 0.1);
+	}
+
+}
+
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", update_scenario);
 setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manager,0,0);
+setlistener("/sim/config/shuttle/thermal-system-computation-speed", thermal_speed_manager,0,0);
