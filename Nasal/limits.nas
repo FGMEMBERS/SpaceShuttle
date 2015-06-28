@@ -20,6 +20,7 @@ var chute_warn = 0;
 var vspeed_warn = 0;
 var TPS_ET_warn =0;
 var avionics_bay_heat_warn = 0;
+var apu_heat_warn = 0;
 
 # the limit simulation mode determines what we do when limits are violated
 
@@ -196,6 +197,45 @@ else if ((T > 328.0) and (avionics_bay_heat_warn == 0))
 	}
 
 	
+
+# APU temperature needs to be < ~250 F (390 K)
+
+var T1 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K");
+var T2 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K");
+var T3 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K");
+
+var T = 0.0;
+
+if (T1 > T2){T = T1;} 
+else {T = T2;}
+
+if (T3 > T) {T = T3;}
+
+
+if ((T > 395.0) and (apu_heat_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "APU damage!");
+	fail_flag = 1;
+	apu_heat_warn = 2;
+	settimer( func {apu_heat_warn = 0;}, 20.0);
+
+	if (limit_simulation_mode == 1)
+		{
+		if (T1 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);}
+		if (T2 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu2-condition", 0.0);}
+		if (T3 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu3-condition", 0.0);}
+		}
+
+	}
+else if ((T > 390.0) and (apu_heat_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	apu_heat_warn = 1;
+	settimer(func {apu_heat_warn = 0;}, 60.0);
+	}
 
 
 if (limit_simulation_mode ==2)

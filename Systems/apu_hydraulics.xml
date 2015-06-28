@@ -60,6 +60,7 @@
 				<property>systems/apu/apu/apu-fuel-available</property>
 				<property>systems/failures/apu1-condition</property>
 				<property>systems/apu/apu/apu-controller-power</property>
+				<property>systems/failures/apu1-condition</property>
 			</product>
 			<value>1.3</value>
 			</quotient>
@@ -132,6 +133,16 @@
 			</product>
 		</function>
 		<output>propulsion/tank[14]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<property>systems/apu/apu/apu-fuel-drain-factor</property>
+			</product>
+		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/apu/apu/hyd-pump-rpm">
@@ -250,6 +261,7 @@
 				<property>systems/apu/apu[1]/apu-fuel-available</property>
 				<property>systems/failures/apu2-condition</property>
 				<property>systems/apu/apu[1]/apu-controller-power</property>
+				<property>systems/failures/apu2-condition</property>
 			</product>
 			<value>1.3</value>
 			</quotient>
@@ -322,6 +334,16 @@
 			</product>
 		</function>
 		<output>propulsion/tank[15]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[1]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/apu/apu[1]/hyd-pump-rpm">
@@ -438,7 +460,8 @@
 				</sum>
 				<property>systems/apu/apu[2]/apu-fuel-available</property>
 				<property>systems/failures/apu3-condition</property>
-				<property>systems/apu/apu[2]/apu-controller-power</property>
+				<property>systems/apu/apu[2]/apu-controller-power</property>				
+				<property>systems/failures/apu3-condition</property>
 			</product>
 			<value>1.3</value>
 			</quotient>
@@ -513,6 +536,16 @@
 		<output>propulsion/tank[16]/external-flow-rate-pps</output>
 		</fcs_function>
 
+		<fcs_function name="systems/apu/apu[2]/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[2]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/apu/apu[2]/hyd-pump-rpm">
 		<function>
 			<product>
@@ -566,6 +599,111 @@
 		</function>
 		</fcs_function>
 
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 1">
+
+		<switch name="systems/apu/apu/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[20]/contents-lbs GT 0
+				systems/apu/apu/boiler-N2-valve-status == 1
+				systems/apu/apu/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-1-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-1-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[20]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 2">
+
+		<switch name="systems/apu/apu[1]/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[21]/contents-lbs GT 0
+				systems/apu/apu[1]/boiler-N2-valve-status == 1
+				systems/apu/apu[1]/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-2-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-2-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[21]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 3">
+
+		<switch name="systems/apu/apu[2]/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[21]/contents-lbs GT 0
+				systems/apu/apu[2]/boiler-N2-valve-status == 1
+				systems/apu/apu[2]/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-3-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-3-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[22]/external-flow-rate-pps</output>
+		</fcs_function>
 
 
 	</channel>

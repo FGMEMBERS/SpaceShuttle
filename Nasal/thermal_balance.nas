@@ -208,6 +208,12 @@ coupling = heat_transfer.new(6, 90.0);
 append(coupling_array7, coupling);
 coupling = heat_transfer.new(8, 90.0);
 append(coupling_array7, coupling);
+coupling = heat_transfer.new(12, 500.0);
+append(coupling_array7, coupling);
+coupling = heat_transfer.new(13, 500.0);
+append(coupling_array7, coupling);
+coupling = heat_transfer.new(14, 500.0);
+append(coupling_array7, coupling);
 
 var aft_fuselage = thermal_mass.new (9520.0, 897.0, 283.5, 0.6, [1.0, 0.0, 0.0], 40.0, coupling_array7);
 append(thermal_array, aft_fuselage);
@@ -250,6 +256,34 @@ var coupling_array11 = [];
 var freon = thermal_mass.new (200.0, 1000.0, 310.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
 append(thermal_array, freon);
 
+
+# APU 1
+
+var coupling_array12 = [];
+coupling = heat_transfer.new(7, 500.0);
+append(coupling_array12, coupling);
+
+var apu1 = thermal_mass.new (200.0, 2500.0, 310.0, 1.0, [0.0, 1.0, 0.0], 0.0, coupling_array12);
+append(thermal_array, apu1);
+
+# APU 2
+
+var coupling_array13 = [];
+coupling = heat_transfer.new(7, 500.0);
+append(coupling_array13, coupling);
+
+var apu2 = thermal_mass.new (200.0, 2500.0, 310.0, 1.0, [0.0, 1.0, 0.0], 0.0, coupling_array13);
+append(thermal_array, apu2);
+
+# APU 3
+
+var coupling_array14 = [];
+coupling = heat_transfer.new(7, 500.0);
+append(coupling_array14, coupling);
+
+var apu3 = thermal_mass.new (200.0, 2500.0, 310.0, 1.0, [0.0, 1.0, 0.0], 0.0, coupling_array14);
+append(thermal_array, apu3);
+
 write_temperatures();
 
 thermal_management_loop();
@@ -270,6 +304,9 @@ setprop("/fdm/jsbsim/systems/thermal-distribution/right-pod-temperature-K", ther
 setprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K", thermal_array[9].temperature);
 setprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K", thermal_array[10].temperature);
 setprop("/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K", thermal_array[11].temperature);
+setprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K", thermal_array[12].temperature);
+setprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K", thermal_array[13].temperature);
+setprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K", thermal_array[14].temperature);
 
 var freon_in_temp = thermal_array[9].temperature;
 if (freon_in_temp > 310.0) {freon_in_temp = 310.0;} 
@@ -405,10 +442,40 @@ else
 	}
 
 
-
 freon_loop_manager();
 
 }
+
+
+var adjust_spray_boilers = func {
+
+for (var i = 0; i < 3; i = i+1)
+	{
+	var source = getprop("/fdm/jsbsim/systems/apu/apu["~i~"]/apu-heat-load");
+	thermal_array[12+i].source = source;
+
+
+	var T = thermal_array[12+i].temperature;
+	var state = getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-"~(i+1)~"-switch");
+
+	var state_new = 0.0;
+
+	if (T > 370.) {state_new = (T - 370.0) * 0.02;}
+	if (state_new > 1.0) {state_new = 1.0;}
+
+	setprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-"~(i+1)~"-switch", state_new);
+
+	var sink_max = getprop("/fdm/jsbsim/systems/apu/apu["~i~"]/boiler-heat-dump-capacity");
+	
+	var sink = sink_max * state_new;
+	
+	thermal_array[12+i].sink = sink;
+
+	}
+
+}
+
+
 
 var thermal_management_loop = func {
 
@@ -418,6 +485,7 @@ compute_transfers();
 
 adjust_water();
 adjust_freon();
+adjust_spray_boilers();
 
 write_temperatures();
 

@@ -511,7 +511,176 @@
         </checkbox>
 
 
-  </group>
+    <text>
+      <label>Water Spray Boilers</label>
+      <halign>left</halign>
+      <row>13</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>duct heaters</label>
+      <row>14</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-heater</name>
+ 	<row>14</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-heater</name>
+ 	<row>14</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-heater</name>
+ 	<row>14</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>controller power</label>
+      <row>15</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-pwr</name>
+ 	<row>15</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-pwr</name>
+ 	<row>15</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-pwr</name>
+ 	<row>15</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>N2 supply</label>
+      <row>16</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-n2</name>
+ 	<row>16</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-n2</name>
+ 	<row>16</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-n2</name>
+ 	<row>16</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>APU temperature K</label>
+      <row>17</row>
+      <col>0</col>
+    </text>
+
+ <text>
+      <row>17</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K</property>
+    </text> 
+
+ <text>
+      <row>17</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K</property>
+    </text> 
+
+ <text>
+      <row>17</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K</property>
+    </text> 
+
+ </group>
 
 
 	<empty>

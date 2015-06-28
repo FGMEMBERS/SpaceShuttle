@@ -1958,6 +1958,43 @@
      <priority>2</priority>
    </tank>
 
+<!-- water tanks for the three APU water spray boilers -->
+
+
+  <tank type="FUEL" number="20">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 142.00 </capacity>
+     <contents unit="LBS"> 142.00 </contents>
+     <priority>2</priority>
+   </tank>
+
+  <tank type="FUEL" number="21">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 142.00 </capacity>
+     <contents unit="LBS"> 142.00 </contents>
+     <priority>2</priority>
+   </tank>
+
+  <tank type="FUEL" number="22">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 142.00 </capacity>
+     <contents unit="LBS"> 142.00 </contents>
+     <priority>2</priority>
+   </tank>
+
+
  </propulsion>
 
 <!-- Flight Control routines - this block has airfoils -->

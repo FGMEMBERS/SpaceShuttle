@@ -99,6 +99,9 @@
 		    <apu1-condition type="double">1.0</apu1-condition>
 		    <apu2-condition type="double">1.0</apu2-condition>
 		    <apu3-condition type="double">1.0</apu3-condition>
+		    <boiler1-condition type="double">1.0</boiler1-condition>
+		    <boiler2-condition type="double">1.0</boiler2-condition>
+		    <boiler3-condition type="double">1.0</boiler3-condition>
 		    <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
 		    <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
 		    <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
@@ -112,6 +115,9 @@
 		    <freon-pump-2-condition type="double">1.0</freon-pump-2-condition>
     		    <water-pump-1-condition type="double">1.0</water-pump-1-condition>
 		    <water-pump-2-condition type="double">1.0</water-pump-2-condition>
+		    <spray-boiler-1-condition type="double">1.0</spray-boiler-1-condition>
+		    <spray-boiler-2-condition type="double">1.0</spray-boiler-2-condition>
+		    <spray-boiler-3-condition type="double">1.0</spray-boiler-3-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -152,6 +158,9 @@
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
 		    </apu>
     		    <apu n="1">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -166,6 +175,9 @@
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
 		    </apu>
  		    <apu n="2">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -180,6 +192,9 @@
 			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
 			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
 			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
 		    </apu>
 		</apu>
 		<atcs>
@@ -441,6 +456,9 @@
 		<thermal-distribution>
 			<freon-loop-switch type="double">0.4</freon-loop-switch>
 			<water-loop-switch type="int">1</water-loop-switch>
+			<spray-boiler-1-switch type="double">0.0</spray-boiler-1-switch>
+			<spray-boiler-2-switch type="double">0.0</spray-boiler-2-switch>
+			<spray-boiler-3-switch type="double">0.0</spray-boiler-3-switch>
 			<interior-set-temperature-K type="double">293.0</interior-set-temperature-K>
 			<interior-temperature-K type="double">293.0</interior-temperature-K>
 			<freon-out-temperature-K type="double">200.0</freon-out-temperature-K>
