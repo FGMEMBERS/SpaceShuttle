@@ -939,17 +939,132 @@
     <item>
       <name>set APU steam vent heaters</name>
       <value>ACTIVE</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	</and>
+      </condition>
     </item>
 
   </checklist>
 
   <checklist>
+    <title>De-orbit preparations</title>  
+
+    <item>
+      <name>set star tracker</name>
+      <value>OFF</value>
+    </item>
+
+    <item>
+      <name>star tracker doors</name>
+      <value>CLOSED</value>
+    </item>
+
+    <item>
+      <name>Close Payload Bay doors</name>
+    </item>
+
+    <item>
+      <name>payload bay floodlights</name>
+      <value>ON</value>
+    </item>
+
+    <item>
+      <name>power to electromechanical actuators</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-power</property>
+	  <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>door auto opening switch</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+	  <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify payload bay doors</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+	 <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+
+
+
+  </checklist>
+  
+  <checklist>
     <title>Pre de-orbit burn</title>  
+
+    <item>
+      <name>Verify de-orbit readiness</name>
+    </item>
 
     <item>
       <name>Verify OMS gimbal</name>
       <value>FREE</value>
     </item>
+
+    <item>
+      <name>Verify payload bay doors</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-right-pos</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-left-pos</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>Verify ET umbilical door</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
 
    <item>
       <name>MPS He A isolation valves</name>
@@ -1037,6 +1152,10 @@
         </equals>
 	</or>
       </condition>     
+    </item>
+
+    <item>
+      <name>Prepare burn</name>
     </item>
 
     <item>
@@ -1137,6 +1256,11 @@
     </item>
 
     <item>
+      <name>verify all airfoils move</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
       <name>set MPS/TVC isolation valves</name>
       <value>OPEN</value>
       <condition>
@@ -1155,6 +1279,31 @@
 		</equals>	
 	</and>
       </condition>
+    </item>
+
+    <item>
+      <name>Execute de-orbit burn</name>
+    </item>
+
+    <item>
+      <name>verify entry guidance target entered and guidance</name>
+      <value>ACTIVE</value>
+	<condition>
+		<equals>
+		  <property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
+		  <value>1</value>
+		</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>execute burn</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>verify ballistic impact point</name>
+      <value>ON LANDING SITE</value>
     </item>
 
   </checklist>
@@ -1320,9 +1469,22 @@
       </condition>     
     </item>
 
+    <item>
+      <name>Control mode</name>
+    </item>
 
-
-
+   <item>
+      <name>DAP selection</name>
+      <value>ENTRY</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+          <value>24</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
 
 
   </checklist>

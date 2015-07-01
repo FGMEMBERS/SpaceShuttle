@@ -982,6 +982,11 @@ print ("Distance: ", d, "Course: ", course);
 
 }
 
+
+#############################################################
+# helper functions to set systems to a mission-specific state
+#############################################################
+
 # if we start in certain mission parts, we need to have hydraulics on
 
 var hydraulics_on = func {
@@ -1003,6 +1008,30 @@ setprop("/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power", 1);
 setprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status", 1);
 settimer( func { setprop("/fdm/jsbsim/systems/apu/apu[2]/apu-operate", 1);}, 0.1);
 settimer( func {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select", 1);}, 0.2);
+
+setprop("/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status", 1);
+setprop("/fdm/jsbsim/systems/apu/apu/boiler-power-status", 1);
+
+setprop("/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status", 1);
+
+setprop("/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status", 1);
+
+}
+
+
+var et_umbilical_door_close = func {
+
+
+setprop("/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd", 0);
+
+setprop("/fdm/jsbsim/systems/mechanical/et-door-left-cmd", 1);
+setprop("/fdm/jsbsim/systems/mechanical/et-door-right-cmd", 1);
+
+setprop("/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd", 1);
+setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
+
 }
 
 
@@ -1036,6 +1065,10 @@ if (getprop("/sim/presets/stage") == 2)
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
 	setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 200.0);
+
+	hydraulics_on();
+	et_umbilical_door_close();
+
 	
 	settimer( func {
 			setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
@@ -1175,6 +1208,7 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	setprop("/consumables/fuel/tank[13]/level-lbs",92.8);
 
 	hydraulics_on();
+	et_umbilical_door_close();
 
 	# transfer controls to aero
 
@@ -1209,6 +1243,7 @@ if (getprop("/sim/presets/stage") == 4) # we start with the final approach
 	setprop("/consumables/fuel/tank[13]/level-lbs",92.8);
 
 	hydraulics_on();
+	et_umbilical_door_close();
 
 	# transfer controls to aero
 
