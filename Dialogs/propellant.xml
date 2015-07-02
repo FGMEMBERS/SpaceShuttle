@@ -643,7 +643,52 @@
     
 </group>
 
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
 
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+<group>
+    <layout>table</layout>
+
+ <text>
+      <label>Payload</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>payload</name>
+      <row>0</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>53700.00</max>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/pointmass-weight-lbs[5]</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>payload</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/pointmass-weight-lbs[5]</property>
+    </text> 
+
+</group>
 
 
 

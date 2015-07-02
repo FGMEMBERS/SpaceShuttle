@@ -1726,6 +1726,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-left">
 		<function>
+			<max>
 			<product>
 			<quotient>
 				<property>systems/rcs/nose-left-raw</property>
@@ -1735,6 +1736,8 @@
 			<property>systems/failures/rcs-nose-left-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/rcs/fwd-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/F1L-fire-cmd</output>
 		<output>systems/rcs/F3L-fire-cmd</output>
@@ -1742,6 +1745,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-right">
 		<function>
+			<max>
 			<product>
 			<quotient>
 				<property>systems/rcs/nose-right-raw</property>
@@ -1751,6 +1755,8 @@
 			<property>systems/failures/rcs-nose-right-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/rcs/fwd-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/F2R-fire-cmd</output>
 		<output>systems/rcs/F4R-fire-cmd</output>

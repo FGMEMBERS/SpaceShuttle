@@ -780,6 +780,25 @@
      </condition>
 </model>
 
+<!-- FES hiload exhaust -->
+
+<model>
+<path>Aircraft/SpaceShuttle/Models/Effects/fes-exhaust.xml</path>
+     <offsets>
+       <x-m> 12.0 </x-m>
+       <y-m> -3.0</y-m>
+       <z-m> -2.5 </z-m>
+       <pitch-deg>90.0</pitch-deg>
+       <roll-deg>-90.0</roll-deg>
+     </offsets>
+    <condition>
+ 	<greater-than>
+	<property>/fdm/jsbsim/systems/atcs/hiload-fes-exhaust-force-lb</property>
+ 	<value>0.0</value>
+ 	</greater-than>
+     </condition>
+</model>
+
 <!-- elevon movement -->
 
  <animation>
@@ -1011,6 +1030,12 @@
 	<object-name>omsLeft</object-name>
 	<object-name>omsRightBase</object-name>
 	<object-name>omsRight</object-name>	
+	<object-name>rcsL1A</object-name>
+	<object-name>rcsR1R</object-name>
+	<object-name>rcsR1U</object-name>
+	<object-name>rcsR2D</object-name>
+	<object-name>rcsL4U</object-name>
+	<object-name>rcsR4U</object-name>
 	<object-name>spaceshutt_spstob_eal</object-name>
  </effect>
 

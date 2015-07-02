@@ -197,6 +197,18 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/atcs/hiload-fes-exhaust-force-lb">
+		<function>
+			<product>
+				<property>systems/atcs/fes-water-consumption-lbs</property>
+				<value>-0.453</value>
+				<property>systems/atcs/fes-hi-load-status</property>
+				<value>300.0</value>	
+				<value>0.2248</value>
+			</product>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 </system>

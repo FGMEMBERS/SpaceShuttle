@@ -372,6 +372,8 @@
                     <nose-down-raw type="double">0.0</nose-down-raw>
                     <thrust-nose-down type="double">0.0</thrust-nose-down>
 
+		    <fwd-dump-cmd type="int">0</fwd-dump-cmd>
+
                     <thrust-normalizer type="double">0.0</thrust-normalizer>
                 </rcs>
 		<rcs-hardware>
@@ -881,6 +883,10 @@
                 <name>F</name>
                 <desc>trim body-flap downward</desc>
             </key>
+	    <key>
+		<name>Ctrl-f</name>
+		<desc>toggle forward RCS pod fuel dump</desc>
+	    </key>
             <key>
                 <name>m</name>
                 <desc>switch FCS modes</desc>
@@ -936,6 +942,8 @@ Ignition sequence
 
 (You can start at this phase with --aircraft=SpaceShuttle-launch)
 
+Go through the pre-launch checklist to start the APUs.
+
 Ignition of the main engines is done via throttle - SSME 1 to 3 ignite as soon as the throttle reaches 65%. This is not enough to achieve liftoff for the normal launch mass of the shutte, however main engine ignition triggers SRB ignition three seconds later. Once both SRBs ignite, the shuttle will lift off the path rapidly.
 
 Initial launch
@@ -958,7 +966,7 @@ In addition, you are not in vacuum, so any yaw, pitch or roll motion will contin
 
 Roll the orbiter out of inverted position, decrease climbing angle to 30-40 degrees and try to hold launch course and climb. Watch vertical speed and altitude - pull up once vertical speed starts to reduce to zero to maintain current altitude, don't worry if you start dropping for a minute, if you manage to reach orbital speed it won't matter. Try to level off at about 650.000 ft.
 
-Orbital insertion
+MECO and reaching orbit
 =================
 
 If you managed to control launch course and climb, after a few minutes, velocity over ground should climb to 7 km/s. As the tank empties, thrust gets more powerful again, watch g-forces and throttle back as needed to keep the load below 3 g. Eventually you should see the periapsis coming up above zero, meaning that you are about to reach orbit (there'll be another callout). Timing is critical, watch the apoapsis till it reaches the orbital altitude you want to reach, then cut thrust fast.
@@ -970,7 +978,7 @@ Orbital maneuvering
 
 (You can start at this phase with --aircraft=SpaceShuttle-orbit)
 
-Start by dropping the external tank (d). Controls will transfer to the reaction control system (RCS). The co-orbiting tank makes for an excellent target to maneuver around.
+Start with the post-MECO checklist. After dropping the external tank, controls will transfer to the reaction control system (RCS). The co-orbiting tank makes for an excellent target to maneuver around.
 
 If MECO happened in a bad state, the Shuttle will rotate at this point and dropping the tank is unsafe and the key won't work. Either use the override switch (Ctrl-d) to drop the tank anyway and risk damage to the shuttle or manually change control mode to RCS (using Ctrl-m), null the rotation and drop the tank afterwards.
 
@@ -997,6 +1005,11 @@ The RCS can also be used in translation mode, switching between modes is done us
                 5: cut thrust
 
 Without a visual reference point, the effect of translational thruster firings are hard to gauge.
+
+De-orbit preparation
+====================
+
+Make sure to go through the checklists to have ET umbilical door closed, payload bay door closed and APUs running to have hydraulic power during entry - you will crash and burn otherwise.
 
 De-orbiting
 ===========
@@ -1051,6 +1064,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 		<shuttle>
 			<approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
 			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
+			<ET-config type="string">super lightweight</ET-config>
 		</shuttle>
 	</config>
     </sim>
@@ -1076,6 +1090,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		<binding>
    			<command>nasal</command>
    			<script>SpaceShuttle.ssme_cutoff(1)</script>
+  		</binding>
+ 	    </key>
+
+	    <key n="6">
+  		<name>Ctrl+f</name>
+  		<desc>Toggle forward RCS pod fuel dump</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.toggle_fwd_fuel_dump()</script>
   		</binding>
  	    </key>
 

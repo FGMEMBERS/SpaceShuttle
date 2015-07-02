@@ -170,6 +170,31 @@ SpaceShuttle.landing_site.set_latlon(lat,lon);
 
 }
 
+var update_ET_config = func{
+
+var ET_string = getprop("/sim/config/shuttle/ET-config");
+
+if (ET_string == "super lightweight")
+	{
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 29250.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 29250.0);
+	}
+
+else if (ET_string == "lightweight")
+	{
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 33000.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 33000.0);
+	}
+else if (ET_string == "standard weight")
+	{
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]", 38500.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 38500.0);
+	}
+
+
+
+}
+
 
 var pb_door_manager = func {
 
@@ -207,6 +232,7 @@ else if (cmd == 2)
 }
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
+setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", update_scenario);
 setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manager,0,0);

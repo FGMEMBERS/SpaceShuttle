@@ -66,7 +66,52 @@
       		<row>1</row>
      	 	<col>3</col>
     	</text>
+
+  </group>
 	
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Equipment</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>ET type</label>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>1</row>
+        	 <col>1</col>
+        	 <name>ET-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/ET-config</property>
+		 <value>standard weight</value>
+		 <value>lightweight</value>
+		 <value>super lightweight</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>ET-selection</object-name>
+        	 </binding>
+      	</combo>
 
 </group>
 

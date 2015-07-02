@@ -843,6 +843,7 @@ else {speedbrake_string = int(speedbrake_state * 100.0)~"%";}
 setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 }
 
+# control of the body flap
 
 var bodyflap_down = func {
 
@@ -868,6 +869,20 @@ else if (bodyflap_state == 0.315) {bodyflap_state = 0.25;}
 
 setprop("/controls/shuttle/bodyflap-pos-rad", bodyflap_state);
 }
+
+
+# forward RCS fuel dump
+
+var toggle_fwd_fuel_dump = func {
+
+var state = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd");
+
+if (state == 0) {state=1;}
+else {state = 0;}
+
+setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", state);
+}
+
 
 # cutoff switches for SSME
 

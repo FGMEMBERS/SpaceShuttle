@@ -1316,8 +1316,20 @@
     </item>
 
     <item>
-      <name>forward RCS</name>
+      <name>forward RCS fuel</name>
       <value>DUMP</value>
+      <condition>
+	<or>
+	<equals>
+          <property>/fdm/jsbsim/propulsion/tank[12]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[13]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+	</or>
+      </condition>
     </item>
 
     <item>

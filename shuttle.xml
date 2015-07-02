@@ -100,6 +100,14 @@
        			<z>-10.6 </z>
      		</location>
 	</pointmass>
+	<pointmass name="Payload">
+		<weight unit="LBS"> 0.0</weight>
+	 	<location name="POINTMASS" unit="M">
+                	<x>  2.7 </x>
+                	<y>  0.0 </y>
+                	<z> -2.7 </z>
+            	</location>
+	</pointmass>
  </mass_balance>
 
 
@@ -3450,6 +3458,9 @@
  
 
  <external_reactions>
+
+  <!-- propellant dump-->
+
   <force name="propellant_dump" frame="BODY">
     <function>
       <property>systems/mps/propellant-dump-force-lb</property>
@@ -3466,7 +3477,25 @@
     </direction>
   </force>
 
- <!-- Parachute--> 
+  <!-- hi-load FES exhaust -->
+
+  <force name="fes_exhaust" frame="BODY">
+    <function>
+      <property>systems/atcs/hiload-fes-exhaust-force-lb</property>
+    </function>
+    <location unit="M">
+      <x> 16.0</x>
+      <y>-3.2</y>
+      <z>-1.5</z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <!-- Parachute--> 
 
   <force name="parachute" frame="WIND">
     <function>
