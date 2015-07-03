@@ -16,6 +16,7 @@ var scenario_string_single_engine_lockup = "During ascent, a condition occurs wh
 
 var scenario_string_stuck_speedbrake = "During the final aerodynamical glide phase, the speedbrake gets stuck. Dependent on when and in what position this happens, TAEM needs to be modified and the aim point for the final approach changed. Deploy gear early to make use of its high drag.";
 
+var scenario_string_hydraulic_failure = "Two of the three hydraulics systems are damaged and priority rate limiting is used to best allocate the remaining hydraulic force to the airfoils. Expect the orbiter to react more sluggish in agressive maneuvers.";
 
 var scenario_string_tire_failure = "The right gear tire is damaged. Anticipate to use rudder upon touchdown to correct and use elevons to reduce load on the damaged gear during coast.";
 
@@ -112,6 +113,11 @@ else if (scenario_string == "burst tire")
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_tire_failure);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 32);
 	}
+else if (scenario_string == "hydraulic failure")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_hydraulic_failure);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 33);
+	}
 
 }
 
@@ -173,6 +179,12 @@ SpaceShuttle.landing_site.set_latlon(lat,lon);
 var update_ET_config = func{
 
 var ET_string = getprop("/sim/config/shuttle/ET-config");
+
+# do nothing if we don't have an ET connected, otherwise we'll add weight
+
+var tank_status = getprop("/controls/shuttle/ET-static-model");
+
+if (tank_status == 0) {return;}
 
 if (ET_string == "super lightweight")
 	{

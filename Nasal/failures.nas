@@ -162,6 +162,11 @@ else if (scenario_ID == 32)
 	{
 	setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
 	}
+else if (scenario_ID == 33)
+	{
+	setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);
+	setprop("/fdm/jsbsim/systems/failures/hyd2-pump-condition", 0.0);
+	}
 
 }
 

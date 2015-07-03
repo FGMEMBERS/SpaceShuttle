@@ -2138,7 +2138,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>5.73</time>
+			<time>2.85</time>
 		</setting>
 		</traverse>
 	<output>fcs/elevator-pos-prl32-rad</output>
@@ -2153,7 +2153,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>8.24</time>
+			<time>4.10</time>
 		</setting>
 		</traverse>
 	<output>fcs/elevator-pos-prl1-rad</output>
@@ -2257,7 +2257,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>5.73</time>
+			<time>2.86</time>
 		</setting>
 		</traverse>
 	<output>fcs/left-aileron-pos-prl32-rad</output>
@@ -2272,7 +2272,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>8.24</time>
+			<time>4.11</time>
 		</setting>
 		</traverse>
 	<output>fcs/left-aileron-pos-prl1-rad</output>
@@ -2299,7 +2299,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>5.73</time>
+			<time>2.86</time>
 		</setting>
 		</traverse>
 	<output>fcs/right-aileron-pos-prl32-rad</output>
@@ -2314,7 +2314,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>8.24</time>
+			<time>4.11</time>
 		</setting>
 		</traverse>
 	<output>fcs/right-aileron-pos-prl1-rad</output>
@@ -2435,9 +2435,9 @@
 
   <pid name="fcs/beta-controller">
 	<input>fcs/beta-error-rad</input>
-	<kp> 30.0 </kp>
+	<kp> 10.0 </kp>
 	<ki> 0.0 </ki>
-	<kd> 15.0</kd>
+	<kd> 10.0</kd>
 	<clipto>
 		<min> -0.35 </min>
         	<max>  0.35 </max>
@@ -2509,7 +2509,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>8.18</time>
+			<time>4.08</time>
 		</setting>
 		</traverse>
 	<output>fcs/rudder-pos-prl3-rad</output>
@@ -2524,7 +2524,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>9.54</time>
+			<time>4.76</time>
 		</setting>
 		</traverse>
 	<output>fcs/rudder-pos-prl2-rad</output>
@@ -2539,7 +2539,7 @@
 		</setting>
 		<setting>
 			<position>1.0</position>
-			<time>16.37</time>
+			<time>8.16</time>
 		</setting>
 		</traverse>
 	<output>fcs/rudder-pos-prl1-rad</output>
