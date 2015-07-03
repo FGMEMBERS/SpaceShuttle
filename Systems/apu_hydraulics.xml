@@ -744,11 +744,21 @@
 			</test>
 		</switch>
 
-   		<summer name="systems/apu/number-systems-pressurized">
-      			<input>systems/apu/hyd-1-pressurized</input>
-      			<input>systems/apu/hyd-2-pressurized</input>
-      			<input>systems/apu/hyd-3-pressurized</input>
-   		</summer>
+   		<fcs_function name="systems/apu/number-systems-pressurized">
+		<function>
+			<max>
+			<sum>
+      			<property>systems/apu/hyd-1-pressurized</property>
+      			<property>systems/apu/hyd-2-pressurized</property>
+      			<property>systems/apu/hyd-3-pressurized</property>
+			</sum>
+			<product>
+				<property>systems/apu/init-hydraulics-on</property>
+				<value>3.0</value>
+			</product>
+			</max>
+		</function>
+   		</fcs_function>
 
 
 	</channel>

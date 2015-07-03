@@ -2101,7 +2101,7 @@
         <min> -0.70 </min>
         <max>  0.44 </max>
       </range>
-      <output>fcs/elevator-pos-rad-command</output>
+      <output>fcs/elevator-pos-rad-trim</output>
    </aerosurface_scale>
 
    <!--<pure_gain name="Actual Elevator Motion">
@@ -2115,7 +2115,7 @@
 	<product>
 	<sum>
 		<product>
-			<property>fcs/elevator-pos-rad-command</property>
+			<property>fcs/elevator-pos-rad-trim</property>
 			<property>fcs/airfoil-factor-pitch</property>
 		</product>
 		<property>fcs/launch-auto-trim</property>
@@ -2124,8 +2124,53 @@
 	<property>systems/apu/hyd-pressure-available</property>
 	</product>
 	</function>
-	<output>fcs/elevator-pos-rad</output>
+	<output>fcs/elevator-pos-rad-command</output>
    </fcs_function>
+
+   <!-- Priority rate limiting dependent on number of available hydraulics systems -->
+
+   <kinematic name="Elevator Movement PRL 3 and 2">
+	<input>fcs/elevator-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>5.73</time>
+		</setting>
+		</traverse>
+	<output>fcs/elevator-pos-prl32-rad</output>
+   </kinematic>
+
+   <kinematic name="Elevator Movement PRL 1">
+	<input>fcs/elevator-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>8.24</time>
+		</setting>
+		</traverse>
+	<output>fcs/elevator-pos-prl1-rad</output>
+   </kinematic>
+
+   <switch name="Priority rate limiting elevator">
+			<default value="0.0"/>
+			<test logic="OR" value="fcs/elevator-pos-prl32-rad">
+				systems/apu/number-systems-pressurized == 3
+				systems/apu/number-systems-pressurized == 2
+			</test>
+			<test value="fcs/elevator-pos-prl1-rad">
+				systems/apu/number-systems-pressurized == 1
+			</test>
+	<output>fcs/elevator-pos-rad</output>
+   </switch>
+
 
    <aerosurface_scale name="Elevator Normalization">
       <input>fcs/elevator-pos-rad-command</input>
@@ -2201,14 +2246,102 @@
       <output>fcs/right-aileron-pos-rad-command</output>
    </aerosurface_scale>
 
-  <pure_gain name="Actual Left Aileron Motion">
+   <!-- Priority rate limiting dependent on number of available hydraulics systems -->
+
+   <kinematic name="Left Aileron Movement PRL 3 and 2">
 	<input>fcs/left-aileron-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>5.73</time>
+		</setting>
+		</traverse>
+	<output>fcs/left-aileron-pos-prl32-rad</output>
+   </kinematic>
+
+   <kinematic name="Left Aileron Movement PRL 1">
+	<input>fcs/left-aileron-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>8.24</time>
+		</setting>
+		</traverse>
+	<output>fcs/left-aileron-pos-prl1-rad</output>
+   </kinematic>
+
+   <switch name="Priority rate limiting left aileron">
+			<default value="0.0"/>
+			<test logic="OR" value="fcs/left-aileron-pos-prl32-rad">
+				systems/apu/number-systems-pressurized == 3
+				systems/apu/number-systems-pressurized == 2
+			</test>
+			<test value="fcs/left-aileron-pos-prl1-rad">
+				systems/apu/number-systems-pressurized == 1
+			</test>
+	<output>fcs/left-aileron-pos-prl-rad</output>
+   </switch>
+
+   <kinematic name="Right Aileron Movement PRL 3 and 2">
+	<input>fcs/right-aileron-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>5.73</time>
+		</setting>
+		</traverse>
+	<output>fcs/right-aileron-pos-prl32-rad</output>
+   </kinematic>
+
+   <kinematic name="Right Aileron Movement PRL 1">
+	<input>fcs/right-aileron-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>8.24</time>
+		</setting>
+		</traverse>
+	<output>fcs/right-aileron-pos-prl1-rad</output>
+   </kinematic>
+
+   <switch name="Priority rate limiting right aileron">
+			<default value="0.0"/>
+			<test logic="OR" value="fcs/right-aileron-pos-prl32-rad">
+				systems/apu/number-systems-pressurized == 3
+				systems/apu/number-systems-pressurized == 2
+			</test>
+			<test value="fcs/right-aileron-pos-prl1-rad">
+				systems/apu/number-systems-pressurized == 1
+			</test>
+	<output>fcs/right-aileron-pos-prl-rad</output>
+   </switch>
+
+  <pure_gain name="Actual Left Aileron Motion">
+	<!--<input>fcs/left-aileron-pos-rad-command</input>-->
+	<input>fcs/left-aileron-pos-prl-rad</input>
 	<gain>fcs/airfoil-factor-roll</gain>
 	<output>fcs/left-aileron-pos-rad</output>
    </pure_gain>
 
   <pure_gain name="Actual Right Aileron Motion">
-	<input>fcs/right-aileron-pos-rad-command</input>
+	<!--<input>fcs/right-aileron-pos-rad-command</input>-->
+	<input>fcs/right-aileron-pos-prl-rad</input>
 	<gain>fcs/airfoil-factor-roll</gain>
 	<output>fcs/right-aileron-pos-rad</output>
    </pure_gain>
@@ -2365,8 +2498,71 @@
 	<output>fcs/rudder-pos-rad-motion</output>
    </kinematic>
 
-   <pure_gain name="Actual Rudder Motion">
+   <!-- Priority rate limiting dependent on number of available hydraulics systems -->
+
+   <kinematic name="Rudder Movement PRL 3">
 	<input>fcs/rudder-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>8.18</time>
+		</setting>
+		</traverse>
+	<output>fcs/rudder-pos-prl3-rad</output>
+   </kinematic>
+
+   <kinematic name="Rudder Movement PRL 2">
+	<input>fcs/rudder-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>9.54</time>
+		</setting>
+		</traverse>
+	<output>fcs/rudder-pos-prl2-rad</output>
+   </kinematic>
+
+   <kinematic name="Rudder Movement PRL 1">
+	<input>fcs/rudder-pos-rad-command</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>16.37</time>
+		</setting>
+		</traverse>
+	<output>fcs/rudder-pos-prl1-rad</output>
+   </kinematic>
+
+   <switch name="Rudder Priority Rate Limiting">
+			<default value="0.0"/>
+			<test value="fcs/rudder-pos-prl3-rad">
+				systems/apu/number-systems-pressurized == 3
+			</test>
+			<test value="fcs/rudder-pos-prl2-rad">
+				systems/apu/number-systems-pressurized == 2
+			</test>
+			<test value="fcs/rudder-pos-prl1-rad">
+				systems/apu/number-systems-pressurized == 1
+			</test>
+	<output>fcs/rudder-pos-prl-rad</output>
+   </switch>
+   
+
+   <pure_gain name="Actual Rudder Motion">
+	<!--<input>fcs/rudder-pos-rad-command</input>-->
+ 	<input>fcs/rudder-pos-prl-rad</input>
 	<gain>fcs/airfoil-factor-yaw</gain>
 	<output>fcs/rudder-pos-rad</output>
    </pure_gain>
@@ -2453,7 +2649,7 @@
   </channel>
 
   <channel name="Speedbrake">
-   <kinematic name="Speedbrake Control">
+   <kinematic name="Speedbrake Control PRL 2 and 3">
      <input>/controls/shuttle/speedbrake</input>
      <traverse>
        <setting>
@@ -2462,11 +2658,38 @@
        </setting>
        <setting>
           <position> 1 </position>
-          <time>     3 </time>
+          <time>     8.08 </time>
        </setting>
      </traverse>
-     <output>fcs/speedbrake-pos-norm</output>
+     <output>fcs/speedbrake-pos-prl23-norm</output>
    </kinematic>
+
+   <kinematic name="Speedbrake Control PRL 1">
+     <input>/controls/shuttle/speedbrake</input>
+     <traverse>
+       <setting>
+          <position> 0 </position>
+          <time>     0 </time>
+       </setting>
+       <setting>
+          <position> 1 </position>
+          <time>     9.01 </time>
+       </setting>
+     </traverse>
+     <output>fcs/speedbrake-pos-prl1-norm</output>
+   </kinematic>
+
+   <switch name="Speedbrake Priority Rate Limiting">
+	<default value="0.0"/>
+	<test logic="OR" value="fcs/speedbrake-pos-prl23-norm">
+		systems/apu/number-systems-pressurized == 3
+		systems/apu/number-systems-pressurized == 2
+	</test>
+	<test value="fcs/speedbrake-pos-prl1-norm">
+		systems/apu/number-systems-pressurized == 1
+	</test>
+	<output>fcs/speedbrake-pos-norm</output>
+   </switch>
 
   </channel>
  
