@@ -572,7 +572,7 @@ if ((current_mode == 0) or (current_mode == 10))
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");
 	}
-else if ((current_mode ==1) or (current_mode ==2) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode ==23) or (current_mode == 25) or (current_mode==26) or (current_mode ==27) or (current_mode ==28))
+else if ((current_mode ==1) or (current_mode ==2) or (current_mode == 11) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode ==23) or (current_mode == 25) or (current_mode==26) or (current_mode ==27) or (current_mode ==28))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
 	setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
@@ -584,8 +584,8 @@ else if ((current_mode == 24) or (current_mode == 3))
 	}
 else if (current_mode == 4)
 	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",0);
-	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring (gimbal)");	
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",10);
+	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring");	
 	}
 	
 }
@@ -601,6 +601,11 @@ if ((current_mode == 1) or (current_mode == 20) or (current_mode == 21) or (curr
 	setprop("/controls/shuttle/control-system-string", "RCS translation");
 	}
 else if ((current_mode ==2) or (current_mode == 26) or (current_mode == 27) or (current_mode ==28))
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",11);
+	setprop("/controls/shuttle/control-system-string", "OMS TVC");
+	}
+else if (current_mode == 11)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
 	setprop("/controls/shuttle/control-system-string", "RCS rotation");

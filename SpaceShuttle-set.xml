@@ -23,6 +23,8 @@
 		    <srb2-condition type="double">1.0</srb2-condition>
 		    <oms1-condition type="double">1.0</oms1-condition>
 		    <oms2-condition type="double">1.0</oms2-condition>
+		    <oms1-gimbal-condition type="double">1.0</oms1-gimbal-condition>
+		    <oms2-gimbal-condition type="double">1.0</oms2-gimbal-condition>
 		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
 		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
 		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
