@@ -113,6 +113,29 @@
         	 </binding>
       	</combo>
 
+	<text>
+      		<label>Tail cone</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>TC-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/TC-config</property>
+		 <value>none</value>
+		 <value>use tailcone</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>TC-selection</object-name>
+        	 </binding>
+      	</combo>
+
 </group>
 
 

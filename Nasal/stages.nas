@@ -397,8 +397,8 @@ setprop("/controls/engines/engine[2]/ignited-hud", " ");
 launch_message_flag = 5;
 
 #SpaceShuttle.init_tank();
+#settimer(control_to_rcs, 2.0);
 
-settimer(control_to_rcs, 2.0);
 settimer(orbital_loop,2.0);
 
 
@@ -1156,6 +1156,35 @@ if (getprop("/sim/presets/stage") == 4)
 	setprop("/velocities/wBody-fps", 60.0);
 	}
 
+if (getprop("/sim/presets/stage") == 5) 
+	{
+	var lat_to_m = 110952.0; 
+	var lon_to_m  = math.cos(getprop("/position/latitude-deg")*math.pi/180.0) * lat_to_m;
+	var m_to_lon = 1.0/lon_to_m;
+	var m_to_lat = 1.0/lat_to_m;
+
+	var heading = getprop("/orientation/heading-deg");
+	var place_dir = heading + 180.0;
+	if (place_dir > 360.0) {place_dir = place_dir-360.0;}
+	place_dir = place_dir * math.pi/180.0;
+
+	var place_dist = 25000.0; 
+	var place_x = place_dist * math.sin(place_dir);
+	var place_y = place_dist * math.cos(place_dir);
+
+	var place_lat = getprop("/position/latitude-deg") + m_to_lat * place_y;
+	var place_lon = getprop("/position/longitude-deg") + m_to_lon * place_x;
+
+	#print (place_lat, " ",place_lon);
+
+	setprop("/position/latitude-deg", place_lat); 
+	setprop("/position/longitude-deg", place_lon); 
+
+	setprop("/velocities/uBody-fps",900.0);
+	setprop("/velocities/wBody-fps", 60.0);
+	}
+
+
 
 }
 
@@ -1233,7 +1262,6 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	# transfer controls to aero
 
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",4);
-	setprop("/sim/messages/copilot", "Control switched to aero.");
 	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
 	setprop("/controls/shuttle/hud-mode",3);
 	}
@@ -1268,7 +1296,38 @@ if (getprop("/sim/presets/stage") == 4) # we start with the final approach
 	# transfer controls to aero
 
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
-	setprop("/sim/messages/copilot", "Control switched to aero.");
+	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+	setprop("/controls/shuttle/hud-mode",3);
+	}
+
+if (getprop("/sim/presets/stage") == 5) # we start in a gliding test
+	{
+	SRB_message_flag = 2;
+	settimer(set_speed, 0.5);
+	SRB_separate_silent();
+	gear_up();
+	external_tank_separate_silent();
+	setprop("/consumables/fuel/tank[0]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[1]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[2]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[4]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[5]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[6]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[7]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[8]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[9]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[10]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[11]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[12]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[13]/level-lbs",0.0);
+
+	hydraulics_on();
+	et_umbilical_door_close();
+
+	# transfer controls to aero
+
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
 	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
 	setprop("/controls/shuttle/hud-mode",3);
 	}

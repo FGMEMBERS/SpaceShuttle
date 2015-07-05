@@ -2558,7 +2558,19 @@
 			</test>
 	<output>fcs/rudder-pos-prl-rad</output>
    </switch>
-   
+
+   <!-- this is a bit hacky - priority limiting doesn't deal correctly with init yaw deviation -->
+   <!-- so we allow on init a faster airfoil movement to handle a stable state to the controls -->
+   <!-- once the actual PRL simulation starts -->
+
+   <switch name="Rudder Init">
+			<default value="fcs/rudder-pos-prl-rad"/>
+			<test value="fcs/rudder-pos-rad-motion">
+				systems/apu/init-hydraulics-on == 1
+			</test>
+   <output>fcs/rudder-pos-prl-rad</output>
+   </switch>
+
 
    <pure_gain name="Actual Rudder Motion">
 	<!--<input>fcs/rudder-pos-rad-command</input>-->
@@ -2809,7 +2821,7 @@
 
  
   <function name="aero/coefficient/CDtest">
-<product>
+  <product>
         	
     		<sum>
 			<value>0.01</value>
@@ -2838,6 +2850,13 @@
 			</product>
 		</sum>
 		</pow>
+		<difference>
+			<value>1.0</value>
+			<product>
+				<value>0.28</value>
+				<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			</product>
+		</difference>
 	</product> 
 </function>
 
@@ -2949,6 +2968,13 @@
 			</product>
 		</sum>
 		</pow>
+		<difference>
+			<value>1.0</value>
+			<product>
+				<value>0.28</value>
+				<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			</product>
+		</difference>
 	</product> 
 	</function>   
 

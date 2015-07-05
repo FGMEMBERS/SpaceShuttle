@@ -1067,6 +1067,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 			<approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
 			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
 			<ET-config type="string">super lightweight</ET-config>
+			<TC-config type="string">none</TC-config>
 		</shuttle>
 	</config>
     </sim>

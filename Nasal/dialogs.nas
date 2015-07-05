@@ -203,6 +203,33 @@ else if (ET_string == "standard weight")
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 38500.0);
 	}
 
+}
+
+var update_TC_config = func {
+
+var TC_string = getprop("/sim/config/shuttle/TC-config");
+
+
+var flag = 1;
+
+if (getprop("/controls/shuttle/ET-static-model") == 1)
+	{flag = 0;}
+
+if (getprop("/position/altitude-ft") > 40000.0)
+	{flag = 0;}
+
+if (flag == 0)
+	{return;}
+
+if (TC_string == "none")
+	{
+	setprop("/sim/config/shuttle/approach-and-landing-test-config", 0);
+	}
+else if (TC_string == "use tailcone")
+	{
+	setprop("/sim/config/shuttle/approach-and-landing-test-config", 1);
+	}
+
 
 
 }
@@ -245,6 +272,7 @@ else if (cmd == 2)
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
+setlistener("/sim/config/shuttle/TC-config", update_TC_config);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", update_scenario);
 setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manager,0,0);
