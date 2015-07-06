@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<!--signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/rolling_friction-factor</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/velocities/groundspeed-kt</property>
+    </signal-->
+
+	<!--signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[0]/wow</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[1]/wow</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[2]/wow</property>
+    </signal>
+
+	<signal>
+        <type>bool</type>
+        <property type="string">/fdm/jsbsim/contact/unit[6]/WOW</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/fdm/jsbsim/contact/unit[7]/WOW</property>
+    </signal>
+
+	<signal>
+        <type>bool</type>
+        <property type="string">/fdm/jsbsim/contact/unit[8]/WOW</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/fdm/jsbsim/contact/unit[9]/WOW</property>
+    </signal-->
+
+	<!-- Touchdown tire smoke -->
+	<signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[0]/tyre-smoke</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[1]/tyre-smoke</property>
+    </signal>
+	<signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[2]/tyre-smoke</property>
+    </signal>
+
+	<!-- Rain tire spray -->
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[0]/sprayspeed-ms</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[0]/spray-density</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[1]/sprayspeed-ms</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[1]/spray-density</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[2]/sprayspeed-ms</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/gear/gear[2]/spray-density</property>
+    </signal>
+
+	<!--  Off road tire smoke -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	<!-- Gear damage smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/stbd-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	 <!-- Wing smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-wing-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	<!-- Tail smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-tail-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/tail-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-tail-ground-effect-speed-kt-actual</property>
+    </signal>
+
+</PropertyList>

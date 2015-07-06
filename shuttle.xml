@@ -119,7 +119,7 @@
 		<location unit="M">
 			<x> -15.00 </x>
 			<y> 0.00 </y>
-			<z> -6.80 </z>
+			<z> -6.87 </z>
 		</location>
 		<static_friction> 0.40 </static_friction>
 		<dynamic_friction> 0.10 </dynamic_friction>
@@ -135,7 +135,7 @@
 <location unit="M">
 <x> 3.60 </x>
 <y> -4.2 </y>
-<z>-7.87 </z>
+<z>-7.97 </z>
 </location>
 <static_friction> 0.40 </static_friction>
 <dynamic_friction> 0.10 </dynamic_friction>
@@ -151,7 +151,7 @@
 <location unit="M">
 <x> 3.60 </x>
 <y> 4.2 </y>
-<z>-7.87 </z>
+<z>-7.97 </z>
 </location>
 <static_friction> 0.40 </static_friction>
 <dynamic_friction> 0.10 </dynamic_friction>
@@ -202,6 +202,72 @@
 <damping_coeff unit="LBS/FT/SEC"> 1100000.00 </damping_coeff>
 </contact>
 
+<!-- contact points 6, 7-->
+<contact type="STRUCTURE" name="LEFT_BODY_FLAP">
+<location unit="M">
+<x> 15.45 </x>
+<y> -2.27 </y>
+<z> -4.80 </z>
+</location>
+<static_friction> 0.50 </static_friction>
+<dynamic_friction> 0.20 </dynamic_friction>
+<rolling_friction> 0.00 </rolling_friction>
+<spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
+</contact>
+
+<contact type="STRUCTURE" name="RIGHT_BODY_FLAP">
+<location unit="M">
+<x> 15.45 </x>
+<y> 2.27 </y>
+<z> -4.80 </z>
+</location>
+<static_friction> 0.50 </static_friction>
+<dynamic_friction> 0.20 </dynamic_friction>
+<rolling_friction> 0.00 </rolling_friction>
+<spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
+</contact>
+
+<!-- contact points 8, 9, 10-->
+<contact type="STRUCTURE" name="LEFT_WING_TIP">
+<location unit="M">
+<x> 11.35 </x>
+<y> -11.99 </y>
+<z> -4.81 </z>
+</location>
+<static_friction> 0.50 </static_friction>
+<dynamic_friction> 0.20 </dynamic_friction>
+<rolling_friction> 0.00 </rolling_friction>
+<spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
+</contact>
+
+<contact type="STRUCTURE" name="RIGHT_WING_TIP">
+<location unit="M">
+<x> 11.35 </x>
+<y> 11.99 </y>
+<z> -4.81 </z>
+</location>
+<static_friction> 0.50 </static_friction>
+<dynamic_friction> 0.20 </dynamic_friction>
+<rolling_friction> 0.00 </rolling_friction>
+<spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
+</contact>
+
+<contact type="STRUCTURE" name="NOSE_CONE">
+<location unit="M">
+<x> -18.92 </x>
+<y> 0.0 </y>
+<z> -4.90 </z>
+</location>
+<static_friction> 0.50 </static_friction>
+<dynamic_friction> 0.20 </dynamic_friction>
+<rolling_friction> 0.00 </rolling_friction>
+<spring_coeff unit="LBS/FT"> 550000.00 </spring_coeff>
+<damping_coeff unit="LBS/FT/SEC"> 110000.00 </damping_coeff>
+</contact>
 
  <!-- <contact type="STRUCTURE" name="FRONT_LEG">
    <location unit="IN">
@@ -3788,5 +3854,6 @@
  <system file="entry_guidance"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
+ <system file="ground_effects"></system>
  
 </fdm_config>

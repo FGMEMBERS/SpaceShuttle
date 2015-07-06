@@ -102,26 +102,232 @@
 </model>
 
 <!-- landing gear -->
-
 <model>
   <path>Aircraft/SpaceShuttle/Models/LandingGears.ac</path>
-    <condition>
+</model>
+
+<!-- landing gear damaged-->
+<model>
+	<path>Aircraft/SpaceShuttle/Models/damage.ac</path>
+</model>
+
+ <!-- front gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>Cube</object-name>
+   <object-name>Shock</object-name>
+   <object-name>Axel</object-name>
+   <object-name>Rim</object-name>
+   <object-name>Tire</object-name>
+   <condition>
 		<and>
-		<equals>
-			<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-			<value>1</value>
-		</equals>
-		<equals>
-			<property>/controls/shuttle/ET-static-model</property>
-			<value>0</value>
-		</equals>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<value>1</value>
+			</equals>
 		</and>
 	</condition>
-</model>
+ </animation>
+
+ <!-- front gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>CubeD</object-name>
+   <object-name>ShockD</object-name>
+   <object-name>AxelD</object-name>
+   <object-name>RimD</object-name>
+   <object-name>TireD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+<!-- rear landing gear -->
+<animation>
+   <type>select</type>
+   <object-name>DragBrace.UpperL</object-name>
+   <object-name>StrutActuatorL</object-name>
+   <object-name>StrutActuator.RodL</object-name>
+   <object-name>LockBrace.LowerL</object-name>
+   <object-name>LockBrace.UpperL</object-name>
+   <object-name>LockBraceUpper.BarL</object-name>
+   <object-name>DragBrace.UpperR</object-name>
+   <object-name>StrutActuatorR</object-name>
+   <object-name>StrutActuator.RodR</object-name>
+   <object-name>LockBrace.LowerR</object-name>
+   <object-name>LockBrace.UpperR</object-name>
+   <object-name>LockBraceUpper.BarR</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingL</object-name>
+   <object-name>CylinderL</object-name>
+   <object-name>CylinderL.001</object-name>
+   <object-name>DragBrace.LowerL</object-name>
+   <object-name>ShockHousingL</object-name>
+   <object-name>ShockL</object-name>
+   <object-name>CubeL</object-name>
+   <object-name>AxelL</object-name>
+   <object-name>LRimL</object-name>
+   <object-name>RRimL</object-name>
+   <object-name>TorqueArm.LowerL</object-name>
+   <object-name>TorqueArm.UpperL</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingR</object-name>
+   <object-name>CylinderR</object-name>
+   <object-name>CylinderR.001</object-name>
+   <object-name>DragBrace.LowerR</object-name>
+   <object-name>ShockHousingR</object-name>
+   <object-name>ShockR</object-name>
+   <object-name>CubeR</object-name>
+   <object-name>AxelR</object-name>
+   <object-name>LRimR</object-name>
+   <object-name>RRimR</object-name>
+   <object-name>TorqueArm.LowerR</object-name>
+   <object-name>TorqueArm.UpperR</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingLD</object-name>
+   <object-name>CylinderLD</object-name>
+   <object-name>CylinderLD.001</object-name>
+   <object-name>DragBrace.LowerLD</object-name>
+   <object-name>ShockHousingLD</object-name>
+   <object-name>ShockLD</object-name>
+   <object-name>CubeLD</object-name>
+   <object-name>AxelLD</object-name>
+   <object-name>LRimLD</object-name>
+   <object-name>RRimLD</object-name>
+   <object-name>TorqueArm.LowerLD</object-name>
+   <object-name>TorqueArm.UpperLD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingRD</object-name>
+   <object-name>CylinderRD</object-name>
+   <object-name>CylinderRD.001</object-name>
+   <object-name>DragBrace.LowerRD</object-name>
+   <object-name>ShockHousingRD</object-name>
+   <object-name>ShockRD</object-name>
+   <object-name>CubeRD</object-name>
+   <object-name>AxelRD</object-name>
+   <object-name>LRimRD</object-name>
+   <object-name>RRimRD</object-name>
+   <object-name>TorqueArm.LowerRD</object-name>
+   <object-name>TorqueArm.UpperRD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
 
  <!-- Spin to wheels -->
  <animation>
 	<type>spin</type>
+	<object-name>Axel</object-name>
 	<object-name>Rim</object-name>
 	<object-name>Tire</object-name>
 	<property>gear/gear[0]/rollspeed-ms</property>
@@ -139,8 +345,9 @@
  </animation>
  <animation>
 	<type>spin</type>
-	<object-name>Rim.002</object-name>
-	<object-name>Rim.003</object-name>
+	<object-name>AxelL</object-name>
+	<object-name>LRimL</object-name>
+	<object-name>RRimL</object-name>
 	<property>gear/gear[1]/rollspeed-ms</property>
 	<factor>13</factor>
 	<axis>
@@ -156,8 +363,9 @@
  </animation>
  <animation>
 	<type>spin</type>
-	<object-name>Rim.001</object-name>
-	<object-name>Rim.004</object-name>
+	<object-name>AxelR</object-name>
+	<object-name>LRimR</object-name>
+	<object-name>RRimR</object-name>
 	<property>gear/gear[2]/rollspeed-ms</property>
 	<factor>13</factor>
 	<axis>
@@ -1010,6 +1218,182 @@
       </condition>
 </model>
 
+	<!-- wing strike -->
+	<model>
+		<name>left-wing-strike</name>
+		<path>Effects/ground/wingstrike/left-wing-strike.xml</path>
+		<offsets>
+		  <x-m> 11.35 </x-m>
+		  <y-m> -11.99 </y-m>
+		  <z-m> -4.51 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-wing-strike</name>
+		<path>Effects/ground/wingstrike/right-wing-strike.xml</path>
+		<offsets>
+		  <x-m> 11.35 </x-m>
+		  <y-m>  11.99 </y-m>
+		  <z-m> -4.51 </z-m>
+		</offsets>
+	</model>
+
+	<!-- tail strike -->
+	<model>
+		<name>left-tail-strike</name>
+		<path>Effects/ground/tailstrike/left-tail-strike.xml</path>
+		<offsets>
+		  <x-m> 15.4567 </x-m>
+		  <y-m> -2.2704 </y-m>
+		  <z-m> -5.0590 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>tail-strike</name>
+		<path>Effects/ground/tailstrike/tail-strike.xml</path>
+		<offsets>
+		  <x-m> 15.4567 </x-m>
+		  <y-m>  0.0 </y-m>
+		  <z-m> -5.0590 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-tail-strike</name>
+		<path>Effects/ground/tailstrike/right-tail-strike.xml</path>
+		<offsets>
+		  <x-m> 15.4567 </x-m>
+		  <y-m>  2.2704 </y-m>
+		  <z-m> -5.0590 </z-m>
+		</offsets>
+	</model>
+
+	<!--off road tire smoke -->
+	<model>
+		<object-name>nose-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/nose-tire-smoke.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>left-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/left-tire-smoke.xml</path>
+		<offsets>
+		  <x-m> 4.95 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>right-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/right-tire-smoke.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- touchdown tire smoke -->
+	<model>
+		<object-name>nose-touchdown-smoke</object-name>
+		<path>Effects/ground/touchdown/nose-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>left-touchdown-smoke</object-name>
+		<object-name>left-touchdown-vortex</object-name>
+		<path>Effects/ground/touchdown/left-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m> 4.95 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>right-touchdown-smoke</object-name>
+		<path>Effects/ground/touchdown/right-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- rain tire spray -->
+	<model>
+		<name>nose-tire-spray</name>
+		<path>Effects/ground/tirespray/nose-tire-spray.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.87 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>left-tire-spray</name>
+		<path>Effects/ground/tirespray/left-tire-spray.xml</path>
+		<offsets>
+		  <x-m> 4.05 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-tire-spray</name>
+		<path>Effects/ground/tirespray/right-tire-spray.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- gear damage -->
+	<model>
+		<path>Effects/ground/gear-damage/nose-damage.xml</path>
+		<name>nose-damage</name>
+		<offsets>
+		  <x-m> -15.1 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.1 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/gear-damage/port-damage.xml</path>
+		<name>port-damage</name>
+		<offsets>
+		  <x-m> 4.05 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/gear-damage/stbd-damage.xml</path>
+		<name>stbd-damage</name>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-6.3</z-m>
+		</offsets>
+	</model>
 
  <effect>
     <inherits-from>Effects/space</inherits-from>

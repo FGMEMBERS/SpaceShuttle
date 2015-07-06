@@ -1061,6 +1061,9 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     			<name>ssme-flame-computation</name> 	
     			<path>Systems/ssme-flame-computation.xml</path>  
   		</property-rule>
+		<property-rule n="101">
+			<path>Systems/ground-effects-filters.xml</path>
+		</property-rule>
 	</systems>
 	<config>
 		<shuttle>
@@ -1070,6 +1073,14 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 			<TC-config type="string">none</TC-config>
 		</shuttle>
 	</config>
+
+		<flight-recorder>
+			<replay-config type="int">0</replay-config>
+			<config n="0" include="Systems/flight-recorder/flight-recorder.xml">
+			  <name type="string">Space Shuttle Flight Recorder</name>
+			</config>
+		</flight-recorder>
+
     </sim>
 
     <!-- Key mapping -->
@@ -1277,6 +1288,9 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
+		<tyresmoke>
+			<file>Nasal/tyresmoke.nas</file>
+		</tyresmoke>
 
     </nasal>
 
@@ -1286,6 +1300,25 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
         <x-offset>-100</x-offset>
         <y-offset>70</y-offset>
     </import>
+
+	<gear>
+		<gear n="0">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+		<gear n="1">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+		<gear n="2">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+	</gear>
+
 </PropertyList>
 
 
