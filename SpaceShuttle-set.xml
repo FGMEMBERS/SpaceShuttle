@@ -806,6 +806,13 @@
                         </binding>
                     </item>
  		    <item>
+                        <label>RCS/OMS propellant flow</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rcs_dlg.open()</script>
+                        </binding>
+                    </item>
+ 		    <item>
                         <label>RCS and OMS thermal control</label>
                         <binding>
                             <command>nasal</command>
