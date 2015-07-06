@@ -154,6 +154,15 @@ var power = getprop("/fdm/jsbsim/systems/mechanical/pb-door-power");
 
 if (power == 0.0) {return;}
 
+# payload bay door won't move if the Shuttle is under thermal tension
+
+var T_left = getprop("/fdm/jsbsim/systems/thermal-distribution/left-temperature-K");
+var T_right = getprop("/fdm/jsbsim/systems/thermal-distribution/right-temperature-K");
+
+var DeltaT = math.abs(T_left - T_right);
+
+if (DeltaT > 60.0) {return;}
+
 if (stage == 0)
 	{
 	# first open latch gangs 5-8 and 9-12
@@ -220,6 +229,15 @@ var payload_bay_door_close_auto = func (stage) {
 var power = getprop("/fdm/jsbsim/systems/mechanical/pb-door-power");
 
 if (power == 0.0) {return;}
+
+# payload bay door won't move if the Shuttle is under thermal tension
+
+var T_left = getprop("/fdm/jsbsim/systems/thermal-distribution/left-temperature-K");
+var T_right = getprop("/fdm/jsbsim/systems/thermal-distribution/right-temperature-K");
+
+var DeltaT = math.abs(T_left - T_right);
+
+if (DeltaT > 60.0) {return;}
 
 if (stage == 0)
 	{
