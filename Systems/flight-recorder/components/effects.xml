@@ -135,4 +135,18 @@
         <property type="string">/fdm/jsbsim/ground/right-tail-ground-effect-speed-kt-actual</property>
     </signal>
 
+	<!-- Touchdown tire smoke and vortex-->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+
 </PropertyList>

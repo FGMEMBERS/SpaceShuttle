@@ -175,6 +175,25 @@
     </function>
   </fcs_function>
 
+
+    <fcs_function name="ground/nose-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[0]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/left-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[1]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/right-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[2]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+  
  </channel>
 
 </system>

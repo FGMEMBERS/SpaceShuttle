@@ -1303,7 +1303,6 @@
 
 	<!-- touchdown tire smoke -->
 	<model>
-		<object-name>nose-touchdown-smoke</object-name>
 		<path>Effects/ground/touchdown/nose-touchdown-smoke.xml</path>
 		<offsets>
 		  <x-m> -16.22 </x-m>
@@ -1313,8 +1312,6 @@
 	</model>
 
 	<model>
-		<object-name>left-touchdown-smoke</object-name>
-		<object-name>left-touchdown-vortex</object-name>
 		<path>Effects/ground/touchdown/left-touchdown-smoke.xml</path>
 		<offsets>
 		  <x-m> 4.95 </x-m>
@@ -1324,7 +1321,6 @@
 	</model>
 
 	<model>
-		<object-name>right-touchdown-smoke</object-name>
 		<path>Effects/ground/touchdown/right-touchdown-smoke.xml</path>
 		<offsets>
 		  <x-m>4.05</x-m>

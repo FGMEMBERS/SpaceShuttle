@@ -201,4 +201,58 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
+	<filter>
+        <name>Nose Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Left Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Right Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
 </PropertyList>

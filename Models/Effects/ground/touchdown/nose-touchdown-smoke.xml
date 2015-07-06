@@ -4,7 +4,8 @@
 
   <params>
     <nose_touchdown_ground_effect>
-	 <property>/gear/gear[0]/tyre-smoke</property>
+	 <!--property>/gear/gear[0]/tyre-smoke</property-->
+	 <property>/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt-actual</property>
     </nose_touchdown_ground_effect>
   </params>
 
