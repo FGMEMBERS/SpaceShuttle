@@ -1146,11 +1146,13 @@ if (getprop("/sim/presets/stage") == 4)
 
 	var place_lat = getprop("/position/latitude-deg") + m_to_lat * place_y;
 	var place_lon = getprop("/position/longitude-deg") + m_to_lon * place_x;
+	var place_alt_correct = getprop("/position/altitude-ft") - getprop("/position/altitude-agl-ft");
 
 	#print (place_lat, " ",place_lon);
 
 	setprop("/position/latitude-deg", place_lat); 
 	setprop("/position/longitude-deg", place_lon); 
+	setprop("/position/altitude-ft", 11000 + place_alt_correct);
 
 	setprop("/velocities/uBody-fps",600.0);
 	setprop("/velocities/wBody-fps", 60.0);

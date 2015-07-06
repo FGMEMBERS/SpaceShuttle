@@ -325,6 +325,26 @@
 		    <propellant-dump-density type="double">0.2</propellant-dump-density>
 		    <propellant-dump-force-lb type="double">0.0</propellant-dump-force-lb>
 		</mps>
+		<oms-hardware>
+		    	<helium-left-oms-valve-A-status type="int">1</helium-left-oms-valve-A-status>
+		    	<helium-left-oms-valve-B-status type="int">1</helium-left-oms-valve-B-status>
+		    	<helium-right-oms-valve-A-status type="int">1</helium-right-oms-valve-A-status>
+		    	<helium-right-oms-valve-B-status type="int">1</helium-right-oms-valve-B-status>
+			<helium-left-oms-pressure-psia type="double">280.0</helium-left-oms-pressure-psia>
+			<helium-right-oms-pressure-psia type="double">280.0</helium-right-oms-pressure-psia>
+		    	<tank-left-oms-valve-A-status type="int">1</tank-left-oms-valve-A-status>
+		    	<tank-left-oms-valve-B-status type="int">1</tank-left-oms-valve-B-status>
+		    	<tank-right-oms-valve-A-status type="int">1</tank-right-oms-valve-A-status>
+		    	<tank-right-oms-valve-B-status type="int">1</tank-right-oms-valve-B-status>
+			<crossfeed-left-oms-valve-A-status type="int">0</crossfeed-left-oms-valve-A-status>
+			<crossfeed-left-oms-valve-B-status type="int">0</crossfeed-left-oms-valve-B-status>
+			<crossfeed-right-oms-valve-A-status type="int">0</crossfeed-right-oms-valve-A-status>
+			<crossfeed-right-oms-valve-B-status type="int">0</crossfeed-right-oms-valve-B-status>
+			<engine-left-arm-cmd type="int">1</engine-left-arm-cmd>
+			<engine-right-arm-cmd type="int">1</engine-right-arm-cmd>
+  		    	<fuel-left-oms-pressure-psia type="double">250.0</fuel-left-oms-pressure-psia>
+  		    	<fuel-right-oms-pressure-psia type="double">250.0</fuel-right-oms-pressure-psia>
+		</oms-hardware>
 		<propellant>
 			<LO2-inboard-status type="int">0</LO2-inboard-status>
 			<LO2-outboard-status type="int">0</LO2-outboard-status>

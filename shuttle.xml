@@ -3848,6 +3848,7 @@
  <system file="mechanical.xml"></system>
  <system file="mps.xml"></system>
  <system file="rcs_hardware"></system>
+ <system file="oms_hardware"></system>
  <system file="rcs_control"></system>
  <system file="eclss"></system>
  <system file="computations"></system>
