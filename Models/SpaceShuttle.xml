@@ -380,6 +380,48 @@
 	</center>
  </animation>
 
+ <animation>
+  <type>rotate</type>
+  <object-name>BodyFlap</object-name>
+  <property>/controls/shuttle/bodyflap-pos-rad</property>
+  <interpolation>
+    <entry>
+      <ind>-0.315</ind>
+      <dep>-15.7</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+	<entry>
+      <ind>0.315</ind>
+      <dep>26.55</dep>
+    </entry>
+  </interpolation>
+  <center>
+   <x-m> 13.272</x-m>
+   <y-m> -0.4545</y-m>
+   <z-m> -5.2919</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
+      <offsets>
+		 <x-m>180.5</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>-10.4</z-m>
+		 <pitch-deg>0</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>
+  </model>
+
+
 <!-- robotarm, click it to activate -->
 
 <model>
@@ -1244,9 +1286,9 @@
 		<name>left-tail-strike</name>
 		<path>Effects/ground/tailstrike/left-tail-strike.xml</path>
 		<offsets>
-		  <x-m> 15.4567 </x-m>
-		  <y-m> -2.2704 </y-m>
-		  <z-m> -5.0590 </z-m>
+		  <x-m> 13.5 </x-m>
+		  <y-m> -2.27 </y-m>
+		  <z-m> -5.35 </z-m>
 		</offsets>
 	</model>
 
@@ -1254,9 +1296,9 @@
 		<name>tail-strike</name>
 		<path>Effects/ground/tailstrike/tail-strike.xml</path>
 		<offsets>
-		  <x-m> 15.4567 </x-m>
+		  <x-m> 13.5 </x-m>
 		  <y-m>  0.0 </y-m>
-		  <z-m> -5.0590 </z-m>
+		  <z-m> -5.35 </z-m>
 		</offsets>
 	</model>
 
@@ -1264,9 +1306,9 @@
 		<name>right-tail-strike</name>
 		<path>Effects/ground/tailstrike/right-tail-strike.xml</path>
 		<offsets>
-		  <x-m> 15.4567 </x-m>
-		  <y-m>  2.2704 </y-m>
-		  <z-m> -5.0590 </z-m>
+		  <x-m> 13.5 </x-m>
+		  <y-m>  2.27 </y-m>
+		  <z-m> -5.35 </z-m>
 		</offsets>
 	</model>
 
