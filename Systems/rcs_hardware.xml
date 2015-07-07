@@ -842,44 +842,6 @@
 		</fcs_function>
 
 
-		<fcs_function name="systems/rcs-hardware/left-12-crossfeed-fuel-available">
-		<function>
-			<product>
-				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
-				<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs-hardware/left-345-crossfeed-fuel-available">
-		<function>
-			<product>
-				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
-				<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs-hardware/right-12-crossfeed-fuel-available">
-		<function>
-			<product>
-				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
-				<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
-			</product>
-		</function>
-		</fcs_function>
-		
-		<fcs_function name="systems/rcs-hardware/right-345-crossfeed-fuel-available">
-		<function>
-			<product>
-				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
-				<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
-			</product>
-		</function>
-		</fcs_function>
-
-
-
 	</channel>
 
 	<channel name="OMS to RCS crossfeed">
@@ -894,6 +856,16 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rcs-hardware/oms-left-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
 		<switch name="systems/rcs-hardware/oms-right-to-left-12-crossfeed">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -901,6 +873,16 @@
 				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
 				systems/oms-hardware/tank-right-isolation-status == 1
 				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
 			</test>
 		</switch>
 
@@ -914,6 +896,16 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rcs-hardware/oms-left-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+			</test>
+		</switch>
+
 		<switch name="systems/rcs-hardware/oms-right-to-left-345-crossfeed">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -923,6 +915,323 @@
 				systems/rcs-hardware/tank-left-345-isolation-status == 0
 			</test>
 		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[9]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-left-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[9]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[8]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-left-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[8]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[11]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-right-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[11]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[10]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-right-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[10]/external-flow-rate-pps</output>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="Crossfeed fuel availability for RCS thrusters">
+
+		<fcs_function name="systems/rcs-hardware/left-12-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-345-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-12-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+		
+		<fcs_function name="systems/rcs-hardware/right-345-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 
