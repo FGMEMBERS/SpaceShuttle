@@ -344,6 +344,10 @@
 			<engine-right-arm-cmd type="int">1</engine-right-arm-cmd>
   		    	<fuel-left-oms-pressure-psia type="double">250.0</fuel-left-oms-pressure-psia>
   		    	<fuel-right-oms-pressure-psia type="double">250.0</fuel-right-oms-pressure-psia>
+			<crossfeed-left-open type="double">0.0</crossfeed-left-open>
+			<tank-left-isolation-status type="double">0.0</tank-left-isolation-status>
+			<crossfeed-right-open type="double">0.0</crossfeed-right-open>
+			<tank-right-isolation-status type="double">0.0</tank-right-isolation-status>
 		</oms-hardware>
 		<propellant>
 			<LO2-inboard-status type="int">0</LO2-inboard-status>

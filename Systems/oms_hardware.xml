@@ -4,6 +4,9 @@
 
 	<channel name="OMS helium and propellant system">
 
+		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
+		<!-- path for fuel from tank to engine exists given the valve settings -->
+
 		<switch name="systems/oms-hardware/left-oms-helium-valve-open">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
@@ -237,7 +240,14 @@
 	</channel>
 
 
+	
+
 	<channel name="OMS to OMS crossfeed">
+
+	<!-- since JSBSim doesn't have a direct crossfeed ability, this is a bit hacky - it uses -->
+	<!-- the fact that the Shuttle never directly connects two tanks in a cross-feed -->
+	<!-- and emulated cross-feed by using external flows to transfer fuel from feeding to -->
+	<!-- receiving tank -->
 
 		<fcs_function name="systems/oms-hardware/fuel-left-nominal-drain-pps">
 		<function>
@@ -309,6 +319,7 @@
 				systems/oms-hardware/crossfeed-left-open == 1
 				systems/oms-hardware/crossfeed-right-open == 1
 				systems/oms-hardware/tank-right-isolation-status == 0
+				systems/oms-hardware/tank-left-isolation-status == 1
 			</test>
 		</switch>
 
@@ -318,6 +329,7 @@
 				systems/oms-hardware/crossfeed-left-open == 1
 				systems/oms-hardware/crossfeed-right-open == 1
 				systems/oms-hardware/tank-left-isolation-status == 0
+				systems/oms-hardware/tank-right-isolation-status == 1
 			</test>
 		</switch>
 		

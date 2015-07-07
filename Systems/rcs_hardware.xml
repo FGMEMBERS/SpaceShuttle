@@ -570,6 +570,362 @@
 
 	</channel>
 
+
+	<channel name="RCS to RCS crossfeed">
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[24]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[26]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[28]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[34]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[35]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[40]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[23]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[25]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[27]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[33]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[39]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[41]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[47]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[49]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[24]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[26]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[28]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[34]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[35]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[40]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[23]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[25]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[27]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[33]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[39]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[41]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[47]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[49]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[22]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[30]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[32]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[37]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[38]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[43]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[21]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[29]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[31]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[36]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[42]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[44]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[48]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[50]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[22]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[30]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[32]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[37]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[38]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[43]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[21]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[29]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[31]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[36]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[42]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[44]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[48]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[50]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs-hardware/tank-left-345-isolation-status">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-345A-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-345B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/tank-right-345-isolation-status">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tank-right-rcs-valve-345A-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-345B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-345-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+				systems/rcs-hardware/tank-right-345-isolation-status == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[9]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[8]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[11]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[10]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rcs-hardware/left-12-crossfeed-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-345-crossfeed-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-12-crossfeed-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+			</product>
+		</function>
+		</fcs_function>
+		
+		<fcs_function name="systems/rcs-hardware/right-345-crossfeed-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	<channel name="OMS to RCS crossfeed">
+
+		<switch name="systems/rcs-hardware/oms-left-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-left-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+			</test>
+		</switch>
+
+	</channel>
+
 	<!-- the RCS control routines provide output in terms of firing commands for the thrusters -->
 	<!-- the RCS hardware simulation checks whether the thruster is operational and has the required fuel -->
 	
@@ -733,7 +1089,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R3A-fire-cmd</property>
-				<property>systems/rcs-hardware/R3A-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R3A-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R3A-condition</property>
 			</product>
 		</function>
@@ -744,7 +1103,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R1A-fire-cmd</property>
-				<property>systems/rcs-hardware/R1A-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R1A-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R1A-condition</property>
 			</product>
 		</function>
@@ -755,7 +1117,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L3A-fire-cmd</property>
-				<property>systems/rcs-hardware/L3A-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L3A-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L3A-condition</property>
 			</product>
 		</function>
@@ -766,7 +1131,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L1A-fire-cmd</property>
-				<property>systems/rcs-hardware/L1A-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L1A-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L1A-condition</property>
 			</product>
 		</function>
@@ -777,7 +1145,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L4L-fire-cmd</property>
-				<property>systems/rcs-hardware/L4L-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L4L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L4L-condition</property>
 			</product>
 		</function>
@@ -788,7 +1159,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L2L-fire-cmd</property>
-				<property>systems/rcs-hardware/L2L-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L2L-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L2L-condition</property>
 			</product>
 		</function>
@@ -799,7 +1173,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L3L-fire-cmd</property>
-				<property>systems/rcs-hardware/L3L-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L3L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L3L-condition</property>
 			</product>
 		</function>
@@ -810,7 +1187,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L1L-fire-cmd</property>
-				<property>systems/rcs-hardware/L1L-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L1L-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L1L-condition</property>
 			</product>
 		</function>
@@ -821,7 +1201,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R4R-fire-cmd</property>
-				<property>systems/rcs-hardware/R4R-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R4R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R4R-condition</property>
 			</product>
 		</function>
@@ -832,7 +1215,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R2R-fire-cmd</property>
-				<property>systems/rcs-hardware/R2R-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R2R-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R2R-condition</property>
 			</product>
 		</function>
@@ -843,7 +1229,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R3R-fire-cmd</property>
-				<property>systems/rcs-hardware/R3R-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R3R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R3R-condition</property>
 			</product>
 		</function>
@@ -854,7 +1243,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R1R-fire-cmd</property>
-				<property>systems/rcs-hardware/R1R-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R1R-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R1R-condition</property>
 			</product>
 		</function>
@@ -865,7 +1257,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L4U-fire-cmd</property>
-				<property>systems/rcs-hardware/L4U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L4U-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L4U-condition</property>
 			</product>
 		</function>
@@ -876,7 +1271,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L2U-fire-cmd</property>
-				<property>systems/rcs-hardware/L2U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L2U-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L2U-condition</property>
 			</product>
 		</function>
@@ -887,7 +1285,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L1U-fire-cmd</property>
-				<property>systems/rcs-hardware/L1U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L1U-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L1U-condition</property>
 			</product>
 		</function>
@@ -898,7 +1299,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R4U-fire-cmd</property>
-				<property>systems/rcs-hardware/R4U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R4U-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R4U-condition</property>
 			</product>
 		</function>
@@ -909,7 +1313,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R2U-fire-cmd</property>
-				<property>systems/rcs-hardware/R2U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R2U-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R2U-condition</property>
 			</product>
 		</function>
@@ -920,7 +1327,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R1U-fire-cmd</property>
-				<property>systems/rcs-hardware/R1U-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R1U-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R1U-condition</property>
 			</product>
 		</function>
@@ -931,7 +1341,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L4D-fire-cmd</property>
-				<property>systems/rcs-hardware/L4D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L4D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L4D-condition</property>
 			</product>
 		</function>
@@ -942,7 +1355,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L2D-fire-cmd</property>
-				<property>systems/rcs-hardware/L2D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L2D-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L2D-condition</property>
 			</product>
 		</function>
@@ -953,7 +1369,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L3D-fire-cmd</property>
-				<property>systems/rcs-hardware/L3D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L3D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L3D-condition</property>
 			</product>
 		</function>
@@ -964,7 +1383,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R4D-fire-cmd</property>
-				<property>systems/rcs-hardware/R4D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R4D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R4D-condition</property>
 			</product>
 		</function>
@@ -975,7 +1397,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R2D-fire-cmd</property>
-				<property>systems/rcs-hardware/R2D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R2D-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R2D-condition</property>
 			</product>
 		</function>
@@ -986,7 +1411,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R3D-fire-cmd</property>
-				<property>systems/rcs-hardware/R3D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R3D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R3D-condition</property>
 			</product>
 		</function>
@@ -1021,7 +1449,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L5D-fire-cmd</property>
-				<property>systems/rcs-hardware/L5D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L5D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L5D-condition</property>
 			</product>
 		</function>
@@ -1032,7 +1463,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R5D-fire-cmd</property>
-				<property>systems/rcs-hardware/R5D-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R5D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R5D-condition</property>
 			</product>
 		</function>
@@ -1043,7 +1477,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/L5L-fire-cmd</property>
-				<property>systems/rcs-hardware/L5L-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/L5L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-L5L-condition</property>
 			</product>
 		</function>
@@ -1054,7 +1491,10 @@
 		<function>
 			<product>
 				<property>systems/rcs/R5R-fire-cmd</property>
-				<property>systems/rcs-hardware/R5R-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/R5R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
 				<property>systems/failures/rcs-R5R-condition</property>
 			</product>
 		</function>

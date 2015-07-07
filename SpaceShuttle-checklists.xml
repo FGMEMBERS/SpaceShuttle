@@ -1502,4 +1502,58 @@
   </checklist>
 
 
+ <checklist>
+    <title>OMS/RCS Crossfeeding</title>  
+
+    <item>
+      <name>Isolate receiving side</name>
+    </item>
+
+    <item>
+      <name>do not connect tanks during crossfeeds!</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>only one tank may act as supply!</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>RCS may not supply OMS!</name>
+      <value></value>
+    </item>
+ 
+ 
+    <item>
+      <name>receiving side tank isolation valves</name>
+      <value>CLOSED</value>
+    </item>
+
+   <item>
+      <name>Open crossfeed lines</name>
+    </item>
+
+    <item>
+      <name>supplying side crossfeed valves</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>check receiving side tank isolation valves</name>
+      <value>CLOSED</value>
+    </item>
+
+    <item>
+      <name>check receiving side manifold isolation valves</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>receiving side crossfeed valves</name>
+      <value>OPEN</value>
+    </item>
+
+</checklist>
+
  </PropertyList>
