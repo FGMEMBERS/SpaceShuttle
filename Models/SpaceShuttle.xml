@@ -410,6 +410,58 @@
   </axis>
  </animation>
 
+ <animation>
+  <type>rotate</type>
+  <object-name>SpeedBrakeL</object-name>
+  <property>/controls/shuttle/speedbrake</property>
+  <interpolation>
+	<entry>
+      <ind>1.0</ind>
+      <dep>-49.3</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+  </interpolation>
+  <center>
+   <x-m> 14.679</x-m>
+   <y-m> -0.027</y-m>
+   <z-m> 5.128</z-m>
+  </center>
+  <axis>
+   <x>8</x>
+   <y>.5</y>
+   <z>15</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>SpeedBrakeR</object-name>
+  <property>/controls/shuttle/speedbrake</property>
+  <interpolation>
+	<entry>
+      <ind>1.0</ind>
+      <dep>-49.3</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+  </interpolation>
+  <center>
+   <x-m> 14.679</x-m>
+   <y-m> 0.027</y-m>
+   <z-m> 5.128</z-m>
+  </center>
+  <axis>
+   <x>-8</x>
+   <y>.5</y>
+   <z>-15</z>
+  </axis>
+ </animation>
+
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
       <offsets>
