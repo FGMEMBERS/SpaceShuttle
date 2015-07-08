@@ -3855,6 +3855,7 @@
  <system file="entry_guidance"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
+ <system file="cws"></system>
  <system file="ground_effects"></system>
  
 </fdm_config>

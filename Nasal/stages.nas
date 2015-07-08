@@ -14,6 +14,8 @@ var lockup_message_flag = 0;
 var SRB_burn_timer = 0.0;
 var deorbit_stage_flag = 0;
 
+
+
 aircraft.HUD.cycle_color();
 
 settimer(func {setprop("systems/electrical/init-electrical-on", 0.0);}, 30.0);
@@ -178,6 +180,16 @@ if ((lockup_eng3 == 1) and (SpaceShuttle.failure_cmd.ssme3 == 1))
 
 SpaceShuttle.check_limits_ascent();
 
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt > SpaceShuttle.earthview_transition_alt)
+		{
+		local_weather.clear_all();
+		earthview.start();
+		}
+
+	}
 	
 settimer(launch_loop, 1.0);
 }
@@ -761,6 +773,19 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
 
 SpaceShuttle.check_limits_entry();
 
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt < SpaceShuttle.earthview_transition_alt)
+		{
+		earthview.stop();
+
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.set_tile();}
+		}
+
+	}
 
 
 settimer(deorbit_loop,1.0);

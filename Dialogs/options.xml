@@ -138,7 +138,81 @@
 
 </group>
 
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
 
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Orbital rendering</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<checkbox>
+        <name>use-earthview</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/rendering/use-earthview</property>
+          <label>automatically use Earthview orbital rendering</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>use-earthview</object-name>
+          </binding>
+        </checkbox>
+
+	<text>
+      		<enable>
+       		<property>/sim/config/shuttle/rendering/use-earthview</property>
+      		</enable>
+      		<label>transition to Earthview at</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+    <slider>
+      <name>earthview-transition</name>
+      <row>2</row>
+      <col>1</col>
+      <min>85000.0</min>
+      <max>320000.00</max>
+      <enable>
+       <property>/sim/config/shuttle/rendering/use-earthview</property>
+      </enable>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/earthview-transition-alt-ft</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>earthview-transition</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/config/shuttle/rendering/use-earthview</property>
+      </enable>
+      <row>2</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f ft</format>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/earthview-transition-alt-ft</property>
+    </text> 
+
+
+ </group>
 
 
 

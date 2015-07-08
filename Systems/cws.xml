@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="CWS flag generation">
+
+		<switch name="systems/cws/internal/left-oms-firing-fail">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/engine[5]/thrust-lbs GT 0.0
+				systems/failures/oms1-condition LT 0.8
+			</test>
+		</switch>
+
+
+		<switch name="systems/cws/left-oms">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/tanks-left-oms-pressure-psia GT 288
+				systems/oms-hardware/tanks-left-oms-pressure-psia LT 232
+				systems/cws/internal/left-oms-firing-fail == 1
+			</test>
+		</switch>
+
+		<switch name="systems/cws/internal/right-oms-firing-fail">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/engine[6]/thrust-lbs GT 0.0
+				systems/failures/oms2-condition LT 0.8
+			</test>
+		</switch>
+
+
+		<switch name="systems/cws/right-oms">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">				
+				systems/oms-hardware/tanks-right-oms-pressure-psia GT 288
+				systems/oms-hardware/tanks-right-oms-pressure-psia LT 232
+				systems/cws/internal/right-oms-firing-fail == 1
+			</test>
+		</switch>
+
+		<switch name="systems/cws/oms-tvc">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/failures/oms1-gimbal-condition LT 0.8
+				systems/failures/oms2-gimbal-condition LT 0.8
+			</test>
+		</switch>
+
+		<switch name="systems/cws/fwd-rcs">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tanks-fwd-rcs-pressure-psia LT 200
+				systems/rcs-hardware/tanks-fwd-rcs-pressure-psia GT 312
+			</test>
+		</switch>
+
+		<switch name="systems/cws/left-rcs">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tanks-left-rcs-pressure-psia LT 200
+				systems/rcs-hardware/tanks-left-rcs-pressure-psia GT 312
+			</test>
+		</switch>
+
+		<switch name="systems/cws/right-rcs">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tanks-right-rcs-pressure-psia LT 200
+				systems/rcs-hardware/tanks-right-rcs-pressure-psia GT 312
+			</test>
+		</switch>
+
+	</channel>
+	
+</system>

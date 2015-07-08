@@ -1113,6 +1113,10 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
 			<ET-config type="string">super lightweight</ET-config>
 			<TC-config type="string">none</TC-config>
+			<rendering>
+				<use-earthview type="int" userarchive="y">0</use-earthview>
+				<earthview-transition-alt-ft type="double">85000.0</earthview-transition-alt-ft>
+			</rendering>
 		</shuttle>
 	</config>
 

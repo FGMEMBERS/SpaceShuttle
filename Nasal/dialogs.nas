@@ -46,6 +46,9 @@ var temperature_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/temperature/
 
 var propellant_fd_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant_fd/dialog","Aircraft/SpaceShuttle/Dialogs/propellant_fill_drain.xml");
 
+var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
+var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
+
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Vandenberg Air Force Base");
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat",34.722);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon",-120.567);
@@ -272,6 +275,13 @@ else if (cmd == 2)
 
 }
 
+var update_earthview_manager = func {
+
+earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
+earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
+
+}
+
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/config/shuttle/TC-config", update_TC_config);
@@ -279,3 +289,5 @@ setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_descriptio
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", update_scenario);
 setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manager,0,0);
 setlistener("/sim/config/shuttle/thermal-system-computation-speed", thermal_speed_manager,0,0);
+setlistener("/sim/config/shuttle/rendering/use-earthview", update_earthview_manager,0,0);
+setlistener("/sim/config/shuttle/rendering/earthview-transition-alt-ft", update_earthview_manager,0,0);
