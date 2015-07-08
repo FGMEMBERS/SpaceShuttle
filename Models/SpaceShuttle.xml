@@ -207,6 +207,7 @@
    <object-name>RRimL</object-name>
    <object-name>TorqueArm.LowerL</object-name>
    <object-name>TorqueArm.UpperL</object-name>
+   <object-name>GearDoorL</object-name>
    <condition>
 		<and>
 			<equals>
@@ -240,6 +241,7 @@
    <object-name>RRimR</object-name>
    <object-name>TorqueArm.LowerR</object-name>
    <object-name>TorqueArm.UpperR</object-name>
+   <object-name>GearDoorR</object-name>
    <condition>
 		<and>
 			<equals>
@@ -273,6 +275,7 @@
    <object-name>RRimLD</object-name>
    <object-name>TorqueArm.LowerLD</object-name>
    <object-name>TorqueArm.UpperLD</object-name>
+   <object-name>GearDoorLD</object-name>
    <condition>
 		<and>
 			<equals>
@@ -306,6 +309,7 @@
    <object-name>RRimRD</object-name>
    <object-name>TorqueArm.LowerRD</object-name>
    <object-name>TorqueArm.UpperRD</object-name>
+   <object-name>GearDoorRD</object-name>
    <condition>
 		<and>
 			<equals>
@@ -525,6 +529,7 @@
  <animation>
   <type>rotate</type>
   <object-name>GearDoorL</object-name>
+  <object-name>GearDoorLD</object-name>
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
@@ -555,6 +560,7 @@
  <animation>
   <type>rotate</type>
   <object-name>GearDoorR</object-name>
+  <object-name>GearDoorRD</object-name>
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
