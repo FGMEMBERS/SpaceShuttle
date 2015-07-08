@@ -462,6 +462,126 @@
   </axis>
  </animation>
 
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseDoorL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> -17.00619</x-m>
+   <y-m> -0.52466</y-m>
+   <z-m> -4.90111</z-m>
+  </center>
+  <axis>
+   <x>-90</x>
+   <y>8</y>
+   <z>12</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseDoorR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> -17.00619</x-m>
+   <y-m> 0.52466</y-m>
+   <z-m> -4.90111</z-m>
+  </center>
+  <axis>
+   <x>90</x>
+   <y>8</y>
+   <z>-12</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>GearDoorL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 2.40147</x-m>
+   <y-m> -4.22895</y-m>
+   <z-m> -5.10298</z-m>
+  </center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>GearDoorR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 2.40147</x-m>
+   <y-m> 4.22895</y-m>
+   <z-m> -5.10298</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
       <offsets>
