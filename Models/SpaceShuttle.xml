@@ -387,7 +387,8 @@
  <animation>
   <type>rotate</type>
   <object-name>BodyFlap</object-name>
-  <property>/controls/shuttle/bodyflap-pos-rad</property>
+  <!--<property>/controls/shuttle/bodyflap-pos-rad</property>-->
+  <property>/fdm/jsbsim/fcs/bodyflap-pos-rad</property>
   <interpolation>
     <entry>
       <ind>-0.315</ind>
@@ -417,7 +418,8 @@
  <animation>
   <type>rotate</type>
   <object-name>SpeedBrakeL</object-name>
-  <property>/controls/shuttle/speedbrake</property>
+  <!--<property>/controls/shuttle/speedbrake</property>-->
+  <property>/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
   <interpolation>
 	<entry>
       <ind>1.0</ind>
@@ -428,6 +430,7 @@
       <dep>0</dep>
     </entry>
   </interpolation>
+
   <center>
    <x-m> 14.679</x-m>
    <y-m> -0.027</y-m>
@@ -443,7 +446,8 @@
  <animation>
   <type>rotate</type>
   <object-name>SpeedBrakeR</object-name>
-  <property>/controls/shuttle/speedbrake</property>
+  <!--<property>/controls/shuttle/speedbrake</property>-->
+  <property>/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
   <interpolation>
 	<entry>
       <ind>1.0</ind>
@@ -1121,9 +1125,9 @@
 	</condition>
   </model>
 
-<!-- OMS 1 -->
+<!-- OMS 1 flame-->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame_alt.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame1_alt.xml</path>
       <offsets>
 		 <x-m>15.5</x-m>
 		 <y-m>-2.22</y-m>
@@ -1141,9 +1145,9 @@
 
 
 
-<!-- OMS 2 -->
+<!-- OMS 2 flame-->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame_alt.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame2_alt.xml</path>
       <offsets>
 		 <x-m>15.5</x-m>
 		 <y-m>2.22</y-m>

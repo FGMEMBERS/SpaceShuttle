@@ -197,7 +197,7 @@
 		</function>
 		</fcs_function>
 
-		<switch name="systems/oms-hardware/left-oms-fuel-available">
+		<switch name="systems/oms-hardware/left-oms-fuel-pressurized">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/oms-hardware/left-oms-pressurized == 1
@@ -205,13 +205,30 @@
 			</test>
 		</switch>
 
-		<switch name="systems/oms-hardware/right-oms-fuel-available">
+		<switch name="systems/oms-hardware/right-oms-fuel-pressurized">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/oms-hardware/right-oms-pressurized == 1
 				systems/oms-hardware/right-oms-blowdown-available-fuel-fraction LT systems/oms-hardware/right-oms-fuel-fraction
 			</test>
 		</switch>
+
+		<switch name="systems/oms-hardware/left-oms-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/left-oms-fuel-pressurized == 1
+				systems/oms-hardware/left-oms-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/right-oms-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/right-oms-fuel-pressurized == 1
+				systems/oms-hardware/right-oms-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
 
 		<fcs_function name="systems/oms-hardware/left-engine-fuel-available">
 		<function>

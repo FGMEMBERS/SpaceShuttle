@@ -328,8 +328,10 @@
 		</fcs_function>
 
 		<!-- fuel can flow if either the tank is pressurized or the blowdown pressure is sufficient -->
+		<!-- to qualify as available the tank also needs to be more than 1% full -->
+		<!-- (forcing some fuel to remain will ensure thrusters ignite when cross-feeding) -->
 
-		<switch name="systems/rcs-hardware/left-rcs-fuel-available">
+		<switch name="systems/rcs-hardware/left-rcs-fuel-pressurized">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/rcs-hardware/left-rcs-pressurized == 1
@@ -337,7 +339,7 @@
 			</test>
 		</switch>
 
-		<switch name="systems/rcs-hardware/right-rcs-fuel-available">
+		<switch name="systems/rcs-hardware/right-rcs-fuel-pressurized">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/rcs-hardware/right-rcs-pressurized == 1
@@ -345,11 +347,35 @@
 			</test>
 		</switch>
 
-		<switch name="systems/rcs-hardware/fwd-rcs-fuel-available">
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-pressurized">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/rcs-hardware/fwd-rcs-pressurized == 1
 				systems/rcs-hardware/fwd-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/fwd-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/left-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/left-rcs-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/right-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/right-rcs-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/fwd-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/fwd-rcs-fuel-fraction GT 0.01
 			</test>
 		</switch>
 
@@ -1111,7 +1137,7 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-correction">
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-correction">
 		<function>
 			<sum>
 				<property>propulsion/tank[9]/external-flow-rate-pps</property>
@@ -1121,7 +1147,7 @@
 		<output>propulsion/tank[9]/external-flow-rate-pps</output>
 		</fcs_function>
 
-		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-correction">
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-correction">
 		<function>
 			<sum>
 				<property>propulsion/tank[8]/external-flow-rate-pps</property>
@@ -1131,7 +1157,7 @@
 		<output>propulsion/tank[8]/external-flow-rate-pps</output>
 		</fcs_function>
 
-		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-correction">
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-correction">
 		<function>
 			<sum>
 				<property>propulsion/tank[11]/external-flow-rate-pps</property>
@@ -1141,7 +1167,7 @@
 		<output>propulsion/tank[11]/external-flow-rate-pps</output>
 		</fcs_function>
 
-		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-correction">
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-correction">
 		<function>
 			<sum>
 				<property>propulsion/tank[10]/external-flow-rate-pps</property>
