@@ -4,6 +4,9 @@
 
 	<channel name="OMS helium and propellant system">
 
+		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
+		<!-- path for fuel from tank to engine exists given the valve settings -->
+
 		<switch name="systems/oms-hardware/left-oms-helium-valve-open">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
@@ -237,7 +240,14 @@
 	</channel>
 
 
+	
+
 	<channel name="OMS to OMS crossfeed">
+
+	<!-- since JSBSim doesn't have a direct crossfeed ability, this is a bit hacky - it uses -->
+	<!-- the fact that the Shuttle never directly connects two tanks in a cross-feed -->
+	<!-- and emulated cross-feed by using external flows to transfer fuel from feeding to -->
+	<!-- receiving tank -->
 
 		<fcs_function name="systems/oms-hardware/fuel-left-nominal-drain-pps">
 		<function>
@@ -309,6 +319,7 @@
 				systems/oms-hardware/crossfeed-left-open == 1
 				systems/oms-hardware/crossfeed-right-open == 1
 				systems/oms-hardware/tank-right-isolation-status == 0
+				systems/oms-hardware/tank-left-isolation-status == 1
 			</test>
 		</switch>
 
@@ -318,6 +329,7 @@
 				systems/oms-hardware/crossfeed-left-open == 1
 				systems/oms-hardware/crossfeed-right-open == 1
 				systems/oms-hardware/tank-left-isolation-status == 0
+				systems/oms-hardware/tank-right-isolation-status == 1
 			</test>
 		</switch>
 		
@@ -354,6 +366,7 @@
 			<difference>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-left-crossfeed-drain-pps</property>
 			</difference>
 		</function>
 		<output>propulsion/tank[5]/external-flow-rate-pps</output>
@@ -364,6 +377,7 @@
 			<difference>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-right-crossfeed-drain-pps</property>
 			</difference>
 		</function>
 		<output>propulsion/tank[7]/external-flow-rate-pps</output>
@@ -374,6 +388,7 @@
 			<difference>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-left-crossfeed-drain-pps</property>
 			</difference>
 		</function>
 		<output>propulsion/tank[4]/external-flow-rate-pps</output>
@@ -384,6 +399,7 @@
 			<difference>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-right-crossfeed-drain-pps</property>
 			</difference>
 		</function>
 		<output>propulsion/tank[6]/external-flow-rate-pps</output>
@@ -428,6 +444,46 @@
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[6]</output>
+		</fcs_function>
+
+	</channel>
+
+	<channel name="OMS thermal control">
+
+		<fcs_function name="systems/oms-hardware/heater-left-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/oms-hardware/heater-left-A-status</property>
+				<property>systems/oms-hardware/heater-left-B-status</property>
+				</max>
+				<value>0.16</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/heater-right-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/oms-hardware/heater-right-A-status</property>
+				<property>systems/oms-hardware/heater-right-B-status</property>
+				</max>
+				<value>0.16</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/heater-crossfeed-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/oms-hardware/heater-crossfeed-A-status</property>
+				<property>systems/oms-hardware/heater-crossfeed-B-status</property>
+				</max>
+				<value>0.22</value>
+			</product>
+		</function>
 		</fcs_function>
 
 	</channel>

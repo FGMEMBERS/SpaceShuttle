@@ -313,6 +313,9 @@
 			<input>systems/rcs-hardware/heater-aft-3-power-kW</input>
 			<input>systems/rcs-hardware/heater-aft-4-power-kW</input>
 			<input>systems/rcs-hardware/heater-aft-5-power-kW</input>
+			<input>systems/oms-hardware/heater-left-power-kW</input>
+			<input>systems/oms-hardware/heater-right-power-kW</input>
+			<input>systems/oms-hardware/heater-crossfeed-power-kW</input>
 		</summer>
 		
 		<!-- till we model this in detail, assume all buses are tied -->

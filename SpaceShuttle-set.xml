@@ -344,6 +344,16 @@
 			<engine-right-arm-cmd type="int">1</engine-right-arm-cmd>
   		    	<fuel-left-oms-pressure-psia type="double">250.0</fuel-left-oms-pressure-psia>
   		    	<fuel-right-oms-pressure-psia type="double">250.0</fuel-right-oms-pressure-psia>
+			<crossfeed-left-open type="double">0.0</crossfeed-left-open>
+			<tank-left-isolation-status type="double">0.0</tank-left-isolation-status>
+			<crossfeed-right-open type="double">0.0</crossfeed-right-open>
+			<tank-right-isolation-status type="double">0.0</tank-right-isolation-status>
+		    	<heater-left-A-status type="int">0</heater-left-A-status>
+		    	<heater-left-B-status type="int">0</heater-left-B-status>
+    		    	<heater-right-A-status type="int">0</heater-right-A-status>
+		    	<heater-right-B-status type="int">0</heater-right-B-status>
+		    	<heater-crossfeed-A-status type="int">0</heater-crossfeed-A-status>
+		    	<heater-crossfeed-B-status type="int">0</heater-crossfeed-B-status>
 		</oms-hardware>
 		<propellant>
 			<LO2-inboard-status type="int">0</LO2-inboard-status>
@@ -475,6 +485,11 @@
 		    <heater-pod-3-status type="int">0</heater-pod-3-status>
 		    <heater-pod-4-status type="int">0</heater-pod-4-status>
 		    <heater-pod-5-status type="int">0</heater-pod-5-status>
+
+		    <fuel-left-crossfeed-correction type="double">0.0</fuel-left-crossfeed-correction>
+		    <fuel-right-crossfeed-correction type="double">0.0</fuel-right-crossfeed-correction>
+		    <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
+		    <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
 
 		</rcs-hardware>	
 		<thermal-distribution>
