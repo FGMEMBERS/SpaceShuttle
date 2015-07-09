@@ -55,7 +55,7 @@
 	 
 	 <counter>
 		 <particles-per-sec>
-			 <value>300</value>
+			 <value>250</value>
 			 <spread>0</spread>
 		 </particles-per-sec>
 	 </counter>
@@ -102,7 +102,7 @@
 			 </size>
 		 </end>
 		 <life-sec>
-			 <value>0.2</value>
+			 <value>5.0</value>
 		 </life-sec>
 		 <mass-kg>5.0</mass-kg>
 		 <radius-m>0.1</radius-m>

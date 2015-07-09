@@ -317,7 +317,7 @@
 
 		<!-- the RCS yaw jets need to ensure stability during entry against -->
 		<!-- the beta-induced yawing moment -->
-		<!-- at full thrust a cluster can barely hold against beta = 2 at qbar = 400 psf-->
+		<!-- at full thrust a cluster can barely hold against beta = 2 deg at qbar = 400 psf-->
 		<!-- so the gains need to be really agressive -->
 		<!-- we fire full thrust at 0.25 degrees offset -->
 
@@ -330,8 +330,48 @@
 				<min> -1.0 </min>
         			<max>  1.0 </max>
 			</clipto>
-			<output>systems/rcs/dap-yaw-cmd-entry</output>
+			<output>systems/rcs/dap-yaw-cmd-entry-raw</output>
 		</pid>
+
+		<fcs_function name="systems/rcs/dap-yaw-cmd-entry">
+		<function>
+			<min>
+			<max>
+				<product>
+				<table>
+        				<independentVar lookup="row">aero/qbar-psf</independentVar>
+        				<tableData>
+          				 0.0        0.10
+	 	  			10.0	    0.50
+		   			30.0	    1.00
+        				</tableData>
+      					</table>
+					<property>systems/rcs/dap-yaw-entry</property>
+				</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/rcs/dap-yaw-cmd-entry">
+		<function>
+			<product>
+				<property>systems/rcs/dap-yaw-cmd-entry-raw</property>
+				<min>
+				<max>
+				<quotient>
+					<property>aero/qbar-psf</property>
+					<value>20.0</value>
+				</quotient>
+				<value>0.1</value>
+				</max>
+				<value>1.0</value>
+				</min>
+			</product>
+		</function>
+		</fcs_function>-->
 
 		<fcs_function name="systems/rcs/dap-yaw-cmd">
 		<function>

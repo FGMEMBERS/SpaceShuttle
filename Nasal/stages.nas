@@ -1261,6 +1261,27 @@ if (getprop("/position/altitude-ft") > 350000.0) # we start in orbit
 	setprop("/consumables/fuel/tank[2]/level-norm",0.0);
 	}
 
+if (getprop("/sim/presets/stage") == 2) # we start with entry
+	{
+	setprop("/consumables/fuel/tank[0]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[1]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[2]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[4]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[5]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[6]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[7]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[8]/level-lbs",945.7);
+	setprop("/consumables/fuel/tank[9]/level-lbs",606.8);
+	setprop("/consumables/fuel/tank[10]/level-lbs",945.7);
+	setprop("/consumables/fuel/tank[11]/level-lbs",606.8);
+	setprop("/consumables/fuel/tank[12]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[13]/level-lbs",0.0);
+
+
+
+	}
+
 if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	{
 	SRB_message_flag = 2;
