@@ -237,6 +237,24 @@
 		</product>
 		</function>	
 		</fcs_function>
+
+		<fcs_function name="systems/various/cg-percentage">
+		<function>
+			<product>
+			<quotient>
+				<sum>
+					<value>67.0</value>
+					<product>
+						<property>inertia/cg-x-in</property>
+						<value>0.083</value>
+					</product>
+				</sum>
+				<value>114.8</value>
+			</quotient>
+			<value>100.0</value>
+			</product>
+		</function>
+		</fcs_function>
 		
 	</channel>
 </system>
