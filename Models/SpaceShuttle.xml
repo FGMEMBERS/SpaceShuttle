@@ -163,8 +163,8 @@
 	</condition>
  </animation>
 
-<!-- rear landing gear -->
-<animation>
+ <!-- rear landing gear -->
+ <animation>
    <type>select</type>
    <object-name>DragBrace.UpperL</object-name>
    <object-name>StrutActuatorL</object-name>
@@ -207,13 +207,30 @@
    <object-name>RRimL</object-name>
    <object-name>TorqueArm.LowerL</object-name>
    <object-name>TorqueArm.UpperL</object-name>
-   <object-name>GearDoorL</object-name>
    <condition>
 		<and>
 			<equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
 			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear door undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorL</object-name>
+   <condition>
+		<and>
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -241,13 +258,30 @@
    <object-name>RRimR</object-name>
    <object-name>TorqueArm.LowerR</object-name>
    <object-name>TorqueArm.UpperR</object-name>
-   <object-name>GearDoorR</object-name>
    <condition>
 		<and>
 			<equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
 			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear door undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorR</object-name>
+   <condition>
+		<and>
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -275,13 +309,30 @@
    <object-name>RRimLD</object-name>
    <object-name>TorqueArm.LowerLD</object-name>
    <object-name>TorqueArm.UpperLD</object-name>
-   <object-name>GearDoorLD</object-name>
    <condition>
 		<and>
 			<equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
 			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear door damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorLD</object-name>
+   <condition>
+		<and>
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -309,13 +360,30 @@
    <object-name>RRimRD</object-name>
    <object-name>TorqueArm.LowerRD</object-name>
    <object-name>TorqueArm.UpperRD</object-name>
-   <object-name>GearDoorRD</object-name>
    <condition>
 		<and>
 			<equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
 			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear door damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorRD</object-name>
+   <condition>
+		<and>
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
