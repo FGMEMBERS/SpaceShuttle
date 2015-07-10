@@ -32,98 +32,188 @@
 		<type>segments</type>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>2.30</y-m>
+			<y-m>1</y-m>
 			<z-m>0</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>3.40</y-m>
-			<z-m>1.50</z-m>
+			<y-m>1.5</y-m>
+			<z-m>0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>2</y-m>
+			<z-m>0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>2.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>3</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>3.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>4</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>4.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>5.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>6</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>6.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>7</y-m>
+			<z-m>.6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>7.5</y-m>
+			<z-m>.7</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>8</y-m>
+			<z-m>.8</z-m>
 		</vertex>		
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>4.50</y-m>
-			<z-m>2.00</z-m>
+			<y-m>8.5</y-m>
+			<z-m>.9</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>5.60</y-m>
-			<z-m>2.50</z-m>
+			<y-m>9</y-m>
+			<z-m>1</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>6.70</y-m>
-			<z-m>3.00</z-m>
+			<y-m>9.3</y-m>
+			<z-m>1.5</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>7.80</y-m>
-			<z-m>3.50</z-m>
+			<y-m>9.6</y-m>
+			<z-m>2.0</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>8.90</y-m>
-			<z-m>4.70</z-m>
+			<y-m>9.8</y-m>
+			<z-m>2.5</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>9.00</y-m>
-			<z-m>5.50</z-m>
+			<y-m>10.0</y-m>
+			<z-m>3</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>10.5</y-m>
+			<z-m>3.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>11</y-m>
+			<z-m>4</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>10.5</y-m>
+			<z-m>4.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>10</y-m>
+			<z-m>5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>9.4</y-m>
+			<z-m>5.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>9.2</y-m>
+			<z-m>6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>9.0</y-m>
+			<z-m>6.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>8.8</y-m>
+			<z-m>6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>8.6</y-m>
+			<z-m>5.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>8.4</y-m>
+			<z-m>5</z-m>
+		</vertex>	
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>8.2</y-m>
+			<z-m>4.5</z-m>
 		</vertex>		
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>9.40</y-m>
-			<z-m>6.00</z-m>
+			<y-m>8</y-m>
+			<z-m>4</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>9.60</y-m>
-			<z-m>7.50</z-m>
+			<y-m>7.9</y-m>
+			<z-m>3.5</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>9.80</y-m>
-			<z-m>8.00</z-m>
+			<y-m>7.8</y-m>
+			<z-m>3</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>10.00</y-m>
-			<z-m>9.50</z-m>
+			<y-m>7.7</y-m>
+			<z-m>2.5</z-m>
 		</vertex>
 		<vertex>
 			<x-m>0</x-m>
-			<y-m>9.90</y-m>
-			<z-m>9.70</z-m>
-		</vertex>
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>8.80</y-m>
-			<z-m>9.50</z-m>
-		</vertex>		
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>7.70</y-m>
-			<z-m>9.00</z-m>
-		</vertex>
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>6.60</y-m>
-			<z-m>8.50</z-m>
-		</vertex>
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>5.50</y-m>
-			<z-m>7.00</z-m>
-		</vertex>
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>5.20</y-m>
-			<z-m>6.50</z-m>
-		</vertex>
-		<vertex>
-			<x-m>0</x-m>
-			<y-m>4.90</y-m>
-			<z-m>5.70</z-m>
+			<y-m>7.6</y-m>
+			<z-m>2</z-m>
 		</vertex>
 	</placer>
 
@@ -174,7 +264,7 @@
         </color>
         <size><value> 3 </value></size>
       </end>
-      <life-sec><value> 0.9 </value></life-sec>
+      <life-sec><value> 1.9 </value></life-sec>
       <mass-kg>  0.025 </mass-kg>
       <radius-m> 0.175 </radius-m>
     </particle>
