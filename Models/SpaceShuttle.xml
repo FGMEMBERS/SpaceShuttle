@@ -85,7 +85,7 @@
 <!-- OMS thruster exhaust and rear RCS modules -->
 
  <model>
-    <path>Aircraft/SpaceShuttle/Models/OMSPods.ac</path>
+    <path>Aircraft/SpaceShuttle/Models/OMSPods.xml</path>
   </model>
 
 
@@ -1698,17 +1698,9 @@
 	<object-name>spaceshutt_spstob_4</object-name>
 	<object-name>spaceshutt_spstob_3</object-name>
 	<object-name>cockpit-front-glass-outside</object-name>
-	<object-name>omsLeftBase</object-name>
-	<object-name>omsLeft</object-name>
-	<object-name>omsRightBase</object-name>
-	<object-name>omsRight</object-name>	
-	<object-name>rcsL1A</object-name>
-	<object-name>rcsR1R</object-name>
-	<object-name>rcsR1U</object-name>
-	<object-name>rcsR2D</object-name>
-	<object-name>rcsL4U</object-name>
-	<object-name>rcsR4U</object-name>
 	<object-name>spaceshutt_spstob_eal</object-name>
+	<object-name>SpeedBrakeL</object-name>
+	<object-name>SpeedBrakeR</object-name>
  </effect>
 
 

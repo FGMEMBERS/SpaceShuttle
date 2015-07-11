@@ -1489,12 +1489,16 @@
       <name>DAP selection</name>
       <value>ENTRY</value>
       <condition>
-	<and>
+	<or>
         <equals>
           <property>/fdm/jsbsim/systems/fcs/control-mode</property>
           <value>24</value>
         </equals>
-	</and>
+        <equals>
+          <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+          <value>29</value>
+        </equals>
+	</or>
       </condition>     
     </item>
 
