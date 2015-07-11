@@ -3,9 +3,9 @@
 <PropertyList>
 
     <!--params>
-        <nose_tire_spray_speed_ms>
+        <nose_tire_spray_speed>
 			<property>/gear/gear[0]/sprayspeed-ms</property>
-		</nose_tire_spray_speed_ms>
+		</nose_tire_spray_speed>
         <nose_tire_spray_density>
 			<property>/gear/gear[0]/spray-density</property>
 		</nose_tire_spray_density>
@@ -63,7 +63,7 @@
 			<phi-min-deg>-5</phi-min-deg>
 			<phi-max-deg>5</phi-max-deg>
 			<speed-mps>
-			    <!--property alias="/params/nose_tire_spray_speed_ms"/-->
+			    <!--property alias="/params/nose_tire_spray_speed"/-->
 				<property>/gear/gear[0]/sprayspeed-ms</property>
 				<spread>20</spread>
 			</speed-mps>

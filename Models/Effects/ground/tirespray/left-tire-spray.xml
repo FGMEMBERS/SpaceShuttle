@@ -3,9 +3,9 @@
 <PropertyList>
 
     <!--params>
-        <left_tire_spray_speed_ms>
+        <left_tire_spray_speed>
 			<property>/gear/gear[1]/sprayspeed-ms</property>
-		</left_tire_spray_speed_ms>
+		</left_tire_spray_speed>
         <left_tire_spray_density>
 			<property>/gear/gear[1]/spray-density</property>
 		</left_tire_spray_density>
@@ -63,7 +63,7 @@
 			<phi-min-deg>-5</phi-min-deg>
 			<phi-max-deg>5</phi-max-deg>
 			<speed-mps>
-			    <!--property alias="/params/left_tire_spray_speed_ms"/-->
+			    <!--property alias="/params/left_tire_spray_speed"/-->
 				<property>/gear/gear[1]/sprayspeed-ms</property>
 				<spread>20</spread>
 			</speed-mps>

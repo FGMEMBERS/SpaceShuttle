@@ -2,85 +2,25 @@
 
 <PropertyList>
 
-	<!--signal>
-        <type>float</type>
-        <property type="string">/fdm/jsbsim/ground/rolling_friction-factor</property>
-    </signal>
-
-    <signal>
-        <type>float</type>
-        <property type="string">/velocities/groundspeed-kt</property>
-    </signal-->
-
-	<!--signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[0]/wow</property>
-    </signal>
 	<signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[1]/wow</property>
-    </signal>
-	<signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[2]/wow</property>
-    </signal>
-
-	<signal>
-        <type>bool</type>
-        <property type="string">/fdm/jsbsim/contact/unit[6]/WOW</property>
-    </signal>
-	<signal>
-        <type>bool</type>
-        <property type="string">/fdm/jsbsim/contact/unit[7]/WOW</property>
-    </signal>
-
-	<signal>
-        <type>bool</type>
-        <property type="string">/fdm/jsbsim/contact/unit[8]/WOW</property>
-    </signal>
-	<signal>
-        <type>bool</type>
-        <property type="string">/fdm/jsbsim/contact/unit[9]/WOW</property>
-    </signal-->
-
-	<!-- Touchdown tire smoke -->
-	<signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[0]/tyre-smoke</property>
-    </signal>
-	<signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[1]/tyre-smoke</property>
-    </signal>
-	<signal>
-        <type>bool</type>
-        <property type="string">/gear/gear[2]/tyre-smoke</property>
-    </signal>
-
-	<!-- Rain tire spray -->
+        <type>int</type>
+        <property type="string">/controls/shuttle/parachute</property> 
+	</signal>	
 	<signal>
         <type>float</type>
-        <property type="string">/gear/gear[0]/sprayspeed-ms</property>
+        <property type="string">gear/gear[1]/rollspeed-ms</property>
+	</signal>	
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/fcs/bodyflap-pos-rad</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/gear/gear[0]/spray-density</property>
+        <property type="string">/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/gear/gear[1]/sprayspeed-ms</property>
-    </signal>
-	<signal>
-        <type>float</type>
-        <property type="string">/gear/gear[1]/spray-density</property>
-    </signal>
-	<signal>
-        <type>float</type>
-        <property type="string">/gear/gear[2]/sprayspeed-ms</property>
-    </signal>
-	<signal>
-        <type>float</type>
-        <property type="string">/gear/gear[2]/spray-density</property>
+        <property type="string">/fdm/jsbsim/gear/gear-pos-norm</property>
     </signal>
 
 	<!--  Off road tire smoke -->
