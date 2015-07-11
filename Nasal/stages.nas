@@ -1150,7 +1150,8 @@ if (getprop("/sim/presets/stage") == 2)
 			setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 			setprop("/controls/shuttle/control-system-string", "Aerojet");
 			}, 2.0);
-	deorbit_loop();
+	deorbit_loop();	
+
 	}
 
 if (getprop("/sim/presets/stage") == 3) 

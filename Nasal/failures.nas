@@ -53,6 +53,39 @@ setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
 }
 
+#### breakup of the orbiter on atmospheric entry
+
+var orbiter_tps_fail = func {
+
+
+
+# destroy aerodynamics
+
+setprop("/fdm/jsbsim/systems/failures/airfoils-pitch-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/airfoils-roll-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/airfoils-yaw-condition", 0.0);
+
+# destroy RCS
+
+setprop("/fdm/jsbsim/systems/fcs/rcs-roll-mode", 0);
+setprop("/fdm/jsbsim/systems/fcs/pitch-roll-mode", 0);
+setprop("/fdm/jsbsim/systems/fcs/yaw-roll-mode", 0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-left-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-right-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-up-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-up-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-down-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-down-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
+
+
+}
+
+
 #### drag chute pin breaks during deceleration
 
 var fail_chute_pin = func {

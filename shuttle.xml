@@ -2182,7 +2182,7 @@
 		</product>
 	</sum>
    </function>
-   <output>fcs/elevator-cmd-norm</output>
+   <!--<output>fcs/elevator-cmd-norm</output>-->
    </fcs_function>
 
    <fcs_function name="fcs/pitch-error">
@@ -2190,7 +2190,7 @@
 	 	<difference>
 			<property>velocities/q-rad_sec</property>
 			<product>
-				<property>fcs/elevator-cmd-norm</property>
+				<property>fcs/elevator-ap-cmd-merge</property>
 				<value>-0.3</value>
 			</product>
 		</difference>

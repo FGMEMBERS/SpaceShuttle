@@ -18,7 +18,8 @@ var CBW_warn = 0;
 var tailscrape_warn = 0;
 var chute_warn = 0;
 var vspeed_warn = 0;
-var TPS_ET_warn =0;
+var TPS_ET_warn = 0;
+var TPS_warn = 0;
 var avionics_bay_heat_warn = 0;
 var apu_heat_warn = 0;
 
@@ -260,12 +261,13 @@ var check_limits_entry = func {
 
 var fail_flag = 0;
 
-# ET umbilical doors need to be closed
+# ET umbilical doors and payload bay door need to be closed
 
 var T = getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F");
 var ET_door_state = getprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos") * getprop("/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos");
+var PB_door_state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-animation") * getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-animation");
 
-if ((T > 1000) and (ET_door_state == 0))
+if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
 	{
 	setprop("/sim/messages/copilot", "Thermal protection failure!");
 	fail_flag = 1;
@@ -273,10 +275,36 @@ if ((T > 1000) and (ET_door_state == 0))
 
 	if (limit_simulation_mode == 1)
 		{
-		SpaceShuttle.orbiter_destroy();
+		SpaceShuttle.orbiter_tps_fail();
 		}	
 
 	}
+
+
+
+
+if ((T > 2900.0) and (TPS_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Thermal protection system failure!");
+	fail_flag = 1;
+	TPS_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_tps_fail();
+		}
+
+	}
+else if ((T > 2800.0) and (TPS_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Heat shield temperature too high!");
+	TPS_warn = 1;
+	settimer(func {if (TPS_warn < 2) {TPS_warn = 0;}}, 10.0);
+	}
+
+
+
+
 
 
 if (limit_simulation_mode ==2)
