@@ -781,6 +781,7 @@
 			<default value="0.0"/>
 			<test logic="OR" value="-0.45">
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 4
 			</test>
 		</switch>

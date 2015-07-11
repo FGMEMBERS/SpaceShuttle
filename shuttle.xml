@@ -2093,6 +2093,18 @@
 			</test>
 	<output>aero/orbiter-config</output>
   </switch>
+
+  </channel>
+  
+  <channel name="Control Config">
+
+  <switch name="systems/fcs/airfoil-rate-control">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/control-mode == 29
+			</test>
+   </switch>
+
   </channel>
 
 
@@ -2117,7 +2129,9 @@
 				systems/fcs/control-mode == 28
 			</test>
 		<output>fcs/airfoil-factor-pitch</output>
-		</switch>
+   </switch>
+
+
 
    <fcs_function name="Pitch Auto Trim">
 	<function>
@@ -2152,6 +2166,25 @@
 	</function>
    </fcs_function>
 
+   <fcs_function name="fcs/elevator-ap-cmd-merge">
+   <function>
+	<sum>
+		<product>
+			<difference>
+				<value>1</value>
+				<property>systems/ap/alpha-hold-mode</property>
+			</difference>
+			<property>fcs/elevator-cmd-norm</property>
+		</product>
+		<product>
+			<property>systems/ap/alpha-hold-mode</property>
+			<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
+		</product>
+	</sum>
+   </function>
+   <output>fcs/elevator-cmd-norm</output>
+   </fcs_function>
+
    <fcs_function name="fcs/pitch-error">
 	 <function>
 	 	<difference>
@@ -2164,10 +2197,22 @@
 	</function>
   </fcs_function>
 
-  <deadband name="fcs/pitch-PID-trigger">
+  <deadband name="fcs/pitch-PID-trigger-raw">
 	<input>fcs/pitch-error</input>
 	<width>0.2</width>
   </deadband>
+
+  <fcs_function name="fcs/pitch-PID-trigger">
+  <function>
+	<max>
+	<property>fcs/pitch-PID-trigger-raw</property>
+	<difference>
+		<value>1.0</value>
+		<property>systems/fcs/airfoil-rate-control</property>
+	</difference>
+	</max>
+  </function>
+  </fcs_function>
 
   <pid name="fcs/pitch-controller">
 	<input>fcs/pitch-error</input>
@@ -2181,9 +2226,27 @@
 	</clipto>
   </pid>
 
+  <fcs_function name="fcs/pitch-command">
+  <function>
+	<sum>
+	<product>
+		<property>systems/fcs/airfoil-rate-control</property>
+		<property>fcs/pitch-controller</property>
+	</product>
+	<product>
+		<difference>
+			<value>1.0</value>
+			<property>systems/fcs/airfoil-rate-control</property>	
+		</difference>
+		<property>fcs/elevator-cmd-norm</property>
+	</product>
+	</sum>
+  </function>
+  </fcs_function>
+
    <summer name="Pitch Trim Sum">
       <!--<input>fcs/elevator-cmd-norm</input>-->
-      <input>fcs/pitch-controller</input>
+      <input>fcs/pitch-command</input>
       <input>fcs/pitch-trim-cmd-norm</input>
       <input>fcs/pitch-auto-trim</input>
       <clipto>
@@ -2373,11 +2436,32 @@
 	</clipto>
 	<output>fcs/roll-controller-out</output>
   </pid>
+
+  <fcs_function name="fcs/roll-command">
+  <function>
+	<sum>
+	<product>
+		<property>systems/fcs/airfoil-rate-control</property>
+		<property>fcs/roll-controller</property>
+	</product>
+	<product>
+		<difference>
+			<value>1.0</value>
+			<property>systems/fcs/airfoil-rate-control</property>	
+		</difference>
+		<sum>
+		<property>fcs/aileron-cmd-norm</property>
+		<property>fcs/roll-damper-cmd-norm</property>
+		</sum>
+	</product>
+	</sum>
+  </function>
+  </fcs_function>
   
 
    <summer name="Roll Trim Sum">
       <!--<input>fcs/aileron-cmd-norm</input>-->
-      <input>fcs/roll-controller</input>
+      <input>fcs/roll-command</input>
       <input>fcs/roll-trim-cmd-norm</input>
       <!--<input>fcs/roll-damper-cmd-norm</input>-->
       <input>fcs/beta-dot-damper-cmd-norm</input>
@@ -3934,7 +4018,7 @@
   </force>
  </external_reactions> 
 
- 
+
  <system file="orbital_parameters"></system>
  <system file="apu_hydraulics.xml"></system>
  <system file="electrical_power.xml"></system>
@@ -3951,5 +4035,6 @@
  <system file="failures"></system>
  <system file="cws"></system>
  <system file="ground_effects"></system>
+ <system file="autopilot"></system>
  
 </fdm_config>

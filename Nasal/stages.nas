@@ -632,6 +632,33 @@ else if (current_mode ==10)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",0);
 	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring (gimbal)");	
 	}
+else if ((current_mode ==24) or (current_mode == 4))
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+	setprop("/controls/shuttle/control-system-string", "Aerojet");	
+	}
+else if (current_mode == 29)
+	{
+	# where aerojet switches back to depends on Mach number
+	var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+	if (mach > 3.5)
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
+		setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
+		}
+	else 	
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",4);
+		setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+		}
+	
+	}
+else if (current_mode ==24)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+	setprop("/controls/shuttle/control-system-string", "Aerojet");	
+	}
 else if (current_mode == 50)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",51);
@@ -737,7 +764,8 @@ var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 if ((qbar > 10.0) and (deorbit_stage_flag == 0))
 	{
 	#setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
-	setprop("/controls/shuttle/control-system-string", "RCS / Aero");
+	if (getprop("/fdm/jsbsim/systems/fcs/control-mode") == 24)
+		{setprop("/controls/shuttle/control-system-string", "RCS / Aero");}
 	setprop("/fdm/jsbsim/systems/fcs/rcs-roll-mode", 0);
 	setprop("/sim/messages/copilot", "Roll control to aero.");
 	deorbit_stage_flag = 1;
@@ -753,9 +781,12 @@ if ((qbar > 40.0) and   (deorbit_stage_flag == 1))
 if ((getprop("/fdm/jsbsim/velocities/mach") < 3.5) and (deorbit_stage_flag == 2))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 0);
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",4);	
+	if (getprop("/fdm/jsbsim/systems/fcs/control-mode") == 24)
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",4);	
+		setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+		}
 	setprop("/sim/messages/copilot", "Yaw control to aero.");
-	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
 	deorbit_stage_flag = 3;
 	}
 
@@ -1116,8 +1147,8 @@ if (getprop("/sim/presets/stage") == 2)
 
 	
 	settimer( func {
-			setprop("/fdm/jsbsim/systems/fcs/control-mode",24);
-			setprop("/controls/shuttle/control-system-string", "RCS ROT ENTRY");
+			setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+			setprop("/controls/shuttle/control-system-string", "Aerojet");
 			}, 2.0);
 	deorbit_loop();
 	}
@@ -1309,8 +1340,8 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 
 	# transfer controls to aero
 
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",4);
-	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+	setprop("/controls/shuttle/control-system-string", "Aerojet");
 	setprop("/controls/shuttle/hud-mode",3);
 	}
 
@@ -1343,8 +1374,8 @@ if (getprop("/sim/presets/stage") == 4) # we start with the final approach
 
 	# transfer controls to aero
 
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
-	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+	setprop("/controls/shuttle/control-system-string", "Aerojet");
 	setprop("/controls/shuttle/hud-mode",3);
 	}
 
@@ -1375,7 +1406,7 @@ if (getprop("/sim/presets/stage") == 5) # we start in a gliding test
 
 	# transfer controls to aero
 
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",3);
-	setprop("/controls/shuttle/control-system-string", "Aerodynamical");
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+	setprop("/controls/shuttle/control-system-string", "Aerojet");
 	setprop("/controls/shuttle/hud-mode",3);
 	}

@@ -16,6 +16,7 @@
 	<!-- 26: RCS TRANS ATT-HLD - translational mode commanding attitude hold -->
 	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
+	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 
 	<channel name="DAP modes">
 		<switch name="systems/fcs/dap-master">
@@ -25,6 +26,7 @@
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 24
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 
@@ -50,8 +52,9 @@
 
 		<switch name="systems/fcs/rcs-entry-mode">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 
@@ -67,6 +70,7 @@
 			<default value="1.0"/>
 			<test value="0.0">
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 
@@ -439,6 +443,7 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 
@@ -457,6 +462,7 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 22
 				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 

@@ -164,6 +164,15 @@
 		</function>
 	</fcs_function>
 
+	<fcs_function name="systems/entry_guidance/nominal-alpha-rad">
+		<function>
+			<product>
+				<property>systems/entry_guidance/nominal-alpha-deg</property>
+				<value>0.01745</value>
+			</product>
+		</function>
+	</fcs_function>
+
 	<fcs_function name="systems/entry_guidance/delta-alpha-deg">
 		<function>
 			<difference>
