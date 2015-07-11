@@ -2152,8 +2152,38 @@
 	</function>
    </fcs_function>
 
+   <fcs_function name="fcs/pitch-error">
+	 <function>
+	 	<difference>
+			<property>velocities/q-rad_sec</property>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<value>-0.3</value>
+			</product>
+		</difference>
+	</function>
+  </fcs_function>
+
+  <deadband name="fcs/pitch-PID-trigger">
+	<input>fcs/pitch-error</input>
+	<width>0.2</width>
+  </deadband>
+
+  <pid name="fcs/pitch-controller">
+	<input>fcs/pitch-error</input>
+	<kp> 30.0 </kp>
+	<ki> 5.0 </ki>
+	<kd> 15.0</kd>
+	<trigger>fcs/pitch-PID-trigger</trigger>
+	<clipto>
+		<min> -1.0 </min>
+        	<max>  1.0 </max>
+	</clipto>
+  </pid>
+
    <summer name="Pitch Trim Sum">
-      <input>fcs/elevator-cmd-norm</input>
+      <!--<input>fcs/elevator-cmd-norm</input>-->
+      <input>fcs/pitch-controller</input>
       <input>fcs/pitch-trim-cmd-norm</input>
       <input>fcs/pitch-auto-trim</input>
       <clipto>
@@ -2309,12 +2339,47 @@
 	</function>
 	<output>fcs/beta-dot-damper-cmd-norm</output>
    </fcs_function>
+
+
+   <fcs_function name="fcs/roll-error">
+	 <function>
+		<product>
+	 	<difference>
+			<property>velocities/p-rad_sec</property>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<value>0.5</value>
+			</product>
+		</difference>
+		<value>-1</value>
+		</product>
+	</function>
+  </fcs_function>
+
+  <deadband name="fcs/roll-PID-trigger">
+	<input>fcs/roll-error</input>
+	<width>0.2</width>
+  </deadband>
+
+  <pid name="fcs/roll-controller">
+	<input>fcs/roll-error</input>
+	<kp> 20.0 </kp>
+	<ki> 3.0 </ki>
+	<kd> 15.0</kd>
+	<trigger>fcs/roll-PID-trigger</trigger>
+	<clipto>
+		<min> -1.0 </min>
+        	<max>  1.0 </max>
+	</clipto>
+	<output>fcs/roll-controller-out</output>
+  </pid>
   
 
    <summer name="Roll Trim Sum">
-      <input>fcs/aileron-cmd-norm</input>
+      <!--<input>fcs/aileron-cmd-norm</input>-->
+      <input>fcs/roll-controller</input>
       <input>fcs/roll-trim-cmd-norm</input>
-      <input>fcs/roll-damper-cmd-norm</input>
+      <!--<input>fcs/roll-damper-cmd-norm</input>-->
       <input>fcs/beta-dot-damper-cmd-norm</input>
       <clipto>
         <min> -1 </min>
