@@ -827,10 +827,21 @@ settimer(deorbit_loop,1.0);
 # the glide loop watches limits during descent
 ###########################################################################
 
+var gear_arm_message_flag = 0;
+
 var glide_loop = func {
 
 
 SpaceShuttle.update_entry_guidance();
+
+
+var alt = getprop("/position/altitude-agl-ft");
+
+if ((alt < 2100.0) and (gear_arm_message_flag == 0))
+	{
+	setprop("/sim/messages/copilot", "2000 ft - arm gear!");
+	gear_arm_message_flag = 1;
+	}
 
 settimer(glide_loop,1.0);
 }
@@ -842,12 +853,13 @@ settimer(glide_loop,1.0);
 
 var show_gear_state = func {
 
-var gear_state = getprop("/controls/gear/gear-down");
+var gear_state = getprop("/fdm/jsbsim/gear/gear-pos-norm");
 
 if (gear_state == 0)
 	{setprop("/controls/shuttle/gear-string", "up");}
 else if (gear_state == 1)
 	{setprop("/controls/shuttle/gear-string", "down");}
+else {setprop("/controls/shuttle/gear-string", "transit");}
 
 }
 
@@ -945,6 +957,16 @@ setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", state);
 }
 
 
+# landing gear arm
+
+var arm_gear = func {
+
+setprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd", 1);
+setprop("/controls/shuttle/gear-string", "armed");
+
+}
+
+
 # cutoff switches for SSME
 
 var ssme_cutoff = func (n) {
@@ -1013,7 +1035,11 @@ if ((getprop("/gear/gear[1]/wow") == 0) or (slowdown_loop_flag ==1)) {return;}
 setprop("/sim/messages/copilot", "Touchdown!");
 slowdown_loop_flag = 1;
 slowdown_loop();
-#settimer(slowdown_loop, 5.0);
+
+setprop("/controls/shuttle/speedbrake", 1);
+setprop("/controls/shuttle/speedbrake-string", "out");
+
+
 }
 
 var slowdown_loop = func {
@@ -1254,7 +1280,7 @@ setlistener("/gear/gear[1]/wow", func {slowdown_loop_start();},0,0);
 setlistener("/gear/gear[0]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[1]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[2]/wow", func {check_limits_touchdown();},0,0);
-setlistener("/controls/gear/gear-down", func {show_gear_state();},0,0);
+setlistener("/fdm/jsbsim/gear/gear-pos-norm", func {show_gear_state();},0,0);
 # setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
 
 #setlistener("/fdm/jsbsim/systems/mps/engine/electric-lockup", func {ssme_lockup(0);},0,0);

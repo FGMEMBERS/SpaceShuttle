@@ -247,6 +247,9 @@
 		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
 		    <init-electrical-on type="double">14.0</init-electrical-on>		
 		</electrical>
+		<landing>
+		  	<landing-gear-arm-cmd type="int">0</landing-gear-arm-cmd>
+		</landing>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
 			<et-door-cl-latch-pos type="double">1.0</et-door-cl-latch-pos>
@@ -505,6 +508,20 @@
 			<interior-temperature-K type="double">293.0</interior-temperature-K>
 			<freon-out-temperature-K type="double">200.0</freon-out-temperature-K>
 			<computation-timestep-s type="double">10.0</computation-timestep-s>
+			<nose-temperature-K type="double">310</nose-temperature-K>
+			<cabin-temperature-K type="double">310</cabin-temperature-K>
+			<left-temperature-K type="double">310</left-temperature-K>
+			<right-temperature-K type="double">310</right-temperature-K>
+			<payload-bay-temperature-K type="double">310</payload-bay-temperature-K>
+			<tps-temperature-K type="double">310</tps-temperature-K>
+			<left-pod-temperature-K type="double">310</left-pod-temperature-K>
+			<right-pod-temperature-K type="double">310</right-pod-temperature-K>
+			<aft-temperature-K type="double">310</aft-temperature-K>
+			<avionics-temperature-K type="double">310</avionics-temperature-K>
+			<interior-temperature-K type="double">310</interior-temperature-K>
+			<apu1-temperature-K type="double">310</apu1-temperature-K>
+			<apu2-temperature-K type="double">310</apu2-temperature-K>
+			<apu3-temperature-K type="double">310</apu3-temperature-K>
 		</thermal-distribution>
             </systems>
         </jsbsim>
@@ -934,6 +951,10 @@
 		<name>Ctrl-f</name>
 		<desc>toggle forward RCS pod fuel dump</desc>
 	    </key>
+	    <key>
+		<name>Ctrl-g</name>
+		<desc>arm landing gear</desc>
+	    </key>
             <key>
                 <name>m</name>
                 <desc>switch FCS modes</desc>
@@ -1177,6 +1198,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		<binding>
    			<command>nasal</command>
    			<script>SpaceShuttle.toggle_fwd_fuel_dump()</script>
+  		</binding>
+ 	    </key>
+
+	    <key n="7">
+  		<name>Ctrl+g</name>
+  		<desc>Arm landing gear</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.arm_gear()</script>
   		</binding>
  	    </key>
 

@@ -103,7 +103,7 @@
 	<pointmass name="Payload">
 		<weight unit="LBS"> 0.0</weight>
 	 	<location name="POINTMASS" unit="M">
-                	<x>  2.7 </x>
+                	<x> -2.7 </x>
                 	<y>  0.0 </y>
                 	<z> -2.7 </z>
             	</location>
@@ -2887,8 +2887,18 @@
 
 
   <channel name="Landing Gear">
+
+   <fcs_function name="gear/gear-filtered-cmd-norm">
+	<function>
+	<product>	
+		<property>gear/gear-cmd-norm</property>
+		<property>systems/landing/landing-gear-arm-cmd</property>
+	</product>
+	</function>
+   </fcs_function>	
+
    <kinematic name="Gear Control">
-     <input>gear/gear-cmd-norm</input>
+     <input>gear/gear-filtered-cmd-norm</input>
      <traverse>
        <setting>
           <position> 0 </position>
@@ -2991,6 +3001,43 @@
 <!-- Parachute -->
   
   
+<!--  <channel name="Accelerometer">
+
+<accelerometer name="accelerations/translational-acc-1">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>X</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/ax-trans-ft_sec2</output>
+</accelerometer>
+
+<accelerometer name="accelerations/translational-acc-2">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>Y</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/ay-trans-ft_sec2</output>
+</accelerometer>
+
+<accelerometer name="accelerations/translational-acc-3">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>Z</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/az-trans-ft_sec2</output>
+</accelerometer>
+
+  </channel>-->
+
 
  </flight_control>
 
