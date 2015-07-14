@@ -249,6 +249,12 @@
 		</electrical>
 		<landing>
 		  	<landing-gear-arm-cmd type="int">0</landing-gear-arm-cmd>
+			<brake-mn-A-switch type="int">1</brake-mn-A-switch>
+			<brake-mn-B-switch type="int">1</brake-mn-B-switch>
+			<brake-mn-C-switch type="int">1</brake-mn-C-switch>
+			<brake-isolation-valve-1-status type="int">1</brake-isolation-valve-1-status>
+			<brake-isolation-valve-2-status type="int">1</brake-isolation-valve-2-status>
+			<brake-isolation-valve-3-status type="int">1</brake-isolation-valve-3-status>
 		</landing>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -1327,6 +1333,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
                 <binding>
                     <command>nasal</command>
                     <script>SpaceShuttle.bodyflap_up()</script>
+                </binding>
+            </key>
+
+            <key n="103">
+                <name>g</name>
+                <desc>Disable gear up</desc>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.gear_up_message()</script>
                 </binding>
             </key>
 

@@ -94,8 +94,55 @@
 			<output> gear/unit[2]/rolling_friction_coeff </output>
 		</switch>
 
-		
+	</channel>
 
+	<channel name="Hydraulic brake and steering failures">
+
+		<switch name="systems/failures/nws-operational">
+			<default value="fcs/steer-pos-deg"/>
+			<test logic="AND" value="0.0">
+				systems/apu/hyd-1-pressurized == 0
+				systems/apu/hyd-2-pressurized == 0
+			</test>
+			<output>fcs/steer-pos-deg</output>
+		</switch>
+
+		<switch name="systems/failures/brake-hydraulics-13-operational">
+			<default value="1"/>
+			<test logic="AND" value="0">
+				systems/apu/hyd-1-pressurized == 0
+				systems/apu/hyd-2-pressurized == 1
+				systems/apu/hyd-3-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/failures/brake-hydraulics-23-operational">
+			<default value="1"/>
+			<test logic="AND" value="0">
+				systems/apu/hyd-1-pressurized == 1
+				systems/apu/hyd-2-pressurized == 0
+				systems/apu/hyd-3-pressurized == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/failures/brake-hydraulics-operational">
+			<default value="gear/unit[1]/static_friction_coeff"/>
+			<test logic="OR" value="0.2">
+				systems/failures/brake-hydraulics-13-operational == 0
+				systems/failures/brake-hydraulics-23-operational == 0
+			</test>
+			<output>gear/unit[1]/static_friction_coeff</output>
+		</switch>
+
+		<switch name="systems/failures/brake-hydraulics-operational">
+			<default value="gear/unit[2]/static_friction_coeff"/>
+			<test logic="OR" value="0.2">
+				systems/failures/brake-hydraulics-13-operational == 0
+				systems/failures/brake-hydraulics-23-operational == 0
+			</test>
+			<output>gear/unit[2]/static_friction_coeff</output>
+		</switch>
 
 	</channel>
 

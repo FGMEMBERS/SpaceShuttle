@@ -916,6 +916,14 @@ else {speedbrake_string = int(speedbrake_state * 100.0)~"%";}
 setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 }
 
+# gear retraction message
+
+var gear_up_message = func {
+
+setprop("/sim/messages/copilot", "The gear can only be retracted by the ground crew!");
+}
+
+
 # control of the body flap
 
 var bodyflap_down = func {
