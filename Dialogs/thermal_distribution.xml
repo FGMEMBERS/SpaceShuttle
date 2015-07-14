@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>temperature</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Orbiter Temperature Distribution</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+
+
+   <text>
+      <label>nose</label>
+      <halign>center</halign>
+      <row>0</row>
+      <col>1</col>
+    </text>
+
+   <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/nose-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>cabin</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>1</col>
+    </text>
+
+   <text>
+      <row>3</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/cabin-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>left fuselage</label>
+      <halign>center</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>5</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/left-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>payload bay</label>
+      <halign>center</halign>
+      <row>4</row>
+      <col>1</col>
+    </text>
+
+   <text>
+      <row>5</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/payload-bay-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>right fuselage</label>
+      <halign>center</halign>
+      <row>4</row>
+      <col>2</col>
+    </text>
+
+   <text>
+      <row>5</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/right-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>left OMS pod</label>
+      <halign>center</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>7</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/left-pod-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>aft fuselage</label>
+      <halign>center</halign>
+      <row>6</row>
+      <col>1</col>
+    </text>
+
+   <text>
+      <row>7</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/aft-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>right OMS pod</label>
+      <halign>center</halign>
+      <row>6</row>
+      <col>2</col>
+    </text>
+
+   <text>
+      <row>7</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/right-pod-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>avionics bays</label>
+      <halign>center</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <label>interior</label>
+      <halign>center</halign>
+      <row>8</row>
+      <col>1</col>
+    </text>
+
+
+   <text>
+      <label>heat shield</label>
+      <halign>center</halign>
+      <row>8</row>
+      <col>2</col>
+    </text>
+
+   <text>
+      <row>9</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K</property>
+    </text> 
+
+   <text>
+      <row>9</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K</property>
+    </text> 
+
+   <text>
+      <row>9</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/tps-temperature-K</property>
+    </text> 
+
+   <text>
+      <label>freon loop in</label>
+      <halign>center</halign>
+      <row>10</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <label>freon loop out</label>
+      <halign>center</halign>
+      <row>10</row>
+      <col>1</col>
+    </text>
+
+ <text>
+      <row>11</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K</property>
+    </text> 
+
+ <text>
+      <row>11</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f K</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K</property>
+    </text> 
+
+<!--    <checkbox>
+        <name>water-loop</name>
+ 	<row>12</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/thermal-distribution/water-loop-switch</property>
+          <label>water loop</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>water-loop</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <row>12</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>freon loop</label>
+    </text> 
+
+    <slider>
+      <name>freon-loop</name>
+      <row>12</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>1.00</max>
+      <step>0.1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>freon-loop</object-name>
+      </binding>
+    </slider>
+
+
+
+      <button>
+ 	<row>13</row>
+        <col>0</col>
+	<legend>start</legend>
+	<default>false</default>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.thermal_management_init()</script>
+	</binding>
+   </button>
+
+   <text>
+      <row>13</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%.f min</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/time</property>
+    </text> -->
+
+
+  </group>
+
+    <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

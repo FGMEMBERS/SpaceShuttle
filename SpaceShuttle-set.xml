@@ -9,6 +9,9 @@
                 <gravitational-torque type="bool">true</gravitational-torque>
             </simulation>
             <systems>
+		<ap>
+		    <automatic-pitch-control type="int">0</automatic-pitch-control>
+		</ap>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
                     <target-azimuth-deg type="double">0.0</target-azimuth-deg>
@@ -23,6 +26,8 @@
 		    <srb2-condition type="double">1.0</srb2-condition>
 		    <oms1-condition type="double">1.0</oms1-condition>
 		    <oms2-condition type="double">1.0</oms2-condition>
+		    <oms1-gimbal-condition type="double">1.0</oms1-gimbal-condition>
+		    <oms2-gimbal-condition type="double">1.0</oms2-gimbal-condition>
 		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
 		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
 		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
@@ -52,6 +57,72 @@
 		    <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
 		    <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
 		    <tps-condition type="double">1.0</tps-condition>
+		    <rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
+		    <rcs-F3F-condition type="double">1.0</rcs-F3F-condition>
+		    <rcs-F1F-condition type="double">1.0</rcs-F1F-condition>
+		    <rcs-F1L-condition type="double">1.0</rcs-F1L-condition>
+		    <rcs-F3L-condition type="double">1.0</rcs-F3L-condition>
+		    <rcs-F2R-condition type="double">1.0</rcs-F2R-condition>
+		    <rcs-F4R-condition type="double">1.0</rcs-F4R-condition>
+	            <rcs-F2U-condition type="double">1.0</rcs-F2U-condition>
+		    <rcs-F3U-condition type="double">1.0</rcs-F3U-condition>
+		    <rcs-F1U-condition type="double">1.0</rcs-F1U-condition>
+		    <rcs-F2D-condition type="double">1.0</rcs-F2D-condition>
+		    <rcs-F1D-condition type="double">1.0</rcs-F1D-condition>
+		    <rcs-F4D-condition type="double">1.0</rcs-F4D-condition>
+		    <rcs-F3D-condition type="double">1.0</rcs-F3D-condition>
+		    <rcs-F5R-condition type="double">1.0</rcs-F5R-condition>
+		    <rcs-F5L-condition type="double">1.0</rcs-F5L-condition>
+		    <rcs-R3A-condition type="double">1.0</rcs-R3A-condition>
+		    <rcs-R1A-condition type="double">1.0</rcs-R1A-condition>
+ 		    <rcs-L3A-condition type="double">1.0</rcs-L3A-condition>
+		    <rcs-L1A-condition type="double">1.0</rcs-L1A-condition>
+		    <rcs-L4L-condition type="double">1.0</rcs-L4L-condition>
+		    <rcs-L2L-condition type="double">1.0</rcs-L2L-condition>
+		    <rcs-L3L-condition type="double">1.0</rcs-L3L-condition>
+		    <rcs-L1L-condition type="double">1.0</rcs-L1L-condition>
+ 		    <rcs-R4R-condition type="double">1.0</rcs-R4R-condition>
+ 		    <rcs-R2R-condition type="double">1.0</rcs-R2R-condition>
+ 		    <rcs-R3R-condition type="double">1.0</rcs-R3R-condition>
+ 		    <rcs-R1R-condition type="double">1.0</rcs-R1R-condition>
+		    <rcs-L4U-condition type="double">1.0</rcs-L4U-condition>
+		    <rcs-L2U-condition type="double">1.0</rcs-L2U-condition>
+		    <rcs-L1U-condition type="double">1.0</rcs-L1U-condition>
+		    <rcs-R4U-condition type="double">1.0</rcs-R4U-condition>
+		    <rcs-R2U-condition type="double">1.0</rcs-R2U-condition>
+		    <rcs-R1U-condition type="double">1.0</rcs-R1U-condition>
+		    <rcs-L4D-condition type="double">1.0</rcs-L4D-condition>
+		    <rcs-L2D-condition type="double">1.0</rcs-L2D-condition>
+		    <rcs-L3D-condition type="double">1.0</rcs-L3D-condition>
+		    <rcs-R4D-condition type="double">1.0</rcs-R4D-condition>
+		    <rcs-R2D-condition type="double">1.0</rcs-R2D-condition>
+		    <rcs-R3D-condition type="double">1.0</rcs-R3D-condition>
+		    <rcs-L5D-condition type="double">1.0</rcs-L5D-condition>
+		    <rcs-R5D-condition type="double">1.0</rcs-R5D-condition>
+		    <rcs-L5L-condition type="double">1.0</rcs-L5L-condition>
+		    <rcs-R5R-condition type="double">1.0</rcs-R5R-condition>
+		    <apu1-condition type="double">1.0</apu1-condition>
+		    <apu2-condition type="double">1.0</apu2-condition>
+		    <apu3-condition type="double">1.0</apu3-condition>
+		    <boiler1-condition type="double">1.0</boiler1-condition>
+		    <boiler2-condition type="double">1.0</boiler2-condition>
+		    <boiler3-condition type="double">1.0</boiler3-condition>
+		    <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
+		    <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
+		    <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
+		    <fc1-condition type="double">1.0</fc1-condition>
+		    <fc2-condition type="double">1.0</fc2-condition>
+		    <fc3-condition type="double">1.0</fc3-condition>
+		    <radiator-condition type="double">1.0</radiator-condition>
+		    <fes-topping-condition type="double">1.0</fes-topping-condition>
+		    <fes-hiload-condition type="double">1.0</fes-hiload-condition>
+		    <freon-pump-1-condition type="double">1.0</freon-pump-1-condition>
+		    <freon-pump-2-condition type="double">1.0</freon-pump-2-condition>
+    		    <water-pump-1-condition type="double">1.0</water-pump-1-condition>
+		    <water-pump-2-condition type="double">1.0</water-pump-2-condition>
+		    <spray-boiler-1-condition type="double">1.0</spray-boiler-1-condition>
+		    <spray-boiler-2-condition type="double">1.0</spray-boiler-2-condition>
+		    <spray-boiler-3-condition type="double">1.0</spray-boiler-3-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -72,11 +143,233 @@
                 </orbital>
                 <fcs>
                     <parachute_reef_pos_norm type="double"> 0 </parachute_reef_pos_norm>
-                    <control-mode type="int"> 0 </control-mode>
+                    <control-mode type="int"> 10 </control-mode>
                     <rcs-pitch-mode type="int">1</rcs-pitch-mode>
                     <rcs-roll-mode type="int">1</rcs-roll-mode>
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
                 </fcs>
+		<apu>
+			<init-hydraulics-on type="int">0</init-hydraulics-on>
+		    <apu n="0">
+			<apu-controller-power type="int">0</apu-controller-power>
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">0</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
+		    </apu>
+    		    <apu n="1">
+			<apu-controller-power type="int">0</apu-controller-power>
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">0</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
+		    </apu>
+ 		    <apu n="2">
+			<apu-controller-power type="int">0</apu-controller-power>
+			<apu-rpm-cmd type="double">0.0</apu-rpm-cmd>
+			<fuel-valve-status type="int">0</fuel-valve-status>
+			<apu-speed-select type="int">0</apu-speed-select>
+			<apu-operate type="int">0</apu-operate>
+			<apu-rpm-rnd type="double">1.0</apu-rpm-rnd>
+			<apu-rpm type="double">0.0</apu-rpm>
+			<apu-rpm-target type="double">1.0</apu-rpm-target>
+			<apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
+			<hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
+			<hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+			<tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
+			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
+			<boiler-power-status type="int">0</boiler-power-status>
+			<boiler-heater-status type="int">0</boiler-heater-status>
+		    </apu>
+		</apu>
+		<atcs>
+		    <freon-pump-1-status type="int">1</freon-pump-1-status>
+		    <freon-pump-2-status type="int">1</freon-pump-2-status>
+ 		    <water-pump-1-status type="int">0</water-pump-1-status>
+		    <water-pump-2-status type="int">1</water-pump-2-status>
+		    <rad-controller-1-status type="int">0</rad-controller-1-status>
+		    <rad-controller-2-status type="int">0</rad-controller-2-status>
+		    <out-temp-hi-status type="int">0</out-temp-hi-status>
+		    <flow-bypass-1-status type="int">1</flow-bypass-1-status>
+		    <flow-bypass-2-status type="int">1</flow-bypass-2-status>
+		    <fes-controller-A-status type="int">1</fes-controller-A-status>
+		    <fes-controller-B-status type="int">0</fes-controller-B-status>
+		    <fes-controller-sec-status type="int">0</fes-controller-sec-status>
+		    <fes-hi-load-status type="int">1</fes-hi-load-status>
+		    <fes-heater-left-status type="int">0</fes-heater-left-status>
+		    <fes-heater-right-status type="int">0</fes-heater-right-status>
+		    <fes-heater-hiload-status type="int">0</fes-heater-hiload-status>
+		</atcs>
+		<electrical>
+		    <fc>
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>
+		    <fc n="1">
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>
+		    <fc n="2">
+			<reactant-valve-status type="int">1</reactant-valve-status>
+			<fc-start-cmd type="int">1</fc-start-cmd>
+			<fc-controller-power type="int">1</fc-controller-power>
+			<bus-connector-status type="int">1</bus-connector-status>
+			<fc-efficiency type="double">1.0</fc-efficiency>
+		    </fc>	
+		    <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
+		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
+		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
+		    <init-electrical-on type="double">14.0</init-electrical-on>		
+		</electrical>
+		<mechanical>
+			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
+			<et-door-cl-latch-pos type="double">1.0</et-door-cl-latch-pos>
+			<et-door-left-latch-cmd type="int">0</et-door-left-latch-cmd>
+			<et-door-left-latch-pos type="double">0.0</et-door-left-latch-pos>
+			<et-door-right-latch-cmd type="int">0</et-door-right-latch-cmd>
+			<et-door-right-latch-pos type="double">0.0</et-door-right-latch-pos>
+			<et-door-left-cmd type="int">0</et-door-left-cmd>
+			<et-door-left-pos type="double">0.0</et-door-left-pos>
+			<et-door-right-cmd type="int">0</et-door-right-cmd>
+			<et-door-right-pos type="double">0.0</et-door-right-pos>
+			<pb-door-cl1-4-latch-cmd type="int">0</pb-door-cl1-4-latch-cmd>
+			<pb-door-cl1-4-latch-pos type="double">0.0</pb-door-cl1-4-latch-pos>
+			<pb-door-cl5-8-latch-cmd type="int">0</pb-door-cl5-8-latch-cmd>
+			<pb-door-cl5-8-latch-pos type="double">0.0</pb-door-cl5-8-latch-pos>
+			<pb-door-cl9-12-latch-cmd type="int">0</pb-door-cl9-12-latch-cmd>
+			<pb-door-cl9-12-latch-pos type="double">0.0</pb-door-cl9-12-latch-pos>
+			<pb-door-cl13-16-latch-cmd type="int">0</pb-door-cl13-16-latch-cmd>
+			<pb-door-cl13-16-latch-pos type="double">0.0</pb-door-cl13-16-latch-pos>
+			<pb-door-left-fwd-latch-cmd type="int">0</pb-door-left-fwd-latch-cmd>
+			<pb-door-left-fwd-latch-pos type="double">0.0</pb-door-left-fwd-latch-pos>
+			<pb-door-left-aft-latch-cmd type="int">0</pb-door-left-aft-latch-cmd>
+			<pb-door-left-aft-latch-pos type="double">0.0</pb-door-left-aft-latch-pos>
+			<pb-door-right-fwd-latch-cmd type="int">0</pb-door-right-fwd-latch-cmd>
+			<pb-door-right-fwd-latch-pos type="double">0.0</pb-door-right-fwd-latch-pos>
+			<pb-door-right-aft-latch-cmd type="int">0</pb-door-right-aft-latch-cmd>
+			<pb-door-right-aft-latch-pos type="double">0.0</pb-door-right-aft-latch-pos>
+			<pb-door-left-cmd type="int">0</pb-door-left-cmd>
+			<pb-door-left-pos type="int">0.0</pb-door-left-pos>
+			<pb-door-right-cmd type="int">0</pb-door-right-cmd>
+			<pb-door-right-pos type="int">0.0</pb-door-right-pos>
+			<pb-door-sys1-enable type="int">0</pb-door-sys1-enable>
+			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
+			<pb-door-indicator type="double">0</pb-door-indicator>
+			<pb-door-auto-switch type="int">0</pb-door-auto-switch>
+		</mechanical>
+		<mps>
+		    <engine>
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
+		    </engine>
+		    <engine n="1">
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
+		    </engine>
+		    <engine n="2">
+			<controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
+			<controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+			<run-cmd type="int">1</run-cmd>
+			<electric-lockup type="int">0</electric-lockup>
+			<helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
+			<helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
+		    </engine>
+		    <helium>
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
+		    <helium n="1">
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
+		    <helium n="2">
+			<pressurized type="double">0.0</pressurized>
+		    </helium>
+		    <helium-isolation-valve-P-status type="int">1</helium-isolation-valve-P-status>
+		    <helium-isolation-valve-Px-status type="int">1</helium-isolation-valve-Px-status>
+		    <limit-shutdown-enable type="int">1</limit-shutdown-enable>
+		    <propellant-dump-cmd type="int">0</propellant-dump-cmd>
+		    <backup-LH2-valve-status type="int">0</backup-LH2-valve-status>
+		    <LH2-ullage-status type="int">0</LH2-ullage-status>
+		    <LH2-manifold-valve-status type="int">0</LH2-manifold-valve-status>
+		    <LO2-manifold-valve-status type="int">0</LO2-manifold-valve-status>
+		    <propellant-dump-density type="double">0.2</propellant-dump-density>
+		    <propellant-dump-force-lb type="double">0.0</propellant-dump-force-lb>
+		</mps>
+		<oms-hardware>
+		    	<helium-left-oms-valve-A-status type="int">1</helium-left-oms-valve-A-status>
+		    	<helium-left-oms-valve-B-status type="int">1</helium-left-oms-valve-B-status>
+		    	<helium-right-oms-valve-A-status type="int">1</helium-right-oms-valve-A-status>
+		    	<helium-right-oms-valve-B-status type="int">1</helium-right-oms-valve-B-status>
+			<helium-left-oms-pressure-psia type="double">280.0</helium-left-oms-pressure-psia>
+			<helium-right-oms-pressure-psia type="double">280.0</helium-right-oms-pressure-psia>
+		    	<tank-left-oms-valve-A-status type="int">1</tank-left-oms-valve-A-status>
+		    	<tank-left-oms-valve-B-status type="int">1</tank-left-oms-valve-B-status>
+		    	<tank-right-oms-valve-A-status type="int">1</tank-right-oms-valve-A-status>
+		    	<tank-right-oms-valve-B-status type="int">1</tank-right-oms-valve-B-status>
+			<crossfeed-left-oms-valve-A-status type="int">0</crossfeed-left-oms-valve-A-status>
+			<crossfeed-left-oms-valve-B-status type="int">0</crossfeed-left-oms-valve-B-status>
+			<crossfeed-right-oms-valve-A-status type="int">0</crossfeed-right-oms-valve-A-status>
+			<crossfeed-right-oms-valve-B-status type="int">0</crossfeed-right-oms-valve-B-status>
+			<engine-left-arm-cmd type="int">1</engine-left-arm-cmd>
+			<engine-right-arm-cmd type="int">1</engine-right-arm-cmd>
+  		    	<fuel-left-oms-pressure-psia type="double">250.0</fuel-left-oms-pressure-psia>
+  		    	<fuel-right-oms-pressure-psia type="double">250.0</fuel-right-oms-pressure-psia>
+			<crossfeed-left-open type="double">0.0</crossfeed-left-open>
+			<tank-left-isolation-status type="double">0.0</tank-left-isolation-status>
+			<crossfeed-right-open type="double">0.0</crossfeed-right-open>
+			<tank-right-isolation-status type="double">0.0</tank-right-isolation-status>
+		    	<heater-left-A-status type="int">0</heater-left-A-status>
+		    	<heater-left-B-status type="int">0</heater-left-B-status>
+    		    	<heater-right-A-status type="int">0</heater-right-A-status>
+		    	<heater-right-B-status type="int">0</heater-right-B-status>
+		    	<heater-crossfeed-A-status type="int">0</heater-crossfeed-A-status>
+		    	<heater-crossfeed-B-status type="int">0</heater-crossfeed-B-status>
+		</oms-hardware>
+		<propellant>
+			<LO2-inboard-status type="int">0</LO2-inboard-status>
+			<LO2-outboard-status type="int">0</LO2-outboard-status>
+			<LH2-inboard-status type="int">0</LH2-inboard-status>
+			<LH2-outboard-status type="int">0</LH2-outboard-status>
+			<LO2-left-prevalve-status type="int">1</LO2-left-prevalve-status>
+			<LO2-center-prevalve-status type="int">1</LO2-center-prevalve-status>
+			<LO2-right-prevalve-status type="int">1</LO2-right-prevalve-status>
+			<LH2-left-prevalve-status type="int">1</LH2-left-prevalve-status>
+			<LH2-center-prevalve-status type="int">1</LH2-center-prevalve-status>
+			<LH2-right-prevalve-status type="int">1</LH2-right-prevalve-status>
+		</propellant>
                 <rcs>
                     <pod1-up-fire-roll type="double">0.0</pod1-up-fire-roll>
                     <pod1-up-raw-pitch type="double">0.0</pod1-up-raw-pitch>
@@ -114,8 +407,105 @@
                     <nose-down-raw type="double">0.0</nose-down-raw>
                     <thrust-nose-down type="double">0.0</thrust-nose-down>
 
+		    <fwd-dump-cmd type="int">0</fwd-dump-cmd>
+
                     <thrust-normalizer type="double">0.0</thrust-normalizer>
                 </rcs>
+		<rcs-hardware>
+		    <helium-left-rcs-pressure-1-psia type="double">280.0</helium-left-rcs-pressure-1-psia>
+		    <helium-right-rcs-pressure-1-psia type="double">280.0</helium-right-rcs-pressure-1-psia>
+		    <helium-fwd-rcs-pressure-1-psia type="double">280.0</helium-fwd-rcs-pressure-1-psia>
+
+  		    <helium-left-rcs-pressure-2-psia type="double">280.0</helium-left-rcs-pressure-2-psia>
+		    <helium-right-rcs-pressure-2-psia type="double">280.0</helium-right-rcs-pressure-2-psia>
+		    <helium-fwd-rcs-pressure-2-psia type="double">280.0</helium-fwd-rcs-pressure-2-psia>
+
+		    <helium-left-rcs-valve-A-status type="int">1</helium-left-rcs-valve-A-status>
+		    <helium-left-rcs-valve-B-status type="int">1</helium-left-rcs-valve-B-status>
+		    <helium-right-rcs-valve-A-status type="int">1</helium-right-rcs-valve-A-status>
+		    <helium-right-rcs-valve-B-status type="int">1</helium-right-rcs-valve-B-status>
+		    <helium-fwd-rcs-valve-A-status type="int">1</helium-fwd-rcs-valve-A-status>
+		    <helium-fwd-rcs-valve-B-status type="int">1</helium-fwd-rcs-valve-B-status>
+
+  		    <fuel-left-rcs-pressure-psia type="double">250.0</fuel-left-rcs-pressure-psia>
+  		    <fuel-right-rcs-pressure-psia type="double">250.0</fuel-right-rcs-pressure-psia>
+  		    <fuel-fwd-rcs-pressure-psia type="double">250.0</fuel-fwd-rcs-pressure-psia> 
+		    <oxidizer-left-rcs-pressure-psia type="double">250.0</oxidizer-left-rcs-pressure-psia>
+  		    <oxidizer-right-rcs-pressure-psia type="double">250.0</oxidizer-right-rcs-pressure-psia>
+  		    <oxidizer-fwd-rcs-pressure-psia type="double">250.0</oxidizer-fwd-rcs-pressure-psia> 
+
+		    <tank-right-rcs-valve-12-status type="int">1</tank-right-rcs-valve-12-status>
+		    <tank-right-rcs-valve-345A-status type="int">1</tank-right-rcs-valve-345A-status>
+		    <tank-right-rcs-valve-345B-status type="int">1</tank-right-rcs-valve-345B-status>
+
+		    <tank-left-rcs-valve-12-status type="int">1</tank-left-rcs-valve-12-status>
+		    <tank-left-rcs-valve-345A-status type="int">1</tank-left-rcs-valve-345A-status>
+		    <tank-left-rcs-valve-345B-status type="int">1</tank-left-rcs-valve-345B-status>
+
+		    <tank-fwd-rcs-valve-12-status type="int">1</tank-fwd-rcs-valve-12-status>
+		    <tank-fwd-rcs-valve-345-status type="int">1</tank-fwd-rcs-valve-345-status>
+
+		    <mfold-right-rcs-valve-1-status type="int">1</mfold-right-rcs-valve-1-status>
+		    <mfold-right-rcs-valve-2-status type="int">1</mfold-right-rcs-valve-2-status>
+		    <mfold-right-rcs-valve-3-status type="int">1</mfold-right-rcs-valve-3-status>
+		    <mfold-right-rcs-valve-4-status type="int">1</mfold-right-rcs-valve-4-status>
+		    <mfold-right-rcs-valve-5-status type="int">1</mfold-right-rcs-valve-5-status>
+	
+		    <mfold-left-rcs-valve-1-status type="int">1</mfold-left-rcs-valve-1-status>
+		    <mfold-left-rcs-valve-2-status type="int">1</mfold-left-rcs-valve-2-status>
+		    <mfold-left-rcs-valve-3-status type="int">1</mfold-left-rcs-valve-3-status>
+		    <mfold-left-rcs-valve-4-status type="int">1</mfold-left-rcs-valve-4-status>
+		    <mfold-left-rcs-valve-5-status type="int">1</mfold-left-rcs-valve-5-status>
+
+		    <mfold-fwd-rcs-valve-1-status type="int">1</mfold-fwd-rcs-valve-1-status>
+		    <mfold-fwd-rcs-valve-2-status type="int">1</mfold-fwd-rcs-valve-2-status>
+		    <mfold-fwd-rcs-valve-3-status type="int">1</mfold-fwd-rcs-valve-3-status>
+		    <mfold-fwd-rcs-valve-4-status type="int">1</mfold-fwd-rcs-valve-4-status>
+		    <mfold-fwd-rcs-valve-5-status type="int">1</mfold-fwd-rcs-valve-5-status>
+		
+		    <crossfeed-left-rcs-valve-12-status type="int">0</crossfeed-left-rcs-valve-12-status>	 
+		    <crossfeed-left-rcs-valve-345-status type="int">0</crossfeed-left-rcs-valve-345-status>	     
+		    <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>	
+		    <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>	      
+
+		    <heater-left-A-status type="int">0</heater-left-A-status>
+		    <heater-left-B-status type="int">0</heater-left-B-status>
+
+    		    <heater-right-A-status type="int">0</heater-right-A-status>
+		    <heater-right-B-status type="int">0</heater-right-B-status>
+
+		    <heater-fwd-A-status type="int">0</heater-fwd-A-status>
+		    <heater-fwd-B-status type="int">0</heater-fwd-B-status>
+
+		    <heater-fwd-1-status type="int">0</heater-fwd-1-status>
+		    <heater-fwd-2-status type="int">0</heater-fwd-2-status>
+		    <heater-fwd-3-status type="int">0</heater-fwd-3-status>
+		    <heater-fwd-4-status type="int">0</heater-fwd-4-status>
+		    <heater-fwd-5-status type="int">0</heater-fwd-5-status>
+
+   		    <heater-pod-1-status type="int">0</heater-pod-1-status>
+		    <heater-pod-2-status type="int">0</heater-pod-2-status>
+		    <heater-pod-3-status type="int">0</heater-pod-3-status>
+		    <heater-pod-4-status type="int">0</heater-pod-4-status>
+		    <heater-pod-5-status type="int">0</heater-pod-5-status>
+
+		    <fuel-left-crossfeed-correction type="double">0.0</fuel-left-crossfeed-correction>
+		    <fuel-right-crossfeed-correction type="double">0.0</fuel-right-crossfeed-correction>
+		    <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
+		    <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
+
+		</rcs-hardware>	
+		<thermal-distribution>
+			<freon-loop-switch type="double">0.4</freon-loop-switch>
+			<water-loop-switch type="int">1</water-loop-switch>
+			<spray-boiler-1-switch type="double">0.0</spray-boiler-1-switch>
+			<spray-boiler-2-switch type="double">0.0</spray-boiler-2-switch>
+			<spray-boiler-3-switch type="double">0.0</spray-boiler-3-switch>
+			<interior-set-temperature-K type="double">293.0</interior-set-temperature-K>
+			<interior-temperature-K type="double">293.0</interior-temperature-K>
+			<freon-out-temperature-K type="double">200.0</freon-out-temperature-K>
+			<computation-timestep-s type="double">10.0</computation-timestep-s>
+		</thermal-distribution>
             </systems>
         </jsbsim>
     </fdm>
@@ -133,13 +523,27 @@
                 <position type="float">0</position>
             </door>
             <parachute type="int">0</parachute>
-            <control-system-string type="string">Thrust Vectoring (gimbal)</control-system-string>
-            <hud-mode>0</hud-mode>
-            <gear-string>up</gear-string>
-            <speedbrake-string>in</speedbrake-string>
-            <drag-chute-string>in</drag-chute-string>
+            <control-system-string type="string">Thrust Vectoring</control-system-string>
+            <hud-mode type="int">0</hud-mode>
+            <gear-string type="string">up</gear-string>
+            <speedbrake-string type="string">in</speedbrake-string>
+	    <speedbrake type="double">0.0</speedbrake>
+            <drag-chute-string type="string">in</drag-chute-string>
 	    <SRB-static-model type="bool">true</SRB-static-model>	    
 	    <ET-static-model type="bool">true</ET-static-model>
+	    <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
+	    <forces>
+		<srb1>
+			<force-azimuth-deg type="double">0.0</force-azimuth-deg>
+			<force-elevation-deg type="double">0.0</force-elevation-deg>
+			<force-lb type="double">0.0</force-lb>
+		</srb1>
+		<srb2>
+			<force-azimuth-deg type="double">0.0</force-azimuth-deg>
+			<force-elevation-deg type="double">0.0</force-elevation-deg>
+			<force-lb type="double">0.0</force-lb>
+		</srb2>
+	    </forces>
         </shuttle>
 
         <lighting>
@@ -189,15 +593,18 @@
         </doors>
         <robotarm-norm type="float">0</robotarm-norm>
     </instrumentation>
-
-
+  
+  <!-- create the node at startup, will be overwritten later -->
+   <position>
+	<sea-level-radius-ft>26000000.0</sea-level-radius-ft>
+   </position>
 
 
     <sim>
         <description>NASA Space Shuttle Atlantis</description>
         <flight-model>jsb</flight-model>
         <aero>shuttle</aero>
-        <author>Thorsten Renk (flight dynamics), NASA and HerbyW (3D)</author>
+        <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), NASA, japreja and HerbyW (3D)</author>
 
         <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
 
@@ -225,6 +632,20 @@
                 <engine n = "19" type="bool">0</engine>
                 <engine n = "20" type="bool">0</engine>
                 <engine n = "21" type="bool">0</engine>
+		<engine n = "22" type="bool">0</engine>
+                <engine n = "23" type="bool">0</engine>
+                <engine n = "24" type="bool">0</engine>
+                <engine n = "25" type="bool">0</engine>
+                <engine n = "26" type="bool">0</engine>
+                <engine n = "27" type="bool">0</engine>
+                <engine n = "28" type="bool">0</engine>
+                <engine n = "29" type="bool">0</engine>
+ 		<engine n = "30" type="bool">0</engine>
+                <engine n = "31" type="bool">0</engine>
+                <engine n = "32" type="bool">0</engine>
+                <engine n = "33" type="bool">0</engine>
+                <engine n = "34" type="bool">0</engine>
+                <engine n = "35" type="bool">0</engine>
             </selected>
         </input>
 
@@ -293,11 +714,10 @@
 
         <submodels>
             <serviceable type="bool">true</serviceable>
-            <!--<path>Aircraft/SpaceShuttle/Models/EMU/submodels.xml</path>-->
 	    <path>Aircraft/SpaceShuttle/Models/submodels.xml</path>
         </submodels>
 
-
+        <checklists include="SpaceShuttle-checklists.xml"/>
 
         <view n="0">
             <internal archive="y">true</internal>
@@ -355,21 +775,110 @@
             <default>
                 <menu n="50">
                     <label>Space Shuttle</label>
-                    <item n="0">
+
+		    <item>
+			<label>--- Systems ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+		    <item>
+                        <label>APU and Hydraulics</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.apu_dlg.open()</script>
+                        </binding>
+                    </item>
+    		    <item>
+                        <label>Active Thermal Control System</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.atcs_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Electrical Power</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.electrical_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Main Propulsion System</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.mps_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Mechanical Systems</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.mechanical_dlg.open()</script>
+                        </binding>
+                    </item>
+		    <item>
+                        <label>Propellant Fill/Drain</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.propellant_fd_dlg.open()</script>
+                        </binding>
+                    </item>
+ 		    <item>
+                        <label>RCS/OMS propellant flow</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rcs_dlg.open()</script>
+                        </binding>
+                    </item>
+ 		    <item>
+                        <label>RCS and OMS thermal control</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rcs_oms_thermal_dlg.open()</script>
+                        </binding>
+                    </item>
+
+		    <item>
+			<label>--- Avionics ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+                    <item>
                         <label>Entry Guidance</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.entry_guidance_dlg.open()</script>
                         </binding>
                     </item>
-                    <item n="1">
-                        <label>Map</label>
+           	    <item>
+                        <label>Orbiter Temperature Distribution</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.temperature_dlg.open()</script>
+                        </binding>
+                    </item>
+                    <item>
+                        <label>Trajectory Map</label>
                         <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
+                     </item>
+
+		    <item>
+			<label>--- Configuration ---</label>
+			<enabled>false</enabled>
+		    </item>
+
+		    <item>
+                        <label>Simulation Options</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.options_dlg.open()</script>
+                        </binding>
                     </item>
-			<item n="2">
+
+			<item>
                         <label>Limits and Failures</label>
                         <binding>
                             <command>nasal</command>
@@ -386,7 +895,20 @@
         <help>
             <title>Space Shuttle</title>
 
+  	     <key>
+                <name>Ctrl-q</name>
+                <desc>engine 1 cutoff switch</desc>
+            </key>
 
+  	     <key>
+                <name>Ctrl-w</name>
+                <desc>engine 2 cutoff switch</desc>
+            </key>
+
+  	     <key>
+                <name>Ctrl-e</name>
+                <desc>engine 3 cutoff switch</desc>
+            </key>
 
             <key>
                 <name>c</name>
@@ -400,6 +922,18 @@
                 <name>Ctrl-d</name>
                 <desc>force drop external tank</desc>
             </key>
+            <key>
+                <name>f</name>
+                <desc>trim body-flap upward</desc>
+            </key>
+            <key>
+                <name>F</name>
+                <desc>trim body-flap downward</desc>
+            </key>
+	    <key>
+		<name>Ctrl-f</name>
+		<desc>toggle forward RCS pod fuel dump</desc>
+	    </key>
             <key>
                 <name>m</name>
                 <desc>switch FCS modes</desc>
@@ -447,41 +981,44 @@
             <text>
 
 
+General remarks
+===============
 
+This help text can only give you a glimpse of how the Space Shuttle is operated. The ultimate resource is the 'Space Shuttle Crew Operations Manual' (USA007587) which is in public domain and can be freely downloaded e.g. from NASA document servers. You will find a FlightGear focused overview on the FG Wiki pages along with links to resources to learn basics of orbital mechanics.
 
+To avoid frustration, always follow the checklists for the various mission phases. They are written to ensure that the systems of the Shuttle are set up in the correct state for subsequent operations.
 
 Ignition sequence
 =================
 
 (You can start at this phase with --aircraft=SpaceShuttle-launch)
 
+Go through the pre-launch checklist to start the APUs.
+
 Ignition of the main engines is done via throttle - SSME 1 to 3 ignite as soon as the throttle reaches 65%. This is not enough to achieve liftoff for the normal launch mass of the shutte, however main engine ignition triggers SRB ignition three seconds later. Once both SRBs ignite, the shuttle will lift off the path rapidly.
 
 Initial launch
 ==============
 
-Upon ascent, the shuttle is controlled via thrust vectoring of both SSME and SRB. Initially, with the strong SRB thrusters far from the CoG, the launch stack is very maneuverable - don't get used to it.
+Upon ascent, the shuttle is controlled via thrust vectoring of both SSME and SRB. Initially, with the strong SRB thrusters far from the CoG, the launch stack is very maneuverable - don't get used to it. There are two thrust vectoring mode available (switch via 'm' key) - in 'Thrust Vevtoring (gimbal)' the stick controls the pitch and yaw angles of the engines directly - this gives a good impression how  rocket flies, but is fairly challenging. Using Thrust Vectoring, the stick controls pitch, yaw and roll rates and neutral stick commands attitude hold. This is a fairly well stabilized mode in which the shuttle can be controlled and launched to a target inclination rather precisely.
 
-Once clearing the pad, rotate to the desired launch course, then pull the launch stack gently out of the vertical to an about 70 degree inverted climb (the ride into orbit is done head down...). The external tank is very top-heavy (most of its mass is in the oxygen tank on its top) - take care that the stack doesn't topple too far out of the vertical, or you will never recover. Initially aerodynamical forces on the orbiter will require sizable thrust vectoring, as you clear the atmosphere the need will gradually go away as the flight control systems automatically vector each engine through the CoG.
-
-There are two thrust vectoring mode available (switch via m) - in Thrust Vevtoring (gimbal) the stick controls the pitch and yaw angles of the engines directly - this gives a good impression how  rocket flies, but is fairly challenging. Using Thrust Vectoring, the stick controls pitch, yaw and roll rates and neutral stick commands attitude hold. This is a fairly well stabilized mode in which the shuttle can be controlled and launched to a target inclination rather precisely.
+Once clearing the pad, rotate to the desired launch course, then pull the launch stack gently out of the vertical to an about 70 degree inverted climb (the ride into orbit is done head down...). The external tank is very top-heavy (most of its mass is in the oxygen tank on its top) - take care that the stack doesn't topple too far out of the vertical, or you will never recover. Initially aerodynamical forces on the orbiter will require sizable thrust vectoring, as you clear the atmosphere the need will gradually go away as the flight control systems automatically vector each engine through the CoG - however you will only be able to observe this if you're flying the 'Thrust Vectoring (gimbal)' DAP, otherwise the flight control logic will take care of aerodynamics.
 
 SRB thrust can not be throttled, however the main engine can, and you will see a callout to throttle back the main engine to 65% after 34 seconds to avoid the highest dynamical pressure during ascent to damage the vehicle (damage is currently not modeled, but will be called out).
 
 SRB separation
 ==============
 
-SRBs will burn about 128 seconds before they are disconnected. At this point you should be on your launch course, out of the atmosphere at around 200.000 ft and still on a 70 degree climb. Once the SRBs connect, most of your thrust will be gone and since the main engines are very close to the central axis, thrust vectoring efficiency will be dramatically reduced.
+SRBs will burn about 128 seconds before they are disconnected. At this point you should be on your launch course, out of the atmosphere at around 150.000 ft and still on a 60 degree climb. Once the SRBs disconnect, most of your thrust will be gone and since the main engines are very close to the central axis, thrust vectoring efficiency will be dramatically reduced.
 
-In addition, you are not in vacuum, so any yaw, pitch or roll motion will continue indefinitely till it is countered by opposite thrust. The most important thing is to stay on your launch course - if you get a strong yaw drift, you will never make orbit.
+In addition, you are not in vacuum, so any yaw, pitch or roll motion will continue indefinitely till it is countered by opposite thrust. The most important thing is to stay on your launch course - if you get a strong yaw drift, you will never make orbit. Again, if you are not flying in 'Thrust Vevtoring (gimbal)' mode, the flight control logic will take care of things automatically.
 
-Roll the orbiter out of inverted position, decrease climbing angle to 30-40 degrees and try to hold launch course and climb. Watch vertical speed and altitude - pull up once vertical speed starts to reduce to zero to maintain current altitude, don't worry if you start dropping for a minute, if you manage to reach orbital speed it won't matter. Try to level off at about 650.000 ft.
+Reduce climbing angle gradually to about 10 degrees, hold launch course and climb. Watch vertical speed and altitude - pull up once vertical speed starts to reduce to zero to maintain current altitude, don't worry if you start dropping for a minute, if you manage to reach orbital speed it won't matter. If you want to be realistic, aim to level off at about 450.000 ft.
 
-Orbital insertion
-=================
+MECO and reaching orbit
+======================
 
-If you managed to control launch course and climb, after a few minutes, velocity over ground should climb to 7 km/s. As the tank empties, thrust gets more powerful again, watch g-forces and throttle back as needed to keep the load below 3 g. Eventually you should see the periapsis coming up above zero, meaning that you are about to reach orbit (there'll be another callout). Timing is critical, watch the apoapsis till it reaches the orbital altitude you want to reach, then cut thrust fast.
-
+If you managed to control launch course and climb, after a few minutes, velocity over ground should climb to 7 km/s and Mach number towards Mach 27. As the tank empties, thrust gets more powerful again, watch g-forces and throttle back as needed to keep the load below 3 g or you will break the spacecraft. Eventually you should see the periapsis coming up above zero, meaning that you are about to reach orbit (there'll be another callout). Timing is critical, watch the apoapsis till it reaches the orbital altitude you want to reach, then cut thrust fast.
 
 
 Orbital maneuvering
@@ -489,11 +1026,11 @@ Orbital maneuvering
 
 (You can start at this phase with --aircraft=SpaceShuttle-orbit)
 
-Start by dropping the external tank (d). Controls will transfer to the reaction control system (RCS). The co-orbiting tank makes for an excellent target to maneuver around.
+Start with the post-MECO checklist which will advise you how to dump leftover fuel and separate the external tank. After ET separation, controls will transfer to the reaction control system (RCS). The co-orbiting tank makes for an excellent target to maneuver around to try the RCS.
 
-If MECO happened in a bad state, the Shuttle will rotate at this point and dropping the tank is unsafe and the key won't work. Either use the override switch (Ctrl-d) to drop the tank anyway and risk damage to the shuttle or manually change control mode to RCS (using Ctrl-m), null the rotation and drop the tank afterwards.
+If MECO happened in a bad state, the Shuttle will rotate at this point and dropping the tank is unsafe and the separation command key won't work. Either use the override switch (Ctrl-d) to drop the tank anyway and risk damage to the shuttle or manually change control mode to RCS (using Ctrl-m), null the rotation and drop the tank afterwards.
 
-Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll rates in the HUD. Do not leave controls uncentered at any point after maneuvering, not even a bit, you will regret it!
+Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll rates in the HUD. Do not leave controls uncentered at any point after maneuvering, not even a bit, you might regret it quickly!
 
                 4: roll left
                 6: roll right
@@ -502,8 +1039,6 @@ Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll 
                 [: yaw left
                 ]: yaw right
                 5: cut thrust
-
-Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 240 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation'). Wait till your altitude rises to the apoapsis, then lower the nose about 15 degrees below the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be down) and use thrust control to ignite the OMS engines for a few minutes. Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit.
 
 The RCS can also be used in translation mode, switching between modes is done using the 'm' key. In translational mode, the key mapping is
 
@@ -517,12 +1052,31 @@ The RCS can also be used in translation mode, switching between modes is done us
 
 Without a visual reference point, the effect of translational thruster firings are hard to gauge.
 
+There is a host of digital autopilots (DAPs) available for orbital maneuvering, all with somewhat different characteristics. For some the stick controls angular acceleration, for others angular rates, some employ the primary thrusters, others the less powerful Vernier thrusters - the FG Wiki or the Shuttle Crew Manual have a detailed description of what does what. 
+
+The main groups of DAPs are switched using 'm' - these are rotational DAPs (controlling vehicle attitude), translational DAPs (moving the vehicle around) and OMS DAPs (controlling thrust vectoring when the orbital engines are on). Inside each group, 'Shift-m' changes the individual modes.
+
+
+
+What do we want to do next? Your apoapsis should be where you want to go (say 650 km), your periapsis about where you are (say 140 km). Use the RCS to align the shuttle with the flightpath ('prograde orientation').
+
+If your apoapsis is not yet where you want to be, ignite the OMS for the OMS-1 burn and watch it climb up. Afterwards, complete the post-OMS-1 checklist.
+
+To circularize your orbit, wait till your altitude rises to the apoapsis (that should take 45 minutes of real time), then raise the nose about 15 degrees above the flightpath (the OMS thrusters are located fairly high at the rear fuselage, so to align thrust through the CoG with the flightpath, the nose needs to be up) and use thrust control to ignite the OMS engines for a time. Watch the periapsis value climb till it reaches the apoapsis value - congratulations, you've reached a circular orbit. Complete the post orbital-insertion checklist to prepare the Shuttle for its stay in orbit.
+
+
+
+De-orbit preparation
+====================
+
+Make sure to go through the checklists to have ET umbilical door closed, payload bay door closed and APUs running to have hydraulic power during entry - you will crash and burn otherwise. Also dump fuel as required to have CoG between 65 and 67 % of body length.
+
 De-orbiting
 ===========
 
-Orient the shuttle 180 degrees to the flightpath using the RCS ('retrograde') and ignite the OMS engines about 5000 miles prior to your desired landing area. Observe the drop of the periapsis, continue the burn till the periapsis has reached zero. Orient the shuttle prograde and pitch up to 40 degrees.
+Orient the shuttle 180 degrees to the flightpath using the RCS ('retrograde') and ignite the OMS engines about 5000 miles prior to your desired landing area. Observe the drop of the periapsis, continue the burn till the periapsis has reached zero. Use the groundtrack map to aim your trajectory - the endpoint of your trajectory ('ballistic impact point') should be in the vicinity of your landing site for a correct de-orbit burn. Orient the shuttle prograde and pitch up to 40 degrees.
 
-The vertical velocity will now build rapidly as the Shuttle is on a descending ballistic trajectory. The first signs of the atmosphere will be felt at around 400.000 ft altitude, which is known as the entry interface ('EI').
+The vertical velocity will now build rapidly as the Shuttle is on a descending ballistic trajectory. The first signs of the atmosphere will be felt at around 400.000 ft altitude, which is known as the entry interface ('EI').  Wait till 'Entry Interface' is called out.
 
 Entry
 =====
@@ -531,7 +1085,9 @@ Entry
 
 The atmosphere drag will cause a tendency for the Shuttle to pitch down - use the RCS to counter that tendency, maintaining 40 degrees pitch angle is crucial. As aerodynamical forces increase, control authority for roll, pitch and yaw will gradually be transferred to aerodynamical surfaces, resulting in callouts.
 
-Lift will finally be produced and slow the vertical motion - this will keep nose temperature and deceleration g-load within acceptable limits. Once the descent stops, you need to make sure the shuttle doesn't bounce and reduce lift. Do not reduce pitch (AoA) as you would usually do or you will burn. Rather, roll the shuttle to a high bank-angle (up to 70 degrees) maintaining high AoA.
+Lift will finally be produced and slow the vertical motion - this will keep nose temperature and deceleration g-load within acceptable limits. Once the descent stops, you need to make sure the shuttle doesn't bounce and reduce lift. Do not reduce pitch (AoA) as you would usually do or you will burn. Rather, roll the Shuttle to a high bank-angle (up to 70 degrees) maintaining high AoA.
+
+Using the 'Aerojet' DAP in combination with the automatic pitch hold, managing the Shuttle during the entry phase should be fairly easy as the flight control logic takes care of most issues. You can opt to fly manually using the 'RCS ROT ENTRY' DAP.
 
 Use symmetric high bank angle maneuvers ('roll reversals') if you want to stay on your ground track, asymmetric ones if you want to aim your ground track to the landing site. The amount of high bank angle flown dictates descent rate and hence deceleration and thermal load - use this to manage your entry trajectory (the full theory is too complex to squeeze this into here).
 
@@ -553,12 +1109,41 @@ Landing
 
 (You can start at this phase with --aircraft=SpaceShuttle-approach)
 
-Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway).
+Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway). Do not aim to touch down at the usual point for aircraft, the Shuttle touchdown point is some 2.500 ft from the start of teh runway. Be careful to keep sinkrate below 9 ft/s or 540 ft/min at touchdown to avoid gear damage, don't pull the nose up more than 15 degrees to avoid a tail scrape. 
 
-Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed) and apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
+Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
             </text>
         </help>
+
+	<systems>
+		<property-rule n="100"> 
+    			<name>ssme-flame-computation</name> 	
+    			<path>Systems/ssme-flame-computation.xml</path>  
+  		</property-rule>
+		<property-rule n="101">
+			<path>Systems/ground-effects-filters.xml</path>
+		</property-rule>
+	</systems>
+	<config>
+		<shuttle>
+			<approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
+			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
+			<ET-config type="string">super lightweight</ET-config>
+			<TC-config type="string">none</TC-config>
+			<rendering>
+				<use-earthview type="int" userarchive="y">0</use-earthview>
+				<earthview-transition-alt-ft type="double">85000.0</earthview-transition-alt-ft>
+			</rendering>
+		</shuttle>
+	</config>
+
+		<flight-recorder>
+			<replay-config type="int">0</replay-config>
+			<config n="0" include="Systems/flight-recorder/flight-recorder.xml">
+			  <name type="string">Space Shuttle Flight Recorder</name>
+			</config>
+		</flight-recorder>
 
     </sim>
 
@@ -577,6 +1162,24 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		</binding>
  	    </key>
 
+	    <key n="5">
+  		<name>Ctrl+e</name>
+  		<desc>Cutoff switch engine 3</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(1)</script>
+  		</binding>
+ 	    </key>
+
+	    <key n="6">
+  		<name>Ctrl+f</name>
+  		<desc>Toggle forward RCS pod fuel dump</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.toggle_fwd_fuel_dump()</script>
+  		</binding>
+ 	    </key>
+
  	    <key n="13"> 
   		<name>Ctrl+m</name>
   		<desc>Switch major FCS control modes</desc>
@@ -584,6 +1187,24 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		<binding>
    			<command>nasal</command>
 			<script>SpaceShuttle.switch_major_control_mode()</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="17">
+  		<name>Control+q</name>
+  		<desc>Cutoff switch engine 1</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(2)</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="23">
+  		<name>Control+w</name>
+  		<desc>Cutoff switch engine 2</desc>
+  		<binding>
+   			<command>nasal</command>
+   			<script>SpaceShuttle.ssme_cutoff(0)</script>
   		</binding>
  	    </key>
 
@@ -598,6 +1219,16 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
                 </binding>
             </key>
 
+            <key n="70">
+                <name>F</name>
+                <desc>trim body flap down</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.bodyflap_down()</script>
+                </binding>
+            </key>
+
 
 
             <key n="77">
@@ -607,6 +1238,16 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
                 <binding>
                     <command>nasal</command>
                     <script>SpaceShuttle.switch_detailed_control_mode()</script>
+                </binding>
+            </key>
+
+      	    <key n="83">
+                <name>S</name>
+                <desc>decrease speedbrake</desc>
+                <repeatable type="bool">false</repeatable>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.decrease_speedbrake()</script>
                 </binding>
             </key>
 
@@ -650,6 +1291,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
                 </binding>
             </key>
 
+            <key n="102">
+                <name>f</name>
+                <desc>Trim body flap up</desc>
+                <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.bodyflap_up()</script>
+                </binding>
+            </key>
+
             <key n="109">
                 <name>m</name>
                 <desc>RCS mode</desc>
@@ -662,11 +1312,10 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 
             <key n="115">
                 <name>s</name>
-                <desc>Speedbreakes on Rudder, left and right</desc>
-                <binding>
-                    <command>property-toggle</command>
-                    <property>controls/flight/speedbrake</property>
-                    <value>true</value>
+                <desc>increase speedbrake</desc>
+                  <binding>
+                    <command>nasal</command>
+                    <script>SpaceShuttle.increase_speedbrake()</script>
                 </binding>
             </key>
 
@@ -694,21 +1343,46 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
         <SpaceShuttle>
 	    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
+            <file>Aircraft/SpaceShuttle/Nasal/housekeeping.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
+		<tyresmoke>
+			<file>Nasal/tyresmoke.nas</file>
+		</tyresmoke>
 
     </nasal>
+
 
     <import>
         <path>Huds/Sets/controls.xml</path>
         <x-offset>-100</x-offset>
         <y-offset>70</y-offset>
     </import>
+
+	<gear>
+		<gear n="0">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+		<gear n="1">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+		<gear n="2">
+		  <tyre-smoke type="int">0</tyre-smoke>
+		  <sprayspeed-ms type="double">0</sprayspeed-ms>
+		  <spray-density type="double">0</spray-density>
+		</gear>
+	</gear>
+
 </PropertyList>
 
 

@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>propellant_fill_drain</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Propellant Fill/Drain</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+    <group>
+    	<layout>table</layout>
+
+    <text>
+      <label>LO2</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>LH2</label>
+      <row>0</row>
+      <col>1</col>
+    </text>
+
+
+     </group>
+
+    <group>
+    	<layout>table</layout>
+
+     <checkbox>
+        <name>LO2-inboard</name>
+ 	<row>0</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/propellant/LO2-inboard-status</property>
+          <label>inboard</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LO2-inboard</object-name>
+          </binding>
+      </checkbox>
+
+  <checkbox>
+        <name>LO2-outboard</name>
+ 	<row>0</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/propellant/LO2-outboard-status</property>
+          <label>outboard</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LO2-outboard</object-name>
+          </binding>
+      </checkbox>
+
+     <checkbox>
+        <name>LH2-inboard</name>
+ 	<row>0</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/propellant/LH2-inboard-status</property>
+          <label>inboard</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LH2-inboard</object-name>
+          </binding>
+      </checkbox>
+
+  <checkbox>
+        <name>LH2-outboard</name>
+ 	<row>0</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <label>outboard</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LH2-outboard</object-name>
+          </binding>
+      </checkbox>
+
+
+     </group>
+
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+    <group>
+    	<layout>table</layout>
+
+    <text>
+      <label>LO2 prevalve</label>
+      <row>0</row>
+      <col>1</col>
+    </text>
+
+
+   <checkbox>
+        <name>LO2-left</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <label>left</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LO2-left</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>LO2-center</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/propellant/LO2-center-prevalve-status</property>
+          <label>center</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LO2-center</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>LO2-right</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/propellant/LO2-right-prevalve-status</property>
+          <label>right</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LO2-right</object-name>
+          </binding>
+      </checkbox>
+
+
+  <text>
+      <label>LH2 prevalve</label>
+      <row>2</row>
+      <col>1</col>
+    </text>
+
+
+   <checkbox>
+        <name>LH2-left</name>
+ 	<row>3</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <label>left</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LH2-left</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>LH2-center</name>
+ 	<row>3</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/propellant/LH2-center-prevalve-status</property>
+          <label>center</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LH2-center</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>LH2-right</name>
+ 	<row>3</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/propellant/LH2-right-prevalve-status</property>
+          <label>right</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>LH2-right</object-name>
+          </binding>
+      </checkbox>
+
+   </group>
+	
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+
+<!-- Main Propulsion System hardware simulation for the Space Shuttle -->
+<!-- Thorsten Renk 2015 -->
+
+<!-- Internal JSB engine numbering differs from NASA numbering for historical reasons -->
+<!-- NASA engine 1: center engine    JSBSim SSME-1, engine[0]: left engine -->
+<!-- NASA engine 2: left engine      JSBSim SSME-2, engine[1]: right engine -->
+<!-- NASA engine 3: right engine     JSBSim SSME-3, engine[2]: center engine -->
+
+<system>
+	<channel name="Main propulsion system control">
+
+		<!-- the engine controllers draw power from different buses so that any -->
+		<!-- one failure leaves full control and any two failures leave two engines -->
+
+		<switch name="systems/mps/engine/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus1-power-available == 1
+				systems/mps/engine/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus2-power-available == 1
+				systems/mps/engine/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus2-power-available == 1
+				systems/mps/engine[1]/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus3-power-available == 1
+				systems/mps/engine[1]/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-A-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus1-power-available == 1
+				systems/mps/engine[2]/controller-A-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-B-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus3-power-available == 1
+				systems/mps/engine[2]/controller-B-power-switch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/controller-A-power == 1
+				systems/mps/engine/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/controller-A-power == 1
+				systems/mps/engine[1]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/controller-A-power == 1
+				systems/mps/engine[2]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mps/engine/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine/controller-power</property>
+				<property>systems/failures/ssme1-condition</property>
+				<property>systems/mps/engine/run-cmd</property>
+				<property>systems/propellant/LO2-left-prevalve-status</property>
+				<property>systems/propellant/LH2-left-prevalve-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	  	<fcs_function name="systems/mps/engine[1]/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine[1]/controller-power</property>
+				<property>systems/failures/ssme2-condition</property>
+				<property>systems/mps/engine[1]/run-cmd</property>
+				<property>systems/propellant/LO2-right-prevalve-status</property>
+				<property>systems/propellant/LH2-right-prevalve-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/engine[2]/engine-operational">
+		<function>
+			<product>
+				<property>systems/mps/engine[2]/controller-power</property>
+				<property>systems/failures/ssme3-condition</property>
+				<property>systems/mps/engine[2]/run-cmd</property>
+				<property>systems/propellant/LO2-center-prevalve-status</property>
+				<property>systems/propellant/LH2-center-prevalve-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<!-- each engine needs the hydraulics system to actuate valves, otherwise it is in lockup -->
+		<!-- SYS 1 actuates center engine, SYS 2 left engine and SYS 3 right engine -->
+		<!-- alternatively it can end up in electrical lockup -->
+
+		<switch name="systems/mps/engine/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-2-pressurized == 1
+				systems/apu/apu[1]/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 0
+				systems/mps/engine/electric-lockup == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[1]/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-3-pressurized == 1
+				systems/apu/apu[2]/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[1]/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/hydraulic-power == 0
+				systems/mps/engine[1]/electric-lockup == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/hydraulic-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/hyd-1-pressurized == 1
+				systems/apu/apu/tvc-isolation-valve-status == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/mps/engine[2]/lockup">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/hydraulic-power == 0
+				systems/mps/engine[2]/electric-lockup == 1
+			</test>
+		</switch>
+
+		<!-- gimbal control has extra redundancy with two systems gimbaling each engine -->
+		<!-- center engine uses SYS 1 and SYS 3 -->
+		<!-- left   engine uses SYS 1 and SYS 2 -->
+		<!-- right  engine uses SYS 2 and SYS 3 -->
+
+
+		<switch name="systems/mps/engine/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 1
+				systems/mps/engine[2]/hydraulic-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/hydraulic-power == 1
+				systems/mps/engine[1]/hydraulic-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/gimbal-control">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/hydraulic-power == 1
+				systems/mps/engine[1]/hydraulic-power == 1
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Main propulsion system helium flow">
+
+		<!-- the helium system provides emergency power for valves and shutdown -->
+		<!-- and is used for the propellant dump -->
+
+		<switch name="systems/mps/helium/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/helium-isolation-valve-A-status == 1
+				systems/mps/engine/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[1]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[1]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[2]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[2]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium-system-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/helium/pressurized == 1
+				systems/mps/helium[1]/pressurized == 1
+				systems/mps/helium[2]/pressurized == 1
+			</test>
+		</switch>
+	</channel>
+
+	<channel name="Main propulsion tanks vent if valves open">
+
+		<switch name="systems/propellant/LO2-drain-open">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/propellant/LO2-inboard-status == 1
+				systems/propellant/LO2-outboard-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/propellant/LH2-drain-open">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/propellant/LH2-inboard-status == 1
+				systems/propellant/LH2-outboard-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/propellant/LO2-drain-rate">
+		<function>
+			<product>
+				<property>systems/propellant/LO2-drain-open</property>
+				<value>-50.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/propellant/LH2-drain-rate">
+		<function>
+			<product>
+				<property>systems/propellant/LH2-drain-open</property>
+				<value>-50.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/propellant/total-ET-drain-rate">
+		<function>
+			<sum>
+				<property>systems/propellant/LO2-drain-rate</property>
+				<property>systems/propellant/LH2-drain-rate</property>
+			</sum>
+		</function>
+		<output>propulsion/tank/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+</system>

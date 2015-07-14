@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>apu</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>APU and hydraulics control</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>APU 1</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>APU 2</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>APU 3</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>hydrazine level</label>
+      <halign>center</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>apu1-fuel</name>
+      <row>3</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>350.00</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[14]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>apu1-fuel</object-name>
+      </binding>
+    </slider>
+
+    <slider>
+      <name>apu2-fuel</name>
+      <row>3</row>
+      <col>2</col>
+      <min>0.0</min>
+      <max>350.00</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[15]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>apu1-fuel</object-name>
+      </binding>
+    </slider>
+
+    <slider>
+      <name>apu3-fuel</name>
+      <row>3</row>
+      <col>3</col>
+      <min>0.0</min>
+      <max>350.00</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[16]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>apu1-fuel</object-name>
+      </binding>
+    </slider>
+
+    <checkbox>
+        <name>apu1-valve</name>
+ 	<row>4</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <label>valve 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu1-valve</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>apu2-valve</name>
+ 	<row>4</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <label>valve 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu2-valve</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>apu3-valve</name>
+ 	<row>4</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <label>valve 3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu3-valve</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <label>controller power</label>
+      <halign>center</halign>
+      <row>5</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <name>apu1-pwr</name>
+ 	<row>5</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu1-pwr</object-name>
+          </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",0);</script>
+	  </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>apu2-pwr</name>
+ 	<row>5</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu2-pwr</object-name>
+          </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",0);</script>
+	  </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>apu3-pwr</name>
+ 	<row>5</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu3-pwr</object-name>
+          </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",0);</script>
+	  </binding>
+        </checkbox>
+
+   <text>
+      <label>ready to start</label>
+      <halign>center</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+  
+   <text>
+      <row>6</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
+			<value>0</value>
+		</greater-than>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+<text>
+      <row>6</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start</property>
+			<value>0</value>
+		</greater-than>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+<text>
+      <row>6</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>ready</label>
+      <visible>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start</property>
+			<value>0</value>
+		</greater-than>
+      </visible>
+    </text>
+
+   <text>
+      <row>6</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>---</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <button>
+ 	<row>7</row>
+        <col>1</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>7</row>
+        <col>2</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>7</row>
+        <col>3</col>
+	<legend>Start/Stop</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+	</binding>
+   </button>
+
+   <text>
+      <label>APU speed high</label>
+      <halign>center</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+
+ <checkbox>
+        <name>apu1-speed</name>
+ 	<row>8</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-speed-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu1-speed</object-name>
+          </binding>
+        </checkbox>
+
+ <checkbox>
+        <name>apu2-speed</name>
+ 	<row>8</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-speed-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu2-speed</object-name>
+          </binding>
+        </checkbox>
+
+ <checkbox>
+        <name>apu3-speed</name>
+ 	<row>8</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-speed-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>apu3-speed</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <label>RPM</label>
+      <halign>center</halign>
+      <row>9</row>
+      <col>0</col>
+    </text>
+
+ <text>
+      <row>9</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+    </text> 
+
+ <text>
+      <row>9</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+    </text> 
+
+ <text>
+      <row>9</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+    </text> 
+
+   <text>
+      <label>hydraulic pressure select</label>
+      <halign>center</halign>
+      <row>10</row>
+      <col>0</col>
+    </text>
+
+ <checkbox>
+        <name>hyd1-pressure</name>
+ 	<row>10</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd1-pressure</object-name>
+          </binding>
+        </checkbox>
+
+ <checkbox>
+        <name>hyd2-pressure</name>
+ 	<row>10</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd2-pressure</object-name>
+          </binding>
+        </checkbox>
+
+ <checkbox>
+        <name>hyd3-pressure</name>
+ 	<row>10</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd3-pressure</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <label>hydraulic pressure PSI</label>
+      <halign>center</halign>
+      <row>11</row>
+      <col>0</col>
+    </text>
+
+ <text>
+      <row>11</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+    </text> 
+
+ <text>
+      <row>11</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+    </text> 
+
+ <text>
+      <row>11</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+    </text> 
+
+   <text>
+      <label>hydraulic circulation pumps</label>
+      <halign>center</halign>
+      <row>12</row>
+      <col>0</col>
+    </text>
+
+ <checkbox>
+        <name>hyd1-circ</name>
+ 	<row>12</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd1-circ</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>hyd2-circ</name>
+ 	<row>12</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd2-circ</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>hyd3-circ</name>
+ 	<row>12</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hyd3-circ</object-name>
+          </binding>
+        </checkbox>
+
+
+    <text>
+      <label>Water Spray Boilers</label>
+      <halign>left</halign>
+      <row>13</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>duct heaters</label>
+      <row>14</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-heater</name>
+ 	<row>14</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-heater</name>
+ 	<row>14</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-heater</name>
+ 	<row>14</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-heater</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>controller power</label>
+      <row>15</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-pwr</name>
+ 	<row>15</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-pwr</name>
+ 	<row>15</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-pwr</name>
+ 	<row>15</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-pwr</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>N2 supply</label>
+      <row>16</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>boiler1-n2</name>
+ 	<row>16</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler1-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler2-n2</name>
+ 	<row>16</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler2-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>boiler3-n2</name>
+ 	<row>16</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>boiler3-n2</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>APU temperature K</label>
+      <row>17</row>
+      <col>0</col>
+    </text>
+
+ <text>
+      <row>17</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K</property>
+    </text> 
+
+ <text>
+      <row>17</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K</property>
+    </text> 
+
+ <text>
+      <row>17</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K</property>
+    </text> 
+
+ </group>
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -28,6 +26,7 @@
                 <y-offset>0.65</y-offset>
                 <z-offset>0.55</z-offset>                
 	</animation>
+
 	
 	<!--<animation>
 		<type>select</type>
