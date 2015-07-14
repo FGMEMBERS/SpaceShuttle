@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Entry auto-pitch hold">
+
+
+
+		<switch name="systems/ap/alpha-hold-mode">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/automatic-pitch-control == 1
+				/position/altitude-ft GT 85000.0
+			</test>
+		</switch>
+		
+		<fcs_function name="systems/ap/alpha-error">
+		<function>
+			<difference>
+				<property>systems/entry_guidance/nominal-alpha-rad</property>
+				<property>aero/alpha-rad</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+  		<deadband name="systems/ap/alpha-error-trigger">
+			<input>systems/ap/alpha-error</input>
+			<width>0.01</width>
+  		</deadband>
+
+  		<pid name="systems/ap/alpha-controller">
+			<input>systems/ap/alpha-error</input>
+			<kp> 10.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 5.0</kd>
+			<trigger>systems/ap/alpha-error-trigger</trigger>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+  		</pid>
+
+
+		<fcs_function name="systems/ap/alpha-controller-elevator-cmd-norm">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/ap/alpha-controller</property>
+				<property>systems/ap/alpha-hold-mode</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+</system>

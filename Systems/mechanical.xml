@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="ET umbilical door">
+
+
+		<switch name="systems/mechanical/et-door-cl-latch-target">
+			<default value="systems/mechanical/et-door-cl-latch-pos"/>
+			<test  value="systems/mechanical/et-door-cl-latch-cmd">
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-left-target">
+			<default value="systems/mechanical/et-door-left-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-left-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-left-latch-target">
+			<default value="systems/mechanical/et-door-left-latch-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-left-latch-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/mechanical/et-door-left-pos == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-right-target">
+			<default value="systems/mechanical/et-door-right-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-right-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/et-door-right-latch-target">
+			<default value="systems/mechanical/et-door-right-latch-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-right-latch-cmd">
+				systems/mechanical/et-door-cl-latch-pos == 0
+				systems/mechanical/et-door-right-pos == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+			
+		<kinematic name="systems/mechanical/et-door-cl-latch-pos">
+			<input>systems/mechanical/et-door-cl-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-left-latch-pos">
+			<input>systems/mechanical/et-door-left-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-right-latch-pos">
+			<input>systems/mechanical/et-door-right-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-right-pos">
+			<input>systems/mechanical/et-door-right-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>24.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/et-door-left-pos">
+			<input>systems/mechanical/et-door-left-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>24.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+	</channel>
+
+
+	<channel name="Payload bay door">
+
+		<!-- JSBSim init quirk - to initialize the right way, it seems best -->
+		<!-- to define closed door and latch positions as 0 -->
+
+		<switch name="systems/mechanical/pb-door-power-on">
+			<default value="0.0"/>
+			<test logic="OR" value ="1.0">
+				systems/mechanical/pb-door-sys1-enable == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-power">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power-on == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-move">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power == 1
+				systems/mechanical/pb-door-auto-switch NE 0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-cl1-4-latch-target">
+			<default value="systems/mechanical/pb-door-cl1-4-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-cl1-4-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-cl5-8-latch-target">
+			<default value="systems/mechanical/pb-door-cl5-8-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-cl5-8-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-cl9-12-latch-target">
+			<default value="systems/mechanical/pb-door-cl9-12-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-cl9-12-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-cl13-16-latch-target">
+			<default value="systems/mechanical/pb-door-cl13-16-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-cl13-16-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/pb-door-cl1-4-latch-pos">
+			<input>systems/mechanical/pb-door-cl1-4-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>20.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/pb-door-cl5-8-latch-pos">
+			<input>systems/mechanical/pb-door-cl5-8-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>20.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/pb-door-cl9-12-latch-pos">
+			<input>systems/mechanical/pb-door-cl9-12-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>20.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/pb-door-cl13-16-latch-pos">
+			<input>systems/mechanical/pb-door-cl13-16-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>20.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-cl-latch-status">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-door-cl1-4-latch-pos == 1
+				systems/mechanical/pb-door-cl5-8-latch-pos == 1
+				systems/mechanical/pb-door-cl9-12-latch-pos == 1
+				systems/mechanical/pb-door-cl13-16-latch-pos == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-right-fwd-latch-target">
+			<default value="systems/mechanical/pb-door-right-fwd-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-right-fwd-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-right-aft-latch-target">
+			<default value="systems/mechanical/pb-door-right-aft-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-right-aft-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/pb-door-right-fwd-latch-pos">
+			<input>systems/mechanical/pb-door-right-fwd-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/pb-door-right-aft-latch-pos">
+			<input>systems/mechanical/pb-door-right-aft-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-right-latch-status">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-door-right-aft-latch-pos == 1.0
+				systems/mechanical/pb-door-right-fwd-latch-pos == 1.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-left-fwd-latch-target">
+			<default value="systems/mechanical/pb-door-left-fwd-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-left-fwd-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-left-aft-latch-target">
+			<default value="systems/mechanical/pb-door-left-aft-latch-pos"/>
+			<test  value="systems/mechanical/pb-door-left-aft-latch-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/pb-door-left-fwd-latch-pos">
+			<input>systems/mechanical/pb-door-left-fwd-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/pb-door-left-aft-latch-pos">
+			<input>systems/mechanical/pb-door-left-aft-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-left-latch-status">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-door-left-aft-latch-pos == 1.0
+				systems/mechanical/pb-door-left-fwd-latch-pos == 1.0
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-right-target">
+			<default value="systems/mechanical/pb-door-right-pos"/>
+			<test  value="systems/mechanical/pb-door-right-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+				systems/mechanical/pb-door-right-latch-status == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/pb-door-right-pos">
+			<input>systems/mechanical/pb-door-right-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>63.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-left-target">
+			<default value="systems/mechanical/pb-door-left-pos"/>
+			<test  value="systems/mechanical/pb-door-left-cmd">
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-cl-latch-status == 1
+				systems/mechanical/pb-door-left-latch-status == 1
+				systems/mechanical/pb-door-right-pos == 1.0
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/pb-door-left-pos">
+			<input>systems/mechanical/pb-door-left-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>63.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/mechanical/pb-door-left-animation">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/mechanical/pb-door-left-pos</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mechanical/pb-door-right-animation">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/mechanical/pb-door-right-pos</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+			
+
+
+</system>

@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>mps</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Main Propulsion System</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+ 	<group>
+    	<layout>table</layout>
+
+    <text>
+      <label>Engine cutoff switches</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>limit-shutdown</name>
+ 	<row>1</row>
+        <col>0</col>
+	  <label>enable limit shutdown</label>
+          <property>/fdm/jsbsim/systems/mps/limit-shutdown-enable</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>limit-shutdown</object-name>
+          </binding>
+        </checkbox>
+
+    <button>
+ 	<row>1</row>
+        <col>1</col>
+	<legend>left</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/mps/engine/run-cmd</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>1</row>
+        <col>2</col>
+	<legend>cntr</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
+	</binding>
+   </button>
+
+   <button>
+ 	<row>1</row>
+        <col>3</col>
+	<legend>right</legend>
+	<default>false</default>
+	<binding>
+              <command>property-toggle</command>
+	      <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
+	</binding>
+   </button>
+
+  	</group>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+   <group>
+    	<layout>table</layout>
+
+    <text>
+      <label>Engine controller power</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>left</label>
+      <row>1</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>cntr</label>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>right</label>
+      <row>1</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <label>SYS A</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <name>controller-left-A</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-A-power-switch-status</property>
+          <label>AC2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-left-A</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>controller-cntr-A</name>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-A-power-switch-status</property>
+          <label>AC1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-cntr-A</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>controller-right-A</name>
+ 	<row>2</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-A-power-switch-status</property>
+          <label>AC3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-right-A</object-name>
+          </binding>
+      </checkbox>
+
+    <text>
+      <label>SYS B</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <name>controller-left-B</name>
+ 	<row>3</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-B-power-switch-status</property>
+          <label>AC3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-left-B</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>controller-cntr-B</name>
+ 	<row>3</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-B-power-switch-status</property>
+          <label>AC2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-cntr-B</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>controller-right-B</name>
+ 	<row>3</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-B-power-switch-status</property>
+          <label>AC1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-right-B</object-name>
+          </binding>
+      </checkbox>
+    </group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+
+    <group>
+    	<layout>table</layout>
+
+    <text>
+      <label>MPS/TVC isolation valves</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <name>sys-1</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/apu/apu/tvc-isolation-valve-status</property>
+          <label>SYS 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>sys-1</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>sys-2</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/tvc-isolation-valve-status</property>
+          <label>SYS 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>sys-2</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>sys-3</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/tvc-isolation-valve-status</property>
+          <label>SYS 3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>sys-3</object-name>
+          </binding>
+      </checkbox>
+
+   </group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+    <group>
+    	<layout>table</layout>
+
+    <text>
+      <label>Helium system</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <label>left</label>
+      <row>1</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>cntr</label>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>right</label>
+      <row>1</row>
+      <col>3</col>
+    </text>
+
+   <checkbox>
+        <name>He-P</name>
+ 	<row>2</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-P-status</property>
+          <label>pneumatics</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-P</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-left-A</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+          <label>isolation A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-left-A</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-cntr-A</name>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+          <label>isolation A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-cntr-A</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-right-A</name>
+ 	<row>2</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+          <label>isolation A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-right-A</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>He-PX</name>
+ 	<row>3</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-Px-status</property>
+          <label>pneu. crossfeed</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-PX</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-left-B</name>
+ 	<row>3</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+          <label>isolation B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-left-B</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-cntr-B</name>
+ 	<row>3</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+          <label>isolation B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-cntr-B</object-name>
+          </binding>
+      </checkbox>
+
+   <checkbox>
+        <name>He-right-B</name>
+ 	<row>3</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+          <label>isolation B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-right-B</object-name>
+          </binding>
+      </checkbox>
+
+
+   </group>
+
+   
+
+     <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+    <group>
+    	<layout>table</layout>
+ <text>
+      <label>Propellant management</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+      <button>
+ 	<row>1</row>
+        <col>0</col>
+	<legend>dump sequence start</legend>
+	<default>false</default>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.fuel_dump_start()</script>
+	</binding>
+   </button>
+
+ <checkbox>
+        <name>backup-LH2</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/backup-LH2-valve-status</property>
+          <label>backup LH2 vlv</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>backup-LH2</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>ullage-LH2</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/LH2-ullage-status</property>
+          <label>LH2 ullage press</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ullage-LH2</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>manifold-LH2</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mps/LH2-manifold-valve-status</property>
+          <label>manifold press LH2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>manifold-LH2</object-name>
+          </binding>
+      </checkbox>
+
+ <checkbox>
+        <name>manifold-LO2</name>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <label>manifold press LO2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>manifold-LO2</object-name>
+          </binding>
+      </checkbox>
+
+
+	
+
+   </group>
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

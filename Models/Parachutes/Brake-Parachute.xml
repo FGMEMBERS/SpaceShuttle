@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -56,32 +54,49 @@
 	</animation>
 
 	<animation>
-  <type>translate</type>  
-  <property>sim/multiplay/generic/float[0]</property>
-  <interpolation>
-    <entry>
-      <ind>450</ind>
-      <dep>0</dep>
-    </entry>
-    <entry>
-      <ind>50</ind>
-      <dep>0</dep>
-    </entry>
-    <entry>
-      <ind>45</ind>
-      <dep>75</dep>
-    </entry>
-  </interpolation>
-  <center>
-   <x-m> 0.0</x-m>
-   <y-m> 0.0</y-m>
-   <z-m> 0.0</z-m>   
-  </center>
-  <axis>
-   <x>0</x>
-   <y>0</y>
-   <z>1</z>
-  </axis>
-</animation> 
+ 		<type>rotate</type>
+  		<property>orientation/pitch-deg</property>
+  		<factor>-1.0</factor>
+
+  		<center>
+   			<x-m> 0.0</x-m>
+   			<y-m> 0.0</y-m>
+   			<z-m> 0.0</z-m>
+  		</center>
+  		<axis>
+   			<x>0</x>
+   			<y>1</y>
+   			<z>0</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+  	<type>translate</type>  
+	<property>gear/gear[1]/rollspeed-ms</property>
+  	<interpolation>
+  		<entry>
+    		  <ind>450</ind>
+    		  <dep>0</dep>
+   		</entry>
+    		<entry>
+      		  <ind>50</ind>
+      		  <dep>0</dep>
+   		 </entry>
+    		<entry>
+      		  <ind>45</ind>
+      		  <dep>75</dep>
+    		</entry>
+  	</interpolation>
+  	<center>
+   		<x-m> 0.0</x-m>
+   		<y-m> 0.0</y-m>
+   		<z-m> 0.0</z-m>   
+  	</center>
+  	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+	</animation> 
 
 </PropertyList>

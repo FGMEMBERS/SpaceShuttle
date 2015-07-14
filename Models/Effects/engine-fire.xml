@@ -1,15 +1,12 @@
 <?xml version="1.0"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
 
 <PropertyList>
 
-	<!--<path>Aircraft/f-14b/Models/f14-fx.ac</path>-->
 	<path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.ac</path>
 	<nopreview/>
 
@@ -120,17 +117,6 @@
 		<property>sim/multiplay/generic/int[6]</property>
 	</animation>
 
-	
-<!-- 
-	<animation>
-		<type>shader</type>
-		<shader>heat-haze</shader>
-		
-		<object-name>HeatBlurL</object-name>
-		<factor>0.12</factor>
-		<speed>120</speed>
-	</animation>
-  -->
 
 	<!-- disable shadows for these objects  -->
 	<animation>

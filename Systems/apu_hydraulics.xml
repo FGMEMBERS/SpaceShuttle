@@ -1,0 +1,766 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="APU 1">
+
+		<switch name="systems/apu/apu/apu-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[14]/contents-lbs GT 0
+				systems/apu/apu/fuel-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu/apu-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/apu-controller-power == 1
+				systems/apu/apu/apu-rpm LT 57600.0
+				systems/apu/apu/fuel-valve-status == 1
+				systems/apu/apu/hyd-pump-pressure-select == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu/apu-ready-to-start-sample-hold">
+			<default value="systems/apu/apu/apu-ready-to-start"/>
+			<test value="systems/apu/apu/apu-ready-to-start-sample-hold">
+				systems/apu/apu/apu-operate == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu/apu-rpm-cmd">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu/apu-operate</property>
+				<value>0.0</value>
+				</max>
+				<property>systems/apu/apu/apu-ready-to-start-sample-hold</property>
+				<property>systems/apu/apu/apu-rpm-rnd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/apu-rpm-target">
+		<function>
+			<quotient>
+			<product>
+				<sum>
+				<property>systems/apu/apu/apu-rpm-cmd</property>
+					<product>
+					<value>0.13</value>
+					<property>systems/apu/apu/apu-speed-select</property>
+					<max>
+					<property>systems/apu/apu/apu-operate</property>
+					<value>0.0</value>
+					</max>
+					</product>
+				</sum>
+				<property>systems/apu/apu/apu-fuel-available</property>
+				<property>systems/failures/apu1-condition</property>
+				<property>systems/apu/apu/apu-controller-power</property>
+				<property>systems/failures/apu1-condition</property>
+			</product>
+			<value>1.3</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu/apu-auto-shutdown-cond">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/apu/apu/apu-rpm-target GT 1
+				systems/apu/apu/apu-rpm-target LT 0.615
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu/apu-rpm-auto-shutdown">
+			<default value="systems/apu/apu/apu-rpm-target"/>
+			<test logic="AND" value="0.0">
+				systems/apu/apu/apu-auto-shutdown-cond == 0
+				systems/apu/apu/apu-auto-shutdown-select == 1
+			</test>
+		</switch>
+		
+
+		<kinematic name="systems/apu/apu/apu-rpm-kin">
+			<input>systems/apu/apu/apu-rpm-auto-shutdown</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<fcs_function name="systems/apu/apu/apu-rpm-fraction">
+		<function>
+			<product>
+				<property>systems/apu/apu/apu-rpm-kin</property>
+				<value>1.3</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/apu-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<value>72000.0</value>
+			</product>
+		</function>	
+		</fcs_function>
+
+		<switch name="systems/apu/apu/apu-fuel-drain-factor">
+			<default value="0.5"/>
+			<test value="1.0">
+				systems/apu/apu/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu/apu-fuel-drain">
+		<function>
+			<product>
+				<value>-0.055</value>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<property>systems/apu/apu/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		<output>propulsion/tank[14]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<property>systems/apu/apu/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/hyd-pump-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<property>systems/failures/hyd1-pump-condition</property>
+				<value>3900.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu/hyd-pressure-factor">
+			<default value="0.23"/>
+			<test value="1.0">
+				systems/apu/apu/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu/hyd-circ-pump-cmd == 1
+				systems/apu/apu/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu/hyd-pressure-psia">
+		<function>
+			<sum>
+			<product>
+				<quotient>
+					<property>systems/apu/apu/hyd-pump-rpm</property>
+					<value>3900.0</value>
+				</quotient>
+				<value>3000.0</value>
+				<property>systems/apu/apu/hyd-pressure-factor</property>
+			</product>
+			<product>
+				<property>systems/apu/apu/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+
+<channel name="APU 2">
+
+		<switch name="systems/apu/apu[1]/apu-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[15]/contents-lbs GT 0
+				systems/apu/apu[1]/fuel-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[1]/apu-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/apu-controller-power == 1
+				systems/apu/apu[1]/apu-rpm LT 57600.0
+				systems/apu/apu[1]/fuel-valve-status == 1
+				systems/apu/apu[1]/hyd-pump-pressure-select == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[1]/apu-ready-to-start-sample-hold">
+			<default value="systems/apu/apu[1]/apu-ready-to-start"/>
+			<test value="systems/apu/apu[1]/apu-ready-to-start-sample-hold">
+				systems/apu/apu[1]/apu-operate == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/apu-rpm-cmd">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu[1]/apu-operate</property>
+				<value>0.0</value>
+				</max>
+				<property>systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+				<property>systems/apu/apu[1]/apu-rpm-rnd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/apu-rpm-target">
+		<function>
+			<quotient>
+			<product>
+				<sum>
+				<property>systems/apu/apu[1]/apu-rpm-cmd</property>
+					<product>
+					<value>0.13</value>
+					<property>systems/apu/apu[1]/apu-speed-select</property>
+					<max>
+					<property>systems/apu/apu[1]/apu-operate</property>
+					<value>0.0</value>
+					</max>
+					</product>
+				</sum>
+				<property>systems/apu/apu[1]/apu-fuel-available</property>
+				<property>systems/failures/apu2-condition</property>
+				<property>systems/apu/apu[1]/apu-controller-power</property>
+				<property>systems/failures/apu2-condition</property>
+			</product>
+			<value>1.3</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[1]/apu-auto-shutdown-cond">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/apu/apu[1]/apu-rpm-target GT 1
+				systems/apu/apu[1]/apu-rpm-target LT 0.615
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[1]/apu-rpm-auto-shutdown">
+			<default value="systems/apu/apu[1]/apu-rpm-target"/>
+			<test logic="AND" value="0.0">
+				systems/apu/apu[1]/apu-auto-shutdown-cond == 0
+				systems/apu/apu[1]/apu-auto-shutdown-select == 1
+			</test>
+		</switch>
+		
+
+		<kinematic name="systems/apu/apu[1]/apu-rpm-kin">
+			<input>systems/apu/apu[1]/apu-rpm-auto-shutdown</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<fcs_function name="systems/apu/apu[1]/apu-rpm-fraction">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-kin</property>
+				<value>1.3</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/apu-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<value>72000.0</value>
+			</product>
+		</function>	
+		</fcs_function>
+
+		<switch name="systems/apu/apu[1]/apu-fuel-drain-factor">
+			<default value="0.5"/>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/apu-fuel-drain">
+		<function>
+			<product>
+				<value>-0.055</value>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[1]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		<output>propulsion/tank[15]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[1]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/hyd-pump-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<property>systems/failures/hyd2-pump-condition</property>
+				<value>3900.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[1]/hyd-pressure-factor">
+			<default value="0.23"/>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[1]/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/hyd-pressure-psia">
+		<function>
+			<sum>
+			<product>
+				<quotient>
+					<property>systems/apu/apu[1]/hyd-pump-rpm</property>
+					<value>3900.0</value>
+				</quotient>
+				<value>3000.0</value>
+				<property>systems/apu/apu[1]/hyd-pressure-factor</property>
+			</product>
+			<product>
+				<property>systems/apu/apu[1]/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	<channel name="APU 3">
+
+		<switch name="systems/apu/apu[2]/apu-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[16]/contents-lbs GT 0
+				systems/apu/apu[2]/fuel-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[2]/apu-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/apu-controller-power == 1
+				systems/apu/apu[2]/apu-rpm LT 57600.0
+				systems/apu/apu[2]/fuel-valve-status == 1
+				systems/apu/apu[2]/hyd-pump-pressure-select == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[2]/apu-ready-to-start-sample-hold">
+			<default value="systems/apu/apu[2]/apu-ready-to-start"/>
+			<test value="systems/apu/apu[2]/apu-ready-to-start-sample-hold">
+				systems/apu/apu[2]/apu-operate == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/apu-rpm-cmd">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu[2]/apu-operate</property>
+				<value>0.0</value>
+				</max>
+				<property>systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+				<property>systems/apu/apu[2]/apu-rpm-rnd</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/apu-rpm-target">
+		<function>
+			<quotient>
+			<product>
+				<sum>
+				<property>systems/apu/apu[2]/apu-rpm-cmd</property>
+					<product>
+					<value>0.13</value>
+					<property>systems/apu/apu[2]/apu-speed-select</property>
+					<max>
+					<property>systems/apu/apu[2]/apu-operate</property>
+					<value>0.0</value>
+					</max>
+					</product>
+				</sum>
+				<property>systems/apu/apu[2]/apu-fuel-available</property>
+				<property>systems/failures/apu3-condition</property>
+				<property>systems/apu/apu[2]/apu-controller-power</property>				
+				<property>systems/failures/apu3-condition</property>
+			</product>
+			<value>1.3</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[2]/apu-auto-shutdown-cond">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/apu/apu[2]/apu-rpm-target GT 1
+				systems/apu/apu[2]/apu-rpm-target LT 0.615
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[2]/apu-rpm-auto-shutdown">
+			<default value="systems/apu/apu[2]/apu-rpm-target"/>
+			<test logic="AND" value="0.0">
+				systems/apu/apu[2]/apu-auto-shutdown-cond == 0
+				systems/apu/apu[2]/apu-auto-shutdown-select == 1
+			</test>
+		</switch>
+		
+
+		<kinematic name="systems/apu/apu[2]/apu-rpm-kin">
+			<input>systems/apu/apu[2]/apu-rpm-auto-shutdown</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<fcs_function name="systems/apu/apu[2]/apu-rpm-fraction">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-kin</property>
+				<value>1.3</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/apu-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<value>72000.0</value>
+			</product>
+		</function>	
+		</fcs_function>
+
+		<switch name="systems/apu/apu[2]/apu-fuel-drain-factor">
+			<default value="0.5"/>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/apu-fuel-drain">
+		<function>
+			<product>
+				<value>-0.055</value>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[2]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		<output>propulsion/tank[16]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/apu-heat-load">
+		<function>
+			<product>
+				<value>108170.0</value>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[2]/apu-fuel-drain-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/hyd-pump-rpm">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<property>systems/failures/hyd3-pump-condition</property>
+				<value>3900.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[2]/hyd-pressure-factor">
+			<default value="0.23"/>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-pump-pressure-select == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[2]/hyd-circ-pump">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/hyd-pressure-psia">
+		<function>
+			<sum>
+			<product>
+				<quotient>
+					<property>systems/apu/apu[2]/hyd-pump-rpm</property>
+					<value>3900.0</value>
+				</quotient>
+				<value>3000.0</value>
+				<property>systems/apu/apu[2]/hyd-pressure-factor</property>
+			</product>
+			<product>
+				<property>systems/apu/apu[2]/hyd-circ-pump</property>
+				<value>2600.0</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/hyd-circ-pump-power-kW">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/hyd-circ-pump</property>
+				<value>2.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 1">
+
+		<switch name="systems/apu/apu/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[20]/contents-lbs GT 0
+				systems/apu/apu/boiler-N2-valve-status == 1
+				systems/apu/apu/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-1-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-1-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[20]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 2">
+
+		<switch name="systems/apu/apu[1]/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[21]/contents-lbs GT 0
+				systems/apu/apu[1]/boiler-N2-valve-status == 1
+				systems/apu/apu[1]/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-2-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu[1]/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-2-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[21]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="Water Spray Boiler 3">
+
+		<switch name="systems/apu/apu[2]/water-spray-boiler-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				propulsion/tank[21]/contents-lbs GT 0
+				systems/apu/apu[2]/boiler-N2-valve-status == 1
+				systems/apu/apu[2]/boiler-power-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/boiler-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/water-spray-boiler-active</property>
+				<property>systems/failures/spray-boiler-3-condition</property>
+				<value>175800.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/boiler-water-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/apu/apu[2]/water-spray-boiler-active</property>
+				<property>systems/thermal-distribution/spray-boiler-3-switch</property>
+				<value>-0.16666</value>
+			</product>
+		</function>
+		<output>propulsion/tank[22]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="Hydraulics status">
+	
+		<switch name="systems/apu/hyd-1-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/hyd-pressure-psia GT 2400
+				systems/apu/apu/hyd-circ-pump == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/hyd-2-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/hyd-pressure-psia GT 2400
+				systems/apu/apu[1]/hyd-circ-pump == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/hyd-3-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/hyd-pressure-psia GT 2400
+				systems/apu/apu[2]/hyd-circ-pump == 0
+			</test>
+		</switch>
+
+		<switch name="systems/apu/hyd-pressure-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/apu/hyd-1-pressurized == 1
+				systems/apu/hyd-2-pressurized == 1
+				systems/apu/hyd-3-pressurized == 1
+				systems/apu/init-hydraulics-on == 1
+			</test>
+		</switch>
+
+   		<fcs_function name="systems/apu/number-systems-pressurized">
+		<function>
+			<max>
+			<sum>
+      			<property>systems/apu/hyd-1-pressurized</property>
+      			<property>systems/apu/hyd-2-pressurized</property>
+      			<property>systems/apu/hyd-3-pressurized</property>
+			</sum>
+			<product>
+				<property>systems/apu/init-hydraulics-on</property>
+				<value>3.0</value>
+			</product>
+			</max>
+		</function>
+   		</fcs_function>
+
+
+	</channel>
+
+</system>
