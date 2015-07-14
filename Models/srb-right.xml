@@ -36,15 +36,49 @@
 	 </offsets>	
   </model>
 
+<model>
+   <path>Aircraft/SpaceShuttle/Models/Effects/SRB_separation_motor_flame.xml</path>
+    <condition>
+	<greater-than>
+		<property>/controls/shuttle/forces/srb1/force-lb</property>
+		<value>0.0</value>
+	</greater-than>
+    </condition>
+    <offsets>
+		 <x-m>-22.0</x-m>
+		 <y-m>0</y-m>
+		 <z-m>-2.0</z-m>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>20</roll-deg>
+	 </offsets>	
+  </model>
+
+<model>
+   <path>Aircraft/SpaceShuttle/Models/Effects/SRB_separation_motor_flame.xml</path>
+    <condition>
+	<greater-than>
+		<property>/controls/shuttle/forces/srb1/force-lb</property>
+		<value>0.0</value>
+	</greater-than>
+    </condition>
+    <offsets>
+		 <x-m>19.0</x-m>
+		 <y-m>0</y-m>
+		 <z-m>-1.0</z-m>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>20</roll-deg>
+	 </offsets>	
+  </model>
+
 <!--<model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_separation_motor_flame.xml</path>
     <offsets>
 		 <x-m>-15.0</x-m>
 		 <y-m>0</y-m>
-		 <z-m>0</z-m>
+		 <z-m>-2.0</z-m>
 		 <pitch-deg>90</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
+		 <roll-deg>30</roll-deg>
+	 </offsets>
   </model>-->
 
 </PropertyList>

@@ -73,6 +73,7 @@ var stateVector = {
 #####################################################################################
 # this function provides the effect of three concatenated rotations in the Tait-Bryan 
 # convention (better known as yaw, pitch and roll) on a given vector
+# i.e. transforms from body coords to world
 ####################################################################################
 
 var orientTaitBryan = func (v, h, p, r) {
@@ -97,6 +98,41 @@ var z = v[2];
 var x1 = x * (c1 * c2) + y * (c1 * s2 * s3 - c3 * s1) + z * (-s1 * s3 - c1 * c3 * s2);
 var y1 = x * (c2 * s1) + y * (c1 * c3 + s1 * s2 * s3) + z * (-c3 * s1 * s2 + c1 * s3);
 var z1 = x * s2 + y * (-c2 * s3) + z * c2 * c3;
+
+var out = [];
+
+append(out, x1);
+append(out, y1);
+append(out, z1);
+
+return out;
+}
+
+var orientTaitBryanPassive = func (v, h, p, r) {
+
+var heading_rad = h * math.pi/180.0;
+var pitch_rad = p * math.pi/180.0;
+var roll_rad = r * math.pi/180.0;
+
+var c1 = math.cos(heading_rad);
+var s1 = math.sin(heading_rad);
+
+var c2 = math.cos(pitch_rad);
+var s2 = math.sin(pitch_rad);
+
+var c3 = math.cos(roll_rad);
+var s3 = math.sin(roll_rad);
+
+var x = v[0];
+var y = v[1];
+var z = v[2];
+
+var x1 = x * (c1 * c2) + y * (c2 * s1) + z * s2;
+var y1 = x * (c1 * s2 * s3 - c3 * s1) + y * (c1 * c3 + s1 * s2 * s3) + z * (-c2 * s3);
+var z1 = x * (-s1 * s3 - c1 * c3 * s2) + y * (-c3 * s1 * s2 + c1 * s3) + z * c2 * c3;
+
+
+
 
 var out = [];
 
@@ -356,7 +392,7 @@ var vzoffset = 0.0;
 # now we always push the the orbiter away from the tank
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
+setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
 setprop("/controls/flight/elevator", 1);
 
 settimer( func{

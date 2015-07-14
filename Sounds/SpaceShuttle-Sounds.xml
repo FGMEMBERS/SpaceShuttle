@@ -168,7 +168,7 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 	
 	
 
-	
+	<!-- RCS engine firings are only audible from the nose module -->
 	<RCS>
 		<name>RCS</name>
 		<mode>looped</mode>
@@ -229,10 +229,6 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 		    </greater-than>
 			<greater-than>
 			<property>/engines/engine[20]/thrust_lb</property>
-			<value>0</value>
-		    </greater-than>
-			<greater-than>
-			<property>/engines/engine[21]/thrust_lb</property>
 			<value>0</value>
 		    </greater-than>
 			</or>
@@ -306,10 +302,6 @@ Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
 		    </greater-than>
 			<greater-than>
 			<property>/engines/engine[20]/thrust_lb</property>
-			<value>0</value>
-		    </greater-than>
-			<greater-than>
-			<property>/engines/engine[21]/thrust_lb</property>
 			<value>0</value>
 		    </greater-than>
 			</or>

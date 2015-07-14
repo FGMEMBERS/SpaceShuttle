@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Active Thermal Management System">
+
+
+		<switch name="systems/atcs/water-pump-1-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/atcs/water-pump-1-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/water-pump-2-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/atcs/water-pump-2-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/water-loop-heat-transfer">
+		<function>
+			<sum>
+			<product>
+				<property>systems/atcs/water-pump-1-active</property>
+				<property>systems/failures/water-pump-1-condition</property>
+				<value>600.0</value>
+			</product>
+			<product>
+				<property>systems/atcs/water-pump-2-active</property>
+				<property>systems/failures/water-pump-2-condition</property>
+				<value>600.0</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/atcs/freon-pump-1-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/atcs/freon-pump-1-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/freon-pump-2-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/atcs/freon-pump-2-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/freon-flow-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/atcs/freon-pump-1-active == 1
+				systems/atcs/freon-pump-2-active == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/freon-transfer-DeltaT-K">
+		<function>
+			<difference>
+				<property>systems/thermal-distribution/interior-temperature-K</property>
+				<property>systems/thermal-distribution/freon-out-temperature-K</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/freon-sink-capacity">
+		<function>
+			<product>
+			<property>systems/atcs/freon-flow-active</property>
+			<table>
+                  	<independentVar lookup="row">systems/atcs/freon-transfer-DeltaT-K</independentVar>
+                  	<tableData>
+				-5.0	0.0
+				0.0	10000.0
+				5.0	16000.0
+                          	10.0	17900.0
+                  	</tableData>
+         		</table>
+			<max>
+				<property>systems/failures/freon-pump-1-condition</property>
+				<property>systems/failures/freon-pump-2-condition</property>
+			</max>
+			</product>
+		</function>		
+		</fcs_function>
+
+		<switch name="systems/atcs/rad-controller-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/atcs/rad-controller-1-status == 1
+				systems/atcs/rad-controller-2-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/rad-flow-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/atcs/flow-bypass-1-status == 0
+				systems/atcs/flow-bypass-2-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/rad-heat-dump-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/atcs/rad-controller-active == 1	
+				systems/atcs/rad-flow-active == 1
+				systems/mechanical/pb-door-left-pos == 1
+				systems/mechanical/pb-door-right-pos == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/rad-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/atcs/rad-heat-dump-active</property>
+				<property>systems/failures/radiator-condition</property>
+				<value>17900.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/thermal-distribution/interior-set-temperature-K">
+				<default value="293.0"/>
+			<test  value="298.0">
+				systems/atcs/out-temp-hi-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/fes-controller-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/atcs/fes-controller-A-status == 1
+				systems/atcs/fes-controller-B-status == 1
+				systems/atcs/fes-controller-sec-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/fes-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/atcs/fes-controller-active == 1
+				systems/electrical/total-available-power-kW GT 0.0
+				propulsion/tank[19]/contents-lbs GT 0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/fes-heat-dump-capacity">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/atcs/fes-hi-load-status</property>
+				</difference>
+				<property>systems/atcs/fes-active</property>
+				<property>systems/failures/fes-topping-condition</property>
+				<value>7250.0</value>
+			</product>
+			<product>
+				<property>systems/atcs/fes-hi-load-status</property>
+				<property>systems/atcs/fes-active</property>
+				<value>19300.0</value>
+				<property>systems/failures/fes-hiload-condition</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-water-consumption-lbs">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/atcs/fes-hi-load-status</property>
+				</difference>
+				<property>systems/atcs/fes-active</property>
+				<value>-0.0068</value>
+				<property>systems/thermal-distribution/freon-loop-switch</property>
+			</product>
+			<product>
+				<property>systems/atcs/fes-hi-load-status</property>
+				<property>systems/atcs/fes-active</property>
+				<value>-0.01833</value>
+				<property>systems/thermal-distribution/freon-loop-switch</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/hiload-fes-exhaust-force-lb">
+		<function>
+			<product>
+				<property>systems/atcs/fes-water-consumption-lbs</property>
+				<value>-0.453</value>
+				<property>systems/atcs/fes-hi-load-status</property>
+				<value>300.0</value>	
+				<value>0.2248</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+	</channel>
+</system>

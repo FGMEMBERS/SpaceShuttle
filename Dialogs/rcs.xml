@@ -1,0 +1,829 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rcs</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>1000</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Reaction Control and Orbital Maneuvering System Propellant Flow</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ 	<group>
+    	<layout>table</layout>
+
+
+	
+    <text>
+      <label>FWD RCS</label>
+	<align>left</align>
+      <row>0</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>AFT LEFT RCS</label>
+      <row>0</row>
+      <col>2</col>
+    </text>
+
+
+    <text>
+      <label>AFT RIGHT RCS</label>
+      <row>0</row>
+      <col>3</col>
+    </text>
+
+	</group>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<group>
+	<layout>hbox</layout>
+	
+ 	<group>
+    	<layout>table</layout>
+
+    <text>
+      <label>He pressure</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>He-fwd-A</name>
+ 	<row>1</row>
+        <col>2</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-fwd-A</object-name>
+          </binding>
+        </checkbox>
+
+
+    <checkbox>
+        <name>He-fwd-B</name>
+ 	<row>1</row>
+        <col>4</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-fwd-B</object-name>
+          </binding>
+        </checkbox>
+
+    <text>
+      <label>Tank isolation</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>tank-fwd-12</name>
+ 	<row>2</row>
+        <col>2</col>
+	  <label>1/2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-fwd-rcs-valve-12-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-fwd-12</object-name>
+          </binding>
+        </checkbox>
+
+
+    <checkbox>
+        <name>tank-fwd-345</name>
+ 	<row>2</row>
+        <col>4</col>
+	  <label>3/4/5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-fwd-345</object-name>
+          </binding>
+        </checkbox>
+
+    <text>
+      <label>Manifold isolation</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>mfd-fwd-1</name>
+ 	<row>3</row>
+        <col>1</col>
+	  <label>1</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-fwd-1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-fwd-2</name>
+ 	<row>3</row>
+        <col>2</col>
+	  <label>2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-fwd-2</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-fwd-3</name>
+ 	<row>3</row>
+        <col>3</col>
+	  <label>3</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-fwd-3</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-fwd-4</name>
+ 	<row>3</row>
+        <col>4</col>
+	  <label>4</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-fwd-4</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-fwd-5</name>
+ 	<row>3</row>
+        <col>5</col>
+	  <label>5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-fwd-5</object-name>
+          </binding>
+        </checkbox>
+
+    <text>
+      <label>Crossfeed</label>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+
+    </group>
+
+    <vrule/>
+
+   <group>
+    <layout>table</layout>
+
+    <checkbox>
+        <name>He-left-A</name>
+ 	<row>1</row>
+        <col>7</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-left-A</object-name>
+          </binding>
+        </checkbox>
+
+
+    <checkbox>
+        <name>He-left-B</name>
+ 	<row>1</row>
+        <col>9</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-left-B</object-name>
+          </binding>
+        </checkbox>
+
+
+  <checkbox>
+        <name>tank-left-12</name>
+ 	<row>2</row>
+        <col>7</col>
+	  <label>1/2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-left-12</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>tank-left-345A</name>
+ 	<row>2</row>
+        <col>9</col>
+	  <label>3/4/5A</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-left-345A</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>tank-left-345B</name>
+ 	<row>2</row>
+        <col>10</col>
+	  <label>3/4/5B</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-left-345B</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>mfd-left-1</name>
+ 	<row>3</row>
+        <col>6</col>
+	  <label>1</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-left-1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-left-2</name>
+ 	<row>3</row>
+        <col>7</col>
+	  <label>2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-left-2</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-left-3</name>
+ 	<row>3</row>
+        <col>8</col>
+	  <label>3</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-left-3</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-left-4</name>
+ 	<row>3</row>
+        <col>9</col>
+	  <label>4</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-left-4</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-left-5</name>
+ 	<row>3</row>
+        <col>10</col>
+	  <label>5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-left-5</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>crossfeed-left-12</name>
+ 	<row>4</row>
+        <col>7</col>
+	  <label>1/2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-12-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-left-12</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>crossfeed-left-345</name>
+ 	<row>4</row>
+        <col>9</col>
+	  <label>3/4/5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-345-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-left-345</object-name>
+          </binding>
+        </checkbox>
+
+   </group>
+
+    <vrule/>
+
+   <group>
+    <layout>table</layout>
+
+
+    <checkbox>
+        <name>He-right-A</name>
+ 	<row>1</row>
+        <col>12</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-right-A</object-name>
+          </binding>
+        </checkbox>
+
+
+    <checkbox>
+        <name>He-right-B</name>
+ 	<row>1</row>
+        <col>14</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-right-B</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>tank-right-12</name>
+ 	<row>2</row>
+        <col>12</col>
+	  <label>1/2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-right-12</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>tank-right-345A</name>
+ 	<row>2</row>
+        <col>14</col>
+	  <label>3/4/5A</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-right-345A</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>tank-right-345B</name>
+ 	<row>2</row>
+        <col>15</col>
+	  <label>3/4/5B</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-right-345B</object-name>
+          </binding>
+        </checkbox>
+
+ <checkbox>
+        <name>mfd-right-1</name>
+ 	<row>3</row>
+        <col>11</col>
+	  <label>1</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-right-1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-right-2</name>
+ 	<row>3</row>
+        <col>12</col>
+	  <label>2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-right-2</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-right-3</name>
+ 	<row>3</row>
+        <col>13</col>
+	  <label>3</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-right-3</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-right-4</name>
+ 	<row>3</row>
+        <col>14</col>
+	  <label>4</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-right-4</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>mfd-right-5</name>
+ 	<row>3</row>
+        <col>15</col>
+	  <label>5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mfd-right-5</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>crossfeed-right-12</name>
+ 	<row>4</row>
+        <col>12</col>
+	  <label>1/2</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-12-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-right-12</object-name>
+          </binding>
+        </checkbox>
+
+  <checkbox>
+        <name>crossfeed-right-345</name>
+ 	<row>4</row>
+        <col>14</col>
+	  <label>3/4/5</label>
+          <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-345-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-right-345</object-name>
+          </binding>
+        </checkbox>
+
+    </group>
+    </group>
+
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  	<group>
+	<layout>hbox</layout>
+	
+	<group>
+    	<layout>table</layout>
+
+    	<text>
+      	<label> </label>
+        <row>0</row>
+        <col>0</col>
+        </text>
+
+    	<text>
+      	<label>He pressure</label>
+        <row>1</row>
+        <col>0</col>
+        </text>
+
+    	<text>
+      	<label>Tank isolation</label>
+        <row>2</row>
+        <col>0</col>
+        </text>
+
+    	<text>
+      	<label>Crossfeed</label>
+        <row>3</row>
+        <col>0</col>
+        </text>
+
+    	<text>
+      	<label>OMS Engine ARM</label>
+        <row>4</row>
+        <col>0</col>
+        </text>
+
+
+	</group>
+
+
+ 	<group>
+    	<layout>table</layout>
+
+    	<text>
+      	<label>LEFT OMS</label>
+        <row>0</row>
+        <col>1</col>
+        </text>
+
+        <checkbox>
+        <name>He-oms-left-A</name>
+ 	<row>1</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-oms-left-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>He-oms-left-B</name>
+ 	<row>1</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-oms-left-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>tank-oms-left-A</name>
+ 	<row>2</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-oms-left-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>tank-oms-left-B</name>
+ 	<row>2</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-oms-left-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>crossfeed-oms-left-A</name>
+ 	<row>3</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-oms-left-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>crossfeed-oms-left-B</name>
+ 	<row>3</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-oms-left-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>arm-oms-left</name>
+ 	<row>4</row>
+        <col>1</col>
+	  <label>ARM/PRESS</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>arm-oms-left</object-name>
+          </binding>
+        </checkbox>
+
+
+	</group>
+
+	<vrule/>
+	
+	<group>
+    	<layout>table</layout>
+
+    	<text>
+      	<label>RIGHT OMS</label>
+      	<row>0</row>
+     	 <col>1</col>
+   	 </text>
+
+       <checkbox>
+        <name>He-oms-right-A</name>
+ 	<row>1</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-oms-right-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>He-oms-right-B</name>
+ 	<row>1</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>He-oms-right-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>tank-oms-right-A</name>
+ 	<row>2</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-oms-right-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>tank-oms-right-B</name>
+ 	<row>2</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>tank-oms-right-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>crossfeed-oms-right-A</name>
+ 	<row>3</row>
+        <col>0</col>
+	  <label>A</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-oms-right-A</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>crossfeed-oms-right-B</name>
+ 	<row>3</row>
+        <col>2</col>
+	  <label>B</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>crossfeed-oms-right-B</object-name>
+          </binding>
+        </checkbox>
+
+        <checkbox>
+        <name>arm-oms-right</name>
+ 	<row>4</row>
+        <col>1</col>
+	  <label>ARM/PRESS</label>
+          <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>arm-oms-right</object-name>
+          </binding>
+        </checkbox>
+
+
+	</group>
+
+
+	</group>
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+
+</PropertyList>

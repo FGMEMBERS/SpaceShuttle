@@ -148,6 +148,39 @@
 		</function>
 	</fcs_function>
 
+	<fcs_function name="systems/entry_guidance/nominal-alpha-deg">
+		<function>
+			<table>
+        		<independentVar lookup="row">velocities/mach</independentVar>
+         		<tableData>
+           		2.5	15.0
+			5.0	20.0
+			7.5	30.0	
+			10.0	37.0
+			15.0	40.0
+			25.0	40.0
+         		</tableData>
+      			</table>
+		</function>
+	</fcs_function>
+
+	<fcs_function name="systems/entry_guidance/nominal-alpha-rad">
+		<function>
+			<product>
+				<property>systems/entry_guidance/nominal-alpha-deg</property>
+				<value>0.01745</value>
+			</product>
+		</function>
+	</fcs_function>
+
+	<fcs_function name="systems/entry_guidance/delta-alpha-deg">
+		<function>
+			<difference>
+				<property>aero/alpha-deg</property>
+				<property>systems/entry_guidance/nominal-alpha-deg</property>
+			</difference>
+		</function>
+	</fcs_function>
 	
 
 		

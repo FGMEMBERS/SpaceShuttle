@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<rocket_engine name="RCS single Vernier thruster 24.5 lb vacuum thrust">
+	<isp>               228 </isp>
+	<maxthrottle>      1.00 </maxthrottle>
+	<minthrottle>      0.00 </minthrottle>
+	<sloxiflowmax>    0.06547 </sloxiflowmax>
+	<slfuelflowmax>   0.04198 </slfuelflowmax>
+</rocket_engine>

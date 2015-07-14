@@ -43,14 +43,11 @@ var course = pos.course_to(landing_site);
 
 var flag = 0;
 
-if ((distance < 3000.0) or (distance > 6000.0))
-	{
-	flag = 1;
-	}
-if (abs(course - getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg")) > 20.0)
-	{
-	flag = 1;
-	}
+#if ((distance < 2000.0) or (distance > 6000.0))
+#	{flag = 1;}
+#if (abs(course - getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg")) > 20.0)
+#	{flag = 1;}
+
 if (flag == 1)
 	{
 	setprop("/sim/messages/copilot", "No de-orbit solution to site.");

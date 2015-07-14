@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rcs_oms_thermal</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>600</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>RCS and OMS thermal control</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+ <group>
+    <layout>table</layout>
+ 	 
+
+   <text>
+      <label>RCS system heaters</label>
+      <halign>center</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>fwd-A</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status</property>
+          <label>fwd A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-A</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>fwd-B</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status</property>
+          <label>fwd B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-B</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>left-A</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status</property>
+          <label>left pod A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>left-A</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>left-B</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status</property>
+          <label>left pod B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>left-B</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>right-A</name>
+ 	<row>1</row>
+        <col>4</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status</property>
+          <label>right pod A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>right-A</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>right-B</name>
+ 	<row>1</row>
+        <col>5</col>
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status</property>
+          <label>right pod B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>right-B</object-name>
+          </binding>
+      </checkbox>
+
+   <text>
+      <label>RCS jet heaters</label>
+      <halign>center</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <halign>left</halign>
+        <name>fwd-1</name>
+ 	<row>3</row>
+        <col>0</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-1-status</property>
+          <label>fwd 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-1</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>fwd-2</name>
+ 	<row>3</row>
+        <col>1</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-2-status</property>
+          <label>fwd 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-2</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>fwd-3</name>
+ 	<row>3</row>
+        <col>2</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-3-status</property>
+          <label>fwd 3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-3</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>fwd-4</name>
+ 	<row>3</row>
+        <col>3</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-4-status</property>
+          <label>fwd 4</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-4</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>fwd-5</name>
+ 	<row>3</row>
+        <col>4</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-5-status</property>
+          <label>fwd 5</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fwd-5</object-name>
+          </binding>
+      </checkbox>  
+
+   <checkbox>
+        <halign>left</halign>
+        <name>pod-1</name>
+ 	<row>4</row>
+        <col>0</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-1-status</property>
+          <label>aft 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pod-1</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>pod-2</name>
+ 	<row>4</row>
+        <col>1</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-2-status</property>
+          <label>aft 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pod-2</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>pod-3</name>
+ 	<row>4</row>
+        <col>2</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-3-status</property>
+          <label>aft 3</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pod-3</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>pod-4</name>
+ 	<row>4</row>
+        <col>3</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-4-status</property>
+          <label>aft 4</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pod-4</object-name>
+          </binding>
+      </checkbox> 
+
+   <checkbox>
+        <halign>left</halign>
+        <name>pod-5</name>
+ 	<row>4</row>
+        <col>4</col>
+ 	 
+          <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-5-status</property>
+          <label>aft 5</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pod-5</object-name>
+          </binding>
+      </checkbox>  
+
+   <text>
+      <label>OMS system heaters</label>
+      <halign>center</halign>
+      <row>5</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>oms-left-A</name>
+ 	<row>6</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-left-A-status</property>
+          <label>left A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-left-A</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>oms-left-B</name>
+ 	<row>6</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-left-B-status</property>
+          <label>left B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-left-B</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>oms-right-A</name>
+ 	<row>6</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-right-A-status</property>
+          <label>right A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-right-A</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>oms-right-B</name>
+ 	<row>6</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-right-B-status</property>
+          <label>right B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-right-B</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>oms-crossfeed-A</name>
+ 	<row>6</row>
+        <col>4</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status</property>
+          <label>crossfeed A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-crossfeed-A</object-name>
+          </binding>
+      </checkbox>
+
+    <checkbox>
+        <name>oms-crossfeed-B</name>
+ 	<row>6</row>
+        <col>5</col>
+          <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status</property>
+          <label>crossfeed B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>oms-crossfeed-B</object-name>
+          </binding>
+      </checkbox>
+
+ </group>
+
+<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

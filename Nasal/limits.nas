@@ -14,9 +14,14 @@ var qbar_warn = 0;
 var droop_warn = 0;
 var gear_extension_warn = 0;
 var Nx_warn = 0;
+var CBW_warn = 0;
 var tailscrape_warn = 0;
 var chute_warn = 0;
 var vspeed_warn = 0;
+var TPS_ET_warn = 0;
+var TPS_warn = 0;
+var avionics_bay_heat_warn = 0;
+var apu_heat_warn = 0;
 
 # the limit simulation mode determines what we do when limits are violated
 
@@ -115,6 +120,32 @@ else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100
 	settimer(func {Nx_warn = 0;}, 10.0);
 	}
 
+# wing bending moment coeff at max. qbar needs to be |CBW| < 0.18
+
+var CBW = getprop("/fdm/jsbsim/systems/various/wing-bending-moment");
+
+
+if ((math.abs(CBW) > 2458000.0) and (CBW_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Wing bending moment exceeds limits!");
+	fail_flag = 1;
+	CBW_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_destroy();
+		}
+
+	}
+else if ((math.abs(CBW) > 2000000.0) and (CBW_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Wing bending moment approaches safety limits! Watch AoA!");
+	CBW_warn = 1;
+	settimer(func {CBW_warn = 0;}, 10.0);
+	}
+
+
+
 
 if (limit_simulation_mode ==2)
 	{
@@ -130,6 +161,163 @@ if (limit_simulation_mode ==2)
 
 }
 
+
+#########################
+# limits in orbit
+#########################
+
+
+var check_limits_orbit = func {
+
+
+var fail_flag = 0;
+
+# avionics bay temperature needs to be < 130 F (328 K)
+
+var T = getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K");
+
+
+
+if ((T > 335.0) and (avionics_bay_heat_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Total avionics failure!");
+	fail_flag = 1;
+	avionics_bay_heat_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}
+
+	}
+else if ((T > 328.0) and (avionics_bay_heat_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	avionics_bay_heat_warn = 1;
+	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
+	}
+
+	
+
+# APU temperature needs to be < ~250 F (390 K)
+
+var T1 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K");
+var T2 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K");
+var T3 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K");
+
+var T = 0.0;
+
+if (T1 > T2){T = T1;} 
+else {T = T2;}
+
+if (T3 > T) {T = T3;}
+
+
+if ((T > 395.0) and (apu_heat_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "APU damage!");
+	fail_flag = 1;
+	apu_heat_warn = 2;
+	settimer( func {apu_heat_warn = 0;}, 20.0);
+
+	if (limit_simulation_mode == 1)
+		{
+		if (T1 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);}
+		if (T2 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu2-condition", 0.0);}
+		if (T3 > 395.0)
+			{setprop("/fdm/jsbsim/systems/failures/apu3-condition", 0.0);}
+		}
+
+	}
+else if ((T > 390.0) and (apu_heat_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	apu_heat_warn = 1;
+	settimer(func {apu_heat_warn = 0;}, 60.0);
+	}
+
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
+
+
+}
+
+#########################
+# limits for entry
+#########################
+
+var check_limits_entry = func {
+
+var fail_flag = 0;
+
+# ET umbilical doors and payload bay door need to be closed
+
+var T = getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F");
+var ET_door_state = getprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos") * getprop("/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos");
+var PB_door_state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-animation") * getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-animation");
+
+if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
+	{
+	setprop("/sim/messages/copilot", "Thermal protection failure!");
+	fail_flag = 1;
+	TPS_ET_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_tps_fail();
+		}	
+
+	}
+
+
+
+
+if ((T > 2900.0) and (TPS_warn == 1))
+	{
+	setprop("/sim/messages/copilot", "Thermal protection system failure!");
+	fail_flag = 1;
+	TPS_warn = 2;
+
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_tps_fail();
+		}
+
+	}
+else if ((T > 2800.0) and (TPS_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Heat shield temperature too high!");
+	TPS_warn = 1;
+	settimer(func {if (TPS_warn < 2) {TPS_warn = 0;}}, 10.0);
+	}
+
+
+
+
+
+
+if (limit_simulation_mode ==2)
+	{
+	# we do a hard failure if a limit was overrun
+
+	if (fail_flag == 1)
+		{
+		setprop("/fdm/jsbsim/simulation/terminate", 1);
+		}	
+
+	}
+}
 
 #################################
 # limits for approach and landing

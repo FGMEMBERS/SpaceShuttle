@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>atcs</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Active Thermal Control System</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <halign>left</halign>
+      <label>Water pumps</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>water-pump-1</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
+	  <label>water pump loop 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>water-pump-1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>water-pump-2</name>
+ 	<row>1</row>
+        <col>1</col>
+	  <label>water pump loop 2</label>
+          <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>water-pump-2</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <halign>left</halign>
+      <label>Freon pumps</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+
+    <checkbox>
+        <name>freon-pump-1</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+	  <label>freon pump loop 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>freon-pump-1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>freon-pump-2</name>
+ 	<row>1</row>
+        <col>1</col>
+	  <label>freon pump loop 2</label>
+          <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>freon-pump-2</object-name>
+          </binding>
+        </checkbox>
+
+ </group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <halign>left</halign>
+      <label>Radiators</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+      <checkbox>
+        <halign>left</halign>
+        <name>controller-1</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	  <label>rad controller loop 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-1</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+      <halign>left</halign>
+        <name>controller-2</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+	  <label>rad controller loop 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>controller-2</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+      <halign>left</halign>
+        <name>out-temp-hi</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+	  <label>out temp hi</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>out-temp-hi</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+      <halign>left</halign>
+        <name>bypass-1</name>
+ 	<row>2</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+	  <label>flow bypass loop 1</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>bypass-1</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+      <halign>left</halign>
+        <name>bypass-2</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+	  <label>flow bypass loop 2</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>bypass-2</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <halign>left</halign>
+      <label>Flash Evaporation Boilers</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-A</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+	  <label>primary A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-A</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-B</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+	  <label>primary B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-B</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-sec</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+	  <label>secondary</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-sec</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-hi-load</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-hi-load-status</property>
+	  <label>hi load evap enable</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-hi-load</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-nozzle-left</name>
+ 	<row>3</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
+	  <label>nozzle heater left</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-nozzle-left</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-nozzle-right</name>
+ 	<row>3</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
+	  <label>nozzle heater right</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-nozzle-right</object-name>
+          </binding>
+        </checkbox>
+
+     <checkbox>
+        <halign>left</halign>
+        <name>fes-nozzle-hi</name>
+ 	<row>3</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/atcs/fes-heater-hiload-status</property>
+	  <label>hi load heater</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fes-nozzle-hi</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

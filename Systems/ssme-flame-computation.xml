@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <PropertyList>
+
+<!-- this is really annoying - we compute all the properties in JSBSim, but they end up being tied -->
+<!-- and can't be fed to the effects system directly, so we copy them via property rule -->
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/various/ssme-flame-collimation</input>
+   <output>/sim/systems/various/ssme-flame-collimation</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/various/ssme-flame-density</input>
+   <output>/sim/systems/various/ssme-flame-density</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/various/oms-flame-density</input>
+   <output>/sim/systems/various/oms-flame-density</output>
+ </filter>
+
+ </PropertyList>
