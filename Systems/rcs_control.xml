@@ -1743,6 +1743,106 @@
 		</function>
 		</fcs_function>
 
+	<!-- subtract thruster commands which would cancel each other out -->
+	<!-- firing opposing thrusters is wasteful -->
+
+
+		<fcs_function name="systems/rcs/nose-left-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/nose-left-raw</property>
+				<property>systems/rcs/nose-right-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/nose-right-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/nose-right-raw</property>
+				<property>systems/rcs/nose-left-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-left-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-left-raw</property>
+				<property>systems/rcs/pod2-right-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-up-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-up-raw</property>
+				<property>systems/rcs/pod1-down-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-down-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-down-raw</property>
+				<property>systems/rcs/pod1-up-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-right-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/pod1-left-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-up-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-up-raw</property>
+				<property>systems/rcs/pod2-down-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-down-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-down-raw</property>
+				<property>systems/rcs/pod2-up-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
 	<!-- then normalize thrust pattern -->
 
 
@@ -1752,14 +1852,14 @@
 				<value>1.0</value>
 				<property>systems/rcs/nose-up-raw</property>
 				<property>systems/rcs/nose-down-raw</property>
-				<property>systems/rcs/nose-left-raw</property>
-				<property>systems/rcs/nose-right-raw</property>
-				<property>systems/rcs/pod1-up-raw</property>
-				<property>systems/rcs/pod2-up-raw</property>
-				<property>systems/rcs/pod1-down-raw</property>
-				<property>systems/rcs/pod2-down-raw</property>
-				<property>systems/rcs/pod1-left-raw</property>
-				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/nose-left-subtracted</property>
+				<property>systems/rcs/nose-right-subtracted</property>
+				<property>systems/rcs/pod1-up-subtracted</property>
+				<property>systems/rcs/pod2-up-subtracted</property>
+				<property>systems/rcs/pod1-down-subtracted</property>
+				<property>systems/rcs/pod2-down-subtracted</property>
+				<property>systems/rcs/pod1-left-subtracted</property>
+				<property>systems/rcs/pod2-right-subtracted</property>
 				</max>
 			</function>
 		</fcs_function>
@@ -1775,7 +1875,7 @@
 			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/nose-left-raw</property>
+				<property>systems/rcs/nose-left-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
@@ -1794,7 +1894,7 @@
 			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/nose-right-raw</property>
+				<property>systems/rcs/nose-right-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
@@ -1910,7 +2010,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-up-raw</property>
+				<property>systems/rcs/pod1-up-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
@@ -1929,7 +2029,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-down-raw</property>
+				<property>systems/rcs/pod1-down-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
@@ -1946,7 +2046,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-left-raw</property>
+				<property>systems/rcs/pod1-left-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
@@ -1981,7 +2081,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-up-raw</property>
+				<property>systems/rcs/pod2-up-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
@@ -2000,7 +2100,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-down-raw</property>
+				<property>systems/rcs/pod2-down-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
@@ -2017,7 +2117,7 @@
 		<function>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/pod2-right-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
