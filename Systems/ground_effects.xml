@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<system name="Space Shuttle ground effects">
+
+ <channel name="groundeffects">
+
+  <fcs_function name="ground/left-tail-ground-effect-speed-kt">
+    <function>
+        <product>
+			<property>/fdm/jsbsim/contact/unit[6]/WOW</property>
+			<property>/velocities/groundspeed-kt</property>
+			<not>
+                <property>/fdm/jsbsim/contact/unit[7]/WOW</property>
+            </not>
+        </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/tail-ground-effect-speed-kt">
+    <function>
+        <product>
+			<and>
+				<property>/fdm/jsbsim/contact/unit[6]/WOW</property>
+                <property>/fdm/jsbsim/contact/unit[7]/WOW</property>
+			 </and>
+			<property>/velocities/groundspeed-kt</property>
+        </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/right-tail-ground-effect-speed-kt">
+    <function>
+        <product>
+            <property>/fdm/jsbsim/contact/unit[7]/WOW</property>
+            <property>/velocities/groundspeed-kt</property>
+		    <not>
+                <property>/fdm/jsbsim/contact/unit[6]/WOW</property>
+            </not>
+        </product>
+    </function>
+  </fcs_function>
+  
+  <fcs_function name="ground/left-wing-ground-effect-speed-kt">
+    <function>
+        <product>
+           <property>/fdm/jsbsim/contact/unit[8]/WOW</property>
+           <property>/velocities/groundspeed-kt</property>
+        </product>
+    </function>
+  </fcs_function>
+  
+  <fcs_function name="ground/right-wing-ground-effect-speed-kt">
+    <function>
+        <product>
+           <property>/fdm/jsbsim/contact/unit[9]/WOW</property>
+           <property>/velocities/groundspeed-kt</property>
+        </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/nose-tire-smoke-ground-effect-speed-kt">
+    <function>
+		    <product>
+		        <property>/gear/gear[0]/wow</property>
+			    <gt>
+                    <property>/velocities/groundspeed-kt</property>
+                    <value>20.0</value>
+                </gt>
+			    <gt>
+                    <property>/fdm/jsbsim/ground/rolling_friction-factor</property>
+                    <value>1</value>
+                </gt>
+				<eq>
+					<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+					<value>1</value>
+				</eq>
+				<not>
+					<property>/gear/gear[0]/spray</property>
+				</not>
+            </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/left-tire-smoke-ground-effect-speed-kt">
+    <function>
+		    <product>
+		        <property>/gear/gear[1]/wow</property>
+			    <gt>
+                    <property>/velocities/groundspeed-kt</property>
+                    <value>20.0</value>
+                </gt>
+			    <gt>
+                    <property>/fdm/jsbsim/ground/rolling_friction-factor</property>
+                    <value>1</value>
+                </gt>
+				<eq>
+					<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+					<value>1</value>
+				</eq>
+				<not>
+					<property>/gear/gear[1]/spray</property>
+				</not>
+            </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/right-tire-smoke-ground-effect-speed-kt">
+    <function>
+		    <product>
+		        <property>/gear/gear[2]/wow</property>
+			    <gt>
+                    <property>/velocities/groundspeed-kt</property>
+                    <value>20.0</value>
+                </gt>
+			    <gt>
+                    <property>/fdm/jsbsim/ground/rolling_friction-factor</property>
+                    <value>1</value>
+                </gt>
+				<eq>
+					<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+					<value>1</value>
+				</eq>
+				<not>
+					<property>/gear/gear[2]/spray</property>
+				</not>
+            </product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/nose-damage-ground-effect-speed-kt">
+    <function>
+		<product>
+			<property>/gear/gear[0]/wow</property>
+			<gt>
+				<property>/velocities/groundspeed-kt</property>
+				<value>20.0</value>
+			</gt>
+			<eq>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<value>0</value>
+			</eq>
+		</product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/port-damage-ground-effect-speed-kt">
+    <function>
+		<product>
+			<property>/gear/gear[1]/wow</property>
+			<gt>
+				<property>/velocities/groundspeed-kt</property>
+				<value>20.0</value>
+			</gt>
+			<eq>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>0</value>
+			</eq>
+		</product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/stbd-damage-ground-effect-speed-kt">
+    <function>
+		<product>
+			<property>/gear/gear[2]/wow</property>
+			<gt>
+				<property>/velocities/groundspeed-kt</property>
+				<value>20.0</value>
+			</gt>
+			<eq>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>0</value>
+			</eq>
+		</product>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/nose-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[0]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/left-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[1]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+
+  <fcs_function name="ground/right-touchdown-ground-effect-speed-kt">
+    <function>
+		<property>/gear/gear[2]/tyre-smoke</property>
+    </function>
+  </fcs_function>
+
+ </channel>
+
+</system>

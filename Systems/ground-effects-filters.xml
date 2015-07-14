@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2015, wlbragg. http://forum.flightgear.org/viewtopic.php?f=4&t=25157&start=75#p232085
+Under the GPL. Used by shadows under ALS -->
+<PropertyList>
+
+	<filter>
+        <name>Left Tail Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/left-tail-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/left-tail-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+	
+	<filter>
+        <name>Tail Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/tail-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/tail-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+	
+	<filter>
+        <name>Right Tail Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/right-tail-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/right-tail-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Left Wing Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/left-wing-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/left-wing-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Right Wing Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Nose Gear Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Port Gear Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Stbd Gear Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/stbd-damage-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/stbd-damage-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Nose Tire Smoke Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/nose-tire-smoke-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/nose-tire-smoke-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Left Tire Smoke Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Right Tire Smoke Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Nose Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Left Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+	<filter>
+        <name>Right Touchdown Ground Effect</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
+        </output>
+    </filter>
+
+</PropertyList>

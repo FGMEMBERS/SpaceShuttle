@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>simulation</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Simulation and Rendering Options</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Simulation</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	
+	<text>
+      		<label>Thermal system computation speed</label>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>real</label>
+      		<halign>center</halign>
+      		<row>1</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>thermal-speed-switch</name>
+      		<row>1</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>2</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/thermal-system-computation-speed</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>thermal-speed-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>accelerated</label>
+      		<halign>center</halign>
+      		<row>1</row>
+     	 	<col>3</col>
+    	</text>
+
+  </group>
+	
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Equipment</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>ET type</label>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>1</row>
+        	 <col>1</col>
+        	 <name>ET-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/ET-config</property>
+		 <value>standard weight</value>
+		 <value>lightweight</value>
+		 <value>super lightweight</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>ET-selection</object-name>
+        	 </binding>
+      	</combo>
+
+	<text>
+      		<label>Tail cone</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>TC-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/TC-config</property>
+		 <value>none</value>
+		 <value>use tailcone</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>TC-selection</object-name>
+        	 </binding>
+      	</combo>
+
+</group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Orbital rendering</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<checkbox>
+        <name>use-earthview</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/rendering/use-earthview</property>
+          <label>automatically use Earthview orbital rendering</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>use-earthview</object-name>
+          </binding>
+        </checkbox>
+
+	<text>
+      		<enable>
+       		<property>/sim/config/shuttle/rendering/use-earthview</property>
+      		</enable>
+      		<label>transition to Earthview at</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+    <slider>
+      <name>earthview-transition</name>
+      <row>2</row>
+      <col>1</col>
+      <min>85000.0</min>
+      <max>320000.00</max>
+      <enable>
+       <property>/sim/config/shuttle/rendering/use-earthview</property>
+      </enable>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/earthview-transition-alt-ft</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>earthview-transition</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable>
+       <property>/sim/config/shuttle/rendering/use-earthview</property>
+      </enable>
+      <row>2</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f ft</format>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/earthview-transition-alt-ft</property>
+    </text> 
+
+
+ </group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
+

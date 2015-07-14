@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<rocket_engine name="RCS single thruster pod module 870.0 lb vacuum thrust">
+	<isp>               289 </isp>
+	<maxthrottle>      1.00 </maxthrottle>
+	<minthrottle>      0.00 </minthrottle>
+	<sloxiflowmax>    1.834 </sloxiflowmax>
+	<slfuelflowmax>   1.176 </slfuelflowmax>
+</rocket_engine>

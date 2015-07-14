@@ -71,6 +71,58 @@
 </group>
 
 
+<group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Failure scenario</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+
+   	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>failure-scenario</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario</property>
+		 <value>none</value>
+		 <value>ascent single engine failure</value>
+		 <value>ascent single engine lockup</value>
+		 <value>hydraulic failure</value>
+		 <value>stuck speedbrake</value>
+		 <value>burst tire</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>failure-scenario</object-name>
+        	 </binding>
+      	</combo>
+
+</group>
+
+<group> 
+<layout>table</layout>
+
+    <textbox>
+      <name>scenario description</name>
+      <halign>fill</halign>
+      <stretch>true</stretch>
+      <pref-width>250</pref-width>
+      <pref-height>100</pref-height>
+      <slider>0</slider>
+      <editable>false</editable>
+      <wrap>true</wrap>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description</property>
+    </textbox>
+
+
+</group>
+
 
 
 
@@ -89,6 +141,10 @@
 		<legend>Close</legend>
 		<default>true</default>
 		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
 		<binding>
 			<command>dialog-close</command>
 		</binding>

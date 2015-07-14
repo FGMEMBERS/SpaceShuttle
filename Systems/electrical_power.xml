@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="FC 1">
+
+		<switch name="systems/electrical/fc/fc-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc/reactant-valve-status == 1
+				systems/electrical/fc/fc-controller-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/fc/fc-running">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc/fc-ready-to-start == 1
+				systems/electrical/fc/fc-start-cmd == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/electrical/fc/fc-ready-for-load-transit">
+			<input>systems/electrical/fc/fc-running</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/electrical/fc/fc-ready-for-load">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/fc/fc-ready-for-load-transit == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/electrical/fc/fc-max-power-output-kW">
+		<function>	
+			<product>
+				<value>12.0</value>
+				<property>systems/electrical/fc/fc-ready-for-load</property>
+				<property>systems//failures/fc1-condition</property>
+				<property>systems/electrical/fc/fc-efficiency</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="FC 2">
+
+		<switch name="systems/electrical/fc[1]/fc-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc[1]/reactant-valve-status == 1
+				systems/electrical/fc[1]/fc-controller-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/fc[1]/fc-running">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc[1]/fc-ready-to-start == 1
+				systems/electrical/fc[1]/fc-start-cmd == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/electrical/fc[1]/fc-ready-for-load-transit">
+			<input>systems/electrical/fc[1]/fc-running</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/electrical/fc[1]/fc-ready-for-load">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/fc[1]/fc-ready-for-load-transit == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/electrical/fc[1]/fc-max-power-output-kW">
+		<function>	
+			<product>
+				<value>12.0</value>
+				<property>systems/electrical/fc[1]/fc-ready-for-load</property>
+				<property>systems//failures/fc2-condition</property>
+				<property>systems/electrical/fc[1]/fc-efficiency</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+	<channel name="FC 3">
+
+		<switch name="systems/electrical/fc[2]/fc-ready-to-start">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc[2]/reactant-valve-status == 1
+				systems/electrical/fc[2]/fc-controller-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/fc[2]/fc-running">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/fc[2]/fc-ready-to-start == 1
+				systems/electrical/fc[2]/fc-start-cmd == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/electrical/fc[2]/fc-ready-for-load-transit">
+			<default value="0.0"/>
+			<input>systems/electrical/fc[2]/fc-running</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/electrical/fc[2]/fc-ready-for-load">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/fc[2]/fc-ready-for-load-transit == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/electrical/fc[2]/fc-max-power-output-kW">
+		<function>	
+			<product>
+				<value>12.0</value>
+				<property>systems/electrical/fc[2]/fc-ready-for-load</property>
+				<property>systems//failures/fc3-condition</property>
+				<property>systems/electrical/fc[2]/fc-efficiency</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+
+
+
+	<channel name="Bus 1">
+
+		<fcs_function name="systems/electrical/bus1-max-power-output-kW">
+		<function>	
+			<product>
+				<property>systems/electrical/fc/fc-max-power-output-kW</property>
+				<property>systems/electrical/fc/bus-connector-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/bus1-voltage">
+		<function>
+		<product>
+		<table>
+        		<independentVar lookup="row">systems/electrical/bus1-power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	32.5
+				12.0	27.5
+        		</tableData>
+      		</table>
+		<property>systems/electrical/fc/fc-ready-for-load</property>
+		<property>systems/electrical/fc/bus-connector-status</property>
+		</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/electrical/bus1-power-available">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/bus1-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Bus 2">
+
+		<fcs_function name="systems/electrical/bus2-max-power-output-kW">
+		<function>	
+			<product>
+				<property>systems/electrical/fc[1]/fc-max-power-output-kW</property>
+				<property>systems/electrical/fc[1]/bus-connector-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/bus2-voltage">
+		<function>
+		<product>
+		<table>
+        		<independentVar lookup="row">systems/electrical/bus2-power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	32.5
+				12.0	27.5
+        		</tableData>
+      		</table>
+		<property>systems/electrical/fc[1]/fc-ready-for-load</property>
+		<property>systems/electrical/fc[1]/bus-connector-status</property>
+		</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/electrical/bus2-power-available">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/bus2-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Bus 3">
+
+		<fcs_function name="systems/electrical/bus3-max-power-output-kW">
+		<function>	
+			<product>
+				<property>systems/electrical/fc[2]/fc-max-power-output-kW</property>
+				<property>systems/electrical/fc[2]/bus-connector-status</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/bus3-voltage">
+		<function>
+		<product>
+		<table>
+        		<independentVar lookup="row">systems/electrical/bus3-power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	32.5
+				12.0	27.5
+        		</tableData>
+      		</table>
+		<property>systems/electrical/fc[2]/fc-ready-for-load</property>
+		<property>systems/electrical/fc[2]/bus-connector-status</property>
+		</product>
+		</function>
+		</fcs_function>
+
+
+
+		<switch name="systems/electrical/bus3-power-available">
+			<default value="0.0"/>
+			<test  value="1.0">
+				systems/electrical/bus3-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+	</channel>
+
+
+	<channel name="Total avilable and requested power">
+
+		<summer name="systems/electrical/number-powered-buses">
+			<input>systems/electrical/bus1-power-available</input>
+			<input>systems/electrical/bus2-power-available</input>
+			<input>systems/electrical/bus3-power-available</input>
+		</summer>
+
+   		<summer name="systems/electrical/total-available-power-kW">
+      			<input>systems/electrical/bus1-max-power-output-kW</input>
+     			<input>systems/electrical/bus2-max-power-output-kW</input>
+      			<input>systems/electrical/bus3-max-power-output-kW</input>
+			<input>systems/electrical/init-electrical-on</input>
+   		</summer>
+
+		<fcs_function name="systems/electrical/generic-power-demand-kW">
+		<function>
+			<value>8.0</value>
+		</function>
+		</fcs_function>
+
+		<summer name="systems/electrical/total-demanded-power-kW">
+			<input>systems/electrical/generic-power-demand-kW</input>
+			<input>systems/apu/apu/hyd-circ-pump-power-kW</input>
+			<input>systems/apu/apu[1]/hyd-circ-pump-power-kW</input>
+			<input>systems/apu/apu[2]/hyd-circ-pump-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-power-kW</input>
+			<input>systems/rcs-hardware/heater-left-power-kW</input>
+			<input>systems/rcs-hardware/heater-right-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-1-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-2-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-3-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-4-power-kW</input>
+			<input>systems/rcs-hardware/heater-fwd-5-power-kW</input>
+			<input>systems/rcs-hardware/heater-aft-1-power-kW</input>
+			<input>systems/rcs-hardware/heater-aft-2-power-kW</input>
+			<input>systems/rcs-hardware/heater-aft-3-power-kW</input>
+			<input>systems/rcs-hardware/heater-aft-4-power-kW</input>
+			<input>systems/rcs-hardware/heater-aft-5-power-kW</input>
+			<input>systems/oms-hardware/heater-left-power-kW</input>
+			<input>systems/oms-hardware/heater-right-power-kW</input>
+			<input>systems/oms-hardware/heater-crossfeed-power-kW</input>
+		</summer>
+		
+		<!-- till we model this in detail, assume all buses are tied -->
+
+		<fcs_function name="systems/electrical/power-demand-per-bus-kW">
+		<function>
+			<quotient>
+				<property>systems/electrical/total-demanded-power-kW</property>
+				<max>
+				<value>0.1</value>
+				<property>systems/electrical/number-powered-buses</property>
+				</max>
+			</quotient>
+		</function>
+		<output>systems/electrical/bus1-power-demand-kW</output>
+		<output>systems/electrical/bus2-power-demand-kW</output>
+		<output>systems/electrical/bus3-power-demand-kW</output>
+		</fcs_function>
+
+	</channel>
+</system>

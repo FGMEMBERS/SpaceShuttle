@@ -7,7 +7,7 @@
   <description>NASA Space Shuttle Atlantis on final</description>
   <presets>
 	<altitude-ft>11000.0</altitude-ft>
-	<pitch-deg>5.0</pitch-deg>	
+	<pitch-deg>-5.0</pitch-deg>	
 	<stage type="int">4</stage>
   </presets>
 </sim>

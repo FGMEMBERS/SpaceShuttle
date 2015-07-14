@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Water management">
+
+	<!-- water is continuously produced by the fuel cells and drained by the flash evaporators -->
+
+	<fcs_function name="systems/eclss/water-fill-drain-rate-lbs">
+	<function>
+		<sum>
+			<product>
+				<property>systems/electrical/total-demanded-power-kW</property>
+				<value>0.0002138</value>
+			</product>
+			<property>systems/atcs/fes-water-consumption-lbs</property>
+		</sum>
+		
+	</function>
+	<output>propulsion/tank[19]/external-flow-rate-pps</output>
+	</fcs_function>
+
+	</channel>
+
+</system>

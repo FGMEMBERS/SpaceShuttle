@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<PropertyList>
+
+  <params>
+    <left_touchdown_ground_effect>
+	  <!--property>/gear/gear[1]/tyre-smoke</property-->
+	  <property>/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt-actual</property>
+    </left_touchdown_ground_effect>
+  </params>
+ 
+  <particlesystem>
+
+    <name>left-touchdown-vortex</name>
+    <texture>tyresmoke.png</texture>
+    <emissive>false</emissive>
+    <lighting>false</lighting>
+
+	<offsets>
+	   <x-m>0</x-m>
+	   <y-m>0</y-m>
+	   <z-m>0</z-m>
+	</offsets>
+
+    <condition>
+        <property alias="/params/left_touchdown_ground_effect/property"/>
+    </condition>
+
+    <attach>world</attach>
+
+    <placer>
+		<type>segments</type>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-1</y-m>
+			<z-m>0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-1.5</y-m>
+			<z-m>0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-2</y-m>
+			<z-m>0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-2.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-3</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-3.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-4</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-4.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-5.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-6</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-6.5</y-m>
+			<z-m>.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7</y-m>
+			<z-m>.6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7.5</y-m>
+			<z-m>.7</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8</y-m>
+			<z-m>.8</z-m>
+		</vertex>		
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8.5</y-m>
+			<z-m>.9</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9</y-m>
+			<z-m>1</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.3</y-m>
+			<z-m>1.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.6</y-m>
+			<z-m>2.0</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.8</y-m>
+			<z-m>2.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-10.0</y-m>
+			<z-m>3</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-10.5</y-m>
+			<z-m>3.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-11</y-m>
+			<z-m>4</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-10.5</y-m>
+			<z-m>4.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-10</y-m>
+			<z-m>5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.4</y-m>
+			<z-m>5.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.2</y-m>
+			<z-m>6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-9.0</y-m>
+			<z-m>6.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8.8</y-m>
+			<z-m>6</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8.6</y-m>
+			<z-m>5.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8.4</y-m>
+			<z-m>5</z-m>
+		</vertex>	
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8.2</y-m>
+			<z-m>4.5</z-m>
+		</vertex>		
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-8</y-m>
+			<z-m>4</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7.9</y-m>
+			<z-m>3.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7.8</y-m>
+			<z-m>3</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7.7</y-m>
+			<z-m>2.5</z-m>
+		</vertex>
+		<vertex>
+			<x-m>0</x-m>
+			<y-m>-7.6</y-m>
+			<z-m>2</z-m>
+		</vertex>
+	</placer>
+
+    <shooter>
+      <theta-min-deg>  45 </theta-min-deg>
+      <theta-max-deg>  85 </theta-max-deg>
+      <phi-min-deg>   -60 </phi-min-deg>
+      <phi-max-deg>    60 </phi-max-deg>
+      <speed-mps>
+        <value>  50 </value>
+        <spread>  5 </spread>
+      </speed-mps>
+      <rotation-speed>
+        <x-max-deg-sec>  15 </x-max-deg-sec>
+        <x-min-deg-sec> -15 </x-min-deg-sec>
+        <y-max-deg-sec>  15 </y-max-deg-sec>
+        <y-min-deg-sec> -15 </y-min-deg-sec>
+        <z-max-deg-sec>  15 </z-max-deg-sec>
+        <z-min-deg-sec> -15 </z-min-deg-sec>
+      </rotation-speed>
+    </shooter>
+
+    <counter>
+      <particles-per-sec>
+        <value>450</value>
+        <spread>0</spread>
+      </particles-per-sec>
+    </counter>
+
+    <align>billboard</align>
+
+    <particle>
+      <start>
+        <color>
+          <red><value>   0.95 </value></red>
+          <green><value> 0.95 </value></green>
+          <blue><value>  0.95 </value></blue>
+          <alpha><value> 0.05 </value></alpha>
+        </color>
+        <size><value> 0.5 </value></size>
+      </start>
+      <end>
+        <color>
+          <red><value>   1.000 </value></red>
+          <green><value> 1.000 </value></green>
+          <blue><value>  1.000 </value></blue>
+          <alpha><value> 0.020 </value></alpha>
+        </color>
+        <size><value> 3 </value></size>
+      </end>
+      <life-sec><value> 1.9 </value></life-sec>
+      <mass-kg>  0.025 </mass-kg>
+      <radius-m> 0.175 </radius-m>
+    </particle>
+
+    <program>
+      <fluid>   air  </fluid>
+      <gravity> true </gravity>
+      <wind>    true </wind>
+    </program>
+
+  </particlesystem>
+
+</PropertyList>

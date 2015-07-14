@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<!-- Gear damage -->
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+    </signal>
+
+</PropertyList>
