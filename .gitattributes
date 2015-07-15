@@ -49,13 +49,8 @@ Huds/default.xml -text
 Huds/f16.xml -text
 Huds/minimal.xml -text
 Huds/tachiametric-sight.xml -text
-Models/EMU/acesjustforroomshow.ac -text
-Models/EMU/acesjustforroomshow.xml -text
 Models/EMU/robotarm.ac -text
 Models/EMU/robotarm.xml -text
-Models/EMU/satelit-int.xml -text
-Models/EMU/satelit.ac -text
-Models/EMU/satelit.xml -text
 Models/EMU/spstob_2.png -text svneol=unset#unset
 Models/EMU/spstob_e.png -text svneol=unset#unset
 Models/EMU/submodels.xml -text
@@ -144,22 +139,12 @@ Models/Lights/light-gradient-lamp.png -text svneol=unset#unset
 Models/Lights/light_spot.png -text svneol=unset#unset
 Models/Lights/lights.ac -text
 Models/Lights/lights.png -text svneol=unset#unset
-Models/Lights/strobe-green.ac -text
-Models/Lights/strobe-green.rgb -text svneol=unset#unset
-Models/Lights/strobe-green.xml -text
-Models/Lights/strobe-orange.ac -text
-Models/Lights/strobe-orange.rgb -text svneol=unset#unset
-Models/Lights/strobe-red.ac -text
-Models/Lights/strobe-red.rgb -text svneol=unset#unset
-Models/Lights/strobe-red.xml -text
-Models/Lights/strobe-red5.xml -text
 Models/Lights/strobe-white.ac -text
 Models/Lights/strobe-white.rgb -text svneol=unset#unset
 Models/Lights/strobe-white.xml -text
 Models/Lights/strobe-yellow.ac -text
 Models/Lights/strobe-yellow.rgb -text svneol=unset#unset
 Models/Lights/strobe-yellow.xml -text
-Models/Lights/strobe.ac -text
 Models/Lights/strobe.xml -text
 Models/Lights/txt_lights_exterior.png -text svneol=unset#unset
 Models/OMSPods.ac -text
@@ -176,7 +161,6 @@ Models/SSME1.xml -text
 Models/SSME2.xml -text
 Models/SSME3.xml -text
 Models/SpaceShuttle.xml -text
-Models/Stsheat.jpg -text svneol=unset#unset
 Models/TailCone.ac -text
 Models/air-data-boom.ac -text
 Models/cockpit-forward-panel.rgb -text svneol=unset#unset
@@ -189,11 +173,9 @@ Models/external-fuel-tank.xml -text
 Models/external-tank-disconnected.xml -text
 Models/fwd-cockpit-text-map.png -text svneol=unset#unset
 Models/shuttle_o2.ac -text
-Models/shuttle_o2c.ac -text
 Models/solid-rocket-booster.xml -text
 Models/spstob_1.png -text svneol=unset#unset
 Models/spstob_1c.png -text svneol=unset#unset
-Models/spstob_1hot.png -text svneol=unset#unset
 Models/spstob_2.png -text svneol=unset#unset
 Models/spstob_3.png -text svneol=unset#unset
 Models/spstob_4.png -text svneol=unset#unset
