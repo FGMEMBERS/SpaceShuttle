@@ -175,6 +175,48 @@
       </condition>     
     </item>
 
+   <item>
+      <name>T-5:00 water spray boiler N2 valves </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
+      <name>T-5:00 water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
     <item>
       <name>Final preparations</name>
     </item>
