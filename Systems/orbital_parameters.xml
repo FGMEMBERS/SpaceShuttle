@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 
+<!-- Thorsten Renk 2015 -->
+<!-- apoapsis and periapsis calculation adapted from Victor Slavutinsky in Vostok-1 -->
+
 <system>
 
 	<channel name="input from FG">

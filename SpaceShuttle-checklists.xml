@@ -1,0 +1,1605 @@
+ <PropertyList>
+  <checklist>
+    <title>Pre-launch</title>  
+
+    <item>
+      <name>Electrical systems check</name>
+    </item>
+
+    <item>
+      <name>T-8:00 essential buses to fuel cells</name>
+      <value>CONNECTED</value>
+    </item>
+
+    <item>
+      <name>T-8:00 verify SSME controllers</name>
+      <value>POWERED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-power</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-power</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+
+    <item>
+      <name>APU and hydraulics startup</name>
+    </item>
+
+    <item>
+      <name>T-6:15 APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-6:15 APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-6:15 ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-5:00 operate switch</name>
+      <value>START</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-5:00 verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-5:00 hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-5:00 verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>T-5:00 water spray boiler N2 valves </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
+      <name>T-5:00 water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+    <item>
+      <name>Final preparations</name>
+    </item>
+
+    <item>
+      <name>T-3:25 verify main engine gimbal</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
+      <name>T-2.00 start O2 flow, visor</name>
+      <value>CLOSED</value>
+    </item>
+    
+   <item>
+      <name>T-0:07 main engine ignition sequence</name>
+      <value>START</value>
+   <condition>
+	<and>
+        <greater-than>
+          <property>/controls/engines/engine/throttle</property>
+          <value>0.0</value>
+        </greater-than>
+	</and>
+      </condition>
+    </item>
+
+
+
+  </checklist>
+
+  <checklist>
+    <title>Post MECO</title>  
+
+    <item>
+      <name>External tank separation</name>
+    </item>
+
+    <item>
+	<name>rotation rates</name>
+	<value>NULL</value>
+	<condition>
+	  <and>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/q-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/q-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/p-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/p-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>
+	    <less-than>
+	      <property>/fdm/jsbsim/velocities/r-rad_sec</property>
+	      <value>0.000174</value>
+	    </less-than>
+	    <greater-than>
+	      <property>/fdm/jsbsim/velocities/r-rad_sec</property>
+	      <value>-0.000174</value>
+	    </greater-than>	
+	  </and>
+	</condition>
+    </item>
+
+    <item>
+      <name>external tank</name>
+      <value>SEPARATE</value>
+      <condition>
+	<equals>
+	  <property>/controls/shuttle/ET-static-model</property>
+	  <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify DAP switch to</name>
+      <value>RCS</value>
+      <condition>
+	<or>
+	<greater-than>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>19</value>
+	</greater-than>
+	<equals>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>1</value>
+	</equals>
+	<equals>
+	  <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+	  <value>2</value>
+	</equals>
+	</or>
+      </condition>
+    </item>
+
+    <item>
+      <name>visually inspect ET</name>
+      <value></value>
+    </item>
+
+
+
+    <item>
+      <name>Propellant dump</name>
+    </item>
+
+   <item>
+      <name>verify LH2 prevalves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify LO2 prevalves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-left-prevalve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify helium system</name>
+      <value>PRESSURIZED</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-system-pressurized</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LO2 manifold pressurization valve</name>
+      <value>OPEN</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LH2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set propellant dump sequence to</name>
+      <value>START</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+          <value>1</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>wait for dump sequence</name>
+      <value>COMPLETED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[17]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[18]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>set LO2 manifold pressurization valve</name>
+      <value>CLOSED</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/LO2-manifold-valve-status</property>
+          <value>0</value>
+        </equals>
+      </condition>     
+    </item>
+
+
+    <item>
+      <name>Shut down APU</name>
+    </item>
+
+   <item>
+      <name>APU operate switches</name>
+      <value>STOP</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>0</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>0</value>
+        </equals>
+	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>APU controller power</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+ 	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+ 	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>One hydraulic circulation pump</name>
+      <value>ON</value>
+    <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+    	<equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>  
+  </item>
+
+
+    <item>
+      <name>Plan orbital insertion</name>
+    </item>
+
+    <item>
+      <name>verify orbital parameters</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>determine whether OMS burn is required</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>orient spacecraft for OMS burn</name>
+      <value></value>
+    </item>
+  </checklist>
+
+  <checklist>
+    <title>Post OMS-1 burn</title> 
+
+    <item>
+      <name>Shut down main propulsion system</name>
+    </item>
+
+    <item>
+      <name>all engine controller power switches</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/controller-power</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/controller-power</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/controller-power</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+
+    <item>
+      <name>all He isolation valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-P-status</property>
+          <value>0</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/mps/helium-isolation-valve-Px-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>   
+    </item>
+
+    <item>
+      <name>Fuel line vacuum inerting</name>
+    </item>
+ 
+   <item>
+      <name>for 2 minutes, set LH2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>for 2 minutes, set LO2 drain/fill valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-inboard-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-outboard-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>LO2 and LH2 outboard valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LO2-outboard-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/propellant/LH2-outboard-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+     <name>Close ET umbilical door</name>
+   </item>
+
+   <item>
+      <name>centerline latches to</name>
+      <value>STOW</value>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+          <value>0</value>
+        </equals>
+      </condition>     
+    </item>
+
+   <item>
+      <name>door positions to</name>
+      <value>CLOSE</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>door latch positions to</name>
+      <value>LATCHED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+  </checklist>
+
+
+  <checklist>
+    <title>Post orbital insertion</title>  
+
+    <item>
+      <name>MPS saving and RCS preparation</name>
+    </item>
+
+    <item>
+      <name>set RCS and OMS heaters to</name>
+      <value>AUTO</value>
+      <condition>
+	<and>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-1-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-2-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-3-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-4-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-5-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-1-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-2-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-3-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-4-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-5-status</property>
+		  <value>1</value>
+		</equals>
+		<or>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status</property>
+		  <value>1</value>
+		</equals>
+		</or>
+		<or>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status</property>
+		  <value>1</value>
+		</equals>
+		</or>
+		<or>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status</property>
+		  <value>1</value>
+		</equals>
+		</or>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set MPS/TVC isolation valves</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[1]/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[2]/tvc-isolation-valve-status</property>
+		  <value>0</value>
+		</equals>	
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>Radiator deployment</name>
+    </item>
+
+    <item>
+      <name>set radiator valves from bypass to</name>
+      <value>AUTO</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+	    <value>0</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set radiator controllers to</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>1</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>1</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+
+
+    <item>
+      <name>Open Payload Bay doors</name>
+    </item>
+
+    <item>
+      <name>payload bay floodlights</name>
+      <value>ON</value>
+    </item>
+
+    <item>
+      <name>power to electromechanical actuators</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-power</property>
+	  <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>door auto opening switch</name>
+      <value>OPEN</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+	  <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify payload bay doors</name>
+      <value>OPEN</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+	 <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>Prepare orbital operations</name>
+    </item>
+
+    <item>
+      <name>Ku-band antenna</name>
+      <value>DEPLOY</value>
+    </item>
+
+    <item>
+      <name>verify freon cooling loop operations</name>
+      <value>NOMINAL</value>
+      <condition>
+	<greater-than>
+	  <property>/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity</property>
+	  <value>0.0</value>
+	</greater-than>
+      </condition>
+    </item>
+
+    <item>
+      <name>set flash evaporator controllers to</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+	    <value>0</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+
+    <item>
+      <name>star tracker doors</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>set star tracker</name>
+      <value>ACTIVE</value>
+    </item>
+
+    <item>
+      <name>set APU steam vent heaters</name>
+      <value>ACTIVE</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+	  <value>1</value>
+	 </equals>
+	</and>
+      </condition>
+    </item>
+
+  </checklist>
+
+  <checklist>
+    <title>De-orbit preparations</title>  
+
+    <item>
+      <name>set star tracker</name>
+      <value>OFF</value>
+    </item>
+
+    <item>
+      <name>star tracker doors</name>
+      <value>CLOSED</value>
+    </item>
+
+    <item>
+      <name>Close Payload Bay doors</name>
+    </item>
+
+    <item>
+      <name>payload bay floodlights</name>
+      <value>ON</value>
+    </item>
+
+    <item>
+      <name>power to electromechanical actuators</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-power</property>
+	  <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>door auto opening switch</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+	  <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify payload bay doors</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+	 <value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+
+
+
+  </checklist>
+  
+  <checklist>
+    <title>Pre de-orbit burn</title>  
+
+    <item>
+      <name>Verify de-orbit readiness</name>
+    </item>
+
+    <item>
+      <name>Verify OMS gimbal</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
+      <name>Verify payload bay doors</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-right-pos</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-left-pos</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>Verify ET umbilical door</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
+
+   <item>
+      <name>MPS He A isolation valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>Pre-start procedures for single APU</name>
+    </item>
+
+    <item>
+      <name>APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+    <item>
+      <name>Prepare burn</name>
+    </item>
+
+    <item>
+      <name>maneuver to correct de-orbit burn attitude</name>
+      <value></value>
+    </item>
+
+
+
+    <item>
+      <name>Start a single APU</name>
+    </item>
+
+
+
+   <item>
+      <name>operate switch</name>
+      <value>START</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<or>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<or>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</or>
+      </condition>     
+    </item>
+
+    <item>
+      <name>verify all airfoils move</name>
+      <value>FREE</value>
+    </item>
+
+    <item>
+      <name>set MPS/TVC isolation valves</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[1]/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>
+		<equals>
+		  <property>/fdm/jsbsim/systems/apu/apu[2]/tvc-isolation-valve-status</property>
+		  <value>1</value>
+		</equals>	
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>Execute de-orbit burn</name>
+    </item>
+
+    <item>
+      <name>verify entry guidance target entered and guidance</name>
+      <value>ACTIVE</value>
+	<condition>
+		<equals>
+		  <property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
+		  <value>1</value>
+		</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>execute burn</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>verify ballistic impact point</name>
+      <value>ON LANDING SITE</value>
+    </item>
+
+  </checklist>
+
+  <checklist>
+    <title>Pre-entry</title>  
+
+    <item>
+      <name>Prepare forward RCS</name>
+    </item>
+
+    <item>
+      <name>forward RCS fuel</name>
+      <value>DUMP</value>
+      <condition>
+	<or>
+	<equals>
+          <property>/fdm/jsbsim/propulsion/tank[12]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/propulsion/tank[13]/contents-lbs</property>
+          <value>0</value>
+        </equals>
+	</or>
+      </condition>
+    </item>
+
+    <item>
+      <name>forward RCS manifold valves</name>
+      <value>CLOSED</value>
+    </item>
+
+    <item>
+      <name>Start remaining APUs</name>
+    </item>
+
+<item>
+      <name>APU controller power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+       <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-controller-power</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>APU fuel valve</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>Ready to start indicator</name>
+      <value>READY</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start-sample-hold</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>Operate switch</name>
+      <value>START</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+
+   <item>
+      <name>verify RPM </name>
+      <value>> 58.000</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/apu-rpm</property>
+          <value>58000</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>hyd pump pressure</name>
+      <value>HIGH</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+   <item>
+      <name>verify hydraulic pressure </name>
+      <value>> 2400 psi</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia</property>
+          <value>2400</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>Control mode</name>
+    </item>
+
+   <item>
+      <name>DAP selection</name>
+      <value>ENTRY</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+          <value>24</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/fcs/control-mode</property>
+          <value>29</value>
+        </equals>
+	</or>
+      </condition>     
+    </item>
+
+
+  </checklist>
+
+
+ <checklist>
+    <title>OMS/RCS Crossfeeding</title>  
+
+    <item>
+      <name>Isolate receiving side</name>
+    </item>
+
+    <item>
+      <name>do not connect tanks during crossfeeds!</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>only one tank may act as supply!</name>
+      <value></value>
+    </item>
+
+    <item>
+      <name>RCS may not supply OMS!</name>
+      <value></value>
+    </item>
+ 
+ 
+    <item>
+      <name>receiving side tank isolation valves</name>
+      <value>CLOSED</value>
+    </item>
+
+   <item>
+      <name>Open crossfeed lines</name>
+    </item>
+
+    <item>
+      <name>supplying side crossfeed valves</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>check receiving side tank isolation valves</name>
+      <value>CLOSED</value>
+    </item>
+
+    <item>
+      <name>check receiving side manifold isolation valves</name>
+      <value>OPEN</value>
+    </item>
+
+    <item>
+      <name>receiving side crossfeed valves</name>
+      <value>OPEN</value>
+    </item>
+
+</checklist>
+
+ </PropertyList>

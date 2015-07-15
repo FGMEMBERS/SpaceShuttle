@@ -15,7 +15,36 @@
   <heading-deg>-180</heading-deg>
 </offsets>  
 
-<animation>
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    <object-name>et_all.lay_et all</object-name>
+    <object-name>et_all.lay_et_att</object-name>
+    <object-name>et_all.lay_et_att.001</object-name>
+    <object-name>et_all.lay_et_att.002</object-name>
+    <object-name>et_all.lay_et_att.003</object-name>
+    <object-name>et_all.lay_et_att.004</object-name>
+    <object-name>et_all.lay_et_att.005</object-name>
+    <object-name>et_all.lay_et_att.006</object-name>
+    <object-name>et_all.lay_et_att.007</object-name>
+    <object-name>et_all.lay_et_att.008</object-name>
+    <object-name>et_all.lay_et_attach_</object-name>
+    <object-name>et_all.lay_et_bot_cir</object-name>
+    <object-name>et_all.lay_et_shu</object-name>
+    <object-name>et_all.lay_et_shu.001</object-name>
+    <object-name>et_all.lay_et_shutsup</object-name>
+    <object-name>et_all.lay_et_sup</object-name>
+    <object-name>et_all.lay_et_sup.001</object-name>
+    <object-name>et_all.lay_et_sup.002</object-name>
+    <object-name>et_all.lay_et_sup.003</object-name>
+    <object-name>et_all.lay_et_sup.004</object-name>
+    <object-name>et_all.lay_et_supline</object-name>
+    <object-name>et_all.lay_et_top</object-name>
+    <object-name>et_all.lay_et_top_nos</object-name>
+    <object-name>et_all.lay_et_top_tip</object-name>
+ </effect>
+
+<!--<animation>
 <type>select</type>
  
  <condition>

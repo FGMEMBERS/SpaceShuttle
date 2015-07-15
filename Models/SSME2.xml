@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyList>
+  
+   <path>SSME.ac</path>
+      
+<offsets>
+  <!-- Motor 1 default location -->
+  <x-m> 0.1 </x-m>
+  <y-m> 0 </y-m>
+  <z-m> 0 </z-m>
+</offsets>  
+
+<animation>
+  <type>rotate</type>
+  <property>fdm/jsbsim/propulsion/engine[1]/pitch-angle-rad</property>
+  <factor>57.2975</factor>
+  <offset-deg>16.0</offset-deg>
+  <center>
+   <x-m>13.5</x-m>
+   <y-m>0.0   </y-m>
+   <z-m>-0.95</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+<animation>
+  <type>rotate</type>
+  <property>fdm/jsbsim/propulsion/engine[1]/yaw-angle-rad</property>
+  <factor>57.2975</factor>
+  <offset-deg>0.0</offset-deg>
+  <center>
+   <x-m>13.5</x-m>
+   <y-m>0.0   </y-m>
+   <z-m>-0.95</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+
+
+<model>
+<path>Aircraft/SpaceShuttle/Models/Effects/engine-fire-alt.xml</path>
+     <offsets>
+       <x-m> 16.0 </x-m>
+       <y-m> 0.0</y-m>
+       <z-m> -0.65 </z-m>
+       <pitch-deg>-8.0</pitch-deg>
+     </offsets>
+    <condition>
+ 	<greater-than>
+	<property>/fdm/jsbsim/propulsion/engine[0]/thrust-lbs</property>
+ 	<value>0</value>
+ 	</greater-than>
+     </condition>
+</model>
+
+</PropertyList>

@@ -9,6 +9,6 @@
 	<isp>               313.0 </isp>
 	<maxthrottle>      1.00 </maxthrottle>
 	<minthrottle>      0.00 </minthrottle>
-	<sloxiflowmax>   11.67 </sloxiflowmax>
-	<slfuelflowmax>  7.48 </slfuelflowmax>
+	<sloxiflowmax>   11.91 </sloxiflowmax>
+	<slfuelflowmax>  7.23 </slfuelflowmax>
 </rocket_engine>

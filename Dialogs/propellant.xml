@@ -144,8 +144,8 @@
       <col>3</col>
     </text>
 
-<text>
-      <label>OMS</label>
+    <text>
+      <label>OMS left oxidizer</label>
       <halign>left</halign>
       <row>5</row>
       <col>0</col>
@@ -153,16 +153,16 @@
     
         
     <slider>
-      <name>OMS</name>
+      <name>OMS-OX-L</name>
       <row>5</row>
       <col>1</col>
       <min>0.0</min>
-      <max>24982.0</max>
+      <max>7773.0</max>
       <live>true</live>
-      <property>/consumables/fuel/tank[3]/level-lbs</property>
+      <property>/consumables/fuel/tank[4]/level-lbs</property>
       <binding>
         <command>dialog-apply</command>
-        <object-name>OMS</object-name>
+        <object-name>OMS-OX-L</object-name>
       </binding>
     </slider>
 
@@ -173,17 +173,375 @@
       <label>12345678</label>
       <format>%.f lb</format>
       <live>true</live>
-      <property>/consumables/fuel/tank[3]/level-lbs</property>
+      <property>/consumables/fuel/tank[4]/level-lbs</property>
     </text> 
 
     <text>
-      <label> nitrogen tetroxide/ hydrazine</label>
+      <label> nitrogen tetroxide</label>
       <halign>left</halign>
       <row>5</row>
       <col>3</col>
     </text>
 
    <text>
+      <label>OMS left propellant </label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>OMS-PROP-L</name>
+      <row>6</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>4718.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[5]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>OMS-PROP-L</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>6</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[5]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> monomethyl hydrazine</label>
+      <halign>left</halign>
+      <row>6</row>
+      <col>3</col>
+    </text>
+
+
+    <text>
+      <label>OMS right oxidizer</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>OMS-OX-R</name>
+      <row>7</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>7773.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[6]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>OMS-OX-R</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>7</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[6]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide</label>
+      <halign>left</halign>
+      <row>7</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>OMS right propellant</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>OMS-PROP-R</name>
+      <row>8</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>4718.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[7]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>OMS-PROP-R</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>8</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[7]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> monomethyl hydrazine</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>RCS left oxidizer</label>
+      <halign>left</halign>
+      <row>9</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-OX-L</name>
+      <row>9</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>1477.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[8]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-OX-L</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>9</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[8]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide</label>
+      <halign>left</halign>
+      <row>9</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>RCS left propellant</label>
+      <halign>left</halign>
+      <row>10</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-PROP-L</name>
+      <row>10</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>928.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[9]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-PROP-L</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>10</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[9]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> monomethyl hydrazine</label>
+      <halign>left</halign>
+      <row>10</row>
+      <col>3</col>
+    </text>
+
+
+<text>
+      <label>RCS right oxidizer</label>
+      <halign>left</halign>
+      <row>11</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-OX-R</name>
+      <row>11</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>1477.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[10]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-OX-R</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>11</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[10]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide</label>
+      <halign>left</halign>
+      <row>11</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>RCS right propellant</label>
+      <halign>left</halign>
+      <row>12</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-PROP-R</name>
+      <row>12</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>928.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[11]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-PROP-R</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>12</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[11]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> monomethyl hydrazine</label>
+      <halign>left</halign>
+      <row>12</row>
+      <col>3</col>
+    </text>
+
+
+<text>
+      <label>RCS nose oxidizer</label>
+      <halign>left</halign>
+      <row>13</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-OX-N</name>
+      <row>13</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>1477.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[12]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-OX-N</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>13</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[12]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> nitrogen tetroxide</label>
+      <halign>left</halign>
+      <row>13</row>
+      <col>3</col>
+    </text>
+
+   <text>
+      <label>RCS nose propellant</label>
+      <halign>left</halign>
+      <row>14</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>RCS-PROP-N</name>
+      <row>14</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>928.0</max>
+      <live>true</live>
+      <property>/consumables/fuel/tank[13]/level-lbs</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>RCS-PROP-N</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>14</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/consumables/fuel/tank[13]/level-lbs</property>
+    </text> 
+
+    <text>
+      <label> monomethyl hydrazine</label>
+      <halign>left</halign>
+      <row>14</row>
+      <col>3</col>
+    </text>
+
+
+
+
+
+   <!--<text>
       <label>RCS 1</label>
       <halign>left</halign>
       <row>6</row>
@@ -262,11 +620,103 @@
     </text>
 
    
-    
+    <text>
+      <label>total weight</label>
+      <halign>left</halign>
+      <row>8</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <row>8</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/weight-lbs</property>
+    </text> -->
     
 </group>
 
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
 
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+<group>
+    <layout>table</layout>
+
+ <text>
+      <label>Payload</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+    
+        
+    <slider>
+      <name>payload</name>
+      <row>0</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>53700.00</max>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/pointmass-weight-lbs[5]</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>payload</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f lb</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/inertia/pointmass-weight-lbs[5]</property>
+    </text> 
+
+</group>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+<group>
+    <layout>table</layout>
+
+ <text>
+      <label>CoG</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.1f percent body length</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/various/cg-percentage</property>
+    </text> 
+
+</group>
 
 
 	<empty>

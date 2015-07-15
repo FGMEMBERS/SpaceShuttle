@@ -1,0 +1,465 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>mechanical</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Mechanical systems</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+ 	<group>
+    	<layout>table</layout>
+
+    <text>
+      <label>ET umbilical door</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>/////</label>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>stowed</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>0</col>
+      <halign>center</halign>
+      <label>ground</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>open</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>/////</label>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>closed</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>released</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>/////</label>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>2</col>
+      <halign>center</halign>
+      <label>latched</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <row>1</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>open</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>/////</label>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>closed</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>4</col>
+      <halign>center</halign>
+      <label>released</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>4</col>
+      <halign>center</halign>
+      <label>/////</label>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <row>1</row>
+      <col>4</col>
+      <halign>center</halign>
+      <label>latched</label>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <checkbox>
+        <name>cl-latch</name>
+ 	<row>2</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd</property>
+ 	  <enable><property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd</property></enable>
+          <label>centerline latch</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>cl-latch</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>left-door</name>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-cmd</property>
+          <label>left door</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>left-door</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>left-latch</name>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd</property>
+          <label>left latch</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>left-latch</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>right-door</name>
+ 	<row>2</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-cmd</property>
+          <label>right door</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>right-door</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>right-latch</name>
+ 	<row>2</row>
+        <col>4</col>
+          <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd</property>
+          <label>right latch</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>right-latch</object-name>
+          </binding>
+    </checkbox>
+
+
+  </group>
+
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+ 
+  <group>
+  <layout>table</layout>
+
+    <text>
+      <label>Payload bay door</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>pbd-sys1</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable</property>
+          <label>SYS 1 enable</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pbd-sys1</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>pbd-sys2</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/pb-door-sys2-enable</property>
+          <label>SYS 2 enable</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pbd-sys2</object-name>
+          </binding>
+    </checkbox>
+
+    <text>
+      <label>close</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>pbd-switch</name>
+      <row>2</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>pbd-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>open</label>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>closed</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>open</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>/////</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>1</value>
+		</less-than>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+			<value>0</value>
+		</greater-than>
+		</and>
+      </visible>
+    </text>
+
+   </group>
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

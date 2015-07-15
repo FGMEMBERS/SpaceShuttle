@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<signal>
+        <type>int</type>
+        <property type="string">/controls/shuttle/parachute</property> 
+	</signal>	
+	<signal>
+        <type>float</type>
+        <property type="string">gear/gear[1]/rollspeed-ms</property>
+	</signal>	
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/fcs/bodyflap-pos-rad</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/gear/gear-pos-norm</property>
+    </signal>
+
+	<!--  Off road tire smoke -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	<!-- Gear damage smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/stbd-damage-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	 <!-- Wing smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-wing-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	<!-- Tail smoke and spark -->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-tail-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/tail-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-tail-ground-effect-speed-kt-actual</property>
+    </signal>
+
+	<!-- Touchdown tire smoke and vortex-->
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/nose-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/left-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
+    </signal>
+
+</PropertyList>

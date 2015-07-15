@@ -1,0 +1,1969 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="RCS helium and propellant system">
+
+		<!-- compute helium-driven pressure at the fuel and oxidizer tanks -->
+
+		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-psia">
+		<function>
+			<max>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs-hardware/left-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-left-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-left-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-right-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-right-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-fwd-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-fwd-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/left-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-left-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/right-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-right-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+	 	<switch name="systems/rcs-hardware/fwd-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/fwd-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-fwd-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[9]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[8]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[11]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[10]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-fuel-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[13]/contents-lbs</property>
+				<value>928.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-oxidizer-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[12]/contents-lbs</property>
+				<value>1477.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<!-- if the tanks are not connected to the helium, they empty by blow-down -->
+		<!-- in this case we need to sample/hold the original pressure and fuel -->
+		<!-- fraction at disconnect -->
+
+		<switch name="systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-left-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/left-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-right-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/right-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia">
+			<default value="systems/rcs-hardware/fuel-fwd-rcs-pressure-psia"/>
+			<test value="systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia">
+				systems/rcs-hardware/fwd-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/left-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/left-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/right-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/right-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold">
+			<default value="systems/rcs-hardware/fwd-rcs-fuel-fraction"/>
+			<test value="systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold">
+				systems/rcs-hardware/fwd-rcs-pressurized == 0
+			</test>
+		</switch>
+
+		<!-- fuel and oxidizer pressure if helium is connected -either pressure regulator valve driven -->
+		<!-- or equal to helium pressure -->
+
+		<fcs_function name="systems/rcs-hardware/tanks-left-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-left-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-left-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-right-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-right-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-right-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-fwd-rcs-pressure-psia">
+		<function>
+			<min>
+				<value>240.0</value>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/rcs-hardware/oxidizer-fwd-rcs-pressure-psia</output>
+		<output>systems/rcs-hardware/fuel-fwd-rcs-pressure-psia</output>
+		</fcs_function>
+
+		<!-- blow-down pressure is determined from sample/hold pressure and fuel fraction -->
+
+		<fcs_function name="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-left-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-right-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fuel-fwd-rcs-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.01</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fwd-rcs-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.282</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/rcs-hardware/fwd-rcs-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+		<!-- fuel can flow if either the tank is pressurized or the blowdown pressure is sufficient -->
+		<!-- to qualify as available the tank also needs to be more than 1% full -->
+		<!-- (forcing some fuel to remain will ensure thrusters ignite when cross-feeding) -->
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/left-rcs-pressurized == 1
+				systems/rcs-hardware/left-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/left-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/right-rcs-pressurized == 1
+				systems/rcs-hardware/right-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/right-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/fwd-rcs-pressurized == 1
+				systems/rcs-hardware/fwd-rcs-blowdown-available-fuel-fraction LT systems/rcs-hardware/fwd-rcs-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/left-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/left-rcs-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/right-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/right-rcs-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/fwd-rcs-fuel-pressurized == 1
+				systems/rcs-hardware/fwd-rcs-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+		<!-- dependent on valve settings, compute whether a thruster can receive fuel -->
+
+		<fcs_function name="systems/rcs-hardware/L1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L1L-fuel-available</output>
+		<output>systems/rcs-hardware/L1U-fuel-available</output>
+		<output>systems/rcs-hardware/L1A-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L2L-fuel-available</output>
+		<output>systems/rcs-hardware/L2U-fuel-available</output>
+		<output>systems/rcs-hardware/L2D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L3L-fuel-available</output>
+		<output>systems/rcs-hardware/L3A-fuel-available</output>
+		<output>systems/rcs-hardware/L3D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L4L-fuel-available</output>
+		<output>systems/rcs-hardware/L4U-fuel-available</output>
+		<output>systems/rcs-hardware/L4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-left-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/L5L-fuel-available</output>
+		<output>systems/rcs-hardware/L5D-fuel-available</output>
+		</fcs_function>	
+
+
+		<fcs_function name="systems/rcs-hardware/R1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R1R-fuel-available</output>
+		<output>systems/rcs-hardware/R1U-fuel-available</output>
+		<output>systems/rcs-hardware/R1A-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R2R-fuel-available</output>
+		<output>systems/rcs-hardware/R2U-fuel-available</output>
+		<output>systems/rcs-hardware/R2D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R3R-fuel-available</output>
+		<output>systems/rcs-hardware/R3A-fuel-available</output>
+		<output>systems/rcs-hardware/R3D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R4R-fuel-available</output>
+		<output>systems/rcs-hardware/R4U-fuel-available</output>
+		<output>systems/rcs-hardware/R4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<max>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+				</max>				
+				<property>systems/rcs-hardware/mfold-right-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/R5R-fuel-available</output>
+		<output>systems/rcs-hardware/R5D-fuel-available</output>
+		</fcs_function>		
+		
+		<fcs_function name="systems/rcs-hardware/F1-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-1-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F1L-fuel-available</output>
+		<output>systems/rcs-hardware/F1U-fuel-available</output>
+		<output>systems/rcs-hardware/F1D-fuel-available</output>
+		<output>systems/rcs-hardware/F1F-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-12-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-2-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F2R-fuel-available</output>
+		<output>systems/rcs-hardware/F2U-fuel-available</output>
+		<output>systems/rcs-hardware/F2D-fuel-available</output>
+		<output>systems/rcs-hardware/F2F-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-3-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F3L-fuel-available</output>
+		<output>systems/rcs-hardware/F3U-fuel-available</output>
+		<output>systems/rcs-hardware/F3D-fuel-available</output>
+		<output>systems/rcs-hardware/F3F-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-4-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F4R-fuel-available</output>
+		<output>systems/rcs-hardware/F4D-fuel-available</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F5-fuel-available">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/fwd-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/tank-fwd-rcs-valve-345-status</property>
+				<property>systems/rcs-hardware/mfold-fwd-rcs-valve-5-status</property>
+			</product>
+		</function>
+		<output>systems/rcs-hardware/F5L-fuel-available</output>
+		<output>systems/rcs-hardware/F5R-fuel-available</output>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="RCS to RCS crossfeed">
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[24]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[26]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[28]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[34]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[35]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[40]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[23]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[25]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[27]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[33]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[39]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[41]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[47]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[49]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[24]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[26]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[28]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[34]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[35]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[40]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[23]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[25]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[27]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[33]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[39]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[41]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[47]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[49]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[22]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[30]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[32]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[37]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[38]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[43]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[21]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[29]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[31]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[36]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[42]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[44]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[48]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[50]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[22]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[30]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[32]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[37]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[38]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[43]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[21]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[29]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[31]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[36]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[42]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[44]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[48]/oxi-flow-rate-pps</property>
+				<property>propulsion/engine[50]/oxi-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs-hardware/tank-left-345-isolation-status">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-345A-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-345B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/tank-right-345-isolation-status">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/tank-right-rcs-valve-345A-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-345B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-345-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+				systems/rcs-hardware/tank-right-345-isolation-status == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[9]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[8]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[11]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-correction">
+		<function>
+			<difference>
+				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
+				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
+			</difference>
+		</function>
+		<output>propulsion/tank[10]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="OMS to RCS crossfeed">
+
+		<switch name="systems/rcs-hardware/oms-left-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-left-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-left-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-left-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-right-12-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-12-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-right-rcs-valve-12-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-left-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-left-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-left-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-left-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-left-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/oms-right-to-right-345-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/rcs-hardware/crossfeed-right-rcs-valve-345-status == 1
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/rcs-hardware/tank-right-345-isolation-status == 0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-drain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-left-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/fuel-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-gain-pps">
+		<function>
+			<sum>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-12-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+				</product>
+				<product>	
+					<property>systems/rcs-hardware/oxidizer-right-345-nominal-drain-pps</property>
+					<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-left-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[9]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-left-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[9]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-left-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[8]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-left-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[8]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-oms-right-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[11]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/fuel-oms-right-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[11]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-oms-right-crossfeed-correction">
+		<function>
+			<sum>
+				<property>propulsion/tank[10]/external-flow-rate-pps</property>
+				<property>systems/rcs-hardware/oxidizer-oms-right-crossfeed-gain-pps</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[10]/external-flow-rate-pps</output>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="Crossfeed fuel availability for RCS thrusters">
+
+		<fcs_function name="systems/rcs-hardware/left-12-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-left-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-left-12-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/left-345-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/right-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/right-to-left-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-left-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-left-345-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/right-12-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-right-12-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-right-12-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+		
+		<fcs_function name="systems/rcs-hardware/right-345-crossfeed-fuel-available">
+		<function>
+			<max>
+			<product>
+				<property>systems/rcs-hardware/left-rcs-fuel-available</property>
+				<property>systems/rcs-hardware/left-to-right-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/left-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-left-to-right-345-crossfeed</property>
+			</product>
+			<product>
+				<property>systems/oms-hardware/right-oms-fuel-available</property>
+				<property>systems/rcs-hardware/oms-right-to-right-345-crossfeed</property>
+			</product>
+			</max>
+		</function>
+		</fcs_function>
+
+
+	</channel>
+
+	<!-- the RCS control routines provide output in terms of firing commands for the thrusters -->
+	<!-- the RCS hardware simulation checks whether the thruster is operational and has the required fuel -->
+	
+	<channel name="RCS hardware thruster firing simulation">
+
+		<fcs_function name="systems/rcs-hardware/F2F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2F-fire-cmd</property>
+				<property>systems/rcs-hardware/F2F-fuel-available</property>
+				<property>systems/failures/rcs-F2F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[7]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3F-fire-cmd</property>
+				<property>systems/rcs-hardware/F3F-fuel-available</property>
+				<property>systems/failures/rcs-F3F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[8]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1F-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1F-fire-cmd</property>
+				<property>systems/rcs-hardware/F1F-fuel-available</property>
+				<property>systems/failures/rcs-F1F-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[9]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1L-fire-cmd</property>
+				<property>systems/rcs-hardware/F1L-fuel-available</property>
+				<property>systems/failures/rcs-F1L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[10]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3L-fire-cmd</property>
+				<property>systems/rcs-hardware/F3L-fuel-available</property>
+				<property>systems/failures/rcs-F3L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[11]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2R-fire-cmd</property>
+				<property>systems/rcs-hardware/F2R-fuel-available</property>
+				<property>systems/failures/rcs-F2R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[12]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F4R-fire-cmd</property>
+				<property>systems/rcs-hardware/F4R-fuel-available</property>
+				<property>systems/failures/rcs-F4R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[13]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs-hardware/F2U-fuel-available</property>
+				<property>systems/failures/rcs-F2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[14]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs-hardware/F3U-fuel-available</property>
+				<property>systems/failures/rcs-F3U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[15]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs-hardware/F1U-fuel-available</property>
+				<property>systems/failures/rcs-F1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[16]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs-hardware/F2D-fuel-available</property>
+				<property>systems/failures/rcs-F2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[17]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F1D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs-hardware/F1D-fuel-available</property>
+				<property>systems/failures/rcs-F1D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[18]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs-hardware/F4D-fuel-available</property>
+				<property>systems/failures/rcs-F4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[19]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs-hardware/F3D-fuel-available</property>
+				<property>systems/failures/rcs-F3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[20]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3A-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R3A-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R3A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[21]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R1A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1A-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R1A-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R1A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[22]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3A-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L3A-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L3A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[23]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1A-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1A-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L1A-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L1A-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[24]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4L-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L4L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L4L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[25]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2L-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L2L-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L2L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[26]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3L-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L3L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L3L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[27]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1L-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L1L-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L1L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[28]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4R-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R4R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R4R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[29]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2R-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R2R-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R2R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[30]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3R-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R3R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R3R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[31]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R1R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1R-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R1R-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R1R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[32]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L4U-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L4U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[33]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L2U-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[34]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L1U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L1U-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[35]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R4U-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R4U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[36]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R2U-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R2U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[37]</output>
+		</fcs_function>
+	
+		<fcs_function name="systems/rcs-hardware/R1U-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R1U-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R1U-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R1U-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[38]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L4D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L4D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[39]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L2D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L2D-fuel-available</property>
+					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[40]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L3D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L3D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[41]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R4D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R4D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R4D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R4D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[42]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R2D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R2D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R2D-fuel-available</property>
+					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R2D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[43]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R3D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R3D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R3D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R3D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[44]</output>
+		</fcs_function>
+
+		<!-- the Vernier thrusters -->
+
+		<fcs_function name="systems/rcs-hardware/F5R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F5R-fire-cmd</property>
+				<property>systems/rcs-hardware/F5R-fuel-available</property>
+				<property>systems/failures/rcs-F5R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[45]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/F5L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/F5L-fire-cmd</property>
+				<property>systems/rcs-hardware/F5L-fuel-available</property>
+				<property>systems/failures/rcs-F5L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[46]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L5D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L5D-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L5D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[47]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5D-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R5D-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R5D-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R5D-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[48]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/L5L-fire">
+		<function>
+			<product>
+				<property>systems/rcs/L5L-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/L5L-fuel-available</property>
+					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-L5L-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[49]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/R5R-fire">
+		<function>
+			<product>
+				<property>systems/rcs/R5R-fire-cmd</property>
+				<max>
+					<property>systems/rcs-hardware/R5R-fuel-available</property>
+					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
+				</max>
+				<property>systems/failures/rcs-R5R-condition</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[50]</output>
+		</fcs_function>
+	</channel>
+
+	<channel name="RCS thermal control">
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-fwd-A-status</property>
+				<property>systems/rcs-hardware/heater-fwd-B-status</property>
+				</max>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-left-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-left-A-status</property>
+				<property>systems/rcs-hardware/heater-left-B-status</property>
+				</max>
+				<value>0.18</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-right-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/rcs-hardware/heater-right-A-status</property>
+				<property>systems/rcs-hardware/heater-right-B-status</property>
+				</max>
+				<value>0.18</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-1-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-1-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-2-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-2-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-3-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-3-status</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-4-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-4-status</property>
+				<value>0.04</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-fwd-5-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-fwd-5-status</property>
+				<value>0.02</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-1-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-1-status</property>
+				<value>0.14</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-2-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-2-status</property>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-3-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-3-status</property>
+				<value>0.14</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-4-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-4-status</property>
+				<value>0.12</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/heater-aft-5-power-kW">
+		<function>
+			<product>
+				<property>systems/rcs-hardware/heater-pod-5-status</property>
+				<value>0.04</value>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+</system>

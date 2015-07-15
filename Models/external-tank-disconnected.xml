@@ -17,6 +17,122 @@
    <enable-hot type="bool">false</enable-hot>
  </animation>
 
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    <object-name>et_all.lay_et all</object-name>
+    <object-name>et_all.lay_et_att</object-name>
+    <object-name>et_all.lay_et_att.001</object-name>
+    <object-name>et_all.lay_et_att.002</object-name>
+    <object-name>et_all.lay_et_att.003</object-name>
+    <object-name>et_all.lay_et_att.004</object-name>
+    <object-name>et_all.lay_et_att.005</object-name>
+    <object-name>et_all.lay_et_att.006</object-name>
+    <object-name>et_all.lay_et_att.007</object-name>
+    <object-name>et_all.lay_et_att.008</object-name>
+    <object-name>et_all.lay_et_attach_</object-name>
+    <object-name>et_all.lay_et_bot_cir</object-name>
+    <object-name>et_all.lay_et_shu</object-name>
+    <object-name>et_all.lay_et_shu.001</object-name>
+    <object-name>et_all.lay_et_shutsup</object-name>
+    <object-name>et_all.lay_et_sup</object-name>
+    <object-name>et_all.lay_et_sup.001</object-name>
+    <object-name>et_all.lay_et_sup.002</object-name>
+    <object-name>et_all.lay_et_sup.003</object-name>
+    <object-name>et_all.lay_et_sup.004</object-name>
+    <object-name>et_all.lay_et_supline</object-name>
+    <object-name>et_all.lay_et_top</object-name>
+    <object-name>et_all.lay_et_top_nos</object-name>
+    <object-name>et_all.lay_et_top_tip</object-name>
+ </effect>
+
+
+<!-- position -->
+<!--	<animation>
+  	<type>translate</type>
+  	<property>/controls/shuttle/orbital/tank-x-m</property>
+  	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+ 	</animation>
+
+	<animation>
+  	<type>translate</type>
+  	<property>/controls/shuttle/orbital/tank-y-m</property>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+ 	</animation>
+
+	<animation>
+  	<type>translate</type>
+  	<property>/controls/shuttle/orbital/tank-z-m</property>
+  	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+ 	</animation>	-->
+
+
+<!-- pitch -->
+ <!--     <animation>
+        <type>rotate</type>
+        <property>/controls/shuttle/orbital/tank-pitch-deg</property>
+        <factor>1.0</factor>
+        <center>
+          <x-m>-10</x-m>
+          <y-m>0</y-m>
+          <z-m>10</z-m>
+        </center>
+        <axis>
+          <x>0</x>
+          <y>1</y>
+          <z>0</z>
+        </axis>
+      </animation>
+
+
+      <animation>
+        <type>rotate</type>
+        <property>/controls/shuttle/orbital/tank-roll-deg</property>
+        <factor>-1.0</factor>
+        <center>
+          <x-m>0</x-m>
+          <y-m>0</y-m>
+          <z-m>10.0</z-m>
+        </center>
+        <axis>
+          <x>1</x>
+          <y>0</y>
+          <z>0</z>
+        </axis>
+      </animation>
+
+
+
+      <animation>
+        <type>rotate</type>
+        <property>/controls/shuttle/orbital/tank-yaw-deg</property>
+        <factor>1.0</factor>
+        <center>
+          <x-m>-10</x-m>
+          <y-m>0</y-m>
+          <z-m>0</z-m>
+        </center>
+        <axis>
+          <x>0</x>
+          <y>0</y>
+          <z>1</z>
+        </axis>
+      </animation>-->
+
+  
+
 </PropertyList>
 
 

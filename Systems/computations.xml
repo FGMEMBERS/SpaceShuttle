@@ -106,5 +106,149 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/thermal/entry-flame-alpha">
+		<function>
+			<difference>
+			<product>
+				<property>systems/thermal/nose-temperature-F</property>
+				<value>0.001</value>
+			</product>
+			<value>2.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/various/srb-burning">
+			<default value="0.0"/>
+			<test value="1.0">
+				propulsion/engine[3]/thrust-lbs GT 100
+			</test>
+		</switch>	
+		
+		<kinematic name="systems/various/srb-flame-alpha">
+			<input>systems/various/srb-burning</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>4.0</time>
+				</setting>
+			</traverse>
+			<output>systems/various/srb-flame-alpha</output>
+		</kinematic>
+
+		<fcs_function name="systems/various/srb-flame-trail-alpha">
+		<function>
+			<product>
+				<property>systems/various/srb-flame-alpha</property>
+				<value>0.25</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/various/ssme-flame-collimation">
+		<function>
+			<sum>
+			<value>0.15</value>
+			<product>
+				<value>0.4</value>
+				<difference>
+				<value>1.0</value>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+				</difference>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/various/ssme-flame-density">
+		<function>
+		<product>
+			<value>0.2</value>
+			<quotient>
+			<max>
+				<property>propulsion/engine[0]/thrust-lbs</property>
+				<property>propulsion/engine[1]/thrust-lbs</property>
+				<property>propulsion/engine[2]/thrust-lbs</property>
+			</max>
+			<value>510000.0</value>
+			</quotient>
+		</product>
+		</function>			
+		</fcs_function>
+
+
+		<fcs_function name="systems/various/oms-flame-density">
+		<function>
+		<product>
+			<value>0.5</value>
+			<quotient>
+			<max>
+				<property>propulsion/engine[5]/thrust-lbs</property>
+				<property>propulsion/engine[6]/thrust-lbs</property>
+			</max>
+			<value>6000.0</value>
+			</quotient>
+		</product>
+		</function>			
+		</fcs_function>
+
+		<fcs_function name="systems/various/oms-fuel-fraction">
+		<function>
+			<quotient>
+				<property>/consumables/fuel/tank[4]/level-lbs</property>
+				<value>7773.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+	<!-- This is the wing bending moment from Carl F. Ehrlich, 'Why the Wings stay on' -->
+
+		<fcs_function name="systems/various/wing-bending-moment">
+		<function>
+		<product>
+	    		<property>aero/qbar-psf</property>
+           		<property>metrics/Sw-sqft</property>
+           		<property>metrics/bw-ft</property>
+			<table>
+                  		<independentVar lookup="row">aero/alpha-deg</independentVar>
+		 		<independentVar lookup="column">velocities/mach</independentVar>
+                  		<tableData>
+		            		0.9	1.1	1.3	1.4
+				-6.0	-0.01	-0.009	-0.0055	-0.0045
+				-2.0	0.0001	0.00015	0.008	0.008
+				0.0	0.005	0.009	0.014	0.014
+				4.0	0.013	0.019	0.021	0.02
+				6.0	0.015	0.023	0.025	0.024			
+                  		</tableData>
+         		</table>
+		</product>
+		</function>	
+		</fcs_function>
+
+		<fcs_function name="systems/various/cg-percentage">
+		<function>
+			<product>
+			<quotient>
+				<sum>
+					<value>67.0</value>
+					<product>
+						<property>inertia/cg-x-in</property>
+						<value>0.083</value>
+					</product>
+				</sum>
+				<value>114.8</value>
+			</quotient>
+			<value>100.0</value>
+			</product>
+		</function>
+		</fcs_function>
+		
 	</channel>
 </system>

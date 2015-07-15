@@ -121,12 +121,37 @@
       <property>/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string</property>
     </text>   
     
+
         
     </group>
 
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
 
+	<hrule/>
 
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+ 
+   <group>
+     <layout>table</layout>
 
+     <checkbox>
+        <name>auto-pitch</name>
+ 	<row>0</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+	  <label>automatic pitch control </label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>auto-pitch</object-name>
+          </binding>
+      </checkbox>
+
+   </group>
 
 
 

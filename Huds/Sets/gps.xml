@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -76,10 +74,6 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>1</value>
 			</equals>
-			<equals>
-				<property>/controls/shuttle/hud-mode</property>
-				<value>2</value>
-			</equals>
 			</or>
 		</condition>
 		<width>2</width>
@@ -103,10 +97,6 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>1</value>
 			</equals>
-			<equals>
-				<property>/controls/shuttle/hud-mode</property>
-				<value>2</value>
-			</equals>
 			</or>
 		</condition>
 		<width>2</width>
@@ -117,6 +107,41 @@
 		<halign>left</halign>
 		<input>
 			<property>/fdm/jsbsim/systems/orbital/ascending-node-lon-deg</property>
+		</input>
+       </label>
+
+	<label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<y>-20</y>
+		<format>Nom. AoA:%4.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg</property>
+		</input>
+       </label>	
+
+	<label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>100</x>
+		<y>-20</y>
+		<format>Current AoA:%4.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>/fdm/jsbsim/aero/alpha-deg</property>
 		</input>
        </label>
 
@@ -444,6 +469,181 @@
 		<halign>left</halign>
 		<input>
 			<property>controls/shuttle/drag-chute-string</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-10</y>
+		<format>Body flap:    %2d deg</format>
+		<halign>left</halign>
+		<input>
+			<property>/fdm/jsbsim/fcs/bodyflap-pos-rad</property>
+			<factor>57.2975</factor>
+		</input>
+     </label>
+
+    <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-20</y>
+		<format>Speed brake: %s</format>
+		<halign>left</halign>
+		<input>
+			<property>controls/shuttle/speedbrake-string</property>
+		</input>
+     </label>
+
+<!-- entry guidance -->
+
+	<label>
+		<condition>
+			<or>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+			<and>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
+				<value>1</value>
+			</equals>
+			</and>
+			</or>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-280</y>
+		<format>Remaining distance:%4.2f nm</format>
+		<halign>left</halign>
+		<input>
+			<!--<property>fdm/jsbsim/systems/entry_guidance/current-deceleration-g</property>-->
+			<property>/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm</property>
+		</input>
+     </label>
+
+
+	<label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-300</y>
+		<format>Current deceleration:%2.2f g</format>
+		<halign>left</halign>
+		<input>
+			<!--<property>fdm/jsbsim/systems/entry_guidance/current-deceleration-g</property>-->
+			<property>accelerations/nlf</property>
+			<factor>-1.0</factor>
+		</input>
+     </label>
+
+    <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-310</y>
+		<format>Target deceleration:%2.2f g</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/systems/entry_guidance/target-deceleration-g</property>
+		</input>
+     </label>
+
+     <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-320</y>
+		<format>Azimuth deviation:%2.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg</property>
+		</input>
+     </label>
+
+	<label>
+		<condition>
+			<and>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>3</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
+				<value>1</value>
+			</equals>
+			</and>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-290</y>
+		<format>Direction to base:%2.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/systems/entry_guidance/target-azimuth-deg</property>
+		</input>
+     </label>
+
+   <label>
+		<condition>
+			<equals>
+				<property>/controls/shuttle/hud-mode</property>
+				<value>2</value>
+			</equals>
+		</condition>
+		<width>2</width>
+		<height>2</height>
+		<x>460</x>
+		<y>-330</y>
+		<format>AoA deviation:%2.2f deg</format>
+		<halign>left</halign>
+		<input>
+			<property>fdm/jsbsim/systems/entry_guidance/delta-alpha-deg</property>
 		</input>
      </label>
 

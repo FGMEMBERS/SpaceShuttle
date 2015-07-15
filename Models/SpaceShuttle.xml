@@ -1,37 +1,98 @@
 <PropertyList>
 	<path>shuttle_o2.ac</path>
 
+   
+   <!-- heat shield glow -->
 
-<!-- man for the moon, pick the little windows on the top to activate him -->
+  <animation>
+    	<type>material</type>
+   	<object-name>heatshield</object-name>	
+   	<emission>
+      		<factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
+      		<red>   1.0 </red>
+      		<green> 0.2 </green>
+		<blue>  0.1 </blue>
+    	</emission>
+  </animation>
 
+
+
+ 
+
+
+
+    <!-- ******************************************************************* -->
+    <!-- Cockpit                                                             -->
+    <!-- ******************************************************************* -->
+    <model>
+        <path>cockpit.xml</path>
+        <offsets>
+            <x-m> 0 </x-m>
+            <y-m> 0 </y-m>
+            <z-m> 0 </z-m>
+        </offsets>
+    </model>
+
+  <!-- SSME Motors Placements -->
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME1.xml</path>
+  </model>
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME2.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> -1.5 </y-m>
+      <z-m> -2.5 </z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/SSME3.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 1.5 </y-m>
+      <z-m> -2.5 </z-m>
+    </offsets>
+  </model>
+
+<!-- Enterprise air data boom -->
+
+    
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/air-data-boom.ac</path>
+	<condition>
+		<equals>
+			<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			<value>1</value>
+		</equals>
+ 	</condition>
+  </model>
+
+<!-- Enterprise tail cone -->
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/TailCone.ac</path>
+	<condition>
+		<equals>
+			<property>/sim/config/shuttle/approach-and-landing-test-config</property>
+			<value>1</value>
+		</equals>
+ 	</condition>
+  </model>
+
+<!-- OMS thruster exhaust and rear RCS modules -->
+
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/OMSPods.xml</path>
+  </model>
+
+
+
+<!-- airlock module -->
 <model>
-    <path>Aircraft/SpaceShuttle/Models/EMU/acesjustforroomshow.xml</path>
-     <offsets>
-       <x-m> -12.30 </x-m>
-       <y-m> 1.10 </y-m>
-       <z-m> -2.92 </z-m>
-       <heading-deg>90.0</heading-deg>
-     </offsets>
-</model>  
-  
-<animation>
- <type>pick</type>
-  <object-name>spaceshutt_spstob_4</object-name>
-  <visible>true</visible>
- <action>
-  <button>0</button>
-   <binding>
-    <command>property-toggle</command>
-     <property>sim/multiplay/generic/int[5]</property>
-     <value>0</value>
-     <value>1</value>
-   </binding>
- </action>
-</animation>
-
-<!-- satelit, click it to launch a satelit -->
-<model>
-    <path>Aircraft/SpaceShuttle/Models/EMU/satelit-int.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/PayloadBay/airlock_module.ac</path>
      <offsets>
        <x-m> 0.0 </x-m>
        <y-m> 0.0 </y-m>
@@ -40,20 +101,576 @@
      </offsets>
 </model>
 
-<animation>
- <type>pick</type>
-  <object-name>spaceshutt_spstob_eal</object-name>
-  <visible>true</visible>
- <action>
-  <button>0</button>
-   <binding>
-    <command>property-toggle</command>
-     <property>sim/multiplay/generic/int[9]</property>
-     <value>0</value>
-     <value>1</value>
-   </binding>
- </action>
-</animation>
+<!-- landing gear -->
+<model>
+  <path>Aircraft/SpaceShuttle/Models/LandingGears.ac</path>
+</model>
+
+<!-- landing gear damaged-->
+<model>
+	<path>Aircraft/SpaceShuttle/Models/damage.ac</path>
+</model>
+
+ <!-- front gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>Cube</object-name>
+   <object-name>Shock</object-name>
+   <object-name>Axel</object-name>
+   <object-name>Rim</object-name>
+   <object-name>Tire</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- front gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>CubeD</object-name>
+   <object-name>ShockD</object-name>
+   <object-name>AxelD</object-name>
+   <object-name>RimD</object-name>
+   <object-name>TireD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- rear landing gear -->
+ <animation>
+   <type>select</type>
+   <object-name>DragBrace.UpperL</object-name>
+   <object-name>StrutActuatorL</object-name>
+   <object-name>StrutActuator.RodL</object-name>
+   <object-name>LockBrace.LowerL</object-name>
+   <object-name>LockBrace.UpperL</object-name>
+   <object-name>LockBraceUpper.BarL</object-name>
+   <object-name>DragBrace.UpperR</object-name>
+   <object-name>StrutActuatorR</object-name>
+   <object-name>StrutActuator.RodR</object-name>
+   <object-name>LockBrace.LowerR</object-name>
+   <object-name>LockBrace.UpperR</object-name>
+   <object-name>LockBraceUpper.BarR</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingL</object-name>
+   <object-name>CylinderL</object-name>
+   <object-name>CylinderL.001</object-name>
+   <object-name>DragBrace.LowerL</object-name>
+   <object-name>ShockHousingL</object-name>
+   <object-name>ShockL</object-name>
+   <object-name>CubeL</object-name>
+   <object-name>AxelL</object-name>
+   <object-name>LRimL</object-name>
+   <object-name>RRimL</object-name>
+   <object-name>TorqueArm.LowerL</object-name>
+   <object-name>TorqueArm.UpperL</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear door undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorL</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingR</object-name>
+   <object-name>CylinderR</object-name>
+   <object-name>CylinderR.001</object-name>
+   <object-name>DragBrace.LowerR</object-name>
+   <object-name>ShockHousingR</object-name>
+   <object-name>ShockR</object-name>
+   <object-name>CubeR</object-name>
+   <object-name>AxelR</object-name>
+   <object-name>LRimR</object-name>
+   <object-name>RRimR</object-name>
+   <object-name>TorqueArm.LowerR</object-name>
+   <object-name>TorqueArm.UpperR</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear door undamaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorR</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingLD</object-name>
+   <object-name>CylinderLD</object-name>
+   <object-name>CylinderLD.001</object-name>
+   <object-name>DragBrace.LowerLD</object-name>
+   <object-name>ShockHousingLD</object-name>
+   <object-name>ShockLD</object-name>
+   <object-name>CubeLD</object-name>
+   <object-name>AxelLD</object-name>
+   <object-name>LRimLD</object-name>
+   <object-name>RRimLD</object-name>
+   <object-name>TorqueArm.LowerLD</object-name>
+   <object-name>TorqueArm.UpperLD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- left gear door damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorLD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>TrunionFittingRD</object-name>
+   <object-name>CylinderRD</object-name>
+   <object-name>CylinderRD.001</object-name>
+   <object-name>DragBrace.LowerRD</object-name>
+   <object-name>ShockHousingRD</object-name>
+   <object-name>ShockRD</object-name>
+   <object-name>CubeRD</object-name>
+   <object-name>AxelRD</object-name>
+   <object-name>LRimRD</object-name>
+   <object-name>RRimRD</object-name>
+   <object-name>TorqueArm.LowerRD</object-name>
+   <object-name>TorqueArm.UpperRD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>1</value>
+			</equals>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- right gear door damaged -->
+ <animation>
+   <type>select</type>
+   <object-name>GearDoorRD</object-name>
+   <condition>
+		<and>
+			<equals>
+				<property>/controls/shuttle/ET-static-model</property>
+				<value>0</value>
+			</equals>
+			<equals>
+				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<value>0</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <!-- Spin to wheels -->
+ <animation>
+	<type>spin</type>
+	<object-name>Axel</object-name>
+	<object-name>Rim</object-name>
+	<object-name>Tire</object-name>
+	<property>gear/gear[0]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>-16.22062</x-m>
+		<y-m>0.00000</y-m>
+		<z-m>-6.31655</z-m>
+	</center>
+ </animation>
+ <animation>
+	<type>spin</type>
+	<object-name>AxelL</object-name>
+	<object-name>LRimL</object-name>
+	<object-name>RRimL</object-name>
+	<property>gear/gear[1]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>4.0584</x-m>
+		<y-m>-3.44991</y-m>
+		<z-m>-7.44747</z-m>
+	</center>
+ </animation>
+ <animation>
+	<type>spin</type>
+	<object-name>AxelR</object-name>
+	<object-name>LRimR</object-name>
+	<object-name>RRimR</object-name>
+	<property>gear/gear[2]/rollspeed-ms</property>
+	<factor>13</factor>
+	<axis>
+		<x>0</x>
+		<y>-1</y>
+		<z>0</z>
+	</axis>
+	<center>
+		<x-m>4.0584</x-m>
+		<y-m>3.44994</y-m>
+		<z-m>-7.44747</z-m>
+	</center>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>BodyFlap</object-name>
+  <!--<property>/controls/shuttle/bodyflap-pos-rad</property>-->
+  <property>/fdm/jsbsim/fcs/bodyflap-pos-rad</property>
+  <interpolation>
+    <entry>
+      <ind>-0.315</ind>
+      <dep>-15.7</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+	<entry>
+      <ind>0.315</ind>
+      <dep>26.55</dep>
+    </entry>
+  </interpolation>
+  <center>
+   <x-m> 13.272</x-m>
+   <y-m> -0.4545</y-m>
+   <z-m> -5.2919</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>SpeedBrakeL</object-name>
+  <!--<property>/controls/shuttle/speedbrake</property>-->
+  <property>/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
+  <interpolation>
+	<entry>
+      <ind>1.0</ind>
+      <dep>-49.3</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+  </interpolation>
+
+  <center>
+   <x-m> 14.679</x-m>
+   <y-m> -0.027</y-m>
+   <z-m> 5.128</z-m>
+  </center>
+  <axis>
+   <x>8</x>
+   <y>.5</y>
+   <z>15</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>SpeedBrakeR</object-name>
+  <!--<property>/controls/shuttle/speedbrake</property>-->
+  <property>/fdm/jsbsim/fcs/speedbrake-pos-norm</property>
+  <interpolation>
+	<entry>
+      <ind>1.0</ind>
+      <dep>-49.3</dep>
+    </entry>
+	<entry>
+      <ind>0.0</ind>
+      <dep>0</dep>
+    </entry>
+  </interpolation>
+  <center>
+   <x-m> 14.679</x-m>
+   <y-m> 0.027</y-m>
+   <z-m> 5.128</z-m>
+  </center>
+  <axis>
+   <x>-8</x>
+   <y>.5</y>
+   <z>-15</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseDoorL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> -17.00619</x-m>
+   <y-m> -0.52466</y-m>
+   <z-m> -4.90111</z-m>
+  </center>
+  <axis>
+   <x>-90</x>
+   <y>8</y>
+   <z>12</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NoseDoorR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> -17.00619</x-m>
+   <y-m> 0.52466</y-m>
+   <z-m> -4.90111</z-m>
+  </center>
+  <axis>
+   <x>90</x>
+   <y>8</y>
+   <z>-12</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>GearDoorL</object-name>
+  <object-name>GearDoorLD</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 2.40147</x-m>
+   <y-m> -4.22895</y-m>
+   <z-m> -5.10298</z-m>
+  </center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>GearDoorR</object-name>
+  <object-name>GearDoorRD</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1.0</ind>
+    <dep> 90.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.20</ind>
+    <dep> 0.0</dep>
+   </entry>
+   <entry>
+    <ind> 0.0</ind>
+    <dep> 0.0</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 2.40147</x-m>
+   <y-m> 4.22895</y-m>
+   <z-m> -5.10298</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
+      <offsets>
+		 <x-m>180.5</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>-10.4</z-m>
+		 <pitch-deg>0</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>
+  </model>
+
 
 <!-- robotarm, click it to activate -->
 
@@ -77,12 +694,13 @@
 			<z-m>-10.0</z-m>
 		</offsets>
 		<condition>
- 		 <greater-than>
-+			<property>/consumables/fuel/tank/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>
+		<equals>
+			<property>/controls/shuttle/ET-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
 </model>
+
 
 <model>
 <path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
@@ -93,10 +711,10 @@
 			<roll-deg>90.0</roll-deg>
 		</offsets>
                 <condition>
- 		 <greater-than>
-+			<property>/consumables/fuel/tank[1]/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>
+		<equals>
+			<property>/controls/shuttle/SRB-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
 </model>
 
@@ -109,39 +727,18 @@
 			<roll-deg>-90.0</roll-deg>
 		</offsets>
 		<condition>
- 		 <greater-than>
-+			<property>/consumables/fuel/tank[2]/level-lbs</property>
- 			<value>0</value>
- 		 </greater-than>
+		<equals>
+			<property>/controls/shuttle/SRB-static-model</property>
+			<value>1</value>
+		</equals>
  		</condition>
 </model>
 
  
 
 
-<!-- SRB exhaust flame-->
+<!-- SRB exhaust smoke-->
 
- <model>
-   <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
-    <offsets>
-		 <x-m>14.5</x-m>
-		 <y-m>-6.2</y-m>
-		 <z-m>-10.4</z-m>
-		 <pitch-deg>0</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>
-  
-  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
-      <offsets>
-		 <x-m>14.5</x-m>
-		 <y-m>6.2</y-m>
-		 <z-m>-10.4</z-m>
-		 <pitch-deg>0</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
@@ -209,10 +806,11 @@
 	 </offsets>	
   </model>
 
-
+  <!-- RCS thruster flames -->
+ 
   <!-- RCS nose up -->
   <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-17.0</x-m>
 		 <y-m>0.0</y-m>
@@ -222,52 +820,74 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[7]/thrust-lbs</property>
+		<property>/engines/engine[15]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[16]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[14]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
  <!-- RCS nose down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>1.6</y-m>
 		 <z-m>-3.0</z-m>
-		 <pitch-deg>40</pitch-deg>
-		 <roll-deg>0</roll-deg>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>45</roll-deg>
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
+		<property>/engines/engine[17]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[19]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>-1.6</y-m>
 		 <z-m>-3.0</z-m>
-		 <pitch-deg>40</pitch-deg>
-		 <roll-deg>0</roll-deg>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>-45</roll-deg>
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
+		<property>/engines/engine[18]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[20]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS nose left -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>-1.6</y-m>
@@ -277,17 +897,23 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[9]/thrust-lbs</property>
+		<property>/engines/engine[10]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[11]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS nose right -->
 
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-16.5</x-m>
 		 <y-m>1.6</y-m>
@@ -297,17 +923,23 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[10]/thrust-lbs</property>
+		<property>/engines/engine[12]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[13]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS nose forward -->
 
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
 		 <x-m>-17.0</x-m>
 		 <y-m>0.0</y-m>
@@ -316,169 +948,259 @@
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[11]/thrust-lbs</property>
+		<property>/engines/engine[7]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[8]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[9]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
     
 <!-- RCS pod 1 left -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>-90.0</roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[14]/thrust-lbs</property>
+		<property>/engines/engine[25]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[26]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[27]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[28]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 1 up -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[12]/thrust-lbs</property>
+		<property>/engines/engine[33]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[34]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[35]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 1 down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[13]/thrust-lbs</property>
+		<property>/engines/engine[39]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[40]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[41]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 1 rear -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>-3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[16]/thrust-lbs</property>
+		<property>/engines/engine[23]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[24]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 
 <!-- RCS pod 2 right -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>90.0</roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[20]/thrust-lbs</property>
+		<property>/engines/engine[29]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[30]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[31]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[32]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 2 up -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[17]/thrust-lbs</property>
+		<property>/engines/engine[36]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[37]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[38]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 2 down -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[18]/thrust-lbs</property>
+		<property>/engines/engine[42]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[43]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		<greater-than>
+		<property>/engines/engine[44]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
 <!-- RCS pod 2 rear -->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/RCS_flame_alt.xml</path>
       <offsets>
-		 <x-m>13.0</x-m>
+		 <x-m>15.0</x-m>
 		 <y-m>3.4</y-m>
-		 <z-m>0.0</z-m>
+		 <z-m>-0.2</z-m>
 
 	 </offsets>	
 	<condition>
+		<or>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[21]/thrust-lbs</property>
+		<property>/engines/engine[21]/thrust_lb</property>
  		<value>0</value>
  		</greater-than>
+		<greater-than>
+		<property>/engines/engine[22]/thrust_lb</property>
+ 		<value>0</value>
+ 		</greater-than>
+		</or>
 	</condition>
   </model>
 
-<!-- OMS 1 -->
+<!-- OMS 1 flame-->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame1_alt.xml</path>
       <offsets>
-		 <x-m>14.0</x-m>
-		 <y-m>-1.82</y-m>
-		 <z-m>0.0</z-m>
-		 <pitch-deg>0</pitch-deg>
+		 <x-m>15.5</x-m>
+		 <y-m>-2.22</y-m>
+		 <z-m>0.7</z-m>
+		 <pitch-deg>-16</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>
 	<condition>
@@ -491,14 +1213,14 @@
 
 
 
-<!-- OMS 2 -->
+<!-- OMS 2 flame-->
  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame.xml</path>
+    <path>Aircraft/SpaceShuttle/Models/Effects/OMS_flame2_alt.xml</path>
       <offsets>
-		 <x-m>14.0</x-m>
-		 <y-m>1.82</y-m>
-		 <z-m>0.0</z-m>
-		 <pitch-deg>0</pitch-deg>
+		 <x-m>15.5</x-m>
+		 <y-m>2.22</y-m>
+		 <z-m>0.7</z-m>
+		 <pitch-deg>-16</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
 	<condition>
@@ -509,41 +1231,148 @@
 	</condition>
   </model>
 
+<!-- entry fire trail-->
 
+ <model>
+   <path>Aircraft/SpaceShuttle/Models/Effects/entry_flame.xml</path>
+    <offsets>
+		 <x-m>-10.0</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>-6.0</z-m>
+		 <pitch-deg>90</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>	
+  </model>
 
-  <!-- doors animation -->
+ <animation>
+  	<object-name>re-entry-plasma</object-name>
+  	<type>rotate</type>
+  	<property>/orientation/pitch-deg</property>
+  	<factor>-1.0</factor>
+  	<offset-deg>0</offset-deg>
+  	<center>
+   		<x-m> 0.0</x-m>
+   		<y-m> 0.0   </y-m>
+   		<z-m> 0.0</z-m>
+  	</center>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+ </animation>
 
-<animation>
-<type>pick</type>
-<object-name>spaceshutt_spstob</object-name>
-<object-name>spaceshutt_spstob.001</object-name>
+<!-- main propulsion system fuel dump -->
 
-<visible>true</visible>
-<action>
-<button>0</button>
+<model>
+<path>Aircraft/SpaceShuttle/Models/Effects/propellant-dump.xml</path>
+     <offsets>
+       <x-m> 15.5 </x-m>
+       <y-m> 0.0</y-m>
+       <z-m> -2.5 </z-m>
+       <pitch-deg>-8.0</pitch-deg>
+     </offsets>
+   <condition>
+ 	<equals>
+	<property>/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+ 	<value>1</value>
+ 	</equals>
+     </condition>
+</model>
 
+<!-- FES hiload exhaust -->
 
-<binding>
-<command>property-toggle</command>
-<property>/controls/shuttle/door/position</property>
-<value>0</value>
-<value>1</value>
-</binding>
+<model>
+<path>Aircraft/SpaceShuttle/Models/Effects/fes-exhaust.xml</path>
+     <offsets>
+       <x-m> 12.0 </x-m>
+       <y-m> -3.0</y-m>
+       <z-m> -2.5 </z-m>
+       <pitch-deg>90.0</pitch-deg>
+       <roll-deg>-90.0</roll-deg>
+     </offsets>
+    <condition>
+ 	<greater-than>
+	<property>/fdm/jsbsim/systems/atcs/hiload-fes-exhaust-force-lb</property>
+ 	<value>0.0</value>
+ 	</greater-than>
+     </condition>
+</model>
 
-<binding>
-<command>property-interpolate</command>
-<property>sim/multiplay/generic/float[3]</property>
-<property>/controls/shuttle/door/position</property> <!-- the value to interpolate to, is 1 -->
-<rate>0.10</rate><!-- 10 seconds to 0 from 1 or 1 to 0 -->
-</binding>
-</action>
-</animation>
+<!-- elevon movement -->
+
+ <animation>
+	<object-name>inboard-elevon-left</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg</property>
+  	<factor>1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> 10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>outboard-elevon-left</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg</property>
+  	<factor>1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> 10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>inboard-elevon-right</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg</property>
+  	<factor>-1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> -10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+ <animation>
+	<object-name>outboard-elevon-right</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg</property>
+  	<factor>-1.0</factor>
+	<offset-deg>0.0</offset-deg>
+  	<axis>   
+   		<x1-m> 9.2</x1-m>
+   		<y1-m> 0.0</y1-m>
+   		<z1-m>-4.1</z1-m>
+   		<x2-m> 8.5</x2-m>
+   		<y2-m> -10.0</y2-m>
+   		<z2-m>-4.1</z2-m>
+  	</axis>
+ </animation>
+
+  <!-- Payload bay opening-->
+
 
  
  <animation>
   <type>rotate</type>
   <object-name>spaceshutt_spstob</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
+  <property>/fdm/jsbsim/systems/mechanical/pb-door-left-animation</property>
   <interpolation>
     <entry>
       <ind>0.2</ind>
@@ -569,7 +1398,7 @@
  <animation>
   <type>rotate</type>
   <object-name>spaceshutt_spstob.001</object-name>
-  <property>sim/multiplay/generic/float[3]</property>
+  <property>/fdm/jsbsim/systems/mechanical/pb-door-right-animation</property>
   <interpolation>
     <entry>
       <ind>0.2</ind>
@@ -594,120 +1423,7 @@
  
 
 
-<!--Light for Gears! there are no gears, so I set some lights to the spot of earthcontact -->
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> -15.00 </x-m>
-       <y-m> 0.00 </y-m>
-       <z-m> -6.85 </z-m>
-     </offsets>
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> 4.70 </x-m>
-       <y-m> -4.2 </y-m>
-       <z-m>-6.85 </z-m>
-     </offsets>
-     
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Lights/WhiteLight.xml</path>
-     <offsets>
-       <x-m> 4.70 </x-m>
-       <y-m> 4.2 </y-m>
-       <z-m>-6.85 </z-m>
-     </offsets>
-     
-                        <condition>
-			 <equals>
-				<property>/controls/gear/gear-down</property>
-				<value>1</value>
-			 </equals>
-                        </condition>
-</model>
 
-
-
-<!--SSME flames -->
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.5 </x-m>
-       <y-m> 1.5 </y-m>
-       <z-m> -0.55 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[0]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.6 </x-m>
-       <y-m> 0.05 </y-m>
-       <z-m> -3.20 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[1]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/engine-fire.xml</path>
-     <offsets>
-       <x-m> 7.6 </x-m>
-       <y-m> 2.90 </y-m>
-       <z-m> -3.20 </z-m>
-       <pitch-deg>-8.0</pitch-deg>
-     </offsets>
-     <condition>
- 	<greater-than>
-	<property>/fdm/jsbsim/propulsion/engine[2]/thrust-lbs</property>
- 	<value>0</value>
- 	</greater-than>
-     </condition>
-</model>
-
-<!--lets set some fire to the OMS-main engines, 2 are iluminated-->
-
-<model>
-  <path>Aircraft/SpaceShuttle/Models/Lights/strobe-red5.xml</path>	
-		<offsets>
-                 <x-m> 13.10 </x-m>
-                 <y-m> -2.20 </y-m>
-                 <z-m> -0.250 </z-m>
-		</offsets>
-</model> 
-
-<model>
-   <path>Aircraft/SpaceShuttle/Models/Lights/strobe-red5.xml</path>
-     <offsets>
-       <x-m> 13.10 </x-m>
-       <y-m> 2.20 </y-m>
-       <z-m> -0.250 </z-m>
-     </offsets>
-</model>
 
 <!--more smoke ! -->
 
@@ -755,7 +1471,7 @@
         <condition>
 	<and>
 		<greater-than>
-		<property>sim/multiplay/generic/float[0]</property>
+		<property>gear/gear[1]/rollspeed-ms</property>
 		<value>45</value>
 		</greater-than>
     
@@ -794,6 +1510,198 @@
       </condition>
 </model>
 
+	<!-- wing strike -->
+	<model>
+		<name>left-wing-strike</name>
+		<path>Effects/ground/wingstrike/left-wing-strike.xml</path>
+		<offsets>
+		  <x-m> 11.35 </x-m>
+		  <y-m> -11.99 </y-m>
+		  <z-m> -4.51 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-wing-strike</name>
+		<path>Effects/ground/wingstrike/right-wing-strike.xml</path>
+		<offsets>
+		  <x-m> 11.35 </x-m>
+		  <y-m>  11.99 </y-m>
+		  <z-m> -4.51 </z-m>
+		</offsets>
+	</model>
+
+	<!-- tail strike -->
+	<model>
+		<name>left-tail-strike</name>
+		<path>Effects/ground/tailstrike/left-tail-strike.xml</path>
+		<offsets>
+		  <x-m> 13.5 </x-m>
+		  <y-m> -2.27 </y-m>
+		  <z-m> -5.35 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>tail-strike</name>
+		<path>Effects/ground/tailstrike/tail-strike.xml</path>
+		<offsets>
+		  <x-m> 13.5 </x-m>
+		  <y-m>  0.0 </y-m>
+		  <z-m> -5.35 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-tail-strike</name>
+		<path>Effects/ground/tailstrike/right-tail-strike.xml</path>
+		<offsets>
+		  <x-m> 13.5 </x-m>
+		  <y-m>  2.27 </y-m>
+		  <z-m> -5.35 </z-m>
+		</offsets>
+	</model>
+
+	<!--off road tire smoke -->
+	<model>
+		<object-name>nose-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/nose-tire-smoke.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>left-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/left-tire-smoke.xml</path>
+		<offsets>
+		  <x-m> 4.95 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<object-name>right-tire-smoke</object-name>
+		<path>Effects/ground/tiresmoke/right-tire-smoke.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- touchdown tire smoke -->
+	<model>
+		<path>Effects/ground/touchdown/nose-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/touchdown/left-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m> 4.95 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/touchdown/right-touchdown-smoke.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- rain tire spray -->
+	<model>
+		<name>nose-tire-spray</name>
+		<path>Effects/ground/tirespray/nose-tire-spray.xml</path>
+		<offsets>
+		  <x-m> -16.22 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.87 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>left-tire-spray</name>
+		<path>Effects/ground/tirespray/left-tire-spray.xml</path>
+		<offsets>
+		  <x-m> 4.05 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -7.97 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>right-tire-spray</name>
+		<path>Effects/ground/tirespray/right-tire-spray.xml</path>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-7.97</z-m>
+		</offsets>
+	</model>
+
+	<!-- gear damage -->
+	<model>
+		<path>Effects/ground/gear-damage/nose-damage.xml</path>
+		<name>nose-damage</name>
+		<offsets>
+		  <x-m> -15.1 </x-m>
+		  <y-m>  0.00 </y-m>
+		  <z-m> -6.1 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/gear-damage/port-damage.xml</path>
+		<name>port-damage</name>
+		<offsets>
+		  <x-m> 4.05 </x-m>
+		  <y-m> -3.44 </y-m>
+		  <z-m> -6.3 </z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<path>Effects/ground/gear-damage/stbd-damage.xml</path>
+		<name>stbd-damage</name>
+		<offsets>
+		  <x-m>4.05</x-m>
+		  <y-m>3.44</y-m>
+		  <z-m>-6.3</z-m>
+		</offsets>
+	</model>
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    	<object-name>heatshield</object-name>
+    	<object-name>TailCone</object-name>
+	<object-name>inboard-elevon-left</object-name>
+	<object-name>inboard-elevon-right</object-name>
+	<object-name>outboard-elevon-left</object-name>
+	<object-name>outboard-elevon-right</object-name>
+   	<object-name>spaceshutt_spstob</object-name>
+   	<object-name>spaceshutt_spstob.001</object-name>
+	<object-name>spaceshutt_spstob_1</object-name>
+	<object-name>spaceshutt_spstob_2</object-name>
+	<object-name>spaceshutt_spstob_4</object-name>
+	<object-name>spaceshutt_spstob_3</object-name>
+	<object-name>cockpit-front-glass-outside</object-name>
+	<object-name>spaceshutt_spstob_eal</object-name>
+	<object-name>SpeedBrakeL</object-name>
+	<object-name>SpeedBrakeR</object-name>
+ </effect>
 
 
 </PropertyList>
