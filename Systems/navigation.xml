@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Radar altimeter">
+
+		<switch name="systems/navigation/radar-alt-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/navigation/radar-altimeter-1-switch == 1
+				systems/navigation/radar-altimeter-2-switch == 1
+			</test>
+		</switch>
+	
+		<sensor name="systems/navigation/radar-alt-ft">
+			<input>/position/altitude-agl-ft</input>
+			<lag>0.1</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.01</noise>
+		</sensor>
+
+
+	</channel>
+</system>

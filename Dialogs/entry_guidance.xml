@@ -125,7 +125,7 @@
         
     </group>
 
-        <empty>
+     <!--   <empty>
 		<pref-height>6</pref-height>
 	</empty>
 
@@ -151,7 +151,7 @@
           </binding>
       </checkbox>
 
-   </group>
+   </group>-->
 
 
 

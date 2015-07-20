@@ -11,6 +11,9 @@
             <systems>
 		<ap>
 		    <automatic-pitch-control type="int">0</automatic-pitch-control>
+		    <css-pitch-control type="int">1</css-pitch-control>
+ 		    <automatic-roll-control type="int">0</automatic-roll-control>
+		    <css-roll-control type="int">1</css-roll-control>
 		</ap>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
@@ -123,6 +126,8 @@
 		    <spray-boiler-1-condition type="double">1.0</spray-boiler-1-condition>
 		    <spray-boiler-2-condition type="double">1.0</spray-boiler-2-condition>
 		    <spray-boiler-3-condition type="double">1.0</spray-boiler-3-condition>
+		    <ku-band-antenna-condition type="double">1.0</ku-band-antenna-condition>
+		    <ku-band-antenna-stow-condition type="double">1.0</ku-band-antenna-stow-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -147,6 +152,9 @@
                     <rcs-pitch-mode type="int">1</rcs-pitch-mode>
                     <rcs-roll-mode type="int">1</rcs-roll-mode>
                     <rcs-yaw-mode type="int">1</rcs-yaw-mode>
+		    <sense-X type="int">1</sense-X>
+		    <sense-minus-X type="int">0</sense-minus-X>
+		    <sense-minus-Z type="int">0</sense-minus-Z>
                 </fcs>
 		<apu>
 			<init-hydraulics-on type="int">0</init-hydraulics-on>
@@ -291,6 +299,23 @@
 			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
 			<pb-door-indicator type="double">0</pb-door-indicator>
 			<pb-door-auto-switch type="int">0</pb-door-auto-switch>
+			<ku-antenna-heater-cb type="int">0</ku-antenna-heater-cb>
+			<ku-antenna-elec-cb type="int">0</ku-antenna-elec-cb>
+			<ku-antenna-cable-heater-cb type="int">0</ku-antenna-cable-heater-cb>
+			<ku-antenna-sig-proc-cb type="int">0</ku-antenna-sig-proc-cb>
+			<ku-antenna-deploy-switch type="int">0</ku-antenna-deploy-switch>
+			<ku-antenna-direct-stow-switch type="int">0</ku-antenna-direct-stow-switch>
+			<ku-antenna-arm-switch type="int">0</ku-antenna-arm-switch>
+			<ku-antenna-jett-A-cb type="int">0</ku-antenna-jett-A-cb>
+			<ku-antenna-jett-B-cb type="int">0</ku-antenna-jett-B-cb>
+			<ku-antenna-jett-switch type="int">0</ku-antenna-jett-switch>
+			<ku-antenna-pos type="double">0.0</ku-antenna-pos>
+			<star-tracker-sys1-switch type="int">0</star-tracker-sys1-switch>
+			<star-tracker-sys2-switch type="int">0</star-tracker-sys2-switch>
+			<star-tracker-y-switch type="int">0</star-tracker-y-switch>
+			<star-tracker-z-switch type="int">0</star-tracker-z-switch>
+			<star-tracker-door-z-pos type="double">0</star-tracker-door-z-pos>
+			<star-tracker-door-y-pos type="double">0</star-tracker-door-y-pos>
 		</mechanical>
 		<mps>
 		    <engine>
@@ -337,6 +362,14 @@
 		    <propellant-dump-density type="double">0.2</propellant-dump-density>
 		    <propellant-dump-force-lb type="double">0.0</propellant-dump-force-lb>
 		</mps>
+		<navigation>
+			<air-data-deploy-left-switch type="int">0</air-data-deploy-left-switch>
+			<air-data-deploy-right-switch type="int">0</air-data-deploy-right-switch>
+			<air-data-stow-left-switch type="int">0</air-data-stow-left-switch>
+			<air-data-stow-right-switch type="int">0</air-data-stow-right-switch>
+			<radar-altimeter-1-switch type="int">1</radar-altimeter-1-switch>
+			<radar-altimeter-2-switch type="int">1</radar-altimeter-2-switch>
+		</navigation>
 		<oms-hardware>
 		    	<helium-left-oms-valve-A-status type="int">1</helium-left-oms-valve-A-status>
 		    	<helium-left-oms-valve-B-status type="int">1</helium-left-oms-valve-B-status>
@@ -555,6 +588,8 @@
 	    <SRB-static-model type="bool">true</SRB-static-model>	    
 	    <ET-static-model type="bool">true</ET-static-model>
 	    <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
+	    <ku-antenna-beta-deg type="double">0.0</ku-antenna-beta-deg>
+	    <ku-antenna-alpha-deg type="double">0.0</ku-antenna-alpha-deg>
 	    <forces>
 		<srb1>
 			<force-azimuth-deg type="double">0.0</force-azimuth-deg>
@@ -627,7 +662,14 @@
         <description>NASA Space Shuttle Atlantis</description>
         <flight-model>jsb</flight-model>
         <aero>shuttle</aero>
-        <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), NASA, japreja and HerbyW (3D)</author>
+        <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), Chris Kuhn (cockpit), NASA, japreja and HerbyW (3D)</author>
+	<status>beta</status>
+	<rating>
+ 		<FDM type="int">4</FDM>
+ 		<systems type="int">3</systems>
+ 		<cockpit type="int">2</cockpit>
+ 		<model type="int">2</model>
+	</rating>
 
         <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
 
@@ -778,8 +820,21 @@
             </config>
         </view>
 
-
         <view n="101">
+            <name>Payload specialist station</name>
+            <type>lookfrom</type>
+            <internal archive="y">true</internal>
+            <config>
+                <from-model type="bool">true</from-model>
+                <x-offset-m archive="y" type="double">-0.4</x-offset-m>
+                <y-offset-m archive="y" type="double">-0.17</y-offset-m>
+                <z-offset-m archive="y" type="double">-10.8</z-offset-m>
+		<heading-offset-deg archive="y" type="double">180.0</heading-offset-deg>
+            </config>
+        </view>
+
+
+        <view n="102">
             <name>HUD only</name>
             <type>lookfrom</type>
             <internal archive="y">true</internal>
@@ -864,6 +919,14 @@
 		    <item>
 			<label>--- Avionics ---</label>
 			<enabled>false</enabled>
+		    </item>
+
+		    <item>
+			<label>Flight Controls</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.flight_controls_dlg.open()</script>
+                        </binding>
 		    </item>
 
                     <item>
@@ -1395,6 +1458,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
 		<tyresmoke>

@@ -2182,7 +2182,6 @@
 		</product>
 	</sum>
    </function>
-   <!--<output>fcs/elevator-cmd-norm</output>-->
    </fcs_function>
 
    <fcs_function name="fcs/pitch-error">
@@ -4063,6 +4062,8 @@
       <z>0</z>
     </direction>
   </force>
+
+
  </external_reactions> 
 
 
@@ -4083,5 +4084,6 @@
  <system file="cws"></system>
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
+ <system file="navigation"></system>
  
 </fdm_config>

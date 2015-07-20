@@ -333,14 +333,21 @@ var beta2_deg = beta2_rad * 180.0/math.pi + hdg_deg + 180.0;
 #alpha_deg = - alpha_deg;
 #beta_deg = beta_deg + 180.0;
 
+var force_mag_var = 0.8 + 0.4 * rand();
+var alpha_var = -10.0 + 20.0 * rand();
+var beta_var =  -10.0 + 20.0 * rand();
 
-setprop("/controls/shuttle/forces/srb1/force-lb", 448000.0);
-setprop("/controls/shuttle/forces/srb1/force-azimuth-deg", beta1_deg);
-setprop("/controls/shuttle/forces/srb1/force-elevation-deg", alpha1_deg);
+setprop("/controls/shuttle/forces/srb1/force-lb", 448000.0 * force_mag_var);
+setprop("/controls/shuttle/forces/srb1/force-azimuth-deg", beta1_deg + beta_var);
+setprop("/controls/shuttle/forces/srb1/force-elevation-deg", alpha1_deg + alpha_var);
 
-setprop("/controls/shuttle/forces/srb2/force-lb", 448000.0);
-setprop("/controls/shuttle/forces/srb2/force-azimuth-deg",  beta2_deg);
-setprop("/controls/shuttle/forces/srb2/force-elevation-deg", alpha2_deg);
+force_mag_var = 0.8 + 0.4 * rand();
+alpha_var =  -10.0 + 20.0 * rand();
+beta_var =  -10.0 + 20.0 * rand();
+
+setprop("/controls/shuttle/forces/srb2/force-lb", 448000.0 * force_mag_var);
+setprop("/controls/shuttle/forces/srb2/force-azimuth-deg",  beta2_deg + beta_var);
+setprop("/controls/shuttle/forces/srb2/force-elevation-deg", alpha2_deg + alpha_var);
 
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
@@ -1154,6 +1161,22 @@ setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
 var set_speed = func {
 
 
+if (getprop("/sim/presets/stage") == 0)
+	{
+	var alt = getprop("/position/altitude-ft");
+	var terrain_alt = getprop("/position/altitude-agl-ft");
+
+	var place_alt = (alt - terrain_alt) + 90.0; #214
+
+	#SpaceShuttle.place_pad(place_alt - 170.0);
+
+	#print("place alt: ", place_alt);
+
+	setprop("/position/altitude-ft", place_alt);
+	setprop("/orientation/pitch-deg", 90.0);
+
+	}
+
 
 if (getprop("/sim/presets/stage") == 1) 
 	{
@@ -1296,14 +1319,27 @@ setlistener("/fdm/jsbsim/gear/gear-pos-norm", func {show_gear_state();},0,0);
 #setlistener("/fdm/jsbsim/systems/mps/engine[2]/lockup", func {ssme_lockup(2);},0,0);
 
 
-# since the SRBs  are implemented as slaved ballistic submodels, we need to trigger their
-# attachment - this apparently does not work if the parameter is simply set at startup
-# (nothing is ever easy) so we need to do it with a delay
 
+
+var set_pad = func {
+
+SpaceShuttle.compute_launchpad();
+
+}
 
 
 if (getprop("/sim/presets/stage") ==0)
 	{
+
+	#settimer(set_pad, 0.5);
+
+	settimer(set_speed, 0.5);
+
+
+# since the SRBs  are implemented as slaved ballistic submodels, we need to trigger their
+# attachment - this apparently does not work if the parameter is simply set at startup
+# (nothing is ever easy) so we need to do it with a delay
+
 	settimer( func {setprop("/controls/shuttle/SRB-attach", 1);}, 1.0);	
 	}
 

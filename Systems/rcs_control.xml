@@ -18,7 +18,98 @@
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 
-	<channel name="DAP modes">
+
+	<channel name="RCS usage">
+
+		<switch name="systems/fcs/rcs-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 29
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Control input sense switching" execute="systems/fcs/rcs-active">
+
+		<fcs_function name="systems/fcs/neg-elevator-cmd-norm">
+
+		<function>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/neg-rudder-cmd-norm">
+		<function>
+			<product>
+				<property>fcs/rudder-cmd-norm</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/neg-aileron-cmd-norm">
+		<function>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+	
+		<switch name="systems/fcs/elevator-cmd-norm-sense">
+			<default value="fcs/elevator-cmd-norm"/>
+			<test value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+			</test>
+			<test value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rudder-cmd-norm-sense">
+			<default value="fcs/rudder-cmd-norm"/>
+			<test value="fcs/rudder-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+			</test>
+			<test value="fcs/aileron-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/aileron-cmd-norm-sense">
+			<default value="fcs/aileron-cmd-norm"/>
+			<test value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+			</test>
+			<test value="fcs/rudder-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+			</test>
+		</switch>
+
+
+
+	</channel>
+
+	<channel name="DAP modes" execute="systems/fcs/rcs-active">
+
+
+
 		<switch name="systems/fcs/dap-master">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
@@ -112,13 +203,31 @@
 
 		<!-- pitch -->
 
+   		<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
+   			<function>
+			<sum>
+				<product>
+					<difference>
+						<value>1</value>
+						<property>systems/ap/alpha-hold-mode</property>
+					</difference>
+					<property>systems/fcs/elevator-cmd-norm-sense</property>
+				</product>
+				<product>
+					<property>systems/ap/alpha-hold-mode</property>
+					<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
+				</product>
+			</sum>
+  		 </function>
+   		</fcs_function>
+
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
 			<product>
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-ap-cmd-merge</property>
+  					<property>systems/rcs/elevator-ap-cmd-merge</property>
 					<value>-0.05</value>
 					<difference>
 						<value>1.0</value>
@@ -214,7 +323,7 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
+  					<property>systems/fcs/aileron-cmd-norm-sense</property>
 					<value>0.05</value>
 					<difference>
 						<value>1.0</value>
@@ -275,7 +384,7 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
+  					<property>systems/fcs/rudder-cmd-norm-sense</property>
 					<value>-0.05</value>
 					<difference>
 						<value>1.0</value>
@@ -426,7 +535,7 @@
 	</channel>
 
 
-	<channel name="RCS controls">
+	<channel name="RCS controls" execute="systems/fcs/rcs-active">
 
 		
 
