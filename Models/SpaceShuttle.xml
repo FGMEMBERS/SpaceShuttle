@@ -672,9 +672,21 @@
   </model>
 
 
-<!-- robotarm, click it to activate -->
+<!-- Ku-band antenna -->
 
 <model>
+     <path>Aircraft/SpaceShuttle/Models/PayloadBay/Antenna-ku-Assembly.xml</path>
+     <offsets>
+            <x-m>-7.9 </x-m>
+            <y-m> 2.3 </y-m>
+            <z-m>-1.5 </z-m>
+	    <heading-deg>90</heading-deg>
+        </offsets>
+</model>
+
+<!-- robotarm, click it to activate -->
+
+<!--<model>
     <path>Aircraft/SpaceShuttle/Models/EMU/robotarm.xml</path>
      <offsets>
        <x-m> 0.0 </x-m>
@@ -682,6 +694,12 @@
        <z-m> 0.0 </z-m>
        <heading-deg>0.0</heading-deg>
      </offsets>
+</model>-->
+
+<!-- RMS manipulator arm -->
+
+<model>
+    <path>Aircraft/SpaceShuttle/Models/PayloadBay/rmsArm.xml</path>
 </model>
 
 <!-- external Tank and Booster -->
