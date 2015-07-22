@@ -167,17 +167,11 @@
  <animation>
    <type>select</type>
    <object-name>DragBrace.UpperL</object-name>
-   <object-name>StrutActuatorL</object-name>
-   <object-name>StrutActuator.RodL</object-name>
    <object-name>LockBrace.LowerL</object-name>
    <object-name>LockBrace.UpperL</object-name>
-   <object-name>LockBraceUpper.BarL</object-name>
    <object-name>DragBrace.UpperR</object-name>
-   <object-name>StrutActuatorR</object-name>
-   <object-name>StrutActuator.RodR</object-name>
    <object-name>LockBrace.LowerR</object-name>
    <object-name>LockBrace.UpperR</object-name>
-   <object-name>LockBraceUpper.BarR</object-name>
    <condition>
 		<and>
 			<equals>
@@ -196,6 +190,9 @@
  <animation>
    <type>select</type>
    <object-name>TrunionFittingL</object-name>
+   <object-name>StrutActuatorL</object-name>
+   <object-name>StrutActuator.RodL</object-name>
+   <object-name>LockBraceUpper.BarL</object-name>
    <object-name>CylinderL</object-name>
    <object-name>CylinderL.001</object-name>
    <object-name>DragBrace.LowerL</object-name>
@@ -209,10 +206,10 @@
    <object-name>TorqueArm.UpperL</object-name>
    <condition>
 		<and>
-			<equals>
+			<!--equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
-			</equals>
+			</equals-->
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -247,6 +244,9 @@
  <animation>
    <type>select</type>
    <object-name>TrunionFittingR</object-name>
+   <object-name>StrutActuatorR</object-name>
+   <object-name>StrutActuator.RodR</object-name>
+   <object-name>LockBraceUpper.BarR</object-name>
    <object-name>CylinderR</object-name>
    <object-name>CylinderR.001</object-name>
    <object-name>DragBrace.LowerR</object-name>
@@ -260,10 +260,10 @@
    <object-name>TorqueArm.UpperR</object-name>
    <condition>
 		<and>
-			<equals>
+			<!--equals>
 				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
 				<value>1</value>
-			</equals>
+			</equals-->
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -538,7 +538,7 @@
   </axis>
  </animation>
 
- <animation>
+  <animation>
   <type>rotate</type>
   <object-name>NoseDoorL</object-name>
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
@@ -578,7 +578,7 @@
     <dep> 90.0</dep>
    </entry>
    <entry>
-    <ind> 0.20</ind>
+    <ind> 0.40</ind>
     <dep> 0.0</dep>
    </entry>
    <entry>
@@ -605,16 +605,16 @@
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
-    <ind> 1.0</ind>
-    <dep> 90.0</dep>
+    <ind> 1</ind>
+    <dep> 90</dep>
    </entry>
    <entry>
-    <ind> 0.20</ind>
-    <dep> 0.0</dep>
+    <ind> .2</ind>
+    <dep> 80</dep>
    </entry>
    <entry>
-    <ind> 0.0</ind>
-    <dep> 0.0</dep>
+    <ind> 0</ind>
+    <dep> 0</dep>
    </entry>
   </interpolation>
   <center>
@@ -631,21 +631,85 @@
 
  <animation>
   <type>rotate</type>
+  <object-name>TrunionFittingL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1    </ind>
+    <dep> 0    </dep>
+   </entry>
+   <entry>
+    <ind> .90    </ind>
+    <dep> 10    </dep>
+   </entry>
+   <entry>
+    <ind> .1    </ind>
+    <dep> 95    </dep>
+   </entry>
+   <entry>
+    <ind> 0    </ind>
+	<dep>97.17</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 4.04917</x-m>
+   <y-m> -3.44992</y-m>
+   <z-m> -4.87976</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+	<type>translate</type>
+	<object-name>StrutActuator.RodL</object-name>
+	<object-name>StrutActuator.RodR</object-name>
+	<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+	<interpolation>
+     <entry>
+      <ind> 1    </ind>
+      <dep> 0    </dep>
+     </entry>
+     <entry>
+      <ind> .90    </ind>
+      <dep> .02    </dep>
+     </entry>
+     <entry>
+      <ind> .1    </ind>
+      <dep> .19    </dep>
+     </entry>
+     <entry>
+      <ind> 0    </ind>
+	  <dep>.30</dep>
+     </entry>
+    </interpolation>
+	<axis>
+		<x>0.0</x>
+		<y>0.0</y>
+		<z>1.0</z>
+	</axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
   <object-name>GearDoorR</object-name>
   <object-name>GearDoorRD</object-name>
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
-    <ind> 1.0</ind>
-    <dep> 90.0</dep>
+    <ind> 1</ind>
+    <dep> 90</dep>
    </entry>
    <entry>
-    <ind> 0.20</ind>
-    <dep> 0.0</dep>
+    <ind> .2</ind>
+    <dep> 80</dep>
    </entry>
    <entry>
-    <ind> 0.0</ind>
-    <dep> 0.0</dep>
+    <ind> 0</ind>
+    <dep> 0</dep>
    </entry>
   </interpolation>
   <center>
@@ -656,6 +720,40 @@
   <axis>
    <x>1</x>
    <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>rotate</type>
+  <object-name>TrunionFittingR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind> 1    </ind>
+    <dep> 0    </dep>
+   </entry>
+   <entry>
+    <ind> .90    </ind>
+    <dep> 10    </dep>
+   </entry>
+   <entry>
+    <ind> .1    </ind>
+    <dep> 95    </dep>
+   </entry>
+   <entry>
+    <ind> 0    </ind>
+	<dep>97.17</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m> 4.04917</x-m>
+   <y-m> 3.44992</y-m>
+   <z-m> -4.87976</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
    <z>0</z>
   </axis>
  </animation>
