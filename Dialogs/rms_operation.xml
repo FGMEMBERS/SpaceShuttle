@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rms-operation</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>800</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>RMS operation</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+
+    <text>
+      <label>X/PITCH</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>Y/YAW</label>
+      <row>1</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>Z/ROLL</label>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+
+  	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>parameter</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/parameter-selection-string</property>
+		 <value>TEST</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>parameter</object-name>
+        	 </binding>
+      	</combo>
+
+  	<combo>
+       		 <row>2</row>
+        	 <col>2</col>
+        	 <name>mode</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/joint-selection-string</property>
+		 <value>SHOULDER YAW</value>
+		 <value>SHOULDER PITCH</value>
+		 <value>ELLBOW PITCH</value>
+		 <value>WRIST PITCH</value>
+		 <value>WRIST YAW</value>
+		 <value>WRIST ROLL</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>mode</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_joint_selection()</script>
+		</binding>
+      	</combo>
+
+
+    <text>
+      <label>Single/direct drive</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>decrease (-)</label>
+      <row>3</row>
+      <col>1</col>
+    </text>
+
+    <slider>
+      <name>direct-drive</name>
+      <row>3</row>
+      <col>2</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/direct-drive-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>direct-drive</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>increase(+)</label>
+      <row>3</row>
+      <col>3</col>
+    </text>
+
+
+
+
+</group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

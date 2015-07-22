@@ -42,6 +42,10 @@ var options_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/options/dialog",
 
 var rcs_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rcs/dialog","Aircraft/SpaceShuttle/Dialogs/rcs.xml");
 
+var rms_deploy_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rms-deploy/dialog","Aircraft/SpaceShuttle/Dialogs/rms_deploy.xml");
+
+var rms_operation_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rms-operation/dialog","Aircraft/SpaceShuttle/Dialogs/rms_operation.xml");
+
 var flight_controls_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/flight_controls/dialog","Aircraft/SpaceShuttle/Dialogs/flight_controls.xml");
 
 var temperature_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/temperature/dialog","Aircraft/SpaceShuttle/Dialogs/thermal_distribution.xml");
@@ -281,6 +285,24 @@ var update_earthview_manager = func {
 
 earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
+
+}
+
+
+var update_rms_joint_selection = func {
+
+var joint_string = getprop("/fdm/jsbsim/systems/rms/joint-selection-string");
+
+var joint = 0;
+
+if (joint_string == "SHOULDER YAW") {joint = 1;}
+else if (joint_string == "SHOULDER PITCH") {joint = 2;}
+else if (joint_string == "ELLBOW PITCH") {joint = 3;}
+else if (joint_string == "WRIST PITCH") {joint = 4;}
+else if (joint_string == "WRIST YAW") {joint = 5;}
+else if (joint_string == "WRIST ROLL") {joint = 6;}
+
+setprop("/fdm/jsbsim/systems/rms/joint-selection-mode", joint);
 
 }
 

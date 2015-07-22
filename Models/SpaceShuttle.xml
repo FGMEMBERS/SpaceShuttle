@@ -101,6 +101,12 @@
      </offsets>
 </model>
 
+<!-- ISS docked -->
+
+<!--<model>
+     <path>Aircraft/SpaceShuttle/Models/ISS/ISS_docked.ac</path>
+</model>-->
+
 <!-- landing gear -->
 <model>
   <path>Aircraft/SpaceShuttle/Models/LandingGears.ac</path>
@@ -682,6 +688,12 @@
             <z-m>-1.5 </z-m>
 	    <heading-deg>90</heading-deg>
         </offsets>
+	<condition>
+	    <equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+		<value>1.0</value>
+	    </equals>
+	</condition>
 </model>
 
 <!-- robotarm, click it to activate -->

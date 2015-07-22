@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="RMS usage">
+
+
+		<switch name="systems/rms/rms-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/rms-power-switch == 1
+				systems/rms/rms-power-switch == -1
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="RMS deployment">
+
+
+		<switch name="systems/rms/rms-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-active == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/mpm-latch-target">
+			<default value="systems/rms/mpm-latch-pos"/>
+			<test value="systems/rms/mpm-release-switch">
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/mpm-latch-pos">
+			<input>systems/rms/mpm-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/mpm-deploy-target">
+			<default value="systems/rms/mpm-deploy-pos"/>
+			<test logic="AND" value="systems/rms/mpm-deploy-switch">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/mpm-latch-pos == 0
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/mpm-deploy-pos">
+			<input>systems/rms/mpm-deploy-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/shoulder-brace-target">
+			<default value="systems/rms/shoulder-brace-pos"/>
+			<test logic="AND" value="1">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/shoulder-brace-release-switch == 1
+				systems/rms/shoulder-brace-pos LT 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/shoulder-brace-pos">
+			<input>systems/rms/shoulder-brace-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+	</channel>
+
+
+	<channel name="RMS direct/single joint driving" execute="systems/rms/rms-active">
+
+		<switch name="systems/rms/rms-drivable">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-active == 1
+				systems/rms/shoulder-brace-pos == 1
+				systems/rms/mpm-deploy-pos == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/shoulder-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 2
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 2
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/shoulder-pitch-angle-direct">
+			<input>systems/rms/shoulder-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -2.0 </min>
+        			<max>145.0 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/shoulder-yaw-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 1
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 1
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/shoulder-yaw-angle-direct">
+			<input>systems/rms/shoulder-yaw-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -180.0 </min>
+        			<max>  180.0 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/ellbow-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 3
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 3
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ellbow-pitch-angle-direct">
+			<input>systems/rms/ellbow-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -161.0 </min>
+        			<max>    2.4 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 4
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 4
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-pitch-angle-direct">
+			<input>systems/rms/wrist-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -121.4 </min>
+        			<max>  121.4 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-yaw-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 5
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 5
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-yaw-angle-direct">
+			<input>systems/rms/wrist-yaw-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -121.3 </min>
+        			<max>  121.3 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-roll-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 6
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 6
+				systems/rms/direct-drive-switch == -1
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-roll-angle-direct">
+			<input>systems/rms/wrist-roll-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -447.0 </min>
+        			<max>  447.0 </max>
+			</clipto>
+		</pid>	
+
+
+	</channel>
+
+
+	<channel name="Drive mode angle signal merging" execute="systems/rms/rms-active">
+
+		<fcs_function name="systems/rms/ang-shoulder-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/shoulder-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-shoulder-yaw-deg">
+		<function>
+			<property>systems/rms/shoulder-yaw-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-ellbow-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/ellbow-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/wrist-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-yaw-deg">
+		<function>
+			<property>systems/rms/wrist-yaw-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-roll-deg">
+		<function>
+			<property>systems/rms/wrist-roll-angle-direct</property>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+</system>

@@ -537,8 +537,24 @@
 		    <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
 
 		</rcs-hardware>	
+		<rms>
+		    <port-heater-A-switch type="int">0</port-heater-A-switch>
+		    <port-heater-B-switch type="int">0</port-heater-B-switch>
+		    <shoulder-brace-release-switch type="int">0</shoulder-brace-release-switch>
+		    <shoulder-brace-pos type="double">1.0</shoulder-brace-pos>
+		    <mpm-deploy-switch type="int">0</mpm-deploy-switch>
+		    <mpm-deploy-pos type="double">1.0</mpm-deploy-pos>
+		    <mpm-release-switch type="int">1</mpm-release-switch>
+		    <mpm-latch-pos type="double">1.0</mpm-latch-pos>
+		    <rms-power-switch type="int">0</rms-power-switch>
+		    <joint-selection-mode type="int">0</joint-selection-mode>
+		    <parameter-selection-mode type="int">0</parameter-selection-mode>
+		    <joint-selection-string type="string">SHOULDER YAW</joint-selection-string>
+		    <parameter-selection-string type="string">TEST</parameter-selection-string>
+		    <direct-drive-switch type="int">0</direct-drive-switch>
+		</rms>
 		<thermal-distribution>
-			<freon-loop-switch type="double">0.4</freon-loop-switch>
+		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
 			<water-loop-switch type="int">1</water-loop-switch>
 			<spray-boiler-1-switch type="double">0.0</spray-boiler-1-switch>
 			<spray-boiler-2-switch type="double">0.0</spray-boiler-2-switch>
@@ -973,6 +989,26 @@
                     </item>
 
                 </menu>
+ 		<menu n="51">
+                    <label>Payload Deployment</label>
+
+		    <item>
+			<label>RMS arm deployment</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rms_deploy_dlg.open()</script>
+                        </binding>
+		    </item>
+
+		    <item>
+			<label>RMS arm operation</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rms_operation_dlg.open()</script>
+                        </binding>
+		    </item>
+
+		</menu>
             </default>
         </menubar>
 
