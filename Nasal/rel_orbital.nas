@@ -2,7 +2,7 @@
 # this file contains several techniques to maintain other objects in orbit
 # 
 # * shuttle-relative coordinate management (for EVA view)
-# * independently computed simple ballistic FDM (for tank)
+# * independently computed simple ballistic FDM (for tank and jettisoned Ku-band antenna)
 # (* analytic Kepler orbit)
 ###########################################################################
 
@@ -11,16 +11,22 @@ var etState = {};
 var evaState = {};
 var etCoord = {};
 var etModel = {};
+var kuState = {};
+var kuCoord = {};
+var kuModel = {};
 
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
-var delta_lon = 0.0;
+var ku_loop_flag = 0;
+#var delta_lon = 0.0;
+#var delta_lon_ku = 0.0;
 
 var ft_to_m = 0.30480;
 var m_to_ft = 1.0/ft_to_m;
 var earth_rotation_deg_s = 0.0041666666666666;
 
 var offset_vec = [];
+var offset_vec_ku = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -307,7 +313,7 @@ if (eva_loop_flag == 1) {settimer(EVA_loop, 0.0);}
 ###########################################################################
 
 
-var place_model = func(path, lat, lon, alt, heading, pitch, roll) {
+var place_model = func(string, path, lat, lon, alt, heading, pitch, roll) {
 
 
 
@@ -319,15 +325,22 @@ var model = m.getChild("model", i, 1);
 
 
 
-setprop("/controls/shuttle/et-ballistic/latitude-deg", lat);
-setprop("/controls/shuttle/et-ballistic/longitude-deg", lon);
-setprop("/controls/shuttle/et-ballistic/elevation-ft", alt);
-setprop("/controls/shuttle/et-ballistic/heading-deg", heading);
-setprop("/controls/shuttle/et-ballistic/pitch-deg", pitch);
-setprop("/controls/shuttle/et-ballistic/roll-deg", roll);
+setprop("/controls/shuttle/"~string~"/latitude-deg", lat);
+setprop("/controls/shuttle/"~string~"/longitude-deg", lon);
+setprop("/controls/shuttle/"~string~"/elevation-ft", alt);
+setprop("/controls/shuttle/"~string~"/heading-deg", heading);
+setprop("/controls/shuttle/"~string~"/pitch-deg", pitch);
+setprop("/controls/shuttle/"~string~"/roll-deg", roll);
+
+#setprop("/controls/shuttle/et-ballistic/latitude-deg", lat);
+#setprop("/controls/shuttle/et-ballistic/longitude-deg", lon);
+#setprop("/controls/shuttle/et-ballistic/elevation-ft", alt);
+#setprop("/controls/shuttle/et-ballistic/heading-deg", heading);
+#setprop("/controls/shuttle/et-ballistic/pitch-deg", pitch);
+#setprop("/controls/shuttle/et-ballistic/roll-deg", roll);
 
 
-var etmodel = props.globals.getNode("/controls/shuttle/et-ballistic", 1);
+var etmodel = props.globals.getNode("/controls/shuttle/"~string, 1);
 var latN = etmodel.getNode("latitude-deg",1);
 var lonN = etmodel.getNode("longitude-deg",1);
 var altN = etmodel.getNode("elevation-ft",1);
@@ -356,8 +369,6 @@ return model;
 var init_tank = func {
 
 
-
-
 var pitch = getprop("/orientation/pitch-deg");
 var yaw =getprop("/orientation/heading-deg");
 var roll = getprop("/orientation/roll-deg");
@@ -372,7 +383,7 @@ print(etCoord.x(), " ", etCoord.y, " ", etCoord.z);
 
 etState = stateVector.new (etCoord.x(),etCoord.y(),etCoord.z(),0,0,0,yaw, pitch - lon, roll);
 
-etModel = place_model("Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml", etCoord.lat(), etCoord.lon(), etCoord.alt() * m_to_ft, yaw,pitch,roll);
+etModel = place_model("et-ballistic", "Aircraft/SpaceShuttle/Models/external-tank-disconnected.xml", etCoord.lat(), etCoord.lon(), etCoord.alt() * m_to_ft, yaw,pitch,roll);
 
 # seems we need small offsets in velocity to get a small separation velocity
 # this looks odd but the error we need to correct is actually a function
@@ -395,20 +406,25 @@ var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
 setprop("/controls/flight/elevator", 1);
 
+#settimer( func {logging_loop(0);}, 1.0);
+
 settimer( func{
 	controls.centerFlightControls();
 	control_to_rcs();
 	}, 5.0);
+
+
 
 settimer(func { 
 		etState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
 		etState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
 		etState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
 		tank_loop_flag = 1;
-		update_tank(); },0);
+		update_tank(0.0); },0);
+
 }
 
-var update_tank = func {
+var update_tank = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
 var dt = getprop("/sim/time/delta-sec");
@@ -421,14 +437,28 @@ delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
 
 var G = [etState.x, etState.y, etState.z]; 
 var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
-var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048;
+var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048 * 1.00015;
 G[0] = -G[0]/Gnorm * g;
 G[1] = -G[1]/Gnorm * g;
 G[2] = -G[2]/Gnorm * g;
 
-etState.update(G[0], G[1], G[2], 0.0,0.0,0.0);
+
+# fudging a compensating acceleration to dampen the drift error
+
+
+var sin_lat = math.sin(shuttleCoord.lat() * 3.1415/180.0);
+var cos_lat = math.cos(shuttleCoord.lat() * 3.1515/180.0);
+var sin_lon = math.sin(shuttleCoord.lon() * 3.1415/180.0);
+var cos_lon = math.cos(shuttleCoord.lon() * 3.1515/180.0);
+
+A_mag = 0.027 * sin_lat * cos_lat;
+
+var A = [A_mag * cos_lon * sin_lat, A_mag * sin_lon * sin_lat, -A_mag * cos_lat];
+
+etState.update(G[0] + A[0], G[1] + A[1], G[2] + A[2], 0.0,0.0,0.0);
 etCoord.set_xyz(etState.x, etState.y, etState.z);
 etCoord.set_lon(etCoord.lon() - delta_lon);
+
 
 if (tank_loop_flag < 3)
 	{
@@ -469,6 +499,8 @@ setprop("/controls/shuttle/et-ballistic/pitch-deg", etState.pitch + lon);
 
 var dist = shuttleCoord.distance_to(etCoord);
 
+
+
 if (dist > 5000.0) 
 	{
 	print ("ET simulation ends");
@@ -476,5 +508,160 @@ if (dist > 5000.0)
 	tank_loop_flag = 0;
 	}
 
-if (tank_loop_flag >0 ) {settimer(update_tank,0.0);}
+if (tank_loop_flag >0 ) {settimer(func{ update_tank(delta_lon);} ,0.0);}
+}
+
+
+
+
+
+var logging_loop = func (index)  {
+
+var shuttleCoord = geo.aircraft_position();
+
+var my_offset_vec = [etCoord.x()-shuttleCoord.x(), etCoord.y()-shuttleCoord.y(),etCoord.z()-shuttleCoord.z()];
+
+print (index, " ", my_offset_vec[0], " ", my_offset_vec[1], " ", my_offset_vec[2]);
+
+index = index + 1;
+
+settimer (func{logging_loop(index);}, 1.0);
+
+}
+
+
+
+###########################################################################
+# Ku-antenna control routines
+###########################################################################
+
+
+var init_ku = func  {
+
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw =getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+
+var lon = getprop("/position/longitude-deg");
+
+
+kuCoord = geo.aircraft_position() ;
+
+print(kuCoord.x(), " ", kuCoord.y, " ", kuCoord.z);
+
+# copy current alpha and beta angles of the antenna
+
+var deploy = getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos");
+setprop("/controls/shuttle/ku-ballistic/ku-antenna-pos", deploy);
+
+var alpha = getprop("/controls/shuttle/ku-antenna-alpha-deg");
+setprop("/controls/shuttle/ku-ballistic/ku-antenna-alpha-deg", alpha);
+
+var beta = getprop("/controls/shuttle/ku-antenna-beta-deg");
+setprop("/controls/shuttle/ku-ballistic/ku-antenna-beta-deg", beta);
+
+
+kuState = stateVector.new (kuCoord.x(),kuCoord.y(),kuCoord.z(),0,0,0,yaw, pitch - lon, roll);
+
+kuState.pitch_rate = 2.5;
+kuState.yaw_rate = 0.5;
+
+
+kuModel = place_model("ku-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/ku-antenna-disconnected.xml", kuCoord.lat(), kuCoord.lon(), kuCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+# seems we need small offsets in velocity to get a small separation velocity
+# this looks odd but the error we need to correct is actually a function
+# of the framerate, so we need to include dt here
+# what we do is to pre-empt the correction here and during the first two frames compute
+# it explicitly so that the tank is always at rest when the shuttle pushes off
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+
+settimer(func { 
+		kuState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		kuState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		kuState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		ku_loop_flag = 1;
+		update_ku(0.0); },0);
+}
+
+var update_ku = func (delta_lon) {
+
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec");
+
+
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+
+var G = [kuState.x, kuState.y, kuState.z]; 
+var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
+var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048;
+G[0] = -G[0]/Gnorm * g;
+G[1] = -G[1]/Gnorm * g;
+G[2] = -G[2]/Gnorm * g;
+
+kuState.update(G[0], G[1], G[2], 0.0,0.0,0.0);
+kuCoord.set_xyz(kuState.x, kuState.y, kuState.z);
+kuCoord.set_lon(kuCoord.lon() - delta_lon);
+
+if (ku_loop_flag < 3)
+	{
+	if (ku_loop_flag ==1)
+		{
+		offset_vec_ku = [kuCoord.x()-shuttleCoord.x(), kuCoord.y()-shuttleCoord.y(),kuCoord.z()-shuttleCoord.z()];
+		}
+	if (ku_loop_flag == 2)
+		{
+		var offset1_vec = [kuCoord.x()-shuttleCoord.x(), kuCoord.y()-shuttleCoord.y(),kuCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec_ku[0]) / dt, (offset1_vec[1] - offset_vec_ku[1]) / dt, (offset1_vec[2] - offset_vec_ku[2]) / dt];
+		print(v_offset_vec[0], " ", v_offset_vec[1], " ", v_offset_vec[2]);
+
+		offset_vec_ku = offset1_vec;
+		kuState.vx = kuState.vx - v_offset_vec[0];
+		kuState.vy = kuState.vy - v_offset_vec[1];
+		kuState.vz = kuState.vz - v_offset_vec[2];
+
+		kuCoord.set_xyz(shuttleCoord.x(), shuttleCoord.y(), shuttleCoord.z());
+		kuCoord.set_lon(kuCoord.lon() + delta_lon);
+
+		kuState.x = kuCoord.x();
+		kuState.y = kuCoord.y();
+		kuState.z = kuCoord.z();
+
+		kuCoord.set_lon(kuCoord.lon() - delta_lon);
+		}
+	ku_loop_flag = ku_loop_flag + 1;
+
+
+	}
+
+var lon = getprop("/position/longitude-deg");
+setprop("/controls/shuttle/ku-ballistic/latitude-deg", kuCoord.lat());
+setprop("/controls/shuttle/ku-ballistic/longitude-deg", kuCoord.lon());
+setprop("/controls/shuttle/ku-ballistic/elevation-ft", kuCoord.alt() * m_to_ft);
+setprop("/controls/shuttle/ku-ballistic/pitch-deg", kuState.pitch + lon);
+
+var dist = shuttleCoord.distance_to(kuCoord);
+
+#print(dist);
+
+if (dist > 1000.0) 
+	{
+	print ("Ku-antenna simulation ends");
+	kuModel.remove();
+	ku_loop_flag = 0;
+	}
+
+
+
+if (ku_loop_flag >0 ) {settimer(func {update_ku(delta_lon); },0.0);}
 }

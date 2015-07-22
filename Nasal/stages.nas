@@ -527,6 +527,23 @@ setprop("/sim/input/selected/engine[6]",1);
 }
 
 
+####################################################################################
+# Ku-band antenna separation
+####################################################################################
+
+var manage_ku_jettison = func {
+
+print("Hello!");
+
+var state = getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-attached");
+
+if (state == 1) {return;}
+
+
+
+SpaceShuttle.init_ku();
+
+}
 
 #########################################################################################
 # The orbital loop watches for events in orbit - currently it handles the HUD symbology of
@@ -1312,11 +1329,9 @@ setlistener("/gear/gear[0]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[1]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/gear/gear[2]/wow", func {check_limits_touchdown();},0,0);
 setlistener("/fdm/jsbsim/gear/gear-pos-norm", func {show_gear_state();},0,0);
-# setlistener("/controls/flight/speedbrake", func {show_speedbrake_state();},0,0);
+setlistener("/fdm/jsbsim/systems/mechanical/ku-antenna-jett-switch", func {settimer(manage_ku_jettison,0);}, 0,0);
 
-#setlistener("/fdm/jsbsim/systems/mps/engine/electric-lockup", func {ssme_lockup(0);},0,0);
-#setlistener("/fdm/jsbsim/systems/mps/engine[1]/lockup", func {ssme_lockup(1);},0,0);
-#setlistener("/fdm/jsbsim/systems/mps/engine[2]/lockup", func {ssme_lockup(2);},0,0);
+
 
 
 

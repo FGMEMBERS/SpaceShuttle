@@ -3,6 +3,17 @@
 <PropertyList>
   
 	<path>Antenna-ku-Assembly.ac</path>
+
+ 	<offsets>
+            <x-m>-7.9 </x-m>
+            <y-m> 2.3 </y-m>
+            <z-m>-1.5 </z-m>
+	    <heading-deg>90</heading-deg>
+        </offsets>
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
 		
 
 	 <effect>
@@ -16,7 +27,7 @@
 	<animation>
 		<object-name>Arm</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+  		<property>/controls/shuttle/ku-ballistic/ku-antenna-pos</property>
 		<interpolation>
 			<entry>
       				<ind>0.0</ind>
@@ -81,7 +92,7 @@
 	<animation>
  		<object-name>Gimbal.Alpha</object-name>
   		<type>rotate</type>
-  		<property>controls/shuttle/ku-antenna-alpha-deg</property>
+  		<property>/controls/shuttle/ku-ballistic/ku-antenna-alpha-deg</property>
   		<factor>1</factor>
   		<offset-deg>-90</offset-deg>
   		<center>
@@ -99,11 +110,11 @@
 	<animation>
  		<object-name>Gimbal.Beta</object-name>
   		<type>rotate</type>
-  		<property>controls/shuttle/ku-antenna-beta-deg</property>
+  		<property>/controls/shuttle/ku-ballistic/ku-antenna-beta-deg</property>
   		<factor>1</factor>
   		<offset-deg>0</offset-deg>
   		<center>
-   			<x-m> 0.0 </x-m>
+   			<x-m> 0.0</x-m>
    			<y-m> 0.56733 </y-m>
    			<z-m> 0.11870</z-m>
   		</center>
@@ -116,6 +127,4 @@
 
 
 </PropertyList>
-
-
 
