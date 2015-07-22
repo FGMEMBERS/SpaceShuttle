@@ -189,8 +189,7 @@
 	</channel>
 
 
-
-	<channel name="Thrust vectoring with engine gimbal control">	
+ 	<channel name="TVC active">
 
 		<switch name="systems/vectoring/vectoring-gimbal-master">
 			<default value="0.0"/>
@@ -198,6 +197,14 @@
 				systems/fcs/control-mode == 0
 			</test>
 		</switch>
+
+
+	</channel>
+
+
+	<channel name="TVC direct gimbal control" execute="systems/vectoring/vectoring-gimbal-master">	
+
+
 
 		<aerosurface_scale name= "Pitch thrust command SSME 1">
 		   <input>fcs/elevator-cmd-norm</input>

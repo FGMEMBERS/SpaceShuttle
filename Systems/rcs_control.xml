@@ -40,6 +40,16 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-translation">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="Control input sense switching" execute="systems/fcs/rcs-active">
@@ -74,31 +84,61 @@
 	
 		<switch name="systems/fcs/elevator-cmd-norm-sense">
 			<default value="fcs/elevator-cmd-norm"/>
-			<test value="systems/fcs/neg-elevator-cmd-norm">
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
 				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
 			</test>
-			<test value="systems/fcs/neg-elevator-cmd-norm">
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
 				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="fcs/elevator-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="fcs/rudder-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rudder-cmd-norm-sense">
 			<default value="fcs/rudder-cmd-norm"/>
-			<test value="fcs/rudder-cmd-norm">
+			<test logic="AND" value="fcs/rudder-cmd-norm">
 				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
 			</test>
-			<test value="fcs/aileron-cmd-norm">
+			<test logic="AND" value="fcs/aileron-cmd-norm">
 				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/neg-rudder-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/aileron-cmd-norm-sense">
 			<default value="fcs/aileron-cmd-norm"/>
-			<test value="systems/fcs/neg-aileron-cmd-norm">
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
 				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
 			</test>
-			<test value="fcs/rudder-cmd-norm">
+			<test logic="AND" value="fcs/rudder-cmd-norm">
 				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
 			</test>
 		</switch>
 
@@ -596,9 +636,9 @@
 						<value>1.0</value>
 						<property>systems/fcs/dap-master</property>
 					</difference>
-					<property>fcs/aileron-cmd-norm</property>
+					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				<abs>
-					<property>fcs/aileron-cmd-norm</property>
+					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				</abs>
 				</product>
 				<product>
@@ -626,9 +666,9 @@
 						<value>1.0</value>
 						<property>systems/fcs/dap-master</property>
 					</difference>
-					<property>fcs/elevator-cmd-norm</property>
+					<property>systems/fcs/elevator-cmd-norm-sense</property>
 					<abs>
-						<property>fcs/elevator-cmd-norm</property>
+						<property>systems/fcs/elevator-cmd-norm-sense</property>
 					</abs>
 				</product>
 				<product>
@@ -660,9 +700,9 @@
 						<value>1.0</value>
 						<property>systems/fcs/dap-master</property>
 					</difference>
-					<property>fcs/rudder-cmd-norm</property>
+					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				<abs>
-					<property>fcs/rudder-cmd-norm</property>
+					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				</abs>
 				</product>
 				<product>
@@ -1339,7 +1379,7 @@
 		<switch name="systems/rcs/nose-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1357,7 +1397,7 @@
 		<switch name="systems/rcs/pod1-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1381,7 +1421,7 @@
 		<switch name="systems/rcs/pod2-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1406,7 +1446,7 @@
 		<switch name="systems/rcs/nose-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1424,7 +1464,7 @@
 		<switch name="systems/rcs/pod1-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1448,7 +1488,7 @@
 		<switch name="systems/rcs/pod2-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1475,7 +1515,7 @@
 		<switch name="systems/rcs/nose-left-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1493,7 +1533,7 @@
 		<switch name="systems/rcs/pod1-left-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1517,7 +1557,7 @@
 		<switch name="systems/rcs/pod1-up-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1536,7 +1576,7 @@
 		<switch name="systems/rcs/pod2-down-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1556,7 +1596,7 @@
 		<switch name="systems/rcs/nose-right-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1574,7 +1614,7 @@
 		<switch name="systems/rcs/pod2-right-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1598,7 +1638,7 @@
 		<switch name="systems/rcs/pod2-up-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1617,7 +1657,7 @@
 		<switch name="systems/rcs/pod1-down-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1636,27 +1676,7 @@
 
 	<!-- Postprocessing of the raw channel inputs into actual thrust commands -->
 
-	<!-- first sum all individual signals -->
 
-		<!--<fcs_function name="systems/rcs/nose-down-raw">
-		<function>
-			<sum>
-				<property>systems/rcs/nose-down-raw-pitch</property>
-				<property>systems/rcs/nose-down-raw-x</property>
-				<property>systems/rcs/nose-down-raw-z</property>
-			</sum>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs/nose-up-raw">
-		<function>
-			<sum>
-				<property>systems/rcs/nose-up-raw-pitch</property>
-				<property>systems/rcs/nose-up-raw-x</property>
-				<property>systems/rcs/nose-up-raw-z</property>
-			</sum>
-		</function>
-		</fcs_function>-->
 
 		<!-- for the low-z modes, upward firing thrusters have to be converted to forward/backward -->
 
