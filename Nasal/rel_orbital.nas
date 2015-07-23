@@ -14,12 +14,14 @@ var etModel = {};
 var kuState = {};
 var kuCoord = {};
 var kuModel = {};
+var payloadState = {};
+var payloadCoord = {};
+var payloadModel = {};
 
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
 var ku_loop_flag = 0;
-#var delta_lon = 0.0;
-#var delta_lon_ku = 0.0;
+var payload_loop_flag = 0;
 
 var ft_to_m = 0.30480;
 var m_to_ft = 1.0/ft_to_m;
@@ -27,6 +29,7 @@ var earth_rotation_deg_s = 0.0041666666666666;
 
 var offset_vec = [];
 var offset_vec_ku = [];
+var offset_vec_payload = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -540,7 +543,7 @@ var init_ku = func  {
 
 
 var pitch = getprop("/orientation/pitch-deg");
-var yaw =getprop("/orientation/heading-deg");
+var yaw = getprop("/orientation/heading-deg");
 var roll = getprop("/orientation/roll-deg");
 
 var lon = getprop("/position/longitude-deg");
@@ -664,4 +667,158 @@ if (dist > 1000.0)
 
 
 if (ku_loop_flag >0 ) {settimer(func {update_ku(delta_lon); },0.0);}
+}
+
+
+###########################################################################
+# payload control routines
+###########################################################################
+
+
+var init_payload = func  {
+
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw = getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+
+var lon = getprop("/position/longitude-deg");
+
+
+payloadCoord = geo.aircraft_position() ;
+
+
+# copy current animation state of the payload
+
+var pitch1 = getprop("/fdm/jsbsim/systems/rms/sum-wrist-pitch-deg");
+setprop("/controls/shuttle/payload-ballistic/payload-pitch-deg", pitch1);
+
+var yaw1 = getprop("/fdm/jsbsim/systems/rms/sum-wrist-yaw-deg");
+setprop("/controls/shuttle/payload-ballistic/payload-yaw-deg", yaw1);
+
+var roll1 = getprop("/fdm/jsbsim/systems/rms/ang-wrist-roll-deg");
+setprop("/controls/shuttle/payload-ballistic/payload-roll-deg", roll1);
+
+var x = getprop("/fdm/jsbsim/systems/rms/effector-x");
+setprop("/controls/shuttle/payload-ballistic/payload-x", x);
+
+var y = getprop("/fdm/jsbsim/systems/rms/effector-y");
+setprop("/controls/shuttle/payload-ballistic/payload-y", y);
+
+var z = getprop("/fdm/jsbsim/systems/rms/effector-z");
+setprop("/controls/shuttle/payload-ballistic/payload-z", z);
+
+
+payloadState = stateVector.new (payloadCoord.x(),payloadCoord.y(),payloadCoord.z(),0,0,0,yaw, pitch - lon, roll);
+
+
+
+payloadModel = place_model("payload-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/TDRS/TDRS_disconnected.xml", payloadCoord.lat(), payloadCoord.lon(), payloadCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+# seems we need small offsets in velocity to get a small separation velocity
+# this looks odd but the error we need to correct is actually a function
+# of the framerate, so we need to include dt here
+# what we do is to pre-empt the correction here and during the first two frames compute
+# it explicitly so that the tank is always at rest when the shuttle pushes off
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+
+settimer(func { 
+		payloadState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		payloadState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		payloadState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		payload_loop_flag = 1;
+		update_payload(0.0); },0);
+}
+
+var update_payload = func (delta_lon) {
+
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec");
+
+
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+
+var G = [payloadState.x, payloadState.y, payloadState.z]; 
+var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
+var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048 * 1.00015;;
+G[0] = -G[0]/Gnorm * g;
+G[1] = -G[1]/Gnorm * g;
+G[2] = -G[2]/Gnorm * g;
+
+# fudging a compensating acceleration to dampen the drift error
+
+
+var sin_lat = math.sin(shuttleCoord.lat() * 3.1415/180.0);
+var cos_lat = math.cos(shuttleCoord.lat() * 3.1515/180.0);
+var sin_lon = math.sin(shuttleCoord.lon() * 3.1415/180.0);
+var cos_lon = math.cos(shuttleCoord.lon() * 3.1515/180.0);
+
+A_mag = 0.027 * sin_lat * cos_lat;
+
+var A = [A_mag * cos_lon * sin_lat, A_mag * sin_lon * sin_lat, -A_mag * cos_lat];
+
+payloadState.update(G[0] + A[0], G[1] + A[1], G[2] + A[2], 0.0,0.0,0.0);
+payloadCoord.set_xyz(payloadState.x, payloadState.y, payloadState.z);
+payloadCoord.set_lon(payloadCoord.lon() - delta_lon);
+
+if (payload_loop_flag < 3)
+	{
+	if (payload_loop_flag ==1)
+		{
+		offset_vec_payload = [payloadCoord.x()-shuttleCoord.x(), payloadCoord.y()-shuttleCoord.y(),payloadCoord.z()-shuttleCoord.z()];
+		}
+	if (payload_loop_flag == 2)
+		{
+		var offset1_vec = [payloadCoord.x()-shuttleCoord.x(), payloadCoord.y()-shuttleCoord.y(),payloadCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec_payload[0]) / dt, (offset1_vec[1] - offset_vec_payload[1]) / dt, (offset1_vec[2] - offset_vec_payload[2]) / dt];
+		print(v_offset_vec[0], " ", v_offset_vec[1], " ", v_offset_vec[2]);
+
+		offset_vec_payload = offset1_vec;
+		payloadState.vx = payloadState.vx - v_offset_vec[0];
+		payloadState.vy = payloadState.vy - v_offset_vec[1];
+		payloadState.vz = payloadState.vz - v_offset_vec[2];
+
+		payloadCoord.set_xyz(shuttleCoord.x(), shuttleCoord.y(), shuttleCoord.z());
+		payloadCoord.set_lon(payloadCoord.lon() + delta_lon);
+
+		payloadState.x = payloadCoord.x();
+		payloadState.y = payloadCoord.y();
+		payloadState.z = payloadCoord.z();
+
+		payloadCoord.set_lon(payloadCoord.lon() - delta_lon);
+		}
+	payload_loop_flag = payload_loop_flag + 1;
+
+
+	}
+
+var lon = getprop("/position/longitude-deg");
+setprop("/controls/shuttle/payload-ballistic/latitude-deg", payloadCoord.lat());
+setprop("/controls/shuttle/payload-ballistic/longitude-deg", payloadCoord.lon());
+setprop("/controls/shuttle/payload-ballistic/elevation-ft", payloadCoord.alt() * m_to_ft);
+setprop("/controls/shuttle/payload-ballistic/pitch-deg", payloadState.pitch + lon);
+
+var dist = shuttleCoord.distance_to(payloadCoord);
+
+#print(dist);
+
+if (dist > 5000.0) 
+	{
+	print ("Payload simulation ends");
+	payloadModel.remove();
+	payload_loop_flag = 0;
+	}
+
+
+
+if (payload_loop_flag >0 ) {settimer(func {update_payload(delta_lon); },0.0);}
 }

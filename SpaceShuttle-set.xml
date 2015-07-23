@@ -552,6 +552,14 @@
 		    <joint-selection-string type="string">SHOULDER YAW</joint-selection-string>
 		    <parameter-selection-string type="string">TEST</parameter-selection-string>
 		    <direct-drive-switch type="int">0</direct-drive-switch>
+		    <shoulder-x type="double">0.0</shoulder-x>
+		    <shoulder-y type="double">0.0</shoulder-y>
+		    <shoulder-z type="double">0.0</shoulder-z>
+		    <null type="double">0.0</null>
+		    <effector-attached type="double">0.0</effector-attached>
+		    <payload-attach-x type="double">12.75</payload-attach-x>
+		    <payload-attach-y type="double">2.0</payload-attach-y>
+		    <payload-attach-z type="double">-1.8</payload-attach-z>
 		</rms>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
@@ -1495,6 +1503,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/payload.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
         </SpaceShuttle>
 		<tyresmoke>

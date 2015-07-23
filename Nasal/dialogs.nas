@@ -297,14 +297,33 @@ var joint = 0;
 
 if (joint_string == "SHOULDER YAW") {joint = 1;}
 else if (joint_string == "SHOULDER PITCH") {joint = 2;}
-else if (joint_string == "ELLBOW PITCH") {joint = 3;}
+else if (joint_string == "ELBOW PITCH") {joint = 3;}
 else if (joint_string == "WRIST PITCH") {joint = 4;}
 else if (joint_string == "WRIST YAW") {joint = 5;}
 else if (joint_string == "WRIST ROLL") {joint = 6;}
+else if (joint_string == "END EFF") {joint = 7;}
 
 setprop("/fdm/jsbsim/systems/rms/joint-selection-mode", joint);
 
 }
+
+
+var update_rms_parameter_selection = func {
+
+var parameter_string = getprop("/fdm/jsbsim/systems/rms/parameter-selection-string");
+
+var par = 0;
+
+if (parameter_string == "TEST") {par = 0;}
+else if (parameter_string == "POSITION X/Y/Z") {par = 1;}
+else if (parameter_string == "ATTITUDE P/Y/R") {par = 2;}
+else if (parameter_string == "JOINT ANGLE") {par = 3;}
+
+setprop("/fdm/jsbsim/systems/rms/parameter-selection-mode", par);
+
+}
+
+
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);

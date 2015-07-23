@@ -5,7 +5,7 @@
 	<layout>vbox</layout>
 	<default-padding>1</default-padding>
 	<modal>false</modal>
-	<width>800</width>
+	<width>600</width>
 
 	<empty>
 		<pref-height>6</pref-height>
@@ -23,6 +23,34 @@
 
  <group>
     <layout>table</layout>
+
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-x</property>
+    </text> 
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-y</property>
+    </text> 
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-z</property>
+    </text> 
+
 
     <text>
       <label>X/PITCH</label>
@@ -52,10 +80,17 @@
         	 <pref-width>200</pref-width>
         	 <property>/fdm/jsbsim/systems/rms/parameter-selection-string</property>
 		 <value>TEST</value>
+		 <value>POSITION X/Y/Z</value>
+		 <value>ATTITUDE P/Y/R</value>
+		 <value>JOINT ANGLE</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>parameter</object-name>
         	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_parameter_selection()</script>
+		</binding>
       	</combo>
 
   	<combo>
@@ -68,10 +103,11 @@
         	 <property>/fdm/jsbsim/systems/rms/joint-selection-string</property>
 		 <value>SHOULDER YAW</value>
 		 <value>SHOULDER PITCH</value>
-		 <value>ELLBOW PITCH</value>
+		 <value>ELBOW PITCH</value>
 		 <value>WRIST PITCH</value>
 		 <value>WRIST YAW</value>
-		 <value>WRIST ROLL</value>
+		 <value>WRIST ROLL</value>	
+		 <value>END EFF</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>mode</object-name>
@@ -115,6 +151,26 @@
       <row>3</row>
       <col>3</col>
     </text>
+
+   <button>
+    <row>4</row>
+    <col>1</col>
+	<legend>Grab</legend>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.rms_grab_payload()</script>
+	</binding>
+   </button>
+
+  <button>
+    <row>4</row>
+    <col>2</col>
+	<legend>Release</legend>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.rms_release_payload()</script>
+	</binding>
+   </button>
 
 
 

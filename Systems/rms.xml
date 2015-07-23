@@ -262,6 +262,8 @@
 	</channel>
 
 
+
+
 	<channel name="Drive mode angle signal merging" execute="systems/rms/rms-active">
 
 		<fcs_function name="systems/rms/ang-shoulder-pitch-deg">
@@ -273,9 +275,27 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rms/ang-shoulder-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-shoulder-pitch-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rms/ang-shoulder-yaw-deg">
 		<function>
 			<property>systems/rms/shoulder-yaw-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-shoulder-yaw-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -288,11 +308,31 @@
 		</function>
 		</fcs_function>
 
+
+		<fcs_function name="systems/rms/ang-ellbow-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-ellbow-pitch-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
 		<fcs_function name="systems/rms/ang-wrist-pitch-deg">
 		<function>
 			<product>
 				<value>-1</value>
 				<property>systems/rms/wrist-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -303,11 +343,460 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rms/ang-wrist-yaw-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rms/ang-wrist-roll-deg">
 		<function>
 			<property>systems/rms/wrist-roll-angle-direct</property>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-roll-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-roll-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+
+	<channel name="Joint spatial positions" execute="systems/rms/rms-active">
+
+	<!-- we compute positions from the origin of the shoulder -->
+	<!-- with the arm lying in +X direction -->
+
+		<fcs_function name="systems/rms/ellbow-x">
+		<function>
+			<product>
+				<value>6.25</value>
+				<cos><property>systems/rms/ang-shoulder-pitch-rad</property></cos>
+				<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ellbow-y">
+		<function>
+			<product>
+				<value>6.25</value>
+				<cos><property>systems/rms/ang-shoulder-pitch-rad</property></cos>
+				<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ellbow-z">
+		<function>
+			<product>
+				<value>-6.25</value>
+				<sin><property>systems/rms/ang-shoulder-pitch-rad</property></sin>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-ellbow-pitch-rad">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-pitch-rad</property>
+				<property>systems/rms/ang-ellbow-pitch-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-ellbow-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-ellbow-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/rms/wrist-x">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-x</property>
+				<product>
+					<value>6.25</value>
+					<cos><property>systems/rms/sum-ellbow-pitch-rad</property></cos>
+					<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-y">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-y</property>
+				<product>
+					<value>6.25</value>
+					<cos><property>systems/rms/sum-ellbow-pitch-rad</property></cos>
+					<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-z">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-z</property>
+				<product>
+					<value>-6.25</value>
+					<sin><property>systems/rms/sum-ellbow-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/sum-wrist-pitch-rad">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-pitch-rad</property>
+				<property>systems/rms/ang-ellbow-pitch-rad</property>
+				<property>systems/rms/ang-wrist-pitch-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-x</property>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-y</property>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-z</property>
+				<product>
+					<value>-0.86</value>
+					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-rad">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-yaw-rad</property>
+				<property>systems/rms/ang-wrist-yaw-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-yaw-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-x</property>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-y</property>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-z</property>
+				<product>
+					<value>-0.73</value>
+					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-x</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-y</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-z</property>
+				<product>
+					<value>-0.69</value>
+					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+		<switch name="systems/rms/show-x">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-x">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-x">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-x">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-x">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-x">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-x">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-x">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-pitch-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-ellbow-pitch-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-pitch-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-ellbow-pitch-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/show-y">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-y">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-y">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-y">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-y">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-y">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-y">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-y">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/show-z">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-z">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-z">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-z">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-z">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-z">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-z">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-z">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+		</switch>
 
 	</channel>
 
