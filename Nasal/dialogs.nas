@@ -61,7 +61,6 @@ setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", "none");
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", " ");
 setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 0);
 
-#gui.menuEnable("fuel-and-payload", 0);
 gui.menuBind("fuel-and-payload", "SpaceShuttle.propellant_dlg.open()");
 gui.menuEnable("fuel-and-payload", 1);
 

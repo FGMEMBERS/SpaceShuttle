@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<name>external_loads</name>
+	<name>propellant</name>
 	<layout>vbox</layout>
 	<default-padding>1</default-padding>
 	<modal>false</modal>
@@ -618,6 +618,10 @@
       <row>7</row>
       <col>3</col>
     </text>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
 
    
     <text>

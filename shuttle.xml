@@ -420,8 +420,6 @@
        <y> -6.10 </y>
        <z>-10.6 </z>
      </location>
-     <!--<capacity unit="LBS"> 1264825.0 </capacity>
-     <contents unit="LBS"> 1264825.0 </contents>-->
       <capacity unit="LBS">1114092.6</capacity>
       <contents unit="LBS">1114092.6</contents>
   </tank>
@@ -458,8 +456,6 @@
        <y> 6.10 </y>
        <z>-10.6 </z>
      </location>
-     <!--<capacity unit="LBS"> 1264825.0 </capacity>
-     <contents unit="LBS"> 1264825.0 </contents>-->
       <capacity unit="LBS">1114092.6</capacity>
       <contents unit="LBS">1114092.6</contents>
   </tank>
@@ -2075,7 +2071,8 @@
 
  </propulsion>
 
-<!-- Flight Control routines - this block has airfoils and thrust vectoring commands, the RCS is under Systems -->
+<!-- Flight Control routines - this block has airfoils -->
+<!--  thrust vectoring and the RCS are defined under Systems -->
 
 
  <flight_control name="FCS: shuttle">
@@ -2115,7 +2112,7 @@
 
   <switch name="Disable airfoil pitch if thrust vectoring is used">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
 				systems/fcs/control-mode == 11
@@ -2348,189 +2345,15 @@
       <output>fcs/elevator-pos-norm</output>
    </aerosurface_scale>
 
-
-  <!-- thrust vectoring -->
-  
-   <fcs_function name="Pitch SSME 1 2 to CoG">
-	<function>
-	<product>
-	<value>-1.0</value>	
-	<atan>
-		<quotient>
-		<difference>
-			<value>-136.0</value>
-			<property>inertia/cg-z-in</property>
-
-		</difference>
-		<difference>
-			<value>700.0</value>
-			<property>inertia/cg-x-in</property>
-		</difference>
-
-		</quotient>
-	</atan>
-	</product>
-   	</function>
-	<output>propulsion/engine[0]/pitch-to-CoG</output>
-	<output>propulsion/engine[1]/pitch-to-CoG</output>
-   </fcs_function>
-
-
-
-   <fcs_function name="Pitch SSME 3 to CoG">
-	<function>
-	<product>
-	<value>-1.0</value>	
-	<atan>
-		<quotient>
-		<difference>
-			<value>-39.4</value>
-			<property>inertia/cg-z-in</property>
-
-		</difference>
-		<difference>
-			<value>700.0</value>
-			<property>inertia/cg-x-in</property>
-		</difference>
-
-		</quotient>
-	</atan>
-	</product>
-   	</function>
-	<output>propulsion/engine[2]/pitch-to-CoG</output>
-   </fcs_function>
-
-   <fcs_function name="Pitch SRB 1 2 to CoG">
-	<function>
-	<product>
-	<value>-1.0</value>	
-	<atan>
-		<quotient>
-		<difference>
-			<value>-417.32</value>
-			<property>inertia/cg-z-in</property>
-
-		</difference>
-		<difference>
-			<value>720.0</value>
-			<property>inertia/cg-x-in</property>
-		</difference>
-
-		</quotient>
-	</atan>
-	</product>
-   	</function>
-	<output>propulsion/engine[3]/pitch-to-CoG</output>
-	<output>propulsion/engine[4]/pitch-to-CoG</output>
-   </fcs_function>
-
-	
-
-   <fcs_function name="Pitch OMS 1 2 to CoG">
-	<function>
-	<product>
-	<value>-1.0</value>	
-	<atan>
-		<quotient>
-		<difference>
-			<value>16.17</value>
-			<property>inertia/cg-z-in</property>
-
-		</difference>
-		<difference>
-			<value>700.0</value>
-			<property>inertia/cg-x-in</property>
-		</difference>
-
-		</quotient>
-	</atan>
-	</product>
-   	</function>
-	<output>propulsion/engine[5]/pitch-angle-rad</output>
-	<output>propulsion/engine[6]/pitch-angle-rad</output>
-   </fcs_function>
-
-
-
-
-  <aerosurface_scale name= "Pitch thrust command SSME 1">
-   <input>fcs/elevator-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.17 </min>
-        <max>  0.17 </max>
-   </range>
-   <output>propulsion/engine[0]/pitch-angle-rad</output>
- </aerosurface_scale>
-
-  <aerosurface_scale name= "Pitch thrust command SSME 2">
-   <input>fcs/elevator-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.17 </min>
-        <max>  0.17 </max>
-   </range>
-   <output>propulsion/engine[1]/pitch-angle-rad</output>
- </aerosurface_scale>
-
-  <aerosurface_scale name= "Pitch thrust command SSME 3">
-   <input>fcs/elevator-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.17 </min>
-        <max>  0.17 </max>
-   </range>
-   <output>propulsion/engine[2]/pitch-angle-rad</output>
- </aerosurface_scale>
-
-  <aerosurface_scale name= "Pitch thrust command SRB 1">
-   <input>fcs/elevator-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.14 </min>
-        <max>  0.14 </max>
-   </range>
-   <output>propulsion/engine[3]/pitch-angle-rad</output>
- </aerosurface_scale> 
-
-  <aerosurface_scale name= "Pitch thrust command SRB 2">
-   <input>fcs/elevator-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.14 </min>
-        <max>  0.14 </max>
-   </range>
-   <output>propulsion/engine[4]/pitch-angle-rad</output>
- </aerosurface_scale> 
-
-
   </channel>
+
+
 
   <channel name="Roll">
 
   <switch name="Disable airfoil roll if thrust vectoring is used">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
 				systems/fcs/control-mode == 11
@@ -2792,169 +2615,16 @@
       <output>fcs/right-aileron-pos-norm</output>
    </aerosurface_scale>
 
-  <aerosurface_scale name= "Roll thrust command SSME 1">
-   <input>fcs/left-aileron-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.17 </min>
-        <max>  0.17 </max>
-   </range>
-   <output>propulsion/engine[0]/SSME-roll</output>
- </aerosurface_scale>
-
-  <aerosurface_scale name= "Roll thrust command SSME 2">
-   <input>fcs/right-aileron-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> 0.17 </min>
-        <max> -0.17 </max>
-   </range>
-   <output>propulsion/engine[1]/SSME-roll</output>
- </aerosurface_scale>
-
- <summer name="SSME 1 roll Sum">
-      <input>propulsion/engine[0]/pitch-angle-rad</input>
-      <input>propulsion/engine[0]/SSME-roll</input>
-      <input>propulsion/engine[0]/pitch-to-CoG</input>
-      <clipto>
-        <min> -0.45 </min>
-        <max>  -0.10 </max>
-      </clipto>
-	<output>propulsion/engine[0]/pitch-angle-rad</output>
-   </summer>
-
-  <summer name="SSME 2 roll Sum">
-      <input>propulsion/engine[1]/pitch-angle-rad</input>
-      <input>propulsion/engine[1]/SSME-roll</input>
-      <input>propulsion/engine[1]/pitch-to-CoG</input>
-      <clipto>
-        <min> -0.45 </min>
-        <max>  -0.10 </max>
-      </clipto>
-	<output>propulsion/engine[1]/pitch-angle-rad</output>
-   </summer>
-
-  <summer name="SSME 3 roll Sum">
-      <input>propulsion/engine[2]/pitch-angle-rad</input>
-      <input>propulsion/engine[2]/pitch-to-CoG</input>
-      <clipto>
-        <min> -0.45 </min>
-        <max>  -0.10 </max>
-      </clipto>
-	<output>propulsion/engine[2]/pitch-angle-rad</output>
-   </summer>
-
-   <!-- roll commands for SSME 1 and 2 creates a yaw moment since they have a sum net pitch angle -->
-   <!-- this needs to be compensated -->
-
-
- <fcs_function name ="Thrust reduction correction SSME 1">
-	<function>
-		<product>
-			<min>
-			<quotient>
-			<cos>
-				<property>propulsion/engine[1]/pitch-angle-rad</property>
-			 </cos>
-			 <cos>
-				<property>propulsion/engine[0]/pitch-angle-rad</property>
-			 </cos>
-			</quotient>
-			<value>1.0</value>
-			</min>
-			<property>fcs/throttle-pos-norm[0]</property>
-		</product>
-	</function>
-	<output>fcs/throttle-pos-norm[0]</output>
- </fcs_function>
-
- <fcs_function name ="Thrust reduction correction SSME 2">
-	<function>
-		<product>
-			<min>
-			<quotient>
-			<cos>
-				<property>propulsion/engine[0]/pitch-angle-rad</property>
-		 	</cos>
-			 <cos>
-				<property>propulsion/engine[1]/pitch-angle-rad</property>
-			 </cos>
-			</quotient>
-			<value>1.0</value>
-			</min>
-			<property>fcs/throttle-pos-norm[1]</property>
-		</product>
-	</function>
-	<output>fcs/throttle-pos-norm[1]</output>
- </fcs_function>
-
-
-
-  <aerosurface_scale name= "Roll thrust command SRB 1">
-   <input>fcs/left-aileron-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> -0.14 </min>
-        <max>  0.14 </max>
-   </range>
-   <output>propulsion/engine[3]/SRB-roll</output>
- </aerosurface_scale>
-
-  <aerosurface_scale name= "Roll thrust command SRB 2">
-   <input>fcs/right-aileron-pos-norm</input>
-   <zero_centered>false</zero_centered>
-   <domain>
-        <min> -1.0 </min>
-        <max>  1.0 </max>
-   </domain>
-   <range>
-        <min> 0.14 </min>
-        <max>  -0.14 </max>
-   </range>
-   <output>propulsion/engine[4]/SRB-roll</output>
- </aerosurface_scale>
-
-  <summer name="SRB 1 roll Sum">
-      <input>propulsion/engine[3]/pitch-angle-rad</input>
-      <input>propulsion/engine[3]/SRB-roll</input>
-      <input>propulsion/engine[3]/pitch-to-CoG</input>
-      <clipto>
-        <min> -0.14 </min>
-        <max>  0.14 </max>
-      </clipto>
-	<output>propulsion/engine[3]/pitch-angle-rad</output>
-   </summer>
-
- <summer name="SRB 2 roll Sum">
-      <input>propulsion/engine[4]/pitch-angle-rad</input>
-      <input>propulsion/engine[4]/SRB-roll</input>
-      <input>propulsion/engine[4]/pitch-to-CoG</input>
-      <clipto>
-        <min> -0.14 </min>
-        <max>  0.14 </max>
-      </clipto>
-	<output>propulsion/engine[4]/pitch-angle-rad</output>
-   </summer>
-
   </channel>
+
+
+
 
   <channel name="Yaw">
 
   <switch name="Disable airfoil yaw if thrust vectoring is used">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
 				systems/fcs/control-mode == 11
@@ -3215,7 +2885,6 @@
    	</summer>
   </channel>
 
-  </channel>-->
 
   <channel name="Landing Gear">
    <kinematic name="Gear Control">
@@ -3583,6 +3252,7 @@
      			<property>metrics/chute-sqft</property>    
      			<property>fcs/parachute_reef_pos_norm</property>
      			<value>0.25</value>
+			<property>systems/failures/drag-chute-condition</property>
     			</product>
    	</function>
 
@@ -4326,7 +3996,8 @@
         <property>aero/qbar-psf</property>
         <property>metrics/chute-sqft</property>
 	<property>fcs/parachute_reef_pos_norm</property>
-        <value> 0.3 </value> <!-- Full drag coefficient -->
+	<property>systems/failures/drag-chute-condition</property>
+        <value> 0.3 </value> 
       </product>
     </function>
     <location unit="FT">

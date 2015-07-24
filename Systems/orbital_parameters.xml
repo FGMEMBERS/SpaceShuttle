@@ -43,6 +43,25 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/orbital/orbital-period-s">
+		<function>
+			<product>
+				<value>2.0</value>
+				<value>3.1415926</value>
+				<pow>
+					<quotient>
+						<pow>
+							<property>systems/orbital/semimajor-axis-length-ft</property>
+							<value>3.0</value>
+						</pow>
+						<property>systems/orbital/gm</property>
+					</quotient>
+					<value>0.5</value>		
+				</pow>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/orbital/eccentricity">
 		<description>
 			This equation calculates eccentricity. e = sqrt (1 - [ r v cos(gamma) ]^2 / {a * mu})

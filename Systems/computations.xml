@@ -24,42 +24,48 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/thermal/heat-rate-W_m2">
-		<function>
-			<max>			
+		<!-- this is a parametrization agreeing roughly with Shuttle, Blackbird and Concorde numbers -->
+		<fcs_function name="systems/thermal/nose-temperature-K">
+		<function>	
 			<product>
-				<property>aero/qbar-psf</property>
-				<property>velocities/u-aero-fps</property>
-				<!-- get this into SI units of J/s-->
-				<value>47.88</value>
-				<value>0.3048</value>
+			<pow>
+			<max>
+			<product>
+				<pow>
+					<property>velocities/u-aero-fps</property>
+					<value>3.0</value>
+				</pow>
+				<pow>
+					<property>atmosphere/rho-slugs_ft3</property>
+					<value>0.1</value>
+				</pow>
 			</product>
 			<value>0.0</value>
 			</max>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/thermal/nose-temperature-K">
-		<function>	
-			<pow>
-			<product>
-				<table>
-				<!-- the energy transfer from the shockwave -->
-				<independentVar lookup="row">aero/alpha-rad</independentVar>
-				<tableData>
-					0.0	0.02
-					0.2	0.01
-					0.4	0.008
-					0.7	0.005
-				</tableData>
-				</table>
-				<quotient>
-					<property>systems/thermal/heat-rate-W_m2</property>
-					<value>5.68e-8</value>
-				</quotient>	
-			</product>
 			<value>0.25</value>
 			</pow>
+			<table>
+				<!-- radiative equilibrium requires sufficient energy intake-->
+				<independentVar lookup="row">aero/qbar-psf</independentVar>
+				<tableData>
+					0.0	0.0
+					0.01	0.1
+					0.1	0.25
+					1.0	1.0
+				</tableData>
+			</table>
+			<table>
+				<!-- the energy transfer coeff from the shockwave is AoA dependent-->
+				<independentVar lookup="row">aero/alpha-rad</independentVar>
+				<tableData>
+					0.0	1.3
+					0.2	1.1
+					0.4	1.05
+					0.7	1.0
+				</tableData>
+			</table>
+			<value>1.6</value> <!-- overall norm -->
+			</product>
 		</function>
 		</fcs_function>
 

@@ -434,8 +434,6 @@
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 1
-			</test>
-			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 3
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
@@ -483,12 +481,22 @@
 
 		<fcs_function name="systems/rcs/aileron-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/aileron-cmd-norm</property>
 				<abs>
 					<property>fcs/aileron-cmd-norm</property>
 				</abs>
 				</product>
+				<product>
+					<property>systems/fcs/dap-master</property>
+					<property>systems/rcs/dap-roll-cmd-deadband</property>
+				</product>
+				</sum>
 			</function>
 		</fcs_function>
 
@@ -503,11 +511,20 @@
 
 		<fcs_function name="systems/rcs/elevator-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/elevator-cmd-norm</property>
-				<abs>
-					<property>fcs/elevator-cmd-norm</property>
-				</abs>
+					<abs>
+						<property>fcs/elevator-cmd-norm</property>
+					</abs>
+				</product>
+				<product>
+					<property>systems/fcs/dap-master</property>
+					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
 				<product>
 					<property>systems/fcs/rcs-trans-att-hold</property>
@@ -528,7 +545,12 @@
 
 		<fcs_function name="systems/rcs/rudder-cmd-norm-filtered">
 			<function>
+				<sum>
 				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/dap-master</property>
+					</difference>
 					<property>fcs/rudder-cmd-norm</property>
 				<abs>
 					<property>fcs/rudder-cmd-norm</property>
@@ -1111,7 +1133,7 @@
 		<switch name="systems/rcs/pod1-back-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -1129,7 +1151,7 @@
 		<switch name="systems/rcs/pod2-back-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm LT 0
+				systems/rcs/rudder-cmd-norm-filtered LT 0
 			</test>
 		</switch>
 
@@ -1169,7 +1191,7 @@
 		<switch name="systems/rcs/nose-fwd-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -1186,7 +1208,7 @@
 		<switch name="systems/rcs/nose-down-fire-x">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/rudder-cmd-norm GT 0
+				systems/rcs/rudder-cmd-norm-filtered GT 0
 			</test>
 		</switch>
 
@@ -1788,6 +1810,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-fwd">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-fwd-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1804,6 +1827,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-leftdown">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-leftdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1819,6 +1843,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-rightdown">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-rightdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1834,6 +1859,7 @@
 
 		<fcs_function name="systems/rcs/thrust-nose-leftup">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/nose-leftup-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1882,6 +1908,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-up">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-up-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1900,6 +1927,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-down">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1916,6 +1944,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-left">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-left-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1933,6 +1962,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-back">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod1-back-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1949,6 +1979,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-up">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-up-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1967,6 +1998,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-down">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -1983,6 +2015,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-right">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-right-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
@@ -2000,6 +2033,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-back">
 		<function>
+			<product>
 			<quotient>
 				<property>systems/rcs/pod2-back-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>

@@ -11,6 +11,9 @@
 		
 <offsets>
   <heading-deg>-180</heading-deg>
+	<x-m>-10.0</x-m>
+	<y-m>0.0</y-m>
+	<z-m>-10.0</z-m>
 </offsets>  
 
  <animation>

@@ -1042,13 +1042,13 @@ Best use the keys to fire thrusters, 5 to cut thrust. Watch yaw, pitch and roll 
 
 The RCS can also be used in translation mode, switching between modes is done using the 'm' key. In translational mode, the key mapping is
 
-4: left
-6: right
-2: down
-8: up
-[: backward
-]: forward
-5: cut thrust
+                4: left
+                6: right
+                2: down
+                8: up
+                [: backward
+                ]: forward
+                5: cut thrust
 
 Without a visual reference point, the effect of translational thruster firings are hard to gauge.
 
@@ -1090,6 +1090,8 @@ Lift will finally be produced and slow the vertical motion - this will keep nose
 Using the 'Aerojet' DAP in combination with the automatic pitch hold, managing the Shuttle during the entry phase should be fairly easy as the flight control logic takes care of most issues. You can opt to fly manually using the 'RCS ROT ENTRY' DAP.
 
 Use symmetric high bank angle maneuvers ('roll reversals') if you want to stay on your ground track, asymmetric ones if you want to aim your ground track to the landing site. The amount of high bank angle flown dictates descent rate and hence deceleration and thermal load - use this to manage your entry trajectory (the full theory is too complex to squeeze this into here).
+
+Both a guidance computer determining the required deceleration to reach the landing site and a groundtrack map are available in the shuttle menu to asist in flying a good entry trajectory.
 
 Aim and manage the entry trajectory into the TAEM interface.
 
