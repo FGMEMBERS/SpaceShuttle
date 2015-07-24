@@ -266,7 +266,7 @@
 
 		<switch name="systems/electrical/bus3-power-available">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test value="1.0">
 				systems/electrical/bus3-max-power-output-kW GT 0.0
 			</test>
 		</switch>

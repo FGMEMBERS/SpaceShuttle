@@ -29,8 +29,9 @@
 
 		<switch name="systems/rms/mpm-latch-target">
 			<default value="systems/rms/mpm-latch-pos"/>
-			<test value="systems/rms/mpm-release-switch">
+			<test logic="AND" value="systems/rms/mpm-release-switch">
 				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/ready-to-latch == 1
 			</test>
 		</switch>
 
@@ -96,8 +97,182 @@
 
 	</channel>
 
+	<channel name="Payload retention">
+
+
+		<switch name="systems/rms/retention-1-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-power-1-switch == 1
+				systems/electrical/bus1-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/retention-2-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-power-2-switch == 1
+				systems/electrical/bus2-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/retention-powered">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/retention-1-powered == 1
+				systems/rms/retention-2-powered == 1
+			</test>
+		</switch>
+
+
+		<!-- for init reasons, latch pos = 1 means open, state=0 means latched -->
+
+		<switch name="systems/rms/retention-latch-1-target">
+			<default value="systems/rms/retention-latch-1-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-1-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-1-pos">
+			<input>systems/rms/retention-latch-1-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-2-target">
+			<default value="systems/rms/retention-latch-2-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-2-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-2-pos">
+			<input>systems/rms/retention-latch-2-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-3-target">
+			<default value="systems/rms/retention-latch-3-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-3-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-3-pos">
+			<input>systems/rms/retention-latch-3-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-4-target">
+			<default value="systems/rms/retention-latch-4-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-4-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-4-pos">
+			<input>systems/rms/retention-latch-4-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-5-target">
+			<default value="systems/rms/retention-latch-5-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-5-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-5-pos">
+			<input>systems/rms/retention-latch-5-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<switch name="systems/rms/payload-secured">
+			<default value="0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-latch-1-pos == 0
+				systems/rms/retention-latch-2-pos == 0
+				systems/rms/retention-latch-3-pos == 0
+				systems/rms/retention-latch-4-pos == 0
+				systems/rms/retention-latch-5-pos == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/payload-released">
+			<default value="0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-latch-1-pos == 1
+				systems/rms/retention-latch-2-pos == 1
+				systems/rms/retention-latch-3-pos == 1
+				systems/rms/retention-latch-4-pos == 1
+				systems/rms/retention-latch-5-pos == 1
+			</test>
+		</switch>
+		
+
+	</channel>
+
 
 	<channel name="RMS direct/single joint driving" execute="systems/rms/rms-active">
+
+		<switch name="systems/rms/rms-veto">
+			<default value="1.0"/>
+			<test logic="AND" value="0.0">
+				systems/rms/payload-released == 0
+				systems/rms/effector-attached == 1
+			</test>
+		</switch>
 
 		<switch name="systems/rms/rms-drivable">
 			<default value="0.0"/>
@@ -105,6 +280,7 @@
 				systems/rms/rms-active == 1
 				systems/rms/shoulder-brace-pos == 1
 				systems/rms/mpm-deploy-pos == 1
+				systems/rms/rms-veto == 1
 			</test>
 		</switch>
 
@@ -368,6 +544,66 @@
 		</fcs_function>
 
 
+
+	</channel>
+
+	
+	<channel name="Reach limits and soft stops">
+
+		<switch name="systems/rms/reach-limit">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  175.4
+				systems/rms/ang-shoulder-yaw-deg LT -175.4
+				systems/rms/ang-shoulder-pitch-deg GT -2.6
+				systems/rms/ang-shoulder-pitch-deg LT -140.4
+				systems/rms/ang-ellbow-pitch-deg GT 155.6
+				systems/rms/ang-ellbow-pitch-deg LT 2.4
+				systems/rms/ang-wrist-pitch-deg GT 114.4
+				systems/rms/ang-wrist-pitch-deg LT -114.4	
+				systems/rms/ang-wrist-yaw-deg GT 114.6
+				systems/rms/ang-wrist-yaw-deg LT -114.6
+				systems/rms/ang-wrist-roll-deg GT 440.0
+				systems/rms/ang-wrist-roll-deg LT -440.0		
+			</test>
+		</switch>
+
+		<switch name="systems/rms/soft-stop">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  177.4
+				systems/rms/ang-shoulder-yaw-deg LT -177.4
+				systems/rms/ang-shoulder-pitch-deg GT -0.6
+				systems/rms/ang-shoulder-pitch-deg LT -142.4
+				systems/rms/ang-ellbow-pitch-deg GT 157.6
+				systems/rms/ang-ellbow-pitch-deg LT 0.4
+				systems/rms/ang-wrist-pitch-deg GT 116.4
+				systems/rms/ang-wrist-pitch-deg LT -116.4	
+				systems/rms/ang-wrist-yaw-deg GT 116.6
+				systems/rms/ang-wrist-yaw-deg LT -116.6
+				systems/rms/ang-wrist-roll-deg GT 442.0
+				systems/rms/ang-wrist-roll-deg LT -442.0		
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ready-to-latch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  -0.5
+				systems/rms/ang-shoulder-yaw-deg LT 0.5
+				systems/rms/ang-shoulder-pitch-deg GT -0.5
+				systems/rms/ang-shoulder-pitch-deg LT 0.5
+				systems/rms/ang-ellbow-pitch-deg GT -0.5
+				systems/rms/ang-ellbow-pitch-deg LT 0.5
+				systems/rms/ang-wrist-pitch-deg GT -0.5
+				systems/rms/ang-wrist-pitch-deg LT 0.5	
+				systems/rms/ang-wrist-yaw-deg GT -0.5
+				systems/rms/ang-wrist-yaw-deg LT 0.5
+				systems/rms/ang-wrist-roll-deg GT -0.5
+				systems/rms/ang-wrist-roll-deg LT 0.5		
+			</test>
+		</switch>
+		
 
 	</channel>
 
@@ -795,6 +1031,53 @@
 			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
 				systems/rms/joint-selection-mode == 7
 				systems/rms/parameter-selection-mode == 2
+			</test>
+		</switch>
+
+	</channel>
+
+
+	<channel name="Ready to latch position helpers">
+
+		<fcs_function name="systems/rms/payload-attachment-distance">
+		<function>
+			<pow>
+			<sum>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/payload-attach-x</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/payload-attach-y</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/payload-attach-z</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			</sum>
+			<value>0.5</value>
+			</pow>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/payload-ready-to-latch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/payload-attachment-distance LT 0.15
+				systems/rms/effector-attached == 1
+			</test>
+			<test value="1.0">
+				systems/rms/effector-attached == 0
 			</test>
 		</switch>
 
