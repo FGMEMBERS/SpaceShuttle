@@ -1958,6 +1958,141 @@
 	</equals>
       </condition>
     </item>
+ </checklist>
+
+
+ <checklist>
+    <title>RMS arm operations</title>  
+
+    <item>
+      <name>On-orbit initialization</name>
+    </item>
+
+    <item>
+      <name>shoulder brace release to</name>
+      <value>PORT</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/shoulder-brace-release-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify shoulder brace</name>
+      <value>RELEASED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>RMS powerup</name>
+    </item>
+
+    <item>
+      <name>RMS power</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/rms-powered</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM latches to</name>
+      <value>RELEASE</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-release-switch</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM deployment switch to</name>
+      <value>DEPLOY</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-deploy-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify manipulator positioning mechanism</name>
+      <value>DEPLOYED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+   
+
+   <item>
+      <name>RMS powerdown</name>
+    </item>
+
+   <item>
+      <name>verify RMS arm latch indicators</name>
+      <value>READY</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM latches to</name>
+      <value>LATCH</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-release-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify manipulator positioning mechanism</name>
+      <value>LATCHED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>RMS power</name>
+      <value>OFF</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/rms-powered</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+ 
+
+
+
+
+   
 
  </checklist>
 

@@ -326,6 +326,30 @@ setprop("/fdm/jsbsim/systems/rms/parameter-selection-mode", par);
 }
 
 
+var update_rms_drive_selection = func {
+
+var drive_string = getprop("/fdm/jsbsim/systems/rms/drive-selection-string");
+
+var par = 0;
+var fcs = 1;
+
+if (drive_string == "SINGLE") {par = 1;}
+else if (drive_string == "DIRECT") {par = 1;}
+else if (drive_string == "ORB UNL X/Y/Z") {par = 2; fcs = 60;}
+
+
+setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
+setprop("/fdm/jsbsim/systems/fcs/control-mode", fcs);
+
+var string = "RCS rotation";
+
+if (fcs==60) {string = "RMS ORB UNL X/Y/Z";}
+
+setprop("/controls/shuttle/control-system-string", string);	
+
+}
+
+
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);

@@ -173,6 +173,34 @@
    </button>
 
 
+    <text>
+      <label>Drive selection</label>
+      <row>5</row>
+      <col>0</col>
+    </text>
+
+  	<combo>
+       		 <row>5</row>
+        	 <col>1</col>
+        	 <name>drive</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/drive-selection-string</property>
+		 <value>SINGLE</value>
+		 <value>DIRECT</value>
+		 <value>ORB UNL X/Y/Z</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>drive</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_drive_selection()</script>
+		</binding>
+      	</combo>
+
+
 
 
 </group>
