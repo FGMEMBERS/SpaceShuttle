@@ -202,29 +202,6 @@
 	</condition>
  </animation>
 
- <!-- rear landing gear -->
- <animation>
-   <type>select</type>
-   <object-name>DragBrace.UpperL</object-name>
-   <object-name>LockBrace.LowerL</object-name>
-   <object-name>LockBrace.UpperL</object-name>
-   <object-name>DragBrace.UpperR</object-name>
-   <object-name>LockBrace.LowerR</object-name>
-   <object-name>LockBrace.UpperR</object-name>
-   <condition>
-		<and>
-			<equals>
-				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-				<value>1</value>
-			</equals>
-			<equals>
-				<property>/controls/shuttle/ET-static-model</property>
-				<value>0</value>
-			</equals>
-		</and>
-	</condition>
- </animation>
-
  <!-- left gear undamaged -->
  <animation>
    <type>select</type>
@@ -243,6 +220,9 @@
    <object-name>RRimL</object-name>
    <object-name>TorqueArm.LowerL</object-name>
    <object-name>TorqueArm.UpperL</object-name>
+   <object-name>DragBrace.UpperL</object-name>
+   <object-name>LockBrace.LowerL</object-name>
+   <object-name>LockBrace.UpperL</object-name>
    <condition>
 		<and>
 			<!--equals>
@@ -297,6 +277,9 @@
    <object-name>RRimR</object-name>
    <object-name>TorqueArm.LowerR</object-name>
    <object-name>TorqueArm.UpperR</object-name>
+   <object-name>DragBrace.UpperR</object-name>
+   <object-name>LockBrace.LowerR</object-name>
+   <object-name>LockBrace.UpperR</object-name>
    <condition>
 		<and>
 			<!--equals>
@@ -644,92 +627,28 @@
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
-    <ind> 1</ind>
-    <dep> 90</dep>
+    <ind>1</ind>
+    <dep>90</dep>
    </entry>
    <entry>
-    <ind> .2</ind>
-    <dep> 80</dep>
+    <ind>.2</ind>
+    <dep>80</dep>
    </entry>
    <entry>
-    <ind> 0</ind>
-    <dep> 0</dep>
+    <ind>0</ind>
+    <dep>0</dep>
    </entry>
   </interpolation>
   <center>
-   <x-m> 2.40147</x-m>
-   <y-m> -4.22895</y-m>
-   <z-m> -5.10298</z-m>
+   <x-m>2.40147</x-m>
+   <y-m>-4.22895</y-m>
+   <z-m>-5.10298</z-m>
   </center>
   <axis>
    <x>-1</x>
    <y>0</y>
    <z>0</z>
   </axis>
- </animation>
-
- <animation>
-  <type>rotate</type>
-  <object-name>TrunionFittingL</object-name>
-  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-  <interpolation>
-   <entry>
-    <ind> 1    </ind>
-    <dep> 0    </dep>
-   </entry>
-   <entry>
-    <ind> .90    </ind>
-    <dep> 10    </dep>
-   </entry>
-   <entry>
-    <ind> .1    </ind>
-    <dep> 95    </dep>
-   </entry>
-   <entry>
-    <ind> 0    </ind>
-	<dep>97.17</dep>
-   </entry>
-  </interpolation>
-  <center>
-   <x-m> 4.04917</x-m>
-   <y-m> -3.44992</y-m>
-   <z-m> -4.87976</z-m>
-  </center>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
- </animation>
-
- <animation>
-	<type>translate</type>
-	<object-name>StrutActuator.RodL</object-name>
-	<object-name>StrutActuator.RodR</object-name>
-	<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-	<interpolation>
-     <entry>
-      <ind> 1    </ind>
-      <dep> 0    </dep>
-     </entry>
-     <entry>
-      <ind> .90    </ind>
-      <dep> .02    </dep>
-     </entry>
-     <entry>
-      <ind> .1    </ind>
-      <dep> .19    </dep>
-     </entry>
-     <entry>
-      <ind> 0    </ind>
-	  <dep>.30</dep>
-     </entry>
-    </interpolation>
-	<axis>
-		<x>0.0</x>
-		<y>0.0</y>
-		<z>1.0</z>
-	</axis>
  </animation>
 
  <animation>
@@ -762,6 +681,276 @@
    <z>0</z>
   </axis>
  </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>StrutActuatorL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.70</ind>
+    <dep>1.10</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>6.86</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>7</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>3.79947</x-m>
+   <y-m>-3.03844</y-m>
+   <z-m>-3.9258</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>StrutActuatorR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.70</ind>
+    <dep>1.10</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>6.86</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>7</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>3.79947</x-m>
+   <y-m>3.03844</y-m>
+   <z-m>-3.9258</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+	<type>translate</type>
+	<object-name>StrutActuator.RodL</object-name>
+	<object-name>StrutActuator.RodR</object-name>
+	<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+	<interpolation>
+     <entry>
+      <ind>1</ind>
+      <dep>0</dep>
+     </entry>
+     <entry>
+      <ind>.9</ind>
+      <dep>.07</dep>
+     </entry>
+     <entry>
+      <ind>.3</ind>
+      <dep>.65</dep>
+     </entry>
+     <entry>
+      <ind>0</ind>
+	  <dep>.66</dep>
+     </entry>
+    </interpolation>
+	<axis>
+		<x>0.0</x>
+		<y>0.0</y>
+		<z>1.0</z>
+	</axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>DragBrace.UpperL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>4.5</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>44.10</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>45</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.01723</x-m>
+   <y-m>-3.44992</y-m>
+   <z-m>-4.28212</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>DragBrace.UpperR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>4.5</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>44.10</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>45</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>2.01723</x-m>
+   <y-m>3.44992</y-m>
+   <z-m>-4.28212</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>DragBrace.LowerL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>19</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>186.20</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>190</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>3.03528</x-m>
+   <y-m>-3.44992</y-m>
+   <z-m>-5.42249</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>DragBrace.LowerR</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>19</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>186.20</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>190</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>3.03528</x-m>
+   <y-m>3.44992</y-m>
+   <z-m>-5.42249</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <object-name>TrunionFittingL</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>10</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>95</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>97.17</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>4.04917</x-m>
+   <y-m>-3.44992</y-m>
+   <z-m>-4.87976</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ 
  
  <animation>
   <type>rotate</type>
@@ -773,11 +962,11 @@
     <dep> 0    </dep>
    </entry>
    <entry>
-    <ind> .90    </ind>
+    <ind> .9    </ind>
     <dep> 10    </dep>
    </entry>
    <entry>
-    <ind> .1    </ind>
+    <ind> .3    </ind>
     <dep> 95    </dep>
    </entry>
    <entry>
