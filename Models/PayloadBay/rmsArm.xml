@@ -22,6 +22,7 @@
  		<object-name>RMS.Shoulder.Yaw</object-name>
   		<type>rotate</type>
   		<property>/fdm/jsbsim/systems/rms/ang-shoulder-yaw-deg</property>
+		<!--<property>/fdm/jsbsim/systems/rms/ma/target-yaw-shoulder-deg</property>-->
   		<factor>1</factor>
   		<center>
    			<x-m>-8.58656</x-m>
@@ -39,6 +40,7 @@
  		<object-name>RMS.Shoulder.Pitch</object-name>
   		<type>rotate</type>
   		<property>/fdm/jsbsim/systems/rms/ang-shoulder-pitch-deg</property>
+		<!--<property>/fdm/jsbsim/systems/rms/ma/target-pitch-shoulder-deg</property>-->
   		<factor>1</factor>
   		<center>
    			<x-m>-8.57394</x-m>
@@ -58,6 +60,7 @@
  		<object-name>RMS.Elbow.Pitch</object-name>
   		<type>rotate</type>
   		<property>/fdm/jsbsim/systems/rms/ang-ellbow-pitch-deg</property>
+		<!--<property>/fdm/jsbsim/systems/rms/ma/target-pitch-ellbow-deg</property>-->
   		<factor>1</factor>
   		<center>
    			<x-m>-2.33867</x-m>
@@ -75,6 +78,7 @@
  		<object-name>RMS.Wrist.Pitch</object-name>
   		<type>rotate</type>
   		<property>/fdm/jsbsim/systems/rms/ang-wrist-pitch-deg</property>
+		<!--<property>/fdm/jsbsim/systems/rms/ma/target-pitch-wrist-deg</property>-->
   		<factor>1</factor>
   		<center>
    			<x-m> 3.91862</x-m>
@@ -92,6 +96,7 @@
  		<object-name>RMS.Wrist.Yaw</object-name>
   		<type>rotate</type>
   		<property>/fdm/jsbsim/systems/rms/ang-wrist-yaw-deg</property>
+		<!--<property>/fdm/jsbsim/systems/rms/ma/target-yaw-wrist-deg</property>-->
   		<factor>1</factor>
   		<center>
    			<x-m> 4.78657</x-m>

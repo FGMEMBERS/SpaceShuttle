@@ -54,8 +54,27 @@ else
 
 var rms_release_payload = func {
 
+	# first check whether we release into space or put into the payload bay
 
-	setprop("/sim/messages/copilot", "Payload released!");
-	setprop("/fdm/jsbsim/systems/rms/effector-attached", 2);
-	SpaceShuttle.init_payload();
+	var status = getprop("/fdm/jsbsim/systems/rms/payload-ready-to-latch");
+	
+	if (status == 1)
+		{
+		# we require at least one latch closed to attach the payload firmly
+
+		var is_released = getprop("/fdm/jsbsim/systems/rms/payload-released");
+
+		if (is_released == 0)
+			{
+			setprop("/sim/messages/copilot", "Payload latched to bay!");
+			setprop("/fdm/jsbsim/systems/rms/effector-attached", 0);
+			}
+	
+		}
+	else
+		{
+		setprop("/sim/messages/copilot", "Payload released!");
+		setprop("/fdm/jsbsim/systems/rms/effector-attached", 2);
+		SpaceShuttle.init_payload();
+		}
 }

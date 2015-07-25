@@ -547,19 +547,40 @@
 		    <mpm-release-switch type="int">1</mpm-release-switch>
 		    <mpm-latch-pos type="double">1.0</mpm-latch-pos>
 		    <rms-power-switch type="int">0</rms-power-switch>
-		    <joint-selection-mode type="int">0</joint-selection-mode>
+		    <joint-selection-mode type="int">1</joint-selection-mode>
 		    <parameter-selection-mode type="int">0</parameter-selection-mode>
 		    <joint-selection-string type="string">SHOULDER YAW</joint-selection-string>
+		    <drive-selection-mode type="int">1</drive-selection-mode>
+		    <drive-selection-string type="string">SINGLE</drive-selection-string>
 		    <parameter-selection-string type="string">TEST</parameter-selection-string>
+		    <payload-selection-string type="string">Payload 1</payload-selection-string>
 		    <direct-drive-switch type="int">0</direct-drive-switch>
 		    <shoulder-x type="double">0.0</shoulder-x>
 		    <shoulder-y type="double">0.0</shoulder-y>
 		    <shoulder-z type="double">0.0</shoulder-z>
 		    <null type="double">0.0</null>
+		    <ready-to-latch type="double">1.0</ready-to-latch>
 		    <effector-attached type="double">0.0</effector-attached>
 		    <payload-attach-x type="double">12.75</payload-attach-x>
 		    <payload-attach-y type="double">2.0</payload-attach-y>
 		    <payload-attach-z type="double">-1.8</payload-attach-z>
+		    <retention-power-1-switch type="int">0</retention-power-1-switch>
+		    <retention-power-2-switch type="int">0</retention-power-2-switch>
+		    <retention-selector-mode type="int">1</retention-selector-mode>
+		    <retention-release-1-switch type="int">0</retention-release-1-switch>
+		    <retention-release-2-switch type="int">0</retention-release-2-switch>
+		    <retention-release-3-switch type="int">0</retention-release-3-switch>
+		    <retention-release-4-switch type="int">0</retention-release-4-switch>
+		    <retention-release-5-switch type="int">0</retention-release-5-switch>
+		    <retention-latch-1-pos type="double">0.0</retention-latch-1-pos>
+		    <retention-latch-2-pos type="double">0.0</retention-latch-2-pos>
+		    <retention-latch-3-pos type="double">0.0</retention-latch-3-pos>
+		    <retention-latch-4-pos type="double">0.0</retention-latch-4-pos>
+		    <retention-latch-5-pos type="double">0.0</retention-latch-5-pos>
+		    <payload-ready-to-latch type="double">1.0</payload-ready-to-latch>
+		    <sum-wrist-pitch-deg type="double">0.0</sum-wrist-pitch-deg>
+		    <sum-wrist-yaw-deg type="double">0.0</sum-wrist-yaw-deg>
+		    <rms-drivable type="double">0.0</rms-drivable>
 		</rms>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
@@ -998,7 +1019,7 @@
 
                 </menu>
  		<menu n="51">
-                    <label>Payload Deployment</label>
+                    <label>Payload Operations</label>
 
 		    <item>
 			<label>RMS arm deployment</label>
@@ -1013,6 +1034,14 @@
 		        <binding>
                             <command>nasal</command>
                             <script>SpaceShuttle.rms_operation_dlg.open()</script>
+                        </binding>
+		    </item>
+
+		    <item>
+			<label>Payload retention</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.pl_retention_dlg.open()</script>
                         </binding>
 		    </item>
 

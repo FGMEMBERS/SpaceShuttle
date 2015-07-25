@@ -2589,7 +2589,7 @@
    </pure_gain>
 
    <aerosurface_scale name="left aileron normalization">
-      <input>fcs/left-aileron-pos-rad-command</input>
+      <input>fcs/left-aileron-pos-rad</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -2602,7 +2602,7 @@
    </aerosurface_scale>
 
    <aerosurface_scale name="right aileron normalization">
-      <input>fcs/right-aileron-pos-rad-command</input>
+      <input>fcs/right-aileron-pos-rad</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>

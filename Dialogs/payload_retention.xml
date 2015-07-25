@@ -1,0 +1,447 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>pl-retention</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Payload retention</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+  
+
+    <text>
+      <label>Logic power</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>pl-power1</name>
+ 	<row>1</row>
+        <col>1</col>
+        <label>SYS 1</label>
+          <property>/fdm/jsbsim/systems/rms/retention-power-1-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-power1</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>pl-power2</name>
+ 	<row>1</row>
+        <col>2</col>
+        <label>SYS 2</label>
+          <property>/fdm/jsbsim/systems/rms/retention-power-2-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-power2</object-name>
+          </binding>
+        </checkbox>
+
+  	<combo>
+       		 <row>1</row>
+        	 <col>3</col>
+        	 <name>pl-select</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/payload-selection-string</property>
+		 <value>Payload 1</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>pl-select</object-name>
+        	 </binding>
+      	</combo>
+
+    <text>
+      <label>Ready to latch</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+</group>
+
+<group>
+<layout>table</layout>
+
+
+
+   <text>
+      <label>RDY</label>
+      <row>0</row>
+      <col>0</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/payload-ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>RDY</label>
+      <row>0</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/payload-ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>RDY</label>
+      <row>0</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/payload-ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>RDY</label>
+      <row>0</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/payload-ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>RDY</label>
+      <row>0</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/payload-ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+
+
+   <text>
+      <label>LAT</label>
+      <row>1</row>
+      <col>0</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-1-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>LAT</label>
+      <row>1</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-2-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>LAT</label>
+      <row>1</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-3-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>LAT</label>
+      <row>1</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-4-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>LAT</label>
+      <row>1</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-5-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+ <text>
+      <label>OPN</label>
+      <row>1</row>
+      <col>0</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-1-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>OPN</label>
+      <row>1</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-2-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>OPN</label>
+      <row>1</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-3-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>OPN</label>
+      <row>1</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-4-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>OPN</label>
+      <row>1</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-5-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+ <text>
+      <label>////</label>
+      <row>1</row>
+      <col>0</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-1-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-1-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+ <text>
+      <label>////</label>
+      <row>1</row>
+      <col>1</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-2-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-2-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+ <text>
+      <label>////</label>
+      <row>1</row>
+      <col>2</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-3-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-3-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+ <text>
+      <label>////</label>
+      <row>1</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-4-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-4-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+ <text>
+      <label>////</label>
+      <row>1</row>
+      <col>4</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-5-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/retention-latch-5-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <checkbox>
+        <name>pl-latch1</name>
+ 	<row>2</row>
+        <col>0</col>
+        <label>release 1</label>
+          <property>/fdm/jsbsim/systems/rms/retention-release-1-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-latch1</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>pl-latch2</name>
+ 	<row>2</row>
+        <col>1</col>
+        <label>release 2</label>
+          <property>/fdm/jsbsim/systems/rms/retention-release-2-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-latch2</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>pl-latch3</name>
+ 	<row>2</row>
+        <col>2</col>
+        <label>release 3</label>
+          <property>/fdm/jsbsim/systems/rms/retention-release-3-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-latch3</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>pl-latch4</name>
+ 	<row>2</row>
+        <col>3</col>
+        <label>release 1</label>
+          <property>/fdm/jsbsim/systems/rms/retention-release-4-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-latch4</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>pl-latch5</name>
+ 	<row>2</row>
+        <col>4</col>
+        <label>release 5</label>
+          <property>/fdm/jsbsim/systems/rms/retention-release-5-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>pl-latch5</object-name>
+          </binding>
+        </checkbox>
+
+ </group>
+
+
+        <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

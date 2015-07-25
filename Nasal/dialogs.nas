@@ -46,6 +46,8 @@ var rms_deploy_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rms-deploy/di
 
 var rms_operation_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rms-operation/dialog","Aircraft/SpaceShuttle/Dialogs/rms_operation.xml");
 
+var pl_retention_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/payload-retention/dialog","Aircraft/SpaceShuttle/Dialogs/payload_retention.xml");
+
 var flight_controls_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/flight_controls/dialog","Aircraft/SpaceShuttle/Dialogs/flight_controls.xml");
 
 var temperature_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/temperature/dialog","Aircraft/SpaceShuttle/Dialogs/thermal_distribution.xml");
@@ -320,6 +322,30 @@ else if (parameter_string == "ATTITUDE P/Y/R") {par = 2;}
 else if (parameter_string == "JOINT ANGLE") {par = 3;}
 
 setprop("/fdm/jsbsim/systems/rms/parameter-selection-mode", par);
+
+}
+
+
+var update_rms_drive_selection = func {
+
+var drive_string = getprop("/fdm/jsbsim/systems/rms/drive-selection-string");
+
+var par = 0;
+var fcs = 1;
+
+if (drive_string == "SINGLE") {par = 1;}
+else if (drive_string == "DIRECT") {par = 1;}
+else if (drive_string == "ORB UNL X/Y/Z") {par = 2; fcs = 60;}
+
+
+setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
+setprop("/fdm/jsbsim/systems/fcs/control-mode", fcs);
+
+var string = "RCS rotation";
+
+if (fcs==60) {string = "RMS ORB UNL X/Y/Z";}
+
+setprop("/controls/shuttle/control-system-string", string);	
 
 }
 
