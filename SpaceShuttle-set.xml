@@ -581,6 +581,16 @@
 		    <sum-wrist-pitch-deg type="double">0.0</sum-wrist-pitch-deg>
 		    <sum-wrist-yaw-deg type="double">0.0</sum-wrist-yaw-deg>
 		    <rms-drivable type="double">0.0</rms-drivable>
+		    <wrist-x type="double">0.0</wrist-x>
+		    <wrist-y type="double">0.0</wrist-y>
+		    <wrist-z type="double">0.0</wrist-z>
+		    <ang-wrist-yaw-deg type="double">0.0</ang-wrist-yaw-deg>
+		    <ang-wrist-pitch-deg type="double">0.0</ang-wrist-pitch-deg>
+		    <ang-wrist-roll-deg type="double">0.0</ang-wrist-roll-deg>	
+		    <effector-x type="double">0.0</effector-x>
+		    <effector-y type="double">0.0</effector-y>
+		    <effector-z type="double">0.0</effector-z>
+	            <soft-stop type="double">0.0</soft-stop>
 		</rms>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
