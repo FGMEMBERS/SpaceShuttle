@@ -161,10 +161,6 @@
    <condition>
 		<and>
 			<equals>
-				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-				<value>1</value>
-			</equals>
-			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
 			</equals>
@@ -225,10 +221,6 @@
    <object-name>LockBrace.UpperL</object-name>
    <condition>
 		<and>
-			<!--equals>
-				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-				<value>1</value>
-			</equals-->
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -282,10 +274,6 @@
    <object-name>LockBrace.UpperR</object-name>
    <condition>
 		<and>
-			<!--equals>
-				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
-				<value>1</value>
-			</equals-->
 			<equals>
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
@@ -566,16 +554,16 @@
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
-    <ind> 1.0</ind>
-    <dep> 90.0</dep>
+    <ind>1</ind>
+    <dep>90</dep>
    </entry>
    <entry>
-    <ind> 0.20</ind>
-    <dep> 0.0</dep>
+    <ind>.2</ind>
+    <dep>80</dep>
    </entry>
    <entry>
-    <ind> 0.0</ind>
-    <dep> 0.0</dep>
+    <ind>0</ind>
+    <dep>0</dep>
    </entry>
   </interpolation>
   <center>
@@ -585,8 +573,8 @@
   </center>
   <axis>
    <x>-90</x>
-   <y>8</y>
-   <z>12</z>
+   <y>0</y>
+   <z>22</z>
   </axis>
  </animation>
 
@@ -596,16 +584,16 @@
   <property>/fdm/jsbsim/gear/gear-pos-norm</property>
   <interpolation>
    <entry>
-    <ind> 1.0</ind>
-    <dep> 90.0</dep>
+    <ind>1</ind>
+    <dep>90</dep>
    </entry>
    <entry>
-    <ind> 0.40</ind>
-    <dep> 0.0</dep>
+    <ind>.2</ind>
+    <dep>80</dep>
    </entry>
    <entry>
-    <ind> 0.0</ind>
-    <dep> 0.0</dep>
+    <ind>0</ind>
+    <dep>0</dep>
    </entry>
   </interpolation>
   <center>
@@ -615,8 +603,42 @@
   </center>
   <axis>
    <x>90</x>
-   <y>8</y>
-   <z>-12</z>
+   <y>0</y>
+   <z>-22</z>
+  </axis>
+ </animation>
+ 
+ <animation>
+  <type>rotate</type>
+  <object-name>Cube</object-name>
+  <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+  <interpolation>
+   <entry>
+    <ind>1</ind>
+    <dep>0</dep>
+   </entry>
+   <entry>
+    <ind>.9</ind>
+    <dep>11</dep>
+   </entry>
+   <entry>
+    <ind>.3</ind>
+    <dep>107.8</dep>
+   </entry>
+   <entry>
+    <ind>0</ind>
+	<dep>110</dep>
+   </entry>
+  </interpolation>
+  <center>
+   <x-m>-16.1190</x-m>
+   <y-m>0</y-m>
+   <z-m>-4.91955</z-m>
+  </center>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
   </axis>
  </animation>
 
