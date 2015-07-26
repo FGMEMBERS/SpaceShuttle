@@ -20,6 +20,14 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rms-control-veto">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="RMS deployment">
@@ -272,7 +280,7 @@
 
 	<channel name="RMS manual augmented ypr driving" execute="systems/rms/rms-active">
 
-		<fcs_function name="systems/rms/ma/offset-vec-x">
+		<!--<fcs_function name="systems/rms/ma/offset-vec-x">
 		<function>
 			<difference>
 				<property>systems/rms/effector-x</property>
@@ -297,7 +305,7 @@
 				<property>systems/rms/wrist-z</property>
 			</difference>
 		</function>
-		</fcs_function>	
+		</fcs_function>	-->
 
 		<!-- first determine the effector angle drive targets based on control inputs -->
 
@@ -375,7 +383,6 @@
 			<test logic="AND" value="fcs/rudder-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -393,7 +400,6 @@
 			<test logic="AND" value="fcs/elevator-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -411,7 +417,6 @@
 			<test logic="AND" value="fcs/aileron-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -651,7 +656,6 @@
 			<test logic="AND" value="-fcs/rudder-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -669,7 +673,6 @@
 			<test logic="AND" value="-fcs/aileron-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -687,7 +690,6 @@
 			<test logic="AND" value="fcs/elevator-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
-				systems/fcs/control-mode == 60
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -1044,6 +1046,10 @@
 				systems/rms/shoulder-brace-pos == 1
 				systems/rms/mpm-deploy-pos == 1
 				systems/rms/rms-veto == 1
+				accelerations/a-pilot-ft_sec2 LT 10.0
+				systems/rms/rms-brake-switch == 0
+				systems/rms/rms-save-switch == 0
+				systems/mechanical/pb-door-indicator == 1
 			</test>
 		</switch>
 
@@ -1863,21 +1869,21 @@
 			<pow>
 			<difference>
 				<property>systems/rms/effector-x</property>
-				<property>systems/rms/payload-attach-x</property>
+				<property>systems/rms/payload/payload-attach-x</property>
 			</difference>
 			<value>2.0</value>
 			</pow>
 			<pow>
 			<difference>
 				<property>systems/rms/effector-y</property>
-				<property>systems/rms/payload-attach-y</property>
+				<property>systems/rms/payload/payload-attach-y</property>
 			</difference>
 			<value>2.0</value>
 			</pow>
 			<pow>
 			<difference>
 				<property>systems/rms/effector-z</property>
-				<property>systems/rms/payload-attach-z</property>
+				<property>systems/rms/payload/payload-attach-z</property>
 			</difference>
 			<value>2.0</value>
 			</pow>

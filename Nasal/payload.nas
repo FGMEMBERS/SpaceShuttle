@@ -15,9 +15,9 @@ var effector_roll = getprop("/fdm/jsbsim/systems/rms/ang-wrist-roll-deg");
 
 # get the payload position
 
-var payload_x = getprop("/fdm/jsbsim/systems/rms/payload-attach-x");
-var payload_y = getprop("/fdm/jsbsim/systems/rms/payload-attach-y");
-var payload_z = getprop("/fdm/jsbsim/systems/rms/payload-attach-z");
+var payload_x = getprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x");
+var payload_y = getprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y");
+var payload_z = getprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z");
 
 # require agreement in position
 
@@ -77,4 +77,39 @@ var rms_release_payload = func {
 		setprop("/fdm/jsbsim/systems/rms/effector-attached", 2);
 		SpaceShuttle.init_payload();
 		}
+}
+
+
+# initial payload selection
+
+var update_payload_selection = func {
+
+var payload_string = getprop("/sim/config/shuttle/PL-selection");
+
+# payload properties to be specified are: 
+# 1) the flag to show the right 3d model
+# 2) the location of the attachment point (relative to the RMS arm shoulder) - set to zero to make not movable
+# 3) the payload mass
+
+# <payload-attach-x type="double">12.75</payload-attach-x>
+# <payload-attach-y type="double">2.0</payload-attach-y>
+# <payload-attach-z type="double">-1.8</payload-attach-z>
+
+if (payload_string == "none")
+	{
+	setprop("/sim/config/shuttle/PL-selection-flag", 0);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 0);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 0);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", 0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 0.0);
+	}
+else if (payload_string == "TDRS demo")
+	{
+	setprop("/sim/config/shuttle/PL-selection-flag", 1);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 12.75);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 2.0);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -1.8);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 20000.0);
+	}
+
 }

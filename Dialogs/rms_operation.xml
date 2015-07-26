@@ -201,6 +201,44 @@
 		</binding>
       	</combo>
 
+    <text>
+      <label>Software stop</label>
+      <row>5</row>
+      <col>2</col>
+      <visible>
+	<equals>
+	  <property>/fdm/jsbsim/systems/rms/soft-stop</property>
+	  <value>1.0</value>
+	</equals>
+      </visible>
+    </text>
+
+       <checkbox>
+        <name>rms-brake</name>
+ 	<row>6</row>
+        <col>1</col>
+        <label>BRAKES</label>
+          <property>/fdm/jsbsim/systems/rms/rms-brake-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-brake</object-name>
+          </binding>
+        </checkbox>
+
+       <checkbox>
+        <name>rms-save</name>
+ 	<row>6</row>
+        <col>2</col>
+        <label>SAFING</label>
+          <property>/fdm/jsbsim/systems/rms/rms-save-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-save</object-name>
+          </binding>
+        </checkbox>
+
 
 
 

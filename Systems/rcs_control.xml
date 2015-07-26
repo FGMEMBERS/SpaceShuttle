@@ -82,7 +82,7 @@
 		</function>
 		</fcs_function>
 	
-		<switch name="systems/fcs/elevator-cmd-norm-sense">
+		<switch name="systems/fcs/elevator-cmd-norm-sense-base">
 			<default value="fcs/elevator-cmd-norm"/>
 			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
 				systems/fcs/sense-minus-X == 1
@@ -102,7 +102,7 @@
 			</test>
 		</switch>
 
-		<switch name="systems/fcs/rudder-cmd-norm-sense">
+		<switch name="systems/fcs/rudder-cmd-norm-sense-base">
 			<default value="fcs/rudder-cmd-norm"/>
 			<test logic="AND" value="fcs/rudder-cmd-norm">
 				systems/fcs/sense-minus-X == 1
@@ -122,7 +122,7 @@
 			</test>
 		</switch>
 
-		<switch name="systems/fcs/aileron-cmd-norm-sense">
+		<switch name="systems/fcs/aileron-cmd-norm-sense-base">
 			<default value="fcs/aileron-cmd-norm"/>
 			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
 				systems/fcs/sense-minus-X == 1
@@ -142,6 +142,35 @@
 			</test>
 		</switch>
 
+		<!-- veto the command inputs when THC and RHC control the RMS arm -->
+		<!-- this allows to remain in attitude-hold modes while handling payload -->		
+
+		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
+		<function>
+			<product>
+				<property>systems/fcs/aileron-cmd-norm-sense-base</property>
+				<property>systems/fcs/rms-control-veto</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/rudder-cmd-norm-sense">
+		<function>
+			<product>
+				<property>systems/fcs/rudder-cmd-norm-sense-base</property>
+				<property>systems/fcs/rms-control-veto</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/elevator-cmd-norm-sense">
+		<function>
+			<product>
+				<property>systems/fcs/elevator-cmd-norm-sense-base</property>
+				<property>systems/fcs/rms-control-veto</property>
+			</product>
+		</function>
+		</fcs_function>
 
 
 	</channel>

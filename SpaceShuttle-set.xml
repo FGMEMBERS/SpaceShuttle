@@ -547,6 +547,8 @@
 		    <mpm-release-switch type="int">1</mpm-release-switch>
 		    <mpm-latch-pos type="double">1.0</mpm-latch-pos>
 		    <rms-power-switch type="int">0</rms-power-switch>
+		    <rms-brake-switch type="int">0</rms-brake-switch>
+		    <rms-save-switch type="int">0</rms-save-switch>
 		    <joint-selection-mode type="int">1</joint-selection-mode>
 		    <parameter-selection-mode type="int">0</parameter-selection-mode>
 		    <joint-selection-string type="string">SHOULDER YAW</joint-selection-string>
@@ -561,9 +563,6 @@
 		    <null type="double">0.0</null>
 		    <ready-to-latch type="double">1.0</ready-to-latch>
 		    <effector-attached type="double">0.0</effector-attached>
-		    <payload-attach-x type="double">12.75</payload-attach-x>
-		    <payload-attach-y type="double">2.0</payload-attach-y>
-		    <payload-attach-z type="double">-1.8</payload-attach-z>
 		    <retention-power-1-switch type="int">0</retention-power-1-switch>
 		    <retention-power-2-switch type="int">0</retention-power-2-switch>
 		    <retention-selector-mode type="int">1</retention-selector-mode>
@@ -591,6 +590,11 @@
 		    <effector-y type="double">0.0</effector-y>
 		    <effector-z type="double">0.0</effector-z>
 	            <soft-stop type="double">0.0</soft-stop>
+		    <payload>
+	    		<payload-attach-x type="double">0</payload-attach-x>
+		    	<payload-attach-y type="double">0</payload-attach-y>
+		    	<payload-attach-z type="double">0</payload-attach-z>
+		    </payload>
 		</rms>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
@@ -1304,6 +1308,8 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 			<thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
 			<ET-config type="string">super lightweight</ET-config>
 			<TC-config type="string">none</TC-config>
+			<PL-selection type="string">none</PL-selection>
+			<PL-selection-flag type="int">0</PL-selection-flag>
 			<rendering>
 				<use-earthview type="int" userarchive="y">0</use-earthview>
 				<earthview-transition-alt-ft type="double">85000.0</earthview-transition-alt-ft>
