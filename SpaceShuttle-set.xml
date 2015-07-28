@@ -47,7 +47,7 @@
 		    <aero-structure-condition type="double">1.0</aero-structure-condition>
 		    <controls-condition type="double">1.0</controls-condition>
 		    <speedbrake-condition type="double">1.0</speedbrake-condition>
-		    <speedbrake-control type="int">1.0</speedbrake-control>
+		    <speedbrake-control type="int">1</speedbrake-control>
 		    <drag-chute-condition type="double">1.0</drag-chute-condition>
 		    <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
 		    <tire-nose-condition type="double">1.0</tire-nose-condition>
@@ -241,11 +241,11 @@
 			<fc-controller-power type="int">1</fc-controller-power>
 			<bus-connector-status type="int">1</bus-connector-status>
 			<fc-efficiency type="double">1.0</fc-efficiency>
-		    </fc>	
+		    </fc>
 		    <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
-		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>	
+		    <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>
 		    <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
-		    <init-electrical-on type="double">14.0</init-electrical-on>		
+		    <init-electrical-on type="double">14.0</init-electrical-on>
 		</electrical>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -275,9 +275,9 @@
 			<pb-door-right-aft-latch-cmd type="int">0</pb-door-right-aft-latch-cmd>
 			<pb-door-right-aft-latch-pos type="double">0.0</pb-door-right-aft-latch-pos>
 			<pb-door-left-cmd type="int">0</pb-door-left-cmd>
-			<pb-door-left-pos type="int">0.0</pb-door-left-pos>
+			<pb-door-left-pos type="int">0</pb-door-left-pos>
 			<pb-door-right-cmd type="int">0</pb-door-right-cmd>
-			<pb-door-right-pos type="int">0.0</pb-door-right-pos>
+			<pb-door-right-pos type="int">0</pb-door-right-pos>
 			<pb-door-sys1-enable type="int">0</pb-door-sys1-enable>
 			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
 			<pb-door-indicator type="double">0</pb-door-indicator>
@@ -429,10 +429,10 @@
 
   		    <fuel-left-rcs-pressure-psia type="double">250.0</fuel-left-rcs-pressure-psia>
   		    <fuel-right-rcs-pressure-psia type="double">250.0</fuel-right-rcs-pressure-psia>
-  		    <fuel-fwd-rcs-pressure-psia type="double">250.0</fuel-fwd-rcs-pressure-psia> 
+  		    <fuel-fwd-rcs-pressure-psia type="double">250.0</fuel-fwd-rcs-pressure-psia>
 		    <oxidizer-left-rcs-pressure-psia type="double">250.0</oxidizer-left-rcs-pressure-psia>
   		    <oxidizer-right-rcs-pressure-psia type="double">250.0</oxidizer-right-rcs-pressure-psia>
-  		    <oxidizer-fwd-rcs-pressure-psia type="double">250.0</oxidizer-fwd-rcs-pressure-psia> 
+  		    <oxidizer-fwd-rcs-pressure-psia type="double">250.0</oxidizer-fwd-rcs-pressure-psia>
 
 		    <tank-right-rcs-valve-12-status type="int">1</tank-right-rcs-valve-12-status>
 		    <tank-right-rcs-valve-345A-status type="int">1</tank-right-rcs-valve-345A-status>
@@ -450,7 +450,7 @@
 		    <mfold-right-rcs-valve-3-status type="int">1</mfold-right-rcs-valve-3-status>
 		    <mfold-right-rcs-valve-4-status type="int">1</mfold-right-rcs-valve-4-status>
 		    <mfold-right-rcs-valve-5-status type="int">1</mfold-right-rcs-valve-5-status>
-	
+
 		    <mfold-left-rcs-valve-1-status type="int">1</mfold-left-rcs-valve-1-status>
 		    <mfold-left-rcs-valve-2-status type="int">1</mfold-left-rcs-valve-2-status>
 		    <mfold-left-rcs-valve-3-status type="int">1</mfold-left-rcs-valve-3-status>
@@ -462,11 +462,11 @@
 		    <mfold-fwd-rcs-valve-3-status type="int">1</mfold-fwd-rcs-valve-3-status>
 		    <mfold-fwd-rcs-valve-4-status type="int">1</mfold-fwd-rcs-valve-4-status>
 		    <mfold-fwd-rcs-valve-5-status type="int">1</mfold-fwd-rcs-valve-5-status>
-		
-		    <crossfeed-left-rcs-valve-12-status type="int">0</crossfeed-left-rcs-valve-12-status>	 
-		    <crossfeed-left-rcs-valve-345-status type="int">0</crossfeed-left-rcs-valve-345-status>	     
-		    <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>	
-		    <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>	      
+
+		    <crossfeed-left-rcs-valve-12-status type="int">0</crossfeed-left-rcs-valve-12-status>
+		    <crossfeed-left-rcs-valve-345-status type="int">0</crossfeed-left-rcs-valve-345-status>
+		    <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>
+		    <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>
 
 		    <heater-left-A-status type="int">0</heater-left-A-status>
 		    <heater-left-B-status type="int">0</heater-left-B-status>
@@ -494,7 +494,7 @@
 		    <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
 		    <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
 
-		</rcs-hardware>	
+		</rcs-hardware>
 		<thermal-distribution>
 			<freon-loop-switch type="double">0.4</freon-loop-switch>
 			<water-loop-switch type="int">1</water-loop-switch>
@@ -529,7 +529,7 @@
             <speedbrake-string type="string">in</speedbrake-string>
 	    <speedbrake type="double">0.0</speedbrake>
             <drag-chute-string type="string">in</drag-chute-string>
-	    <SRB-static-model type="bool">true</SRB-static-model>	    
+	    <SRB-static-model type="bool">true</SRB-static-model>
 	    <ET-static-model type="bool">true</ET-static-model>
 	    <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
 	    <forces>
@@ -593,7 +593,7 @@
         </doors>
         <robotarm-norm type="float">0</robotarm-norm>
     </instrumentation>
-  
+
   <!-- create the node at startup, will be overwritten later -->
    <position>
 	<sea-level-radius-ft>26000000.0</sea-level-radius-ft>
@@ -1052,7 +1052,7 @@ The RCS can also be used in translation mode, switching between modes is done us
 
 Without a visual reference point, the effect of translational thruster firings are hard to gauge.
 
-There is a host of digital autopilots (DAPs) available for orbital maneuvering, all with somewhat different characteristics. For some the stick controls angular acceleration, for others angular rates, some employ the primary thrusters, others the less powerful Vernier thrusters - the FG Wiki or the Shuttle Crew Manual have a detailed description of what does what. 
+There is a host of digital autopilots (DAPs) available for orbital maneuvering, all with somewhat different characteristics. For some the stick controls angular acceleration, for others angular rates, some employ the primary thrusters, others the less powerful Vernier thrusters - the FG Wiki or the Shuttle Crew Manual have a detailed description of what does what.
 
 The main groups of DAPs are switched using 'm' - these are rotational DAPs (controlling vehicle attitude), translational DAPs (moving the vehicle around) and OMS DAPs (controlling thrust vectoring when the orbital engines are on). Inside each group, 'Shift-m' changes the individual modes.
 
@@ -1109,7 +1109,7 @@ Landing
 
 (You can start at this phase with --aircraft=SpaceShuttle-approach)
 
-Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway). Do not aim to touch down at the usual point for aircraft, the Shuttle touchdown point is some 2.500 ft from the start of teh runway. Be careful to keep sinkrate below 9 ft/s or 540 ft/min at touchdown to avoid gear damage, don't pull the nose up more than 15 degrees to avoid a tail scrape. 
+Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway). Do not aim to touch down at the usual point for aircraft, the Shuttle touchdown point is some 2.500 ft from the start of teh runway. Be careful to keep sinkrate below 9 ft/s or 540 ft/min at touchdown to avoid gear damage, don't pull the nose up more than 15 degrees to avoid a tail scrape.
 
 Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
@@ -1117,9 +1117,9 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
         </help>
 
 	<systems>
-		<property-rule n="100"> 
-    			<name>ssme-flame-computation</name> 	
-    			<path>Systems/ssme-flame-computation.xml</path>  
+		<property-rule n="100">
+    			<name>ssme-flame-computation</name>
+    			<path>Systems/ssme-flame-computation.xml</path>
   		</property-rule>
 		<property-rule n="101">
 			<path>Systems/ground-effects-filters.xml</path>
@@ -1152,7 +1152,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     <input>
         <keyboard>
 
-	    <key n="4"> 
+	    <key n="4">
   		<name>Ctrl+d</name>
   		<desc>Force external tank drop</desc>
  		<repeatable type="bool">false</repeatable>
@@ -1180,7 +1180,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		</binding>
  	    </key>
 
- 	    <key n="13"> 
+ 	    <key n="13">
   		<name>Ctrl+m</name>
   		<desc>Switch major FCS control modes</desc>
  		<repeatable type="bool">false</repeatable>
@@ -1384,5 +1384,3 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	</gear>
 
 </PropertyList>
-
-
