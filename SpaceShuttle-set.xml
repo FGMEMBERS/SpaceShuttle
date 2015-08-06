@@ -605,7 +605,8 @@
         <flight-model>jsb</flight-model>
         <aero>shuttle</aero>
         <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), NASA, japreja and HerbyW (3D)</author>
-
+        <exclude type="bool">true</exclude>
+        
         <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
 
         <input>
