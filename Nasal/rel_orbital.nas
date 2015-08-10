@@ -247,9 +247,9 @@ if (mode == 50)
 	{
 
 
-	var ax = getprop("/fdm/jsbsim/fcs/rudder-pos-norm") * 0.1;
-	var ay = getprop("/fdm/jsbsim/fcs/left-aileron-pos-norm") * 0.1;
-	var az = getprop("/fdm/jsbsim/fcs/elevator-pos-norm") * 0.1;
+	var ax = getprop("/fdm/jsbsim/fcs/rudder-cmd-norm") * 0.1;
+	var ay = getprop("/fdm/jsbsim/fcs/aileron-cmd-norm") * 0.1;
+	var az = getprop("/fdm/jsbsim/fcs/elevator-cmd-norm") * 0.1;
 
 	var x = [1.0, 0.0, 0.0];
 	var ex = orientTaitBryan(x, evaState.yaw, -evaState.pitch, evaState.roll);
@@ -272,9 +272,9 @@ if (mode == 50)
 	}
 else if (mode == 51)
 	{
-	var ax = getprop("/fdm/jsbsim/fcs/elevator-pos-norm") * -0.5;
-	var ay = getprop("/fdm/jsbsim/fcs/left-aileron-pos-norm") * 0.5;
-	var az = getprop("/fdm/jsbsim/fcs/rudder-pos-norm") * 0.5;
+	var ax = getprop("/fdm/jsbsim/fcs/elevator-cmd-norm") * -0.5;
+	var ay = getprop("/fdm/jsbsim/fcs/aileron-cmd-norm") * 0.5;
+	var az = getprop("/fdm/jsbsim/fcs/rudder-cmd-norm") * 0.5;
 	evaState.update(0.0,0.0,0.0,az,ax,ay);	
 	}
 
