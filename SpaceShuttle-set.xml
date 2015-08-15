@@ -604,8 +604,17 @@
         <description>NASA Space Shuttle Atlantis</description>
         <flight-model>jsb</flight-model>
         <aero>shuttle</aero>
-        <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), NASA, japreja and HerbyW (3D)</author>
+	<author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), Chris Kuhn (cockpit), NASA, japreja and HerbyW (3D)</author>
+	<status>beta</status>
+	<rating>
+ 		<FDM type="int">4</FDM>
+ 		<systems type="int">3</systems>
+ 		<cockpit type="int">2</cockpit>
+ 		<model type="int">2</model>
+	</rating>
 
+        <exclude type="bool">true</exclude>
+        
         <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
 
         <input>

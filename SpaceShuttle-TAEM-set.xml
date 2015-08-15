@@ -5,9 +5,10 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on TAEM</description>
+  <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>83000.0</altitude-ft>
-	<pitch-deg>3.0</pitch-deg>	
+	<pitch-deg>3.0</pitch-deg>
 	<stage type="int">3</stage>
   </presets>
 </sim>
