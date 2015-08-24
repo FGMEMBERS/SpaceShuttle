@@ -112,6 +112,102 @@
 
 	</channel>
 
+	<channel name="RMS jettison">
+
+		<switch name="systems/rms/rms-shoulder-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-shl-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-shoulder-severed">
+			<default value="systems/rms/rms-shoulder-jettison-cmd"/>
+			<test value="systems/rms/rms-shoulder-severed">
+				systems/rms/rms-shoulder-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-fwd-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-fwd-switch == 1
+			</test>
+		</switch>
+
+
+
+		<switch name="systems/rms/rms-fwd-severed">
+			<default value="systems/rms/rms-fwd-jettison-cmd"/>
+			<test value="systems/rms/rms-fwd-severed">
+				systems/rms/rms-fwd-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-mid-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-mid-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-mid-severed">
+			<default value="systems/rms/rms-mid-jettison-cmd"/>
+			<test value="systems/rms/rms-mid-severed">
+				systems/rms/rms-mid-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-aft-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-aft-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-aft-severed">
+			<default value="systems/rms/rms-aft-jettison-cmd"/>
+			<test value="systems/rms/rms-aft-severed">
+				systems/rms/rms-aft-jettison-cmd == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-complete-jettison">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-shoulder-severed == 1
+				systems/rms/rms-fwd-severed == 1
+				systems/rms/rms-mid-severed == 1
+				systems/rms/rms-aft-severed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-deployed-jettison">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-shoulder-severed == 1
+				systems/rms/mpm-deploy-pos == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-arm-attached">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/rms/rms-deployed-jettison == 1
+				systems/rms/rms-complete-jettison == 1
+			</test>
+		</switch>
+
+	</channel>
+
 	<channel name="Payload retention">
 
 

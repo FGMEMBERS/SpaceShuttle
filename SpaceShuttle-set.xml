@@ -50,7 +50,7 @@
 		    <aero-structure-condition type="double">1.0</aero-structure-condition>
 		    <controls-condition type="double">1.0</controls-condition>
 		    <speedbrake-condition type="double">1.0</speedbrake-condition>
-		    <speedbrake-control type="int">1.0</speedbrake-control>
+		    <speedbrake-control type="int">1</speedbrake-control>
 		    <drag-chute-condition type="double">1.0</drag-chute-condition>
 		    <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
 		    <tire-nose-condition type="double">1.0</tire-nose-condition>
@@ -292,9 +292,9 @@
 			<pb-door-right-aft-latch-cmd type="int">0</pb-door-right-aft-latch-cmd>
 			<pb-door-right-aft-latch-pos type="double">0.0</pb-door-right-aft-latch-pos>
 			<pb-door-left-cmd type="int">0</pb-door-left-cmd>
-			<pb-door-left-pos type="int">0.0</pb-door-left-pos>
+			<pb-door-left-pos type="double">0.0</pb-door-left-pos>
 			<pb-door-right-cmd type="int">0</pb-door-right-cmd>
-			<pb-door-right-pos type="int">0.0</pb-door-right-pos>
+			<pb-door-right-pos type="double">0.0</pb-door-right-pos>
 			<pb-door-sys1-enable type="int">0</pb-door-sys1-enable>
 			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
 			<pb-door-indicator type="double">0</pb-door-indicator>
@@ -595,6 +595,11 @@
 		    	<payload-attach-y type="double">0</payload-attach-y>
 		    	<payload-attach-z type="double">0</payload-attach-z>
 		    </payload>
+		    <rms-port-jett-arm-switch type="int">0</rms-port-jett-arm-switch>		    
+		    <rms-port-jett-shl-switch type="int">0</rms-port-jett-shl-switch>
+		    <rms-port-jett-fwd-switch type="int">0</rms-port-jett-fwd-switch>
+		    <rms-port-jett-mid-switch type="int">0</rms-port-jett-mid-switch>
+		    <rms-port-jett-aft-switch type="int">0</rms-port-jett-aft-switch>
 		</rms>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
