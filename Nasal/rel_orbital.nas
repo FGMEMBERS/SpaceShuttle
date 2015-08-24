@@ -55,7 +55,7 @@ var stateVector = {
 	update: func (ax, ay, az, a_yaw, a_pitch, a_roll) {
 
 		var speedup = getprop("/sim/speed-up");
-		var dt = getprop("/sim/time/delta-sec") * speedup  * (1.0 - (0.022 * (speedup - 1.0)));
+		var dt = getprop("/sim/time/delta-sec") * speedup;
 
 		me.x = me.x + me.vx * dt + 0.5 * ax * dt * dt;
 		me.y = me.y + me.vy * dt + 0.5 * ay * dt * dt;
@@ -491,7 +491,7 @@ settimer(func {
 var update_tank = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec");
+var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -624,7 +624,7 @@ settimer(func {
 var update_ku = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec");
+var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -751,7 +751,7 @@ settimer(func {
 var update_payload = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec");
+var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
