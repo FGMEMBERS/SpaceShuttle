@@ -1064,6 +1064,14 @@
                         </binding>
 		    </item>
 
+		    <item>
+			<label>RMS Pyro</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.rms_pyro_dlg.open()</script>
+                        </binding>
+		    </item>
+
 		</menu>
             </default>
         </menubar>

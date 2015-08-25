@@ -533,7 +533,6 @@ setprop("/sim/input/selected/engine[6]",1);
 
 var manage_ku_jettison = func {
 
-print("Hello!");
 
 var state = getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-attached");
 
@@ -544,6 +543,23 @@ if (state == 1) {return;}
 SpaceShuttle.init_ku();
 
 }
+
+
+
+####################################################################################
+# RMS arm separation
+####################################################################################
+
+var manage_rms_jettison = func {
+
+var state = getprop("/fdm/jsbsim/systems/rms/rms-arm-attached");
+
+if (state == 1) {return;}
+
+SpaceShuttle.init_rms();
+
+}
+
 
 #########################################################################################
 # The orbital loop watches for events in orbit - currently it handles the HUD symbology of
@@ -1332,7 +1348,12 @@ setlistener("/fdm/jsbsim/gear/gear-pos-norm", func {show_gear_state();},0,0);
 setlistener("/fdm/jsbsim/systems/mechanical/ku-antenna-jett-switch", func {settimer(manage_ku_jettison,0);}, 0,0);
 
 
+# listeners for RMS jettison - we need to listen to the trigger switches rather than the JSBSim attach property
 
+setlistener("/fdm/jsbsim/systems/rms/rms-port-jett-shl-switch", func {settimer(manage_rms_jettison,0);}, 0,0);
+setlistener("/fdm/jsbsim/systems/rms/rms-port-jett-fwd-switch", func {settimer(manage_rms_jettison,0);}, 0,0);
+setlistener("/fdm/jsbsim/systems/rms/rms-port-jett-mid-switch", func {settimer(manage_rms_jettison,0);}, 0,0);
+setlistener("/fdm/jsbsim/systems/rms/rms-port-jett-aft-switch", func {settimer(manage_rms_jettison,0);}, 0,0);
 
 
 

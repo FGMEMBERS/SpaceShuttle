@@ -6,6 +6,10 @@
   
   <path>rmsArm.ac</path>  
 
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>
 	    <object-name>rmsBase</object-name>
@@ -21,7 +25,7 @@
 	<animation>
  		<object-name>RMS.Shoulder.Yaw</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-shoulder-yaw-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-shoulder-yaw-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m>-8.58656</x-m>
@@ -38,7 +42,7 @@
 	<animation>
  		<object-name>RMS.Shoulder.Pitch</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-shoulder-pitch-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-shoulder-pitch-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m>-8.57394</x-m>
@@ -57,7 +61,7 @@
 	<animation>
  		<object-name>RMS.Elbow.Pitch</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-ellbow-pitch-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-ellbow-pitch-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m>-2.33867</x-m>
@@ -74,7 +78,7 @@
 	<animation>
  		<object-name>RMS.Wrist.Pitch</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-wrist-pitch-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-wrist-pitch-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m> 3.91862</x-m>
@@ -91,7 +95,7 @@
 	<animation>
  		<object-name>RMS.Wrist.Yaw</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-wrist-yaw-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-wrist-yaw-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m> 4.78657</x-m>
@@ -108,7 +112,7 @@
 	<animation>
  		<object-name>RMS.Wrist.Roll</object-name>
   		<type>rotate</type>
-  		<property>/fdm/jsbsim/systems/rms/ang-wrist-roll-deg</property>
+  		<property>/controls/shuttle/rms-ballistic/ang-wrist-roll-deg</property>
   		<factor>1</factor>
   		<center>
    			<x-m> 5.51442</x-m>

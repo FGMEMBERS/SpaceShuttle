@@ -7,21 +7,30 @@
 ###########################################################################
 
 
-var etState = {};
+
 var evaState = {};
+
+var etState = {};
 var etCoord = {};
 var etModel = {};
+
 var kuState = {};
 var kuCoord = {};
 var kuModel = {};
+
 var payloadState = {};
 var payloadCoord = {};
 var payloadModel = {};
+
+var rmsState = {};
+var rmsCoord = {};
+var rmsModel = {};
 
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
 var ku_loop_flag = 0;
 var payload_loop_flag = 0;
+var rms_loop_flag = 0;
 
 var ft_to_m = 0.30480;
 var m_to_ft = 1.0/ft_to_m;
@@ -30,6 +39,7 @@ var earth_rotation_deg_s = 0.0041666666666666;
 var offset_vec = [];
 var offset_vec_ku = [];
 var offset_vec_payload = [];
+var offset_vec_rms = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -803,4 +813,119 @@ if (dist > 5000.0)
 
 
 if (payload_loop_flag >0 ) {settimer(func {update_payload(delta_lon); },0.0);}
+}
+
+
+###########################################################################
+# jettisoned rms arm control routines
+###########################################################################
+
+
+var init_rms = func  {
+
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw = getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+
+var lon = getprop("/position/longitude-deg");
+
+
+rmsCoord = geo.aircraft_position() ;
+
+
+# copy current animation state of the arm
+
+var shoulder_pitch = getprop("/fdm/jsbsim/systems/rms/ang-shoulder-pitch-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-shoulder-pitch-deg", shoulder_pitch);
+
+var shoulder_yaw = getprop("/fdm/jsbsim/systems/rms/ang-shoulder-yaw-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-shoulder-yaw-deg", shoulder_yaw);
+
+var elbow_pitch = getprop("/fdm/jsbsim/systems/rms/ang-ellbow-pitch-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-ellbow-pitch-deg", elbow_pitch);
+
+var wrist_pitch = getprop("/fdm/jsbsim/systems/rms/ang-wrist-pitch-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-wrist-pitch-deg", wrist_pitch);
+
+var wrist_yaw = getprop("/fdm/jsbsim/systems/rms/ang-wrist-yaw-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-wrist-yaw-deg", wrist_yaw);
+
+var wrist_roll = getprop("/fdm/jsbsim/systems/rms/ang-wrist-roll-deg");
+setprop("/controls/shuttle/rms-ballistic/ang-wrist-roll-deg", wrist_roll);
+
+rmsState = stateVector.new (rmsCoord.x(),rmsCoord.y(),rmsCoord.z(),0,0,0,yaw, pitch - lon, roll);
+
+rmsModel = place_model("rms-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/rmsArm-disconnected.xml", rmsCoord.lat(), rmsCoord.lon(), rmsCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+
+settimer(func { 
+		rmsState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		rmsState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		rmsState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		rms_loop_flag = 1;
+		update_rms(0.0); },0);
+}
+
+
+var update_rms = func (delta_lon) {
+
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
+
+
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+
+var F = get_force (rmsState, shuttleCoord);
+
+rmsState.update(F[0], F[1], F[2], 0.0,0.0,0.0);
+rmsCoord.set_xyz(rmsState.x, rmsState.y, rmsState.z);
+rmsCoord.set_lon(rmsCoord.lon() - delta_lon);
+
+if (rms_loop_flag < 3)
+	{
+	if (rms_loop_flag ==1)
+		{
+		offset_vec_rms = [rmsCoord.x()-shuttleCoord.x(), rmsCoord.y()-shuttleCoord.y(),rmsCoord.z()-shuttleCoord.z()];
+		}
+	if (rms_loop_flag == 2)
+		{
+		var offset1_vec = [rmsCoord.x()-shuttleCoord.x(), rmsCoord.y()-shuttleCoord.y(),rmsCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec_rms[0]) / dt, (offset1_vec[1] - offset_vec_rms[1]) / dt, (offset1_vec[2] - offset_vec_rms[2]) / dt];
+
+		rmsState = compute_state_correction  (rmsState, rmsCoord, shuttleCoord, v_offset_vec, delta_lon);
+
+		}
+	rms_loop_flag = rms_loop_flag + 1;
+
+
+	}
+
+
+set_coords("rms-ballistic", rmsCoord, rmsState);
+
+
+var dist = shuttleCoord.distance_to(rmsCoord);
+
+#print(dist);
+
+if (dist > 5000.0) 
+	{
+	print ("RMS simulation ends");
+	rmsModel.remove();
+	rms_loop_flag = 0;
+	}
+
+
+
+if (rms_loop_flag >0 ) {settimer(func {update_rms(delta_lon); },0.0);}
 }

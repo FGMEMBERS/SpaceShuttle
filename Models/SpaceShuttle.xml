@@ -1044,22 +1044,17 @@
 	</condition>
 </model>
 
-<!-- robotarm, click it to activate -->
-
-<!--<model>
-    <path>Aircraft/SpaceShuttle/Models/EMU/robotarm.xml</path>
-     <offsets>
-       <x-m> 0.0 </x-m>
-       <y-m> 0.0 </y-m>
-       <z-m> 0.0 </z-m>
-       <heading-deg>0.0</heading-deg>
-     </offsets>
-</model>-->
 
 <!-- RMS manipulator arm -->
 
 <model>
     <path>Aircraft/SpaceShuttle/Models/PayloadBay/rmsArm.xml</path>
+     <condition>
+	    <equals>
+		<property>/fdm/jsbsim/systems/rms/rms-arm-attached</property>
+		<value>1.0</value>
+	    </equals>	
+     </condition>
 </model>
 
 <!-- external Tank and Booster -->
