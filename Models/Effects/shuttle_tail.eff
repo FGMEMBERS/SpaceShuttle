@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>shuttle-tail</name>
+  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
+
+  <parameters>
+	<lightmap-factor type="float" n="0"><use>/sim/systems/various/tail-intensity</use></lightmap-factor>
+  </parameters>
+
+
+</PropertyList>

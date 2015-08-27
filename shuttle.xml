@@ -4086,5 +4086,6 @@
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
  <system file="navigation"></system>
+ <system file="light"></system>
  
 </fdm_config>

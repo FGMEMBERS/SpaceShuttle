@@ -25,4 +25,32 @@
    <output>/sim/systems/various/oms-flame-density</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-flood-intensity</input>
+   <output>/sim/systems/various/payload-bay-flood-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-door-left-intensity</input>
+   <output>/sim/systems/various/payload-bay-door-left-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-door-right-intensity</input>
+   <output>/sim/systems/various/payload-bay-door-right-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/tail-intensity</input>
+   <output>/sim/systems/various/tail-intensity</output>
+ </filter>
+
  </PropertyList>

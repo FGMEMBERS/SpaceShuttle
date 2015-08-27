@@ -6,6 +6,16 @@
   
   <path>rmsArm.ac</path>  
 
+  <animation>
+    	<type>material</type>
+   	<emission>
+      		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
+      		<red>   0.4 </red>
+      		<green> 0.4 </green>
+		<blue>  0.4 </blue>
+    	</emission>
+  </animation>
+
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>
 	    <object-name>rmsBase</object-name>

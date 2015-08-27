@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<!-- Light simulation for the Space Shuttle -->
+<!-- Thorsten Renk 2015 -->
+
+
+
+<system>
+	<channel name="Payload bay floodlights">
+
+
+	<kinematic name="systems/light/payload-bay-flood-intensity">
+			<input>systems/light/payload-bay-flood-switch</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+	</kinematic>
+
+
+	<fcs_function name="systems/light/payload-bay-door-left-intensity">
+	<function>
+		<product>
+			<property>systems/mechanical/pb-door-left-animation</property>
+			<property>systems/light/payload-bay-flood-intensity</property>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/light/payload-bay-door-right-intensity">
+	<function>
+		<product>
+			<property>systems/mechanical/pb-door-right-animation</property>
+			<property>systems/light/payload-bay-flood-intensity</property>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/light/tail-intensity">
+	<function>
+		<product>
+			<sum>
+				<product>
+				<property>systems/mechanical/pb-door-left-pos</property>
+				<value>0.5</value>
+				</product>
+				<product>
+				<property>systems/mechanical/pb-door-right-pos</property>
+				<value>0.5</value>
+				</product>
+			</sum>
+			<property>systems/light/payload-bay-flood-intensity</property>
+		</product>
+	</function>
+	</fcs_function>
+
+	</channel>
+</system>

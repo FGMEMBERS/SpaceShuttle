@@ -264,6 +264,9 @@
 			<brake-isolation-valve-2-status type="int">1</brake-isolation-valve-2-status>
 			<brake-isolation-valve-3-status type="int">1</brake-isolation-valve-3-status>
 		</landing>
+		<light>
+			<payload-bay-flood-switch type="int">0</payload-bay-flood-switch>
+		</light>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
 			<et-door-cl-latch-pos type="double">1.0</et-door-cl-latch-pos>

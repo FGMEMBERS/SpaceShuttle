@@ -131,11 +131,11 @@
 
 <!-- airlock module -->
 <model>
-    <path>Aircraft/SpaceShuttle/Models/PayloadBay/airlock_module.ac</path>
+    <path>Aircraft/SpaceShuttle/Models/PayloadBay/airlock_module.xml</path>
      <offsets>
        <x-m> 0.0 </x-m>
        <y-m> 0.0 </y-m>
-       <z-m> -0.0 </z-m>
+       <z-m> 0.0 </z-m>
        <heading-deg>0.0</heading-deg>
      </offsets>
 </model>
@@ -2064,9 +2064,9 @@
 	<object-name>inboard-elevon-right</object-name>
 	<object-name>outboard-elevon-left</object-name>
 	<object-name>outboard-elevon-right</object-name>
-   	<object-name>spaceshutt_spstob</object-name>
-   	<object-name>spaceshutt_spstob.001</object-name>
-	<object-name>spaceshutt_spstob_1</object-name>
+   	<!--<object-name>spaceshutt_spstob</object-name>-->
+   	<!--<object-name>spaceshutt_spstob.001</object-name>-->
+	<!--<object-name>spaceshutt_spstob_1</object-name>-->
 	<object-name>spaceshutt_spstob_2</object-name>
 	<object-name>spaceshutt_spstob_4</object-name>
 	<object-name>spaceshutt_spstob_3</object-name>
@@ -2076,5 +2076,19 @@
 	<object-name>SpeedBrakeR</object-name>
  </effect>
 
+ <effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
+	<object-name>spaceshutt_spstob_1</object-name>
+ </effect>
+
+ <effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay-door-left</inherits-from>
+	<object-name>spaceshutt_spstob</object-name>
+ </effect>
+
+ <effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay-door-right</inherits-from>
+	<object-name>spaceshutt_spstob.001</object-name>
+ </effect>
 
 </PropertyList>
