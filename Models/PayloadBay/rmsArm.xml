@@ -6,7 +6,7 @@
   
   <path>rmsArm.ac</path>  
 
-  <animation>
+  <!--<animation>
     	<type>material</type>
    	<emission>
       		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
@@ -14,10 +14,10 @@
       		<green> 0.4 </green>
 		<blue>  0.4 </blue>
     	</emission>
-  </animation>
+  </animation>-->
 
 	 <effect>
-	    <inherits-from>Effects/space</inherits-from>
+	    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-rms</inherits-from>
 	    <object-name>rmsBase</object-name>
 	    <object-name>RMS.Shoulder.Yaw</object-name>
 	    <object-name>RMS.Shoulder.Pitch</object-name>

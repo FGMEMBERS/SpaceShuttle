@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PropertyList>
-  <name>shuttle-payload-bay</name>
+  <name>shuttle-rms</name>
   <inherits-from>Effects/space-combined</inherits-from>
 
   <parameters>
@@ -18,7 +18,7 @@
 	<darkmap-enabled type="int">1</darkmap-enabled>
 	<darkmap-factor type="float"><use>/sim/systems/various/pb-door-opening-fraction</use></darkmap-factor>
 	<texture n="3">
-		<image>Aircraft/SpaceShuttle/Models/shuttle_lightmap.png</image>
+		<image>Aircraft/SpaceShuttle/Models/PayloadBay/rms_lightmap.png</image>
 		<type>2d</type>
 		<filter>linear-mipmap-linear</filter>
 		<wrap-s>clamp</wrap-s>

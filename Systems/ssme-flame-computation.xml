@@ -35,6 +35,27 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-fwd-intensity</input>
+   <output>/sim/systems/various/payload-bay-fwd-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-mid-intensity</input>
+   <output>/sim/systems/various/payload-bay-mid-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-aft-intensity</input>
+   <output>/sim/systems/various/payload-bay-aft-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/payload-bay-door-left-intensity</input>
    <output>/sim/systems/various/payload-bay-door-left-intensity</output>
  </filter>
@@ -52,5 +73,13 @@
    <input>/fdm/jsbsim/systems/light/tail-intensity</input>
    <output>/sim/systems/various/tail-intensity</output>
  </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/mechanical/pb-door-opening-fraction</input>
+   <output>/sim/systems/various/pb-door-opening-fraction</output>
+ </filter>
+
 
  </PropertyList>

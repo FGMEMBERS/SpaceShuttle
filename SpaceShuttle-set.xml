@@ -265,7 +265,14 @@
 			<brake-isolation-valve-3-status type="int">1</brake-isolation-valve-3-status>
 		</landing>
 		<light>
-			<payload-bay-flood-switch type="int">0</payload-bay-flood-switch>
+			<pb-flood-star-fwd-switch type="int">0</pb-flood-star-fwd-switch>
+			<pb-flood-port-fwd-switch type="int">0</pb-flood-port-fwd-switch>
+			<pb-flood-star-mid-switch type="int">0</pb-flood-star-mid-switch>
+			<pb-flood-port-mid-switch type="int">0</pb-flood-port-mid-switch>
+			<pb-flood-star-aft-switch type="int">0</pb-flood-star-aft-switch>
+			<pb-flood-port-aft-switch type="int">0</pb-flood-port-aft-switch>
+			<pb-flood-docking-bright-switch type="int">0</pb-flood-docking-bright-switch>
+			<pb-flood-fwd-bhd-switch type="int">0</pb-flood-fwd-bhd-switch>
 		</light>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -1042,6 +1049,14 @@
                 </menu>
  		<menu n="51">
                     <label>Payload Operations</label>
+
+	    	    <item>
+			<label>Payload bay floodlights</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.pb_floodlight_dlg.open()</script>
+                        </binding>
+		    </item>
 
 		    <item>
 			<label>RMS arm deployment</label>

@@ -5,6 +5,7 @@
   <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
 
   <parameters>
+	<lightmap-multi type="int">0</lightmap-multi>
 	<lightmap-factor type="float" n="0"><use>/sim/systems/various/tail-intensity</use></lightmap-factor>
   </parameters>
 
