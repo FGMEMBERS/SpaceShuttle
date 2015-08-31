@@ -191,6 +191,10 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 	}
 	
+
+# some log output
+# print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"));
+
 settimer(launch_loop, 1.0);
 }
 
@@ -859,6 +863,10 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	}
 
 
+
+# some log output
+print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"), " ", getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/fdm/jsbsim/velocities/v-down-fps"));
+
 settimer(deorbit_loop,1.0);
 }
 
@@ -1219,7 +1227,14 @@ if (getprop("/sim/presets/stage") == 1)
 	var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
 
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
-	setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
+	#setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
+
+
+	# test de-orbit parameters
+	setprop("/position/altitude-ft", 850000.0);
+	#setprop("/velocities/uBody-fps", 25400.0 - rotation_boost);
+	setprop("/velocities/uBody-fps", 25200.0 - rotation_boost);
+	setprop("/velocities/wBody-fps", 180.0);
 	}
 
 if (getprop("/sim/presets/stage") == 2) 
@@ -1229,8 +1244,11 @@ if (getprop("/sim/presets/stage") == 2)
 	var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
 
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
-	setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
-	setprop("/velocities/wBody-fps", 200.0);
+	#setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
+	#setprop("/velocities/wBody-fps", 200.0);
+
+	setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
+	setprop("/velocities/wBody-fps", 300.0);
 
 	hydraulics_on();
 	et_umbilical_door_close();

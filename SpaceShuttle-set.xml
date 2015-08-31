@@ -128,6 +128,15 @@
 		    <spray-boiler-3-condition type="double">1.0</spray-boiler-3-condition>
 		    <ku-band-antenna-condition type="double">1.0</ku-band-antenna-condition>
 		    <ku-band-antenna-stow-condition type="double">1.0</ku-band-antenna-stow-condition>
+		    <rms-shoulder-yaw-condition type="double">1.0</rms-shoulder-yaw-condition>
+		    <rms-shoulder-pitch-condition type="double">1.0</rms-shoulder-pitch-condition>
+		    <rms-elbow-pitch-condition type="double">1.0</rms-elbow-pitch-condition>
+		    <rms-wrist-pitch-condition type="double">1.0</rms-wrist-pitch-condition>
+		    <rms-wrist-yaw-condition type="double">1.0</rms-wrist-yaw-condition>
+		    <rms-wrist-roll-condition type="double">1.0</rms-wrist-roll-condition>
+		    <floodlight-aft-condition type="double">1.0</floodlight-aft-condition>
+		    <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
+		    <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>

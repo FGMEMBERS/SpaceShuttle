@@ -62,10 +62,13 @@ var stateVector = {
 		s.roll_rate = 0.0;
 		return s;
 	},
-	update: func (ax, ay, az, a_yaw, a_pitch, a_roll) {
+	update: func (ax, ay, az, a_yaw, a_pitch, a_roll, dt = nil) {
 
-		var speedup = getprop("/sim/speed-up");
-		var dt = getprop("/sim/time/delta-sec") * speedup;
+		if (dt == nil)
+			{
+			var speedup = getprop("/sim/speed-up");
+			dt = getprop("/sim/time/delta-sec") * speedup;
+			}
 
 		me.x = me.x + me.vx * dt + 0.5 * ax * dt * dt;
 		me.y = me.y + me.vy * dt + 0.5 * ay * dt * dt;

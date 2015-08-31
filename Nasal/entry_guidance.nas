@@ -1,8 +1,11 @@
 # entry guidance computer for the Space Shuttle
 
 var landing_site = geo.Coord.new();
+var entry_interface = geo.Coord.new();
 var v_aero_last = 0.0;
 var v_aero = 0.0;
+
+var radius_set = [];
 
 
 # this is Vandenberg  we update later upon selection
@@ -33,6 +36,61 @@ v_aero_last = v_aero;
 }
 
 
+var create_radius_set = func {
+
+var base = geo.Coord.new();
+var dist = 4100.0 * 1853.0;
+var point = [];
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(330.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(310.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(290.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(270.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(250.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(230.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(210.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+
+base.set_xyz(landing_site.x(), landing_site.y(), landing_site.z());
+base.apply_course_distance(190.0, dist);
+point = [SpaceShuttle.lon_to_x(base.lon()), SpaceShuttle.lat_to_y(base.lat())];
+append(radius_set, point);
+#print(point[0], " ", point[1]);
+}
+
 var compute_entry_guidance_target = func {
 
 var pos = geo.aircraft_position();
@@ -54,6 +112,11 @@ if (flag == 1)
 	return;
 	}
 
+# now we compute the desired entry interface
+# make that 4100 miles to site
+
+setsize(radius_set, 0);
+create_radius_set();
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-dist", distance);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "active");
