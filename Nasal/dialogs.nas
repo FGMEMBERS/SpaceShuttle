@@ -65,6 +65,7 @@ setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Vandenberg Air For
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat",34.722);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon",-120.567);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/EI-radius", 4100.0);
 
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", "realistic");
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode-description", description_string_realistic);
@@ -351,6 +352,13 @@ setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
 
 }
 
+var update_entry_guidance_target = func {
+
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
+	{SpaceShuttle.compute_entry_guidance_target();}
+}
+
 
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
@@ -362,3 +370,4 @@ setlistener("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch", pb_door_manage
 setlistener("/sim/config/shuttle/thermal-system-computation-speed", thermal_speed_manager,0,0);
 setlistener("/sim/config/shuttle/rendering/use-earthview", update_earthview_manager,0,0);
 setlistener("/sim/config/shuttle/rendering/earthview-transition-alt-ft", update_earthview_manager,0,0);
+setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/EI-radius", update_entry_guidance_target ,0,0);

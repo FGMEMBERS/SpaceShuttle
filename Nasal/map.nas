@@ -148,6 +148,7 @@ sym_landing_site.setTranslation(x,y);
 prediction_update();
 plot_tracks();
 
+radius.removeAllChildren();
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
 	{
 	plot_radius();
@@ -160,11 +161,11 @@ settimer(map_update, 1.0);
 
 var plot_radius = func  {
 
-radius.removeAllChildren();
+
 
 var plot = radius.createChild("path", "data")
                                    .setStrokeLineWidth(2)
-                                   .setColor(0,0,0)
+                                   .setColor(1,0,0.6,0.6)
                                    .moveTo(SpaceShuttle.radius_set[0][0],SpaceShuttle.radius_set[0][1]); 
 
 		for (var i = 1; i< (size(SpaceShuttle.radius_set)-1); i=i+1)

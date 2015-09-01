@@ -601,7 +601,7 @@ if (alt < 400000.0)
 
 	var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-indicated-km");
 	
-	if (periapsis < 80.0)
+	if (periapsis < 100.0)
 		{
 		setprop("/sim/messages/copilot", "Entry Interface reached.");
 		setprop("/controls/shuttle/hud-mode",2);
@@ -610,6 +610,9 @@ if (alt < 400000.0)
 		}
 	
 	}
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
+	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_orbit();
 
@@ -1231,10 +1234,15 @@ if (getprop("/sim/presets/stage") == 1)
 
 
 	# test de-orbit parameters
-	setprop("/position/altitude-ft", 850000.0);
+	#setprop("/position/altitude-ft", 850000.0);
 	#setprop("/velocities/uBody-fps", 25400.0 - rotation_boost);
-	setprop("/velocities/uBody-fps", 25200.0 - rotation_boost);
-	setprop("/velocities/wBody-fps", 180.0);
+	#setprop("/velocities/uBody-fps", 25200.0 - rotation_boost);
+	#setprop("/velocities/wBody-fps", 180.0);
+
+	# test de-orbit burn
+	setprop("/position/altitude-ft", 1050000.0);
+	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
+	setprop("/velocities/wBody-fps", 175.0);
 	}
 
 if (getprop("/sim/presets/stage") == 2) 
