@@ -280,6 +280,10 @@ var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-km");
 
 if (periapsis > 121.0) {EI_flag = 0; return [0.0,0.0];}
 
+var apoapsis = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km");
+
+if (apoapsis < 121.0) {EI_flag = 0; return [0.0, 0.0];}
+
 var shuttleWCoord = geo.aircraft_position() ;
 var shuttleCoord = geo.Coord.new() ;
 

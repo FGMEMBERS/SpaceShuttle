@@ -1230,7 +1230,7 @@ if (getprop("/sim/presets/stage") == 1)
 	var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
 
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
-	#setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
+	setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
 
 
 	# test de-orbit parameters
@@ -1240,9 +1240,9 @@ if (getprop("/sim/presets/stage") == 1)
 	#setprop("/velocities/wBody-fps", 180.0);
 
 	# test de-orbit burn
-	setprop("/position/altitude-ft", 1050000.0);
-	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
-	setprop("/velocities/wBody-fps", 175.0);
+	#setprop("/position/altitude-ft", 1050000.0);
+	#setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
+	#setprop("/velocities/wBody-fps", 175.0);
 	}
 
 if (getprop("/sim/presets/stage") == 2) 

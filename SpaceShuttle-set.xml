@@ -1033,6 +1033,13 @@
                             <script>SpaceShuttle.create_map()</script>
                         </binding>
                      </item>
+                     <item>
+                        <label>Ascent trajectory</label>
+                        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.create_traj_display()</script>
+                        </binding>
+                     </item>
 
 		    <item>
 			<label>--- Configuration ---</label>
@@ -1585,6 +1592,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
+            <file>Aircraft/SpaceShuttle/Nasal/ascent_traj.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
