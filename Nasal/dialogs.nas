@@ -62,6 +62,7 @@ var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Vandenberg Air Force Base");
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", "normal");
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat",34.722);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon",-120.567);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
@@ -191,6 +192,28 @@ else if (site_string == "Banjul International Airport")
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon", lon);
 SpaceShuttle.landing_site.set_latlon(lat,lon);
+
+}
+
+
+var update_entry_mode = func {
+
+
+var mode_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode");
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 0)
+	{
+	return;
+	}
+
+if (mode_string == "normal")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+	}
+else if (mode_string == "TAL")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
+	}
 
 }
 
@@ -362,6 +385,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
 
 
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
+setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", update_entry_mode);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/config/shuttle/TC-config", update_TC_config);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);

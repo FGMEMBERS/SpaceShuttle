@@ -9,7 +9,7 @@ var trajectory = {};
 
 var create_traj_display = func {
 
-var window = canvas.Window.new([400,400],"dialog").set("title", "ASCENT TRAJ");
+var window = canvas.Window.new([400,400],"dialog").set("title", "Vertical Trajectory");
 
 
 window.del = func()
@@ -82,7 +82,7 @@ if (traj_display_flag == 1)
 	}
 if (traj_display_flag == 2)
 	{
-	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1) # we're preparing for de-orbit
+	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0) # we're preparing for de-orbit
 		{
 		fill_entry1_data();
 		trajectory.removeAllChildren();
@@ -93,7 +93,7 @@ if (traj_display_flag == 2)
 	}
 if (traj_display_flag == 3)
 	{
-	if (velocity < 17000.0)
+	if (velocity < 18500.0)
 		{
 		fill_entry2_data();
 		trajectory.removeAllChildren();
@@ -104,7 +104,7 @@ if (traj_display_flag == 3)
 
 if (traj_display_flag == 4)
 	{
-	if (velocity < 14000.0)
+	if (velocity < 15800.0)
 		{
 		fill_entry3_data();
 		trajectory.removeAllChildren();
@@ -115,7 +115,7 @@ if (traj_display_flag == 4)
 
 if (traj_display_flag == 5)
 	{
-	if (velocity < 10000.0)
+	if (velocity < 12000.0)
 		{
 		fill_entry4_data();
 		trajectory.removeAllChildren();
@@ -126,7 +126,7 @@ if (traj_display_flag == 5)
 
 if (traj_display_flag == 6)
 	{
-	if (velocity < 5000.0)
+	if (velocity < 5500.0)
 		{
 		fill_entry5_data();
 		trajectory.removeAllChildren();
@@ -169,23 +169,23 @@ else if (display == 2)
 	}
 else if (display == 3)
 	{
-	return ((par -615.0)/2000.0 * 0.8 + 0.1) * 400.0;
+	return ((par - 700.0)/1400.0 * 0.8 + 0.1) * 400.0;
 	}
 else if (display == 4)
 	{
-	return ((par -460.0)/200.0 * 0.8 + 0.1) * 400.0;
+	return ((par -400.0)/400.0 * 0.8 + 0.1) * 400.0;
 	}
 else if (display == 5)
 	{
-	return ((par -280.0)/220.0 * 0.8 + 0.1) * 400.0;
+	return ((par -200.0)/450.0 * 0.8 + 0.1) * 400.0;
 	}
 else if (display == 6)
 	{
-	return ((par -95.0)/200.0 * 0.8 + 0.1) * 400.0;
+	return ((par -80.0)/220.0 * 0.8 + 0.1) * 400.0;
 	}
 else if (display == 7)
 	{
-	return ((par -55.0)/50.0 * 0.8 + 0.1) * 400.0;
+	return ((par -55.0)/45.0 * 0.8 + 0.1) * 400.0;
 	}
 }
 
@@ -201,23 +201,23 @@ else if (display == 2)
 	}
 else if (display == 3)
 	{
-	return 400.0 - ((par - 17000.0) / 9000.0 * 0.6 + 0.2) * 400.0;
+	return 400.0 - ((par - 18500.0) / 7500.0 * 0.6 + 0.2) * 400.0;
 	}
 else if (display == 4)
 	{
-	return 400.0 - ((par - 14000.0) / 3000.0 * 0.6 + 0.2) * 400.0;
+	return 400.0 - ((par - 15800.0) / 2700.0 * 0.6 + 0.2) * 400.0;
 	}
 else if (display == 5)
 	{
-	return 400.0 - ((par - 10000.0) / 4000.0 * 0.6 + 0.2) * 400.0;
+	return 400.0 - ((par - 10000.0) / 5800.0 * 0.6 + 0.2) * 400.0;
 	}
 else if (display == 6)
 	{
-	return 400.0 - ((par - 5000.0) / 5000.0 * 0.6 + 0.2) * 400.0;
+	return 400.0 - ((par - 5500.0) / 4500.0 * 0.6 + 0.2) * 400.0;
 	}
 else if (display == 7)
 	{
-	return 400.0 - ((par - 1000.0) / 4000.0 * 0.6 + 0.2) * 400.0;
+	return 400.0 - ((par - 4000.0) / 1500.0 * 0.6 + 0.2) * 400.0;
 	}
 }
 
@@ -345,11 +345,11 @@ var fill_entry1_data = func {
 var point = [];
 setsize(traj_data,0);
 
-point = [2500.5817, 25537.67];
-append(traj_data, point);
+#point = [2500.5817, 25537.67];
+#append(traj_data, point);
 
-point= [2300.0462, 25513.095];
-append(traj_data, point);
+#point= [2300.0462, 25513.095];
+#append(traj_data, point);
 
 point= [2001.9825, 25373.167];
 append(traj_data, point);
@@ -375,11 +375,13 @@ append(traj_data, point);
 point= [802.0128, 19833.938];
 append(traj_data, point);
 
-point= [701.0564, 18423.439];
+point = [715.8945, 18647.557];
 append(traj_data, point);
 
-point= [616.4637, 17006.038];
-append(traj_data, point);
+
+
+
+
 
 for (i=0; i< size(traj_data); i=i+1)
 	{
@@ -395,7 +397,10 @@ var fill_entry2_data = func {
 var point = [];
 setsize(traj_data,0);
 
-point = [616.4637, 17006.038];
+point= [701.0564, 18423.439];
+append(traj_data, point);
+
+point= [616.4637, 17006.038];
 append(traj_data, point);
 
 point = [600.5114, 16720.136];
@@ -413,20 +418,7 @@ append(traj_data, point);
 point = [549.8, 15777.81];
 append(traj_data, point);
 
-point = [530.5237, 15403.162];
-append(traj_data, point);
 
-point = [511.8237, 15030.253];
-append(traj_data, point);
-
-point = [502.671, 14844.008];
-append(traj_data, point);
-
-point = [480.4199, 14380.543];
-append(traj_data, point);
-
-point = [463.2644, 14011.991];
-append(traj_data, point);
 
 
 for (i=0; i< size(traj_data); i=i+1)
@@ -442,6 +434,18 @@ var fill_entry3_data = func {
 
 var point = [];
 setsize(traj_data,0);
+
+point = [530.5237, 15403.162];
+append(traj_data, point);
+
+point = [511.8237, 15030.253];
+append(traj_data, point);
+
+point = [502.671, 14844.008];
+append(traj_data, point);
+
+point = [480.4199, 14380.543];
+append(traj_data, point);
 
 point = [463.2644, 14011.991];
 append(traj_data, point);
@@ -536,6 +540,36 @@ for (i=0; i< size(traj_data); i=i+1)
 	{
 	traj_data[i][0] = parameter_to_x(traj_data[i][0], 6);
 	traj_data[i][1] = parameter_to_y(traj_data[i][1], 6); 
+	}
+
+}
+
+
+var fill_entry5_data = func {
+
+var point = [];
+setsize(traj_data,0);
+
+
+point = [95.6635, 5513.766];
+append(traj_data, point);
+
+point= [90.8323, 5406.4754];
+append(traj_data, point);
+
+point=[80.9173, 5164.8333];
+append(traj_data, point);
+
+point= [70.5462, 4777.7644];
+append(traj_data, point);
+
+point=[60.527, 4342.2923];
+append(traj_data, point);
+
+for (i=0; i< size(traj_data); i=i+1)
+	{
+	traj_data[i][0] = parameter_to_x(traj_data[i][0], 7);
+	traj_data[i][1] = parameter_to_y(traj_data[i][1], 7); 
 	}
 
 }

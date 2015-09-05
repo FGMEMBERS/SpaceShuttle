@@ -57,6 +57,8 @@ launch_loop();
 
 var launch_loop = func{
 
+if (launch_loop_flag == 0) {return;}
+
 if (launch_message_flag == 5) {return;}
 
 var SRB_fuel = getprop("/consumables/fuel/tank[1]/level-norm");
@@ -201,21 +203,44 @@ settimer(launch_loop, 1.0);
 
 var SRB_ignite = func {
 
-setprop("/sim/messages/copilot", "SRB ignition!");
-setprop("/controls/engines/engine[3]/throttle", 1.0);
-setprop("/controls/engines/engine[4]/throttle", 1.0);
-setprop("/sim/model/effects/launch-smoke",1);
+# check whether all three main engines are on full thrust
 
-setprop("/controls/engines/engine[3]/ignited-hud","x");
-setprop("/controls/engines/engine[4]/ignited-hud","x");
+var thrust1 = getprop("/engines/engine[0]/thrust_lb");
+var thrust2 = getprop("/engines/engine[1]/thrust_lb");
+var thrust3 = getprop("/engines/engine[2]/thrust_lb");
 
-settimer(launch_smoke_off,1.5);
+if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we're go
+	{
+	setprop("/sim/messages/copilot", "SRB ignition!");
+	setprop("/controls/engines/engine[3]/throttle", 1.0);
+	setprop("/controls/engines/engine[4]/throttle", 1.0);
+	setprop("/sim/model/effects/launch-smoke",1);
 
-SRB_burn_timer = getprop("/sim/time/elapsed-sec");
+	setprop("/controls/engines/engine[3]/ignited-hud","x");
+	setprop("/controls/engines/engine[4]/ignited-hud","x");
+
+	settimer(launch_smoke_off,1.5);
+
+	SRB_burn_timer = getprop("/sim/time/elapsed-sec");
+	}
+else
+	{
+	setprop("/sim/messages/copilot", "Launchpad abort!");
+	setprop("/controls/engines/engine[0]/throttle", 0.0);
+	setprop("/controls/engines/engine[1]/throttle", 0.0);
+	setprop("/controls/engines/engine[2]/throttle", 0.0);
+	setprop("/controls/engines/engine[0]/ignited-hud"," ");
+	setprop("/controls/engines/engine[1]/ignited-hud"," ");
+	setprop("/controls/engines/engine[2]/ignited-hud"," ");
+	launch_loop_flag = 0;
+	}
+
 }
 
 
 var gear_up = func {
+
+if (launch_loop_flag == 0) {return;}
 
 # we can't initialize with gear up on the ground without confusing JSBSim, but we can retract it automagically
 
@@ -611,7 +636,7 @@ if (alt < 400000.0)
 	
 	}
 
-if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_orbit();
@@ -846,7 +871,7 @@ if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 	}
 
 
-if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==1)
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_entry();
@@ -1266,7 +1291,7 @@ if (getprop("/sim/presets/stage") == 2)
 			setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 			setprop("/controls/shuttle/control-system-string", "Aerojet");
 			}, 2.0);
-	deorbit_loop();	
+	#deorbit_loop();	
 
 	}
 

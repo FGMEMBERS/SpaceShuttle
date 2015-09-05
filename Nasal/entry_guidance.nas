@@ -76,7 +76,18 @@ create_radius_set();
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-dist", distance);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "active");
-setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",1);
+
+
+var mode_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode");
+
+if (mode_string == "normal")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",1);
+	}
+else if (mode_string == "TAL")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",2);
+	}
 
 
 }

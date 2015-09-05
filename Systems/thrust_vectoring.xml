@@ -396,28 +396,6 @@
 			<output>fcs/throttle-pos-norm[2]</output>
  		</fcs_function>
 
-		<fcs_function name ="Thrust reduction correction OMS 1">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[5]</property>
-					<property>systems/failures/oms1-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[5]</output>
- 		</fcs_function>
-
-		<fcs_function name ="Thrust reduction correction OMS 2">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[6]</property>
-					<property>systems/failures/oms2-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[6]</output>
- 		</fcs_function>
-
-
-
  		 <aerosurface_scale name= "Roll thrust command SRB 1">
   		<input>fcs/aileron-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
@@ -779,6 +757,8 @@
 			<output>propulsion/engine[2]/pitch-angle-rad-rsys</output>
    		</summer>
 
+
+
 	</channel>
 
 
@@ -1133,6 +1113,61 @@
 				</traverse>
 			<output>propulsion/engine[4]/yaw-angle-rad</output>
 		</kinematic>
+	</channel>
+
+
+	<channel name="SSME and OMS failure simulation">
+
+		<fcs_function name ="Thurst loss SSME 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[0]</property>
+					<property>systems/failures/ssme1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[0]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thurst loss SSME 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[1]</property>
+					<property>systems/failures/ssme2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[1]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thurst loss SSME 3">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[2]</property>
+					<property>systems/failures/ssme3-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[2]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust loss OMS 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[5]</property>
+					<property>systems/failures/oms1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[5]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust loss OMS 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[6]</property>
+					<property>systems/failures/oms2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[6]</output>
+ 		</fcs_function>
+
 	</channel>
 
 

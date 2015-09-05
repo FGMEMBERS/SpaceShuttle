@@ -149,7 +149,7 @@ prediction_update();
 plot_tracks();
 
 radius.removeAllChildren();
-if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0)
 	{
 	plot_radius();
 	}
@@ -426,7 +426,11 @@ var apoapsis = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km");
 var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-km");
 var altitude = getprop("/position/altitude-ft") * 0.3048 * 0.001;
 
-var theta = math.asin ((2.0 * altitude - (apoapsis + periapsis)) / (apoapsis - periapsis));
+var arg = (2.0 * altitude - (apoapsis + periapsis)) / (apoapsis - periapsis);
+if (arg > 1.0) {arg = 1.0;}
+if (arg < -1.0) {arg = -1.0;}
+
+var theta = math.asin (arg);
 
 
 
@@ -469,14 +473,16 @@ for (var i = 0; i<40; i = i+1)
 	var y =  lat_to_y(pred_lat);
 
 	# do not write any values if predicted altitude is below ground
+	# except when we're flying a TAL and need to know the extrapolated trajectory
 
-	#print(i, " ", i_alt);
-	#print(x, " ", y);
+	var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+	var guidance_flag = 1;
 
-	#if (alt < 121.0) {EI_location = [x,y]; EI_flag = 1;}
+	if (guidance_mode == 2) {guidance_flag = 0;}
 
-
-	if (alt < 0.0) 
+	if ((alt < 0.0) and (guidance_flag == 1))
+		{break;}
+	else if ((pred_lon > lon + 60.0) and (guidance_flag == 0))
 		{break;}
 
 	append(track_prediction, [x,y]);
