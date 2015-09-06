@@ -389,6 +389,9 @@
 			<radar-altimeter-1-switch type="int">1</radar-altimeter-1-switch>
 			<radar-altimeter-2-switch type="int">1</radar-altimeter-2-switch>
 		</navigation>
+		<oms>
+		        <oms-dump-cmd type="int">0</oms-dump-cmd>
+		</oms>
 		<oms-hardware>
 		    	<helium-left-oms-valve-A-status type="int">1</helium-left-oms-valve-A-status>
 		    	<helium-left-oms-valve-B-status type="int">1</helium-left-oms-valve-B-status>
@@ -1155,6 +1158,10 @@
 		<desc>toggle forward RCS pod fuel dump</desc>
 	    </key>
 	    <key>
+		<name>Ctrl-o</name>
+		<desc>toggle OMS fuel dump</desc>
+	    </key>
+	    <key>
 		<name>Ctrl-g</name>
 		<desc>arm landing gear</desc>
 	    </key>
@@ -1422,6 +1429,16 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
   		<binding>
    			<command>nasal</command>
 			<script>SpaceShuttle.switch_major_control_mode()</script>
+  		</binding>
+ 	    </key>
+
+ 	    <key n="15"> 
+  		<name>Ctrl+o</name>
+  		<desc>Toggle OMS fuel dump</desc>
+ 		<repeatable type="bool">false</repeatable>
+  		<binding>
+   			<command>nasal</command>
+			<script>SpaceShuttle.toggle_oms_fuel_dump()</script>
   		</binding>
  	    </key>
 

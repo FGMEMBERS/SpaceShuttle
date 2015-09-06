@@ -180,6 +180,34 @@ if ((lockup_eng3 == 1) and (SpaceShuttle.failure_cmd.ssme3 == 1))
 	{ssme_lockup(2);}
 
 
+# make sure we display OMS symbology in case of a fuel dump
+
+var thrust_OMS1 = getprop("/engines/engine[5]/thrust_lb");
+var thrust_OMS2 = getprop("/engines/engine[6]/thrust_lb");
+
+if (thrust_OMS1 > 0.0)
+	{
+	setprop("/controls/engines/engine[5]/ignited-hud","x");
+	}
+else
+	{
+	setprop("/controls/engines/engine[5]/ignited-hud"," ");
+	}
+
+if (thrust_OMS2 > 0.0)
+	{
+	setprop("/controls/engines/engine[6]/ignited-hud","x");
+	}
+else
+	{
+	setprop("/controls/engines/engine[6]/ignited-hud"," ");
+	}
+
+# in case of an RTLS, we want to update entry guidance
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
+	{SpaceShuttle.update_entry_guidance();}
+
 SpaceShuttle.check_limits_ascent();
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
@@ -447,6 +475,9 @@ launch_message_flag = 5;
 #SpaceShuttle.init_tank();
 #settimer(control_to_rcs, 2.0);
 
+# make sure the vertical trajectory display switches to entry
+SpaceShuttle.traj_display_flag = 3;
+
 settimer(orbital_loop,2.0);
 
 
@@ -527,6 +558,9 @@ setprop("/controls/engines/engine[1]/ignited-hud", " ");
 setprop("/controls/engines/engine[2]/ignited-hud", " ");
 
 launch_message_flag = 5;
+
+# make sure the vertical trajectory display switches to entry
+SpaceShuttle.traj_display_flag = 3;
 
 #settimer(control_to_rcs, 2.0);
 settimer(orbital_loop,2.0);
@@ -1041,6 +1075,22 @@ setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", state);
 }
 
 
+# OMS fuel dump
+
+var toggle_oms_fuel_dump = func {
+
+var state = getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd");
+
+if (state == 0) {state=1;}
+else {state = 0;}
+
+setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", state);
+
+setprop("/controls/engines/engine[5]/throttle", state);
+setprop("/controls/engines/engine[6]/throttle", state);
+
+}
+
 # landing gear arm
 
 var arm_gear = func {
@@ -1280,8 +1330,9 @@ if (getprop("/sim/presets/stage") == 2)
 	#setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
 	#setprop("/velocities/wBody-fps", 200.0);
 
-	setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
+	#setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 300.0);
+setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
 	hydraulics_on();
 	et_umbilical_door_close();

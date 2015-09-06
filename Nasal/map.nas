@@ -226,12 +226,38 @@ var pred_plot = graph.createChild("path", "data")
 
 		
 
+		var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+		var draw_flag = 0;
+		
+
 		for (var i = 0; i< (size(track_prediction)-1); i=i+1)
 			{
 			var set = track_prediction[i+1];
 			if (prograde_flag * track_prediction[i+1][0] > prograde_flag * track_prediction[i][0])
 				{
-				pred_plot.lineTo(set[0], set[1]);
+				if ((guidance_mode == 0) or (guidance_mode ==1))
+					{
+					pred_plot.lineTo(set[0], set[1]);
+					}
+				else if ((guidance_mode == 2) and (set[2] < 0))
+					{
+					if (draw_flag == 0)
+						{
+						pred_plot.lineTo(set[0], set[1]);
+						draw_flag = 1;
+						}
+					else
+						{
+						pred_plot.moveTo(set[0], set[1]);
+						draw_flag = 0;
+						}
+					}
+				else
+					{
+					pred_plot.lineTo(set[0], set[1]);
+					}
+					
+				
 				}
 			else
 				{
@@ -482,10 +508,10 @@ for (var i = 0; i<40; i = i+1)
 
 	if ((alt < 0.0) and (guidance_flag == 1))
 		{break;}
-	else if ((pred_lon > lon + 60.0) and (guidance_flag == 0))
+	else if ((pred_lon > lon + 120.0) and (guidance_flag == 0))
 		{break;}
 
-	append(track_prediction, [x,y]);
+	append(track_prediction, [x,y, alt]);
 
 
 	}

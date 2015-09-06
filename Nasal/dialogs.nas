@@ -214,6 +214,11 @@ else if (mode_string == "TAL")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
 	}
+else if (mode_string == "RTLS")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
+	setprop("/controls/shuttle/hud-mode",2);
+	}
 
 }
 
