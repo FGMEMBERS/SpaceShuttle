@@ -1391,6 +1391,7 @@ if (getprop("/sim/presets/stage") == 4)
 	place_dir = place_dir * math.pi/180.0;
 
 	var place_dist = 15000.0; # 11 miles downrange
+	#var place_dist = 450000.0; # 240 miles downrange
 	var place_x = place_dist * math.sin(place_dir);
 	var place_y = place_dist * math.cos(place_dir);
 
@@ -1406,6 +1407,16 @@ if (getprop("/sim/presets/stage") == 4)
 
 	setprop("/velocities/uBody-fps",600.0);
 	setprop("/velocities/wBody-fps", 60.0);
+
+	# starting point for a RTLS glide	
+
+	#setprop("/position/altitude-ft", 220000.0);
+
+	#setprop("/velocities/uBody-fps", 8000.0);
+	#setprop("/velocities/wBody-fps", -900.0);
+	
+
+	
 	}
 
 if (getprop("/sim/presets/stage") == 5) 

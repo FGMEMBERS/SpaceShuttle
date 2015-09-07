@@ -577,7 +577,7 @@
 				<property>velocities/q-rad_sec</property>
 				<product>
   					<property>fcs/elevator-cmd-norm</property>
-					<value>-0.1</value>
+					<value>-0.2</value>
 				</product>
 			</difference>
 		</function>
@@ -630,11 +630,17 @@
 			</clipto>
 		</pid>
 
+  		<deadband name="systems/vectoring/SSME-roll-PID-trigger">
+			<input>systems/vectoring/roll-rate-error</input>
+			<width>0.2</width>
+  		</deadband>
+
 		<pid name="systems/vectoring/SSME-roll">
 			<input>systems/vectoring/roll-rate-error</input>
 			<kp> 2.0 </kp>
 			<ki> 0.5 </ki>
 			<kd> 0.1</kd>
+			<trigger>systems/vectoring/SSME-roll-PID-trigger</trigger>
 			<clipto>
 				<min> -0.17 </min>
         			<max>  0.17 </max>
