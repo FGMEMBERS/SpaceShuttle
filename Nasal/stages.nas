@@ -1093,6 +1093,46 @@ setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", state);
 setprop("/controls/engines/engine[5]/throttle", state);
 setprop("/controls/engines/engine[6]/throttle", state);
 
+setprop("/fdm/jsbsim/systems/oms/oms-rcs-dump-cmd", 0);
+
+var interconnect_state = getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd");
+
+if ((state == 1) and (interconnect_state == 1))
+	{
+	settimer(set_oms_rcs_crossfeed, 3.0);
+	settimer( func{ setprop("/fdm/jsbsim/systems/oms/oms-rcs-dump-cmd", 1);}, 3.5);
+	}
+
+}
+
+
+var set_oms_rcs_crossfeed = func {
+
+# close the RCS tank isolation valves
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345A-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345B-status", 0);
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345A-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345B-status", 0);
+
+# open the OMS crossfeed valves
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status", 1);
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status", 1);
+
+# open the RCS crossfeed valves
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-12-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-345-status", 1);
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-12-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-345-status", 1);
 }
 
 # landing gear arm
