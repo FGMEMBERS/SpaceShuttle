@@ -91,7 +91,7 @@ var PFD_Page = {
              {
                  if (mi.menu_id == button_id)
                  {
-#                     printf("Page: found button %s, selecting page\n",mi.title);
+                     printf("Page: found button %s, selecting page\n",mi.title);
                      me.device.selectPage(mi.page);
                      break;
                  }
@@ -161,9 +161,11 @@ var PFD_Device =
             button_id = button_id - 1;
             if (me.current_page != nil)
             {
-#                printf("Button routing to %s",me.current_page.title);
+                printf("Button routing to %s",me.current_page.title);
                 me.current_page.notifyButton(button_id);
             }
+            else
+                printf("Could not locate page for button ",button_id);
         }
     },
     addPage : func(title, layer_id)
@@ -190,7 +192,7 @@ var PFD_Device =
 
             foreach(var mi ; p.menus)
             {
-#                printf("selectPage: load menu %d %s",mi.menu_id, mi.title);
+                printf("selectPage: load menu %d %s",mi.menu_id, mi.title);
                 if (me.buttons[mi.menu_id] != nil)
                 {
                     me.buttons[mi.menu_id].setText(mi.title);
@@ -215,7 +217,7 @@ setlistener("sim/model/shuttle/controls/PFD/button-pressed", func(v)
                         pfd_button_pushed = v.getValue();
                     else
                     {
-#                        printf("Button %d",pfd_button_pushed);
+                        printf("Button %d",pfd_button_pushed);
                         PFD.notifyButton(pfd_button_pushed);
                         pfd_button_pushed = 0;
                     }
@@ -245,29 +247,6 @@ var p_pfd = PFD.addPage("PFD", "p_pfd");
 
 #
 #
-# Add the menus to each page. The selected set of menu items is automatically managed
-p_pfd.addMenuItem(0, "UP", p_pfd);
-p_pfd.addMenuItem(1, "A/E", p_pfd);
-p_pfd.addMenuItem(2, "ORBIT", p_pfd);
-p_pfd.addMenuItem(3, "DATA", p_pfd);
-p_pfd.addMenuItem(4, "MEDS", p_pfd);
-p_pfd.addMenuItem(5, "MEDS", p_pfd);
-
-#p1_2.addMenuItem(1, "A/A", p1_3);
-#p1_2.addMenuItem(2, "A/G", p1_3);
-#p1_2.addMenuItem(3, "CBT JETT", p1_3);
-#p1_2.addMenuItem(4, "WPN LOAD", p1_3);
-#p1_2.addMenuItem(9, "M", p_pfd);
-
-#p1_3.addMenuItem(1, "HIGH\n500M", p1_3);
-#p1_3.addMenuItem(2, "NML", p1_3);
-#p1_3.addMenuItem(3, "A/G", p1_3);
-#p1_3.addMenuItem(4, "2/2", p1_3);
-#p1_3.addMenuItem(8, "TM\nPWR", p1_3);
-#p1_3.addMenuItem(9, "M", p_pfd);
-
-#
-#
 # PFD page update
 p_pfd.keas = PFDsvg.getElementById("p_pfd_keas");
 p_pfd.beta = PFDsvg.getElementById("p_pfd_beta");
@@ -280,6 +259,59 @@ p_pfd.update = func
 
 #
 PFD.selectPage(p_pfd);
+
+
+var p_ascent = PFD.addPage("Ascent", "p_ascent");
+
+#
+#
+# Ascent page update
+var p_ascent_view = PFDsvg.getElementById("ascent_view");
+var p_traj_plot = PFDcanvas.createGroup();
+var p_ascent_time = 0;
+var p_ascent_next_update = 0;
+p_ascent.update = func
+{
+#p_traj_plot.removeAllChildren();
+
+    var plot = p_traj_plot.createChild("path", "data")
+    .setStrokeLineWidth(2)
+    .setColor(0.5,0.6,0.5)
+    .moveTo(0,0); 
+
+    #
+# called at frame rate. 
+    p_ascent_time = getprop ("sim/time/elapsed-sec");
+    print("Ascent time ",p_ascent_time);
+    if (p_ascent_time > p_ascent_next_update)
+    {
+        print("Ascent_update ",p_ascent_time);
+        p_ascent_next_update = p_ascent_time + 1;
+        plot.lineTo(p_ascent_time,getprop("velocities/airspeed-kt"));	
+    }
+};
+
+#
+PFD.selectPage(p_pfd);
+
+#
+#
+# Add the menus to each page. The selected set of menu items is automatically managed
+
+p_ascent.addMenuItem(0, "UP", p_pfd);
+p_ascent.addMenuItem(1, "ASC0", p_pfd);
+p_ascent.addMenuItem(2, "ASC1", p_ascent);
+p_ascent.addMenuItem(3, "ASC2", p_ascent);
+p_ascent.addMenuItem(4, "ASC3", p_ascent);
+p_ascent.addMenuItem(5, "ASC4", p_ascent);
+
+p_pfd.addMenuItem(0, "ASCENT", p_ascent);
+p_pfd.addMenuItem(1, "A/E", p_pfd);
+p_pfd.addMenuItem(2, "ORBIT", p_pfd);
+p_pfd.addMenuItem(3, "DATA", p_pfd);
+p_pfd.addMenuItem(4, "MEDS", p_pfd);
+p_pfd.addMenuItem(5, "MEDS", p_pfd);
+
 
 var pfd_button_pushed = 0;
 

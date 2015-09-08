@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="230.32769"
-     inkscape:cy="142.98644"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="165.14658"
+     inkscape:cy="252.12653"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
@@ -35,7 +35,7 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1858"
      inkscape:window-height="1057"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      units="px"
@@ -443,6 +443,28 @@
            x="78.474327"
            id="tspan3171-8-4-5-2-43-2-3-1"
            sodipodi:role="line">Beta</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="g3107"
+     inkscape:label="p_ascent"
+     style="display:inline">
+    <g
+       id="p_ascent"
+       inkscape:label="#g4491">
+      <text
+         sodipodi:linespacing="125%"
+         id="text3110"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="30.178572"
+           x="43.928574"
+           id="tspan3112"
+           sodipodi:role="line">ASCENT</tspan></text>
     </g>
   </g>
 </svg>
