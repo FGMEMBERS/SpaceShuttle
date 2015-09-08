@@ -29,4 +29,160 @@
         </emission>
     </animation>
 
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B1</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>1</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B2</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>2</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B3</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>3</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B4</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>4</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B5</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>5</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD1_B6</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>6</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
 </PropertyList>
