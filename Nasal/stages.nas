@@ -38,6 +38,9 @@ setprop("/controls/engines/engine[0]/ignited-hud","x");
 setprop("/controls/engines/engine[1]/ignited-hud","x");
 setprop("/controls/engines/engine[2]/ignited-hud","x");
 
+# init the SRB burn timer - will be overwritten later
+SRB_burn_timer = getprop("/sim/time/elapsed-sec");
+
 # fill the feed lines
 setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
 setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
