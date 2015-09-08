@@ -38,6 +38,9 @@ setprop("/controls/engines/engine[0]/ignited-hud","x");
 setprop("/controls/engines/engine[1]/ignited-hud","x");
 setprop("/controls/engines/engine[2]/ignited-hud","x");
 
+# init the SRB burn timer - will be overwritten later
+SRB_burn_timer = getprop("/sim/time/elapsed-sec");
+
 # fill the feed lines
 setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
 setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
@@ -180,6 +183,34 @@ if ((lockup_eng3 == 1) and (SpaceShuttle.failure_cmd.ssme3 == 1))
 	{ssme_lockup(2);}
 
 
+# make sure we display OMS symbology in case of a fuel dump
+
+var thrust_OMS1 = getprop("/engines/engine[5]/thrust_lb");
+var thrust_OMS2 = getprop("/engines/engine[6]/thrust_lb");
+
+if (thrust_OMS1 > 0.0)
+	{
+	setprop("/controls/engines/engine[5]/ignited-hud","x");
+	}
+else
+	{
+	setprop("/controls/engines/engine[5]/ignited-hud"," ");
+	}
+
+if (thrust_OMS2 > 0.0)
+	{
+	setprop("/controls/engines/engine[6]/ignited-hud","x");
+	}
+else
+	{
+	setprop("/controls/engines/engine[6]/ignited-hud"," ");
+	}
+
+# in case of an RTLS, we want to update entry guidance
+
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
+	{SpaceShuttle.update_entry_guidance();}
+
 SpaceShuttle.check_limits_ascent();
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
@@ -196,6 +227,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 # some log output
 # print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"));
+print(t_elapsed, " ", getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps"), " ", getprop("/position/altitude-ft"));
 
 settimer(launch_loop, 1.0);
 }
@@ -447,6 +479,9 @@ launch_message_flag = 5;
 #SpaceShuttle.init_tank();
 #settimer(control_to_rcs, 2.0);
 
+# make sure the vertical trajectory display switches to entry
+SpaceShuttle.traj_display_flag = 3;
+
 settimer(orbital_loop,2.0);
 
 
@@ -527,6 +562,9 @@ setprop("/controls/engines/engine[1]/ignited-hud", " ");
 setprop("/controls/engines/engine[2]/ignited-hud", " ");
 
 launch_message_flag = 5;
+
+# make sure the vertical trajectory display switches to entry
+SpaceShuttle.traj_display_flag = 3;
 
 #settimer(control_to_rcs, 2.0);
 settimer(orbital_loop,2.0);
@@ -1041,6 +1079,62 @@ setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", state);
 }
 
 
+# OMS fuel dump
+
+var toggle_oms_fuel_dump = func {
+
+var state = getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd");
+
+if (state == 0) {state=1;}
+else {state = 0;}
+
+setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", state);
+
+setprop("/controls/engines/engine[5]/throttle", state);
+setprop("/controls/engines/engine[6]/throttle", state);
+
+setprop("/fdm/jsbsim/systems/oms/oms-rcs-dump-cmd", 0);
+
+var interconnect_state = getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd");
+
+if ((state == 1) and (interconnect_state == 1))
+	{
+	settimer(set_oms_rcs_crossfeed, 3.0);
+	settimer( func{ setprop("/fdm/jsbsim/systems/oms/oms-rcs-dump-cmd", 1);}, 3.5);
+	}
+
+}
+
+
+var set_oms_rcs_crossfeed = func {
+
+# close the RCS tank isolation valves
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345A-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345B-status", 0);
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345A-status", 0);
+setprop("/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345B-status", 0);
+
+# open the OMS crossfeed valves
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status", 1);
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status", 1);
+
+# open the RCS crossfeed valves
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-12-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-rcs-valve-345-status", 1);
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-12-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-rcs-valve-345-status", 1);
+}
+
 # landing gear arm
 
 var arm_gear = func {
@@ -1280,8 +1374,9 @@ if (getprop("/sim/presets/stage") == 2)
 	#setprop("/velocities/uBody-fps", 25100.0 - rotation_boost);
 	#setprop("/velocities/wBody-fps", 200.0);
 
-	setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
+	#setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 300.0);
+setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
 	hydraulics_on();
 	et_umbilical_door_close();
@@ -1339,6 +1434,7 @@ if (getprop("/sim/presets/stage") == 4)
 	place_dir = place_dir * math.pi/180.0;
 
 	var place_dist = 15000.0; # 11 miles downrange
+	#var place_dist = 450000.0; # 240 miles downrange
 	var place_x = place_dist * math.sin(place_dir);
 	var place_y = place_dist * math.cos(place_dir);
 
@@ -1354,6 +1450,16 @@ if (getprop("/sim/presets/stage") == 4)
 
 	setprop("/velocities/uBody-fps",600.0);
 	setprop("/velocities/wBody-fps", 60.0);
+
+	# starting point for a RTLS glide	
+
+	#setprop("/position/altitude-ft", 220000.0);
+
+	#setprop("/velocities/uBody-fps", 8000.0);
+	#setprop("/velocities/wBody-fps", -900.0);
+	
+
+	
 	}
 
 if (getprop("/sim/presets/stage") == 5) 

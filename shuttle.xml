@@ -71,7 +71,7 @@
 	<pointmass name="External_tank1_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location  unit="M">
-		<x> -4.00 </x>
+		<x> -12.00 </x>
        		<y> -2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -79,7 +79,7 @@
 	<pointmass name="External_tank2_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location unit="M">
-		<x> -4.00 </x>
+		<x> -12.00 </x>
        		<y> 2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -2204,6 +2204,7 @@
   <fcs_function name="fcs/pitch-PID-trigger">
   <function>
 	<max>
+	<property>/fdm/jsbsim/systems/fcs/rcs-pitch-mode</property>
 	<property>fcs/pitch-PID-trigger-raw</property>
 	<difference>
 		<value>1.0</value>

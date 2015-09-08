@@ -4,6 +4,7 @@ var landing_site = geo.Coord.new();
 var entry_interface = geo.Coord.new();
 var v_aero_last = 0.0;
 var v_aero = 0.0;
+var distance_last = 0.0;
 
 var radius_set = [];
 
@@ -19,6 +20,10 @@ var pos = geo.aircraft_position();
 
 var course = pos.course_to(landing_site);
 var distance = pos.distance_to(landing_site);
+
+var v_rel_fps = (distance - distance_last) /0.3048;
+setprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps", v_rel_fps);
+distance_last = distance;
 
 distance = distance/ 1853.0;
 
@@ -87,6 +92,11 @@ if (mode_string == "normal")
 else if (mode_string == "TAL")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",2);
+	}
+else if (mode_string == "RTLS")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/controls/shuttle/hud-mode",2);
 	}
 
 

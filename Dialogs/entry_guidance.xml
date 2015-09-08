@@ -55,7 +55,7 @@
       </combo>
 
    <text>
-      <label>Mode:</label>
+      <label>Abort mode:</label>
       <halign>left</halign>
       <row>3</row>
       <col>0</col>
@@ -72,6 +72,7 @@
         <property>/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode</property>
 	<value>normal</value>
 	<value>TAL</value>
+	<value>RTLS</value>
         <binding>
           <command>dialog-apply</command>
           <object-name>entry-mode</object-name>
