@@ -2,14 +2,20 @@
 var update_vtraj_loop_flag = 0;
 var traj_display_flag = 1;
 
+var vertical_display_size = 512;
+var horizontal_display_size = 512;
+
 var traj_data = [];
 
 var sym_shuttle_asc = {};
 var trajectory = {};
 
+
+
+
 var create_traj_display = func {
 
-var window = canvas.Window.new([400,400],"dialog").set("title", "Vertical Trajectory");
+var window = canvas.Window.new([horizontal_display_size,vertical_display_size],"dialog").set("title", "Vertical Trajectory");
 
 
 window.del = func()
@@ -42,7 +48,7 @@ sym_shuttle_asc.setScale(0.2);
 
 fill_traj1_data();
 trajectory = root.createChild("group");
-plot_traj();
+plot_traj (trajectory);
 
 update_vtraj_loop_flag = 1;
 ascent_traj_update();
@@ -54,6 +60,48 @@ ascent_traj_update();
 var ascent_traj_update = func {
 
 if (update_vtraj_loop_flag == 0 ) {return;}
+
+ascent_traj_process (trajectory, sym_shuttle_asc);
+
+settimer(ascent_traj_update, 1.0);
+}
+
+
+
+
+var ascent_traj_update_set = func {
+
+
+if (traj_display_flag == 1)
+	{
+	if (getprop("/controls/shuttle/SRB-static-model") == 0) # we have separated the SRBs
+		{
+		fill_traj2_data();
+		traj_display_flag = 2;
+		}
+	}
+}
+
+var ascent_traj_update_velocity = func {
+
+var latitude = getprop("/position/latitude-deg");
+var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+var earth_rotation = 1420.0 * math.cos(latitude);
+#var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+
+#print(velocity, " ", earth_rotation);
+
+# the TRAJ 1 display shows relative rather than inertial velocity
+if (traj_display_flag == 1)
+	{velocity = math.sqrt(math.abs(velocity * velocity - earth_rotation * earth_rotation));}
+
+return velocity;
+
+}
+
+
+
+var ascent_traj_process = func  (traj, sym_shuttle_asc) {
 
 var altitude = getprop("/position/altitude-ft");
 var latitude = getprop("/position/latitude-deg");
@@ -75,8 +123,8 @@ if (traj_display_flag == 1)
 		{
 		fill_traj2_data();
 		# window.set("title", "ASCENT TRAJ 2");
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 2;
 		}
 	}
@@ -85,8 +133,8 @@ if (traj_display_flag == 2)
 	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0) # we're preparing for de-orbit
 		{
 		fill_entry1_data();
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 3;
 		}
 
@@ -96,8 +144,8 @@ if (traj_display_flag == 3)
 	if (velocity < 18500.0)
 		{
 		fill_entry2_data();
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 4;
 		}
 	}
@@ -107,8 +155,8 @@ if (traj_display_flag == 4)
 	if (velocity < 15800.0)
 		{
 		fill_entry3_data();
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 5;
 		}
 	}
@@ -118,8 +166,8 @@ if (traj_display_flag == 5)
 	if (velocity < 12000.0)
 		{
 		fill_entry4_data();
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 6;
 		}
 	}
@@ -129,8 +177,8 @@ if (traj_display_flag == 6)
 	if (velocity < 5500.0)
 		{
 		fill_entry5_data();
-		trajectory.removeAllChildren();
-		plot_traj();
+		traj.removeAllChildren();
+		plot_traj (traj);
 		traj_display_flag = 7;
 		}
 	}
@@ -151,7 +199,6 @@ else
 
 sym_shuttle_asc.setTranslation(x,y);
 
-settimer(ascent_traj_update, 1.0);
 }
 
 
@@ -161,31 +208,31 @@ var parameter_to_x = func (par, display) {
 
 if (display == 1)
 	{
-	return (par / 5000.0 * 0.8 + 0.1) * 400.0;
+	return (par / 5000.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 2)
 	{
-	return ((par - 5000.0) / 21000.0 * 0.8 + 0.1) * 400.0;
+	return ((par - 5000.0) / 21000.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 3)
 	{
-	return ((par - 700.0)/1400.0 * 0.8 + 0.1) * 400.0;
+	return ((par - 700.0)/1400.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 4)
 	{
-	return ((par -400.0)/400.0 * 0.8 + 0.1) * 400.0;
+	return ((par -400.0)/400.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 5)
 	{
-	return ((par -200.0)/450.0 * 0.8 + 0.1) * 400.0;
+	return ((par -200.0)/450.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 6)
 	{
-	return ((par -80.0)/220.0 * 0.8 + 0.1) * 400.0;
+	return ((par -80.0)/220.0 * 0.8 + 0.1) * 512.0;
 	}
 else if (display == 7)
 	{
-	return ((par -55.0)/45.0 * 0.8 + 0.1) * 400.0;
+	return ((par -55.0)/45.0 * 0.8 + 0.1) * 512.0;
 	}
 }
 
@@ -193,31 +240,31 @@ var parameter_to_y = func (par, display) {
 
 if (display == 1)
 	{
-	return 400.0 - (par / 170000.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - (par / 170000.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 2)
 	{
-	return 400.0 - ((par - 140000.0) / 385000.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 140000.0) / 385000.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 3)
 	{
-	return 400.0 - ((par - 18500.0) / 7500.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 18500.0) / 7500.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 4)
 	{
-	return 400.0 - ((par - 15800.0) / 2700.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 15800.0) / 2700.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 5)
 	{
-	return 400.0 - ((par - 10000.0) / 5800.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 10000.0) / 5800.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 6)
 	{
-	return 400.0 - ((par - 5500.0) / 4500.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 5500.0) / 4500.0 * 0.6 + 0.2) * 512.0;
 	}
 else if (display == 7)
 	{
-	return 400.0 - ((par - 4000.0) / 1500.0 * 0.6 + 0.2) * 400.0;
+	return 512.0 - ((par - 4000.0) / 1500.0 * 0.6 + 0.2) * 512.0;
 	}
 }
 
@@ -574,7 +621,7 @@ for (i=0; i< size(traj_data); i=i+1)
 
 }
 
-var plot_traj = func {
+var plot_traj = func (trajectory) {
 
 
 var plot = trajectory.createChild("path", "data")

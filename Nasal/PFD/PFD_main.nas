@@ -22,6 +22,7 @@ var PFDcanvas= canvas.new({
 PFDcanvas.addPlacement({"node": "DisplayL1"});
 PFDcanvas.setColorBackground(0,0,0, 0);
 
+
 # Create a group for the parsed elements
 var PFDsvg = PFDcanvas.createGroup();
  
@@ -253,6 +254,11 @@ p_pfd.beta = PFDsvg.getElementById("p_pfd_beta");
 
 p_pfd.update = func
 {
+    # these really need to be deleted when leaving the ascent page - do we have
+    # an 'upon exit' functionality here
+    p_traj_plot.removeAllChildren();
+    p_shuttle_asc_sym.setScale(0.0);
+
     p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));
     p_pfd.keas.setText(sprintf("%5.0f",getprop("velocities/airspeed-kt")));
 };
@@ -268,27 +274,46 @@ var p_ascent = PFD.addPage("Ascent", "p_ascent");
 # Ascent page update
 var p_ascent_view = PFDsvg.getElementById("ascent_view");
 var p_traj_plot = PFDcanvas.createGroup();
+SpaceShuttle.fill_traj1_data();
 var p_ascent_time = 0;
 var p_ascent_next_update = 0;
+
+
+var p_shuttle_asc_sym = PFDcanvas.createGroup();
+canvas.parsesvg( p_shuttle_asc_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
+p_shuttle_asc_sym.setScale(0.3);
+
 p_ascent.update = func
 {
-#p_traj_plot.removeAllChildren();
 
-    var plot = p_traj_plot.createChild("path", "data")
-    .setStrokeLineWidth(2)
-    .setColor(0.5,0.6,0.5)
-    .moveTo(0,0); 
 
-    #
-# called at frame rate. 
-    p_ascent_time = getprop ("sim/time/elapsed-sec");
-    print("Ascent time ",p_ascent_time);
-    if (p_ascent_time > p_ascent_next_update)
-    {
-        print("Ascent_update ",p_ascent_time);
-        p_ascent_next_update = p_ascent_time + 1;
-        plot.lineTo(p_ascent_time,getprop("velocities/airspeed-kt"));	
-    }
+p_traj_plot.removeAllChildren();
+
+SpaceShuttle.ascent_traj_update_set();
+
+
+var plot = p_traj_plot.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(0.5,0.6,0.5)
+                                   .moveTo(traj_data[0][0],traj_data[0][1]); 
+
+		for (var i = 1; i< (size(traj_data)-1); i=i+1)
+			{
+			var set = traj_data[i+1];
+			plot.lineTo(set[0], set[1]);	
+			}
+
+var velocity = SpaceShuttle.ascent_traj_update_velocity();
+var altitude = getprop("/position/altitude-ft");
+
+
+
+var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+p_shuttle_asc_sym.setScale(0.3);
+p_shuttle_asc_sym.setTranslation(x,y);
+
+
 };
 
 #
