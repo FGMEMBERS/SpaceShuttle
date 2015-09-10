@@ -226,7 +226,9 @@ setlistener("sim/model/shuttle/controls/PFD/button-pressed", func(v)
             });
 var pfd_mode = 1;
 
-#
+
+var p_all_menu_title = PFDsvg.getElementById("MB_title");
+
 # Set listener on the PFD mode button; this could be an on off switch or by convention
 # it will also act as brightness; so 0 is off and anything greater is brightness.
 # ranges are not pre-defined; it is probably sensible to use 0..10 as an brightness rather
@@ -257,8 +259,9 @@ p_pfd.update = func
     # these really need to be deleted when leaving the ascent page - do we have
     # an 'upon exit' functionality here
     p_traj_plot.removeAllChildren();
-    p_shuttle_asc_sym.setScale(0.0);
+    p_ascent_shuttle_sym.setScale(0.0);
 
+    p_all_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
     p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));
     p_pfd.keas.setText(sprintf("%5.0f",getprop("velocities/airspeed-kt")));
 };
@@ -266,6 +269,23 @@ p_pfd.update = func
 #
 PFD.selectPage(p_pfd);
 
+#################################################################
+# the main menu page showing just selection buttons
+#################################################################
+
+var p_main = PFD.addPage("MainMenu", "p_main");
+
+p_main.time = PFDsvg.getElementById("p_main_time");
+
+p_main.update = func
+{
+p_main.time.setText(sprintf("%s",getprop("/sim/time/gmt-string")));
+p_all_menu_title.setText(sprintf("%s","      MAIN MENU"));
+}
+
+#################################################################
+# the ascent/entry PFD page showing the vertical trajectory status
+#################################################################
 
 var p_ascent = PFD.addPage("Ascent", "p_ascent");
 
@@ -278,19 +298,53 @@ SpaceShuttle.fill_traj1_data();
 var p_ascent_time = 0;
 var p_ascent_next_update = 0;
 
+p_ascent.time = PFDsvg.getElementById("p_ascent_time");
+p_ascent.label = PFDsvg.getElementById("p_ascent_label");
+p_ascent.ops = PFDsvg.getElementById("p_ascent_ops");
 
-var p_shuttle_asc_sym = PFDcanvas.createGroup();
-canvas.parsesvg( p_shuttle_asc_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
-p_shuttle_asc_sym.setScale(0.3);
+
+var p_ascent_shuttle_sym = PFDcanvas.createGroup();
+canvas.parsesvg( p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
+p_ascent_shuttle_sym.setScale(0.3);
 
 p_ascent.update = func
 {
 
+p_all_menu_title.setText(sprintf("%s","       DPS MENU"));
 
 p_traj_plot.removeAllChildren();
 
 SpaceShuttle.ascent_traj_update_set();
 
+if (SpaceShuttle.traj_display_flag == 2)
+	{
+	p_ascent.label.setText(sprintf("%s","ASCENT TRAJ 2"));
+	p_ascent.ops.setText(sprintf("%s","1031/     /"));
+	}
+else if  (SpaceShuttle.traj_display_flag == 3)
+	{
+	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 1"));
+	p_ascent.ops.setText(sprintf("%s","3041/     /"));
+	}
+else if (SpaceShuttle.traj_display_flag == 4)
+	{
+	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 2"));
+	}
+else if (SpaceShuttle.traj_display_flag == 5)
+	{
+	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 3"));
+	}
+else if (SpaceShuttle.traj_display_flag == 6)
+	{
+	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 4"));
+	}
+else if (SpaceShuttle.traj_display_flag == 7)
+	{
+	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 5"));
+	}
+
+
+p_ascent.time.setText(sprintf("%s",getprop("/sim/time/gmt-string")));
 
 var plot = p_traj_plot.createChild("path", "data")
                                    .setStrokeLineWidth(2)
@@ -306,12 +360,23 @@ var plot = p_traj_plot.createChild("path", "data")
 var velocity = SpaceShuttle.ascent_traj_update_velocity();
 var altitude = getprop("/position/altitude-ft");
 
+var x = 0;
+var y = 0;
 
+if (SpaceShuttle.traj_display_flag < 3)
+	{
+	 x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+	 y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+	}
+else
+	{
+	var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+ 	 x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
+	 y = SpaceShuttle.parameter_to_y(velocity, SpaceShuttle.traj_display_flag);
+	}
 
-var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
-var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
-p_shuttle_asc_sym.setScale(0.3);
-p_shuttle_asc_sym.setTranslation(x,y);
+p_ascent_shuttle_sym.setScale(0.3);
+p_ascent_shuttle_sym.setTranslation(x,y);
 
 
 };
@@ -324,19 +389,22 @@ PFD.selectPage(p_pfd);
 # Add the menus to each page. The selected set of menu items is automatically managed
 
 p_ascent.addMenuItem(0, "UP", p_pfd);
-p_ascent.addMenuItem(1, "ASC0", p_pfd);
-p_ascent.addMenuItem(2, "ASC1", p_ascent);
-p_ascent.addMenuItem(3, "ASC2", p_ascent);
-p_ascent.addMenuItem(4, "ASC3", p_ascent);
-p_ascent.addMenuItem(5, "ASC4", p_ascent);
+p_ascent.addMenuItem(4, "MSG RST", p_ascent);
+p_ascent.addMenuItem(5, "MSG ACK", p_ascent);
 
-p_pfd.addMenuItem(0, "ASCENT", p_ascent);
-p_pfd.addMenuItem(1, "A/E", p_pfd);
+p_pfd.addMenuItem(0, "UP", p_main);
+p_pfd.addMenuItem(1, "A/E", p_ascent);
 p_pfd.addMenuItem(2, "ORBIT", p_pfd);
 p_pfd.addMenuItem(3, "DATA", p_pfd);
-p_pfd.addMenuItem(4, "MEDS", p_pfd);
-p_pfd.addMenuItem(5, "MEDS", p_pfd);
+p_pfd.addMenuItem(4, "MSG RST", p_pfd);
+p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 
+p_main.addMenuItem(0, "FLT", p_pfd);
+p_main.addMenuItem(1, "SUB", p_main);
+p_main.addMenuItem(2, "DPS", p_main);
+p_main.addMenuItem(3, "MAINT", p_main);
+p_main.addMenuItem(4, "MSG RST", p_main);
+p_main.addMenuItem(5, "MSG ACK", p_main);
 
 var pfd_button_pushed = 0;
 

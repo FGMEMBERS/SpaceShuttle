@@ -71,6 +71,7 @@ settimer(ascent_traj_update, 1.0);
 
 var ascent_traj_update_set = func {
 
+var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 
 if (traj_display_flag == 1)
 	{
@@ -80,6 +81,51 @@ if (traj_display_flag == 1)
 		traj_display_flag = 2;
 		}
 	}
+if (traj_display_flag == 2)
+	{
+	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0) # we're preparing for de-orbit
+		{
+		fill_entry1_data();
+		traj_display_flag = 3;
+		}
+
+	}
+if (traj_display_flag == 3)
+	{
+	if (velocity < 18500.0)
+		{
+		fill_entry2_data();
+		traj_display_flag = 4;
+		}
+	}
+
+if (traj_display_flag == 4)
+	{
+	if (velocity < 15800.0)
+		{
+		fill_entry3_data();
+		traj_display_flag = 5;
+		}
+	}
+
+if (traj_display_flag == 5)
+	{
+	if (velocity < 12000.0)
+		{
+		fill_entry4_data();
+		traj_display_flag = 6;
+		}
+	}
+
+if (traj_display_flag == 6)
+	{
+	if (velocity < 5500.0)
+		{
+		fill_entry5_data();
+		traj_display_flag = 7;
+		}
+	}
+
 }
 
 var ascent_traj_update_velocity = func {
