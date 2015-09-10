@@ -15,6 +15,10 @@
  		    <automatic-roll-control type="int">0</automatic-roll-control>
 		    <css-roll-control type="int">1</css-roll-control>
 		</ap>
+		<dps>
+		    <command-string type="string"></command-string>
+		    <error-string type="string"></error-string>
+		</dps>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
                     <target-azimuth-deg type="double">0.0</target-azimuth-deg>
@@ -1112,6 +1116,17 @@
 		    </item>
 
 		</menu>
+		<menu n="52">
+                    <label>Data Processing System</label>
+
+	    	    <item>
+			<label>Keyboard</label>
+		        <binding>
+                            <command>nasal</command>
+                            <script>SpaceShuttle.dps_keyboard_dlg.open()</script>
+                        </binding>
+		    </item>
+		</menu>
             </default>
         </menubar>
 
@@ -1616,6 +1631,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/payload.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/dps_command_parser.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
             <file>Nasal/HUD/HUD_main.nas</file>
         </SpaceShuttle>
