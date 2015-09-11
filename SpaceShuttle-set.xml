@@ -18,6 +18,7 @@
 		<dps>
 		    <command-string type="string"></command-string>
 		    <error-string type="string"></error-string>
+		    <dps-page-flag type="int">0</dps-page-flag>
 		</dps>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>

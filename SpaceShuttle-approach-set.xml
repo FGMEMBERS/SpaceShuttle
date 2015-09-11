@@ -12,4 +12,15 @@
   </presets>
 </sim>
 
+<fdm>
+   <jsbsim>
+	<systems>
+	   <dps>
+		<ops type="int">3</ops>
+		<major-mode type="int">305</major-mode>
+	   </dps>
+	</systems>
+   </jsbsim>
+</fdm>
+
 </PropertyList>

@@ -249,6 +249,8 @@ DPS_menu_title.setText(sprintf("%s",""));
 DPS_menu_fault_line.setText(sprintf("%s",""));
 DPS_menu_scratch_line.setText(sprintf("%s",""));
 DPS_menu_gpc_driver.setText(sprintf("%s",""));
+
+setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
 }
 
 var update_common_DPS = func {
@@ -257,6 +259,8 @@ DPS_menu_time.setText(sprintf("%s","000/"~getprop("/sim/time/gmt-string")));
 DPS_menu_crt_time.setText(sprintf("%s", "000/"~" 0:00:00"));
 DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
+
+setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
 }
 
 
@@ -317,6 +321,32 @@ MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
 }
 
 #################################################################
+# the generic CRT fault page 
+#################################################################
+
+var p_dps_fault = PFD.addPage("CRTFault", "p_dps_fault");
+
+
+p_dps_fault.update = func
+{
+
+    # these really need to be deleted when leaving the ascent page - do we have
+    # an 'upon exit' functionality here
+    p_traj_plot.removeAllChildren();
+    p_ascent_shuttle_sym.setScale(0.0);
+
+update_common_DPS();
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/   /099";
+
+
+DPS_menu_title.setText(sprintf("%s","FAULT"));
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+}
+
+#################################################################
 # the ascent/entry PFD page showing the vertical trajectory status
 #################################################################
 
@@ -349,7 +379,12 @@ p_traj_plot.removeAllChildren();
 
 SpaceShuttle.ascent_traj_update_set();
 
-if (SpaceShuttle.traj_display_flag == 2)
+if (SpaceShuttle.traj_display_flag == 1)
+	{
+	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 1"));
+	DPS_menu_ops.setText(sprintf("%s","1021/     /"));
+	}
+else if (SpaceShuttle.traj_display_flag == 2)
 	{
 	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
 	DPS_menu_ops.setText(sprintf("%s","1031/     /"));
@@ -434,9 +469,13 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_ascent);
-p_main.addMenuItem(3, "MAINT", p_main);
+p_main.addMenuItem(3, "MAINT", p_dps_fault);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
+
+p_dps_fault.addMenuItem(0, "UP", p_main);
+p_dps_fault.addMenuItem(4, "MSG RST", p_dps_fault);
+p_dps_fault.addMenuItem(5, "MSG ACK", p_dps_fault);
 
 var pfd_button_pushed = 0;
 
