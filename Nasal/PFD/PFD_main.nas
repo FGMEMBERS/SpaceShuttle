@@ -226,8 +226,41 @@ setlistener("sim/model/shuttle/controls/PFD/button-pressed", func(v)
             });
 var pfd_mode = 1;
 
+# SVG access to all common elements in DPS and MEDS page structures
 
-var p_all_menu_title = PFDsvg.getElementById("MB_title");
+var MEDS_menu_title = PFDsvg.getElementById("MEDS_title");
+
+var DPS_menu_time = PFDsvg.getElementById("dps_menu_time");
+var DPS_menu_crt_time = PFDsvg.getElementById("dps_menu_crt_time");
+var DPS_menu_ops = PFDsvg.getElementById("dps_menu_OPS");
+var DPS_menu_title = PFDsvg.getElementById("dps_menu_title");
+var DPS_menu_fault_line = PFDsvg.getElementById("dps_menu_fault_line");
+var DPS_menu_scratch_line = PFDsvg.getElementById("dps_menu_scratch_line");
+var DPS_menu_gpc_driver = PFDsvg.getElementById("dps_menu_gpc_driver");
+
+# helper function to turn DPS display items off in MEDS pages
+
+var set_DPS_off = func {
+
+DPS_menu_time.setText(sprintf("%s",""));
+DPS_menu_crt_time.setText(sprintf("%s",""));
+DPS_menu_ops.setText(sprintf("%s",""));
+DPS_menu_title.setText(sprintf("%s",""));
+DPS_menu_fault_line.setText(sprintf("%s",""));
+DPS_menu_scratch_line.setText(sprintf("%s",""));
+DPS_menu_gpc_driver.setText(sprintf("%s",""));
+}
+
+var update_common_DPS = func {
+
+DPS_menu_time.setText(sprintf("%s","000/"~getprop("/sim/time/gmt-string")));
+DPS_menu_crt_time.setText(sprintf("%s", "000/"~" 0:00:00"));
+DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
+DPS_menu_gpc_driver.setText(sprintf("%s","1"));
+}
+
+
+
 
 # Set listener on the PFD mode button; this could be an on off switch or by convention
 # it will also act as brightness; so 0 is off and anything greater is brightness.
@@ -261,7 +294,8 @@ p_pfd.update = func
     p_traj_plot.removeAllChildren();
     p_ascent_shuttle_sym.setScale(0.0);
 
-    p_all_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
+    set_DPS_off();
+    MEDS_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
     p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));
     p_pfd.keas.setText(sprintf("%5.0f",getprop("velocities/airspeed-kt")));
 };
@@ -275,12 +309,11 @@ PFD.selectPage(p_pfd);
 
 var p_main = PFD.addPage("MainMenu", "p_main");
 
-p_main.time = PFDsvg.getElementById("p_main_time");
 
 p_main.update = func
 {
-p_main.time.setText(sprintf("%s",getprop("/sim/time/gmt-string")));
-p_all_menu_title.setText(sprintf("%s","      MAIN MENU"));
+set_DPS_off();
+MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
 }
 
 #################################################################
@@ -298,10 +331,6 @@ SpaceShuttle.fill_traj1_data();
 var p_ascent_time = 0;
 var p_ascent_next_update = 0;
 
-p_ascent.time = PFDsvg.getElementById("p_ascent_time");
-p_ascent.label = PFDsvg.getElementById("p_ascent_label");
-p_ascent.ops = PFDsvg.getElementById("p_ascent_ops");
-
 
 var p_ascent_shuttle_sym = PFDcanvas.createGroup();
 canvas.parsesvg( p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
@@ -310,7 +339,11 @@ p_ascent_shuttle_sym.setScale(0.3);
 p_ascent.update = func
 {
 
-p_all_menu_title.setText(sprintf("%s","       DPS MENU"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+update_common_DPS();
+
+
 
 p_traj_plot.removeAllChildren();
 
@@ -318,33 +351,32 @@ SpaceShuttle.ascent_traj_update_set();
 
 if (SpaceShuttle.traj_display_flag == 2)
 	{
-	p_ascent.label.setText(sprintf("%s","ASCENT TRAJ 2"));
-	p_ascent.ops.setText(sprintf("%s","1031/     /"));
+	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
+	DPS_menu_ops.setText(sprintf("%s","1031/     /"));
 	}
 else if  (SpaceShuttle.traj_display_flag == 3)
 	{
-	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 1"));
-	p_ascent.ops.setText(sprintf("%s","3041/     /"));
+	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 1"));
+	DPS_menu_ops.setText(sprintf("%s","3041/     /"));
 	}
 else if (SpaceShuttle.traj_display_flag == 4)
 	{
-	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 2"));
+	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 2"));
 	}
 else if (SpaceShuttle.traj_display_flag == 5)
 	{
-	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 3"));
+	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 3"));
 	}
 else if (SpaceShuttle.traj_display_flag == 6)
 	{
-	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 4"));
+	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 4"));
 	}
 else if (SpaceShuttle.traj_display_flag == 7)
 	{
-	p_ascent.label.setText(sprintf("%s","ENTRY TRAJ 5"));
+	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 5"));
 	}
 
 
-p_ascent.time.setText(sprintf("%s",getprop("/sim/time/gmt-string")));
 
 var plot = p_traj_plot.createChild("path", "data")
                                    .setStrokeLineWidth(2)
@@ -393,7 +425,7 @@ p_ascent.addMenuItem(4, "MSG RST", p_ascent);
 p_ascent.addMenuItem(5, "MSG ACK", p_ascent);
 
 p_pfd.addMenuItem(0, "UP", p_main);
-p_pfd.addMenuItem(1, "A/E", p_ascent);
+p_pfd.addMenuItem(1, "A/E", p_pfd);
 p_pfd.addMenuItem(2, "ORBIT", p_pfd);
 p_pfd.addMenuItem(3, "DATA", p_pfd);
 p_pfd.addMenuItem(4, "MSG RST", p_pfd);
@@ -401,7 +433,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
-p_main.addMenuItem(2, "DPS", p_main);
+p_main.addMenuItem(2, "DPS", p_ascent);
 p_main.addMenuItem(3, "MAINT", p_main);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
