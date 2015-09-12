@@ -5,6 +5,7 @@
 # Based on F-15 MPCD
 # ---------------------------
 # Richard Harrison: 2015-01-23 : rjh@zaretto.com
+# addition of DPS pages (old CRT style) Thorsten Renk 2015
 # ---------------------------
 
 #
@@ -320,6 +321,28 @@ set_DPS_off();
 MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
 }
 
+
+
+#################################################################
+# the dps dispatching page - this isn't a real page
+# it just points to the correct page dependent on ops mode
+#################################################################
+
+var p_dps = PFD.addPage("CRTFault", "p_dps");
+
+p_dps.update = func
+{
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+if (ops == 1)
+	{ PFD.selectPage(p_ascent);}
+else if (ops == 2)
+	{ PFD.selectPage(p_dps_univ_ptg);}
+else 
+	{PFD.selectPage(p_main);}
+
+}
+
 #################################################################
 # the generic CRT fault page 
 #################################################################
@@ -366,6 +389,12 @@ var p_ascent_shuttle_sym = PFDcanvas.createGroup();
 canvas.parsesvg( p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
 p_ascent_shuttle_sym.setScale(0.3);
 
+p_ascent.throttle = PFDsvg.getElementById("p_ascent_throttle");
+p_ascent.throttle_text = PFDsvg.getElementById("p_ascent_throttle_txt");
+
+p_ascent.prplt = PFDsvg.getElementById("p_ascent_prplt");
+p_ascent.prplt_text = PFDsvg.getElementById("p_ascent_prplt_txt");
+
 p_ascent.update = func
 {
 
@@ -373,16 +402,44 @@ MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
 
 update_common_DPS();
 
+if (SpaceShuttle.traj_display_flag < 3)
+	{
+	var throttle = getprop("/controls/engines/engine[0]/throttle");
+	if (throttle < 0.67) {throttle = 0.0;} else {throttle = throttle * 100.0;}
+	p_ascent.throttle.setText(sprintf("%3.0f",throttle));
+	p_ascent.throttle_text.setText(sprintf("THROT"));
+	}
+else
+	{
+	p_ascent.throttle.setText(sprintf(""));
+	p_ascent.throttle_text.setText(sprintf(""));
+	}
 
+if (SpaceShuttle.traj_display_flag == 2)
+	{
+	p_ascent.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
+	p_ascent.prplt_text.setText(sprintf("PRPLT"));
+	}
+else 	
+	{
+	p_ascent.prplt.setText(sprintf(""));
+	p_ascent.prplt_text.setText(sprintf(""));
+	}
 
 p_traj_plot.removeAllChildren();
 
 SpaceShuttle.ascent_traj_update_set();
 
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
 if (SpaceShuttle.traj_display_flag == 1)
 	{
-	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 1"));
-	DPS_menu_ops.setText(sprintf("%s","1021/     /"));
+	if (major_mode == 101)
+		{DPS_menu_title.setText(sprintf("%s","LAUNCH TRAJ"));}
+	else
+		{DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 1"));}
+
+		DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
 	}
 else if (SpaceShuttle.traj_display_flag == 2)
 	{
@@ -448,6 +505,50 @@ p_ascent_shuttle_sym.setTranslation(x,y);
 
 };
 
+
+
+#################################################################
+# the universal pointing page
+#################################################################
+
+var p_dps_univ_ptg = PFD.addPage("CRTUnivPtg", "p_dps_univ_ptg");
+
+p_dps_univ_ptg.cur_roll = PFDsvg.getElementById("p_dps_univ_ptg_cur_roll");
+p_dps_univ_ptg.cur_pitch = PFDsvg.getElementById("p_dps_univ_ptg_cur_pitch");
+p_dps_univ_ptg.cur_yaw = PFDsvg.getElementById("p_dps_univ_ptg_cur_yaw");
+
+p_dps_univ_ptg.rate_roll = PFDsvg.getElementById("p_dps_univ_ptg_rate_roll");
+p_dps_univ_ptg.rate_pitch = PFDsvg.getElementById("p_dps_univ_ptg_rate_pitch");
+p_dps_univ_ptg.rate_yaw = PFDsvg.getElementById("p_dps_univ_ptg_rate_yaw");
+
+p_dps_univ_ptg.update = func
+{
+
+    # these really need to be deleted when leaving the ascent page - do we have
+    # an 'upon exit' functionality here
+    p_traj_plot.removeAllChildren();
+    p_ascent_shuttle_sym.setScale(0.0);
+
+update_common_DPS();
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+
+
+DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
+DPS_menu_ops.setText(sprintf("%s","2011/    /"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+
+p_dps_univ_ptg.cur_roll.setText(sprintf("%3.2f",getprop("/orientation/roll-deg")));
+p_dps_univ_ptg.cur_pitch.setText(sprintf("%3.2f",getprop("/orientation/pitch-deg")));
+p_dps_univ_ptg.cur_yaw.setText(sprintf("%3.2f",getprop("/orientation/heading-deg")));
+
+p_dps_univ_ptg.rate_roll.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/p-rad_sec")));
+p_dps_univ_ptg.rate_pitch.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/q-rad_sec")));
+p_dps_univ_ptg.rate_yaw.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/r-rad_sec")));
+}
+
+
 #
 PFD.selectPage(p_pfd);
 
@@ -468,14 +569,18 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
-p_main.addMenuItem(2, "DPS", p_ascent);
-p_main.addMenuItem(3, "MAINT", p_dps_fault);
+p_main.addMenuItem(2, "DPS", p_dps);
+p_main.addMenuItem(3, "MAINT", p_dps_univ_ptg);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
 p_dps_fault.addMenuItem(0, "UP", p_main);
 p_dps_fault.addMenuItem(4, "MSG RST", p_dps_fault);
 p_dps_fault.addMenuItem(5, "MSG ACK", p_dps_fault);
+
+p_dps_univ_ptg.addMenuItem(0, "UP", p_main);
+p_dps_univ_ptg.addMenuItem(4, "MSG RST", p_dps_univ_ptg);
+p_dps_univ_ptg.addMenuItem(5, "MSG ACK", p_dps_univ_ptg);
 
 var pfd_button_pushed = 0;
 

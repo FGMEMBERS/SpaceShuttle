@@ -254,6 +254,10 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 	settimer(launch_smoke_off,1.5);
 
 	SRB_burn_timer = getprop("/sim/time/elapsed-sec");
+
+	# make an automatic transtion to MM 102
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 102);	
+
 	}
 else
 	{
@@ -425,6 +429,9 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 
 setprop("/sim/messages/copilot", "SRB separation!");
 setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
+
+# make an automatic transtion to MM 103
+setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
 
 settimer(SRB_separation_motor_off, 1.2);
 
