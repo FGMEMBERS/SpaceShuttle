@@ -79,11 +79,14 @@ var PFD_Page = {
 
         if (vis)
         {
+            me.ondisplay();
             foreach(mi ;  me.menus)
             {
 #                printf("load menu %s %\n",mi.title, mi);
             }
         }
+        else
+            me.offdisplay();
     },
 #
 #
@@ -120,6 +123,12 @@ var PFD_Page = {
         return nm;
     },
     update : func
+    {
+    },
+    ondisplay : func
+    {
+    },
+    offdisplay : func
     {
     },
 };
@@ -394,6 +403,19 @@ p_ascent.throttle_text = PFDsvg.getElementById("p_ascent_throttle_txt");
 
 p_ascent.prplt = PFDsvg.getElementById("p_ascent_prplt");
 p_ascent.prplt_text = PFDsvg.getElementById("p_ascent_prplt_txt");
+
+p_ascent.ondisplay = func
+{
+    # called once whenever this page goes on display/
+}
+
+p_ascent.offdisplay = func
+{
+    p_traj_plot.removeAllChildren();
+    p_ascent_shuttle_sym.setScale(0.0);
+
+    set_DPS_off();
+}
 
 p_ascent.update = func
 {
