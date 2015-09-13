@@ -362,10 +362,6 @@ var p_dps_fault = PFD.addPage("CRTFault", "p_dps_fault");
 p_dps_fault.update = func
 {
 
-    # these really need to be deleted when leaving the ascent page - do we have
-    # an 'upon exit' functionality here
-    p_traj_plot.removeAllChildren();
-    p_ascent_shuttle_sym.setScale(0.0);
 
 update_common_DPS();
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -527,7 +523,53 @@ p_ascent_shuttle_sym.setTranslation(x,y);
 
 };
 
+#################################################################
+# the maneuver page
+#################################################################
 
+var p_dps_mnvr = PFD.addPage("CRTMnvr", "p_dps_mnvr");
+
+p_dps_mnvr.oms_pitch_left = PFDsvg.getElementById("p_dps_mnvr_gmbl_l_pitch");
+p_dps_mnvr.oms_pitch_right = PFDsvg.getElementById("p_dps_mnvr_gmbl_r_pitch");
+p_dps_mnvr.oms_yaw_left = PFDsvg.getElementById("p_dps_mnvr_gmbl_l_yaw");
+p_dps_mnvr.oms_yaw_right = PFDsvg.getElementById("p_dps_mnvr_gmbl_r_yaw");
+
+p_dps_mnvr.ondisplay = func
+{
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var string1 = "";
+
+if (major_mode == 104)
+	{string1 = "OMS 1 ";}
+else if (major_mode == 105)
+	{string1 = "OMS 2 ";}
+else if (major_mode == 202)
+	{string1 = "ORBIT ";}
+
+var string2 = " EXEC";
+
+if ((major_mode == 106) or (major_mode == 301) or (major_mode == 303))
+	{string2 = " COAST";}
+
+
+DPS_menu_title.setText(sprintf("%s",string1~"MNVR"~string2));
+DPS_menu_ops.setText(sprintf("%s",major_mode~"1/    /"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+}
+
+
+p_dps_mnvr.update = func
+{
+
+update_common_DPS();
+
+
+p_dps_mnvr.oms_pitch_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/pitch-angle-rad") * 57.297));
+p_dps_mnvr.oms_pitch_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/pitch-angle-rad") * 57.297));
+p_dps_mnvr.oms_yaw_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/yaw-angle-rad") * 57.297));
+p_dps_mnvr.oms_yaw_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/yaw-angle-rad") * 57.297));
+}
 
 #################################################################
 # the universal pointing page
@@ -543,6 +585,13 @@ p_dps_univ_ptg.rate_roll = PFDsvg.getElementById("p_dps_univ_ptg_rate_roll");
 p_dps_univ_ptg.rate_pitch = PFDsvg.getElementById("p_dps_univ_ptg_rate_pitch");
 p_dps_univ_ptg.rate_yaw = PFDsvg.getElementById("p_dps_univ_ptg_rate_yaw");
 
+p_dps_univ_ptg.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
+DPS_menu_ops.setText(sprintf("%s","2011/    /"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+}
+
 p_dps_univ_ptg.update = func
 {
 
@@ -553,12 +602,6 @@ p_dps_univ_ptg.update = func
 
 update_common_DPS();
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-
-
-
-DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
-DPS_menu_ops.setText(sprintf("%s","2011/    /"));
-MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
 
 
 p_dps_univ_ptg.cur_roll.setText(sprintf("%3.2f",getprop("/orientation/roll-deg")));
@@ -592,8 +635,8 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_univ_ptg);
-p_main.addMenuItem(4, "MSG RST", p_main);
+p_main.addMenuItem(3, "MAINT", p_dps_mnvr);
+p_main.addMenuItem(4, "MSG RST", p_dps_univ_ptg);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
 p_dps_fault.addMenuItem(0, "UP", p_main);
@@ -603,6 +646,10 @@ p_dps_fault.addMenuItem(5, "MSG ACK", p_dps_fault);
 p_dps_univ_ptg.addMenuItem(0, "UP", p_main);
 p_dps_univ_ptg.addMenuItem(4, "MSG RST", p_dps_univ_ptg);
 p_dps_univ_ptg.addMenuItem(5, "MSG ACK", p_dps_univ_ptg);
+
+p_dps_mnvr.addMenuItem(0, "UP", p_main);
+p_dps_mnvr.addMenuItem(4, "MSG RST", p_dps_mnvr);
+p_dps_mnvr.addMenuItem(5, "MSG ACK", p_dps_mnvr);
 
 var pfd_button_pushed = 0;
 
