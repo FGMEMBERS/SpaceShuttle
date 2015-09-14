@@ -534,6 +534,21 @@ p_dps_mnvr.oms_pitch_right = PFDsvg.getElementById("p_dps_mnvr_gmbl_r_pitch");
 p_dps_mnvr.oms_yaw_left = PFDsvg.getElementById("p_dps_mnvr_gmbl_l_yaw");
 p_dps_mnvr.oms_yaw_right = PFDsvg.getElementById("p_dps_mnvr_gmbl_r_yaw");
 
+p_dps_mnvr.current_apoapsis = PFDsvg.getElementById("p_dps_mnvr_ha_cur");
+p_dps_mnvr.current_periapsis = PFDsvg.getElementById("p_dps_mnvr_hp_cur");
+
+p_dps_mnvr.fwd_rcs_dump = PFDsvg.getElementById("p_dps_mnvr_fwd_rcs_dump");
+p_dps_mnvr.fwd_rcs_arm = PFDsvg.getElementById("p_dps_mnvr_fwd_rcs_arm");
+p_dps_mnvr.fwd_rcs_off = PFDsvg.getElementById("p_dps_mnvr_fwd_rcs_off");
+
+p_dps_mnvr.surf_drive_on = PFDsvg.getElementById("p_dps_mnvr_surf_drive_on");
+p_dps_mnvr.surf_drive_off = PFDsvg.getElementById("p_dps_mnvr_surf_drive_off");
+
+p_dps_mnvr.oms_both = PFDsvg.getElementById("p_dps_mnvr_oms_both");
+p_dps_mnvr.oms_l = PFDsvg.getElementById("p_dps_mnvr_oms_l");
+p_dps_mnvr.oms_r = PFDsvg.getElementById("p_dps_mnvr_oms_r");
+p_dps_mnvr.rcs_sel = PFDsvg.getElementById("p_dps_mnvr_rcs_sel");
+
 p_dps_mnvr.ondisplay = func
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -569,6 +584,45 @@ p_dps_mnvr.oms_pitch_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsio
 p_dps_mnvr.oms_pitch_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/pitch-angle-rad") * 57.297));
 p_dps_mnvr.oms_yaw_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/yaw-angle-rad") * 57.297));
 p_dps_mnvr.oms_yaw_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/yaw-angle-rad") * 57.297));
+
+p_dps_mnvr.current_apoapsis.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/apoapsis-km")/1.853));
+p_dps_mnvr.current_periapsis.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/periapsis-km")/1.853));
+
+var fwd_rcs_dump = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd");
+
+if (fwd_rcs_dump == 0)
+	{
+	p_dps_mnvr.fwd_rcs_off.setText(sprintf("%s","*"));
+	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s",""));
+	p_dps_mnvr.fwd_rcs_dump.setText(sprintf("%s",""));
+	}
+else
+	{
+	p_dps_mnvr.fwd_rcs_off.setText(sprintf("%s",""));
+	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s",""));
+	p_dps_mnvr.fwd_rcs_dump.setText(sprintf("%s","*"));
+	}
+
+var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+
+if ((control_mode == 24) or (control_mode == 29))
+	{
+	p_dps_mnvr.surf_drive_on.setText(sprintf("%s","*"));
+	p_dps_mnvr.surf_drive_off.setText(sprintf("%s",""));
+	}
+else
+	{
+	p_dps_mnvr.surf_drive_on.setText(sprintf("%s",""));
+	p_dps_mnvr.surf_drive_off.setText(sprintf("%s","*"));
+	}
+
+# right now, we don't have the capability to use single OMS engine burns
+
+p_dps_mnvr.oms_both.setText(sprintf("%s","*"));
+p_dps_mnvr.oms_l.setText(sprintf("%s",""));
+p_dps_mnvr.oms_r.setText(sprintf("%s",""));
+p_dps_mnvr.rcs_sel.setText(sprintf("%s",""));
+
 }
 
 #################################################################

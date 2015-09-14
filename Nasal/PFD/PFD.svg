@@ -1826,6 +1826,270 @@
            id="tspan3112"
            sodipodi:role="line"> +XXX.XX</tspan></text>
 
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text45"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="390.928574"
+           id="tspan3112"
+           sodipodi:role="line">HA     HP</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text46"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">TGT</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_ha_tgt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="390.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_hp_tgt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="434.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text47"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">CUR</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_ha_cur"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="390.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_hp_cur"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="434.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text48"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="343.928574"
+           id="tspan3112"
+           sodipodi:role="line">35 ABORT TGT</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_abort_tgt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="448.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text49"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="362.928574"
+           id="tspan3112"
+           sodipodi:role="line">FWD RCS</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text50"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">ARM   36</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_fwd_rcs_arm"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="457.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text51"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">DUMP  37</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_fwd_rcs_dump"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="457.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text52"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">OFF   38</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_fwd_rcs_off"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="457.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text53"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="362.928574"
+           id="tspan3112"
+           sodipodi:role="line">SURF DRIVE</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text54"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">ON    39</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_surf_drive_on"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="457.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_text55"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">OFF   40</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_mnvr_surf_drive_off"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="457.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
     </g>
   </g>
 
