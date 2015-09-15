@@ -172,6 +172,9 @@
 				<body-z type="double" n="1">0</body-z>
 				<body-z type="double" n="2">1</body-z>
 			</body>
+			<inertial>
+				<delta-lon-rad type="double">0.0</delta-lon-rad>
+			</inertial>
 		</pointing>
                 <fcs>
                     <parachute_reef_pos_norm type="double"> 0 </parachute_reef_pos_norm>
@@ -1634,6 +1637,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     <nasal>
         <SpaceShuttle>
 	    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/coordinates.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/housekeeping.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
