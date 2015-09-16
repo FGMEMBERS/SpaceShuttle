@@ -5,13 +5,38 @@
 var command_string = "";
 var last_command = [];
 
+var header = "";
+var body = "";
+var value = "";
+
 # OPS key #########################################################
 
 var key_ops = func {
 
 var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 
+if (current_string == "")
+	{header = "OPS";}
+else {header = "FAIL";}
+
 var element = "OPS ";
+append(last_command, element);
+current_string = current_string~element;
+
+setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+}
+
+# ITEM key #########################################################
+
+var key_item = func {
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+
+if (current_string == "")
+	{header = "ITEM";}
+else {header = "FAIL";}
+
+var element = "ITEM ";
 append(last_command, element);
 current_string = current_string~element;
 
@@ -23,6 +48,10 @@ setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 var key_spec = func {
 
 var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+
+if (current_string == "")
+	{header = "SPEC";}
+else {header = "FAIL";}
 
 var element = "SPEC ";
 append(last_command, element);
@@ -39,6 +68,11 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 
 append(last_command, symbol);
 current_string = current_string~symbol;
+
+if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
+	{
+	body = body~symbol;
+	}
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 }
@@ -96,6 +130,22 @@ setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 command_parse();
 }
 
+# EXEC key #######################################################
+
+var key_exec = func {
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+
+var element = " EXEC";
+append(last_command, element);
+current_string = current_string~element;
+
+setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+
+
+command_parse();
+}
+
 
 #####################################################################
 # The command parser
@@ -115,18 +165,89 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 
 var valid_flag = 0;
 
-# this is obviously an unsustainable parser, but we'll have it for testing purposes
 
-if (current_string == "OPS 101 PRO")
+if (header == "OPS")
 	{
-	var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+	var major_mode = int(body);
+	print ("Switching to major_mode ", major_mode);
+	var current_ops = getprop("/fdm/jsbsim/systems/dps/ops");
 
-	if (ops == 1)
-		{SpaceShuttle.PFD.selectPage(p_ascent);}
-	else if (ops == 3)
-		{SpaceShuttle.PFD.selectPage(p_ascent);}
-	valid_flag = 1;
+	if (major_mode == 101)
+		{
+		setprop("/fdm/jsbsim/systems/dps/ops", 1);
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 101);
+		SpaceShuttle.PFD.selectPage(p_ascent);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 102) and (current_ops == 1))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 102);
+		SpaceShuttle.PFD.selectPage(p_ascent);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 103) and (current_ops == 1))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
+		SpaceShuttle.PFD.selectPage(p_ascent);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 104) and (current_ops == 1))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 104);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 105) and (current_ops == 1))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 105);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 106) and (current_ops == 1))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 106);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	if (major_mode == 201)
+		{
+		setprop("/fdm/jsbsim/systems/dps/ops", 2);
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 201);
+		SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 202) and (current_ops == 2))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 202);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
 	}
+
+if (header == "ITEM")
+	{
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+	var item = int(body);
+	var item_value = num(value);
+
+
+	if (major_mode == 201)
+		{
+		if (item == 18)
+			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;}
+		else if (item == 19)
+			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); valid_flag = 1;}
+		else if (item == 20)
+			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;}
+		else if (item == 21)
+			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); valid_flag = 1;}
+
+		}
+	
+	}
+
+
 
 if (current_string == "SPEC 99 PRO")
 	{
@@ -137,11 +258,17 @@ if (current_string == "SPEC 99 PRO")
 if (valid_flag == 0)
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "ILLEGAL ENTRY");
+	header = "";
+	body = "";
+	value = "";
 	}
 else 
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "");
 	setprop("/fdm/jsbsim/systems/dps/command-string", "");
+	header = "";
+	body = "";
+	value = "";
 	}
 
 

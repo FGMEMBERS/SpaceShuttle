@@ -846,6 +846,81 @@
 	</function>
 	</fcs_function>
 
+	<fcs_function name="systems/pointing/inertial/body-y[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-y[0]</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-y[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-y[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-y[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-y[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-y[2]">
+	<function>
+		<property>systems/pointing/world/body-y[2]</property>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-z[0]</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-z[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[2]">
+	<function>
+		<property>systems/pointing/world/body-z[2]</property>
+	</function>
+	</fcs_function>
+
+
 	</channel>
 
 </system>

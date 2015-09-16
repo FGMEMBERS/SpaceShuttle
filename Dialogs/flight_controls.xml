@@ -211,6 +211,151 @@
 	<hrule/>
 
 	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Orbital DAP</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  <radio>
+      <row>1</row>
+      <col>1</col>
+      <label>AUTO</label>
+      <halign>left</halign>
+      <name>auto</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>2</col>
+      <label>INTRL</label>
+      <halign>left</halign>
+      <name>inertial</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+    </radio>	
+
+  <radio>
+      <row>1</row>
+      <col>3</col>
+      <label>LVLH</label>
+      <halign>left</halign>
+      <name>lvlh</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>4</col>
+      <label>FREE</label>
+      <halign>left</halign>
+      <name>free</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>1</value>
+      </binding>
+    </radio>
+
+
+  </group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
 		<pref-height>20</pref-height>
 	</empty>
 

@@ -21,12 +21,19 @@
 		    <set-pitch-rate type="double">0.0</set-pitch-rate>
 		    <set-yaw-rate type="double">0.0</set-yaw-rate>
 		    <set-roll-rate type="double">0.0</set-roll-rate>
+		    <up-mnvr-flag type="int">0</up-mnvr-flag>
 		    <spec20>
 			<dap-A-PRI-rot-rate type="double">0.5</dap-A-PRI-rot-rate>
 			<dap-B-PRI-rot-rate type="double">0.2</dap-B-PRI-rot-rate>
 			<dap-A-VRN-rot-rate type="double">0.1</dap-A-VRN-rot-rate>
 			<dap-B-VRN-rot-rate type="double">0.05</dap-B-VRN-rot-rate>
 		    </spec20>
+		    <track>
+			<body-vector-selection type="int">1</body-vector-selection>
+			<target-vector n="0" type="double">1.0</target-vector>
+			<target-vector n="1" type="double">0.0</target-vector>
+			<target-vector n="2" type="double">0.0</target-vector>
+		    </track>
 		</ap>
 		<dps>
 		    <command-string type="string"></command-string>

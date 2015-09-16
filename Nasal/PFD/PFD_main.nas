@@ -8,6 +8,11 @@
 # addition of DPS pages (old CRT style) Thorsten Renk 2015
 # ---------------------------
 
+# pages available are
+# * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 303, 302)
+# * P_univ_ptg (OPS 201)
+
+
 #
 #
 # in the SVG each page is a named group - the group name is used to define each page
@@ -269,6 +274,7 @@ DPS_menu_time.setText(sprintf("%s","000/"~getprop("/sim/time/gmt-string")));
 DPS_menu_crt_time.setText(sprintf("%s", "000/"~" 0:00:00"));
 DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
+DPS_menu_fault_line.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/dps/error-string")));
 
 setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
 }
@@ -639,6 +645,12 @@ p_dps_univ_ptg.rate_roll = PFDsvg.getElementById("p_dps_univ_ptg_rate_roll");
 p_dps_univ_ptg.rate_pitch = PFDsvg.getElementById("p_dps_univ_ptg_rate_pitch");
 p_dps_univ_ptg.rate_yaw = PFDsvg.getElementById("p_dps_univ_ptg_rate_yaw");
 
+p_dps_univ_ptg.sel_maneuver = PFDsvg.getElementById("p_dps_univ_ptg_text6");
+p_dps_univ_ptg.sel_track = PFDsvg.getElementById("p_dps_univ_ptg_text12");
+p_dps_univ_ptg.sel_rot = PFDsvg.getElementById("p_dps_univ_ptg_text15");
+
+p_dps_univ_ptg.body_vector = PFDsvg.getElementById("p_dps_univ_ptg_body_vect");
+
 p_dps_univ_ptg.ondisplay = func
 {
 DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
@@ -662,9 +674,39 @@ p_dps_univ_ptg.cur_roll.setText(sprintf("%3.2f",getprop("/orientation/roll-deg")
 p_dps_univ_ptg.cur_pitch.setText(sprintf("%3.2f",getprop("/orientation/pitch-deg")));
 p_dps_univ_ptg.cur_yaw.setText(sprintf("%3.2f",getprop("/orientation/heading-deg")));
 
-p_dps_univ_ptg.rate_roll.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/p-rad_sec")));
-p_dps_univ_ptg.rate_pitch.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/q-rad_sec")));
-p_dps_univ_ptg.rate_yaw.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/velocities/r-rad_sec")));
+p_dps_univ_ptg.rate_roll.setText(sprintf("%3.2f",57.297* getprop("/fdm/jsbsim/velocities/p-rad_sec")));
+p_dps_univ_ptg.rate_pitch.setText(sprintf("%3.2f",57.297 * getprop("/fdm/jsbsim/velocities/q-rad_sec")));
+p_dps_univ_ptg.rate_yaw.setText(sprintf("%3.2f",57.297 * getprop("/fdm/jsbsim/velocities/r-rad_sec")));
+
+var up_mnvr_flag= getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+
+if (up_mnvr_flag == 0)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}	
+else if (up_mnvr_flag == 1)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18 *"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_mnvr_flag == 2)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19 *"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_mnvr_flag == 3)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20 *"));
+	}
+
+p_dps_univ_ptg.body_vector.setText(sprintf("%s", getprop("systems/ap/track/body-vector-selection") ));
+
 }
 
 
