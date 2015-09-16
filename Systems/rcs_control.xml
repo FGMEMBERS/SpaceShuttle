@@ -144,32 +144,63 @@
 		</switch>
 
 		<!-- veto the command inputs when THC and RHC control the RMS arm -->
-		<!-- this allows to remain in attitude-hold modes while handling payload -->		
+		<!-- this allows to remain in attitude-hold modes while handling payload -->
+		<!-- also merge with AP commands -->		
 
 		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
 		<function>
+			<sum>
 			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
 				<property>systems/fcs/aileron-cmd-norm-sense-base</property>
 				<property>systems/fcs/rms-control-veto</property>
 			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/roll-rate-controller</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/rudder-cmd-norm-sense">
 		<function>
+			<sum>
 			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
 				<property>systems/fcs/rudder-cmd-norm-sense-base</property>
 				<property>systems/fcs/rms-control-veto</property>
 			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/yaw-rate-controller</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/elevator-cmd-norm-sense">
 		<function>
+			<sum>
 			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
 				<property>systems/fcs/elevator-cmd-norm-sense-base</property>
 				<property>systems/fcs/rms-control-veto</property>
 			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/pitch-rate-controller</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 

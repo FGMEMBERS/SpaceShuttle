@@ -2,9 +2,117 @@
 
 <system>
 
+
+	<channel name="Auto rotation rates">
+
+		<switch name="systems/ap/dap-A-inertial">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 25	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/rot-rate">
+			<default value="0.0"/>
+			<test value="systems/ap/spec20/dap-A-PRI-rot-rate">
+				systems/fcs/control-mode == 20	
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
+				systems/fcs/control-mode == 25	
+			</test>
+		</switch>
+	
+		
+
+		<switch name="systems/ap/auto-rotation-mode">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/dap-A-inertial == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/pitch-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-pitch-rate</property>
+				<value>-0.01745</value>
+				</product>
+				<property>velocities/q-rad_sec</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/ap/pitch-rate-controller">
+			<input>systems/ap/pitch-rate-error</input>
+			<kp> 10.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-pitch</output>
+  		</pid>
+
+		<fcs_function name="systems/ap/yaw-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-yaw-rate</property>
+				<value>-0.01745</value>
+				</product>
+				<property>velocities/r-rad_sec</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/ap/yaw-rate-controller">
+			<input>systems/ap/yaw-rate-error</input>
+			<kp> 10.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-yaw</output>
+  		</pid>
+
+		<fcs_function name="systems/ap/roll-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-roll-rate</property>
+				<value>0.01745</value>
+				<value>3.0</value>
+				</product>
+				<property>velocities/p-rad_sec</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<pid name="systems/ap/roll-rate-controller">
+			<input>systems/ap/roll-rate-error</input>
+			<kp> 10.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-roll</output>
+  		</pid>
+
+
+
+	</channel>
+	
+
 	<channel name="Entry auto-pitch hold">
-
-
 
 		<switch name="systems/ap/alpha-hold-mode">
 			<default value="0.0"/>
@@ -52,5 +160,6 @@
 		</fcs_function>
 
 	</channel>
+
 
 </system>
