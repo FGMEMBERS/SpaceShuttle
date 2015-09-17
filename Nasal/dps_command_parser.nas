@@ -8,6 +8,8 @@ var last_command = [];
 var header = "";
 var body = "";
 var value = "";
+var end = "";
+var b_v_flag = 0;
 
 # OPS key #########################################################
 
@@ -71,12 +73,33 @@ current_string = current_string~symbol;
 
 if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 	{
-	body = body~symbol;
+	if (b_v_flag == 0)
+		{body = body~symbol;}
+	else
+		{value = value~symbol;}
 	}
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 }
 
+# the plus and minus keys ########################################
+
+var key_delimiter = func (symbol) {
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+append(last_command, symbol);
+current_string = current_string~" "~symbol;
+
+if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
+	{
+	if (b_v_flag == 0) # we've been entering body		
+		{
+		b_v_flag = 1;
+		value = value~symbol;
+		}
+	}
+setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+}
 
 
 # CLEAR key #######################################################
@@ -94,6 +117,7 @@ for (var i = 0; i < (n-1); i=i+1)
 	current_string = current_string~last_command[i];
 	}
 setsize(last_command,n-1);
+
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 }
@@ -124,6 +148,8 @@ var element = " PRO";
 append(last_command, element);
 current_string = current_string~element;
 
+end = "PRO";
+
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 
 
@@ -139,6 +165,8 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 var element = " EXEC";
 append(last_command, element);
 current_string = current_string~element;
+
+end = "EXEC";
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 
@@ -165,8 +193,9 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 
 var valid_flag = 0;
 
+print(header, " ", body, " ", value);
 
-if (header == "OPS")
+if ((header == "OPS") and (end =="PRO"))
 	{
 	var major_mode = int(body);
 	print ("Switching to major_mode ", major_mode);
@@ -224,7 +253,7 @@ if (header == "OPS")
 		}
 	}
 
-if (header == "ITEM")
+if ((header == "ITEM") and (end = "EXEC"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
@@ -234,14 +263,46 @@ if (header == "ITEM")
 
 	if (major_mode == 201)
 		{
-		if (item == 18)
-			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;}
+		if (item == 5)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll", num(value)); valid_flag = 1;}
+		else if (item == 6)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch", num(value)); valid_flag = 1;}
+		else if (item == 7)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-yaw", num(value)); valid_flag = 1;}
+		else if (item == 8)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/tgt-id", int(value)); valid_flag = 1;}
+		else if (item == 11)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-lat", num(value)); valid_flag = 1;}
+		else if (item == 12)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-lon", num(value)); valid_flag = 1;}
+		else if (item == 14)
+			{setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", int(value)); valid_flag = 1;}
+		else if (item == 13)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-alt", num(value)); valid_flag = 1;}
+		else if (item == 17)
+			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-om", num(value)); valid_flag = 1;}
+		else if (item == 18)
+			{
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;
+			SpaceShuttle.create_mnvr_vector();
+			SpaceShuttle.tracking_loop_flag = 0;
+			}
 		else if (item == 19)
-			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); valid_flag = 1;
+			SpaceShuttle.create_trk_vector();
+			SpaceShuttle.tracking_loop_flag = 0;
+			}
 		else if (item == 20)
-			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;
+			SpaceShuttle.tracking_loop_flag = 0;
+			}
 		else if (item == 21)
-			{setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); valid_flag = 1;
+			SpaceShuttle.tracking_loop_flag = 0;
+			}
 
 		}
 	
@@ -255,23 +316,25 @@ if (current_string == "SPEC 99 PRO")
 	valid_flag = 1;
 	}
 
+b_v_flag = 0;
+header = "";
+body = "";
+value = "";
+end = "";
+
 if (valid_flag == 0)
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "ILLEGAL ENTRY");
-	header = "";
-	body = "";
-	value = "";
 	}
 else 
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "");
 	setprop("/fdm/jsbsim/systems/dps/command-string", "");
-	header = "";
-	body = "";
-	value = "";
+	setsize(last_command,0);
 	}
 
-
-
-
 }
+
+
+
+

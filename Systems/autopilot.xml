@@ -27,10 +27,98 @@
 
 	<channel name="Inertial vector tracking">
 
+		<fcs_function name="systems/ap/track/body-minus-x[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-x[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-x[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
 		<switch name="systems/ap/track/body-vector[0]">
 			<default value="0.0"/>
 			<test value="systems/pointing/inertial/body-x[0]">
 				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-x[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-z[0]">
+				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
@@ -39,6 +127,12 @@
 			<test value="systems/pointing/inertial/body-x[1]">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
+			<test value="systems/ap/track/body-minus-x[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-z[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-vector[2]">
@@ -46,12 +140,42 @@
 			<test value="systems/pointing/inertial/body-x[2]">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
+			<test value="systems/ap/track/body-minus-x[2]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-z[2]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
+
+		<!--<switch name="systems/ap/track/body-sec[0]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[0]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-sec[1]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[1]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-sec[2]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[2]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+		</switch>-->
 
 		<switch name="systems/ap/track/body-yaw[0]">
 			<default value="0.0"/>
 			<test value="systems/pointing/inertial/body-y[0]">
 				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-y[0]">
+				systems/ap/track/body-vector-selection == 2	
 			</test>
 		</switch>
 
@@ -60,12 +184,18 @@
 			<test value="systems/pointing/inertial/body-y[1]">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
+			<test value="systems/ap/track/body-minus-y[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-yaw[2]">
 			<default value="0.0"/>
 			<test value="systems/pointing/inertial/body-y[2]">
 				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-y[2]">
+				systems/ap/track/body-vector-selection == 2	
 			</test>
 		</switch>
 
@@ -74,6 +204,9 @@
 			<test value="systems/pointing/inertial/body-z[0]">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
+			<test value="systems/ap/track/body-minus-z[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-pitch[1]">
@@ -81,12 +214,48 @@
 			<test value="systems/pointing/inertial/body-z[1]">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
+			<test value="systems/ap/track/body-minus-z[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-pitch[2]">
 			<default value="0.0"/>
 			<test value="systems/pointing/inertial/body-z[2]">
 				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[2]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-roll[0]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[0]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-roll[1]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[1]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-roll[2]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[2]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[2]">
+				systems/ap/track/body-vector-selection == 2	
 			</test>
 		</switch>
 
@@ -103,25 +272,6 @@
 				</product>
 				<product>
 					<property>systems/ap/track/body-pitch[2]</property>
-					<property>systems/ap/track/target-vector[2]</property>
-				</product>
-			</sum>
-		</function>
-		</fcs_function>	
-
-		<fcs_function name="systems/ap/track/yaw-error">
-		<function>
-			<sum>
-				<product>
-					<property>systems/ap/track/body-yaw[0]</property>
-					<property>systems/ap/track/target-vector[0]</property>
-				</product>
-				<product>
-					<property>systems/ap/track/body-yaw[1]</property>
-					<property>systems/ap/track/target-vector[1]</property>
-				</product>
-				<product>
-					<property>systems/ap/track/body-yaw[2]</property>
 					<property>systems/ap/track/target-vector[2]</property>
 				</product>
 			</sum>
@@ -146,6 +296,27 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/track/yaw-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-yaw[0]</property>
+					<property>systems/ap/track/target-vector[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[1]</property>
+					<property>systems/ap/track/target-vector[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[2]</property>
+					<property>systems/ap/track/target-vector[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+
 		<fcs_function name="systems/ap/track/yaw-rate-cmd">
 		<function>
 			<product>
@@ -153,6 +324,45 @@
 				<max>
 					<product>
 						<property>systems/ap/track/yaw-error</property>
+						<value>3.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/roll-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-roll[0]</property>
+					<property>systems/ap/track/target-sec[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-roll[1]</property>
+					<property>systems/ap/track/target-sec[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-roll[2]</property>
+					<property>systems/ap/track/target-sec[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+
+		<fcs_function name="systems/ap/track/roll-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/roll-error</property>
 						<value>3.0</value>
 					</product>
 					<value>-1.0</value>
@@ -190,14 +400,24 @@
 
 		<switch name="systems/ap/set-pitch-rate">
 			<default value="0.0"/>
-			<test value="systems/ap/track/pitch-rate-cmd">
+			<test logic="OR" value="systems/ap/track/pitch-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
 				systems/ap/up-mnvr-flag == 2
 			</test>
 		</switch>
 
 		<switch name="systems/ap/set-yaw-rate">
 			<default value="0.0"/>
-			<test value="systems/ap/track/yaw-rate-cmd">
+			<test logic="OR" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
+				systems/ap/up-mnvr-flag == 2
+			</test>
+		</switch>
+
+		<switch name="systems/ap/set-roll-rate">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/track/roll-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
 				systems/ap/up-mnvr-flag == 2
 			</test>
 		</switch>

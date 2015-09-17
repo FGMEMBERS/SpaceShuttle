@@ -651,6 +651,19 @@ p_dps_univ_ptg.sel_rot = PFDsvg.getElementById("p_dps_univ_ptg_text15");
 
 p_dps_univ_ptg.body_vector = PFDsvg.getElementById("p_dps_univ_ptg_body_vect");
 
+p_dps_univ_ptg.mo_roll = PFDsvg.getElementById("p_dps_univ_ptg_mo_roll");
+p_dps_univ_ptg.mo_pitch = PFDsvg.getElementById("p_dps_univ_ptg_mo_pitch");
+p_dps_univ_ptg.mo_yaw = PFDsvg.getElementById("p_dps_univ_ptg_mo_yaw");
+
+p_dps_univ_ptg.tgt_id = PFDsvg.getElementById("p_dps_univ_ptg_tgt_id");
+p_dps_univ_ptg.ra = PFDsvg.getElementById("p_dps_univ_ptg_ra");
+p_dps_univ_ptg.dec = PFDsvg.getElementById("p_dps_univ_ptg_dec");
+p_dps_univ_ptg.lat = PFDsvg.getElementById("p_dps_univ_ptg_lat");
+p_dps_univ_ptg.lon = PFDsvg.getElementById("p_dps_univ_ptg_lon");
+p_dps_univ_ptg.alt = PFDsvg.getElementById("p_dps_univ_ptg_alt");
+p_dps_univ_ptg.om = PFDsvg.getElementById("p_dps_univ_ptg_om");
+
+
 p_dps_univ_ptg.ondisplay = func
 {
 DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
@@ -670,13 +683,13 @@ update_common_DPS();
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 
-p_dps_univ_ptg.cur_roll.setText(sprintf("%3.2f",getprop("/orientation/roll-deg")));
-p_dps_univ_ptg.cur_pitch.setText(sprintf("%3.2f",getprop("/orientation/pitch-deg")));
-p_dps_univ_ptg.cur_yaw.setText(sprintf("%3.2f",getprop("/orientation/heading-deg")));
+p_dps_univ_ptg.cur_roll.setText(sprintf("%+3.2f",getprop("/orientation/roll-deg")));
+p_dps_univ_ptg.cur_pitch.setText(sprintf("%+3.2f",getprop("/orientation/pitch-deg")));
+p_dps_univ_ptg.cur_yaw.setText(sprintf("%+3.2f",getprop("/orientation/heading-deg")));
 
-p_dps_univ_ptg.rate_roll.setText(sprintf("%3.2f",57.297* getprop("/fdm/jsbsim/velocities/p-rad_sec")));
-p_dps_univ_ptg.rate_pitch.setText(sprintf("%3.2f",57.297 * getprop("/fdm/jsbsim/velocities/q-rad_sec")));
-p_dps_univ_ptg.rate_yaw.setText(sprintf("%3.2f",57.297 * getprop("/fdm/jsbsim/velocities/r-rad_sec")));
+p_dps_univ_ptg.rate_roll.setText(sprintf("%+3.2f",57.297* getprop("/fdm/jsbsim/velocities/p-rad_sec")));
+p_dps_univ_ptg.rate_pitch.setText(sprintf("%+3.2f",57.297 * getprop("/fdm/jsbsim/velocities/q-rad_sec")));
+p_dps_univ_ptg.rate_yaw.setText(sprintf("%+3.2f",57.297 * getprop("/fdm/jsbsim/velocities/r-rad_sec")));
 
 var up_mnvr_flag= getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
 
@@ -705,7 +718,20 @@ else if (up_mnvr_flag == 3)
 	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20 *"));
 	}
 
-p_dps_univ_ptg.body_vector.setText(sprintf("%s", getprop("systems/ap/track/body-vector-selection") ));
+p_dps_univ_ptg.mo_roll.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll")));
+p_dps_univ_ptg.mo_pitch.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch")));
+p_dps_univ_ptg.mo_yaw.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-yaw")));
+
+p_dps_univ_ptg.body_vector.setText(sprintf("%d", int(getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection"))));
+
+
+p_dps_univ_ptg.tgt_id.setText(sprintf("%d", int(getprop("/fdm/jsbsim/systems/ap/ops201/tgt-id"))));
+p_dps_univ_ptg.ra.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-ra")));
+p_dps_univ_ptg.dec.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-dec")));
+p_dps_univ_ptg.lat.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-lat")));
+p_dps_univ_ptg.lon.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-lon")));
+p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
+p_dps_univ_ptg.om.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-om")));
 
 }
 

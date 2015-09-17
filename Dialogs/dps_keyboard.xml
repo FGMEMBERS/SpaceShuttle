@@ -334,7 +334,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_minus()</script>
+                    	<script>SpaceShuttle.key_delimiter("-")</script>
 		</binding>
 	</button>
 
@@ -358,7 +358,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_plus()</script>
+                    	<script>SpaceShuttle.key_delimiter("+")</script>
 		</binding>
 	</button>
 
@@ -394,7 +394,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_dot()</script>
+                    	<script>SpaceShuttle.key_symbol(".")</script>
 		</binding>
 	</button>
 

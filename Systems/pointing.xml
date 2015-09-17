@@ -3,6 +3,9 @@
 <system>
 
 	<!-- the coordinate system is a bit complicated -->
+	<!-- we transform from body to local horizon using pitch, yaw and roll -->
+	<!-- then using lat and lon to the FG world co-rotating coordinate system-->
+	<!-- and finally using the Earth rotation angle to a true inertial system -->
 
 	<channel name="Local horizon frame ">
 
@@ -667,6 +670,33 @@
 	</function>
 	</fcs_function>
 
+	<fcs_function name="systems/pointing/world/radial[0]">
+	<function>
+		<quotient>
+			<property>position/ecef-x-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/radial[1]">
+	<function>
+		<quotient>
+			<property>position/ecef-y-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/radial[2]">
+	<function>
+		<quotient>
+			<property>position/ecef-z-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
 	</channel>
 
 	<channel name="Inertial frame">
@@ -793,10 +823,31 @@
 	</fcs_function>
 
 
+	<fcs_function name="systems/pointing/inertial/ecf-to-eci-rad">
+	<function>
+		<acos>
+			<sum>
+				<product>
+					<property>systems/pointing/world/radial[0]</property>
+					<property>systems/pointing/inertial/radial[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/world/radial[1]</property>
+					<property>systems/pointing/inertial/radial[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/world/radial[2]</property>
+					<property>systems/pointing/inertial/radial[2]</property>
+				</product>
+			</sum>
+		</acos>
+	</function>
+	</fcs_function>
+	
 	<fcs_function name="systems/pointing/inertial/c">
 	<function>
 		<cos>
-			<property>systems/pointing/inertial/delta-lon-rad</property>
+			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
 		</cos>
 	</function>
 	</fcs_function>
@@ -804,7 +855,7 @@
 	<fcs_function name="systems/pointing/inertial/s">
 	<function>
 		<sin>
-			<property>systems/pointing/inertial/delta-lon-rad</property>
+			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
 		</sin>
 	</function>
 	</fcs_function>

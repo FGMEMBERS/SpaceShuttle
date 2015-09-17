@@ -212,7 +212,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_ascent();
-SpaceShuttle.update_LVLH_to_ECI();
+#SpaceShuttle.update_LVLH_to_ECI();
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
 	{
@@ -686,7 +686,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_orbit();
-SpaceShuttle.update_LVLH_to_ECI();
+#SpaceShuttle.update_LVLH_to_ECI();
 
 settimer(orbital_loop, 1.0);
 }
@@ -922,7 +922,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_entry();
-SpaceShuttle.update_LVLH_to_ECI();
+#SpaceShuttle.update_LVLH_to_ECI();
 
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
