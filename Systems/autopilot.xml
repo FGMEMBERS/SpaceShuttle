@@ -307,6 +307,17 @@
 		</function>
 		</fcs_function>	
 
+		<fcs_function name="systems/ap/track/pitch-error-deg">
+		<function>
+			<product>
+				<asin>
+					<property>systems/ap/track/pitch-error</property>
+				</asin>
+				<value>57.2974</value>
+			</product>
+		</function>
+		</fcs_function>	
+
 
 
 		<fcs_function name="systems/ap/track/yaw-error">
@@ -325,6 +336,17 @@
 					<property>systems/ap/track/target-vector[2]</property>
 				</product>
 			</sum>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/track/yaw-error-deg">
+		<function>
+			<product>
+				<asin>
+					<property>systems/ap/track/yaw-error</property>
+				</asin>
+				<value>57.2974</value>
+			</product>
 		</function>
 		</fcs_function>	
 
@@ -353,6 +375,15 @@
 			</sum>
 			</acos>
 			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/track/roll-error-deg">
+		<function>
+			<product>
+				<property>systems/ap/track/roll-error</property>
+				<value>57.2974</value>
+			</product>
 		</function>
 		</fcs_function>	
 

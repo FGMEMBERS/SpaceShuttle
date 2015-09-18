@@ -1210,6 +1210,43 @@
 	</function>
 	</fcs_function>
 
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[0]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			</cos>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[1]">
+	<function>
+		<product>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			</sin>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</sin>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[2]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</cos>
+		</product>
+	</function>
+	</fcs_function>
+
 	
 
 	<!-- cos(roll) is the tgt z vector dotted into the roll reference -->
@@ -1220,15 +1257,15 @@
 			<sum>
 				<product>
 					<property>systems/ap/track/target-sec[0]</property>
-					<property>systems/pointing/inertial/attitude/roll-ref[0]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[0]</property>
 				</product>
 				<product>
 					<property>systems/ap/track/target-sec[1]</property>
-					<property>systems/pointing/inertial/attitude/roll-ref[1]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[1]</property>
 				</product>
 				<product>
 					<property>systems/ap/track/target-sec[2]</property>
-					<property>systems/pointing/inertial/attitude/roll-ref[2]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[2]</property>
 				</product>
 			</sum>
 		</acos>
