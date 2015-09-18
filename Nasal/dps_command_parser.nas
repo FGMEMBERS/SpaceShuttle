@@ -280,7 +280,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 13)
 			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-alt", num(value)); valid_flag = 1;}
 		else if (item == 17)
-			{setprop("/fdm/jsbsim/systems/ap/ops201/trk-om", num(value)); valid_flag = 1;}
+			{setprop("/fdm/jsbsim/systems/ap/track/trk-om", num(value)); valid_flag = 1;}
 		else if (item == 18)
 			{
 			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;
@@ -321,6 +321,7 @@ header = "";
 body = "";
 value = "";
 end = "";
+setsize(last_command,0);
 
 if (valid_flag == 0)
 	{

@@ -860,6 +860,45 @@
 	</function>
 	</fcs_function>
 
+
+	<fcs_function name="systems/pointing/inertial/sun[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>/ephemeris/sun/local/x</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>/ephemeris/sun/local/y</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/sun[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>/ephemeris/sun/local/x</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>/ephemeris/sun/local/y</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/sun[2]">
+	<function>
+		<property>/ephemeris/sun/local/z</property>
+	</function>
+	</fcs_function>
+
+
 	<fcs_function name="systems/pointing/inertial/body-x[0]">
 	<function>
 		<sum>
@@ -971,6 +1010,239 @@
 	</function>
 	</fcs_function>
 
+
+	</channel>
+
+	<channel name="Intertial attitudes">
+
+	<!-- cos(pitch) is body x-axis dotted into (0,0,1) -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/pitch-rad">
+	<function>
+		<asin>
+			<property>systems/pointing/inertial/body-x[2]</property>
+		</asin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/pitch-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/body-xy-norm">
+	<function>
+		<max>
+		<pow>
+			<sum>
+				<pow>
+					<property>systems/pointing/inertial/body-x[0]</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/pointing/inertial/body-x[1]</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+		</pow>
+		<value>0.001</value>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad">
+	<function>
+		<acos>
+			<quotient>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<property>systems/pointing/inertial/attitude/body-xy-norm</property>
+			</quotient>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<!-- roll reference vector is (0,0,1) rotated by pitch and yaw -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[0]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			</cos>
+			<sin>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[1]">
+	<function>
+		<product>
+			<sin>
+				<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			</sin>
+			<sin>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</sin>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[2]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</cos>
+		</product>
+	</function>
+	</fcs_function>
+
+	<!-- cos(roll) is the body z vector dotted into the roll reference -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-rad">
+	<function>
+		<acos>
+			<sum>
+				<product>
+					<property>systems/pointing/inertial/body-z[0]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-z[1]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-z[2]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[2]</property>
+				</product>
+			</sum>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/roll-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-pitch-rad">
+	<function>
+		<asin>
+			<property>systems/ap/track/target-vector[2]</property>
+		</asin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-pitch-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-xy-norm">
+	<function>
+		<max>
+		<pow>
+			<sum>
+				<pow>
+					<property>systems/ap/track/target-vector[0]</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/ap/track/target-vector[1]</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+		</pow>
+		<value>0.001</value>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad">
+	<function>
+		<acos>
+			<quotient>
+				<property>systems/ap/track/target-vector[0]</property>
+				<property>systems/pointing/inertial/attitude/tgt-xy-norm</property>
+			</quotient>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	
+
+	<!-- cos(roll) is the tgt z vector dotted into the roll reference -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-rad">
+	<function>
+		<acos>
+			<sum>
+				<product>
+					<property>systems/ap/track/target-sec[0]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-sec[1]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-sec[2]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[2]</property>
+				</product>
+			</sum>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-roll-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
 
 	</channel>
 

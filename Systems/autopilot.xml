@@ -2,7 +2,9 @@
 
 <system>
 
-	<!-- this largely follows the universal pointing menu -->
+	<!-- This contains AP routines for the orbital DAP set to 'Auto' and for AoA hold during entry--> 
+
+	<!-- Orbital DAP largely follows the universal pointing menu -->
 	<!-- the main mode is given by up-mnvr-flag,  modes are -->
 
 	<!-- 1: MNVR (maneuver to a specified inertial attitude) -->
@@ -117,7 +119,7 @@
 			<test value="systems/ap/track/body-minus-x[0]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/body-minus-z[0]">
+			<test value="systems/pointing/inertial/body-z[0]">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
@@ -130,7 +132,7 @@
 			<test value="systems/ap/track/body-minus-x[1]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/body-minus-z[1]">
+			<test value="systems/pointing/inertial/body-z[1]">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
@@ -143,7 +145,7 @@
 			<test value="systems/ap/track/body-minus-x[2]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/body-minus-z[2]">
+			<test value="systems/pointing/inertial/body-z[2]">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
@@ -177,6 +179,9 @@
 			<test value="systems/ap/track/body-minus-y[0]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
+			<test value="systems/pointing/inertial/body-y[0]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-yaw[1]">
@@ -186,6 +191,9 @@
 			</test>
 			<test value="systems/ap/track/body-minus-y[1]">
 				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-y[1]">
+				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
@@ -197,6 +205,9 @@
 			<test value="systems/ap/track/body-minus-y[2]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
+			<test value="systems/pointing/inertial/body-y[2]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-pitch[0]">
@@ -206,6 +217,9 @@
 			</test>
 			<test value="systems/ap/track/body-minus-z[0]">
 				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-x[0]">
+				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
@@ -217,6 +231,9 @@
 			<test value="systems/ap/track/body-minus-z[1]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
+			<test value="systems/ap/track/body-minus-x[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-pitch[2]">
@@ -226,6 +243,9 @@
 			</test>
 			<test value="systems/ap/track/body-minus-z[2]">
 				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-x[2]]">
+				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
@@ -237,6 +257,9 @@
 			<test value="systems/ap/track/body-minus-z[0]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
+			<test value="systems/pointing/inertial/body-y[0]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-roll[1]">
@@ -247,6 +270,9 @@
 			<test value="systems/ap/track/body-minus-z[1]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
+			<test value="systems/pointing/inertial/body-y[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
 		</switch>
 
 		<switch name="systems/ap/track/body-roll[2]">
@@ -256,6 +282,9 @@
 			</test>
 			<test value="systems/ap/track/body-minus-z[2]">
 				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-y[2]">
+				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
@@ -278,23 +307,7 @@
 		</function>
 		</fcs_function>	
 
-		<fcs_function name="systems/ap/track/pitch-rate-cmd">
-		<function>
-			<product>
-				<min>
-				<max>
-					<product>
-						<property>systems/ap/track/pitch-error</property>
-						<value>3.0</value>
-					</product>
-					<value>-1.0</value>
-				</max>
-				<value>1.0</value>
-				</min>
-				<property>systems/ap/rot-rate-degps</property>
-			</product>
-		</function>
-		</fcs_function>
+
 
 		<fcs_function name="systems/ap/track/yaw-error">
 		<function>
@@ -316,27 +329,14 @@
 		</fcs_function>	
 
 
-
-		<fcs_function name="systems/ap/track/yaw-rate-cmd">
-		<function>
-			<product>
-				<min>
-				<max>
-					<product>
-						<property>systems/ap/track/yaw-error</property>
-						<value>3.0</value>
-					</product>
-					<value>-1.0</value>
-				</max>
-				<value>1.0</value>
-				</min>
-				<property>systems/ap/rot-rate-degps</property>
-			</product>
-		</function>
-		</fcs_function>
-
 		<fcs_function name="systems/ap/track/roll-error">
 		<function>
+			<difference>
+			<product>
+				<property>systems/ap/track/trk-om</property>
+				<value>0.01745</value>
+			</product>
+			<acos>
 			<sum>
 				<product>
 					<property>systems/ap/track/body-roll[0]</property>
@@ -351,9 +351,86 @@
 					<property>systems/ap/track/target-sec[2]</property>
 				</product>
 			</sum>
+			</acos>
+			</difference>
 		</function>
 		</fcs_function>	
 
+
+		<switch name="systems/ap/track/pitch-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/pitch-error">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/pitch-error">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/pitch-error">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/yaw-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/yaw-error">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/yaw-error">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/roll-error">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/roll-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/roll-error">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/roll-error">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/yaw-error">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/track/pitch-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/pitch-error-sense</property>
+						<value>3.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/yaw-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/yaw-error-sense</property>
+						<value>3.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+			</product>
+		</function>
+		</fcs_function>
 
 
 		<fcs_function name="systems/ap/track/roll-rate-cmd">
@@ -362,8 +439,8 @@
 				<min>
 				<max>
 					<product>
-						<property>systems/ap/track/roll-error</property>
-						<value>3.0</value>
+						<property>systems/ap/track/roll-error-sense</property>
+						<value>1.0</value>
 					</product>
 					<value>-1.0</value>
 				</max>
