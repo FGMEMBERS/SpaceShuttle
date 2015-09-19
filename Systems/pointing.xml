@@ -1057,7 +1057,7 @@
 
 	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
 
-	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad">
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad-pos">
 	<function>
 		<acos>
 			<quotient>
@@ -1067,6 +1067,24 @@
 		</acos>
 	</function>
 	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad-neg">
+	<function>
+		<difference>
+			<value>6.28318</value>
+			<property>systems/pointing/inertial/attitude/yaw-rad-pos</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/yaw-rad">
+		<default value="systems/pointing/inertial/attitude/yaw-rad-pos"/>
+		<test value="systems/pointing/inertial/attitude/yaw-rad-neg">
+			systems/pointing/inertial/body-x[1] LT 0.0
+		</test>
+	</switch>
+
+	
 
 	<fcs_function name="systems/pointing/inertial/attitude/yaw-deg">
 	<function>
@@ -1102,6 +1120,7 @@
 			<sin>
 				<property>systems/pointing/inertial/attitude/pitch-rad</property>
 			</sin>
+			<value>-1</value>
 		</product>
 	</function>
 	</fcs_function>
@@ -1190,7 +1209,8 @@
 
 	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
 
-	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad">
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad-pos">
 	<function>
 		<acos>
 			<quotient>
@@ -1200,6 +1220,24 @@
 		</acos>
 	</function>
 	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad-neg">
+	<function>
+		<difference>
+			<value>6.28318</value>
+			<property>systems/pointing/inertial/attitude/tgt-yaw-rad-pos</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/tgt-yaw-rad">
+		<default value="systems/pointing/inertial/attitude/tgt-yaw-rad-pos"/>
+		<test value="systems/pointing/inertial/attitude/tgt-yaw-rad-neg">
+			systems/ap/track/target-vector[1] LT 0.0
+		</test>
+	</switch>
+
+	
 
 	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-deg">
 	<function>
@@ -1233,6 +1271,7 @@
 			<sin>
 				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
 			</sin>
+			<value>-1</value>
 		</product>
 	</function>
 	</fcs_function>

@@ -260,10 +260,65 @@ if ((header == "ITEM") and (end = "EXEC"))
 	var item = int(body);
 	var item_value = num(value);
 
+	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303))
+		{
+		if (item == 6)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-pitch",num(value)); valid_flag = 1;}
+		else if (item == 7)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-yaw-left",num(value)); valid_flag = 1;}
+		else if (item == 8)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-yaw-right",num(value)); valid_flag = 1;}
+		else if (item == 9)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/weight",num(value)); valid_flag = 1;}
+		else if (item == 10)
+			{
+			var day = substr(value, 1, 3);
+			var hour = substr(value, 4,2);
+			var min = substr(value, 6,2);
+			var sec = substr(value, 8,2);
+			var time_string = day~"/"~hour~":"~min~":"~sec;
+
+			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
+				{				
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/tig", time_string);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 19)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); valid_flag = 1;}
+		else if (item == 20)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy",num(value)); valid_flag = 1;}
+		else if (item == 21)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz",num(value)); valid_flag = 1;}
+		else if (item == 22)
+			{
+			SpaceShuttle.create_oms_burn_vector();
+			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			}
+		}
+	
+
 
 	if (major_mode == 201)
 		{
-		if (item == 5)
+		if (item == 1)
+			{
+			var day = substr(value, 1, 3);
+			var hour = substr(value, 4,2);
+			var min = substr(value, 6,2);
+			var sec = substr(value, 8,2);
+			var time_string = day~"/"~hour~":"~min~":"~sec;
+
+			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
+				{				
+				setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string", time_string);
+				#set_mnvr_timer(int(day), int(hour), int(min), int(sec));
+		
+				valid_flag = 1;
+				}
+			}
+		else if (item == 5)
 			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll", num(value)); valid_flag = 1;}
 		else if (item == 6)
 			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch", num(value)); valid_flag = 1;}
@@ -322,15 +377,16 @@ body = "";
 value = "";
 end = "";
 setsize(last_command,0);
+	setprop("/fdm/jsbsim/systems/dps/command-string", "");
 
 if (valid_flag == 0)
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "ILLEGAL ENTRY");
+
 	}
 else 
 	{
 	setprop("/fdm/jsbsim/systems/dps/error-string", "");
-	setprop("/fdm/jsbsim/systems/dps/command-string", "");
 	setsize(last_command,0);
 	}
 

@@ -7,6 +7,23 @@ var tracking_loop_flag = 0;
 
 var trackingCoord = geo.Coord.new() ;
 
+
+var timeObj = {
+	new: func(day, hour, min, sec) {
+	        var t = { parents: [timeObj] };
+		t.day = day;
+		t.hour = hour;
+		t.min = min;
+		t.sec = sec;
+	        return t;
+	},
+	#subtract: func(t2) {
+	#	var t.sec = t.sec - t2.sec;
+	#	if (t.sec < 0) {t.sec = 60 - t.sec; t.min = t.min -1;}	
+	#},
+};
+
+
 var update_LVLH_to_ECI = func {
 
 var shuttleWCoord = geo.aircraft_position() ;
@@ -25,6 +42,30 @@ setprop("/fdm/jsbsim/systems/pointing/inertial/delta-lon-rad", -D_lon * math.pi/
 
 }
 
+
+
+var get_pitch_yaw = func (vec) {
+
+var norm = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1] + vec[2]* vec[2]);
+
+vec[0] = vec[0]/norm;
+vec[1] = vec[1]/norm;
+vec[2] = vec[2]/norm;
+
+var pitch = math.asin(vec[2]);
+
+var norm2 = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+var yaw_pos = math.acos(vec[0]/norm2);
+
+var yaw = yaw_pos;
+
+if (vec[1] < 0.0) {yaw = math.pi - yaw_pos;}
+
+print("p: ", pitch * 180/math.pi, "y: ", yaw * 180/math.pi);
+
+return [pitch, yaw];
+
+}
 
 var create_mnvr_vector = func {
 
@@ -91,6 +132,45 @@ if (target_id == 4) # we track the Sun, omicron zero point is the celestial nort
 	}
 
 }
+
+
+var create_oms_burn_vector = func {
+
+var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx");
+var dvy = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvy");
+var dvz = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvz");
+
+
+
+var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
+
+var tx = dvx/dvtot;
+var ty = dvy/dvtot;
+var tz = dvz/dvtot;
+
+var prograde = [getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[2]")];
+
+var radial = [getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]")];
+
+var normal = [getprop("/fdm/jsbsim/systems/pointing/inertial/normal[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/normal[2]")];
+
+var tgt0 = tx * prograde[0] + ty * normal[0] + tz * radial[0];
+var tgt1 = tx * prograde[1] + ty * normal[1] + tz * radial[1];
+var tgt2 = tx * prograde[2] + ty * normal[2] + tz * radial[2];
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", tgt0);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", tgt1);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", tgt2);
+
+var orientation = get_pitch_yaw([tgt0, tgt1, tgt2]);
+
+var sec = SpaceShuttle.orientTaitBryan(radial, orientation[1], orientation[0], 180.0);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", sec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", sec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", sec[2]);
+}
+
 
 var tracking_loop_earth = func {
 

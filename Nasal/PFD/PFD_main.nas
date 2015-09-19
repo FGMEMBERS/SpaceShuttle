@@ -555,6 +555,29 @@ p_dps_mnvr.oms_l = PFDsvg.getElementById("p_dps_mnvr_oms_l");
 p_dps_mnvr.oms_r = PFDsvg.getElementById("p_dps_mnvr_oms_r");
 p_dps_mnvr.rcs_sel = PFDsvg.getElementById("p_dps_mnvr_rcs_sel");
 
+p_dps_mnvr.tv_roll = PFDsvg.getElementById("p_dps_mnvr_tv_roll");
+
+p_dps_mnvr.p = PFDsvg.getElementById("p_dps_mnvr_p");
+p_dps_mnvr.ly = PFDsvg.getElementById("p_dps_mnvr_ly");
+p_dps_mnvr.ry = PFDsvg.getElementById("p_dps_mnvr_ry");
+
+p_dps_mnvr.wt = PFDsvg.getElementById("p_dps_mnvr_wt");
+
+p_dps_mnvr.tig = PFDsvg.getElementById("p_dps_mnvr_tig");
+
+p_dps_mnvr.dvx = PFDsvg.getElementById("p_dps_mnvr_dvx");
+p_dps_mnvr.dvy = PFDsvg.getElementById("p_dps_mnvr_dvy");
+p_dps_mnvr.dvz = PFDsvg.getElementById("p_dps_mnvr_dvz");
+
+p_dps_mnvr.load = PFDsvg.getElementById("p_dps_mnvr_load");
+
+p_dps_mnvr.burn_att_roll = PFDsvg.getElementById("p_dps_mnvr_burn_att_roll");
+p_dps_mnvr.burn_att_pitch = PFDsvg.getElementById("p_dps_mnvr_burn_att_pitch");
+p_dps_mnvr.burn_att_yaw = PFDsvg.getElementById("p_dps_mnvr_burn_att_yaw");
+
+
+
+
 p_dps_mnvr.ondisplay = func
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -573,6 +596,10 @@ var string2 = " EXEC";
 if ((major_mode == 106) or (major_mode == 301) or (major_mode == 303))
 	{string2 = " COAST";}
 
+var weight = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
+if (weight ==0) {setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", getprop("/fdm/jsbsim/inertia/weight-lbs"));}
+
+p_dps_mnvr.load.setText(sprintf("%s","LOAD"));
 
 DPS_menu_title.setText(sprintf("%s",string1~"MNVR"~string2));
 DPS_menu_ops.setText(sprintf("%s",major_mode~"1/    /"));
@@ -629,6 +656,31 @@ p_dps_mnvr.oms_l.setText(sprintf("%s",""));
 p_dps_mnvr.oms_r.setText(sprintf("%s",""));
 p_dps_mnvr.rcs_sel.setText(sprintf("%s",""));
 
+
+p_dps_mnvr.tv_roll.setText(sprintf("%3.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/tv-roll")));
+
+p_dps_mnvr.p.setText(sprintf("%1.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/trim-pitch")));
+p_dps_mnvr.ly.setText(sprintf("%1.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/trim-yaw-left")));
+p_dps_mnvr.ry.setText(sprintf("%1.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/trim-yaw-right")));
+
+p_dps_mnvr.wt.setText(sprintf("%6.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/weight")));
+
+p_dps_mnvr.tig.setText(sprintf("%s",getprop("fdm/jsbsim/systems/ap/oms-plan/tig")));
+
+p_dps_mnvr.dvx.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvx")));
+p_dps_mnvr.dvy.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvy")));
+p_dps_mnvr.dvz.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvz")));
+
+var tgt_roll = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-roll-deg");
+var tgt_pitch = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-pitch-deg");
+var tgt_yaw = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-yaw-deg");
+
+p_dps_mnvr.burn_att_roll.setText(sprintf("%+3.2f",tgt_roll));
+p_dps_mnvr.burn_att_pitch.setText(sprintf("%+3.2f",tgt_pitch));
+p_dps_mnvr.burn_att_yaw.setText(sprintf("%+3.2f",tgt_yaw));
+
+
+
 }
 
 #################################################################
@@ -673,12 +725,20 @@ p_dps_univ_ptg.lon = PFDsvg.getElementById("p_dps_univ_ptg_lon");
 p_dps_univ_ptg.alt = PFDsvg.getElementById("p_dps_univ_ptg_alt");
 p_dps_univ_ptg.om = PFDsvg.getElementById("p_dps_univ_ptg_om");
 
+p_dps_univ_ptg.start_time = PFDsvg.getElementById("p_dps_univ_ptg_start_time");
+p_dps_univ_ptg.cmpl_time = PFDsvg.getElementById("p_dps_univ_ptg_mnvr_cpl_time");
+
+
+
 
 p_dps_univ_ptg.ondisplay = func
 {
 DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
 DPS_menu_ops.setText(sprintf("%s","2011/    /"));
 MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+
+p_dps_univ_ptg.cmpl_time.setText(sprintf("%s","00:00:00"));
 }
 
 p_dps_univ_ptg.update = func
@@ -778,6 +838,8 @@ p_dps_univ_ptg.lat.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops2
 p_dps_univ_ptg.lon.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-lon")));
 p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
 p_dps_univ_ptg.om.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/track/trk-om")));
+
+p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string")));
 
 }
 
