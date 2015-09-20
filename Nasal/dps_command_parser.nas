@@ -294,6 +294,13 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{
 			SpaceShuttle.create_oms_burn_vector();
 			SpaceShuttle.tracking_loop_flag = 0;
+			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
+			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 1);
 			valid_flag = 1;
 			}
 		}

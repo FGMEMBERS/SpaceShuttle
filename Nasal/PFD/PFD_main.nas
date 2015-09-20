@@ -575,7 +575,11 @@ p_dps_mnvr.burn_att_roll = PFDsvg.getElementById("p_dps_mnvr_burn_att_roll");
 p_dps_mnvr.burn_att_pitch = PFDsvg.getElementById("p_dps_mnvr_burn_att_pitch");
 p_dps_mnvr.burn_att_yaw = PFDsvg.getElementById("p_dps_mnvr_burn_att_yaw");
 
+p_dps_mnvr.mnvr = PFDsvg.getElementById("p_dps_mnvr_mnvr");
+p_dps_mnvr.active_dap = PFDsvg.getElementById("p_dps_mnvr_active_dap");
 
+p_dps_mnvr.dvtot = PFDsvg.getElementById("p_dps_mnvr_dvtot");
+p_dps_mnvr.tgo = PFDsvg.getElementById("p_dps_mnvr_tgo");
 
 
 p_dps_mnvr.ondisplay = func
@@ -679,8 +683,25 @@ p_dps_mnvr.burn_att_roll.setText(sprintf("%+3.2f",tgt_roll));
 p_dps_mnvr.burn_att_pitch.setText(sprintf("%+3.2f",tgt_pitch));
 p_dps_mnvr.burn_att_yaw.setText(sprintf("%+3.2f",tgt_yaw));
 
+var oms_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
+var oms_mnvr_text = "MNVR 27";
+if (oms_mnvr_flag == 1) {oms_mnvr_text = "MNVR 27*";}
+
+var dap_text = "FREE";
+if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
+	{dap_text = "AUTO";}
+else if(getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial") == 1)
+	{dap_text = "INTRL";}
+else if(getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh") == 1)
+	{dap_text = "LVLH";}
 
 
+p_dps_mnvr.mnvr.setText(sprintf("%s",oms_mnvr_text));
+p_dps_mnvr.active_dap.setText(sprintf("%s",dap_text));
+
+
+p_dps_mnvr.dvtot.setText(sprintf("%+4.2f",getprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot")));
+p_dps_mnvr.tgo.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string")));
 }
 
 #################################################################
