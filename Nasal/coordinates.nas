@@ -1,12 +1,16 @@
 
 
-# coordinate transformation routines for the Space Shuttle
+# coordinate transformation routines and pointing guidance vectors 
+# for the Space Shuttle orbital maneuvering
 # Thorsten Renk 2015
 
 var tracking_loop_flag = 0;
 
 var trackingCoord = geo.Coord.new() ;
 
+##################################################
+# general helper functions for vector computations
+##################################################
 
 var dot_product = func (v1, v2) {
 
@@ -36,6 +40,7 @@ return outvec;
 }
 
 
+
 var update_LVLH_to_ECI = func {
 
 var shuttleWCoord = geo.aircraft_position() ;
@@ -52,6 +57,20 @@ var D_lon = shuttleWCoord.lon() - shuttleCoord.lon();
 #print("D_lon: ", D_lon);
 setprop("/fdm/jsbsim/systems/pointing/inertial/delta-lon-rad", -D_lon * math.pi/180.0);
 
+}
+
+##################################################
+# general helper functions for time
+##################################################
+
+var seconds_to_stringMS = func (time) {
+
+var seconds = math.mod(int(time), 60);
+var minutes = int (time/60.0);
+
+if (seconds<10) {seconds = "0"~seconds;}
+
+return minutes~":"~seconds;
 }
 
 ######################################
@@ -175,7 +194,7 @@ var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
 var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
 
 # need to change that as soon as we can do single engine burns
-var thrust_lb = 12000.0;
+var thrust_lb = 12174.0;
 
 var acceleration = thrust_lb/weight_lb;
 
@@ -185,14 +204,14 @@ var burn_time_s = dvtot/(acceleration * 32.17405);
 var seconds = math.mod(int(burn_time_s), 60);
 var minutes = int (burn_time_s/60.0);
 
-#print(burn_time_s);
-#print(minutes, " ", seconds);
+if (seconds<10) {seconds = "0"~seconds;}
 
 var burn_time_string = minutes~":"~seconds;
 
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot", dvtot);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", burn_time_string);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s", int(burn_time_s));
 
 var tx = dvx/dvtot;
 var ty = dvy/dvtot;
@@ -292,7 +311,7 @@ var oms_burn_loop  = func (tx, ty, tz, dvtot) {
 
 if (tracking_loop_flag == 0) {return;}
 
-print("Tracking..");
+#print("Tracking..");
 
 var prograde = [getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[2]")];
 
@@ -342,22 +361,79 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", sec[2]);
 
 # now we compute apoapsis and periapsis if the burn were right now
 
-var r = [getprop("/fdm/jsbsim/position/eci-x-ft"), getprop("/fdm/jsbsim/position/eci-y-ft"), getprop("/fdm/jsbsim/position/eci-z-ft")];
+if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the apoapsis and periapsis prediction
+	{
+	var r = [getprop("/fdm/jsbsim/position/eci-x-ft"), getprop("/fdm/jsbsim/position/eci-y-ft"), getprop("/fdm/jsbsim/position/eci-z-ft")];
 
-var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps"), getprop("/fdm/jsbsim/velocities/eci-y-fps"), getprop("/fdm/jsbsim/velocities/eci-z-fps")];
+	var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps"), getprop("/fdm/jsbsim/velocities/eci-y-fps"), getprop("/fdm/jsbsim/velocities/eci-z-fps")];
 
-var dv = scalar_product(dvtot, [tgt0, tgt1, tgt2]);
+	var dv = scalar_product(dvtot, [tgt0, tgt1, tgt2]);
 
-v = add_vector(v, dv);
+	v = add_vector(v, dv);
 
-var apses = SpaceShuttle.compute_apses(r,v);
-var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
+	var apses = SpaceShuttle.compute_apses(r,v);
+	var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
 
-var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
-var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
+	var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
+	var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
 
-setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", apoapsis_nm);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", periapsis_nm);
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", apoapsis_nm);
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", periapsis_nm);
+	}
 
 settimer(func {oms_burn_loop(tx, ty, tz, dvtot);}, 0.0);
+}
+
+
+var oms_burn_start = func (time) {
+
+# DAP to OMS TVC
+setprop("/fdm/jsbsim/systems/fcs/control-mode", 11);
+
+# throttles to full
+setprop("/controls/engines/engine[5]/throttle", 1.0);
+setprop("/controls/engines/engine[6]/throttle", 1.0);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+
+# start the burn
+oms_burn(time);
+}
+
+var oms_burn_stop = func  {
+
+# back to DAP A
+setprop("/fdm/jsbsim/systems/fcs/control-mode", 20);
+
+# obsolete burn plan
+setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
+
+# obsolete burn attitude holding
+setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+
+# throttles to off
+setprop("/controls/engines/engine[5]/throttle", 0.0);
+setprop("/controls/engines/engine[6]/throttle", 0.0);
+
+# null burn targets
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", 0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", 0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", 0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot", 0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", "0:00");
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s", 0);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 0);
+
+tracking_loop_flag = 0;
+}
+
+var oms_burn = func (time) {
+
+if (time < 0.5) {oms_burn_stop(); return;}
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", seconds_to_stringMS(time));
+print("OMS burn for ", time, " seconds");
+settimer(func {oms_burn(time - 1);}, 1.0);
 }

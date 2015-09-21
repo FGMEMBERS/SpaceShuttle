@@ -60,6 +60,7 @@
 		    </ops201>
 		    <oms-plan>
 			<burn-plan-available type="int">0</burn-plan-available>
+			<oms-ignited type="int">0</oms-ignited>
 			<trim-pitch type="double">0.0</trim-pitch>
 			<trim-yaw-left type="double">0.0</trim-yaw-left>
 			<trim-yaw-right type="double">0.0</trim-yaw-right>	

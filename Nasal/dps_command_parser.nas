@@ -409,8 +409,17 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 	{
 	if (getprop("/fdm/jsbsim/systems/dps/command-string") == " EXEC")
 		{
-		print("Starting OMS burn!");
-		valid_flag = 1;
+		var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
+		var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+		
+		if ((burn_plan == 1) and (attitude_flag == 1))
+			{
+			print("Starting OMS burn!");
+			var burn_time = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s");
+			print("Burn time ", burn_time, " s");
+			SpaceShuttle.oms_burn_start(burn_time);
+			valid_flag = 1;
+			}
 		}	
 
 	}

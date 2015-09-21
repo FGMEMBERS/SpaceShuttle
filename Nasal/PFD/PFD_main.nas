@@ -726,6 +726,7 @@ p_dps_mnvr.tgo.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo
 var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
 var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
 
+
 if (burn_plan == 0)
 	{p_dps_mnvr.load.setText(sprintf("%s","LOAD"));}
 else
@@ -736,11 +737,15 @@ var exec_string = "";
 if ((attitude_flag == 1) and (burn_plan == 1))
 	{
 	exec_string = "EXEC";
-	if (p_dps_mnvr.blink == 0) 
-		{p_dps_mnvr.blink = 1; exec_string = "";}
-	else
-		{p_dps_mnvr.blink = 0;}
-
+	var oms_ignited = getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited");
+	
+	if (oms_ignited == 0) # blink before ignition
+		{
+		if (p_dps_mnvr.blink == 0) 
+			{p_dps_mnvr.blink = 1; exec_string = "";}
+		else
+			{p_dps_mnvr.blink = 0;}
+		}
 	}
 
 
