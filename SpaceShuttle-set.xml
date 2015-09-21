@@ -59,6 +59,7 @@
 			<mnvr-timer-string type="string">000/00:00:00</mnvr-timer-string>
 		    </ops201>
 		    <oms-plan>
+			<burn-mode type="int">1</burn-mode>
 			<burn-plan-available type="int">0</burn-plan-available>
 			<oms-ignited type="int">0</oms-ignited>
 			<trim-pitch type="double">0.0</trim-pitch>

@@ -10,6 +10,13 @@
 
 	<channel name="CoG-pointing pitch and yaw angles of engines">
 
+		  <switch name="systems/vectoring/oms-yaw-vectoring">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/ap/oms-plan/burn-mode == 1
+			</test>
+		  </switch>
+
  		  <fcs_function name="Pitch SSME 1 2 to CoG">
 			<function>
 			<product>
@@ -161,6 +168,7 @@
 				</difference>
 				</quotient>
 			</atan>
+			<property>systems/vectoring/oms-yaw-vectoring</property>
 			</product>
    			</function>
 			<output>propulsion/engine[5]/yaw-to-CoG</output>
@@ -182,6 +190,7 @@
 				</difference>
 				</quotient>
 			</atan>
+			<property>systems/vectoring/oms-yaw-vectoring</property>
 			</product>
    			</function>
 			<output>propulsion/engine[6]/yaw-to-CoG</output>

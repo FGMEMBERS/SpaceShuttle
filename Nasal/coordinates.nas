@@ -323,7 +323,7 @@ var radial = [getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"),getprop
 # we need exact prograde orientation so we tilt the radial base vector for pointing
 
 var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
-#print("Cos_angle before: ", corr_angle);
+
 
 radial[0] = radial[0] - prograde[0] * corr_angle;
 radial[1] = radial[1] - prograde[1] * corr_angle;
@@ -334,8 +334,18 @@ radial[0] = radial[0]/radial_norm;
 radial[1] = radial[1]/radial_norm;
 radial[2] = radial[2]/radial_norm;
 
-#var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
-#print("Cos_angle after: ", corr_angle);
+# now correct for the about 11.5 deg offset of the OMS thrust axis
+
+var sinOffset = 0.1976515;
+var cosOffset = 0.9802723;
+
+if (tx > 0.0) {sinOffset = -sinOffset;}
+
+var prograde_rot = add_vector(scalar_product(cosOffset,prograde),  scalar_product(sinOffset, radial));
+var radial_rot = add_vector(scalar_product(-sinOffset,prograde),  scalar_product(cosOffset, radial));
+
+radial = radial_rot;
+prograde = prograde_rot;
 
 var normal = [0,0,0];
 
@@ -425,6 +435,10 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", "0:00");
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s", 0);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 0);
+
+setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-roll-deg", 0.0);
+setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-pitch-deg", 0.0);
+setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-yaw-deg", 0.0);
 
 tracking_loop_flag = 0;
 }
