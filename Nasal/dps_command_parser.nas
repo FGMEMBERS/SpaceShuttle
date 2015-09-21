@@ -292,15 +292,44 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz",num(value)); valid_flag = 1;}
 		else if (item == 22)
 			{
-			SpaceShuttle.create_oms_burn_vector();
+			var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
+			if (burn_plan == 0)
+				{
+				SpaceShuttle.create_oms_burn_vector();
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+				}
+			else
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
+				}
 			SpaceShuttle.tracking_loop_flag = 0;
-			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
 			valid_flag = 1;
 			}
 		else if (item == 27)
 			{
 			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
-			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 1);
+
+			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
+			if (flag == 0) {flag = 1;} else {flag =0;}
+			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag);
+			valid_flag = 1;
+			}
+		else if (item == 36)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd", 1);
+			valid_flag = 1;
+			}
+		else if (item == 37)
+			{
+			if (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd") == 1)
+				{setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", 1);}
+			valid_flag = 1;
+			}
+		else if (item == 38)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", 0);
+			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd", 0);
 			valid_flag = 1;
 			}
 		}
@@ -371,6 +400,20 @@ if ((header == "ITEM") and (end = "EXEC"))
 	}
 
 
+
+# special situation - the exec key being used to fire the OMS burn
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303))
+	{
+	if (getprop("/fdm/jsbsim/systems/dps/command-string") == " EXEC")
+		{
+		print("Starting OMS burn!");
+		valid_flag = 1;
+		}	
+
+	}
 
 if (current_string == "SPEC 99 PRO")
 	{

@@ -542,6 +542,8 @@ p_dps_mnvr.oms_yaw_right = PFDsvg.getElementById("p_dps_mnvr_gmbl_r_yaw");
 
 p_dps_mnvr.current_apoapsis = PFDsvg.getElementById("p_dps_mnvr_ha_cur");
 p_dps_mnvr.current_periapsis = PFDsvg.getElementById("p_dps_mnvr_hp_cur");
+p_dps_mnvr.ha_tgt = PFDsvg.getElementById("p_dps_mnvr_ha_tgt");
+p_dps_mnvr.hp_tgt = PFDsvg.getElementById("p_dps_mnvr_hp_tgt");
 
 p_dps_mnvr.fwd_rcs_dump = PFDsvg.getElementById("p_dps_mnvr_fwd_rcs_dump");
 p_dps_mnvr.fwd_rcs_arm = PFDsvg.getElementById("p_dps_mnvr_fwd_rcs_arm");
@@ -580,6 +582,14 @@ p_dps_mnvr.active_dap = PFDsvg.getElementById("p_dps_mnvr_active_dap");
 
 p_dps_mnvr.dvtot = PFDsvg.getElementById("p_dps_mnvr_dvtot");
 p_dps_mnvr.tgo = PFDsvg.getElementById("p_dps_mnvr_tgo");
+
+p_dps_mnvr.exec = PFDsvg.getElementById("p_dps_mnvr_exec_msg");
+
+
+
+
+p_dps_mnvr.blink = 0;
+
 
 
 p_dps_mnvr.ondisplay = func
@@ -625,18 +635,28 @@ p_dps_mnvr.oms_yaw_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion
 p_dps_mnvr.current_apoapsis.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/apoapsis-km")/1.853));
 p_dps_mnvr.current_periapsis.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/periapsis-km")/1.853));
 
-var fwd_rcs_dump = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd");
+p_dps_mnvr.ha_tgt.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm")));
+p_dps_mnvr.hp_tgt.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm")));
 
-if (fwd_rcs_dump == 0)
+var fwd_rcs_dump = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd");
+var fwd_rcs_dump_arm = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd");
+
+if ((fwd_rcs_dump == 0) and (fwd_rcs_dump_arm == 0))
 	{
 	p_dps_mnvr.fwd_rcs_off.setText(sprintf("%s","*"));
 	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s",""));
 	p_dps_mnvr.fwd_rcs_dump.setText(sprintf("%s",""));
 	}
+else if ((fwd_rcs_dump_arm == 1) and (fwd_rcs_dump == 0))
+	{
+	p_dps_mnvr.fwd_rcs_off.setText(sprintf("%s",""));
+	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s","*"));
+	p_dps_mnvr.fwd_rcs_dump.setText(sprintf("%s",""));
+	}
 else
 	{
 	p_dps_mnvr.fwd_rcs_off.setText(sprintf("%s",""));
-	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s",""));
+	p_dps_mnvr.fwd_rcs_arm.setText(sprintf("%s","*"));
 	p_dps_mnvr.fwd_rcs_dump.setText(sprintf("%s","*"));
 	}
 
@@ -702,6 +722,30 @@ p_dps_mnvr.active_dap.setText(sprintf("%s",dap_text));
 
 p_dps_mnvr.dvtot.setText(sprintf("%+4.2f",getprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot")));
 p_dps_mnvr.tgo.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string")));
+
+var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
+
+if (burn_plan == 0)
+	{p_dps_mnvr.load.setText(sprintf("%s","LOAD"));}
+else
+	{p_dps_mnvr.load.setText(sprintf("%s","CNCL"));}
+
+var exec_string = "";
+
+if ((attitude_flag == 1) and (burn_plan == 1))
+	{
+	exec_string = "EXEC";
+	if (p_dps_mnvr.blink == 0) 
+		{p_dps_mnvr.blink = 1; exec_string = "";}
+	else
+		{p_dps_mnvr.blink = 0;}
+
+	}
+
+
+
+p_dps_mnvr.exec.setText(sprintf("%s",exec_string));
 }
 
 #################################################################

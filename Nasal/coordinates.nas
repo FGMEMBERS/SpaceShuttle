@@ -8,20 +8,32 @@ var tracking_loop_flag = 0;
 var trackingCoord = geo.Coord.new() ;
 
 
-var timeObj = {
-	new: func(day, hour, min, sec) {
-	        var t = { parents: [timeObj] };
-		t.day = day;
-		t.hour = hour;
-		t.min = min;
-		t.sec = sec;
-	        return t;
-	},
-	#subtract: func(t2) {
-	#	var t.sec = t.sec - t2.sec;
-	#	if (t.sec < 0) {t.sec = 60 - t.sec; t.min = t.min -1;}	
-	#},
-};
+var dot_product = func (v1, v2) {
+
+return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
+}
+
+var scalar_product = func (s, v) {
+
+var outvec = [0,0,0];
+
+outvec[0] = s*v[0];
+outvec[1] = s*v[1];
+outvec[2] = s*v[2];
+
+return outvec;
+}
+
+var add_vector = func (v1, v2) {
+
+var outvec = [0,0,0];
+
+outvec[0] = v1[0] + v2[0];
+outvec[1] = v1[1] + v2[1];
+outvec[2] = v1[2] + v2[2];
+
+return outvec;
+}
 
 
 var update_LVLH_to_ECI = func {
@@ -186,7 +198,7 @@ var tx = dvx/dvtot;
 var ty = dvy/dvtot;
 var tz = dvz/dvtot;
 
-settimer(func {tracking_loop_flag = 1; oms_burn_loop(tx, ty, tz);}, 0.2);
+settimer(func {tracking_loop_flag = 1; oms_burn_loop(tx, ty, tz, dvtot);}, 0.2);
 
 
 }
@@ -276,7 +288,7 @@ settimer(tracking_loop_sun, 0.0);
 # loop to track the OMS burn attitude
 ######################################
 
-var oms_burn_loop  = func (tx, ty, tz) {
+var oms_burn_loop  = func (tx, ty, tz, dvtot) {
 
 if (tracking_loop_flag == 0) {return;}
 
@@ -328,5 +340,24 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", sec[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", sec[1]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", sec[2]);
 
-settimer(func {oms_burn_loop(tx, ty, tz, 0.0);}, 0.0);
+# now we compute apoapsis and periapsis if the burn were right now
+
+var r = [getprop("/fdm/jsbsim/position/eci-x-ft"), getprop("/fdm/jsbsim/position/eci-y-ft"), getprop("/fdm/jsbsim/position/eci-z-ft")];
+
+var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps"), getprop("/fdm/jsbsim/velocities/eci-y-fps"), getprop("/fdm/jsbsim/velocities/eci-z-fps")];
+
+var dv = scalar_product(dvtot, [tgt0, tgt1, tgt2]);
+
+v = add_vector(v, dv);
+
+var apses = SpaceShuttle.compute_apses(r,v);
+var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
+
+var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
+var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", apoapsis_nm);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", periapsis_nm);
+
+settimer(func {oms_burn_loop(tx, ty, tz, dvtot);}, 0.0);
 }

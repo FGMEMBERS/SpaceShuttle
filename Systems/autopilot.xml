@@ -393,6 +393,23 @@
 			<width>systems/ap/spec20/dap-A-PRI-att-db</width>
   		</deadband>
 
+		<fcs_function name="systems/ap/track/total-attitude-error">
+		<function>
+			<sum>
+				<abs><property>systems/ap/track/yaw-error</property></abs>
+				<abs><property>systems/ap/track/pitch-error</property></abs>
+				<abs><property>systems/ap/track/roll-error-db</property></abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/in-attitude">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/track/total-attitude-error LT 0.1	
+			</test>
+		</switch>
+
 
 		<switch name="systems/ap/track/pitch-error-sense">
 			<default value="0.0"/>
