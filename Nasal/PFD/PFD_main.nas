@@ -353,6 +353,8 @@ if (ops == 1)
 	{ PFD.selectPage(p_ascent);}
 else if (ops == 2)
 	{ PFD.selectPage(p_dps_univ_ptg);}
+else if ( ops == 3)
+	{ PFD.selectPage(p_ascent);}
 else 
 	{PFD.selectPage(p_main);}
 
@@ -465,29 +467,29 @@ if (SpaceShuttle.traj_display_flag == 1)
 
 		DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
 	}
-else if (SpaceShuttle.traj_display_flag == 2)
+else if ((SpaceShuttle.traj_display_flag == 2) or (major_mode == 103))
 	{
 	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
 	DPS_menu_ops.setText(sprintf("%s","1031/     /"));
 	}
-else if  (SpaceShuttle.traj_display_flag == 3)
+else if  ((SpaceShuttle.traj_display_flag == 3) and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 1"));
 	DPS_menu_ops.setText(sprintf("%s","3041/     /"));
 	}
-else if (SpaceShuttle.traj_display_flag == 4)
+else if ((SpaceShuttle.traj_display_flag == 4) and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 2"));
 	}
-else if (SpaceShuttle.traj_display_flag == 5)
+else if ((SpaceShuttle.traj_display_flag == 5) and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 3"));
 	}
-else if (SpaceShuttle.traj_display_flag == 6)
+else if (( SpaceShuttle.traj_display_flag == 6) and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 4"));
 	}
-else if (SpaceShuttle.traj_display_flag == 7)
+else if ((SpaceShuttle.traj_display_flag == 7)and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 5"));
 	}
@@ -585,6 +587,8 @@ p_dps_mnvr.tgo = PFDsvg.getElementById("p_dps_mnvr_tgo");
 
 p_dps_mnvr.exec = PFDsvg.getElementById("p_dps_mnvr_exec_msg");
 
+p_dps_mnvr.ttapsis_text = PFDsvg.getElementById("p_dps_mnvr_ttapsis_text");
+p_dps_mnvr.ttapsis = PFDsvg.getElementById("p_dps_mnvr_ttapsis");
 
 
 
@@ -748,9 +752,19 @@ if ((attitude_flag == 1) and (burn_plan == 1))
 		}
 	}
 
-
-
 p_dps_mnvr.exec.setText(sprintf("%s",exec_string));
+
+var tta = SpaceShuttle.time_to_apsis();
+
+var tta_string = "TTP";
+if (tta[0] = 2) {tta_string = "TTA";}
+
+var tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);
+
+p_dps_mnvr.ttapsis_text.setText(sprintf("%s",tta_string));
+p_dps_mnvr.ttapsis.setText(sprintf("%s",tta_time));
+
+
 }
 
 #################################################################
