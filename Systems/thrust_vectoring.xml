@@ -1197,12 +1197,66 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/vectoring/OMS-elevator-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/elevator-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/pitch-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-aileron-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/aileron-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/roll-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-rudder-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/rudder-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/yaw-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/vectoring/OMS-pitch-rate-error">
 		<function>
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-cmd-norm</property>
+  					<property>systems/vectoring/OMS-elevator-cmd-norm</property>
 					<value>-0.02</value>
 				</product>
 			</difference>
@@ -1214,7 +1268,7 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
+  					<property>systems/vectoring/OMS-aileron-cmd-norm</property>
 					<value>0.06</value>
 				</product>
 			</difference>
@@ -1226,7 +1280,7 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
+  					<property>systems/vectoring/OMS-rudder-cmd-norm</property>
 					<value>-0.02</value>
 				</product>
 			</difference>

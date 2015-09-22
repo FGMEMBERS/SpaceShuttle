@@ -20,6 +20,9 @@
 
 		<switch name="systems/ap/rot-rate-degps">
 			<default value="0.0"/>
+			<test value="3.0">
+				systems/fcs/control-mode == 11	
+			</test>
 			<test value="systems/ap/spec20/dap-A-PRI-rot-rate">
 				systems/fcs/control-mode == 20	
 			</test>
@@ -538,6 +541,7 @@
 		<switch name="systems/ap/dap-A-inertial">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 11
 				systems/fcs/control-mode == 20	
 				systems/fcs/control-mode == 25	
 			</test>

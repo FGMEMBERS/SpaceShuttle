@@ -440,6 +440,10 @@ setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-roll-deg", 0.0);
 setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-pitch-deg", 0.0);
 setprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-yaw-deg", 0.0);
 
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-x", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-y", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", 0.0);
+
 tracking_loop_flag = 0;
 }
 
@@ -449,5 +453,14 @@ if (time < 0.5) {oms_burn_stop(); return;}
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", seconds_to_stringMS(time));
 print("OMS burn for ", time, " seconds");
+
+var acc_x = getprop("/fdm/jsbsim/systems/navigation/acceleration-x");
+var acc_y = getprop("/fdm/jsbsim/systems/navigation/acceleration-y");
+var acc_z = getprop("/fdm/jsbsim/systems/navigation/acceleration-z");
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-x", getprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-x") + acc_x);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-y", getprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-y") + acc_y);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", getprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z") + acc_z);
+
 settimer(func {oms_burn(time - 1);}, 1.0);
 }

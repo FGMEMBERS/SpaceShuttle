@@ -17,7 +17,62 @@
 			<lag>0.1</lag>
 			<noise variation="PERCENT" distribution="GAUSSIAN">0.01</noise>
 		</sensor>
+	</channel>
 
+
+	<channel name="IMU accelerometers">
+
+		<accelerometer name="systems/navigation/acc-x">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> X</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-x</output>
+		</accelerometer>
+
+		<accelerometer name="systems/navigation/acc-y">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> Y</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-y</output>
+		</accelerometer>
+
+		<accelerometer name="systems/navigation/acc-z">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> Z</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-z</output>
+		</accelerometer>
 
 	</channel>
+
 </system>

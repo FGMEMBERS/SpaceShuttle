@@ -590,6 +590,9 @@ p_dps_mnvr.exec = PFDsvg.getElementById("p_dps_mnvr_exec_msg");
 p_dps_mnvr.ttapsis_text = PFDsvg.getElementById("p_dps_mnvr_ttapsis_text");
 p_dps_mnvr.ttapsis = PFDsvg.getElementById("p_dps_mnvr_ttapsis");
 
+p_dps_mnvr.vgo_x = PFDsvg.getElementById("p_dps_mnvr_vgo_x");
+p_dps_mnvr.vgo_y = PFDsvg.getElementById("p_dps_mnvr_vgo_y");
+p_dps_mnvr.vgo_z = PFDsvg.getElementById("p_dps_mnvr_vgo_z");
 
 
 p_dps_mnvr.blink = 0;
@@ -764,6 +767,9 @@ var tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);
 p_dps_mnvr.ttapsis_text.setText(sprintf("%s",tta_string));
 p_dps_mnvr.ttapsis.setText(sprintf("%s",tta_time));
 
+p_dps_mnvr.vgo_x.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-x")));
+p_dps_mnvr.vgo_y.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-y")));
+p_dps_mnvr.vgo_z.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-z"))); 
 
 }
 
