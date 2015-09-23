@@ -382,6 +382,36 @@ DPS_menu_ops.setText(sprintf("%s",ops_string));
 MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
 }
 
+
+
+#################################################################
+# GNC systems summary page 1 
+#################################################################
+
+var p_dps_sys_summ = PFD.addPage("CRTGNC_SUM1", "p_dps_sys_summ");
+
+
+p_dps_sys_summ.ondisplay = func
+{
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/   /018";
+
+
+DPS_menu_title.setText(sprintf("%s","GNC SYS SUMM 1"));
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+}
+
+p_dps_sys_summ.update = func
+{
+
+
+update_common_DPS();
+
+}
+
+
 #################################################################
 # the ascent/entry PFD page showing the vertical trajectory status
 #################################################################
@@ -955,8 +985,8 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_mnvr);
-p_main.addMenuItem(4, "MSG RST", p_dps_univ_ptg);
+p_main.addMenuItem(3, "MAINT", p_dps_sys_summ);
+p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
 p_dps_fault.addMenuItem(0, "UP", p_main);
@@ -970,6 +1000,10 @@ p_dps_univ_ptg.addMenuItem(5, "MSG ACK", p_dps_univ_ptg);
 p_dps_mnvr.addMenuItem(0, "UP", p_main);
 p_dps_mnvr.addMenuItem(4, "MSG RST", p_dps_mnvr);
 p_dps_mnvr.addMenuItem(5, "MSG ACK", p_dps_mnvr);
+
+p_dps_sys_summ.addMenuItem(0, "UP", p_main);
+p_dps_sys_summ.addMenuItem(4, "MSG RST", p_dps_sys_summ);
+p_dps_sys_summ.addMenuItem(5, "MSG ACK", p_dps_sys_summ);
 
 var pfd_button_pushed = 0;
 
