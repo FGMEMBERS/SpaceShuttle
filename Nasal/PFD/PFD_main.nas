@@ -277,6 +277,7 @@ DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/comm
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
 DPS_menu_fault_line.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/dps/error-string")));
 
+
 setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
 }
 
@@ -392,20 +393,57 @@ else
 
 var p_dps_fault = PFD.addPage("CRTFault", "p_dps_fault");
 
+p_dps_fault.string1 = PFDsvg.getElementById("p_dps_fault_string1");
+p_dps_fault.string2 = PFDsvg.getElementById("p_dps_fault_string2");
+p_dps_fault.string3 = PFDsvg.getElementById("p_dps_fault_string3");
+p_dps_fault.string4 = PFDsvg.getElementById("p_dps_fault_string4");
+p_dps_fault.string5 = PFDsvg.getElementById("p_dps_fault_string5");
+p_dps_fault.string6 = PFDsvg.getElementById("p_dps_fault_string6");
+p_dps_fault.string7 = PFDsvg.getElementById("p_dps_fault_string7");
+p_dps_fault.string8 = PFDsvg.getElementById("p_dps_fault_string8");
+p_dps_fault.string9 = PFDsvg.getElementById("p_dps_fault_string9");
+p_dps_fault.string10 = PFDsvg.getElementById("p_dps_fault_string10");
+p_dps_fault.string11 = PFDsvg.getElementById("p_dps_fault_string11");
+p_dps_fault.string12 = PFDsvg.getElementById("p_dps_fault_string12");
+p_dps_fault.string13 = PFDsvg.getElementById("p_dps_fault_string13");
+p_dps_fault.string14 = PFDsvg.getElementById("p_dps_fault_string14");
+p_dps_fault.string15 = PFDsvg.getElementById("p_dps_fault_string15");
+
+p_dps_fault.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","FAULT"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/   /099";
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+}
 
 p_dps_fault.update = func
 {
 
+p_dps_fault.string1.setText(sprintf("%s", SpaceShuttle.cws_message_array[0]));
+p_dps_fault.string2.setText(sprintf("%s", SpaceShuttle.cws_message_array[1]));
+p_dps_fault.string3.setText(sprintf("%s", SpaceShuttle.cws_message_array[2]));
+p_dps_fault.string4.setText(sprintf("%s", SpaceShuttle.cws_message_array[3]));
+p_dps_fault.string5.setText(sprintf("%s", SpaceShuttle.cws_message_array[4]));
+p_dps_fault.string6.setText(sprintf("%s", SpaceShuttle.cws_message_array[5]));
+p_dps_fault.string7.setText(sprintf("%s", SpaceShuttle.cws_message_array[6]));
+p_dps_fault.string8.setText(sprintf("%s", SpaceShuttle.cws_message_array[7]));
+p_dps_fault.string9.setText(sprintf("%s", SpaceShuttle.cws_message_array[8]));
+p_dps_fault.string10.setText(sprintf("%s", SpaceShuttle.cws_message_array[9]));
+p_dps_fault.string11.setText(sprintf("%s", SpaceShuttle.cws_message_array[10]));
+p_dps_fault.string12.setText(sprintf("%s", SpaceShuttle.cws_message_array[11]));
+p_dps_fault.string13.setText(sprintf("%s", SpaceShuttle.cws_message_array[12]));
+p_dps_fault.string14.setText(sprintf("%s", SpaceShuttle.cws_message_array[13]));
+p_dps_fault.string15.setText(sprintf("%s", SpaceShuttle.cws_message_array[14]));
 
 update_common_DPS();
-var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-
-var ops_string = major_mode~"1/   /099";
 
 
-DPS_menu_title.setText(sprintf("%s","FAULT"));
-DPS_menu_ops.setText(sprintf("%s",ops_string));
-MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+
 }
 
 

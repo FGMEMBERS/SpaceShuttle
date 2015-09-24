@@ -686,6 +686,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_orbit();
+SpaceShuttle.cws_inspect();
 #SpaceShuttle.update_LVLH_to_ECI();
 
 settimer(orbital_loop, 1.0);
