@@ -325,6 +325,23 @@
 		    <fes-heater-right-status type="int">0</fes-heater-right-status>
 		    <fes-heater-hiload-status type="int">0</fes-heater-hiload-status>
 		</atcs>
+		<cws>
+			<jet-fail-f1 type="int">0</jet-fail-f1>
+			<jet-fail-f2 type="int">0</jet-fail-f2>
+			<jet-fail-f3 type="int">0</jet-fail-f3>
+			<jet-fail-f4 type="int">0</jet-fail-f4>
+			<jet-fail-f5 type="int">0</jet-fail-f5>
+			<jet-fail-r1 type="int">0</jet-fail-r1>
+			<jet-fail-r2 type="int">0</jet-fail-r2>
+			<jet-fail-r3 type="int">0</jet-fail-r3>
+			<jet-fail-r4 type="int">0</jet-fail-r4>
+			<jet-fail-r5 type="int">0</jet-fail-r5>
+			<jet-fail-l1 type="int">0</jet-fail-l1>
+			<jet-fail-l2 type="int">0</jet-fail-l2>
+			<jet-fail-l3 type="int">0</jet-fail-l3>
+			<jet-fail-l4 type="int">0</jet-fail-l4>
+			<jet-fail-l5 type="int">0</jet-fail-l5>
+		</cws>
 		<electrical>
 		    <fc>
 			<reactant-valve-status type="int">1</reactant-valve-status>

@@ -10,7 +10,8 @@
 
 # pages available are
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 303, 302)
-# * P_univ_ptg (OPS 201)
+# * p_pds_univ_ptg (OPS 201)
+# * p_dps_sys_summ (DISP 18)
 
 
 #
@@ -280,6 +281,31 @@ setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
 }
 
 
+#########################################################
+# helper functions converting properties to display items
+#########################################################
+
+var valve_status_to_string = func (status) {
+
+if (status == 0) {return "CL";}
+else {return "OP";}
+
+}
+
+var jet_status_to_string = func (status) {
+
+if (status == 1) {return "OFF";}
+else if (status == 2) {return "ON";}
+if (status == 3) {return "LK";}
+else {return "";}
+}
+
+var elevon_norm = func (angle) {
+
+if (angle < 0.0) {return 100.0 * angle/40.0;}
+else {return 100.0 * angle/28.0;}
+
+}
 
 
 # Set listener on the PFD mode button; this could be an on off switch or by convention
@@ -391,6 +417,82 @@ MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
 var p_dps_sys_summ = PFD.addPage("CRTGNC_SUM1", "p_dps_sys_summ");
 
 
+p_dps_sys_summ.f1_vlv = PFDsvg.getElementById("p_dps_sys_summ_f1_vlv");
+p_dps_sys_summ.f2_vlv = PFDsvg.getElementById("p_dps_sys_summ_f2_vlv");
+p_dps_sys_summ.f3_vlv = PFDsvg.getElementById("p_dps_sys_summ_f3_vlv");
+p_dps_sys_summ.f4_vlv = PFDsvg.getElementById("p_dps_sys_summ_f4_vlv");
+p_dps_sys_summ.f5_vlv = PFDsvg.getElementById("p_dps_sys_summ_f5_vlv");
+
+p_dps_sys_summ.f1_fail = PFDsvg.getElementById("p_dps_sys_summ_f1_fail");
+p_dps_sys_summ.f2_fail = PFDsvg.getElementById("p_dps_sys_summ_f2_fail");
+p_dps_sys_summ.f3_fail = PFDsvg.getElementById("p_dps_sys_summ_f3_fail");
+p_dps_sys_summ.f4_fail = PFDsvg.getElementById("p_dps_sys_summ_f4_fail");
+p_dps_sys_summ.f5_fail = PFDsvg.getElementById("p_dps_sys_summ_f5_fail");
+
+p_dps_sys_summ.l1_vlv = PFDsvg.getElementById("p_dps_sys_summ_l1_vlv");
+p_dps_sys_summ.l2_vlv = PFDsvg.getElementById("p_dps_sys_summ_l2_vlv");
+p_dps_sys_summ.l3_vlv = PFDsvg.getElementById("p_dps_sys_summ_l3_vlv");
+p_dps_sys_summ.l4_vlv = PFDsvg.getElementById("p_dps_sys_summ_l4_vlv");
+p_dps_sys_summ.l5_vlv = PFDsvg.getElementById("p_dps_sys_summ_l5_vlv");
+
+p_dps_sys_summ.l1_fail = PFDsvg.getElementById("p_dps_sys_summ_l1_fail");
+p_dps_sys_summ.l2_fail = PFDsvg.getElementById("p_dps_sys_summ_l2_fail");
+p_dps_sys_summ.l3_fail = PFDsvg.getElementById("p_dps_sys_summ_l3_fail");
+p_dps_sys_summ.l4_fail = PFDsvg.getElementById("p_dps_sys_summ_l4_fail");
+p_dps_sys_summ.l5_fail = PFDsvg.getElementById("p_dps_sys_summ_l5_fail");
+
+p_dps_sys_summ.r1_vlv = PFDsvg.getElementById("p_dps_sys_summ_r1_vlv");
+p_dps_sys_summ.r2_vlv = PFDsvg.getElementById("p_dps_sys_summ_r2_vlv");
+p_dps_sys_summ.r3_vlv = PFDsvg.getElementById("p_dps_sys_summ_r3_vlv");
+p_dps_sys_summ.r4_vlv = PFDsvg.getElementById("p_dps_sys_summ_r4_vlv");
+p_dps_sys_summ.r5_vlv = PFDsvg.getElementById("p_dps_sys_summ_r5_vlv");
+
+p_dps_sys_summ.r1_fail = PFDsvg.getElementById("p_dps_sys_summ_r1_fail");
+p_dps_sys_summ.r2_fail = PFDsvg.getElementById("p_dps_sys_summ_r2_fail");
+p_dps_sys_summ.r3_fail = PFDsvg.getElementById("p_dps_sys_summ_r3_fail");
+p_dps_sys_summ.r4_fail = PFDsvg.getElementById("p_dps_sys_summ_r4_fail");
+p_dps_sys_summ.r5_fail = PFDsvg.getElementById("p_dps_sys_summ_r5_fail");
+
+p_dps_sys_summ.pos_l_ob = PFDsvg.getElementById("p_dps_sys_summ_pos_l_ob");
+p_dps_sys_summ.pos_l_ib = PFDsvg.getElementById("p_dps_sys_summ_pos_l_ib");
+p_dps_sys_summ.pos_r_ob = PFDsvg.getElementById("p_dps_sys_summ_pos_r_ob");
+p_dps_sys_summ.pos_r_ib = PFDsvg.getElementById("p_dps_sys_summ_pos_r_ib");
+
+p_dps_sys_summ.mom_l_ob = PFDsvg.getElementById("p_dps_sys_summ_mom_l_ob");
+p_dps_sys_summ.mom_l_ib = PFDsvg.getElementById("p_dps_sys_summ_mom_l_ib");
+p_dps_sys_summ.mom_r_ob = PFDsvg.getElementById("p_dps_sys_summ_mom_r_ob");
+p_dps_sys_summ.mom_r_ib = PFDsvg.getElementById("p_dps_sys_summ_mom_r_ib");
+
+
+
+p_dps_sys_summ.pos_rud = PFDsvg.getElementById("p_dps_sys_summ_pos_rud");
+p_dps_sys_summ.pos_spdbrk = PFDsvg.getElementById("p_dps_sys_summ_pos_spdbrk");
+p_dps_sys_summ.pos_bdyflp = PFDsvg.getElementById("p_dps_sys_summ_pos_bdyflp");
+p_dps_sys_summ.pos_ail = PFDsvg.getElementById("p_dps_sys_summ_pos_ail");
+
+p_dps_sys_summ.bdyflp_msg = PFDsvg.getElementById("p_dps_sys_summ_bdyflp_msg");
+p_dps_sys_summ.rhc_l = PFDsvg.getElementById("p_dps_sys_summ_rhc_l");
+p_dps_sys_summ.rhc_r = PFDsvg.getElementById("p_dps_sys_summ_rhc_r");
+p_dps_sys_summ.rhc_a = PFDsvg.getElementById("p_dps_sys_summ_rhc_a");
+p_dps_sys_summ.thc_l = PFDsvg.getElementById("p_dps_sys_summ_thc_l");
+p_dps_sys_summ.thc_a = PFDsvg.getElementById("p_dps_sys_summ_thc_a");
+p_dps_sys_summ.sbtc_l = PFDsvg.getElementById("p_dps_sys_summ_sbtc_l");
+p_dps_sys_summ.sbtc_r = PFDsvg.getElementById("p_dps_sys_summ_sbtc_r");
+
+p_dps_sys_summ.gpc = PFDsvg.getElementById("p_dps_sys_summ_gpc");
+p_dps_sys_summ.mdm_ff = PFDsvg.getElementById("p_dps_sys_summ_mdm_ff");
+p_dps_sys_summ.mdm_fa = PFDsvg.getElementById("p_dps_sys_summ_mdm_fa");
+
+p_dps_sys_summ.fcs_ch = PFDsvg.getElementById("p_dps_sys_summ_fcs_ch");
+p_dps_sys_summ.imu = PFDsvg.getElementById("p_dps_sys_summ_imu");
+p_dps_sys_summ.acc = PFDsvg.getElementById("p_dps_sys_summ_acc");
+p_dps_sys_summ.rga = PFDsvg.getElementById("p_dps_sys_summ_rga");
+p_dps_sys_summ.tac = PFDsvg.getElementById("p_dps_sys_summ_tac");
+p_dps_sys_summ.mls = PFDsvg.getElementById("p_dps_sys_summ_mls");
+p_dps_sys_summ.adta = PFDsvg.getElementById("p_dps_sys_summ_adta");
+
+
+
 p_dps_sys_summ.ondisplay = func
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -401,6 +503,29 @@ var ops_string = major_mode~"1/   /018";
 DPS_menu_title.setText(sprintf("%s","GNC SYS SUMM 1"));
 DPS_menu_ops.setText(sprintf("%s",ops_string));
 MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+# for the moment, we blank failure messages where we can't simulate the mode yet
+
+p_dps_sys_summ.bdyflp_msg.setText(sprintf(""));
+p_dps_sys_summ.rhc_l.setText(sprintf(""));
+p_dps_sys_summ.rhc_r.setText(sprintf(""));
+p_dps_sys_summ.rhc_a.setText(sprintf(""));
+p_dps_sys_summ.thc_l.setText(sprintf(""));
+p_dps_sys_summ.thc_a.setText(sprintf(""));
+p_dps_sys_summ.sbtc_l.setText(sprintf(""));
+p_dps_sys_summ.sbtc_r.setText(sprintf(""));
+
+p_dps_sys_summ.gpc.setText(sprintf(""));
+p_dps_sys_summ.mdm_ff.setText(sprintf(""));
+p_dps_sys_summ.mdm_fa.setText(sprintf(""));
+
+p_dps_sys_summ.fcs_ch.setText(sprintf(""));
+p_dps_sys_summ.imu.setText(sprintf(""));
+p_dps_sys_summ.acc.setText(sprintf(""));
+p_dps_sys_summ.rga.setText(sprintf(""));
+p_dps_sys_summ.tac.setText(sprintf(""));
+p_dps_sys_summ.mls.setText(sprintf(""));
+p_dps_sys_summ.adta.setText(sprintf(""));
 }
 
 p_dps_sys_summ.update = func
@@ -409,6 +534,58 @@ p_dps_sys_summ.update = func
 
 update_common_DPS();
 
+
+
+p_dps_sys_summ.r1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status"))));
+p_dps_sys_summ.r2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status"))));
+p_dps_sys_summ.r3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status"))));
+p_dps_sys_summ.r4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status"))));
+p_dps_sys_summ.r5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status"))));
+
+p_dps_sys_summ.r1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r1"))));
+p_dps_sys_summ.r2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r2"))));
+p_dps_sys_summ.r3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r3"))));
+p_dps_sys_summ.r4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r4"))));
+p_dps_sys_summ.r5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r5"))));
+
+p_dps_sys_summ.l1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status"))));
+p_dps_sys_summ.l2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status"))));
+p_dps_sys_summ.l3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status"))));
+p_dps_sys_summ.l4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status"))));
+p_dps_sys_summ.l5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status"))));
+
+p_dps_sys_summ.l1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l1"))));
+p_dps_sys_summ.l2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l2"))));
+p_dps_sys_summ.l3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l3"))));
+p_dps_sys_summ.l4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l4"))));
+p_dps_sys_summ.l5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l5"))));
+
+p_dps_sys_summ.f1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status"))));
+p_dps_sys_summ.f2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status"))));
+p_dps_sys_summ.f3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status"))));
+p_dps_sys_summ.f4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status"))));
+p_dps_sys_summ.f5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status"))));
+
+p_dps_sys_summ.f1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f1"))));
+p_dps_sys_summ.f2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f2"))));
+p_dps_sys_summ.f3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f3"))));
+p_dps_sys_summ.f4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f4"))));
+p_dps_sys_summ.f5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f5"))));
+
+p_dps_sys_summ.pos_l_ob.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg")));
+p_dps_sys_summ.pos_l_ib.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg")));
+p_dps_sys_summ.pos_r_ob.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg"))); 
+p_dps_sys_summ.pos_r_ib.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg")));
+
+p_dps_sys_summ.mom_l_ob.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg"))));
+p_dps_sys_summ.mom_l_ib.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg"))));
+p_dps_sys_summ.mom_r_ob.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg"))));
+p_dps_sys_summ.mom_r_ib.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg"))));
+
+p_dps_sys_summ.pos_rud.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/rudder-pos-rad")));
+p_dps_sys_summ.pos_spdbrk.setText(sprintf("%2.1f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
+p_dps_sys_summ.pos_bdyflp.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/bodyflap-pos-rad")));
+p_dps_sys_summ.pos_ail.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/left-aileron-pos-rad")));
 }
 
 

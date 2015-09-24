@@ -138,6 +138,47 @@ SpaceShuttle.PFD.selectPage(p_dps_fault);
 
 }
 
+# SYS SUMM key #######################################################
+
+var key_sys_summ = func {
+
+SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+}
+
+# RESUME key #######################################################
+
+var key_resume = func {
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+if (ops == 1)	
+	{
+	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
+		{SpaceShuttle.PFD.selectPage(p_ascent);}
+	else
+		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+	}
+else if (ops == 2)
+	{
+	if (major_mode == 201)
+		{SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);}
+	else
+		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+	}
+else if ( ops == 3)
+	{
+		if ((major_mode == 304) or (major_mode = 305))
+		{SpaceShuttle.PFD.selectPage(p_ascent);}
+		else
+		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+	}
+
+
+
+
+}
+
 # PRO key #######################################################
 
 var key_pro = func {
@@ -400,6 +441,23 @@ if ((header == "ITEM") and (end = "EXEC"))
 	}
 
 
+if ((header == "SPEC") and (end =="PRO"))
+	{
+	var spec_num = int(body);
+	print ("Switching to spec ", spec_num);
+
+	if (spec_num == 18)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+		valid_flag = 1;
+		}
+
+	if (spec_num == 99)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_fault);
+		valid_flag = 1;
+		}
+	}
 
 # special situation - the exec key being used to fire the OMS burn
 
@@ -424,11 +482,7 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 
 	}
 
-if (current_string == "SPEC 99 PRO")
-	{
-	SpaceShuttle.PFD.selectPage(p_dps_fault);
-	valid_flag = 1;
-	}
+
 
 b_v_flag = 0;
 header = "";
