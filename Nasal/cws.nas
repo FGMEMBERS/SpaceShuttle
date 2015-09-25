@@ -12,14 +12,24 @@ var cws_last_message_acknowledge = 0;
 
 var cws_msg_hash = {
 f1f : 0, f1l : 0, f1u : 0, f1d : 0, f2f : 0, f2r : 0, f2u : 0, f2d : 0, f3f : 0, f3l : 0, f3u : 0, f3d : 0, f4r : 0, f4d : 0, f5r : 0, f5l : 0,
+l1a : 0, l1l : 0, l1u : 0, l2u: 0, l2l : 0, l2d : 0, l3l : 0, l3a : 0, l3d : 0, l4u : 0, l4l : 0, l4d : 0, l5d : 0, l5l : 0,
+r1a : 0, r1r : 0, r1u : 0, r2u: 0, r2r : 0, r2d : 0, r3r : 0, r3a : 0, r3d : 0, r4u : 0, r4r : 0, r4d : 0, r5d : 0, r5r : 0,
 fhep : 0, fpop : 0, fleak : 0,
 omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0,
 };
+
 
 var cws_inspect = func {
 
 if (inspection_group == 0) 
 	{cws_inspect_fwd_rcs_thrusters();}
+
+
+if (inspection_group == 1) 
+	{cws_inspect_left_rcs_thrusters();}
+
+if (inspection_group == 1) 
+	{cws_inspect_right_rcs_thrusters();}
 
 if (inspection_group == 3)
 	{cws_inspect_oms();}
@@ -227,6 +237,302 @@ if (math.abs(foxidizer - fpropellant) > 0.095) # we have a leak
 	}
 
 }
+
+
+#################################################
+# CWS checks of left RCS
+#################################################
+
+var cws_inspect_left_rcs_thrusters = func {
+
+# LEFT manifold 1
+
+var l1a = getprop("/fdm/jsbsim/systems/failures/rcs-L1A-condition");
+var l1l = getprop("/fdm/jsbsim/systems/failures/rcs-L1L-condition");
+var l1u = getprop("/fdm/jsbsim/systems/failures/rcs-L1U-condition");
+
+
+if (l1a + l1l + l1u < 3.0) # we have a manifold 1 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-l1", 1);
+
+	if ((l1a < 1.0) and (cws_msg_hash.l1a == 0))
+		{
+		create_fault_message("    L RCS A JET", 1, 2);
+		cws_msg_hash.l1a = 1;
+		}
+	if ((l1l < 1.0) and (cws_msg_hash.l1l == 0))
+		{
+		create_fault_message("    L RCS L JET", 1, 2);
+		cws_msg_hash.l1l = 1;
+		}
+	if ((l1u < 1.0) and (cws_msg_hash.l1u == 0))
+		{
+		create_fault_message("    L RCS U JET", 1, 2);
+		cws_msg_hash.l1u = 1;
+		}
+	}
+
+# LEFT manifold 2
+
+var l2u = getprop("/fdm/jsbsim/systems/failures/rcs-L2U-condition");
+var l2l = getprop("/fdm/jsbsim/systems/failures/rcs-L2L-condition");
+var l2d = getprop("/fdm/jsbsim/systems/failures/rcs-L2D-condition");
+
+
+if (l2u + l2l + l2d < 3.0) # we have a manifold 2 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-l2", 1);
+
+	if ((l2u < 1.0) and (cws_msg_hash.l2u == 0))
+		{
+		create_fault_message("    L RCS U JET", 1, 2);
+		cws_msg_hash.l2u = 1;
+		}
+	if ((l2l < 1.0) and (cws_msg_hash.l2l == 0))
+		{
+		create_fault_message("    L RCS L JET", 1, 2);
+		cws_msg_hash.l2l = 1;
+		}
+	if ((l2d < 1.0) and (cws_msg_hash.l2d == 0))
+		{
+		create_fault_message("    L RCS D JET", 1, 2);
+		cws_msg_hash.l2d = 1;
+		}
+	}
+
+# LEFT manifold 3
+
+var l3l = getprop("/fdm/jsbsim/systems/failures/rcs-L3L-condition");
+var l3a = getprop("/fdm/jsbsim/systems/failures/rcs-L3A-condition");
+var l3d = getprop("/fdm/jsbsim/systems/failures/rcs-L3D-condition");
+
+
+if (l3l + l3a + l3d < 3.0) # we have a manifold 3 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-l3", 1);
+
+	if ((l3l < 1.0) and (cws_msg_hash.l3l == 0))
+		{
+		create_fault_message("    L RCS L JET", 1, 2);
+		cws_msg_hash.l3l = 1;
+		}
+	if ((l3a < 1.0) and (cws_msg_hash.l3a == 0))
+		{
+		create_fault_message("    L RCS A JET", 1, 2);
+		cws_msg_hash.l3a = 1;
+		}
+	if ((l3d < 1.0) and (cws_msg_hash.l3d == 0))
+		{
+		create_fault_message("    L RCS D JET", 1, 2);
+		cws_msg_hash.l3d = 1;
+		}
+	}
+
+# LEFT manifold 4
+
+var l4u = getprop("/fdm/jsbsim/systems/failures/rcs-L4U-condition");
+var l4l = getprop("/fdm/jsbsim/systems/failures/rcs-L4L-condition");
+var l4d = getprop("/fdm/jsbsim/systems/failures/rcs-L4D-condition");
+
+
+if (l4u + l4l + l4d < 3.0) # we have a manifold 4 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-l4", 1);
+
+	if ((l4u < 1.0) and (cws_msg_hash.l4u == 0))
+		{
+		create_fault_message("    L RCS U JET", 1, 2);
+		cws_msg_hash.l4u = 1;
+		}
+	if ((l4l < 1.0) and (cws_msg_hash.l4l == 0))
+		{
+		create_fault_message("    L RCS L JET", 1, 2);
+		cws_msg_hash.l4l = 1;
+		}
+	if ((l4d < 1.0) and (cws_msg_hash.l4d == 0))
+		{
+		create_fault_message("    L RCS D JET", 1, 2);
+		cws_msg_hash.l4d = 1;
+		}
+	}
+
+# LEFT manifold 5
+
+var l5d = getprop("/fdm/jsbsim/systems/failures/rcs-L5D-condition");
+var l5l = getprop("/fdm/jsbsim/systems/failures/rcs-L5L-condition");
+
+
+
+if (l5d + l5l < 2.0) # we have a manifold 5 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-l5", 1);
+
+	if ((l5d < 1.0) and (cws_msg_hash.l5d == 0))
+		{
+		create_fault_message("    L RCS D JET", 1, 2);
+		cws_msg_hash.l5d = 1;
+		}
+	if ((l5l < 1.0) and (cws_msg_hash.l5l == 0))
+		{
+		create_fault_message("    L RCS L JET", 1, 2);
+		cws_msg_hash.l5l = 1;
+		}
+	}
+
+		
+
+}  		
+
+
+
+#################################################
+# CWS checks of right RCS
+#################################################
+
+var cws_inspect_right_rcs_thrusters = func {
+
+# RIGHT manifold 1
+
+var r1a = getprop("/fdm/jsbsim/systems/failures/rcs-R1A-condition");
+var r1r = getprop("/fdm/jsbsim/systems/failures/rcs-R1R-condition");
+var r1u = getprop("/fdm/jsbsim/systems/failures/rcs-R1U-condition");
+
+
+if (r1a + r1r + r1u < 3.0) # we have a manifold 1 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-r1", 1);
+
+	if ((r1a < 1.0) and (cws_msg_hash.r1a == 0))
+		{
+		create_fault_message("    R RCS A JET", 1, 2);
+		cws_msg_hash.r1a = 1;
+		}
+	if ((r1r < 1.0) and (cws_msg_hash.r1r == 0))
+		{
+		create_fault_message("    R RCS R JET", 1, 2);
+		cws_msg_hash.r1r = 1;
+		}
+	if ((r1u < 1.0) and (cws_msg_hash.r1u == 0))
+		{
+		create_fault_message("    R RCS U JET", 1, 2);
+		cws_msg_hash.r1u = 1;
+		}
+	}
+
+# RIGHT manifold 2
+
+var r2u = getprop("/fdm/jsbsim/systems/failures/rcs-R2U-condition");
+var r2r = getprop("/fdm/jsbsim/systems/failures/rcs-R2R-condition");
+var r2d = getprop("/fdm/jsbsim/systems/failures/rcs-R2D-condition");
+
+
+if (r2u + r2r + r2d < 3.0) # we have a manifold 2 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-r2", 1);
+
+	if ((r2u < 1.0) and (cws_msg_hash.r2u == 0))
+		{
+		create_fault_message("    R RCS U JET", 1, 2);
+		cws_msg_hash.r2u = 1;
+		}
+	if ((r2r < 1.0) and (cws_msg_hash.r2r == 0))
+		{
+		create_fault_message("    R RCS R JET", 1, 2);
+		cws_msg_hash.r2r = 1;
+		}
+	if ((r2d < 1.0) and (cws_msg_hash.r2d == 0))
+		{
+		create_fault_message("    R RCS D JET", 1, 2);
+		cws_msg_hash.r2d = 1;
+		}
+	}
+
+# RIGHT manifold 3
+
+var r3r = getprop("/fdm/jsbsim/systems/failures/rcs-R3R-condition");
+var r3a = getprop("/fdm/jsbsim/systems/failures/rcs-R3A-condition");
+var r3d = getprop("/fdm/jsbsim/systems/failures/rcs-R3D-condition");
+
+
+if (r3r + r3a + r3d < 3.0) # we have a manifold 3 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-r3", 1);
+
+	if ((r3r < 1.0) and (cws_msg_hash.r3r == 0))
+		{
+		create_fault_message("    R RCS R JET", 1, 2);
+		cws_msg_hash.r3r = 1;
+		}
+	if ((r3a < 1.0) and (cws_msg_hash.r3a == 0))
+		{
+		create_fault_message("    R RCS A JET", 1, 2);
+		cws_msg_hash.r3a = 1;
+		}
+	if ((r3d < 1.0) and (cws_msg_hash.r3d == 0))
+		{
+		create_fault_message("    R RCS D JET", 1, 2);
+		cws_msg_hash.r3d = 1;
+		}
+	}
+
+# RIGHT manifold 4
+
+var r4u = getprop("/fdm/jsbsim/systems/failures/rcs-R4U-condition");
+var r4r = getprop("/fdm/jsbsim/systems/failures/rcs-R4R-condition");
+var r4d = getprop("/fdm/jsbsim/systems/failures/rcs-R4D-condition");
+
+
+if (r4u + r4r + r4d < 3.0) # we have a manifold 4 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-r4", 1);
+
+	if ((r4u < 1.0) and (cws_msg_hash.r4u == 0))
+		{
+		create_fault_message("    R RCS U JET", 1, 2);
+		cws_msg_hash.r4u = 1;
+		}
+	if ((r4r < 1.0) and (cws_msg_hash.r4r == 0))
+		{
+		create_fault_message("    R RCS R JET", 1, 2);
+		cws_msg_hash.r4r = 1;
+		}
+	if ((r4d < 1.0) and (cws_msg_hash.r4d == 0))
+		{
+		create_fault_message("    R RCS D JET", 1, 2);
+		cws_msg_hash.r4d = 1;
+		}
+	}
+
+# RIGHT manifold 5
+
+var r5d = getprop("/fdm/jsbsim/systems/failures/rcs-R5D-condition");
+var r5r = getprop("/fdm/jsbsim/systems/failures/rcs-R5R-condition");
+
+
+
+if (r5d + r5r < 2.0) # we have a manifold 5 fail off condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-r5", 1);
+
+	if ((r5d < 1.0) and (cws_msg_hash.r5d == 0))
+		{
+		create_fault_message("    R RCS D JET", 1, 2);
+		cws_msg_hash.r5d = 1;
+		}
+	if ((r5r < 1.0) and (cws_msg_hash.r5r == 0))
+		{
+		create_fault_message("    R RCS R JET", 1, 2);
+		cws_msg_hash.r5r = 1;
+		}
+	}
+
+		
+
+}  		
+
+
+
 
 #################################################
 # CWS checks of OMS
