@@ -945,7 +945,7 @@
         </multiplay>
 
         <startup>
-            <splash-texture>Aircraft/SpaceShuttle/shuttle_Earthview.png</splash-texture>
+            <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-splash.png</splash-texture>
         </startup>
 
         <model>

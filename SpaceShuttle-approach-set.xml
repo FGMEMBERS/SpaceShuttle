@@ -10,6 +10,9 @@
 	<pitch-deg>-5.0</pitch-deg>	
 	<stage type="int">4</stage>
   </presets>
+  <startup>
+    <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-approach-splash.png</splash-texture>
+  </startup>
 </sim>
 
 <fdm>

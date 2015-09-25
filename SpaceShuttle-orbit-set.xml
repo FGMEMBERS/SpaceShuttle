@@ -9,6 +9,9 @@
 	<altitude-ft>500000.0</altitude-ft>
 	<stage type="int">1</stage>
   </presets>
+  <startup>
+    <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-orbit-splash.png</splash-texture>
+  </startup>
 </sim>
 
 <fdm>
