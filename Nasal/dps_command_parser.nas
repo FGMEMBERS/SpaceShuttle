@@ -126,7 +126,7 @@ setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 
 var key_msg_reset = func {
 
-
+SpaceShuttle.cws_last_message_acknowledge = 0;
 setprop("/fdm/jsbsim/systems/dps/error-string", "");
 }
 
@@ -143,6 +143,25 @@ SpaceShuttle.PFD.selectPage(p_dps_fault);
 var key_sys_summ = func {
 
 SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+}
+
+
+# ACK key #######################################################
+
+var key_ack = func {
+
+if (SpaceShuttle.cws_last_message_acknowledge == 1)
+	{SpaceShuttle.cws_last_message_acknowledge = 0;}
+else
+	{
+	var num_messages = size(SpaceShuttle.cws_message_array);
+	if (num_messages > 1)
+		{
+		setprop("/fdm/jsbsim/systems/dps/error-string", SpaceShuttle.cws_message_array[num_messages - 2]);
+		setsize(SpaceShuttle.cws_message_array, num_messages - 1);
+		}
+	}
+
 }
 
 # RESUME key #######################################################
@@ -455,6 +474,8 @@ if ((header == "SPEC") and (end =="PRO"))
 	if (spec_num == 99)
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_fault);
+		# calling the display with SPEC 99 PRO clears all fault messages
+		SpaceShuttle.cws_message_array_long = ["","","","","","","","","","","","","","",""];
 		valid_flag = 1;
 		}
 	}
@@ -499,7 +520,7 @@ if (valid_flag == 0)
 	}
 else 
 	{
-	setprop("/fdm/jsbsim/systems/dps/error-string", "");
+	#setprop("/fdm/jsbsim/systems/dps/error-string", "");
 	setsize(last_command,0);
 	}
 
