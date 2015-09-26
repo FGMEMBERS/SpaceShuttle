@@ -277,7 +277,9 @@ else
 
 var gear_up = func {
 
-if (launch_loop_flag == 0) {return;}
+var stage = getprop("/sim/presets/stage");
+
+if ((launch_loop_flag == 0) and (stage ==0)) {return;}
 
 # we can't initialize with gear up on the ground without confusing JSBSim, but we can retract it automagically
 
