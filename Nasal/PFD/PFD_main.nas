@@ -9,9 +9,12 @@
 # ---------------------------
 
 # pages available are
-# * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 303, 302)
+# * p_ascent (OPS 101, 102, 103)
+# * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_sys_summ (DISP 18)
+# * p_dps_sys_summ2 (DISP 19)
+# * p_dps_fault (SPEC 99)
 
 
 #
@@ -646,6 +649,89 @@ p_dps_sys_summ.pos_ail.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/f
 var p_dps_sys_summ2 = PFD.addPage("CRTGNC_SUM2", "p_dps_sys_summ2");
 
 
+
+p_dps_sys_summ2.fwd_rcs_fu_qty = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_fu_qty");
+p_dps_sys_summ2.fwd_rcs_oxid_qty = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_oxid_qty");
+
+p_dps_sys_summ2.left_rcs_fu_qty = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_fu_qty");
+p_dps_sys_summ2.left_rcs_oxid_qty = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_oxid_qty");
+
+p_dps_sys_summ2.right_rcs_fu_qty = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_fu_qty");
+p_dps_sys_summ2.right_rcs_oxid_qty = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_oxid_qty");
+
+p_dps_sys_summ2.left_oms_fu_qty = PFDsvg.getElementById("p_dps_sys_summ2_fu_l");
+p_dps_sys_summ2.left_oms_oxid_qty = PFDsvg.getElementById("p_dps_sys_summ2_oxid_l");
+
+p_dps_sys_summ2.right_oms_fu_qty = PFDsvg.getElementById("p_dps_sys_summ2_fu_r");
+p_dps_sys_summ2.right_oms_oxid_qty = PFDsvg.getElementById("p_dps_sys_summ2_oxid_r");
+
+
+
+p_dps_sys_summ2.f1_vlv = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf1_isol");
+p_dps_sys_summ2.f2_vlv = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf2_isol");
+p_dps_sys_summ2.f3_vlv = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf3_isol");
+p_dps_sys_summ2.f4_vlv = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf4_isol");
+p_dps_sys_summ2.f5_vlv = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf5_isol");
+
+p_dps_sys_summ2.f1_fail = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf1_fail");
+p_dps_sys_summ2.f2_fail = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf2_fail");
+p_dps_sys_summ2.f3_fail = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf3_fail");
+p_dps_sys_summ2.f4_fail = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf4_fail");
+p_dps_sys_summ2.f5_fail = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_manf5_fail");
+
+p_dps_sys_summ2.l1_vlv = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf1_isol");
+p_dps_sys_summ2.l2_vlv = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf2_isol");
+p_dps_sys_summ2.l3_vlv = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf3_isol");
+p_dps_sys_summ2.l4_vlv = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf4_isol");
+p_dps_sys_summ2.l5_vlv = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf5_isol");
+
+p_dps_sys_summ2.l1_fail = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf1_fail");
+p_dps_sys_summ2.l2_fail = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf2_fail");
+p_dps_sys_summ2.l3_fail = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf3_fail");
+p_dps_sys_summ2.l4_fail = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf4_fail");
+p_dps_sys_summ2.l5_fail = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_manf5_fail");
+
+p_dps_sys_summ2.r1_vlv = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf1_isol");
+p_dps_sys_summ2.r2_vlv = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf2_isol");
+p_dps_sys_summ2.r3_vlv = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf3_isol");
+p_dps_sys_summ2.r4_vlv = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf4_isol");
+p_dps_sys_summ2.r5_vlv = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf5_isol");
+
+p_dps_sys_summ2.r1_fail = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf1_fail");
+p_dps_sys_summ2.r2_fail = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf2_fail");
+p_dps_sys_summ2.r3_fail = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf3_fail");
+p_dps_sys_summ2.r4_fail = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf4_fail");
+p_dps_sys_summ2.r5_fail = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_manf5_fail");
+
+p_dps_sys_summ2.fwd_rcs_oxid_he_p = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_oxid_he_p");
+p_dps_sys_summ2.fwd_rcs_fu_he_p = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_fu_he_p");
+p_dps_sys_summ2.fwd_rcs_oxid_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_oxid_tk_p");
+p_dps_sys_summ2.fwd_rcs_fu_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_fwd_rcs_fu_tk_p");
+
+p_dps_sys_summ2.left_rcs_oxid_he_p = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_oxid_he_p");
+p_dps_sys_summ2.left_rcs_fu_he_p = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_fu_he_p");
+p_dps_sys_summ2.left_rcs_oxid_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_oxid_tk_p");
+p_dps_sys_summ2.left_rcs_fu_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_left_rcs_fu_tk_p");
+
+p_dps_sys_summ2.right_rcs_oxid_he_p = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_oxid_he_p");
+p_dps_sys_summ2.right_rcs_fu_he_p = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_fu_he_p");
+p_dps_sys_summ2.right_rcs_oxid_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_oxid_tk_p");
+p_dps_sys_summ2.right_rcs_fu_tk_p = PFDsvg.getElementById("p_dps_sys_summ2_right_rcs_fu_tk_p");
+
+p_dps_sys_summ2.left_oms_he_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_he_p");
+p_dps_sys_summ2.right_oms_he_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_he_p");
+p_dps_sys_summ2.left_oms_oxid_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_oxid_p");
+p_dps_sys_summ2.right_oms_oxid_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_oxid_p");
+p_dps_sys_summ2.left_oms_fuel_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_fuel_p");
+p_dps_sys_summ2.right_oms_fuel_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_fuel_p");
+
+p_dps_sys_summ2.bfs_inj_t_text = PFDsvg.getElementById("p_dps_sys_summ2_text5a");
+p_dps_sys_summ2.bfs_inj_t_l = PFDsvg.getElementById("p_dps_sys_summ2_fu_inj_t_l");
+p_dps_sys_summ2.bfs_inj_t_r = PFDsvg.getElementById("p_dps_sys_summ2_fu_inj_t_r");
+
+
+
+
 p_dps_sys_summ2.ondisplay = func
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -656,6 +742,13 @@ var ops_string = major_mode~"1/   /019";
 DPS_menu_title.setText(sprintf("%s","GNC SYS SUMM 2"));
 DPS_menu_ops.setText(sprintf("%s",ops_string));
 MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+# blank the BFS-only properties
+
+p_dps_sys_summ2.bfs_inj_t_text.setText(sprintf(""));
+p_dps_sys_summ2.bfs_inj_t_l.setText(sprintf(""));
+p_dps_sys_summ2.bfs_inj_t_r.setText(sprintf(""));
+
 }
 
 p_dps_sys_summ2.update = func
@@ -663,6 +756,81 @@ p_dps_sys_summ2.update = func
 
 
 update_common_DPS();
+
+
+p_dps_sys_summ2.f1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status"))));
+p_dps_sys_summ2.f2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status"))));
+p_dps_sys_summ2.f3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status"))));
+p_dps_sys_summ2.f4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status"))));
+p_dps_sys_summ2.f5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status"))));
+
+p_dps_sys_summ2.f1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f1"))));
+p_dps_sys_summ2.f2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f2"))));
+p_dps_sys_summ2.f3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f3"))));
+p_dps_sys_summ2.f4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f4"))));
+p_dps_sys_summ2.f5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f5"))));
+
+p_dps_sys_summ2.l1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status"))));
+p_dps_sys_summ2.l2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status"))));
+p_dps_sys_summ2.l3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status"))));
+p_dps_sys_summ2.l4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status"))));
+p_dps_sys_summ2.l5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status"))));
+
+p_dps_sys_summ2.l1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l1"))));
+p_dps_sys_summ2.l2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l2"))));
+p_dps_sys_summ2.l3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l3"))));
+p_dps_sys_summ2.l4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l4"))));
+p_dps_sys_summ2.l5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l5"))));
+
+p_dps_sys_summ2.r1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status"))));
+p_dps_sys_summ2.r2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status"))));
+p_dps_sys_summ2.r3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status"))));
+p_dps_sys_summ2.r4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status"))));
+p_dps_sys_summ2.r5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status"))));
+
+p_dps_sys_summ2.r1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r1"))));
+p_dps_sys_summ2.r2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r2"))));
+p_dps_sys_summ2.r3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r3"))));
+p_dps_sys_summ2.r4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r4"))));
+p_dps_sys_summ2.r5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r5"))));
+
+
+p_dps_sys_summ2.left_oms_fu_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[5]/level-lbs")/47.180));
+p_dps_sys_summ2.left_oms_oxid_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[4]/level-lbs")/77.730));
+
+p_dps_sys_summ2.right_oms_fu_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[7]/level-lbs")/47.180));
+p_dps_sys_summ2.right_oms_oxid_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[6]/level-lbs")/77.730));
+
+p_dps_sys_summ2.fwd_rcs_fu_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[13]/level-lbs")/9.280));
+p_dps_sys_summ2.fwd_rcs_oxid_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[12]/level-lbs")/14.770));
+
+p_dps_sys_summ2.left_rcs_fu_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[9]/level-lbs")/9.280));
+p_dps_sys_summ2.left_rcs_oxid_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[8]/level-lbs")/14.770));
+
+p_dps_sys_summ2.right_rcs_fu_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[11]/level-lbs")/9.280));
+p_dps_sys_summ2.right_rcs_oxid_qty.setText(sprintf("%2.1f", getprop("/consumables/fuel/tank[10]/level-lbs")/14.770));
+
+p_dps_sys_summ2.fwd_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia")));
+p_dps_sys_summ2.fwd_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia")));
+p_dps_sys_summ2.fwd_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-fwd-rcs-pressure-psia")));
+p_dps_sys_summ2.fwd_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-fwd-rcs-pressure-psia")));
+
+p_dps_sys_summ2.left_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-1-psia")));
+p_dps_sys_summ2.left_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-2-psia")));
+p_dps_sys_summ2.left_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-left-rcs-pressure-psia")));
+p_dps_sys_summ2.left_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-left-rcs-pressure-psia")));
+
+p_dps_sys_summ2.right_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-1-psia")));
+p_dps_sys_summ2.right_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-2-psia")));
+p_dps_sys_summ2.right_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-right-rcs-pressure-psia")));
+p_dps_sys_summ2.right_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-right-rcs-pressure-psia")));
+
+p_dps_sys_summ2.left_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-pressure-psia")));
+p_dps_sys_summ2.right_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-pressure-psia")));
+p_dps_sys_summ2.left_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/oxidizer-left-oms-pressure-psia")));
+p_dps_sys_summ2.right_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/oxidizer-right-oms-pressure-psia"))); 
+p_dps_sys_summ2.left_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/fuel-left-oms-pressure-psia")));
+p_dps_sys_summ2.right_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/fuel-right-oms-pressure-psia")));
 
 }
 

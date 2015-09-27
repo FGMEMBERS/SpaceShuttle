@@ -4,82 +4,7 @@
 
 	<channel name="RCS helium and propellant system">
 
-		<!-- compute helium-driven pressure at the fuel and oxidizer tanks -->
-
-		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-psia">
-		<function>
-			<max>
-				<property>systems/rcs-hardware/helium-left-rcs-pressure-1-psia</property>
-				<property>systems/rcs-hardware/helium-left-rcs-pressure-2-psia</property>
-			</max>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-psia">
-		<function>
-			<max>
-				<property>systems/rcs-hardware/helium-right-rcs-pressure-1-psia</property>
-				<property>systems/rcs-hardware/helium-right-rcs-pressure-2-psia</property>
-			</max>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-psia">
-		<function>
-			<max>
-				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia</property>
-				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia</property>
-			</max>
-		</function>
-		</fcs_function>
-
-		<switch name="systems/rcs-hardware/left-rcs-helium-valve-open">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/rcs-hardware/helium-left-rcs-valve-A-status == 1
-				systems/rcs-hardware/helium-left-rcs-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/rcs-hardware/right-rcs-helium-valve-open">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/rcs-hardware/helium-right-rcs-valve-A-status == 1
-				systems/rcs-hardware/helium-right-rcs-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/rcs-hardware/fwd-rcs-helium-valve-open">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/rcs-hardware/helium-fwd-rcs-valve-A-status == 1
-				systems/rcs-hardware/helium-fwd-rcs-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/rcs-hardware/left-rcs-pressurized">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/rcs-hardware/left-rcs-helium-valve-open == 1
-				systems/rcs-hardware/helium-left-rcs-pressure-psia GT 200.0
-			</test>
-		</switch>
-
-		<switch name="systems/rcs-hardware/right-rcs-pressurized">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/rcs-hardware/right-rcs-helium-valve-open == 1
-				systems/rcs-hardware/helium-right-rcs-pressure-psia GT 200.0
-			</test>
-		</switch>
-
-	 	<switch name="systems/rcs-hardware/fwd-rcs-pressurized">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/rcs-hardware/fwd-rcs-helium-valve-open == 1
-				systems/rcs-hardware/helium-fwd-rcs-pressure-psia GT 200.0
-			</test>
-		</switch>
+		<!-- current fuel fractions of all tanks -->
 
 		<fcs_function name="systems/rcs-hardware/left-rcs-fuel-fraction">
 		<function>
@@ -134,6 +59,187 @@
 			</quotient>
 		</function>
 		</fcs_function>
+
+		<!-- compute helium-driven pressure at the fuel and oxidizer tanks -->
+		<!-- base tank pressure is ~3000 psia, depleting with fuel -->
+		<!-- taking into account the regulator stage -->
+
+		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-1-psia">
+		<function>
+			<product>
+				<sum>
+					<value>802.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/left-rcs-fuel-fraction</property>
+						<value>2553.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-left-1-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-2-psia">
+		<function>
+			<product>
+				<sum>
+					<value>806.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/left-rcs-fuel-fraction</property>
+						<value>2551.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-left-2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-1-psia">
+		<function>
+			<product>
+				<sum>
+					<value>804.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/right-rcs-fuel-fraction</property>
+						<value>2555.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-right-1-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-2-psia">
+		<function>
+			<product>
+				<sum>
+					<value>801.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/right-rcs-fuel-fraction</property>
+						<value>2556.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-right-2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia">
+		<function>
+			<product>
+				<sum>
+					<value>803.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/fwd-rcs-fuel-fraction</property>
+						<value>2554.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-fwd-1-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia">
+		<function>
+			<product>
+				<sum>
+					<value>807.0</value>
+					<product>
+						<property>/fdm/jsbsim/systems/rcs-hardware/fwd-rcs-fuel-fraction</property>
+						<value>2548.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/rcs-he-fwd-2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rcs-hardware/helium-left-rcs-pressure-psia">
+		<function>
+			<min>
+			<max>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-left-rcs-pressure-2-psia</property>
+			</max>
+				<value>246.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-right-rcs-pressure-psia">
+		<function>
+			<min>
+			<max>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-right-rcs-pressure-2-psia</property>
+			</max>
+				<value>246.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/helium-fwd-rcs-pressure-psia">
+		<function>
+			<min>
+			<max>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia</property>
+				<property>systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia</property>
+			</max>
+				<value>246.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rcs-hardware/left-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-left-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-left-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-right-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-right-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/fwd-rcs-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rcs-hardware/helium-fwd-rcs-valve-A-status == 1
+				systems/rcs-hardware/helium-fwd-rcs-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/left-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/left-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-left-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/right-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/right-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-right-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+	 	<switch name="systems/rcs-hardware/fwd-rcs-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rcs-hardware/fwd-rcs-helium-valve-open == 1
+				systems/rcs-hardware/helium-fwd-rcs-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+
 
 		<!-- if the tanks are not connected to the helium, they empty by blow-down -->
 		<!-- in this case we need to sample/hold the original pressure and fuel -->

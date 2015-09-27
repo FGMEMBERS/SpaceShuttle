@@ -176,6 +176,12 @@
 		    <rcs-R5D-condition type="double">1.0</rcs-R5D-condition>
 		    <rcs-L5L-condition type="double">1.0</rcs-L5L-condition>
 		    <rcs-R5R-condition type="double">1.0</rcs-R5R-condition>
+		    <rcs-he-left-1-condition type="double">1.0</rcs-he-left-1-condition>
+		    <rcs-he-left-2-condition type="double">1.0</rcs-he-left-2-condition>
+		    <rcs-he-right-1-condition type="double">1.0</rcs-he-right-1-condition>
+		    <rcs-he-right-2-condition type="double">1.0</rcs-he-right-2-condition>
+		    <rcs-he-fwd-1-condition type="double">1.0</rcs-he-fwd-1-condition>
+		    <rcs-he-fwd-2-condition type="double">1.0</rcs-he-fwd-2-condition>
 		    <apu1-condition type="double">1.0</apu1-condition>
 		    <apu2-condition type="double">1.0</apu2-condition>
 		    <apu3-condition type="double">1.0</apu3-condition>
@@ -518,6 +524,8 @@
 			<engine-right-arm-cmd type="int">1</engine-right-arm-cmd>
   		    	<fuel-left-oms-pressure-psia type="double">250.0</fuel-left-oms-pressure-psia>
   		    	<fuel-right-oms-pressure-psia type="double">250.0</fuel-right-oms-pressure-psia>
+  		    	<oxidizer-left-oms-pressure-psia type="double">250.0</oxidizer-left-oms-pressure-psia>
+  		    	<oxidizer-right-oms-pressure-psia type="double">250.0</oxidizer-right-oms-pressure-psia>
 			<crossfeed-left-open type="double">0.0</crossfeed-left-open>
 			<tank-left-isolation-status type="double">0.0</tank-left-isolation-status>
 			<crossfeed-right-open type="double">0.0</crossfeed-right-open>
