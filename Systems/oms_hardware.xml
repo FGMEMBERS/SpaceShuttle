@@ -2,42 +2,77 @@
 
 <system>
 
+	<channel name="N2 system">
+
+		<fcs_function name="systems/oms-hardware/n2-left-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+				<value>1634</value>
+				<product>
+					<property>systems/oms-hardware/n2-left-nstarts</property>
+					<value>81.0</value>
+				</product>
+				</sum>
+			<property>systems/failures/oms1-n2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-right-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+				<value>1626</value>
+				<product>
+					<property>systems/oms-hardware/n2-right-nstarts</property>
+					<value>83.5</value>
+				</product>
+				</sum>
+			<property>systems/failures/oms2-n2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-left-reg-pressure-psia">
+		<function>
+			<min>
+				<property>systems/oms-hardware/n2-left-oms-pressure-psia</property>
+				<value>347</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-right-reg-pressure-psia">
+		<function>
+			<min>
+				<property>systems/oms-hardware/n2-right-oms-pressure-psia</property>
+				<value>342</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/left-oms-n2-pressurized">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/oms-hardware/n2-left-reg-pressure-psia GT 280
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/right-oms-n2-pressurized">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/oms-hardware/n2-right-reg-pressure-psia GT 280
+			</test>
+		</switch>
+
+
+	</channel>
+
+
 	<channel name="OMS helium and propellant system">
 
-		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
-		<!-- path for fuel from tank to engine exists given the valve settings -->
-
-		<switch name="systems/oms-hardware/left-oms-helium-valve-open">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/oms-hardware/helium-left-oms-valve-A-status == 1
-				systems/oms-hardware/helium-left-oms-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/oms-hardware/right-oms-helium-valve-open">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/oms-hardware/helium-right-oms-valve-A-status == 1
-				systems/oms-hardware/helium-right-oms-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/oms-hardware/left-oms-pressurized">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/oms-hardware/left-oms-helium-valve-open == 1
-				systems/oms-hardware/helium-left-oms-pressure-psia GT 200.0
-			</test>
-		</switch>
-
-		<switch name="systems/oms-hardware/right-oms-pressurized">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/oms-hardware/right-oms-helium-valve-open == 1
-				systems/oms-hardware/helium-right-oms-pressure-psia GT 200.0
-			</test>
-		</switch>
+		<!-- current fuel and oxidizer fractions in the tanks -->
 
 		<fcs_function name="systems/oms-hardware/left-oms-fuel-fraction">
 		<function>
@@ -74,6 +109,43 @@
 			</quotient>
 		</function>
 		</fcs_function>
+
+		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
+		<!-- path for fuel from tank to engine exists given the valve settings -->
+
+		<switch name="systems/oms-hardware/left-oms-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/helium-left-oms-valve-A-status == 1
+				systems/oms-hardware/helium-left-oms-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/right-oms-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/helium-right-oms-valve-A-status == 1
+				systems/oms-hardware/helium-right-oms-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/left-oms-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/left-oms-helium-valve-open == 1
+				systems/oms-hardware/helium-left-oms-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/right-oms-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/right-oms-helium-valve-open == 1
+				systems/oms-hardware/helium-right-oms-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		
 
 		<switch name="systems/oms-hardware/fuel-left-oms-pressure-sample-hold-psia">
 			<default value="systems/oms-hardware/fuel-left-oms-pressure-psia"/>
@@ -462,6 +534,11 @@
 		</function>
 		<output>fcs/throttle-pos-norm[6]</output>
 		</fcs_function>
+
+	</channel>
+
+	<channel name="Chamber conditions">
+
 
 	</channel>
 

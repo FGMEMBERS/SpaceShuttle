@@ -104,6 +104,8 @@
 		    <oms1-gimbal-condition type="double">1.0</oms1-gimbal-condition>
 		    <oms2-gimbal-condition type="double">1.0</oms2-gimbal-condition>
 		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
+		    <oms1-n2-condition type="double">1.0</oms1-n2-condition>
+		    <oms2-n2-condition type="double">1.0</oms2-n2-condition>
 		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
 		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
 		    <rcs-nose-right-condition type="double">1.0</rcs-nose-right-condition>
@@ -536,6 +538,8 @@
 		    	<heater-right-B-status type="int">0</heater-right-B-status>
 		    	<heater-crossfeed-A-status type="int">0</heater-crossfeed-A-status>
 		    	<heater-crossfeed-B-status type="int">0</heater-crossfeed-B-status>
+			<n2-left-nstarts type="int">20</n2-left-nstarts>
+			<n2-right-nstarts type="int">20</n2-right-nstarts>
 		</oms-hardware>
 		<propellant>
 			<LO2-inboard-status type="int">0</LO2-inboard-status>
