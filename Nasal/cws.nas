@@ -14,8 +14,8 @@ var cws_msg_hash = {
 f1f : 0, f1l : 0, f1u : 0, f1d : 0, f2f : 0, f2r : 0, f2u : 0, f2d : 0, f3f : 0, f3l : 0, f3u : 0, f3d : 0, f4r : 0, f4d : 0, f5r : 0, f5l : 0,
 l1a : 0, l1l : 0, l1u : 0, l2u: 0, l2l : 0, l2d : 0, l3l : 0, l3a : 0, l3d : 0, l4u : 0, l4l : 0, l4d : 0, l5d : 0, l5l : 0,
 r1a : 0, r1r : 0, r1u : 0, r2u: 0, r2r : 0, r2d : 0, r3r : 0, r3a : 0, r3d : 0, r4u : 0, r4r : 0, r4d : 0, r5d : 0, r5r : 0,
-fhep : 0, fpop : 0, fleak : 0,
-omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0,
+fhep : 0, fpop : 0, fleak : 0, lhep: 0, lpop: 0, lleak: 0, rhep: 0, rpop: 0, rleak: 0,
+omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0, omslpc : 0, omsrpc : 0, omsltkp: 0, omsrtkp: 0,
 };
 
 
@@ -195,9 +195,8 @@ if (f5r + f5l < 2.0) # we have a manifold 5 fail off condition
 var fhep1 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia");
 var fhep2 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia");
 
-# fixme - the pressure model of the helium tanks needs to improved, it is always higher than tank pressure
 
-if ((fhep1 < 270.0) or (fhep2 < 270.0)) # helium pressure problem
+if ((fhep1 < 500.0) or (fhep2 < 500.0)) # helium pressure problem
 	{
 		if (cws_msg_hash.fhep == 0)
 		{
@@ -209,8 +208,8 @@ if ((fhep1 < 270.0) or (fhep2 < 270.0)) # helium pressure problem
 
 # propellant and oxidizer pressure
 
-var fpp = getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-fwd-rcs-pressure-psia");
-var fop = getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-fwd-rcs-pressure-psia");
+var fpp = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia");
+var fop = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia");
 
 if ((fpp < 200.0) or (fpp > 312.0) or (fop < 200.0) or (fop > 312.0))
 	{
@@ -380,6 +379,53 @@ if (l5d + l5l < 2.0) # we have a manifold 5 fail off condition
 		}
 	}
 
+
+# Helium pressure
+
+var lhep1 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-1-psia");
+var lhep2 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-2-psia");
+
+
+if ((lhep1 < 500.0) or (lhep2 < 500.0)) # helium pressure problem
+	{
+		if (cws_msg_hash.lhep == 0)
+		{
+		create_fault_message("    L HE P     ", 1, 2);
+		cws_msg_hash.lhep = 1;
+		}
+	
+	}
+
+# propellant and oxidizer pressure
+
+var lpp = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia");
+var lop = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia");
+
+if ((lpp < 200.0) or (lpp > 312.0) or (lop < 200.0) or (lop > 312.0))
+	{
+		if (cws_msg_hash.lpop == 0)
+		{
+		create_fault_message("    L RCS TK P ", 1, 2);
+		cws_msg_hash.lpop = 1;
+		}
+	
+	}
+
+# leak detection
+
+var loxidizer = getprop("/consumables/fuel/tank[8]/level-lbs")/1477.0;
+var lpropellant = getprop("/consumables/fuel/tank[9]/level-lbs")/928.0;
+
+if (math.abs(loxidizer - lpropellant) > 0.095) # we have a leak
+	{
+		if (cws_msg_hash.lleak == 0)
+		{
+		create_fault_message("    L RCS LEAK ", 1, 2);
+		cws_msg_hash.lleak = 1;
+		}
+	}
+
+
 		
 
 }  		
@@ -528,6 +574,51 @@ if (r5d + r5r < 2.0) # we have a manifold 5 fail off condition
 	}
 
 		
+# Helium pressure
+
+var rhep1 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-1-psia");
+var rhep2 = getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-2-psia");
+
+
+if ((rhep1 < 500.0) or (rhep2 < 500.0)) # helium pressure problem
+	{
+		if (cws_msg_hash.rhep == 0)
+		{
+		create_fault_message("    R HE P     ", 1, 2);
+		cws_msg_hash.rhep = 1;
+		}
+	
+	}
+
+# propellant and oxidizer pressure
+
+var rpp = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia");
+var rop = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia");
+
+if ((rpp < 200.0) or (rpp > 312.0) or (rop < 200.0) or (rop > 312.0))
+	{
+		if (cws_msg_hash.rpop == 0)
+		{
+		create_fault_message("    R RCS TK P ", 1, 2);
+		cws_msg_hash.rpop = 1;
+		}
+	
+	}
+
+# leak detection
+
+var roxidizer = getprop("/consumables/fuel/tank[10]/level-lbs")/1477.0;
+var rpropellant = getprop("/consumables/fuel/tank[11]/level-lbs")/928.0;
+
+if (math.abs(roxidizer - rpropellant) > 0.095) # we have a leak
+	{
+		if (cws_msg_hash.rleak == 0)
+		{
+		create_fault_message("    R RCS LEAK ", 1, 2);
+		cws_msg_hash.rleak = 1;
+		}
+	}
+
 
 }  		
 
@@ -540,10 +631,22 @@ if (r5d + r5r < 2.0) # we have a manifold 5 fail off condition
 
 var cws_inspect_oms = func {
 
+
+var left_engine_throttle = getprop("/fdm/jsbsim/fcs/throttle-cmd-norm[5]");
+var right_engine_throttle = getprop("/fdm/jsbsim/fcs/throttle-cmd-norm[6]");
+
+var left_engine_on = 0;
+var right_engine_on = 0;
+
+if (left_engine_throttle > 0.8) {left_engine_on = 1;}
+if (right_engine_throttle > 0.8) {right_engine_on = 1;}
+
+# OMS gimbal
+
 var omslg = getprop("/fdm/jsbsim/systems/failures/oms1-gimbal-condition");
 var omsrg = getprop("/fdm/jsbsim/systems/failures/oms2-gimbal-condition");
 
-if (omslg < 0.8)
+if ((omslg < 0.8) and (left_engine_on == 1))
 	{
 		if (cws_msg_hash.omslg == 0)
 		{
@@ -552,7 +655,7 @@ if (omslg < 0.8)
 		}
 	}
 
-if (omsrg < 0.8)
+if ((omsrg < 0.8) and (right_engine_on == 1))
 	{
 		if (cws_msg_hash.omsrg == 0)
 		{
@@ -560,6 +663,10 @@ if (omsrg < 0.8)
 		cws_msg_hash.omsrg = 1;
 		}
 	}
+
+
+# inspect remaining OMS fuel quantity
+
 
 
 var omsloqty =  getprop("/consumables/fuel/tank[4]/level-lbs")/7773.0;
@@ -583,6 +690,60 @@ if ((omsroqty < 0.05) or (omsrpqty < 0.05))
 		{
 		create_fault_message("    R OMS QTY  ", 1, 3);
 		cws_msg_hash.omsrqty = 1;
+		}
+	}
+
+# OMS chamber pressure
+
+var left_oms_pc = getprop("/fdm/jsbsim/systems/oms-hardware/chamber-left-pc-percent");
+var right_oms_pc = getprop("/fdm/jsbsim/systems/oms-hardware/chamber-right-pc-percent");
+
+if ((left_oms_pc < 80.0) and (left_engine_on == 1))
+	{
+		if (cws_msg_hash.omslpc == 0)
+		{
+		create_fault_message("    L OMS PC   ", 1, 2);
+		cws_msg_hash.omslpc = 1;
+		}
+	}
+
+if ((right_oms_pc < 80.0) and (right_engine_on == 1))
+	{
+		if (cws_msg_hash.omsrpc == 0)
+		{
+		create_fault_message("    R OMS PC   ", 1, 2);
+		cws_msg_hash.omsrpc = 1;
+		}
+	}
+
+# OMS tank pressures
+
+var left_oms_N2_p = getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-oms-pressure-psia");
+var left_oms_N2_reg_p = getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-reg-pressure-psia");
+var left_oms_He_p = getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-pressure-sh-psia");
+var left_oms_tank_p = getprop("/fdm/jsbsim/systems/oms-hardware/tanks-left-oms-blowdown-psia");
+
+
+var right_oms_N2_p = getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-oms-pressure-psia");
+var right_oms_N2_reg_p = getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-reg-pressure-psia");
+var right_oms_He_p = getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-pressure-sh-psia");
+var right_oms_tank_p = getprop("/fdm/jsbsim/systems/oms-hardware/tanks-right-oms-blowdown-psia");
+
+if ((left_oms_N2_p < 1200.0) or (left_oms_N2_reg_p < 299.0) or (left_oms_N2_reg_p > 434) or (left_oms_He_p < 1500.0) or (left_oms_tank_p > 288.0) or (left_oms_tank_p < 234.0))
+	{
+		if (cws_msg_hash.omsltkp == 0)
+		{
+		create_fault_message("    L OMS TK P ", 1, 2);
+		cws_msg_hash.omsltkp = 1;
+		}
+	}
+
+if ((right_oms_N2_p < 1200.0) or (right_oms_N2_reg_p < 299.0) or (right_oms_N2_reg_p > 434) or (right_oms_He_p < 1500.0) or (right_oms_tank_p > 288.0) or (right_oms_tank_p < 234.0))
+	{
+		if (cws_msg_hash.omsrtkp == 0)
+		{
+		create_fault_message("    R OMS TK P ", 1, 2);
+		cws_msg_hash.omsrtkp = 1;
 		}
 	}
 

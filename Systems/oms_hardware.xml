@@ -613,7 +613,7 @@
 
 	<channel name="Chamber conditions">
 
-	<fcs_function name="systems/oms-hardware/chamber-left-intake-pressure-psia">
+	<fcs_function name="systems/oms-hardware/chamber-left-inlet-fuel-pressure-psia">
 	<function>
 		<difference>
 			<property>systems/oms-hardware/tanks-left-oms-blowdown-psia</property>
@@ -622,13 +622,13 @@
 					<property>propulsion/engine[5]/thrust-lbs</property>
 					<value>5990.82</value>
 				</quotient>
-				<value>21.0</value>
+				<value>28.0</value>
 			</product>
 		</difference>
 	</function>
 	</fcs_function>
 
-	<fcs_function name="systems/oms-hardware/chamber-right-intake-pressure-psia">
+	<fcs_function name="systems/oms-hardware/chamber-right-inlet-fuel-pressure-psia">
 	<function>
 		<difference>
 			<property>systems/oms-hardware/tanks-right-oms-blowdown-psia</property>
@@ -637,9 +637,63 @@
 					<property>propulsion/engine[6]/thrust-lbs</property>
 					<value>5990.82</value>
 				</quotient>
-				<value>24.0</value>
+				<value>27.0</value>
 			</product>
 		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-left-inlet-oxidizer-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-left-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[5]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>49.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-inlet-oxidizer-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-right-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[6]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>51.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-left-pc-percent">
+	<function>
+		<product>
+		<quotient>
+			<property>propulsion/engine[5]/thrust-lbs</property>
+			<value>5990.82</value>
+		</quotient>
+		<value>103.0</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-pc-percent">
+	<function>
+		<product>
+		<quotient>
+			<property>propulsion/engine[6]/thrust-lbs</property>
+			<value>5990.82</value>
+		</quotient>
+		<value>101.0</value>
+		</product>
 	</function>
 	</fcs_function>
 
