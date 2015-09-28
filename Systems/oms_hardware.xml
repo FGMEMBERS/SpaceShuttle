@@ -76,39 +76,93 @@
 
 		<fcs_function name="systems/oms-hardware/left-oms-fuel-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[5]/contents-lbs</property>
 				<value>4718.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/left-oms-oxidizer-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[4]/contents-lbs</property>
 				<value>7773.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/right-oms-fuel-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[7]/contents-lbs</property>
 				<value>4718.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/right-oms-oxidizer-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[6]/contents-lbs</property>
 				<value>7773.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
+
+
+		<!-- Helium reservoir pressure -->
+
+		<fcs_function name="systems/oms-hardware/helium-left-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>808.0</value>
+					<product>
+						<sum>
+						<property>/fdm/jsbsim/systems/oms-hardware/left-oms-fuel-fraction</property>
+						<property>/fdm/jsbsim/systems/oms-hardware/left-oms-oxidizer-fraction</property>
+						</sum>
+						<value>0.5</value>
+						<value>2550.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/oms-he-left-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/helium-right-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>802.0</value>
+					<product>
+						<sum>
+						<property>/fdm/jsbsim/systems/oms-hardware/right-oms-fuel-fraction</property>
+						<property>/fdm/jsbsim/systems/oms-hardware/right-oms-oxidizer-fraction</property>
+						</sum>
+						<value>0.5</value>
+						<value>2549.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/oms-he-right-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
 		<!-- path for fuel from tank to engine exists given the valve settings -->
@@ -126,6 +180,24 @@
 			<test logic="OR" value="1.0">
 				systems/oms-hardware/helium-right-oms-valve-A-status == 1
 				systems/oms-hardware/helium-right-oms-valve-B-status == 1
+			</test>
+		</switch>
+
+
+		<!-- sample-hold helium pressure if valves are closed to prevent it from changing -->
+
+
+		<switch name="systems/oms-hardware/helium-left-oms-pressure-sh-psia">
+			<default value="systems/oms-hardware/helium-left-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/helium-left-oms-pressure-sh-psia">
+				systems/oms-hardware/left-oms-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/helium-right-oms-pressure-sh-psia">
+			<default value="systems/oms-hardware/helium-right-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/helium-right-oms-pressure-sh-psia">
+				systems/oms-hardware/right-oms-helium-valve-open == 0
 			</test>
 		</switch>
 
@@ -178,7 +250,7 @@
 		<fcs_function name="systems/oms-hardware/tanks-left-oms-pressure-psia">
 		<function>
 			<min>
-				<value>240.0</value>
+				<value>257.0</value>
 				<property>systems/oms-hardware/helium-left-oms-pressure-psia</property>
 			</min>
 		</function>
@@ -189,7 +261,7 @@
 		<fcs_function name="systems/oms-hardware/tanks-right-oms-pressure-psia">
 		<function>
 			<min>
-				<value>240.0</value>
+				<value>255.0</value>
 				<property>systems/oms-hardware/helium-right-oms-pressure-psia</property>
 			</min>
 		</function>
@@ -207,7 +279,7 @@
 					<property>systems/oms-hardware/left-oms-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.01</value>
+					<value>1.0</value>
 					<property>systems/oms-hardware/left-oms-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -225,7 +297,7 @@
 					<property>systems/oms-hardware/right-oms-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.01</value>
+					<value>1.0</value>
 					<property>systems/oms-hardware/right-oms-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -505,6 +577,7 @@
 				<property>fcs/throttle-pos-norm[5]</property>
 				<property>systems/failures/oms1-condition</property>
 				<property>systems/oms-hardware/engine-left-arm-cmd</property>
+				<property>systems/oms-hardware/left-oms-n2-pressurized</property>
 				<max>
 					<property>systems/oms-hardware/left-engine-fuel-available</property>
 					<product>
@@ -523,6 +596,7 @@
 				<property>fcs/throttle-pos-norm[6]</property>
 				<property>systems/failures/oms2-condition</property>
 				<property>systems/oms-hardware/engine-right-arm-cmd</property>
+				<property>systems/oms-hardware/right-oms-n2-pressurized</property>
 				<max>
 					<property>systems/oms-hardware/right-engine-fuel-available</property>
 					<product>
@@ -539,6 +613,35 @@
 
 	<channel name="Chamber conditions">
 
+	<fcs_function name="systems/oms-hardware/chamber-left-intake-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-left-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[5]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>21.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-intake-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-right-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[6]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>24.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
 
 	</channel>
 

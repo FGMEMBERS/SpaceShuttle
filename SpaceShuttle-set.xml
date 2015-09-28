@@ -106,6 +106,8 @@
 		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
 		    <oms1-n2-condition type="double">1.0</oms1-n2-condition>
 		    <oms2-n2-condition type="double">1.0</oms2-n2-condition>
+		    <oms-he-left-condition type="double">1.0</oms-he-left-condition>
+		    <oms-he-right-condition type="double">1.0</oms-he-right-condition>
 		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
 		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
 		    <rcs-nose-right-condition type="double">1.0</rcs-nose-right-condition>

@@ -8,37 +8,49 @@
 
 		<fcs_function name="systems/rcs-hardware/left-rcs-fuel-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[9]/contents-lbs</property>
 				<value>928.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/left-rcs-oxidizer-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[8]/contents-lbs</property>
 				<value>1477.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/right-rcs-fuel-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[11]/contents-lbs</property>
 				<value>928.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/right-rcs-oxidizer-fraction">
 		<function>
+			<min>
 			<quotient>
 				<property>propulsion/tank[10]/contents-lbs</property>
 				<value>1477.0</value>
 			</quotient>
+			<value>0.999</value>
+			</min>
 		</function>
 		</fcs_function>
 
@@ -245,6 +257,55 @@
 			</test>
 		</switch>
 
+		<!-- sample-hold the helium tank pressure if the valves are closed to stop it from changing -->
+
+		<switch name="systems/rcs-hardware/helium-right-rcs-pressure-1-sh-psia">
+			<default value="systems/rcs-hardware/helium-right-rcs-pressure-1-psia"/>
+			<test value="systems/rcs-hardware/helium-right-rcs-pressure-1-sh-psia">
+				systems/rcs-hardware/right-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/helium-right-rcs-pressure-2-sh-psia">
+			<default value="systems/rcs-hardware/helium-right-rcs-pressure-2-psia"/>
+			<test value="systems/rcs-hardware/helium-right-rcs-pressure-2-sh-psia">
+				systems/rcs-hardware/right-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/helium-left-rcs-pressure-1-sh-psia">
+			<default value="systems/rcs-hardware/helium-left-rcs-pressure-1-psia"/>
+			<test value="systems/rcs-hardware/helium-left-rcs-pressure-1-sh-psia">
+				systems/rcs-hardware/left-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/helium-left-rcs-pressure-2-sh-psia">
+			<default value="systems/rcs-hardware/helium-left-rcs-pressure-2-psia"/>
+			<test value="systems/rcs-hardware/helium-left-rcs-pressure-2-sh-psia">
+				systems/rcs-hardware/left-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/helium-fwd-rcs-pressure-1-sh-psia">
+			<default value="systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia"/>
+			<test value="systems/rcs-hardware/helium-fwd-rcs-pressure-1-sh-psia">
+				systems/rcs-hardware/fwd-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/helium-fwd-rcs-pressure-2-sh-psia">
+			<default value="systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia"/>
+			<test value="systems/rcs-hardware/helium-fwd-rcs-pressure-2-sh-psia">
+				systems/rcs-hardware/fwd-rcs-helium-valve-open == 0
+			</test>
+		</switch>
+
+
+
+		<!-- set flags whether fuel is pressurized -->
+
+
 		<switch name="systems/rcs-hardware/left-rcs-pressurized">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -356,7 +417,7 @@
 					<property>systems/rcs-hardware/left-rcs-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.001</value>
+					<value>1.0</value>
 					<property>systems/rcs-hardware/left-rcs-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -374,7 +435,7 @@
 					<property>systems/rcs-hardware/right-rcs-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.001</value>
+					<value>1.0</value>
 					<property>systems/rcs-hardware/right-rcs-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -462,7 +523,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-left-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
 				<value>4.0</value>
 			</difference>
 			<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
@@ -479,7 +540,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-left-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
 				<value>3.0</value>
 			</difference>
 			<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
@@ -496,7 +557,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-left-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
 				<value>2.0</value>
 			</difference>
 			<max>
@@ -516,7 +577,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-left-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
 				<value>5.0</value>
 			</difference>
 			<max>
@@ -536,7 +597,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-right-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
 				<value>2.0</value>
 			</difference>
 			<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
@@ -553,7 +614,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-right-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
 				<value>1.0</value>
 			</difference>
 			<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
@@ -570,7 +631,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-right-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
 				<value>4.0</value>
 			</difference>
 			<max>
@@ -590,7 +651,7 @@
 			<max>
 			<product>
 			<difference>
-				<property>systems/rcs-hardware/fuel-right-rcs-pressure-psia</property>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
 				<value>2.0</value>
 			</difference>
 			<max>

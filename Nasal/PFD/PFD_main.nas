@@ -765,6 +765,11 @@ p_dps_sys_summ2.right_oms_n2_p = PFDsvg.getElementById("p_dps_sys_summ2_right_om
 p_dps_sys_summ2.left_oms_reg_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_reg_p");
 p_dps_sys_summ2.right_oms_reg_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_reg_p");
 
+p_dps_sys_summ2.left_oms_oxid_ei_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_oxid_ei_p");
+p_dps_sys_summ2.left_oms_fuel_ei_p = PFDsvg.getElementById("p_dps_sys_summ2_left_oms_fuel_ei_p");
+p_dps_sys_summ2.right_oms_oxid_ei_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_oxid_ei_p");
+p_dps_sys_summ2.right_oms_fuel_ei_p = PFDsvg.getElementById("p_dps_sys_summ2_right_oms_fuel_ei_p");
+
 
 p_dps_sys_summ2.bfs_inj_t_text = PFDsvg.getElementById("p_dps_sys_summ2_text5a");
 p_dps_sys_summ2.bfs_inj_t_l = PFDsvg.getElementById("p_dps_sys_summ2_fu_inj_t_l");
@@ -851,27 +856,27 @@ p_dps_sys_summ2.left_rcs_oxid_qty.setText(sprintf("%4.0f", getprop("/consumables
 p_dps_sys_summ2.right_rcs_fu_qty.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[11]/level-lbs")/9.280));
 p_dps_sys_summ2.right_rcs_oxid_qty.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[10]/level-lbs")/14.770));
 
-p_dps_sys_summ2.fwd_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia")));
-p_dps_sys_summ2.fwd_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia")));
+p_dps_sys_summ2.fwd_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-1-sh-psia")));
+p_dps_sys_summ2.fwd_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-fwd-rcs-pressure-2-sh-psia")));
 p_dps_sys_summ2.fwd_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia")));
 p_dps_sys_summ2.fwd_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia")));
 
-p_dps_sys_summ2.left_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-1-psia")));
-p_dps_sys_summ2.left_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-2-psia")));
-p_dps_sys_summ2.left_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-left-rcs-pressure-psia")));
-p_dps_sys_summ2.left_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-left-rcs-pressure-psia")));
+p_dps_sys_summ2.left_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-1-sh-psia")));
+p_dps_sys_summ2.left_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-pressure-2-sh-psia")));
+p_dps_sys_summ2.left_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia")));
+p_dps_sys_summ2.left_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia")));
 
-p_dps_sys_summ2.right_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-1-psia")));
-p_dps_sys_summ2.right_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-2-psia")));
-p_dps_sys_summ2.right_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/oxidizer-right-rcs-pressure-psia")));
-p_dps_sys_summ2.right_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fuel-right-rcs-pressure-psia")));
+p_dps_sys_summ2.right_rcs_oxid_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-1-sh-psia")));
+p_dps_sys_summ2.right_rcs_fu_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-pressure-2-sh-psia")));
+p_dps_sys_summ2.right_rcs_oxid_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia")));
+p_dps_sys_summ2.right_rcs_fu_tk_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia")));
 
-p_dps_sys_summ2.left_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-pressure-psia")));
-p_dps_sys_summ2.right_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-pressure-psia")));
-p_dps_sys_summ2.left_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/oxidizer-left-oms-pressure-psia")));
-p_dps_sys_summ2.right_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/oxidizer-right-oms-pressure-psia"))); 
-p_dps_sys_summ2.left_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/fuel-left-oms-pressure-psia")));
-p_dps_sys_summ2.right_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/fuel-right-oms-pressure-psia")));
+p_dps_sys_summ2.left_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-pressure-sh-psia")));
+p_dps_sys_summ2.right_oms_he_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-pressure-sh-psia")));
+p_dps_sys_summ2.left_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/tanks-left-oms-blowdown-psia")));
+p_dps_sys_summ2.right_oms_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/tanks-right-oms-blowdown-psia"))); 
+p_dps_sys_summ2.left_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/tanks-left-oms-blowdown-psia")));
+p_dps_sys_summ2.right_oms_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/tanks-right-oms-blowdown-psia")));
 
 p_dps_sys_summ2.left_rcs_manf1_oxid_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/left-mfold1-oxidizer-pressure-psia")));
 p_dps_sys_summ2.left_rcs_manf1_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/left-mfold1-fuel-pressure-psia")));
@@ -903,8 +908,8 @@ p_dps_sys_summ2.fwd_rcs_manf4_fuel_p.setText(sprintf("%4.0f", getprop("/fdm/jsbs
 p_dps_sys_summ2.left_oms_p_vlv.setText(sprintf(" %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd"))));
 p_dps_sys_summ2.right_oms_p_vlv.setText(sprintf(" %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd"))));
 
-var throttle_left_percent = 100.0 * getprop("/fdm/jsbsim/fcs/throttle-pos-norm[5]");
-var throttle_right_percent = 100.0 * getprop("/fdm/jsbsim/fcs/throttle-pos-norm[6]");
+var throttle_left_percent = 100.0 * getprop("/fdm/jsbsim/fcs/throttle-cmd-norm[5]");
+var throttle_right_percent = 100.0 * getprop("/fdm/jsbsim/fcs/throttle-cmd-norm[6]");
 
 p_dps_sys_summ2.left_oms_vlv1_p.setText(sprintf("%3.0f", throttle_left_percent));
 p_dps_sys_summ2.left_oms_vlv2_p.setText(sprintf("%3.0f", throttle_left_percent));
@@ -916,6 +921,12 @@ p_dps_sys_summ2.left_oms_n2_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/syst
 p_dps_sys_summ2.right_oms_n2_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-oms-pressure-psia")));
 p_dps_sys_summ2.left_oms_reg_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-reg-pressure-psia")));
 p_dps_sys_summ2.right_oms_reg_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-reg-pressure-psia")));
+
+p_dps_sys_summ2.left_oms_oxid_ei_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/chamber-left-intake-pressure-psia")));
+p_dps_sys_summ2.left_oms_fuel_ei_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/chamber-left-intake-pressure-psia"))); 
+p_dps_sys_summ2.right_oms_oxid_ei_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/chamber-right-intake-pressure-psia"))); 
+p_dps_sys_summ2.right_oms_fuel_ei_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/oms-hardware/chamber-right-intake-pressure-psia")));
+
 }
 
 #################################################################

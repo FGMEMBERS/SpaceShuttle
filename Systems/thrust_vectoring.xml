@@ -1163,7 +1163,7 @@
 			<output>fcs/throttle-pos-norm[2]</output>
  		</fcs_function>
 
-		<fcs_function name ="Thrust loss OMS 1">
+		<!--<fcs_function name ="Thrust loss OMS 1">
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[5]</property>
@@ -1181,7 +1181,7 @@
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[6]</output>
- 		</fcs_function>
+ 		</fcs_function>-->
 
 	</channel>
 
