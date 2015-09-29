@@ -1520,6 +1520,37 @@ p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/o
 }
 
 
+
+#################################################################
+# the APU/HYD page
+#################################################################
+
+var p_dps_apu_hyd = PFD.addPage("CRTApuHyd", "p_dps_apu_hyd");
+
+
+
+p_dps_apu_hyd.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","APU/HYD"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/   /086";
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+}
+
+p_dps_apu_hyd.update = func
+{
+
+
+update_common_DPS();
+
+
+}
+
+
+
 #
 PFD.selectPage(p_pfd);
 
@@ -1541,7 +1572,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_sys_summ2);
+p_main.addMenuItem(3, "MAINT", p_dps_apu_hyd);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
@@ -1564,6 +1595,10 @@ p_dps_sys_summ.addMenuItem(5, "MSG ACK", p_dps_sys_summ);
 p_dps_sys_summ2.addMenuItem(0, "UP", p_main);
 p_dps_sys_summ2.addMenuItem(4, "MSG RST", p_dps_sys_summ2);
 p_dps_sys_summ2.addMenuItem(5, "MSG ACK", p_dps_sys_summ2);
+
+p_dps_apu_hyd.addMenuItem(0, "UP", p_main);
+p_dps_apu_hyd.addMenuItem(4, "MSG RST", p_dps_apu_hyd);
+p_dps_apu_hyd.addMenuItem(5, "MSG ACK", p_dps_apu_hyd);
 
 var pfd_button_pushed = 0;
 
