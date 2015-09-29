@@ -86,6 +86,8 @@
 		    <command-string type="string"></command-string>
 		    <error-string type="string"></error-string>
 		    <dps-page-flag type="int">0</dps-page-flag>
+		    <spec type="int">0</spec>
+		    <disp type="int">0</disp>
 		</dps>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
@@ -101,8 +103,10 @@
 		    <srb2-condition type="double">1.0</srb2-condition>
 		    <oms1-condition type="double">1.0</oms1-condition>
 		    <oms2-condition type="double">1.0</oms2-condition>
-		    <oms1-gimbal-condition type="double">1.0</oms1-gimbal-condition>
-		    <oms2-gimbal-condition type="double">1.0</oms2-gimbal-condition>
+		    <oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
+		    <oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
+		    <oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
+		    <oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
 		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
 		    <oms1-n2-condition type="double">1.0</oms1-n2-condition>
 		    <oms2-n2-condition type="double">1.0</oms2-n2-condition>
@@ -542,6 +546,11 @@
 		    	<heater-crossfeed-B-status type="int">0</heater-crossfeed-B-status>
 			<n2-left-nstarts type="int">20</n2-left-nstarts>
 			<n2-right-nstarts type="int">20</n2-right-nstarts>
+			<gimbal-chk-cmd type="int">0</gimbal-chk-cmd>
+			<gimbal-left-pri-selected type="int">1</gimbal-left-pri-selected>
+			<gimbal-left-sec-selected type="int">0</gimbal-left-sec-selected>
+			<gimbal-right-pri-selected type="int">1</gimbal-right-pri-selected>
+			<gimbal-right-sec-selected type="int">0</gimbal-right-sec-selected>	
 		</oms-hardware>
 		<propellant>
 			<LO2-inboard-status type="int">0</LO2-inboard-status>

@@ -1401,12 +1401,42 @@
 			<output>propulsion/engine[6]/yaw-angle-rad-sum</output>
    		</summer>
 
+		<fcs_function name="systems/vectoring/oms-left-gimbal-state">
+		<function>
+			<max>
+				<product>
+					<property>systems/oms-hardware/gimbal-left-pri-selected</property>
+					<property>systems/failures/oms-left-pri-gimbal-condition</property>
+				</product>
+				<product>
+					<property>systems/oms-hardware/gimbal-left-sec-selected</property>
+					<property>systems/failures/oms-left-sec-gimbal-condition</property>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/oms-right-gimbal-state">
+		<function>
+			<max>
+				<product>
+					<property>systems/oms-hardware/gimbal-right-pri-selected</property>
+					<property>systems/failures/oms-right-pri-gimbal-condition</property>
+				</product>
+				<product>
+					<property>systems/oms-hardware/gimbal-right-sec-selected</property>
+					<property>systems/failures/oms-right-sec-gimbal-condition</property>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
 
 		<fcs_function name="fcs/pitch-OMS-1">
 			<function>
 				<product>
 					<property>propulsion/engine[5]/pitch-angle-rad-sum</property>
-					<property>systems/failures/oms1-gimbal-condition</property>
+					<property>systems/vectoring/oms-left-gimbal-state</property>
 				</product>	
 			</function>
 			<output>propulsion/engine[5]/pitch-angle-rad-cmd</output>
@@ -1416,7 +1446,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[5]/yaw-angle-rad-sum</property>
-					<property>systems/failures/oms1-gimbal-condition</property>
+					<property>systems/vectoring/oms-left-gimbal-state</property>
 				</product>			
 			</function>
 			<output>propulsion/engine[5]/yaw-angle-rad-cmd</output>
@@ -1426,7 +1456,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[6]/pitch-angle-rad-sum</property>
-					<property>systems/failures/oms2-gimbal-condition</property>
+					<property>systems/vectoring/oms-right-gimbal-state</property>
 				</product>	
 			</function>
 			<output>propulsion/engine[6]/pitch-angle-rad-cmd</output>
@@ -1436,7 +1466,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[6]/yaw-angle-rad-sum</property>
-					<property>systems/failures/oms2-gimbal-condition</property>
+					<property>systems/vectoring/oms-right-gimbal-state</property>
 				</product>			
 			</function>
 			<output>propulsion/engine[6]/yaw-angle-rad-cmd</output>

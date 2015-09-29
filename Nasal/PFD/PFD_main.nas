@@ -1142,6 +1142,14 @@ p_dps_mnvr.vgo_y = PFDsvg.getElementById("p_dps_mnvr_vgo_y");
 p_dps_mnvr.vgo_z = PFDsvg.getElementById("p_dps_mnvr_vgo_z");
 
 
+p_dps_mnvr.pri_l = PFDsvg.getElementById("p_dps_mnvr_pri_l");
+p_dps_mnvr.pri_r = PFDsvg.getElementById("p_dps_mnvr_pri_r");
+p_dps_mnvr.sec_l = PFDsvg.getElementById("p_dps_mnvr_sec_l");
+p_dps_mnvr.sec_r = PFDsvg.getElementById("p_dps_mnvr_sec_r");
+p_dps_mnvr.off_l = PFDsvg.getElementById("p_dps_mnvr_off_l");
+p_dps_mnvr.off_r = PFDsvg.getElementById("p_dps_mnvr_off_r");
+p_dps_mnvr.gmbl_ck = PFDsvg.getElementById("p_dps_mnvr_gmbl_ck");
+
 p_dps_mnvr.blink = 0;
 
 
@@ -1318,6 +1326,37 @@ p_dps_mnvr.vgo_x.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan
 p_dps_mnvr.vgo_y.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-y")));
 p_dps_mnvr.vgo_z.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-z"))); 
 
+
+var gimbal_l_pri = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-pri-selected");
+var gimbal_l_sec = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-sec-selected");
+var gimbal_r_pri = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-pri-selected");
+var gimbal_r_sec = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-sec-selected");
+
+var gsym1 = ""; var gsym2 = ""; var gsym3 = "";
+
+if (gimbal_l_pri == 1) {gsym1 = "*";}
+else if (gimbal_l_sec == 1) {gsym2 = "*";}
+else {gsym3 = "*";}
+
+p_dps_mnvr.pri_l.setText(sprintf("%s", gsym1));
+p_dps_mnvr.sec_l.setText(sprintf("%s", gsym2));
+p_dps_mnvr.off_l.setText(sprintf("%s", gsym3));
+
+gsym1 = ""; gsym2 = ""; gsym3 = "";
+
+if (gimbal_r_pri == 1) {gsym1 = "*";}
+else if (gimbal_r_sec == 1) {gsym2 = "*";}
+else {gsym3 = "*";}
+
+p_dps_mnvr.pri_r.setText(sprintf("%s", gsym1));
+p_dps_mnvr.sec_r.setText(sprintf("%s", gsym2));
+p_dps_mnvr.off_r.setText(sprintf("%s", gsym3));
+
+var gimbal_check = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd");
+
+if (gimbal_check == 1) {gsym1 = "*";} else {gsym1 = "";}
+
+p_dps_mnvr.gmbl_ck.setText(sprintf("%s", gsym1));
 }
 
 #################################################################

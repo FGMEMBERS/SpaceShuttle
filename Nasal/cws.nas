@@ -643,10 +643,26 @@ if (right_engine_throttle > 0.8) {right_engine_on = 1;}
 
 # OMS gimbal
 
-var omslg = getprop("/fdm/jsbsim/systems/failures/oms1-gimbal-condition");
-var omsrg = getprop("/fdm/jsbsim/systems/failures/oms2-gimbal-condition");
+var gimbal_left_pri = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-pri-selected");
+var gimbal_left_sec = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-sec-selected");
+var gimbal_right_pri = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-pri-selected");
+var gimbal_right_sec = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-sec-selected");
 
-if ((omslg < 0.8) and (left_engine_on == 1))
+var gimbal_check = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd");
+
+#gimbal-left-pri-selected
+
+if (gimbal_left_pri == 1)
+	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms-left-pri-gimbal-condition");}
+else
+	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms-left-sec-gimbal-condition");}
+
+if (gimbal_right_pri == 1)
+	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms-right-pri-gimbal-condition");}
+else
+	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms-right-sec-gimbal-condition");}
+
+if ((omslg < 0.8) and ((left_engine_on == 1) or (gimbal_check == 1)))
 	{
 		if (cws_msg_hash.omslg == 0)
 		{
@@ -655,7 +671,7 @@ if ((omslg < 0.8) and (left_engine_on == 1))
 		}
 	}
 
-if ((omsrg < 0.8) and (right_engine_on == 1))
+if ((omsrg < 0.8) and ((right_engine_on == 1)or (gimbal_check == 1)))
 	{
 		if (cws_msg_hash.omsrg == 0)
 		{

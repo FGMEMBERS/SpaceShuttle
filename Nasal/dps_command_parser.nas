@@ -10,6 +10,8 @@ var body = "";
 var value = "";
 var end = "";
 var b_v_flag = 0;
+var length_body = 0;
+var length_value = 0;
 
 # OPS key #########################################################
 
@@ -74,9 +76,9 @@ current_string = current_string~symbol;
 if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 	{
 	if (b_v_flag == 0)
-		{body = body~symbol;}
+		{body = body~symbol; length_body = length_body+1;}
 	else
-		{value = value~symbol;}
+		{value = value~symbol; length_value = length_value+1;}
 	}
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
@@ -87,7 +89,7 @@ setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 var key_delimiter = func (symbol) {
 
 var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
-append(last_command, symbol);
+append(last_command, " "~symbol);
 current_string = current_string~" "~symbol;
 
 if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
@@ -95,7 +97,7 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 	if (b_v_flag == 0) # we've been entering body		
 		{
 		b_v_flag = 1;
-		value = value~symbol;
+		value = value~symbol; length_value = length_value+1;
 		}
 	}
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
@@ -118,6 +120,41 @@ for (var i = 0; i < (n-1); i=i+1)
 	}
 setsize(last_command,n-1);
 
+
+
+if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
+	{
+	if (b_v_flag == 1) # we've been entering value
+		{
+		if (length_value > 1)
+			{
+			length_value = length_value - 1;
+			value = substr(value, 0, length_value);
+			print("length: ", length_value);
+			}
+		else
+			{
+			b_v_flag = 0;
+			value = "";
+			length_value = 0;
+			}			
+		}
+	else # we've been entering body
+		{
+		if (length_body > 0)
+			{
+			length_body = length_body - 1;
+			body = substr(body, 0, length_body);
+			}
+		else
+			{
+			header = "";
+			}
+		}
+
+	}
+print(b_v_flag);
+print(header, " ", body, " ", value);
 
 setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
 }
@@ -142,7 +179,18 @@ SpaceShuttle.PFD.selectPage(p_dps_fault);
 
 var key_sys_summ = func {
 
-SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+var disp = getprop("/fdm/jsbsim/systems/dps/disp");
+
+if (disp == 18)
+	{
+	SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+	setprop("/fdm/jsbsim/systems/dps/disp", 19);
+	}
+else
+	{
+	SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+	setprop("/fdm/jsbsim/systems/dps/disp", 18);
+	}
 }
 
 
@@ -193,6 +241,10 @@ else if ( ops == 3)
 		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
 	}
 
+# setting the screen to last ops isn't quite correct but will do for the moment
+
+setprop("/fdm/jsbsim/systems/dps/spec", 0);
+setprop("/fdm/jsbsim/systems/dps/disp", 0);
 
 
 
@@ -311,6 +363,13 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
 		valid_flag = 1;
 		}
+
+	if (valid_flag == 1)
+		{
+		setprop("/fdm/jsbsim/systems/dps/spec", 0);
+		setprop("/fdm/jsbsim/systems/dps/disp", 0);
+		}
+
 	}
 
 if ((header == "ITEM") and (end = "EXEC"))
@@ -373,6 +432,48 @@ if ((header == "ITEM") and (end = "EXEC"))
 			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
 			if (flag == 0) {flag = 1;} else {flag =0;}
 			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag);
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-pri-selected", 1);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-sec-selected", 0);
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-pri-selected", 1);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-sec-selected", 0);
+			valid_flag = 1;
+			}
+		else if (item == 30)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-pri-selected", 0);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-sec-selected", 1);
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-pri-selected", 0);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-sec-selected", 1);
+			valid_flag = 1;
+			}
+		else if (item == 32)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-pri-selected", 0);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-left-sec-selected", 0);
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-pri-selected", 0);
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-right-sec-selected", 0);
+			valid_flag = 1;
+			}
+		else if (item == 34)
+			{
+			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 1);
+			settimer(func{ setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 0);}, 15.0);
 			valid_flag = 1;
 			}
 		else if (item == 36)
@@ -463,11 +564,18 @@ if ((header == "ITEM") and (end = "EXEC"))
 if ((header == "SPEC") and (end =="PRO"))
 	{
 	var spec_num = int(body);
-	print ("Switching to spec ", spec_num);
+	print ("Switching to SPEC ", spec_num);
 
 	if (spec_num == 18)
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+		setprop("/fdm/jsbsim/systems/dps/disp", 18);
+		valid_flag = 1;
+		}
+	if (spec_num == 19)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+		setprop("/fdm/jsbsim/systems/dps/disp", 19);
 		valid_flag = 1;
 		}
 
@@ -476,6 +584,7 @@ if ((header == "SPEC") and (end =="PRO"))
 		SpaceShuttle.PFD.selectPage(p_dps_fault);
 		# calling the display with SPEC 99 PRO clears all fault messages
 		SpaceShuttle.cws_message_array_long = ["","","","","","","","","","","","","","",""];
+		setprop("/fdm/jsbsim/systems/dps/disp", 99);
 		valid_flag = 1;
 		}
 	}
@@ -504,7 +613,8 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 	}
 
 
-
+length_body = 0;
+length_value = 0;
 b_v_flag = 0;
 header = "";
 body = "";
