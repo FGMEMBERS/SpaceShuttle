@@ -14,6 +14,7 @@
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
+# * p_dps_apu_hyd (DISP 86)
 # * p_dps_fault (SPEC 99)
 
 
@@ -318,6 +319,20 @@ var elevon_norm = func (angle) {
 
 if (angle < 0.0) {return 100.0 * angle/40.0;}
 else {return 100.0 * angle/28.0;}
+
+}
+
+
+var K_to_F = func (T) {
+
+return T * 9.0/5.0 - 459.67;
+
+}
+
+var wsb_ctrl_to_string = func (status) {
+
+if (status == 1) {return "A/B";}
+else {return "OFF";}
 
 }
 
@@ -1527,6 +1542,57 @@ p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/o
 
 var p_dps_apu_hyd = PFD.addPage("CRTApuHyd", "p_dps_apu_hyd");
 
+p_dps_apu_hyd.speed_pct_1 = PFDsvg.getElementById("p_dps_apu_hyd_speed_pct_1");
+p_dps_apu_hyd.speed_pct_2 = PFDsvg.getElementById("p_dps_apu_hyd_speed_pct_2");
+p_dps_apu_hyd.speed_pct_3 = PFDsvg.getElementById("p_dps_apu_hyd_speed_pct_3");
+
+p_dps_apu_hyd.fuel_qty_1 = PFDsvg.getElementById("p_dps_apu_hyd_fuel_qty_1");
+p_dps_apu_hyd.fuel_qty_2 = PFDsvg.getElementById("p_dps_apu_hyd_fuel_qty_2");
+p_dps_apu_hyd.fuel_qty_3 = PFDsvg.getElementById("p_dps_apu_hyd_fuel_qty_3");
+
+p_dps_apu_hyd.vlv_a_1 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_a_1");
+p_dps_apu_hyd.vlv_a_2 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_a_2");
+p_dps_apu_hyd.vlv_a_3 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_a_3");
+
+p_dps_apu_hyd.vlv_b_1 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_b_1");
+p_dps_apu_hyd.vlv_b_2 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_b_2");
+p_dps_apu_hyd.vlv_b_3 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_b_3");
+
+p_dps_apu_hyd.oil_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_oil_t_1");
+p_dps_apu_hyd.oil_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_oil_t_2");
+p_dps_apu_hyd.oil_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_oil_t_3");
+
+p_dps_apu_hyd.oil_outt_1 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outt_1");
+p_dps_apu_hyd.oil_outt_2 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outt_2");
+p_dps_apu_hyd.oil_outt_3 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outt_3");
+
+p_dps_apu_hyd.bu_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_bu_p_1");
+p_dps_apu_hyd.bu_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_bu_p_2");
+p_dps_apu_hyd.bu_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_bu_p_3");
+
+p_dps_apu_hyd.h2o_1 = PFDsvg.getElementById("p_dps_apu_hyd_h2o_1");
+p_dps_apu_hyd.h2o_2 = PFDsvg.getElementById("p_dps_apu_hyd_h2o_2");
+p_dps_apu_hyd.h2o_3 = PFDsvg.getElementById("p_dps_apu_hyd_h2o_3");
+
+p_dps_apu_hyd.cntlr_1 = PFDsvg.getElementById("p_dps_apu_hyd_cntlr_1");
+p_dps_apu_hyd.cntlr_2 = PFDsvg.getElementById("p_dps_apu_hyd_cntlr_2");
+p_dps_apu_hyd.cntlr_3 = PFDsvg.getElementById("p_dps_apu_hyd_cntlr_3");
+
+p_dps_apu_hyd.bu_egt_1 = PFDsvg.getElementById("p_dps_apu_hyd_bu_egt_1");
+p_dps_apu_hyd.bu_egt_2 = PFDsvg.getElementById("p_dps_apu_hyd_bu_egt_2");
+p_dps_apu_hyd.bu_egt_3 = PFDsvg.getElementById("p_dps_apu_hyd_bu_egt_3");
+
+p_dps_apu_hyd.egt_1 = PFDsvg.getElementById("p_dps_apu_hyd_egt_1");
+p_dps_apu_hyd.egt_2 = PFDsvg.getElementById("p_dps_apu_hyd_egt_2");
+p_dps_apu_hyd.egt_3 = PFDsvg.getElementById("p_dps_apu_hyd_egt_3");
+
+p_dps_apu_hyd.n2_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_n2_p_1");
+p_dps_apu_hyd.n2_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_n2_p_2");
+p_dps_apu_hyd.n2_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_n2_p_3");
+
+p_dps_apu_hyd.wsb_n2_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_1");
+p_dps_apu_hyd.wsb_n2_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_2");
+p_dps_apu_hyd.wsb_n2_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_3");
 
 
 p_dps_apu_hyd.ondisplay = func
@@ -1538,11 +1604,66 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var ops_string = major_mode~"1/   /086";
 DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# set a few things we don't model explicitly to reasonable values
+
+p_dps_apu_hyd.n2_p_1.setText(sprintf(" 140"));
+p_dps_apu_hyd.n2_p_2.setText(sprintf(" 142"));
+p_dps_apu_hyd.n2_p_3.setText(sprintf(" 141")); 
+
+p_dps_apu_hyd.wsb_n2_p_1.setText(sprintf("2499"));
+p_dps_apu_hyd.wsb_n2_p_2.setText(sprintf("2505"));
+p_dps_apu_hyd.wsb_n2_p_3.setText(sprintf("2501")); 
+
 }
 
 p_dps_apu_hyd.update = func
 {
 
+p_dps_apu_hyd.speed_pct_1.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu/apu-rpm-fraction")));
+p_dps_apu_hyd.speed_pct_2.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[1]/apu-rpm-fraction")));
+p_dps_apu_hyd.speed_pct_3.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[2]/apu-rpm-fraction")));
+
+
+p_dps_apu_hyd.fuel_qty_1.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[14]/level-lbs")/3.5));
+p_dps_apu_hyd.fuel_qty_2.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[15]/level-lbs")/3.5));
+p_dps_apu_hyd.fuel_qty_3.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[16]/level-lbs")/3.5));
+
+p_dps_apu_hyd.vlv_a_1.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu/fuel-valve-status"))));
+p_dps_apu_hyd.vlv_a_2.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status"))));
+p_dps_apu_hyd.vlv_a_3.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status"))));
+
+p_dps_apu_hyd.vlv_b_1.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu/fuel-valve-status"))));
+p_dps_apu_hyd.vlv_b_2.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status"))));
+p_dps_apu_hyd.vlv_b_3.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status"))));
+
+p_dps_apu_hyd.oil_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"))));
+p_dps_apu_hyd.oil_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-in-T-K"))));
+p_dps_apu_hyd.oil_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-in-T-K"))));
+
+p_dps_apu_hyd.oil_outt_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K"))));
+p_dps_apu_hyd.oil_outt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K"))));
+p_dps_apu_hyd.oil_outt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K"))));
+
+p_dps_apu_hyd.bu_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia")));
+p_dps_apu_hyd.bu_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia")));
+p_dps_apu_hyd.bu_p_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia")));
+
+p_dps_apu_hyd.h2o_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[20]/contents-lbs")/1.42)); 
+p_dps_apu_hyd.h2o_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[21]/contents-lbs")/1.42)); 
+p_dps_apu_hyd.h2o_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[22]/contents-lbs")/1.42));  
+
+p_dps_apu_hyd.cntlr_1.setText(sprintf(" %s", wsb_ctrl_to_string(getprop("/fdm/jsbsim/systems/apu/apu/boiler-power-status"))));
+p_dps_apu_hyd.cntlr_2.setText(sprintf(" %s", wsb_ctrl_to_string(getprop("/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status"))));
+p_dps_apu_hyd.cntlr_3.setText(sprintf(" %s", wsb_ctrl_to_string(getprop("/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status"))));
+
+p_dps_apu_hyd.bu_egt_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/egt-K")-3.0)));
+p_dps_apu_hyd.bu_egt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")+1.0)));
+p_dps_apu_hyd.bu_egt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K")-4.0)));
+
+p_dps_apu_hyd.egt_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/egt-K")+1.0)));
+p_dps_apu_hyd.egt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")-1.0)));
+p_dps_apu_hyd.egt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K"))));
 
 update_common_DPS();
 

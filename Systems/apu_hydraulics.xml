@@ -760,6 +760,105 @@
 		</function>
    		</fcs_function>
 
+	</channel>
+
+
+
+	<channel name="APU and hydraulics detailed temperature readings">
+
+	<fcs_function name="systems/apu/apu/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu1-temperature-K</property>
+			<product>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- if the spray boiler is cooling, it generates a spread between in and out temperatures -->
+	<!-- and hydraulic vs. lube oil temperatures -->
+	
+	<fcs_function name="systems/apu/apu/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-1-switch</property>
+			<value>9.5</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-2-switch</property>
+			<value>9.7</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-3-switch</property>
+			<value>10.6</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu1-temperature-K</property>
+			<property>systems/apu/apu/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<property>systems/apu/apu[1]/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu3-temperature-K</property>
+			<property>systems/apu/apu[2]/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
 
 	</channel>
 
