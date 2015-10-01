@@ -285,6 +285,9 @@
 			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
 			<boiler-power-status type="int">0</boiler-power-status>
 			<boiler-heater-status type="int">0</boiler-heater-status>
+			<gg-bed-heater-status type="int">1</gg-bed-heater-status>
+			<fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+			<gg-bed-T-K type="double">370.0</gg-bed-T-K>
 		    </apu>
     		    <apu n="1">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -302,6 +305,9 @@
 			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
 			<boiler-power-status type="int">0</boiler-power-status>
 			<boiler-heater-status type="int">0</boiler-heater-status>
+			<gg-bed-heater-status type="int">1</gg-bed-heater-status>
+			<fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+			<gg-bed-T-K type="double">370.0</gg-bed-T-K>
 		    </apu>
  		    <apu n="2">
 			<apu-controller-power type="int">0</apu-controller-power>
@@ -319,6 +325,9 @@
 			<boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
 			<boiler-power-status type="int">0</boiler-power-status>
 			<boiler-heater-status type="int">0</boiler-heater-status>
+			<gg-bed-heater-status type="int">1</gg-bed-heater-status>
+			<fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+			<gg-bed-T-K type="double">370.0</gg-bed-T-K>
 		    </apu>
 		</apu>
 		<atcs>

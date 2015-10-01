@@ -71,6 +71,27 @@
     </item>
 
    <item>
+      <name>T-6:15 water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
       <name>T-6:15 ready to start indicator</name>
       <value>READY</value>
       <condition>
@@ -196,26 +217,7 @@
       </condition> 
    </item>
 
-   <item>
-      <name>T-5:00 water spray boiler controller power </name>
-      <value>ON</value>
-      <condition>
-	<and>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-	</and>
-      </condition> 
-   </item>
+
 
 
     <item>
@@ -1308,6 +1310,27 @@
     </item>
 
    <item>
+      <name>water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition> 
+   </item>
+
+   <item>
       <name>ready to start indicator</name>
       <value>READY</value>
       <condition>
@@ -1548,6 +1571,27 @@
 	</and>
       </condition>     
     </item>
+
+   <item>
+      <name>set water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
 
    <item>
       <name>Ready to start indicator</name>

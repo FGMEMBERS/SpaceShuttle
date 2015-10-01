@@ -336,6 +336,13 @@ else {return "OFF";}
 
 }
 
+var wsb_vlv_to_string = func (status) {
+
+if (status > 0.0) {return " OP";}
+else {return "BYP";}
+
+}
+
 
 # Set listener on the PFD mode button; this could be an on off switch or by convention
 # it will also act as brightness; so 0 is off and anything greater is brightness.
@@ -1594,6 +1601,88 @@ p_dps_apu_hyd.wsb_n2_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_1");
 p_dps_apu_hyd.wsb_n2_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_2");
 p_dps_apu_hyd.wsb_n2_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_wsb_n2_p_3");
 
+p_dps_apu_hyd.accum_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_accum_p_1");
+p_dps_apu_hyd.accum_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_accum_p_2");
+p_dps_apu_hyd.accum_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_accum_p_3");
+
+p_dps_apu_hyd.vlv_at_1 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_at_1");
+p_dps_apu_hyd.vlv_at_2 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_at_2");
+p_dps_apu_hyd.vlv_at_3 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_at_3");
+
+p_dps_apu_hyd.vlv_bt_1 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_bt_1");
+p_dps_apu_hyd.vlv_bt_2 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_bt_2");
+p_dps_apu_hyd.vlv_bt_3 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_bt_3");
+
+p_dps_apu_hyd.rsvr_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_t_1");
+p_dps_apu_hyd.rsvr_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_t_2");
+p_dps_apu_hyd.rsvr_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_t_3");
+
+p_dps_apu_hyd.ggbed_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_ggbed_t_1");
+p_dps_apu_hyd.ggbed_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_ggbed_t_2");
+p_dps_apu_hyd.ggbed_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_ggbed_t_3");
+
+p_dps_apu_hyd.tank_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_tank_t_1");
+p_dps_apu_hyd.tank_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_tank_t_2");
+p_dps_apu_hyd.tank_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_tank_t_3");
+
+p_dps_apu_hyd.blr_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_blr_t_1");
+p_dps_apu_hyd.blr_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_blr_t_2");
+p_dps_apu_hyd.blr_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_blr_t_3");
+
+p_dps_apu_hyd.reg_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_reg_p_1");
+p_dps_apu_hyd.reg_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_reg_p_2");
+p_dps_apu_hyd.reg_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_reg_p_3");
+
+p_dps_apu_hyd.n2_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_n2_t_1");
+p_dps_apu_hyd.n2_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_n2_t_2");
+p_dps_apu_hyd.n2_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_n2_t_3");
+
+p_dps_apu_hyd.vent_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_vent_t_1");
+p_dps_apu_hyd.vent_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_vent_t_2");
+p_dps_apu_hyd.vent_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_vent_t_3");
+
+p_dps_apu_hyd.rsvr_qty_1 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_qty_1");
+p_dps_apu_hyd.rsvr_qty_2 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_qty_2");
+p_dps_apu_hyd.rsvr_qty_3 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_qty_3");
+
+p_dps_apu_hyd.rsvr_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_p_1");
+p_dps_apu_hyd.rsvr_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_p_2");
+p_dps_apu_hyd.rsvr_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_rsvr_p_3");
+
+p_dps_apu_hyd.tk_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_tk_p_1");
+p_dps_apu_hyd.tk_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_tk_p_2");
+p_dps_apu_hyd.tk_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_tk_p_3");
+
+p_dps_apu_hyd.out_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_out_p_1");
+p_dps_apu_hyd.out_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_out_p_2");
+p_dps_apu_hyd.out_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_out_p_3");
+
+p_dps_apu_hyd.pmp_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_pmp_t_1");
+p_dps_apu_hyd.pmp_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_pmp_t_2");
+p_dps_apu_hyd.pmp_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_pmp_t_3");
+
+p_dps_apu_hyd.vlv_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_t_1");
+p_dps_apu_hyd.vlv_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_t_2");
+p_dps_apu_hyd.vlv_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_vlv_t_3");
+
+p_dps_apu_hyd.oil_outp_1 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outp_1");
+p_dps_apu_hyd.oil_outp_2 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outp_2");
+p_dps_apu_hyd.oil_outp_3 = PFDsvg.getElementById("p_dps_apu_hyd_oil_outp_3");
+
+p_dps_apu_hyd.gbx_p_1 = PFDsvg.getElementById("p_dps_apu_hyd_gbx_p_1");
+p_dps_apu_hyd.gbx_p_2 = PFDsvg.getElementById("p_dps_apu_hyd_gbx_p_2");
+p_dps_apu_hyd.gbx_p_3 = PFDsvg.getElementById("p_dps_apu_hyd_gbx_p_3");
+
+p_dps_apu_hyd.byp_vlv_1 = PFDsvg.getElementById("p_dps_apu_hyd_byp_vlv_1");
+p_dps_apu_hyd.byp_vlv_2 = PFDsvg.getElementById("p_dps_apu_hyd_byp_vlv_2");
+p_dps_apu_hyd.byp_vlv_3 = PFDsvg.getElementById("p_dps_apu_hyd_byp_vlv_3");
+
+p_dps_apu_hyd.brg_t_1 = PFDsvg.getElementById("p_dps_apu_hyd_brg_t_1");
+p_dps_apu_hyd.brg_t_2 = PFDsvg.getElementById("p_dps_apu_hyd_brg_t_2");
+p_dps_apu_hyd.brg_t_3 = PFDsvg.getElementById("p_dps_apu_hyd_brg_t_3");
+
+
+
 
 p_dps_apu_hyd.ondisplay = func
 {
@@ -1614,6 +1703,46 @@ p_dps_apu_hyd.n2_p_3.setText(sprintf(" 141"));
 p_dps_apu_hyd.wsb_n2_p_1.setText(sprintf("2499"));
 p_dps_apu_hyd.wsb_n2_p_2.setText(sprintf("2505"));
 p_dps_apu_hyd.wsb_n2_p_3.setText(sprintf("2501")); 
+
+p_dps_apu_hyd.vlv_at_1.setText(sprintf("  62"));
+p_dps_apu_hyd.vlv_at_2.setText(sprintf("  60"));
+p_dps_apu_hyd.vlv_at_3.setText(sprintf("  61"));
+
+p_dps_apu_hyd.vlv_bt_1.setText(sprintf("  61"));
+p_dps_apu_hyd.vlv_bt_2.setText(sprintf("  61"));
+p_dps_apu_hyd.vlv_bt_3.setText(sprintf("  60"));
+
+p_dps_apu_hyd.tank_t_1.setText(sprintf("  59"));
+p_dps_apu_hyd.tank_t_2.setText(sprintf("  60"));
+p_dps_apu_hyd.tank_t_3.setText(sprintf("  57"));
+
+p_dps_apu_hyd.blr_t_1.setText(sprintf("  65")); 
+p_dps_apu_hyd.blr_t_2.setText(sprintf("  64")); 
+p_dps_apu_hyd.blr_t_3.setText(sprintf("  65"));
+
+p_dps_apu_hyd.reg_p_1.setText(sprintf("  25")); 
+p_dps_apu_hyd.reg_p_2.setText(sprintf("  27")); 
+p_dps_apu_hyd.reg_p_3.setText(sprintf("  26")); 
+
+p_dps_apu_hyd.n2_t_1.setText(sprintf("  59")); 
+p_dps_apu_hyd.n2_t_2.setText(sprintf("  61")); 
+p_dps_apu_hyd.n2_t_3.setText(sprintf("  61")); 
+
+p_dps_apu_hyd.rsvr_qty_1.setText(sprintf("  87")); 
+p_dps_apu_hyd.rsvr_qty_2.setText(sprintf("  86")); 
+p_dps_apu_hyd.rsvr_qty_3.setText(sprintf("  87")); 
+
+p_dps_apu_hyd.rsvr_p_1.setText(sprintf("  54")); 
+p_dps_apu_hyd.rsvr_p_2.setText(sprintf("  56")); 
+p_dps_apu_hyd.rsvr_p_3.setText(sprintf("  55")); 
+
+p_dps_apu_hyd.tk_p_1.setText(sprintf(" 210")); 
+p_dps_apu_hyd.tk_p_2.setText(sprintf(" 214")); 
+p_dps_apu_hyd.tk_p_3.setText(sprintf(" 211")); 
+
+p_dps_apu_hyd.out_p_1.setText(sprintf(" 210")); 
+p_dps_apu_hyd.out_p_2.setText(sprintf(" 214")); 
+p_dps_apu_hyd.out_p_3.setText(sprintf(" 211")); 
 
 }
 
@@ -1664,6 +1793,59 @@ p_dps_apu_hyd.bu_egt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/syst
 p_dps_apu_hyd.egt_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/egt-K")+1.0)));
 p_dps_apu_hyd.egt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")-1.0)));
 p_dps_apu_hyd.egt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K"))));
+
+p_dps_apu_hyd.accum_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/hyd-acc-pressure-psia")));
+p_dps_apu_hyd.accum_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-acc-pressure-psia")));
+p_dps_apu_hyd.accum_p_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-acc-pressure-psia")));
+
+p_dps_apu_hyd.rsvr_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-3.0))); 
+p_dps_apu_hyd.rsvr_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+1.0))); 
+p_dps_apu_hyd.rsvr_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")))); 
+
+var ggbed_T1 = getprop("/fdm/jsbsim/systems/apu/apu/gg-bed-T-K");
+var ggbed_T1_sym = "";
+if (ggbed_T1 > 540) {ggbed_T1_sym = "H"; ggbed_T1 = 540.0;}
+
+var ggbed_T2 = getprop("/fdm/jsbsim/systems/apu/apu[1]/gg-bed-T-K");
+var ggbed_T2_sym = "";
+if (ggbed_T2 > 540) {ggbed_T2_sym = "H"; ggbed_T2 = 540.0;}
+
+var ggbed_T3 = getprop("/fdm/jsbsim/systems/apu/apu[2]/gg-bed-T-K");
+var ggbed_T3_sym = "";
+if (ggbed_T3 > 540) {ggbed_T3_sym = "H"; ggbed_T3 = 540.0;}
+
+p_dps_apu_hyd.ggbed_t_1.setText(sprintf("%4.0f%s", K_to_F(ggbed_T1), ggbed_T1_sym));
+p_dps_apu_hyd.ggbed_t_2.setText(sprintf("%4.0f%s", K_to_F(ggbed_T2-1.0), ggbed_T2_sym));
+p_dps_apu_hyd.ggbed_t_3.setText(sprintf("%4.0f%s", K_to_F(ggbed_T3+3.0), ggbed_T3_sym));
+
+
+p_dps_apu_hyd.vent_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/steam-vent-T-K")-3.0))); 
+p_dps_apu_hyd.vent_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/steam-vent-T-K")))); 
+p_dps_apu_hyd.vent_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/steam-vent-T-K")+1.0))); 
+
+p_dps_apu_hyd.pmp_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/fuel-pump-T-K")-1.0))); 
+p_dps_apu_hyd.pmp_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-pump-T-K")+3.0))); 
+p_dps_apu_hyd.pmp_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-pump-T-K")+2.0))); 
+
+p_dps_apu_hyd.vlv_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/fuel-pump-T-K")+2.0))); 
+p_dps_apu_hyd.vlv_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-pump-T-K")-1.0))); 
+p_dps_apu_hyd.vlv_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-pump-T-K")-1.0))); 
+
+p_dps_apu_hyd.oil_outp_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/oil-p-psia")));
+p_dps_apu_hyd.oil_outp_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu[1]/apu/oil-p-psia")));
+p_dps_apu_hyd.oil_outp_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu[2]/apu/oil-p-psia")));
+
+p_dps_apu_hyd.gbx_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/oil-p-psia")-1.0));
+p_dps_apu_hyd.gbx_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-p-psia")-2.0));
+p_dps_apu_hyd.gbx_p_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-p-psia")-1.0));
+
+p_dps_apu_hyd.byp_vlv_1.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-1-switch"))));
+p_dps_apu_hyd.byp_vlv_2.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-2-switch"))));
+p_dps_apu_hyd.byp_vlv_3.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-3-switch"))));
+
+p_dps_apu_hyd.brg_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")+3.0)));
+p_dps_apu_hyd.brg_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+4.0)));
+p_dps_apu_hyd.brg_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")+1.0)));
 
 update_common_DPS();
 
