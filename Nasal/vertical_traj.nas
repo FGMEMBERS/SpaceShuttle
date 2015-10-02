@@ -6,6 +6,8 @@ var vertical_display_size = 512;
 var horizontal_display_size = 512;
 
 var traj_data = [];
+var limit1_data = [];
+var limit2_data = [];
 
 var sym_shuttle_asc = {};
 var trajectory = {};
@@ -27,16 +29,8 @@ window.del = func()
 
 
 var ascentTrajCanvas = window.createCanvas().set("background", [0,0,0]);
-
-#var ascentTrajCanvas= canvas.new({
-#        "name": "STS PASS TRAJ",
-#            "size": [400,400], 
-#            "view": [400,400],                       
-#            "mipmapping": 1     
-#            });                          
                           
-#ascentTrajCanvas.addPlacement({"node": "DisplayL2"});
-#ascentTrajCanvas.setColorBackground(0,0,0, 0);
+
 
 var root = ascentTrajCanvas.createGroup();
 
@@ -46,7 +40,13 @@ sym_shuttle_asc = ascentTrajCanvas.createGroup();
 canvas.parsesvg(sym_shuttle_asc, "/Nasal/canvas/map/Images/boeingAirplane.svg");
 sym_shuttle_asc.setScale(0.2);
 
-fill_traj1_data();
+if (traj_display_flag == 1)
+	{ fill_traj1_data();}
+else if (traj_display_flag == 3)
+	{ fill_entry1_data();}
+
+
+
 trajectory = root.createChild("group");
 plot_traj (trajectory);
 
@@ -280,6 +280,10 @@ else if (display == 7)
 	{
 	return ((par -55.0)/45.0 * 0.8 + 0.1) * 512.0;
 	}
+else if (display == 8)
+	{
+	return ((par -10.0)/70.0 * 0.6 + 0.1) * 512.0;
+	}
 }
 
 var parameter_to_y = func (par, display) {
@@ -311,6 +315,10 @@ else if (display == 6)
 else if (display == 7)
 	{
 	return 512.0 - ((par - 4000.0) / 1500.0 * 0.6 + 0.2) * 512.0;
+	}
+else if (display == 8)
+	{
+	return 512.0 - ((par - 30000.0) / 55000.0 * 0.4 + 0.2) * 512.0;
 	}
 }
 
@@ -663,6 +671,98 @@ for (i=0; i< size(traj_data); i=i+1)
 	{
 	traj_data[i][0] = parameter_to_x(traj_data[i][0], 7);
 	traj_data[i][1] = parameter_to_y(traj_data[i][1], 7); 
+	}
+
+}
+
+
+var fill_vert_sit1_nom_data = func {
+
+var point = [];
+setsize(traj_data,0);
+
+
+point = [80.0, 83000.0];
+append(traj_data, point);
+
+point = [60.0, 72600.0];
+append(traj_data, point);
+
+point = [40.0, 59000.0];
+append(traj_data, point);
+
+
+point = [30.0, 49000.0];
+append(traj_data, point);
+
+point = [20.0, 39000.0];
+append(traj_data, point);
+
+point = [10.0, 30000.0];
+append(traj_data, point);
+
+
+
+for (i=0; i< size(traj_data); i=i+1)
+	{
+	traj_data[i][0] = parameter_to_x(traj_data[i][0], 8);
+	traj_data[i][1] = parameter_to_y(traj_data[i][1], 8); 
+	}
+
+}
+
+
+var fill_vert_sit1_SB_data = func {
+
+var point = [];
+setsize(limit1_data,0);
+
+
+point = [60.0, 83000.0];
+append(limit1_data, point);
+
+point = [40.0, 69000.0];
+append(limit1_data, point);
+
+point = [20.0, 49000.0];
+append(limit1_data, point);
+
+point = [10.0, 34000.0];
+append(limit1_data, point);
+
+for (i=0; i< size(limit1_data); i=i+1)
+	{
+	limit1_data[i][0] = parameter_to_x(limit1_data[i][0], 8);
+	limit1_data[i][1] = parameter_to_y(limit1_data[i][1], 8); 
+	}
+
+}
+
+var fill_vert_sit1_maxLD_data = func {
+
+var point = [];
+setsize(limit2_data,0);
+
+
+point = [80.0, 80000.0];
+append(limit2_data, point);
+
+point = [60.0, 68000.0];
+append(limit2_data, point);
+
+point = [40.0, 50000.0];
+append(limit2_data, point);
+
+point = [30.0, 40000.0];
+append(limit2_data, point);
+
+point = [22.0, 30000.0];
+append(limit2_data, point);
+
+for (i=0; i< size(limit2_data); i=i+1)
+	{
+	limit2_data[i][0] = parameter_to_x(limit2_data[i][0], 8);
+	limit2_data[i][1] = parameter_to_y(limit2_data[i][1], 8); 
 	}
 
 }

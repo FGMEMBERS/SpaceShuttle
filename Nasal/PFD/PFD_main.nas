@@ -10,12 +10,13 @@
 
 # pages available are
 # * p_ascent (OPS 101, 102, 103)
+# * p_entry (OPS 304)
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
 # * p_dps_apu_hyd (DISP 86)
-# * p_dps_fault (SPEC 99)
+# * p_dps_fault (DISP 99)
 
 
 #
@@ -259,6 +260,13 @@ var DPS_menu_scratch_line = PFDsvg.getElementById("dps_menu_scratch_line");
 var DPS_menu_gpc_driver = PFDsvg.getElementById("dps_menu_gpc_driver");
 var DPS_menu_blink = 1;
 
+
+# the trajectory plot groups
+
+var nom_traj_plot = PFDcanvas.createGroup();
+var limit1_traj_plot = PFDcanvas.createGroup();
+var limit2_traj_plot = PFDcanvas.createGroup();
+
 # helper function to turn DPS display items off in MEDS pages
 
 var set_DPS_off = func {
@@ -369,15 +377,19 @@ var p_pfd = PFD.addPage("PFD", "p_pfd");
 p_pfd.keas = PFDsvg.getElementById("p_pfd_keas");
 p_pfd.beta = PFDsvg.getElementById("p_pfd_beta");
 
+p_pfd.ondisplay = func
+{
+    set_DPS_off();
+    MEDS_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
+}
+
+
 p_pfd.update = func
 {
     # these really need to be deleted when leaving the ascent page - do we have
     # an 'upon exit' functionality here
-    p_traj_plot.removeAllChildren();
-    p_ascent_shuttle_sym.setScale(0.0);
 
-    set_DPS_off();
-    MEDS_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
+   
     p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));
     p_pfd.keas.setText(sprintf("%5.0f",getprop("velocities/airspeed-kt")));
 };
@@ -392,7 +404,9 @@ PFD.selectPage(p_pfd);
 var p_main = PFD.addPage("MainMenu", "p_main");
 
 
-p_main.update = func
+
+
+p_main.ondisplay = func
 {
 set_DPS_off();
 MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
@@ -405,7 +419,7 @@ MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
 # it just points to the correct page dependent on ops mode
 #################################################################
 
-var p_dps = PFD.addPage("CRTFault", "p_dps");
+var p_dps = PFD.addPage("CRTDefault", "p_dps");
 
 p_dps.blink = 1;
 
@@ -418,7 +432,7 @@ if (ops == 1)
 else if (ops == 2)
 	{ PFD.selectPage(p_dps_univ_ptg);}
 else if ( ops == 3)
-	{ PFD.selectPage(p_ascent);}
+	{ PFD.selectPage(p_dps_mnvr);}
 else 
 	{PFD.selectPage(p_main);}
 
@@ -952,7 +966,7 @@ p_dps_sys_summ2.right_oms_fuel_ei_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsi
 }
 
 #################################################################
-# the ascent/entry PFD page showing the vertical trajectory status
+# the ascent PFD page showing the vertical trajectory status
 #################################################################
 
 var p_ascent = PFD.addPage("Ascent", "p_ascent");
@@ -961,7 +975,6 @@ var p_ascent = PFD.addPage("Ascent", "p_ascent");
 #
 # Ascent page update
 var p_ascent_view = PFDsvg.getElementById("ascent_view");
-var p_traj_plot = PFDcanvas.createGroup();
 SpaceShuttle.fill_traj1_data();
 var p_ascent_time = 0;
 var p_ascent_next_update = 0;
@@ -980,11 +993,13 @@ p_ascent.prplt_text = PFDsvg.getElementById("p_ascent_prplt_txt");
 p_ascent.ondisplay = func
 {
     # called once whenever this page goes on display/
+    p_ascent_shuttle_sym.setScale(0.3);
+    MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
 }
 
 p_ascent.offdisplay = func
 {
-    p_traj_plot.removeAllChildren();
+    nom_traj_plot.removeAllChildren();
     p_ascent_shuttle_sym.setScale(0.0);
 
     set_DPS_off();
@@ -993,7 +1008,7 @@ p_ascent.offdisplay = func
 p_ascent.update = func
 {
 
-MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
 
 update_common_DPS();
 
@@ -1021,7 +1036,7 @@ else
 	p_ascent.prplt_text.setText(sprintf(""));
 	}
 
-p_traj_plot.removeAllChildren();
+nom_traj_plot.removeAllChildren();
 
 SpaceShuttle.ascent_traj_update_set();
 
@@ -1041,7 +1056,82 @@ else if ((SpaceShuttle.traj_display_flag == 2) or (major_mode == 103))
 	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
 	DPS_menu_ops.setText(sprintf("%s","1031/     /"));
 	}
-else if  ((SpaceShuttle.traj_display_flag == 3) and (major_mode == 304))
+
+
+
+var plot = nom_traj_plot.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(0.5,0.6,0.5)
+                                   .moveTo(traj_data[0][0],traj_data[0][1]); 
+
+		for (var i = 1; i< (size(traj_data)-1); i=i+1)
+			{
+			var set = traj_data[i+1];
+			plot.lineTo(set[0], set[1]);	
+			}
+
+var velocity = SpaceShuttle.ascent_traj_update_velocity();
+var altitude = getprop("/position/altitude-ft");
+
+
+var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+	
+p_ascent_shuttle_sym.setTranslation(x,y);
+
+
+};
+
+
+
+
+#################################################################
+# the entry PFD page showing the vertical trajectory status
+#################################################################
+
+var p_entry = PFD.addPage("Entry", "p_entry");
+
+p_entry.D_az = PFDsvg.getElementById("p_entry_D_az");
+p_entry.qbar = PFDsvg.getElementById("p_entry_qbar");
+p_entry.dref = PFDsvg.getElementById("p_entry_dref");
+p_entry.bias = PFDsvg.getElementById("p_entry_bias");
+
+
+
+
+p_entry.ondisplay = func
+{
+    # called once whenever this page goes on display
+
+p_entry.bias.setText(sprintf("%s","+00"));
+p_ascent_shuttle_sym.setScale(0.3);
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+}
+
+p_entry.offdisplay = func
+{
+    nom_traj_plot.removeAllChildren();
+    p_ascent_shuttle_sym.setScale(0.0);
+
+    set_DPS_off();
+}
+
+p_entry.update = func
+{
+
+
+
+update_common_DPS();
+
+
+nom_traj_plot.removeAllChildren();
+
+SpaceShuttle.ascent_traj_update_set();
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+
+if  ((SpaceShuttle.traj_display_flag == 3) and (major_mode == 304))
 	{
 	DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 1"));
 	DPS_menu_ops.setText(sprintf("%s","3041/     /"));
@@ -1065,7 +1155,7 @@ else if ((SpaceShuttle.traj_display_flag == 7)and (major_mode == 304))
 
 
 
-var plot = p_traj_plot.createChild("path", "data")
+var plot = nom_traj_plot.createChild("path", "data")
                                    .setStrokeLineWidth(2)
                                    .setColor(0.5,0.6,0.5)
                                    .moveTo(traj_data[0][0],traj_data[0][1]); 
@@ -1079,26 +1169,120 @@ var plot = p_traj_plot.createChild("path", "data")
 var velocity = SpaceShuttle.ascent_traj_update_velocity();
 var altitude = getprop("/position/altitude-ft");
 
-var x = 0;
-var y = 0;
 
-if (SpaceShuttle.traj_display_flag < 3)
+var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
+var y = SpaceShuttle.parameter_to_y(velocity, SpaceShuttle.traj_display_flag);
+	
+
+
+p_ascent_shuttle_sym.setTranslation(x,y);
+
+
+p_entry.D_az.setText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg")));
+p_entry.qbar.setText(sprintf("%3.1f",getprop("/fdm/jsbsim/aero/qbar-psf")));
+p_entry.dref.setText(sprintf("%3.1f",-32.18 * getprop("/accelerations/nlf")));
+
+};
+
+
+
+#################################################################
+# the vertical situation PFD page showing the TAEM guidance
+#################################################################
+
+var p_vert_sit = PFD.addPage("VertSit", "p_vert_sit");
+
+
+
+p_vert_sit.ondisplay = func
+{
+SpaceShuttle.fill_vert_sit1_nom_data();
+SpaceShuttle.fill_vert_sit1_SB_data();
+SpaceShuttle.fill_vert_sit1_maxLD_data();
+SpaceShuttle.traj_display_flag = 8;
+p_ascent_shuttle_sym.setScale(0.3);
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+DPS_menu_ops.setText(sprintf("%s","3051/     /"));
+}
+
+p_vert_sit.offdisplay = func
+{
+    nom_traj_plot.removeAllChildren();
+    limit1_traj_plot.removeAllChildren();
+    limit2_traj_plot.removeAllChildren();
+    p_ascent_shuttle_sym.setScale(0.0);
+    set_DPS_off();
+}
+
+p_vert_sit.update = func
+{
+
+update_common_DPS();
+
+nom_traj_plot.removeAllChildren();
+limit1_traj_plot.removeAllChildren();
+limit2_traj_plot.removeAllChildren();
+
+SpaceShuttle.ascent_traj_update_set();
+
+
+
+
+if  (SpaceShuttle.traj_display_flag == 8)
 	{
-	 x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
-	 y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+	DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
 	}
 else
 	{
-	var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
- 	 x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
-	 y = SpaceShuttle.parameter_to_y(velocity, SpaceShuttle.traj_display_flag);
+	DPS_menu_title.setText(sprintf("%s","VERT SIT 2"));
 	}
 
-p_ascent_shuttle_sym.setScale(0.3);
+
+var plot = nom_traj_plot.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(0.5,0.6,0.5)
+                                   .moveTo(traj_data[0][0],traj_data[0][1]); 
+
+		for (var i = 1; i< (size(traj_data)-1); i=i+1)
+			{
+			var set = traj_data[i+1];
+			plot.lineTo(set[0], set[1]);	
+			}
+
+var plot_limit1 = limit1_traj_plot.createChild("path", "data")
+                                   .setStrokeLineWidth(1)
+                                   .setColor(0.5,0.6,0.5)
+                                   .moveTo(limit1_data[0][0],limit1_data[0][1]); 
+
+		for (var i = 1; i< (size(limit1_data)-1); i=i+1)
+			{
+			var set = limit1_data[i+1];
+			plot_limit1.lineTo(set[0], set[1]);	
+			}
+
+var plot_limit2 = limit2_traj_plot.createChild("path", "data")
+                                   .setStrokeLineWidth(1)
+                                   .setColor(0.5,0.6,0.5)
+                                   .moveTo(limit2_data[0][0],limit2_data[0][1]); 
+
+		for (var i = 1; i< (size(limit2_data)-1); i=i+1)
+			{
+			var set = limit2_data[i+1];
+			plot_limit2.lineTo(set[0], set[1]);	
+			}
+
+var altitude = getprop("/position/altitude-ft");
+var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
+var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+	
 p_ascent_shuttle_sym.setTranslation(x,y);
 
 
 };
+
+
 
 #################################################################
 # the maneuver page
@@ -1444,7 +1628,7 @@ p_dps_univ_ptg.update = func
 
     # these really need to be deleted when leaving the ascent page - do we have
     # an 'upon exit' functionality here
-    p_traj_plot.removeAllChildren();
+    nom_traj_plot.removeAllChildren();
     p_ascent_shuttle_sym.setScale(0.0);
 
 update_common_DPS();
@@ -1832,8 +2016,8 @@ p_dps_apu_hyd.vlv_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/syste
 p_dps_apu_hyd.vlv_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-pump-T-K")-1.0))); 
 
 p_dps_apu_hyd.oil_outp_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/oil-p-psia")));
-p_dps_apu_hyd.oil_outp_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu[1]/apu/oil-p-psia")));
-p_dps_apu_hyd.oil_outp_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu[2]/apu/oil-p-psia")));
+p_dps_apu_hyd.oil_outp_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-p-psia")));
+p_dps_apu_hyd.oil_outp_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-p-psia")));
 
 p_dps_apu_hyd.gbx_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/oil-p-psia")-1.0));
 p_dps_apu_hyd.gbx_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-p-psia")-2.0));
@@ -1861,9 +2045,18 @@ PFD.selectPage(p_pfd);
 #
 # Add the menus to each page. The selected set of menu items is automatically managed
 
-p_ascent.addMenuItem(0, "UP", p_pfd);
+p_ascent.addMenuItem(0, "UP", p_main);
 p_ascent.addMenuItem(4, "MSG RST", p_ascent);
 p_ascent.addMenuItem(5, "MSG ACK", p_ascent);
+
+p_entry.addMenuItem(0, "UP", p_main);
+p_entry.addMenuItem(4, "MSG RST", p_entry);
+p_entry.addMenuItem(5, "MSG ACK", p_entry);
+
+
+p_vert_sit.addMenuItem(0, "UP", p_main);
+p_vert_sit.addMenuItem(4, "MSG RST", p_vert_sit);
+p_vert_sit.addMenuItem(5, "MSG ACK", p_vert_sit);
 
 p_pfd.addMenuItem(0, "UP", p_main);
 p_pfd.addMenuItem(1, "A/E", p_pfd);
@@ -1875,7 +2068,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_apu_hyd);
+p_main.addMenuItem(3, "MAINT", p_vert_sit);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 

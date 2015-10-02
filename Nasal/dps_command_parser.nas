@@ -363,6 +363,34 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
 		valid_flag = 1;
 		}
+	if (major_mode == 301)
+		{
+		setprop("/fdm/jsbsim/systems/dps/ops", 3);
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 301);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 302) and (current_ops == 3))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 302);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 303) and (current_ops == 3))
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 303);
+		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		valid_flag = 1;
+		}
+	else if ((major_mode == 304) and (current_ops == 3))
+		{
+		SpaceShuttle.traj_display_flag = 3;
+		SpaceShuttle.fill_entry1_data();
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 304);
+		SpaceShuttle.PFD.selectPage(p_entry);
+		valid_flag = 1;
+		}
+
 
 	if (valid_flag == 1)
 		{
