@@ -54,6 +54,28 @@
         </binding>
       </combo>
 
+    <text>
+      <label>RWY:</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+   <combo>
+        <row>2</row>
+        <col>3</col>
+        <name>runway-selection</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>50</pref-width>
+        <property>/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway</property>
+        <properties>/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways</properties>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>runway-selection</object-name>
+        </binding>
+      </combo>
+
    <text>
       <label>Abort mode:</label>
       <halign>left</halign>

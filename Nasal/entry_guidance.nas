@@ -99,5 +99,11 @@ else if (mode_string == "RTLS")
 	setprop("/controls/shuttle/hud-mode",2);
 	}
 
+# usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
+# initialized at TAEM interface, no target is selected yet, so if distance to site is
+# within TAEM range, we compute it now
+
+if (distance < 100.0) {SpaceShuttle.compute_TAEM_guidance_targets();}
+
 
 }

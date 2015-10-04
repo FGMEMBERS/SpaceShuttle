@@ -916,6 +916,12 @@ if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
+
+	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0)
+		{
+		SpaceShuttle.compute_TAEM_guidance_targets();
+		}
+
 	glide_loop();
 	return;
 	}

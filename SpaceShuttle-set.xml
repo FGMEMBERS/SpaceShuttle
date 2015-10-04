@@ -763,6 +763,10 @@
 		    <rms-port-jett-mid-switch type="int">0</rms-port-jett-mid-switch>
 		    <rms-port-jett-aft-switch type="int">0</rms-port-jett-aft-switch>
 		</rms>
+		<taem-guidance>
+			<approach-mode-string type="string">OVHD</approach-mode-string>
+			<entry-point-string type="string">NEP</entry-point-string>
+		</taem-guidance>
 		<thermal-distribution>
 		    	<freon-loop-switch type="double">0.4</freon-loop-switch>
 			<water-loop-switch type="int">1</water-loop-switch>
@@ -1761,6 +1765,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
             <file>Aircraft/SpaceShuttle/Nasal/dialogs.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/limits.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/TAEM_guidance.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
             <file>Aircraft/SpaceShuttle/Nasal/vertical_traj.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>

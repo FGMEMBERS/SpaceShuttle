@@ -1,0 +1,182 @@
+# TAEM guidance functionality for the Space Shuttle
+# Thorsten Renk 2015
+
+var TAEM_WP_1 = geo.Coord.new();
+var TAEM_WP_2 = geo.Coord.new();
+var TAEM_threshold = geo.Coord.new();
+var TAEM_HAC_center = geo.Coord.new();
+var TAEM_guidance_available = 0;
+
+
+
+
+var compute_TAEM_guidance_targets = func {
+
+TAEM_guidance_available = 0;
+
+
+var lat_to_m = 110952.0; 
+var lon_to_m  = math.cos(getprop("/position/latitude-deg")*math.pi/180.0) * lat_to_m;
+var m_to_lon = 1.0/lon_to_m;
+var m_to_lat = 1.0/lat_to_m;
+
+# first check whether we have a valid runway / site specified
+
+var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+var runway_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+
+
+set_TAEM_threshold(site_string, runway_string);
+
+if (TAEM_threshold.lat() == 0.0)
+	{return;}
+
+print("TAEM site data available");
+
+var pos = geo.aircraft_position();
+
+if (pos.distance_to(TAEM_threshold) > 200000.0)
+	{
+	setprop("/sim/messages/copilot", "No TAEM guidance to site possible.");
+	return;
+	}
+
+# if the threshold is defined and within range, we can construct a valid solution
+
+print("TAEM guidance available");
+TAEM_guidance_available = 1;
+
+var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry_point_string");
+
+var ep_distance = 7.0 * 1853.0;
+var ep_altitude = 12000.0 * 0.3048;
+
+if (entry_point_string == "MEP") 
+	{
+	ep_distance = 4.0 * 1853.0;
+	ep_altitude = 6000.0 * 0.3048;
+	}
+
+
+
+var runway_dir_vec = [math.sin(TAEM_threshold.heading * math.pi/180.0), math.cos(TAEM_threshold.heading * math.pi/180.0)];
+
+
+print (TAEM_threshold.heading, " ", runway_dir_vec[0], " ", runway_dir_vec[1]);
+
+TAEM_WP_2.set_latlon(TAEM_threshold.lat() - m_to_lat * runway_dir_vec[1] * ep_distance,  TAEM_threshold.lon() - m_to_lon *runway_dir_vec[0] * ep_distance);
+TAEM_WP_2.set_alt(ep_altitude);
+
+
+# now construct the center of the HAC
+
+var approach_dir = pos.course_to(TAEM_WP_2);
+var approach_vec = [math.sin(approach_dir * math.pi/180.0), math.cos(approach_dir * math.pi/180.0)];
+
+print (approach_dir, " ", approach_vec[0], " ", approach_vec[1]);
+
+var runway_perp_vec = [math.sin((TAEM_threshold.heading + 90) * math.pi/180.0), math.cos((TAEM_threshold.heading + 90) * math.pi/180.0)];
+
+var approach_dot_rwyperp = SpaceShuttle.dot_product_2d(approach_vec, runway_perp_vec);
+var approach_mode = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
+
+if ((approach_mode == "OVHD") and (approach_dot_rwyperp < 0.0)) # we need to flip direction
+	{
+	runway_perp_vec = [-runway_perp_vec[0], -runway_perp_vec[1]];
+	}
+
+var hac_radius = 5600.0;
+
+if (entry_point_string == "MEP") 
+	{
+	hac_radius = hac_radius * 0.5;
+	}
+
+#print(runway_perp_vec[0], " ", runway_perp_vec[1]);
+
+TAEM_HAC_center.set_latlon(TAEM_WP_2.lat() + m_to_lat * runway_perp_vec[1] * hac_radius, TAEM_WP_2.lon() + m_to_lon * runway_perp_vec[0] * hac_radius);
+
+var wp1_vec = [-approach_vec[1], approach_vec[0]];
+var wp1_dot_rwy = SpaceShuttle.dot_product_2d(wp1_vec, runway_dir_vec);
+print("WP1", wp1_vec[0], " ", wp1_vec[1]);
+print(wp1_dot_rwy);
+
+if (wp1_dot_rwy < 0.0)
+	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
+
+TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.5, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.5);
+
+#print (TAEM_threshold.distance_to(TAEM_WP_1), " ",TAEM_threshold.course_to(TAEM_WP_1));
+
+#print("Threshold at lat: ", TAEM_threshold.lat(), " lon: ", TAEM_threshold.lon());
+#print("HAC displaced ", lat_to_m * (TAEM_HAC_center.lat() - TAEM_threshold.lat()), " north and ", lon_to_m * (TAEM_HAC_center.lon() - TAEM_threshold.lon()), " eastward");
+#print("WP displaced ", lat_to_m * (TAEM_WP_1.lat() - TAEM_threshold.lat()), " north and ", lon_to_m * (TAEM_WP_1.lon() - TAEM_threshold.lon()), " eastward");
+
+TAEM_guidance_loop(0);
+}
+
+
+var TAEM_guidance_loop = func (stage) {
+
+
+var pos = geo.aircraft_position();
+
+if (TAEM_guidance_available == 0)
+	{
+	return;
+	} 
+
+if (stage == 0)
+	{
+	setprop("/fdm/jsbsim/systems/taem-guidance/course", pos.course_to(TAEM_WP_1));
+	var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance", dist );
+	if (dist < 1.0) {print("Waypoint 1 reached!"); 	stage = stage + 1;}
+
+	}
+else if (stage == 1)
+	{
+	return;
+	}
+
+settimer( func {TAEM_guidance_loop(stage); }, 0.2);
+
+}
+
+var set_TAEM_threshold = func (site_string, runway_string) {
+
+
+if (site_string == "Kennedy Space Center")
+	{
+	if (runway_string == "15")
+		{
+		TAEM_threshold.set_latlon(28.6315, -80.7052);
+		TAEM_threshold.heading = 150.0;
+		}
+	else if (runway_string == "33")
+		{
+		TAEM_threshold.set_latlon(28.5985,-80.6836);
+		TAEM_threshold.heading = 330.0;
+		}
+	}
+else if (site_string == "Vandenberg Air Force Base")
+	{
+	if (runway_string == "12")
+		{
+		TAEM_threshold.set_latlon(34.7502,-120.5991);
+		TAEM_threshold.heading = 136.5;
+		}
+	else if (runway_string == "30")
+		{
+		TAEM_threshold.set_latlon(34.7242,-120.5692);
+		TAEM_threshold.heading = 316.5;
+		}
+	}
+else
+	{
+	setprop("/sim/messages/copilot", "No TAEM guidance data to site available.");
+	TAEM_threshold.set_lat(0.0);
+	TAEM_threshold.set_lon(0.0);
+	}
+
+}
