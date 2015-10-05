@@ -161,12 +161,6 @@ if (site_string == "Kennedy Space Center")
 	{
 	lat = 28.615;
 	lon = -80.695;
-	# runway_dir = 330.0;
-	# threshold_lat = 28.5985;
-	# threshold_lon = -80.6836;
-	# runway_dir = 150.0;
-	# threshold_lat = 28.6315;
-	# threshold_lon = -80.7052;
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "33");
@@ -185,6 +179,10 @@ else if (site_string == "Edwards Air Force Base")
 	{
 	lat = 34.096;
 	lon = -117.884;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "24");
+        gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "White Sands Space Harbor")
 	{

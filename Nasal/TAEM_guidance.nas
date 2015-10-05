@@ -62,7 +62,7 @@ if (entry_point_string == "MEP")
 var runway_dir_vec = [math.sin(TAEM_threshold.heading * math.pi/180.0), math.cos(TAEM_threshold.heading * math.pi/180.0)];
 
 
-print (TAEM_threshold.heading, " ", runway_dir_vec[0], " ", runway_dir_vec[1]);
+#print (TAEM_threshold.heading, " ", runway_dir_vec[0], " ", runway_dir_vec[1]);
 
 TAEM_WP_2.set_latlon(TAEM_threshold.lat() - m_to_lat * runway_dir_vec[1] * ep_distance,  TAEM_threshold.lon() - m_to_lon *runway_dir_vec[0] * ep_distance);
 TAEM_WP_2.set_alt(ep_altitude);
@@ -73,7 +73,7 @@ TAEM_WP_2.set_alt(ep_altitude);
 var approach_dir = pos.course_to(TAEM_WP_2);
 var approach_vec = [math.sin(approach_dir * math.pi/180.0), math.cos(approach_dir * math.pi/180.0)];
 
-print (approach_dir, " ", approach_vec[0], " ", approach_vec[1]);
+#print (approach_dir, " ", approach_vec[0], " ", approach_vec[1]);
 
 var runway_perp_vec = [math.sin((TAEM_threshold.heading + 90) * math.pi/180.0), math.cos((TAEM_threshold.heading + 90) * math.pi/180.0)];
 
@@ -96,21 +96,47 @@ if (entry_point_string == "MEP")
 
 TAEM_HAC_center.set_latlon(TAEM_WP_2.lat() + m_to_lat * runway_perp_vec[1] * hac_radius, TAEM_WP_2.lon() + m_to_lon * runway_perp_vec[0] * hac_radius);
 
+# WP-1 is the tangent on the HAC which leads, after the turn, to a tangent pointing at the runway
+
 var wp1_vec = [-approach_vec[1], approach_vec[0]];
 var wp1_dot_rwy = SpaceShuttle.dot_product_2d(wp1_vec, runway_dir_vec);
-print("WP1", wp1_vec[0], " ", wp1_vec[1]);
-print(wp1_dot_rwy);
+
+
 
 if (wp1_dot_rwy < 0.0)
 	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
 
-TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.5, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.5);
+TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.3, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.3);
 
-#print (TAEM_threshold.distance_to(TAEM_WP_1), " ",TAEM_threshold.course_to(TAEM_WP_1));
+# now, determine how much we have to turn and store the info
 
-#print("Threshold at lat: ", TAEM_threshold.lat(), " lon: ", TAEM_threshold.lon());
-#print("HAC displaced ", lat_to_m * (TAEM_HAC_center.lat() - TAEM_threshold.lat()), " north and ", lon_to_m * (TAEM_HAC_center.lon() - TAEM_threshold.lon()), " eastward");
-#print("WP displaced ", lat_to_m * (TAEM_WP_1.lat() - TAEM_threshold.lat()), " north and ", lon_to_m * (TAEM_WP_1.lon() - TAEM_threshold.lon()), " eastward");
+
+var turn_degrees = math.abs(approach_dir - TAEM_threshold.heading);
+
+if ((turn_degrees < 180.0) and (approach_mode == "OVHD"))
+	{
+	turn_degrees = 360.0 - turn_degrees;
+	}
+TAEM_WP_1.turn_deg = turn_degrees;
+TAEM_WP_1.approach_dir = approach_dir;
+TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * hac_radius + 3.0;
+TAEM_WP_1.hac_radius = hac_radius;
+
+# now figure out what direction to turn onto the HAC
+
+var test_vec = [runway_perp_vec[1], -runway_perp_vec[0]];
+
+var turn_direction = "right";
+
+if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec)  > 0.0)
+	{
+	turn_direction = "left";
+	}
+
+#print("Turn ", turn_direction);
+#print("Turn degrees: ", turn_degrees, " extra distance: ", TAEM_WP_1.distance_to_runway_m / 1853.0 );
+
+TAEM_WP_1.turn_direction = turn_direction;
 
 TAEM_guidance_loop(0);
 }
@@ -130,12 +156,27 @@ if (stage == 0)
 	{
 	setprop("/fdm/jsbsim/systems/taem-guidance/course", pos.course_to(TAEM_WP_1));
 	var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
-	setprop("/fdm/jsbsim/systems/taem-guidance/distance", dist );
-	if (dist < 1.0) {print("Waypoint 1 reached!"); 	stage = stage + 1;}
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", dist + TAEM_WP_1.distance_to_runway_m/1853.0);
+	if (dist < 1.0) {
+			print("Waypoint 1 reached!"); 	stage = stage + 1;
+			setprop("/sim/messages/copilot", "Turn "~TAEM_WP_1.turn_direction~" into HAC!");
+			}
 
 	}
 else if (stage == 1)
 	{
+	var heading = getprop("/orientation/heading-deg");
+	var degrees_turned = heading  - TAEM_WP_1.approach_dir;
+	if ((degrees_turned < 0) and (TAEM_WP_1.turn_direction = "right"))
+		{degrees_turned = degrees_turned + 360.0;}
+	if ((degrees_turned > 0) and (TAEM_WP_1.turn_direction = "left"))
+		{degrees_turned = degrees_turned - 360.0;}
+
+	var degrees_left = TAEM_WP_1.turn_deg - degrees_turned;
+	var distance_to_runway = 2.0 * math.pi * degrees_left/360.0 * TAEM_WP_1.hac_radius + 3.0;	
+
+	setprop("/fdm/jsbsim/systems/taem-guidance/degrees-left",degrees_left);
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", distance_to_runway/1853.0);
 	return;
 	}
 
@@ -172,6 +213,20 @@ else if (site_string == "Vandenberg Air Force Base")
 		TAEM_threshold.heading = 316.5;
 		}
 	}
+else if (site_string == "Edwards Air Force Base")
+	{
+	if (runway_string == "06")
+		{
+		TAEM_threshold.set_latlon(34.9498,-117.8608);
+		TAEM_threshold.heading = 64.5;
+		}
+	else if (runway_string == "24")
+		{
+		TAEM_threshold.set_latlon(34.9655,-117.8200);
+		TAEM_threshold.heading = 244.5;
+		}
+	}
+
 else
 	{
 	setprop("/sim/messages/copilot", "No TAEM guidance data to site available.");

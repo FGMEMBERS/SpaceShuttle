@@ -11,6 +11,7 @@
 # pages available are
 # * p_ascent (OPS 101, 102, 103)
 # * p_entry (OPS 304)
+# * p_vert_sit (OPS 305)
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_sys_summ (DISP 18)
@@ -1272,12 +1273,15 @@ var plot_limit2 = limit2_traj_plot.createChild("path", "data")
 			plot_limit2.lineTo(set[0], set[1]);	
 			}
 
-var altitude = getprop("/position/altitude-ft");
-var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
-var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
-var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+if (SpaceShuttle.TAEM_guidance_available == 1)
+	{
+	var altitude = getprop("/position/altitude-ft");
+	var range = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+	var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
+	var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 	
-p_ascent_shuttle_sym.setTranslation(x,y);
+	p_ascent_shuttle_sym.setTranslation(x,y);
+	}
 
 
 };

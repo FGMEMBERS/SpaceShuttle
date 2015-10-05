@@ -19,9 +19,6 @@ return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
 
 var dot_product_2d = func (v1, v2) {
 
-print("Dot product");
-print(v1[0], " ", v2[0], " ", v1[1], " ", v2[1]);
-
 return v1[0] * v2[0] + v1[1] * v2[1];
 }
 

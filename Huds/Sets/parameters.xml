@@ -33,7 +33,7 @@
 		<tick-type>line</tick-type>
 		<tick-length>variable</tick-length>
 		<input>
-			<property>/velocities/airspeed-kt</property>
+			<property>/velocities/equivalent-kt</property>
 			<min>0.0</min>
 		</input>
 	</tape>
