@@ -427,13 +427,27 @@ p_dps.blink = 1;
 p_dps.update = func
 {
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 if (ops == 1)
 	{ PFD.selectPage(p_ascent);}
 else if (ops == 2)
 	{ PFD.selectPage(p_dps_univ_ptg);}
 else if ( ops == 3)
-	{ PFD.selectPage(p_dps_mnvr);}
+	{ 
+	if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+		{
+		PFD.selectPage(p_dps_mnvr);
+		}
+	else if (major_mode == 304)
+		{
+		PFD.selectPage(p_entry);
+		}	
+	else
+		{
+		PFD.selectPage(p_vert_sit);
+		}	
+	}
 else 
 	{PFD.selectPage(p_main);}
 
@@ -1192,7 +1206,11 @@ p_entry.dref.setText(sprintf("%3.1f",-32.18 * getprop("/accelerations/nlf")));
 # the vertical situation PFD page showing the TAEM guidance
 #################################################################
 
+
+
 var p_vert_sit = PFD.addPage("VertSit", "p_vert_sit");
+
+p_vert_sit.speedbrake = PFDsvg.getElementById("p_vert_sit_speedbrake");
 
 
 
@@ -1282,6 +1300,8 @@ if (SpaceShuttle.TAEM_guidance_available == 1)
 	
 	p_ascent_shuttle_sym.setTranslation(x,y);
 	}
+
+p_vert_sit.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
 
 
 };

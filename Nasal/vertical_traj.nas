@@ -282,7 +282,7 @@ else if (display == 7)
 	}
 else if (display == 8)
 	{
-	return ((par -10.0)/70.0 * 0.6 + 0.1) * 512.0;
+	return ((par -10.0)/70.0 * 0.68 + 0.1) * 512.0;
 	}
 }
 
@@ -318,7 +318,7 @@ else if (display == 7)
 	}
 else if (display == 8)
 	{
-	return 512.0 - ((par - 30000.0) / 55000.0 * 0.4 + 0.2) * 512.0;
+	return 512.0 - ((par - 30000.0) / 55000.0 * 0.52 + 0.2) * 512.0;
 	}
 }
 
@@ -717,6 +717,8 @@ var fill_vert_sit1_SB_data = func {
 var point = [];
 setsize(limit1_data,0);
 
+point = [80.0, 87000.0];
+append(limit1_data, point);
 
 point = [60.0, 83000.0];
 append(limit1_data, point);

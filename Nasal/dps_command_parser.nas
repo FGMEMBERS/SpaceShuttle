@@ -390,6 +390,13 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.PFD.selectPage(p_entry);
 		valid_flag = 1;
 		}
+	else if ((major_mode == 305) and (current_ops == 3))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
+		SpaceShuttle.PFD.selectPage(p_vert_sit);
+		valid_flag = 1;
+		}
 
 
 	if (valid_flag == 1)
