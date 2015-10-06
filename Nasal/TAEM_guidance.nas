@@ -7,6 +7,8 @@ var TAEM_threshold = geo.Coord.new();
 var TAEM_HAC_center = geo.Coord.new();
 var TAEM_guidance_available = 0;
 
+var final_approach_reserve = 7.0;
+
 
 
 
@@ -119,7 +121,7 @@ if ((turn_degrees < 180.0) and (approach_mode == "OVHD"))
 	}
 TAEM_WP_1.turn_deg = turn_degrees;
 TAEM_WP_1.approach_dir = approach_dir;
-TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * hac_radius + 3.0;
+TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * 1.2 * hac_radius + final_approach_reserve * 1853.0;
 TAEM_WP_1.hac_radius = hac_radius;
 
 # now figure out what direction to turn onto the HAC
@@ -165,20 +167,26 @@ if (stage == 0)
 	}
 else if (stage == 1)
 	{
-	var heading = getprop("/orientation/heading-deg");
-	var degrees_turned = heading  - TAEM_WP_1.approach_dir;
-	if ((degrees_turned < 0) and (TAEM_WP_1.turn_direction = "right"))
-		{degrees_turned = degrees_turned + 360.0;}
-	if ((degrees_turned > 0) and (TAEM_WP_1.turn_direction = "left"))
-		{degrees_turned = degrees_turned - 360.0;}
 
-	var degrees_left = TAEM_WP_1.turn_deg - degrees_turned;
-	var distance_to_runway = 2.0 * math.pi * degrees_left/360.0 * TAEM_WP_1.hac_radius + 3.0;	
+	var distance_to_runway = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+	var airspeed_kt = getprop("/velocities/airspeed-kt");
+	distance_to_runway = distance_to_runway - 0.2 * airspeed_kt / 3600.0;
 
-	setprop("/fdm/jsbsim/systems/taem-guidance/degrees-left",degrees_left);
-	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", distance_to_runway/1853.0);
-	return;
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", distance_to_runway);
+
+	if (distance_to_runway < 7.0)
+		{
+		print("TAEM guidance finished.");
+		stage = 2;
+		}
 	}
+else if (stage == 2)
+	{
+	var dist = pos.distance_to(TAEM_threshold) / 1853.0;
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", dist);
+	if (dist < 0.2) {return;}
+	}
+
 
 settimer( func {TAEM_guidance_loop(stage); }, 0.2);
 
@@ -192,12 +200,14 @@ if (site_string == "Kennedy Space Center")
 	if (runway_string == "15")
 		{
 		TAEM_threshold.set_latlon(28.6315, -80.7052);
-		TAEM_threshold.heading = 150.0;
+		TAEM_threshold.heading = 150.0;	
+		TAEM_threshold.elevation = 0.0;
 		}
 	else if (runway_string == "33")
 		{
 		TAEM_threshold.set_latlon(28.5985,-80.6836);
 		TAEM_threshold.heading = 330.0;
+		TAEM_threshold.elevation = 0.0;
 		}
 	}
 else if (site_string == "Vandenberg Air Force Base")
@@ -206,11 +216,13 @@ else if (site_string == "Vandenberg Air Force Base")
 		{
 		TAEM_threshold.set_latlon(34.7502,-120.5991);
 		TAEM_threshold.heading = 136.5;
+		TAEM_threshold.elevation = 240.0;
 		}
 	else if (runway_string == "30")
 		{
 		TAEM_threshold.set_latlon(34.7242,-120.5692);
 		TAEM_threshold.heading = 316.5;
+		TAEM_threshold.elevation = 240.0;
 		}
 	}
 else if (site_string == "Edwards Air Force Base")
@@ -219,11 +231,13 @@ else if (site_string == "Edwards Air Force Base")
 		{
 		TAEM_threshold.set_latlon(34.9498,-117.8608);
 		TAEM_threshold.heading = 64.5;
+		TAEM_threshold.elevation = 2280.0;
 		}
 	else if (runway_string == "24")
 		{
 		TAEM_threshold.set_latlon(34.9655,-117.8200);
 		TAEM_threshold.heading = 244.5;
+		TAEM_threshold.elevation = 2280.0;
 		}
 	}
 

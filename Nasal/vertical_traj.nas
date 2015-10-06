@@ -126,6 +126,20 @@ if (traj_display_flag == 6)
 		}
 	}
 
+var range = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+
+
+if (traj_display_flag == 8) 
+	{
+	if ((range > 0.0) and (range <20.0))
+		{
+		fill_vert_sit2_nom_data();
+		fill_vert_sit2_SB_data();
+		fill_vert_sit2_maxLD_data();
+		traj_display_flag = 9;
+		}
+	}
+
 }
 
 var ascent_traj_update_velocity = func {
@@ -282,7 +296,11 @@ else if (display == 7)
 	}
 else if (display == 8)
 	{
-	return ((par -10.0)/70.0 * 0.68 + 0.1) * 512.0;
+	return ((par -10.0)/80.0 * 0.68 + 0.1) * 512.0;
+	}
+else if (display == 9)
+	{
+	return ((par -5.0)/20.0 * 0.68 + 0.1) * 512.0;
 	}
 }
 
@@ -319,6 +337,10 @@ else if (display == 7)
 else if (display == 8)
 	{
 	return 512.0 - ((par - 30000.0) / 55000.0 * 0.52 + 0.2) * 512.0;
+	}
+else if (display == 9)
+	{
+	return 512.0 - ((par - 8000.0) / 22000.0 * 0.52 + 0.2) * 512.0;
 	}
 }
 
@@ -682,23 +704,21 @@ var point = [];
 setsize(traj_data,0);
 
 
-point = [80.0, 83000.0];
+
+point = [71.0, 72600.0];
 append(traj_data, point);
 
-point = [60.0, 72600.0];
-append(traj_data, point);
-
-point = [40.0, 59000.0];
+point = [51.0, 59000.0];
 append(traj_data, point);
 
 
-point = [30.0, 49000.0];
+point = [41.0, 49000.0];
 append(traj_data, point);
 
-point = [20.0, 39000.0];
+point = [31.0, 39000.0];
 append(traj_data, point);
 
-point = [10.0, 30000.0];
+point = [21.0, 30000.0];
 append(traj_data, point);
 
 
@@ -717,19 +737,19 @@ var fill_vert_sit1_SB_data = func {
 var point = [];
 setsize(limit1_data,0);
 
-point = [80.0, 87000.0];
+point = [86.0, 87000.0];
 append(limit1_data, point);
 
-point = [60.0, 83000.0];
+point = [66.0, 83000.0];
 append(limit1_data, point);
 
-point = [40.0, 69000.0];
+point = [46.0, 69000.0];
 append(limit1_data, point);
 
-point = [20.0, 49000.0];
+point = [26.0, 49000.0];
 append(limit1_data, point);
 
-point = [10.0, 34000.0];
+point = [16.0, 34000.0];
 append(limit1_data, point);
 
 for (i=0; i< size(limit1_data); i=i+1)
@@ -746,25 +766,105 @@ var point = [];
 setsize(limit2_data,0);
 
 
-point = [80.0, 80000.0];
+point = [89.0, 80000.0];
 append(limit2_data, point);
 
-point = [60.0, 68000.0];
+point = [70.0, 68000.0];
 append(limit2_data, point);
 
-point = [40.0, 50000.0];
+point = [48.0, 50000.0];
 append(limit2_data, point);
 
-point = [30.0, 40000.0];
+point = [35.0, 40000.0];
 append(limit2_data, point);
 
-point = [22.0, 30000.0];
+point = [25.0, 30000.0];
 append(limit2_data, point);
 
 for (i=0; i< size(limit2_data); i=i+1)
 	{
 	limit2_data[i][0] = parameter_to_x(limit2_data[i][0], 8);
 	limit2_data[i][1] = parameter_to_y(limit2_data[i][1], 8); 
+	}
+
+}
+
+
+var fill_vert_sit2_nom_data = func {
+
+var point = [];
+setsize(traj_data,0);
+
+
+point = [21.0, 30000.0];
+append(traj_data, point);
+
+point = [15.0, 21400.0];
+append(traj_data, point);
+
+point = [10.0, 14400.0];
+append(traj_data, point);
+
+point = [5.0, 8000.0];
+append(traj_data, point);
+
+for (i=0; i< size(traj_data); i=i+1)
+	{
+	traj_data[i][0] = parameter_to_x(traj_data[i][0], 9);
+	traj_data[i][1] = parameter_to_y(traj_data[i][1], 9); 
+	}
+
+}
+
+
+var fill_vert_sit2_SB_data = func {
+
+var point = [];
+setsize(limit1_data,0);
+
+point = [15.0, 30000.0];
+append(limit1_data, point);
+
+point = [10.0, 19300.0];
+append(limit1_data, point);
+
+point = [5.0, 9200.0];
+append(limit1_data, point);
+
+
+for (i=0; i< size(limit1_data); i=i+1)
+	{
+	limit1_data[i][0] = parameter_to_x(limit1_data[i][0], 9);
+	limit1_data[i][1] = parameter_to_y(limit1_data[i][1], 9); 
+	}
+
+}
+
+var fill_vert_sit2_maxLD_data = func {
+
+var point = [];
+setsize(limit2_data,0);
+
+
+point = [25.3, 30000.0];
+append(limit2_data, point);
+
+point = [20.0, 24300.0];
+append(limit2_data, point);
+
+point = [15.0, 18000.0];
+append(limit2_data, point);
+
+point = [10.0, 12000.0];
+append(limit2_data, point);
+
+point = [5.6, 8000.0];
+append(limit2_data, point);
+
+for (i=0; i< size(limit2_data); i=i+1)
+	{
+	limit2_data[i][0] = parameter_to_x(limit2_data[i][0], 9);
+	limit2_data[i][1] = parameter_to_y(limit2_data[i][1], 9); 
 	}
 
 }

@@ -977,7 +977,7 @@ if ((alt < 2100.0) and (gear_arm_message_flag == 0))
 	}
 
 # some log output
-#print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
+# print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
 
 settimer(glide_loop,1.0);
 }
@@ -1438,7 +1438,7 @@ if (getprop("/sim/presets/stage") == 3)
 	setprop("/position/latitude-deg", place_lat); 
 	setprop("/position/longitude-deg", place_lon); 
 
-	setprop("/velocities/uBody-fps",2500.0);
+	setprop("/velocities/uBody-fps",2400.0);
 	}
 
 if (getprop("/sim/presets/stage") == 4) 
@@ -1505,8 +1505,8 @@ if (getprop("/sim/presets/stage") == 5)
 
 	#print (place_lat, " ",place_lon);
 
-	setprop("/position/latitude-deg", place_lat); 
-	setprop("/position/longitude-deg", place_lon); 
+	#setprop("/position/latitude-deg", place_lat); 
+	#setprop("/position/longitude-deg", place_lon); 
 
 	setprop("/velocities/uBody-fps",900.0);
 	setprop("/velocities/wBody-fps", 60.0);
