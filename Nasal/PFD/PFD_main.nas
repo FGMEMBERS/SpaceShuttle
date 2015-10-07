@@ -14,6 +14,7 @@
 # * p_vert_sit (OPS 305)
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
+# * p_pl_bay (SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
 # * p_dps_apu_hyd (DISP 86)
@@ -2137,6 +2138,39 @@ update_common_DPS();
 
 
 
+#################################################################
+# the generic CRT fault page 
+#################################################################
+
+var p_dps_pl_bay = PFD.addPage("CRTPlBay", "p_dps_pl_bay");
+
+p_dps_pl_bay.acpower_on = PFDsvg.getElementById("p_dps_pl_bay_acpower_on");
+
+
+p_dps_pl_bay.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","PL BAY DOORS"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/063/";
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+}
+
+p_dps_pl_bay.update = func
+{
+
+
+
+update_common_DPS();
+
+
+
+}
+
+
+
 #
 PFD.selectPage(p_pfd);
 
@@ -2167,7 +2201,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_vert_sit);
+p_main.addMenuItem(3, "MAINT", p_dps_pl_bay);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
@@ -2194,6 +2228,10 @@ p_dps_sys_summ2.addMenuItem(5, "MSG ACK", p_dps_sys_summ2);
 p_dps_apu_hyd.addMenuItem(0, "UP", p_main);
 p_dps_apu_hyd.addMenuItem(4, "MSG RST", p_dps_apu_hyd);
 p_dps_apu_hyd.addMenuItem(5, "MSG ACK", p_dps_apu_hyd);
+
+p_dps_pl_bay.addMenuItem(0, "UP", p_main);
+p_dps_pl_bay.addMenuItem(4, "MSG RST", p_dps_pl_bay);
+p_dps_pl_bay.addMenuItem(5, "MSG ACK", p_dps_pl_bay);
 
 var pfd_button_pushed = 0;
 
