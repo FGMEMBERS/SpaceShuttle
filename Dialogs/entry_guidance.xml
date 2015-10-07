@@ -76,16 +76,62 @@
         </binding>
       </combo>
 
-   <text>
-      <label>Abort mode:</label>
+    <text>
+      <label>TAEM approach:</label>
       <halign>left</halign>
       <row>3</row>
       <col>0</col>
     </text>
 
+   <combo>
+        <row>3</row>
+        <col>1</col>
+        <name>approach-selection</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>100</pref-width>
+	<value>OVHD</value>
+	<value>STRT</value>
+        <property>/fdm/jsbsim/systems/taem-guidance/approach-mode-string</property>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>approach-selection</object-name>
+        </binding>
+      </combo>
+
+    <text>
+      <label>Entry point:</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>2</col>
+    </text>
 
    <combo>
         <row>3</row>
+        <col>3</col>
+        <name>entry-selection</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>100</pref-width>
+	<value>NEP</value>
+	<value>MEP</value>
+        <property>/fdm/jsbsim/systems/taem-guidance/entry-point-string</property>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>entry-selection</object-name>
+        </binding>
+      </combo>
+
+   <text>
+      <label>Abort mode:</label>
+      <halign>left</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+
+   <combo>
+        <row>4</row>
         <col>1</col>
         <name>entry-mode</name>
         <halign>left</halign>

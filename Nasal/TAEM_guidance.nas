@@ -86,6 +86,10 @@ if ((approach_mode == "OVHD") and (approach_dot_rwyperp < 0.0)) # we need to fli
 	{
 	runway_perp_vec = [-runway_perp_vec[0], -runway_perp_vec[1]];
 	}
+if ((approach_mode == "STRT") and (approach_dot_rwyperp > 0.0)) # we need to flip direction
+	{
+	runway_perp_vec = [-runway_perp_vec[0], -runway_perp_vec[1]];
+	}
 
 var hac_radius = 5600.0;
 
@@ -105,7 +109,9 @@ var wp1_dot_rwy = SpaceShuttle.dot_product_2d(wp1_vec, runway_dir_vec);
 
 
 
-if (wp1_dot_rwy < 0.0)
+if ((wp1_dot_rwy < 0.0) and (approach_mode == "OVHD"))
+	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
+if ((wp1_dot_rwy > 0.0) and (approach_mode == "STRT"))
 	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
 
 TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.3, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.3);
@@ -119,21 +125,31 @@ if ((turn_degrees < 180.0) and (approach_mode == "OVHD"))
 	{
 	turn_degrees = 360.0 - turn_degrees;
 	}
+
+print("Turn degrees: ", turn_degrees);
+
 TAEM_WP_1.turn_deg = turn_degrees;
 TAEM_WP_1.approach_dir = approach_dir;
 TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * 1.2 * hac_radius + final_approach_reserve * 1853.0;
 TAEM_WP_1.hac_radius = hac_radius;
 
+#print("Distance to WP1: ", pos.distance_to(TAEM_WP_1));
+
 # now figure out what direction to turn onto the HAC
 
 var test_vec = [runway_perp_vec[1], -runway_perp_vec[0]];
 
+#print("Test vec: ",test_vec[0], " ", test_vec[1]);
+#print("Runway vec: ",runway_dir_vec[0], " ", runway_dir_vec[1]);
+#print("Product: ", SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec));
+
 var turn_direction = "right";
 
-if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec)  > 0.0)
+if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 	{
 	turn_direction = "left";
 	}
+
 
 #print("Turn ", turn_direction);
 #print("Turn degrees: ", turn_degrees, " extra distance: ", TAEM_WP_1.distance_to_runway_m / 1853.0 );
