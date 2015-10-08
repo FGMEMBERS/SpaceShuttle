@@ -353,6 +353,20 @@ else {return "BYP";}
 
 }
 
+var latch_stat_to_string = func (status) {
+
+if (status == 0.0) {return "CL";}
+else if (status == 1.0) {return "OP";}
+else {return "";}
+
+}
+
+var latch_stat_to_microsw = func (status) {
+
+if (status == 0.0) {return "1100";}
+else if (status == 1.0) {return "0011";}
+else {return "0000";}
+}
 
 # Set listener on the PFD mode button; this could be an on off switch or by convention
 # it will also act as brightness; so 0 is off and anything greater is brightness.
@@ -2139,13 +2153,68 @@ update_common_DPS();
 
 
 #################################################################
-# the generic CRT fault page 
+# the payload bay management page
 #################################################################
 
 var p_dps_pl_bay = PFD.addPage("CRTPlBay", "p_dps_pl_bay");
 
 p_dps_pl_bay.acpower_on = PFDsvg.getElementById("p_dps_pl_bay_acpower_on");
+p_dps_pl_bay.acpower_off = PFDsvg.getElementById("p_dps_pl_bay_acpower_off");
 
+p_dps_pl_bay.auto_mode = PFDsvg.getElementById("p_dps_pl_bay_auto_mode");
+
+p_dps_pl_bay.pbd_sw = PFDsvg.getElementById("p_dps_pl_bay_pbd_sw");
+
+
+
+p_dps_pl_bay.cl1_4_op =  PFDsvg.getElementById("p_dps_pl_bay_cl1_4_op");
+p_dps_pl_bay.cl1_4_man =  PFDsvg.getElementById("p_dps_pl_bay_cl1_4_man");
+p_dps_pl_bay.cl1_4_msl =  PFDsvg.getElementById("p_dps_pl_bay_cl1_4_msl");
+p_dps_pl_bay.cl1_4_as =  PFDsvg.getElementById("p_dps_pl_bay_cl1_4_as");
+
+p_dps_pl_bay.cl5_8_op =  PFDsvg.getElementById("p_dps_pl_bay_cl5_8_op");
+p_dps_pl_bay.cl5_8_man =  PFDsvg.getElementById("p_dps_pl_bay_cl5_8_man");
+p_dps_pl_bay.cl5_8_msl =  PFDsvg.getElementById("p_dps_pl_bay_cl5_8_msl");
+p_dps_pl_bay.cl5_8_as =  PFDsvg.getElementById("p_dps_pl_bay_cl5_8_as");
+
+p_dps_pl_bay.cl9_12_op =  PFDsvg.getElementById("p_dps_pl_bay_cl9_12_op");
+p_dps_pl_bay.cl9_12_man =  PFDsvg.getElementById("p_dps_pl_bay_cl9_12_man");
+p_dps_pl_bay.cl9_12_msl =  PFDsvg.getElementById("p_dps_pl_bay_cl9_12_msl");
+p_dps_pl_bay.cl9_12_as =  PFDsvg.getElementById("p_dps_pl_bay_cl9_12_as");
+
+p_dps_pl_bay.cl13_16_op =  PFDsvg.getElementById("p_dps_pl_bay_cl13_16_op");
+p_dps_pl_bay.cl13_16_man =  PFDsvg.getElementById("p_dps_pl_bay_cl13_16_man");
+p_dps_pl_bay.cl13_16_msl =  PFDsvg.getElementById("p_dps_pl_bay_cl13_16_msl");
+p_dps_pl_bay.cl13_16_as =  PFDsvg.getElementById("p_dps_pl_bay_cl13_16_as");
+
+
+p_dps_pl_bay.sfwd_op =  PFDsvg.getElementById("p_dps_pl_bay_sfwd_op");
+p_dps_pl_bay.sfwd_man =  PFDsvg.getElementById("p_dps_pl_bay_sfwd_man");
+p_dps_pl_bay.sfwd_msl =  PFDsvg.getElementById("p_dps_pl_bay_sfwd_msl");
+p_dps_pl_bay.sfwd_as =  PFDsvg.getElementById("p_dps_pl_bay_sfwd_as");
+
+p_dps_pl_bay.saft_op =  PFDsvg.getElementById("p_dps_pl_bay_saft_op");
+p_dps_pl_bay.saft_man =  PFDsvg.getElementById("p_dps_pl_bay_saft_man");
+p_dps_pl_bay.saft_msl =  PFDsvg.getElementById("p_dps_pl_bay_saft_msl");
+p_dps_pl_bay.saft_as =  PFDsvg.getElementById("p_dps_pl_bay_saft_as");
+
+p_dps_pl_bay.pfwd_op =  PFDsvg.getElementById("p_dps_pl_bay_pfwd_op");
+p_dps_pl_bay.pfwd_man =  PFDsvg.getElementById("p_dps_pl_bay_pfwd_man");
+p_dps_pl_bay.pfwd_msl =  PFDsvg.getElementById("p_dps_pl_bay_pfwd_msl");
+p_dps_pl_bay.pfwd_as =  PFDsvg.getElementById("p_dps_pl_bay_pfwd_as");
+
+p_dps_pl_bay.paft_op =  PFDsvg.getElementById("p_dps_pl_bay_paft_op");
+p_dps_pl_bay.paft_man =  PFDsvg.getElementById("p_dps_pl_bay_paft_man");
+p_dps_pl_bay.paft_msl =  PFDsvg.getElementById("p_dps_pl_bay_paft_msl");
+p_dps_pl_bay.paft_as =  PFDsvg.getElementById("p_dps_pl_bay_paft_as");
+
+p_dps_pl_bay.sdoor_op =  PFDsvg.getElementById("p_dps_pl_bay_sdoor_op");
+p_dps_pl_bay.sdoor_man =  PFDsvg.getElementById("p_dps_pl_bay_sdoor_man");
+p_dps_pl_bay.sdoor_as =  PFDsvg.getElementById("p_dps_pl_bay_sdoor_as");
+
+p_dps_pl_bay.pdoor_op =  PFDsvg.getElementById("p_dps_pl_bay_pdoor_op");
+p_dps_pl_bay.pdoor_man =  PFDsvg.getElementById("p_dps_pl_bay_pdoor_man");
+p_dps_pl_bay.pdoor_as =  PFDsvg.getElementById("p_dps_pl_bay_pdoor_as");
 
 p_dps_pl_bay.ondisplay = func
 {
@@ -2156,12 +2225,136 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var ops_string = major_mode~"1/063/";
 DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# blank autosequence failures as they're not yet supported
+
+p_dps_pl_bay.cl1_4_as.setText(sprintf(""));
+p_dps_pl_bay.cl5_8_as.setText(sprintf(""));
+p_dps_pl_bay.cl9_12_as.setText(sprintf(""));
+p_dps_pl_bay.cl13_16_as.setText(sprintf(""));
+p_dps_pl_bay.sfwd_as.setText(sprintf(""));
+p_dps_pl_bay.saft_as.setText(sprintf(""));
+p_dps_pl_bay.pfwd_as.setText(sprintf(""));
+p_dps_pl_bay.paft_as.setText(sprintf(""));
+p_dps_pl_bay.sdoor_as.setText(sprintf(""));
+p_dps_pl_bay.pdoor_as.setText(sprintf(""));
 }
 
 p_dps_pl_bay.update = func
 {
 
+var symbol1 = "";
+var symbol2 = "";
 
+if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-power-on") == 1)
+	{symbol1 = "*";}
+else 
+	{symbol2 = "*";}
+
+p_dps_pl_bay.acpower_on.setText(sprintf("%s", symbol1 ));
+p_dps_pl_bay.acpower_off.setText(sprintf("%s", symbol2 ));
+
+
+var status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+var symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.cl1_4_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.cl1_4_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.cl1_4_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.cl5_8_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.cl5_8_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.cl5_8_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.cl9_12_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.cl9_12_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.cl9_12_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.cl13_16_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.cl13_16_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.cl13_16_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.sfwd_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.sfwd_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.sfwd_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.saft_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.saft_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.saft_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.pfwd_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.pfwd_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.pfwd_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-pos");
+symbol1 = latch_stat_to_string(status);
+symbol2 = latch_stat_to_microsw(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.paft_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.paft_msl.setText(sprintf("%s", symbol2 ));
+p_dps_pl_bay.paft_man.setText(sprintf("%s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-pos");
+symbol1 = latch_stat_to_string(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.sdoor_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.sdoor_man.setText(sprintf(" %s", symbol3 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-pos");
+symbol1 = latch_stat_to_string(status);
+symbol3 = "";
+if (symbol1 == "") {symbol3 = "*";}
+p_dps_pl_bay.pdoor_op.setText(sprintf(" %s", symbol1 ));
+p_dps_pl_bay.pdoor_man.setText(sprintf(" %s", symbol3 ));
+
+
+
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto");
+if (status == 0) {symbol1 = "";} else {symbol1 = "*";}
+p_dps_pl_bay.auto_mode.setText(sprintf("%s", symbol1 ));
+
+status = getprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch");
+if (status == -1) {symbol1 = "CL";}
+else if (status == 0) {symbol1 = "STOP";}
+else if (status == 1) {symbol1 = "OP";}
+else {symbol1 = "FAIL";}
+
+p_dps_pl_bay.pbd_sw.setText(sprintf("%s", symbol1 ));
 
 update_common_DPS();
 

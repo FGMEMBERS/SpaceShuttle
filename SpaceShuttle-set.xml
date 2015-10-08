@@ -444,8 +444,10 @@
 			<pb-door-right-pos type="double">0.0</pb-door-right-pos>
 			<pb-door-sys1-enable type="int">0</pb-door-sys1-enable>
 			<pb-door-sys2-enable type="int">0</pb-door-sys2-enable>
+			<pb-door-software-acpower-enable type="int">0</pb-door-software-acpower-enable>
 			<pb-door-indicator type="double">0</pb-door-indicator>
 			<pb-door-auto-switch type="int">0</pb-door-auto-switch>
+			<pb-door-mode-auto type="int">1</pb-door-mode-auto>
 			<ku-antenna-heater-cb type="int">0</ku-antenna-heater-cb>
 			<ku-antenna-elec-cb type="int">0</ku-antenna-elec-cb>
 			<ku-antenna-cable-heater-cb type="int">0</ku-antenna-cable-heater-cb>

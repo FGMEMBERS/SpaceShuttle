@@ -139,6 +139,7 @@
 			<test logic="OR" value ="1.0">
 				systems/mechanical/pb-door-sys1-enable == 1
 				systems/mechanical/pb-door-sys2-enable == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
 			</test>
 		</switch>
 
@@ -155,6 +156,11 @@
 			<test logic="AND" value ="1.0">
 				systems/mechanical/pb-door-power == 1
 				systems/mechanical/pb-door-auto-switch NE 0
+				systems/mechanical/pb-door-mode-auto == 1
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power == 1
+				systems/mechanical/pb-door-mode-auto == 0
 			</test>
 		</switch>
 

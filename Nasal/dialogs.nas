@@ -300,7 +300,13 @@ else if (TC_string == "use tailcone")
 
 var pb_door_manager = func {
 
+var mode = getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto");
+
+if (mode == 0) {return;}
+
 var cmd = getprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch");
+
+
 
 if (cmd == -1)
 	{

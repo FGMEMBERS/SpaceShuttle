@@ -410,6 +410,7 @@ if ((header == "OPS") and (end =="PRO"))
 if ((header == "ITEM") and (end = "EXEC"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var spec = getprop("/fdm/jsbsim/systems/dps/spec");
 
 	var item = int(body);
 	var item_value = num(value);
@@ -532,7 +533,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 	
 
 
-	if (major_mode == 201)
+	if ((major_mode == 201) and (spec == ""))
 		{
 		if (item == 1)
 			{
@@ -592,7 +593,97 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
-	
+
+	if (((major_mode == 201) or (major_mode == 202)) and (spec == 63))
+		{
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-acpower-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-acpower-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto", state);
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd", state);
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", state);
+			valid_flag = 1;
+			}
+		}
 	}
 
 
@@ -611,6 +702,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		valid_flag = 1;
+		}
+	if (spec_num == 63)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		setprop("/fdm/jsbsim/systems/dps/spec", 63);
 		valid_flag = 1;
 		}
 
