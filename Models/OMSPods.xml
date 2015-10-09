@@ -7,9 +7,11 @@
  <effect>
     <inherits-from>Effects/space</inherits-from>
 	<object-name>omsLeftBase</object-name>
+	<object-name>omsLeft.001</object-name>
 	<object-name>omsLeft</object-name>
 	<object-name>omsRightBase</object-name>
-	<object-name>omsRight</object-name>	
+	<object-name>omsRight</object-name>
+	<object-name>omsRight.001</object-name>		
 	<object-name>rcsL1A</object-name>
 	<object-name>rcsR1R</object-name>
 	<object-name>rcsR1U</object-name>
