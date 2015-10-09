@@ -615,73 +615,145 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		else if (item == 4)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 5)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 6)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl1-4-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 7)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl13-16-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 8)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-fwd-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 9)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-aft-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 10)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-right-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 11)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-fwd-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 12)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd", state);
-			valid_flag = 1;
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-aft-latch-cmd", state);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 13)
 			{
-			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd");
-			if (state == 0) {state = 1;} else {state = 0;}
-			setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", state);
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-left-cmd", state);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 14)
+			{
+			var state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-software-bypass");
+			if (state == 0) 	
+				{
+				state = 1;
+				} 
+			else 	
+				{
+				state = 0;
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-switch", -2);
+				}
+
+			setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-bypass", state);
 			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-software-bypass") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-switch", 1);
+				SpaceShuttle.payload_bay_door_open_auto(0);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 16)
+			{
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-software-bypass") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-switch", 0);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 17)
+			{
+			if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-software-bypass") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/mechanical/pb-door-software-switch", -1);
+				SpaceShuttle.payload_bay_door_close_auto(0);
+				valid_flag = 1;
+				}
 			}
 		}
 	}

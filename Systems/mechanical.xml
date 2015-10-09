@@ -151,11 +151,25 @@
 			</test>
 		</switch>
 
+		<switch name="systems/mechanical/pb-door-stop-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-auto-switch == 0
+				systems/mechanical/pb-door-mode-auto == 1
+				systems/mechanical/pb-door-software-bypass == 0
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-software-switch == 0
+				systems/mechanical/pb-door-mode-auto == 1
+				systems/mechanical/pb-door-software-bypass == 1
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/pb-door-move">
 			<default value="0.0"/>
 			<test logic="AND" value ="1.0">
 				systems/mechanical/pb-door-power == 1
-				systems/mechanical/pb-door-auto-switch NE 0
+				systems/mechanical/pb-door-stop-cmd == 0
 				systems/mechanical/pb-door-mode-auto == 1
 			</test>
 			<test logic="AND" value ="1.0">

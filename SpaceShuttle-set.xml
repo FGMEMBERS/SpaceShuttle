@@ -223,6 +223,7 @@
 		    <floodlight-aft-condition type="double">1.0</floodlight-aft-condition>
 		    <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
 		    <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
+		    <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
@@ -448,6 +449,8 @@
 			<pb-door-indicator type="double">0</pb-door-indicator>
 			<pb-door-auto-switch type="int">0</pb-door-auto-switch>
 			<pb-door-mode-auto type="int">1</pb-door-mode-auto>
+			<pb-door-software-bypass type="int">0</pb-door-software-bypass>
+			<pb-door-software-switch type="int">-2</pb-door-software-switch>
 			<ku-antenna-heater-cb type="int">0</ku-antenna-heater-cb>
 			<ku-antenna-elec-cb type="int">0</ku-antenna-elec-cb>
 			<ku-antenna-cable-heater-cb type="int">0</ku-antenna-cable-heater-cb>

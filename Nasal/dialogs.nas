@@ -304,6 +304,15 @@ var mode = getprop("/fdm/jsbsim/systems/mechanical/pb-door-mode-auto");
 
 if (mode == 0) {return;}
 
+var switch_condition = getprop("/fdm/jsbsim/systems/failures/payload-bay-switch-condition");
+
+if (switch_condition < 1.0)
+	{
+	return;
+	}
+
+
+
 var cmd = getprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch");
 
 
