@@ -73,7 +73,7 @@
 <!-- Enterprise tail cone -->
 
   <model>
-    <path>Aircraft/SpaceShuttle/Models/TailCone.ac</path>
+    <path>Aircraft/SpaceShuttle/Models/TailCone.xml</path>
 	<condition>
 		<equals>
 			<property>/sim/config/shuttle/approach-and-landing-test-config</property>
@@ -2057,23 +2057,26 @@
 	</model>
 
  <effect>
-    <inherits-from>Effects/space</inherits-from>
-    	<object-name>heatshield</object-name>
-    	<object-name>TailCone</object-name>
+    <inherits-from>Effects/space-combined</inherits-from>
 	<object-name>inboard-elevon-left</object-name>
 	<object-name>inboard-elevon-right</object-name>
 	<object-name>outboard-elevon-left</object-name>
 	<object-name>outboard-elevon-right</object-name>
-   	<!--<object-name>spaceshutt_spstob</object-name>-->
-   	<!--<object-name>spaceshutt_spstob.001</object-name>-->
-	<!--<object-name>spaceshutt_spstob_1</object-name>-->
 	<object-name>spaceshutt_spstob_2</object-name>
 	<object-name>spaceshutt_spstob_4</object-name>
 	<object-name>spaceshutt_spstob_3</object-name>
-	<object-name>cockpit-front-glass-outside</object-name>
 	<object-name>spaceshutt_spstob_eal</object-name>
 	<object-name>SpeedBrakeL</object-name>
 	<object-name>SpeedBrakeR</object-name>
+    	<object-name>BodyFlap</object-name>
+ </effect>
+
+ <effect>
+    <inherits-from>Effects/space</inherits-from>
+    	<object-name>cockpit-front-glass-outside</object-name>
+    	<object-name>heatshield</object-name>
+    	<object-name>GearDoorR</object-name>
+    	<object-name>GearDoorL</object-name>
  </effect>
 
  <effect>
