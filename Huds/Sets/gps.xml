@@ -590,11 +590,6 @@
 
 	<label>
 		<condition>
-			<or>
-			<equals>
-				<property>/controls/shuttle/hud-mode</property>
-				<value>2</value>
-			</equals>
 			<and>
 			<equals>
 				<property>/controls/shuttle/hud-mode</property>
@@ -609,7 +604,6 @@
 				<value>0.0</value>
 			</greater-than>
 			</and>
-			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -618,7 +612,7 @@
 		<format>Remaining distance:%4.2f nm</format>
 		<halign>left</halign>
 		<input>
-			<!--<property>fdm/jsbsim/systems/entry_guidance/current-deceleration-g</property>-->
+
 			<property>/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm</property>
 		</input>
      </label>

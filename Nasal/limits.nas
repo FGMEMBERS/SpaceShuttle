@@ -197,7 +197,7 @@ else if ((T > 328.0) and (avionics_bay_heat_warn == 0))
 
 	
 
-# APU temperature needs to be < ~250 F (390 K)
+# APU temperature needs to be < ~260 F (400 K)
 
 var T1 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K");
 var T2 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K");
@@ -211,7 +211,7 @@ else {T = T2;}
 if (T3 > T) {T = T3;}
 
 
-if ((T > 395.0) and (apu_heat_warn == 1))
+if ((T > 405.0) and (apu_heat_warn == 1))
 	{
 	setprop("/sim/messages/copilot", "APU damage!");
 	fail_flag = 1;
@@ -220,16 +220,16 @@ if ((T > 395.0) and (apu_heat_warn == 1))
 
 	if (limit_simulation_mode == 1)
 		{
-		if (T1 > 395.0)
+		if (T1 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);}
-		if (T2 > 395.0)
+		if (T2 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu2-condition", 0.0);}
-		if (T3 > 395.0)
+		if (T3 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu3-condition", 0.0);}
 		}
 
 	}
-else if ((T > 390.0) and (apu_heat_warn == 0))
+else if ((T > 400.0) and (apu_heat_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
 	apu_heat_warn = 1;
@@ -324,7 +324,7 @@ else if ((T_av > 328.0) and (avionics_bay_heat_warn == 0))
 	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
 	}
 
-# APU temperature needs to be < ~250 F (390 K)
+# APU temperature needs to be < ~260 F (400 K)
 
 var T1 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K");
 var T2 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K");
@@ -338,7 +338,7 @@ else {T_apu = T2;}
 if (T3 > T_apu) {T_apu = T3;}
 
 
-if ((T_apu > 395.0) and (apu_heat_warn == 1))
+if ((T_apu > 405.0) and (apu_heat_warn == 1))
 	{
 	setprop("/sim/messages/copilot", "APU damage!");
 	fail_flag = 1;
@@ -347,16 +347,16 @@ if ((T_apu > 395.0) and (apu_heat_warn == 1))
 
 	if (limit_simulation_mode == 1)
 		{
-		if (T1 > 395.0)
+		if (T1 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);}
-		if (T2 > 395.0)
+		if (T2 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu2-condition", 0.0);}
-		if (T3 > 395.0)
+		if (T3 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu3-condition", 0.0);}
 		}
 
 	}
-else if ((T_apu > 390.0) and (apu_heat_warn == 0))
+else if ((T_apu > 400.0) and (apu_heat_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
 	apu_heat_warn = 1;
@@ -424,7 +424,7 @@ else if ((T_av > 328.0) and (avionics_bay_heat_warn == 0))
 	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
 	}
 
-# APU temperature needs to be < ~250 F (390 K)
+# APU temperature needs to be < ~260 F (400 K)
 
 var T1 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K");
 var T2 = getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K");
@@ -438,7 +438,7 @@ else {T_apu = T2;}
 if (T3 > T_apu) {T_apu = T3;}
 
 
-if ((T_apu > 395.0) and (apu_heat_warn == 1))
+if ((T_apu > 405.0) and (apu_heat_warn == 1))
 	{
 	setprop("/sim/messages/copilot", "APU damage!");
 	fail_flag = 1;
@@ -447,16 +447,16 @@ if ((T_apu > 395.0) and (apu_heat_warn == 1))
 
 	if (limit_simulation_mode == 1)
 		{
-		if (T1 > 395.0)
+		if (T1 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);}
-		if (T2 > 395.0)
+		if (T2 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu2-condition", 0.0);}
-		if (T3 > 395.0)
+		if (T3 > 405.0)
 			{setprop("/fdm/jsbsim/systems/failures/apu3-condition", 0.0);}
 		}
 
 	}
-else if ((T_apu > 390.0) and (apu_heat_warn == 0))
+else if ((T_apu > 400.0) and (apu_heat_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
 	apu_heat_warn = 1;

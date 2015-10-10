@@ -6,7 +6,11 @@
 
   <animation>
     	<type>material</type>
-   	<object-name>heatshield</object-name>	
+   	<object-name>heatshield</object-name>
+    	<object-name>GearDoorR</object-name>
+    	<object-name>GearDoorL</object-name>
+	<object-name>NoseDoorR</object-name>
+	<object-name>NoseDoorL</object-name>	
    	<emission>
       		<factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
       		<red>   1.0 </red>
@@ -2074,9 +2078,12 @@
  <effect>
     <inherits-from>Effects/space</inherits-from>
     	<object-name>cockpit-front-glass-outside</object-name>
-    	<object-name>heatshield</object-name>
+	<object-name>cockpit-glass-outside-back</object-name>
+	<object-name>heatshield</object-name>
     	<object-name>GearDoorR</object-name>
     	<object-name>GearDoorL</object-name>
+	<object-name>NoseDoorR</object-name>
+	<object-name>NoseDoorL</object-name>
  </effect>
 
  <effect>
