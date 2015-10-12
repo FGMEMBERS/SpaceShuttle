@@ -174,6 +174,10 @@
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
 			</equals>
+			<greater-than>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>0.0</value>
+			</greater-than>
 			<equals>
 				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
 				<value>1</value>
@@ -235,6 +239,10 @@
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
 			</equals>
+			<greater-than>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>0.0</value>
+			</greater-than>
 			<equals>
 				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
 				<value>1</value>
@@ -249,10 +257,6 @@
    <object-name>GearDoorL</object-name>
    <condition>
 		<and>
-			<equals>
-				<property>/controls/shuttle/ET-static-model</property>
-				<value>0</value>
-			</equals>
 			<equals>
 				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
 				<value>1</value>
@@ -288,6 +292,10 @@
 				<property>/controls/shuttle/ET-static-model</property>
 				<value>0</value>
 			</equals>
+			<greater-than>
+				<property>/fdm/jsbsim/gear/gear-pos-norm</property>
+				<value>0.0</value>
+			</greater-than>
 			<equals>
 				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
 				<value>1</value>
@@ -302,10 +310,6 @@
    <object-name>GearDoorR</object-name>
    <condition>
 		<and>
-			<equals>
-				<property>/controls/shuttle/ET-static-model</property>
-				<value>0</value>
-			</equals>
 			<equals>
 				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
 				<value>1</value>
@@ -2078,7 +2082,7 @@
  <effect>
     <inherits-from>Effects/space</inherits-from>
     	<object-name>cockpit-front-glass-outside</object-name>
-	<object-name>cockpit-glass-outside-back</object-name>
+	<!--<object-name>cockpit-glass-outside-back</object-name>-->
 	<object-name>heatshield</object-name>
     	<object-name>GearDoorR</object-name>
     	<object-name>GearDoorL</object-name>
