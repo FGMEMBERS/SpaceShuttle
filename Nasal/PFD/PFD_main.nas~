@@ -2518,7 +2518,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_override);
+p_main.addMenuItem(3, "MAINT", p_dps_pl_bay);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
@@ -2549,10 +2549,6 @@ p_dps_apu_hyd.addMenuItem(5, "MSG ACK", p_dps_apu_hyd);
 p_dps_pl_bay.addMenuItem(0, "UP", p_main);
 p_dps_pl_bay.addMenuItem(4, "MSG RST", p_dps_pl_bay);
 p_dps_pl_bay.addMenuItem(5, "MSG ACK", p_dps_pl_bay);
-
-p_dps_override.addMenuItem(0, "UP", p_main);
-p_dps_override.addMenuItem(4, "MSG RST", p_dps_override);
-p_dps_override.addMenuItem(5, "MSG ACK", p_dps_override);
 
 var pfd_button_pushed = 0;
 
