@@ -555,7 +555,8 @@ setprop("/controls/shuttle/ET-static-model", 0);
 
 SpaceShuttle.init_tank();
 
-
+setprop("/controls/shuttle/etsep-in-progress", 1);
+settimer(func {setprop("/controls/shuttle/etsep-in-progress", 0);}, 5.0);
 
 # and set throttle to zero
 

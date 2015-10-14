@@ -288,6 +288,27 @@ command_parse();
 
 
 #####################################################################
+# OPS/ SPEC dependency checks
+#####################################################################
+
+var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
+var spec63 = [201, 202];
+
+
+var test_spec_ops_validity = func (spec, ops) {
+
+var flag = 0;
+
+foreach (var allowed_ops; spec)
+	{
+	if (allowed_ops == ops) {flag = 1; break;}
+	}
+print(flag);
+return flag;
+}
+
+
+#####################################################################
 # The command parser
 #####################################################################
 
@@ -415,7 +436,10 @@ if ((header == "ITEM") and (end = "EXEC"))
 	var item = int(body);
 	var item_value = num(value);
 
-	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303))
+	#print("Major mode: ", major_mode);
+	#print("Spec: ", spec);
+
+	if (((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303)) and (spec == 0))
 		{
 		if (item == 6)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-pitch",num(value)); valid_flag = 1;}
@@ -533,7 +557,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 	
 
 
-	if ((major_mode == 201) and (spec == ""))
+	if ((major_mode == 201) and (spec == 0))
 		{
 		if (item == 1)
 			{
@@ -593,8 +617,97 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
+	if (spec == 51)
+		{
+		if (item == 13)
+			{
+			var status = getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd", status);
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			var status = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd", status);
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 34)
+			{
+			if ((major_mode == 304) or (major_mode == 305) or (major_mode == 602) or (major_mode == 603))
+				{
+				var status = getprop("/fdm/jsbsim/systems/navigation/air-data-1-deselect-cmd");
+				if (status == 0) {status = 1;} else {status = 0;}
+				setprop("/fdm/jsbsim/systems/navigation/air-data-1-deselect-cmd", status);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 35)
+			{
+			if ((major_mode == 304) or (major_mode == 305) or (major_mode == 602) or (major_mode == 603))
+				{
+				var status = getprop("/fdm/jsbsim/systems/navigation/air-data-3-deselect-cmd");
+				if (status == 0) {status = 1;} else {status = 0;}
+				setprop("/fdm/jsbsim/systems/navigation/air-data-3-deselect-cmd", status);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 36)
+			{
+			if ((major_mode == 304) or (major_mode == 305) or (major_mode == 602) or (major_mode == 603))
+				{
+				var status = getprop("/fdm/jsbsim/systems/navigation/air-data-2-deselect-cmd");
+				if (status == 0) {status = 1;} else {status = 0;}
+				setprop("/fdm/jsbsim/systems/navigation/air-data-2-deselect-cmd", status);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 37)
+			{
+			if ((major_mode == 304) or (major_mode == 305) or (major_mode == 602) or (major_mode == 603))
+				{
+				var status = getprop("/fdm/jsbsim/systems/navigation/air-data-4-deselect-cmd");
+				if (status == 0) {status = 1;} else {status = 0;}
+				setprop("/fdm/jsbsim/systems/navigation/air-data-4-deselect-cmd", status);
+				valid_flag = 1;
+				}
+			}
+		else if (item == 39)
+			{
+			if ((major_mode == 102) or (major_mode == 103) or (major_mode == 104) or (major_mode == 105) or (major_mode == 106))
+				{
+				SpaceShuttle.external_tank_separate();
+				valid_flag = 1;
+				}
+			}
+		else if (item == 40)
+			{
+			if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106))
+				{
+				setprop("/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd", 0);
+				setprop("/fdm/jsbsim/systems/mechanical/et-door-left-cmd", 1);
+				setprop("/fdm/jsbsim/systems/mechanical/et-door-right-cmd", 1);
+				setprop("/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd", 1);
+				setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
+				valid_flag = 1;
+				}
+			}
 
-	if (((major_mode == 201) or (major_mode == 202)) and (spec == 63))
+		}
+
+
+	if (spec == 63)
 		{
 		if (item == 1)
 			{
@@ -756,13 +869,15 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			}
 		}
+
 	}
 
 
 if ((header == "SPEC") and (end =="PRO"))
 	{
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 	var spec_num = int(body);
-	print ("Switching to SPEC ", spec_num);
+	#print ("Switching to SPEC ", spec_num);
 
 	if (spec_num == 18)
 		{
@@ -776,7 +891,13 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
 		valid_flag = 1;
 		}
-	if (spec_num == 63)
+	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_override);
+		setprop("/fdm/jsbsim/systems/dps/spec", 51);
+		valid_flag = 1;
+		}
+	if ((spec_num == 63) and (test_spec_ops_validity(spec63, major_mode) == 1))
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
 		setprop("/fdm/jsbsim/systems/dps/spec", 63);

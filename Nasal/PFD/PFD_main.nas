@@ -14,6 +14,7 @@
 # * p_vert_sit (OPS 305)
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
+# * p_dps_override (SPEC 51)
 # * p_pl_bay (SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
@@ -2459,6 +2460,42 @@ update_common_DPS();
 
 var p_dps_override = PFD.addPage("CRTOverride", "p_dps_override");
 
+p_dps_override.etsep_auto =  PFDsvg.getElementById("p_dps_override_etsep_auto");
+p_dps_override.etsep_sep =  PFDsvg.getElementById("p_dps_override_etsep_sep");
+p_dps_override.umb_cl =  PFDsvg.getElementById("p_dps_override_umb_cl");
+
+p_dps_override.adta_h1 =  PFDsvg.getElementById("p_dps_override_adta_h1");
+p_dps_override.adta_h2 =  PFDsvg.getElementById("p_dps_override_adta_h2");
+p_dps_override.adta_h3 =  PFDsvg.getElementById("p_dps_override_adta_h3");
+p_dps_override.adta_h4 =  PFDsvg.getElementById("p_dps_override_adta_h4");
+
+p_dps_override.adta_M1 =  PFDsvg.getElementById("p_dps_override_adta_M1");
+p_dps_override.adta_M2 =  PFDsvg.getElementById("p_dps_override_adta_M2");
+p_dps_override.adta_M3 =  PFDsvg.getElementById("p_dps_override_adta_M3");
+p_dps_override.adta_M4 =  PFDsvg.getElementById("p_dps_override_adta_M4");
+
+p_dps_override.adta_a1 =  PFDsvg.getElementById("p_dps_override_adta_a1");
+p_dps_override.adta_a2 =  PFDsvg.getElementById("p_dps_override_adta_a2");
+p_dps_override.adta_a3 =  PFDsvg.getElementById("p_dps_override_adta_a3");
+p_dps_override.adta_a4 =  PFDsvg.getElementById("p_dps_override_adta_a4");
+
+p_dps_override.adta_des1 =  PFDsvg.getElementById("p_dps_override_adta_des1");
+p_dps_override.adta_des2 =  PFDsvg.getElementById("p_dps_override_adta_des2");
+p_dps_override.adta_des3 =  PFDsvg.getElementById("p_dps_override_adta_des3");
+p_dps_override.adta_des4 =  PFDsvg.getElementById("p_dps_override_adta_des4");
+
+p_dps_override.adta_l1 =  PFDsvg.getElementById("p_dps_override_adta_l1");
+p_dps_override.adta_l3 =  PFDsvg.getElementById("p_dps_override_adta_l3");
+p_dps_override.adta_r2 =  PFDsvg.getElementById("p_dps_override_adta_r2");
+p_dps_override.adta_r4 =  PFDsvg.getElementById("p_dps_override_adta_r4");
+
+p_dps_override.arcsdump =  PFDsvg.getElementById("p_dps_override_arcsdump");
+p_dps_override.frcsdump =  PFDsvg.getElementById("p_dps_override_frcsdump");
+
+p_dps_override.frcs_ttg =  PFDsvg.getElementById("p_dps_override_frcs_ttg");
+p_dps_override.arcs_ttg =  PFDsvg.getElementById("p_dps_override_arcs_ttg");
+
+
 
 
 p_dps_override.ondisplay = func
@@ -2470,15 +2507,102 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var ops_string = major_mode~"1/051/";
 DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# blank unsupported functions
+p_dps_override.etsep_auto.setText(sprintf(""));
+p_dps_override.adta_l1.setText(sprintf(""));
+p_dps_override.adta_l3.setText(sprintf(""));
+p_dps_override.adta_r2.setText(sprintf(""));
+p_dps_override.adta_r4.setText(sprintf(""));
+
+# blank ADTA which isn't shown in OPS 1 
+p_dps_override.adta_h1.setText(sprintf(""));
+p_dps_override.adta_h2.setText(sprintf(""));
+p_dps_override.adta_h3.setText(sprintf(""));
+p_dps_override.adta_h4.setText(sprintf(""));
+
+p_dps_override.adta_M1.setText(sprintf(""));
+p_dps_override.adta_M2.setText(sprintf(""));
+p_dps_override.adta_M3.setText(sprintf(""));
+p_dps_override.adta_M4.setText(sprintf(""));
+
+p_dps_override.adta_a1.setText(sprintf(""));
+p_dps_override.adta_a2.setText(sprintf(""));
+p_dps_override.adta_a3.setText(sprintf(""));
+p_dps_override.adta_a4.setText(sprintf(""));
 }
 
 p_dps_override.update = func
 {
 
+var symbol = "";
+
+if (getprop("/controls/shuttle/etsep-in-progress") == 1)
+	{
+	symbol = "*";
+	}
+
+p_dps_override.etsep_sep.setText(sprintf("%s", symbol ));
+
+symbol = "";
+
+if ((getprop("/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd") == 0) and (getprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos") < 1.0))
+	{
+	symbol = "*";
+	}
+p_dps_override.umb_cl.setText(sprintf("%s", symbol ));
+
+# ADTA is shown only in OPS 3 or 6
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+if ((ops == 3) or (ops == 6))
+{
+p_dps_override.adta_h1.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-alt-ft")));
+p_dps_override.adta_h2.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-alt-ft")));
+p_dps_override.adta_h3.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-alt-ft")));
+p_dps_override.adta_h4.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-alt-ft")));
+
+p_dps_override.adta_M1.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-mach")));
+p_dps_override.adta_M2.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-mach")));
+p_dps_override.adta_M3.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-mach")));
+p_dps_override.adta_M4.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-mach")));
+
+p_dps_override.adta_a1.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-alpha")));
+p_dps_override.adta_a2.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-alpha")));
+p_dps_override.adta_a3.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-alpha")));
+p_dps_override.adta_a4.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-alpha")));
+}
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/navigation/air-data-1-deselect-cmd") == 1){symbol = "*";}
+p_dps_override.adta_des1.setText(sprintf("%s", symbol ));
+
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/navigation/air-data-2-deselect-cmd") == 1){symbol = "*";}
+p_dps_override.adta_des2.setText(sprintf("%s", symbol )); 
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/navigation/air-data-3-deselect-cmd") == 1){symbol = "*";}
+p_dps_override.adta_des3.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/navigation/air-data-4-deselect-cmd") == 1){symbol = "*";}
+p_dps_override.adta_des4.setText(sprintf("%s", symbol ));
+
+symbol = "INH";
+if (getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd") == 1){symbol = "ENA";}
+p_dps_override.arcsdump.setText(sprintf("%s", symbol ));
+
+symbol = "INH";
+if (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd") == 1){symbol = "ENA";}
+p_dps_override.frcsdump.setText(sprintf("%s", symbol ));
+
+p_dps_override.frcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s")));
+p_dps_override.arcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s")));
 
 update_common_DPS();
-
-
 
 
 }

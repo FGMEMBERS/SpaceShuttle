@@ -19,6 +19,84 @@
 		</sensor>
 	</channel>
 
+	<channel name="Air data probes">
+
+	
+		<sensor name="systems/navigation/air-data-left-1-alt-ft">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-alt-ft">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-alt-ft">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-alt-ft">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-1-mach">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-mach">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-mach">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-mach">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-1-alpha">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-alpha">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-alpha">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-alpha">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+
+	</channel>
+
 
 	<channel name="IMU accelerometers">
 
