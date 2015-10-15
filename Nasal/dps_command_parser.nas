@@ -619,7 +619,84 @@ if ((header == "ITEM") and (end = "EXEC"))
 		}
 	if (spec == 51)
 		{
-		if (item == 13)
+		if (item == 1)
+			{
+			var status = getprop("/fdm/jsbsim/systems/abort/arm-tal");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/abort/arm-tal", status);
+			if (status == 1)
+				{setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);}
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			var status = getprop("/fdm/jsbsim/systems/abort/arm-ato");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/abort/arm-ato", status);
+			if (status == 1)
+				{setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);}
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			var status_tal = getprop("/fdm/jsbsim/systems/abort/arm-tal");
+			var status_ato = getprop("/fdm/jsbsim/systems/abort/arm-ato");
+			
+			if (status_tal == 1)
+				{
+				setprop("/fdm/jsbsim/systems/abort/abort-mode", 2);
+				setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
+				}
+			else if (status_ato == 1)
+				{
+				setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+				}
+			else if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0)
+				{
+				setprop("/fdm/jsbsim/systems/abort/abort-mode", 0);
+				setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+				}
+
+			valid_flag = 1;
+			}
+
+		else if (item == 5)
+			{
+			var status = getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd", status);
+			#if (status == 1) {SpaceShuttle.set_oms_rcs_crossfeed();}
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var status = getprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd", status);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			var arm = getprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd");
+			if (arm == 1)
+				{
+				setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 0);
+				SpaceShuttle.toggle_oms_fuel_dump();
+				}
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 1);
+			SpaceShuttle.toggle_oms_fuel_dump();
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			setprop("/fdm/jsbsim/systems/oms/oms-dump-qty", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 13)
 			{
 			var status = getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd");
 			if (status == 0) {status = 1;} else {status = 0;}
@@ -629,6 +706,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 14)
 			{
 			setprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s", int(value));
+			if ((int(value) > 0) and (getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd") == 1))
+				{
+				setprop("/fdm/jsbsim/systems/rcs/aft-dump-cmd", 1);
+				SpaceShuttle.aft_rcs_fuel_dump_loop();
+				}
 			valid_flag = 1;
 			}
 		else if (item == 15)
@@ -636,11 +718,21 @@ if ((header == "ITEM") and (end = "EXEC"))
 			var status = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd");
 			if (status == 0) {status = 1;} else {status = 0;}
 			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd", status);
+			if ((status > 0) and (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s") > 0))
+				{
+				setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", 1);
+				SpaceShuttle.fwd_rcs_fuel_dump_loop();
+				}
 			valid_flag = 1;
 			}
 		else if (item == 16)
 			{
 			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s", int(value));
+			if ((int(value) > 0) and (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd") == 1))
+				{
+				setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", 1);
+				SpaceShuttle.fwd_rcs_fuel_dump_loop();
+				}
 			valid_flag = 1;
 			}
 		else if (item == 34)

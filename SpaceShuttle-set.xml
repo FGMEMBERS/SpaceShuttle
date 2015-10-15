@@ -9,6 +9,11 @@
                 <gravitational-torque type="bool">true</gravitational-torque>
             </simulation>
             <systems>
+		<abort>
+			<arm-tal type="int">0</arm-tal>
+			<arm-ato type="int">0</arm-ato>
+			<abort-mode type="int">0</abort-mode>
+		</abort>
 		<ap>
 		    <automatic-pitch-control type="int">0</automatic-pitch-control>
 		    <css-pitch-control type="int">1</css-pitch-control>
@@ -468,6 +473,8 @@
 			<star-tracker-z-switch type="int">0</star-tracker-z-switch>
 			<star-tracker-door-z-pos type="double">0</star-tracker-door-z-pos>
 			<star-tracker-door-y-pos type="double">0</star-tracker-door-y-pos>
+			<vdoor-cmd type="int">0</vdoor-cmd>
+			<vdoor-pos type="double">0</vdoor-pos>
 		</mechanical>
 		<mps>
 		    <engine>
@@ -528,7 +535,11 @@
 		</navigation>
 		<oms>
 		        <oms-dump-cmd type="int">0</oms-dump-cmd>
+			<oms-dump-qty type="int">100</oms-dump-qty>
+			<oms-dump-arm-cmd type="int">0</oms-dump-arm-cmd>
+			<oms-dump-ttg-s type="int">0</oms-dump-ttg-s>
 			<oms-dump-interconnect-cmd type="int">1</oms-dump-interconnect-cmd>
+			<oms-dump-interconnect-complete type="int">0</oms-dump-interconnect-complete>
 			<oms-rcs-dump-cmd type="int">0</oms-rcs-dump-cmd>
 		</oms>
 		<oms-hardware>
@@ -807,6 +818,12 @@
 			<apu2-temperature-K type="double">310</apu2-temperature-K>
 			<apu3-temperature-K type="double">310</apu3-temperature-K>
 		</thermal-distribution>
+		<throttle>
+			<throttle-mode type="int">3</throttle-mode>
+		</throttle>
+		<vectoring>
+			<ssme-repos-enable type="int">1</ssme-repos-enable>
+		</vectoring>
             </systems>
         </jsbsim>
     </fdm>

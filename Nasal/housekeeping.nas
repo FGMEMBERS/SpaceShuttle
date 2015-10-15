@@ -142,6 +142,39 @@ settimer(func {fuel_dump_loop(counter +1 ) },  1.0);
 
 
 #########################################################################################
+# RCS fuel dump from the override display is done via countdown timers
+#########################################################################################
+
+
+var fwd_rcs_fuel_dump_loop = func {
+
+var ttg = getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s");
+
+ttg = ttg - 1;
+
+setprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s", ttg);
+
+if (ttg == 0) {setprop("/fdm/jsbsim/systems/rcs/fwd-dump-cmd", 0); return;}
+
+settimer(fwd_rcs_fuel_dump_loop, 1.0);
+}
+
+
+
+var aft_rcs_fuel_dump_loop = func {
+
+var ttg = getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s");
+
+ttg = ttg - 1;
+
+setprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s", ttg);
+
+if (ttg == 0) {setprop("/fdm/jsbsim/systems/rcs/aft-dump-cmd", 0); return;}
+
+settimer(aft_rcs_fuel_dump_loop, 1.0);
+}
+
+#########################################################################################
 # Auotmatic payload bay opening sequence consists of first unlatching the centerline, then
 # left and right gangs, then opening right door, finally left door
 #########################################################################################

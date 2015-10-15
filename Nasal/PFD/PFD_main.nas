@@ -2495,6 +2495,64 @@ p_dps_override.frcsdump =  PFDsvg.getElementById("p_dps_override_frcsdump");
 p_dps_override.frcs_ttg =  PFDsvg.getElementById("p_dps_override_frcs_ttg");
 p_dps_override.arcs_ttg =  PFDsvg.getElementById("p_dps_override_arcs_ttg");
 
+p_dps_override.icnct1 =  PFDsvg.getElementById("p_dps_override_icnct1");
+p_dps_override.icnct2 =  PFDsvg.getElementById("p_dps_override_icnct2");
+
+p_dps_override.omsdump_arm =  PFDsvg.getElementById("p_dps_override_omsdump_arm");
+p_dps_override.omsdump_start =  PFDsvg.getElementById("p_dps_override_omsdump_start");
+p_dps_override.omsdump_stop =  PFDsvg.getElementById("p_dps_override_omsdump_stop");
+p_dps_override.omsdump_qty =  PFDsvg.getElementById("p_dps_override_omsdump_qty");
+p_dps_override.omsdump_ttg =  PFDsvg.getElementById("p_dps_override_omsdump_ttg");
+
+p_dps_override.tal =  PFDsvg.getElementById("p_dps_override_tal");
+p_dps_override.ato =  PFDsvg.getElementById("p_dps_override_ato");
+p_dps_override.abort =  PFDsvg.getElementById("p_dps_override_abort");
+
+p_dps_override.throt_max =  PFDsvg.getElementById("p_dps_override_throt_max");
+p_dps_override.throt_abt =  PFDsvg.getElementById("p_dps_override_throt_abt");
+p_dps_override.throt_nom =  PFDsvg.getElementById("p_dps_override_throt_nom");
+
+p_dps_override.elev_auto =  PFDsvg.getElementById("p_dps_override_elev_auto");
+p_dps_override.elev_fixed =  PFDsvg.getElementById("p_dps_override_elev_fixed");
+p_dps_override.filter_nom =  PFDsvg.getElementById("p_dps_override_filter_nom");
+p_dps_override.filter_alt =  PFDsvg.getElementById("p_dps_override_filter_alt");
+p_dps_override.atmo_nom =  PFDsvg.getElementById("p_dps_override_atmo_nom");
+p_dps_override.atmo_npole =  PFDsvg.getElementById("p_dps_override_atmo_npole");
+p_dps_override.atmo_spole =  PFDsvg.getElementById("p_dps_override_atmo_spole");
+
+p_dps_override.imu1s =  PFDsvg.getElementById("p_dps_override_imu1s");
+p_dps_override.imu2s =  PFDsvg.getElementById("p_dps_override_imu2s");
+p_dps_override.imu3s =  PFDsvg.getElementById("p_dps_override_imu3s");
+p_dps_override.imu1stat =  PFDsvg.getElementById("p_dps_override_imu1stat");
+p_dps_override.imu2stat =  PFDsvg.getElementById("p_dps_override_imu2stat");
+p_dps_override.imu3stat =  PFDsvg.getElementById("p_dps_override_imu3stat");
+p_dps_override.imu1att =  PFDsvg.getElementById("p_dps_override_imu1att");
+p_dps_override.imu2att =  PFDsvg.getElementById("p_dps_override_imu2att");
+p_dps_override.imu1des =  PFDsvg.getElementById("p_dps_override_imu1des");
+p_dps_override.imu2des =  PFDsvg.getElementById("p_dps_override_imu2des");
+p_dps_override.imu3des =  PFDsvg.getElementById("p_dps_override_imu3des");
+
+p_dps_override.prl_sys1 =  PFDsvg.getElementById("p_dps_override_prl_sys1");
+p_dps_override.prl_sys2 =  PFDsvg.getElementById("p_dps_override_prl_sys2");
+p_dps_override.prl_sys3 =  PFDsvg.getElementById("p_dps_override_prl_sys3");
+p_dps_override.prl1_aut =  PFDsvg.getElementById("p_dps_override_prl1_aut");
+p_dps_override.prl2_aut =  PFDsvg.getElementById("p_dps_override_prl2_aut");
+p_dps_override.prl3_aut =  PFDsvg.getElementById("p_dps_override_prl3_aut");
+p_dps_override.prl1_des =  PFDsvg.getElementById("p_dps_override_prl1_des");
+p_dps_override.prl2_des =  PFDsvg.getElementById("p_dps_override_prl2_des");
+p_dps_override.prl3_des =  PFDsvg.getElementById("p_dps_override_prl3_des");
+
+p_dps_override.roll_mode =  PFDsvg.getElementById("p_dps_override_roll_mode");
+p_dps_override.roll_auto =  PFDsvg.getElementById("p_dps_override_roll_auto");
+p_dps_override.wrap_mode =  PFDsvg.getElementById("p_dps_override_wrap_mode");
+
+p_dps_override.vdoor_open =  PFDsvg.getElementById("p_dps_override_vdoor_open");
+p_dps_override.vdoor_open_stat =  PFDsvg.getElementById("p_dps_override_vdoor_open_stat");
+p_dps_override.vdoor_close =  PFDsvg.getElementById("p_dps_override_vdoor_close");
+p_dps_override.vdoor_close_stat =  PFDsvg.getElementById("p_dps_override_vdoor_close_stat");
+
+p_dps_override.ssme_repos =  PFDsvg.getElementById("p_dps_override_ssme_repos");
+
 
 
 
@@ -2515,6 +2573,40 @@ p_dps_override.adta_l3.setText(sprintf(""));
 p_dps_override.adta_r2.setText(sprintf(""));
 p_dps_override.adta_r4.setText(sprintf(""));
 
+p_dps_override.elev_auto.setText(sprintf("*"));
+p_dps_override.elev_fixed.setText(sprintf(""));
+p_dps_override.filter_nom.setText(sprintf("*"));
+p_dps_override.filter_alt.setText(sprintf(""));
+p_dps_override.atmo_nom.setText(sprintf("*"));
+p_dps_override.atmo_npole.setText(sprintf(""));
+p_dps_override.atmo_spole.setText(sprintf(""));
+
+p_dps_override.imu1s.setText(sprintf(""));
+p_dps_override.imu2s.setText(sprintf(""));
+p_dps_override.imu3s.setText(sprintf(""));
+p_dps_override.imu1stat.setText(sprintf(""));
+p_dps_override.imu2stat.setText(sprintf(""));
+p_dps_override.imu3stat.setText(sprintf(""));
+p_dps_override.imu1att.setText(sprintf("1"));
+p_dps_override.imu2att.setText(sprintf(""));
+p_dps_override.imu1des.setText(sprintf(""));
+p_dps_override.imu2des.setText(sprintf(""));
+p_dps_override.imu3des.setText(sprintf(""));
+
+p_dps_override.prl_sys1.setText(sprintf(""));
+p_dps_override.prl_sys2.setText(sprintf(""));
+p_dps_override.prl_sys3.setText(sprintf(""));
+p_dps_override.prl1_aut.setText(sprintf("*"));
+p_dps_override.prl2_aut.setText(sprintf("*"));
+p_dps_override.prl3_aut.setText(sprintf("*"));
+p_dps_override.prl1_des.setText(sprintf(""));
+p_dps_override.prl2_des.setText(sprintf(""));
+p_dps_override.prl3_des.setText(sprintf(""));
+
+p_dps_override.roll_mode.setText(sprintf("AUTO"));
+p_dps_override.roll_auto.setText(sprintf(""));
+p_dps_override.wrap_mode.setText(sprintf(""));
+
 # blank ADTA which isn't shown in OPS 1 
 p_dps_override.adta_h1.setText(sprintf(""));
 p_dps_override.adta_h2.setText(sprintf(""));
@@ -2530,6 +2622,8 @@ p_dps_override.adta_a1.setText(sprintf(""));
 p_dps_override.adta_a2.setText(sprintf(""));
 p_dps_override.adta_a3.setText(sprintf(""));
 p_dps_override.adta_a4.setText(sprintf(""));
+
+p_dps_override.ssme_repos.setText(sprintf("")); 
 }
 
 p_dps_override.update = func
@@ -2601,6 +2695,80 @@ p_dps_override.frcsdump.setText(sprintf("%s", symbol ));
 
 p_dps_override.frcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s")));
 p_dps_override.arcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s")));
+
+
+symbol = "INH";
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd") == 1){symbol = "ENA";}
+p_dps_override.icnct1.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-complete") == 1){symbol = "CPLT";}
+p_dps_override.icnct2.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd") == 1){symbol = "*";}
+p_dps_override.omsdump_arm.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 1){symbol = "*";}
+p_dps_override.omsdump_start.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0){symbol = "*";}
+p_dps_override.omsdump_stop.setText(sprintf("%s", symbol ));
+
+
+p_dps_override.omsdump_qty.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-qty")));
+p_dps_override.omsdump_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s")));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/abort/arm-tal") == 1) {symbol ="*";}
+p_dps_override.tal.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/abort/arm-ato") == 1) {symbol ="*";}
+p_dps_override.ato.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0) {symbol ="*";}
+p_dps_override.abort.setText(sprintf("%s", symbol ));
+
+var throttle_mode = getprop("/fdm/jsbsim/systems/throttle/throttle-mode");
+
+symbol = "";
+if (throttle_mode == 1) {symbol ="*";}
+p_dps_override.throt_max.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (throttle_mode == 2) {symbol ="*";}
+p_dps_override.throt_abt.setText(sprintf("%s", symbol ));
+
+symbol = "";
+if (throttle_mode == 3) {symbol ="*";}
+p_dps_override.throt_nom.setText(sprintf("%s", symbol )); 
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd") == 1) {symbol ="*";}
+p_dps_override.vdoor_open.setText(sprintf("%s", symbol )); 
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-pos") == 1.0) {symbol ="OP";}
+p_dps_override.vdoor_open_stat.setText(sprintf("%s", symbol )); 
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd") == 0) {symbol ="*";}
+p_dps_override.vdoor_close.setText(sprintf("%s", symbol )); 
+
+symbol = "";
+if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-pos") == 0.0) {symbol ="CL";}
+p_dps_override.vdoor_close_stat.setText(sprintf("%s", symbol )); 
+
+if (ops == 3)
+{
+symbol = "INH";
+if (getprop("/fdm/jsbsim/systems/vectoring/ssme-repos-enable") == 1) {symbol ="ENA";}
+p_dps_override.ssme_repos.setText(sprintf("%s", symbol )); 
+}
 
 update_common_DPS();
 
