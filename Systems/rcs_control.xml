@@ -27,6 +27,7 @@
 				systems/fcs/control-mode == 1
 				systems/fcs/control-mode == 2
 				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 11
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
@@ -38,6 +39,8 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/oms/oms-rcs-dump-cmd == 1
+				systems/rcs/fwd-dump-cmd == 1
+				systems/rcs/aft-dump-cmd == 1
 			</test>
 		</switch>
 
@@ -2056,6 +2059,7 @@
 
 
 
+
 	<!-- then assign the commands to actual thrusters - first the default set -->
 
 
@@ -2210,6 +2214,7 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
 		<output>systems/rcs/L4U-fire-cmd</output>
@@ -2231,6 +2236,7 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
 		<output>systems/rcs/L4D-fire-cmd</output>
@@ -2293,6 +2299,7 @@
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
 		<output>systems/rcs/R4U-fire-cmd</output>
@@ -2314,6 +2321,7 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
 		<output>systems/rcs/R4D-fire-cmd</output>
