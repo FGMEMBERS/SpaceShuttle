@@ -659,7 +659,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 			valid_flag = 1;
 			}
-
+		else if (item == 4)
+			{
+			setprop("/fdm/jsbsim/systems/throttle/throttle-mode", 1);
+			valid_flag = 1;
+			}
 		else if (item == 5)
 			{
 			var status = getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd");
@@ -735,6 +739,13 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			valid_flag = 1;
 			}
+		else if (item == 19)
+			{
+			var status = getprop("/fdm/jsbsim/systems/vectoring/ssme-repos-enable");
+			if (status == 0) {status = 1;} else {status = 0;}
+			setprop("/fdm/jsbsim/systems/vectoring/ssme-repos-enable", status);
+			valid_flag = 1;
+			}
 		else if (item == 34)
 			{
 			if ((major_mode == 304) or (major_mode == 305) or (major_mode == 602) or (major_mode == 603))
@@ -794,6 +805,26 @@ if ((header == "ITEM") and (end = "EXEC"))
 				setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
 				valid_flag = 1;
 				}
+			}
+		else if (item == 43)
+			{
+			setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
+			valid_flag = 1;
+			}
+		else if (item == 44)
+			{
+			setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
+			valid_flag = 1;
+			}
+		else if (item == 50)
+			{
+			setprop("/fdm/jsbsim/systems/throttle/throttle-mode", 2);
+			valid_flag = 1;
+			}
+		else if (item == 51)
+			{
+			setprop("/fdm/jsbsim/systems/throttle/throttle-mode", 3);
+			valid_flag = 1;
 			}
 
 		}

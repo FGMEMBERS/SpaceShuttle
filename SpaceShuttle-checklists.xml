@@ -1241,6 +1241,16 @@
       </condition>
     </item>
 
+   <item>
+     <name>Vent doors</name>
+     <value>CLOSED</value>
+     <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/vdoor-pos</property>
+    	  <value>0.0</value>
+	</equals>
+     </condition>
+   </item>
 
    <item>
       <name>MPS He A isolation valves</name>

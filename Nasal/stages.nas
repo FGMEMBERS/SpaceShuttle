@@ -913,6 +913,13 @@ if ((getprop("/fdm/jsbsim/velocities/mach") < 3.5) and (deorbit_stage_flag == 2)
 	deorbit_stage_flag = 3;
 	}
 
+# open vent doors as soon as vrel < 2400 fps is sensed
+
+if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
+	{
+	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
+	}
+
 if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
@@ -932,7 +939,6 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_entry();
-#SpaceShuttle.update_LVLH_to_ECI();
 
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
@@ -976,6 +982,15 @@ if ((alt < 2100.0) and (gear_arm_message_flag == 0))
 	setprop("/sim/messages/copilot", "2000 ft - arm gear!");
 	gear_arm_message_flag = 1;
 	}
+
+# open vent doors as soon as vrel < 2400 fps is sensed
+
+if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
+	{
+	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
+	}
+
+
 
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
@@ -1598,6 +1613,7 @@ if (getprop("/sim/presets/stage") == 2) # we start with entry
 	setprop("/consumables/fuel/tank[12]/level-lbs",0.0);
 	setprop("/consumables/fuel/tank[13]/level-lbs",0.0);
 
+	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
 
 	}
@@ -1623,6 +1639,8 @@ if (getprop("/sim/presets/stage") == 3) # we start with the TAEM
 	setprop("/consumables/fuel/tank[11]/level-lbs",92.8);
 	setprop("/consumables/fuel/tank[12]/level-lbs",147.7);
 	setprop("/consumables/fuel/tank[13]/level-lbs",92.8);
+
+	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
 	hydraulics_on();
 	et_umbilical_door_close();

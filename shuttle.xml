@@ -4082,6 +4082,7 @@
  <system file="eclss"></system>
  <system file="computations"></system>
  <system file="entry_guidance"></system>
+ <system file="throttle"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
  <!--<system file="cws"></system>-->

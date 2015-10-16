@@ -638,7 +638,36 @@
 
 
 	</channel>
+
+	<channel name="Vent doors">
+
+		<switch name="systems/mechanical/vdoor-target">
+			<default value="systems/mechanical/vdoor-pos"/>
+			<test logic="AND" value="1">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/vdoor-cmd == 1
+			</test>
+			<test logic="AND" value="0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/vdoor-cmd == 0
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/vdoor-pos">
+			<input>systems/mechanical/vdoor-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>5.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
 			
 
+	</channel>
 
 </system>

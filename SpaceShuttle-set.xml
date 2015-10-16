@@ -473,8 +473,8 @@
 			<star-tracker-z-switch type="int">0</star-tracker-z-switch>
 			<star-tracker-door-z-pos type="double">0</star-tracker-door-z-pos>
 			<star-tracker-door-y-pos type="double">0</star-tracker-door-y-pos>
-			<vdoor-cmd type="int">0</vdoor-cmd>
-			<vdoor-pos type="double">0</vdoor-pos>
+			<vdoor-cmd type="int">1</vdoor-cmd>
+			<vdoor-pos type="double">1</vdoor-pos>
 		</mechanical>
 		<mps>
 		    <engine>
@@ -526,6 +526,8 @@
 			<air-data-deploy-right-switch type="int">0</air-data-deploy-right-switch>
 			<air-data-stow-left-switch type="int">0</air-data-stow-left-switch>
 			<air-data-stow-right-switch type="int">0</air-data-stow-right-switch>
+			<air-data-left-pos type="double">0.0</air-data-left-pos>
+			<air-data-right-pos type="double">0.0</air-data-right-pos>
 			<air-data-1-deselect-cmd type="int">0</air-data-1-deselect-cmd>
 			<air-data-2-deselect-cmd type="int">0</air-data-2-deselect-cmd>
 			<air-data-3-deselect-cmd type="int">0</air-data-3-deselect-cmd>

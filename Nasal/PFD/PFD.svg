@@ -11722,7 +11722,7 @@
            y="324.178572"
            x="324.428574"
            id="tspan3112"
-           sodipodi:role="line"> OPEN</tspan></text>
+           sodipodi:role="line"> OPEN    43</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_override_vdoor_open"
@@ -11759,7 +11759,7 @@
            y="338.178572"
            x="324.428574"
            id="tspan3112"
-           sodipodi:role="line"> CLOSE</tspan></text>
+           sodipodi:role="line"> CLOSE   44</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_override_vdoor_close"

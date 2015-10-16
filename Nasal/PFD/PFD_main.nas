@@ -1078,7 +1078,8 @@ update_common_DPS();
 
 if (SpaceShuttle.traj_display_flag < 3)
 	{
-	var throttle = getprop("/controls/engines/engine[0]/throttle");
+	#var throttle = getprop("/controls/engines/engine[0]/throttle");
+	var throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm");
 	if (throttle < 0.67) {throttle = 0.0;} else {throttle = throttle * 100.0;}
 	p_ascent.throttle.setText(sprintf("%3.0f",throttle));
 	p_ascent.throttle_text.setText(sprintf("THROT"));
