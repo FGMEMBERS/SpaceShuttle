@@ -2245,6 +2245,62 @@
 		</fcs_function>
 	</channel>
 
+
+	<channel name="Zero all engines if RCS is not in use" execute="systems/fcs/rcs-inactive">
+	
+		<fcs_function name="systems/rcs-hardware/zero-command">
+		<function>
+			<value>0.0</value>
+		</function>
+		<output>fcs/throttle-pos-norm[7]</output>
+		<output>fcs/throttle-pos-norm[8]</output>
+		<output>fcs/throttle-pos-norm[9]</output>
+		<output>fcs/throttle-pos-norm[10]</output>
+		<output>fcs/throttle-pos-norm[11]</output>
+		<output>fcs/throttle-pos-norm[12]</output>
+		<output>fcs/throttle-pos-norm[13]</output>
+		<output>fcs/throttle-pos-norm[14]</output>
+		<output>fcs/throttle-pos-norm[15]</output>
+		<output>fcs/throttle-pos-norm[16]</output>
+		<output>fcs/throttle-pos-norm[17]</output>
+		<output>fcs/throttle-pos-norm[18]</output>
+		<output>fcs/throttle-pos-norm[19]</output>
+		<output>fcs/throttle-pos-norm[20]</output>
+		<output>fcs/throttle-pos-norm[21]</output>
+		<output>fcs/throttle-pos-norm[22]</output>
+		<output>fcs/throttle-pos-norm[23]</output>
+		<output>fcs/throttle-pos-norm[24]</output>
+		<output>fcs/throttle-pos-norm[25]</output>
+		<output>fcs/throttle-pos-norm[26]</output>
+		<output>fcs/throttle-pos-norm[27]</output>
+		<output>fcs/throttle-pos-norm[28]</output>
+		<output>fcs/throttle-pos-norm[29]</output>
+		<output>fcs/throttle-pos-norm[30]</output>
+		<output>fcs/throttle-pos-norm[31]</output>
+		<output>fcs/throttle-pos-norm[32]</output>
+		<output>fcs/throttle-pos-norm[33]</output>
+		<output>fcs/throttle-pos-norm[34]</output>
+		<output>fcs/throttle-pos-norm[35]</output>
+		<output>fcs/throttle-pos-norm[36]</output>
+		<output>fcs/throttle-pos-norm[37]</output>
+		<output>fcs/throttle-pos-norm[38]</output>
+		<output>fcs/throttle-pos-norm[39]</output>
+		<output>fcs/throttle-pos-norm[40]</output>
+		<output>fcs/throttle-pos-norm[41]</output>
+		<output>fcs/throttle-pos-norm[42]</output>
+		<output>fcs/throttle-pos-norm[43]</output>
+		<output>fcs/throttle-pos-norm[44]</output>
+		<output>fcs/throttle-pos-norm[45]</output>
+		<output>fcs/throttle-pos-norm[46]</output>
+		<output>fcs/throttle-pos-norm[47]</output>
+		<output>fcs/throttle-pos-norm[48]</output>
+		<output>fcs/throttle-pos-norm[49]</output>
+		<output>fcs/throttle-pos-norm[50]</output>
+		</fcs_function>
+	
+
+	</channel>
+
 	<channel name="RCS thermal control">
 
 		<fcs_function name="systems/rcs-hardware/heater-fwd-power-kW">

@@ -44,6 +44,13 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-inactive">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/rcs-active == 0
+			</test>
+		</switch>
+
 		<switch name="systems/fcs/rcs-translation">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">

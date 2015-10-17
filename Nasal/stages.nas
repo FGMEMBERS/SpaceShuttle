@@ -1141,6 +1141,8 @@ if ((state == 1) and (interconnect_state == 1))
 	settimer( func{ setprop("/fdm/jsbsim/systems/oms/oms-rcs-dump-cmd", 1);}, 3.5);
 	}
 
+if (state == 1) {SpaceShuttle.oms_fuel_dump_loop_init();}
+
 }
 
 

@@ -174,6 +174,83 @@ if (ttg == 0) {setprop("/fdm/jsbsim/systems/rcs/aft-dump-cmd", 0); return;}
 settimer(aft_rcs_fuel_dump_loop, 1.0);
 }
 
+
+#########################################################################################
+# OMS fuel dump timer routine
+# dump rates are:
+# full OMS dump:  36.0449 lb propellant/sec
+# OMS engine only fuel dump: 7.3505 lb propellant/sec
+#########################################################################################
+
+var oms_fuel_dump_loop_init = func {
+
+var fuel_current_left = getprop("/consumables/fuel/tank[5]/level-lbs");
+var fuel_current_right = getprop("/consumables/fuel/tank[7]/level-lbs");
+
+var fuel_current = fuel_current_left;
+if (fuel_current_right > fuel_current_left) {fuel_current = fuel_current_right;}
+
+var tgt_percentage = getprop("/fdm/jsbsim/systems/oms/oms-dump-qty");
+var fuel_to_dump = fuel_current * 0.01 * tgt_percentage;
+var tgt_quantity = fuel_current - fuel_to_dump;
+
+var dump_mode = getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd");
+
+var dump_rate = 7.3505;
+if (dump_mode == 1) {dump_rate = 36.0449;}
+
+var ttg = int(fuel_to_dump/dump_rate);
+
+if (dump_mode == 1) {ttg = ttg + 3;}
+
+setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", ttg);
+
+#print("Current: ", fuel_current, " Target: ", tgt_quantity);
+print("Dumping ", fuel_to_dump, " of propellant with ", dump_rate, " lb/s in ", ttg, " seconds.");
+
+oms_fuel_dump_loop(tgt_quantity);
+
+}
+
+
+var oms_fuel_dump_loop = func (target_quantity) {
+
+
+var ttg = getprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s");
+ttg = ttg - 1;
+setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", ttg);
+
+var fuel_current_left = getprop("/consumables/fuel/tank[5]/level-lbs");
+var fuel_current_right = getprop("/consumables/fuel/tank[7]/level-lbs");
+
+var fuel_current = fuel_current_left;
+if (fuel_current_right > fuel_current_left) {fuel_current = fuel_current_right;}
+
+
+#print("Current: ", fuel_current, " Target: ", target_quantity);
+
+# check whether the fuel dump has been terminated by key command
+
+if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0)
+	{
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", 0);
+	return;	
+	}
+
+if (fuel_current < target_quantity)
+	{
+	print("Fuel dump ends.");
+	setprop("/fdm/jsbsim/systems/rcs/oms-rcs-dump-cmd", 0); 
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", 0);
+	SpaceShuttle.toggle_oms_fuel_dump();
+	return;
+	}
+
+settimer( func {oms_fuel_dump_loop(target_quantity); } , 1.0);
+
+}
+
+
 #########################################################################################
 # Auotmatic payload bay opening sequence consists of first unlatching the centerline, then
 # left and right gangs, then opening right door, finally left door
