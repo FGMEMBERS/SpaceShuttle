@@ -291,6 +291,7 @@ command_parse();
 # OPS/ SPEC dependency checks
 #####################################################################
 
+var spec2 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
 
@@ -438,6 +439,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	#print("Major mode: ", major_mode);
 	#print("Spec: ", spec);
+
 
 	if (((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303)) and (spec == 0))
 		{
@@ -617,6 +619,74 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
+	if (spec == 2)
+		{
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/timer/time-display-flag", 0); valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/timer/time-display-flag", 1); valid_flag = 1;
+			}
+		else if (item == 24)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-GMT-days", int(value)); 
+			SpaceShuttle.update_deltaGMT();
+			SpaceShuttle.blank_deltaMET();
+			valid_flag = 1;
+			}
+		else if (item == 25)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-GMT-hours", int(value)); 
+			SpaceShuttle.update_deltaGMT();
+			SpaceShuttle.blank_deltaMET();
+			valid_flag = 1;
+			}
+		else if (item == 26)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-GMT-minutes", int(value)); 
+			SpaceShuttle.update_deltaGMT();
+			SpaceShuttle.blank_deltaMET();
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds", int(value)); 
+			SpaceShuttle.update_deltaGMT();
+			SpaceShuttle.blank_deltaMET();
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-MET-days", int(value)); 
+			SpaceShuttle.update_deltaMET();
+			SpaceShuttle.blank_deltaGMT();
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-MET-hours", int(value)); 
+			SpaceShuttle.update_deltaMET();
+			SpaceShuttle.blank_deltaGMT();
+			valid_flag = 1;
+			}
+		else if (item == 30)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-MET-minutes", int(value)); 
+			SpaceShuttle.update_deltaMET();
+			SpaceShuttle.blank_deltaGMT();
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-MET-seconds", int(value)); 
+			SpaceShuttle.update_deltaMET();
+			SpaceShuttle.blank_deltaGMT();
+			valid_flag = 1;
+			}
+		}
+
 	if (spec == 51)
 		{
 		if (item == 1)
@@ -1002,6 +1072,12 @@ if ((header == "SPEC") and (end =="PRO"))
 	var spec_num = int(body);
 	#print ("Switching to SPEC ", spec_num);
 
+	if ((spec_num == 2) and (test_spec_ops_validity(spec2, major_mode) == 1))
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_time);
+		setprop("/fdm/jsbsim/systems/dps/spec", 2);
+		valid_flag = 1;
+		}
 	if (spec_num == 18)
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_sys_summ);

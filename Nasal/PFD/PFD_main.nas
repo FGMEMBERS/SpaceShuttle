@@ -288,7 +288,19 @@ setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
 
 var update_common_DPS = func {
 
-DPS_menu_time.setText(sprintf("%s","000/"~getprop("/sim/time/gmt-string")));
+var time_string = "";
+
+if (getprop("/fdm/jsbsim/systems/timer/time-display-flag") == 0)
+	{
+	time_string = "000/"~getprop("/sim/time/gmt-string");
+	}
+else
+	{
+	time_string = getprop("/fdm/jsbsim/systems/timer/MET-string");
+	}
+
+
+DPS_menu_time.setText(sprintf("%s",time_string));
 DPS_menu_crt_time.setText(sprintf("%s", "000/"~" 0:00:00"));
 DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
@@ -2787,6 +2799,13 @@ update_common_DPS();
 var p_dps_time = PFD.addPage("CRTTime", "p_dps_time");
 
 
+p_dps_time.gmt_delta =  PFDsvg.getElementById("p_dps_time_gmt_delta");
+p_dps_time.met_delta =  PFDsvg.getElementById("p_dps_time_met_delta");
+
+p_dps_time.sel_gmt =  PFDsvg.getElementById("p_dps_time_sel_gmt");
+p_dps_time.sel_met =  PFDsvg.getElementById("p_dps_time_sel_met");
+
+
 
 p_dps_time.ondisplay = func
 {
@@ -2802,6 +2821,19 @@ DPS_menu_ops.setText(sprintf("%s",ops_string));
 p_dps_time.update = func
 {
 
+var time_selected = getprop("/fdm/jsbsim/systems/timer/time-display-flag");
+
+var symbol = "";
+if (time_selected == 0) {symbol = "*";}
+p_dps_time.sel_gmt.setText(sprintf("%s", symbol )); 
+
+var symbol = "";
+if (time_selected == 1) {symbol = "*";}
+p_dps_time.sel_met.setText(sprintf("%s", symbol )); 
+
+
+p_dps_time.gmt_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-GMT-string") )); 
+p_dps_time.met_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-MET-string") )); 
 
 update_common_DPS();
 

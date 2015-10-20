@@ -206,7 +206,7 @@ if (dump_mode == 1) {ttg = ttg + 3;}
 setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", ttg);
 
 #print("Current: ", fuel_current, " Target: ", tgt_quantity);
-print("Dumping ", fuel_to_dump, " of propellant with ", dump_rate, " lb/s in ", ttg, " seconds.");
+#print("Dumping ", fuel_to_dump, " of propellant with ", dump_rate, " lb/s in ", ttg, " seconds.");
 
 oms_fuel_dump_loop(tgt_quantity);
 
@@ -239,7 +239,7 @@ if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0)
 
 if (fuel_current < target_quantity)
 	{
-	print("Fuel dump ends.");
+	#print("Fuel dump ends.");
 	setprop("/fdm/jsbsim/systems/rcs/oms-rcs-dump-cmd", 0); 
 	setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", 0);
 	SpaceShuttle.toggle_oms_fuel_dump();
@@ -252,7 +252,7 @@ settimer( func {oms_fuel_dump_loop(target_quantity); } , 1.0);
 
 
 #########################################################################################
-# Auotmatic payload bay opening sequence consists of first unlatching the centerline, then
+# Automatic payload bay opening sequence consists of first unlatching the centerline, then
 # left and right gangs, then opening right door, finally left door
 #########################################################################################
 
@@ -401,4 +401,76 @@ if (stage == 6)
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0);
 	}
 
+}
+
+
+#########################################################################################
+# management rountines for internal timers
+#########################################################################################
+
+# mission elapsed time
+
+var update_timers = func {
+
+
+var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+
+var MET_string = SpaceShuttle.seconds_to_stringDHMS (elapsed);
+setprop("/fdm/jsbsim/systems/timer/MET-string", MET_string);
+
+}
+
+var update_deltaGMT = func {
+
+var days = getprop("/fdm/jsbsim/systems/timer/delta-GMT-days");
+var hours = getprop("/fdm/jsbsim/systems/timer/delta-GMT-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/delta-GMT-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds");
+
+var delta_GMT = 86400 * days + 3600 * hours + 60 * minutes + seconds;
+
+setprop("/fdm/jsbsim/systems/timer/delta-GMT", delta_GMT);
+
+var delta_GMT_string = seconds_to_stringDHMS(delta_GMT);
+
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-string", delta_GMT_string);
+
+}
+
+
+
+var update_deltaMET = func {
+
+var days = getprop("/fdm/jsbsim/systems/timer/delta-MET-days");
+var hours = getprop("/fdm/jsbsim/systems/timer/delta-MET-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/delta-MET-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/delta-MET-seconds");
+
+var delta_MET = 86400 * days + 3600 * hours + 60 * minutes + seconds;
+
+setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
+
+var delta_MET_string = seconds_to_stringDHMS(delta_MET);
+
+setprop("/fdm/jsbsim/systems/timer/delta-MET-string", delta_MET_string);
+
+}
+
+var blank_deltaMET = func {
+
+setprop("/fdm/jsbsim/systems/timer/delta-MET-days", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-MET-hours", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-MET-minutes", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-MET-seconds", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-MET-string", "");
+}
+
+var blank_deltaGMT = func {
+
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-days", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-hours", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-minutes", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds", 0);
+setprop("/fdm/jsbsim/systems/timer/delta-GMT-string", "");
 }

@@ -824,6 +824,22 @@
 		<throttle>
 			<throttle-mode type="int">3</throttle-mode>
 		</throttle>
+		<timer>
+			<time-display-flag type="int">0</time-display-flag>
+			<MET-string type="string">000/00:00:00</MET-string>
+			<delta-GMT-days type="int">0</delta-GMT-days>
+			<delta-GMT-hours type="int">0</delta-GMT-hours>
+			<delta-GMT-minutes type="int">0</delta-GMT-minutes>
+			<delta-GMT-seconds type="int">0</delta-GMT-seconds>
+			<delta-GMT type="int">0</delta-GMT>
+			<delta-GMT-string type="string"></delta-GMT-string>
+			<delta-MET-days type="int">0</delta-MET-days>
+			<delta-MET-hours type="int">0</delta-MET-hours>
+			<delta-MET-minutes type="int">0</delta-MET-minutes>
+			<delta-MET-seconds type="int">0</delta-MET-seconds>
+			<delta-MET type="int">0</delta-MET>
+			<delta-MET-string type="string"></delta-MET-string>
+		</timer>
 		<vectoring>
 			<ssme-repos-enable type="int">1</ssme-repos-enable>
 		</vectoring>

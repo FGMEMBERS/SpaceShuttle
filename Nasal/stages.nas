@@ -692,6 +692,8 @@ SpaceShuttle.check_limits_orbit();
 SpaceShuttle.cws_inspect();
 #SpaceShuttle.update_LVLH_to_ECI();
 
+SpaceShuttle.update_timers();
+
 settimer(orbital_loop, 1.0);
 }
 
