@@ -79,6 +79,29 @@ return minutes~":"~seconds;
 }
 
 
+var seconds_to_stringHMS = func (time) {
+
+var int_time = int(time);
+
+
+var hours = int(int_time/3600);
+int_time = int_time - hours * 3600;
+
+if (hours < 10) {hours = "0"~hours;}
+
+var minutes = int(int_time/60);
+int_time = int_time - minutes * 60;
+
+if (minutes < 10) {minutes = "0"~minutes;}
+
+var seconds = int_time;
+if (seconds < 10) {seconds = "0"~seconds;}
+
+
+return hours~":"~minutes~":"~seconds;
+}
+
+
 var seconds_to_stringDHMS = func (time) {
 
 var int_time = int(time);
@@ -104,6 +127,8 @@ if (seconds < 10) {seconds = "0"~seconds;}
 
 return days~"/"~hours~":"~minutes~":"~seconds;
 }
+
+
 
 ######################################
 # general helper function to get pitch 

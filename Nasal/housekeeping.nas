@@ -415,9 +415,24 @@ var update_timers = func {
 
 var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
-
-var MET_string = SpaceShuttle.seconds_to_stringDHMS (elapsed);
+var MET_string = SpaceShuttle.seconds_to_stringDHMS (MET);
 setprop("/fdm/jsbsim/systems/timer/MET-string", MET_string);
+
+var GMT_string =  "000/"~getprop("/sim/time/gmt-string");
+setprop("/fdm/jsbsim/systems/timer/GMT-string", GMT_string);
+
+var MET_timer1 = getprop("/fdm/jsbsim/systems/timer/timer-MET-1");
+
+if ((MET_timer1 < MET) and (MET_timer1 > 0))
+	{
+	setprop("/fdm/jsbsim/systems/timer/timer-MET-1-hours",0);
+	setprop("/fdm/jsbsim/systems/timer/timer-MET-1-minutes",0);
+	setprop("/fdm/jsbsim/systems/timer/timer-MET-1-seconds",0);
+	setprop("/fdm/jsbsim/systems/timer/timer-MET-1-string","");
+	setprop("/sim/messages/copilot", "MET timer 1 time tone!");
+	setprop("/fdm/jsbsim/systems/dps/error-string", "TIME TONE");
+	setprop("/fdm/jsbsim/systems/timer/timer-MET-1", 0);
+	}
 
 }
 
@@ -430,11 +445,43 @@ var seconds = getprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds");
 
 var delta_GMT = 86400 * days + 3600 * hours + 60 * minutes + seconds;
 
-setprop("/fdm/jsbsim/systems/timer/delta-GMT", delta_GMT);
+#setprop("/fdm/jsbsim/systems/timer/delta-GMT", delta_GMT);
 
 var delta_GMT_string = seconds_to_stringDHMS(delta_GMT);
 
 setprop("/fdm/jsbsim/systems/timer/delta-GMT-string", delta_GMT_string);
+}
+
+
+var load_deltaGMT_MET = func {
+
+var days = getprop("/fdm/jsbsim/systems/timer/delta-GMT-days");
+var hours = getprop("/fdm/jsbsim/systems/timer/delta-GMT-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/delta-GMT-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds");
+
+var delta_GMT = 86400 * days + 3600 * hours + 60 * minutes + seconds;
+
+if (delta_GMT > 0)
+	{
+	setprop("/fdm/jsbsim/systems/timer/delta-GMT", delta_GMT);
+	}
+
+days = getprop("/fdm/jsbsim/systems/timer/delta-MET-days");
+hours = getprop("/fdm/jsbsim/systems/timer/delta-MET-hours");
+minutes = getprop("/fdm/jsbsim/systems/timer/delta-MET-minutes");
+seconds = getprop("/fdm/jsbsim/systems/timer/delta-MET-seconds");
+
+var delta_MET = 86400 * days + 3600 * hours + 60 * minutes + seconds;
+
+if (delta_MET > 0)
+	{
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
+	}
+
+blank_deltaGMT();
+blank_deltaMET();
+
 
 }
 
@@ -449,7 +496,7 @@ var seconds = getprop("/fdm/jsbsim/systems/timer/delta-MET-seconds");
 
 var delta_MET = 86400 * days + 3600 * hours + 60 * minutes + seconds;
 
-setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
+#setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
 
 var delta_MET_string = seconds_to_stringDHMS(delta_MET);
 
@@ -473,4 +520,20 @@ setprop("/fdm/jsbsim/systems/timer/delta-GMT-hours", 0);
 setprop("/fdm/jsbsim/systems/timer/delta-GMT-minutes", 0);
 setprop("/fdm/jsbsim/systems/timer/delta-GMT-seconds", 0);
 setprop("/fdm/jsbsim/systems/timer/delta-GMT-string", "");
+}
+
+var set_MET_timer = func (index) {
+
+var hours = getprop("/fdm/jsbsim/systems/timer/timer-MET-"~index~"-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/timer-MET-"~index~"-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/timer-MET-"~index~"-seconds");
+
+var timer_seconds = hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/timer/timer-MET-"~index, timer_seconds);
+
+var timer_string = seconds_to_stringHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/timer/timer-MET-"~index~"-string", timer_string);
+
 }

@@ -839,6 +839,16 @@
 			<delta-MET-seconds type="int">0</delta-MET-seconds>
 			<delta-MET type="int">0</delta-MET>
 			<delta-MET-string type="string"></delta-MET-string>
+			<timer-MET-1-hours type="int">0</timer-MET-1-hours>
+			<timer-MET-1-minutes type="int">0</timer-MET-1-minutes>
+			<timer-MET-1-seconds type="int">0</timer-MET-1-seconds>
+			<timer-MET-1 type="int">0</timer-MET-1>
+			<timer-MET-1-string type="string"></timer-MET-1-string>
+			<timer-MET-2-hours type="int">0</timer-MET-2-hours>
+			<timer-MET-2-minutes type="int">0</timer-MET-2-minutes>
+			<timer-MET-2-seconds type="int">0</timer-MET-2-seconds>
+			<timer-MET-2 type="int">0</timer-MET-2>
+			<timer-MET-2-string type="string"></timer-MET-2-string>
 		</timer>
 		<vectoring>
 			<ssme-repos-enable type="int">1</ssme-repos-enable>

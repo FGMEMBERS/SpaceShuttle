@@ -629,6 +629,24 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{
 			setprop("/fdm/jsbsim/systems/timer/time-display-flag", 1); valid_flag = 1;
 			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-1-hours", int(value)); 
+			SpaceShuttle.set_MET_timer(1);
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-1-minutes", int(value)); 
+			SpaceShuttle.set_MET_timer(1);
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-1-seconds", int(value)); 
+			SpaceShuttle.set_MET_timer(1);
+			valid_flag = 1;
+			}
 		else if (item == 24)
 			{
 			setprop("/fdm/jsbsim/systems/timer/delta-GMT-days", int(value)); 
@@ -683,6 +701,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/timer/delta-MET-seconds", int(value)); 
 			SpaceShuttle.update_deltaMET();
 			SpaceShuttle.blank_deltaGMT();
+			valid_flag = 1;
+			}
+		else if (item == 32)
+			{
+			SpaceShuttle.load_deltaGMT_MET();
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+			setprop("/fdm/jsbsim/systems/timer/delta-MET", -getprop("/sim/time/elapsed-sec"));
 			valid_flag = 1;
 			}
 		}

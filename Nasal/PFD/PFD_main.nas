@@ -2805,6 +2805,13 @@ p_dps_time.met_delta =  PFDsvg.getElementById("p_dps_time_met_delta");
 p_dps_time.sel_gmt =  PFDsvg.getElementById("p_dps_time_sel_gmt");
 p_dps_time.sel_met =  PFDsvg.getElementById("p_dps_time_sel_met");
 
+p_dps_time.mtu_acc1 =  PFDsvg.getElementById("p_dps_time_mtu_acc1");
+p_dps_time.mtu_acc2 =  PFDsvg.getElementById("p_dps_time_mtu_acc2");
+p_dps_time.mtu_acc3 =  PFDsvg.getElementById("p_dps_time_mtu_acc3");
+p_dps_time.gpc_acc =  PFDsvg.getElementById("p_dps_time_gpc_acc");
+
+p_dps_time.tone1 =  PFDsvg.getElementById("p_dps_time_tone1");
+p_dps_time.tone2 =  PFDsvg.getElementById("p_dps_time_tone2");
 
 
 p_dps_time.ondisplay = func
@@ -2835,7 +2842,18 @@ p_dps_time.sel_met.setText(sprintf("%s", symbol ));
 p_dps_time.gmt_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-GMT-string") )); 
 p_dps_time.met_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-MET-string") )); 
 
+var GMT_string = getprop("/fdm/jsbsim/systems/timer/GMT-string");
+
+p_dps_time.mtu_acc1.setText(sprintf("%s", GMT_string )); 
+p_dps_time.mtu_acc2.setText(sprintf("%s", GMT_string )); 
+p_dps_time.mtu_acc3.setText(sprintf("%s", GMT_string )); 
+p_dps_time.gpc_acc.setText(sprintf("%s", GMT_string )); 
+
+p_dps_time.tone1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-1-string") )); 
+p_dps_time.tone2.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-2-string") )); 
+
 update_common_DPS();
+
 
 
 
