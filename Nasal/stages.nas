@@ -1379,7 +1379,10 @@ if (getprop("/sim/presets/stage") == 0)
 
 	#print("place alt: ", place_alt);
 
-	setprop("/position/altitude-ft", place_alt);
+	var pad_offset = 100.0;
+	setprop("/position/altitude-ft", place_alt + pad_offset);
+	setprop("/position/latitude-deg", getprop("/sim/presets/latitude-deg"));
+	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
 
 	}
@@ -1568,7 +1571,8 @@ SpaceShuttle.compute_launchpad();
 if (getprop("/sim/presets/stage") ==0)
 	{
 
-	#settimer(set_pad, 0.5);
+	# we need to set this with a delay because the name space doesn't seem to be ready immediately
+	settimer(set_pad, 0.2);
 
 	settimer(set_speed, 0.5);
 
