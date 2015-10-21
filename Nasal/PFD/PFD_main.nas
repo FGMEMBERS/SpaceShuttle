@@ -301,7 +301,7 @@ else
 
 
 DPS_menu_time.setText(sprintf("%s",time_string));
-DPS_menu_crt_time.setText(sprintf("%s", "000/"~" 0:00:00"));
+DPS_menu_crt_time.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/CRT-string")));
 DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
 
@@ -2813,6 +2813,13 @@ p_dps_time.gpc_acc =  PFDsvg.getElementById("p_dps_time_gpc_acc");
 p_dps_time.tone1 =  PFDsvg.getElementById("p_dps_time_tone1");
 p_dps_time.tone2 =  PFDsvg.getElementById("p_dps_time_tone2");
 
+p_dps_time.gpc1 =  PFDsvg.getElementById("p_dps_time_gpc1");
+p_dps_time.gpc2 =  PFDsvg.getElementById("p_dps_time_gpc2");
+p_dps_time.gpc3 =  PFDsvg.getElementById("p_dps_time_gpc3");
+p_dps_time.gpc4 =  PFDsvg.getElementById("p_dps_time_gpc4");
+p_dps_time.gpc5 =  PFDsvg.getElementById("p_dps_time_gpc5");
+
+p_dps_time.crttimer_set1 = PFDsvg.getElementById("p_dps_time_crttimer_set1");
 
 p_dps_time.ondisplay = func
 {
@@ -2823,6 +2830,15 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var ops_string = major_mode~"1/002/";
 DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# zero unusued items
+
+p_dps_time.gpc1.setText(sprintf("" )); 
+p_dps_time.gpc2.setText(sprintf("" )); 
+p_dps_time.gpc3.setText(sprintf("" )); 
+p_dps_time.gpc4.setText(sprintf("" )); 
+p_dps_time.gpc5.setText(sprintf("" )); 
+
 }
 
 p_dps_time.update = func
@@ -2851,6 +2867,8 @@ p_dps_time.gpc_acc.setText(sprintf("%s", GMT_string ));
 
 p_dps_time.tone1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-1-string") )); 
 p_dps_time.tone2.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-2-string") )); 
+
+p_dps_time.crttimer_set1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/crt-timer-string") )); 
 
 update_common_DPS();
 

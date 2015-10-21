@@ -647,6 +647,52 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.set_MET_timer(1);
 			valid_flag = 1;
 			}
+		else if (item == 6)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-2-hours", int(value)); 
+			SpaceShuttle.set_MET_timer(2);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-2-minutes", int(value)); 
+			SpaceShuttle.set_MET_timer(2);
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-MET-2-seconds", int(value)); 
+			SpaceShuttle.set_MET_timer(2);
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			setprop("/fdm/jsbsim/systems/timer/crt-timer-hours", int(value)); 
+			SpaceShuttle.update_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/timer/crt-timer-minutes", int(value)); 
+			SpaceShuttle.update_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/timer/crt-timer-seconds", int(value)); 
+			SpaceShuttle.update_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			SpaceShuttle.start_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			SpaceShuttle.stop_CRT_timer();
+			valid_flag = 1;
+			}
 		else if (item == 24)
 			{
 			setprop("/fdm/jsbsim/systems/timer/delta-GMT-days", int(value)); 

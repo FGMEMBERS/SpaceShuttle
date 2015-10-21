@@ -849,6 +849,13 @@
 			<timer-MET-2-seconds type="int">0</timer-MET-2-seconds>
 			<timer-MET-2 type="int">0</timer-MET-2>
 			<timer-MET-2-string type="string"></timer-MET-2-string>
+			<crt-timer-hours type="int">0</crt-timer-hours>
+			<crt-timer-minutes type="int">0</crt-timer-minutes>
+			<crt-timer-seconds type="int">0</crt-timer-seconds>
+			<crt-timer type="int">0</crt-timer>
+			<crt-timer-string type="string">00:00:00</crt-timer-string>
+			<crt-timer-flag type="int">0</crt-timer-flag>
+			<CRT-string type="string">000/00:00:00</CRT-string>
 		</timer>
 		<vectoring>
 			<ssme-repos-enable type="int">1</ssme-repos-enable>
