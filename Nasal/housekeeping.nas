@@ -448,11 +448,48 @@ if ((MET_timer2 < MET) and (MET_timer2 > 0))
 	setprop("/fdm/jsbsim/systems/timer/timer-MET-2", 0);
 	}
 
-if (getprop("/fdm/jsbsim/systems/timer/crt-timer-flag") == 1)
+var crt_timer_flag = getprop("/fdm/jsbsim/systems/timer/crt-timer-flag");
+
+if (crt_timer_flag == 1)
 	{
 	var crt_seconds = elapsed + getprop("/fdm/jsbsim/systems/timer/crt-timer");
 	var CRT_string = SpaceShuttle.seconds_to_stringDHMS (crt_seconds);
 	setprop("/fdm/jsbsim/systems/timer/CRT-string", CRT_string);
+
+	var CRT_timer = getprop("/fdm/jsbsim/systems/timer/timer-CRT");
+	if ((CRT_timer < crt_seconds) and (CRT_timer > 0))
+		{
+		setprop("/fdm/jsbsim/systems/timer/timer-CRT-hours",0);
+		setprop("/fdm/jsbsim/systems/timer/timer-CRT-minutes",0);
+		setprop("/fdm/jsbsim/systems/timer/timer-CRT-seconds",0);
+		setprop("/fdm/jsbsim/systems/timer/timer-CRT-string","");
+		setprop("/sim/messages/copilot", "CRT timer time tone!");
+		setprop("/fdm/jsbsim/systems/dps/error-string", "TIME TONE");
+		setprop("/fdm/jsbsim/systems/timer/timer-CRT", 0);
+		}
+
+	}
+else if (crt_timer_flag == 2)
+	{
+	var crt_count_to = getprop("/fdm/jsbsim/systems/timer/count-to");
+	var interval_seconds = crt_count_to - MET;
+	var CRT_string = SpaceShuttle.seconds_to_stringDHMS (interval_seconds);
+	setprop("/fdm/jsbsim/systems/timer/CRT-string", CRT_string);
+	
+	if (interval_seconds < 0)
+		{
+		blank_count_to();
+		setprop("/fdm/jsbsim/systems/timer/crt-timer-flag",0);
+		}
+	}
+
+
+var crt_start_at = getprop("/fdm/jsbsim/systems/timer/start-at");
+
+if ((crt_start_at < MET) and (crt_start_at > 0))
+	{
+	blank_start_at();
+	start_CRT_timer();
 	}
 
 }
@@ -560,6 +597,21 @@ setprop("/fdm/jsbsim/systems/timer/timer-MET-"~index~"-string", timer_string);
 }
 
 
+var set_CRT_timer = func {
+
+var hours = getprop("/fdm/jsbsim/systems/timer/timer-CRT-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/timer-CRT-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/timer-CRT-seconds");
+
+var timer_seconds = hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/timer/timer-CRT", timer_seconds);
+
+var timer_string = seconds_to_stringHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/timer/timer-CRT-string", timer_string);
+}
+
 var update_CRT_timer = func {
 
 var hours = getprop("/fdm/jsbsim/systems/timer/crt-timer-hours");
@@ -594,4 +646,44 @@ var stop_CRT_timer = func {
 
 setprop("/fdm/jsbsim/systems/timer/crt-timer-flag", 0);
 setprop("/fdm/jsbsim/systems/timer/CRT-string", "000/00:00:00");
+}
+
+var update_start_count = func (index) {
+
+var string = "start-at";
+
+if (index == 2) 
+	{
+	string = "count-to";
+	setprop("/fdm/jsbsim/systems/timer/crt-timer-flag", 2);
+	}
+
+
+var hours = getprop("/fdm/jsbsim/systems/timer/"~string~"-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/"~string~"-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/"~string~"-seconds");
+	
+var timer_seconds = hours * 3600 + minutes * 60 + seconds;
+var timer_string = seconds_to_stringHMS(timer_seconds);
+setprop("/fdm/jsbsim/systems/timer/"~string~"-string", timer_string);
+setprop("/fdm/jsbsim/systems/timer/"~string, timer_seconds);
+
+}
+
+var blank_start_at = func {
+
+setprop("/fdm/jsbsim/systems/timer/start-at", 0);
+setprop("/fdm/jsbsim/systems/timer/start-at-hours", 0);
+setprop("/fdm/jsbsim/systems/timer/start-at-minutes", 0);
+setprop("/fdm/jsbsim/systems/timer/start-at-seconds", 0);
+setprop("/fdm/jsbsim/systems/timer/start-at-string", "");
+}
+
+var blank_count_to = func {
+
+setprop("/fdm/jsbsim/systems/timer/count-to", 0);
+setprop("/fdm/jsbsim/systems/timer/count-to-hours", 0);
+setprop("/fdm/jsbsim/systems/timer/count-to-minutes", 0);
+setprop("/fdm/jsbsim/systems/timer/count-to-seconds", 0);
+setprop("/fdm/jsbsim/systems/timer/count-to-string", "");
 }

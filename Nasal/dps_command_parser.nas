@@ -693,6 +693,71 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.stop_CRT_timer();
 			valid_flag = 1;
 			}
+		else if (item == 14)
+			{
+			setprop("/fdm/jsbsim/systems/timer/start-at-hours", int(value)); 
+			SpaceShuttle.update_start_count(1);
+			SpaceShuttle.blank_count_to();
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			setprop("/fdm/jsbsim/systems/timer/start-at-minutes", int(value)); 
+			SpaceShuttle.update_start_count(1);
+			SpaceShuttle.blank_count_to();
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			setprop("/fdm/jsbsim/systems/timer/start-at-seconds", int(value)); 
+			SpaceShuttle.update_start_count(1);
+			SpaceShuttle.blank_count_to();
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			setprop("/fdm/jsbsim/systems/timer/count-to-hours", int(value)); 
+			SpaceShuttle.update_start_count(2);
+			SpaceShuttle.blank_start_at();
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			setprop("/fdm/jsbsim/systems/timer/count-to-minutes", int(value)); 
+			SpaceShuttle.update_start_count(2);
+			SpaceShuttle.blank_start_at();
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", int(value)); 
+			SpaceShuttle.update_start_count(2);
+			SpaceShuttle.blank_start_at();
+			valid_flag = 1;
+			}
+		else if (item == 20)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-CRT-hours", int(value)); 
+			SpaceShuttle.set_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-CRT-minutes", int(value)); 
+			SpaceShuttle.set_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 22)
+			{
+			setprop("/fdm/jsbsim/systems/timer/timer-CRT-seconds", int(value)); 
+			SpaceShuttle.set_CRT_timer();
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/timer/time-tone-duration", int(value));
+			valid_flag = 1;
+			}
 		else if (item == 24)
 			{
 			setprop("/fdm/jsbsim/systems/timer/delta-GMT-days", int(value)); 

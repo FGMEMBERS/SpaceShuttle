@@ -2812,12 +2812,20 @@ p_dps_time.gpc_acc =  PFDsvg.getElementById("p_dps_time_gpc_acc");
 
 p_dps_time.tone1 =  PFDsvg.getElementById("p_dps_time_tone1");
 p_dps_time.tone2 =  PFDsvg.getElementById("p_dps_time_tone2");
+p_dps_time.tone3 =  PFDsvg.getElementById("p_dps_time_tone3");
 
 p_dps_time.gpc1 =  PFDsvg.getElementById("p_dps_time_gpc1");
 p_dps_time.gpc2 =  PFDsvg.getElementById("p_dps_time_gpc2");
 p_dps_time.gpc3 =  PFDsvg.getElementById("p_dps_time_gpc3");
 p_dps_time.gpc4 =  PFDsvg.getElementById("p_dps_time_gpc4");
 p_dps_time.gpc5 =  PFDsvg.getElementById("p_dps_time_gpc5");
+
+p_dps_time.duration =  PFDsvg.getElementById("p_dps_time_duration");
+
+p_dps_time.crttimer_start_at =  PFDsvg.getElementById("p_dps_time_crttimer_start_at");
+p_dps_time.crttimer_count_to =  PFDsvg.getElementById("p_dps_time_crttimer_count_to");
+
+
 
 p_dps_time.crttimer_set1 = PFDsvg.getElementById("p_dps_time_crttimer_set1");
 
@@ -2867,13 +2875,17 @@ p_dps_time.gpc_acc.setText(sprintf("%s", GMT_string ));
 
 p_dps_time.tone1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-1-string") )); 
 p_dps_time.tone2.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-2-string") )); 
+p_dps_time.tone3.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-CRT-string") )); 
 
 p_dps_time.crttimer_set1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/crt-timer-string") )); 
 
+p_dps_time.crttimer_start_at.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/start-at-string") )); 
+p_dps_time.crttimer_count_to.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/count-to-string") )); 
+
+
+p_dps_time.duration.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/timer/time-tone-duration") )); 
+
 update_common_DPS();
-
-
-
 
 
 }
