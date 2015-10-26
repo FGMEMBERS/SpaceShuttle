@@ -1677,11 +1677,32 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/rms/sum-wrist-yaw-rad">
+		<!--<fcs_function name="systems/rms/sum-wrist-yaw-rad-test">
 		<function>
 			<sum>
 				<property>systems/rms/ang-shoulder-yaw-rad</property>
 				<property>systems/rms/ang-wrist-yaw-rad</property>
+			</sum>
+		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-rad">
+		<function>
+			<sum>
+			<atan2>
+				<sin>
+					<property>systems/rms/ang-wrist-yaw-rad</property>
+				</sin>
+			<product>
+				<cos>
+					<property>systems/rms/ang-wrist-yaw-rad</property>
+				</cos>
+				<cos>
+					<property>systems/rms/sum-wrist-pitch-rad</property>
+				</cos>
+			</product>
+			</atan2>
+				<property>systems/rms/ang-shoulder-yaw-rad</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -1695,13 +1716,37 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-rad">
+		<function>
+			<asin>
+				<product>
+					<cos>	
+						<property>systems/rms/ang-wrist-yaw-rad</property>
+					</cos>
+					<sin>
+						<property>systems/rms/sum-wrist-pitch-rad</property>
+					</sin>
+				</product>
+			</asin>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-yaw-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rms/wrist-roll-x">
 		<function>
 			<sum>
 				<property>systems/rms/wrist-yaw-x</property>
 				<product>
 					<value>0.73</value>
-					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
 					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
 				</product>
 			</sum>
@@ -1714,7 +1759,7 @@
 				<property>systems/rms/wrist-yaw-y</property>
 				<product>
 					<value>0.73</value>
-					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
 					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
 				</product>
 			</sum>
@@ -1727,7 +1772,7 @@
 				<property>systems/rms/wrist-yaw-z</property>
 				<product>
 					<value>-0.73</value>
-					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+					<sin><property>systems/rms/sum-wrist-yaw-pitch-rad</property></sin>
 				</product>
 			</sum>
 		</function>
@@ -1739,7 +1784,7 @@
 				<property>systems/rms/wrist-roll-x</property>
 				<product>
 					<value>0.69</value>
-					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
 					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
 				</product>
 			</sum>
@@ -1752,7 +1797,7 @@
 				<property>systems/rms/wrist-roll-y</property>
 				<product>
 					<value>0.69</value>
-					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
 					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
 				</product>
 			</sum>
@@ -1765,11 +1810,14 @@
 				<property>systems/rms/wrist-roll-z</property>
 				<product>
 					<value>-0.69</value>
-					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+					<sin><property>systems/rms/sum-wrist-yaw-pitch-rad</property></sin>
 				</product>
 			</sum>
 		</function>
 		</fcs_function>
+
+
+
 
 
 
@@ -1819,11 +1867,11 @@
 				systems/rms/joint-selection-mode == 5
 				systems/rms/parameter-selection-mode == 2
 			</test>
-			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-pitch-deg">
 				systems/rms/joint-selection-mode == 6
 				systems/rms/parameter-selection-mode == 2
 			</test>
-			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-pitch-deg">
 				systems/rms/joint-selection-mode == 7
 				systems/rms/parameter-selection-mode == 2
 			</test>

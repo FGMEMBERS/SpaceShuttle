@@ -12,6 +12,10 @@
 	    <object-name>tex_02</object-name>
 	 </effect>
 
+   <!-- Offsets here should correspond to the attachment point coordinates with respect -->
+   <!-- to RMS origin, as the model will be handed over to the unsecured one with these-->
+   <!-- coords -->
+
     <offsets>
        <x-m> 11.75 </x-m>
        <y-m>  2.00 </y-m>

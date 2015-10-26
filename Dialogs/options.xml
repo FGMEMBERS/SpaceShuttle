@@ -153,6 +153,7 @@
         	 <property>/sim/config/shuttle/PL-selection</property>
 		 <value>none</value>
 		 <value>TDRS demo</value>
+		 <value>SPARTAN-201</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>PL-selection</object-name>

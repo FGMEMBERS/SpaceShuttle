@@ -31,11 +31,11 @@ if (math.abs(effector_z - payload_z) > 0.15) {flag = 0;}
 #print ("y difference: ", math.abs(effector_y - payload_y));
 #print ("z difference: ", math.abs(effector_z - payload_z));
 
-if (math.abs(effector_yaw ) > 10.0) {flag = 0;}
-if (math.abs(effector_pitch ) > 10.0) {flag = 0;}
+#if (math.abs(effector_yaw ) > 20.0) {flag = 0;}
+#if ((math.abs(effector_pitch ) > 10.0) and (math.abs(effector_pitch) < 80.0)) {flag = 0;}
 
-#print ("yaw: ", math.abs(effector_yaw ));
-#print ("pitch: ", math.abs(effector_yaw ));
+print ("yaw: ", math.abs(effector_yaw ));
+print ("pitch: ", math.abs(effector_yaw ));
 
 if (flag == 0)
 	{
@@ -110,6 +110,14 @@ else if (payload_string == "TDRS demo")
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 2.0);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -1.8);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 20000.0);
+	}
+else if (payload_string == "SPARTAN-201")
+	{
+	setprop("/sim/config/shuttle/PL-selection-flag", 2);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 9.85);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 1.9);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -0.6);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 2998.2);
 	}
 
 }

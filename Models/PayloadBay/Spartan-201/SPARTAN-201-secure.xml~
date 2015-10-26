@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+    <path>SPARTAN-201-test1.ac</path>
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	     <object-name>SPARTAN-201</object-name>
+	 </effect>
+
+    <offsets>
+       <x-m> 9.85 </x-m>
+       <y-m> 1.9 </y-m>
+       <z-m>-0.6 </z-m>
+    </offsets>
+
+   <animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/testrot-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+</PropertyList>
