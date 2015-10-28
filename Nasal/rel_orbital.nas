@@ -734,8 +734,9 @@ setprop("/controls/shuttle/payload-ballistic/payload-z", z);
 payloadState = stateVector.new (payloadCoord.x(),payloadCoord.y(),payloadCoord.z(),0,0,0,yaw, pitch - lon, roll);
 
 
+var model_path = getprop("/sim/config/shuttle/PL-model-path");
 
-payloadModel = place_model("payload-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/TDRS/TDRS_disconnected.xml", payloadCoord.lat(), payloadCoord.lon(), payloadCoord.alt() * m_to_ft, yaw,pitch,roll);
+payloadModel = place_model("payload-ballistic", model_path, payloadCoord.lat(), payloadCoord.lon(), payloadCoord.alt() * m_to_ft, yaw,pitch,roll);
 
 # seems we need small offsets in velocity to get a small separation velocity
 # this looks odd but the error we need to correct is actually a function

@@ -102,6 +102,7 @@ if (payload_string == "none")
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 0);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", 0);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 0.0);
+	setprop("/sim/config/shuttle/PL-model-path", "");
 	}
 else if (payload_string == "TDRS demo")
 	{
@@ -110,6 +111,7 @@ else if (payload_string == "TDRS demo")
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 2.0);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -1.8);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 20000.0);
+	setprop("/sim/config/shuttle/PL-model-path", "Aircraft/SpaceShuttle/Models/PayloadBay/TDRS/TDRS_disconnected.xml");
 	}
 else if (payload_string == "SPARTAN-201")
 	{
@@ -118,6 +120,7 @@ else if (payload_string == "SPARTAN-201")
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 1.9);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -0.6);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 2998.2);
+	setprop("/sim/config/shuttle/PL-model-path", "Aircraft/SpaceShuttle/Models/PayloadBay/Spartan-201/SPARTAN-201-disconnected.xml");
 	}
 
 }

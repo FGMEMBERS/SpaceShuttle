@@ -15,8 +15,8 @@ This means that each payload is actually represented in three different ways:
 
 Handover from one condition to the other is done by a) end effector attachment flag and b) payload retention flag. A payload that is attached is animated as 2), a payload that is not attached but retained as 1), a payload that is neither attached nor retained as 3).
 
-Preparation of the model
-========================
+Preparation of the model and animations
+=======================================
 
 To determine the offsets needed to place and hand over models with as little pain as possible:
 
@@ -73,7 +73,7 @@ Do not condition on end effector attachment yet!
 
 		 <value>SPARTAN-201</value>
 
-7) Add the payload characteristics (selection flag, attachment point relative to RMS origin, mass) to Nasal/payload.nas in the function update_payload_selection(), e.g.
+7) Add the payload characteristics (selection flag, attachment point relative to RMS origin, mass, path to co-orbiting model xml) to Nasal/payload.nas in the function update_payload_selection(), e.g.
 
 else if (payload_string == "SPARTAN-201")
 	{
@@ -82,6 +82,51 @@ else if (payload_string == "SPARTAN-201")
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 1.9);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -0.6);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 2998.2);
+	setprop("/sim/config/shuttle/PL-model-path", "Aircraft/SpaceShuttle/Models/PayloadBay/Spartan-201/SPARTAN-201-disconnected.xml");
 	}
 
 8) Add conditionals to show the payload model based on selection flag and effector attachment to the inclusion of the model files. You should now have a payload that can be picked up by the RMS arm - test it!
+
+9) When the payload is released into space (the end effector released without the payload being latched), the init_payload() function starting a computation of the equation of motion will start automatically - but it expects a model xml definition (see above) as well.
+
+This is very similar to the model file used while the payload is moved by the RMS arm, except the properties governing the animations are different, i.e. use
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/payload-ballistic/payload-pitch-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+for the pitch axis.
+
+Also, to get coordinates right, the offset for the origin of the RMS arm needs to be in this file, i.e. add
+
+	<offsets>
+      	 	<x-m> -8.5 </x-m>
+       		<y-m> -2.1</y-m>
+       		<z-m> -1.1 </z-m>
+    	</offsets>
+
+Finally, to avoid collision of the Shuttle with the released payload (note that the payload position is only updated every frame while the Shuttle is updated at a much higher rate, so collisions can occur between frames even when they never show in a visible frame) use
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+here.
+
+
+Effects
+=======
+
+Correct lighting for an object in the payload bay is tricky, because the object should be lit by the Space Shuttle floodlights while close (requiring a lightmap), dark when the payload bay is closed (requiring a darkmap) and eventually switch to independent light outside. space-combined.eff is a must and can accomplish all these things, more details to follow.
+
+
