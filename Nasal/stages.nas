@@ -440,6 +440,87 @@ settimer(SRB_separation_motor_off, 1.2);
 
 }
 
+
+####################################################################################
+# Explicit model for SRB separation using ballistic submodel dynamics during explosion
+####################################################################################
+
+var SRB_separate_force = func {
+
+setprop("/controls/shuttle/SRB-static-model", 0);
+
+setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
+setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
+
+var hdg_deg = getprop("/ai/models/ballistic[0]/orientation/hdg-deg");
+var pitch_rad = getprop("/ai/models/ballistic[0]/orientation/pitch-deg") * math.pi/180.0;
+var roll_rad = getprop("/ai/models/ballistic[0]/orientation/roll-deg") * math.pi/180.0;
+
+
+
+#############################
+# force in (+-y,z) direction
+
+var alpha1_rad = math.asin(0.707 * math.cos(pitch_rad) * (math.sin(roll_rad) - math.cos(roll_rad)));
+var alpha2_rad = math.asin(0.707 * math.cos(pitch_rad) * (math.sin(roll_rad) - math.cos(roll_rad)));
+
+var beta1_rad = math.asin(0.707 * (math.sin(roll_rad) + math.cos(roll_rad)) / math.cos(alpha1_rad));
+var beta2_rad = math.asin(0.707 * (math.sin(roll_rad) - math.cos(roll_rad)) / math.cos(alpha2_rad));
+
+var alpha1_deg =alpha1_rad * 180.0/math.pi;
+var alpha2_deg =alpha2_rad * 180.0/math.pi;
+
+alpha1_deg = -alpha1_deg;
+alpha2_deg = -alpha2_deg;
+
+var beta1_deg = beta1_rad * 180.0/math.pi + hdg_deg + 180.0;
+var beta2_deg = beta2_rad * 180.0/math.pi + hdg_deg + 180.0;
+
+#######################
+# force in z-direction
+
+#var alpha_rad = math.asin(-math.cos(roll_rad) * math.cos(pitch_rad));
+#var beta_rad = math.asin(math.sin(roll_rad)/math.cos(alpha_rad));
+
+#var alpha_deg = alpha_rad * 180.0/math.pi;
+#var beta_deg = beta_rad * 180.0/math.pi + hdg_deg;
+#alpha_deg = - alpha_deg;
+#beta_deg = beta_deg + 180.0;
+
+var force_mag_var = 5.0 + 5.0 * rand();
+var alpha_var = -50.0 + 100.0 * rand();
+var beta_var =  -50.0 + 100.0 * rand();
+
+setprop("/controls/shuttle/forces/srb1/force-lb", 448000.0 * force_mag_var);
+setprop("/controls/shuttle/forces/srb1/force-azimuth-deg", beta1_deg + beta_var);
+setprop("/controls/shuttle/forces/srb1/force-elevation-deg", alpha1_deg + alpha_var);
+
+force_mag_var = 5.0 + 5.0 * rand();
+alpha_var =  -50.0 + 100.0 * rand();
+beta_var =  -50.0 + 100.0 * rand();
+
+setprop("/controls/shuttle/forces/srb2/force-lb", 448000.0 * force_mag_var);
+setprop("/controls/shuttle/forces/srb2/force-azimuth-deg",  beta2_deg + beta_var);
+setprop("/controls/shuttle/forces/srb2/force-elevation-deg", alpha2_deg + alpha_var);
+
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
+
+
+
+setprop("/controls/engines/engine[3]/status-hud", "X");
+setprop("/controls/engines/engine[4]/status-hud", "X");
+
+setprop("/controls/engines/engine[3]/ignited-hud", " ");
+setprop("/controls/engines/engine[4]/ignited-hud", " ");
+
+settimer(SRB_separation_motor_off, 1.2);
+
+}
+
+
+
+
 var SRB_separation_motor_off = func {
 
 setprop("/controls/shuttle/forces/srb1/force-lb", 1.0);

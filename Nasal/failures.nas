@@ -36,11 +36,15 @@ setprop("/fdm/jsbsim/systems/failures/ssme3-condition", 0.0);
 
 # disconnect the SRBs
 
-SpaceShuttle.SRB_separate();
+SpaceShuttle.SRB_separate_force();
 
 # remove the tank
 
 SpaceShuttle.external_tank_separate_silent();
+
+# animate the explosion
+
+et_explosion_effect();
 
 # destroy aerodynamics
 
@@ -51,6 +55,15 @@ setprop("/fdm/jsbsim/systems/failures/airfoils-yaw-condition", 0.0);
 setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
 
+}
+
+
+var et_explosion_effect = func {
+
+setprop("/sim/model/effects/explosion-flame",1);
+settimer(func{setprop("/sim/model/effects/explosion-flame",0);}, 0.2);
+setprop("/sim/model/effects/explosion-smoke",1);
+settimer(func{setprop("/sim/model/effects/explosion-smoke",0);}, 2.0);
 }
 
 #### breakup of the orbiter on atmospheric entry

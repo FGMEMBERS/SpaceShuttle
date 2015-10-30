@@ -36,6 +36,17 @@
 	 </offsets>	
   </model>
 
+ <model>
+ <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
+      <offsets>
+		 <x-m>-180.5</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>0.0</z-m>
+		 <pitch-deg>0</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>	
+  </model>
+
 <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_separation_motor_flame.xml</path>
     <condition>

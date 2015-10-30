@@ -1085,6 +1085,11 @@
                     <displays-blue type="double">0.0161</displays-blue>
                 </lighting>
             </shuttle>
+	    <effects>
+		<launch-smoke type="int">0</launch-smoke>
+		<explosion-flame type="int">0</explosion-flame>
+		<explosion-smoke type="int">0</explosion-smoke>
+	   </effects>
         </model>
 
         <sound>

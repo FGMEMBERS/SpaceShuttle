@@ -1086,7 +1086,7 @@
   </axis>
  </animation>
 
- <model>
+ <!--<model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
       <offsets>
 		 <x-m>180.5</x-m>
@@ -1095,7 +1095,7 @@
 		 <pitch-deg>0</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>
-  </model>
+  </model>-->
 
 
 <!-- Ku-band antenna -->
@@ -1185,7 +1185,7 @@
 <!-- SRB exhaust smoke-->
 
 
-  <model>
+<!--  <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
       <offsets>
 		 <x-m>180.5</x-m>
@@ -1194,7 +1194,7 @@
 		 <pitch-deg>0</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
-  </model>
+  </model>-->
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_launch_smoke.xml</path>
@@ -1250,6 +1250,31 @@
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
   </model>
+
+ <!-- explosion blast for catastrophic ascent failure -->
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/ET_fireball.xml</path>
+      <offsets>
+		 <x-m>0.0</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>0.0</z-m>
+		 <pitch-deg>0</pitch-deg>
+		 <roll-deg>180</roll-deg>
+	 </offsets>	
+  </model>
+
+  <model>
+    <path>Aircraft/SpaceShuttle/Models/Effects/ET_explosion_blast.xml</path>
+      <offsets>
+		 <x-m>0.0</x-m>
+		 <y-m>0.0</y-m>
+		 <z-m>0.0</z-m>
+		 <pitch-deg>0</pitch-deg>
+		 <roll-deg>180</roll-deg>
+	 </offsets>	
+  </model>
+ 
 
   <!-- RCS thruster flames -->
  
