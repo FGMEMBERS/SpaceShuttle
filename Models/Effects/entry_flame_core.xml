@@ -3,7 +3,7 @@
 <PropertyList>
 
 <particlesystem>
-	 <name>re-entry-plasma</name>
+	 <name>debris-plasma</name>
 	 <texture>smoke.png</texture>
 	 <emissive>true</emissive>
 	 <lighting>false</lighting>
@@ -19,7 +19,7 @@
      <property>/fdm/jsbsim/systems/thermal/nose-temperature-F</property>
      <value>2000.0</value>
     </greater-than>
-    <not>
+     <not>
 	<property>/sim/current-view/internal</property>
     </not>
     </and>
@@ -34,8 +34,8 @@
 	 <shooter>
 		 <theta-min-deg>0.0</theta-min-deg>
 		 <theta-max-deg>0.0</theta-max-deg>
-		 <phi-min-deg>0.0</phi-min-deg>
-		 <phi-max-deg>0.0</phi-max-deg>
+		 <phi-min-deg>0</phi-min-deg>
+		 <phi-max-deg>0</phi-max-deg>
 		<speed-mps>
 		<value>0</value>
 		<spread>0</spread>
@@ -44,15 +44,15 @@
 			<x-min-deg-sec>1</x-min-deg-sec>
 			<y-min-deg-sec>1</y-min-deg-sec>
 			<z-min-deg-sec>1</z-min-deg-sec>
-			<x-max-deg-sec>90</x-max-deg-sec>
-			<y-max-deg-sec>90</y-max-deg-sec>
-			<z-max-deg-sec>90</z-max-deg-sec>
+			<x-max-deg-sec>5</x-max-deg-sec>
+			<y-max-deg-sec>5</y-max-deg-sec>
+			<z-max-deg-sec>5</z-max-deg-sec>
 		 </rotation-speed>
 	 </shooter>
 	 
 	 <counter>
 		 <particles-per-sec>
-			 <value>5000</value>
+			 <value>10000</value>
 			 <spread>0</spread>
 		 </particles-per-sec>
 	 </counter>
@@ -76,7 +76,7 @@
 					</alpha>
 			 </color>
 			 <size>
-				 <value>12.2</value>
+				 <value>8.2</value>
 			 </size>
 		 </start>
 		 <end>
@@ -95,11 +95,11 @@
 					</alpha>
 			 </color>
 			 <size>
-				 <value>12.2</value>
+				 <value>8.2</value>
 			 </size>
 		 </end>
 		 <life-sec>
-			 <value>0.2</value>
+			 <value>0.1</value>
 		 </life-sec>
 		 <mass-kg>5.0</mass-kg>
 		 <radius-m>0.1</radius-m>

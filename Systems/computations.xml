@@ -2,6 +2,7 @@
 
 <system>
 	<channel name="Auxiliary computations">
+
 		<fcs_function name="accelerations/a-pilot-ft_sec2">
 		<function>
 		<pow>
@@ -21,6 +22,18 @@
 		</sum>
 		<value>0.5</value>
 		</pow>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="velocities/course-deg">
+		<function>
+			<product>
+			<atan2>
+				<property>velocities/v-east-fps</property>
+				<property>velocities/v-north-fps</property>
+			</atan2>
+			<value>57.29578</value>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -114,6 +127,7 @@
 
 		<fcs_function name="systems/thermal/entry-flame-alpha">
 		<function>
+			<product>
 			<difference>
 			<product>
 				<property>systems/thermal/nose-temperature-F</property>
@@ -121,6 +135,8 @@
 			</product>
 			<value>2.0</value>
 			</difference>
+			<value>0.1</value>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -255,6 +271,21 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<kinematic name="systems/various/debris-separation">
+			<input>systems/various/debris-separation-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>60.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
 		
 	</channel>
 </system>

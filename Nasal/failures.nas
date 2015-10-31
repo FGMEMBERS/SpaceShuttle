@@ -55,6 +55,13 @@ setprop("/fdm/jsbsim/systems/failures/airfoils-yaw-condition", 0.0);
 setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
 
+# disconnect power
+
+setprop("/fdm/jsbsim/systems/failures/fc1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/fc2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
+
+
 }
 
 
@@ -95,6 +102,11 @@ setprop("/fdm/jsbsim/systems/failures/rcs-pod2-down-condition", 0.0);
 
 setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
+# disconnect power
+
+setprop("/fdm/jsbsim/systems/failures/fc1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/fc2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
 
 }
 
