@@ -1089,9 +1089,10 @@ p_ascent.update = func
 
 update_common_DPS();
 
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
 if (SpaceShuttle.traj_display_flag < 3)
 	{
-	#var throttle = getprop("/controls/engines/engine[0]/throttle");
 	var throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm");
 	if (throttle < 0.67) {throttle = 0.0;} else {throttle = throttle * 100.0;}
 	p_ascent.throttle.setText(sprintf("%3.0f",throttle));
@@ -1103,7 +1104,7 @@ else
 	p_ascent.throttle_text.setText(sprintf(""));
 	}
 
-if (SpaceShuttle.traj_display_flag == 2)
+if (major_mode == 103)
 	{
 	p_ascent.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
 	p_ascent.prplt_text.setText(sprintf("PRPLT"));
@@ -1118,7 +1119,7 @@ nom_traj_plot.removeAllChildren();
 
 SpaceShuttle.ascent_traj_update_set();
 
-var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
 
 if (SpaceShuttle.traj_display_flag == 1)
 	{
@@ -1129,7 +1130,7 @@ if (SpaceShuttle.traj_display_flag == 1)
 
 		DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
 	}
-else if ((SpaceShuttle.traj_display_flag == 2) or (major_mode == 103))
+else if ( major_mode == 103)
 	{
 	DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
 	DPS_menu_ops.setText(sprintf("%s","1031/     /"));

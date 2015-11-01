@@ -172,7 +172,7 @@ setprop("/fdm/jsbsim/systems/dps/error-string", "");
 var key_fault_summ = func {
 
 SpaceShuttle.PFD.selectPage(p_dps_fault);
-
+setprop("/fdm/jsbsim/systems/dps/disp", 99);
 }
 
 # SYS SUMM key #######################################################
@@ -218,35 +218,52 @@ var key_resume = func {
 
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+var spec = getprop("/fdm/jsbsim/systems/dps/spec");
+var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 
-if (ops == 1)	
+if ((disp > 0) and (spec > 0)) 
 	{
-	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
-		{SpaceShuttle.PFD.selectPage(p_ascent);}
-	else
-		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+	if (spec == 2)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_time);
+		}
+	else if (spec == 51)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_override);
+		}
+	else if (spec == 63)
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		}
+	setprop("/fdm/jsbsim/systems/dps/disp", 0);
 	}
-else if (ops == 2)
+else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 	{
-	if (major_mode == 201)
-		{SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);}
-	else
-		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
-	}
-else if ( ops == 3)
-	{
-		if ((major_mode == 304) or (major_mode = 305))
-		{SpaceShuttle.PFD.selectPage(p_ascent);}
+	if (ops == 1)	
+		{
+		if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
+			{SpaceShuttle.PFD.selectPage(p_ascent);}
 		else
-		{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+		}
+	else if (ops == 2)
+		{
+		if (major_mode == 201)
+			{SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);}
+		else
+			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+		}
+	else if ( ops == 3)
+		{
+		if (major_mode == 304)
+			{SpaceShuttle.PFD.selectPage(p_entry);}
+		else if (major_mode == 304)
+			{SpaceShuttle.PFD.selectPage(p_vert_sit);}
+		else
+			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+		}
+	setprop("/fdm/jsbsim/systems/dps/spec", 0);
 	}
-
-# setting the screen to last ops isn't quite correct but will do for the moment
-
-setprop("/fdm/jsbsim/systems/dps/spec", 0);
-setprop("/fdm/jsbsim/systems/dps/disp", 0);
-
-
 
 }
 

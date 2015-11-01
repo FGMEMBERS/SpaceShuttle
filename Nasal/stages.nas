@@ -18,7 +18,7 @@ var deorbit_stage_flag = 0;
 
 aircraft.HUD.cycle_color();
 
-settimer(func {setprop("systems/electrical/init-electrical-on", 0.0);}, 30.0);
+settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0);}, 30.0);
 
 
 #########################################################################################
@@ -670,9 +670,9 @@ if ((stage == 3) or (stage ==4)){return;}
 
 # transfer controls to RCS
 
-setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 setprop("/sim/messages/copilot", "Control switched to RCS.");
-setprop("/controls/shuttle/control-system-string", "RCS rotation");
+setprop("/controls/shuttle/control-system-string", "RCS ROT DAP A");
 
 # transfer thrust control to OMS
 
@@ -1504,12 +1504,12 @@ if (getprop("/sim/presets/stage") == 2)
 
 	#setprop("/velocities/uBody-fps", 25500.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 300.0);
-setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
+	setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
 	hydraulics_on();
 	et_umbilical_door_close();
-
-	
+	SpaceShuttle.traj_display_flag = 3;
+	SpaceShuttle.fill_entry1_data();
 	settimer( func {
 			setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 			setprop("/controls/shuttle/control-system-string", "Aerojet");

@@ -487,7 +487,7 @@ setprop("/controls/flight/elevator", 1);
 
 settimer( func{
 	controls.centerFlightControls();
-	control_to_rcs();
+	SpaceShuttle.control_to_rcs();
 	}, 5.0);
 
 

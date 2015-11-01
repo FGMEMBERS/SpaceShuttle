@@ -10,10 +10,10 @@
         <object-name>DisplayL1</object-name>
         <type>material</type>
         <condition>
-            <!--<greater-than>
-                <property>/fdm/jsbsim/systems/electrics/ac-essential-bus1</property>
+          <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                 <value>0</value>
-            </greater-than>-->
+            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
@@ -28,6 +28,33 @@
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
         </emission>
     </animation>
+
+ <animation>
+        <object-name>HUDImage1</object-name>
+        <type>material</type>
+        <condition>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <!--<factor-prop>sim/model/f15/controls/HUD/brightness</factor-prop>-->
+            <red>  0.6</red>
+            <green>0.6</green>
+            <blue> 0.6</blue>
+        </emission>
+    </animation>
+
+   <animation>
+        <object-name>HUDImage1</object-name>
+        <type>select</type>
+	<condition>
+          <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+	</condition>
+  </animation>
 
     <animation>
         <type>knob</type>
