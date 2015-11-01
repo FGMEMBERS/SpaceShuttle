@@ -1073,7 +1073,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-
+SpaceShuttle.check_limits_glide();
 
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));

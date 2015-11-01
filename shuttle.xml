@@ -2107,6 +2107,31 @@
 
   </channel>
 
+  <channel name="Actuator stall">
+  
+  <fcs_function name="systems/fcs/actuator-stall-factor">
+  <function>
+	<max>
+	<difference>
+	<value>1.0</value>
+	<quotient>
+		<max>
+		<difference>
+			<property>aero/qbar-psf</property>
+			<property>systems/various/qbar-limit-entry</property>
+		</difference>
+		<value>0.0</value>
+		</max>
+		<value>100.0</value>
+	</quotient>
+	</difference>
+	<value>0.0</value>
+	</max>
+  </function>
+  </fcs_function>
+
+  </channel>
+
 
   <channel name="Pitch">
 
@@ -2128,9 +2153,17 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-pitch</output>
+		<output>fcs/airfoil-factor-pitch-base</output>
    </switch>
 
+   <fcs_function name="fcs/airfoil-factor-pitch">
+   <function>
+	<product>
+		<property>fcs/airfoil-factor-pitch-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+   </function>
+   </fcs_function>
 
 
    <fcs_function name="Pitch Auto Trim">
@@ -2369,8 +2402,17 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-roll</output>
+		<output>fcs/airfoil-factor-roll-base</output>
 		</switch>
+
+    <fcs_function name="fcs/airfoil-factor-roll">
+    <function>
+	<product>
+		<property>fcs/airfoil-factor-roll-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+    </function>
+    </fcs_function>
 
     <pure_gain name="Roll damper">
 	<input>velocities/p-rad_sec</input>
@@ -2640,16 +2682,25 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-yaw</output>
-		</switch>
+		<output>fcs/airfoil-factor-yaw-base</output>
+    </switch>
 
-  <switch name="Disable automatic rudder in orbit">
+   <fcs_function name="fcs/airfoil-factor-yaw">
+   <function>
+	<product>
+		<property>fcs/airfoil-factor-yaw-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+   </function>
+   </fcs_function>
+
+   <switch name="Disable automatic rudder in orbit">
 			<default value="1.0"/>
 			<test  logic="OR" value="0.0">
 				velocities/mach GT 10.0
 			</test>
 		<output>fcs/automatic-rudder</output>
-  </switch>
+   </switch>
 
    <summer name="Rudder Command Sum">
       <input>fcs/rudder-cmd-norm</input>
