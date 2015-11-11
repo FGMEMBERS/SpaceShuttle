@@ -328,6 +328,8 @@ setprop("/sim/messages/copilot", "Reduce throttle and prepare  orbital insertion
 var SRB_separate_silent = func {
 
 setprop("/controls/shuttle/SRB-static-model", 0);
+setprop("/controls/shuttle/SRB-sound-veto", 1);
+
 
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[3]", 0.0);
 setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[4]", 0.0);
@@ -353,6 +355,9 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 var SRB_separate = func {
 
 setprop("/controls/shuttle/SRB-static-model", 0);
+#setprop("/controls/shuttle/SRB-sound-veto", 1);
+settimer(func{setprop("/controls/shuttle/SRB-sound-veto", 1);}, 5.0);
+
 
 setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
 setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
@@ -448,6 +453,8 @@ settimer(SRB_separation_motor_off, 1.2);
 var SRB_separate_force = func {
 
 setprop("/controls/shuttle/SRB-static-model", 0);
+setprop("/controls/shuttle/SRB-sound-veto", 1);
+
 
 setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
 setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
@@ -544,6 +551,7 @@ setprop("/controls/shuttle/forces/srb2/force-lb", 0.0);
 var external_tank_separate_silent = func {
 
 setprop("/controls/shuttle/ET-static-model", 0);
+setprop("/controls/shuttle/ET-sound-veto", 1);
 
 
 setprop("/consumables/fuel/tank[0]/level-norm",0.0);
@@ -631,6 +639,8 @@ setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[2]", 0.0);
 setprop("/sim/messages/copilot", "External tank separation!");
 
 setprop("/controls/shuttle/ET-static-model", 0);
+settimer(func{setprop("/controls/shuttle/ET-sound-veto", 1);}, 5.0);
+
 
 # release the Nasal-computed ballistic model
 

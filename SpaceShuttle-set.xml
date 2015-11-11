@@ -904,6 +904,8 @@
             <drag-chute-string type="string">in</drag-chute-string>
 	    <SRB-static-model type="bool">true</SRB-static-model>	    
 	    <ET-static-model type="bool">true</ET-static-model>
+		<SRB-sound-veto type="bool">false</SRB-sound-veto>
+		<ET-sound-veto type="bool">false</ET-sound-veto>
 	    <etsep-in-progress type="int">0</etsep-in-progress>
 	    <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
 	    <ku-antenna-beta-deg type="double">0.0</ku-antenna-beta-deg>
@@ -1111,7 +1113,7 @@
         <view n="0">
             <internal archive="y">true</internal>
             <config>
-                <x-offset-m archive="y" type="double">-0.653125</x-offset-m>
+                <x-offset-m archive="y" type="double">-0.6</x-offset-m>
                 <y-offset-m archive="y" type="double">-0.1708984375</y-offset-m>
                 <z-offset-m archive="y" type="double">-11.6</z-offset-m>
                 <default-field-of-view-deg>75</default-field-of-view-deg>

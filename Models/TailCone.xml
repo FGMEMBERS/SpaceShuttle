@@ -3,6 +3,7 @@
 <PropertyList>
 
     <path>Aircraft/SpaceShuttle/Models/TailCone.ac</path>
+	<nopreview/>
 
  <effect>
     <inherits-from>Effects/space-combined</inherits-from>

@@ -8,6 +8,7 @@
 <PropertyList>
   
 	<path>srb.ac</path>
+	<nopreview/>
 		
 <offsets>
   <heading-deg>-180</heading-deg>

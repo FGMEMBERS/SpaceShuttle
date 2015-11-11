@@ -216,12 +216,12 @@
 
 <!-- landing gear -->
 <model>
-  <path>Aircraft/SpaceShuttle/Models/LandingGears.ac</path>
+  <path>Aircraft/SpaceShuttle/Models/LandingGears.xml</path>
 </model>
 
 <!-- landing gear damaged-->
 <model>
-	<path>Aircraft/SpaceShuttle/Models/damage.ac</path>
+	<path>Aircraft/SpaceShuttle/Models/gear-damage.xml</path>
 </model>
 
  <!-- front gear undamaged -->

@@ -3,7 +3,8 @@
 <PropertyList>
   
 	<path>TDRS_demo.ac</path>
-
+    <nopreview/>
+	
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>
 	    <object-name>black_krinkle</object-name>

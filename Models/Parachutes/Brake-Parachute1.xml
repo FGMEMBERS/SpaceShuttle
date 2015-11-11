@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 
 <!--###################################################################################
-    Antonov-Aircrafts and SpaceShuttle :: Herbert Wagner November2014-2015
-    Development is ongoing, see latest version: www.github.com/herbyw/antonov-aircrafts
     This file is licenced under the terms of the GNU General Public Licence V3 or later
     ###################################################################################
 -->
@@ -14,7 +12,8 @@
 <!-- Brake Parachute -->
 
 	<path>Main-Parachute.ac</path>
-
+    <nopreview/>
+		
 	<offsets>
 		<x-m>0.0</x-m>
 		<y-m>0.0</y-m>

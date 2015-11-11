@@ -3,6 +3,7 @@
 <PropertyList>
   
     <path>SPARTAN-201.ac</path>
+	<nopreview/>
 
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>

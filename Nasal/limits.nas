@@ -466,12 +466,14 @@ else if ((T_apu > 400.0) and (apu_heat_warn == 0))
 
 # qbar larger than a Mach-dependent limit will lead to actuator stall, stall itself is 
 # implemented FDM-side
-
+# during final approach we go close to qbar limit, but actuator stall isn't an issue
+# hence we don't issue a warning
 
 var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 var qbar_limit = getprop("/fdm/jsbsim/systems/various/qbar-limit-entry");
+var mach = getprop("/velocities/mach");
 
-if ((qbar > qbar_limit) and (qbar_warn == 0))
+if ((qbar > qbar_limit) and (qbar_warn == 0) and (mach > 1.0))
 	{
 	setprop("/sim/messages/copilot", "Dynamical pressure approaching limit! Pull up!");
 	qbar_warn = 1;

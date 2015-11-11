@@ -133,7 +133,7 @@ var STSHUD = {
         me.ladder.setRotation (roll_rad);
   
 # velocity vector
-        me.VV.setTranslation (hdp.VV_x, hdp.VV_y+pitch_offset);
+        me.VV.setTranslation (hdp.VV_x, hdp.VV_y * pitch_factor +pitch_offset);
 
 #Altitude
         me.alt_range.setTranslation(0, hdp.measured_altitude * alt_range_factor);
@@ -180,7 +180,8 @@ var HUD_DataProvider  = {
         return obj;
     },
     update : func() {
-        me.IAS = getprop("/velocities/airspeed-kt");
+        #me.IAS = getprop("/velocities/airspeed-kt");
+		me.IAS = getprop("/fdm/jsbsim/velocities/ve-kts");
         me.Nz = getprop("sim/model/f15/instrumentation/g-meter/g-max-mooving-average");
         me.WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
         me.alpha = getprop ("fdm/jsbsim/aero/alpha-deg");
@@ -205,7 +206,7 @@ var HUD_DataProvider  = {
 
         me.roll_rad = 0.0;
         me.VV_x = -me.beta*10; # adjust for view
-        me.VV_y = me.alpha*10; # adjust for view
+        me.VV_y = (me.alpha); # adjust for view
 
     },
 };
@@ -226,7 +227,7 @@ var updateHUD = func ()
 var hudrtExec_loop = func
 {
     updateHUD();
-    settimer(hudrtExec_loop, 0.2);	 # 0.2 is 5hz
+    settimer(hudrtExec_loop, 0.05);	 # 0.2 is 5hz
 }
     
 hudrtExec_loop();

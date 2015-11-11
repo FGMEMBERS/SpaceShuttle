@@ -6,6 +6,7 @@
 
 <PropertyList>
     <path>cockpit.ac</path>
+	<nopreview/>
     <animation>
         <object-name>DisplayL1</object-name>
         <type>material</type>
