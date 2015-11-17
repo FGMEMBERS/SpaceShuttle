@@ -61,6 +61,9 @@ setprop("/fdm/jsbsim/systems/failures/fc1-condition", 0.0);
 setprop("/fdm/jsbsim/systems/failures/fc2-condition", 0.0);
 setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
 
+# destroy shuttle, cockpit only
+
+setprop("/fdm/jsbsim/systems/failures/shuttle-destroyed", 1);
 
 }
 

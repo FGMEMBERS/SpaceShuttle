@@ -1086,6 +1086,66 @@
   </axis>
  </animation>
 
+<!-- cockpit damage-->
+<model>
+    <path>Aircraft/SpaceShuttle/Models/cockpit-damage.xml</path>
+</model>
+
+<!-- cockpit no damage -->
+ <animation>
+    <type>select</type>
+    <object-name>Fwd_Window_Assy</object-name>
+    <object-name>Roof_Assembly.001</object-name>
+    <object-name>spaceshutt_spstob_1</object-name>
+    <object-name>spaceshutt_spstob</object-name>
+    <object-name>spaceshutt_spstob.001</object-name>
+    <object-name>inboard-elevon-left</object-name>
+    <object-name>inboard-elevon-right</object-name>
+    <object-name>outboard-elevon-left</object-name>
+    <object-name>outboard-elevon-right</object-name>
+    <object-name>spaceshutt_spstob_2</object-name>
+    <object-name>spaceshutt_spstob_4</object-name>
+    <object-name>spaceshutt_spstob_3</object-name>
+    <object-name>spaceshutt_spstob_eal</object-name>
+    <object-name>SpeedBrakeL</object-name>
+    <object-name>SpeedBrakeR</object-name>
+    <object-name>BodyFlap</object-name>
+    <object-name>heatshield</object-name>
+    <object-name>GearDoorR</object-name>
+    <object-name>GearDoorL</object-name>
+    <object-name>NoseDoorR</object-name>
+    <object-name>NoseDoorL</object-name>
+    <object-name>cockpit-front-glass-outside</object-name>
+    <object-name>omsLeft</object-name>
+    <object-name>omsRight</object-name>
+    <object-name>RMS.Base</object-name>
+    <object-name>SSME</object-name>
+    <object-name>KuReflector</object-name>
+    <object-name>Arm</object-name>
+    <object-name>Gimbal.Alpha</object-name>
+    <object-name>Gimbal.Beta</object-name>
+    <condition>
+       <equals>
+           <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+           <value>0</value>
+       </equals>
+    </condition>
+ </animation>
+
+<!-- shuttle destroyed -->
+ <animation>
+    <type>select</type>
+    <object-name>Fwd_Window_AssyD</object-name>
+    <object-name>Roof_Assembly.001D</object-name>
+    <object-name>spaceshutt_spstob_1D</object-name>
+    <condition>
+       <equals>
+           <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+           <value>1</value>
+       </equals>
+    </condition>
+ </animation>
+
  <!--<model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
       <offsets>

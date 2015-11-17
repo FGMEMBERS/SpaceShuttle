@@ -229,6 +229,7 @@
 		    <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
 		    <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 		    <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition>
+		    <shuttle-destroyed type="bool">false</shuttle-destroyed>
 		</failures>
                 <orbital>
                     <gm type="double">14.07644180e15</gm>
