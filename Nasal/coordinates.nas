@@ -187,6 +187,58 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", inertial_vec[2]);
 
 }
 
+
+###########################################
+# creation of inertial attitude hold target
+##########################################
+
+var create_rot_mnvr_vector = func {
+
+# the target vectors are the current inertial attitude angles
+
+
+var pitch = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+var yaw = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+var roll = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+
+var vec = [1.0, 0.0, 0.0];
+
+var body_vec_selection = getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection");
+
+if (body_vec_selection == 2)
+	{
+	vec = [-1.0, 0.0, 0.0];
+	}
+else if (body_vec_selection == 3)
+	{
+	vec = [0.0, 0.0, -1.0];
+	}
+
+var inertial_vec = SpaceShuttle.orientTaitBryan (vec, yaw, pitch, roll);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", inertial_vec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", inertial_vec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", inertial_vec[2]);
+
+vec = [0.0, 0.0, 1.0];
+
+if (body_vec_selection == 3)
+	{
+	vec = [-1.0, 0.0, 0.0];
+	}
+
+
+
+inertial_vec = SpaceShuttle.orientTaitBryan (vec, yaw, pitch, roll);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", inertial_vec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", inertial_vec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", inertial_vec[2]);
+
+
+}
+
+
 ######################################
 # tracking preparation calculations
 ######################################

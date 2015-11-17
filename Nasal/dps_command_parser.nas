@@ -627,6 +627,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 20)
 			{
 			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;
+			SpaceShuttle.create_rot_mnvr_vector();
 			SpaceShuttle.tracking_loop_flag = 0;
 			}
 		else if (item == 21)

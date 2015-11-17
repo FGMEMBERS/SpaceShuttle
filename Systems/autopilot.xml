@@ -13,8 +13,15 @@
 	<!-- 0: CNCL (cancel the current maneuver) -->
 
 	<!-- the OMS maneuver uses oms-mnvr-flag instead, modes are -->
+
 	<!-- 1: BURN ATT (maneuver to burn attitude) -->
 	<!-- 0: CNCL (cancel manever)-->
+
+	<!-- For track and rotation, the body vector can be defined as body-vector-selection -->
+	
+	<!-- 1: +X -->
+	<!-- 2: -X -->
+	<!-- 3: -Z (from the payload bay upward) -->
 
 	<channel name="Rates and deadbands config">
 
@@ -251,7 +258,7 @@
 			<test value="systems/ap/track/body-minus-z[2]">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/body-minus-x[2]]">
+			<test value="systems/ap/track/body-minus-x[2]">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
@@ -562,6 +569,7 @@
 			<test logic="OR" value="systems/ap/track/pitch-rate-cmd">
 				systems/ap/up-mnvr-flag == 1
 				systems/ap/up-mnvr-flag == 2
+				systems/ap/up-mnvr-flag == 3
 				systems/ap/oms-mnvr-flag == 1
 			</test>
 		</switch>
@@ -573,6 +581,18 @@
 				systems/ap/up-mnvr-flag == 2
 				systems/ap/oms-mnvr-flag == 1
 			</test>
+			<test logic="AND" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 1
+			</test>
+			<test logic="AND" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 2
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 3
+			</test>
 		</switch>
 
 		<switch name="systems/ap/set-roll-rate">
@@ -581,6 +601,18 @@
 				systems/ap/up-mnvr-flag == 1
 				systems/ap/up-mnvr-flag == 2
 				systems/ap/oms-mnvr-flag == 1
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 1
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 2
+			</test>
+			<test logic="AND" value="systems/ap/track/roll-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 3
 			</test>
 		</switch>
 
