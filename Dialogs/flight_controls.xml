@@ -252,12 +252,16 @@
          <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
          <value>0</value>
       </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(1)</script>
+      </binding>
     </radio>
 
   <radio>
       <row>1</row>
       <col>2</col>
-      <label>INTRL</label>
+      <label>INRTL</label>
       <halign>left</halign>
       <name>inertial</name>
       <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
@@ -281,6 +285,10 @@
          <command>property-assign</command>
          <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
          <value>0</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(2)</script>
       </binding>
     </radio>	
 
@@ -312,6 +320,10 @@
          <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
          <value>0</value>
       </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(3)</script>
+      </binding>
     </radio>
 
   <radio>
@@ -341,6 +353,10 @@
          <command>property-assign</command>
          <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
          <value>1</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(4)</script>
       </binding>
     </radio>
 
