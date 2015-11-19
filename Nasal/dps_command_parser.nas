@@ -580,19 +580,27 @@ if ((header == "ITEM") and (end = "EXEC"))
 		{
 		if (item == 1)
 			{
-			var day = substr(value, 1, 3);
-			var hour = substr(value, 4,2);
-			var min = substr(value, 6,2);
-			var sec = substr(value, 8,2);
-			var time_string = day~"/"~hour~":"~min~":"~sec;
-
-			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
-				{				
-				setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string", time_string);
-				#set_mnvr_timer(int(day), int(hour), int(min), int(sec));
-		
-				valid_flag = 1;
-				}
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-days", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-hours", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-minutes", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-seconds", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
 			}
 		else if (item == 5)
 			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll", num(value)); valid_flag = 1;}
@@ -614,26 +622,29 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/track/trk-om", num(value)); valid_flag = 1;}
 		else if (item == 18)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;
-			SpaceShuttle.create_mnvr_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+ 			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(18);
 			}
 		else if (item == 19)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); valid_flag = 1;
-			SpaceShuttle.create_trk_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(19);
 			}
 		else if (item == 20)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;
-			SpaceShuttle.create_rot_mnvr_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(20);
 			}
 		else if (item == 21)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); valid_flag = 1;
+			valid_flag = 1;
+			setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag", 0);
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); 
 			SpaceShuttle.tracking_loop_flag = 0;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
 			}
 
 		}

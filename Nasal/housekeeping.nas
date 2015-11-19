@@ -612,6 +612,26 @@ var timer_string = seconds_to_stringHMS(timer_seconds);
 setprop("/fdm/jsbsim/systems/timer/timer-CRT-string", timer_string);
 }
 
+
+
+var set_up_timer = func {
+
+var days = getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-days");
+var hours = getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-hours");
+var minutes = getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-seconds");
+
+var timer_seconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/timer/up-mnvr-time", timer_seconds);
+
+var timer_string = seconds_to_stringDHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string", timer_string);
+
+}
+
+
 var update_CRT_timer = func {
 
 var hours = getprop("/fdm/jsbsim/systems/timer/crt-timer-hours");
@@ -686,4 +706,93 @@ setprop("/fdm/jsbsim/systems/timer/count-to-hours", 0);
 setprop("/fdm/jsbsim/systems/timer/count-to-minutes", 0);
 setprop("/fdm/jsbsim/systems/timer/count-to-seconds", 0);
 setprop("/fdm/jsbsim/systems/timer/count-to-string", "");
+}
+
+
+#########################################################################################
+# management rountines for maneuver timers
+#########################################################################################
+
+up_future_mnvr_loop_flag = 0;
+
+var manage_up_mnvr = func (item) {
+
+var elapsed = int(getprop("/sim/time/elapsed-sec"));
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+var maneuver_time = getprop("/fdm/jsbsim/systems/timer/up-mnvr-time");
+
+var delta_t = maneuver_time - MET;
+
+if (delta_t < 0) # we start the maneuver immediately
+	{
+	exec_up_mnvr(item);
+	}
+else	# we start a timing loop 
+	{
+	up_future_mnvr_loop_flag = 1;
+	up_future_mnvr_loop(item, delta_t);	
+	setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag", 3);
+	}
+
+
+}
+
+var exec_up_mnvr = func (item) {
+
+setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag", 0);
+
+if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") != 1)
+		{
+		create_fault_message("    SEL AUTO   ", 1, 3);
+		}
+
+if (item == 18)
+	{
+	SpaceShuttle.create_mnvr_vector();
+	setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1);
+	SpaceShuttle.tracking_loop_flag = 0;
+	return;
+	}
+else if (item == 19)
+	{
+	SpaceShuttle.create_trk_vector();
+	setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); 
+	SpaceShuttle.tracking_loop_flag = 0;
+	return;
+	}
+else if (item == 20)
+	{
+	SpaceShuttle.create_rot_mnvr_vector();
+	setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3);
+	SpaceShuttle.tracking_loop_flag = 0;
+	return;
+	}
+
+
+}
+
+
+var up_future_mnvr_loop = func (item, delta_t) {
+
+#print (delta_t);
+
+
+if (delta_t == 30)
+	{
+	if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") != 1)
+		{
+		create_fault_message("    SEL AUTO   ", 1, 3);
+		}
+	}
+
+if (delta_t < 0)
+	{
+	exec_up_mnvr(item);
+	return;
+	}
+
+if (up_future_mnvr_loop_flag == 0) {return;}
+
+settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
 }

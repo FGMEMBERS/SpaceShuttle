@@ -1807,6 +1807,7 @@ p_dps_univ_ptg.cur_pitch.setText(sprintf("%+3.2f",cur_pitch));
 p_dps_univ_ptg.cur_yaw.setText(sprintf("%+3.2f",cur_yaw));
 
 var up_mnvr_flag= getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+var up_fut_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag");
 
 var tgt_roll = cur_roll;
 var tgt_pitch = cur_pitch;
@@ -1869,6 +1870,25 @@ else if (up_mnvr_flag == 3)
 	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20 *"));
 	}
 
+if (up_fut_mnvr_flag == 1)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18     *"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_fut_mnvr_flag == 2)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19     *"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_fut_mnvr_flag == 3)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20     *"));
+	}
+
 p_dps_univ_ptg.mo_roll.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll")));
 p_dps_univ_ptg.mo_pitch.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch")));
 p_dps_univ_ptg.mo_yaw.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-yaw")));
@@ -1884,7 +1904,7 @@ p_dps_univ_ptg.lon.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops2
 p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
 p_dps_univ_ptg.om.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/track/trk-om")));
 
-p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string")));
+p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string")));
 
 }
 

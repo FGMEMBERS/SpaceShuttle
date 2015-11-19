@@ -61,7 +61,8 @@
 			<trk-alt type="double">0.0</trk-alt>
 			<trk-ra type="double">0.0</trk-ra>
 			<trk-dec type="double">0.0</trk-dec>
-			<mnvr-timer-string type="string">000/00:00:00</mnvr-timer-string>
+			<!--<mnvr-timer-string type="string">000/00:00:00</mnvr-timer-string>-->
+			<mnvr-future-flag type="int">0</mnvr-future-flag>
 		    </ops201>
 		    <oms-plan>
 			<burn-mode type="int">1</burn-mode>
@@ -873,6 +874,12 @@
 			<count-to-seconds type="int">0</count-to-seconds>
 			<count-to type="int">0</count-to>
 			<count-to-string type="string"></count-to-string>
+			<up-mnvr-time-days type="int">0</up-mnvr-time-days>
+			<up-mnvr-time-hours type="int">0</up-mnvr-time-hours>
+			<up-mnvr-time-minutes type="int">0</up-mnvr-time-minutes>
+			<up-mnvr-time-seconds type="int">0</up-mnvr-time-seconds>
+			<up-mnvr-time type="int">0</up-mnvr-time>
+			<up-mnvr-time-string type="string">000/00:00:00</up-mnvr-time-string>
 		</timer>
 		<various>
 			<debris-separation-target type="double">0.0</debris-separation-target>
