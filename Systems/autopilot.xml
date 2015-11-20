@@ -33,7 +33,7 @@
 			<test value="systems/ap/spec20/dap-A-PRI-rot-rate">
 				systems/fcs/control-mode == 20	
 			</test>
-		<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
+			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
 				systems/fcs/control-mode == 25
 			</test>
 		</switch>
@@ -692,6 +692,170 @@
   		</pid>
 
 
+
+	</channel>
+
+	<channel name="LVLH attitude hold">
+
+		<!-- LVLH attitude hold is commanded when controls are idle -->
+
+		<switch name="systems/ap/lvlh/attitude-hold-cmd">
+			<default value="0"/>
+			<test logic="AND" value="1">
+				systems/ap/orbital-dap-lvlh == 1
+				fcs/elevator-cmd-norm == 0
+				fcs/rudder-cmd-norm == 0
+				fcs/aileron-cmd-norm == 0
+			</test>
+		</switch>
+
+		<!-- sample-hold current pitch, yaw and roll -->
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[0]">
+			<default value="systems/pointing/lvlh/body-z[0]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[0]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[1]">
+			<default value="systems/pointing/lvlh/body-z[1]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[1]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[2]">
+			<default value="systems/pointing/lvlh/body-z[2]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[2]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[0]">
+			<default value="systems/pointing/lvlh/body-y[0]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[0]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[1]">
+			<default value="systems/pointing/lvlh/body-y[1]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[1]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[2]">
+			<default value="systems/pointing/lvlh/body-y[2]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[2]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/roll-sample-hold-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/lvlh/roll-sample-hold-deg">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/lvlh/pitch-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[2]</property>
+				</product>
+			
+			</sum>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/lvlh/yaw-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[2]</property>
+				</product>
+			
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+		<fcs_function name="systems/ap/lvlh/roll-error">
+		<function>
+			<difference>
+				<property>/orientation/roll-deg</property>
+				<property>systems/ap/lvlh/roll-sample-hold-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/lvlh/pitch-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/pitch-error</property>
+						<value>10.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/yaw-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/yaw-error</property>
+						<value>10.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/lvlh/roll-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/roll-error</property>
+						<value>-0.1</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
 
 	</channel>
 	

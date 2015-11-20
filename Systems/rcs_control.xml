@@ -63,10 +63,11 @@
 
 	</channel>
 
+
+
 	<channel name="Control input sense switching" execute="systems/fcs/rcs-active">
 
 		<fcs_function name="systems/fcs/neg-elevator-cmd-norm">
-
 		<function>
 			<product>
 				<property>fcs/elevator-cmd-norm</property>
@@ -155,7 +156,11 @@
 
 		<!-- veto the command inputs when THC and RHC control the RMS arm -->
 		<!-- this allows to remain in attitude-hold modes while handling payload -->
-		<!-- also merge with AP commands -->		
+		<!-- also merge with AP commands -->	
+
+		<!-- AP commands are either AUTO in which case they replace any control -->
+		<!-- input or LVLH, in which case they can be added -->
+		<!-- however are never vetoed -->			
 
 		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
 		<function>
@@ -165,8 +170,13 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-				<property>systems/fcs/aileron-cmd-norm-sense-base</property>
-				<property>systems/fcs/rms-control-veto</property>
+				<sum>
+					<product>
+						<property>systems/fcs/aileron-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+					<property>systems/ap/lvlh/roll-rate-cmd</property>
+				</sum>				
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
@@ -184,8 +194,13 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-				<property>systems/fcs/rudder-cmd-norm-sense-base</property>
-				<property>systems/fcs/rms-control-veto</property>
+				<sum>
+					<product>
+						<property>systems/fcs/rudder-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+					<property>systems/ap/lvlh/yaw-rate-cmd</property>
+				</sum>
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
@@ -203,8 +218,13 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-				<property>systems/fcs/elevator-cmd-norm-sense-base</property>
-				<property>systems/fcs/rms-control-veto</property>
+				<sum>
+					<product>
+						<property>systems/fcs/elevator-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+					<property>systems/ap/lvlh/pitch-rate-cmd</property>
+				</sum>
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
