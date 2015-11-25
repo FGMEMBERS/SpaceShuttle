@@ -40,6 +40,28 @@
 			<dap-B-PRI-att-db type="double">0.15</dap-B-PRI-att-db>
 			<dap-A-VRN-att-db type="double">0.12</dap-A-VRN-att-db>
 			<dap-B-VRN-att-db type="double">0.15</dap-B-VRN-att-db>
+			<dap-A-PRI-rate-db type="double">0.2</dap-A-PRI-rate-db>
+			<dap-B-PRI-rate-db type="double">0.2</dap-B-PRI-rate-db>
+			<dap-A-VRN-rate-db type="double">0.02</dap-A-VRN-rate-db>
+			<dap-B-VRN-rate-db type="double">0.02</dap-B-VRN-rate-db>
+			<dap-A-ALT-rate-db type="double">0.2</dap-A-ALT-rate-db>
+			<dap-B-ALT-rate-db type="double">0.2</dap-B-ALT-rate-db>
+			<dap-A-PRI-rot-pls type="double">0.1</dap-A-PRI-rot-pls>
+			<dap-B-PRI-rot-pls type="double">0.05</dap-B-PRI-rot-pls>
+			<dap-A-VRN-rot-pls type="double">0.01</dap-A-VRN-rot-pls>
+			<dap-B-VRN-rot-pls type="double">0.002</dap-B-VRN-rot-pls>
+			<dap-A-PRI-comp type="double">0.0</dap-A-PRI-comp>
+			<dap-B-PRI-comp type="double">0.0</dap-B-PRI-comp>
+			<dap-A-VRN-comp type="double">0.0</dap-A-VRN-comp>
+			<dap-B-VRN-comp type="double">0.0</dap-B-VRN-comp>
+			<dap-A-PRI-p-opt type="int">0</dap-A-PRI-p-opt>
+			<dap-B-PRI-p-opt type="int">0</dap-B-PRI-p-opt>
+			<dap-A-PRI-y-opt type="int">0</dap-A-PRI-y-opt>
+			<dap-B-PRI-y-opt type="int">0</dap-B-PRI-y-opt>
+			<dap-A-PRI-tran-pls type="double">0.100</dap-A-PRI-tran-pls>
+			<dap-B-PRI-tran-pls type="double">0.100</dap-B-PRI-tran-pls>
+			<dap-A-ALT-n-jets type="int">3</dap-A-ALT-n-jets>
+			<dap-B-ALT-n-jets type="int">3</dap-B-ALT-n-jets>
 		    </spec20>
 		    <track>
 			<body-vector-selection type="int">1</body-vector-selection>

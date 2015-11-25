@@ -309,6 +309,7 @@ command_parse();
 #####################################################################
 
 var spec2 = [201, 202];
+var spec20 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
 
@@ -855,6 +856,32 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+
+	if (spec == 20)
+		{
+		if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 30)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 43)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+
+		}
+
 	if (spec == 51)
 		{
 		if (item == 1)
@@ -1256,6 +1283,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		valid_flag = 1;
+		}
+	if ((spec_num == 20) and (test_spec_ops_validity(spec20, major_mode) == 1))
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_dap);
+		setprop("/fdm/jsbsim/systems/dps/spec", 20);
 		valid_flag = 1;
 		}
 	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))
