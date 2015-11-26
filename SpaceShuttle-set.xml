@@ -32,18 +32,18 @@
 		    <mnvr-timer-min type="int">0</mnvr-timer-min>
 		    <mnvr-timer-h type="int">0</mnvr-timer-h>
 		    <spec20>
-			<dap-A-PRI-rot-rate type="double">1.0</dap-A-PRI-rot-rate>
-			<dap-B-PRI-rot-rate type="double">0.2</dap-B-PRI-rot-rate>
+			<dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
+			<dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
 			<dap-A-VRN-rot-rate type="double">0.1</dap-A-VRN-rot-rate>
 			<dap-B-VRN-rot-rate type="double">0.05</dap-B-VRN-rot-rate>
 			<dap-A-PRI-att-db type="double">0.12</dap-A-PRI-att-db>
 			<dap-B-PRI-att-db type="double">0.15</dap-B-PRI-att-db>
 			<dap-A-VRN-att-db type="double">0.12</dap-A-VRN-att-db>
 			<dap-B-VRN-att-db type="double">0.15</dap-B-VRN-att-db>
-			<dap-A-PRI-rate-db type="double">0.2</dap-A-PRI-rate-db>
-			<dap-B-PRI-rate-db type="double">0.2</dap-B-PRI-rate-db>
-			<dap-A-VRN-rate-db type="double">0.02</dap-A-VRN-rate-db>
-			<dap-B-VRN-rate-db type="double">0.02</dap-B-VRN-rate-db>
+			<dap-A-PRI-rate-db type="double">0.001</dap-A-PRI-rate-db>
+			<dap-B-PRI-rate-db type="double">0.1</dap-B-PRI-rate-db>
+			<dap-A-VRN-rate-db type="double">0.001</dap-A-VRN-rate-db>
+			<dap-B-VRN-rate-db type="double">0.005</dap-B-VRN-rate-db>
 			<dap-A-ALT-rate-db type="double">0.2</dap-A-ALT-rate-db>
 			<dap-B-ALT-rate-db type="double">0.2</dap-B-ALT-rate-db>
 			<dap-A-PRI-rot-pls type="double">0.1</dap-A-PRI-rot-pls>

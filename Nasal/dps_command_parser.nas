@@ -864,9 +864,35 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate", value);
 			valid_flag =1;
 			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 15)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 16)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt", state);
+			valid_flag =1;
+			}
 		else if (item == 23)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 25)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", value);
 			valid_flag =1;
 			}
 		else if (item == 30)
@@ -874,9 +900,35 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate", value);
 			valid_flag =1;
 			}
+		else if (item == 32)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 35)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 36)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt", state);
+			valid_flag =1;
+			}
 		else if (item == 43)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 45)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", value);
 			valid_flag =1;
 			}
 

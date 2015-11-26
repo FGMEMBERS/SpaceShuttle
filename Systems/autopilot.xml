@@ -30,11 +30,70 @@
 			<test value="3.0">
 				systems/fcs/control-mode == 11	
 			</test>
-			<test value="systems/ap/spec20/dap-A-PRI-rot-rate">
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-rate">
 				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 26		
 			</test>
 			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
 				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-rot-rate">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-rot-rate">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="2.0">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
+			</test>
+		</switch>
+
+		<switch name="systems/ap/att-db-deg">
+			<default value="0.0"/>
+			<test value="0.12">
+				systems/fcs/control-mode == 11	
+			</test>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-att-db">
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 26		
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-att-db">
+				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-att-db">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-att-db">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="0.01">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
+			</test>
+		</switch>
+
+		<switch name="systems/ap/rate-db-degps">
+			<default value="0.0"/>
+			<test value="0.01">
+				systems/fcs/control-mode == 11	
+			</test>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rate-db">
+				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 26		
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-rate-db">
+				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-rate-db">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-rate-db">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="0.01">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
 			</test>
 		</switch>
 
@@ -669,8 +728,7 @@
 			<difference>
 				<product>
 				<property>systems/ap/set-roll-rate</property>
-				<value>0.01745</value>
-				<value>3.0</value>
+				<value>0.1166</value>
 				</product>
 				<property>velocities/p-rad_sec</property>
 			</difference>
