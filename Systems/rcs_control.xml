@@ -161,7 +161,11 @@
 
 		<!-- AP commands are either AUTO in which case they replace any control -->
 		<!-- input or LVLH, in which case they can be added -->
-		<!-- however are never vetoed -->			
+		<!-- however are never vetoed -->	
+
+		<!-- for TRANS ATT HLD we can not add the LVLH controls to the stick input -->
+		<!-- because stick input represents translations -->
+		<!-- so we veto here and merge them later -->
 
 		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
 		<function>
@@ -176,7 +180,13 @@
 						<property>systems/fcs/aileron-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
+					<!--<product>
 					<property>systems/ap/lvlh/roll-rate-cmd</property>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					</product>-->
 				</sum>				
 			</product>
 			<product>
@@ -200,7 +210,13 @@
 						<property>systems/fcs/rudder-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
+					<!--<product>
 					<property>systems/ap/lvlh/yaw-rate-cmd</property>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					</product>-->
 				</sum>
 			</product>
 			<product>
@@ -224,7 +240,13 @@
 						<property>systems/fcs/elevator-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
+					<!--<product>
 					<property>systems/ap/lvlh/pitch-rate-cmd</property>
+					<difference>
+						<value>1.0</value>
+						<property>systems/fcs/rcs-trans-att-hold</property>
+					</difference>
+					</product>-->
 				</sum>
 			</product>
 			<product>
@@ -435,6 +457,7 @@
 					</difference>
 					<property>systems/rcs/dap-pitch-cmd-orbit</property>
 				</product>
+				<property>systems/ap/lvlh/pitch-rate-cmd</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -501,8 +524,18 @@
 				<min> -1.0 </min>
         			<max>  1.0 </max>
 			</clipto>
-			<output>systems/rcs/dap-roll-cmd</output>
+			<!--<output>systems/rcs/dap-roll-cmd</output>-->
 		</pid>
+
+
+		<fcs_function name="systems/rcs/dap-roll-cmd">
+		<function>
+			<sum>
+				<property>systems/rcs/dap-roll</property>
+				<property>systems/ap/lvlh/roll-rate-cmd</property>
+			</sum>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/rcs/dap-roll-cmd-abs">
 		<function>
@@ -656,6 +689,7 @@
 					</difference>
 					<property>systems/rcs/dap-yaw-cmd-orbit</property>
 				</product>
+				<property>systems/ap/lvlh/yaw-rate-cmd</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -855,10 +889,10 @@
 					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
-				<product>
+				<!--<product>
 					<property>systems/fcs/rcs-trans-att-hold</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
-				</product>
+				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -889,10 +923,10 @@
 					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
-				<product>
+				<!--<product>
 					<property>systems/fcs/rcs-trans-att-hold</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
-				</product>
+				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
