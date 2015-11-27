@@ -33,7 +33,8 @@
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-rate">
 				systems/fcs/control-mode == 20	
 				systems/fcs/control-mode == 26	
-				systems/fcs/control-mode == 27			
+				systems/fcs/control-mode == 27	
+				systems/fcs/control-mode == 28			
 			</test>
 			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
 				systems/fcs/control-mode == 25
@@ -58,7 +59,8 @@
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-att-db">
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 26	
-				systems/fcs/control-mode == 27			
+				systems/fcs/control-mode == 27	
+				systems/fcs/control-mode == 28			
 			</test>
 			<test value="systems/ap/spec20/dap-A-VRN-att-db">
 				systems/fcs/control-mode == 25
@@ -75,6 +77,15 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/ap/att-db-rad">
+		<function>
+			<product>
+				<property>systems/ap/att-db-deg</property>
+				<value>0.0174532</value>
+			</product>
+		</function>	
+		</fcs_function>
+
 		<switch name="systems/ap/rate-db-degps">
 			<default value="0.0"/>
 			<test value="0.01">
@@ -83,7 +94,8 @@
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rate-db">
 				systems/fcs/control-mode == 20	
 				systems/fcs/control-mode == 26	
-				systems/fcs/control-mode == 27			
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28				
 			</test>
 			<test value="systems/ap/spec20/dap-A-VRN-rate-db">
 				systems/fcs/control-mode == 25
@@ -325,6 +337,12 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/ap/att-db-rad-sin">
+		<function>
+			<sin><property>systems/ap/att-db-rad</property></sin>
+		</function>
+		</fcs_function>
+
 
 
 		<fcs_function name="systems/ap/track/pitch-error">
@@ -357,6 +375,11 @@
 		</function>
 		</fcs_function>	
 
+  		<deadband name="systems/ap/track/pitch-error-db">
+			<input>systems/ap/track/pitch-error</input>
+			<width>systems/ap/att-db-rad-sin</width>
+  		</deadband>
+
 
 
 		<fcs_function name="systems/ap/track/yaw-error">
@@ -388,6 +411,14 @@
 			</product>
 		</function>
 		</fcs_function>	
+
+
+		
+
+  		<deadband name="systems/ap/track/yaw-error-db">
+			<input>systems/ap/track/yaw-error</input>
+			<width>systems/ap/att-db-rad-sin</width>
+  		</deadband>
 
 
 		<fcs_function name="systems/ap/track/roll-sine">
@@ -460,9 +491,21 @@
 		</function>
 		</fcs_function>	
 
+		<!-- this is a cheat - the deadband gets too tight by some fluke, so we increase it -->
+
+		<fcs_function name="systems/ap/track/roll-db-rad">
+		<function>
+			<sum>
+				<property>systems/ap/att-db-rad</property>
+				<value>0.12</value>
+			</sum>
+		</function>
+		</fcs_function>
+
+
   		<deadband name="systems/ap/track/roll-error-db">
 			<input>systems/ap/track/roll-error</input>
-			<width>systems/ap/spec20/dap-A-PRI-att-db</width>
+			<width>systems/ap/track/roll-db-rad</width>
   		</deadband>
 
 		<fcs_function name="systems/ap/track/total-attitude-error">
@@ -485,23 +528,23 @@
 
 		<switch name="systems/ap/track/pitch-error-sense">
 			<default value="0.0"/>
-			<test value="systems/ap/track/pitch-error">
+			<test value="systems/ap/track/pitch-error-db">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
-			<test value="systems/ap/track/pitch-error">
+			<test value="systems/ap/track/pitch-error-db">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/pitch-error">
+			<test value="systems/ap/track/pitch-error-db">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
 
 		<switch name="systems/ap/track/yaw-error-sense">
 			<default value="0.0"/>
-			<test value="systems/ap/track/yaw-error">
+			<test value="systems/ap/track/yaw-error-db">
 				systems/ap/track/body-vector-selection == 1	
 			</test>
-			<test value="systems/ap/track/yaw-error">
+			<test value="systems/ap/track/yaw-error-db">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
 			<test value="systems/ap/track/roll-error-db">
@@ -517,7 +560,7 @@
 			<test value="systems/ap/track/roll-error-db">
 				systems/ap/track/body-vector-selection == 2	
 			</test>
-			<test value="systems/ap/track/yaw-error">
+			<test value="systems/ap/track/yaw-error-db">
 				systems/ap/track/body-vector-selection == 3	
 			</test>
 		</switch>
@@ -759,14 +802,26 @@
 	<channel name="LVLH attitude hold">
 
 		<!-- LVLH attitude hold is commanded when controls are idle -->
+		<!-- or when controls are translational -->
+		
+		<switch name="systems/ap/lvlh/rotational-control-input">
+			<default value="1"/>
+			<test logic="AND" value="0">
+				fcs/elevator-cmd-norm == 0
+				fcs/rudder-cmd-norm == 0
+				fcs/aileron-cmd-norm == 0
+			</test>
+			<test  value="0">
+				systems/fcs/rcs-translation == 1
+			</test>
+		</switch>
+		
 
 		<switch name="systems/ap/lvlh/attitude-hold-cmd">
 			<default value="0"/>
 			<test logic="AND" value="1">
 				systems/ap/orbital-dap-lvlh == 1
-				fcs/elevator-cmd-norm == 0
-				fcs/rudder-cmd-norm == 0
-				fcs/aileron-cmd-norm == 0
+				systems/ap/lvlh/rotational-control-input == 0
 			</test>
 		</switch>
 
@@ -879,6 +934,7 @@
 					<product>
 						<property>systems/ap/lvlh/pitch-error</property>
 						<value>10.0</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -894,6 +950,7 @@
 					<product>
 						<property>systems/ap/lvlh/yaw-error</property>
 						<value>10.0</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -910,6 +967,7 @@
 					<product>
 						<property>systems/ap/lvlh/roll-error</property>
 						<value>-0.1</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
 					</product>
 					<value>-1.0</value>
 				</max>

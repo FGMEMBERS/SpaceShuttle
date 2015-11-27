@@ -17,7 +17,7 @@
 	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
-	<!-- 30:  *RCS DAP-B Vernier -->
+	<!-- 30: RCS DAP-B Vernier -->
 
 
 	<channel name="RCS usage">
@@ -39,6 +39,7 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -159,13 +160,11 @@
 		<!-- this allows to remain in attitude-hold modes while handling payload -->
 		<!-- also merge with AP commands -->	
 
-		<!-- AP commands are either AUTO in which case they replace any control -->
-		<!-- input or LVLH, in which case they can be added -->
-		<!-- however are never vetoed -->	
-
+		<!-- AP commands are either AUTO in which case they replace any control -->	
+		<!-- or LVLH in which case they are added to controls -->
 		<!-- for TRANS ATT HLD we can not add the LVLH controls to the stick input -->
 		<!-- because stick input represents translations -->
-		<!-- so we veto here and merge them later -->
+		<!-- so we merge them later before deadbanding -->
 
 		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
 		<function>
@@ -180,13 +179,6 @@
 						<property>systems/fcs/aileron-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
-					<!--<product>
-					<property>systems/ap/lvlh/roll-rate-cmd</property>
-					<difference>
-						<value>1.0</value>
-						<property>systems/fcs/rcs-trans-att-hold</property>
-					</difference>
-					</product>-->
 				</sum>				
 			</product>
 			<product>
@@ -210,13 +202,6 @@
 						<property>systems/fcs/rudder-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
-					<!--<product>
-					<property>systems/ap/lvlh/yaw-rate-cmd</property>
-					<difference>
-						<value>1.0</value>
-						<property>systems/fcs/rcs-trans-att-hold</property>
-					</difference>
-					</product>-->
 				</sum>
 			</product>
 			<product>
@@ -240,13 +225,6 @@
 						<property>systems/fcs/elevator-cmd-norm-sense-base</property>
 						<property>systems/fcs/rms-control-veto</property>
 					</product>
-					<!--<product>
-					<property>systems/ap/lvlh/pitch-rate-cmd</property>
-					<difference>
-						<value>1.0</value>
-						<property>systems/fcs/rcs-trans-att-hold</property>
-					</difference>
-					</product>-->
 				</sum>
 			</product>
 			<product>
@@ -272,6 +250,7 @@
 				systems/fcs/control-mode == 24
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -282,6 +261,9 @@
 		<!-- this minimizes stationkeeping effort -->
 
 		<!-- we apply the deadband to the normalized control, hence need to normalize -->
+
+		<!-- actual values of the deadbands are defined in autopilot.xml -->
+		<!-- based on SPEC 20 utility -->
 
 		<fcs_function name="systems/fcs/rcs-deadband-rotation">
 		<function>
@@ -302,19 +284,6 @@
 		</fcs_function>
 
 
-		<!--<switch name="systems/fcs/rcs-deadband-rotation">
-			<default value="0.001"/>
-			<test  value="0.01">
-				systems/fcs/control-mode == 21
-			</test>
-		</switch>
-
-		<switch name="systems/fcs/rcs-burst-rotation">
-			<default value="0.0015"/>
-			<test  value="0.015">
-				systems/fcs/control-mode == 21
-			</test>
-		</switch>-->
 
 		<switch name="systems/fcs/rcs-entry-mode">
 			<default value="0.0"/>
@@ -342,15 +311,17 @@
 
 		<switch name="systems/fcs/rcs-default-thrusters">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rcs-vernier-gain">
 			<default value="1.0"/>
-			<test value="50.0">
+			<test logic="OR" value="50.0">
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -373,6 +344,7 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -743,6 +715,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 

@@ -12649,6 +12649,19 @@
 
 	<text
          sodipodi:linespacing="125%"
+         id="p_dps_dap_label1a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="48.328574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
          id="p_dps_dap_text1"
          y="30.178572"
          x="43.928574"
@@ -12675,6 +12688,19 @@
 
 	<text
          sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_a_desig_bright"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="114.828574"
+           id="tspan3112"
+           sodipodi:role="line">DAP A01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
          id="p_dps_dap_text2"
          y="30.178572"
          x="43.928574"
@@ -12696,6 +12722,19 @@
            style="font-size:14px;fill:#ffffff"
            y="58.178572"
            x="219.928574"
+           id="tspan3112"
+           sodipodi:role="line">DAP B01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_b_desig_bright"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="219.328574"
            id="tspan3112"
            sodipodi:role="line">DAP B01</tspan></text>
 
@@ -13585,6 +13624,19 @@
 
 	<text
          sodipodi:linespacing="125%"
+         id="p_dps_dap_label2a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="183.578572"
+           x="48.328574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
          id="p_dps_dap_text39"
          y="30.178572"
          x="43.928574"
@@ -14139,6 +14191,19 @@
            style="font-size:14px;fill:#ffffff"
            y="268.178572"
            x="48.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label3a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="267.578572"
+           x="48.328574"
            id="tspan3112"
            sodipodi:role="line">XXXX</tspan></text>
 
