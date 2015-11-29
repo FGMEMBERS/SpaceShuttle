@@ -375,6 +375,24 @@
 		</function>
 		</fcs_function>	
 
+	
+
+		<!--<fcs_function name="systems/ap/track/pitch-error-abs">
+		<function>
+			<abs>
+				<property>systems/ap/track/pitch-error</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/pitch-error-db">
+			<default value="systems/ap/track/pitch-error"/>
+			<test value="0.0">
+				systems/ap/track/pitch-error-abs LT systems/ap/att-db-rad-sin
+			</test>
+		</switch>-->
+
+
   		<deadband name="systems/ap/track/pitch-error-db">
 			<input>systems/ap/track/pitch-error</input>
 			<width>systems/ap/att-db-rad-sin</width>
@@ -412,7 +430,20 @@
 		</function>
 		</fcs_function>	
 
+		<!--<fcs_function name="systems/ap/track/yaw-error-abs">
+		<function>
+			<abs>
+				<property>systems/ap/track/yaw-error</property>
+			</abs>
+		</function>
+		</fcs_function>
 
+		<switch name="systems/ap/track/yaw-error-db">
+			<default value="systems/ap/track/yaw-error"/>
+			<test value="0.0">
+				systems/ap/track/yaw-error-abs LT systems/ap/att-db-rad-sin
+			</test>
+		</switch>-->
 		
 
   		<deadband name="systems/ap/track/yaw-error-db">
@@ -491,16 +522,39 @@
 		</function>
 		</fcs_function>	
 
-		<!-- this is a cheat - the deadband gets too tight by some fluke, so we increase it -->
+		<!-- this is a cheat - the OMS deadband gets too tight by some fluke, so we increase it -->
+
+		<switch name="systems/ap/track/roll-db-correction">
+		<default value="0.0"/>
+			<test value="0.12">
+				systems/ap/oms-mnvr-flag == 1
+			</test>
+		</switch>
+
 
 		<fcs_function name="systems/ap/track/roll-db-rad">
 		<function>
 			<sum>
 				<property>systems/ap/att-db-rad</property>
-				<value>0.12</value>
+				<property>systems/ap/track/roll-db-correction</property>
 			</sum>
 		</function>
 		</fcs_function>
+
+		<!--<fcs_function name="systems/ap/track/roll-error-abs">
+		<function>
+			<abs>
+				<property>systems/ap/track/roll-error</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/roll-error-db">
+			<default value="systems/ap/track/roll-error"/>
+			<test value="0.0">
+				systems/ap/track/roll-error-abs LT systems/ap/att-db-rad
+			</test>
+		</switch>-->
 
 
   		<deadband name="systems/ap/track/roll-error-db">

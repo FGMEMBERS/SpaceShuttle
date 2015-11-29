@@ -471,17 +471,27 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/weight",num(value)); valid_flag = 1;}
 		else if (item == 10)
 			{
-			var day = substr(value, 1, 3);
-			var hour = substr(value, 4,2);
-			var min = substr(value, 6,2);
-			var sec = substr(value, 8,2);
-			var time_string = day~"/"~hour~":"~min~":"~sec;
-
-			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
-				{				
-				setprop("/fdm/jsbsim/systems/ap/oms-plan/tig", time_string);
-				valid_flag = 1;
-				}
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-days", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-hours", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-minutes", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
 			}
 		else if (item == 19)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); valid_flag = 1;}
@@ -864,6 +874,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate", value);
 			valid_flag =1;
 			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-att-db", value);
+			valid_flag =1;
+			}
 		else if (item == 12)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", value);
@@ -890,6 +905,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
 			valid_flag =1;
 			}
+		else if (item == 24)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-att-db", value);
+			valid_flag =1;
+			}
 		else if (item == 25)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", value);
@@ -898,6 +918,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 30)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 31)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-att-db", value);
 			valid_flag =1;
 			}
 		else if (item == 32)
@@ -924,6 +949,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 43)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 43)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db", value);
 			valid_flag =1;
 			}
 		else if (item == 45)

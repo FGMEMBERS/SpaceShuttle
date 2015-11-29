@@ -632,6 +632,23 @@ setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string", timer_string);
 }
 
 
+var set_oms_mnvr_timer = func {
+
+var days = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-days");
+var hours = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-hours");
+var minutes = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-minutes");
+var seconds = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds");
+
+var timer_seconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tig", timer_seconds);
+
+var timer_string = seconds_to_stringDHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-string", timer_string);
+
+}
+
 var update_CRT_timer = func {
 
 var hours = getprop("/fdm/jsbsim/systems/timer/crt-timer-hours");

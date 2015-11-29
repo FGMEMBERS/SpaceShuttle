@@ -1630,7 +1630,7 @@ p_dps_mnvr.ry.setText(sprintf("%1.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/tr
 
 p_dps_mnvr.wt.setText(sprintf("%6.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/weight")));
 
-p_dps_mnvr.tig.setText(sprintf("%s",getprop("fdm/jsbsim/systems/ap/oms-plan/tig")));
+p_dps_mnvr.tig.setText(sprintf("%s",getprop("fdm/jsbsim/systems/ap/oms-plan/tig-string")));
 
 p_dps_mnvr.dvx.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvx")));
 p_dps_mnvr.dvy.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvy")));
@@ -1842,9 +1842,11 @@ var err_roll = 0.0;
 var err_pitch = 0.0;
 var err_yaw = 0.0;
 
-if ((up_mnvr_flag == 1) or (up_mnvr_flag == 2))
+if ((up_mnvr_flag == 1) or (up_mnvr_flag == 2) or (up_mnvr_flag == 3))
 	{	
 	err_roll = tgt_roll - cur_roll;
+	if (err_roll > 180.0) {err_roll = err_roll - 360.0;}
+	if (err_roll < -180.0) {err_roll = err_roll + 360.0;}
 	err_pitch = tgt_pitch - cur_pitch;
 	err_yaw = tgt_yaw - cur_yaw;
 	}

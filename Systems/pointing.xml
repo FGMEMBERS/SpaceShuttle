@@ -1186,7 +1186,13 @@
 	<function>
 		<product>
 		<acos>
-			<property>systems/pointing/inertial/attitude/roll-cosine</property>
+			<min>
+				<max>
+					<property>systems/pointing/inertial/attitude/roll-cosine</property>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+			</min>
 		</acos>
 		<property>systems/pointing/inertial/attitude/roll-sign</property>
 		</product>
@@ -1325,8 +1331,37 @@
 
 	<!-- cos(roll) is the tgt z vector dotted into the roll reference -->
 
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-cosine-y">
+	<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/target-trd[0]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-trd[1]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-trd[2]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[2]</property>
+				</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/tgt-roll-sign">
+		<default value="-1.0"/>
+		<test value="1.0">
+			systems/pointing/inertial/attitude/tgt-roll-cosine-y LT 0
+		</test>
+	</switch>
+
+
 	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-rad">
 	<function>
+		<product>
 		<acos>
 			<sum>
 				<product>
@@ -1343,6 +1378,8 @@
 				</product>
 			</sum>
 		</acos>
+		<property>systems/pointing/inertial/attitude/tgt-roll-sign</property>
+		</product>
 	</function>
 	</fcs_function>
 
