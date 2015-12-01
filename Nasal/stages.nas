@@ -682,7 +682,7 @@ if ((stage == 3) or (stage ==4)){return;}
 
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 setprop("/sim/messages/copilot", "Control switched to RCS.");
-setprop("/controls/shuttle/control-system-string", "RCS ROT DAP A");
+setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
 setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
 setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
 setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
@@ -839,7 +839,7 @@ if ((current_mode == 1)  or (current_mode == 22) or (current_mode == 23))
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
 	setprop("/controls/shuttle/control-system-string", "RCS translation");
 	}
-else if ((current_mode == 20) or (current_mode == 21)  or (current_mode ==25))
+else if ((current_mode == 20) or (current_mode == 21)  or (current_mode ==25) or (current_mode == 30))
 	{
 	if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
 		{
@@ -943,7 +943,12 @@ if (orbital_dap_auto == 1) # labels are different
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
 		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER AUTO");
 		}
-	else if (current_mode == 25) # Vernier
+	else if (current_mode == 25) # Vernier A
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
+		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER AUTO");
+		}
+	else if (current_mode == 30) # Vernier B
 		{
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
@@ -965,11 +970,17 @@ if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
 		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER");
 		}
-	else if (current_mode == 25) #Vernier
+	else if (current_mode == 25) # Vernier A
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
+		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER");
+		}
+	else if (current_mode == 30) # Vernier B
 		{
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
 		}
+
 	# translational mode assignment
 
 	if (current_mode == 26) # TRANS ATT HOLD

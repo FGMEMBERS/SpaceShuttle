@@ -12590,38 +12590,2238 @@
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
-         id="p_dps_sys_summ_line1"
+         id="p_dps_time_line1"
          d="m 20.4,168.0 450.0, 0.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
-         id="p_dps_sys_summ_line2"
+         id="p_dps_time_line2"
          d="m 20.4,238.0 450.0, 0.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
-         id="p_dps_sys_summ_line3"
+         id="p_dps_time_line3"
          d="m 148.4,271.0 0.0, 60.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
-         id="p_dps_sys_summ_line4"
+         id="p_dps_time_line4"
          d="m 354.9,257.0 0.0, 70.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
-         id="p_dps_sys_summ_line5"
+         id="p_dps_time_line5"
          d="m 392.9,257.0 0.0, 70.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
 
     </g>
   </g>
+
+
+  <g
+     inkscape:groupmode="layer"
+     id="g3211"
+     inkscape:label="p_dps_dap"
+     style="display:inline">
+    <g
+       id="p_dps_dap"
+       inkscape:label="#g4492">
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="48.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label1a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="48.328574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">1</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_a_desig"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="115.428574"
+           id="tspan3112"
+           sodipodi:role="line">DAP A01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_a_desig_bright"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="114.828574"
+           id="tspan3112"
+           sodipodi:role="line">DAP A01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">2</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_b_desig"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="219.928574"
+           id="tspan3112"
+           sodipodi:role="line">DAP B01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_dap_b_desig_bright"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="57.578572"
+           x="219.328574"
+           id="tspan3112"
+           sodipodi:role="line">DAP B01</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text3"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="324.428574"
+           id="tspan3112"
+           sodipodi:role="line">PRI</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text4"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="58.178572"
+           x="400.428574"
+           id="tspan3112"
+           sodipodi:role="line">DAP EDIT</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text5"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ROT RATE</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text6"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">10</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rot_rate"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="124.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text6"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">30</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rot_rate"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="229.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text7"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">50</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rot_rate"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="333.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text8"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="400.428574"
+           id="tspan3112"
+           sodipodi:role="line">3 DAP A</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_edit"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="72.178572"
+           x="460.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text9"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ATT DB</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text10"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">11</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_att_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text11"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">33</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_att_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text12"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">51</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_att_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text13"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="400.428574"
+           id="tspan3112"
+           sodipodi:role="line">4 DAP B</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_edit"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="460.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text14"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">RATE DB</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text15"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">12</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rate_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text16"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">32</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rate_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text17"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">52</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rate_db"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text17"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="400.428574"
+           id="tspan3112"
+           sodipodi:role="line">5</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_load"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="100.178572"
+           x="419.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text18"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ROT PLS</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text19"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">13</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rot_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text20"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">33</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rot_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text21"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">53</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rot_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text22"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">COMP</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text23"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">14</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_comp"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text24"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">34</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_comp"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text24"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">54</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_comp"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text25"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">P OPTION</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text26"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">15</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_p_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text27"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">35</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_p_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text28"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">55</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_p_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text29"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">Y OPTION</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text30"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">16</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_y_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text31"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">36</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_y_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text32"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">56</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_y_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text33"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="395.428574"
+           id="tspan3112"
+           sodipodi:role="line">NOTCH FLTR</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text34"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">TRAN PLS</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text35"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">17</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_tran_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text36"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">37</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_tran_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text37"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">57</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_tran_pls"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text38"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="419.428574"
+           id="tspan3112"
+           sodipodi:role="line">ENA  6</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_notch_fltr"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.178572"
+           x="470.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="48.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label2a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="183.578572"
+           x="48.328574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text39"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="324.428574"
+           id="tspan3112"
+           sodipodi:role="line">ALT</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text40"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">RATE DB</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text40"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">18</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rate_db_alt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text41"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">38</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rate_db_alt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text42"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">58</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rate_db_alt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text43"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.178572"
+           x="404.928574"
+           id="tspan3112"
+           sodipodi:role="line">XJETS ROT</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text44"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">JET OPT</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text45"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">19</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_jet_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text46"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">39</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_jet_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text47"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">59</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_jet_opt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text48"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="419.428574"
+           id="tspan3112"
+           sodipodi:role="line">ENA  7</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_xjets_rot"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.178572"
+           x="470.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text49"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line"># JETS</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text50"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">20</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_n_jets"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="169.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text51"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">40</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_n_jets"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="273.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text52"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">60</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_n_jets"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.178572"
+           x="378.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text53"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ON TIME</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text54"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">21</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_on_time"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text55"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">41</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_on_time"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="248.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text56"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">61</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_on_time"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text57"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="409.928574"
+           id="tspan3112"
+           sodipodi:role="line">REBOOST</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text58"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">DELAY</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text59"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">22</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_delay"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text60"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">42</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_delay"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text61"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">62</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_delay"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text62"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="419.428574"
+           id="tspan3112"
+           sodipodi:role="line">8 CFG</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_reboost_cfg"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="470.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label3"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="48.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_label3a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="267.578572"
+           x="48.328574"
+           id="tspan3112"
+           sodipodi:role="line">XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text63"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="324.428574"
+           id="tspan3112"
+           sodipodi:role="line">VERN</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text64"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="419.428574"
+           id="tspan3112"
+           sodipodi:role="line">9 INTVL</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text65"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ROT RATE</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text66"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">23</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rot_rate_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="124.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text67"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">43</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rot_rate_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="229.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text68"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">63</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rot_rate_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="333.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_intvl"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="428.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX.XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text69"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ATT DB</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text70"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">24</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_att_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="124.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text71"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">44</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_att_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="229.428574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text72"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">64</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_att_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="333.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text73"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">RATE DB</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text74"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">24</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rate_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="140.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text75"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">44</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rate_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="245.428574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text76"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">64</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rate_db_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="349.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text77"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">ROT PLS</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text78"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">26</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_rot_pls_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="134.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text79"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">46</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_rot_pls_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="238.928574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text79"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">66</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_rot_pls_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">X.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text80"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">COMP</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text80"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">27</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_comp_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="140.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text81"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">47</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_comp_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="245.428574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text82"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">67</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_comp_v"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="349.928574"
+           id="tspan3112"
+           sodipodi:role="line">.XXX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text83"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">CNTL ACC</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text83"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">28</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_a_cntl_acc"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="165.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text84"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">48</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_b_cntl_acc"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="270.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_text85"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="305.428574"
+           id="tspan3112"
+           sodipodi:role="line">68</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_dap_e_cntl_acc"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="374.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_dap_line1"
+         d="m 191.0, 44.0 0.0, 320.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_dap_line2"
+         d="m 295.0, 44.0 0.0, 320.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_dap_line3"
+         d="m 392.0, 128.0 0.0, 236.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_dap_line4"
+         d="m 392.0, 128.0 85.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+    </g>
+  </g>
+
 
 </svg>

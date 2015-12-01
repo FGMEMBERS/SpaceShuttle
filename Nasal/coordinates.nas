@@ -184,6 +184,12 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", inertial_vec[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", inertial_vec[1]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", inertial_vec[2]);
 
+vec = [0.0, 1.0, 0.0];
+inertial_vec = SpaceShuttle.orientTaitBryan (vec, yaw, pitch, roll);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", inertial_vec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", inertial_vec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", inertial_vec[2]);
 
 }
 
@@ -236,6 +242,14 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", inertial_vec[1]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", inertial_vec[2]);
 
 
+vec = [0.0, 1.0, 0.0];
+
+
+inertial_vec = SpaceShuttle.orientTaitBryan (vec, yaw, pitch, roll);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", inertial_vec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", inertial_vec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", inertial_vec[2]);
 }
 
 

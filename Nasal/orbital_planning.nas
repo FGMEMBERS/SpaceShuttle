@@ -60,3 +60,8 @@ if (vspeed > 0.0) # we're heading to the apoapsis
 
 return [apsis_type, angle/(2.0 * math.pi) * orbital_period]; 
 }
+
+
+############################################################
+# extrapolation of state vector
+############################################################

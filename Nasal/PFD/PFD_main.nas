@@ -15,6 +15,7 @@
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_time (SPEC 2)
+# * p_dps_dap (SPEC 20)
 # * p_dps_override (SPEC 51)
 # * p_pl_bay (SPEC 63)
 # * p_dps_sys_summ (DISP 18)
@@ -413,6 +414,15 @@ else if ((status == 1) and (door_status == 1))
 else
 	{return "00000";}
 }
+
+var jet_option = func (flag) {
+
+if (flag == 0) {return "ALL";}
+else if (flag == 1) {return "TAIL";}
+else {return "NOSE";}
+
+}
+
 
 
 # Set listener on the PFD mode button; this could be an on off switch or by convention
@@ -1620,7 +1630,7 @@ p_dps_mnvr.ry.setText(sprintf("%1.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/tr
 
 p_dps_mnvr.wt.setText(sprintf("%6.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/weight")));
 
-p_dps_mnvr.tig.setText(sprintf("%s",getprop("fdm/jsbsim/systems/ap/oms-plan/tig")));
+p_dps_mnvr.tig.setText(sprintf("%s",getprop("fdm/jsbsim/systems/ap/oms-plan/tig-string")));
 
 p_dps_mnvr.dvx.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvx")));
 p_dps_mnvr.dvy.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/dvy")));
@@ -1807,6 +1817,7 @@ p_dps_univ_ptg.cur_pitch.setText(sprintf("%+3.2f",cur_pitch));
 p_dps_univ_ptg.cur_yaw.setText(sprintf("%+3.2f",cur_yaw));
 
 var up_mnvr_flag= getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+var up_fut_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag");
 
 var tgt_roll = cur_roll;
 var tgt_pitch = cur_pitch;
@@ -1831,9 +1842,11 @@ var err_roll = 0.0;
 var err_pitch = 0.0;
 var err_yaw = 0.0;
 
-if ((up_mnvr_flag == 1) or (up_mnvr_flag == 2))
+if ((up_mnvr_flag == 1) or (up_mnvr_flag == 2) or (up_mnvr_flag == 3))
 	{	
 	err_roll = tgt_roll - cur_roll;
+	if (err_roll > 180.0) {err_roll = err_roll - 360.0;}
+	if (err_roll < -180.0) {err_roll = err_roll + 360.0;}
 	err_pitch = tgt_pitch - cur_pitch;
 	err_yaw = tgt_yaw - cur_yaw;
 	}
@@ -1869,6 +1882,25 @@ else if (up_mnvr_flag == 3)
 	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20 *"));
 	}
 
+if (up_fut_mnvr_flag == 1)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18     *"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_fut_mnvr_flag == 2)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19     *"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+	}
+else if (up_fut_mnvr_flag == 3)
+	{
+	p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
+	p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
+	p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20     *"));
+	}
+
 p_dps_univ_ptg.mo_roll.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll")));
 p_dps_univ_ptg.mo_pitch.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch")));
 p_dps_univ_ptg.mo_yaw.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-yaw")));
@@ -1884,7 +1916,7 @@ p_dps_univ_ptg.lon.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops2
 p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
 p_dps_univ_ptg.om.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/track/trk-om")));
 
-p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string")));
+p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string")));
 
 }
 
@@ -2893,6 +2925,272 @@ update_common_DPS();
 
 
 
+
+#################################################################
+# the DAP configuration utility
+#################################################################
+
+var p_dps_dap = PFD.addPage("CRTDAP", "p_dps_dap");
+
+
+p_dps_dap.label1 = PFDsvg.getElementById("p_dps_dap_label1");
+p_dps_dap.label2 = PFDsvg.getElementById("p_dps_dap_label2");
+p_dps_dap.label3 = PFDsvg.getElementById("p_dps_dap_label3");
+p_dps_dap.label1a = PFDsvg.getElementById("p_dps_dap_label1a");
+p_dps_dap.label2a = PFDsvg.getElementById("p_dps_dap_label2a");
+p_dps_dap.label3a = PFDsvg.getElementById("p_dps_dap_label3a");
+
+p_dps_dap.dap_a_desig_bright = PFDsvg.getElementById("p_dps_dap_dap_a_desig_bright");
+p_dps_dap.dap_b_desig_bright = PFDsvg.getElementById("p_dps_dap_dap_b_desig_bright");
+
+p_dps_dap.a_rot_rate = PFDsvg.getElementById("p_dps_dap_a_rot_rate");
+p_dps_dap.b_rot_rate = PFDsvg.getElementById("p_dps_dap_b_rot_rate");
+p_dps_dap.e_rot_rate = PFDsvg.getElementById("p_dps_dap_e_rot_rate");
+
+p_dps_dap.a_rot_rate_v = PFDsvg.getElementById("p_dps_dap_a_rot_rate_v");
+p_dps_dap.b_rot_rate_v = PFDsvg.getElementById("p_dps_dap_b_rot_rate_v");
+p_dps_dap.e_rot_rate_v = PFDsvg.getElementById("p_dps_dap_e_rot_rate_v");
+
+p_dps_dap.a_att_db = PFDsvg.getElementById("p_dps_dap_a_att_db");
+p_dps_dap.b_att_db = PFDsvg.getElementById("p_dps_dap_b_att_db");
+p_dps_dap.e_att_db = PFDsvg.getElementById("p_dps_dap_e_att_db");
+
+p_dps_dap.a_att_db_v = PFDsvg.getElementById("p_dps_dap_a_att_db_v");
+p_dps_dap.b_att_db_v = PFDsvg.getElementById("p_dps_dap_b_att_db_v");
+p_dps_dap.e_att_db_v = PFDsvg.getElementById("p_dps_dap_e_att_db_v");
+
+p_dps_dap.a_rate_db = PFDsvg.getElementById("p_dps_dap_a_rate_db");
+p_dps_dap.b_rate_db = PFDsvg.getElementById("p_dps_dap_b_rate_db");
+p_dps_dap.e_rate_db = PFDsvg.getElementById("p_dps_dap_e_rate_db");
+
+p_dps_dap.a_rate_db_v = PFDsvg.getElementById("p_dps_dap_a_rate_db_v");
+p_dps_dap.b_rate_db_v = PFDsvg.getElementById("p_dps_dap_b_rate_db_v");
+p_dps_dap.e_rate_db_v = PFDsvg.getElementById("p_dps_dap_e_rate_db_v");
+
+p_dps_dap.a_rate_db_alt = PFDsvg.getElementById("p_dps_dap_a_rate_db_alt");
+p_dps_dap.b_rate_db_alt = PFDsvg.getElementById("p_dps_dap_b_rate_db_alt");
+p_dps_dap.e_rate_db_alt = PFDsvg.getElementById("p_dps_dap_e_rate_db_alt");
+
+p_dps_dap.a_rot_pls = PFDsvg.getElementById("p_dps_dap_a_rot_pls");
+p_dps_dap.b_rot_pls = PFDsvg.getElementById("p_dps_dap_b_rot_pls");
+p_dps_dap.e_rot_pls = PFDsvg.getElementById("p_dps_dap_e_rot_pls");
+
+p_dps_dap.a_rot_pls_v = PFDsvg.getElementById("p_dps_dap_a_rot_pls_v");
+p_dps_dap.b_rot_pls_v = PFDsvg.getElementById("p_dps_dap_b_rot_pls_v");
+p_dps_dap.e_rot_pls_v = PFDsvg.getElementById("p_dps_dap_e_rot_pls_v");
+
+p_dps_dap.a_comp = PFDsvg.getElementById("p_dps_dap_a_comp");
+p_dps_dap.b_comp = PFDsvg.getElementById("p_dps_dap_b_comp");
+p_dps_dap.e_comp = PFDsvg.getElementById("p_dps_dap_e_comp");
+
+p_dps_dap.a_comp_v = PFDsvg.getElementById("p_dps_dap_a_comp_v");
+p_dps_dap.b_comp_v = PFDsvg.getElementById("p_dps_dap_b_comp_v");
+p_dps_dap.e_comp_v = PFDsvg.getElementById("p_dps_dap_e_comp_v");
+
+p_dps_dap.a_cntl_acc = PFDsvg.getElementById("p_dps_dap_a_cntl_acc");
+p_dps_dap.b_cntl_acc = PFDsvg.getElementById("p_dps_dap_b_cntl_acc");
+p_dps_dap.e_cntl_acc = PFDsvg.getElementById("p_dps_dap_e_cntl_acc");
+
+p_dps_dap.a_p_opt = PFDsvg.getElementById("p_dps_dap_a_p_opt");
+p_dps_dap.b_p_opt = PFDsvg.getElementById("p_dps_dap_b_p_opt");
+p_dps_dap.e_p_opt = PFDsvg.getElementById("p_dps_dap_e_p_opt");
+
+p_dps_dap.a_y_opt = PFDsvg.getElementById("p_dps_dap_a_y_opt");
+p_dps_dap.b_y_opt = PFDsvg.getElementById("p_dps_dap_b_y_opt");
+p_dps_dap.e_y_opt = PFDsvg.getElementById("p_dps_dap_e_y_opt");
+
+p_dps_dap.a_tran_pls = PFDsvg.getElementById("p_dps_dap_a_tran_pls");
+p_dps_dap.b_tran_pls = PFDsvg.getElementById("p_dps_dap_b_tran_pls");
+p_dps_dap.e_tran_pls = PFDsvg.getElementById("p_dps_dap_e_tran_pls");
+
+p_dps_dap.a_n_jets = PFDsvg.getElementById("p_dps_dap_a_n_jets");
+p_dps_dap.b_n_jets = PFDsvg.getElementById("p_dps_dap_b_n_jets");
+p_dps_dap.e_n_jets = PFDsvg.getElementById("p_dps_dap_e_n_jets");
+
+p_dps_dap.a_edit = PFDsvg.getElementById("p_dps_dap_a_edit");
+p_dps_dap.b_edit = PFDsvg.getElementById("p_dps_dap_b_edit");
+p_dps_dap.e_load = PFDsvg.getElementById("p_dps_dap_e_load");
+
+p_dps_dap.a_jet_opt = PFDsvg.getElementById("p_dps_dap_a_jet_opt");
+p_dps_dap.b_jet_opt = PFDsvg.getElementById("p_dps_dap_b_jet_opt");
+p_dps_dap.e_jet_opt = PFDsvg.getElementById("p_dps_dap_e_jet_opt");
+
+p_dps_dap.a_on_time = PFDsvg.getElementById("p_dps_dap_a_on_time");
+p_dps_dap.b_on_time = PFDsvg.getElementById("p_dps_dap_b_on_time");
+p_dps_dap.e_on_time = PFDsvg.getElementById("p_dps_dap_e_on_time");
+
+p_dps_dap.a_delay = PFDsvg.getElementById("p_dps_dap_a_delay");
+p_dps_dap.b_delay = PFDsvg.getElementById("p_dps_dap_b_delay");
+p_dps_dap.e_delay = PFDsvg.getElementById("p_dps_dap_e_delay");
+
+
+p_dps_dap.notch_fltr = PFDsvg.getElementById("p_dps_dap_notch_fltr"); 
+p_dps_dap.xjets_rot = PFDsvg.getElementById("p_dps_dap_xjets_rot"); 
+p_dps_dap.reboost_cfg = PFDsvg.getElementById("p_dps_dap_reboost_cfg"); 
+p_dps_dap.intvl = PFDsvg.getElementById("p_dps_dap_intvl"); 
+
+
+
+
+p_dps_dap.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","DAP CONFIG"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/020/";
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# set defaults for all functions which aren't implemented yet
+
+p_dps_dap.label1.setText(sprintf("PRI" )); 
+p_dps_dap.label2.setText(sprintf("ALT" )); 
+p_dps_dap.label3.setText(sprintf("VERN" )); 
+p_dps_dap.label1a.setText(sprintf("" )); 
+p_dps_dap.label2a.setText(sprintf("" )); 
+p_dps_dap.label3a.setText(sprintf("" )); 
+
+p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
+p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
+
+p_dps_dap.e_rot_rate.setText(sprintf("_.____" ));
+p_dps_dap.e_rot_rate_v.setText(sprintf("_.____" ));
+
+p_dps_dap.e_att_db.setText(sprintf("__.__" ));
+p_dps_dap.e_att_db_v.setText(sprintf("__.__" ));
+
+p_dps_dap.e_rate_db.setText(sprintf("_.__" ));
+p_dps_dap.e_rate_db_alt.setText(sprintf("_.__" ));
+p_dps_dap.e_rate_db_v.setText(sprintf(".___" ));
+
+p_dps_dap.e_rot_pls.setText(sprintf("_.___" ));
+p_dps_dap.e_rot_pls_v.setText(sprintf("_.___" ));
+
+p_dps_dap.e_comp.setText(sprintf("_.__" ));
+p_dps_dap.e_comp_v.setText(sprintf("_.__" ));
+
+p_dps_dap.a_cntl_acc.setText(sprintf("0" ));
+p_dps_dap.b_cntl_acc.setText(sprintf("0" ));
+p_dps_dap.e_cntl_acc.setText(sprintf("_" ));
+
+p_dps_dap.e_tran_pls.setText(sprintf("_.__" ));
+
+p_dps_dap.a_edit.setText(sprintf("__" ));
+p_dps_dap.b_edit.setText(sprintf("__" ));
+
+p_dps_dap.e_n_jets.setText(sprintf("_" ));
+
+p_dps_dap.e_p_opt.setText(sprintf(""));
+p_dps_dap.e_y_opt.setText(sprintf(""));
+
+p_dps_dap.a_on_time.setText(sprintf("0.08"));
+p_dps_dap.b_on_time.setText(sprintf("0.08"));
+p_dps_dap.e_on_time.setText(sprintf("_.__"));
+
+p_dps_dap.a_delay.setText(sprintf(" 0.00"));
+p_dps_dap.b_delay.setText(sprintf(" 0.00"));
+p_dps_dap.e_delay.setText(sprintf("_.__"));
+
+p_dps_dap.a_jet_opt.setText(sprintf("ALL"));
+p_dps_dap.b_jet_opt.setText(sprintf("ALL"));
+p_dps_dap.e_jet_opt.setText(sprintf("ALL"));
+
+p_dps_dap.e_load.setText(sprintf(""));
+p_dps_dap.notch_fltr.setText(sprintf("")); 
+p_dps_dap.xjets_rot.setText(sprintf("")); 
+
+p_dps_dap.reboost_cfg.setText(sprintf("")); 
+p_dps_dap.intvl.setText(sprintf("10.00")); 
+}
+
+p_dps_dap.update = func
+{
+
+p_dps_dap.a_rot_rate.setText(sprintf("%1.4f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate")));
+p_dps_dap.a_rot_rate_v.setText(sprintf("%1.4f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate") ));
+
+p_dps_dap.b_rot_rate.setText(sprintf("%1.4f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate")));
+p_dps_dap.b_rot_rate_v.setText(sprintf("%1.4f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate") ));
+
+p_dps_dap.a_att_db.setText(sprintf("%5.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-att-db")));
+p_dps_dap.a_att_db_v.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-att-db") ));
+
+p_dps_dap.b_att_db.setText(sprintf("%5.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-att-db")));
+p_dps_dap.b_att_db_v.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db") ));
+
+p_dps_dap.a_rate_db.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db")));
+p_dps_dap.a_rate_db_alt.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-ALS-rate-db")));
+p_dps_dap.a_rate_db_v.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db") ));
+
+p_dps_dap.b_rate_db.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db")));
+p_dps_dap.b_rate_db_alt.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-ALT-rate-db")));
+p_dps_dap.b_rate_db_v.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db") ));
+
+p_dps_dap.a_rot_pls.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-pls")));
+p_dps_dap.b_rot_pls.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-pls")));
+
+p_dps_dap.a_rot_pls_v.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-pls")));
+p_dps_dap.b_rot_pls_v.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pls")));
+
+p_dps_dap.a_comp.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-comp")));
+p_dps_dap.b_comp.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-comp")));
+
+p_dps_dap.a_comp_v.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-comp")));
+p_dps_dap.b_comp_v.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-comp")));
+
+
+p_dps_dap.a_p_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt"))));
+p_dps_dap.b_p_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt"))));
+
+p_dps_dap.a_y_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt"))));
+p_dps_dap.b_y_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt"))));
+
+
+p_dps_dap.a_tran_pls.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-tran-pls")));
+p_dps_dap.b_tran_pls.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-tran-pls")));
+
+p_dps_dap.a_n_jets.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-ALT-n-jets")));
+p_dps_dap.b_n_jets.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-ALT-n-jets")));
+
+var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+
+if ((control_mode == 20) or (control_mode == 21))
+	{
+	p_dps_dap.label1a.setText(sprintf("PRI" )); 
+	p_dps_dap.label2a.setText(sprintf("" )); 
+	p_dps_dap.label3a.setText(sprintf("" ));
+	}
+else
+	{
+	p_dps_dap.label1a.setText(sprintf("" )); 
+	p_dps_dap.label2a.setText(sprintf("" )); 
+	p_dps_dap.label3a.setText(sprintf("VERN" ));
+	} 
+
+if ((control_mode == 20) or (control_mode == 25))
+	{
+	p_dps_dap.dap_a_desig_bright.setText(sprintf("DAP A01" )); 
+	p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
+	}
+else if ((control_mode == 21) or (control_mode == 30))
+	{
+	p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
+	p_dps_dap.dap_b_desig_bright.setText(sprintf("DAP B01" )); 
+	}
+else
+	{
+	p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
+	p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
+	}
+
+update_common_DPS();
+
+}
+
+
+
+
 #
 PFD.selectPage(p_pfd);
 
@@ -2923,7 +3221,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_time);
+p_main.addMenuItem(3, "MAINT", p_dps_dap);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
@@ -2962,6 +3260,10 @@ p_dps_override.addMenuItem(5, "MSG ACK", p_dps_override);
 p_dps_time.addMenuItem(0, "UP", p_main);
 p_dps_time.addMenuItem(4, "MSG RST", p_dps_time);
 p_dps_time.addMenuItem(5, "MSG ACK", p_dps_time);
+
+p_dps_dap.addMenuItem(0, "UP", p_main);
+p_dps_dap.addMenuItem(4, "MSG RST", p_dps_dap);
+p_dps_dap.addMenuItem(5, "MSG ACK", p_dps_dap);
 
 var pfd_button_pushed = 0;
 

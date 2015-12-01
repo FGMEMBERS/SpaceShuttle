@@ -309,6 +309,7 @@ command_parse();
 #####################################################################
 
 var spec2 = [201, 202];
+var spec20 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
 
@@ -470,17 +471,27 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/weight",num(value)); valid_flag = 1;}
 		else if (item == 10)
 			{
-			var day = substr(value, 1, 3);
-			var hour = substr(value, 4,2);
-			var min = substr(value, 6,2);
-			var sec = substr(value, 8,2);
-			var time_string = day~"/"~hour~":"~min~":"~sec;
-
-			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
-				{				
-				setprop("/fdm/jsbsim/systems/ap/oms-plan/tig", time_string);
-				valid_flag = 1;
-				}
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-days", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-hours", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-minutes", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", int(value)); 
+			SpaceShuttle.set_oms_mnvr_timer();
+			valid_flag = 1;
 			}
 		else if (item == 19)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); valid_flag = 1;}
@@ -580,19 +591,27 @@ if ((header == "ITEM") and (end = "EXEC"))
 		{
 		if (item == 1)
 			{
-			var day = substr(value, 1, 3);
-			var hour = substr(value, 4,2);
-			var min = substr(value, 6,2);
-			var sec = substr(value, 8,2);
-			var time_string = day~"/"~hour~":"~min~":"~sec;
-
-			if ((int(hour) < 24) and (int(min)<60) and (int(sec)<60))
-				{				
-				setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-timer-string", time_string);
-				#set_mnvr_timer(int(day), int(hour), int(min), int(sec));
-		
-				valid_flag = 1;
-				}
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-days", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-hours", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-minutes", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			setprop("/fdm/jsbsim/systems/timer/up-mnvr-time-seconds", int(value)); 
+			SpaceShuttle.set_up_timer();
+			valid_flag = 1;
 			}
 		else if (item == 5)
 			{setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll", num(value)); valid_flag = 1;}
@@ -614,26 +633,29 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/track/trk-om", num(value)); valid_flag = 1;}
 		else if (item == 18)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1); valid_flag = 1;
-			SpaceShuttle.create_mnvr_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+ 			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(18);
 			}
 		else if (item == 19)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 2); valid_flag = 1;
-			SpaceShuttle.create_trk_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(19);
 			}
 		else if (item == 20)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 3); valid_flag = 1;
-			SpaceShuttle.create_rot_mnvr_vector();
-			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
+			SpaceShuttle.manage_up_mnvr(20);
 			}
 		else if (item == 21)
 			{
-			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); valid_flag = 1;
+			valid_flag = 1;
+			setprop("/fdm/jsbsim/systems/ap/ops201/mnvr-future-flag", 0);
+			setprop("/fdm/jsbsim/systems/ap/up-mnvr-flag", 0); 
 			SpaceShuttle.tracking_loop_flag = 0;
+			SpaceShuttle.up_future_mnvr_loop_flag = 0;
 			}
 
 		}
@@ -842,6 +864,104 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/timer/delta-MET", -getprop("/sim/time/elapsed-sec"));
 			valid_flag = 1;
 			}
+		}
+
+
+	if (spec == 20)
+		{
+		if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-att-db", value);
+			valid_flag =1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 15)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 16)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 24)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-att-db", value);
+			valid_flag =1;
+			}
+		else if (item == 25)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 30)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 31)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-att-db", value);
+			valid_flag =1;
+			}
+		else if (item == 32)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 35)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 36)
+			{
+			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt");
+			state = state + 1;
+			if (state == 3) {state = 0;}
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt", state);
+			valid_flag =1;
+			}
+		else if (item == 43)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
+			valid_flag =1;
+			}
+		else if (item == 43)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db", value);
+			valid_flag =1;
+			}
+		else if (item == 45)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", value);
+			valid_flag =1;
+			}
+
 		}
 
 	if (spec == 51)
@@ -1245,6 +1365,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		valid_flag = 1;
+		}
+	if ((spec_num == 20) and (test_spec_ops_validity(spec20, major_mode) == 1))
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_dap);
+		setprop("/fdm/jsbsim/systems/dps/spec", 20);
 		valid_flag = 1;
 		}
 	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))

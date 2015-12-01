@@ -32,14 +32,36 @@
 		    <mnvr-timer-min type="int">0</mnvr-timer-min>
 		    <mnvr-timer-h type="int">0</mnvr-timer-h>
 		    <spec20>
-			<dap-A-PRI-rot-rate type="double">1.0</dap-A-PRI-rot-rate>
-			<dap-B-PRI-rot-rate type="double">0.2</dap-B-PRI-rot-rate>
+			<dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
+			<dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
 			<dap-A-VRN-rot-rate type="double">0.1</dap-A-VRN-rot-rate>
 			<dap-B-VRN-rot-rate type="double">0.05</dap-B-VRN-rot-rate>
 			<dap-A-PRI-att-db type="double">0.12</dap-A-PRI-att-db>
 			<dap-B-PRI-att-db type="double">0.15</dap-B-PRI-att-db>
 			<dap-A-VRN-att-db type="double">0.12</dap-A-VRN-att-db>
 			<dap-B-VRN-att-db type="double">0.15</dap-B-VRN-att-db>
+			<dap-A-PRI-rate-db type="double">0.001</dap-A-PRI-rate-db>
+			<dap-B-PRI-rate-db type="double">0.1</dap-B-PRI-rate-db>
+			<dap-A-VRN-rate-db type="double">0.001</dap-A-VRN-rate-db>
+			<dap-B-VRN-rate-db type="double">0.005</dap-B-VRN-rate-db>
+			<dap-A-ALT-rate-db type="double">0.2</dap-A-ALT-rate-db>
+			<dap-B-ALT-rate-db type="double">0.2</dap-B-ALT-rate-db>
+			<dap-A-PRI-rot-pls type="double">0.1</dap-A-PRI-rot-pls>
+			<dap-B-PRI-rot-pls type="double">0.05</dap-B-PRI-rot-pls>
+			<dap-A-VRN-rot-pls type="double">0.01</dap-A-VRN-rot-pls>
+			<dap-B-VRN-rot-pls type="double">0.002</dap-B-VRN-rot-pls>
+			<dap-A-PRI-comp type="double">0.0</dap-A-PRI-comp>
+			<dap-B-PRI-comp type="double">0.0</dap-B-PRI-comp>
+			<dap-A-VRN-comp type="double">0.0</dap-A-VRN-comp>
+			<dap-B-VRN-comp type="double">0.0</dap-B-VRN-comp>
+			<dap-A-PRI-p-opt type="int">0</dap-A-PRI-p-opt>
+			<dap-B-PRI-p-opt type="int">0</dap-B-PRI-p-opt>
+			<dap-A-PRI-y-opt type="int">0</dap-A-PRI-y-opt>
+			<dap-B-PRI-y-opt type="int">0</dap-B-PRI-y-opt>
+			<dap-A-PRI-tran-pls type="double">0.100</dap-A-PRI-tran-pls>
+			<dap-B-PRI-tran-pls type="double">0.100</dap-B-PRI-tran-pls>
+			<dap-A-ALT-n-jets type="int">3</dap-A-ALT-n-jets>
+			<dap-B-ALT-n-jets type="int">3</dap-B-ALT-n-jets>
 		    </spec20>
 		    <track>
 			<body-vector-selection type="int">1</body-vector-selection>
@@ -50,6 +72,9 @@
 			<target-sec n="0" type="double">0.0</target-sec>
 			<target-sec n="1" type="double">0.0</target-sec>
 			<target-sec n="2" type="double">1.0</target-sec>
+			<target-trd n="0" type="double">0.0</target-trd>
+			<target-trd n="1" type="double">1.0</target-trd>
+			<target-trd n="2" type="double">0.0</target-trd>
 		    </track>
 		    <ops201>
 			<mnvr-yaw type="double">0.0</mnvr-yaw>
@@ -61,7 +86,8 @@
 			<trk-alt type="double">0.0</trk-alt>
 			<trk-ra type="double">0.0</trk-ra>
 			<trk-dec type="double">0.0</trk-dec>
-			<mnvr-timer-string type="string">000/00:00:00</mnvr-timer-string>
+			<!--<mnvr-timer-string type="string">000/00:00:00</mnvr-timer-string>-->
+			<mnvr-future-flag type="int">0</mnvr-future-flag>
 		    </ops201>
 		    <oms-plan>
 			<burn-mode type="int">1</burn-mode>
@@ -71,7 +97,12 @@
 			<trim-yaw-left type="double">0.0</trim-yaw-left>
 			<trim-yaw-right type="double">0.0</trim-yaw-right>	
 			<weight type="double">0.0</weight>
-			<tig type="string">000/00:00:00.0</tig>
+			<tig-string type="string">000/00:00:00.0</tig-string>
+			<tig-days type="int">0</tig-days>
+			<tig-hours type="int">0</tig-hours>
+			<tig-minutes type="int">0</tig-minutes>
+			<tig-seconds type="int">0</tig-seconds>
+			<tig type="int">0</tig>
 			<dvx type="double">0.0</dvx>
 			<dvy type="double">0.0</dvy>
 			<dvz type="double">0.0</dvz>
@@ -873,6 +904,12 @@
 			<count-to-seconds type="int">0</count-to-seconds>
 			<count-to type="int">0</count-to>
 			<count-to-string type="string"></count-to-string>
+			<up-mnvr-time-days type="int">0</up-mnvr-time-days>
+			<up-mnvr-time-hours type="int">0</up-mnvr-time-hours>
+			<up-mnvr-time-minutes type="int">0</up-mnvr-time-minutes>
+			<up-mnvr-time-seconds type="int">0</up-mnvr-time-seconds>
+			<up-mnvr-time type="int">0</up-mnvr-time>
+			<up-mnvr-time-string type="string">000/00:00:00</up-mnvr-time-string>
 		</timer>
 		<various>
 			<debris-separation-target type="double">0.0</debris-separation-target>
