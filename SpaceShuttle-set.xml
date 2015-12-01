@@ -92,6 +92,7 @@
 		    <oms-plan>
 			<burn-mode type="int">1</burn-mode>
 			<burn-plan-available type="int">0</burn-plan-available>
+			<exec-cmd type="int">0</exec-cmd>
 			<oms-ignited type="int">0</oms-ignited>
 			<trim-pitch type="double">0.0</trim-pitch>
 			<trim-yaw-left type="double">0.0</trim-yaw-left>
@@ -109,6 +110,15 @@
 			<dvtot type="double">0.0</dvtot>
 			<tv-roll type="double">180.0</tv-roll>
 			<burn-solution-flag type="int">0</burn-solution-flag>
+			<state-extrapolated-flag type="int">0</state-extrapolated-flag>
+			<state-extrapolated-x type="double">0.0</state-extrapolated-x>
+			<state-extrapolated-y type="double">0.0</state-extrapolated-y>
+			<state-extrapolated-z type="double">0.0</state-extrapolated-z>
+			<state-extrapolated-vx type="double">0.0</state-extrapolated-vx>
+			<state-extrapolated-vy type="double">0.0</state-extrapolated-vy>
+			<state-extrapolated-vz type="double">0.0</state-extrapolated-vz>
+			<extrapolated-apoapsis type="double">0.0</extrapolated-apoapsis>
+			<extrapolated-periapsis type="double">0.0</extrapolated-periapsis>
 			<tgo-s type="double">0</tgo-s>
 			<tgo-string type="string">00:00</tgo-string>
 			<apoapsis-nm type="double">0.0</apoapsis-nm>

@@ -308,7 +308,7 @@ command_parse();
 # OPS/ SPEC dependency checks
 #####################################################################
 
-var spec2 = [201, 202];
+var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
@@ -507,12 +507,21 @@ if ((header == "ITEM") and (end = "EXEC"))
 				SpaceShuttle.create_oms_burn_vector();
 				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 				}
 			else
 				{
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 				}
 			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
+			SpaceShuttle.update_start_count(2);
+			SpaceShuttle.blank_start_at();
 			valid_flag = 1;
 			}
 		else if (item == 27)
@@ -1413,6 +1422,7 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 			var burn_time = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s");
 			print("Burn time ", burn_time, " s");
 			SpaceShuttle.oms_burn_start(burn_time);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 1);
 			valid_flag = 1;
 			}
 		}	

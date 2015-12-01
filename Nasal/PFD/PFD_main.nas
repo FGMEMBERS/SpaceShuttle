@@ -1652,7 +1652,7 @@ var dap_text = "FREE";
 if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
 	{dap_text = "AUTO";}
 else if(getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial") == 1)
-	{dap_text = "INTRL";}
+	{dap_text = "INRTL";}
 else if(getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh") == 1)
 	{dap_text = "LVLH";}
 
@@ -1675,12 +1675,20 @@ else
 
 var exec_string = "";
 
-if ((attitude_flag == 1) and (burn_plan == 1))
+var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+var exec_timer_flag = 0;
+
+if (SpaceShuttle.oms_burn_target.tig - MET < 15.0)
+	{
+	exec_timer_flag = 1;
+	}
+
+if ((attitude_flag == 1) and (burn_plan == 1) and (exec_timer_flag == 1) )
 	{
 	exec_string = "EXEC";
-	var oms_ignited = getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited");
-	
-	if (oms_ignited == 0) # blink before ignition
+	var exec_cmd = getprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd");
+	if (exec_cmd == 0) # blink before ignition
 		{
 		if (p_dps_mnvr.blink == 0) 
 			{p_dps_mnvr.blink = 1; exec_string = "";}
