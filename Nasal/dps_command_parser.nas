@@ -308,7 +308,7 @@ command_parse();
 # OPS/ SPEC dependency checks
 #####################################################################
 
-var spec2 = [201, 202];
+var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
@@ -507,12 +507,21 @@ if ((header == "ITEM") and (end = "EXEC"))
 				SpaceShuttle.create_oms_burn_vector();
 				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 				}
 			else
 				{
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 				}
 			SpaceShuttle.tracking_loop_flag = 0;
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
+			SpaceShuttle.update_start_count(2);
+			SpaceShuttle.blank_start_at();
 			valid_flag = 1;
 			}
 		else if (item == 27)
@@ -884,6 +893,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", value);
 			valid_flag =1;
 			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 15)
 			{
 			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt");
@@ -928,6 +942,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 32)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 33)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-pls", value);
 			valid_flag =1;
 			}
 		else if (item == 35)
@@ -1385,6 +1404,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/spec", 63);
 		valid_flag = 1;
 		}
+	if ((spec_num == 86) )
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_apu_hyd);
+		setprop("/fdm/jsbsim/systems/dps/disp", 86);
+		valid_flag = 1;
+		}
 
 	if (spec_num == 99)
 		{
@@ -1413,6 +1438,7 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 			var burn_time = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s");
 			print("Burn time ", burn_time, " s");
 			SpaceShuttle.oms_burn_start(burn_time);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 1);
 			valid_flag = 1;
 			}
 		}	
