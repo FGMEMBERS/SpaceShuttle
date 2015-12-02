@@ -315,6 +315,7 @@
 		    <sense-minus-X type="int">0</sense-minus-X>
 		    <sense-minus-Z type="int">0</sense-minus-Z>
 		    <rcs-inactive type="double">1.0</rcs-inactive>
+		    <rcs-use-pulse type="int">1</rcs-use-pulse>
                 </fcs>
 		<apu>
 			<init-hydraulics-on type="int">0</init-hydraulics-on>

@@ -802,7 +802,15 @@ var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 if ((current_mode == 0) or (current_mode == 10))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-	setprop("/controls/shuttle/control-system-string", "RCS rotation");
+
+	if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS rotation");
+		}
+	else
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
+		}
 	}
 else if ((current_mode ==1) or (current_mode ==2) or (current_mode == 11) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode ==23) or (current_mode == 25) or (current_mode==26) or (current_mode ==27) or (current_mode ==28))
 	{
@@ -862,7 +870,14 @@ else if (current_mode == 11)
 	else 
 		{
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
+		{
 		setprop("/controls/shuttle/control-system-string", "RCS rotation");
+		}
+	else
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
+		}
 		}
 
 	}
@@ -1014,7 +1029,14 @@ if (orbital_dap_free == 1)
 	else if (current_mode == 23)
 		{
 		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
+		{
 		setprop("/controls/shuttle/control-system-string", "RCS rotation");
+		}
+	else
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
+		}
 		}
 
 		# translational mode assignment
@@ -1076,7 +1098,14 @@ else if (mode == 3) # LVLH
 else if (mode == 4) # FREE
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-	setprop("/controls/shuttle/control-system-string", "RCS rotation");
+	if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS rotation");
+		}
+	else
+		{
+		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
+		}
 	}
 }
 

@@ -893,6 +893,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", value);
 			valid_flag =1;
 			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 15)
 			{
 			var state = getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt");
@@ -937,6 +942,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 32)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 33)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-pls", value);
 			valid_flag =1;
 			}
 		else if (item == 35)
@@ -1392,6 +1402,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
 		setprop("/fdm/jsbsim/systems/dps/spec", 63);
+		valid_flag = 1;
+		}
+	if ((spec_num == 86) )
+		{
+		SpaceShuttle.PFD.selectPage(p_dps_apu_hyd);
+		setprop("/fdm/jsbsim/systems/dps/disp", 86);
 		valid_flag = 1;
 		}
 

@@ -45,6 +45,18 @@ return outvec;
 }
 
 
+var norm = func (v) {
+
+return math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+
+}
+
+var normalize = func (v) {
+
+return scalar_product(1./norm(v), v);
+
+}
+
 var cross_product = func (v1, v2) {
 
 var outvec = [0,0,0];
@@ -52,6 +64,27 @@ var outvec = [0,0,0];
 outvec[0] = v1[1] * v2[2] - v1[2] * v2[1];
 outvec[1] = v1[2] * v2[0] - v1[0] * v2[2];
 outvec[2] = v1[0] * v2[1] - v1[1] * v2[0];
+
+return outvec;
+}
+
+
+var orthonormalize = func (v1, v2) {
+
+var v1_norm = norm(v1);
+var v2_norm = norm(v2);
+
+var v1n = scalar_product(1./v1_norm, v1);
+var v2n = scalar_product(1./v2_norm, v2);
+
+var angle = dot_product(v1n, v2n);
+
+var diff = scalar_product(-angle, v1n);
+
+var outvec = add_vector(v2n, diff);
+
+outvec = scalar_product(1.0/norm(outvec) , outvec);
+
 
 return outvec;
 }
@@ -601,17 +634,20 @@ var radial = [getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"),getprop
 # prograde and radial don't really form an ON system for eccentric orbits, so we correct that
 # we need exact prograde orientation so we tilt the radial base vector for pointing
 
-var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
+#var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
 
+#radial[0] = radial[0] - prograde[0] * corr_angle;
+#radial[1] = radial[1] - prograde[1] * corr_angle;
+#radial[2] = radial[2] - prograde[2] * corr_angle;
 
-radial[0] = radial[0] - prograde[0] * corr_angle;
-radial[1] = radial[1] - prograde[1] * corr_angle;
-radial[2] = radial[2] - prograde[2] * corr_angle;
+#var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
+#radial[0] = radial[0]/radial_norm;
+#radial[1] = radial[1]/radial_norm;
+#radial[2] = radial[2]/radial_norm;
 
-var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
-radial[0] = radial[0]/radial_norm;
-radial[1] = radial[1]/radial_norm;
-radial[2] = radial[2]/radial_norm;
+prograde = normalize(prograde);
+radial = orthonormalize(prograde, radial);
+
 
 # now correct for the about 11.5 deg offset of the OMS thrust axis
 
@@ -626,11 +662,13 @@ var radial_rot = add_vector(scalar_product(-sinOffset,prograde),  scalar_product
 radial = radial_rot;
 prograde = prograde_rot;
 
-var normal = [0,0,0];
+var normal = cross_product (prograde, radial);
 
-normal[0] = prograde[1] * radial[2] - prograde[2] * radial[1];
-normal[1] = prograde[2] * radial[0] - prograde[0] * radial[2];
-normal[2] = prograde[0] * radial[1] - prograde[1] * radial[0];
+#var normal = [0,0,0];
+
+#normal[0] = prograde[1] * radial[2] - prograde[2] * radial[1];
+#normal[1] = prograde[2] * radial[0] - prograde[0] * radial[2];
+#normal[2] = prograde[0] * radial[1] - prograde[1] * radial[0];
 
 var tgt0 = tx * prograde[0] + ty * normal[0] + tz * radial[0];
 var tgt1 = tx * prograde[1] + ty * normal[1] + tz * radial[1];
@@ -644,9 +682,17 @@ var orientation = get_pitch_yaw([tgt0, tgt1, tgt2]);
 
 var sec = SpaceShuttle.orientTaitBryan([-radial[0], -radial[1], -radial[2]], orientation[1], orientation[0],0.0);
 
+sec = orthonormalize([tgt0, tgt1, tgt2], sec);
+
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", sec[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", sec[1]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", sec[2]);
+
+var trd = cross_product([tgt0, tgt1, tgt2], sec);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", trd[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", trd[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", trd[2]);
 
 # now we compute apoapsis and periapsis if the burn were right now
 
@@ -769,3 +815,32 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", getprop("/fdm/jsbsim/systems/ap
 
 settimer(func {oms_burn(time - 1);}, 1.0);
 }
+
+
+
+
+###################
+# some diagnostics
+
+
+var check_tgt_vecs = func {
+
+
+var t1 = [getprop("/fdm/jsbsim/systems/ap/track/target-vector[0]"), getprop("/fdm/jsbsim/systems/ap/track/target-vector[1]"), getprop("/fdm/jsbsim/systems/ap/track/target-vector[2]")];
+
+var t2 = [getprop("/fdm/jsbsim/systems/ap/track/target-sec[0]"), getprop("/fdm/jsbsim/systems/ap/track/target-sec[1]"), getprop("/fdm/jsbsim/systems/ap/track/target-sec[2]")];
+
+var t3 = [getprop("/fdm/jsbsim/systems/ap/track/target-trd[0]"), getprop("/fdm/jsbsim/systems/ap/track/target-trd[1]"), getprop("/fdm/jsbsim/systems/ap/track/target-trd[2]")];
+
+print("T1: ", t1[0], " ", t1[1], " ", t1[2], " ", norm(t1));
+print("T2: ", t2[0], " ", t2[1], " ", t2[2], " ", norm(t2));
+print("T3: ", t3[0], " ", t3[1], " ", t3[2], " ", norm(t3));
+print(" ");
+print("angle T1 T2: ", dot_product(t1, t2));
+print("angle T1 T3: ", dot_product(t1, t3));
+print("angle T2 T3: ", dot_product(t2, t3));
+
+
+}
+
+
