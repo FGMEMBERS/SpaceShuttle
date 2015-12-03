@@ -5,7 +5,7 @@ MATERIAL "spstob_eal_1.002" rgb 0.5843 0.5843 0.5843  amb 0.5000 0.5000 0.5000  
 MATERIAL "DefaultWhite" rgb 0.6431 1.0000 0.6431  amb 0.2000 0.2000 0.2000  emis 0.0000 0.0000 0.0000  spec 0.0000 0.0000 0.0000  shi 50 trans 0.7880
 OBJECT world
 name "Blender_export__shuttle_o2.ac"
-kids 19
+kids 18
 OBJECT poly
 name "BodyFlap"
 loc 0.9223590 -2.4169800 -0.0000008
@@ -5027,25 +5027,6 @@ refs 3
 12 0.409800 0.580300
 10 0.432500 0.589700
 9 0.439500 0.479400
-kids 0
-OBJECT poly
-name "Plane"
-loc -10.5208378 0.2400423 -0.0172631
-texture "spstob_3.png"
-texrep 1 1
-numvert 4
-0.0146661 -0.0061475 0.6959612
-0.0919795 -0.1127831 0.6969565
-0.0152860 -0.0141793 -0.6697602
-0.0925993 -0.1208148 -0.6687649
-numsurf 1
-SURF 0X0
-mat 2
-refs 4
-0 0.032641 0.015821
-2 0.032012 0.972439
-3 0.124272 0.972266
-1 0.124900 0.015648
 kids 0
 OBJECT poly
 name "spaceshutt_spstob"
