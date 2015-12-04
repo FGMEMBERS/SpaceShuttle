@@ -8,9 +8,8 @@
  <path>cockpit.ac</path>
  <nopreview/>
 
- <!-- implicit lighting
+<!-- implicit lighting -->
  <effect>
-  <name>panel-legend</name>
   <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
   <object-name>Fwd_PanelsX</object-name>
   <object-name>Fwd_PanelsY</object-name>
@@ -189,7 +188,7 @@
   <object-name>Fwd_Equipment_Knobs.059</object-name>
   <object-name>Fwd_Equipment_Knobs.060</object-name>
   <object-name>Fwd_Equipment_Knobs.061</object-name>
- </effect> -->
+ </effect> 
 
  <animation>
   <object-name>DisplayL1</object-name>
@@ -205,9 +204,6 @@
   </condition>
   <emission>
    <factor-prop>sim/model/shuttle/controls/PFD/mode</factor-prop>
-   <red>  1.000</red>
-   <green>0.576</green>
-   <blue> 0.161</blue>
    <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
    <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
    <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>

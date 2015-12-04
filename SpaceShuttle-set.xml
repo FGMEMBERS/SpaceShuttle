@@ -938,12 +938,12 @@
         <shuttle>
             <external-fuel-tank type="int">1</external-fuel-tank>
             <solid-rocket-boosters type="int">1</solid-rocket-boosters>
-            <outerspace type="bool">1</outerspace>
+            <!--<outerspace type="bool">1</outerspace>
             <EMU type="int">0</EMU>
             <robotarm type="float">0</robotarm>
             <door>
                 <position type="float">0</position>
-            </door>
+            </door>-->
             <parachute type="int">0</parachute>
             <control-system-string type="string">Thrust Vectoring</control-system-string>
             <hud-mode type="int">0</hud-mode>
@@ -1134,9 +1134,12 @@
                 </controls>
                 <lighting>
                     <!-- base RGB for all CRT emissions (normally full brightness is 10x this value)-->
-                    <displays-red type="double">0.1000</displays-red>
+                    <!--<displays-red type="double">0.1000</displays-red>
                     <displays-green type="double">0.0576</displays-green>
-                    <displays-blue type="double">0.0161</displays-blue>
+                    <displays-blue type="double">0.0161</displays-blue>-->
+		    <displays-red type="double">0.02</displays-red>
+                    <displays-green type="double">0.1</displays-green>
+                    <displays-blue type="double">0.0</displays-blue>
                 </lighting>
             </shuttle>
 	    <effects>
