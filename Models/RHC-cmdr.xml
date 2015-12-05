@@ -87,5 +87,12 @@
 
   </animation>
 
+    <!--effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
+        <object-name>Joystick.Base</object-name>
+        <object-name>Joystick</object-name>
+        <object-name>Joystick.Button</object-name>
+        <object-name>Joystick.Hat</object-name>
+    </effect-->
 
 </PropertyList>

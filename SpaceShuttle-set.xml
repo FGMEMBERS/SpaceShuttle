@@ -975,6 +975,9 @@
 
         <lighting>
             <nav-lights type="bool">1</nav-lights>
+            <!--cockpit-ambience-r type="float">.1</residual-ambience-r>
+            <cockpit-ambience-g type="float">.05</residual-ambience-g>
+            <cockpit-ambience-b type="float">.02</residual-ambience-b-->
         </lighting>
 
         <armament>

@@ -53,12 +53,9 @@
   <object-name>DisplaysL2</object-name>
   <object-name>DisplaysR1</object-name>
   <object-name>DisplaysR2</object-name>
-  <object-name>spaceshutt_spstob_1</object-name>
+  <object-name>backwall</object-name>
   <object-name>spaceshutt_spstob_3</object-name>
-  <object-name>spaceshutt_spstob_3.001</object-name>
-  <object-name>spaceshutt_spstob_4</object-name>
-  <object-name>spaceshutt_spstob_4.0</object-name>
-  <object-name>Roof_Assembly.001</object-name>
+  <object-name>Roof_Assembly</object-name>
   <object-name>HUDImage1</object-name>
   <object-name>HUDImage2</object-name>
   <object-name>HudLeft</object-name>

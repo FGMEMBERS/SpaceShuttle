@@ -2279,4 +2279,19 @@
  <object-name>spaceshutt_spstob.001</object-name>
 </effect>
 
+ <!--effect>
+  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
+  <object-name>RMS.Base</object-name>
+  <object-name>RMS.Shoulder.Yaw</object-name>
+  <object-name>RMS.Shoulder.Pitch</object-name>
+  <object-name>RMS.Elbow.Pitch</object-name>
+  <object-name>spaceshutt_spstob_2.005</object-name>
+  <object-name>RMS.Wrist.Pitch</object-name>
+  <object-name>RMS.Wrist.Yaw</object-name>
+  <object-name>RMS.Wrist.Roll</object-name>
+  <object-name>spaceshutt_spstob_1</object-name>
+  <object-name>spaceshutt_spstob</object-name>
+  <object-name>spaceshutt_spstob.001</object-name>
+ </effect-->
+
 </PropertyList>
