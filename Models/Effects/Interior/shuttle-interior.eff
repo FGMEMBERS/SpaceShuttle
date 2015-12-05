@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <PropertyList>
     <name>Effects/shuttle-interior</name>
     <inherits-from>Effects/model-interior</inherits-from>
@@ -19,14 +20,10 @@
         <implicit-lightmap-emit-color type="vec3d">1.0 0.5 0.1</implicit-lightmap-emit-color>
         <implicit-lightmap-threshold-low type="float">0.2</implicit-lightmap-threshold-low>
         <implicit-lightmap-threshold-high type="float">0.5</implicit-lightmap-threshold-high>
-        <implicit-lightmap-intensity>0.7</implicit-lightmap-intensity>
-        <!--implicit-lightmap-intensity><use>controls/lighting/l-console-eff-norm</use></implicit-lightmap-intensity>
-        <residual-ambience-r type="float"> <use>controls/lighting/cockpit-ambience-r</use></residual-ambience-r>
-        <residual-ambience-g type="float"> <use>controls/lighting/cockpit-ambience-g</use></residual-ambience-g>
-        <residual-ambience-b type="float"> <use>controls/lighting/cockpit-ambience-b</use></residual-ambience-b-->
-        <residual-ambience-r type="float">0.1</residual-ambience-r>
-        <residual-ambience-g type="float">0.05</residual-ambience-g>
-        <residual-ambience-b type="float">0.02</residual-ambience-b>
+        <implicit-lightmap-intensity><use>controls/lighting/console-eff-norm</use></implicit-lightmap-intensity>
+        <residual-ambience-r type="float"><use>controls/lighting/cockpit-ambience-r</use></residual-ambience-r>
+        <residual-ambience-g type="float"><use>controls/lighting/cockpit-ambience-g</use></residual-ambience-g>
+        <residual-ambience-b type="float"><use>controls/lighting/cockpit-ambience-b</use></residual-ambience-b>
         <ra-irradiance-map-type type="int">2</ra-irradiance-map-type>
         <ra-irradiance-map-strength type="float">0.5</ra-irradiance-map-strength>
     </parameters>

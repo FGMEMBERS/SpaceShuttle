@@ -18,13 +18,10 @@
         <light-filter-one type="vec3d">0.5 0.5 0.5</light-filter-one>
         <light-filter-two type="vec3d">0.9 0.2 0.2</light-filter-two>
         <light-radius type="float">15</light-radius>
-        <!--implicit-lightmap-intensity><use>controls/lighting/l-console-eff-norm</use></implicit-lightmap-intensity>
-        <residual-ambience-r type="float"> <use>controls/lighting/cockpit-ambience-r</use></residual-ambience-r>
-        <residual-ambience-g type="float"> <use>controls/lighting/cockpit-ambience-g</use></residual-ambience-g>
-        <residual-ambience-b type="float"> <use>controls/lighting/cockpit-ambience-b</use></residual-ambience-b-->
-        <residual-ambience-r type="float">0.08</residual-ambience-r>
-        <residual-ambience-g type="float">0.05</residual-ambience-g>
-        <residual-ambience-b type="float">0.05</residual-ambience-b>
+        <implicit-lightmap-intensity><use>controls/lighting/console-eff-norm</use></implicit-lightmap-intensity>
+        <residual-ambience-r type="float"><use>controls/lighting/cockpit-ambience-r</use></residual-ambience-r>
+        <residual-ambience-g type="float"><use>controls/lighting/cockpit-ambience-g</use></residual-ambience-g>
+        <residual-ambience-b type="float"><use>controls/lighting/cockpit-ambience-b</use></residual-ambience-b>
         <ra-irradiance-map-type type="int">2</ra-irradiance-map-type>
         <ra-irradiance-map-strength type="float">0.5</ra-irradiance-map-strength>
     </parameters>

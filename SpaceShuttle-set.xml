@@ -975,10 +975,11 @@
 
         <lighting>
             <nav-lights type="bool">1</nav-lights>
-            <!--cockpit-ambience-r type="float">.1</residual-ambience-r>
-            <cockpit-ambience-g type="float">.05</residual-ambience-g>
-            <cockpit-ambience-b type="float">.02</residual-ambience-b-->
-        </lighting>
+            <cockpit-ambience-r type="float">0.1</cockpit-ambience-r>
+            <cockpit-ambience-g type="float">0.05</cockpit-ambience-g>
+            <cockpit-ambience-b type="float">0.02</cockpit-ambience-b>
+            <console-eff-norm type="float">0.7</console-eff-norm>
+       </lighting>
 
         <armament>
             <trigger type="int">0</trigger>
