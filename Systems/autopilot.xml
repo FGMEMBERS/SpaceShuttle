@@ -245,26 +245,6 @@
 			</test>
 		</switch>
 
-		<!--<switch name="systems/ap/track/body-sec[0]">
-			<default value="0.0"/>
-			<test value="systems/pointing/inertial/body-z[0]">
-				systems/ap/track/body-vector-selection == 1	
-			</test>
-		</switch>
-
-		<switch name="systems/ap/track/body-sec[1]">
-			<default value="0.0"/>
-			<test value="systems/pointing/inertial/body-z[1]">
-				systems/ap/track/body-vector-selection == 1	
-			</test>
-		</switch>
-
-		<switch name="systems/ap/track/body-sec[2]">
-			<default value="0.0"/>
-			<test value="systems/pointing/inertial/body-z[2]">
-				systems/ap/track/body-vector-selection == 1	
-			</test>
-		</switch>-->
 
 		<switch name="systems/ap/track/body-yaw[0]">
 			<default value="0.0"/>
@@ -382,23 +362,6 @@
 		</function>
 		</fcs_function>	
 
-	
-
-		<!--<fcs_function name="systems/ap/track/pitch-error-abs">
-		<function>
-			<abs>
-				<property>systems/ap/track/pitch-error</property>
-			</abs>
-		</function>
-		</fcs_function>
-
-		<switch name="systems/ap/track/pitch-error-db">
-			<default value="systems/ap/track/pitch-error"/>
-			<test value="0.0">
-				systems/ap/track/pitch-error-abs LT systems/ap/att-db-rad-sin
-			</test>
-		</switch>-->
-
 
   		<deadband name="systems/ap/track/pitch-error-db">
 			<input>systems/ap/track/pitch-error</input>
@@ -436,21 +399,6 @@
 			</product>
 		</function>
 		</fcs_function>	
-
-		<!--<fcs_function name="systems/ap/track/yaw-error-abs">
-		<function>
-			<abs>
-				<property>systems/ap/track/yaw-error</property>
-			</abs>
-		</function>
-		</fcs_function>
-
-		<switch name="systems/ap/track/yaw-error-db">
-			<default value="systems/ap/track/yaw-error"/>
-			<test value="0.0">
-				systems/ap/track/yaw-error-abs LT systems/ap/att-db-rad-sin
-			</test>
-		</switch>-->
 		
 
   		<deadband name="systems/ap/track/yaw-error-db">
@@ -711,12 +659,14 @@
 
 	<channel name="Auto rotation rates">
 
-		<switch name="systems/ap/dap-A-inertial">
+		<switch name="systems/ap/dap-inertial">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 11
 				systems/fcs/control-mode == 20	
-				systems/fcs/control-mode == 25	
+				systems/fcs/control-mode == 21	
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30		
 			</test>
 		</switch>
 	
@@ -725,7 +675,7 @@
 		<switch name="systems/ap/auto-rotation-mode">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/ap/dap-A-inertial == 1
+				systems/ap/dap-inertial == 1
 				systems/ap/orbital-dap-auto == 1
 			</test>
 		</switch>
@@ -843,10 +793,9 @@
 		</function>
 		</fcs_function>
 
-
-		<pid name="systems/ap/roll-rate-controller">
+		<!--<pid name="systems/ap/roll-rate-controller">
 			<input>systems/ap/roll-rate-error</input>
-			<kp> 10.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 5.0</kd>
 			<clipto>
@@ -854,7 +803,28 @@
         			<max>  1.0 </max>
 			</clipto>
 			<output>systems/ap/test-roll</output>
-  		</pid>
+  		</pid>-->
+
+		<fcs_function name="systems/ap/roll-rate-controller">
+		<function>
+			<min>
+			<max>
+				<product>
+					<property>systems/ap/roll-rate-error</property>
+					<quotient>
+						<value>25.0</value>
+						<max>
+						<property>systems/ap/rot-rate-degps</property>
+						<value>0.01</value>
+						</max>
+					</quotient>
+				</product>
+				<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
 
 
 
