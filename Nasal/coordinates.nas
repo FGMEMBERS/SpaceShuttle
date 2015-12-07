@@ -544,9 +544,42 @@ if (tracking_loop_flag == 0) {return;}
 
 print("Tracking..");
 
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"));
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"));
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]"));
+var radial = [-getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"), -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"), -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]")];
+
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", radial[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", radial[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", radial[2]);
+
+var body_vec_selection = getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection");
+
+var ref_vector = [];
+
+if (body_vec_selection == 1)
+	{
+	ref_vec = [0.0, 0.0, 1.0];
+	}
+else if (body_vec_selection == 2)
+	{
+	ref_vec = [0.0, 0.0, -1.0];
+	}
+else if (body_vec_selection == 3)
+	{
+	ref_vec = [0.0, 0.0, 1.0];
+	}
+
+var second = orthonormalize(radial, [0.0, 0.0, 1.0]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", second[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", second[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", second[2]);
+
+var third = cross_product(radial, second);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", third[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", third[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", third[2]);
+
 
 
 settimer(tracking_loop_earth, 0.0);
@@ -590,9 +623,13 @@ var track_vector = [track_x - x, track_y - y, track_z - z ];
 
 track_norm = math.sqrt(track_vector[0] * track_vector[0] + track_vector[1] * track_vector[1] + track_vector[2] * track_vector[2]);
 
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", track_vector[0]/track_norm);
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", track_vector[1]/track_norm );
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", track_vector[2]/track_norm );
+track_vector[0] = track_vector[0]/track_norm;
+track_vector[1] = track_vector[1]/track_norm;
+track_vector[2] = track_vector[2]/track_norm;
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", track_vector[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", track_vector[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", track_vector[2]);
 
 settimer(tracking_loop_earth_tgt, 0.0);
 }
@@ -607,10 +644,42 @@ if (tracking_loop_flag == 0) {return;}
 
 #print("Tracking..");
 
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", getprop("/fdm/jsbsim/systems/pointing/inertial/sun[0]"));
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", getprop("/fdm/jsbsim/systems/pointing/inertial/sun[1]"));
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", getprop("/fdm/jsbsim/systems/pointing/inertial/sun[2]"));
+var track_vec = [getprop("/fdm/jsbsim/systems/pointing/inertial/sun[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/sun[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/sun[2]")];
 
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", track_vec[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", track_vec[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", track_vec[2]);
+
+
+
+var body_vec_selection = getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection");
+
+var ref_vector = [];
+
+if (body_vec_selection == 1)
+	{
+	ref_vec = [0.0, 0.0, 1.0];
+	}
+else if (body_vec_selection == 2)
+	{
+	ref_vec = [0.0, 0.0, -1.0];
+	}
+else if (body_vec_selection == 3)
+	{
+	ref_vec = [0.0, 0.0, 1.0];
+	}
+
+var second = orthonormalize(track_vec, [0.0, 0.0, 1.0]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", second[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", second[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", second[2]);
+
+var third = cross_product(radial, second);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", third[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", third[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", third[2]);
 
 settimer(tracking_loop_sun, 0.0);
 }

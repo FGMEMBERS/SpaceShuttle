@@ -1831,11 +1831,31 @@ var tgt_roll = cur_roll;
 var tgt_pitch = cur_pitch;
 var tgt_yaw = cur_yaw;
 
+var body_vector_sel = int(getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection"));
+var omicron = getprop("/fdm/jsbsim/systems/ap/track/trk-om");
+
 if ((up_mnvr_flag == 1) or (up_mnvr_flag == 2))
 	{	
 	tgt_roll = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-roll-deg");
 	tgt_pitch = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-pitch-deg");
 	tgt_yaw = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/tgt-yaw-deg");
+	if (up_mnvr_flag == 2)
+		{
+		tgt_roll = tgt_roll + omicron;
+		}
+	if (body_vector_sel == 2)
+		{
+		tgt_roll = tgt_roll + 180.0;
+		tgt_pitch = - tgt_pitch;
+		tgt_yaw = tgt_yaw + 180.0;
+		}
+	if (body_vector_sel == 3)
+		{
+		tgt_roll = tgt_roll + 180.0;
+		tgt_pitch =  tgt_pitch + 90.0;
+		}
+	if (tgt_yaw > 360.0) {tgt_yaw = tgt+yaw - 360.0;}
+	if (tgt_pitch > 90.0) {tgt_pitch = 180.0 - tgt_pitch;} 
 	}
 
 p_dps_univ_ptg.tgt_roll.setText(sprintf("%+3.2f",tgt_roll));
@@ -1913,7 +1933,7 @@ p_dps_univ_ptg.mo_roll.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/
 p_dps_univ_ptg.mo_pitch.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-pitch")));
 p_dps_univ_ptg.mo_yaw.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-yaw")));
 
-p_dps_univ_ptg.body_vector.setText(sprintf("%d", int(getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection"))));
+p_dps_univ_ptg.body_vector.setText(sprintf("%d", body_vector_sel));
 
 
 p_dps_univ_ptg.tgt_id.setText(sprintf("%d", int(getprop("/fdm/jsbsim/systems/ap/ops201/tgt-id"))));
@@ -1922,7 +1942,7 @@ p_dps_univ_ptg.dec.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops2
 p_dps_univ_ptg.lat.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-lat")));
 p_dps_univ_ptg.lon.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-lon")));
 p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
-p_dps_univ_ptg.om.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/track/trk-om")));
+p_dps_univ_ptg.om.setText(sprintf("%3.2f", omicron));
 
 p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string")));
 
