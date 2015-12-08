@@ -1294,7 +1294,7 @@
 
 		<pid name="systems/vectoring/OMS-pitch">
 			<input>systems/vectoring/OMS-pitch-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
@@ -1305,7 +1305,7 @@
 
 		<pid name="systems/vectoring/OMS-yaw">
 			<input>systems/vectoring/OMS-yaw-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
@@ -1316,7 +1316,7 @@
 
 		<pid name="systems/vectoring/OMS-roll">
 			<input>systems/vectoring/OMS-roll-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
