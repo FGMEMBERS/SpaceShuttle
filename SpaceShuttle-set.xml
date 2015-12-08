@@ -1927,6 +1927,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/payload.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/dps_command_parser.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/dps_hardware.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
             <file>Nasal/HUD/HUD_main.nas</file>
         </SpaceShuttle>
