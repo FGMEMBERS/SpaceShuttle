@@ -17,6 +17,21 @@
   <object-name>Fwd_PanelsY.002</object-name>
   <object-name>Fwd_PanelsZ</object-name>
   <object-name>Fwd_PanelsZ.001</object-name>
+  <object-name>Fwd_Equipment_Knobs</object-name>
+ </effect>
+
+ <effect>
+  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/adi-keys</inherits-from>
+  <object-name>key_roll-yaw_auto_light</object-name>
+  <object-name>key_roll-yaw_css_light</object-name>
+  <object-name>key_pitch_auto_light</object-name>
+  <object-name>key_pitch_css_light</object-name>
+  <object-name>key_roll_light_l</object-name>
+  <object-name>key_roll_light_r</object-name>
+  <object-name>key_pitch_light_u</object-name>
+  <object-name>key_pitch_light_d</object-name>
+  <object-name>key_yaw_light_l</object-name>
+  <object-name>key_yaw_light_r</object-name>
  </effect>
 
  <effect>
@@ -1690,6 +1705,7 @@
 
 <!-- ADI -->
 
+<!-- pitch -->
  <animation>
   <type>pick</type>
   <object-name>key_pitch_css</object-name>
@@ -1720,13 +1736,18 @@
    <type>select</type>
    <object-name>key_pitch_css_light</object-name>
    <condition>
-			<equals>
-				<property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
-				<value>1</value>
-			</equals>
-	 </condition>
+    <and>
+     <equals>
+      <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+      <value>1</value>
+     </equals>
+     <not-equals>
+      <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
+      <value>0</value>
+     </not-equals>
+    </and>
+   </condition>
  </animation>
-
  <animation>
   <type>pick</type>
   <object-name>key_pitch_auto</object-name>
@@ -1757,13 +1778,14 @@
    <type>select</type>
    <object-name>key_pitch_auto_light</object-name>
    <condition>
-			<equals>
-				<property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
-				<value>1</value>
-			</equals>
-	 </condition>
+    <equals>
+     <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+     <value>1</value>
+    </equals>
+   </condition>
  </animation>
 
+<!-- yaw/roll -->
  <animation>
   <type>pick</type>
   <object-name>key_roll-yaw_css</object-name>
@@ -1794,13 +1816,18 @@
    <type>select</type>
    <object-name>key_roll-yaw_css_light</object-name>
    <condition>
-			<equals>
-				<property>/fdm/jsbsim/systems/ap/css-roll-control</property>
-				<value>1</value>
-			</equals>
-	 </condition>
+    <and>
+     <equals>
+      <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+      <value>1</value>
+     </equals>
+     <not-equals>
+      <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
+      <value>0</value>
+     </not-equals>
+    </and>
+   </condition>
  </animation>
-
  <animation>
   <type>pick</type>
   <object-name>key_roll-yaw_auto</object-name>
@@ -1831,10 +1858,76 @@
    <type>select</type>
    <object-name>key_roll-yaw_auto_light</object-name>
    <condition>
-			<equals>
-				<property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
-				<value>1</value>
-			</equals>
+    <equals>
+     <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+     <value>1</value>
+    </equals>
+   </condition>
+ </animation>
+
+<!-- pitch light-->
+ <animation>
+   <type>select</type>
+   <object-name>key_pitch_light_u</object-name>
+   <condition>
+    <less-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
+     <value>-0.001</value>
+    </less-than>
+	 </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>key_pitch_light_d</object-name>
+   <condition>
+    <greater-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
+     <value>0.001</value>
+    </greater-than>
+	 </condition>
+ </animation>
+
+<!-- yaw light-->
+ <animation>
+   <type>select</type>
+   <object-name>key_yaw_light_l</object-name>
+   <condition>
+    <less-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-yaw-cmd</property>
+     <value>-0.001</value>
+    </less-than>
+	 </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>key_yaw_light_r</object-name>
+   <condition>
+    <greater-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-yaw-cmd</property>
+     <value>0.001</value>
+    </greater-than>
+	 </condition>
+ </animation>
+
+<!-- roll light-->
+ <animation>
+   <type>select</type>
+   <object-name>key_roll_light_l</object-name>
+   <condition>
+    <less-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
+     <value>-0.001</value>
+    </less-than>
+	 </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>key_roll_light_r</object-name>
+   <condition>
+    <greater-than>
+     <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
+     <value>0.001</value>
+    </greater-than>
 	 </condition>
  </animation>
 

@@ -975,10 +975,11 @@
 
         <lighting>
             <nav-lights type="bool">1</nav-lights>
-            <cockpit-ambience-r type="float">0.1</cockpit-ambience-r>
-            <cockpit-ambience-g type="float">0.05</cockpit-ambience-g>
-            <cockpit-ambience-b type="float">0.02</cockpit-ambience-b>
+            <cockpit-ambience-r type="float">0.05</cockpit-ambience-r>
+            <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
+            <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
             <console-eff-norm type="float">0.7</console-eff-norm>
+            <adi-key-norm type="float">0.6</adi-key-norm>
        </lighting>
 
         <armament>
@@ -1141,7 +1142,7 @@
                     <!--<displays-red type="double">0.1000</displays-red>
                     <displays-green type="double">0.0576</displays-green>
                     <displays-blue type="double">0.0161</displays-blue>-->
-		    <displays-red type="double">0.02</displays-red>
+		            <displays-red type="double">0.02</displays-red>
                     <displays-green type="double">0.1</displays-green>
                     <displays-blue type="double">0.0</displays-blue>
                 </lighting>
