@@ -206,6 +206,10 @@ var idp = {
 		else if (major_function == 3)
 			{me.major_function_string = "PL";}
 	},
+	list: func {
+		print("Power: ", me.power, " major function: ", me.major_function_string);
+
+	},
 
 	
 };
@@ -231,7 +235,7 @@ idp3.set_function(1);
 append(idp_array, idp3);
 
 var idp4 = idp.new();
-idp4.set_function(4);
+idp4.set_function(1);
 append(idp_array, idp4);
 
 }
@@ -253,7 +257,7 @@ var kb = {
 	return k;
 	},
 	assign_idp : func (idp) {
-	k.idp = idp;
+	me.idp = idp;
 	}, 
 };
 
@@ -282,3 +286,11 @@ append(kb_array, kb3);
 
 }
 
+###############################################################################
+# Listeners to read out property changes, may remove in favour of direct bindings
+###############################################################################
+
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch", func (n) {idp_array[0].set_function(n.getValue()) },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[1]", func (n) {idp_array[1].set_function(n.getValue()) },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[2]", func (n) {idp_array[2].set_function(n.getValue()) },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[3]", func (n) {idp_array[3].set_function(n.getValue()) },0,0);
