@@ -1049,6 +1049,7 @@
 			<test logic="AND" value="1.0">
 				systems/ap/automatic-pitch-control == 1
 				/position/altitude-ft GT 85000.0
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 		

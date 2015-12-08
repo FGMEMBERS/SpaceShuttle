@@ -1714,12 +1714,14 @@
    <button>0</button>
    <repeatable>false</repeatable>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+    <value>1</value>
    </binding>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+    <value>0</value>
    </binding>
   </action>
   <hovered>
@@ -1741,10 +1743,10 @@
       <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
       <value>1</value>
      </equals>
-     <not-equals>
+     <!--<not-equals>
       <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
       <value>0</value>
-     </not-equals>
+     </not-equals>-->
     </and>
    </condition>
  </animation>
@@ -1756,12 +1758,14 @@
    <button>0</button>
    <repeatable>false</repeatable>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+    <value>1</value>
    </binding>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+    <value>0</value>
    </binding>
   </action>
   <hovered>
@@ -1794,12 +1798,14 @@
    <button>0</button>
    <repeatable>false</repeatable>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+    <value>1</value>
    </binding>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+    <value>0</value>
    </binding>
   </action>
   <hovered>
@@ -1821,10 +1827,10 @@
       <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
       <value>1</value>
      </equals>
-     <not-equals>
+     <!--<not-equals>
       <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
       <value>0</value>
-     </not-equals>
+     </not-equals>-->
     </and>
    </condition>
  </animation>
@@ -1836,12 +1842,14 @@
    <button>0</button>
    <repeatable>false</repeatable>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+    <value>1</value>
    </binding>
    <binding>
-    <command>property-toggle</command>
+    <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+    <value>0</value>
    </binding>
   </action>
   <hovered>
