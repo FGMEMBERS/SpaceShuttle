@@ -20,19 +20,38 @@
   <object-name>Fwd_Equipment_Knobs</object-name>
  </effect>
 
- <effect>
-  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/adi-keys</inherits-from>
-  <object-name>key_roll-yaw_auto_light</object-name>
-  <object-name>key_roll-yaw_css_light</object-name>
-  <object-name>key_pitch_auto_light</object-name>
-  <object-name>key_pitch_css_light</object-name>
+ <animation>
+  <type>material</type>
   <object-name>key_roll_light_l</object-name>
   <object-name>key_roll_light_r</object-name>
   <object-name>key_pitch_light_u</object-name>
   <object-name>key_pitch_light_d</object-name>
   <object-name>key_yaw_light_l</object-name>
   <object-name>key_yaw_light_r</object-name>
- </effect>
+  <emission>
+   <!--red>1.0</red>
+   <green>0.2</green>
+   <blue>0.0</blue-->
+   <red>1.0</red>
+   <green>0.576</green>
+   <blue>0.161</blue>
+   <factor-prop>/fdm/jsbsim/systems/light/talkback-light-norm</factor-prop>
+  </emission>
+ </animation>
+
+ <animation>
+  <type>material</type>
+  <object-name>key_roll-yaw_auto_light</object-name>
+  <object-name>key_roll-yaw_css_light</object-name>
+  <object-name>key_pitch_auto_light</object-name>
+  <object-name>key_pitch_css_light</object-name>
+  <emission>
+   <red>1.0</red>
+   <green>0.576</green>
+   <blue>0.161</blue>
+   <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+  </emission>
+ </animation>
 
  <effect>
   <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>

@@ -460,6 +460,13 @@
 			<pb-flood-port-aft-switch type="int">0</pb-flood-port-aft-switch>
 			<pb-flood-docking-bright-switch type="int">0</pb-flood-docking-bright-switch>
 			<pb-flood-fwd-bhd-switch type="int">0</pb-flood-fwd-bhd-switch>
+   <cockpit-ambience-r type="float">0.05</cockpit-ambience-r>
+   <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
+   <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
+   <console-eff-norm type="float">0.7</console-eff-norm>
+   <text-legend-light-norm type="float">1.0</text-legend-light-norm>
+   <talkback-light-norm type="float">1.0</talkback-light-norm>
+   <button-light-norm type="float">1.0</button-light-norm>
 		</light>
 		<mechanical>
 			<et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -975,11 +982,6 @@
 
         <lighting>
             <nav-lights type="bool">1</nav-lights>
-            <cockpit-ambience-r type="float">0.05</cockpit-ambience-r>
-            <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
-            <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
-            <console-eff-norm type="float">0.7</console-eff-norm>
-            <adi-key-norm type="float">0.6</adi-key-norm>
        </lighting>
 
         <armament>
