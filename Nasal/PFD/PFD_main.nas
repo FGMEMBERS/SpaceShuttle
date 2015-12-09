@@ -237,12 +237,21 @@ var PFD_Device =
 
 # the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
 
+var MDU_array = [];
+
 var PFD =  PFD_Device.new(PFDsvg);
 PFD.index = 0;
 PFD.designation = "CDR1";
 PFD.primary = 3;
 PFD.secondary = 1;
 PFD.port_selected = 3;
+
+
+# all generated devices should be appended to the MDU array, then the parsers can do the appropriate
+# OPS transitions etc. on all MDUs connected to a given IDP
+
+append(MDU_array, PFD);
+
 
 setlistener("sim/model/shuttle/controls/PFD/button-pressed", func(v)
             {

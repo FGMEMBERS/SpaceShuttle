@@ -19,8 +19,6 @@ var key_ops = func (kb_id) {
 
 var idp_index = get_IDP_id(kb_id) - 1;
 
-print(idp_index);
-
 var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 if (current_string == "")
@@ -185,7 +183,10 @@ setprop("/fdm/jsbsim/systems/dps/error-string", "");
 
 var key_fault_summ = func (kb_id) {
 
-SpaceShuttle.PFD.selectPage(p_dps_fault);
+var idp_index = get_IDP_id(kb_id) - 1;
+
+#SpaceShuttle.PFD.selectPage(p_dps_fault);
+page_select(idp_index, p_dps_fault);
 setprop("/fdm/jsbsim/systems/dps/disp", 99);
 }
 
@@ -194,15 +195,18 @@ setprop("/fdm/jsbsim/systems/dps/disp", 99);
 var key_sys_summ = func (kb_id) {
 
 var disp = getprop("/fdm/jsbsim/systems/dps/disp");
+var idp_index = get_IDP_id(kb_id) - 1;
 
 if (disp == 18)
 	{
-	SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+	#SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+	page_select(idp_index, p_dps_sys_summ2);
 	setprop("/fdm/jsbsim/systems/dps/disp", 19);
 	}
 else
 	{
-	SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+	#SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+	page_select(idp_index, p_dps_sys_summ);
 	setprop("/fdm/jsbsim/systems/dps/disp", 18);
 	}
 }
@@ -230,6 +234,8 @@ else
 
 var key_resume = func (kb_id) {
 
+var idp_index = get_IDP_id(kb_id) - 1;
+
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var spec = getprop("/fdm/jsbsim/systems/dps/spec");
@@ -239,15 +245,23 @@ if ((disp > 0) and (spec > 0))
 	{
 	if (spec == 2)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_time);
+		#SpaceShuttle.PFD.selectPage(p_dps_time);
+		page_select(idp_index, p_dps_time);
+		}
+	else if (spec == 20)
+		{
+		#SpaceShuttle.PFD.selectPage(p_dps_dap);
+		page_select(idp_index, p_dps_dap);
 		}
 	else if (spec == 51)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_override);
+		#SpaceShuttle.PFD.selectPage(p_dps_override);
+		page_select(idp_index, p_dps_override);
 		}
 	else if (spec == 63)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		#SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		page_select(idp_index, p_dps_pl_bay);
 		}
 	setprop("/fdm/jsbsim/systems/dps/disp", 0);
 	}
@@ -256,25 +270,46 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 	if (ops == 1)	
 		{
 		if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
-			{SpaceShuttle.PFD.selectPage(p_ascent);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_ascent);
+			page_select(idp_index, p_dps_ascent);
+			}
 		else
-			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+			page_select(idp_index, p_dps_mnvr);
+			}
 		}
 	else if (ops == 2)
 		{
 		if (major_mode == 201)
-			{SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);
+			page_select(idp_index, p_dps_univ_ptg);
+			}
 		else
-			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+			page_select(idp_index, p_dps_mnvr);
+			}
 		}
 	else if ( ops == 3)
 		{
 		if (major_mode == 304)
-			{SpaceShuttle.PFD.selectPage(p_entry);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_entry);
+			page_select(idp_index, p_entry);
+			}
 		else if (major_mode == 304)
-			{SpaceShuttle.PFD.selectPage(p_vert_sit);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_vert_sit);
+			page_select(idp_index, p_vert_sit);
+			}
 		else
-			{SpaceShuttle.PFD.selectPage(p_dps_mnvr);}
+			{
+			#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+			page_select(idp_index, p_dps_mnvr);
+			}
 		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
 	}
@@ -357,6 +392,48 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 
 
 #####################################################################
+# OPS, SPEC and DISP page calls
+#####################################################################
+
+# since the commands are sent to an IDP, they will in fact affect all screens at that IDP
+# the same way
+# moreover OPS transitions will affect the GPC memory content and apply to all screens
+
+
+var ops_transition = func (idp_index, page) {
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+# we now switch over all screens on IDPs showing the same major function
+
+foreach (M; SpaceShuttle.MDU_array)
+	{
+	var index = M.port_selected - 1;
+	var current_major_function = SpaceShuttle.idp_array[index].get_major_function();
+
+	if (current_major_function == major_function)
+		{
+		M.selectPage(page);
+		}
+	}
+
+
+}
+
+var page_select = func (idp_index, page){
+
+foreach (M; SpaceShuttle.MDU_array)
+	{
+	if (M.port_selected == idp_index +1) 
+		{
+		M.selectPage(page);
+		}
+	}
+
+} 
+
+
+#####################################################################
 # The command parser
 #####################################################################
 
@@ -394,69 +471,80 @@ if ((header == "OPS") and (end =="PRO"))
 		{
 		setprop("/fdm/jsbsim/systems/dps/ops", 1);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 101);
-		SpaceShuttle.PFD.selectPage(p_ascent);
+		#SpaceShuttle.PFD.selectPage(p_ascent);
+		ops_transition(idp_index, p_ascent);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 102) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 102);
-		SpaceShuttle.PFD.selectPage(p_ascent);
+		#SpaceShuttle.PFD.selectPage(p_ascent);
+		ops_transition(idp_index, p_ascent);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 103) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
-		SpaceShuttle.PFD.selectPage(p_ascent);
+		#SpaceShuttle.PFD.selectPage(p_ascent);
+		ops_transition(idp_index, p_ascent);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 104) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 104);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 105) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 105);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 106) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 106);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	if (major_mode == 201)
 		{
 		setprop("/fdm/jsbsim/systems/dps/ops", 2);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 201);
-		SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);
+		#SpaceShuttle.PFD.selectPage(p_dps_univ_ptg);
+		ops_transition(idp_index, p_dps_univ_ptg);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 202) and (current_ops == 2))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 202);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	if (major_mode == 301)
 		{
 		setprop("/fdm/jsbsim/systems/dps/ops", 3);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 301);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 302) and (current_ops == 3))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 302);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 303) and (current_ops == 3))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 303);
-		SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		#SpaceShuttle.PFD.selectPage(p_dps_mnvr);
+		ops_transition(idp_index, p_dps_mnvr);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 304) and (current_ops == 3))
@@ -464,14 +552,16 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.traj_display_flag = 3;
 		SpaceShuttle.fill_entry1_data();
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 304);
-		SpaceShuttle.PFD.selectPage(p_entry);
+		#SpaceShuttle.PFD.selectPage(p_entry);
+		ops_transition(idp_index, p_entry);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 305) and (current_ops == 3))
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
-		SpaceShuttle.PFD.selectPage(p_vert_sit);
+		#SpaceShuttle.PFD.selectPage(p_vert_sit);
+		ops_transition(idp_index, p_vert_sit);
 		valid_flag = 1;
 		}
 
@@ -1407,50 +1497,58 @@ if ((header == "SPEC") and (end =="PRO"))
 
 	if ((spec_num == 2) and (test_spec_ops_validity(spec2, major_mode) == 1))
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_time);
+		#SpaceShuttle.PFD.selectPage(p_dps_time);
+		page_select(idp_index, p_dps_time);
 		setprop("/fdm/jsbsim/systems/dps/spec", 2);
 		valid_flag = 1;
 		}
 	if (spec_num == 18)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+		#SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
+		page_select(idp_index, p_dps_sys_summ);
 		setprop("/fdm/jsbsim/systems/dps/disp", 18);
 		valid_flag = 1;
 		}
 	if (spec_num == 19)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+		#SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
+		page_select(idp_index, p_dps_sys_summ2);
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
 		valid_flag = 1;
 		}
 	if ((spec_num == 20) and (test_spec_ops_validity(spec20, major_mode) == 1))
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_dap);
+		#SpaceShuttle.PFD.selectPage(p_dps_dap);
+		page_select(idp_index, p_dps_dap);
 		setprop("/fdm/jsbsim/systems/dps/spec", 20);
 		valid_flag = 1;
 		}
 	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_override);
+		#SpaceShuttle.PFD.selectPage(p_dps_override);
+		page_select(idp_index, p_dps_override);
 		setprop("/fdm/jsbsim/systems/dps/spec", 51);
 		valid_flag = 1;
 		}
 	if ((spec_num == 63) and (test_spec_ops_validity(spec63, major_mode) == 1))
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		#SpaceShuttle.PFD.selectPage(p_dps_pl_bay);
+		page_select(idp_index, p_dps_pl_bay);
 		setprop("/fdm/jsbsim/systems/dps/spec", 63);
 		valid_flag = 1;
 		}
 	if ((spec_num == 86) )
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_apu_hyd);
+		#SpaceShuttle.PFD.selectPage(p_dps_apu_hyd);
+		page_select(idp_index, p_dps_apu_hyd);
 		setprop("/fdm/jsbsim/systems/dps/disp", 86);
 		valid_flag = 1;
 		}
 
 	if (spec_num == 99)
 		{
-		SpaceShuttle.PFD.selectPage(p_dps_fault);
+		#SpaceShuttle.PFD.selectPage(p_dps_fault);
+		page_select(idp_index, p_dps_fault);
 		# calling the display with SPEC 99 PRO clears all fault messages
 		SpaceShuttle.cws_message_array_long = ["","","","","","","","","","","","","","",""];
 		setprop("/fdm/jsbsim/systems/dps/disp", 99);
