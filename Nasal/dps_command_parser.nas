@@ -15,9 +15,13 @@ var length_value = 0;
 
 # OPS key #########################################################
 
-var key_ops = func {
+var key_ops = func (kb_id) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+print(idp_index);
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 if (current_string == "")
 	{header = "OPS";}
@@ -27,14 +31,16 @@ var element = "OPS ";
 append(last_command, element);
 current_string = current_string~element;
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 # ITEM key #########################################################
 
-var key_item = func {
+var key_item = func (kb_id) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 if (current_string == "")
 	{header = "ITEM";}
@@ -44,14 +50,16 @@ var element = "ITEM ";
 append(last_command, element);
 current_string = current_string~element;
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 # SPEC key #########################################################
 
-var key_spec = func {
+var key_spec = func (kb_id) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 if (current_string == "")
 	{header = "SPEC";}
@@ -61,14 +69,16 @@ var element = "SPEC ";
 append(last_command, element);
 current_string = current_string~element;
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 # all symbol keys #########################################################
 
-var key_symbol = func  (symbol) {
+var key_symbol = func  (kb_id, symbol) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 append(last_command, symbol);
 current_string = current_string~symbol;
@@ -81,14 +91,16 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 		{value = value~symbol; length_value = length_value+1;}
 	}
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 # the plus and minus keys ########################################
 
-var key_delimiter = func (symbol) {
+var key_delimiter = func (kb_id, symbol) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 append(last_command, " "~symbol);
 current_string = current_string~" "~symbol;
 
@@ -100,13 +112,15 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 		value = value~symbol; length_value = length_value+1;
 		}
 	}
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 
 # CLEAR key #######################################################
 
-var key_clear = func {
+var key_clear = func (kb_id) {
+
+var idp_index = get_IDP_id(kb_id) - 1;
 
 var n = size(last_command);
 
@@ -156,12 +170,12 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 print(b_v_flag);
 print(header, " ", body, " ", value);
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
 # MSG RESET key #######################################################
 
-var key_msg_reset = func {
+var key_msg_reset = func (kb_id) {
 
 SpaceShuttle.cws_last_message_acknowledge = 0;
 setprop("/fdm/jsbsim/systems/dps/error-string", "");
@@ -169,7 +183,7 @@ setprop("/fdm/jsbsim/systems/dps/error-string", "");
 
 # FAULT SUMM key #######################################################
 
-var key_fault_summ = func {
+var key_fault_summ = func (kb_id) {
 
 SpaceShuttle.PFD.selectPage(p_dps_fault);
 setprop("/fdm/jsbsim/systems/dps/disp", 99);
@@ -177,7 +191,7 @@ setprop("/fdm/jsbsim/systems/dps/disp", 99);
 
 # SYS SUMM key #######################################################
 
-var key_sys_summ = func {
+var key_sys_summ = func (kb_id) {
 
 var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 
@@ -196,7 +210,7 @@ else
 
 # ACK key #######################################################
 
-var key_ack = func {
+var key_ack = func (kb_id) {
 
 if (SpaceShuttle.cws_last_message_acknowledge == 1)
 	{SpaceShuttle.cws_last_message_acknowledge = 0;}
@@ -214,7 +228,7 @@ else
 
 # RESUME key #######################################################
 
-var key_resume = func {
+var key_resume = func (kb_id) {
 
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
@@ -269,9 +283,11 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 
 # PRO key #######################################################
 
-var key_pro = func {
+var key_pro = func (kb_id) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 var element = " PRO";
 append(last_command, element);
@@ -279,17 +295,19 @@ current_string = current_string~element;
 
 end = "PRO";
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 
 
-command_parse();
+command_parse(idp_index);
 }
 
 # EXEC key #######################################################
 
-var key_exec = func {
+var key_exec = func (kb_id) {
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
 
 var element = " EXEC";
 append(last_command, element);
@@ -297,10 +315,10 @@ current_string = current_string~element;
 
 end = "EXEC";
 
-setprop("/fdm/jsbsim/systems/dps/command-string", current_string);
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 
 
-command_parse();
+command_parse(idp_index);
 }
 
 
@@ -326,22 +344,41 @@ print(flag);
 return flag;
 }
 
+#####################################################################
+# IDP ID query
+#####################################################################
+
+var get_IDP_id = func (kb_id) {
+
+
+return SpaceShuttle.kb_array[kb_id - 1].get_idp();
+
+}
+
 
 #####################################################################
 # The command parser
 #####################################################################
 
-var command_parse = func {
+var command_parse = func (idp_index) {
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+if (major_function == 0) # IDP isn't working, do nothing
+	{
+	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
+	return;
+	}
 
 var dps_display_flag = getprop("/fdm/jsbsim/systems/dps/dps-page-flag");
 
 if (dps_display_flag == 0)
 	{
-	setprop("/fdm/jsbsim/systems/dps/command-string", "");
+	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
 	return;
 	}
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+#var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
 
 var valid_flag = 0;
 
@@ -1454,7 +1491,7 @@ body = "";
 value = "";
 end = "";
 setsize(last_command,0);
-	setprop("/fdm/jsbsim/systems/dps/command-string", "");
+	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
 
 if (valid_flag == 0)
 	{

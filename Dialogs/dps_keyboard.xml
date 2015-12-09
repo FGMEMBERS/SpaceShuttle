@@ -34,7 +34,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_fault_summ()</script>
+                    	<script>SpaceShuttle.key_fault_summ(1)</script>
 		</binding>
 	</button>
 
@@ -46,7 +46,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_sys_summ()</script>
+                    	<script>SpaceShuttle.key_sys_summ(1)</script>
 		</binding>
 	</button>
 
@@ -58,7 +58,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_msg_reset()</script>
+                    	<script>SpaceShuttle.key_msg_reset(1)</script>
 		</binding>
 	</button>
 
@@ -70,7 +70,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_ack()</script>
+                    	<script>SpaceShuttle.key_ack(1)</script>
 		</binding>
 	</button>
 
@@ -82,7 +82,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_gpc_crt()</script>
+                    	<script>SpaceShuttle.key_gpc_crt(1)</script>
 		</binding>
 	</button>
 
@@ -94,7 +94,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("A")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "A")</script>
 		</binding>
 	</button>
 
@@ -106,7 +106,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("B")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "B")</script>
 		</binding>
 	</button>
 
@@ -118,7 +118,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("C")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "C")</script>
 		</binding>
 	</button>
 
@@ -130,7 +130,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_io_reset()</script>
+                    	<script>SpaceShuttle.key_io_reset(1)</script>
 		</binding>
 	</button>
 
@@ -142,7 +142,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("D")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "D")</script>
 		</binding>
 	</button>
 
@@ -154,7 +154,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("E")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "E")</script>
 		</binding>
 	</button>
 
@@ -166,7 +166,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("F")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "F")</script>
 		</binding>
 	</button>
 
@@ -178,7 +178,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_item()</script>
+                    	<script>SpaceShuttle.key_item(1)</script>
 		</binding>
 	</button>
 
@@ -190,7 +190,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("1")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "1")</script>
 		</binding>
 	</button>
 
@@ -202,7 +202,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("2")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "2")</script>
 		</binding>
 	</button>
 
@@ -214,7 +214,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("3")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "3")</script>
 		</binding>
 	</button>
 
@@ -226,7 +226,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_exec()</script>
+                    	<script>SpaceShuttle.key_exec(1)</script>
 		</binding>
 	</button>
 
@@ -238,7 +238,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("4")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "4")</script>
 		</binding>
 	</button>
 
@@ -250,7 +250,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("5")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "5")</script>
 		</binding>
 	</button>
 
@@ -262,7 +262,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("6")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "6")</script>
 		</binding>
 	</button>
 
@@ -274,7 +274,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_ops()</script>
+                    	<script>SpaceShuttle.key_ops(1)</script>
 		</binding>
 	</button>
 
@@ -286,7 +286,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("7")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "7")</script>
 		</binding>
 	</button>
 
@@ -298,7 +298,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("8")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "8")</script>
 		</binding>
 	</button>
 
@@ -310,7 +310,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("9")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "9")</script>
 		</binding>
 	</button>
 
@@ -322,7 +322,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_spec()</script>
+                    	<script>SpaceShuttle.key_spec(1)</script>
 		</binding>
 	</button>
 
@@ -334,7 +334,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_delimiter("-")</script>
+                    	<script>SpaceShuttle.key_delimiter(1, "-")</script>
 		</binding>
 	</button>
 
@@ -346,7 +346,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol("0")</script>
+                    	<script>SpaceShuttle.key_symbol(1, "0")</script>
 		</binding>
 	</button>
 
@@ -358,7 +358,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_delimiter("+")</script>
+                    	<script>SpaceShuttle.key_delimiter(1, "+")</script>
 		</binding>
 	</button>
 
@@ -370,7 +370,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_resume()</script>
+                    	<script>SpaceShuttle.key_resume(1)</script>
 		</binding>
 	</button>
 
@@ -382,7 +382,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_clear()</script>
+                    	<script>SpaceShuttle.key_clear(1)</script>
 		</binding>
 	</button>
 
@@ -394,7 +394,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_symbol(".")</script>
+                    	<script>SpaceShuttle.key_symbol(1, ".")</script>
 		</binding>
 	</button>
 
@@ -406,7 +406,7 @@
 		<pref-height>50</pref-height>
 		<binding>
 			<command>nasal</command>
-                    	<script>SpaceShuttle.key_pro()</script>
+                    	<script>SpaceShuttle.key_pro(1)</script>
 		</binding>
 	</button>
 

@@ -108,6 +108,15 @@ var gpc = {
 			me.ops = 0;
 			}
 	},
+	# query the major function
+	get_major_function : func {
+
+		if (me.operational == 1)
+			{return me.major_function;}
+		else
+			{return "NIL";}
+	},
+
 	# list what the GPC is doing
 	list : func {
 		print("Power: ", me.power, " mode: ", me.mode_string, " MCC: ", me.mcc_string);
@@ -163,6 +172,19 @@ append(gpc_array, gpc5);
 }
 
 
+var gpc_check_available = func (major_function) {
+
+var flag = 0;
+
+foreach (g; gpc_array)
+	{
+	if ((g.get_major_function() == major_function) and (g.operational == 1))
+		{flag = 1; break;}
+	}
+return flag;
+}
+
+
 
 
 ###############################################################################
@@ -205,6 +227,13 @@ var idp = {
 			{me.major_function_string = "SM";}
 		else if (major_function == 3)
 			{me.major_function_string = "PL";}
+	},
+	# query major function
+	get_major_function : func {
+		if (me.operational == 1)
+			{return me.major_function;}
+		else
+			{return 0;}
 	},
 	list: func {
 		print("Power: ", me.power, " major function: ", me.major_function_string);
@@ -259,6 +288,13 @@ var kb = {
 	assign_idp : func (idp) {
 	me.idp = idp;
 	}, 
+	get_idp: func {
+	if (me.condition == 1.0)
+		{return me.idp;}
+	else
+		{return 0;}
+
+	},
 };
 
 
@@ -275,13 +311,13 @@ kb1.assign_idp(3);
 append(kb_array, kb1);
 
 var kb2 = kb.new();
-kb1.assign_idp(3);
+kb2.assign_idp(3);
 append(kb_array, kb2);
 
 # PL station keyboard is hard-assigned to IDP 4
 
 var kb3 = kb.new();
-kb1.assign_idp(4);
+kb3.assign_idp(4);
 append(kb_array, kb3);
 
 }

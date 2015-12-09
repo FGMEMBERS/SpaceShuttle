@@ -309,9 +309,12 @@ else
 	}
 
 
+var port = PFD.port_selected;
+var idp_index = port - 1;
+
 DPS_menu_time.setText(sprintf("%s",time_string));
 DPS_menu_crt_time.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/CRT-string")));
-DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string")));
+DPS_menu_scratch_line.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/dps/command-string", idp_index)));
 DPS_menu_gpc_driver.setText(sprintf("%s","1"));
 
 var fault_string = getprop("/fdm/jsbsim/systems/dps/error-string");
@@ -511,7 +514,7 @@ p_dps.update = func
 
 
 var port = PFD.port_selected;
-var major_function = SpaceShuttle.idp_array[port-1].major_function;
+var major_function = SpaceShuttle.idp_array[port-1].get_major_function();
 
 if (major_function == 1)
 {
@@ -541,7 +544,7 @@ if (major_function == 1)
 		{PFD.selectPage(p_main);}
 
 	}
-else
+else if (major_function == 2)
 	{
 	PFD.selectPage(p_dps_pl_bay);
 	}
