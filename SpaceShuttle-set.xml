@@ -130,10 +130,21 @@
 		</ap>
 		<dps>
 		    <command-string type="string"></command-string>
+		    <command-string n="1" type="string"></command-string>
+		    <command-string n="2" type="string"></command-string>
+		    <command-string n="3" type="string"></command-string>
 		    <error-string type="string"></error-string>
 		    <dps-page-flag type="int">0</dps-page-flag>
 		    <spec type="int">0</spec>
 		    <disp type="int">0</disp>
+		    <idp-power-status type="int" n="0">1</idp-power-status>
+		    <idp-power-status type="int" n="1">1</idp-power-status>
+		    <idp-power-status type="int" n="2">1</idp-power-status>
+		    <idp-power-status type="int" n="3">1</idp-power-status>
+		    <idp-function-switch type="int" n="0">1</idp-function-switch>
+		    <idp-function-switch type="int" n="1">1</idp-function-switch>
+		    <idp-function-switch type="int" n="2">1</idp-function-switch>
+		    <idp-function-switch type="int" n="3">1</idp-function-switch>
 		</dps>
                 <entry_guidance>
                     <guidance-mode type="int">0</guidance-mode>
@@ -1929,6 +1940,7 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
 	    <file>Aircraft/SpaceShuttle/Nasal/launchpad.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/payload.nas</file>
 	    <file>Aircraft/SpaceShuttle/Nasal/dps_command_parser.nas</file>
+	    <file>Aircraft/SpaceShuttle/Nasal/dps_hardware.nas</file>
             <file>Nasal/PFD/PFD_main.nas</file>
             <file>Nasal/HUD/HUD_main.nas</file>
         </SpaceShuttle>

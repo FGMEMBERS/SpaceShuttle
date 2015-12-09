@@ -1603,7 +1603,9 @@ setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
 var set_speed = func {
 
 
-if (getprop("/sim/presets/stage") == 0)
+var stage = getprop("/sim/presets/stage");
+
+if (stage == 0)
 	{
 	var alt = getprop("/position/altitude-ft");
 	var terrain_alt = getprop("/position/altitude-agl-ft");
@@ -1623,7 +1625,7 @@ if (getprop("/sim/presets/stage") == 0)
 	}
 
 
-if (getprop("/sim/presets/stage") == 1) 
+if (stage == 1) 
 	{
 	# nothing is ever simple - we need to consider the rotation of Earth
 
@@ -1646,7 +1648,7 @@ if (getprop("/sim/presets/stage") == 1)
 	#setprop("/velocities/wBody-fps", 175.0);
 	}
 
-if (getprop("/sim/presets/stage") == 2) 
+if (stage == 2) 
 	{
 
 	var latitude = getprop("/position/latitude-deg") * 3.1415/180.0;
@@ -1672,7 +1674,7 @@ if (getprop("/sim/presets/stage") == 2)
 
 	}
 
-if (getprop("/sim/presets/stage") == 3) 
+if (stage == 3) 
 	{
 	# gliding speed is about Mach 2.5 at 83.000 ft
 
@@ -1701,7 +1703,7 @@ if (getprop("/sim/presets/stage") == 3)
 	setprop("/velocities/uBody-fps",2400.0);
 	}
 
-if (getprop("/sim/presets/stage") == 4) 
+if (stage == 4) 
 	{
 	# gliding speed is 350 kt at 10.000 ft 8 miles from runway
 
@@ -1744,7 +1746,7 @@ if (getprop("/sim/presets/stage") == 4)
 	
 	}
 
-if (getprop("/sim/presets/stage") == 5) 
+if (stage == 5) 
 	{
 	var lat_to_m = 110952.0; 
 	var lon_to_m  = math.cos(getprop("/position/latitude-deg")*math.pi/180.0) * lat_to_m;
@@ -1772,6 +1774,11 @@ if (getprop("/sim/presets/stage") == 5)
 	setprop("/velocities/wBody-fps", 60.0);
 	}
 
+# initialize the DPS hardware
+
+SpaceShuttle.init_gpcs(stage);
+SpaceShuttle.init_idps();
+SpaceShuttle.init_keyboards();
 
 
 }

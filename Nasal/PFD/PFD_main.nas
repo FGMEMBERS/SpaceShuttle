@@ -40,6 +40,7 @@ PFDcanvas.addPlacement({"node": "DisplayL1"});
 PFDcanvas.setColorBackground(0,0,0, 0);
 
 
+
 # Create a group for the parsed elements
 var PFDsvg = PFDcanvas.createGroup();
  
@@ -234,7 +235,14 @@ var PFD_Device =
     },
 };
 
+# the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
+
 var PFD =  PFD_Device.new(PFDsvg);
+PFD.index = 0;
+PFD.designation = "CDR1";
+PFD.primary = 3;
+PFD.secondary = 1;
+PFD.port_selected = 3;
 
 setlistener("sim/model/shuttle/controls/PFD/button-pressed", func(v)
             {
@@ -498,30 +506,45 @@ p_dps.blink = 1;
 
 p_dps.update = func
 {
-var ops = getprop("/fdm/jsbsim/systems/dps/ops");
-var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
-if (ops == 1)
-	{ PFD.selectPage(p_ascent);}
-else if (ops == 2)
-	{ PFD.selectPage(p_dps_univ_ptg);}
-else if ( ops == 3)
-	{ 
-	if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
-		{
-		PFD.selectPage(p_dps_mnvr);
+# query the IDP for the major function
+
+
+var port = PFD.port_selected;
+var major_function = SpaceShuttle.idp_array[port-1].major_function;
+
+if (major_function == 1)
+{
+	var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+	if (ops == 1)
+		{ PFD.selectPage(p_ascent);}
+	else if (ops == 2)
+		{ PFD.selectPage(p_dps_univ_ptg);}
+	else if ( ops == 3)
+		{ 
+		if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+			{
+			PFD.selectPage(p_dps_mnvr);
+			}
+		else if (major_mode == 304)
+			{
+			PFD.selectPage(p_entry);
+			}	
+		else
+			{
+			PFD.selectPage(p_vert_sit);
+			}	
 		}
-	else if (major_mode == 304)
-		{
-		PFD.selectPage(p_entry);
-		}	
-	else
-		{
-		PFD.selectPage(p_vert_sit);
-		}	
+	else 
+		{PFD.selectPage(p_main);}
+
 	}
-else 
-	{PFD.selectPage(p_main);}
+else
+	{
+	PFD.selectPage(p_dps_pl_bay);
+	}
 
 }
 
