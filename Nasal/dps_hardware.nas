@@ -269,6 +269,26 @@ append(idp_array, idp4);
 
 }
 
+# check whether at least one of the MDUs listening to the current IDP actually does DPS
+
+var idp_check_dps = func (idp_index) {
+
+var flag = 0;
+
+foreach (M; SpaceShuttle.MDU_array)
+	{
+	if (M.port_selected == idp_index +1)
+		{
+		if (M.dps_page_flag == 1)
+			{
+			flag =1; break;
+			}
+		}
+	}
+
+return flag;
+}
+
 
 ###############################################################################
 # Keyboard

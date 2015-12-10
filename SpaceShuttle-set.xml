@@ -134,7 +134,7 @@
 		    <command-string n="2" type="string"></command-string>
 		    <command-string n="3" type="string"></command-string>
 		    <error-string type="string"></error-string>
-		    <dps-page-flag type="int">0</dps-page-flag>
+		    <!--<dps-page-flag type="int">0</dps-page-flag>-->
 		    <spec type="int">0</spec>
 		    <disp type="int">0</disp>
 		    <idp-power-status type="int" n="0">1</idp-power-status>

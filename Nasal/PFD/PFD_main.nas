@@ -152,9 +152,13 @@ var PFD_Page = {
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 var PFD_Device =
 {
-    new : func(svg)
+    new : func(svg, primary_port, secondary_port, selected_port)
     {
 		var obj = {parents : [PFD_Device] };
+	obj.primary = primary_port;
+	obj.secondary = secondary_port;
+	obj.port_selected = selected_port;
+	obj.dps_page_flag = 0;
         obj.svg = svg;
         obj.current_page = nil;
         obj.pages = [];
@@ -233,18 +237,23 @@ var PFD_Device =
         p.setVisible(1);
         me.current_page = p;
     },
+    switchPorts : func 
+    {
+    	if (me.port_selected == me.primary)
+		{me.port_selected = me.secondary;}
+
+	else
+		{me.port_selected = me.primary;}
+
+    },
 };
 
 # the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
 
 var MDU_array = [];
 
-var PFD =  PFD_Device.new(PFDsvg);
-PFD.index = 0;
+var PFD =  PFD_Device.new(PFDsvg, 3, 1, 3);
 PFD.designation = "CDR1";
-PFD.primary = 3;
-PFD.secondary = 1;
-PFD.port_selected = 3;
 
 
 # all generated devices should be appended to the MDU array, then the parsers can do the appropriate
@@ -301,7 +310,7 @@ DPS_menu_fault_line.setText(sprintf("%s",""));
 DPS_menu_scratch_line.setText(sprintf("%s",""));
 DPS_menu_gpc_driver.setText(sprintf("%s",""));
 
-setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
+#setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
 }
 
 var update_common_DPS = func {
@@ -337,7 +346,7 @@ DPS_menu_fault_line.setText(sprintf("%s",fault_string ));
 if (DPS_menu_blink == 1) {DPS_menu_blink = 0;}
 else {DPS_menu_blink = 1;}
 
-setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
+#setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
 }
 
 
@@ -473,6 +482,7 @@ p_pfd.beta = PFDsvg.getElementById("p_pfd_beta");
 p_pfd.ondisplay = func
 {
     set_DPS_off();
+    PFD.dps_page_flag = 0;
     MEDS_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
 }
 
@@ -519,8 +529,11 @@ p_dps.blink = 1;
 p_dps.update = func
 {
 
-# query the IDP for the major function
+# signal that we have a dps page
 
+PFD.dps_page_flag = 1;
+
+# query the IDP for the major function
 
 var port = PFD.port_selected;
 var major_function = SpaceShuttle.idp_array[port-1].get_major_function();
@@ -3253,6 +3266,37 @@ update_common_DPS();
 
 
 
+#################################################################
+# the SM SYS SUMM 2 page
+#################################################################
+
+var p_dps_sm_sys_summ2 = PFD.addPage("CRTSMSysSumm2", "p_dps_sm_sys_summ2");
+
+
+p_dps_sm_sys_summ2.ondisplay = func
+{
+DPS_menu_title.setText(sprintf("%s","SM SYS SUMM 2"));
+MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+var ops_string = major_mode~"1/   /079";
+DPS_menu_ops.setText(sprintf("%s",ops_string));
+}
+
+p_dps_sm_sys_summ2.update = func
+{
+
+
+
+update_common_DPS();
+
+
+
+
+}
+
+
 
 #
 PFD.selectPage(p_pfd);
@@ -3284,7 +3328,7 @@ p_pfd.addMenuItem(5, "MSG ACK", p_pfd);
 p_main.addMenuItem(0, "FLT", p_pfd);
 p_main.addMenuItem(1, "SUB", p_main);
 p_main.addMenuItem(2, "DPS", p_dps);
-p_main.addMenuItem(3, "MAINT", p_dps_dap);
+p_main.addMenuItem(3, "MAINT", p_dps_sm_sys_summ2);
 p_main.addMenuItem(4, "MSG RST", p_main);
 p_main.addMenuItem(5, "MSG ACK", p_main);
 
@@ -3327,6 +3371,10 @@ p_dps_time.addMenuItem(5, "MSG ACK", p_dps_time);
 p_dps_dap.addMenuItem(0, "UP", p_main);
 p_dps_dap.addMenuItem(4, "MSG RST", p_dps_dap);
 p_dps_dap.addMenuItem(5, "MSG ACK", p_dps_dap);
+
+p_dps_sm_sys_summ2.addMenuItem(0, "UP", p_main);
+p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", p_dps_sm_sys_summ2);
+p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", p_dps_sm_sys_summ2);
 
 var pfd_button_pushed = 0;
 
