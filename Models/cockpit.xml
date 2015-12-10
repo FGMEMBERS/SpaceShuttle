@@ -22,12 +22,12 @@
 
  <animation>
   <type>material</type>
-  <object-name>key_roll_light_l</object-name>
-  <object-name>key_roll_light_r</object-name>
-  <object-name>key_pitch_light_u</object-name>
-  <object-name>key_pitch_light_d</object-name>
-  <object-name>key_yaw_light_l</object-name>
-  <object-name>key_yaw_light_r</object-name>
+  <object-name>indicator_light_rcs_roll_l</object-name>
+  <object-name>indicator_light_rcs_roll_r</object-name>
+  <object-name>indicator_light_rcs_pitch_u</object-name>
+  <object-name>indicator_light_rcs_pitch_d</object-name>
+  <object-name>indicator_light_rcs_yaw_l</object-name>
+  <object-name>indicator_light_rcs_yaw_r</object-name>
   <emission>
    <!--red>1.0</red>
    <green>0.2</green>
@@ -41,10 +41,10 @@
 
  <animation>
   <type>material</type>
-  <object-name>key_roll-yaw_auto_light</object-name>
-  <object-name>key_roll-yaw_css_light</object-name>
-  <object-name>key_pitch_auto_light</object-name>
-  <object-name>key_pitch_css_light</object-name>
+  <object-name>button_light_roll-yaw_auto</object-name>
+  <object-name>button_light_roll-yaw_css</object-name>
+  <object-name>button_light_pitch_auto</object-name>
+  <object-name>button_light_pitch_css</object-name>
   <emission>
    <red>1.0</red>
    <green>0.576</green>
@@ -1727,7 +1727,7 @@
 <!-- pitch -->
  <animation>
   <type>pick</type>
-  <object-name>key_pitch_css</object-name>
+  <object-name>button_pitch_css</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1755,23 +1755,19 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_pitch_css_light</object-name>
+   <object-name>button_light_pitch_css</object-name>
    <condition>
     <and>
      <equals>
       <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
       <value>1</value>
      </equals>
-     <!--<not-equals>
-      <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
-      <value>0</value>
-     </not-equals>-->
     </and>
    </condition>
  </animation>
  <animation>
   <type>pick</type>
-  <object-name>key_pitch_auto</object-name>
+  <object-name>button_pitch_auto</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1799,19 +1795,26 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_pitch_auto_light</object-name>
+   <object-name>button_light_pitch_auto</object-name>
    <condition>
-    <equals>
-     <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
-     <value>1</value>
-    </equals>
+    <and>
+     <equals>
+      <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+      <value>1</value>
+     </equals>
+     <!-- temporary used to limit light to dap action only, needs to tie to RL condition
+     <not-equals>
+      <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
+      <value>0</value>
+     </not-equals>-->
+    </and>
    </condition>
  </animation>
 
 <!-- yaw/roll -->
  <animation>
   <type>pick</type>
-  <object-name>key_roll-yaw_css</object-name>
+  <object-name>button_roll-yaw_css</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1839,23 +1842,19 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_roll-yaw_css_light</object-name>
+   <object-name>button_light_roll-yaw_css</object-name>
    <condition>
     <and>
      <equals>
       <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
       <value>1</value>
      </equals>
-     <!--<not-equals>
-      <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
-      <value>0</value>
-     </not-equals>-->
     </and>
    </condition>
  </animation>
  <animation>
   <type>pick</type>
-  <object-name>key_roll-yaw_auto</object-name>
+  <object-name>button_roll-yaw_auto</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1883,21 +1882,31 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_roll-yaw_auto_light</object-name>
+   <object-name>button_light_roll-yaw_auto</object-name>
    <condition>
-    <equals>
-     <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
-     <value>1</value>
-    </equals>
+    <and>
+     <equals>
+      <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+      <value>1</value>
+     </equals>
+     <!-- temporary used to limit light to dap action only, needs to tie to RL condition
+     <not-equals>
+      <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
+      <value>0</value>
+     </not-equals>-->
+    </and>
    </condition>
  </animation>
+
+<!-- RCS Command Lights -->
 
 <!-- pitch light-->
  <animation>
    <type>select</type>
-   <object-name>key_pitch_light_u</object-name>
+   <object-name>indicator_light_rcs_pitch_u</object-name>
    <condition>
     <less-than>
+     <!-- temporary -->
      <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
      <value>-0.001</value>
     </less-than>
@@ -1905,7 +1914,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_pitch_light_d</object-name>
+   <object-name>indicator_light_rcs_pitch_d</object-name>
    <condition>
     <greater-than>
      <property>/fdm/jsbsim/systems/rcs/dap-pitch-cmd</property>
@@ -1917,7 +1926,7 @@
 <!-- yaw light-->
  <animation>
    <type>select</type>
-   <object-name>key_yaw_light_l</object-name>
+   <object-name>indicator_light_rcs_yaw_l</object-name>
    <condition>
     <less-than>
      <property>/fdm/jsbsim/systems/rcs/dap-yaw-cmd</property>
@@ -1927,7 +1936,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_yaw_light_r</object-name>
+   <object-name>indicator_light_rcs_yaw_r</object-name>
    <condition>
     <greater-than>
      <property>/fdm/jsbsim/systems/rcs/dap-yaw-cmd</property>
@@ -1939,7 +1948,7 @@
 <!-- roll light-->
  <animation>
    <type>select</type>
-   <object-name>key_roll_light_l</object-name>
+   <object-name>indicator_light_rcs_roll_l</object-name>
    <condition>
     <less-than>
      <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
@@ -1949,7 +1958,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>key_roll_light_r</object-name>
+   <object-name>indicator_light_rcs_roll_r</object-name>
    <condition>
     <greater-than>
      <property>/fdm/jsbsim/systems/rcs/dap-roll-cmd</property>
