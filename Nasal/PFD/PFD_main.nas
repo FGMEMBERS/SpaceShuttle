@@ -3272,6 +3272,26 @@ update_common_DPS();
 
 var p_dps_sm_sys_summ2 = PFD.addPage("CRTSMSysSumm2", "p_dps_sm_sys_summ2");
 
+p_dps_sm_sys_summ2.apu1_egt = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_egt");
+p_dps_sm_sys_summ2.apu2_egt = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_egt");
+p_dps_sm_sys_summ2.apu3_egt = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_egt");
+
+p_dps_sm_sys_summ2.apu1_egt_bu = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_egt_bu");
+p_dps_sm_sys_summ2.apu2_egt_bu = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_egt_bu");
+p_dps_sm_sys_summ2.apu3_egt_bu = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_egt_bu");
+
+p_dps_sm_sys_summ2.apu1_oil_in = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_oil_in");
+p_dps_sm_sys_summ2.apu2_oil_in = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_oil_in");
+p_dps_sm_sys_summ2.apu3_oil_in = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_oil_in");
+
+p_dps_sm_sys_summ2.apu1_oil_out = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_oil_out");
+p_dps_sm_sys_summ2.apu2_oil_out = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_oil_out");
+p_dps_sm_sys_summ2.apu3_oil_out = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_oil_out");
+
+p_dps_sm_sys_summ2.apu1_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_speed");
+p_dps_sm_sys_summ2.apu2_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_speed");
+p_dps_sm_sys_summ2.apu3_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_speed");
+
 
 p_dps_sm_sys_summ2.ondisplay = func
 {
@@ -3287,7 +3307,28 @@ DPS_menu_ops.setText(sprintf("%s",ops_string));
 p_dps_sm_sys_summ2.update = func
 {
 
+p_dps_sm_sys_summ2.apu1_egt.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/egt-K")+1.0)));
+p_dps_sm_sys_summ2.apu2_egt.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")-1.0)));
+p_dps_sm_sys_summ2.apu3_egt.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K"))));
 
+p_dps_sm_sys_summ2.apu1_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/egt-K")-3.0)));
+p_dps_sm_sys_summ2.apu2_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")+1.0)));
+p_dps_sm_sys_summ2.apu3_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K")-4.0)));
+
+
+p_dps_sm_sys_summ2.apu1_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"))));
+p_dps_sm_sys_summ2.apu2_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-in-T-K"))));
+p_dps_sm_sys_summ2.apu3_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-in-T-K"))));
+
+
+p_dps_sm_sys_summ2.apu1_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K"))));
+p_dps_sm_sys_summ2.apu2_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K"))));
+p_dps_sm_sys_summ2.apu3_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K"))));
+
+
+p_dps_sm_sys_summ2.apu1_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu/apu-rpm-fraction")));
+p_dps_sm_sys_summ2.apu2_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[1]/apu-rpm-fraction")));
+p_dps_sm_sys_summ2.apu3_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[2]/apu-rpm-fraction")));
 
 update_common_DPS();
 
