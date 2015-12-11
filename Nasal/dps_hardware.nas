@@ -290,6 +290,33 @@ return flag;
 }
 
 
+# implements the effect of switching the IDP major function switch
+
+var idp_change_major_function = func (idp_index, major_function) {
+
+var I = idp_array[idp_index];
+
+
+I.set_function(major_function);
+
+var major_mode = 0;
+
+if (major_function == 1)
+	{
+	major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	}
+else if (major_function == 2)
+	{
+	major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	}
+
+
+SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+
+
+}
+
 ###############################################################################
 # Keyboard
 ###############################################################################
@@ -346,7 +373,7 @@ append(kb_array, kb3);
 # Listeners to read out property changes, may remove in favour of direct bindings
 ###############################################################################
 
-setlistener("/fdm/jsbsim/systems/dps/idp-function-switch", func (n) {idp_array[0].set_function(n.getValue()) },0,0);
-setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[1]", func (n) {idp_array[1].set_function(n.getValue()) },0,0);
-setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[2]", func (n) {idp_array[2].set_function(n.getValue()) },0,0);
-setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[3]", func (n) {idp_array[3].set_function(n.getValue()) },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch", func (n) {idp_change_major_function(0,n.getValue()); },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[1]", func (n) {idp_change_major_function(1,n.getValue()); },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[2]", func (n) {idp_change_major_function(2,n.getValue()); },0,0);
+setlistener("/fdm/jsbsim/systems/dps/idp-function-switch[3]", func (n) {idp_change_major_function(3,n.getValue()); },0,0);
