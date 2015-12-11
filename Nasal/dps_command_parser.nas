@@ -447,7 +447,9 @@ if (major_function == 0) # IDP isn't working, do nothing
 	return;
 	}
 
-var dps_display_flag = getprop("/fdm/jsbsim/systems/dps/dps-page-flag");
+#var dps_display_flag = getprop("/fdm/jsbsim/systems/dps/dps-page-flag");
+
+var dps_display_flag = SpaceShuttle.idp_check_dps(idp_index);
 
 if (dps_display_flag == 0)
 	{
