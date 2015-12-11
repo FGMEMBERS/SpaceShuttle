@@ -17,9 +17,10 @@
 # * p_dps_time (SPEC 2)
 # * p_dps_dap (SPEC 20)
 # * p_dps_override (SPEC 51)
-# * p_pl_bay (SPEC 63)
+# * p_dps_pl_bay (SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
+# * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
 # * p_dps_fault (DISP 99)
 
@@ -3292,6 +3293,43 @@ p_dps_sm_sys_summ2.apu1_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_s
 p_dps_sm_sys_summ2.apu2_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_speed");
 p_dps_sm_sys_summ2.apu3_speed = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_speed");
 
+p_dps_sm_sys_summ2.apu1_fuel = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_fuel");
+p_dps_sm_sys_summ2.apu2_fuel = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_fuel");
+p_dps_sm_sys_summ2.apu3_fuel = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_fuel");
+
+p_dps_sm_sys_summ2.apu1_oil_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu1_oil_p");
+p_dps_sm_sys_summ2.apu2_oil_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu2_oil_p");
+p_dps_sm_sys_summ2.apu3_oil_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_apu3_oil_p");
+
+p_dps_sm_sys_summ2.hyd1_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd1_p");
+p_dps_sm_sys_summ2.hyd2_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd2_p");
+p_dps_sm_sys_summ2.hyd3_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd3_p");
+
+p_dps_sm_sys_summ2.hyd1_rsvr_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd1_rsvr_t");
+p_dps_sm_sys_summ2.hyd2_rsvr_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd2_rsvr_t");
+p_dps_sm_sys_summ2.hyd3_rsvr_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd3_rsvr_t");
+
+p_dps_sm_sys_summ2.hyd1_rsvr_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd1_rsvr_qty");
+p_dps_sm_sys_summ2.hyd2_rsvr_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd2_rsvr_qty");
+p_dps_sm_sys_summ2.hyd3_rsvr_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd3_rsvr_qty");
+
+p_dps_sm_sys_summ2.hyd1_rsvr_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd1_rsvr_p");
+p_dps_sm_sys_summ2.hyd2_rsvr_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd2_rsvr_p");
+p_dps_sm_sys_summ2.hyd3_rsvr_p = PFDsvg.getElementById("p_dps_sm_sys_summ2_hyd3_rsvr_p");
+
+p_dps_sm_sys_summ2.wb1_h2o_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb1_h2o_qty");
+p_dps_sm_sys_summ2.wb2_h2o_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb2_h2o_qty");
+p_dps_sm_sys_summ2.wb3_h2o_qty = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb3_h2o_qty");
+
+p_dps_sm_sys_summ2.wb1_byp_vlv = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb1_byp_vlv");
+p_dps_sm_sys_summ2.wb2_byp_vlv = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb2_byp_vlv");
+p_dps_sm_sys_summ2.wb3_byp_vlv = PFDsvg.getElementById("p_dps_sm_sys_summ2_wb3_byp_vlv");
+
+
+p_dps_sm_sys_summ2.avbay1_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_avbay1_t");
+p_dps_sm_sys_summ2.avbay2_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_avbay2_t");
+p_dps_sm_sys_summ2.avbay3_t = PFDsvg.getElementById("p_dps_sm_sys_summ2_avbay3_t");
+
 
 p_dps_sm_sys_summ2.ondisplay = func
 {
@@ -3302,6 +3340,18 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var ops_string = major_mode~"1/   /079";
 DPS_menu_ops.setText(sprintf("%s",ops_string));
+
+# set a few values not modeled explicitly to reasonable values
+
+p_dps_sm_sys_summ2.hyd1_rsvr_qty.setText(sprintf("  87")); 
+p_dps_sm_sys_summ2.hyd2_rsvr_qty.setText(sprintf("  86")); 
+p_dps_sm_sys_summ2.hyd3_rsvr_qty.setText(sprintf("  87")); 
+
+p_dps_sm_sys_summ2.hyd1_rsvr_p.setText(sprintf("  54")); 
+p_dps_sm_sys_summ2.hyd2_rsvr_p.setText(sprintf("  56")); 
+p_dps_sm_sys_summ2.hyd3_rsvr_p.setText(sprintf("  55")); 
+
+
 }
 
 p_dps_sm_sys_summ2.update = func
@@ -3315,20 +3365,51 @@ p_dps_sm_sys_summ2.apu1_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsb
 p_dps_sm_sys_summ2.apu2_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")+1.0)));
 p_dps_sm_sys_summ2.apu3_egt_bu.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K")-4.0)));
 
-
 p_dps_sm_sys_summ2.apu1_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"))));
 p_dps_sm_sys_summ2.apu2_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-in-T-K"))));
 p_dps_sm_sys_summ2.apu3_oil_in.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-in-T-K"))));
-
 
 p_dps_sm_sys_summ2.apu1_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K"))));
 p_dps_sm_sys_summ2.apu2_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K"))));
 p_dps_sm_sys_summ2.apu3_oil_out.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu3-temperature-K"))));
 
+p_dps_sm_sys_summ2.apu1_oil_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/oil-p-psia")));
+p_dps_sm_sys_summ2.apu2_oil_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-p-psia")));
+p_dps_sm_sys_summ2.apu3_oil_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-p-psia")));
 
 p_dps_sm_sys_summ2.apu1_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu/apu-rpm-fraction")));
 p_dps_sm_sys_summ2.apu2_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[1]/apu-rpm-fraction")));
 p_dps_sm_sys_summ2.apu3_speed.setText(sprintf("%4.0f", 100.0 * getprop("/fdm/jsbsim/systems/apu/apu[2]/apu-rpm-fraction")));
+
+p_dps_sm_sys_summ2.hyd1_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia")));
+p_dps_sm_sys_summ2.hyd2_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia")));
+p_dps_sm_sys_summ2.hyd3_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia")));
+
+p_dps_sm_sys_summ2.hyd1_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-3.0))); 
+p_dps_sm_sys_summ2.hyd2_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+1.0))); 
+p_dps_sm_sys_summ2.hyd3_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")))); 
+
+
+p_dps_sm_sys_summ2.apu1_fuel.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[14]/level-lbs")/3.5));
+p_dps_sm_sys_summ2.apu2_fuel.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[15]/level-lbs")/3.5));
+p_dps_sm_sys_summ2.apu3_fuel.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[16]/level-lbs")/3.5));
+
+p_dps_sm_sys_summ2.wb1_h2o_qty.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[20]/contents-lbs")/1.42)); 
+p_dps_sm_sys_summ2.wb2_h2o_qty.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[21]/contents-lbs")/1.42)); 
+p_dps_sm_sys_summ2.wb3_h2o_qty.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/propulsion/tank[22]/contents-lbs")/1.42));  
+
+p_dps_sm_sys_summ2.wb1_byp_vlv.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-1-switch"))));
+p_dps_sm_sys_summ2.wb2_byp_vlv.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-2-switch"))));
+p_dps_sm_sys_summ2.wb3_byp_vlv.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-3-switch"))));
+
+
+
+p_dps_sm_sys_summ2.avbay1_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")-2.0))); 
+p_dps_sm_sys_summ2.avbay2_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")))); 
+p_dps_sm_sys_summ2.avbay3_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")+1.0))); 
+
+
+
 
 update_common_DPS();
 

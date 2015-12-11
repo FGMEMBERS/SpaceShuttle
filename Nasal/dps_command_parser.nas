@@ -197,19 +197,29 @@ var key_sys_summ = func (kb_id) {
 var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 var idp_index = get_IDP_id(kb_id) - 1;
 
-if (disp == 18)
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+if (major_function == 1)
 	{
-	#SpaceShuttle.PFD.selectPage(p_dps_sys_summ2);
-	page_select(idp_index, p_dps_sys_summ2);
-	setprop("/fdm/jsbsim/systems/dps/disp", 19);
+	if (disp == 18)
+		{
+		page_select(idp_index, p_dps_sys_summ2);
+		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		}
+	else
+		{
+		page_select(idp_index, p_dps_sys_summ);
+		setprop("/fdm/jsbsim/systems/dps/disp", 18);
+		}
 	}
-else
+else if  (major_function == 2)
 	{
-	#SpaceShuttle.PFD.selectPage(p_dps_sys_summ);
-	page_select(idp_index, p_dps_sys_summ);
-	setprop("/fdm/jsbsim/systems/dps/disp", 18);
+	page_select(idp_index, p_dps_sm_sys_summ2);
+	setprop("/fdm/jsbsim/systems/dps/disp-sm", 79);
 	}
+	
 }
+
 
 
 # ACK key #######################################################
@@ -236,10 +246,16 @@ var key_resume = func (kb_id) {
 
 var idp_index = get_IDP_id(kb_id) - 1;
 
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+if (major_function == 1)
+{
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var spec = getprop("/fdm/jsbsim/systems/dps/spec");
 var disp = getprop("/fdm/jsbsim/systems/dps/disp");
+
+
 
 if ((disp > 0) and (spec > 0)) 
 	{
@@ -272,7 +288,7 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 		if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
 			{
 			#SpaceShuttle.PFD.selectPage(p_ascent);
-			page_select(idp_index, p_dps_ascent);
+			page_select(idp_index, p_ascent);
 			}
 		else
 			{
@@ -312,6 +328,17 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 			}
 		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
+	}
+}
+else if (major_function == 2)
+	{
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+
+	SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+
+	setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
+	setprop("/fdm/jsbsim/systems/dps/spec-sm", 0);
 	}
 
 }
@@ -392,7 +419,7 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 
 
 #####################################################################
-# OPS, SPEC and DISP page calls
+# OPS, SPEC and DISP page calls and auxiliary functions
 #####################################################################
 
 # since the commands are sent to an IDP, they will in fact affect all screens at that IDP
@@ -420,11 +447,13 @@ foreach (M; SpaceShuttle.MDU_array)
 
 }
 
+
+
 var page_select = func (idp_index, page){
 
 foreach (M; SpaceShuttle.MDU_array)
 	{
-	if (M.port_selected == idp_index +1) 
+	if ((M.port_selected == idp_index +1) and (M.dps_page_flag == 1))
 		{
 		M.selectPage(page);
 		}
@@ -433,21 +462,39 @@ foreach (M; SpaceShuttle.MDU_array)
 } 
 
 
+var get_ops_page  = func (major_function, major_mode) {
+
+
+
+if (major_function == 1)
+	{
+	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
+		{var page = SpaceShuttle.p_ascent;}
+	else if ((major_mode == 104) or (major_mode == 105) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+		{var page = SpaceShuttle.p_dps_mnvr;}
+	else if (major_mode == 201)
+		{var page = SpaceShuttle.p_dps_univ_ptg;}
+	else if (major_mode == 304)
+		{var page = SpaceShuttle.p_entry;}
+	else if (major_mode == 305)
+		{var page = SpaceShuttle.p_vert_sit;}
+	}
+else if (major_function == 2)
+	{
+	var page = SpaceShuttle.p_dps_pl_bay;
+	}
+
+return page;
+
+}
+
+
 #####################################################################
 # The command parser
 #####################################################################
 
+
 var command_parse = func (idp_index) {
-
-var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
-
-if (major_function == 0) # IDP isn't working, do nothing
-	{
-	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
-	return;
-	}
-
-#var dps_display_flag = getprop("/fdm/jsbsim/systems/dps/dps-page-flag");
 
 var dps_display_flag = SpaceShuttle.idp_check_dps(idp_index);
 
@@ -457,7 +504,23 @@ if (dps_display_flag == 0)
 	return;
 	}
 
-#var current_string = getprop("/fdm/jsbsim/systems/dps/command-string");
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+if (major_function == 0) # IDP isn't working, do nothing
+	{
+	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
+	return;
+	}
+else if (major_function == 1)
+	{command_parse_gnc (idp_index);}
+else if (major_function == 2)
+	{command_parse_sm (idp_index);}
+
+}
+
+var command_parse_gnc = func (idp_index) {
+
 
 var valid_flag = 0;
 
@@ -1607,5 +1670,66 @@ else
 }
 
 
+var command_parse_sm = func (idp_index) {
 
+
+var valid_flag = 0;
+
+print(header, " ", body, " ", value);
+
+
+if ((header == "OPS") and (end =="PRO"))
+	{
+	var major_mode = int(body);
+	print ("Switching to major_mode ", major_mode);
+
+	if (major_mode == 202)
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode-sm", 202);
+		ops_transition(idp_index, p_dps_pl_bay);
+		valid_flag = 1;
+		}
+	}
+
+if ((header == "SPEC") and (end =="PRO"))
+	{
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec_num = int(body);
+	if (spec_num == 79) 
+		{
+		page_select(idp_index, p_dps_sm_sys_summ2);
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 79);
+		valid_flag = 1;
+		}
+	if (spec_num == 86) 
+		{
+		page_select(idp_index, p_dps_apu_hyd);
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 86);
+		valid_flag = 1;
+		}
+	}
+
+
+
+length_body = 0;
+length_value = 0;
+b_v_flag = 0;
+header = "";
+body = "";
+value = "";
+end = "";
+setsize(last_command,0);
+	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
+
+if (valid_flag == 0)
+	{
+	setprop("/fdm/jsbsim/systems/dps/error-string", "ILLEGAL ENTRY");
+	}
+else 
+	{
+	setsize(last_command,0);
+	}
+
+
+}
 

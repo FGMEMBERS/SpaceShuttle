@@ -134,9 +134,11 @@
 		    <command-string n="2" type="string"></command-string>
 		    <command-string n="3" type="string"></command-string>
 		    <error-string type="string"></error-string>
-		    <!--<dps-page-flag type="int">0</dps-page-flag>-->
 		    <spec type="int">0</spec>
 		    <disp type="int">0</disp>
+		    <major-mode-sm type="int">202</major-mode-sm>
+		    <spec-sm type="int">0</spec-sm>
+		    <disp-sm type="int">0</disp-sm>
 		    <idp-power-status type="int" n="0">1</idp-power-status>
 		    <idp-power-status type="int" n="1">1</idp-power-status>
 		    <idp-power-status type="int" n="2">1</idp-power-status>
