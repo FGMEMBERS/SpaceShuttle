@@ -1905,116 +1905,104 @@
   <type>select</type>
   <object-name>indicator_light_rcs_pitch_u</object-name>
   <condition>
-<!-- <or> -->
-   <and>
-    <less-than>
-     <property>/fdm/jsbsim/aero/qbar-psf</property>
-     <value>20</value>
-    </less-than>
-    <greater-than>
-     <property>/fdm/jsbsim/systems/rcs/nose-up-raw-pitch</property>
-     <value>0</value>
-    </greater-than>
-    <or>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-pitch</property>
-      <value>0</value>
-     </greater-than>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-pitch</property>
-      <value>0</value>
-     </greater-than>
-    </or>
-   </and>
-<!--
-   <and>
-    <greater-than-equals>
-     <property>/fdm/jsbsim/aero/qbar-psf</property>
-     <value>50</value>
-    </greater-than-equals>
-    <or>
-      <and>
-       <equals>
-        <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
-        <value>1</value>
-       </equals>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/drive rate</property>
-        <value>14</value>
-       </greater-than>
-      </and>
-      <and>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
-        <value>1</value>
-       </greater-than>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/drive rate</property>
-        <value>20</value>
-       </greater-than>
-      </and>
-    </or>
-   </and>
-  </or>
--->
-	 </condition>
+   <or>
+    <and>
+     <less-than>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>20</value>
+     </less-than>
+     <or>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/nose-down-raw-pitch</property>
+       <value>0</value>
+      </greater-than>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-pitch</property>
+       <value>0</value>
+      </greater-than>
+     </or>
+    </and>
+    <and>
+     <greater-than-equals>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>50</value>
+     </greater-than-equals>
+     <or>
+       <and>
+        <equals>
+         <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
+         <value>1</value>
+        </equals>
+        <greater-than>
+         <property>/fdm/jsbsim/fcs/inboard/elevon/drive-rate</property>
+         <value>14</value>
+        </greater-than>
+       </and>
+       <and>
+        <greater-than>
+         <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
+         <value>1</value>
+        </greater-than>
+        <greater-than>
+         <property>/fdm/jsbsim/fcs/inboard/elevon/drive-rate</property>
+         <value>20</value>
+        </greater-than>
+       </and>
+     </or>
+    </and>
+   </or>
+  </condition>
  </animation>
  <animation>
    <type>select</type>
    <object-name>indicator_light_rcs_pitch_d</object-name>
    <condition>
-<!-- <or> -->
-   <and>
-    <less-than>
-     <property>/fdm/jsbsim/aero/qbar-psf</property>
-     <value>20</value>
-    </less-than>
-    <greater-than>
-     <property>/fdm/jsbsim/systems/rcs/nose-down-raw-pitch</property>
-     <value>0</value>
-    </greater-than>
     <or>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-pitch</property>
-      <value>0</value>
-     </greater-than>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-pitch</property>
-      <value>0</value>
-     </greater-than>
-    </or>
-   </and>
-<!--
-   <and>
-    <greater-than-equals>
-     <property>/fdm/jsbsim/aero/qbar-psf</property>
-     <value>50</value>
-    </greater-than-equals>
-    <or>
-      <and>
-       <equals>
-        <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
-        <value>1</value>
-       </equals>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/drive rate</property>
-        <value>14</value>
-       </greater-than>
-      </and>
-      <and>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
-        <value>1</value>
-       </greater-than>
-       <greater-than>
-        <property>/fdm/jsbsim/systems/drive rate</property>
-        <value>20</value>
-       </greater-than>
-      </and>
-    </or>
-   </and>
-  </or>
--->
+    <and>
+     <less-than>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>20</value>
+     </less-than>
+     <or>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/nose-up-raw-pitch</property>
+       <value>0</value>
+      </greater-than>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-pitch</property>
+       <value>0</value>
+      </greater-than>
+     </or>
+    </and>
+    <and>
+     <greater-than-equals>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>50</value>
+     </greater-than-equals>
+     <or>
+       <and>
+        <equals>
+         <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
+         <value>1</value>
+        </equals>
+        <greater-than>
+         <property>/fdm/jsbsim/fcs/inboard/elevon/drive-rate</property>
+         <value>14</value>
+        </greater-than>
+       </and>
+       <and>
+        <greater-than>
+         <property>/fdm/jsbsim/systems/apu/number-systems-pressurized</property>
+         <value>1</value>
+        </greater-than>
+        <greater-than>
+         <property>/fdm/jsbsim/fcs/inboard/elevon/drive-rate</property>
+         <value>20</value>
+        </greater-than>
+       </and>
+     </or>
+    </and>
+   </or>
 	 </condition>
  </animation>
 
@@ -2024,13 +2012,9 @@
   <object-name>indicator_light_rcs_yaw_l</object-name>
   <condition>
    <and>
-    <greater-than>
-     <property>/fdm/jsbsim/systems/rcs/nose-left-raw-yaw</property>
-     <value>0</value>
-    </greater-than>
     <or>
      <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-yaw</property>
+      <property>/fdm/jsbsim/systems/rcs/nose-right-raw-yaw</property>
       <value>0</value>
      </greater-than>
      <greater-than>
@@ -2038,10 +2022,10 @@
       <value>0</value>
      </greater-than>
     </or>
-    <!--less-than-equals>
-     <property>/fdm/jsbsim/mach/property>
+    <less-than-equals>
+     <property>/fdm/jsbsim/velocities/mach</property>
      <value>1</value>
-    </less-than-equals-->
+    </less-than-equals>
    </and>
   </condition>
  </animation>
@@ -2050,24 +2034,20 @@
    <object-name>indicator_light_rcs_yaw_r</object-name>
    <condition>
    <and>
-    <greater-than>
-     <property>/fdm/jsbsim/systems/rcs/nose-right-raw-yaw</property>
-     <value>0</value>
-    </greater-than>
     <or>
+     <greater-than>
+      <property>/fdm/jsbsim/systems/rcs/nose-left-raw-yaw</property>
+      <value>0</value>
+     </greater-than>
      <greater-than>
       <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-yaw</property>
       <value>0</value>
      </greater-than>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-yaw</property>
-      <value>0</value>
-     </greater-than>
     </or>
-    <!--less-than-equals>
-     <property>/fdm/jsbsim/mach/property>
+    <less-than-equals>
+     <property>/fdm/jsbsim/velocities/mach</property>
      <value>1</value>
-    </less-than-equals-->
+    </less-than-equals>
    </and>
 	 </condition>
  </animation>
@@ -2079,63 +2059,9 @@
   <condition>
    <or>
     <and>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/nose-left-raw-roll</property>
-      <value>0</value>
-     </greater-than>
-<!-- are these ever commanded separately -->
      <or>
       <greater-than>
-       <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-roll</property>
-       <value>0</value>
-      </greater-than>
-      <greater-than>
-       <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-roll</property>
-       <value>0</value>
-      </greater-than>
-<!-- end are these -->
-     </or>
-     <less-than>
-      <property>/fdm/jsbsim/aero/qbar-psf</property>
-      <value>10</value>
-     </less-than>
-    </and>
-<!-- unclear about this, manual refers to >= 50 psf and more than 2 "YAW" (as opposed to "roll") jets are commanded on--> 
-    <and>
-     <greater-than>
-      <property>/fdm/jsbsim/aero/qbar-psf</property>
-      <value>50</value>
-     </greater-than>
-     <greater-than>
-       <property>/fdm/jsbsim/systems/rcs/nose-left-raw-yaw</property>
-       <value>0</value>
-     </greater-than>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-yaw</property>
-      <value>0</value>
-     </greater-than>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-yaw</property>
-      <value>0</value>
-     </greater-than>
-    </and>
-<!-- end unclear -->
-   </or>
-  </condition>
- </animation>
- <animation>
-   <type>select</type>
-   <object-name>indicator_light_rcs_roll_r</object-name>
-   <condition>
-   <or>
-    <and>
-     <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/nose-right-raw-roll</property>
-      <value>0</value>
-     </greater-than>
-     <or>
-      <greater-than>
-       <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-roll</property>
+       <property>/fdm/jsbsim/systems/rcs/nose-right-raw-roll</property>
        <value>0</value>
       </greater-than>
       <greater-than>
@@ -2158,11 +2084,45 @@
        <value>0</value>
      </greater-than>
      <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-yaw</property>
+      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-yaw</property>
       <value>0</value>
      </greater-than>
+    </and>
+   </or>
+  </condition>
+ </animation>
+ <animation>
+   <type>select</type>
+   <object-name>indicator_light_rcs_roll_r</object-name>
+   <condition>
+   <or>
+    <and>
+     <or>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/nose-left-raw-roll</property>
+       <value>0</value>
+      </greater-than>
+      <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-roll</property>
+       <value>0</value>
+      </greater-than>
+     </or>
+     <less-than>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>10</value>
+     </less-than>
+    </and>
+    <and>
      <greater-than>
-      <property>/fdm/jsbsim/systems/rcs/pod2-down-raw-yaw</property>
+      <property>/fdm/jsbsim/aero/qbar-psf</property>
+      <value>50</value>
+     </greater-than>
+     <greater-than>
+       <property>/fdm/jsbsim/systems/rcs/nose-left--raw-yaw</property>
+       <value>0</value>
+     </greater-than>
+     <greater-than>
+      <property>/fdm/jsbsim/systems/rcs/pod2-up-raw-yaw</property>
       <value>0</value>
      </greater-than>
     </and>
