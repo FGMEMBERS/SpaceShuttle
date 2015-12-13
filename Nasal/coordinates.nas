@@ -44,6 +44,17 @@ outvec[2] = v1[2] + v2[2];
 return outvec;
 }
 
+var subtract_vector = func (v1, v2) {
+
+var outvec = [0,0,0];
+
+outvec[0] = v1[0] - v2[0];
+outvec[1] = v1[1] - v2[1];
+outvec[2] = v1[2] - v2[2];
+
+return outvec;
+}
+
 
 var norm = func (v) {
 
