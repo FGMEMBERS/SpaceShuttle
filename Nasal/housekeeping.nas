@@ -404,6 +404,47 @@ if (stage == 6)
 }
 
 
+
+#########################################################################################
+# Ku antenna pointing
+#########################################################################################
+
+var ku_antenna_point = func (azimuth, elevation) {
+
+# check whether the antenna is deployed
+
+if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") < 1.0)
+	{return;}
+
+# check whether we have controller power, electricity and heater
+
+if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 0)
+	{return;}
+
+# convert Shuttle body relative azimuth and elevation to antenna angles
+
+var alpha = azimuth + 200.0;
+if (alpha > 360.0) {alpha = alpha - 360.0;}
+
+var beta = -22.36 * math.sin((alpha +6.57) * math.pi/180.0);
+
+beta = beta + elevation;
+
+setprop("/controls/shuttle/ku-antenna-alpha-deg-cmd", alpha);
+setprop("/controls/shuttle/ku-antenna-beta-deg-cmd", beta);
+
+}
+
+
+var ku_antenna_track_TDRS = func (index) {
+
+var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(index);
+
+ku_antenna_point (angles[1], angles[0]);
+
+
+}
+
 #########################################################################################
 # management rountines for internal timers
 #########################################################################################

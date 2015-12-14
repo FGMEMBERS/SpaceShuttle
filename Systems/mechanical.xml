@@ -550,6 +550,7 @@
 
 	</channel>
 
+
 	<channel name="Star tracker">
 
 		<switch name="systems/mechanical/star-tracker-y-power">

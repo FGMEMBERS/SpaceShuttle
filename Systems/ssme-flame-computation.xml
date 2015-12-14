@@ -81,5 +81,19 @@
    <output>/sim/systems/various/pb-door-opening-fraction</output>
  </filter>
 
+ <filter>
+   <type>noise-spike</type>
+   <max-rate-of-change>5.0</max-rate-of-change>
+   <input>/controls/shuttle/ku-antenna-alpha-deg-cmd</input>
+   <output>/controls/shuttle/ku-antenna-alpha-deg</output>
+ </filter>
+
+ <filter>
+   <type>noise-spike</type>
+   <max-rate-of-change>5.0</max-rate-of-change>
+   <input>/controls/shuttle/ku-antenna-beta-deg-cmd</input>
+   <output>/controls/shuttle/ku-antenna-beta-deg</output>
+ </filter>
+
 
  </PropertyList>

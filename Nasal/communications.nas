@@ -25,7 +25,7 @@ var ground_site = {
 
 var coord1 = geo.Coord.new();
 coord1.set_latlon(-35.30, 149.12, 0.0);
-var ground_site1 = ground_site.new(coord1, "CAN", "S-HI");
+var ground_site1 = ground_site.new(coord1, "CAN", "STDN");
 append(com_ground_site_array, ground_site1);
 
 # Diego Garcia
@@ -46,7 +46,7 @@ append(com_ground_site_array, ground_site3);
 
 var coord4 = geo.Coord.new();
 coord4.set_latlon(28.35, -80.68, 0.0);
-var ground_site4 = ground_site.new(coord4, "MIL", "S-HI");
+var ground_site4 = ground_site.new(coord4, "MIL", "STDN");
 append(com_ground_site_array, ground_site4);
 
 # Vandenberg
@@ -67,14 +67,14 @@ append(com_ground_site_array, ground_site6);
 
 var coord7 = geo.Coord.new();
 coord7.set_latlon(35.42, -116.89, 0.0);
-var ground_site7 = ground_site.new(coord7, "GDX", "S-HI");
+var ground_site7 = ground_site.new(coord7, "GDX", "STDN");
 append(com_ground_site_array, ground_site7);
 
 # Johnson Space Center
 
 var coord8 = geo.Coord.new();
 coord8.set_latlon(29.56, -95.09, 0.0);
-var ground_site8 = ground_site.new(coord8, "JSC", "S-HI");
+var ground_site8 = ground_site.new(coord8, "JSC", "STDN");
 append(com_ground_site_array, ground_site8);
 
 # New Hampshire
@@ -88,14 +88,14 @@ append(com_ground_site_array, ground_site9);
 
 var coord10 = geo.Coord.new();
 coord10.set_latlon(37.93, -75.45, 0.0);
-var ground_site10 = ground_site.new(coord10, "WLP", "S-HI");
+var ground_site10 = ground_site.new(coord10, "WLP", "STDN");
 append(com_ground_site_array, ground_site10);
 
 # Dryden
 
 var coord11 = geo.Coord.new();
 coord11.set_latlon(49.78, -92.83, 0.0);
-var ground_site11 = ground_site.new(coord11, "DFR", "S-HI");
+var ground_site11 = ground_site.new(coord11, "DFR", "STDN");
 append(com_ground_site_array, ground_site11);
 
 # Guam
@@ -109,7 +109,7 @@ append(com_ground_site_array, ground_site12);
 
 var coord13 = geo.Coord.new();
 coord13.set_latlon(40.4, -3.72, 0.0);
-var ground_site13 = ground_site.new(coord13, "MAD", "S-HI");
+var ground_site13 = ground_site.new(coord13, "MAD", "STDN");
 append(com_ground_site_array, ground_site13);
 
 # Oakhanger
@@ -121,7 +121,12 @@ append(com_ground_site_array, ground_site14);
 
 # find the closest ground station ########################################
 
-var com_find_nearest_station = func {
+var com_find_nearest_station = func (mode) {
+
+var compare_string = "SGLS";
+
+if ((mode == "S-HI") or (mode == "S-LO"))
+	{compare_string = "STDN";}
 
 var shuttle_pos = geo.aircraft_position();
 
@@ -131,15 +136,18 @@ var index = -1;
 for (var i = 0; i< size(com_ground_site_array); i=i+1) 
 	{	
 	var s = com_ground_site_array[i];
-	var dist = shuttle_pos.direct_distance_to(s.coord);
-	if (dist < d)
+	if (s.mode == compare_string)
 		{
-		d = dist;
-		index = i;
+		var dist = shuttle_pos.direct_distance_to(s.coord);
+	 	if (dist < d) 
+			{
+			d = dist;
+			index = i;
+			}
 		}
 	}
 
-print(index, " ", com_ground_site_array[index].string);
+print(index, " ", com_ground_site_array[index].string, " ", com_ground_site_array[index].mode);
 
 return index;
 
@@ -329,13 +337,13 @@ var angles = SpaceShuttle.get_pitch_yaw(pointer_body);
 angles[0] = angles[0] * 180.0/math.pi;
 angles[1] = angles[1] * 180.0/math.pi;
 
-if (pointer_bx < 0.0) {angles[1] = angles[1] + 180.0;}
-if (angles[1] > 360.0) {angles[1] = angles[1] - 360.0;}
+#if (pointer_bx < 0.0) {angles[1] = angles[1] + 180.0;}
+#if (angles[1] > 360.0) {angles[1] = angles[1] - 360.0;}
 
 
+#print(pointer_body[0], " ", pointer_body[1], " ", pointer_body[2]);
 
-
-print ("Elevation: ", angles[0], " azimuth: ", angles[1]);
+#print ("Elevation: ", angles[0], " azimuth: ", angles[1]);
 
 return angles;
 }
