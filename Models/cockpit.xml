@@ -22,16 +22,19 @@
 
  <animation>
   <type>material</type>
-  <object-name>indicator_light_rcs_roll_l</object-name>
-  <object-name>indicator_light_rcs_roll_r</object-name>
-  <object-name>indicator_light_rcs_pitch_u</object-name>
-  <object-name>indicator_light_rcs_pitch_d</object-name>
-  <object-name>indicator_light_rcs_yaw_l</object-name>
-  <object-name>indicator_light_rcs_yaw_r</object-name>
+  <object-name>indicator_light_rcs_roll_l_cmd</object-name>
+  <object-name>indicator_light_rcs_roll_r_cmd</object-name>
+  <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
+  <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
+  <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
+  <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
+  <object-name>indicator_light_rcs_roll_l_plt</object-name>
+  <object-name>indicator_light_rcs_roll_r_plt</object-name>
+  <object-name>indicator_light_rcs_pitch_u_plt</object-name>
+  <object-name>indicator_light_rcs_pitch_d_plt</object-name>
+  <object-name>indicator_light_rcs_yaw_l_plt</object-name>
+  <object-name>indicator_light_rcs_yaw_r_plt</object-name>
   <emission>
-   <!--red>1.0</red>
-   <green>0.2</green>
-   <blue>0.0</blue-->
    <red>1.0</red>
    <green>0.576</green>
    <blue>0.161</blue>
@@ -41,10 +44,14 @@
 
  <animation>
   <type>material</type>
-  <object-name>button_light_roll-yaw_auto</object-name>
-  <object-name>button_light_roll-yaw_css</object-name>
-  <object-name>button_light_pitch_auto</object-name>
-  <object-name>button_light_pitch_css</object-name>
+  <object-name>button_light_roll-yaw_auto_cmd</object-name>
+  <object-name>button_light_roll-yaw_css_cmd</object-name>
+  <object-name>button_light_pitch_auto_cmd</object-name>
+  <object-name>button_light_pitch_css_cmd</object-name>
+  <object-name>button_light_roll-yaw_auto_plt</object-name>
+  <object-name>button_light_roll-yaw_css_plt</object-name>
+  <object-name>button_light_pitch_auto_plt</object-name>
+  <object-name>button_light_pitch_css_plt</object-name>
   <emission>
    <red>1.0</red>
    <green>0.576</green>
@@ -425,7 +432,44 @@
         </release>
     </animation>
 
-
+<!-- ADI -->
+    <animation>
+        <type>knob</type>
+        <object-name>F6SW-1-7</object-name>
+        <property>/fdm/jsbsim/systems/adi/toggle-switch</property>
+        <factor>-35</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3978</x-m>
+            <y-m>-0.5786</y-m>
+            <z-m>-0.7143</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/adi/toggle-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+        </action>
+        <!--hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>Dap Mode</tooltip-id>
+                <label>Pitot Heat: %s</label>
+                <mapping>on-off</mapping>
+                <property>controls/anti-ice/pitot-heat</property>
+            </binding>
+        </hovered-->
+    </animation>
+  
  <!-- ******************************************************************* -->
  <!--  Commander RHC                                                      -->
  <!-- ******************************************************************* -->
@@ -1722,12 +1766,14 @@
   </hovered>
  </animation>
 
-<!-- ADI -->
+<!-- DAP -->
 
+<!-- Commander and Pilot -->
 <!-- pitch -->
  <animation>
   <type>pick</type>
-  <object-name>button_pitch_css</object-name>
+  <object-name>button_pitch_css_cmd</object-name>
+  <object-name>button_pitch_css_plt</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1755,7 +1801,8 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>button_light_pitch_css</object-name>
+   <object-name>button_light_pitch_css_cmd</object-name>
+   <object-name>button_light_pitch_css_plt</object-name>
    <condition>
     <and>
      <equals>
@@ -1767,7 +1814,8 @@
  </animation>
  <animation>
   <type>pick</type>
-  <object-name>button_pitch_auto</object-name>
+  <object-name>button_pitch_auto_cmd</object-name>
+  <object-name>button_pitch_auto_plt</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1795,7 +1843,8 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>button_light_pitch_auto</object-name>
+   <object-name>button_light_pitch_auto_cmd</object-name>
+   <object-name>button_light_pitch_auto_plt</object-name>
    <condition>
     <and>
      <equals>
@@ -1814,7 +1863,8 @@
 <!-- yaw/roll -->
  <animation>
   <type>pick</type>
-  <object-name>button_roll-yaw_css</object-name>
+  <object-name>button_roll-yaw_css_cmd</object-name>
+  <object-name>button_roll-yaw_css_plt</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1842,7 +1892,8 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>button_light_roll-yaw_css</object-name>
+   <object-name>button_light_roll-yaw_css_cmd</object-name>
+   <object-name>button_light_roll-yaw_css_plt</object-name>
    <condition>
     <and>
      <equals>
@@ -1854,7 +1905,8 @@
  </animation>
  <animation>
   <type>pick</type>
-  <object-name>button_roll-yaw_auto</object-name>
+  <object-name>button_roll-yaw_auto_cmd</object-name>
+  <object-name>button_roll-yaw_auto_plt</object-name>
   <visible>true</visible>
   <action>
    <button>0</button>
@@ -1882,7 +1934,8 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>button_light_roll-yaw_auto</object-name>
+   <object-name>button_light_roll-yaw_auto_cmd</object-name>
+   <object-name>button_light_roll-yaw_auto_plt</object-name>
    <condition>
     <and>
      <equals>
@@ -1903,7 +1956,7 @@
 <!-- pitch indicator light-->
  <animation>
   <type>select</type>
-  <object-name>indicator_light_rcs_pitch_u</object-name>
+  <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
   <condition>
    <or>
     <and>
@@ -1955,7 +2008,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>indicator_light_rcs_pitch_d</object-name>
+   <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
    <condition>
     <or>
     <and>
@@ -2009,7 +2062,7 @@
 <!-- yaw light-->
  <animation>
   <type>select</type>
-  <object-name>indicator_light_rcs_yaw_l</object-name>
+  <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
   <condition>
    <and>
     <or>
@@ -2031,7 +2084,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>indicator_light_rcs_yaw_r</object-name>
+   <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
    <condition>
    <and>
     <or>
@@ -2055,7 +2108,7 @@
 <!-- roll light-->
  <animation>
   <type>select</type>
-  <object-name>indicator_light_rcs_roll_l</object-name>
+  <object-name>indicator_light_rcs_roll_l_cmd</object-name>
   <condition>
    <or>
     <and>
@@ -2093,7 +2146,7 @@
  </animation>
  <animation>
    <type>select</type>
-   <object-name>indicator_light_rcs_roll_r</object-name>
+   <object-name>indicator_light_rcs_roll_r_cmd</object-name>
    <condition>
    <or>
     <and>
