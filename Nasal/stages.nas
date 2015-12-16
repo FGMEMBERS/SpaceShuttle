@@ -785,7 +785,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 
 SpaceShuttle.check_limits_orbit();
 SpaceShuttle.cws_inspect();
-#SpaceShuttle.update_LVLH_to_ECI();
+SpaceShuttle.ku_antenna_track_TDRS(2);
 
 SpaceShuttle.update_timers();
 
