@@ -109,9 +109,9 @@ var PFD_addpage_p_vert_sit = func(device)
         SpaceShuttle.fill_vert_sit2_maxLD_data();
         SpaceShuttle.traj_display_flag = 9;
         device.p_ascent_shuttle_sym.setScale(0.3);
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
-        device.DPS_menu_ops.setText(sprintf("%s","3051/     /"));
-        device.DPS_menu_title.setText(sprintf("%s","VERT SIT 2"));
+        device.MEDS_menu_title.setText("       DPS MENU");
+        device.DPS_menu_ops.setText("3051/     /");
+        device.DPS_menu_title.setText("VERT SIT 2");
     
     
         var plot = device.nom_traj_plot.createChild("path", "data")

@@ -69,13 +69,13 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
     
     p_dps_sm_sys_summ2.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","SM SYS SUMM 2"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("SM SYS SUMM 2");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
         var ops_string = major_mode~"1/   /079";
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
+        device.DPS_menu_ops.setText(ops_string);
     
     # set a few values not modeled explicitly to reasonable values
     
@@ -86,6 +86,8 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.hyd1_rsvr_p.setText(sprintf("  54")); 
         p_dps_sm_sys_summ2.hyd2_rsvr_p.setText(sprintf("  56")); 
         p_dps_sm_sys_summ2.hyd3_rsvr_p.setText(sprintf("  55")); 
+    
+    
     }
     
     p_dps_sm_sys_summ2.update = func
@@ -136,11 +138,19 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.wb2_byp_vlv.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-2-switch"))));
         p_dps_sm_sys_summ2.wb3_byp_vlv.setText(sprintf(" %s", wsb_vlv_to_string(getprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-3-switch"))));
     
+    
+    
         p_dps_sm_sys_summ2.avbay1_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")-2.0))); 
         p_dps_sm_sys_summ2.avbay2_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")))); 
         p_dps_sm_sys_summ2.avbay3_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")+1.0))); 
     
+    
+    
+    
         device.update_common_DPS();
+    
+    
+    
     
     }
     

@@ -111,13 +111,13 @@ var PFD_addpage_p_dps_dap = func(device)
     
     p_dps_dap.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","DAP CONFIG"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("DAP CONFIG");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
         var ops_string = major_mode~"1/020/";
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
+        device.DPS_menu_ops.setText(ops_string);
     
     # set defaults for all functions which aren't implemented yet
     
@@ -217,11 +217,11 @@ var PFD_addpage_p_dps_dap = func(device)
         p_dps_dap.b_comp_v.setText(sprintf("%4.2f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-comp")));
     
     
-        p_dps_dap.a_p_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt"))));
-        p_dps_dap.b_p_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt"))));
+        p_dps_dap.a_p_opt.setText( jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt")));
+        p_dps_dap.b_p_opt.setText( jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt")));
     
-        p_dps_dap.a_y_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt"))));
-        p_dps_dap.b_y_opt.setText(sprintf("%s", jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt"))));
+        p_dps_dap.a_y_opt.setText( jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt")));
+        p_dps_dap.b_y_opt.setText( jet_option(getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt")));
     
     
         p_dps_dap.a_tran_pls.setText(sprintf("%5.3f", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-tran-pls")));

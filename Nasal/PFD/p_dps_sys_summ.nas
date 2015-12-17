@@ -92,9 +92,9 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         var ops_string = major_mode~"1/   /018";
     
     
-        device.DPS_menu_title.setText(sprintf("%s","GNC SYS SUMM 1"));
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("GNC SYS SUMM 1");
+        device.DPS_menu_ops.setText(ops_string);
+        device.MEDS_menu_title.setText("       DPS MENU");
     
     # for the moment, we blank failure messages where we can't simulate the mode yet
     
@@ -128,41 +128,41 @@ var PFD_addpage_p_dps_sys_summ = func(device)
     
     
     
-        p_dps_sys_summ.r1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status"))));
-        p_dps_sys_summ.r2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status"))));
-        p_dps_sys_summ.r3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status"))));
-        p_dps_sys_summ.r4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status"))));
-        p_dps_sys_summ.r5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status"))));
+        p_dps_sys_summ.r1_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status")));
+        p_dps_sys_summ.r2_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status")));
+        p_dps_sys_summ.r3_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status")));
+        p_dps_sys_summ.r4_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status")));
+        p_dps_sys_summ.r5_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status")));
     
-        p_dps_sys_summ.r1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r1"))));
-        p_dps_sys_summ.r2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r2"))));
-        p_dps_sys_summ.r3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r3"))));
-        p_dps_sys_summ.r4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r4"))));
-        p_dps_sys_summ.r5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r5"))));
+        p_dps_sys_summ.r1_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r1")));
+        p_dps_sys_summ.r2_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r2")));
+        p_dps_sys_summ.r3_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r3")));
+        p_dps_sys_summ.r4_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r4")));
+        p_dps_sys_summ.r5_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-r5")));
     
-        p_dps_sys_summ.l1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status"))));
-        p_dps_sys_summ.l2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status"))));
-        p_dps_sys_summ.l3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status"))));
-        p_dps_sys_summ.l4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status"))));
-        p_dps_sys_summ.l5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status"))));
+        p_dps_sys_summ.l1_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status")));
+        p_dps_sys_summ.l2_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status")));
+        p_dps_sys_summ.l3_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status")));
+        p_dps_sys_summ.l4_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status")));
+        p_dps_sys_summ.l5_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status")));
     
-        p_dps_sys_summ.l1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l1"))));
-        p_dps_sys_summ.l2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l2"))));
-        p_dps_sys_summ.l3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l3"))));
-        p_dps_sys_summ.l4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l4"))));
-        p_dps_sys_summ.l5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l5"))));
+        p_dps_sys_summ.l1_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l1")));
+        p_dps_sys_summ.l2_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l2")));
+        p_dps_sys_summ.l3_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l3")));
+        p_dps_sys_summ.l4_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l4")));
+        p_dps_sys_summ.l5_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-l5")));
     
-        p_dps_sys_summ.f1_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status"))));
-        p_dps_sys_summ.f2_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status"))));
-        p_dps_sys_summ.f3_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status"))));
-        p_dps_sys_summ.f4_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status"))));
-        p_dps_sys_summ.f5_vlv.setText(sprintf("%s", valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status"))));
+        p_dps_sys_summ.f1_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status")));
+        p_dps_sys_summ.f2_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status")));
+        p_dps_sys_summ.f3_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status")));
+        p_dps_sys_summ.f4_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status")));
+        p_dps_sys_summ.f5_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status")));
     
-        p_dps_sys_summ.f1_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f1"))));
-        p_dps_sys_summ.f2_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f2"))));
-        p_dps_sys_summ.f3_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f3"))));
-        p_dps_sys_summ.f4_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f4"))));
-        p_dps_sys_summ.f5_fail.setText(sprintf("%s", jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f5"))));
+        p_dps_sys_summ.f1_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f1")));
+        p_dps_sys_summ.f2_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f2")));
+        p_dps_sys_summ.f3_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f3")));
+        p_dps_sys_summ.f4_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f4")));
+        p_dps_sys_summ.f5_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f5")));
     
         p_dps_sys_summ.pos_l_ob.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg")));
         p_dps_sys_summ.pos_l_ib.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg")));

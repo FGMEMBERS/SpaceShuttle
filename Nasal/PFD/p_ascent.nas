@@ -83,16 +83,16 @@ var PFD_addpage_p_ascent = func(device)
         if (SpaceShuttle.traj_display_flag == 1)
     	{
             if (major_mode == 101)
-    		{device.DPS_menu_title.setText(sprintf("%s","LAUNCH TRAJ"));}
+    		{device.DPS_menu_title.setText("LAUNCH TRAJ");}
             else
-    		{device.DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 1"));}
+    		{device.DPS_menu_title.setText("ASCENT TRAJ 1");}
     
-    		device.DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
+    		device.DPS_menu_ops.setText( major_mode~"1/     /");
     	}
         else if ( major_mode == 103)
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ASCENT TRAJ 2"));
-            device.DPS_menu_ops.setText(sprintf("%s","1031/     /"));
+            device.DPS_menu_title.setText("ASCENT TRAJ 2");
+            device.DPS_menu_ops.setText("1031/     /");
     	}
     
     

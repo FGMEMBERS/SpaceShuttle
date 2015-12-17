@@ -146,13 +146,13 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
     
     p_dps_apu_hyd.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","APU/HYD"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("APU/HYD");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
         var ops_string = major_mode~"1/   /086";
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
+        device.DPS_menu_ops.setText(ops_string);
     
     # set a few things we don't model explicitly to reasonable values
     

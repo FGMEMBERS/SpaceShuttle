@@ -21,9 +21,9 @@ var PFD_addpage_p_entry = func(device)
     {
         # called once whenever this page goes on display
     
-        p_entry.bias.setText(sprintf("%s","+00"));
+        p_entry.bias.setText("+00");
         device.p_ascent_shuttle_sym.setScale(0.3);
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.MEDS_menu_title.setText("       DPS MENU");
     }
     
     p_entry.offdisplay = func
@@ -51,24 +51,24 @@ var PFD_addpage_p_entry = func(device)
     
         if  ((SpaceShuttle.traj_display_flag == 3) and (major_mode == 304))
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 1"));
-            device.DPS_menu_ops.setText(sprintf("%s","3041/     /"));
+            device.DPS_menu_title.setText("ENTRY TRAJ 1");
+            device.DPS_menu_ops.setText("3041/     /");
     	}
         else if ((SpaceShuttle.traj_display_flag == 4) and (major_mode == 304))
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 2"));
+            device.DPS_menu_title.setText("ENTRY TRAJ 2");
     	}
         else if ((SpaceShuttle.traj_display_flag == 5) and (major_mode == 304))
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 3"));
+            device.DPS_menu_title.setText("ENTRY TRAJ 3");
     	}
         else if (( SpaceShuttle.traj_display_flag == 6) and (major_mode == 304))
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 4"));
+            device.DPS_menu_title.setText("ENTRY TRAJ 4");
     	}
         else if ((SpaceShuttle.traj_display_flag == 7)and (major_mode == 304))
     	{
-            device.DPS_menu_title.setText(sprintf("%s","ENTRY TRAJ 5"));
+            device.DPS_menu_title.setText("ENTRY TRAJ 5");
     	}
     
     

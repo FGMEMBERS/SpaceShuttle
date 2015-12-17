@@ -53,12 +53,12 @@ var PFD_addpage_p_dps_univ_ptg = func(device)
     
     p_dps_univ_ptg.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","UNIV PTG"));
-        device.DPS_menu_ops.setText(sprintf("%s","2011/    /"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("UNIV PTG");
+        device.DPS_menu_ops.setText("2011/    /");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
     
-        p_dps_univ_ptg.cmpl_time.setText(sprintf("%s","00:00:00"));
+        p_dps_univ_ptg.cmpl_time.setText("00:00:00");
     }
     
     p_dps_univ_ptg.update = func
@@ -144,46 +144,46 @@ var PFD_addpage_p_dps_univ_ptg = func(device)
     
         if (up_mnvr_flag == 0)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18");
+            p_dps_univ_ptg.sel_track.setText( "19");
+            p_dps_univ_ptg.sel_rot.setText( "20");
     	}	
         else if (up_mnvr_flag == 1)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18 *"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18 *");
+            p_dps_univ_ptg.sel_track.setText( "19");
+            p_dps_univ_ptg.sel_rot.setText( "20");
     	}
         else if (up_mnvr_flag == 2)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19 *"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18");
+            p_dps_univ_ptg.sel_track.setText( "19 *");
+            p_dps_univ_ptg.sel_rot.setText( "20");
     	}
         else if (up_mnvr_flag == 3)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20 *"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18");
+            p_dps_univ_ptg.sel_track.setText( "19");
+            p_dps_univ_ptg.sel_rot.setText( "20 *");
     	}
     
         if (up_fut_mnvr_flag == 1)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18     *"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18     *");
+            p_dps_univ_ptg.sel_track.setText( "19");
+            p_dps_univ_ptg.sel_rot.setText( "20");
     	}
         else if (up_fut_mnvr_flag == 2)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19     *"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18");
+            p_dps_univ_ptg.sel_track.setText( "19     *");
+            p_dps_univ_ptg.sel_rot.setText( "20");
     	}
         else if (up_fut_mnvr_flag == 3)
     	{
-            p_dps_univ_ptg.sel_maneuver.setText(sprintf("%s", "18"));
-            p_dps_univ_ptg.sel_track.setText(sprintf("%s", "19"));
-            p_dps_univ_ptg.sel_rot.setText(sprintf("%s", "20     *"));
+            p_dps_univ_ptg.sel_maneuver.setText( "18");
+            p_dps_univ_ptg.sel_track.setText( "19");
+            p_dps_univ_ptg.sel_rot.setText( "20     *");
     	}
     
         p_dps_univ_ptg.mo_roll.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/mnvr-roll")));
@@ -201,7 +201,7 @@ var PFD_addpage_p_dps_univ_ptg = func(device)
         p_dps_univ_ptg.alt.setText(sprintf("%3.2f", getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt")));
         p_dps_univ_ptg.om.setText(sprintf("%3.2f", omicron));
     
-        p_dps_univ_ptg.start_time.setText(sprintf("%s",getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string")));
+        p_dps_univ_ptg.start_time.setText(getprop("/fdm/jsbsim/systems/timer/up-mnvr-time-string"));
     
     }
     

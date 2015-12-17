@@ -42,13 +42,13 @@ var PFD_addpage_p_dps_time = func(device)
     
     p_dps_time.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","TIME"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("TIME");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
         var ops_string = major_mode~"1/002/";
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
+        device.DPS_menu_ops.setText(ops_string);
     
     # zero unusued items
     
@@ -67,31 +67,31 @@ var PFD_addpage_p_dps_time = func(device)
     
         var symbol = "";
         if (time_selected == 0) {symbol = "*";}
-        p_dps_time.sel_gmt.setText(sprintf("%s", symbol )); 
+        p_dps_time.sel_gmt.setText( symbol ); 
     
         var symbol = "";
         if (time_selected == 1) {symbol = "*";}
-        p_dps_time.sel_met.setText(sprintf("%s", symbol )); 
+        p_dps_time.sel_met.setText( symbol ); 
     
     
-        p_dps_time.gmt_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-GMT-string") )); 
-        p_dps_time.met_delta.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/delta-MET-string") )); 
+        p_dps_time.gmt_delta.setText( getprop("/fdm/jsbsim/systems/timer/delta-GMT-string") ); 
+        p_dps_time.met_delta.setText( getprop("/fdm/jsbsim/systems/timer/delta-MET-string") ); 
     
         var GMT_string = getprop("/fdm/jsbsim/systems/timer/GMT-string");
     
-        p_dps_time.mtu_acc1.setText(sprintf("%s", GMT_string )); 
-        p_dps_time.mtu_acc2.setText(sprintf("%s", GMT_string )); 
-        p_dps_time.mtu_acc3.setText(sprintf("%s", GMT_string )); 
-        p_dps_time.gpc_acc.setText(sprintf("%s", GMT_string )); 
+        p_dps_time.mtu_acc1.setText( GMT_string ); 
+        p_dps_time.mtu_acc2.setText( GMT_string ); 
+        p_dps_time.mtu_acc3.setText( GMT_string ); 
+        p_dps_time.gpc_acc.setText( GMT_string ); 
     
-        p_dps_time.tone1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-1-string") )); 
-        p_dps_time.tone2.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-MET-2-string") )); 
-        p_dps_time.tone3.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/timer-CRT-string") )); 
+        p_dps_time.tone1.setText( getprop("/fdm/jsbsim/systems/timer/timer-MET-1-string") ); 
+        p_dps_time.tone2.setText( getprop("/fdm/jsbsim/systems/timer/timer-MET-2-string") ); 
+        p_dps_time.tone3.setText( getprop("/fdm/jsbsim/systems/timer/timer-CRT-string") ); 
     
-        p_dps_time.crttimer_set1.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/crt-timer-string") )); 
+        p_dps_time.crttimer_set1.setText( getprop("/fdm/jsbsim/systems/timer/crt-timer-string") ); 
     
-        p_dps_time.crttimer_start_at.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/start-at-string") )); 
-        p_dps_time.crttimer_count_to.setText(sprintf("%s", getprop("/fdm/jsbsim/systems/timer/count-to-string") )); 
+        p_dps_time.crttimer_start_at.setText( getprop("/fdm/jsbsim/systems/timer/start-at-string") ); 
+        p_dps_time.crttimer_count_to.setText( getprop("/fdm/jsbsim/systems/timer/count-to-string") ); 
     
     
         p_dps_time.duration.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/timer/time-tone-duration") )); 

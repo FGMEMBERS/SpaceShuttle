@@ -19,7 +19,7 @@ var PFD_addpage_p_pfd = func(device)
     {
         device.set_DPS_off();
         device.dps_page_flag = 0;
-        device.MEDS_menu_title.setText(sprintf("%s","FLIGHT INSTRUMENT MENU"));
+        device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
     }
     
     

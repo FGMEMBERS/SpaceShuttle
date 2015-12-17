@@ -123,7 +123,7 @@ var MDU_Device =
 
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
-            me.DPS_menu_scratch_line.setText("%s",getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
+            me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
             me.DPS_menu_gpc_driver.setText("1");
 
             var fault_string = getprop("/fdm/jsbsim/systems/dps/error-string");

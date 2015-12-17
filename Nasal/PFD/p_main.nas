@@ -13,7 +13,7 @@ var PFD_addpage_p_main = func(device)
     p_main.ondisplay = func
     {
         device.set_DPS_off();
-        device.MEDS_menu_title.setText(sprintf("%s","      MAIN MENU"));
+        device.MEDS_menu_title.setText("      MAIN MENU");
     }
     
     

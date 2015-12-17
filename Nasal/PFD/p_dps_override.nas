@@ -107,13 +107,13 @@ var PFD_addpage_p_dps_override = func(device)
     
     p_dps_override.ondisplay = func
     {
-        device.DPS_menu_title.setText(sprintf("%s","OVERRIDE"));
-        device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+        device.DPS_menu_title.setText("OVERRIDE");
+        device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
         var ops_string = major_mode~"1/051/";
-        device.DPS_menu_ops.setText(sprintf("%s",ops_string));
+        device.DPS_menu_ops.setText(ops_string);
     
     # blank unsupported functions
         p_dps_override.etsep_auto.setText(sprintf(""));
@@ -185,7 +185,7 @@ var PFD_addpage_p_dps_override = func(device)
             symbol = "*";
     	}
     
-        p_dps_override.etsep_sep.setText(sprintf("%s", symbol ));
+        p_dps_override.etsep_sep.setText( symbol );
     
         symbol = "";
     
@@ -193,7 +193,7 @@ var PFD_addpage_p_dps_override = func(device)
     	{
             symbol = "*";
     	}
-        p_dps_override.umb_cl.setText(sprintf("%s", symbol ));
+        p_dps_override.umb_cl.setText( symbol );
     
     # ADTA is shown only in OPS 3 or 6
     
@@ -219,28 +219,28 @@ var PFD_addpage_p_dps_override = func(device)
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/navigation/air-data-1-deselect-cmd") == 1){symbol = "*";}
-        p_dps_override.adta_des1.setText(sprintf("%s", symbol ));
+        p_dps_override.adta_des1.setText( symbol );
     
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/navigation/air-data-2-deselect-cmd") == 1){symbol = "*";}
-        p_dps_override.adta_des2.setText(sprintf("%s", symbol )); 
+        p_dps_override.adta_des2.setText( symbol ); 
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/navigation/air-data-3-deselect-cmd") == 1){symbol = "*";}
-        p_dps_override.adta_des3.setText(sprintf("%s", symbol ));
+        p_dps_override.adta_des3.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/navigation/air-data-4-deselect-cmd") == 1){symbol = "*";}
-        p_dps_override.adta_des4.setText(sprintf("%s", symbol ));
+        p_dps_override.adta_des4.setText( symbol );
     
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd") == 1){symbol = "ENA";}
-        p_dps_override.arcsdump.setText(sprintf("%s", symbol ));
+        p_dps_override.arcsdump.setText( symbol );
     
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd") == 1){symbol = "ENA";}
-        p_dps_override.frcsdump.setText(sprintf("%s", symbol ));
+        p_dps_override.frcsdump.setText( symbol );
     
         p_dps_override.frcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s")));
         p_dps_override.arcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s")));
@@ -248,23 +248,23 @@ var PFD_addpage_p_dps_override = func(device)
     
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd") == 1){symbol = "ENA";}
-        p_dps_override.icnct1.setText(sprintf("%s", symbol ));
+        p_dps_override.icnct1.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-complete") == 1){symbol = "CPLT";}
-        p_dps_override.icnct2.setText(sprintf("%s", symbol ));
+        p_dps_override.icnct2.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd") == 1){symbol = "*";}
-        p_dps_override.omsdump_arm.setText(sprintf("%s", symbol ));
+        p_dps_override.omsdump_arm.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 1){symbol = "*";}
-        p_dps_override.omsdump_start.setText(sprintf("%s", symbol ));
+        p_dps_override.omsdump_start.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0){symbol = "*";}
-        p_dps_override.omsdump_stop.setText(sprintf("%s", symbol ));
+        p_dps_override.omsdump_stop.setText( symbol );
     
     
         p_dps_override.omsdump_qty.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-qty")));
@@ -272,51 +272,51 @@ var PFD_addpage_p_dps_override = func(device)
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/abort/arm-tal") == 1) {symbol ="*";}
-        p_dps_override.tal.setText(sprintf("%s", symbol ));
+        p_dps_override.tal.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/abort/arm-ato") == 1) {symbol ="*";}
-        p_dps_override.ato.setText(sprintf("%s", symbol ));
+        p_dps_override.ato.setText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0) {symbol ="*";}
-        p_dps_override.abort.setText(sprintf("%s", symbol ));
+        p_dps_override.abort.setText( symbol );
     
         var throttle_mode = getprop("/fdm/jsbsim/systems/throttle/throttle-mode");
     
         symbol = "";
         if (throttle_mode == 1) {symbol ="*";}
-        p_dps_override.throt_max.setText(sprintf("%s", symbol ));
+        p_dps_override.throt_max.setText( symbol );
     
         symbol = "";
         if (throttle_mode == 2) {symbol ="*";}
-        p_dps_override.throt_abt.setText(sprintf("%s", symbol ));
+        p_dps_override.throt_abt.setText( symbol );
     
         symbol = "";
         if (throttle_mode == 3) {symbol ="*";}
-        p_dps_override.throt_nom.setText(sprintf("%s", symbol )); 
+        p_dps_override.throt_nom.setText( symbol ); 
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd") == 1) {symbol ="*";}
-        p_dps_override.vdoor_open.setText(sprintf("%s", symbol )); 
+        p_dps_override.vdoor_open.setText( symbol ); 
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-pos") == 1.0) {symbol ="OP";}
-        p_dps_override.vdoor_open_stat.setText(sprintf("%s", symbol )); 
+        p_dps_override.vdoor_open_stat.setText( symbol ); 
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd") == 0) {symbol ="*";}
-        p_dps_override.vdoor_close.setText(sprintf("%s", symbol )); 
+        p_dps_override.vdoor_close.setText( symbol ); 
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-pos") == 0.0) {symbol ="CL";}
-        p_dps_override.vdoor_close_stat.setText(sprintf("%s", symbol )); 
+        p_dps_override.vdoor_close_stat.setText( symbol ); 
     
         if (ops == 3)
         {
             symbol = "INH";
             if (getprop("/fdm/jsbsim/systems/vectoring/ssme-repos-enable") == 1) {symbol ="ENA";}
-            p_dps_override.ssme_repos.setText(sprintf("%s", symbol )); 
+            p_dps_override.ssme_repos.setText( symbol ); 
         }
     
         device.update_common_DPS();
