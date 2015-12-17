@@ -277,9 +277,9 @@ var flag = 0;
 
 foreach (M; SpaceShuttle.MDU_array)
 	{
-	if (M.port_selected == idp_index +1)
+	if (M.PFD.port_selected == idp_index +1)
 		{
-		if (M.dps_page_flag == 1)
+		if (M.PFD.dps_page_flag == 1)
 			{
 			flag =1; break;
 			}
