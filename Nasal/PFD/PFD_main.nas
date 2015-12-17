@@ -47,6 +47,7 @@ io.include("p_dps_override.nas");
 io.include("p_dps_time.nas");
 io.include("p_dps_dap.nas");
 io.include("p_dps_sm_sys_summ2.nas");
+io.include("p_dps_antenna.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -162,6 +163,7 @@ var MDU_Device =
         me.PFD.p_dps_time = PFD_addpage_p_dps_time(me.PFD);
         me.PFD.p_dps_dap = PFD_addpage_p_dps_dap(me.PFD);
         me.PFD.p_dps_sm_sys_summ2 = PFD_addpage_p_dps_sm_sys_summ2(me.PFD);
+        me.PFD.p_dps_antenna = PFD_addpage_p_dps_antenna(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -272,6 +274,10 @@ var MDU_Device =
         me.PFD.p_dps_apu_hyd.addMenuItem(4, "MSG RST", me.PFD.p_dps_apu_hyd);
         me.PFD.p_dps_apu_hyd.addMenuItem(5, "MSG ACK", me.PFD.p_dps_apu_hyd);
     
+        me.PFD.p_dps_antenna.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_antenna.addMenuItem(4, "MSG RST", me.PFD.p_dps_antenna);
+        me.PFD.p_dps_antenna.addMenuItem(5, "MSG ACK", me.PFD.p_dps_antenna);
+
         me.PFD.p_dps_pl_bay.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_pl_bay.addMenuItem(4, "MSG RST", me.PFD.p_dps_pl_bay);
         me.PFD.p_dps_pl_bay.addMenuItem(5, "MSG ACK", me.PFD.p_dps_pl_bay);
