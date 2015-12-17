@@ -1146,8 +1146,24 @@
     <shuttle>
      <controls>
       <PFD>
-       <mode type="int">10</mode>
-       <button-pressed type="int">0</button-pressed>
+        <mode1 type="int">10</mode1>
+        <mode2 type="int">10</mode2>
+        <mode3 type="int">10</mode3>
+        <mode4 type="int">10</mode4>
+        <mode5 type="int">10</mode5>
+        <mode6 type="int">10</mode6>
+        <mode7 type="int">10</mode7>
+        <mode8 type="int">10</mode8>
+        <mode9 type="int">10</mode9>
+        <button-pressed1 type="int">0</button-pressed1>
+        <button-pressed2 type="int">0</button-pressed2>
+        <button-pressed3 type="int">0</button-pressed3>
+        <button-pressed4 type="int">0</button-pressed4>
+        <button-pressed5 type="int">0</button-pressed5>
+        <button-pressed6 type="int">0</button-pressed6>
+        <button-pressed7 type="int">0</button-pressed7>
+        <button-pressed8 type="int">0</button-pressed8>
+        <button-pressed9 type="int">0</button-pressed9>
       </PFD>
      </controls>
      <lighting>
