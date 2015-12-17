@@ -219,29 +219,182 @@
   <object-name>Fwd_Equipment_Knobs.059</object-name>
   <object-name>Fwd_Equipment_Knobs.060</object-name>
   <object-name>Fwd_Equipment_Knobs.061</object-name>
- </effect> 
+ </effect>
 
- <animation>
-  <object-name>DisplayL1</object-name>
-  <type>material</type>
-  <condition>
-   <greater-than>
-    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-    <value>0</value>
-   </greater-than>
-   <not>
-    <property>/sim/rendering/rembrandt/enabled</property>
-   </not>
-  </condition>
-  <emission>
-   <factor-prop>sim/model/shuttle/controls/PFD/mode</factor-prop>
-   <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
-   <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
-   <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
-  </emission>
- </animation>
+    <animation>
+        <object-name>DisplayL1</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode1</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayL2</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
 
- <animation>
+    <animation>
+        <object-name>DisplayC1</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayC2</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayC3</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayC4</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayC5</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayR1</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayR2</object-name>
+        <type>material</type>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                <value>0</value>
+            </greater-than>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+
+    <animation>
   <object-name>HUDImage1</object-name>
   <type>material</type>
   <condition>
@@ -281,7 +434,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>1</value>
             </binding>
         </action>
@@ -289,7 +442,7 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>0</value>
             </binding>
         </release>
@@ -307,7 +460,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>2</value>
             </binding>
         </action>
@@ -315,7 +468,7 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>0</value>
             </binding>
         </release>
@@ -333,7 +486,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>3</value>
             </binding>
         </action>
@@ -341,7 +494,7 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>0</value>
             </binding>
         </release>
@@ -359,7 +512,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>4</value>
             </binding>
         </action>
@@ -367,7 +520,7 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>0</value>
             </binding>
         </release>
@@ -385,7 +538,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>5</value>
             </binding>
         </action>
@@ -393,7 +546,7 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>0</value>
             </binding>
         </release>
@@ -411,7 +564,7 @@
         <action>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
                 <value>6</value>
             </binding>
         </action>
@@ -419,14 +572,172 @@
         <release>
             <binding>
                 <command>property-assign</command>
-                <property>sim/model/shuttle/controls/PFD/button-pressed</property>
+                <property>sim/model/shuttle/controls/PFD/button-pressed1</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+
+<!-- second display -->
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B1</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>1</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B2</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>2</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B3</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>3</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B4</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>4</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B5</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>5</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>0</value>
+            </binding>
+        </release>
+    </animation>
+    <animation>
+        <type>knob</type>
+        <object-name>MFD2_B6</object-name>
+        <factor>-0.02</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+
+        <action>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
+                <value>6</value>
+            </binding>
+        </action>
+
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>sim/model/shuttle/controls/PFD/button-pressed2</property>
                 <value>0</value>
             </binding>
         </release>
     </animation>
 
 
- <!-- ******************************************************************* -->
+    <!-- ******************************************************************* -->
  <!--  Commander RHC                                                      -->
  <!-- ******************************************************************* -->
  <model>
