@@ -66,7 +66,43 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
     p_dps_sm_sys_summ2.avbay2_t = device.svg.getElementById("p_dps_sm_sys_summ2_avbay2_t");
     p_dps_sm_sys_summ2.avbay3_t = device.svg.getElementById("p_dps_sm_sys_summ2_avbay3_t");
     
+
+    p_dps_sm_sys_summ2.tk1_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk1_ph2");
+    p_dps_sm_sys_summ2.tk2_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk2_ph2");
+    p_dps_sm_sys_summ2.tk3_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk3_ph2");
+    p_dps_sm_sys_summ2.tk4_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk4_ph2");
+    p_dps_sm_sys_summ2.tk5_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk5_ph2");
+
+    p_dps_sm_sys_summ2.mf1_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_mf1_ph2");
+    p_dps_sm_sys_summ2.mf2_ph2 = device.svg.getElementById("p_dps_sm_sys_summ2_mf2_ph2");
+
+
+    p_dps_sm_sys_summ2.tk1_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk1_po2");
+    p_dps_sm_sys_summ2.tk2_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk2_po2");
+    p_dps_sm_sys_summ2.tk3_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk3_po2");
+    p_dps_sm_sys_summ2.tk4_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk4_po2");
+    p_dps_sm_sys_summ2.tk5_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk5_po2");
     
+    p_dps_sm_sys_summ2.mf1_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_mf1_po2");
+    p_dps_sm_sys_summ2.mf2_po2 = device.svg.getElementById("p_dps_sm_sys_summ2_mf2_po2");
+
+    p_dps_sm_sys_summ2.tk1_htrt1 = device.svg.getElementById("p_dps_sm_sys_summ2_tk1_htrt1");
+    p_dps_sm_sys_summ2.tk2_htrt1 = device.svg.getElementById("p_dps_sm_sys_summ2_tk2_htrt1");
+    p_dps_sm_sys_summ2.tk3_htrt1 = device.svg.getElementById("p_dps_sm_sys_summ2_tk3_htrt1");
+    p_dps_sm_sys_summ2.tk4_htrt1 = device.svg.getElementById("p_dps_sm_sys_summ2_tk4_htrt1");
+    p_dps_sm_sys_summ2.tk5_htrt1 = device.svg.getElementById("p_dps_sm_sys_summ2_tk5_htrt1");
+
+    p_dps_sm_sys_summ2.tk1_htrt2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk1_htrt2");
+    p_dps_sm_sys_summ2.tk2_htrt2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk2_htrt2");
+    p_dps_sm_sys_summ2.tk3_htrt2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk3_htrt2");
+    p_dps_sm_sys_summ2.tk4_htrt2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk4_htrt2");
+    p_dps_sm_sys_summ2.tk5_htrt2 = device.svg.getElementById("p_dps_sm_sys_summ2_tk5_htrt2");
+
+    p_dps_sm_sys_summ2.avbay1_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay1_fan");
+    p_dps_sm_sys_summ2.avbay2_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay2_fan");
+
+
+
     p_dps_sm_sys_summ2.ondisplay = func
     {
         device.DPS_menu_title.setText("SM SYS SUMM 2");
@@ -86,8 +122,40 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.hyd1_rsvr_p.setText(sprintf("  54")); 
         p_dps_sm_sys_summ2.hyd2_rsvr_p.setText(sprintf("  56")); 
         p_dps_sm_sys_summ2.hyd3_rsvr_p.setText(sprintf("  55")); 
+
+	p_dps_sm_sys_summ2.tk1_ph2.setText(sprintf("208")); 
+	p_dps_sm_sys_summ2.tk2_ph2.setText(sprintf("208")); 
+	p_dps_sm_sys_summ2.tk3_ph2.setText(sprintf("206")); 
+	p_dps_sm_sys_summ2.tk4_ph2.setText(sprintf("206")); 
+	p_dps_sm_sys_summ2.tk5_ph2.setText(sprintf("206"));
+
+	p_dps_sm_sys_summ2.mf1_ph2.setText(sprintf("208"));
+	p_dps_sm_sys_summ2.mf2_ph2.setText(sprintf("207"));
+
+	p_dps_sm_sys_summ2.tk1_po2.setText(sprintf(" 816")); 
+	p_dps_sm_sys_summ2.tk2_po2.setText(sprintf(" 813")); 
+	p_dps_sm_sys_summ2.tk3_po2.setText(sprintf(" 816")); 
+	p_dps_sm_sys_summ2.tk4_po2.setText(sprintf(" 814")); 
+	p_dps_sm_sys_summ2.tk5_po2.setText(sprintf(" 814")); 
+
+	p_dps_sm_sys_summ2.mf1_po2.setText(sprintf(" 815"));
+	p_dps_sm_sys_summ2.mf2_po2.setText(sprintf(" 815"));
     
-    
+   	p_dps_sm_sys_summ2.tk1_htrt1.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk2_htrt1.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk3_htrt1.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk4_htrt1.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk5_htrt1.setText(sprintf("-248")); 
+
+  	p_dps_sm_sys_summ2.tk1_htrt2.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk2_htrt2.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk3_htrt2.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk4_htrt2.setText(sprintf("-248")); 
+   	p_dps_sm_sys_summ2.tk5_htrt2.setText(sprintf("-248")); 
+
+	p_dps_sm_sys_summ2.avbay1_fan.setText("27.4"); 
+	p_dps_sm_sys_summ2.avbay2_fan.setText("27.4"); 
+
     }
     
     p_dps_sm_sys_summ2.update = func
