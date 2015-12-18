@@ -412,6 +412,112 @@
 
 	</group>
 
+	<group>
+ 	<layout>table</layout>
+
+   	<text>
+      	 <label>IDP selection</label>
+         <halign>center</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+        </group>
+
+	<group>
+ 	<layout>table</layout>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>0</col>
+      	 <label>1</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel1</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>1</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>0</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(1);</script>
+	 </binding>
+    	</radio>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>1</col>
+      	 <label>2</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel2</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>1</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>0</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(2);</script>
+	 </binding>
+    	</radio>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>2</col>
+      	 <label>3</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel2</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>1</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(3);</script>
+	 </binding>
+    	</radio>	
+
+	</group>
+
+	
+
 
        <empty>
 		<pref-height>12</pref-height>

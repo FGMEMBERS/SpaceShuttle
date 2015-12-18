@@ -13,6 +13,9 @@
      <arm-ato type="int">0</arm-ato>
      <abort-mode type="int">0</abort-mode>
     </abort>
+    <adi>
+     <toggle-switch type="int">0</toggle-switch>
+    </adi>
     <ap>
      <automatic-pitch-control type="int">0</automatic-pitch-control>
      <css-pitch-control type="int">1</css-pitch-control>
@@ -146,6 +149,9 @@
 		    <idp-function-switch type="int" n="1">1</idp-function-switch>
 		    <idp-function-switch type="int" n="2">1</idp-function-switch>
 		    <idp-function-switch type="int" n="3">1</idp-function-switch>
+		    <virtual-kb-idp-1-selected type="bool">false</virtual-kb-idp-1-selected>
+		    <virtual-kb-idp-2-selected type="bool">false</virtual-kb-idp-2-selected>
+		    <virtual-kb-idp-3-selected type="bool">true</virtual-kb-idp-3-selected>
     </dps>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>

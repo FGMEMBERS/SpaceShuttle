@@ -419,14 +419,14 @@ var ops_transition = func (idp_index, page_id) {
 
     var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
-# we now switch over all screens on IDPs showing the same major function
+# we now switch over all screens on IDPs showing the same major function which are in dps mode
 
     foreach (M; SpaceShuttle.MDU_array)
 	{
         var index = M.PFD.port_selected - 1;
         var current_major_function = SpaceShuttle.idp_array[index].get_major_function();
 
-        if (current_major_function == major_function)
+        if ((current_major_function == major_function) and (M.PFD.dps_page_flag == 1))
 		{
             M.PFD.selectPage(M.PFD.page_index[page_id]);
 		}
