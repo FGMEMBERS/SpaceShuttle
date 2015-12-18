@@ -1448,6 +1448,14 @@
        </binding>
       </item>
 
+      <item>
+       <label>Display processor</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.idp_dlg.open()</script>
+       </binding>
+      </item>
+
      </menu>
 
     </default>
