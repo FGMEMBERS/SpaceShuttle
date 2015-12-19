@@ -445,6 +445,58 @@ ku_antenna_point (angles[1], angles[0]);
 
 }
 
+
+
+var antenna_manager = {
+
+	quadrant : "",
+	hemisphere : "LO",
+	station : "",
+	mode : "S-HI",
+	TDRS_view_array : [0,0,0,0,0,0],
+
+	run: func {
+
+	# check the closest ground station
+
+	if ((me.mode == "S-HI") or (me.mode == "S-LO"))
+		{
+		var gs_index = SpaceShuttle.com_find_nearest_station(me.mode);
+		var los = SpaceShuttle.com_check_LOS_to_station(gs_index);
+		if (los == 1)
+			{
+			me.quadrant = com_get_S_quadrant(gs_index);
+			me.station = SpaceShuttle.com_ground_site_array[gs_index].string;
+			}
+		else
+			{	
+			me.quadrant = "";
+			me.station = "";
+			}
+		}
+	
+	# see which TDRS are in view
+
+	for (var i=0; i <6; i=i+1)
+		{
+		me.TDRS_view_array[i] = SpaceShuttle.com_check_LOS_to_TDRS(i);
+
+		}
+
+	ku_antenna_track_TDRS (2);
+	},
+
+};
+
+var antenna_management = func {
+
+
+
+
+
+
+}
+
 #########################################################################################
 # management rountines for internal timers
 #########################################################################################

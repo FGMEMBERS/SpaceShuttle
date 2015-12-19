@@ -247,7 +247,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_sm_sys_summ2);
+        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_antenna);
         me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
     

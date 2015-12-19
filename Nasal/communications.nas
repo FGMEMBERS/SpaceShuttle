@@ -147,7 +147,7 @@ for (var i = 0; i< size(com_ground_site_array); i=i+1)
 		}
 	}
 
-print(index, " ", com_ground_site_array[index].string, " ", com_ground_site_array[index].mode);
+#print(index, " ", com_ground_site_array[index].string, " ", com_ground_site_array[index].mode);
 
 return index;
 
@@ -287,11 +287,11 @@ var alt = shuttle_pos.alt();
 
 var delta_phi = 180.0 / math.pi * math.acos(radius/(radius + alt));
 
-print (delta_phi);
+#print (delta_phi);
 
 var delta_lon = math.abs(shuttle_pos.lon() - com_TDRS_array[index].coord.lon());
 
-print (delta_lon);
+#print (delta_lon);
 
 if (delta_lon < 90.0 + delta_phi)
 	{return 1;}
