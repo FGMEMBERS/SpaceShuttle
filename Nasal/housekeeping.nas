@@ -454,6 +454,8 @@ var antenna_manager = {
 	station : "",
 	mode : "S-HI",
 	TDRS_view_array : [0,0,0,0,0,0],
+	TDRS_A : 0,
+	TDRS_B : 0,
 
 	run: func {
 

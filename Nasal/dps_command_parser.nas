@@ -614,7 +614,6 @@ if ((header == "ITEM") and (end = "EXEC"))
 	var spec = getprop("/fdm/jsbsim/systems/dps/spec");
 
 	var item = int(body);
-	var item_value = num(value);
 
 	#print("Major mode: ", major_mode);
 	#print("Spec: ", spec);
@@ -1644,6 +1643,13 @@ if ((header == "OPS") and (end =="PRO"))
 	var major_mode = int(body);
 	print ("Switching to major_mode ", major_mode);
 
+	if (major_mode == 201)
+		{
+		setprop("/fdm/jsbsim/systems/dps/major-mode-sm", 201);
+		ops_transition(idp_index, "p_dps_antenna");
+		valid_flag = 1;
+		}
+
 	if (major_mode == 202)
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode-sm", 202);
@@ -1670,6 +1676,100 @@ if ((header == "SPEC") and (end =="PRO"))
 		}
 	}
 
+
+if ((header == "ITEM") and (end = "EXEC"))
+	{
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec = getprop("/fdm/jsbsim/systems/dps/spec-sm");
+
+	var item = int(body);
+
+	print("Major mode: ", major_mode);
+	print("Spec: ", spec);
+
+
+	if ((major_mode == 201) and (spec == 0))
+		{
+		if (item == 1)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 1;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 1;
+				valid_flag = 1;
+				}
+			}
+		else if (item == 2)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 2;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 2;
+				valid_flag = 1;
+				}
+			}
+		else if (item == 3)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 3;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 3;
+				valid_flag = 1;
+				}
+			}
+		else if (item == 4)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 4;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 4;
+				valid_flag = 1;
+				}
+			}
+		else if (item == 5)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 5;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 5;
+				valid_flag = 1;
+				}
+			}
+		else if (item == 6)
+			{
+			if (value == "+A")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_A = 6;
+				valid_flag = 1;
+				}
+			else if (value == "+B")
+				{				
+				SpaceShuttle.antenna_manager.TDRS_B = 6;
+				valid_flag = 1;
+				}
+			}
+		}
+	}
 
 
 length_body = 0;
