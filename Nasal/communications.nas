@@ -223,6 +223,16 @@ return string;
 }
 
 
+var com_get_S_hemisphere = func  {
+
+var up = getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]");
+
+if (up >0) {var string = "LO";}
+else {var string = "HI";}
+
+return string;
+}
+
 ###############################################################################
 # TDRS network
 ###############################################################################

@@ -456,6 +456,10 @@ var antenna_manager = {
 	TDRS_view_array : [0,0,0,0,0,0],
 	TDRS_A : 0,
 	TDRS_B : 0,
+	TDRS_ku_primary : "A",
+	TDRS_s_primary : "A",
+	TDRS_ku_track : 0,
+	TDRS_ku_tgt : 0,
 
 	run: func {
 
@@ -476,6 +480,10 @@ var antenna_manager = {
 			me.station = "";
 			}
 		}
+
+	# get the FM hemisphere
+
+	me.hemisphere = SpaceShuttle.com_get_S_hemisphere();
 	
 	# see which TDRS are in view
 
@@ -485,7 +493,46 @@ var antenna_manager = {
 
 		}
 
-	ku_antenna_track_TDRS (2);
+	# decide which TDRS we want to track
+
+	# first try the primary selection
+
+	var track_index = me.TDRS_A - 1;
+	if (me.TDRS_ku_primary == "B") {track_index = me.TDRS_B - 1;}
+
+	var flag = 0;
+
+	if (track_index > 0)
+		{
+		if (me.TDRS_view_array[track_index] == 1) {flag = 1;}
+		}
+	
+	if (flag == 0) # try the secondary selection
+		{
+		track_index = me.TDRS_B - 1;
+		if (me.TDRS_ku_primary == "B") {track_index = me.TDRS_A - 1;}
+
+		if (track_index > 0)
+			{
+			if (me.TDRS_view_array[track_index] == 1) {flag = 1;}
+			}
+		}
+	if (flag == 0) # try the first visible
+		{
+		for (track_index =0; track_index < 6; track_index = track_index+1)
+			{
+			if (me.TDRS_view_array[track_index] == 1) {break;}
+			}
+		}
+	me.TDRS_ku_track = track_index +1;
+
+	ku_antenna_track_TDRS (track_index);
+
+
+	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0))
+		{me.TDRS_ku_tgt = 1;}
+	else
+		{me.TDRS_ku_tgt = 0;}
 	},
 
 };

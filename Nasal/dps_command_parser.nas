@@ -1768,6 +1768,26 @@ if ((header == "ITEM") and (end = "EXEC"))
 				valid_flag = 1;
 				}
 			}
+		else if (item == 9)
+			{
+			SpaceShuttle.antenna_manager.TDRS_ku_primary = "A";
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			SpaceShuttle.antenna_manager.TDRS_ku_primary = "B";
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			SpaceShuttle.antenna_manager.TDRS_s_primary = "A";
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			SpaceShuttle.antenna_manager.TDRS_s_primary = "B";
+			valid_flag = 1;
+			}
 		}
 	}
 
