@@ -138,7 +138,7 @@
 		    <error-string type="string"></error-string>
 		    <spec type="int">0</spec>
 		    <disp type="int">0</disp>
-		    <major-mode-sm type="int">202</major-mode-sm>
+		    <major-mode-sm type="int">201</major-mode-sm>
 		    <spec-sm type="int">0</spec-sm>
 		    <disp-sm type="int">0</disp-sm>
 		    <idp-power-status type="int" n="0">1</idp-power-status>

@@ -464,7 +464,10 @@ var get_ops_page  = func (major_function, major_mode)
 	}
     else if (major_function == 2)
 	{
-        return "p_dps_pl_bay";
+	if (major_mode == 202)
+        	return "p_dps_pl_bay";
+	else if (major_mode == 201)
+		return "p_dps_antenna";
 	}
     print("error locating page for ",major_function,",",major_mode);
     return "p_ascent";
