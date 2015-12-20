@@ -182,7 +182,7 @@ var HUD_DataProvider  = {
     update : func() {
         #me.IAS = getprop("/velocities/airspeed-kt");
 		me.IAS = getprop("/fdm/jsbsim/velocities/ve-kts");
-        me.Nz = getprop("sim/model/f15/instrumentation/g-meter/g-max-mooving-average");
+        me.Nz = getprop("sim/model/spaceshuttle/instrumentation/g-meter/g-max-mooving-average");
         me.WOW = getprop ("/gear/gear[1]/wow") or getprop ("/gear/gear[2]/wow");
         me.alpha = getprop ("fdm/jsbsim/aero/alpha-deg");
         me.beta = getprop ("fdm/jsbsim/aero/beta-deg");

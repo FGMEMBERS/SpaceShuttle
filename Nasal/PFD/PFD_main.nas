@@ -191,11 +191,11 @@ var MDU_Device =
                         if (v != nil)
                         {
                             me.mdu_device_status = v.getValue();
-#                            print("PFD Mode ",mdu_device_status);
-#                            if (!mdu_device_status)
-#                                me.PFD._canvas.setVisible(0);
-#                            else
-#                                me.PFD._canvas.setVisible(1);
+                            print("MDU Mode ",me.designation," ",me.mdu_device_status);
+                            if (!me.mdu_device_status)
+                                me.PFDsvg.setVisible(0);
+                            else
+                                me.PFDsvg.setVisible(1);
                         }
                     });
 
