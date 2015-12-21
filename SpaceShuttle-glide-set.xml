@@ -5,6 +5,7 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in a free-fly test</description>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
 	<altitude-ft>36000.0</altitude-ft>
 	<pitch-deg>-10.0</pitch-deg>	

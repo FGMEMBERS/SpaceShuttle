@@ -5,6 +5,7 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on final</description>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
 	<altitude-ft>11000.0</altitude-ft>
 	<pitch-deg>-5.0</pitch-deg>	

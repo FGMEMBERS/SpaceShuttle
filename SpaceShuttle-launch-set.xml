@@ -5,6 +5,7 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in launch position</description>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
 	<!--<altitude-ft>214.0</altitude-ft>-->
 	<!-- we init the Shuttle free of the terrain and re-position it sitting on the tail via Nasal -->
