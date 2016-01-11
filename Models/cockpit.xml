@@ -3691,4 +3691,16 @@
 	 </condition>
  </animation>
 
+ <!-- do not show this till special shader is done --> 
+ <animation>
+   <type>select</type>
+   <object-name>Plasma_Screen</object-name>
+   <condition>
+			<equals>
+				<value>1</value>
+				<value>0</value>
+			</equals>
+	</condition>
+ </animation>
+
 </PropertyList>
