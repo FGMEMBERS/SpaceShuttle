@@ -1590,7 +1590,7 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303))
 	{
-	if (getprop("/fdm/jsbsim/systems/dps/command-string") == " EXEC")
+	if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 		{
 		var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
 		var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
