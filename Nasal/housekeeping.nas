@@ -129,6 +129,10 @@ setprop("/fdm/jsbsim/propulsion/tank[18]/external-flow-rate-pps", LO2_dump_rate)
 
 setprop("/fdm/jsbsim/systems/mps/propellant-dump-density", 0.08 * n_LO2_prevalves * helium_pressurized * manifold_open * (1.0 - counter/120.0));
 
+#setprop("/fdm/jsbsim/systems/mps/plume-color-1", 0.7 * getprop("/rendering/scene/diffuse/red"));
+#setprop("/fdm/jsbsim/systems/mps/plume-color-2", 0.9 * getprop("/rendering/scene/diffuse/red"));
+#setprop("/fdm/jsbsim/systems/mps/plume-color-3", getprop("/rendering/scene/diffuse/red"));
+
 var dump_propulsive_force = 250.0 *  n_LO2_prevalves * helium_pressurized * manifold_open;
 
 if (counter > 90) {dump_propulsive_force = 0.0;}
@@ -955,4 +959,29 @@ if (delta_t < 0)
 if (up_future_mnvr_loop_flag == 0) {return;}
 
 settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
+}
+
+
+
+#########################################################################################
+# color adjustment for effect palette based on scene light available
+#########################################################################################
+
+
+var adjust_effect_colors = func {
+
+var light_intensity = getprop("/rendering/scene/diffuse/red");
+
+setprop("/lighting/effects/color-1", 0.1 * light_intensity);
+setprop("/lighting/effects/color-2", 0.2 * light_intensity);
+setprop("/lighting/effects/color-3", 0.3 * light_intensity);
+setprop("/lighting/effects/color-4", 0.4 * light_intensity);
+setprop("/lighting/effects/color-5", 0.5 * light_intensity);
+setprop("/lighting/effects/color-6", 0.6 * light_intensity);
+setprop("/lighting/effects/color-7", 0.7 * light_intensity);
+setprop("/lighting/effects/color-8", 0.8 * light_intensity);
+setprop("/lighting/effects/color-9", 0.9 * light_intensity);
+setprop("/lighting/effects/color-10", light_intensity);
+
+
 }

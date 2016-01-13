@@ -226,6 +226,9 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	}
 	
 
+settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+
+
 # some log output
 # print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"));
 # print(t_elapsed, " ", getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps"), " ", getprop("/position/altitude-ft"));
@@ -790,6 +793,8 @@ SpaceShuttle.antenna_manager.run();
 
 SpaceShuttle.update_timers();
 
+settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+
 settimer(orbital_loop, 1.0);
 }
 
@@ -1196,6 +1201,8 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"), " ", getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/fdm/jsbsim/velocities/v-down-fps"));
+
+settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 settimer(deorbit_loop,1.0);
 }
