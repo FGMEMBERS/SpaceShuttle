@@ -107,10 +107,11 @@ var fuel_dump_loop = func (counter) {
 
 if (counter == 120) 
 	{
-	setprop("/fmd/jsbsim/systems/mps/propellant-dump-cmd",0);
+	setprop("/fdm/jsbsim/systems/mps/propellant-dump-cmd",0);
 	setprop("/fdm/jsbsim/propulsion/tank[17]/external-flow-rate-pps", 0.0);
 	setprop("/fdm/jsbsim/propulsion/tank[18]/external-flow-rate-pps", 0.0);
 	setprop("/sim/messages/copilot", "Propellant dump completed.");
+	setprop("/fdm/jsbsim/systems/mps/propellant-dump-density", 0.0);
 	propellant_dump_completed = 1;
 	return;
 	}
