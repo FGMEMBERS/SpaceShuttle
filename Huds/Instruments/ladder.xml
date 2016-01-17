@@ -4,6 +4,14 @@
 	<ladder>
 		<name>Pitch Ladder</name>
 		<type>pitch</type>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-60</x>
 		<y>-90</y>
 		<width>120</width>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>shuttle-payload-bay</name>
+  <inherits-from>Effects/space-combined</inherits-from>
+
+  <parameters>
+	<lightmap-enabled type="int">1</lightmap-enabled>
+	<lightmap-multi type="int">1</lightmap-multi>
+	<lightmap-factor type="float" n="0"><use>/sim/systems/various/payload-bay-fwd-intensity</use></lightmap-factor>
+	<lightmap-color type="vec3d" n="0"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="1"><use>/sim/systems/various/payload-bay-mid-intensity</use></lightmap-factor>
+	<lightmap-color type="vec3d" n="1"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="2"><use>/sim/systems/various/payload-bay-aft-intensity</use></lightmap-factor>
+	<lightmap-color type="vec3d" n="2"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="3">0.0</lightmap-factor>
+	<lightmap-color type="vec3d" n="3"> 1.0 1.0 1.0 </lightmap-color>
+	<darkmap-enabled type="int">1</darkmap-enabled>
+	<darkmap-factor type="float"><use>/sim/systems/various/pb-door-opening-fraction</use></darkmap-factor>
+	<texture n="3">
+		<image>Aircraft/SpaceShuttle/Models/shuttle_lightmap.png</image>
+		<type>2d</type>
+		<filter>linear-mipmap-linear</filter>
+		<wrap-s>clamp</wrap-s>
+		<wrap-t>clamp</wrap-t>
+		<internal-format>normalized</internal-format>
+	</texture>
+  </parameters>
+
+
+</PropertyList> 

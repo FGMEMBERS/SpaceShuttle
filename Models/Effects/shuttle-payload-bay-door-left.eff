@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>shuttle-payload-bay-door-left</name>
+  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
+
+  <parameters>
+	<lightmap-multi type="int">0</lightmap-multi>
+	<lightmap-factor type="float" n="0"><use>/sim/systems/various/payload-bay-door-left-intensity</use></lightmap-factor>
+  </parameters>
+
+
+</PropertyList> 

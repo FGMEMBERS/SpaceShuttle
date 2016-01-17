@@ -8,7 +8,7 @@
 <rocket_engine name="OMS">
 	<isp>               313.0 </isp>
 	<maxthrottle>      1.00 </maxthrottle>
-	<minthrottle>      0.00 </minthrottle>
+	<minthrottle>      0.60 </minthrottle>
 	<sloxiflowmax>   11.91 </sloxiflowmax>
 	<slfuelflowmax>  7.23 </slfuelflowmax>
 </rocket_engine>

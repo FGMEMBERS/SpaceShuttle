@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!-- Derived from Richard Harrisons F-15 cockpit joystick -->
+
+<PropertyList>
+  <!--
+        Visual feedback of the flightdeck controls
+      -->
+  <model>
+    <!--
+          Objects in this model (Commander Joystick specific):
+            + Joystick.Base
+              + Joystick
+                - Joystick.Button
+                - Joystick.Hat
+        
+          Commander Joystick motions derived from
+            http://www.nasa.gov/centers/johnson/pdf/383442main_controllers_workbook_21002.pdf
+          section 2.2
+          
+          Individual pivot points need to be found in the mesh.
+          
+        -->
+    <path>Aircraft/SpaceShuttle/Models/RHC-Commander.ac</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0 </z-m>
+      <heading-deg>0.0</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    
+    <type>rotate</type>
+    <object-name>Joystick</object-name>
+    <property>controls/flight/elevator</property>
+    <factor>4</factor> <!--  19 to 20 degrees -->
+    
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+
+    <axis>
+      <y>-1</y>
+    </axis>
+    
+  </animation>
+
+  <animation>
+
+    <type>rotate</type>
+    <object-name>Joystick</object-name>
+    <property>controls/flight/aileron</property>
+    <factor>4</factor>
+
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+
+    <axis>
+      <x>-1</x>
+    </axis>
+
+  </animation>
+
+  <animation>
+
+    <type>rotate</type>
+    <object-name>Joystick</object-name>
+    <property>controls/flight/rudder</property>
+    <factor>2</factor>
+
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+
+    <axis>
+      <z>-1</z>
+    </axis>
+
+  </animation>
+
+    <!--effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
+        <object-name>Joystick.Base</object-name>
+        <object-name>Joystick</object-name>
+        <object-name>Joystick.Button</object-name>
+        <object-name>Joystick.Hat</object-name>
+    </effect-->
+
+</PropertyList>

@@ -62,7 +62,168 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/orbital/eccentricity">
+		<fcs_function name="systems/orbital/r-dot-v">
+		<function>
+			<sum>
+				<product>
+					<property>position/eci-x-ft</property>
+					<property>velocities/eci-x-fps</property>
+				</product>
+				<product>
+					<property>position/eci-y-ft</property>
+					<property>velocities/eci-y-fps</property>
+				</product>
+				<product>
+					<property>position/eci-z-ft</property>
+					<property>velocities/eci-z-fps</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/orbital/epsilon-x">
+		<function>
+			<sum>
+				<quotient>
+					<product>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>position/eci-x-ft</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>
+					<product>
+						<value>-1</value>
+						<property>systems/orbital/r-dot-v</property>
+						<property>velocities/eci-x-fps</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>	
+					<product>
+						<value>-1</value>
+						<property>position/eci-x-ft</property>
+					</product>
+					<property>position/radius-to-vehicle-ft</property>
+				</quotient>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/epsilon-y">
+		<function>
+			<sum>
+				<quotient>
+					<product>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>position/eci-y-ft</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>
+					<product>
+						<value>-1</value>
+						<property>systems/orbital/r-dot-v</property>
+						<property>velocities/eci-y-fps</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>	
+					<product>
+						<value>-1</value>
+						<property>position/eci-y-ft</property>
+					</product>
+					<property>position/radius-to-vehicle-ft</property>
+				</quotient>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/epsilon-z">
+		<function>
+			<sum>
+				<quotient>
+					<product>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>velocities/eci-velocity-mag-fps</property>
+						<property>position/eci-z-ft</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>
+					<product>
+						<value>-1</value>
+						<property>systems/orbital/r-dot-v</property>
+						<property>velocities/eci-z-fps</property>
+					</product>
+					<property>systems/orbital/gm</property> 
+				</quotient>
+				<quotient>	
+					<product>
+						<value>-1</value>
+						<property>position/eci-z-ft</property>
+					</product>
+					<property>position/radius-to-vehicle-ft</property>
+				</quotient>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/epsilon">
+		<function>
+			<pow>
+				<sum>
+					<product>
+						<property>systems/orbital/epsilon-x</property>
+						<property>systems/orbital/epsilon-x</property>
+					</product>
+					<product>
+						<property>systems/orbital/epsilon-y</property>
+						<property>systems/orbital/epsilon-y</property>
+					</product>
+					<product>
+						<property>systems/orbital/epsilon-z</property>
+						<property>systems/orbital/epsilon-z</property>
+					</product>
+				</sum>
+				<value>0.5</value>
+			</pow>
+		</function>
+		<output>systems/orbital/eccentricity</output>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/angle-to-periapsis-rad">
+		<function>
+			<acos>
+			<quotient>
+			<sum>
+				<product>
+					<property>position/eci-x-ft</property>
+					<property>systems/orbital/epsilon-x</property>
+				</product>
+				<product>
+					<property>position/eci-y-ft</property>
+					<property>systems/orbital/epsilon-y</property>
+				</product>
+				<product>
+					<property>position/eci-z-ft</property>
+					<property>systems/orbital/epsilon-z</property>
+				</product>
+			</sum>
+			<product>
+					<property>position/radius-to-vehicle-ft</property>
+					<property>systems/orbital/epsilon</property>
+			</product>
+			</quotient>
+			</acos>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/orbital/eccentricity">
 		<description>
 			This equation calculates eccentricity. e = sqrt (1 - [ r v cos(gamma) ]^2 / {a * mu})
 		</description>
@@ -90,7 +251,7 @@
 				<value> 0.5 </value>
 			</pow>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 		<fcs_function name="systems/orbital/apoapsis-ft">
 		<function>

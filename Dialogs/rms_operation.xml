@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rms-operation</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>600</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>RMS operation</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+
+    <text>
+      <row>0</row>
+      <col>0</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-x</property>
+    </text> 
+
+    <text>
+      <row>0</row>
+      <col>1</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-y</property>
+    </text> 
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <label>12345678</label>
+      <format>%.2f </format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/show-z</property>
+    </text> 
+
+
+    <text>
+      <label>X/PITCH</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>Y/YAW</label>
+      <row>1</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <label>Z/ROLL</label>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+
+  	<combo>
+       		 <row>2</row>
+        	 <col>1</col>
+        	 <name>parameter</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/parameter-selection-string</property>
+		 <value>TEST</value>
+		 <value>POSITION X/Y/Z</value>
+		 <value>ATTITUDE P/Y/R</value>
+		 <value>JOINT ANGLE</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>parameter</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_parameter_selection()</script>
+		</binding>
+      	</combo>
+
+  	<combo>
+       		 <row>2</row>
+        	 <col>2</col>
+        	 <name>mode</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/joint-selection-string</property>
+		 <value>SHOULDER YAW</value>
+		 <value>SHOULDER PITCH</value>
+		 <value>ELBOW PITCH</value>
+		 <value>WRIST PITCH</value>
+		 <value>WRIST YAW</value>
+		 <value>WRIST ROLL</value>	
+		 <value>END EFF</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>mode</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_joint_selection()</script>
+		</binding>
+      	</combo>
+
+
+    <text>
+      <label>Single/direct drive</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>decrease (-)</label>
+      <row>3</row>
+      <col>1</col>
+    </text>
+
+    <slider>
+      <name>direct-drive</name>
+      <row>3</row>
+      <col>2</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/direct-drive-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>direct-drive</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>increase(+)</label>
+      <row>3</row>
+      <col>3</col>
+    </text>
+
+   <button>
+    <row>4</row>
+    <col>1</col>
+	<legend>Grab</legend>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.rms_grab_payload()</script>
+	</binding>
+   </button>
+
+  <button>
+    <row>4</row>
+    <col>2</col>
+	<legend>Release</legend>
+	<binding>
+		<command>nasal</command>
+                <script>SpaceShuttle.rms_release_payload()</script>
+	</binding>
+   </button>
+
+
+    <text>
+      <label>Drive selection</label>
+      <row>5</row>
+      <col>0</col>
+    </text>
+
+  	<combo>
+       		 <row>5</row>
+        	 <col>1</col>
+        	 <name>drive</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/fdm/jsbsim/systems/rms/drive-selection-string</property>
+		 <value>SINGLE</value>
+		 <value>DIRECT</value>
+		 <value>ORB UNL X/Y/Z</value>
+		 <value>ORB UNL P/Y/R</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>drive</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_rms_drive_selection()</script>
+		</binding>
+      	</combo>
+
+    <text>
+      <label>Software stop</label>
+      <row>5</row>
+      <col>2</col>
+      <visible>
+	<equals>
+	  <property>/fdm/jsbsim/systems/rms/soft-stop</property>
+	  <value>1.0</value>
+	</equals>
+      </visible>
+    </text>
+
+       <checkbox>
+        <name>rms-brake</name>
+ 	<row>6</row>
+        <col>1</col>
+        <label>BRAKES</label>
+          <property>/fdm/jsbsim/systems/rms/rms-brake-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-brake</object-name>
+          </binding>
+        </checkbox>
+
+       <checkbox>
+        <name>rms-save</name>
+ 	<row>6</row>
+        <col>2</col>
+        <label>SAFING</label>
+          <property>/fdm/jsbsim/systems/rms/rms-save-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-save</object-name>
+          </binding>
+        </checkbox>
+
+
+
+
+</group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

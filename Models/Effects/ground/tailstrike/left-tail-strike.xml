@@ -11,7 +11,7 @@
   <particlesystem>
 
     <name>left-tail-strike-spark</name>
-	<texture>spark.png</texture>
+	<texture>Effects/ground/tailstrike/spark.png</texture>
     <emissive>true</emissive>
     <lighting>true</lighting>
 
@@ -102,7 +102,7 @@
   <particlesystem>
 
     <name>left-tail-strike-smoke</name>
-	<texture>tyreburn.png</texture>
+	<texture>Effects/ground/tailstrike/tyreburn.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 

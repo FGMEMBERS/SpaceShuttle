@@ -31,10 +31,10 @@
      			<value>100</value>
     		</greater-than>
 		</or>
-		<equals>
+		<!--<equals>
 			<property>/controls/shuttle/SRB-static-model</property>
 			<value>1</value>
-		</equals>
+		</equals>-->
 	</and>
 	</condition>
 		 

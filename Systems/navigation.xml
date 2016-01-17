@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Radar altimeter">
+
+		<switch name="systems/navigation/radar-alt-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/navigation/radar-altimeter-1-switch == 1
+				systems/navigation/radar-altimeter-2-switch == 1
+			</test>
+		</switch>
+	
+		<sensor name="systems/navigation/radar-alt-ft">
+			<input>/position/altitude-agl-ft</input>
+			<lag>0.1</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.01</noise>
+		</sensor>
+	</channel>
+
+	<channel name="Air data probes">
+
+		<switch name="systems/navigation/air-data-left-target">
+			<default value="systems/navigation/air-data-left-pos"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/navigation/air-data-deploy-left-switch == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/navigation/air-data-deploy-left-switch == 0
+				systems/navigation/air-data-stow-left-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/navigation/air-data-right-target">
+			<default value="systems/navigation/air-data-right-pos"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/navigation/air-data-deploy-right-switch == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/navigation/air-data-deploy-right-switch == 0
+				systems/navigation/air-data-stow-right-switch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/navigation/air-data-left-pos">
+			<input>systems/navigation/air-data-left-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>15.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/navigation/air-data-right-pos">
+			<input>systems/navigation/air-data-right-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>15.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/navigation/air-data-left-deployed">
+			<default value="0"/>
+			<test  value="1.0">
+				systems/navigation/air-data-left-pos == 1.0
+			</test>
+		</switch>
+
+		<switch name="systems/navigation/air-data-right-deployed">
+			<default value="0"/>
+			<test  value="1.0">
+				systems/navigation/air-data-right-pos == 1.0
+			</test>
+		</switch>
+
+	
+		<sensor name="systems/navigation/air-data-left-1-alt-ft-raw">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-alt-ft-raw">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-alt-ft-raw">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-alt-ft-raw">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-1-mach-raw">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-mach-raw">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-mach-raw">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-mach-raw">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-1-alpha-raw">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-left-3-alpha-raw">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-2-alpha-raw">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-right-4-alpha-raw">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<fcs_function name="systems/navigation/air-data-left-1-alt-ft">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-1-alt-ft-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-left-3-alt-ft">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-3-alt-ft-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-2-alt-ft">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-2-alt-ft-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-4-alt-ft">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-4-alt-ft-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-left-1-mach">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-1-mach-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-left-3-mach">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-3-mach-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-2-mach">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-2-mach-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-4-mach">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-4-mach-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-left-1-alpha">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-1-alpha-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-left-3-alpha">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-deployed</property>
+				<property>systems/navigation/air-data-left-3-alpha-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-2-alpha">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-2-alpha-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-4-alpha">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-deployed</property>
+				<property>systems/navigation/air-data-right-4-alpha-raw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+	</channel>
+
+
+	<channel name="IMU accelerometers">
+
+		<accelerometer name="systems/navigation/acc-x">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> X</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-x</output>
+		</accelerometer>
+
+		<accelerometer name="systems/navigation/acc-y">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> Y</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-y</output>
+		</accelerometer>
+
+		<accelerometer name="systems/navigation/acc-z">
+  			<location unit="M">
+    				<x> 2.7 </x>
+    				<y> 0.0 </y>
+   				<z> -2.7 </z>
+  			</location>
+  			<orientation unit="DEG">
+    				<pitch> 0.0 </pitch>
+    				<roll>  0.0 </roll>
+    				<yaw> 	0.0 </yaw>
+  			</orientation>
+  			<axis> Z</axis>
+  			<lag> 0.0 </lag>
+  			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
+			<output>systems/navigation/acceleration-z</output>
+		</accelerometer>
+
+	</channel>
+
+</system>

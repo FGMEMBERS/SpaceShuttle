@@ -2,6 +2,7 @@
 
 <system>
 	<channel name="Auxiliary computations">
+
 		<fcs_function name="accelerations/a-pilot-ft_sec2">
 		<function>
 		<pow>
@@ -21,6 +22,18 @@
 		</sum>
 		<value>0.5</value>
 		</pow>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="velocities/course-deg">
+		<function>
+			<product>
+			<atan2>
+				<property>velocities/v-east-fps</property>
+				<property>velocities/v-north-fps</property>
+			</atan2>
+			<value>57.29578</value>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -114,6 +127,7 @@
 
 		<fcs_function name="systems/thermal/entry-flame-alpha">
 		<function>
+			<product>
 			<difference>
 			<product>
 				<property>systems/thermal/nose-temperature-F</property>
@@ -121,6 +135,8 @@
 			</product>
 			<value>2.0</value>
 			</difference>
+			<value>0.1</value>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -255,6 +271,152 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<kinematic name="systems/various/debris-separation">
+			<input>systems/various/debris-separation-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>60.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/qbar-limit-entry">
+		<function>
+			<table>
+				<independentVar lookup="row">velocities/mach</independentVar>
+				<tableData>
+					0.0	375.0
+					2.5	375.0
+					4.0	275.0
+					10.0	200.0
+					14.0	150.0
+					22.0	100.0
+					24.0	40.0
+					100.0	40.0
+				</tableData>
+			</table>
+		</function>
+		</fcs_function>
+		
+		<!-- sounds -->
+		
+		<fcs_function name="systems/various/SRB-external-volume">
+		<function>
+			<product>
+				<min>
+				<product>
+				<property>/engines/engine[3]/thrust_lb</property>
+				<value>0.0001</value>
+				</product>
+				<value>1.0</value>
+				</min>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+		
+		<fcs_function name="systems/various/SSME-external-volume">
+		<function>
+			<product>
+				<min>
+				<product>
+				<property>/engines/engine[0]/thrust_lb</property>
+				<value>0.01</value>
+				</product>
+				<value>1.0</value>
+				</min>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+		
+		<!--Wind -->
+		
+		<fcs_function name="systems/various/atmosphere-sound-transmission">
+		<function>
+			<quotient>
+				<property>/environment/pressure-inhg</property>
+				<property>/environment/pressure-sea-level-inhg</property>
+			</quotient>
+		</function>
+		</fcs_function>
+		
+		<switch name="systems/various/sound-transmission">
+			<default value="1.0"/>
+			<test value="systems/various/atmosphere-sound-transmission">
+				/sim/current-view/internal == 0
+			</test>
+		</switch>	
+		
+		<switch name="systems/various/sound-damping-factor">
+			<default value="0.2"/>
+			<test value="1.0">
+				/sim/current-view/internal == 0
+			</test>
+		</switch>	
+
+		<fcs_function name="systems/various/wind-volume">
+			<function>
+				<min>
+				<product>
+					<quotient>
+						<property>aero/qbar-psf</property>
+						<value>400</value>
+					</quotient>
+					<property>systems/various/sound-transmission</property>
+					<property>systems/various/sound-damping-factor</property>
+				</product>
+				<value>1.0</value>
+				</min>
+			</function>
+		</fcs_function>
+
+
+		<!--<fcs_function name="systems/various/spacecraft-entry-internal-volume">
+			<function>
+				<product>
+					<quotient>
+						<property>aero/qbar-psf</property>
+						<value>2116</value>
+					</quotient>
+					<quotient>
+						<property>systems/thermal/nose-temperature-F</property>
+						<value>3000</value>
+					</quotient>
+				</product>
+			</function>		
+		</fcs_function>
+
+		<fcs_function name="systems/various/spacecraft-entry-external-volume">
+			<function>
+				<product>
+					<quotient>
+						<property>aero/qbar-psf</property>
+						<value>2116</value>
+					</quotient>
+					<quotient>
+						<property>systems/thermal/nose-temperature-F</property>
+						<value>3000</value>
+					</quotient>
+					<quotient>
+						<property>/environment/pressure-inhg</property>
+						<property>/environment/pressure-sea-level-inhg</property>
+					</quotient>
+				</product>
+			</function>
+		</fcs_function>-->
 		
 	</channel>
 </system>

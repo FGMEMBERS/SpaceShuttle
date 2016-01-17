@@ -136,6 +136,34 @@
         	 </binding>
       	</combo>
 
+	<text>
+      		<label>Payload</label>
+      		<halign>left</halign>
+      		<row>3</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>4</row>
+        	 <col>1</col>
+        	 <name>PL-selection</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/PL-selection</property>
+		 <value>none</value>
+		 <value>TDRS demo</value>
+		 <value>SPARTAN-201</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>PL-selection</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_payload_selection()</script>
+		</binding>
+      	</combo>
+
 </group>
 
         <empty>

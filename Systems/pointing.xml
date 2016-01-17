@@ -1,0 +1,1397 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<!-- the coordinate system is a bit complicated -->
+	<!-- we transform from body to local horizon using pitch, yaw and roll -->
+	<!-- then using lat and lon to the FG world co-rotating coordinate system-->
+	<!-- and finally using the Earth rotation angle to a true inertial system -->
+
+	<channel name="Local horizon frame ">
+
+	<!-- use a Tait-Bryon matrix to transform the body frame pointing vectors  -->
+
+	<fcs_function name="systems/pointing/lvlh/c1">
+	<function>
+		<cos>
+			<product>
+				<property>/orientation/heading-deg</property>
+				<value>0.01745</value>
+			</product>
+		</cos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/s1">
+	<function>
+		<sin>
+			<product>
+				<property>/orientation/heading-deg</property>
+				<value>0.01745</value>
+			</product>
+		</sin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/c2">
+	<function>
+		<cos>
+			<product>
+				<property>/orientation/pitch-deg</property>
+				<value>0.01745</value>
+			</product>
+		</cos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/s2">
+	<function>
+		<sin>
+			<product>
+				<property>/orientation/pitch-deg</property>
+				<value>0.01745</value>
+			</product>
+		</sin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/c3">
+	<function>
+		<cos>
+			<product>
+				<property>/orientation/roll-deg</property>
+				<value>0.01745</value>
+			</product>
+		</cos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/s3">
+	<function>
+		<sin>
+			<product>
+				<property>/orientation/roll-deg</property>
+				<value>0.01745</value>
+			</product>
+		</sin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-x">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-x</property>
+				<property>systems/pointing/lvlh/c1</property>
+				<property>systems/pointing/lvlh/c2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[1]</property>
+				<difference>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+					</product>
+				</difference>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[2]</property>
+				<difference>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+				</difference>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-x[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-x</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s1</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[1]</property>
+				<sum>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[2]</property>
+				<sum>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-x[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-x</property>
+				<property>systems/pointing/lvlh/s2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[1]</property>
+				<value>-1.0</value>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s3</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-x[2]</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/c3</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-y">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-y</property>
+				<property>systems/pointing/lvlh/c1</property>
+				<property>systems/pointing/lvlh/c2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[1]</property>
+				<difference>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+					</product>
+				</difference>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[2]</property>
+				<difference>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+				</difference>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-y[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-y</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s1</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[1]</property>
+				<sum>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[2]</property>
+				<sum>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-y[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-y</property>
+				<property>systems/pointing/lvlh/s2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[1]</property>
+				<value>-1.0</value>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s3</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-y[2]</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/c3</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-z">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-z</property>
+				<property>systems/pointing/lvlh/c1</property>
+				<property>systems/pointing/lvlh/c2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[1]</property>
+				<difference>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+					</product>
+				</difference>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[2]</property>
+				<difference>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+				</difference>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-z[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-z</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s1</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[1]</property>
+				<sum>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/c3</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[2]</property>
+				<sum>
+					<product>
+						<value>-1.0</value>
+						<property>systems/pointing/lvlh/c3</property>
+						<property>systems/pointing/lvlh/s1</property>
+						<property>systems/pointing/lvlh/s2</property>
+					</product>
+					<product>
+						<property>systems/pointing/lvlh/c1</property>
+						<property>systems/pointing/lvlh/s3</property>
+					</product>
+				</sum>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/lvlh/body-z[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/body/body-z</property>
+				<property>systems/pointing/lvlh/s2</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[1]</property>
+				<value>-1.0</value>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/s3</property>
+			</product>
+			<product>
+				<property>systems/pointing/body/body-z[2]</property>
+				<property>systems/pointing/lvlh/c2</property>
+				<property>systems/pointing/lvlh/c3</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	</channel>	
+
+	<channel name="FG world frame ">
+
+	<!-- lvlh-y is the eastward pointing base vector in co-rotating FG world coordinates -->
+
+	<fcs_function name="systems/pointing/world/lvlh-y[0]">
+	<function>
+		<sin>
+			<product>
+				<property>/position/longitude-deg</property>
+				<value>-0.01745</value>
+			</product>
+		</sin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-y[1]">
+	<function>
+		<cos>
+			<product>
+				<property>/position/longitude-deg</property>
+				<value>-0.01745</value>
+			</product>
+		</cos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-y[2]">
+	<function>
+		<value>0</value>
+	</function>
+	</fcs_function>
+
+	<!-- lvlh-z is the upward pointing base vector in co-rotating FG world coordinates -->
+
+	<fcs_function name="systems/pointing/world/lvlh-z[0]">
+	<function>
+		<quotient>
+			<property>position/ecef-x-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-z[1]">
+	<function>
+		<quotient>
+			<property>position/ecef-y-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-z[2]">
+	<function>
+		<quotient>
+			<property>position/ecef-z-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<!-- lvlh-x then can be computed as the cross-product, it is the northward pointing vector -->
+
+	<fcs_function name="systems/pointing/world/lvlh-x[0]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/world/lvlh-y[2]</property>
+				<property>systems/pointing/world/lvlh-z[1]</property>
+			</product>
+			<product>
+				<property>systems/pointing/world/lvlh-y[1]</property>
+				<property>systems/pointing/world/lvlh-z[2]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-x[1]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/world/lvlh-y[0]</property>
+				<property>systems/pointing/world/lvlh-z[2]</property>
+			</product>
+			<product>
+				<property>systems/pointing/world/lvlh-y[2]</property>
+				<property>systems/pointing/world/lvlh-z[0]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/lvlh-x[2]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/world/lvlh-y[1]</property>
+				<property>systems/pointing/world/lvlh-z[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/world/lvlh-y[0]</property>
+				<property>systems/pointing/world/lvlh-z[1]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-x[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-x[0]</property>
+				<property>systems/pointing/world/lvlh-x[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[1]</property>
+				<property>systems/pointing/world/lvlh-y[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[2]</property>
+				<property>systems/pointing/world/lvlh-z[0]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-x[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-x[0]</property>
+				<property>systems/pointing/world/lvlh-x[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[1]</property>
+				<property>systems/pointing/world/lvlh-y[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[2]</property>
+				<property>systems/pointing/world/lvlh-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-x[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-x[0]</property>
+				<property>systems/pointing/world/lvlh-x[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[1]</property>
+				<property>systems/pointing/world/lvlh-y[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-x[2]</property>
+				<property>systems/pointing/world/lvlh-z[2]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+<fcs_function name="systems/pointing/world/body-y[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-y[0]</property>
+				<property>systems/pointing/world/lvlh-x[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[1]</property>
+				<property>systems/pointing/world/lvlh-y[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[2]</property>
+				<property>systems/pointing/world/lvlh-z[0]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-y[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-y[0]</property>
+				<property>systems/pointing/world/lvlh-x[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[1]</property>
+				<property>systems/pointing/world/lvlh-y[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[2]</property>
+				<property>systems/pointing/world/lvlh-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-y[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-y[0]</property>
+				<property>systems/pointing/world/lvlh-x[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[1]</property>
+				<property>systems/pointing/world/lvlh-y[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-y[2]</property>
+				<property>systems/pointing/world/lvlh-z[2]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+<fcs_function name="systems/pointing/world/body-z[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-z[0]</property>
+				<property>systems/pointing/world/lvlh-x[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[1]</property>
+				<property>systems/pointing/world/lvlh-y[0]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[2]</property>
+				<property>systems/pointing/world/lvlh-z[0]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-z[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-z[0]</property>
+				<property>systems/pointing/world/lvlh-x[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[1]</property>
+				<property>systems/pointing/world/lvlh-y[1]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[2]</property>
+				<property>systems/pointing/world/lvlh-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/body-z[2]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/lvlh/body-z[0]</property>
+				<property>systems/pointing/world/lvlh-x[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[1]</property>
+				<property>systems/pointing/world/lvlh-y[2]</property>
+			</product>
+		<product>
+				<property>systems/pointing/lvlh/body-z[2]</property>
+				<property>systems/pointing/world/lvlh-z[2]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/radial[0]">
+	<function>
+		<quotient>
+			<property>position/ecef-x-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/radial[1]">
+	<function>
+		<quotient>
+			<property>position/ecef-y-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/world/radial[2]">
+	<function>
+		<quotient>
+			<property>position/ecef-z-ft</property>
+			<property>position/radius-to-vehicle-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	</channel>
+
+	<channel name="Inertial frame">
+
+	<fcs_function name="systems/pointing/inertial/prograde[0]">
+	<function>
+		<quotient>
+			<property>velocities/eci-x-fps</property>
+			<property>velocities/eci-velocity-mag-fps</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/prograde[1]">
+	<function>
+		<quotient>
+			<property>velocities/eci-y-fps</property>
+			<property>velocities/eci-velocity-mag-fps</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/prograde[2]">
+	<function>
+		<quotient>
+			<property>velocities/eci-z-fps</property>
+			<property>velocities/eci-velocity-mag-fps</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="position/eci-norm-ft">
+	<function>
+		<pow>
+		<sum>
+			<pow>
+				<property>position/eci-x-ft</property>
+				<value>2.0</value>
+			</pow>
+			<pow>
+				<property>position/eci-y-ft</property>
+				<value>2.0</value>
+			</pow>
+			<pow>
+				<property>position/eci-z-ft</property>
+				<value>2.0</value>
+			</pow>
+		</sum>
+		<value>0.5</value>
+		</pow>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/radial[0]">
+	<function>
+		<quotient>
+			<property>position/eci-x-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/radial[1]">
+	<function>
+		<quotient>
+			<property>position/eci-y-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/radial[2]">
+	<function>
+		<quotient>
+			<property>position/eci-z-ft</property>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/normal[0]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/inertial/prograde[1]</property>
+				<property>systems/pointing/inertial/radial[2]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/prograde[2]</property>
+				<property>systems/pointing/inertial/radial[1]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/normal[1]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/inertial/prograde[2]</property>
+				<property>systems/pointing/inertial/radial[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/prograde[0]</property>
+				<property>systems/pointing/inertial/radial[2]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/normal[2]">
+	<function>
+		<difference>
+			<product>
+				<property>systems/pointing/inertial/prograde[0]</property>
+				<property>systems/pointing/inertial/radial[1]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/prograde[1]</property>
+				<property>systems/pointing/inertial/radial[0]</property>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+
+	<fcs_function name="systems/pointing/inertial/ecf-to-eci-rad">
+	<function>
+		<acos>
+			<sum>
+				<product>
+					<property>systems/pointing/world/radial[0]</property>
+					<property>systems/pointing/inertial/radial[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/world/radial[1]</property>
+					<property>systems/pointing/inertial/radial[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/world/radial[2]</property>
+					<property>systems/pointing/inertial/radial[2]</property>
+				</product>
+			</sum>
+		</acos>
+	</function>
+	</fcs_function>
+	
+	<fcs_function name="systems/pointing/inertial/c">
+	<function>
+		<cos>
+			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
+		</cos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/s">
+	<function>
+		<sin>
+			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
+		</sin>
+	</function>
+	</fcs_function>
+
+
+	<fcs_function name="systems/pointing/inertial/sun[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>/ephemeris/sun/local/x</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>/ephemeris/sun/local/y</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/sun[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>/ephemeris/sun/local/x</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>/ephemeris/sun/local/y</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/sun[2]">
+	<function>
+		<property>/ephemeris/sun/local/z</property>
+	</function>
+	</fcs_function>
+
+
+	<fcs_function name="systems/pointing/inertial/body-x[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-x[0]</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-x[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-x[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-x[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-x[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-x[2]">
+	<function>
+		<property>systems/pointing/world/body-x[2]</property>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-y[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-y[0]</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-y[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-y[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-y[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-y[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-y[2]">
+	<function>
+		<property>systems/pointing/world/body-y[2]</property>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[0]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-z[0]</property>
+			</product>
+			<product>
+				<value>-1</value>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[1]">
+	<function>
+		<sum>
+			<product>
+				<property>systems/pointing/inertial/s</property>
+				<property>systems/pointing/world/body-z[0]</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/c</property>
+				<property>systems/pointing/world/body-z[1]</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/body-z[2]">
+	<function>
+		<property>systems/pointing/world/body-z[2]</property>
+	</function>
+	</fcs_function>
+
+
+	</channel>
+
+	<channel name="Intertial attitudes">
+
+	<!-- cos(pitch) is body x-axis dotted into (0,0,1) -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/pitch-rad">
+	<function>
+		<asin>
+			<property>systems/pointing/inertial/body-x[2]</property>
+		</asin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/pitch-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/body-xy-norm">
+	<function>
+		<max>
+		<pow>
+			<sum>
+				<pow>
+					<property>systems/pointing/inertial/body-x[0]</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/pointing/inertial/body-x[1]</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+		</pow>
+		<value>0.001</value>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad-pos">
+	<function>
+		<acos>
+			<quotient>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<property>systems/pointing/inertial/attitude/body-xy-norm</property>
+			</quotient>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-rad-neg">
+	<function>
+		<difference>
+			<value>6.28318</value>
+			<property>systems/pointing/inertial/attitude/yaw-rad-pos</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/yaw-rad">
+		<default value="systems/pointing/inertial/attitude/yaw-rad-pos"/>
+		<test value="systems/pointing/inertial/attitude/yaw-rad-neg">
+			systems/pointing/inertial/body-x[1] LT 0.0
+		</test>
+	</switch>
+
+	
+
+	<fcs_function name="systems/pointing/inertial/attitude/yaw-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<!-- roll reference vector is (0,0,1) rotated by pitch and yaw -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[0]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			</cos>
+			<sin>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[1]">
+	<function>
+		<product>
+			<sin>
+				<property>systems/pointing/inertial/attitude/yaw-rad</property>
+			</sin>
+			<sin>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[2]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/pitch-rad</property>
+			</cos>
+		</product>
+	</function>
+	</fcs_function>
+
+	<!-- cos(roll) is the body z vector dotted into the roll reference -->
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-cosine">
+	<function>
+			<sum>
+				<product>
+					<property>systems/pointing/inertial/body-z[0]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-z[1]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-z[2]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[2]</property>
+				</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-cosine-y">
+	<function>
+			<sum>
+				<product>
+					<property>systems/pointing/inertial/body-y[0]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-y[1]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/inertial/body-y[2]</property>
+					<property>systems/pointing/inertial/attitude/roll-ref[2]</property>
+				</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/roll-sign">
+		<default value="1.0"/>
+		<test value="-1.0">
+			systems/pointing/inertial/attitude/roll-cosine-y LT 0
+		</test>
+	</switch>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-rad">
+	<function>
+		<product>
+		<acos>
+			<min>
+				<max>
+					<property>systems/pointing/inertial/attitude/roll-cosine</property>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+			</min>
+		</acos>
+		<property>systems/pointing/inertial/attitude/roll-sign</property>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/roll-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/roll-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-pitch-rad">
+	<function>
+		<asin>
+			<property>systems/ap/track/target-vector[2]</property>
+		</asin>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-pitch-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-xy-norm">
+	<function>
+		<max>
+		<pow>
+			<sum>
+				<pow>
+					<property>systems/ap/track/target-vector[0]</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/ap/track/target-vector[1]</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+		</pow>
+		<value>0.001</value>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- cos(yaw) is the normalized projection of the body x-axis dotted into (1,0,0) -->
+
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad-pos">
+	<function>
+		<acos>
+			<quotient>
+				<property>systems/ap/track/target-vector[0]</property>
+				<property>systems/pointing/inertial/attitude/tgt-xy-norm</property>
+			</quotient>
+		</acos>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-rad-neg">
+	<function>
+		<difference>
+			<value>6.28318</value>
+			<property>systems/pointing/inertial/attitude/tgt-yaw-rad-pos</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/tgt-yaw-rad">
+		<default value="systems/pointing/inertial/attitude/tgt-yaw-rad-pos"/>
+		<test value="systems/pointing/inertial/attitude/tgt-yaw-rad-neg">
+			systems/ap/track/target-vector[1] LT 0.0
+		</test>
+	</switch>
+
+	
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-yaw-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[0]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			</cos>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[1]">
+	<function>
+		<product>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-yaw-rad</property>
+			</sin>
+			<sin>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</sin>
+			<value>-1</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[2]">
+	<function>
+		<product>
+			<cos>
+				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+			</cos>
+		</product>
+	</function>
+	</fcs_function>
+
+	
+
+	<!-- cos(roll) is the tgt z vector dotted into the roll reference -->
+
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-cosine-y">
+	<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/target-trd[0]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-trd[1]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-trd[2]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[2]</property>
+				</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<switch name="systems/pointing/inertial/attitude/tgt-roll-sign">
+		<default value="-1.0"/>
+		<test value="1.0">
+			systems/pointing/inertial/attitude/tgt-roll-cosine-y LT 0
+		</test>
+	</switch>
+
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-rad">
+	<function>
+		<product>
+		<acos>
+			<sum>
+				<product>
+					<property>systems/ap/track/target-sec[0]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-sec[1]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/target-sec[2]</property>
+					<property>systems/pointing/inertial/attitude/tgt-roll-ref[2]</property>
+				</product>
+			</sum>
+		</acos>
+		<property>systems/pointing/inertial/attitude/tgt-roll-sign</property>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-deg">
+	<function>
+		<product>	
+			<property>systems/pointing/inertial/attitude/tgt-roll-rad</property>
+			<value>57.2974</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	</channel>
+
+</system>

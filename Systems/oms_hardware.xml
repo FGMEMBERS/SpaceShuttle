@@ -2,7 +2,167 @@
 
 <system>
 
+	<channel name="N2 system">
+
+		<fcs_function name="systems/oms-hardware/n2-left-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+				<value>1634</value>
+				<product>
+					<property>systems/oms-hardware/n2-left-nstarts</property>
+					<value>81.0</value>
+				</product>
+				</sum>
+			<property>systems/failures/oms1-n2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-right-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+				<value>1626</value>
+				<product>
+					<property>systems/oms-hardware/n2-right-nstarts</property>
+					<value>83.5</value>
+				</product>
+				</sum>
+			<property>systems/failures/oms2-n2-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-left-reg-pressure-psia">
+		<function>
+			<min>
+				<property>systems/oms-hardware/n2-left-oms-pressure-psia</property>
+				<value>347</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/n2-right-reg-pressure-psia">
+		<function>
+			<min>
+				<property>systems/oms-hardware/n2-right-oms-pressure-psia</property>
+				<value>342</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/left-oms-n2-pressurized">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/oms-hardware/n2-left-reg-pressure-psia GT 280
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/right-oms-n2-pressurized">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/oms-hardware/n2-right-reg-pressure-psia GT 280
+			</test>
+		</switch>
+
+
+	</channel>
+
+
 	<channel name="OMS helium and propellant system">
+
+		<!-- current fuel and oxidizer fractions in the tanks -->
+
+		<fcs_function name="systems/oms-hardware/left-oms-fuel-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[5]/contents-lbs</property>
+				<value>4718.0</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/left-oms-oxidizer-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[4]/contents-lbs</property>
+				<value>7773.0</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/right-oms-fuel-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[7]/contents-lbs</property>
+				<value>4718.0</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/right-oms-oxidizer-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[6]/contents-lbs</property>
+				<value>7773.0</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+
+		<!-- Helium reservoir pressure -->
+
+		<fcs_function name="systems/oms-hardware/helium-left-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>808.0</value>
+					<product>
+						<sum>
+						<property>/fdm/jsbsim/systems/oms-hardware/left-oms-fuel-fraction</property>
+						<property>/fdm/jsbsim/systems/oms-hardware/left-oms-oxidizer-fraction</property>
+						</sum>
+						<value>0.5</value>
+						<value>2550.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/oms-he-left-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/helium-right-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>802.0</value>
+					<product>
+						<sum>
+						<property>/fdm/jsbsim/systems/oms-hardware/right-oms-fuel-fraction</property>
+						<property>/fdm/jsbsim/systems/oms-hardware/right-oms-oxidizer-fraction</property>
+						</sum>
+						<value>0.5</value>
+						<value>2549.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/oms-he-right-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 		<!-- here we compute ullage pressure and blowdown and check whether a valid -->
 		<!-- path for fuel from tank to engine exists given the valve settings -->
@@ -23,6 +183,24 @@
 			</test>
 		</switch>
 
+
+		<!-- sample-hold helium pressure if valves are closed to prevent it from changing -->
+
+
+		<switch name="systems/oms-hardware/helium-left-oms-pressure-sh-psia">
+			<default value="systems/oms-hardware/helium-left-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/helium-left-oms-pressure-sh-psia">
+				systems/oms-hardware/left-oms-helium-valve-open == 0
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/helium-right-oms-pressure-sh-psia">
+			<default value="systems/oms-hardware/helium-right-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/helium-right-oms-pressure-sh-psia">
+				systems/oms-hardware/right-oms-helium-valve-open == 0
+			</test>
+		</switch>
+
 		<switch name="systems/oms-hardware/left-oms-pressurized">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -39,41 +217,7 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/oms-hardware/left-oms-fuel-fraction">
-		<function>
-			<quotient>
-				<property>propulsion/tank[5]/contents-lbs</property>
-				<value>4718.0</value>
-			</quotient>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/oms-hardware/left-oms-oxidizer-fraction">
-		<function>
-			<quotient>
-				<property>propulsion/tank[4]/contents-lbs</property>
-				<value>7773.0</value>
-			</quotient>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/oms-hardware/right-oms-fuel-fraction">
-		<function>
-			<quotient>
-				<property>propulsion/tank[7]/contents-lbs</property>
-				<value>4718.0</value>
-			</quotient>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/oms-hardware/right-oms-oxidizer-fraction">
-		<function>
-			<quotient>
-				<property>propulsion/tank[6]/contents-lbs</property>
-				<value>7773.0</value>
-			</quotient>
-		</function>
-		</fcs_function>
+		
 
 		<switch name="systems/oms-hardware/fuel-left-oms-pressure-sample-hold-psia">
 			<default value="systems/oms-hardware/fuel-left-oms-pressure-psia"/>
@@ -106,7 +250,7 @@
 		<fcs_function name="systems/oms-hardware/tanks-left-oms-pressure-psia">
 		<function>
 			<min>
-				<value>240.0</value>
+				<value>257.0</value>
 				<property>systems/oms-hardware/helium-left-oms-pressure-psia</property>
 			</min>
 		</function>
@@ -117,7 +261,7 @@
 		<fcs_function name="systems/oms-hardware/tanks-right-oms-pressure-psia">
 		<function>
 			<min>
-				<value>240.0</value>
+				<value>255.0</value>
 				<property>systems/oms-hardware/helium-right-oms-pressure-psia</property>
 			</min>
 		</function>
@@ -135,7 +279,7 @@
 					<property>systems/oms-hardware/left-oms-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.01</value>
+					<value>1.0</value>
 					<property>systems/oms-hardware/left-oms-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -153,7 +297,7 @@
 					<property>systems/oms-hardware/right-oms-fuel-fraction-sample-hold</property>
 				</difference>
 				<difference>
-					<value>1.01</value>
+					<value>1.0</value>
 					<property>systems/oms-hardware/right-oms-fuel-fraction</property>
 				</difference>
 				</quotient>
@@ -433,6 +577,7 @@
 				<property>fcs/throttle-pos-norm[5]</property>
 				<property>systems/failures/oms1-condition</property>
 				<property>systems/oms-hardware/engine-left-arm-cmd</property>
+				<property>systems/oms-hardware/left-oms-n2-pressurized</property>
 				<max>
 					<property>systems/oms-hardware/left-engine-fuel-available</property>
 					<product>
@@ -451,6 +596,7 @@
 				<property>fcs/throttle-pos-norm[6]</property>
 				<property>systems/failures/oms2-condition</property>
 				<property>systems/oms-hardware/engine-right-arm-cmd</property>
+				<property>systems/oms-hardware/right-oms-n2-pressurized</property>
 				<max>
 					<property>systems/oms-hardware/right-engine-fuel-available</property>
 					<product>
@@ -462,6 +608,94 @@
 		</function>
 		<output>fcs/throttle-pos-norm[6]</output>
 		</fcs_function>
+
+	</channel>
+
+	<channel name="Chamber conditions">
+
+	<fcs_function name="systems/oms-hardware/chamber-left-inlet-fuel-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-left-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[5]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>28.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-inlet-fuel-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-right-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[6]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>27.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-left-inlet-oxidizer-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-left-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[5]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>49.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-inlet-oxidizer-pressure-psia">
+	<function>
+		<difference>
+			<property>systems/oms-hardware/tanks-right-oms-blowdown-psia</property>
+			<product>
+				<quotient>
+					<property>propulsion/engine[6]/thrust-lbs</property>
+					<value>5990.82</value>
+				</quotient>
+				<value>51.0</value>
+			</product>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-left-pc-percent">
+	<function>
+		<product>
+		<quotient>
+			<property>propulsion/engine[5]/thrust-lbs</property>
+			<value>5990.82</value>
+		</quotient>
+		<value>103.0</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/oms-hardware/chamber-right-pc-percent">
+	<function>
+		<product>
+		<quotient>
+			<property>propulsion/engine[6]/thrust-lbs</property>
+			<value>5990.82</value>
+		</quotient>
+		<value>101.0</value>
+		</product>
+	</function>
+	</fcs_function>
 
 	</channel>
 

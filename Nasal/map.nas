@@ -2,10 +2,15 @@
 
 var sym_shuttle = {};
 var sym_landing_site = {};
+var sym_EI = {};
+
 var graph = {};
+var radius = {};
 var samples = [];
 var history = [];
 var track_prediction = [];
+var EI_location = [];
+var EI_flag = 0;
 
 var update_loop_flag = 0;
 
@@ -14,7 +19,7 @@ var lat_to_m = 110952.0; # latitude degrees to meters
 var m_to_lat = 9.01290648208234e-06; # meters to latitude degrees
 var lon_to_m = 0.0; # needs to be calculated dynamically
 var m_to_lon = 0.0; # we do this on startup
-
+var GM = 398600.0 ;
 
 var delete_from_vector = func(vec, index) {
 
@@ -78,7 +83,15 @@ sym_landing_site = mapCanvas.createGroup();
 canvas.parsesvg(sym_landing_site, "/gui/dialogs/images/ndb_symbol.svg");
 sym_landing_site.setScale(0.6);
 
+sym_EI = mapCanvas.createGroup();
+canvas.parsesvg(sym_EI, "/Nasal/canvas/map/Airbus/Images/airbus_vor.svg");
+sym_EI.setScale(0.0);
+EI_location = [0,0];
+
+
+
 graph = root.createChild("group");
+radius = root.createChild("group");
 
 
 
@@ -105,19 +118,70 @@ var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
 sym_shuttle.setTranslation(x,y);
 sym_shuttle.setRotation(heading);
 
-x = lon_to_x(landing_site.lon()) - 10.0;
-y = lat_to_y(landing_site.lat()) - 10.0;
+
+var EIpos = EI_update();
+
+x=EIpos[0]-23;
+y=EIpos[1]-23;
+
+if (x<0) {x=0;}
+if (y<0) {y=0;}
+
+sym_EI.setTranslation(x, y);
+
+if (EI_flag == 1)
+	{
+	sym_EI.setScale(1.0);
+	}
+else 
+	{
+	sym_EI.setScale(0.0);
+	}
+
+x = lon_to_x(landing_site.lon()) - 15.0;
+y = lat_to_y(landing_site.lat()) - 15.0;
 
 sym_landing_site.setTranslation(x,y);
+
 
 
 prediction_update();
 plot_tracks();
 
+radius.removeAllChildren();
+if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0)
+	{
+	plot_radius();
+	}
+
 settimer(map_update, 1.0);
 
 }
 
+
+var plot_radius = func  {
+
+
+
+var plot = radius.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(1,0,0.6,0.6)
+                                   .moveTo(SpaceShuttle.radius_set[0][0],SpaceShuttle.radius_set[0][1]); 
+
+		for (var i = 1; i< (size(SpaceShuttle.radius_set)-1); i=i+1)
+			{
+			var set = SpaceShuttle.radius_set[i+1];
+			if (SpaceShuttle.radius_set[i+1][0] > SpaceShuttle.radius_set[i][0])
+				{
+				plot.lineTo(set[0], set[1]);
+				}
+			else
+				{
+				plot.moveTo(set[0], set[1]);
+				}
+			}
+
+}
 
 var plot_tracks = func  {
 
@@ -162,12 +226,38 @@ var pred_plot = graph.createChild("path", "data")
 
 		
 
+		var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+		var draw_flag = 0;
+		
+
 		for (var i = 0; i< (size(track_prediction)-1); i=i+1)
 			{
 			var set = track_prediction[i+1];
 			if (prograde_flag * track_prediction[i+1][0] > prograde_flag * track_prediction[i][0])
 				{
-				pred_plot.lineTo(set[0], set[1]);
+				if ((guidance_mode == 0) or (guidance_mode ==1))
+					{
+					pred_plot.lineTo(set[0], set[1]);
+					}
+				else if ((guidance_mode == 2) and (set[2] < 0))
+					{
+					if (draw_flag == 0)
+						{
+						pred_plot.lineTo(set[0], set[1]);
+						draw_flag = 1;
+						}
+					else
+						{
+						pred_plot.moveTo(set[0], set[1]);
+						draw_flag = 0;
+						}
+					}
+				else
+					{
+					pred_plot.lineTo(set[0], set[1]);
+					}
+					
+				
 				}
 			else
 				{
@@ -209,6 +299,95 @@ append(history, [x,y]);
 settimer(history_update, 10.0);
 }
 
+
+var EI_update = func {
+
+var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-km");
+
+if (periapsis > 121.0) {EI_flag = 0; return [0.0,0.0];}
+
+var apoapsis = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km");
+
+if (apoapsis < 121.0) {EI_flag = 0; return [0.0, 0.0];}
+
+var shuttleWCoord = geo.aircraft_position() ;
+var shuttleCoord = geo.Coord.new() ;
+
+#print(shuttleCoord.x(), " ",shuttleCoord.y(), " ", shuttleCoord.z());
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+shuttleCoord.set_xyz(x,y,z);
+
+var D_lon = shuttleWCoord.lon() - shuttleCoord.lon();
+
+
+var vxoffset = 0.0; #3.5 * math.cos(shuttleCoord.lon() * 3.1415/180.0);
+var vyoffset = 0.0; #3.5 * math.sin(shuttleCoord.lon() * 3.1415/180.0);
+var vzoffset = 0.0;
+
+var shuttleState = SpaceShuttle.stateVector.new (shuttleCoord.x(),shuttleCoord.y(),shuttleCoord.z(),0,0,0,0,0,0);
+shuttleState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+shuttleState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+shuttleState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+
+var dt = 2.0;
+var delta_lon = 0.0;
+
+#print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft") * 0.3048 * 0.001); 
+
+var altitude = shuttleCoord.alt() * 0.3048 * 0.001;
+
+for (i=0; i < 1000.0; i=i+1)
+	{
+
+	var G = [shuttleState.x, shuttleState.y, shuttleState.z]; 
+	var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
+	var R = Gnorm;
+
+	var g = GM/math.pow(R/1000.0, 2.0) * 1000.0 * 0.999;
+	#print ("g: ", g);
+
+	G[0] = -G[0]/Gnorm * g;
+	G[1] = -G[1]/Gnorm * g;
+	G[2] = -G[2]/Gnorm * g;
+
+	shuttleState.update(G[0], G[1], G[2], 0.0,0.0,0.0, dt);
+
+	# now compensate for the numerical error of a large time resolution
+	var O = [shuttleState.x, shuttleState.y, shuttleState.z];
+	var vmag = math.sqrt(math.pow(shuttleState.vx,2.0) + math.pow(shuttleState.vy,2.0) + math.pow(shuttleState.vz,2.0));
+	var d = vmag * dt;
+	O[0] = O[0] * d*d/(2.0*R*R); 
+	O[1] = O[1] * d*d/(2.0*R*R); 
+	O[2] = O[2] * d*d/(2.0*R*R); 
+
+	shuttleState.x = shuttleState.x - O[0];
+	shuttleState.y = shuttleState.y - O[1];
+	shuttleState.z = shuttleState.z - O[2];
+
+	#delta_lon = delta_lon + dt * SpaceShuttle.earth_rotation_deg_s * 1.004;
+	shuttleCoord.set_xyz(shuttleState.x, shuttleState.y, shuttleState.z);
+	#shuttleCoord.set_lon(shuttleCoord.lon() - delta_lon);
+
+	#print(i, " ",shuttleCoord.alt() * 0.001 );
+	
+
+	if (shuttleCoord.alt() * 0.001 < 121.0)
+		{
+		EI_flag = 1;
+		#print(shuttleCoord.lon(), " ", shuttleWCoord.lon(), " ", D_lon);
+		return [lon_to_x(shuttleCoord.lon() + D_lon) , lat_to_y(shuttleCoord.lat())];
+		} 
+	}
+
+print ("No EI solution found!");
+
+return [0.0,0.0];
+
+}
 
 
 var prediction_update = func {
@@ -273,7 +452,11 @@ var apoapsis = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km");
 var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-km");
 var altitude = getprop("/position/altitude-ft") * 0.3048 * 0.001;
 
-var theta = math.asin ((2.0 * altitude - (apoapsis + periapsis)) / (apoapsis - periapsis));
+var arg = (2.0 * altitude - (apoapsis + periapsis)) / (apoapsis - periapsis);
+if (arg > 1.0) {arg = 1.0;}
+if (arg < -1.0) {arg = -1.0;}
+
+var theta = math.asin (arg);
 
 
 
@@ -284,7 +467,7 @@ var offset = 0.0;
 var increment = 2.0 * math.pi * dt/orbital_period;
 
 
-
+EI_flag = 0;
 
 for (var i = 0; i<40; i = i+1)
 	{
@@ -316,14 +499,19 @@ for (var i = 0; i<40; i = i+1)
 	var y =  lat_to_y(pred_lat);
 
 	# do not write any values if predicted altitude is below ground
+	# except when we're flying a TAL and need to know the extrapolated trajectory
 
-	#print(i, " ", i_alt);
-	#print(x, " ", y);
+	var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+	var guidance_flag = 1;
 
-	if (alt < 0.0) 
+	if (guidance_mode == 2) {guidance_flag = 0;}
+
+	if ((alt < 0.0) and (guidance_flag == 1))
+		{break;}
+	else if ((pred_lon > lon + 120.0) and (guidance_flag == 0))
 		{break;}
 
-	append(track_prediction, [x,y]);
+	append(track_prediction, [x,y, alt]);
 
 
 	}

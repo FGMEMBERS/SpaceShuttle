@@ -16,4 +16,191 @@
         <property type="string">/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
     </signal>
 
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/tire-nose-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/tire-left-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/tire-right-condition</property>
+    </signal>
+
+
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/ssme1-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/ssme2-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/ssme3-condition</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/airfoils-pitch-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/airfoils-roll-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/airfoils-yaw-condition</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/aero-structure-condition</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/fc1-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/fc2-condition</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/fc3-condition</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/sim/model/effects/explosion-flame</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/sim/model/effects/explosion-smoke</property>
+    </signal>
+
+	<signal>
+        <type>float</type>
+        <property type="string">/controls/shuttle/SRB-attach</property>
+    </signal>
+	<signal>
+        <type>float</type>
+        <property type="string">/controls/shuttle/SRB-static-model</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/controls/shuttle/ET-static-model</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/various/debris-separation</property>
+    </signal>
+
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/systems/various/ssme-flame-collimation</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/systems/various/ssme-flame-density</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/model/effects/launch-smoke</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/various/srb-flame-alpha</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/various/srb-flame-trail-alpha</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/mps/propellant-dump-cmd</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/atcs/hiload-fes-exhaust-force-lb</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/multiplay/generic/float[1]</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/multiplay/generic/int[6]</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/sim/multiplay/generic/float[12]</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/propulsion/engine[5]/thrust-lbs</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/propulsion/engine[6]/thrust-lbs</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[3]/thrust_lb</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/engines/engine[4]/thrust_lb</property>
+    </signal>
+
+<!--
+/engines/engine[7]/thrust_lb
+/engines/engine[8]/thrust_lb
+/engines/engine[9]/thrust_lb
+/engines/engine[10]/thrust_lb
+/engines/engine[11]/thrust_lb
+/engines/engine[12]/thrust_lb
+/engines/engine[13]/thrust_lb
+/engines/engine[14]/thrust_lb
+/engines/engine[15]/thrust_lb
+/engines/engine[16]/thrust_lb
+/engines/engine[17]/thrust_lb
+/engines/engine[18]/thrust_lb
+/engines/engine[19]/thrust_lb
+/engines/engine[20]/thrust_lb
+/engines/engine[21]/thrust_lb
+/engines/engine[22]/thrust_lb
+/engines/engine[23]/thrust_lb
+/engines/engine[24]/thrust_lb
+/engines/engine[25]/thrust_lb
+/engines/engine[26]/thrust_lb
+/engines/engine[27]/thrust_lb
+/engines/engine[28]/thrust_lb
+/engines/engine[29]/thrust_lb
+/engines/engine[30]/thrust_lb
+/engines/engine[31]/thrust_lb
+/engines/engine[32]/thrust_lb
+/engines/engine[33]/thrust_lb
+/engines/engine[34]/thrust_lb
+/engines/engine[35]/thrust_lb
+/engines/engine[36]/thrust_lb
+/engines/engine[37]/thrust_lb
+/engines/engine[38]/thrust_lb
+/engines/engine[39]/thrust_lb
+/engines/engine[40]/thrust_lb
+/engines/engine[41]/thrust_lb
+/engines/engine[42]/thrust_lb
+/engines/engine[43]/thrust_lb
+/engines/engine[44]/thrust_lb
+-->
 </PropertyList>

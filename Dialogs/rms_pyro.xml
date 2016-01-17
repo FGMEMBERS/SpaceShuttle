@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rms-pyro</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>RMS Pyro</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+
+  <text>
+      <label>Port RMS</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>port-rms-jett-arm</name>
+ 	<row>1</row>
+        <col>0</col>
+        <label>ARM</label>
+          <property>/fdm/jsbsim/systems/rms/rms-port-jett-arm-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>port-rms-jett-arm</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>port-rms-jett-shoulder</name>
+ 	<row>1</row>
+        <col>1</col>
+        <label>SHLDR</label>
+          <property>/fdm/jsbsim/systems/rms/rms-port-jett-shl-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>port-rms-jett-shoulder</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>port-rms-jett-fwd</name>
+ 	<row>1</row>
+        <col>2</col>
+        <label>FWD</label>
+          <property>/fdm/jsbsim/systems/rms/rms-port-jett-fwd-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>port-rms-jett-fwd</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>port-rms-jett-mid</name>
+ 	<row>1</row>
+        <col>3</col>
+        <label>MID</label>
+          <property>/fdm/jsbsim/systems/rms/rms-port-jett-mid-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>port-rms-jett-mid</object-name>
+          </binding>
+        </checkbox>
+
+   <checkbox>
+        <name>port-rms-jett-aft</name>
+ 	<row>1</row>
+        <col>4</col>
+        <label>AFT</label>
+          <property>/fdm/jsbsim/systems/rms/rms-port-jett-aft-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>port-rms-jett-aft</object-name>
+          </binding>
+        </checkbox>
+
+ </group>
+
+<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
