@@ -99,7 +99,7 @@
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[1]/fc-ready-for-load</property>
-				<property>systems//failures/fc2-condition</property>
+				<property>systems/failures/fc2-condition</property>
 				<property>systems/electrical/fc[1]/fc-efficiency</property>
 			</product>
 		</function>
@@ -152,7 +152,7 @@
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[2]/fc-ready-for-load</property>
-				<property>systems//failures/fc3-condition</property>
+				<property>systems/failures/fc3-condition</property>
 				<property>systems/electrical/fc[2]/fc-efficiency</property>
 			</product>
 		</function>
@@ -186,6 +186,7 @@
       		</table>
 		<property>systems/electrical/fc/fc-ready-for-load</property>
 		<property>systems/electrical/fc/bus-connector-status</property>
+		<property>systems/failures/fc1-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -222,6 +223,7 @@
       		</table>
 		<property>systems/electrical/fc[1]/fc-ready-for-load</property>
 		<property>systems/electrical/fc[1]/bus-connector-status</property>
+		<property>systems/failures/fc2-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -258,6 +260,7 @@
       		</table>
 		<property>systems/electrical/fc[2]/fc-ready-for-load</property>
 		<property>systems/electrical/fc[2]/bus-connector-status</property>
+		<property>systems/failures/fc3-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -266,7 +269,7 @@
 
 		<switch name="systems/electrical/bus3-power-available">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test value="1.0">
 				systems/electrical/bus3-max-power-output-kW GT 0.0
 			</test>
 		</switch>

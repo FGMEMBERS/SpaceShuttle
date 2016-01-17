@@ -2,15 +2,1054 @@
 
 <system>
 
+	<!-- This contains AP routines for the orbital DAP set to 'Auto' and for AoA hold during entry--> 
+
+	<!-- Orbital DAP largely follows the universal pointing menu -->
+	<!-- the main mode is given by up-mnvr-flag,  modes are -->
+
+	<!-- 1: MNVR (maneuver to a specified inertial attitude) -->
+	<!-- 2: TRK  (track a specified location) -->
+	<!-- 3: ROT  (hold current axis and rotate around it) -->
+	<!-- 0: CNCL (cancel the current maneuver) -->
+
+	<!-- the OMS maneuver uses oms-mnvr-flag instead, modes are -->
+
+	<!-- 1: BURN ATT (maneuver to burn attitude) -->
+	<!-- 0: CNCL (cancel manever)-->
+
+	<!-- For track and rotation, the body vector can be defined as body-vector-selection -->
+	
+	<!-- 1: +X -->
+	<!-- 2: -X -->
+	<!-- 3: -Z (from the payload bay upward) -->
+
+	<channel name="Rates and deadbands config">
+
+		<switch name="systems/ap/rot-rate-degps">
+			<default value="0.0"/>
+			<test value="3.0">
+				systems/fcs/control-mode == 11	
+			</test>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-rate">
+				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 26	
+				systems/fcs/control-mode == 27	
+				systems/fcs/control-mode == 28			
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
+				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-rot-rate">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-rot-rate">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="2.0">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
+			</test>
+		</switch>
+
+		<switch name="systems/ap/att-db-deg">
+			<default value="0.0"/>
+			<test value="0.12">
+				systems/fcs/control-mode == 11	
+			</test>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-att-db">
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 26	
+				systems/fcs/control-mode == 27	
+				systems/fcs/control-mode == 28			
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-att-db">
+				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-att-db">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-att-db">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="0.01">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/att-db-rad">
+		<function>
+			<product>
+				<property>systems/ap/att-db-deg</property>
+				<value>0.0174532</value>
+			</product>
+		</function>	
+		</fcs_function>
+
+		<switch name="systems/ap/rate-db-degps">
+			<default value="0.0"/>
+			<test value="0.01">
+				systems/fcs/control-mode == 11	
+			</test>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rate-db">
+				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 26	
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28				
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-rate-db">
+				systems/fcs/control-mode == 25
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-rate-db">
+				systems/fcs/control-mode == 21	
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-rate-db">
+				systems/fcs/control-mode == 30	
+			</test>
+			<test logic="OR" value="0.01">
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29		
+			</test>
+		</switch>
+
+		<switch name="systems/ap/rot-pls-degps">
+			<default value="0.0"/>
+			<test  value="systems/ap/spec20/dap-A-PRI-rot-pls">
+				systems/fcs/control-mode == 1				
+			</test>
+		</switch>
+
+	</channel>	
+
+
+	<channel name="Inertial vector tracking">
+
+		<fcs_function name="systems/ap/track/body-minus-x[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-x[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-x[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-x[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-y[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-y[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[0]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[0]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[1]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[1]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/track/body-minus-z[2]">
+		<function>
+			<product>
+				<property>systems/pointing/inertial/body-z[2]</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/ap/track/body-vector[0]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-x[0]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-x[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-z[0]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-vector[1]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-x[1]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-x[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-z[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-vector[2]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-x[2]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-x[2]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-z[2]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+
+		<switch name="systems/ap/track/body-yaw[0]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-y[0]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-y[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-y[0]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-yaw[1]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-y[1]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-y[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-y[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-yaw[2]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-y[2]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-y[2]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/pointing/inertial/body-y[2]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-pitch[0]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[0]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[0]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-x[0]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-pitch[1]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[1]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[1]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-x[1]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/body-pitch[2]">
+			<default value="0.0"/>
+			<test value="systems/pointing/inertial/body-z[2]">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/body-minus-z[2]">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/body-minus-x[2]">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/att-db-rad-sin">
+		<function>
+			<sin><property>systems/ap/att-db-rad</property></sin>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/ap/track/pitch-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-pitch[0]</property>
+					<property>systems/ap/track/target-vector[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-pitch[1]</property>
+					<property>systems/ap/track/target-vector[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-pitch[2]</property>
+					<property>systems/ap/track/target-vector[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/track/pitch-error-deg">
+		<function>
+			<product>
+				<asin>
+					<property>systems/ap/track/pitch-error</property>
+				</asin>
+				<value>57.2974</value>
+			</product>
+		</function>
+		</fcs_function>	
+
+
+  		<deadband name="systems/ap/track/pitch-error-db">
+			<input>systems/ap/track/pitch-error</input>
+			<width>systems/ap/att-db-rad-sin</width>
+  		</deadband>
+
+
+
+		<fcs_function name="systems/ap/track/yaw-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-yaw[0]</property>
+					<property>systems/ap/track/target-vector[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[1]</property>
+					<property>systems/ap/track/target-vector[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[2]</property>
+					<property>systems/ap/track/target-vector[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/track/yaw-error-deg">
+		<function>
+			<product>
+				<asin>
+					<property>systems/ap/track/yaw-error</property>
+				</asin>
+				<value>57.2974</value>
+			</product>
+		</function>
+		</fcs_function>	
+		
+
+  		<deadband name="systems/ap/track/yaw-error-db">
+			<input>systems/ap/track/yaw-error</input>
+			<width>systems/ap/att-db-rad-sin</width>
+  		</deadband>
+
+
+		<fcs_function name="systems/ap/track/roll-sine">
+		<function>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-yaw[0]</property>
+					<property>systems/ap/track/target-sec[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[1]</property>
+					<property>systems/ap/track/target-sec[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-yaw[2]</property>
+					<property>systems/ap/track/target-sec[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+		<switch name="systems/ap/track/roll-angle-sign">
+			<default value="1.0"/>
+			<test value="-1.0">
+				systems/ap/track/roll-sine GT 0.0
+			</test>
+		</switch>
+
+
+		
+
+
+		<fcs_function name="systems/ap/track/roll-error">
+		<function>
+			<difference>
+			<product>
+				<property>systems/ap/track/trk-om</property>
+				<value>-0.01745</value>
+			</product>
+			<product>
+			<acos>
+			<sum>
+				<product>
+					<property>systems/ap/track/body-pitch[0]</property>
+					<property>systems/ap/track/target-sec[0]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-pitch[1]</property>
+					<property>systems/ap/track/target-sec[1]</property>
+				</product>
+				<product>
+					<property>systems/ap/track/body-pitch[2]</property>
+					<property>systems/ap/track/target-sec[2]</property>
+				</product>
+			</sum>
+			</acos>
+			<property>systems/ap/track/roll-angle-sign</property>
+			</product>
+			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/track/roll-error-deg">
+		<function>
+			<product>
+				<property>systems/ap/track/roll-error</property>
+				<value>57.2974</value>
+			</product>
+		</function>
+		</fcs_function>	
+
+		<!-- this is a cheat - the OMS deadband gets too tight by some fluke, so we increase it -->
+
+		<switch name="systems/ap/track/roll-db-correction">
+		<default value="0.0"/>
+			<test value="0.12">
+				systems/ap/oms-mnvr-flag == 1
+			</test>
+		</switch>
+
+
+		<fcs_function name="systems/ap/track/roll-db-rad">
+		<function>
+			<sum>
+				<property>systems/ap/att-db-rad</property>
+				<property>systems/ap/track/roll-db-correction</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/ap/track/roll-error-abs">
+		<function>
+			<abs>
+				<property>systems/ap/track/roll-error</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/roll-error-db">
+			<default value="systems/ap/track/roll-error"/>
+			<test value="0.0">
+				systems/ap/track/roll-error-abs LT systems/ap/att-db-rad
+			</test>
+		</switch>-->
+
+
+  		<deadband name="systems/ap/track/roll-error-db">
+			<input>systems/ap/track/roll-error</input>
+			<width>systems/ap/track/roll-db-rad</width>
+  		</deadband>
+
+		<fcs_function name="systems/ap/track/total-attitude-error">
+		<function>
+			<sum>
+				<abs><property>systems/ap/track/yaw-error</property></abs>
+				<abs><property>systems/ap/track/pitch-error</property></abs>
+				<abs><property>systems/ap/track/roll-error-db</property></abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/in-attitude">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/track/total-attitude-error LT 0.1	
+			</test>
+		</switch>
+
+
+		<switch name="systems/ap/track/pitch-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/pitch-error-db">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/pitch-error-db">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/pitch-error-db">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/yaw-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/yaw-error-db">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/yaw-error-db">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/roll-error-db">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<switch name="systems/ap/track/roll-error-sense">
+			<default value="0.0"/>
+			<test value="systems/ap/track/roll-error-db">
+				systems/ap/track/body-vector-selection == 1	
+			</test>
+			<test value="systems/ap/track/roll-error-db">
+				systems/ap/track/body-vector-selection == 2	
+			</test>
+			<test value="systems/ap/track/yaw-error-db">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/track/pitch-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/pitch-error-sense</property>
+						<value>3.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/track/roll-veto-active">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/ap/track/body-vector-selection == 3	
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/track/yaw-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/yaw-error-sense</property>
+						<value>3.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+				<difference>
+					<value>1.0</value>
+					<product>
+					<abs>
+						<quotient>
+						<property>systems/ap/track/pitch-rate-cmd</property>
+						<max>
+						<property>systems/ap/rot-rate-degps</property>
+						<value>0.001</value>
+						</max>
+						</quotient>
+					</abs>
+					<difference>
+						<value>1.0</value>
+						<property>systems/ap/track/roll-veto-active</property>
+					</difference>
+					</product>
+				</difference>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+
+		<fcs_function name="systems/ap/track/roll-rate-cmd">
+		<function>
+			<product>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/track/roll-error-sense</property>
+						<value>1.0</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+				<property>systems/ap/rot-rate-degps</property>
+				<difference>
+					<value>1.0</value>
+					<abs>
+						<product>
+						<quotient>
+						<property>systems/ap/track/yaw-rate-cmd</property>
+						<max>
+						<property>systems/ap/rot-rate-degps</property>
+						<value>0.001</value>
+						</max>
+						</quotient>
+						<property>systems/ap/track/roll-veto-active</property>
+						</product>
+					</abs>
+				</difference>
+				<difference>
+					<value>1.0</value>
+					<abs>
+						<quotient>
+						<property>systems/ap/track/pitch-rate-cmd</property>
+						<max>
+						<property>systems/ap/rot-rate-degps</property>
+						<value>0.001</value>
+						</max>
+						</quotient>
+					</abs>
+				</difference>
+			</product>
+		</function>
+		</fcs_function>
+
+
+	</channel>
+
+
+	<channel name="Auto rotation rates">
+
+		<switch name="systems/ap/dap-inertial">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 20	
+				systems/fcs/control-mode == 21	
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30		
+			</test>
+		</switch>
+	
+		
+
+		<switch name="systems/ap/auto-rotation-mode">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/dap-inertial == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/set-pitch-rate">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/track/pitch-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
+				systems/ap/up-mnvr-flag == 2
+				systems/ap/oms-mnvr-flag == 1
+			</test>
+			<test value="0.0">
+				systems/ap/up-mnvr-flag == 3
+			</test>
+		</switch>
+
+		<switch name="systems/ap/set-yaw-rate">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
+				systems/ap/up-mnvr-flag == 2
+				systems/ap/oms-mnvr-flag == 1
+			</test>
+			<test logic="AND" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 1
+			</test>
+			<test logic="AND" value="systems/ap/track/yaw-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 2
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 3
+			</test>
+		</switch>
+
+		<switch name="systems/ap/set-roll-rate">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/track/roll-rate-cmd">
+				systems/ap/up-mnvr-flag == 1
+				systems/ap/up-mnvr-flag == 2
+				systems/ap/oms-mnvr-flag == 1
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 1
+			</test>
+			<test logic="AND" value="systems/ap/rot-rate-degps">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 2
+			</test>
+			<test logic="AND" value="systems/ap/track/roll-rate-cmd">
+				systems/ap/up-mnvr-flag == 3
+				systems/ap/track/body-vector-selection == 3
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/pitch-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-pitch-rate</property>
+				<value>-0.01745</value>
+				</product>
+				<property>velocities/q-rad_sec</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/ap/pitch-rate-controller">
+			<input>systems/ap/pitch-rate-error</input>
+			<kp> 10.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-pitch</output>
+  		</pid>
+
+		<fcs_function name="systems/ap/yaw-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-yaw-rate</property>
+				<value>-0.01745</value>
+				</product>
+				<property>velocities/r-rad_sec</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/ap/yaw-rate-controller">
+			<input>systems/ap/yaw-rate-error</input>
+			<kp> 10.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-yaw</output>
+  		</pid>
+
+		<fcs_function name="systems/ap/roll-rate-error">
+		<function>
+			<difference>
+				<product>
+				<property>systems/ap/set-roll-rate</property>
+				<value>0.1166</value>
+				</product>
+				<property>velocities/p-rad_sec</property>
+			</difference>
+			
+		</function>
+		</fcs_function>
+
+		<!--<pid name="systems/ap/roll-rate-controller">
+			<input>systems/ap/roll-rate-error</input>
+			<kp> 50.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 5.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+			<output>systems/ap/test-roll</output>
+  		</pid>-->
+
+		<fcs_function name="systems/ap/roll-rate-controller">
+		<function>
+			<min>
+			<max>
+				<product>
+					<property>systems/ap/roll-rate-error</property>
+					<quotient>
+						<value>25.0</value>
+						<max>
+						<property>systems/ap/rot-rate-degps</property>
+						<value>0.01</value>
+						</max>
+					</quotient>
+				</product>
+				<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	<channel name="LVLH attitude hold">
+
+		<!-- LVLH attitude hold is commanded when controls are idle -->
+		<!-- or when controls are translational -->
+		
+		<switch name="systems/ap/lvlh/rotational-control-input">
+			<default value="1"/>
+			<test logic="AND" value="0">
+				fcs/elevator-cmd-norm == 0
+				fcs/rudder-cmd-norm == 0
+				fcs/aileron-cmd-norm == 0
+			</test>
+			<test  value="0">
+				systems/fcs/rcs-translation == 1
+			</test>
+		</switch>
+		
+
+		<switch name="systems/ap/lvlh/attitude-hold-cmd">
+			<default value="0"/>
+			<test logic="AND" value="1">
+				systems/ap/orbital-dap-lvlh == 1
+				systems/ap/lvlh/rotational-control-input == 0
+			</test>
+		</switch>
+
+		<!-- sample-hold current pitch, yaw and roll -->
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[0]">
+			<default value="systems/pointing/lvlh/body-z[0]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[0]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[1]">
+			<default value="systems/pointing/lvlh/body-z[1]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[1]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-pitch[2]">
+			<default value="systems/pointing/lvlh/body-z[2]"/>
+			<test value="systems/ap/lvlh/target-vector-pitch[2]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[0]">
+			<default value="systems/pointing/lvlh/body-y[0]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[0]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[1]">
+			<default value="systems/pointing/lvlh/body-y[1]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[1]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/target-vector-yaw[2]">
+			<default value="systems/pointing/lvlh/body-y[2]"/>
+			<test value="systems/ap/lvlh/target-vector-yaw[2]">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/lvlh/roll-sample-hold-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/lvlh/roll-sample-hold-deg">
+				systems/ap/lvlh/attitude-hold-cmd == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/lvlh/pitch-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<property>systems/ap/lvlh/target-vector-pitch[2]</property>
+				</product>
+			
+			</sum>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/lvlh/yaw-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<property>systems/ap/lvlh/target-vector-yaw[2]</property>
+				</product>
+			
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+		<fcs_function name="systems/ap/lvlh/roll-error">
+		<function>
+			<difference>
+				<property>/orientation/roll-deg</property>
+				<property>systems/ap/lvlh/roll-sample-hold-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/lvlh/pitch-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/pitch-error</property>
+						<value>10.0</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/yaw-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/yaw-error</property>
+						<value>10.0</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/lvlh/roll-rate-cmd">
+		<function>
+				<min>
+				<max>
+					<product>
+						<property>systems/ap/lvlh/roll-error</property>
+						<value>-0.1</value>
+						<property>systems/fcs/rcs-vernier-gain</property>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+		</function>
+		</fcs_function>
+
+	</channel>
+	
+
 	<channel name="Entry auto-pitch hold">
-
-
 
 		<switch name="systems/ap/alpha-hold-mode">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/ap/automatic-pitch-control == 1
 				/position/altitude-ft GT 85000.0
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
 		
@@ -52,5 +1091,6 @@
 		</fcs_function>
 
 	</channel>
+
 
 </system>

@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
 
-<!--###################################################################################
-    This file is licenced under the terms of the GNU General Public Licence V3 or later
-    ###################################################################################
--->
-
 <PropertyList>
 
 <particlesystem>
@@ -16,19 +11,21 @@
 			<y-m>0.0</y-m>
 			<z-m>0.0</z-m>
 			<roll-deg>0.0</roll-deg>
-			<pitch-deg>90.0</pitch-deg>
+			<pitch-deg>0.0</pitch-deg>
 			<heading-deg>0.0</heading-deg>
 <condition>
-
+    <and>
     <greater-than>
      <property>/fdm/jsbsim/systems/thermal/nose-temperature-F</property>
      <value>2000.0</value>
     </greater-than>
-
-    
+    <not>
+	<property>/sim/current-view/internal</property>
+    </not>
+    </and>
 </condition>
 		 
-	 <attach>local</attach>
+	 <attach>world</attach>
 	 
 	 <placer>
 		 <type>point</type>
@@ -37,25 +34,25 @@
 	 <shooter>
 		 <theta-min-deg>0.0</theta-min-deg>
 		 <theta-max-deg>0.0</theta-max-deg>
-		 <phi-min-deg>-70</phi-min-deg>
-		 <phi-max-deg>70</phi-max-deg>
+		 <phi-min-deg>0.0</phi-min-deg>
+		 <phi-max-deg>0.0</phi-max-deg>
 		<speed-mps>
-		<value>80</value>
+		<value>0</value>
 		<spread>0</spread>
 		</speed-mps>
 		 <rotation-speed>
 			<x-min-deg-sec>1</x-min-deg-sec>
 			<y-min-deg-sec>1</y-min-deg-sec>
 			<z-min-deg-sec>1</z-min-deg-sec>
-			<x-max-deg-sec>5</x-max-deg-sec>
-			<y-max-deg-sec>5</y-max-deg-sec>
-			<z-max-deg-sec>5</z-max-deg-sec>
+			<x-max-deg-sec>90</x-max-deg-sec>
+			<y-max-deg-sec>90</y-max-deg-sec>
+			<z-max-deg-sec>90</z-max-deg-sec>
 		 </rotation-speed>
 	 </shooter>
 	 
 	 <counter>
 		 <particles-per-sec>
-			 <value>250</value>
+			 <value>5000</value>
 			 <spread>0</spread>
 		 </particles-per-sec>
 	 </counter>
@@ -98,11 +95,11 @@
 					</alpha>
 			 </color>
 			 <size>
-				 <value>40.2</value>
+				 <value>12.2</value>
 			 </size>
 		 </end>
 		 <life-sec>
-			 <value>5.0</value>
+			 <value>0.2</value>
 		 </life-sec>
 		 <mass-kg>5.0</mass-kg>
 		 <radius-m>0.1</radius-m>

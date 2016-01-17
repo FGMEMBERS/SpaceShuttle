@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="Throttle mapping">
+
+		<switch name="systems/throttle/throttle-factor">
+			<default value="1.0"/>
+			<test value="1.06">
+				systems/throttle/throttle-mode == 1	
+			</test>
+			<test value="1.09">
+				systems/throttle/throttle-mode == 2	
+			</test>
+			<test  value="1.0">
+				systems/throttle/throttle-mode == 3	
+			</test>
+		</switch>
+
+		<fcs_function name="systems/throttle/ssme1-throttle-norm">
+		<function>
+			<product>
+				<property>fcs/throttle-pos-norm[0]</property>
+				<property>systems/throttle/throttle-factor</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[0]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/throttle/ssme2-throttle-norm">
+		<function>
+			<product>
+				<property>fcs/throttle-pos-norm[1]</property>
+				<property>systems/throttle/throttle-factor</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[1]</output>
+		</fcs_function>
+
+		<fcs_function name="systems/throttle/ssme3-throttle-norm">
+		<function>
+			<product>
+				<property>fcs/throttle-pos-norm[2]</property>
+				<property>systems/throttle/throttle-factor</property>
+			</product>
+		</function>
+		<output>fcs/throttle-pos-norm[2]</output>
+		</fcs_function>
+
+
+	</channel>
+</system>

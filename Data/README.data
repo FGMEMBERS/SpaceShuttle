@@ -1,0 +1,10 @@
+
+This directory contains performance data recorded with the FG Space Shuttle for technical reference and comparison with real performance data. The data has been obtained from piloted flights in FG and reflects pilot errors and imperfections.
+
+FDM Milestone 3:
+
+launch01.dat		Launch of an empty Shuttle with super-lightweight tank
+launch02.dat 		Launch of a Shuttle with full payload and standard weight tank
+
+entry01.dat		Entry aiming at maintaining hdot ~ 50 m/s
+entry02.dat 		Entry aiming at maintaining hdot ~ 100 m/s

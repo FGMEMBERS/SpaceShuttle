@@ -94,8 +94,82 @@
 			<output> gear/unit[2]/rolling_friction_coeff </output>
 		</switch>
 
-		
+	</channel>
 
+	<channel name="Hydraulic brake and steering failures">
+
+		<switch name="systems/failures/brake-sys1-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/landing/brake-mn-A-switch == 1
+				systems/landing/brake-isolation-valve-1-status == 1
+				systems/apu/hyd-1-pressurized == 1
+			</test>
+		</switch>
+
+		<switch name="systems/failures/brake-sys2-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/landing/brake-mn-B-switch == 1
+				systems/landing/brake-isolation-valve-2-status == 1
+				systems/apu/hyd-2-pressurized == 1
+			</test>
+		</switch>
+
+		<switch name="systems/failures/brake-sys3-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/landing/brake-mn-C-switch == 1
+				systems/landing/brake-isolation-valve-3-status == 1
+				systems/apu/hyd-3-pressurized == 1
+			</test>
+		</switch>
+
+		<switch name="systems/failures/nws-operational">
+			<default value="fcs/steer-pos-deg"/>
+			<test logic="AND" value="0.0">
+				systems/apu/hyd-1-pressurized == 0
+				systems/failures/brake-sys2-operational == 0
+			</test>
+			<output>fcs/steer-pos-deg</output>
+		</switch>
+
+		<switch name="systems/failures/brake-hydraulics-13-operational">
+			<default value="1.0"/>
+			<test logic="AND" value="0.0">
+				systems/failures/brake-sys1-operational == 0
+				systems/failures/brake-sys2-operational == 1
+				systems/failures/brake-sys3-operational == 0
+			</test>
+		</switch>
+
+		<switch name="systems/failures/brake-hydraulics-23-operational">
+			<default value="1"/>
+			<test logic="AND" value="0">
+				systems/failures/brake-sys1-operational == 1
+				systems/failures/brake-sys2-operational == 0
+				systems/failures/brake-sys3-operational == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/failures/brake-left-hydraulics-operational">
+			<default value="gear/unit[1]/static_friction_coeff"/>
+			<test logic="OR" value="0.2">
+				systems/failures/brake-hydraulics-13-operational == 0
+				systems/failures/brake-hydraulics-23-operational == 0
+			</test>
+			<output>gear/unit[1]/static_friction_coeff</output>
+		</switch>
+
+		<switch name="systems/failures/brake-right-hydraulics-operational">
+			<default value="gear/unit[2]/static_friction_coeff"/>
+			<test logic="OR" value="0.2">
+				systems/failures/brake-hydraulics-13-operational == 0
+				systems/failures/brake-hydraulics-23-operational == 0
+			</test>
+			<output>gear/unit[2]/static_friction_coeff</output>
+		</switch>
 
 	</channel>
 

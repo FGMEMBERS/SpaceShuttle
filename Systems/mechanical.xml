@@ -5,9 +5,18 @@
 	<channel name="ET umbilical door">
 
 
+		<switch name="systems/mechanical/et-door-cl-latch-vetoed-cmd">
+			<default value="systems/mechanical/et-door-cl-latch-cmd"/>
+			<test  value="1.0">
+				/controls/shuttle/ET-static-model == 1
+			</test>
+		<output>systems/mechanical/et-door-cl-latch-cmd</output>
+		</switch>
+
+
 		<switch name="systems/mechanical/et-door-cl-latch-target">
-			<default value="systems/mechanical/et-door-cl-latch-pos"/>
-			<test  value="systems/mechanical/et-door-cl-latch-cmd">
+			<default  value="systems/mechanical/et-door-cl-latch-pos"/>
+			<test logic="AND" value="systems/mechanical/et-door-cl-latch-vetoed-cmd">
 				systems/electrical/total-available-power-kW GT 0.0
 			</test>
 		</switch>
@@ -130,6 +139,7 @@
 			<test logic="OR" value ="1.0">
 				systems/mechanical/pb-door-sys1-enable == 1
 				systems/mechanical/pb-door-sys2-enable == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
 			</test>
 		</switch>
 
@@ -141,11 +151,30 @@
 			</test>
 		</switch>
 
+		<switch name="systems/mechanical/pb-door-stop-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-auto-switch == 0
+				systems/mechanical/pb-door-mode-auto == 1
+				systems/mechanical/pb-door-software-bypass == 0
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-software-switch == 0
+				systems/mechanical/pb-door-mode-auto == 1
+				systems/mechanical/pb-door-software-bypass == 1
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/pb-door-move">
 			<default value="0.0"/>
 			<test logic="AND" value ="1.0">
 				systems/mechanical/pb-door-power == 1
-				systems/mechanical/pb-door-auto-switch NE 0
+				systems/mechanical/pb-door-stop-cmd == 0
+				systems/mechanical/pb-door-mode-auto == 1
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-power == 1
+				systems/mechanical/pb-door-mode-auto == 0
 			</test>
 		</switch>
 
@@ -297,7 +326,7 @@
 
 		<switch name="systems/mechanical/pb-door-left-fwd-latch-target">
 			<default value="systems/mechanical/pb-door-left-fwd-latch-pos"/>
-			<test  value="systems/mechanical/pb-door-left-fwd-latch-cmd">
+			<test logic="AND" value="systems/mechanical/pb-door-left-fwd-latch-cmd">
 				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
@@ -305,7 +334,7 @@
 
 		<switch name="systems/mechanical/pb-door-left-aft-latch-target">
 			<default value="systems/mechanical/pb-door-left-aft-latch-pos"/>
-			<test  value="systems/mechanical/pb-door-left-aft-latch-cmd">
+			<test logic="AND" value="systems/mechanical/pb-door-left-aft-latch-cmd">
 				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 			</test>
@@ -349,7 +378,7 @@
 
 		<switch name="systems/mechanical/pb-door-right-target">
 			<default value="systems/mechanical/pb-door-right-pos"/>
-			<test  value="systems/mechanical/pb-door-right-cmd">
+			<test logic="AND" value="systems/mechanical/pb-door-right-cmd">
 				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 				systems/mechanical/pb-door-right-latch-status == 1
@@ -372,7 +401,7 @@
 
 		<switch name="systems/mechanical/pb-door-left-target">
 			<default value="systems/mechanical/pb-door-left-pos"/>
-			<test  value="systems/mechanical/pb-door-left-cmd">
+			<test logic="AND" value="systems/mechanical/pb-door-left-cmd">
 				systems/mechanical/pb-door-move == 1
 				systems/mechanical/pb-door-cl-latch-status == 1
 				systems/mechanical/pb-door-left-latch-status == 1
@@ -412,9 +441,234 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/mechanical/pb-door-opening-fraction">
+		<function>
+			<product>
+			<sum>
+				<property>systems/mechanical/pb-door-left-animation</property>
+				<property>systems/mechanical/pb-door-right-animation</property>
+			</sum>
+			<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
 	</channel>
 
+	<channel name="Ku band antenna">
+
+		<switch name="systems/mechanical/ku-antenna-ready">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/ku-antenna-elec-cb == 1
+				systems/mechanical/ku-antenna-sig-proc-cb == 1
+				systems/mechanical/ku-antenna-heater-cb == 1
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-right-pos == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/ku-antenna-target-normal">
+			<default value="systems/mechanical/ku-antenna-pos"/>
+			<test value="systems/mechanical/ku-antenna-deploy-switch">
+				systems/mechanical/ku-antenna-ready == 1
+
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mechanical/ku-antenna-direct-stow-cmd">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/mechanical/ku-antenna-direct-stow-switch</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/mechanical/ku-antenna-target-damaged">
+			<default value="systems/mechanical/ku-antenna-pos"/>
+			<test logic="AND" value="systems/mechanical/ku-antenna-direct-stow-cmd">
+				systems/mechanical/ku-antenna-ready == 1
+				systems/failures/ku-band-antenna-stow-condition GT 0.0
+			</test>
+		</switch>
+
+
+
+		<switch name="systems/mechanical/ku-antenna-target">
+			<default value="systems/mechanical/ku-antenna-pos"/>
+			<test  value="systems/mechanical/ku-antenna-target-normal">
+				systems/failures/ku-band-antenna-stow-condition GT 0.5
+			</test>
+			<test  value="systems/mechanical/ku-antenna-target-damaged">
+				systems/failures/ku-band-antenna-stow-condition GT 0.0
+				systems/failures/ku-band-antenna-stow-condition LT 0.5
+				systems/mechanical/ku-antenna-pos GT 0.0
+			</test>
+		</switch>
+
+
+		<kinematic name="systems/mechanical/ku-antenna-pos">
+			<input>systems/mechanical/ku-antenna-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>23.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/mechanical/ku-antenna-jettison-power">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mechanical/ku-antenna-jett-A-cb == 1
+				systems/mechanical/ku-antenna-jett-B-cb == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/ku-antenna-jettison">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/ku-antenna-jettison-power == 1
+				systems/mechanical/ku-antenna-arm-switch == 1
+				systems/mechanical/ku-antenna-jett-switch == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mechanical/ku-antenna-attached">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/mechanical/ku-antenna-jettison</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="Star tracker">
+
+		<switch name="systems/mechanical/star-tracker-y-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/star-tracker-y-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/star-tracker-z-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/star-tracker-z-switch == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mechanical/star-tracker-cmd">
+		<function>
+			<min>
+			<max>
+			<sum>
+				<property>systems/mechanical/star-tracker-sys1-switch</property>
+				<property>systems/mechanical/star-tracker-sys2-switch</property>
+			</sum>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/mechanical/star-tracker-z-target">
+			<default value="systems/mechanical/star-tracker-door-z-pos"/>
+			<test logic="AND" value="1">
+				systems/mechanical/star-tracker-cmd == 1
+				systems/mechanical/star-tracker-z-power == 1
+			</test>
+			<test logic="AND" value="0">
+				systems/mechanical/star-tracker-cmd == -1
+				systems/mechanical/star-tracker-z-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/star-tracker-y-target">
+			<default value="systems/mechanical/star-tracker-door-y-pos"/>
+			<test logic="AND" value="1">
+				systems/mechanical/star-tracker-cmd == 1
+				systems/mechanical/star-tracker-y-power == 1
+			</test>
+			<test logic="AND" value="0">
+				systems/mechanical/star-tracker-cmd == -1
+				systems/mechanical/star-tracker-y-power == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/star-tracker-door-z-pos">
+			<input>systems/mechanical/star-tracker-z-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/mechanical/star-tracker-door-y-pos">
+			<input>systems/mechanical/star-tracker-y-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+		
+
+
+	</channel>
+
+	<channel name="Vent doors">
+
+		<switch name="systems/mechanical/vdoor-target">
+			<default value="systems/mechanical/vdoor-pos"/>
+			<test logic="AND" value="1">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/vdoor-cmd == 1
+			</test>
+			<test logic="AND" value="0">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/vdoor-cmd == 0
+			</test>
+		</switch>
+
+		<kinematic name="systems/mechanical/vdoor-pos">
+			<input>systems/mechanical/vdoor-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>5.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
 			
 
+	</channel>
 
 </system>

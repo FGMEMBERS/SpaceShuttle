@@ -1,19 +1,33 @@
 * text=auto !eol
 /AUTHORS -text
+Data/README.data -text
+Data/entry01.dat -text
+Data/entry02.dat -text
+Data/launch01.dat -text
+Data/launch02.dat -text
 Dialogs/MapOfEarth.png -text svneol=unset#image/png
 Dialogs/apu.xml -text
 Dialogs/atcs.xml -text
+Dialogs/dps_keyboard.xml -text
 Dialogs/electrical.xml -text
 Dialogs/entry_guidance.xml -text
+Dialogs/flight_controls.xml -text
+Dialogs/idp_settings.xml -text
 Dialogs/limits.xml -text
 Dialogs/mechanical.xml -text
 Dialogs/mps.xml -text
 Dialogs/options.xml -text
+Dialogs/payload_retention.xml -text
+Dialogs/pb_floodlight.xml -text
 Dialogs/propellant.xml -text
 Dialogs/propellant_fill_drain.xml -text
 Dialogs/rcs.xml -text
 Dialogs/rcs_oms_thermal.xml -text
+Dialogs/rms_deploy.xml -text
+Dialogs/rms_operation.xml -text
+Dialogs/rms_pyro.xml -text
 Dialogs/thermal_distribution.xml -text
+Documentation/Howto.AddPayload.txt -text
 Engines/OMS.xml -text
 Engines/OMS_nozzle.xml -text
 Engines/RCS-24.0lb.xml -text
@@ -44,16 +58,18 @@ Huds/Sets/autopilot.xml -text
 Huds/Sets/controls.xml -text
 Huds/Sets/coordinates.xml -text
 Huds/Sets/gps.xml -text
+Huds/Sets/in-cockpit-orbital.xml -text
+Huds/Sets/orbital.xml -text
 Huds/Sets/parameters.xml -text
 Huds/default.xml -text
 Huds/f16.xml -text
 Huds/minimal.xml -text
 Huds/tachiametric-sight.xml -text
-Models/EMU/robotarm.ac -text
-Models/EMU/robotarm.xml -text
-Models/EMU/spstob_2.png -text svneol=unset#image/png
-Models/EMU/spstob_e.png -text svneol=unset#image/png
-Models/EMU/submodels.xml -text
+Models/Effects/ET_explosion_blast.xml -text
+Models/Effects/ET_fireball.xml -text
+Models/Effects/Interior/flashlight.eff -text
+Models/Effects/Interior/shuttle-interior.eff -text
+Models/Effects/Interior/white.png -text
 Models/Effects/OMS_flame.eff -text
 Models/Effects/OMS_flame.xml -text
 Models/Effects/OMS_flame1_alt.xml -text
@@ -79,38 +95,56 @@ Models/Effects/SRB_smoke.xml -text
 Models/Effects/SRBsep-flame.eff -text
 Models/Effects/annulus.png -text svneol=unset#image/png
 Models/Effects/boom.xml -text
+Models/Effects/debris_trail_1.xml -text
+Models/Effects/debris_trail_2.xml -text
+Models/Effects/debris_trail_3.xml -text
+Models/Effects/debris_trail_4.xml -text
+Models/Effects/debris_trail_5.xml -text
 Models/Effects/engine-fire-alt.xml -text
 Models/Effects/engine-fire.ac -text
 Models/Effects/engine-fire.xml -text
 Models/Effects/entry_flame.xml -text
+Models/Effects/entry_flame_core.xml -text
+Models/Effects/entry_flame_medium.xml -text
+Models/Effects/entry_flame_small.xml -text
 Models/Effects/fes-exhaust.eff -text
 Models/Effects/fes-exhaust.xml -text
 Models/Effects/fx.png -text svneol=unset#image/png
 Models/Effects/ground/gear-damage/nose-damage.xml -text
 Models/Effects/ground/gear-damage/port-damage.xml -text
+Models/Effects/ground/gear-damage/spark.png -text
 Models/Effects/ground/gear-damage/stbd-damage.xml -text
-Models/Effects/ground/smoke.png -text svneol=unset#image/png
-Models/Effects/ground/spark.png -text svneol=unset#image/png
-Models/Effects/ground/spray.png -text svneol=unset#image/png
+Models/Effects/ground/gear-damage/tyresmoke.png -text
 Models/Effects/ground/tailstrike/left-tail-strike.xml -text
 Models/Effects/ground/tailstrike/right-tail-strike.xml -text
+Models/Effects/ground/tailstrike/spark.png -text
 Models/Effects/ground/tailstrike/tail-strike.xml -text
+Models/Effects/ground/tailstrike/tyresmoke.png -text
 Models/Effects/ground/tiresmoke/left-tire-smoke.xml -text
 Models/Effects/ground/tiresmoke/nose-tire-smoke.xml -text
 Models/Effects/ground/tiresmoke/right-tire-smoke.xml -text
+Models/Effects/ground/tiresmoke/tyresmoke.png -text
 Models/Effects/ground/tirespray/left-tire-spray.xml -text
 Models/Effects/ground/tirespray/nose-tire-spray.xml -text
 Models/Effects/ground/tirespray/right-tire-spray.xml -text
+Models/Effects/ground/tirespray/smoke.png -text
 Models/Effects/ground/touchdown/left-touchdown-smoke.xml -text
 Models/Effects/ground/touchdown/nose-touchdown-smoke.xml -text
 Models/Effects/ground/touchdown/right-touchdown-smoke.xml -text
-Models/Effects/ground/tyreburn.png -text svneol=unset#image/png
-Models/Effects/ground/tyresmoke.png -text svneol=unset#image/png
+Models/Effects/ground/touchdown/tyresmoke.png -text
 Models/Effects/ground/wingstrike/left-wing-strike.xml -text
 Models/Effects/ground/wingstrike/right-wing-strike.xml -text
+Models/Effects/ground/wingstrike/spark.png -text
+Models/Effects/ground/wingstrike/tyresmoke.png -text
+Models/Effects/plasma_trail.xml -text
 Models/Effects/propellant-dump.eff -text
 Models/Effects/propellant-dump.xml -text
 Models/Effects/puff.rgb -text
+Models/Effects/shuttle-payload-bay-door-left.eff -text
+Models/Effects/shuttle-payload-bay-door-right.eff -text
+Models/Effects/shuttle-payload-bay.eff -text
+Models/Effects/shuttle-rms.eff -text
+Models/Effects/shuttle_tail.eff -text
 Models/Effects/smoke.png -text svneol=unset#image/png
 Models/Effects/smoke_engine2.xml -text
 Models/Effects/ssme-flame.eff -text
@@ -131,7 +165,9 @@ Models/Effects/trails-minni5.xml -text
 Models/Effects/trails-minni6.xml -text
 Models/Effects/trails.xml -text
 Models/LandingGears.ac -text
-Models/Lights/StrobeLight.xml -text
+Models/LandingGears.xml -text
+Models/Launchpad/LC-39-MLP.ac -text
+Models/Launchpad/launchpad.xml -text
 Models/Lights/WhiteLight.ac -text
 Models/Lights/WhiteLight.xml -text
 Models/Lights/beacon.xml -text
@@ -154,15 +190,42 @@ Models/Parachutes/Brake-Parachute1.xml -text
 Models/Parachutes/Brake-Parachute2.xml -text
 Models/Parachutes/Main-Parachute.ac -text
 Models/Parachutes/test.xml -text
+Models/PayloadBay/Antenna-ku-Assembly.ac -text
+Models/PayloadBay/Antenna-ku-Assembly.xml -text
+Models/PayloadBay/Pallet.ac -text
+Models/PayloadBay/Spartan-201/SPARTAN-201-disconnected.xml -text
+Models/PayloadBay/Spartan-201/SPARTAN-201-secure.xml -text
+Models/PayloadBay/Spartan-201/SPARTAN-201.ac -text
+Models/PayloadBay/Spartan-201/SPARTAN-201.xml -text
+Models/PayloadBay/TDRS/TDRS.xml -text
+Models/PayloadBay/TDRS/TDRS_demo.ac -text
+Models/PayloadBay/TDRS/TDRS_disconnected.xml -text
+Models/PayloadBay/TDRS/TDRS_secure.xml -text
+Models/PayloadBay/TDRS/foil_n.png -text
+Models/PayloadBay/TDRS/tex_01.png -text
+Models/PayloadBay/TDRS/tex_02.png -text
 Models/PayloadBay/airlock_module.ac -text
+Models/PayloadBay/airlock_module.xml -text
+Models/PayloadBay/ku-antenna-disconnected.xml -text
+Models/PayloadBay/pallet.xml -text
+Models/PayloadBay/rmsArm-disconnected.xml -text
+Models/PayloadBay/rmsArm.ac -text
+Models/PayloadBay/rmsArm.xml -text
+Models/PayloadBay/rms_lightmap.png -text
+Models/PayloadBay/spstob_2.png -text
 Models/PayloadBay/spstob_e.png -text svneol=unset#image/png
+Models/RHC-Commander.ac -text
+Models/RHC-cmdr.xml -text
 Models/SSME.ac -text
 Models/SSME1.xml -text
 Models/SSME2.xml -text
 Models/SSME3.xml -text
 Models/SpaceShuttle.xml -text
 Models/TailCone.ac -text
+Models/TailCone.xml -text
 Models/air-data-boom.ac -text
+Models/cockpit-damage.ac -text
+Models/cockpit-damage.xml -text
 Models/cockpit-forward-panel.rgb -text
 Models/cockpit.ac -text
 Models/cockpit.xml -text
@@ -171,7 +234,10 @@ Models/et[!!-~]all.png -text svneol=unset#image/png
 Models/et.ac -text
 Models/external-fuel-tank.xml -text
 Models/external-tank-disconnected.xml -text
-Models/fwd-cockpit-text-map.png -text svneol=unset#image/png
+Models/fwd-cockpit-base.png -text
+Models/fwd-cockpit-text-map-x.png -text
+Models/gear-damage.xml -text
+Models/shuttle_lightmap.png -text
 Models/shuttle_o2.ac -text
 Models/solid-rocket-booster.xml -text
 Models/spstob_1.png -text svneol=unset#image/png
@@ -186,18 +252,50 @@ Models/srb.ac -text
 Models/srb_all.png -text svneol=unset#image/png
 Models/submodels.xml -text
 Models/tranbg.png -text svneol=unset#image/png
+Nasal/HUD/HUD.svg -text
+Nasal/HUD/HUD_main.nas -text
+Nasal/PFD/MFD_Generic.nas -text
 Nasal/PFD/PFD.svg -text
 Nasal/PFD/PFD_main.nas -text
+Nasal/PFD/p_ascent.nas -text
+Nasal/PFD/p_dps.nas -text
+Nasal/PFD/p_dps_antenna.nas -text
+Nasal/PFD/p_dps_apu_hyd.nas -text
+Nasal/PFD/p_dps_dap.nas -text
+Nasal/PFD/p_dps_fault.nas -text
+Nasal/PFD/p_dps_mnvr.nas -text
+Nasal/PFD/p_dps_override.nas -text
+Nasal/PFD/p_dps_pl_bay.nas -text
+Nasal/PFD/p_dps_sm_sys_summ2.nas -text
+Nasal/PFD/p_dps_sys_summ.nas -text
+Nasal/PFD/p_dps_sys_summ2.nas -text
+Nasal/PFD/p_dps_time.nas -text
+Nasal/PFD/p_dps_univ_ptg.nas -text
+Nasal/PFD/p_entry.nas -text
+Nasal/PFD/p_helper.nas -text
+Nasal/PFD/p_main.nas -text
+Nasal/PFD/p_pfd.nas -text
+Nasal/PFD/p_vert_sit.nas -text
+Nasal/TAEM_guidance.nas -text
+Nasal/communications.nas -text
+Nasal/coordinates.nas -text
+Nasal/cws.nas -text
 Nasal/dialogs.nas -text
+Nasal/dps_command_parser.nas -text
+Nasal/dps_hardware.nas -text
 Nasal/entry_guidance.nas -text
 Nasal/failures.nas -text
 Nasal/housekeeping.nas -text
+Nasal/launchpad.nas -text
 Nasal/limits.nas -text
 Nasal/map.nas -text
+Nasal/orbital_planning.nas -text
+Nasal/payload.nas -text
 Nasal/rel_orbital.nas -text
 Nasal/stages.nas -text
 Nasal/thermal_balance.nas -text
 Nasal/tyresmoke.nas -text
+Nasal/vertical_traj.nas -text
 Sounds/SpaceShuttle-Sounds.xml -text
 Sounds/SpaceShuttleLaunchAudio.wav -text svneol=unset#audio/x-wav
 Sounds/Vostok-1-Antennas-Turn.wav -text svneol=unset#audio/x-wav
@@ -216,13 +314,21 @@ Sounds/touchdown-backup1.wav -text svneol=unset#audio/x-wav
 Sounds/touchdown.wav -text svneol=unset#audio/x-wav
 Sounds/wind-8khz.wav -text svneol=unset#audio/x-wav
 /SpaceShuttle-TAEM-set.xml -text
+/SpaceShuttle-TAEM-splash.png -text
 /SpaceShuttle-approach-set.xml -text
+/SpaceShuttle-approach-splash.png -text
 /SpaceShuttle-checklists.xml -text
 /SpaceShuttle-entry-set.xml -text
+/SpaceShuttle-entry-splash.png -text
 /SpaceShuttle-glide-set.xml -text
+/SpaceShuttle-glide-splash.png -text
 /SpaceShuttle-launch-set.xml -text
+/SpaceShuttle-launch-splash.png -text
 /SpaceShuttle-orbit-set.xml -text
+/SpaceShuttle-orbit-splash.png -text
 /SpaceShuttle-set.xml -text
+/SpaceShuttle-splash.png -text
+Systems/adi.xml -text
 Systems/apu_hydraulics.xml -text
 Systems/atcs.xml -text
 Systems/autopilot.xml -text
@@ -237,14 +343,18 @@ Systems/flight-recorder/components/effects.xml -text
 Systems/flight-recorder/flight-recorder.xml -text
 Systems/ground-effects-filters.xml -text
 Systems/ground_effects.xml -text
+Systems/light.xml -text
 Systems/mechanical.xml -text
 Systems/mps.xml -text
+Systems/navigation.xml -text
 Systems/oms_hardware.xml -text
 Systems/orbital_parameters.xml -text
+Systems/pointing.xml -text
 Systems/rcs_control.xml -text
 Systems/rcs_hardware.xml -text
+Systems/rms.xml -text
 Systems/ssme-flame-computation.xml -text
+Systems/throttle.xml -text
 Systems/thrust_vectoring.xml -text
 /shuttle.xml -text
-/shuttle_Earthview.png -text svneol=unset#image/png
 /thumbnail.jpg -text svneol=unset#image/jpeg

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<PropertyList>
+  
+  <path>rmsArm.ac</path>  
+
+  <!--<animation>
+    	<type>material</type>
+   	<emission>
+      		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
+      		<red>   0.4 </red>
+      		<green> 0.4 </green>
+		<blue>  0.4 </blue>
+    	</emission>
+  </animation>-->
+
+	 <effect>
+	    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-rms</inherits-from>
+	    <object-name>rmsBase</object-name>
+	    <object-name>RMS.Shoulder.Yaw</object-name>
+	    <object-name>RMS.Shoulder.Pitch</object-name>
+	    <object-name>RMS.Elbow.Pitch</object-name>
+	    <object-name>spaceshutt_spstob_2.005</object-name>
+	    <object-name>RMS.Wrist.Pitch</object-name>
+	    <object-name>RMS.Wrist.Yaw</object-name>
+	    <object-name>RMS.Wrist.Roll</object-name>
+	 </effect>
+
+	<animation>
+ 		<object-name>RMS.Shoulder.Yaw</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-shoulder-yaw-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m>-8.58656</x-m>
+   			<y-m>-2.08779</y-m>
+   			<z-m>-1.11476</z-m>
+  		</center>
+  		<axis>
+   			<x>0</x>
+   			<y>0</y>
+   			<z>1</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+ 		<object-name>RMS.Shoulder.Pitch</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-shoulder-pitch-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m>-8.57394</x-m>
+   			<y-m>-2.08742</y-m>
+   			<z-m>-1.09211</z-m>
+  		</center>
+  		<axis>
+   			<x> 0</x>
+   			<y> 1</y>
+   			<z> 0</z>
+  		</axis>
+ 	</animation>
+
+
+
+	<animation>
+ 		<object-name>RMS.Elbow.Pitch</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-ellbow-pitch-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m>-2.33867</x-m>
+   			<y-m>-2.08779</y-m>
+   			<z-m>-1.09263</z-m>
+  		</center>
+  		<axis>
+   			<x> 0</x>
+   			<y> 1</y>
+   			<z> 0</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+ 		<object-name>RMS.Wrist.Pitch</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-wrist-pitch-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m> 3.91862</x-m>
+   			<y-m>-2.08779</y-m>
+   			<z-m>-1.09177</z-m>
+  		</center>
+  		<axis>
+   			<x> 0</x>
+   			<y> 1</y>
+   			<z> 0</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+ 		<object-name>RMS.Wrist.Yaw</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-wrist-yaw-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m> 4.78657</x-m>
+   			<y-m>-2.08806</y-m>
+   			<z-m>-1.09308</z-m>
+  		</center>
+  		<axis>
+   			<x>0</x>
+   			<y>0</y>
+   			<z>1</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+ 		<object-name>RMS.Wrist.Roll</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/rms/ang-wrist-roll-deg</property>
+  		<factor>1</factor>
+  		<center>
+   			<x-m> 5.51442</x-m>
+   			<y-m>-2.08793</y-m>
+   			<z-m>-1.09282</z-m>
+  		</center>
+  		<axis>
+   			<x>1</x>
+   			<y>0</y>
+   			<z>0</z>
+  		</axis>
+ 	</animation>
+
+</PropertyList>
+

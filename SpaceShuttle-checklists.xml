@@ -71,6 +71,27 @@
     </item>
 
    <item>
+      <name>T-6:15 water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
       <name>T-6:15 ready to start indicator</name>
       <value>READY</value>
       <condition>
@@ -175,7 +196,7 @@
       </condition>     
     </item>
 
-   <item>
+  <item>
       <name>T-5:00 water spray boiler N2 valves </name>
       <value>OPEN</value>
       <condition>
@@ -196,26 +217,8 @@
       </condition> 
    </item>
 
-   <item>
-      <name>T-5:00 water spray boiler controller power </name>
-      <value>ON</value>
-      <condition>
-	<and>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
-          <value>1</value>
-        </equals>
-	</and>
-      </condition> 
-   </item>
+
+
 
     <item>
       <name>Final preparations</name>
@@ -824,6 +827,17 @@
     </item>
 
     <item>
+      <name>set Ku-band antenna heater circuit breaker</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-heater-cb</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
       <name>set MPS/TVC isolation valves</name>
       <value>CLOSED</value>
       <condition>
@@ -933,6 +947,12 @@
     <item>
       <name>Ku-band antenna</name>
       <value>DEPLOY</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+	 <value>1</value>
+	</equals>
+      </condition>
     </item>
 
     <item>
@@ -967,17 +987,6 @@
       </condition>
     </item>
 
-
-    <item>
-      <name>star tracker doors</name>
-      <value>OPEN</value>
-    </item>
-
-    <item>
-      <name>set star tracker</name>
-      <value>ACTIVE</value>
-    </item>
-
     <item>
       <name>set APU steam vent heaters</name>
       <value>ACTIVE</value>
@@ -999,6 +1008,68 @@
       </condition>
     </item>
 
+    <item>
+	<name>Open star tracker doors</name>
+    </item>
+
+   <item>
+      <name>star tracker -Y and -Z power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-y-switch</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-z-switch</property>
+	  <value>1</value>
+	 </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>star tracker door control switch</name>
+      <value>OPEN</value>
+      <condition>
+	<or>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys1-switch</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys2-switch</property>
+	  <value>1</value>
+	 </equals>
+	</or>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify star tracker doors</name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+	  <value>1</value>
+	 </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set star tracker</name>
+      <value>ACTIVE</value>
+    </item>
+
+
+
   </checklist>
 
   <checklist>
@@ -1009,9 +1080,17 @@
       <value>OFF</value>
     </item>
 
+
+
     <item>
-      <name>star tracker doors</name>
-      <value>CLOSED</value>
+      <name>Ku-band antenna</name>
+      <value>STOW</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+	 <value>0</value>
+	</equals>
+      </condition>
     </item>
 
     <item>
@@ -1040,7 +1119,7 @@
       <condition>
 	<equals>
 	  <property>/fdm/jsbsim/systems/mechanical/pb-door-auto-switch</property>
-	  <value>0</value>
+	  <value>-1</value>
 	</equals>
       </condition>
     </item>
@@ -1053,6 +1132,61 @@
 	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
 	 <value>0</value>
 	</equals>
+      </condition>
+    </item>
+
+    <item>
+	<name>Close star tracker doors</name>
+    </item>
+
+    <item>
+      <name>star tracker -Y and -Z power</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-y-switch</property>
+	  <value>1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-z-switch</property>
+	  <value>1</value>
+	 </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>star tracker door control switch</name>
+      <value>CLOSED</value>
+      <condition>
+	<or>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys1-switch</property>
+	  <value>-1</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys2-switch</property>
+	  <value>-1</value>
+	 </equals>
+	</or>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify star tracker doors</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+	  <value>0</value>
+	 </equals>
+	 <equals>
+	  <property>/fdm/jsbsim/systems/mechanical/star-tracker-door-y-pos</property>
+	  <value>0</value>
+	 </equals>
+	</and>
       </condition>
     </item>
 
@@ -1107,6 +1241,16 @@
       </condition>
     </item>
 
+   <item>
+     <name>Vent doors</name>
+     <value>CLOSED</value>
+     <condition>
+	<equals>
+	  <property>/fdm/jsbsim/systems/mechanical/vdoor-pos</property>
+    	  <value>0.0</value>
+	</equals>
+     </condition>
+   </item>
 
    <item>
       <name>MPS He A isolation valves</name>
@@ -1174,6 +1318,27 @@
 	</or>
       </condition>     
     </item>
+
+   <item>
+      <name>water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition> 
+   </item>
 
    <item>
       <name>ready to start indicator</name>
@@ -1418,6 +1583,27 @@
     </item>
 
    <item>
+      <name>set water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
       <name>Ready to start indicator</name>
       <value>READY</value>
       <condition>
@@ -1523,6 +1709,48 @@
       </condition>     
     </item>
 
+  <item>
+      <name>set water spray boiler N2 valves </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
+      <name>set water spray boiler controller power </name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
     <item>
       <name>Control mode</name>
     </item>
@@ -1600,6 +1828,326 @@
       <value>OPEN</value>
     </item>
 
-</checklist>
+ </checklist>
+
+ <checklist>
+    <title>Ku-band antenna deployment</title>  
+
+    <item>
+      <name>Deployment</name>
+    </item>
+
+    <item>
+      <name>verify payload bay door</name>
+      <value>OPEN</value>
+      <condition>
+	<equals>
+	 <property>/fdm/jsbsim/systems/mechanical/pb-door-indicator</property>
+	 <value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify antenna heater circuit breaker</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-heater-cb</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>set electrical power circuit breaker</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-elec-cb</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>set signal processor power circuit breaker</name>
+      <value>CLOSED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-sig-proc-cb</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>set deployment switch to</name>
+      <value>DEPLOY</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify antenna</name>
+      <value>DEPLOYED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>Stowage</name>
+    </item>
+
+    <item>
+      <name>set deployment switch to</name>
+      <value>STOW</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify antenna</name>
+      <value>STOWED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>if fails, set direct stow to</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-direct-stow-switch</property>
+		<value>1</value>
+	</equals>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch</property>
+		<value>0</value>
+	</equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>verify antenna</name>
+      <value>STOWED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>Jettison</name>
+    </item>
+
+    <item>
+      <name>set pyrotechnics SYS A and SYS B circuit breakers</name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-A-cb</property>
+		<value>1</value>
+	</equals>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-B-cb</property>
+		<value>1</value>
+	</equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set Ku antenna jettison arm switch to</name>
+      <value>ARM</value>
+      <condition>
+	
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-arm-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>set Ku antenna jettison switch to</name>
+      <value>JETT</value>
+      <condition>
+	
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+	
+    <item>
+      <name>verify antenna</name>
+      <value>JETTISONED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+ </checklist>
+
+
+ <checklist>
+    <title>RMS arm operations</title>  
+
+    <item>
+      <name>On-orbit initialization</name>
+    </item>
+
+    <item>
+      <name>shoulder brace release to</name>
+      <value>PORT</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/shoulder-brace-release-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify shoulder brace</name>
+      <value>RELEASED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>RMS powerup</name>
+    </item>
+
+    <item>
+      <name>RMS power</name>
+      <value>ON</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/rms-powered</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM latches to</name>
+      <value>RELEASE</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-release-switch</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM deployment switch to</name>
+      <value>DEPLOY</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-deploy-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify manipulator positioning mechanism</name>
+      <value>DEPLOYED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+   
+
+   <item>
+      <name>RMS powerdown</name>
+    </item>
+
+   <item>
+      <name>verify RMS arm latch indicators</name>
+      <value>READY</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>MPM latches to</name>
+      <value>LATCH</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-release-switch</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+   <item>
+      <name>verify manipulator positioning mechanism</name>
+      <value>LATCHED</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+		<value>1</value>
+	</equals>
+      </condition>
+    </item>
+
+    <item>
+      <name>RMS power</name>
+      <value>OFF</value>
+      <condition>
+	<equals>
+		<property>/fdm/jsbsim/systems/rms/rms-powered</property>
+		<value>0</value>
+	</equals>
+      </condition>
+    </item>
+
+ 
+
+
+
+
+   
+
+ </checklist>
 
  </PropertyList>

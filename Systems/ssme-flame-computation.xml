@@ -25,4 +25,75 @@
    <output>/sim/systems/various/oms-flame-density</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-flood-intensity</input>
+   <output>/sim/systems/various/payload-bay-flood-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-fwd-intensity</input>
+   <output>/sim/systems/various/payload-bay-fwd-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-mid-intensity</input>
+   <output>/sim/systems/various/payload-bay-mid-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-aft-intensity</input>
+   <output>/sim/systems/various/payload-bay-aft-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-door-left-intensity</input>
+   <output>/sim/systems/various/payload-bay-door-left-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-door-right-intensity</input>
+   <output>/sim/systems/various/payload-bay-door-right-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/tail-intensity</input>
+   <output>/sim/systems/various/tail-intensity</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/mechanical/pb-door-opening-fraction</input>
+   <output>/sim/systems/various/pb-door-opening-fraction</output>
+ </filter>
+
+ <filter>
+   <type>noise-spike</type>
+   <max-rate-of-change>5.0</max-rate-of-change>
+   <input>/controls/shuttle/ku-antenna-alpha-deg-cmd</input>
+   <output>/controls/shuttle/ku-antenna-alpha-deg</output>
+ </filter>
+
+ <filter>
+   <type>noise-spike</type>
+   <max-rate-of-change>5.0</max-rate-of-change>
+   <input>/controls/shuttle/ku-antenna-beta-deg-cmd</input>
+   <output>/controls/shuttle/ku-antenna-beta-deg</output>
+ </filter>
+
+
  </PropertyList>

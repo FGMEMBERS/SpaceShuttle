@@ -1,0 +1,132 @@
+
+HowTo add a deployable payload to the Space Shuttle
+===================================================
+
+Basics
+======
+
+Since FG doesn't come with any native possibility to simulate co-orbiting objects, the only way is to solve the equations of motion of deployable payloads in Nasal.
+
+This means that each payload is actually represented in three different ways:
+
+1) stowed in the payload bay (fixed model and payload mass parameter)
+2) attached to the RMS arm and animated by RMS end effector position and orientation
+3) free-floating and controlled by a Nasal script
+
+Handover from one condition to the other is done by a) end effector attachment flag and b) payload retention flag. A payload that is attached is animated as 2), a payload that is not attached but retained as 1), a payload that is neither attached nor retained as 3).
+
+Preparation of the model and animations
+=======================================
+
+To determine the offsets needed to place and hand over models with as little pain as possible:
+
+1) prepare the *.ac file of the payload such that the origin (0,0,0) is at the attachment point for the RMS arm. This will make all rotations around the correct point later.
+
+2) orient the *.ac file such that without further offsets it is positioned correctly when attached to the RMS arm in stowage position (i.e. pointing to the stern of the ship).
+
+3) include the model in the SpaceShuttle.xml main model file. Always use offsets of
+
+    <offsets>
+       <x-m> -8.5 </x-m>
+       <y-m> -2.1</y-m>
+       <z-m> -1.1 </z-m>
+    </offsets>
+
+here (this places the coordinate origin at the origin of the RMS arm). Use translation animations for your model which operate with end effector coordinates, for instance
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-x</property>
+  	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+Since the end effector coordinates are relative to the RMS arm origin, the combined offsets will attach the payload correctly to the RMS arm tip. 
+
+Before the translations, add a series of rotations orienting the payload with the end effector orientation:
+
+   <animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/sum-wrist-yaw-pitch-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+Do not condition on end effector attachment yet!
+
+4) In the simulation, use the RMS arm to position the payload in the bay where you want to have it stowed. Use the RMS arm X/Y/Z position dropdown for the end effector to note the (x,y,z) position and note the Y/P/R (reasonably there should only be two cases - the payload is engaged from the front or from above, in the latter case the pitch offset is 90 deg).
+
+5) Create a static model file, using these (x,y,z) and (pitch) values inside the model xml to position it relative to the RMS arm origin. Use the RMS arm origin coordinates as offsets when including it from the main file - static and attached model files will agree in position. In case you need to engage from above, a roll offset may be needed.
+
+6) Add the payload name to Dialogs/options.xml, e.g.
+
+		 <value>SPARTAN-201</value>
+
+7) Add the payload characteristics (selection flag, attachment point relative to RMS origin, mass, path to co-orbiting model xml) to Nasal/payload.nas in the function update_payload_selection(), e.g.
+
+else if (payload_string == "SPARTAN-201")
+	{
+	setprop("/sim/config/shuttle/PL-selection-flag", 2);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 9.85);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 1.9);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -0.6);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 2998.2);
+	setprop("/sim/config/shuttle/PL-model-path", "Aircraft/SpaceShuttle/Models/PayloadBay/Spartan-201/SPARTAN-201-disconnected.xml");
+	}
+
+8) Add conditionals to show the payload model based on selection flag and effector attachment to the inclusion of the model files. You should now have a payload that can be picked up by the RMS arm - test it!
+
+9) When the payload is released into space (the end effector released without the payload being latched), the init_payload() function starting a computation of the equation of motion will start automatically - but it expects a model xml definition (see above) as well.
+
+This is very similar to the model file used while the payload is moved by the RMS arm, except the properties governing the animations are different, i.e. use
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/payload-ballistic/payload-pitch-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+for the pitch axis.
+
+Also, to get coordinates right, the offset for the origin of the RMS arm needs to be in this file, i.e. add
+
+	<offsets>
+      	 	<x-m> -8.5 </x-m>
+       		<y-m> -2.1</y-m>
+       		<z-m> -1.1 </z-m>
+    	</offsets>
+
+Finally, to avoid collision of the Shuttle with the released payload (note that the payload position is only updated every frame while the Shuttle is updated at a much higher rate, so collisions can occur between frames even when they never show in a visible frame) use
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+here.
+
+
+Effects
+=======
+
+Correct lighting for an object in the payload bay is tricky, because the object should be lit by the Space Shuttle floodlights while close (requiring a lightmap), dark when the payload bay is closed (requiring a darkmap) and eventually switch to independent light outside. space-combined.eff is a must and can accomplish all these things, more details to follow.
+
+

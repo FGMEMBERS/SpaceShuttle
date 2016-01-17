@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>Aircraft/SpaceShuttle/Models/TailCone.ac</path>
+	<nopreview/>
+
+ <effect>
+    <inherits-from>Effects/space-combined</inherits-from>
+	<object-name>TailCone</object-name>
+ </effect>
+
+</PropertyList>

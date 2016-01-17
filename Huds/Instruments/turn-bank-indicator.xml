@@ -3,10 +3,17 @@
 <PropertyList>
 	<turn-bank-indicator>
 		<name>Turn Bank Indicator</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-30</x>
 		<width>60</width>
 		<height>10</height>
-
 		<bank-input>
 			<property>/orientation/roll-deg</property>
 		</bank-input>

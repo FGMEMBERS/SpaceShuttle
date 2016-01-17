@@ -3,6 +3,14 @@
 <PropertyList>
 	<label>
 		<name>G Load</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<width>28</width>
 		<height>12</height>
 
