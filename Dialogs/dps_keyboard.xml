@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>keyboard</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>240</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Keyboard unit</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+
+	<group>
+ 	<layout>table</layout>
+
+	<button>
+		<row>0</row>
+		<col>0</col>
+		<legend>FAULT</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_fault_summ(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>0</row>
+		<col>1</col>
+		<legend>SYS</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_sys_summ(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>0</row>
+		<col>2</col>
+		<legend>MSG</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_msg_reset(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>0</row>
+		<col>3</col>
+		<legend>ACK</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_ack(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>1</row>
+		<col>0</col>
+		<legend>GPC</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_gpc_crt(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>1</row>
+		<col>1</col>
+		<legend>A</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "A")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>1</row>
+		<col>2</col>
+		<legend>B</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "B")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>1</row>
+		<col>3</col>
+		<legend>C</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "C")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>2</row>
+		<col>0</col>
+		<legend>I/O RST</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_io_reset(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>2</row>
+		<col>1</col>
+		<legend>D</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "D")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>2</row>
+		<col>2</col>
+		<legend>E</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "E")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>2</row>
+		<col>3</col>
+		<legend>F</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "F")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>3</row>
+		<col>0</col>
+		<legend>ITEM</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_item(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>3</row>
+		<col>1</col>
+		<legend>1</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "1")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>3</row>
+		<col>2</col>
+		<legend>2</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "2")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>3</row>
+		<col>3</col>
+		<legend>3</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "3")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>4</row>
+		<col>0</col>
+		<legend>EXEC</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_exec(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>4</row>
+		<col>1</col>
+		<legend>4</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "4")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>4</row>
+		<col>2</col>
+		<legend>5</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "5")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>4</row>
+		<col>3</col>
+		<legend>6</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "6")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>5</row>
+		<col>0</col>
+		<legend>OPS</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_ops(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>5</row>
+		<col>1</col>
+		<legend>7</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "7")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>5</row>
+		<col>2</col>
+		<legend>8</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "8")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>5</row>
+		<col>3</col>
+		<legend>9</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "9")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>6</row>
+		<col>0</col>
+		<legend>SPEC</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_spec(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>6</row>
+		<col>1</col>
+		<legend>-</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_delimiter(1, "-")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>6</row>
+		<col>2</col>
+		<legend>0</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, "0")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>6</row>
+		<col>3</col>
+		<legend>+</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_delimiter(1, "+")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>7</row>
+		<col>0</col>
+		<legend>RSM</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_resume(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>7</row>
+		<col>1</col>
+		<legend>CLEAR</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_clear(1)</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>7</row>
+		<col>2</col>
+		<legend>.</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_symbol(1, ".")</script>
+		</binding>
+	</button>
+
+	<button>
+		<row>7</row>
+		<col>3</col>
+		<legend>PRO</legend>
+		<pref-width>50</pref-width>
+		<pref-height>50</pref-height>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.key_pro(1)</script>
+		</binding>
+	</button>
+
+	</group>
+
+	
+	
+
+
+       <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

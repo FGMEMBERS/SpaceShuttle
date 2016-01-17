@@ -3,6 +3,14 @@
 <PropertyList>
 	<tape>
 		<name>Gyrocompass</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-100</x>
 		<width>200</width>
 		<height>28</height>

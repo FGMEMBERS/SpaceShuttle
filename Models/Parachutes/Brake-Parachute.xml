@@ -12,6 +12,7 @@
 <!-- Brake Parachute -->
 
 	<path>Main-Parachute.ac</path>
+	<nopreview/>
 
 	<offsets>
 		<x-m>0.0</x-m>

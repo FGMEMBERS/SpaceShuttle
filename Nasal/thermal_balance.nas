@@ -460,7 +460,7 @@ for (var i = 0; i < 3; i = i+1)
 
 	var state_new = 0.0;
 
-	if (T > 370.) {state_new = (T - 370.0) * 0.02;}
+	if (T > 375.) {state_new = (T - 375.0) * 0.02;}
 	if (state_new > 1.0) {state_new = 1.0;}
 
 	setprop("/fdm/jsbsim/systems/thermal-distribution/spray-boiler-"~(i+1)~"-switch", state_new);

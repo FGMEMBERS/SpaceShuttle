@@ -17,9 +17,497 @@
 	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
+	<!-- 30: RCS DAP-B Vernier -->
 
-	<channel name="DAP modes">
-		<switch name="systems/fcs/dap-master">
+
+	<channel name="RCS usage">
+
+		<switch name="systems/fcs/rcs-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 1
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 20
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 23
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
+				systems/oms/oms-rcs-dump-cmd == 1
+				systems/rcs/fwd-dump-cmd == 1
+				systems/rcs/aft-dump-cmd == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-inactive">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/rcs-active == 0
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-translation">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28
+			</test>
+		</switch>
+
+	</channel>
+
+	<!-- for the RCS pulse mode, each control input between 0 and 0.5 generates a fixed-duration spike -->
+
+	<channel name="Control Input pulse generation">
+
+		<switch name="systems/fcs/rcs-pulse">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 1
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 2
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 27
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+		</switch>
+
+		<!-- adjust pulse durations to match SPEC 20 defined DAP properties -->
+
+		<fcs_function name="systems/fcs/elevator-pulse-duration">
+		<function>
+			<product>
+				<quotient>
+					<property>systems/ap/rot-pls-degps</property>
+					<value>0.21</value>
+				</quotient>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/rudder-pulse-duration">
+		<function>
+			<product>
+				<quotient>
+					<property>systems/ap/rot-pls-degps</property>
+					<value>0.19</value>
+				</quotient>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/aileron-pulse-duration">
+		<function>
+			<product>
+				<quotient>
+					<property>systems/ap/rot-pls-degps</property>
+					<value>0.10</value>
+				</quotient>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<!-- pulse generation for elevator input -->
+
+		<switch name="systems/fcs/elevator-cmd-norm-pulse-init">
+			<default value="fcs/elevator-cmd-norm"/>
+			<test logic="AND" value="1.0">
+				fcs/elevator-cmd-norm GT 0.0
+				fcs/elevator-cmd-norm LT 0.5
+			</test>
+			<test logic="AND" value="-1.0">
+				fcs/elevator-cmd-norm LT 0.0
+				fcs/elevator-cmd-norm GT -0.5
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/elevator-pulse-timer-sample-hold">
+			<default value="simulation/sim-time-sec"/>
+			<test logic="OR" value="systems/fcs/elevator-pulse-timer-sample-hold">
+				fcs/elevator-cmd-norm GT 0.04
+				fcs/elevator-cmd-norm LT -0.04
+			</test>
+		</switch>
+
+		<fcs_function name="systems/fcs/elevator-pulse-generator-signal">
+		<function>
+			<difference>
+				<property>simulation/sim-time-sec</property>
+				<property>systems/fcs/elevator-pulse-timer-sample-hold</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/fcs/elevator-pulse-generator">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/elevator-pulse-generator-signal GT 0.0
+				systems/fcs/elevator-pulse-generator-signal LT systems/fcs/elevator-pulse-duration
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/elevator-pulse">
+			<default value="systems/fcs/rcs-pulse"/>
+			<test logic="OR" value="0.0">
+				fcs/elevator-cmd-norm GT 0.5
+				fcs/elevator-cmd-norm LT -0.5
+			</test>
+		</switch>
+	
+
+		<fcs_function name="systems/fcs/elevator-cmd-norm-pulse">
+		<function>
+			<sum>
+			<product>
+				<property>systems/fcs/elevator-pulse</property>
+				<property>systems/fcs/elevator-cmd-norm-pulse-init</property>
+				<property>systems/fcs/elevator-pulse-generator</property>
+			</product>
+			<product>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/elevator-pulse</property>
+			</difference>
+			<property>fcs/elevator-cmd-norm</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+	
+		<!--  pulse generation for rudder input -->
+
+		<switch name="systems/fcs/rudder-cmd-norm-pulse-init">
+			<default value="fcs/rudder-cmd-norm"/>
+			<test logic="AND" value="1.0">
+				fcs/rudder-cmd-norm GT 0.0
+				fcs/rudder-cmd-norm LT 0.5
+			</test>
+			<test logic="AND" value="-1.0">
+				fcs/rudder-cmd-norm LT 0.0
+				fcs/rudder-cmd-norm GT -0.5
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rudder-pulse-timer-sample-hold">
+			<default value="simulation/sim-time-sec"/>
+			<test logic="OR" value="systems/fcs/rudder-pulse-timer-sample-hold">
+				fcs/rudder-cmd-norm GT 0.04
+				fcs/rudder-cmd-norm LT -0.04
+			</test>
+		</switch>
+
+		<fcs_function name="systems/fcs/rudder-pulse-generator-signal">
+		<function>
+			<difference>
+				<property>simulation/sim-time-sec</property>
+				<property>systems/fcs/rudder-pulse-timer-sample-hold</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/fcs/rudder-pulse-generator">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/rudder-pulse-generator-signal GT 0.0
+				systems/fcs/rudder-pulse-generator-signal LT systems/fcs/rudder-pulse-duration
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rudder-pulse">
+			<default value="systems/fcs/rcs-pulse"/>
+			<test logic="OR" value="0.0">
+				fcs/rudder-cmd-norm GT 0.5
+				fcs/rudder-cmd-norm LT -0.5
+			</test>
+		</switch>
+	
+		<fcs_function name="systems/fcs/rudder-cmd-norm-pulse">
+		<function>
+			<sum>
+			<product>
+				<property>systems/fcs/rudder-pulse</property>
+				<property>systems/fcs/rudder-cmd-norm-pulse-init</property>
+				<property>systems/fcs/rudder-pulse-generator</property>
+			</product>
+			<product>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rudder-pulse</property>
+			</difference>
+			<property>fcs/rudder-cmd-norm</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<!-- pulse generation for aileron input -->
+
+
+		<switch name="systems/fcs/aileron-cmd-norm-pulse-init">
+			<default value="fcs/aileron-cmd-norm"/>
+			<test logic="AND" value="1.0">
+				fcs/aileron-cmd-norm GT 0.0
+				fcs/aileron-cmd-norm LT 0.5
+			</test>
+			<test logic="AND" value="-1.0">
+				fcs/aileron-cmd-norm LT 0.0
+				fcs/aileron-cmd-norm GT -0.5
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/aileron-pulse-timer-sample-hold">
+			<default value="simulation/sim-time-sec"/>
+			<test logic="OR" value="systems/fcs/aileron-pulse-timer-sample-hold">
+				fcs/aileron-cmd-norm GT 0.04
+				fcs/aileron-cmd-norm LT -0.04
+			</test>
+		</switch>
+
+		<fcs_function name="systems/fcs/aileron-pulse-generator-signal">
+		<function>
+			<difference>
+				<property>simulation/sim-time-sec</property>
+				<property>systems/fcs/aileron-pulse-timer-sample-hold</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/fcs/aileron-pulse-generator">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/fcs/aileron-pulse-generator-signal GT 0.0
+				systems/fcs/aileron-pulse-generator-signal LT systems/fcs/aileron-pulse-duration
+			</test>
+		</switch>
+
+
+		<switch name="systems/fcs/aileron-pulse">
+			<default value="systems/fcs/rcs-pulse"/>
+			<test logic="OR" value="0.0">
+				fcs/aileron-cmd-norm GT 0.5
+				fcs/aileron-cmd-norm LT -0.5
+			</test>
+		</switch>
+
+		<fcs_function name="systems/fcs/aileron-cmd-norm-pulse">
+		<function>
+			<sum>
+			<product>
+				<property>systems/fcs/aileron-pulse</property>
+				<property>systems/fcs/aileron-cmd-norm-pulse-init</property>
+				<property>systems/fcs/aileron-pulse-generator</property>
+			</product>
+			<product>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/aileron-pulse</property>
+			</difference>
+			<property>fcs/aileron-cmd-norm</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+	
+	</channel>
+
+
+
+	<channel name="Control input sense switching" execute="systems/fcs/rcs-active">
+
+		<fcs_function name="systems/fcs/neg-elevator-cmd-norm">
+		<function>
+			<product>
+				<!--<property>fcs/elevator-cmd-norm</property>-->
+				<property>systems/fcs/elevator-cmd-norm-pulse</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/neg-rudder-cmd-norm">
+		<function>
+			<product>
+				<!--<property>fcs/rudder-cmd-norm</property>-->
+				<property>systems/fcs/rudder-cmd-norm-pulse</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/neg-aileron-cmd-norm">
+		<function>
+			<product>
+				<!--<property>fcs/aileron-cmd-norm</property>-->
+				<property>systems/fcs/aileron-cmd-norm-pulse</property>
+				<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+	
+		<switch name="systems/fcs/elevator-cmd-norm-sense-base">
+			<default value="systems/fcs/elevator-cmd-norm-pulse"/>
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/elevator-cmd-norm-pulse">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="systems/fcs/rudder-cmd-norm-pulse">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rudder-cmd-norm-sense-base">
+			<default value="systems/fcs/rudder-cmd-norm-pulse"/>
+			<test logic="AND" value="systems/fcs/rudder-cmd-norm-pulse">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/aileron-cmd-norm-pulse">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/neg-rudder-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="systems/fcs/neg-elevator-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/aileron-cmd-norm-sense-base">
+			<default value="systems/fcs/aileron-cmd-norm-pulse"/>
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/rudder-cmd-norm-pulse">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 0
+			</test>
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-X == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+			<test logic="AND" value="systems/fcs/neg-aileron-cmd-norm">
+				systems/fcs/sense-minus-Z == 1
+				systems/fcs/rcs-translation == 1
+			</test>
+		</switch>
+
+		<!-- veto the command inputs when THC and RHC control the RMS arm -->
+		<!-- this allows to remain in attitude-hold modes while handling payload -->
+		<!-- also merge with AP commands -->	
+
+		<!-- AP commands are either AUTO in which case they replace any control -->	
+		<!-- or LVLH in which case they are added to controls -->
+		<!-- for TRANS ATT HLD we can not add the LVLH controls to the stick input -->
+		<!-- because stick input represents translations -->
+		<!-- so we merge them later before deadbanding -->
+
+		<fcs_function name="systems/fcs/aileron-cmd-norm-sense">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+				<sum>
+					<product>
+						<property>systems/fcs/aileron-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+				</sum>				
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/roll-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/rudder-cmd-norm-sense">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+				<sum>
+					<product>
+						<property>systems/fcs/rudder-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+				</sum>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/yaw-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/elevator-cmd-norm-sense">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+				<sum>
+					<product>
+						<property>systems/fcs/elevator-cmd-norm-sense-base</property>
+						<property>systems/fcs/rms-control-veto</property>
+					</product>
+				</sum>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/pitch-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+	</channel>
+
+	<channel name="DAP modes" execute="systems/fcs/rcs-active">
+
+
+
+		<switch name="systems/fcs/rate-control-master">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 20
@@ -27,6 +515,7 @@
 				systems/fcs/control-mode == 24
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -36,19 +525,30 @@
 		<!-- to kick the state of the orbiter well into the deadband -->
 		<!-- this minimizes stationkeeping effort -->
 
-		<switch name="systems/fcs/rcs-deadband-rotation">
-			<default value="0.001"/>
-			<test  value="0.01">
-				systems/fcs/control-mode == 21
-			</test>
-		</switch>
+		<!-- we apply the deadband to the normalized control, hence need to normalize -->
 
-		<switch name="systems/fcs/rcs-burst-rotation">
-			<default value="0.0015"/>
-			<test  value="0.015">
-				systems/fcs/control-mode == 21
-			</test>
-		</switch>
+		<!-- actual values of the deadbands are defined in autopilot.xml -->
+		<!-- based on SPEC 20 utility -->
+
+		<fcs_function name="systems/fcs/rcs-deadband-rotation">
+		<function>
+			<product>
+				<property>systems/ap/rate-db-degps</property>
+				<value>0.45</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/fcs/rcs-burst-rotation">
+		<function>
+			<product>
+				<property>systems/fcs/rcs-deadband-rotation</property>
+				<value>1.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
 
 		<switch name="systems/fcs/rcs-entry-mode">
 			<default value="0.0"/>
@@ -76,15 +576,17 @@
 
 		<switch name="systems/fcs/rcs-default-thrusters">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rcs-vernier-gain">
 			<default value="1.0"/>
-			<test value="50.0">
+			<test logic="OR" value="50.0">
 				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -107,10 +609,29 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
 		<!-- pitch -->
+
+   		<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
+   			<function>
+			<sum>
+				<product>
+					<difference>
+						<value>1</value>
+						<property>systems/ap/alpha-hold-mode</property>
+					</difference>
+					<property>systems/fcs/elevator-cmd-norm-sense</property>
+				</product>
+				<product>
+					<property>systems/ap/alpha-hold-mode</property>
+					<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
+				</product>
+			</sum>
+  		 </function>
+   		</fcs_function>
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
@@ -118,8 +639,9 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-ap-cmd-merge</property>
-					<value>-0.05</value>
+  					<property>systems/rcs/elevator-ap-cmd-merge</property>
+					<value>-0.017543</value>
+					<property>systems/ap/rot-rate-degps</property>
 					<difference>
 						<value>1.0</value>
 						<property>systems/fcs/rcs-trans-att-hold</property>
@@ -172,6 +694,7 @@
 					</difference>
 					<property>systems/rcs/dap-pitch-cmd-orbit</property>
 				</product>
+				<property>systems/ap/lvlh/pitch-rate-cmd</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -214,8 +737,9 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
-					<value>0.05</value>
+  					<property>systems/fcs/aileron-cmd-norm-sense</property>
+					<value>0.017543</value>
+					<property>systems/ap/rot-rate-degps</property>
 					<difference>
 						<value>1.0</value>
 						<property>systems/fcs/rcs-trans-att-hold</property>
@@ -237,8 +761,18 @@
 				<min> -1.0 </min>
         			<max>  1.0 </max>
 			</clipto>
-			<output>systems/rcs/dap-roll-cmd</output>
+			<!--<output>systems/rcs/dap-roll-cmd</output>-->
 		</pid>
+
+
+		<fcs_function name="systems/rcs/dap-roll-cmd">
+		<function>
+			<sum>
+				<property>systems/rcs/dap-roll</property>
+				<property>systems/ap/lvlh/roll-rate-cmd</property>
+			</sum>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/rcs/dap-roll-cmd-abs">
 		<function>
@@ -275,8 +809,9 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
-					<value>-0.05</value>
+  					<property>systems/fcs/rudder-cmd-norm-sense</property>
+					<value>-0.017543</value>
+					<property>systems/ap/rot-rate-degps</property>
 					<difference>
 						<value>1.0</value>
 						<property>systems/fcs/rcs-trans-att-hold</property>
@@ -391,6 +926,7 @@
 					</difference>
 					<property>systems/rcs/dap-yaw-cmd-orbit</property>
 				</product>
+				<property>systems/ap/lvlh/yaw-rate-cmd</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -426,7 +962,7 @@
 	</channel>
 
 
-	<channel name="RCS controls">
+	<channel name="RCS controls" execute="systems/fcs/rcs-active">
 
 		
 
@@ -444,6 +980,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
+				systems/fcs/control-mode == 30
 			</test>
 		</switch>
 
@@ -466,10 +1003,74 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rcs-nose-active-pitch">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 20
+				systems/ap/spec20/dap-A-PRI-p-opt == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 21
+				systems/ap/spec20/dap-B-PRI-p-opt == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-nose-active-yaw">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/fcs/control-mode == 22
+				systems/fcs/control-mode == 24
+				systems/fcs/control-mode == 29
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 20
+				systems/ap/spec20/dap-A-PRI-y-opt == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 21
+				systems/ap/spec20/dap-B-PRI-y-opt == 1
+			</test>
+		</switch>
+
 		<switch name="systems/fcs/rcs-tail-active">
 			<default value="1.0"/>
 			<test value="0.0">
 				systems/fcs/control-mode == 23
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-tail-active-pitch">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 23
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 20
+				systems/ap/spec20/dap-A-PRI-p-opt == 2
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 21
+				systems/ap/spec20/dap-B-PRI-p-opt == 2
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-tail-active-yaw">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 23
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 20
+				systems/ap/spec20/dap-A-PRI-y-opt == 2
+			</test>
+			<test logic="AND" value="0.0">
+				systems/fcs/control-mode == 21
+				systems/ap/spec20/dap-B-PRI-y-opt == 2
 			</test>
 		</switch>
 	
@@ -485,15 +1086,15 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/dap-master</property>
+						<property>systems/fcs/rate-control-master</property>
 					</difference>
-					<property>fcs/aileron-cmd-norm</property>
+					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				<abs>
-					<property>fcs/aileron-cmd-norm</property>
+					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/dap-master</property>
+					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-roll-cmd-deadband</property>
 				</product>
 				</sum>
@@ -515,21 +1116,21 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/dap-master</property>
+						<property>systems/fcs/rate-control-master</property>
 					</difference>
-					<property>fcs/elevator-cmd-norm</property>
+					<property>systems/fcs/elevator-cmd-norm-sense</property>
 					<abs>
-						<property>fcs/elevator-cmd-norm</property>
+						<property>systems/fcs/elevator-cmd-norm-sense</property>
 					</abs>
 				</product>
 				<product>
-					<property>systems/fcs/dap-master</property>
+					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
-				<product>
+				<!--<product>
 					<property>systems/fcs/rcs-trans-att-hold</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
-				</product>
+				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -549,21 +1150,21 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/dap-master</property>
+						<property>systems/fcs/rate-control-master</property>
 					</difference>
-					<property>fcs/rudder-cmd-norm</property>
+					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				<abs>
-					<property>fcs/rudder-cmd-norm</property>
+					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/dap-master</property>
+					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
-				<product>
+				<!--<product>
 					<property>systems/fcs/rcs-trans-att-hold</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
-				</product>
+				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -765,7 +1366,10 @@
 				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<difference>
 					<value>1.0</value>
-					<property>systems/fcs/rcs-tail-active</property>
+					<product>
+						<property>systems/fcs/rcs-tail-active</property>
+						<property>systems/fcs/rcs-tail-active-pitch</property>
+					</product>
 				</difference>
 			</product>
 		</function>
@@ -787,7 +1391,10 @@
 				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<difference>
 					<value>1.0</value>
-					<property>systems/fcs/rcs-tail-active</property>
+					<product>
+						<property>systems/fcs/rcs-tail-active</property>
+						<property>systems/fcs/rcs-tail-active-pitch</property>
+					</product>
 				</difference>
 			</product>
 		</function>
@@ -809,7 +1416,10 @@
 				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<difference>
 					<value>1.0</value>
-					<property>systems/fcs/rcs-tail-active</property>
+					<product>
+						<property>systems/fcs/rcs-tail-active</property>
+						<property>systems/fcs/rcs-tail-active-pitch</property>
+					</product>
 				</difference>
 				<value>-1.0</value>
 			</product>
@@ -832,7 +1442,10 @@
 				<property>systems/rcs/aileron-rot-cmd-norm-filtered</property>
 				<difference>
 					<value>1.0</value>
-					<property>systems/fcs/rcs-tail-active</property>
+					<product>
+						<property>systems/fcs/rcs-tail-active</property>
+						<property>systems/fcs/rcs-tail-active-pitch</property>
+					</product>
 				</difference>
 				<value>-1.0</value>
 			</product>
@@ -1230,7 +1843,7 @@
 		<switch name="systems/rcs/nose-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1248,7 +1861,7 @@
 		<switch name="systems/rcs/pod1-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1272,7 +1885,7 @@
 		<switch name="systems/rcs/pod2-up-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm LT 0
+				systems/fcs/elevator-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1297,7 +1910,7 @@
 		<switch name="systems/rcs/nose-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1315,7 +1928,7 @@
 		<switch name="systems/rcs/pod1-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1339,7 +1952,7 @@
 		<switch name="systems/rcs/pod2-down-fire-z">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/elevator-cmd-norm GT 0
+				systems/fcs/elevator-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1366,7 +1979,7 @@
 		<switch name="systems/rcs/nose-left-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1384,7 +1997,7 @@
 		<switch name="systems/rcs/pod1-left-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1408,7 +2021,7 @@
 		<switch name="systems/rcs/pod1-up-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1427,7 +2040,7 @@
 		<switch name="systems/rcs/pod2-down-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm GT 0
+				systems/fcs/aileron-cmd-norm-sense GT 0
 			</test>
 		</switch>
 
@@ -1447,7 +2060,7 @@
 		<switch name="systems/rcs/nose-right-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1465,7 +2078,7 @@
 		<switch name="systems/rcs/pod2-right-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1489,7 +2102,7 @@
 		<switch name="systems/rcs/pod2-up-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1508,7 +2121,7 @@
 		<switch name="systems/rcs/pod1-down-fire-y">
 			<default value="0.0"/>
 			<test value="1.0">
-				fcs/aileron-cmd-norm LT 0
+				systems/fcs/aileron-cmd-norm-sense LT 0
 			</test>
 		</switch>
 
@@ -1527,27 +2140,7 @@
 
 	<!-- Postprocessing of the raw channel inputs into actual thrust commands -->
 
-	<!-- first sum all individual signals -->
 
-		<!--<fcs_function name="systems/rcs/nose-down-raw">
-		<function>
-			<sum>
-				<property>systems/rcs/nose-down-raw-pitch</property>
-				<property>systems/rcs/nose-down-raw-x</property>
-				<property>systems/rcs/nose-down-raw-z</property>
-			</sum>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rcs/nose-up-raw">
-		<function>
-			<sum>
-				<property>systems/rcs/nose-up-raw-pitch</property>
-				<property>systems/rcs/nose-up-raw-x</property>
-				<property>systems/rcs/nose-up-raw-z</property>
-			</sum>
-		</function>
-		</fcs_function>-->
 
 		<!-- for the low-z modes, upward firing thrusters have to be converted to forward/backward -->
 
@@ -1743,6 +2336,106 @@
 		</function>
 		</fcs_function>
 
+	<!-- subtract thruster commands which would cancel each other out -->
+	<!-- firing opposing thrusters is wasteful -->
+
+
+		<fcs_function name="systems/rcs/nose-left-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/nose-left-raw</property>
+				<property>systems/rcs/nose-right-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/nose-right-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/nose-right-raw</property>
+				<property>systems/rcs/nose-left-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-left-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-left-raw</property>
+				<property>systems/rcs/pod2-right-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-up-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-up-raw</property>
+				<property>systems/rcs/pod1-down-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod1-down-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod1-down-raw</property>
+				<property>systems/rcs/pod1-up-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-right-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/pod1-left-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-up-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-up-raw</property>
+				<property>systems/rcs/pod2-down-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/pod2-down-subtracted">
+		<function>
+			<max>
+			<difference>
+				<property>systems/rcs/pod2-down-raw</property>
+				<property>systems/rcs/pod2-up-raw</property>
+			</difference>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
 	<!-- then normalize thrust pattern -->
 
 
@@ -1752,17 +2445,18 @@
 				<value>1.0</value>
 				<property>systems/rcs/nose-up-raw</property>
 				<property>systems/rcs/nose-down-raw</property>
-				<property>systems/rcs/nose-left-raw</property>
-				<property>systems/rcs/nose-right-raw</property>
-				<property>systems/rcs/pod1-up-raw</property>
-				<property>systems/rcs/pod2-up-raw</property>
-				<property>systems/rcs/pod1-down-raw</property>
-				<property>systems/rcs/pod2-down-raw</property>
-				<property>systems/rcs/pod1-left-raw</property>
-				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/nose-left-subtracted</property>
+				<property>systems/rcs/nose-right-subtracted</property>
+				<property>systems/rcs/pod1-up-subtracted</property>
+				<property>systems/rcs/pod2-up-subtracted</property>
+				<property>systems/rcs/pod1-down-subtracted</property>
+				<property>systems/rcs/pod2-down-subtracted</property>
+				<property>systems/rcs/pod1-left-subtracted</property>
+				<property>systems/rcs/pod2-right-subtracted</property>
 				</max>
 			</function>
 		</fcs_function>
+
 
 
 
@@ -1775,10 +2469,10 @@
 			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/nose-left-raw</property>
+				<property>systems/rcs/nose-left-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-yaw</property>
 			<property>systems/failures/rcs-nose-left-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
@@ -1794,10 +2488,10 @@
 			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/nose-right-raw</property>
+				<property>systems/rcs/nose-right-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-yaw</property>
 			<property>systems/failures/rcs-nose-right-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
@@ -1832,7 +2526,7 @@
 				<property>systems/rcs/nose-leftdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-pitch</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
@@ -1848,7 +2542,7 @@
 				<property>systems/rcs/nose-rightdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-pitch</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
@@ -1864,7 +2558,7 @@
 				<property>systems/rcs/nose-leftup-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-pitch</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
@@ -1880,7 +2574,7 @@
 				<property>systems/rcs/nose-centerup-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-pitch</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
@@ -1896,7 +2590,7 @@
 				<property>systems/rcs/nose-rightup-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<property>systems/fcs/rcs-nose-active-pitch</property>
 			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
@@ -1908,16 +2602,20 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-up">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-up-raw</property>
+				<property>systems/rcs/pod1-up-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/failures/rcs-pod1-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/L4U-fire-cmd</output>
 		<output>systems/rcs/L2U-fire-cmd</output>
@@ -1927,15 +2625,19 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-down">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-down-raw</property>
+				<property>systems/rcs/pod1-down-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/failures/rcs-pod1-down-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/L4D-fire-cmd</output>
 		<output>systems/rcs/L2D-fire-cmd</output>
@@ -1944,15 +2646,18 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-left">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod1-left-raw</property>
+				<property>systems/rcs/pod1-left-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/failures/rcs-pod1-left-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/L4L-fire-cmd</output>
 		<output>systems/rcs/L2L-fire-cmd</output>
@@ -1962,6 +2667,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod1-back">
 		<function>
+			<max>
 			<product>
 			<quotient>
 				<property>systems/rcs/pod1-back-raw</property>
@@ -1971,6 +2677,8 @@
 			<property>systems/failures/rcs-pod1-back-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/L3A-fire-cmd</output>
 		<output>systems/rcs/L1A-fire-cmd</output>
@@ -1979,16 +2687,20 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-up">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-up-raw</property>
+				<property>systems/rcs/pod2-up-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/failures/rcs-pod2-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/R4U-fire-cmd</output>
 		<output>systems/rcs/R2U-fire-cmd</output>
@@ -1998,15 +2710,19 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-down">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-down-raw</property>
+				<property>systems/rcs/pod2-down-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/failures/rcs-pod2-down-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<property>systems/rcs/aft-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/R4D-fire-cmd</output>
 		<output>systems/rcs/R2D-fire-cmd</output>
@@ -2015,15 +2731,18 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-right">
 		<function>
+			<max>
 			<product>
 			<quotient>
-				<property>systems/rcs/pod2-right-raw</property>
+				<property>systems/rcs/pod2-right-subtracted</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/failures/rcs-pod2-right-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/R4R-fire-cmd</output>
 		<output>systems/rcs/R2R-fire-cmd</output>
@@ -2033,6 +2752,7 @@
 
 		<fcs_function name="systems/rcs/thrust-pod2-back">
 		<function>
+			<max>
 			<product>
 			<quotient>
 				<property>systems/rcs/pod2-back-raw</property>
@@ -2042,6 +2762,8 @@
 			<property>systems/failures/rcs-pod2-back-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
+			<property>systems/oms/oms-rcs-dump-cmd</property>
+			</max>
 		</function>
 		<output>systems/rcs/R3A-fire-cmd</output>
 		<output>systems/rcs/R1A-fire-cmd</output>
@@ -2059,7 +2781,7 @@
 				<property>systems/rcs/nose-rightdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<!--<property>systems/fcs/rcs-nose-active</property>-->
 			<property>systems/failures/rcs-nose-right-condition</property>
 			<difference>
 				<value>1.0</value>
@@ -2077,7 +2799,7 @@
 				<property>systems/rcs/nose-leftdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-nose-active</property>
+			<!--<property>systems/fcs/rcs-nose-active</property>-->
 			<property>systems/failures/rcs-nose-left-condition</property>
 			<difference>
 				<value>1.0</value>
@@ -2095,7 +2817,7 @@
 				<property>systems/rcs/pod1-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<!--<property>systems/fcs/rcs-tail-active</property>-->
 			<property>systems/failures/rcs-pod1-down-condition</property>
 			<difference>
 				<value>1.0</value>
@@ -2113,7 +2835,7 @@
 				<property>systems/rcs/pod2-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<!--<property>systems/fcs/rcs-tail-active</property>-->
 			<property>systems/failures/rcs-pod2-down-condition</property>
 			<difference>
 				<value>1.0</value>
@@ -2131,7 +2853,7 @@
 				<property>systems/rcs/pod1-left-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<!--<property>systems/fcs/rcs-tail-active</property>-->
 			<property>systems/failures/rcs-pod1-left-condition</property>
 			<difference>
 				<value>1.0</value>
@@ -2149,7 +2871,7 @@
 				<property>systems/rcs/pod2-right-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<property>systems/fcs/rcs-tail-active</property>
+			<!--<property>systems/fcs/rcs-tail-active</property>-->
 			<property>systems/failures/rcs-pod2-right-condition</property>
 			<difference>
 				<value>1.0</value>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+	<path>TDRS_demo.ac</path>
+    <nopreview/>
+	
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	    <object-name>black_krinkle</object-name>
+	    <object-name>shiny_panel</object-name>
+	    <object-name>tex_01</object-name>
+	    <object-name>tex_02</object-name>
+	 </effect>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/sum-wrist-pitch-deg</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+
+	<animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/sum-wrist-yaw-deg</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/ang-wrist-roll-deg</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-x</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+  	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-y</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-z</property>
+	<condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/rms/effector-attached</property>
+			<value>1</value>
+		</equals>
+	</condition>
+  	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+	</animation> 
+
+
+	
+
+</PropertyList>

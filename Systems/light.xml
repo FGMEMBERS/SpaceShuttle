@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+
+<!-- Light simulation for the Space Shuttle -->
+<!-- Thorsten Renk 2015 -->
+
+
+
+<system>
+	<channel name="Payload bay floodlights">
+
+		<switch name="systems/light/powered">
+			<default  value="0"/>
+			<test logic="AND" value="1">
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/light/payload-bay-fwd">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/light/pb-flood-star-fwd-switch == 1
+				systems/light/pb-flood-port-fwd-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/light/payload-bay-mid">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/light/pb-flood-star-mid-switch == 1
+				systems/light/pb-flood-port-mid-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/light/payload-bay-aft">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/light/pb-flood-star-aft-switch == 1
+				systems/light/pb-flood-port-aft-switch == 1
+			</test>
+		</switch>
+
+
+		<kinematic name="systems/light/payload-bay-fwd-intensity-kin">
+			<input>systems/light/payload-bay-fwd</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/light/payload-bay-mid-intensity-kin">
+			<input>systems/light/payload-bay-mid</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/light/payload-bay-aft-intensity-kin">
+			<input>systems/light/payload-bay-aft</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/light/payload-bay-fwd-intensity">
+		<function>
+			<product>
+				<property>systems/light/powered</property>
+				<property>systems/light/payload-bay-fwd</property>
+				<property>systems/light/payload-bay-fwd-intensity-kin</property>	
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/payload-bay-mid-intensity">
+		<function>
+			<product>
+				<property>systems/light/powered</property>
+				<property>systems/light/payload-bay-mid</property>
+				<property>systems/light/payload-bay-mid-intensity-kin</property>	
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/payload-bay-aft-intensity">
+		<function>
+			<product>
+				<property>systems/light/powered</property>
+				<property>systems/light/payload-bay-aft</property>
+				<property>systems/light/payload-bay-aft-intensity-kin</property>	
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/payload-bay-flood-intensity">
+		<function>
+			<product>
+			<value>0.3333</value>
+			<sum>
+				<property>systems/light/payload-bay-fwd-intensity</property>
+				<property>systems/light/payload-bay-mid-intensity</property>
+				<property>systems/light/payload-bay-aft-intensity</property>
+			</sum>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/payload-bay-door-left-intensity">
+		<function>
+			<product>
+				<property>systems/mechanical/pb-door-left-animation</property>
+				<property>systems/light/payload-bay-flood-intensity</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/payload-bay-door-right-intensity">
+		<function>
+			<product>
+				<property>systems/mechanical/pb-door-right-animation</property>
+				<property>systems/light/payload-bay-flood-intensity</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/tail-intensity">
+		<function>
+			<product>
+				<sum>
+					<product>
+					<property>systems/mechanical/pb-door-left-pos</property>
+					<value>0.5</value>
+					</product>
+					<product>
+					<property>systems/mechanical/pb-door-right-pos</property>
+					<value>0.5</value>
+					</product>
+				</sum>
+				<property>systems/light/payload-bay-flood-intensity</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+</system>

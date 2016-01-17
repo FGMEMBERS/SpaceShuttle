@@ -5,12 +5,26 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on TAEM</description>
-  <variant-of>SpaceShuttle-launch</variant-of>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
 	<altitude-ft>83000.0</altitude-ft>
-	<pitch-deg>3.0</pitch-deg>
+	<pitch-deg>3.0</pitch-deg>	
 	<stage type="int">3</stage>
   </presets>
+  <startup>
+    <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-TAEM-splash.png</splash-texture>
+  </startup>
 </sim>
+
+<fdm>
+   <jsbsim>
+	<systems>
+	   <dps>
+		<ops type="int">3</ops>
+		<major-mode type="int">305</major-mode>
+	   </dps>
+	</systems>
+   </jsbsim>
+</fdm>
 
 </PropertyList>

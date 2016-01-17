@@ -8,6 +8,7 @@
 <PropertyList>
   
 <path>et.ac</path>
+<nopreview/>
 		
 <offsets>
   <heading-deg>-180</heading-deg>
@@ -49,90 +50,6 @@
     <object-name>et_all.lay_et_top_tip</object-name>
  </effect>
 
-
-<!-- position -->
-<!--	<animation>
-  	<type>translate</type>
-  	<property>/controls/shuttle/orbital/tank-x-m</property>
-  	<axis>
-   		<x>1</x>
-   		<y>0</y>
-   		<z>0</z>
-  	</axis>
- 	</animation>
-
-	<animation>
-  	<type>translate</type>
-  	<property>/controls/shuttle/orbital/tank-y-m</property>
-  	<axis>
-   		<x>0</x>
-   		<y>1</y>
-   		<z>0</z>
-  	</axis>
- 	</animation>
-
-	<animation>
-  	<type>translate</type>
-  	<property>/controls/shuttle/orbital/tank-z-m</property>
-  	<axis>
-   		<x>0</x>
-   		<y>0</y>
-   		<z>1</z>
-  	</axis>
- 	</animation>	-->
-
-
-<!-- pitch -->
- <!--     <animation>
-        <type>rotate</type>
-        <property>/controls/shuttle/orbital/tank-pitch-deg</property>
-        <factor>1.0</factor>
-        <center>
-          <x-m>-10</x-m>
-          <y-m>0</y-m>
-          <z-m>10</z-m>
-        </center>
-        <axis>
-          <x>0</x>
-          <y>1</y>
-          <z>0</z>
-        </axis>
-      </animation>
-
-
-      <animation>
-        <type>rotate</type>
-        <property>/controls/shuttle/orbital/tank-roll-deg</property>
-        <factor>-1.0</factor>
-        <center>
-          <x-m>0</x-m>
-          <y-m>0</y-m>
-          <z-m>10.0</z-m>
-        </center>
-        <axis>
-          <x>1</x>
-          <y>0</y>
-          <z>0</z>
-        </axis>
-      </animation>
-
-
-
-      <animation>
-        <type>rotate</type>
-        <property>/controls/shuttle/orbital/tank-yaw-deg</property>
-        <factor>1.0</factor>
-        <center>
-          <x-m>-10</x-m>
-          <y-m>0</y-m>
-          <z-m>0</z-m>
-        </center>
-        <axis>
-          <x>0</x>
-          <y>0</y>
-          <z>1</z>
-        </axis>
-      </animation>-->
 
   
 

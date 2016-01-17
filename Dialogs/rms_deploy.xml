@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>rms-deploy</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>RMS arm deployment</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+ <group>
+    <layout>table</layout>
+
+  <text>
+      <label>RMS power</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  <text>
+      <label>backup</label>
+      <row>1</row>
+      <col>1</col>
+    </text>
+
+    <slider>
+      <name>rms-power</name>
+      <row>1</row>
+      <col>2</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/rms-power-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>rms-power</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>primary</label>
+      <row>1</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <label>Shoulder brace</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+  <text>
+      <label>starboard</label>
+      <row>3</row>
+      <col>1</col>
+    </text>
+
+    <slider>
+      <name>rms-shoulder</name>
+      <row>3</row>
+      <col>2</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/rms/shoulder-brace-release-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>rms-shoulder</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>port</label>
+      <row>3</row>
+      <col>3</col>
+    </text>
+
+    <text>
+      <label>fixed</label>
+      <row>3</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>////</label>
+      <row>3</row>
+      <col>4</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <label>released</label>
+      <row>3</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/shoulder-brace-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>MPM</label>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>mpm-latch</name>
+ 	<row>5</row>
+        <col>1</col>
+        <label>latch</label>
+          <property>/fdm/jsbsim/systems/rms/mpm-release-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mpm-latch</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <label>latched</label>
+      <row>5</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>////</label>
+      <row>5</row>
+      <col>2</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+   <text>
+      <label>released</label>
+      <row>5</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/mpm-latch-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <checkbox>
+        <name>mpm-deploy</name>
+ 	<row>5</row>
+        <col>3</col>
+        <label>stow/deploy</label>
+          <property>/fdm/jsbsim/systems/rms/mpm-deploy-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>mpm-deploy</object-name>
+          </binding>
+        </checkbox>
+
+   <text>
+      <label>stowed</label>
+      <row>5</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>////</label>
+      <row>5</row>
+      <col>4</col>
+      <visible>
+		<and>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+			<value>1</value>
+		</less-than>
+		</and>
+      </visible>
+    </text>
+
+   <text>
+      <label>deployed</label>
+      <row>5</row>
+      <col>4</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/mpm-deploy-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>Ready to latch</label>
+      <row>6</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <label>FWD RDY</label>
+      <row>7</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>FWD ///</label>
+      <row>7</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>MID RDY</label>
+      <row>7</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>MID ///</label>
+      <row>7</row>
+      <col>2</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>AFT RDY</label>
+      <row>7</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>AFT ///</label>
+      <row>7</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/rms/ready-to-latch</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   
+   </group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+	<path>Antenna-ku-Assembly.ac</path>
+
+  <animation>
+    	<type>material</type>
+   	<emission>
+      		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
+      		<red>   0.2 </red>
+      		<green> 0.2 </green>
+		<blue>  0.2 </blue>
+    	</emission>
+  </animation>
+		
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	    <object-name>KuReflector</object-name>
+	    <object-name>Arm</object-name>
+	    <object-name>Gimbal.Alpha</object-name>
+	    <object-name>Gimbal.Beta</object-name>
+	 </effect>
+
+	<animation>
+		<object-name>Arm</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+		<interpolation>
+			<entry>
+      				<ind>0.0</ind>
+      				<dep>0.0</dep>
+   			 </entry>
+    			<entry>
+      				<ind>0.5</ind>
+      				<dep>0.0</dep>
+   			 </entry>
+    			<entry>
+      				<ind>1.0</ind>
+      				<dep>113.0</dep>
+    			</entry>
+  		</interpolation>
+  		<offset-deg>0</offset-deg>
+  		<center>
+   			<x-m> 0</x-m>
+   			<y-m> 1.7   </y-m>
+   			<z-m> 0.0</z-m>
+  		</center>
+  		<axis>
+   			<x>0</x>
+   			<y>0</y>
+   			<z>1</z>
+  		</axis>
+	</animation>
+
+	<animation>
+		<object-name>Arm</object-name>
+  		<type>rotate</type>
+  		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+  		<interpolation>
+    			<entry>
+      				<ind>0.0</ind>
+      				<dep>0.0</dep>
+   			 </entry>
+    			<entry>
+      				<ind>0.5</ind>
+      				<dep>-67.0</dep>
+    			</entry>
+    			<entry>
+      				<ind>1.0</ind>
+      				<dep>-67.0</dep>
+    			</entry>
+  		</interpolation>
+  		<offset-deg>0</offset-deg>
+  		<center>
+   			<x-m> 0</x-m>
+   			<y-m> 1.7   </y-m>
+   			<z-m> 0.0</z-m>
+  		</center>
+  		<axis>
+   			<x>1</x>
+   			<y>0</y>
+   			<z>0</z>
+  		</axis>
+	</animation>
+	
+
+
+	
+	<animation>
+ 		<object-name>Gimbal.Alpha</object-name>
+  		<type>rotate</type>
+  		<property>controls/shuttle/ku-antenna-alpha-deg</property>
+  		<factor>1</factor>
+  		<offset-deg>-90</offset-deg>
+  		<center>
+   			<x-m>0</x-m>
+   			<y-m> 0   </y-m>
+   			<z-m> 0.0</z-m>
+  		</center>
+  		<axis>
+   			<x>0</x>
+   			<y>1</y>
+   			<z>0</z>
+  		</axis>
+ 	</animation>
+
+	<animation>
+ 		<object-name>Gimbal.Beta</object-name>
+  		<type>rotate</type>
+  		<property>controls/shuttle/ku-antenna-beta-deg</property>
+  		<factor>1</factor>
+  		<offset-deg>0</offset-deg>
+  		<center>
+   			<x-m> 0.0 </x-m>
+   			<y-m> 0.56733 </y-m>
+   			<z-m> 0.11870</z-m>
+  		</center>
+  		<axis>
+   			<x>1</x>
+   			<y>0</y>
+   			<z>0</z>
+  		</axis>
+ 	</animation>
+
+
+</PropertyList>
+
+
+
