@@ -71,7 +71,7 @@
 	<pointmass name="External_tank1_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location  unit="M">
-		<x> -4.00 </x>
+		<x> -12.00 </x>
        		<y> -2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -79,7 +79,7 @@
 	<pointmass name="External_tank2_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location unit="M">
-		<x> -4.00 </x>
+		<x> -12.00 </x>
        		<y> 2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -103,7 +103,7 @@
 	<pointmass name="Payload">
 		<weight unit="LBS"> 0.0</weight>
 	 	<location name="POINTMASS" unit="M">
-                	<x>  2.7 </x>
+                	<x> -2.7 </x>
                 	<y>  0.0 </y>
                 	<z> -2.7 </z>
             	</location>
@@ -2107,6 +2107,31 @@
 
   </channel>
 
+  <channel name="Actuator stall">
+  
+  <fcs_function name="systems/fcs/actuator-stall-factor">
+  <function>
+	<max>
+	<difference>
+	<value>1.0</value>
+	<quotient>
+		<max>
+		<difference>
+			<property>aero/qbar-psf</property>
+			<property>systems/various/qbar-limit-entry</property>
+		</difference>
+		<value>0.0</value>
+		</max>
+		<value>100.0</value>
+	</quotient>
+	</difference>
+	<value>0.0</value>
+	</max>
+  </function>
+  </fcs_function>
+
+  </channel>
+
 
   <channel name="Pitch">
 
@@ -2128,9 +2153,17 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-pitch</output>
+		<output>fcs/airfoil-factor-pitch-base</output>
    </switch>
 
+   <fcs_function name="fcs/airfoil-factor-pitch">
+   <function>
+	<product>
+		<property>fcs/airfoil-factor-pitch-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+   </function>
+   </fcs_function>
 
 
    <fcs_function name="Pitch Auto Trim">
@@ -2182,7 +2215,6 @@
 		</product>
 	</sum>
    </function>
-   <!--<output>fcs/elevator-cmd-norm</output>-->
    </fcs_function>
 
    <fcs_function name="fcs/pitch-error">
@@ -2205,6 +2237,7 @@
   <fcs_function name="fcs/pitch-PID-trigger">
   <function>
 	<max>
+	<property>/fdm/jsbsim/systems/fcs/rcs-pitch-mode</property>
 	<property>fcs/pitch-PID-trigger-raw</property>
 	<difference>
 		<value>1.0</value>
@@ -2369,8 +2402,17 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-roll</output>
+		<output>fcs/airfoil-factor-roll-base</output>
 		</switch>
+
+    <fcs_function name="fcs/airfoil-factor-roll">
+    <function>
+	<product>
+		<property>fcs/airfoil-factor-roll-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+    </function>
+    </fcs_function>
 
     <pure_gain name="Roll damper">
 	<input>velocities/p-rad_sec</input>
@@ -2590,7 +2632,7 @@
    </pure_gain>
 
    <aerosurface_scale name="left aileron normalization">
-      <input>fcs/left-aileron-pos-rad-command</input>
+      <input>fcs/left-aileron-pos-rad</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -2603,7 +2645,7 @@
    </aerosurface_scale>
 
    <aerosurface_scale name="right aileron normalization">
-      <input>fcs/right-aileron-pos-rad-command</input>
+      <input>fcs/right-aileron-pos-rad</input>
       <domain>
         <min> -0.35 </min>
         <max>  0.35 </max>
@@ -2640,16 +2682,25 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
 			</test>
-		<output>fcs/airfoil-factor-yaw</output>
-		</switch>
+		<output>fcs/airfoil-factor-yaw-base</output>
+    </switch>
 
-  <switch name="Disable automatic rudder in orbit">
+   <fcs_function name="fcs/airfoil-factor-yaw">
+   <function>
+	<product>
+		<property>fcs/airfoil-factor-yaw-base</property>
+		<property>systems/fcs/actuator-stall-factor</property>
+	</product>
+   </function>
+   </fcs_function>
+
+   <switch name="Disable automatic rudder in orbit">
 			<default value="1.0"/>
 			<test  logic="OR" value="0.0">
 				velocities/mach GT 10.0
 			</test>
 		<output>fcs/automatic-rudder</output>
-  </switch>
+   </switch>
 
    <summer name="Rudder Command Sum">
       <input>fcs/rudder-cmd-norm</input>
@@ -2887,8 +2938,18 @@
 
 
   <channel name="Landing Gear">
+
+   <fcs_function name="gear/gear-filtered-cmd-norm">
+	<function>
+	<product>	
+		<property>gear/gear-cmd-norm</property>
+		<property>systems/landing/landing-gear-arm-cmd</property>
+	</product>
+	</function>
+   </fcs_function>	
+
    <kinematic name="Gear Control">
-     <input>gear/gear-cmd-norm</input>
+     <input>gear/gear-filtered-cmd-norm</input>
      <traverse>
        <setting>
           <position> 0 </position>
@@ -2896,7 +2957,7 @@
        </setting>
        <setting>
           <position> 1 </position>
-          <time>     5 </time>
+          <time>     1.5 </time>
        </setting>
      </traverse>
      <output>gear/gear-pos-norm</output>
@@ -2991,6 +3052,43 @@
 <!-- Parachute -->
   
   
+<!--  <channel name="Accelerometer">
+
+<accelerometer name="accelerations/translational-acc-1">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>X</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/ax-trans-ft_sec2</output>
+</accelerometer>
+
+<accelerometer name="accelerations/translational-acc-2">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>Y</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/ay-trans-ft_sec2</output>
+</accelerometer>
+
+<accelerometer name="accelerations/translational-acc-3">
+  <location unit="M">
+    <x> 2.7 </x>
+    <y> 0.0 </y>
+    <z>-2.7 </z>
+  </location>
+  <axis>Z</axis>
+  <drift_rate> 0.0</drift_rate>
+  <output>accelerations/az-trans-ft_sec2</output>
+</accelerometer>
+
+  </channel>-->
+
 
  </flight_control>
 
@@ -4016,14 +4114,18 @@
       <z>0</z>
     </direction>
   </force>
+
+
  </external_reactions> 
 
 
  <system file="orbital_parameters"></system>
+ <system file="pointing"></system>
  <system file="apu_hydraulics.xml"></system>
  <system file="electrical_power.xml"></system>
  <system file="atcs.xml"></system>
  <system file="mechanical.xml"></system>
+ <system file="rms.xml"></system>
  <system file="mps.xml"></system>
  <system file="rcs_hardware"></system>
  <system file="oms_hardware"></system>
@@ -4031,10 +4133,14 @@
  <system file="eclss"></system>
  <system file="computations"></system>
  <system file="entry_guidance"></system>
+ <system file="throttle"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
- <system file="cws"></system>
+ <!--<system file="cws"></system>-->
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
+ <system file="navigation"></system>
+ <system file="light"></system>
+ <!--<system file="adi"></system>-->
  
 </fdm_config>

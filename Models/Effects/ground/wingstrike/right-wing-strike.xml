@@ -12,7 +12,7 @@
   <particlesystem>
 
     <name>right-wing-strike-spark</name>
-	<texture>spark.png</texture>
+	<texture>Effects/ground/wingstrike/spark.png</texture>
     <emissive>true</emissive>
     <lighting>true</lighting>
 
@@ -103,7 +103,7 @@
   <particlesystem>
 
     <name>right-wing-strike-smoke</name>
-	<texture>tyresmoke.png</texture>
+	<texture>Effects/ground/wingstrike/tyresmoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 

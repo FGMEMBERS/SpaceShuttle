@@ -10,6 +10,13 @@
 
 	<channel name="CoG-pointing pitch and yaw angles of engines">
 
+		  <switch name="systems/vectoring/oms-yaw-vectoring">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/ap/oms-plan/burn-mode == 1
+			</test>
+		  </switch>
+
  		  <fcs_function name="Pitch SSME 1 2 to CoG">
 			<function>
 			<product>
@@ -161,6 +168,7 @@
 				</difference>
 				</quotient>
 			</atan>
+			<property>systems/vectoring/oms-yaw-vectoring</property>
 			</product>
    			</function>
 			<output>propulsion/engine[5]/yaw-to-CoG</output>
@@ -182,6 +190,7 @@
 				</difference>
 				</quotient>
 			</atan>
+			<property>systems/vectoring/oms-yaw-vectoring</property>
 			</product>
    			</function>
 			<output>propulsion/engine[6]/yaw-to-CoG</output>
@@ -189,8 +198,7 @@
 	</channel>
 
 
-
-	<channel name="Thrust vectoring with engine gimbal control">	
+ 	<channel name="TVC active">
 
 		<switch name="systems/vectoring/vectoring-gimbal-master">
 			<default value="0.0"/>
@@ -198,6 +206,14 @@
 				systems/fcs/control-mode == 0
 			</test>
 		</switch>
+
+
+	</channel>
+
+
+	<channel name="TVC direct gimbal control" execute="systems/vectoring/vectoring-gimbal-master">	
+
+
 
 		<aerosurface_scale name= "Pitch thrust command SSME 1">
 		   <input>fcs/elevator-cmd-norm</input>
@@ -389,28 +405,6 @@
 			<output>fcs/throttle-pos-norm[2]</output>
  		</fcs_function>
 
-		<fcs_function name ="Thrust reduction correction OMS 1">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[5]</property>
-					<property>systems/failures/oms1-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[5]</output>
- 		</fcs_function>
-
-		<fcs_function name ="Thrust reduction correction OMS 2">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[6]</property>
-					<property>systems/failures/oms2-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[6]</output>
- 		</fcs_function>
-
-
-
  		 <aerosurface_scale name= "Roll thrust command SRB 1">
   		<input>fcs/aileron-cmd-norm</input>
   		 <zero_centered>false</zero_centered>
@@ -592,7 +586,7 @@
 				<property>velocities/q-rad_sec</property>
 				<product>
   					<property>fcs/elevator-cmd-norm</property>
-					<value>-0.1</value>
+					<value>-0.2</value>
 				</product>
 			</difference>
 		</function>
@@ -645,11 +639,17 @@
 			</clipto>
 		</pid>
 
+  		<deadband name="systems/vectoring/SSME-roll-PID-trigger">
+			<input>systems/vectoring/roll-rate-error</input>
+			<width>0.2</width>
+  		</deadband>
+
 		<pid name="systems/vectoring/SSME-roll">
 			<input>systems/vectoring/roll-rate-error</input>
 			<kp> 2.0 </kp>
 			<ki> 0.5 </ki>
 			<kd> 0.1</kd>
+			<trigger>systems/vectoring/SSME-roll-PID-trigger</trigger>
 			<clipto>
 				<min> -0.17 </min>
         			<max>  0.17 </max>
@@ -772,10 +772,14 @@
 			<output>propulsion/engine[2]/pitch-angle-rad-rsys</output>
    		</summer>
 
+
+
 	</channel>
 
 
 	<channel name="Mapping of the commanded pitch angles to the actual value dependent on control mode">
+
+
 
 		<switch name="systems/vectoring/aero-engine-stow-cmd">
 			<default value="0.0"/>
@@ -804,6 +808,7 @@
 				<product>
 					<property>systems/apu/hyd-pressure-available</property>
 					<property>systems/vectoring/aero-engine-stow-cmd</property>
+					<property>systems/vectoring/ssme-repos-enable</property>
 				</product>
 				</sum>				
 			</function>
@@ -844,6 +849,7 @@
 				<product>
 					<property>systems/apu/hyd-pressure-available</property>
 					<property>systems/vectoring/aero-engine-stow-cmd</property>
+					<property>systems/vectoring/ssme-repos-enable</property>
 				</product>
 				</sum>				
 			</function>
@@ -884,6 +890,7 @@
 				<product>
 					<property>systems/apu/hyd-pressure-available</property>
 					<property>systems/vectoring/aero-engine-stow-cmd</property>
+					<property>systems/vectoring/ssme-repos-enable</property>
 				</product>
 				</sum>				
 			</function>
@@ -1129,6 +1136,61 @@
 	</channel>
 
 
+	<channel name="SSME and OMS failure simulation">
+
+		<fcs_function name ="Thurst loss SSME 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[0]</property>
+					<property>systems/failures/ssme1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[0]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thurst loss SSME 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[1]</property>
+					<property>systems/failures/ssme2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[1]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thurst loss SSME 3">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[2]</property>
+					<property>systems/failures/ssme3-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[2]</output>
+ 		</fcs_function>
+
+		<!--<fcs_function name ="Thrust loss OMS 1">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[5]</property>
+					<property>systems/failures/oms1-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[5]</output>
+ 		</fcs_function>
+
+		<fcs_function name ="Thrust loss OMS 2">
+			<function>
+				<product>
+					<property>fcs/throttle-pos-norm[6]</property>
+					<property>systems/failures/oms2-condition</property>
+				</product>
+			</function>
+			<output>fcs/throttle-pos-norm[6]</output>
+ 		</fcs_function>-->
+
+	</channel>
+
+
 	<channel name="OMS dual engine TVC">
 
 	<!-- engines can be gimbaled to 7 deg (0.12 rad) yaw and 6 deg  (0.10 rad) pitch from their zero position-->
@@ -1140,12 +1202,66 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/vectoring/OMS-elevator-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/elevator-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/pitch-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-aileron-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/aileron-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/roll-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-rudder-cmd-norm">
+		<function>
+			<sum>
+			<product>
+				<difference>
+					<value>1</value>
+					<property>systems/ap/auto-rotation-mode</property>
+				</difference>
+  				<property>fcs/rudder-cmd-norm</property>
+			</product>
+			<product>
+				<property>systems/ap/auto-rotation-mode</property>
+				<property>systems/ap/yaw-rate-controller</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/vectoring/OMS-pitch-rate-error">
 		<function>
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-cmd-norm</property>
+  					<property>systems/vectoring/OMS-elevator-cmd-norm</property>
 					<value>-0.02</value>
 				</product>
 			</difference>
@@ -1157,7 +1273,7 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
+  					<property>systems/vectoring/OMS-aileron-cmd-norm</property>
 					<value>0.06</value>
 				</product>
 			</difference>
@@ -1169,7 +1285,7 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
+  					<property>systems/vectoring/OMS-rudder-cmd-norm</property>
 					<value>-0.02</value>
 				</product>
 			</difference>
@@ -1178,7 +1294,7 @@
 
 		<pid name="systems/vectoring/OMS-pitch">
 			<input>systems/vectoring/OMS-pitch-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
@@ -1189,7 +1305,7 @@
 
 		<pid name="systems/vectoring/OMS-yaw">
 			<input>systems/vectoring/OMS-yaw-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
@@ -1200,7 +1316,7 @@
 
 		<pid name="systems/vectoring/OMS-roll">
 			<input>systems/vectoring/OMS-roll-rate-error</input>
-			<kp> 500.0 </kp>
+			<kp> 50.0 </kp>
 			<ki> 0.0 </ki>
 			<kd> 0.0</kd>
 			<clipto>
@@ -1290,12 +1406,42 @@
 			<output>propulsion/engine[6]/yaw-angle-rad-sum</output>
    		</summer>
 
+		<fcs_function name="systems/vectoring/oms-left-gimbal-state">
+		<function>
+			<max>
+				<product>
+					<property>systems/oms-hardware/gimbal-left-pri-selected</property>
+					<property>systems/failures/oms-left-pri-gimbal-condition</property>
+				</product>
+				<product>
+					<property>systems/oms-hardware/gimbal-left-sec-selected</property>
+					<property>systems/failures/oms-left-sec-gimbal-condition</property>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/oms-right-gimbal-state">
+		<function>
+			<max>
+				<product>
+					<property>systems/oms-hardware/gimbal-right-pri-selected</property>
+					<property>systems/failures/oms-right-pri-gimbal-condition</property>
+				</product>
+				<product>
+					<property>systems/oms-hardware/gimbal-right-sec-selected</property>
+					<property>systems/failures/oms-right-sec-gimbal-condition</property>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
 
 		<fcs_function name="fcs/pitch-OMS-1">
 			<function>
 				<product>
 					<property>propulsion/engine[5]/pitch-angle-rad-sum</property>
-					<property>systems/failures/oms1-gimbal-condition</property>
+					<property>systems/vectoring/oms-left-gimbal-state</property>
 				</product>	
 			</function>
 			<output>propulsion/engine[5]/pitch-angle-rad-cmd</output>
@@ -1305,7 +1451,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[5]/yaw-angle-rad-sum</property>
-					<property>systems/failures/oms1-gimbal-condition</property>
+					<property>systems/vectoring/oms-left-gimbal-state</property>
 				</product>			
 			</function>
 			<output>propulsion/engine[5]/yaw-angle-rad-cmd</output>
@@ -1315,7 +1461,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[6]/pitch-angle-rad-sum</property>
-					<property>systems/failures/oms2-gimbal-condition</property>
+					<property>systems/vectoring/oms-right-gimbal-state</property>
 				</product>	
 			</function>
 			<output>propulsion/engine[6]/pitch-angle-rad-cmd</output>
@@ -1325,7 +1471,7 @@
 			<function>
 				<product>
 					<property>propulsion/engine[6]/yaw-angle-rad-sum</property>
-					<property>systems/failures/oms2-gimbal-condition</property>
+					<property>systems/vectoring/oms-right-gimbal-state</property>
 				</product>			
 			</function>
 			<output>propulsion/engine[6]/yaw-angle-rad-cmd</output>

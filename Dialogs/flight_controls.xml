@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>flight_controls</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Flight controls</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>PITCH</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+   <radio>
+      <row>0</row>
+      <col>1</col>
+      <label>CSS</label>
+      <halign>left</halign>
+      <name>css-pitch</name>
+      <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+         <value>1</value>
+      </binding>
+    </radio>	
+
+   <radio>
+      <row>0</row>
+      <col>2</col>
+      <label>AUTO</label>
+      <halign>left</halign>
+      <name>auto-pitch</name>
+      <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
+         <value>1</value>
+      </binding>
+    </radio>	
+
+    <text>
+      <label>ROLL/YAW</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+  <radio>
+      <row>1</row>
+      <col>1</col>
+      <label>CSS</label>
+      <halign>left</halign>
+      <name>css-roll</name>
+      <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+         <value>1</value>
+      </binding>
+    </radio>	
+
+   <radio>
+      <row>1</row>
+      <col>2</col>
+      <label>AUTO</label>
+      <halign>left</halign>
+      <name>auto-roll</name>
+      <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+         <value>1</value>
+      </binding>
+    </radio>	
+
+
+    <text>
+      <label>SENSE</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+   <radio>
+      <row>2</row>
+      <col>1</col>
+      <label>+X</label>
+      <halign>left</halign>
+      <name>sense-X</name>
+      <property>/fdm/jsbsim/systems/fcs/sense-X</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-X</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-Z</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-X</property>
+         <value>1</value>
+      </binding>
+    </radio>	
+
+<radio>
+      <row>2</row>
+      <col>2</col>
+      <label>-X</label>
+      <halign>left</halign>
+      <name>sense-minus-X</name>
+      <property>/fdm/jsbsim/systems/fcs/sense-minus-X</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-X</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-Z</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-X</property>
+         <value>0</value>
+      </binding>
+    </radio>	
+
+<radio>
+      <row>2</row>
+      <col>3</col>
+      <label>-Z</label>
+      <halign>left</halign>
+      <name>sense-minus-Z</name>
+      <property>/fdm/jsbsim/systems/fcs/sense-minus-Z</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-X</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-minus-Z</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/fcs/sense-X</property>
+         <value>0</value>
+      </binding>
+    </radio>	
+
+  </group>
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Orbital DAP</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  <radio>
+      <row>1</row>
+      <col>1</col>
+      <label>AUTO</label>
+      <halign>left</halign>
+      <name>auto</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(1)</script>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>2</col>
+      <label>INRTL</label>
+      <halign>left</halign>
+      <name>inertial</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(2)</script>
+      </binding>
+    </radio>	
+
+  <radio>
+      <row>1</row>
+      <col>3</col>
+      <label>LVLH</label>
+      <halign>left</halign>
+      <name>lvlh</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>1</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>0</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(3)</script>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>4</col>
+      <label>FREE</label>
+      <halign>left</halign>
+      <name>free</name>
+      <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+         <value>1</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.switch_orbital_dap(4)</script>
+      </binding>
+    </radio>
+
+
+  </group>
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

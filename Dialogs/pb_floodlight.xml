@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>pb-floodlight</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Payload bay floodlights</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+
+    <text>
+      <label>Starboard</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>flood-aft-sb</name>
+ 	<row>1</row>
+        <col>1</col>
+	<label>AFT</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-star-aft-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-aft-sb</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>flood-mid-sb</name>
+ 	<row>1</row>
+        <col>2</col>
+	<label>MID</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-star-mid-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-mid-sb</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>flood-fwd-sb</name>
+ 	<row>1</row>
+        <col>3</col>
+	<label>FWD</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-star-fwd-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-fwd-sb</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>Port</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>flood-aft-p</name>
+ 	<row>3</row>
+        <col>1</col>
+	<label>AFT</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-port-aft-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-aft-p</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>flood-mid-p</name>
+ 	<row>3</row>
+        <col>2</col>
+	<label>MID</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-port-mid-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-mid-p</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>flood-fwd-p</name>
+ 	<row>3</row>
+        <col>3</col>
+	<label>FWD</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-fwd-p</object-name>
+          </binding>
+       </checkbox>
+
+    <text>
+      <label>Other</label>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+ <checkbox>
+        <name>flood-docking</name>
+ 	<row>5</row>
+        <col>1</col>
+	<label>DOCKING BRIGHT</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-docking-bright-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-docking</object-name>
+          </binding>
+       </checkbox>
+
+    <checkbox>
+        <name>flood-fwd-bh</name>
+ 	<row>5</row>
+        <col>2</col>
+	<label>FWD BHD</label>
+          <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-bhd-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>flood-fwd-bh</object-name>
+          </binding>
+       </checkbox>
+	
+  </group>
+
+
+
+
+
+       <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -5,13 +5,26 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis (orbit)</description>
-  <variant-of>SpaceShuttle-launch</variant-of>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
 	<altitude-ft>500000.0</altitude-ft>
 	<stage type="int">1</stage>
   </presets>
+  <startup>
+    <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-orbit-splash.png</splash-texture>
+  </startup>
 </sim>
 
+<fdm>
+   <jsbsim>
+	<systems>
+	   <dps>
+		<ops type="int">1</ops>
+		<major-mode type="int">103</major-mode>
+	   </dps>
+	</systems>
+   </jsbsim>
+</fdm>
 
 
 

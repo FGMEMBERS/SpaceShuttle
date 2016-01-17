@@ -14,7 +14,7 @@
 	<particlesystem>
 
 		<name>right-tire-spray</name>
-		<texture>smoke.png</texture>
+		<texture>Effects/ground/tirespray/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 

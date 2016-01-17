@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+    <path>SPARTAN-201.ac</path>
+	<nopreview/>
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	     <object-name>SPARTAN-201</object-name>
+	 </effect>
+
+	<offsets>
+      	 	<x-m> -8.5 </x-m>
+       		<y-m> -2.1</y-m>
+       		<z-m> -1.1 </z-m>
+    	</offsets>
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/payload-ballistic/payload-pitch-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/payload-ballistic/payload-yaw-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/payload-ballistic/payload-roll-deg</property>
+	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	<animation>
+  	<type>translate</type>  
+	<property>/controls/shuttle/payload-ballistic/payload-x</property>
+  	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/controls/shuttle/payload-ballistic/payload-y</property>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/controls/shuttle/payload-ballistic/payload-z</property>
+  	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+	</animation> 
+
+
+	
+	
+</PropertyList>

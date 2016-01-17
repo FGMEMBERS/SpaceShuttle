@@ -19,6 +19,8 @@
 				systems/apu/apu/apu-rpm LT 57600.0
 				systems/apu/apu/fuel-valve-status == 1
 				systems/apu/apu/hyd-pump-pressure-select == 0
+				systems/apu/apu/boiler-power-status == 1
+				systems/apu/apu/gg-bed-T-K GT 360
 			</test>
 		</switch>
 
@@ -220,6 +222,8 @@
 				systems/apu/apu[1]/apu-rpm LT 57600.0
 				systems/apu/apu[1]/fuel-valve-status == 1
 				systems/apu/apu[1]/hyd-pump-pressure-select == 0
+				systems/apu/apu[1]/boiler-power-status == 1
+				systems/apu/apu[1]/gg-bed-T-K GT 360
 			</test>
 		</switch>
 
@@ -420,6 +424,8 @@
 				systems/apu/apu[2]/apu-rpm LT 57600.0
 				systems/apu/apu[2]/fuel-valve-status == 1
 				systems/apu/apu[2]/hyd-pump-pressure-select == 0
+				systems/apu/apu[2]/boiler-power-status == 1
+				systems/apu/apu[2]/gg-bed-T-K GT 360
 			</test>
 		</switch>
 
@@ -759,6 +765,326 @@
 			</max>
 		</function>
    		</fcs_function>
+
+	</channel>
+
+
+
+	<channel name="APU and hydraulics detailed temperature and pressure readings">
+
+	<fcs_function name="systems/apu/apu/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu1-temperature-K</property>
+			<product>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/egt-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<value>800.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<!-- if the spray boiler is cooling, it generates a spread between in and out temperatures -->
+	<!-- and hydraulic vs. lube oil temperatures -->
+	
+	<fcs_function name="systems/apu/apu/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-1-switch</property>
+			<value>9.5</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-2-switch</property>
+			<value>9.7</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/spread-T-K">
+	<function>
+		<product>
+			<property>/fdm/jsbsim/systems/thermal-distribution/spray-boiler-3-switch</property>
+			<value>10.6</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu1-temperature-K</property>
+			<property>systems/apu/apu/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<property>systems/apu/apu[1]/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/oil-in-T-K">
+	<function>
+		<difference>
+			<property>systems/thermal-distribution/apu3-temperature-K</property>
+			<property>systems/apu/apu[2]/spread-T-K</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/hyd-acc-pressure-psia">
+	<function>
+		<max>
+			<value>2497</value>
+			<property>systems/apu/apu/hyd-pressure-psia</property>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/hyd-acc-pressure-psia">
+	<function>
+		<max>
+			<value>2504</value>
+			<property>systems/apu/apu[1]/hyd-pressure-psia</property>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/hyd-acc-pressure-psia">
+	<function>
+		<max>
+			<value>2501</value>
+			<property>systems/apu/apu[2]/hyd-pressure-psia</property>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/hyd-rsvr-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<difference>
+				<property>systems/apu/apu/oil-in-T-K</property>
+				<value>15.0</value>
+			</difference>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/hyd-rsvr-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<difference>
+				<property>systems/apu/apu[1]/oil-in-T-K</property>
+				<value>15.0</value>
+			</difference>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/hyd-rsvr-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<difference>
+				<property>systems/apu/apu[2]/oil-in-T-K</property>
+				<value>15.0</value>
+			</difference>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/gg-bed-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu1-temperature-K</property>
+			<product>
+				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<value>1200.0</value>
+			</product>
+			<product>
+				<property>systems/apu/apu/gg-bed-heater-status</property>
+				<value>470.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/gg-bed-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu2-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<value>1200.0</value>
+			</product>
+			<product>
+				<property>systems/apu/apu[1]/gg-bed-heater-status</property>
+				<value>470.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/gg-bed-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/apu3-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<value>1200.0</value>
+			</product>
+			<product>
+				<property>systems/apu/apu[2]/gg-bed-heater-status</property>
+				<value>470.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+
+	<fcs_function name="systems/apu/apu/steam-vent-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu/boiler-heater-status</property>
+				<value>344.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/steam-vent-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[1]/boiler-heater-status</property>
+				<value>344.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/steam-vent-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[2]/boiler-heater-status</property>
+				<value>344.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/fuel-pump-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu/fuel-pump-heater-status</property>
+				<value>310.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/fuel-pump-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[1]/fuel-pump-heater-status</property>
+				<value>310.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/fuel-pump-T-K">
+	<function>
+		<max>
+			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<product>
+				<property>systems/apu/apu[2]/fuel-pump-heater-status</property>
+				<value>310.0</value>
+			</product>
+		</max>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu/oil-p-psia">
+	<function>
+		<sum>	
+			<value>15</value>
+			<product>
+			<property>systems/apu/apu/apu-rpm-fraction</property>
+			<value>30</value>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[1]/oil-p-psia">
+	<function>
+		<sum>	
+			<value>15</value>
+			<product>
+			<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+			<value>30</value>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/apu/apu[2]/oil-p-psia">
+	<function>
+		<sum>	
+			<value>15</value>
+			<product>
+			<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+			<value>30</value>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+	
 
 
 	</channel>

@@ -10,6 +10,14 @@
 
 	<tape>
 		<name>KIAS</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-280</x>
 		<y>-100</y>
 		<width>28</width>
@@ -33,13 +41,21 @@
 		<tick-type>line</tick-type>
 		<tick-length>variable</tick-length>
 		<input>
-			<property>/velocities/airspeed-kt</property>
+			<property>/velocities/equivalent-kt</property>
 			<min>0.0</min>
 		</input>
 	</tape>
 
 	<tape>
 		<name>AMSL</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>245</x>
 		<y>-100</y>
 		<width>35</width>
@@ -100,10 +116,16 @@
 		</input>
 
 		<condition>
+			<and>
 			<less-than>
-				<property>/position/altitude-agl-ft</property>
-				<value>1000000</value>
+				<property>/fdm/jsbsim/systems/navigation/radar-alt-ft</property>
+				<value>5000.0</value>
 			</less-than>
+			<equals>
+				<property>/fdm/jsbsim/systems/navigation/radar-alt-available</property>
+				<value>1.0</value>
+			</equals>
+			</and>
 		</condition>
 	</tape>
 </PropertyList>

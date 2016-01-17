@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+<particlesystem>
+	 <name>explosion_blast_1</name>
+	 <texture>smoke.png</texture>
+	 <emissive>true</emissive>
+	 <lighting>true</lighting>
+	                <x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+			<roll-deg>0.0</roll-deg>
+			<pitch-deg>90.0</pitch-deg>
+			<heading-deg>0.0</heading-deg>
+	<condition>
+   	 	<equals>
+    	 	<property>/sim/model/effects/explosion-flame</property>
+     		<value>1</value>
+    		</equals>
+	</condition>
+		 
+	 <attach>world</attach>
+	 
+	 <placer>
+		<type>point</type>
+	 </placer>
+	 
+	 <shooter>
+		 <theta-min-deg>-90.0</theta-min-deg>
+		 <theta-max-deg>90.0</theta-max-deg>
+		 <phi-min-deg>0.0</phi-min-deg>
+		 <phi-max-deg>360.0</phi-max-deg>
+		 <speed-mps>
+			 <value>250</value>
+			 <spread>50</spread>
+		 </speed-mps>
+		 <rotation-speed>
+			<x-min-deg-sec>1</x-min-deg-sec>
+			<y-min-deg-sec>1</y-min-deg-sec>
+			<z-min-deg-sec>1</z-min-deg-sec>
+			<x-max-deg-sec>5</x-max-deg-sec>
+			<y-max-deg-sec>5</y-max-deg-sec>
+			<z-max-deg-sec>5</z-max-deg-sec>
+		 </rotation-speed>
+	 </shooter>
+	 
+	 <counter>
+		 <particles-per-sec>
+			 <value>500</value>
+			 <spread>0</spread>
+		 </particles-per-sec>
+	 </counter>
+	 
+	 <align>billboard</align>
+	 
+	 <particle>
+		 <start>
+			 <color>
+				<red>
+						<value>1.0</value>
+					</red>
+					<green>
+						<value>0.8</value>
+					</green>
+					<blue>
+						<value>0.3</value>
+					</blue>
+					<alpha>
+						<value>1.0</value>
+					</alpha>
+			 </color>
+			 <size>
+				 <value>30.2</value>
+			 </size>
+		 </start>
+		 <end>
+			 <color>
+				 <red>
+						<value>0.95</value>
+					</red>
+					<green>
+						<value>0.55</value>
+					</green>
+					<blue>
+						<value>0.0</value>
+					</blue>
+					<alpha>
+						<value>0.25</value>
+					</alpha>
+			 </color>
+			 <size>
+				 <value>60.2</value>
+			 </size>
+		 </end>
+		 <life-sec>
+			 <value>0.5</value>
+		 </life-sec>
+		 <mass-kg>5.0</mass-kg>
+		 <radius-m>0.1</radius-m>
+	 </particle>
+			 
+	 
+	 <program>
+		 <fluid>air</fluid>
+		 <gravity type="bool">true</gravity>
+		 <wind type="bool">true</wind>
+	 </program>
+	 
+</particlesystem>
+
+</PropertyList>
+

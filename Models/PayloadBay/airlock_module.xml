@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+	<path>airlock_module.ac</path>
+
+
+  <animation>
+    	<type>material</type>
+   	<emission>
+      		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
+      		<red>   0.2 </red>
+      		<green> 0.2 </green>
+		<blue>  0.2 </blue>
+    	</emission>
+  </animation>
+
+ 
+   <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	    <object-name>rspaceshutt_spstob_eal</object-name>
+  </effect>
+
+</PropertyList>
