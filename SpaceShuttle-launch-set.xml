@@ -5,11 +5,30 @@
 <PropertyList include="SpaceShuttle-set.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in launch position</description>
+  <variant-of>SpaceShuttle</variant-of>
   <presets>
-	<altitude-ft>214.0</altitude-ft>	
+	<!--<altitude-ft>214.0</altitude-ft>-->
+	<!-- we init the Shuttle free of the terrain and re-position it sitting on the tail via Nasal -->
+	<!-- otherwise JSBSim tries to initialize it on gear, which is retracted, which puts us into -->
+	<!-- the terrain -->
+	<altitude-ft>10000.0</altitude-ft>	
 	<pitch-deg>90.0</pitch-deg>
 	<stage type="int">0</stage>
   </presets>
+  <startup>
+    <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-launch-splash.png</splash-texture>
+  </startup>
 </sim>
+
+<fdm>
+   <jsbsim>
+	<systems>
+	   <dps>
+		<ops type="int">1</ops>
+		<major-mode type="int">101</major-mode>
+	   </dps>
+	</systems>
+   </jsbsim>
+</fdm>
 
 </PropertyList>

@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>idp</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>240</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>IDP settings</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+	<group>
+ 	<layout>table</layout>
+
+   	<text>
+      	 <label>Virtual Keyboard IDP selection</label>
+         <halign>center</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+        </group>
+
+	<group>
+ 	<layout>table</layout>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>0</col>
+      	 <label>1</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel1</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>1</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>0</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(1);</script>
+	 </binding>
+    	</radio>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>1</col>
+      	 <label>2</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel2</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>1</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>0</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(2);</script>
+	 </binding>
+    	</radio>
+
+	<radio>
+      	 <row>0</row>
+      	 <col>2</col>
+      	 <label>3</label>
+      	 <halign>left</halign>
+      	 <name>idp-sel2</name>
+     	  <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+     	 <live>true</live>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-1-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-2-selected</property>
+          <value>0</value>
+     	 </binding>
+     	 <binding>
+          <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/dps/virtual-kb-idp-3-selected</property>
+          <value>1</value>
+     	 </binding>
+	 <binding>
+	   <command>nasal</command>
+           <script>SpaceShuttle.kb_array[0].assign_idp(3);</script>
+	 </binding>
+    	</radio>	
+
+	</group>
+
+	<group>
+ 	<layout>table</layout>
+
+   	<text>
+      	 <label>Major function selection</label>
+         <halign>center</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+        </group>
+
+	<group>
+ 	<layout>table</layout>
+
+   	<text>
+      	 <label>1  GNC</label>
+         <halign>center</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+    	<slider>
+      	 <name>idp1-switch</name>
+      	 <row>0</row>
+      	 <col>1</col>
+      	 <min>1</min>
+      	 <max>2</max>
+      	 <step>1</step>
+      	 <live>true</live>
+      	 <property>/fdm/jsbsim/systems/dps/idp-function-switch</property>
+      	 <binding>
+          <command>dialog-apply</command>
+          <object-name>idp1-switch</object-name>
+      	 </binding>
+    	</slider>
+
+  	<text>
+      	 <label>SM</label>
+         <halign>center</halign>
+         <row>0</row>
+         <col>2</col>
+        </text>
+
+   	<text>
+      	 <label>2  GNC</label>
+         <halign>center</halign>
+         <row>1</row>
+         <col>0</col>
+        </text>
+
+    	<slider>
+      	 <name>idp2-switch</name>
+      	 <row>1</row>
+      	 <col>1</col>
+      	 <min>1</min>
+      	 <max>2</max>
+      	 <step>1</step>
+      	 <live>true</live>
+      	 <property>/fdm/jsbsim/systems/dps/idp-function-switch[1]</property>
+      	 <binding>
+          <command>dialog-apply</command>
+          <object-name>idp2-switch</object-name>
+      	 </binding>
+    	</slider>
+
+  	<text>
+      	 <label>SM</label>
+         <halign>center</halign>
+         <row>1</row>
+         <col>2</col>
+        </text>
+
+   	<text>
+      	 <label>3  GNC</label>
+         <halign>center</halign>
+         <row>2</row>
+         <col>0</col>
+        </text>
+
+    	<slider>
+      	 <name>idp3-switch</name>
+      	 <row>2</row>
+      	 <col>1</col>
+      	 <min>1</min>
+      	 <max>2</max>
+      	 <step>1</step>
+      	 <live>true</live>
+      	 <property>/fdm/jsbsim/systems/dps/idp-function-switch[2]</property>
+      	 <binding>
+          <command>dialog-apply</command>
+          <object-name>idp3-switch</object-name>
+      	 </binding>
+    	</slider>
+
+  	<text>
+      	 <label>SM</label>
+         <halign>center</halign>
+         <row>2</row>
+         <col>2</col>
+        </text>
+
+
+	
+
+	</group>
+
+
+    	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

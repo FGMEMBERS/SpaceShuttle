@@ -8,6 +8,7 @@
 <PropertyList>
   
 	<path>et.ac</path>
+	<nopreview/>
 		
 <offsets>
   <heading-deg>-180</heading-deg>
@@ -42,24 +43,6 @@
     <object-name>et_all.lay_et_top_tip</object-name>
  </effect>
 
-<!--<animation>
-<type>select</type>
- 
- <condition>
-  <and>
-    <equals>
-     <property>sim/multiplay/generic/int[6]</property>
-     <value>1</value>
-    </equals>
-    
-    <greater-than>
-     <property>sim/multiplay/generic/float[4]</property>
-     <value>10</value>
-    </greater-than>
-  </and>
- </condition>
- 
-</animation>-->
 
 </PropertyList>
 

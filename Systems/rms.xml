@@ -1,0 +1,2053 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<!-- RMS can be driven in a number of modes, currently implemented are: -->
+
+	<!-- 1: single/direct joint driving -->
+	<!-- 2: manual augmented ORB UL x/y/z driving -->
+	<!-- 3: manual augmented ORB UL yaw/pitch/roll driving -->
+
+
+	<channel name="RMS usage">
+
+
+		<switch name="systems/rms/rms-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/rms-power-switch == 1
+				systems/rms/rms-power-switch == -1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rms-control-veto">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="RMS deployment">
+
+
+		<switch name="systems/rms/rms-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-active == 1
+				systems/electrical/total-available-power-kW GT 0.0
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/mpm-latch-target">
+			<default value="systems/rms/mpm-latch-pos"/>
+			<test logic="AND" value="systems/rms/mpm-release-switch">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/mpm-latch-pos">
+			<input>systems/rms/mpm-latch-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/mpm-deploy-target">
+			<default value="systems/rms/mpm-deploy-pos"/>
+			<test logic="AND" value="systems/rms/mpm-deploy-switch">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/mpm-latch-pos == 0
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/mpm-deploy-pos">
+			<input>systems/rms/mpm-deploy-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/shoulder-brace-target">
+			<default value="systems/rms/shoulder-brace-pos"/>
+			<test logic="AND" value="1">
+				systems/electrical/total-available-power-kW GT 0.0
+				systems/rms/shoulder-brace-release-switch == 1
+				systems/rms/shoulder-brace-pos LT 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/shoulder-brace-pos">
+			<input>systems/rms/shoulder-brace-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>6.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+	</channel>
+
+	<channel name="RMS jettison">
+
+		<switch name="systems/rms/rms-shoulder-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-shl-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-shoulder-severed">
+			<default value="systems/rms/rms-shoulder-jettison-cmd"/>
+			<test value="systems/rms/rms-shoulder-severed">
+				systems/rms/rms-shoulder-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-fwd-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-fwd-switch == 1
+			</test>
+		</switch>
+
+
+
+		<switch name="systems/rms/rms-fwd-severed">
+			<default value="systems/rms/rms-fwd-jettison-cmd"/>
+			<test value="systems/rms/rms-fwd-severed">
+				systems/rms/rms-fwd-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-mid-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-mid-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-mid-severed">
+			<default value="systems/rms/rms-mid-jettison-cmd"/>
+			<test value="systems/rms/rms-mid-severed">
+				systems/rms/rms-mid-jettison-cmd == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-aft-jettison-cmd">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-port-jett-arm-switch == 1
+				systems/rms/rms-port-jett-aft-switch == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-aft-severed">
+			<default value="systems/rms/rms-aft-jettison-cmd"/>
+			<test value="systems/rms/rms-aft-severed">
+				systems/rms/rms-aft-jettison-cmd == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/rms-complete-jettison">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-shoulder-severed == 1
+				systems/rms/rms-fwd-severed == 1
+				systems/rms/rms-mid-severed == 1
+				systems/rms/rms-aft-severed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-deployed-jettison">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-shoulder-severed == 1
+				systems/rms/mpm-deploy-pos == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-arm-attached">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/rms/rms-deployed-jettison == 1
+				systems/rms/rms-complete-jettison == 1
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Payload retention">
+
+
+		<switch name="systems/rms/retention-1-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-power-1-switch == 1
+				systems/electrical/bus1-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/retention-2-powered">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-power-2-switch == 1
+				systems/electrical/bus2-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/retention-powered">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/retention-1-powered == 1
+				systems/rms/retention-2-powered == 1
+			</test>
+		</switch>
+
+
+		<!-- for init reasons, latch pos = 1 means open, state=0 means latched -->
+
+		<switch name="systems/rms/retention-latch-1-target">
+			<default value="systems/rms/retention-latch-1-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-1-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-1-pos">
+			<input>systems/rms/retention-latch-1-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-2-target">
+			<default value="systems/rms/retention-latch-2-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-2-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-2-pos">
+			<input>systems/rms/retention-latch-2-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-3-target">
+			<default value="systems/rms/retention-latch-3-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-3-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-3-pos">
+			<input>systems/rms/retention-latch-3-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-4-target">
+			<default value="systems/rms/retention-latch-4-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-4-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-4-pos">
+			<input>systems/rms/retention-latch-4-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/rms/retention-latch-5-target">
+			<default value="systems/rms/retention-latch-5-pos"/>
+			<test logic="AND" value="systems/rms/retention-release-5-switch">
+				systems/rms/retention-powered == 1
+				systems/rms/payload-ready-to-latch == 1
+			</test>
+		</switch>
+
+		<kinematic name="systems/rms/retention-latch-5-pos">
+			<input>systems/rms/retention-latch-5-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>30.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<switch name="systems/rms/payload-secured">
+			<default value="0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-latch-1-pos == 0
+				systems/rms/retention-latch-2-pos == 0
+				systems/rms/retention-latch-3-pos == 0
+				systems/rms/retention-latch-4-pos == 0
+				systems/rms/retention-latch-5-pos == 0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/payload-released">
+			<default value="0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/retention-latch-1-pos == 1
+				systems/rms/retention-latch-2-pos == 1
+				systems/rms/retention-latch-3-pos == 1
+				systems/rms/retention-latch-4-pos == 1
+				systems/rms/retention-latch-5-pos == 1
+			</test>
+		</switch>
+		
+
+	</channel>
+
+	<channel name="RMS manual augmented ypr driving" execute="systems/rms/rms-active">
+
+		<!--<fcs_function name="systems/rms/ma/offset-vec-x">
+		<function>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/wrist-x</property>
+			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/rms/ma/offset-vec-y">
+		<function>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/wrist-y</property>
+			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/rms/ma/offset-vec-z">
+		<function>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/wrist-z</property>
+			</difference>
+		</function>
+		</fcs_function>	-->
+
+		<!-- first determine the effector angle drive targets based on control inputs -->
+
+		<fcs_function name="systems/rms/ma/ref-pitch-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/sum-wrist-pitch-deg</property>
+				<property>systems/rms/ma/drive-pitch</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-yaw-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/sum-wrist-yaw-deg</property>
+				<property>systems/rms/ma/drive-yaw</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-roll-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/ang-wrist-roll-deg</property>
+				<property>systems/rms/ma/drive-roll</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/ma/ref-pitch-sample-hold">
+			<default value="systems/rms/ma/ref-pitch-subtracted"/>
+			<test value="systems/rms/ma/ref-pitch-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/ref-yaw-sample-hold">
+			<default value="systems/rms/ma/ref-yaw-subtracted"/>
+			<test value="systems/rms/ma/ref-yaw-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/ref-roll-sample-hold">
+			<default value="systems/rms/ma/ref-roll-subtracted"/>
+			<test value="systems/rms/ma/ref-roll-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/effector-x-sample-hold">
+			<default value="systems/rms/effector-x"/>
+			<test value="systems/rms/ma/effector-x-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/effector-y-sample-hold">
+			<default value="systems/rms/effector-y"/>
+			<test value="systems/rms/ma/effector-y-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/effector-z-sample-hold">
+			<default value="systems/rms/effector-z"/>
+			<test value="systems/rms/ma/effector-z-sample-hold">
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/yaw-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="fcs/rudder-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-yaw">
+			<input>systems/rms/ma/yaw-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 1.00 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/yaw-test</output>
+		</pid>
+
+		<switch name="systems/rms/ma/pitch-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="fcs/elevator-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-pitch">
+			<input>systems/rms/ma/pitch-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 1.00 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/pitch-test</output>
+		</pid>
+
+		<switch name="systems/rms/ma/roll-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="fcs/aileron-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-roll">
+			<input>systems/rms/ma/roll-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 0.50 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/roll-test</output>
+		</pid>
+
+		<fcs_function name="systems/rms/ma/effector-yaw-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ma/drive-yaw</property>
+				<property>systems/rms/ma/ref-yaw-sample-hold</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/effector-pitch-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ma/drive-pitch</property>
+				<property>systems/rms/ma/ref-pitch-sample-hold</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/effector-roll-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ma/drive-roll</property>
+				<property>systems/rms/ma/ref-roll-sample-hold</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/effector-yaw-rad">
+		<function>
+			<product>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/effector-pitch-rad">
+		<function>
+			<product>
+				<property>systems/rms/ma/effector-pitch-deg</property>
+				<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/effector-roll-rad">
+		<function>
+			<product>
+				<property>systems/rms/ma/effector-roll-deg</property>
+				<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+		
+		
+		<!-- knowing the angles of the wrist, we can go back and determine position -->
+		<!-- of the reference point keeping the effector at rest -->
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-x">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-x-sample-hold</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<cos><property>systems/rms/ma/effector-yaw-rad</property></cos>
+				</product>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<cos><property>systems/rms/ma/effector-yaw-rad</property></cos>
+				</product>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-y">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-y-sample-hold</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<sin><property>systems/rms/ma/effector-yaw-rad</property></sin>
+				</product>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<sin><property>systems/rms/ma/effector-yaw-rad</property></sin>
+				</product>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/ma/effector-pitch-rad</property></cos>
+					<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-z-sample-hold</property>
+				<product>
+					<value>-0.69</value>
+					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
+				</product>
+				<product>
+					<value>-0.73</value>
+					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
+				</product>
+				<product>
+					<value>-0.86</value>
+					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-pitch-deg</property>
+				<property>systems/rms/sum-ellbow-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	        <fcs_function name="systems/rms/ma/target-yaw-wrist-ypr-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	        <fcs_function name="systems/rms/ma/target-roll-wrist-ypr-deg">
+		<function>
+			<property>systems/rms/ma/effector-roll-deg</property>
+		</function>
+		</fcs_function>
+	
+
+	</channel>
+
+
+	<channel name="RMS manual augmented xyz driving" execute="systems/rms/rms-active">
+
+		<!-- wrist pitch is the reference point, the vector from there to end effector -->
+		<!-- always remains fixed in this mode -->
+
+	
+
+		<fcs_function name="systems/rms/ma/ref-x-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/wrist-x</property>
+				<property>systems/rms/ma/drive-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-y-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/wrist-y</property>
+				<property>systems/rms/ma/drive-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-z-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/wrist-z</property>
+				<property>systems/rms/ma/drive-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/ma/reference-point-x-sample-hold">
+			<default value="systems/rms/ma/ref-x-subtracted"/>
+			<test value="systems/rms/ma/reference-point-x-sample-hold">
+				systems/rms/drive-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-point-y-sample-hold">
+			<default value="systems/rms/ma/ref-y-subtracted"/>
+			<test value="systems/rms/ma/reference-point-y-sample-hold">
+				systems/rms/drive-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-point-z-sample-hold">
+			<default value="systems/rms/ma/ref-z-subtracted"/>
+			<test value="systems/rms/ma/reference-point-z-sample-hold">
+				systems/rms/drive-selection-mode == 2
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/ma/effector-pitch-target-sample-hold">
+			<default value="systems/rms/sum-wrist-pitch-deg"/>
+			<test value="systems/rms/ma/effector-pitch-target-sample-hold">
+				systems/rms/drive-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/effector-yaw-target-sample-hold">
+			<default value="systems/rms/sum-wrist-yaw-deg"/>
+			<test value="systems/rms/ma/effector-yaw-target-sample-hold">
+				systems/rms/drive-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/x-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="-fcs/rudder-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-x">
+			<input>systems/rms/ma/x-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 0.05 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/x-test</output>
+		</pid>
+
+		<switch name="systems/rms/ma/y-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="-fcs/aileron-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-y">
+			<input>systems/rms/ma/y-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 0.05 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/y-test</output>
+		</pid>
+
+		<switch name="systems/rms/ma/z-rate">
+			<default value="0.0"/>
+			<test logic="AND" value="fcs/elevator-cmd-norm">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ma/drive-z">
+			<input>systems/rms/ma/z-rate</input>
+			<kp> 0.00 </kp>
+			<ki> 0.05 </ki>
+			<kd> 0.00</kd>
+		<output>systems/rms/ma/z-test</output>
+		</pid>
+
+		<fcs_function name="systems/rms/ma/ref-point-xyz-x">
+		<function>
+			<sum>
+				<property>systems/rms/ma/drive-x</property>
+				<property>systems/rms/ma/reference-point-x-sample-hold</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-xyz-y">
+		<function>
+			<sum>
+				<property>systems/rms/ma/drive-y</property>
+				<property>systems/rms/ma/reference-point-y-sample-hold</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-xyz-z">
+		<function>
+			<sum>
+				<property>systems/rms/ma/reference-point-z-sample-hold</property>
+				<property>systems/rms/ma/drive-z</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-pitch-target-sample-hold</property>
+				<sum>
+					<property>systems/rms/ma/target-pitch-shoulder-deg</property>
+					<property>systems/rms/ma/target-pitch-ellbow-deg</property>
+				</sum>
+			</difference>
+		</function>
+		</fcs_function>
+
+	        <fcs_function name="systems/rms/ma/target-yaw-wrist-xyz-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-target-sample-hold</property>
+				<property>systems/rms/ma/target-yaw-shoulder-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	        <fcs_function name="systems/rms/ma/target-roll-wrist-xyz-deg">
+		<function>
+			<property>systems/rms/ang-wrist-roll-deg</property>
+		</function>
+		</fcs_function>
+
+
+		</channel>
+
+
+		<channel  name="Determination of joint angle targets and drive rates">
+
+		<!-- from the reference point location, the angles of shoulder and elbow follow -->
+
+
+		<switch name="systems/rms/ma/reference-point-x">
+			<default value="systems/rms/wrist-x"/>
+			<test value="systems/rms/ma/ref-point-xyz-x">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/ref-point-ypr-x">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-point-y">
+			<default value="systems/rms/wrist-y"/>
+			<test value="systems/rms/ma/ref-point-xyz-y">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/ref-point-ypr-y">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+
+		<switch name="systems/rms/ma/reference-point-z">
+			<default value="systems/rms/wrist-z"/>
+			<test value="systems/rms/ma/ref-point-xyz-z">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/ref-point-ypr-z">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<fcs_function name="systems/rms/ma/reference-point-L">
+		<function>
+			<pow>
+			<sum>
+				<pow>
+					<property>systems/rms/ma/reference-point-x</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/rms/ma/reference-point-y</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>systems/rms/ma/reference-point-z</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<value>0.5</value>
+			</pow>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-pitch-ellbow-deg">
+		<function>
+			<difference>
+			<value>180.0</value>
+			<product>
+				<value>2.0</value>
+				<value>57.297</value>
+				<asin>
+					<quotient>
+						<property>systems/rms/ma/reference-point-L</property>
+						<value>12.5</value>
+					</quotient>
+				</asin>
+			</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-pitch-shoulder-deg">
+		<function>
+			<sum>
+				<product>
+				<asin>
+					<quotient>
+						<product>
+						<property>systems/rms/ma/reference-point-z</property>
+						<value>-1.0</value>
+						</product>
+						<property>systems/rms/ma/reference-point-L</property>
+					</quotient>
+				</asin>
+				<value>57.297</value>
+				</product>
+				<product>
+					<property>systems/rms/ma/target-pitch-ellbow-deg</property>
+					<value>-0.5</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-yaw-shoulder-deg">
+		<function>
+			<product>
+			<atan2>
+				<property>systems/rms/ma/reference-point-y</property>
+				<property>systems/rms/ma/reference-point-x</property>
+			</atan2>
+			<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/ma/target-yaw-wrist-deg">
+			<default value="systems/rms/ang-wrist-yaw-deg"/>
+			<test value="systems/rms/ma/target-yaw-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/target-yaw-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/target-pitch-wrist-deg">
+			<default value="systems/rms/ang-wrist-pitch-deg"/>
+			<test value="systems/rms/ma/target-pitch-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/target-pitch-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/target-roll-wrist-deg">
+			<default value="systems/rms/ang-wrist-roll-deg"/>
+			<test value="systems/rms/ma/target-roll-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test value="systems/rms/ma/target-roll-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+
+		
+		<!-- from the angles, drive the rates of joint movement -->
+
+		<fcs_function name="systems/rms/ma/shoulder-yaw-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-yaw-shoulder-deg</property>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/shoulder-yaw-rate-xyz">
+		<input>systems/rms/ma/shoulder-yaw-error</input>
+		<gain>1.0</gain>
+		<clipto>
+			<min>-1.0</min>
+			<max>1.0</max>
+		</clipto>
+		</pure_gain>
+
+		<fcs_function name="systems/rms/ma/shoulder-pitch-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-pitch-shoulder-deg</property>
+				<property>systems/rms/ang-shoulder-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/shoulder-pitch-rate-xyz">
+		<input>systems/rms/ma/shoulder-pitch-error</input>
+		<gain>-2.0</gain>
+		<clipto>
+			<min>-0.5</min>
+			<max>0.5</max>
+		</clipto>
+		</pure_gain>
+
+		<fcs_function name="systems/rms/ma/ellbow-pitch-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-pitch-ellbow-deg</property>
+				<property>systems/rms/ang-ellbow-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/ellbow-pitch-rate-xyz">
+		<input>systems/rms/ma/ellbow-pitch-error</input>
+		<gain>-2.0</gain>
+		<clipto>
+			<min>-1.0</min>
+			<max>1.0</max>
+		</clipto>
+		</pure_gain>
+
+		<fcs_function name="systems/rms/ma/wrist-pitch-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-pitch-wrist-deg</property>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/wrist-pitch-rate-xyz">
+		<input>systems/rms/ma/wrist-pitch-error</input>
+		<gain>-2.0</gain>
+		<clipto>
+			<min>-0.5</min>
+			<max>0.5</max>
+		</clipto>
+		</pure_gain>
+
+		<fcs_function name="systems/rms/ma/wrist-yaw-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-yaw-wrist-deg</property>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/wrist-yaw-rate-xyz">
+		<input>systems/rms/ma/wrist-yaw-error</input>
+		<gain>1.0</gain>
+		<clipto>
+			<min>-1.0</min>
+			<max>1.0</max>
+		</clipto>
+		</pure_gain>
+
+		<fcs_function name="systems/rms/ma/wrist-roll-error">
+		<function>
+			<difference>
+				<property>systems/rms/ma/target-roll-wrist-deg</property>
+				<property>systems/rms/ang-wrist-roll-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<pure_gain name="systems/rms/ma/wrist-roll-rate-xyz">
+		<input>systems/rms/ma/wrist-roll-error</input>
+		<gain>1.0</gain>
+		<clipto>
+			<min>-1.0</min>
+			<max>1.0</max>
+		</clipto>
+		</pure_gain>
+
+	</channel>
+
+	<!-- single joint driving either feeds from manual augmented modes or is directly button-driven -->
+
+	<channel name="RMS direct/single joint driving" execute="systems/rms/rms-active">
+
+		<switch name="systems/rms/rms-veto">
+			<default value="1.0"/>
+			<test logic="AND" value="0.0">
+				systems/rms/payload-released == 0
+				systems/rms/effector-attached == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/rms-drivable">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-active == 1
+				systems/rms/shoulder-brace-pos == 1
+				systems/rms/mpm-deploy-pos == 1
+				systems/rms/rms-veto == 1
+				accelerations/a-pilot-ft_sec2 LT 10.0
+				systems/rms/rms-brake-switch == 0
+				systems/rms/rms-save-switch == 0
+				systems/mechanical/pb-door-indicator == 1
+			</test>
+		</switch>
+
+		<switch name="systems/rms/shoulder-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 2
+				systems/rms/direct-drive-switch == 1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 2
+				systems/rms/direct-drive-switch == -1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/shoulder-pitch-angle-direct">
+			<input>systems/rms/shoulder-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -2.0 </min>
+        			<max>145.0 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/shoulder-yaw-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 1
+				systems/rms/direct-drive-switch == 1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 1
+				systems/rms/direct-drive-switch == -1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/shoulder-yaw-angle-direct">
+			<input>systems/rms/shoulder-yaw-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -180.0 </min>
+        			<max>  180.0 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/ellbow-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 3
+				systems/rms/direct-drive-switch == 1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 3
+				systems/rms/direct-drive-switch == -1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/ellbow-pitch-angle-direct">
+			<input>systems/rms/ellbow-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -161.0 </min>
+        			<max>    2.4 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-pitch-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 4
+				systems/rms/direct-drive-switch == 1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 4
+				systems/rms/direct-drive-switch == -1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-pitch-angle-direct">
+			<input>systems/rms/wrist-pitch-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -121.4 </min>
+        			<max>  121.4 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-yaw-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 5
+				systems/rms/direct-drive-switch == 1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 5
+				systems/rms/direct-drive-switch == -1
+				systems/rms/drive-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-yaw-angle-direct">
+			<input>systems/rms/wrist-yaw-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -121.3 </min>
+        			<max>  121.3 </max>
+			</clipto>
+		</pid>
+
+		<switch name="systems/rms/wrist-roll-rate-direct">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 6
+				systems/rms/direct-drive-switch == 1
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/rms/rms-drivable == 1
+				systems/rms/joint-selection-mode == 6
+				systems/rms/direct-drive-switch == -1
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-roll-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 3
+			</test>
+		</switch>
+
+		<pid name="systems/rms/wrist-roll-angle-direct">
+			<input>systems/rms/wrist-roll-rate-direct</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -447.0 </min>
+        			<max>  447.0 </max>
+			</clipto>
+		</pid>	
+
+
+	</channel>
+
+
+
+
+	<channel name="Drive mode angle signal merging" execute="systems/rms/rms-active">
+
+		<fcs_function name="systems/rms/ang-shoulder-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/shoulder-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-shoulder-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-shoulder-pitch-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-shoulder-yaw-deg">
+		<function>
+			<property>systems/rms/shoulder-yaw-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-shoulder-yaw-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-ellbow-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/ellbow-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/ang-ellbow-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-ellbow-pitch-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/ang-wrist-pitch-deg">
+		<function>
+			<product>
+				<value>-1</value>
+				<property>systems/rms/wrist-pitch-angle-direct</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-pitch-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-yaw-deg">
+		<function>
+			<property>systems/rms/wrist-yaw-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-yaw-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-roll-deg">
+		<function>
+			<property>systems/rms/wrist-roll-angle-direct</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ang-wrist-roll-rad">
+		<function>
+			<product>
+				<value>0.01745277</value>
+				<property>systems/rms/ang-wrist-roll-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	
+	<channel name="Reach limits and soft stops">
+
+		<switch name="systems/rms/reach-limit">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  175.4
+				systems/rms/ang-shoulder-yaw-deg LT -175.4
+				systems/rms/ang-shoulder-pitch-deg GT -2.6
+				systems/rms/ang-shoulder-pitch-deg LT -140.4
+				systems/rms/ang-ellbow-pitch-deg GT 155.6
+				systems/rms/ang-ellbow-pitch-deg LT 2.4
+				systems/rms/ang-wrist-pitch-deg GT 114.4
+				systems/rms/ang-wrist-pitch-deg LT -114.4	
+				systems/rms/ang-wrist-yaw-deg GT 114.6
+				systems/rms/ang-wrist-yaw-deg LT -114.6
+				systems/rms/ang-wrist-roll-deg GT 440.0
+				systems/rms/ang-wrist-roll-deg LT -440.0		
+			</test>
+		</switch>
+
+		<switch name="systems/rms/soft-stop">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  177.4
+				systems/rms/ang-shoulder-yaw-deg LT -177.4
+				systems/rms/ang-shoulder-pitch-deg GT -0.6
+				systems/rms/ang-shoulder-pitch-deg LT -142.4
+				systems/rms/ang-ellbow-pitch-deg GT 157.6
+				systems/rms/ang-ellbow-pitch-deg LT 0.4
+				systems/rms/ang-wrist-pitch-deg GT 116.4
+				systems/rms/ang-wrist-pitch-deg LT -116.4	
+				systems/rms/ang-wrist-yaw-deg GT 116.6
+				systems/rms/ang-wrist-yaw-deg LT -116.6
+				systems/rms/ang-wrist-roll-deg GT 442.0
+				systems/rms/ang-wrist-roll-deg LT -442.0		
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ready-to-latch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/ang-shoulder-yaw-deg GT  -0.5
+				systems/rms/ang-shoulder-yaw-deg LT 0.5
+				systems/rms/ang-shoulder-pitch-deg GT -0.5
+				systems/rms/ang-shoulder-pitch-deg LT 0.5
+				systems/rms/ang-ellbow-pitch-deg GT -0.5
+				systems/rms/ang-ellbow-pitch-deg LT 0.5
+				systems/rms/ang-wrist-pitch-deg GT -0.5
+				systems/rms/ang-wrist-pitch-deg LT 0.5	
+				systems/rms/ang-wrist-yaw-deg GT -0.5
+				systems/rms/ang-wrist-yaw-deg LT 0.5
+				systems/rms/ang-wrist-roll-deg GT -0.5
+				systems/rms/ang-wrist-roll-deg LT 0.5		
+			</test>
+		</switch>
+		
+
+	</channel>
+
+
+	<channel name="Joint spatial positions" execute="systems/rms/rms-active">
+
+	<!-- we compute positions from the origin of the shoulder -->
+	<!-- with the arm lying in +X direction -->
+
+		<fcs_function name="systems/rms/ellbow-x">
+		<function>
+			<product>
+				<value>6.25</value>
+				<cos><property>systems/rms/ang-shoulder-pitch-rad</property></cos>
+				<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ellbow-y">
+		<function>
+			<product>
+				<value>6.25</value>
+				<cos><property>systems/rms/ang-shoulder-pitch-rad</property></cos>
+				<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ellbow-z">
+		<function>
+			<product>
+				<value>-6.25</value>
+				<sin><property>systems/rms/ang-shoulder-pitch-rad</property></sin>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-ellbow-pitch-rad">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-pitch-rad</property>
+				<property>systems/rms/ang-ellbow-pitch-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-ellbow-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-ellbow-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/rms/wrist-x">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-x</property>
+				<product>
+					<value>6.25</value>
+					<cos><property>systems/rms/sum-ellbow-pitch-rad</property></cos>
+					<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-y">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-y</property>
+				<product>
+					<value>6.25</value>
+					<cos><property>systems/rms/sum-ellbow-pitch-rad</property></cos>
+					<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-z">
+		<function>
+			<sum>
+				<property>systems/rms/ellbow-z</property>
+				<product>
+					<value>-6.25</value>
+					<sin><property>systems/rms/sum-ellbow-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/sum-wrist-pitch-rad">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-pitch-rad</property>
+				<property>systems/rms/ang-ellbow-pitch-rad</property>
+				<property>systems/rms/ang-wrist-pitch-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-x</property>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<cos><property>systems/rms/ang-shoulder-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-y</property>
+				<product>
+					<value>0.86</value>
+					<cos><property>systems/rms/sum-wrist-pitch-rad</property></cos>
+					<sin><property>systems/rms/ang-shoulder-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-yaw-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-z</property>
+				<product>
+					<value>-0.86</value>
+					<sin><property>systems/rms/sum-wrist-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/rms/sum-wrist-yaw-rad-test">
+		<function>
+			<sum>
+				<property>systems/rms/ang-shoulder-yaw-rad</property>
+				<property>systems/rms/ang-wrist-yaw-rad</property>
+			</sum>
+		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-rad">
+		<function>
+			<sum>
+			<atan2>
+				<sin>
+					<property>systems/rms/ang-wrist-yaw-rad</property>
+				</sin>
+			<product>
+				<cos>
+					<property>systems/rms/ang-wrist-yaw-rad</property>
+				</cos>
+				<cos>
+					<property>systems/rms/sum-wrist-pitch-rad</property>
+				</cos>
+			</product>
+			</atan2>
+				<property>systems/rms/ang-shoulder-yaw-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-yaw-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-rad">
+		<function>
+			<asin>
+				<product>
+					<cos>	
+						<property>systems/rms/ang-wrist-yaw-rad</property>
+					</cos>
+					<sin>
+						<property>systems/rms/sum-wrist-pitch-rad</property>
+					</sin>
+				</product>
+			</asin>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-deg">
+		<function>
+			<product>
+				<property>systems/rms/sum-wrist-yaw-pitch-rad</property>
+				<value>57.297</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-x</property>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-y</property>
+				<product>
+					<value>0.73</value>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
+					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/wrist-roll-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-yaw-z</property>
+				<product>
+					<value>-0.73</value>
+					<sin><property>systems/rms/sum-wrist-yaw-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-x">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-x</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
+					<cos><property>systems/rms/sum-wrist-yaw-rad</property></cos>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-y">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-y</property>
+				<product>
+					<value>0.69</value>
+					<cos><property>systems/rms/sum-wrist-yaw-pitch-rad</property></cos>
+					<sin><property>systems/rms/sum-wrist-yaw-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/effector-z">
+		<function>
+			<sum>
+				<property>systems/rms/wrist-roll-z</property>
+				<product>
+					<value>-0.69</value>
+					<sin><property>systems/rms/sum-wrist-yaw-pitch-rad</property></sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+
+
+
+		<switch name="systems/rms/show-x">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-x">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-x">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-x">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-x">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-x">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-x">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-x">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-pitch-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-ellbow-pitch-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-pitch-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-pitch-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-pitch-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-ellbow-pitch-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-pitch-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 3
+			</test>
+		</switch>
+
+		<switch name="systems/rms/show-y">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-y">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-y">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-y">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-y">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-y">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-y">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-y">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-shoulder-yaw-deg">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/sum-wrist-yaw-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+		</switch>
+
+		<switch name="systems/rms/show-z">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/rms/shoulder-z">
+				systems/rms/joint-selection-mode == 1
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/shoulder-z">
+				systems/rms/joint-selection-mode == 2
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ellbow-z">
+				systems/rms/joint-selection-mode == 3
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-z">
+				systems/rms/joint-selection-mode == 4
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-yaw-z">
+				systems/rms/joint-selection-mode == 5
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/wrist-roll-z">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/effector-z">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 1
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 6
+				systems/rms/parameter-selection-mode == 2
+			</test>
+			<test logic="AND" value="systems/rms/ang-wrist-roll-deg">
+				systems/rms/joint-selection-mode == 7
+				systems/rms/parameter-selection-mode == 2
+			</test>
+		</switch>
+
+	</channel>
+
+
+	<channel name="Ready to latch position helpers">
+
+		<fcs_function name="systems/rms/payload-attachment-distance">
+		<function>
+			<pow>
+			<sum>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/payload/payload-attach-x</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/payload/payload-attach-y</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			<pow>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/payload/payload-attach-z</property>
+			</difference>
+			<value>2.0</value>
+			</pow>
+			</sum>
+			<value>0.5</value>
+			</pow>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/payload-ready-to-latch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/payload-attachment-distance LT 0.15
+				systems/rms/effector-attached == 1
+			</test>
+			<test value="1.0">
+				systems/rms/effector-attached == 0
+			</test>
+		</switch>
+
+	</channel>
+
+</system>

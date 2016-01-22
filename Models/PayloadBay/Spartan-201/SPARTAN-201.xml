@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+    <path>SPARTAN-201.ac</path>
+	<nopreview/>
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	     <object-name>SPARTAN-201</object-name>
+	 </effect>
+
+ 
+
+   <animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/sum-wrist-yaw-pitch-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+
+	<animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/sum-wrist-yaw-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/rms/ang-wrist-roll-deg</property>
+	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-x</property>
+  	<axis>
+   		<x>1</x>
+   		<y>0</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-y</property>
+  	<axis>
+   		<x>0</x>
+   		<y>1</y>
+   		<z>0</z>
+  	</axis>
+	</animation> 
+
+	<animation>
+  	<type>translate</type>  
+	<property>/fdm/jsbsim/systems/rms/effector-z</property>
+  	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+	</animation> 
+
+
+</PropertyList>

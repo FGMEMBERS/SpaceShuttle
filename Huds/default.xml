@@ -33,9 +33,14 @@
 	</import>
 
     <import>
-		<path>Huds/Sets/gps.xml</path>
+		<path>Huds/Sets/orbital.xml</path>
 		<x-offset>-300</x-offset>
 		<y-offset>160</y-offset>
+	</import>
+	
+	<import>
+		<path>Huds/Sets/in-cockpit-orbital.xml</path>
+		<x-offset>-300</x-offset>
 	</import>
 
 	<import>

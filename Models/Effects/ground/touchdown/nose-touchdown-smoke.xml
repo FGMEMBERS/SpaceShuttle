@@ -12,7 +12,7 @@
   <particlesystem>
 
     <name>nose-touchdown-smoke</name>
-    <texture>tyresmoke.png</texture>
+    <texture>Effects/ground/touchdown/tyresmoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 

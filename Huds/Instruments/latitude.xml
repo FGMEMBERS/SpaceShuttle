@@ -3,6 +3,14 @@
 <PropertyList>
 	<label>
 		<name>Latitude</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<width>1</width>
 		<height>1</height>
 

@@ -3,6 +3,14 @@
 <PropertyList>
 	<gauge>
 		<name>Aileron</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-50</x>
 		<y>70</y>
 		<width>100</width>
@@ -31,6 +39,14 @@
 
 	<gauge>
 		<name>Elevator</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-138</x>
 		<y>-50</y>
 		<width>20</width>
@@ -60,6 +76,14 @@
 
 	<gauge>
 		<name>Rudder</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-50</x>
 		<y>-90</y>
 		<width>100</width>
@@ -88,6 +112,14 @@
 
 	<gauge>
 		<name>Throttle</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-305</x>
 		<y>-75</y>
 		<width>20</width>
@@ -117,6 +149,14 @@
 
 	<gauge>
 		<name>Elevator Trim</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-148</x>
 		<y>-50</y>
 		<width>10</width>
@@ -146,6 +186,14 @@
 
 	<gauge>
 		<name>Rudder Trim</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-50</x>
 		<y>-100</y>
 		<width>100</width>
@@ -175,6 +223,14 @@
 
 	<gauge>
 		<name>Aileron Trim</name>
+		<condition>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>0</value>
+				</equals>
+			</not>
+		</condition>
 		<x>-50</x>
 		<y>90</y>
 		<width>100</width>

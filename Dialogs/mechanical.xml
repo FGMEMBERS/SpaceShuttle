@@ -443,6 +443,481 @@
    </group>
 
 
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+   <group>
+   <layout>table</layout>
+
+    <text>
+      <label>Ku-band antenna</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>ku-elec</name>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-elec-cb</property>
+          <label>ELEC</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-elec</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>ku-heat</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-heater-cb</property>
+          <label>ANT HTR</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-heat</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>ku-c-heat</name>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-cable-heater-cb</property>
+          <label>CABLE HTR</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-c-heat</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>ku-sig-proc</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-sig-proc-cb</property>
+          <label>SIG PROC</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-sig-proc</object-name>
+          </binding>
+    </checkbox>
+
+   <text>
+      <label>stow</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>ku-deploy-switch</name>
+      <row>2</row>
+      <col>1</col>
+      <min>0</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>ku-deploy-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>deploy</label>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>stowed</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+			<value>0</value>
+		</equals>
+		<equals>
+			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+			<value>1</value>
+		</equals>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <label>deployed</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+			<value>1</value>
+		</equals>
+		<equals>
+			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+			<value>1</value>
+		</equals>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <label>/////</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+			<value>1</value>
+		</less-than>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-pos</property>
+			<value>0</value>
+		</greater-than>
+		<equals>
+			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+			<value>1</value>
+		</equals>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <label>jettisoned</label>
+      <row>2</row>
+      <col>3</col>
+      <visible>
+		<equals>
+			<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+   <text>
+      <label>off</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>ku-dstow-switch</name>
+      <row>3</row>
+      <col>1</col>
+      <min>0</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/ku-antenna-direct-stow-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>ku-dstow-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>direct stow on</label>
+      <row>3</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>Energency jettison</label>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+   <checkbox>
+        <name>ku-jett-A</name>
+  	<enable>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+	</enable>
+ 	<row>5</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-A-cb</property>
+          <label>JETT A</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-jett-A</object-name>
+          </binding>
+    </checkbox>
+
+   <checkbox>
+        <name>ku-jett-B</name>
+  	<enable>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+	</enable>
+ 	<row>5</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-B-cb</property>
+          <label>JETT B</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-jett-B</object-name>
+          </binding>
+    </checkbox>
+
+   <checkbox>
+        <name>ku-jett-arm</name>
+  	<enable>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+	</enable>
+ 	<row>5</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-arm-switch</property>
+          <label>ARM</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-jett-arm</object-name>
+          </binding>
+    </checkbox>
+
+   <checkbox>
+        <name>ku-jett</name>
+  	<enable>
+		<property>/fdm/jsbsim/systems/mechanical/ku-antenna-attached</property>
+	</enable>
+ 	<row>5</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/ku-antenna-jett-switch</property>
+          <label>JETT</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>ku-jett</object-name>
+          </binding>
+    </checkbox>
+
+
+
+   </group>
+
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+   <group>
+   <layout>table</layout>
+
+
+    <text>
+      <label>Star tracker</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+
+   <checkbox>
+        <name>st-y</name>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/mechanical/star-tracker-y-switch</property>
+          <label>power -Y</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>st-y</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>st-z</name>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/mechanical/star-tracker-z-switch</property>
+          <label>power -Z</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>st-z</object-name>
+          </binding>
+    </checkbox>
+
+    <text>
+      <label>SYS1 close</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>st-sys1-switch</name>
+      <row>2</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys1-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>st-sys1-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>open</label>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>SYS2 close</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>st-sys2-switch</name>
+      <row>3</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/mechanical/star-tracker-sys2-switch</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>st-sys2-switch</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <label>open</label>
+      <row>3</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>door position -Y</label>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>closed</label>
+      <row>4</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-y-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>/////</label>
+      <row>4</row>
+      <col>1</col>
+      <visible>
+		<and>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-y-pos</property>
+			<value>1</value>
+		</less-than>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-y-pos</property>
+			<value>0</value>
+		</greater-than>
+		</and>
+      </visible>
+    </text>
+    <text>
+      <label>open</label>
+      <row>4</row>
+      <col>1</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-y-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+
+    <text>
+      <label>door position -Z</label>
+      <row>4</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>closed</label>
+      <row>4</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+			<value>0</value>
+		</equals>
+      </visible>
+    </text>
+
+    <text>
+      <label>/////</label>
+      <row>4</row>
+      <col>3</col>
+      <visible>
+		<and>
+		<less-than>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+			<value>1</value>
+		</less-than>
+		<greater-than>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+			<value>0</value>
+		</greater-than>
+		</and>
+      </visible>
+    </text>
+
+    <text>
+      <label>open</label>
+      <row>4</row>
+      <col>3</col>
+      <visible>
+		<equals>
+      			<property>/fdm/jsbsim/systems/mechanical/star-tracker-door-z-pos</property>
+			<value>1</value>
+		</equals>
+      </visible>
+    </text>
+
+
+  </group>
+
+
+
+
+
 	<empty>
 		<pref-height>12</pref-height>
 	</empty>
