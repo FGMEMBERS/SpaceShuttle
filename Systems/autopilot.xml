@@ -2,7 +2,8 @@
 
 <system>
 
-	<!-- This contains AP routines for the orbital DAP set to 'Auto' and for AoA hold during entry--> 
+	<!-- This contains AP routines for the orbital DAP set to 'Auto' -->
+ 	<!--  for AoA hold during entry and for auto-launch--> 
 
 	<!-- Orbital DAP largely follows the universal pointing menu -->
 	<!-- the main mode is given by up-mnvr-flag,  modes are -->
@@ -1092,5 +1093,144 @@
 
 	</channel>
 
+	<channel name="Auto launch stage 1">
 
+		<fcs_function name="systems/ap/launch/stage1-course-error">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-y[0]</property>
+					<property>systems/ap/launch/course-vector[0]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-y[1]</property>
+					<property>systems/ap/launch/course-vector[1]</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-y[2]</property>
+					<property>systems/ap/launch/course-vector[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage1-roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage1-course-error</property>
+						<value>-2.0</value>
+					</product>
+					<value>-0.6</value>
+				</max>
+				<value>0.6</value>
+			</min>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+	<channel name="Auto launch stage 2">
+
+		<fcs_function name="systems/ap/launch/stage2-pitch-error">
+		<function>
+			<difference>
+				<property>/orientation/pitch-deg</property>
+				<property>/fdm/jsbsim/systems/ap/launch/pitch-target</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage2-roll-alt">
+		<function>
+			<sum>
+				<value>360.0</value>
+				<property>/orientation/roll-deg</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		
+		<switch name="systems/ap/launch/stage2-roll-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/launch/stage2-roll-alt">
+				/orientation/roll-deg LT 0.0
+			</test>	
+		</switch>
+
+
+		<fcs_function name="systems/ap/launch/stage2-roll-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage2-roll-deg</property>
+				<value>180.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+
+
+		<fcs_function name="systems/ap/launch/stage2-pitch-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage2-pitch-error</property>
+						<value>-0.1</value>
+					</product>
+					<product>
+					<property>systems/ap/launch/pitch-max-rate-norm</property>	
+					<value>-1</value>
+					</product>
+				</max>
+				<property>systems/ap/launch/pitch-max-rate-norm</property>
+			</min>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage2-roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage2-roll-error</property>
+						<value>-0.5</value>
+					</product>
+					<value>-0.2</value>
+				</max>
+				<value>0.2</value>
+			</min>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+
+	<channel name="Auto launch command merge">
+
+		<switch name="systems/ap/launch/roll-cmd">
+			<default value="0.0"/>
+			<test value="systems/ap/launch/stage1-roll-cmd">
+				systems/ap/launch/stage == 1
+			</test>
+			<test value="systems/ap/launch/stage2-roll-cmd">
+				systems/ap/launch/stage == 2
+			</test>
+			
+		</switch>
+
+		<switch name="systems/ap/launch/pitch-cmd">
+			<default value="0.0"/>
+			<test value="systems/ap/launch/stage2-pitch-cmd">
+				systems/ap/launch/stage == 2
+			</test>
+			
+		</switch>
+
+
+		
+	</channel>
 </system>
