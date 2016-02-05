@@ -262,6 +262,13 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 	# make an automatic transtion to MM 102
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 102);	
 
+	# if we have liftoff, switch autolaunch on if configured
+	
+	if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
+		{
+		SpaceShuttle.auto_launch_loop();
+		}
+
 	}
 else
 	{
@@ -1629,6 +1636,7 @@ if (stage == 0)
 	setprop("/position/latitude-deg", getprop("/sim/presets/latitude-deg"));
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
+	#hydraulics_on();
 
 	}
 

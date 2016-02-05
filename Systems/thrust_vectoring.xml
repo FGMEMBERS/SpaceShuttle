@@ -585,7 +585,20 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-cmd-norm</property>
+  					<!--<property>fcs/elevator-cmd-norm</property>-->
+					<sum>
+						<product>
+  						<property>fcs/elevator-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-pitch-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/pitch-cmd</property>
+							<property>systems/ap/launch/autolaunch-pitch-channel</property>
+						</product>
+					</sum>
 					<value>-0.2</value>
 				</product>
 			</difference>
@@ -620,7 +633,19 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
+					<sum>
+						<product>
+  						<property>fcs/aileron-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/roll-cmd</property>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</product>
+					</sum>
 					<value>0.3</value>
 				</product>
 			</difference>
