@@ -36,13 +36,16 @@
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
 	  <stage type="int">0</stage>
-          <autolaunch-roll-yaw-channel type="int">0</autolaunch-roll-yaw-channel>
-          <autolaunch-pitch-channel type="int">0</autolaunch-pitch-channel>
+          <autolaunch-roll-yaw-channel type="int">1</autolaunch-roll-yaw-channel>
+          <autolaunch-pitch-channel type="int">1</autolaunch-pitch-channel>
           <course-vector type="double">0.0</course-vector>
           <course-vector type="double" n="1">-1.0</course-vector>
           <course-vector type="double" n="2">0.0</course-vector>
 	  <pitch-target type="double">90.0</pitch-target>
 	  <pitch-max-rate-norm type="double">0.1</pitch-max-rate-norm>
+	  <inclination-target type="double">28.7</inclination-target>
+	  <hdot-target type="double">0.0</hdot-target>
+	  <apoapsis-target type="double">320.0</apoapsis-target>
        </launch>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>

@@ -707,7 +707,20 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
+  					<!--<property>fcs/rudder-cmd-norm</property>-->
+					<sum>
+						<product>
+  						<property>fcs/rudder-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/yaw-cmd</property>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</product>
+					</sum>
 					<value>-0.1</value>
 				</product>
 			</difference>

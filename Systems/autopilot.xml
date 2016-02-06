@@ -1093,7 +1093,63 @@
 
 	</channel>
 
-	<channel name="Auto launch stage 1">
+	<!-- auto-launch - due to the very different demands, this is organized in stages -->
+	<!-- and the relevant guidance targets are fed by a Nasal script -->
+
+	<channel name="Auto launch management">
+
+		<switch name="systems/ap/launch/stage1-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/launch/stage == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/stage2-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/launch/stage == 2
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/stage3-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/launch/stage == 3
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/stage4-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/launch/stage == 4
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/autolaunch-roll-yaw-channel">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/automatic-roll-control == 1
+				systems/ap/launch/autolaunch-master == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/autolaunch-pitch-channel">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/automatic-pitch-control == 1
+				systems/ap/launch/autolaunch-master == 1
+			</test>
+		</switch>
+
+
+		
+
+	</channel>
+
+	<!-- liftoff and rotation to launch course -->
+	
+	<channel name="Auto launch stage 1" execute="systems/ap/launch/stage1-active">
 
 		<fcs_function name="systems/ap/launch/stage1-course-error">
 		<function>
@@ -1130,6 +1186,8 @@
 		</fcs_function>
 
 	</channel>
+
+	<!-- climbout to SRB separation -->
 
 	<channel name="Auto launch stage 2">
 
@@ -1208,6 +1266,285 @@
 
 	</channel>
 
+	<!-- pitchdown, hdot capture and inclination acquisition -->
+
+	<channel name="Auto launch stage 3" execute="systems/ap/launch/stage3-active">
+
+		<fcs_function name="systems/ap/launch/stage3-pitch-error">
+		<function>
+			<difference>
+				<property>/orientation/pitch-deg</property>
+				<property>/fdm/jsbsim/systems/ap/launch/pitch-target</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-roll-alt">
+		<function>
+			<sum>
+				<value>360.0</value>
+				<property>/orientation/roll-deg</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		
+		<switch name="systems/ap/launch/stage3-roll-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/launch/stage3-roll-alt">
+				/orientation/roll-deg LT 0.0
+			</test>	
+		</switch>
+
+
+		<fcs_function name="systems/ap/launch/stage3-roll-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage3-roll-deg</property>
+				<value>180.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-inclination-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/inclination-target</property>
+				<property>systems/orbital/inclination-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-beta-target">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage3-inclination-error</property>
+						<value>40.0</value>
+						<property>velocities/mach</property>
+					</product>
+					<value>-10.0</value>
+				</max>
+				<value>10.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage3-yaw-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage3-beta-target</property>
+				<property>aero/beta-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage3-pitch-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage3-pitch-error</property>
+						<value>-0.1</value>
+					</product>
+					<product>
+					<property>systems/ap/launch/pitch-max-rate-norm</property>	
+					<value>-1</value>
+					</product>
+				</max>
+				<property>systems/ap/launch/pitch-max-rate-norm</property>
+			</min>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage3-roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage3-roll-error</property>
+						<value>-0.5</value>
+					</product>
+					<value>-0.2</value>
+				</max>
+				<value>0.2</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-yaw-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage3-yaw-error</property>
+						<value>0.1</value>
+					</product>
+					<value>-0.2</value>
+				</max>
+				<value>0.2</value>
+			</min>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+	<!-- hdot management -->
+
+	<channel name="Auto launch stage 4" execute="systems/ap/launch/stage4-active">
+
+		<fcs_function name="systems/ap/launch/stage4-roll-alt">
+		<function>
+			<sum>
+				<value>360.0</value>
+				<property>/orientation/roll-deg</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		
+		<switch name="systems/ap/launch/stage4-roll-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/launch/stage4-roll-alt">
+				/orientation/roll-deg LT 0.0
+			</test>	
+		</switch>
+
+
+		<fcs_function name="systems/ap/launch/stage4-roll-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage4-roll-deg</property>
+				<value>180.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-inclination-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/inclination-target</property>
+				<property>systems/orbital/inclination-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-beta-target">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage4-inclination-error</property>
+						<value>5.0</value>
+						<property>velocities/mach</property>
+					</product>
+					<value>-10.0</value>
+				</max>
+				<value>10.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-yaw-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage4-beta-target</property>
+				<property>aero/beta-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage4-hdot-error">
+		<function>
+			<difference>
+				<property>velocities/v-down-fps</property>
+				<property>systems/ap/launch/hdot-target</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+  		<deadband name="systems/ap/launch/stage4-pitch-PID-trigger">
+			<input>systems/ap/launch/stage4-hdot-error</input>
+			<width>30.0</width>
+  		</deadband>
+
+		<pid name="systems/ap/launch/stage4-pitch-target">
+			<input>systems/ap/launch/stage4-hdot-error</input>
+			<kp> 0.3 </kp>
+			<ki> 0.05 </ki>
+			<kd> 0.1</kd>
+			<trigger>systems/ap/launch/stage4-pitch-PID-trigger</trigger>
+			<clipto>
+				<min> -25.0 </min>
+        			<max>  20.0 </max>
+			</clipto>
+		</pid>
+
+		<fcs_function name="systems/ap/launch/stage4-pitch-error">
+		<function>
+			<difference>
+				<property>/orientation/pitch-deg</property>
+				<property>/fdm/jsbsim/systems/ap/launch/stage4-pitch-target</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage4-roll-error</property>
+						<value>-0.5</value>
+					</product>
+					<value>-0.2</value>
+				</max>
+				<value>0.2</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-yaw-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage4-yaw-error</property>
+						<value>0.1</value>
+					</product>
+					<value>-0.2</value>
+				</max>
+				<value>0.2</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage4-pitch-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage4-pitch-error</property>
+						<value>-0.1</value>
+					</product>
+					<product>
+					<property>systems/ap/launch/pitch-max-rate-norm</property>	
+					<value>-1</value>
+					</product>
+				</max>
+				<property>systems/ap/launch/pitch-max-rate-norm</property>
+			</min>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
 
 	<channel name="Auto launch command merge">
 
@@ -1219,6 +1556,12 @@
 			<test value="systems/ap/launch/stage2-roll-cmd">
 				systems/ap/launch/stage == 2
 			</test>
+			<test value="systems/ap/launch/stage3-roll-cmd">
+				systems/ap/launch/stage == 3
+			</test>
+			<test value="systems/ap/launch/stage4-roll-cmd">
+				systems/ap/launch/stage == 4
+			</test>
 			
 		</switch>
 
@@ -1227,7 +1570,22 @@
 			<test value="systems/ap/launch/stage2-pitch-cmd">
 				systems/ap/launch/stage == 2
 			</test>
-			
+			<test value="systems/ap/launch/stage3-pitch-cmd">
+				systems/ap/launch/stage == 3
+			</test>
+			<test value="systems/ap/launch/stage4-pitch-cmd">
+				systems/ap/launch/stage == 4
+			</test>
+		</switch>
+
+		<switch name="systems/ap/launch/yaw-cmd">
+			<default value="0.0"/>
+			<test value="systems/ap/launch/stage3-yaw-cmd">
+				systems/ap/launch/stage == 3
+			</test>
+			<test value="systems/ap/launch/stage4-yaw-cmd">
+				systems/ap/launch/stage == 4
+			</test>
 		</switch>
 
 
