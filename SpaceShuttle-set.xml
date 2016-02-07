@@ -35,6 +35,7 @@
        <mnvr-timer-h type="int">0</mnvr-timer-h>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
+	  <inc-acquire-sign type="int">1</inc-acquire-sign>
 	  <stage type="int">0</stage>
           <autolaunch-roll-yaw-channel type="int">1</autolaunch-roll-yaw-channel>
           <autolaunch-pitch-channel type="int">1</autolaunch-pitch-channel>
@@ -1371,6 +1372,18 @@
       </item>
 
       <item>
+       <label>Launch Guidance</label>
+       <binding>
+        <command>nasal</command>
+	<script>SpaceShuttle.update_inclination()</script>
+       </binding>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.autolaunch_dlg.open()</script>
+       </binding>
+      </item>
+
+      <item>
        <label>Entry Guidance</label>
        <binding>
         <command>nasal</command>
@@ -1753,6 +1766,21 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     <name type="string">Space Shuttle Flight Recorder</name>
    </config>
   </flight-recorder>
+
+  <gui>
+    <dialogs>
+	<SpaceShuttle>
+	   <auto_launch>
+		<inclination>0.0</inclination>
+		<apoapsis-target-miles>170.0</apoapsis-target-miles>
+	  	<select-north type="int">1</select-north>
+	  	<select-south type="int">0</select-south>
+	   </auto_launch>
+	</SpaceShuttle>
+    </dialogs>
+  </gui>
+
+
 
  </sim>
 

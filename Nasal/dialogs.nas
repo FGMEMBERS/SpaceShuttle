@@ -1,5 +1,5 @@
 # Nasal scripts for Space Shuttle dialogs
-# Thorsten Renk 2015
+# Thorsten Renk 2015 - 2016
 
 
 var description_string_soft = "Aerodynamical, structural and other limits are called out but not enforced, i.e. violating limits does not cause damage to the orbiter.";
@@ -23,6 +23,9 @@ var scenario_string_tire_failure = "The right gear tire is damaged. Anticipate t
 var propellant_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant/dialog","Aircraft/SpaceShuttle/Dialogs/propellant.xml");
 
 var entry_guidance_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/entry_guidance/dialog","Aircraft/SpaceShuttle/Dialogs/entry_guidance.xml");
+
+var autolaunch_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/autolaunch/dialog","Aircraft/SpaceShuttle/Dialogs/auto_launch.xml");
+
 
 var limits_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/limits/dialog","Aircraft/SpaceShuttle/Dialogs/limits.xml");
 
@@ -423,7 +426,51 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
 }
 
 
+var update_inclination = func {
 
+var raw = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination");
+var lat = getprop("/position/latitude-deg");
+
+var inc = lat + (90 - lat) * raw;
+
+setprop("/fdm/jsbsim/systems/ap/launch/inclination-target", inc);
+
+var la_north = 180.0/math.pi *  math.asin(math.cos(inc * math.pi/180.0) / math.cos (lat * math.pi/180.0));
+var la_south = 180.0 - la_north;
+
+setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-north", la_north);
+setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-south", la_south);
+
+var direction = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north");
+
+if (direction == 1)
+	{
+	var launch_azimuth = la_north;
+	setprop("/fdm/jsbsim/systems/ap/launch/inc-acquire-sign", -1);
+	}
+else
+	{
+	var launch_azimuth = la_south;
+	setprop("/fdm/jsbsim/systems/ap/launch/inc-acquire-sign", 1);
+	}
+
+launch_azimuth = launch_azimuth * math.pi/180.0;
+
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector", -math.cos(launch_azimuth));
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector[1]", -math.sin(launch_azimuth) );
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector[2]", 0.0);
+
+
+var apoapsis_target = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles");
+apoapsis_target = apoapsis_target * 1.852;
+
+setprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target", apoapsis_target);
+
+}
+
+
+setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles", update_inclination);
+setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination", update_inclination);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", update_entry_mode);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
