@@ -1321,10 +1321,18 @@
 				<max>
 					<product>
 						<property>systems/ap/launch/stage3-inclination-error</property>
-						<value>40.0</value>
-						<property>velocities/mach</property>
+						<property>systems/ap/launch/inc-acquire-sign</property>
+      						<table>
+        					<independentVar lookup="row">velocities/mach</independentVar>
+         					<tableData>
+      						  5.0	0.0
+						  8.0	100.0
+						  14.0	300.0
+						  25.0	500.0
+       					  	</tableData>
+    						</table>
 					</product>
-					<value>-10.0</value>
+					<value>-10.0</value>	
 				</max>
 				<value>10.0</value>
 			</min>
@@ -1439,8 +1447,16 @@
 				<max>
 					<product>
 						<property>systems/ap/launch/stage4-inclination-error</property>
-						<value>5.0</value>
-						<property>velocities/mach</property>
+						<property>systems/ap/launch/inc-acquire-sign</property>
+      						<table>
+        					<independentVar lookup="row">velocities/mach</independentVar>
+         					<tableData>
+      						  5.0	0.0
+						  8.0	100.0
+						  14.0	300.0
+						  25.0	500.0
+       					  	</tableData>
+    						</table>
 					</product>
 					<value>-10.0</value>
 				</max>
@@ -1484,6 +1500,7 @@
         			<max>  20.0 </max>
 			</clipto>
 		</pid>
+
 
 		<fcs_function name="systems/ap/launch/stage4-pitch-error">
 		<function>
@@ -1533,8 +1550,8 @@
 						<value>-0.1</value>
 					</product>
 					<product>
-					<property>systems/ap/launch/pitch-max-rate-norm</property>	
-					<value>-1</value>
+						<property>systems/ap/launch/pitch-max-rate-norm</property>	
+						<value>-1</value>
 					</product>
 				</max>
 				<property>systems/ap/launch/pitch-max-rate-norm</property>
