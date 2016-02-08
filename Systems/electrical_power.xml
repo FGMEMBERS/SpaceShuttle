@@ -52,6 +52,62 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/fc/coolant-pump-failure">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/failures/fc1-coolant-pump-condition</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/electrical/fc/overheat-transit">
+			<input>systems/electrical/fc/coolant-pump-failure</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>540.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/electrical/fc/stack-temperature-K">
+		<function>
+			<max>
+				<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<quotient>
+						<property>systems/electrical/bus1-power-demand-kW</property>
+						<value>0.03</value>
+						</quotient>
+						<value>0.04418</value>
+					</product>
+				</sum>
+				<property>systems/electrical/fc/fc-ready-for-load-transit</property>
+				</product>
+				<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<property>systems/electrical/fc/overheat-transit</property>
+						<value>65</value>
+					</product>	
+				</sum>
+				<property>systems/electrical/fc/fc-ready-for-load-transit</property>
+				</product>
+				<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
+		</function>
+		</fcs_function>
+
+
+
 	</channel>
 
 
@@ -102,6 +158,60 @@
 				<property>systems/failures/fc2-condition</property>
 				<property>systems/electrical/fc[1]/fc-efficiency</property>
 			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/fc[1]/coolant-pump-failure">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/failures/fc2-coolant-pump-condition</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/electrical/fc[1]/overheat-transit">
+			<input>systems/electrical/fc[1]/coolant-pump-failure</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>540.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/electrical/fc[1]/stack-temperature-K">
+		<function>
+			<max>
+				<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<quotient>
+						<property>systems/electrical/bus2-power-demand-kW</property>
+						<value>0.03</value>
+						</quotient>
+						<value>0.04418</value>
+					</product>
+				</sum>
+				<property>systems/electrical/fc[1]/fc-ready-for-load-transit</property>
+				</product>
+				<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<property>systems/electrical/fc[1]/overheat-transit</property>
+						<value>65</value>
+					</product>	
+				</sum>
+				<property>systems/electrical/fc[1]/fc-ready-for-load-transit</property>
+				</product>
+				<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
 		</function>
 		</fcs_function>
 
@@ -158,10 +268,147 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/fc[2]/coolant-pump-failure">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/failures/fc3-coolant-pump-condition</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/electrical/fc[2]/overheat-transit">
+			<input>systems/electrical/fc[2]/coolant-pump-failure</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>540.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/electrical/fc[2]/stack-temperature-K">
+		<function>
+			<max>
+			<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<quotient>
+						<property>systems/electrical/bus3-power-demand-kW</property>
+						<value>0.03</value>
+						</quotient>
+						<value>0.04418</value>
+					</product>
+				</sum>
+				<property>systems/electrical/fc[2]/fc-ready-for-load-transit</property>
+			</product>
+			<product>
+				<sum>
+					<value>359.5</value>
+					<product>
+						<property>systems/electrical/fc[2]/overheat-transit</property>
+						<value>65</value>
+					</product>	
+				</sum>
+				<property>systems/electrical/fc[2]/fc-ready-for-load-transit</property>
+				</product>
+			<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
+		</function>
+		</fcs_function>
+
+	</channel>
+
+	<channel name="Line heater switches and temperatures">
+
+		<fcs_function name="systems/electrical/h2o-line-heater-power-kW">
+		<function>
+			<product>
+				<property>systems/electrical/h2o-line-heater-switch</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/h2o-relief-heater-power-kW">
+		<function>
+			<product>
+				<property>systems/electrical/h2o-relief-heater-switch</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/purge-heater-power-kW">
+		<function>
+			<product>
+				<property>systems/electrical/purge-heater-switch</property>
+				<value>0.08</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/electrical/purge-heater-transit">
+			<input>systems/electrical/purge-heater-switch</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>300.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/electrical/h2o-line-T">
+		<function>
+			<max>
+			<product>
+				<property>systems/electrical/h2o-line-heater-switch</property>
+				<value>302.0</value>
+			</product>
+			<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/h2o-relief-T">
+		<function>
+			<max>
+			<product>
+				<property>systems/electrical/h2o-relief-heater-switch</property>
+				<value>300.0</value>
+			</product>
+			<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/purge-line-T">
+		<function>
+			<max>
+			<product>
+				<property>systems/electrical/purge-heater-transit</property>
+				<value>310.0</value>
+			</product>
+			<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+			</max>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 
-
+      <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
+      <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
+      <purge-heater-switch type="int">0</purge-heater-switch>
 
 	<channel name="Bus 1">
 
@@ -319,8 +566,14 @@
 			<input>systems/oms-hardware/heater-left-power-kW</input>
 			<input>systems/oms-hardware/heater-right-power-kW</input>
 			<input>systems/oms-hardware/heater-crossfeed-power-kW</input>
+			<input>systems/electrical/h2o-line-heater-power-kW</input>
+			<input>systems/electrical/h2o-relief-heater-power-kW</input>
+			<input>systems/electrical/purge-heater-power-kW</input>
 		</summer>
 		
+
+
+
 		<!-- till we model this in detail, assume all buses are tied -->
 
 		<fcs_function name="systems/electrical/power-demand-per-bus-kW">

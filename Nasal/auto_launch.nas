@@ -133,7 +133,7 @@ else if (auto_launch_stage == 4)
 
 	# increase pitch maneuverability as centrifugal force builds up
 
-	if ((aux_flag == 1) and (getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") > -500.0))
+	if ((aux_flag == 1) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > -500.0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.15);
 		aux_flag = 2;
@@ -142,7 +142,7 @@ else if (auto_launch_stage == 4)
 
 	# null all rates prior to MECO
 
-	if ((aux_flag == 2) and (getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") > 0.0))
+	if ((aux_flag == 2) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > 0.0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 5);
 		aux_flag = 3;
