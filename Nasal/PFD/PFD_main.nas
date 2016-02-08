@@ -21,6 +21,7 @@
 # * p_dps_pl_bay (SM OPS 202, SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
+# * p_dps_fc (DISP 69)
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
 # * p_dps_fault (DISP 99)
@@ -296,6 +297,10 @@ var MDU_Device =
         me.PFD.p_dps_dap.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_dap.addMenuItem(4, "MSG RST", me.PFD.p_dps_dap);
         me.PFD.p_dps_dap.addMenuItem(5, "MSG ACK", me.PFD.p_dps_dap);
+
+        me.PFD.p_dps_fc.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_fc.addMenuItem(4, "MSG RST", me.PFD.p_dps_fc);
+        me.PFD.p_dps_fc.addMenuItem(5, "MSG ACK", me.PFD.p_dps_fc);
     
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);

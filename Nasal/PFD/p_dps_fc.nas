@@ -53,6 +53,41 @@ var PFD_addpage_p_dps_fc = func(device)
     p_dps_fc.fc_ph2 = device.svg.getElementById("p_dps_fc_ph2");
     p_dps_fc.fc_ph3 = device.svg.getElementById("p_dps_fc_ph3");
 
+    p_dps_fc.fc_stackT1 = device.svg.getElementById("p_dps_fc_stackT1");
+    p_dps_fc.fc_stackT2 = device.svg.getElementById("p_dps_fc_stackT2");
+    p_dps_fc.fc_stackT3 = device.svg.getElementById("p_dps_fc_stackT3");
+
+    p_dps_fc.fc_exitT1 = device.svg.getElementById("p_dps_fc_exitT1");
+    p_dps_fc.fc_exitT2 = device.svg.getElementById("p_dps_fc_exitT2");
+    p_dps_fc.fc_exitT3 = device.svg.getElementById("p_dps_fc_exitT3");
+
+    p_dps_fc.fc_coolp1 = device.svg.getElementById("p_dps_fc_coolp1");
+    p_dps_fc.fc_coolp2 = device.svg.getElementById("p_dps_fc_coolp2");
+    p_dps_fc.fc_coolp3 = device.svg.getElementById("p_dps_fc_coolp3");
+
+    p_dps_fc.pump1 = device.svg.getElementById("p_dps_fc_pump1");
+    p_dps_fc.pump2 = device.svg.getElementById("p_dps_fc_pump2");
+    p_dps_fc.pump3 = device.svg.getElementById("p_dps_fc_pump3");
+
+    p_dps_fc.h2pump1 = device.svg.getElementById("p_dps_fc_h2pump1");
+    p_dps_fc.h2pump2 = device.svg.getElementById("p_dps_fc_h2pump2");
+    p_dps_fc.h2pump3 = device.svg.getElementById("p_dps_fc_h2pump3");
+
+    p_dps_fc.fc_ready1 = device.svg.getElementById("p_dps_fc_ready1");
+    p_dps_fc.fc_ready2 = device.svg.getElementById("p_dps_fc_ready2");
+    p_dps_fc.fc_ready3 = device.svg.getElementById("p_dps_fc_ready3");
+
+    p_dps_fc.purge_ln_o2_T = device.svg.getElementById("p_dps_fc_purge_ln_o2_T");
+    p_dps_fc.purge_ln_h2_T1 = device.svg.getElementById("p_dps_fc_purge_ln_h2_T1");
+    p_dps_fc.purge_ln_h2_T2 = device.svg.getElementById("p_dps_fc_purge_ln_h2_T2");
+
+    p_dps_fc.noz_T_A = device.svg.getElementById("p_dps_fc_noz_T_A");
+    p_dps_fc.noz_T_B = device.svg.getElementById("p_dps_fc_noz_T_B");
+
+    p_dps_fc.h2o_rlf_line_T = device.svg.getElementById("p_dps_fc_h2o_rlf_line_T");
+
+    p_dps_fc.htr_sw = device.svg.getElementById("p_dps_fc_htr_sw");
+
     p_dps_fc.h2o_line_ph = device.svg.getElementById("p_dps_fc_h2o_line_ph");
 
     p_dps_fc.pri_ln_T1 = device.svg.getElementById("p_dps_fc_pri_ln_T1");
@@ -67,6 +102,9 @@ var PFD_addpage_p_dps_fc = func(device)
     p_dps_fc.alt_ln_T2 = device.svg.getElementById("p_dps_fc_alt_ln_T2");
     p_dps_fc.alt_ln_T3 = device.svg.getElementById("p_dps_fc_alt_ln_T3");
     
+    p_dps_fc.damps1 = device.svg.getElementById("p_dps_fc_damps1");
+    p_dps_fc.damps2 = device.svg.getElementById("p_dps_fc_damps2");
+    p_dps_fc.damps3 = device.svg.getElementById("p_dps_fc_damps3");
 
     
     p_dps_fc.ondisplay = func
@@ -137,6 +175,10 @@ var PFD_addpage_p_dps_fc = func(device)
 	var h2flow2 = 0.00310559 * amps2;
 	var h2flow3 = 0.00310559 * amps3;
 
+	var h2oflow1 = 0.002469 * amps1;
+	var h2oflow2 = 0.002469 * amps2;
+	var h2oflow3 = 0.002469 * amps3;
+
     	p_dps_fc.o2flow1.setText(sprintf("%2.1f", o2flow1 ));
     	p_dps_fc.o2flow2.setText(sprintf("%2.1f", o2flow2 ));
     	p_dps_fc.o2flow3.setText(sprintf("%2.1f", o2flow3 ));
@@ -176,6 +218,96 @@ var PFD_addpage_p_dps_fc = func(device)
 	p_dps_fc.dvss2_3.setText(sprintf("%3.0f", 13 * fc3_factor ));
 	p_dps_fc.dvss3_3.setText(sprintf("%3.0f", 16 * fc3_factor ));
 
+	p_dps_fc.damps1.setText(sprintf("%3.0f", -3 * fc1_factor ));
+	p_dps_fc.damps2.setText(sprintf("%3.0f", 2 * fc2_factor ));
+	p_dps_fc.damps3.setText(sprintf("%3.0f", 1 * fc3_factor ));
+
+	var stack_T1 = K_to_F (getprop("/fdm/jsbsim/systems/electrical/fc/stack-temperature-K"));
+	var stack_T2 = K_to_F (getprop("/fdm/jsbsim/systems/electrical/fc[1]/stack-temperature-K"));
+	var stack_T3 = K_to_F (getprop("/fdm/jsbsim/systems/electrical/fc[2]/stack-temperature-K"));
+
+    	p_dps_fc.fc_stackT1.setText(sprintf("%3.0f", stack_T1 ));
+    	p_dps_fc.fc_stackT2.setText(sprintf("%3.0f", stack_T2 ));
+    	p_dps_fc.fc_stackT3.setText(sprintf("%3.0f", stack_T3 ));
+
+	var running1 = getprop("/fdm/jsbsim/systems/electrical/fc/fc-running");
+	var running2 = getprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-running");
+	var running3 = getprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-running");
+
+	var condition1 = getprop("/fdm/jsbsim/systems/failures/fc1-coolant-pump-condition");
+	var condition2 = getprop("/fdm/jsbsim/systems/failures/fc2-coolant-pump-condition");
+	var condition3 = getprop("/fdm/jsbsim/systems/failures/fc3-coolant-pump-condition");
+
+	p_dps_fc.fc_coolp1.setText(sprintf("%2.0f", 61.0 * condition1 * running1 ));
+	p_dps_fc.fc_coolp2.setText(sprintf("%2.0f", 61.0 * condition2 * running2 ));
+	p_dps_fc.fc_coolp3.setText(sprintf("%2.0f", 61.0 * condition3 * running3 ));
+
+	if ((running1 == 1) and (coolant_T < (stack_T1 - 60.0))) {exitT1 = 151.0;}
+	else {exitT1 = stack_T1;}
+
+	if ((running2 == 1) and (coolant_T < (stack_T2 - 60.0))) {exitT2 = 153.0;}
+	else {exitT2 = stack_T2;}
+
+	if ((running3 == 1) and (coolant_T < (stack_T3 - 60.0))) {exitT3 = 150.0;}
+	else {exitT3 = stack_T3;}
+
+	p_dps_fc.fc_exitT1.setText(sprintf("%3.0f", exitT1 ));
+	p_dps_fc.fc_exitT2.setText(sprintf("%3.0f", exitT2 ));
+	p_dps_fc.fc_exitT3.setText(sprintf("%3.0f", exitT3 ));
+
+	var string = "";
+	if ((running1 == 1) and (condition1 > 0.3)) {string= "ΔP";}
+ 	p_dps_fc.pump1.setText(string);
+
+	string = "";
+	if ((running2 == 1) and (condition2 > 0.3)) {string= "ΔP";}
+ 	p_dps_fc.pump2.setText(string);
+
+	string = "";
+	if ((running3 == 1) and (condition3 > 0.3)) {string= "ΔP";}
+ 	p_dps_fc.pump3.setText(string);
+
+	string = "OFF";
+	if (running1 == 1) {string = "RDY";}
+    	p_dps_fc.fc_ready1.setText(string);
+
+	string = "OFF";
+	if (running2 == 1) {string = "RDY";}
+    	p_dps_fc.fc_ready2.setText(string);
+
+	string = "OFF";
+	if (running3 == 1) {string = "RDY";}
+    	p_dps_fc.fc_ready3.setText(string);
+	
+	string = "OFF";
+	if (getprop("/fdm/jsbsim/systems/electrical/h2o-relief-heater-switch") == 1) {string = "A";}
+	p_dps_fc.htr_sw.setText(string);
+
+	p_dps_fc.h2pump1.setText(sprintf("%1.1f", h2oflow1 ));
+	p_dps_fc.h2pump2.setText(sprintf("%1.1f", h2oflow2 ));
+	p_dps_fc.h2pump3.setText(sprintf("%1.1f", h2oflow3 ));
+
+	var purge_T = K_to_F(getprop("/fdm/jsbsim/systems/electrical/purge-line-T"));
+	var purge_o2_T = purge_T - 10.0;
+	var purge_h2_T1 = purge_T;
+	var purge_h2_T2 = purge_T - 39.0;
+
+	var PB_T = K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/payload-bay-temperature-K"));
+
+	if (purge_o2_T < PB_T) {purge_o2_T = PB_T;}
+	if (purge_h2_T2 < PB_T) {purge_h2_T2 = PB_T;}
+
+    	p_dps_fc.purge_ln_o2_T.setText(sprintf("%3.0f", purge_o2_T ));
+    	p_dps_fc.purge_ln_h2_T1.setText(sprintf("%3.0f", purge_h2_T1 ));
+    	p_dps_fc.purge_ln_h2_T2.setText(sprintf("%3.0f", purge_h2_T2 ));
+
+	var h2o_nozzle_T = K_to_F(getprop("/fdm/jsbsim/systems/electrical/h2o-relief-T"));
+	var h2o_line_T = K_to_F(getprop("/fdm/jsbsim/systems/electrical/h2o-line-T"));
+
+    	p_dps_fc.noz_T_A.setText(sprintf("%3.0f", h2o_nozzle_T + 1.0 ));
+    	p_dps_fc.noz_T_B.setText(sprintf("%3.0f", h2o_nozzle_T  ));
+
+    	p_dps_fc.h2o_rlf_line_T.setText(sprintf("%3.0f", h2o_line_T + 1.0 ));
 
         device.update_common_DPS();
     }
