@@ -445,6 +445,15 @@
 			</test>
 		</switch>
 
+		<switch name="systems/electrical/ac1-power-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus1-power-available == 1
+				systems/electrical/ac/inverter-power-switch == 1
+				systems/electrical/ac/inv-ac-switch == 1
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="Bus 2">
@@ -479,6 +488,15 @@
 			<default value="0.0"/>
 			<test  value="1.0">
 				systems/electrical/bus2-max-power-output-kW GT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/ac2-power-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus2-power-available == 1
+				systems/electrical/ac[1]/inverter-power-switch == 1
+				systems/electrical/ac[1]/inv-ac-switch == 1
 			</test>
 		</switch>
 
@@ -521,6 +539,15 @@
 			</test>
 		</switch>
 
+		<switch name="systems/electrical/ac3-power-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus3-power-available == 1
+				systems/electrical/ac[2]/inverter-power-switch == 1
+				systems/electrical/ac[2]/inv-ac-switch == 1
+			</test>
+		</switch>
+
 	</channel>
 
 
@@ -545,11 +572,41 @@
 		</function>
 		</fcs_function>
 
-		<summer name="systems/electrical/total-demanded-power-kW">
-			<input>systems/electrical/generic-power-demand-kW</input>
+		<summer name="systems/electrical/ac1-demanded-power-kW">
+			<input>systems/mps/engine/controller-A-power-demand-kW</input>
+			<input>systems/mps/engine[2]/controller-B-power-demand-kW</input>
+		</summer>
+
+		<summer name="systems/electrical/ac2-demanded-power-kW">
+			<input>systems/mps/engine/controller-B-power-demand-kW</input>
+			<input>systems/mps/engine[1]/controller-A-power-demand-kW</input>
+		</summer>
+
+		<summer name="systems/electrical/ac3-demanded-power-kW">
+			<input>systems/mps/engine[1]/controller-B-power</input>
+			<input>systems/mps/engine[2]/controller-A-power</input>
+		</summer>
+
+		<summer name="systems/electrical/bus1-demanded-power-kW">
+			<input>systems/electrical/ac1-demanded-power-kW</input>
 			<input>systems/apu/apu/hyd-circ-pump-power-kW</input>
+		</summer>
+
+		<summer name="systems/electrical/bus2-demanded-power-kW">
+			<input>systems/electrical/ac2-demanded-power-kW</input>
 			<input>systems/apu/apu[1]/hyd-circ-pump-power-kW</input>
+		</summer>
+
+		<summer name="systems/electrical/bus3-demanded-power-kW">
+			<input>systems/electrical/ac3-demanded-power-kW</input>
 			<input>systems/apu/apu[2]/hyd-circ-pump-power-kW</input>
+		</summer>
+
+		<summer name="systems/electrical/total-demanded-power-kW">
+			<input>systems/electrical/bus1-demanded-power-kW</input>
+			<input>systems/electrical/bus2-demanded-power-kW</input>
+			<input>systems/electrical/bus3-demanded-power-kW</input>
+			<input>systems/electrical/generic-power-demand-kW</input>
 			<input>systems/rcs-hardware/heater-fwd-power-kW</input>
 			<input>systems/rcs-hardware/heater-left-power-kW</input>
 			<input>systems/rcs-hardware/heater-right-power-kW</input>

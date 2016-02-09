@@ -463,6 +463,7 @@
        <fc-controller-power type="int">1</fc-controller-power>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
+       <purge-valve-status type="int">0</purge-valve-status>
       </fc>
       <fc n="1">
        <reactant-valve-status type="int">1</reactant-valve-status>
@@ -470,6 +471,7 @@
        <fc-controller-power type="int">1</fc-controller-power>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
+       <purge-valve-status type="int">0</purge-valve-status>
       </fc>
       <fc n="2">
        <reactant-valve-status type="int">1</reactant-valve-status>
@@ -477,7 +479,20 @@
        <fc-controller-power type="int">1</fc-controller-power>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
+       <purge-valve-status type="int">0</purge-valve-status>
       </fc>
+      <ac>
+       <inverter-power-switch type="int">1</inverter-power-switch>
+       <inv-ac-switch type="int">1</inv-ac-switch>
+      </ac>
+      <ac n="1">
+       <inverter-power-switch type="int">1</inverter-power-switch>
+       <inv-ac-switch type="int">1</inv-ac-switch>
+      </ac>
+      <ac n="2">
+       <inverter-power-switch type="int">1</inverter-power-switch>
+       <inv-ac-switch type="int">1</inv-ac-switch>
+      </ac>
       <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
       <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>
       <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
