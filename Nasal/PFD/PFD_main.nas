@@ -5,7 +5,7 @@
 # Based on F-15 MPCD
 # ---------------------------
 # Richard Harrison: 2015-01-23 : rjh@zaretto.com
-# addition of DPS pages (old CRT style) Thorsten Renk 2015
+# addition of DPS pages (old CRT style) Thorsten Renk 2015-2016
 # ---------------------------
 
 # pages available are
@@ -24,6 +24,7 @@
 # * p_dps_fc (DISP 69)
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
+# * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
@@ -51,6 +52,7 @@ io.include("p_dps_dap.nas");
 io.include("p_dps_sm_sys_summ2.nas");
 io.include("p_dps_antenna.nas");
 io.include("p_dps_fc.nas");
+io.include("p_dps_pl_ret.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -168,6 +170,7 @@ var MDU_Device =
         me.PFD.p_dps_sm_sys_summ2 = PFD_addpage_p_dps_sm_sys_summ2(me.PFD);
         me.PFD.p_dps_antenna = PFD_addpage_p_dps_antenna(me.PFD);
         me.PFD.p_dps_fc = PFD_addpage_p_dps_fc(me.PFD);
+        me.PFD.p_dps_pl_ret = PFD_addpage_p_dps_pl_ret(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -250,7 +253,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_fc);
+        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_pl_ret);
         me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
     
