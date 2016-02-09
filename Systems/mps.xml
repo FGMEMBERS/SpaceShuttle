@@ -17,7 +17,7 @@
 		<switch name="systems/mps/engine/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus1-power-available == 1
+				systems/electrical/ac1-power-available == 1
 				systems/mps/engine/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -25,7 +25,7 @@
 		<switch name="systems/mps/engine/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus2-power-available == 1
+				systems/electrical/ac2-power-available == 1
 				systems/mps/engine/controller-B-power-switch-status == 1
 			</test>
 		</switch>
@@ -33,7 +33,7 @@
 		<switch name="systems/mps/engine[1]/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus2-power-available == 1
+				systems/electrical/ac2-power-available == 1
 				systems/mps/engine[1]/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -41,7 +41,7 @@
 		<switch name="systems/mps/engine[1]/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus3-power-available == 1
+				systems/electrical/ac3-power-available == 1
 				systems/mps/engine[1]/controller-B-power-switch-status == 1
 			</test>
 		</switch>
@@ -49,7 +49,7 @@
 		<switch name="systems/mps/engine[2]/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus1-power-available == 1
+				systems/electrical/ac3-power-available == 1
 				systems/mps/engine[2]/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -57,10 +57,53 @@
 		<switch name="systems/mps/engine[2]/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus3-power-available == 1
+				systems/electrical/ac1-power-available == 1
 				systems/mps/engine[2]/controller-B-power-switch-status == 1
 			</test>
 		</switch>
+
+		<switch name="systems/mps/engine/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[1]/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[1]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[2]/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[2]/controller-B-power == 1
+			</test>
+		</switch>
+
 
 		<switch name="systems/mps/engine/controller-power">
 			<default value="0.0"/>

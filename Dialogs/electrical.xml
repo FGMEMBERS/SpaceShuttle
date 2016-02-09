@@ -357,6 +357,87 @@
 
  </group>
 
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+   <text>
+      <label>Fuel cell purge</label>
+      <halign>center</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  <text>
+      <label>Purge valve</label>
+      <halign>center</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>fc1-purge</name>
+        <halign>left</halign>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/fdm/jsbsim/systems/electrical/fc/purge-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc1-purge</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc2-purge</name>
+        <halign>left</halign>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[1]/purge-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc2-purge</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>fc3-purge</name>
+        <halign>left</halign>
+ 	<row>1</row>
+        <col>3</col>
+          <property>/fdm/jsbsim/systems/electrical/fc[2]/purge-valve-status</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>fc3-purge</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>purge-line-heater</name>
+ 	<row>2</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/electrical/purge-heater-switch</property>
+          <live>true</live>
+	  <label>purge line heater</label>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>purge-line-heater</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
 
 
 	<empty>
