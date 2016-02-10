@@ -331,7 +331,7 @@
       <label>12345678</label>
       <format>%.1f V</format>
       <live>true</live>
-      <property>/fdm/jsbsim/systems/electrical/bus1-voltage</property>
+      <property>/fdm/jsbsim/systems/electrical/bus/voltage</property>
     </text> 
 
     <text>
@@ -341,7 +341,7 @@
       <label>12345678</label>
       <format>%.1f V</format>
       <live>true</live>
-      <property>/fdm/jsbsim/systems/electrical/bus2-voltage</property>
+      <property>/fdm/jsbsim/systems/electrical/bus[1]/voltage</property>
     </text> 
 
     <text>
@@ -351,7 +351,7 @@
       <label>12345678</label>
       <format>%.1f V</format>
       <live>true</live>
-      <property>/fdm/jsbsim/systems/electrical/bus3-voltage</property>
+      <property>/fdm/jsbsim/systems/electrical/bus[2]/voltage</property>
     </text> 
 
 

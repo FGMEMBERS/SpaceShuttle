@@ -215,7 +215,7 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rms/retention-power-1-switch == 1
-				systems/electrical/bus1-max-power-output-kW GT 0.0
+				systems/electrical/bus/max-power-output-kW GT 0.0
 			</test>
 		</switch>
 
@@ -223,7 +223,7 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rms/retention-power-2-switch == 1
-				systems/electrical/bus2-max-power-output-kW GT 0.0
+				systems/electrical/bus[1]/max-power-output-kW GT 0.0
 			</test>
 		</switch>
 

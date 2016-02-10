@@ -166,6 +166,11 @@
 	<virtual-kb-idp-1-selected type="bool">false</virtual-kb-idp-1-selected>
 	<virtual-kb-idp-2-selected type="bool">false</virtual-kb-idp-2-selected>
 	<virtual-kb-idp-3-selected type="bool">true</virtual-kb-idp-3-selected>
+	<gpc1-power-demand-kW type="double">0.56</gpc1-power-demand-kW>
+	<gpc2-power-demand-kW type="double">0.56</gpc2-power-demand-kW>
+	<gpc3-power-demand-kW type="double">0.56</gpc3-power-demand-kW>
+	<gpc4-power-demand-kW type="double">0.56</gpc4-power-demand-kW>
+	<gpc5-power-demand-kW type="double">0.56</gpc5-power-demand-kW>
     </dps>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>
@@ -493,9 +498,21 @@
        <inverter-power-switch type="int">1</inverter-power-switch>
        <inv-ac-switch type="int">1</inv-ac-switch>
       </ac>
-      <bus1-power-demand-kW type="double">4.0</bus1-power-demand-kW>
-      <bus2-power-demand-kW type="double">4.0</bus2-power-demand-kW>
-      <bus3-power-demand-kW type="double">4.0</bus3-power-demand-kW>
+      <bus>
+	<rel-power-demand type="double">0.5</rel-power-demand>
+	<power-demand-kW type="double">4.0</power-demand-kW>
+	<tie-switch type="int">0</tie-switch>
+      </bus>
+      <bus n="1">
+	<rel-power-demand type="double">0.5</rel-power-demand>
+	<power-demand-kW type="double">4.0</power-demand-kW>
+	<tie-switch type="int">0</tie-switch>
+      </bus>
+      <bus n="2">
+	<rel-power-demand type="double">0.5</rel-power-demand>
+	<power-demand-kW type="double">4.0</power-demand-kW>
+	<tie-switch type="int">0</tie-switch>
+      </bus>
       <init-electrical-on type="double">14.0</init-electrical-on>
       <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
