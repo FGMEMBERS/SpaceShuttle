@@ -141,19 +141,23 @@ var PFD_addpage_p_dps_fc = func(device)
     p_dps_fc.update = func
     {
 
-	var voltage1 = getprop("/fdm/jsbsim/systems/electrical/bus1-voltage");
-	var voltage2 = getprop("/fdm/jsbsim/systems/electrical/bus2-voltage");
-	var voltage3 = getprop("/fdm/jsbsim/systems/electrical/bus3-voltage");
+	var voltage1 = getprop("/fdm/jsbsim/systems/electrical/fc/voltage");
+	var voltage2 = getprop("/fdm/jsbsim/systems/electrical/fc[1]/voltage");
+	var voltage3 = getprop("/fdm/jsbsim/systems/electrical/fc[2]/voltage");
 
-	var power_usage1 = getprop("/fdm/jsbsim/systems/electrical/bus1-power-demand-kW") * 1000.0;
-	var power_usage2 = getprop("/fdm/jsbsim/systems/electrical/bus2-power-demand-kW") * 1000.0;
-	var power_usage3 = getprop("/fdm/jsbsim/systems/electrical/bus3-power-demand-kW") * 1000.0;
+	var bus_connector1 = getprop("/fdm/jsbsim/systems/electrical/fc/bus-connector-status");
+	var bus_connector2 = getprop("/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status");
+	var bus_connector3 = getprop("/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status");
+
+	var power_usage1 = getprop("/fdm/jsbsim/systems/electrical/bus/power-demand-kW") * 1000.0;
+	var power_usage2 = getprop("/fdm/jsbsim/systems/electrical/bus[1]/power-demand-kW") * 1000.0;
+	var power_usage3 = getprop("/fdm/jsbsim/systems/electrical/bus[2]/power-demand-kW") * 1000.0;
 
 
 
-	var amps1 = power_usage1/voltage1;
-	var amps2 = power_usage2/voltage2;
-	var amps3 = power_usage3/voltage3;
+	var amps1 = power_usage1/voltage1 * bus_connector1;
+	var amps2 = power_usage2/voltage2 * bus_connector2;
+	var amps3 = power_usage3/voltage3 * bus_connector3;
 
 	if (voltage1 == 0.0) {amps1 = 0.0;}
 	if (voltage2 == 0.0) {amps2 = 0.0;}
