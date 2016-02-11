@@ -513,6 +513,12 @@
 	<power-demand-kW type="double">4.0</power-demand-kW>
 	<tie-switch type="int">0</tie-switch>
       </bus>
+      <ties>
+	<demand-tie-ABC-kW type="double">0.0</demand-tie-ABC-kW>
+	<demand-tie-AB-kW type="double">0.0</demand-tie-AB-kW>
+	<demand-tie-AC-kW type="double">0.0</demand-tie-AC-kW>
+	<demand-tie-BC-kW type="double">0.0</demand-tie-BC-kW>
+      </ties>
       <init-electrical-on type="double">14.0</init-electrical-on>
       <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
