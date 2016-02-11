@@ -90,6 +90,14 @@ var door_stat_to_microsw = func (status, door_status)
     {return "00000";}
 }
 
+var ret_latch_to_microsw = func (status)
+{
+    if (status == 0) {return "11/00";}
+    else if (status == 1) {return "00/11";}
+    else {return "00/00";}
+
+}
+
 var jet_option = func (flag)
 {
 
