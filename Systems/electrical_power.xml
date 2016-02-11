@@ -522,7 +522,7 @@
 		<product>
 			<property>systems/electrical/fc/bus-connector-status</property>
 			<property>systems/electrical/fc/voltage</property>
-			<value>0.95</value>
+			<value>0.99</value>
 		</product>
 		</function>
 		</fcs_function>
@@ -573,7 +573,7 @@
 		<product>
 			<property>systems/electrical/fc[1]/bus-connector-status</property>
 			<property>systems/electrical/fc[1]/voltage</property>
-			<value>0.95</value>
+			<value>0.99</value>
 		</product>
 		</function>
 		</fcs_function>
@@ -625,7 +625,7 @@
 		<product>
 			<property>systems/electrical/fc[2]/bus-connector-status</property>
 			<property>systems/electrical/fc[2]/voltage</property>
-			<value>0.95</value>
+			<value>0.99</value>
 		</product>
 		</function>
 		</fcs_function>
@@ -758,21 +758,21 @@
 		</function>
 		</fcs_function>
 		
-		<summer name="systems/electrical/bus/power-demand-kW">
+		<summer name="systems/electrical/bus/power-demand-kW-nominal">
 			<input>systems/electrical/individual-AB-power-demand-kW</input>
 			<input>systems/electrical/ac/power-demand-kW</input>
 			<input>systems/apu/apu/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
 		</summer>
 
-		<summer name="systems/electrical/bus[1]/power-demand-kW">
+		<summer name="systems/electrical/bus[1]/power-demand-kW-nominal">
 			<input>systems/electrical/individual-AB-power-demand-kW</input>
 			<input>systems/electrical/ac[1]/power-demand-kW</input>
 			<input>systems/apu/apu[1]/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
 		</summer>
 
-		<summer name="systems/electrical/bus[2]/power-demand-kW">
+		<summer name="systems/electrical/bus[2]/power-demand-kW-nominal">
 			<input>systems/electrical/ac[2]/power-demand-kW</input>
 			<input>systems/apu/apu[2]/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
@@ -848,8 +848,8 @@
 		<function>
 			<quotient>
 				<sum>
-					<property>systems/electrical/bus/power-demand-kW</property>
-					<property>systems/electrical/bus[1]/power-demand-kW</property>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
 				</sum>
 				<max>
 				<sum>
@@ -862,8 +862,21 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/ties/demand-tie-AB-kW">
+		<function>
+			<product>
+				<sum>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
+				</sum>
+				<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/electrical/ties/voltage-tie-AB">
 		<function>
+		<product>
 		<table>
         		<independentVar lookup="row">systems/electrical/ties/rel-demand-tie-AB</independentVar>
         		<tableData>
@@ -874,6 +887,8 @@
 				10.0	0.0
         		</tableData>
       		</table>
+		<value>0.99</value>
+		</product>
 		</function>
 		</fcs_function>
 
@@ -881,8 +896,8 @@
 		<function>
 			<quotient>
 				<sum>
-					<property>systems/electrical/bus/power-demand-kW</property>
-					<property>systems/electrical/bus[2]/power-demand-kW</property>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
 				</sum>
 				<max>
 				<sum>
@@ -895,8 +910,21 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/ties/demand-tie-AC-kW">
+		<function>
+			<product>
+				<sum>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
+				</sum>
+				<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/electrical/ties/voltage-tie-AC">
 		<function>
+		<product>
 		<table>
         		<independentVar lookup="row">systems/electrical/ties/rel-demand-tie-AC</independentVar>
         		<tableData>
@@ -907,6 +935,8 @@
 				10.0	0.0
         		</tableData>
       		</table>
+		<value>0.99</value>
+		</product>
 		</function>
 		</fcs_function>
 
@@ -914,8 +944,8 @@
 		<function>
 			<quotient>
 				<sum>
-					<property>systems/electrical/bus[1]/power-demand-kW</property>
-					<property>systems/electrical/bus[2]/power-demand-kW</property>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
 				</sum>
 				<max>
 				<sum>
@@ -928,8 +958,21 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/ties/demand-tie-BC-kW">
+		<function>
+			<product>
+				<sum>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
+				</sum>
+				<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/electrical/ties/voltage-tie-BC">
 		<function>
+		<product>
 		<table>
         		<independentVar lookup="row">systems/electrical/ties/rel-demand-tie-BC</independentVar>
         		<tableData>
@@ -940,6 +983,8 @@
 				10.0	0.0
         		</tableData>
       		</table>
+		<value>0.99</value>
+		</product>
 		</function>
 		</fcs_function>
 
@@ -947,9 +992,9 @@
 		<function>
 			<quotient>
 				<sum>
-					<property>systems/electrical/bus/power-demand-kW</property>
-					<property>systems/electrical/bus[1]/power-demand-kW</property>
-					<property>systems/electrical/bus[2]/power-demand-kW</property>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
 				</sum>
 				<max>
 				<sum>
@@ -963,8 +1008,22 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/ties/demand-tie-ABC-kW">
+		<function>
+			<product>
+				<sum>
+					<property>systems/electrical/bus/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[1]/power-demand-kW-nominal</property>
+					<property>systems/electrical/bus[2]/power-demand-kW-nominal</property>
+				</sum>
+				<value>0.33333</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/electrical/ties/voltage-tie-ABC">
 		<function>
+		<product>
 		<table>
         		<independentVar lookup="row">systems/electrical/ties/rel-demand-tie-ABC</independentVar>
         		<tableData>
@@ -975,6 +1034,8 @@
 				10.0	0.0
         		</tableData>
       		</table>
+		<value>0.99</value>
+		</product>
 		</function>
 		</fcs_function>
 
@@ -1057,31 +1118,61 @@
 			</test>
 		</switch>
 
+
+		<switch name="systems/electrical/bus/power-demand-kW">
+			<default value="systems/electrical/bus/power-demand-kW-nominal"/>
+			<test  value="systems/electrical/ties/demand-tie-AB-kW">
+				systems/electrical/ties/tie-AB == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-AC-kW">
+				systems/electrical/ties/tie-AC == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-ABC-kW">
+				systems/electrical/ties/tie-ABC == 1
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/bus[1]/power-demand-kW">
+			<default value="systems/electrical/bus[1]/power-demand-kW-nominal"/>
+			<test  value="systems/electrical/ties/demand-tie-AB-kW">
+				systems/electrical/ties/tie-AB == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-BC-kW">
+				systems/electrical/ties/tie-BC == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-ABC-kW">
+				systems/electrical/ties/tie-ABC == 1
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/bus[2]/power-demand-kW">
+			<default value="systems/electrical/bus[2]/power-demand-kW-nominal"/>
+			<test  value="systems/electrical/ties/demand-tie-AC-kW">
+				systems/electrical/ties/tie-AC == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-BC-kW">
+				systems/electrical/ties/tie-BC == 1
+			</test>
+			<test  value="systems/electrical/ties/demand-tie-ABC-kW">
+				systems/electrical/ties/tie-ABC == 1
+			</test>
+		</switch>
+
+
+		<fcs_function name="systems/electrical/essential-bus/voltage">
+		<function>
+			<max>
+				<property>systems/electrical/bus/voltage</property>
+				<property>systems/electrical/bus[1]/voltage</property>
+				<property>systems/electrical/bus[2]/voltage</property>
+			</max>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 
-	<!--<channel name="fallback">
-		<switch name="systems/electrical/bus/voltage">
-			<default value="systems/electrical/bus/voltage-raw"/>
-			<test  value="1.0">
-				systems/electrical/bus/tie-switch == 1
-			</test>
-		</switch>
 
-		<switch name="systems/electrical/bus[1]/voltage">
-			<default value="systems/electrical/bus[1]/voltage-raw"/>
-			<test  value="1.0">
-				systems/electrical/bus/tie-switch == 1
-			</test>
-		</switch>
-
-		<switch name="systems/electrical/bus[2]/voltage">
-			<default value="systems/electrical/bus[2]/voltage-raw"/>
-			<test  value="1.0">
-				systems/electrical/bus/tie-switch == 1
-			</test>
-		</switch>
-	</channel>-->
 
 
 </system>
