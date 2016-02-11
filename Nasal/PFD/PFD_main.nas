@@ -304,6 +304,10 @@ var MDU_Device =
         me.PFD.p_dps_fc.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_fc.addMenuItem(4, "MSG RST", me.PFD.p_dps_fc);
         me.PFD.p_dps_fc.addMenuItem(5, "MSG ACK", me.PFD.p_dps_fc);
+
+        me.PFD.p_dps_pl_ret.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_pl_ret.addMenuItem(4, "MSG RST", me.PFD.p_dps_pl_ret);
+        me.PFD.p_dps_pl_ret.addMenuItem(5, "MSG ACK", me.PFD.p_dps_pl_ret);
     
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
