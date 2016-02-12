@@ -1169,6 +1169,60 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/electrical/ac/voltage">
+		<function>
+			<product>
+			<table>
+        		<independentVar lookup="row">systems/electrical/ac/power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	117.0
+				7.0	117.0
+				10.0	110.0
+				20.0	80.0
+				100.0	0.0
+        		</tableData>
+      			</table>
+			<property>systems/electrical/ac/power-available</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/ac[1]/voltage">
+		<function>
+			<product>
+			<table>
+        		<independentVar lookup="row">systems/electrical/ac[1]/power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	117.0
+				7.0	117.0
+				10.0	110.0
+				20.0	80.0
+				100.0	0.0
+        		</tableData>
+      			</table>
+			<property>systems/electrical/ac[1]/power-available</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/ac[2]/voltage">
+		<function>
+			<product>
+			<table>
+        		<independentVar lookup="row">systems/electrical/ac[2]/power-demand-kW</independentVar>
+        		<tableData>
+          	 		0.0	117.0
+				7.0	117.0
+				10.0	110.0
+				20.0	80.0
+				100.0	0.0
+        		</tableData>
+      			</table>
+			<property>systems/electrical/ac[2]/power-available</property>
+			</product>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 
