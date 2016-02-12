@@ -52,7 +52,7 @@ var PFD_addpage_p_dps_pl_ret = func(device)
         device.DPS_menu_title.setText("PL RETENTION");
         device.MEDS_menu_title.setText("       DPS MENU");
     
-        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
     
         var ops_string = major_mode~"1/   /097";
         device.DPS_menu_ops.setText(ops_string);
