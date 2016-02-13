@@ -16,6 +16,7 @@ l1a : 0, l1l : 0, l1u : 0, l2u: 0, l2l : 0, l2d : 0, l3l : 0, l3a : 0, l3d : 0, 
 r1a : 0, r1r : 0, r1u : 0, r2u: 0, r2r : 0, r2d : 0, r3r : 0, r3a : 0, r3d : 0, r4u : 0, r4r : 0, r4d : 0, r5d : 0, r5r : 0,
 fhep : 0, fpop : 0, fleak : 0, lhep: 0, lpop: 0, lleak: 0, rhep: 0, rpop: 0, rleak: 0,
 omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0, omslpc : 0, omsrpc : 0, omsltkp: 0, omsrtkp: 0,
+acvolt : 0,
 };
 
 
@@ -33,6 +34,9 @@ if (inspection_group == 1)
 
 if (inspection_group == 3)
 	{cws_inspect_oms();}
+
+if (inspection_group == 4)
+	{cws_inspect_fc_electric();}
 
 
 inspection_group = inspection_group + 1;
@@ -765,6 +769,32 @@ if ((right_oms_N2_p < 1200.0) or (right_oms_N2_reg_p < 299.0) or (right_oms_N2_r
 
 }
 
+
+
+#################################################
+# CWS checks of fuel cell and electric systems
+#################################################
+
+var cws_inspect_fc_electric = func {
+
+var init_phase = getprop("/fdm/jsbsim/systems/electrical/init-electrical-on");
+
+if (init_phase > 0.0) {init_phase = 1.0;} else {init_phase = 0.0;}
+
+var voltage_ac1 = getprop("/fdm/jsbsim/systems/electrical/ac/voltage");
+var voltage_ac2 = getprop("/fdm/jsbsim/systems/electrical/ac[1]/voltage");
+var voltage_ac3 = getprop("/fdm/jsbsim/systems/electrical/ac[2]/voltage");
+
+if (((voltage_ac1 < 115.0) or (voltage_ac2 < 115.0) or (voltage_ac3 < 115.0)) and (init_phase == 0.0))
+	{
+		if (cws_msg_hash.acvolt == 0)
+		{
+		create_fault_message("S67 AC VOLTS   ", 1, 2);
+		cws_msg_hash.acvolt = 1;
+		}
+	}
+
+}
 
 
 var insert_fault_message_long = func (message) {

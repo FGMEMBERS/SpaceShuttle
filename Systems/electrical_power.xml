@@ -135,6 +135,21 @@
 		</fcs_function>
 
 
+		<switch name="systems/electrical/fc/pump-power-consumption-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.2808">
+				systems/electrical/ac/voltage GT 115.0
+				systems/failures/fc1-coolant-pump-condition EQ 1.0
+				systems/electrical/fc/fc-running EQ 1.0
+			</test>
+			<test logic="AND" value="0.105">
+				systems/electrical/ac/voltage GT 115.0
+				systems/failures/fc1-coolant-pump-condition LT 1.0
+				systems/electrical/fc/fc-running EQ 1.0
+			</test>
+		</switch>
+
+
 
 	</channel>
 
@@ -271,6 +286,20 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/electrical/fc[1]/pump-power-consumption-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.2808">
+				systems/electrical/ac[1]/voltage GT 115.0
+				systems/failures/fc2-coolant-pump-condition EQ 1.0
+				systems/electrical/fc[1]/fc-running EQ 1.0
+			</test>
+			<test logic="AND" value="0.105">
+				systems/electrical/ac[1]/voltage GT 115.0
+				systems/failures/fc2-coolant-pump-condition LT 1.0
+				systems/electrical/fc[1]/fc-running EQ 1.0
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="FC 3">
@@ -406,6 +435,20 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/electrical/fc[2]/pump-power-consumption-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.2808">
+				systems/electrical/ac[2]/voltage GT 115.0
+				systems/failures/fc3-coolant-pump-condition EQ 1.0
+				systems/electrical/fc[2]/fc-running EQ 1.0
+			</test>
+			<test logic="AND" value="0.105">
+				systems/electrical/ac[2]/voltage GT 115.0
+				systems/failures/fc3-coolant-pump-condition LT 1.0
+				systems/electrical/fc[2]/fc-running EQ 1.0
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="Line heater switches and temperatures">
@@ -537,7 +580,7 @@
 		<switch name="systems/electrical/ac/power-available">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus/power-available == 1
+				systems/electrical/bus/voltage GT 20.0
 				systems/electrical/ac/inverter-power-switch == 1
 				systems/electrical/ac/inv-ac-switch == 1
 			</test>
@@ -589,7 +632,7 @@
 		<switch name="systems/electrical/ac[1]/power-available">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus[1]/power-available == 1
+				systems/electrical/bus[1]/voltage GT 20.0 
 				systems/electrical/ac[1]/inverter-power-switch == 1
 				systems/electrical/ac[1]/inv-ac-switch == 1
 			</test>
@@ -641,7 +684,7 @@
 		<switch name="systems/electrical/ac[2]/power-available">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus[2]/power-available == 1
+				systems/electrical/bus[2]/voltage GT 20.0
 				systems/electrical/ac[2]/inverter-power-switch == 1
 				systems/electrical/ac[2]/inv-ac-switch == 1
 			</test>
@@ -690,17 +733,20 @@
 		<summer name="systems/electrical/ac/power-demand-kW">
 			<input>systems/mps/engine[2]/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[1]/controller-B-power-demand-kW</input>
+			<input>systems/electrical/fc/pump-power-consumption-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/ac[1]/power-demand-kW">
 			<input>systems/mps/engine/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[2]/controller-B-power-demand-kW</input>
+			<input>systems/electrical/fc[1]/pump-power-consumption-kW</input>
 
 		</summer>
 
 		<summer name="systems/electrical/ac[2]/power-demand-kW">
 			<input>systems/mps/engine/controller-B-power-demand-kW</input>
 			<input>systems/mps/engine[1]/controller-A-power-demand-kW</input>
+			<input>systems/electrical/fc[2]/pump-power-consumption-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/shared-AB-power-demand-kW">

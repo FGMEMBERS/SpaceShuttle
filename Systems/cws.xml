@@ -43,8 +43,10 @@
 		<switch name="systems/cws/oms-tvc">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
-				systems/failures/oms1-gimbal-condition LT 0.8
-				systems/failures/oms2-gimbal-condition LT 0.8
+				systems/failures/oms-left-pri-gimbal-condition LT 0.8
+				systems/failures/oms-left-sec-gimbal-condition LT 0.8
+				systems/failures/oms-right-pri-gimbal-condition LT 0.8
+				systems/failures/oms-right-sec-gimbal-condition LT 0.8
 			</test>
 		</switch>
 
@@ -69,6 +71,69 @@
 			<test logic="OR" value="1.0">
 				systems/rcs-hardware/tanks-right-rcs-pressure-psia LT 200
 				systems/rcs-hardware/tanks-right-rcs-pressure-psia GT 312
+			</test>
+		</switch>
+
+		<switch name="systems/cws/fuel-cell-stack-temp">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/electrical/fc/stack-temperature-K GT 389.7
+				systems/electrical/fc[1]/stack-temperature-K GT 389.7
+				systems/electrical/fc[2]/stack-temperature-K GT 389.7
+			</test>
+		</switch>
+
+		<switch name="systems/cws/fuel-cell-pump">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/failures/fc1-coolant-pump-condition LT 0.8
+				systems/failures/fc2-coolant-pump-condition LT 0.8
+				systems/failures/fc3-coolant-pump-condition LT 0.8
+			</test>
+		</switch>
+
+		<switch name="systems/cws/fuel-cell-reac">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/electrical/fc/reactant-valve-status LT 1.0
+				systems/electrical/fc[1]/reactant-valve-status LT 1.0
+				systems/electrical/fc[2]/reactant-valve-status LT 1.0
+			</test>
+		</switch>
+
+		<switch name="systems/cws/main-bus-undervolt">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/electrical/bus/voltage LT 26.4
+				systems/electrical/bus[1]/voltage LT 26.4
+				systems/electrical/bus[2]/voltage LT 26.4
+			</test>
+		</switch>
+
+		<switch name="systems/cws/ac-voltage">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/electrical/ac/voltage LT 115.0
+				systems/electrical/ac[1]/voltage LT 115.0
+				systems/electrical/ac[2]/voltage LT 115.0
+			</test>
+		</switch>
+
+		<switch name="systems/cws/backup-cw">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/electrical/fc/reactant-valve-status LT 1.0
+				systems/electrical/fc[1]/reactant-valve-status LT 1.0
+				systems/electrical/fc[2]/reactant-valve-status LT 1.0
+				systems/failures/fc1-coolant-pump-condition EQ 0.0
+				systems/failures/fc2-coolant-pump-condition EQ 0.0
+				systems/failures/fc3-coolant-pump-condition EQ 0.0
+				systems/electrical/bus/voltage LT 26.4
+				systems/electrical/bus[1]/voltage LT 26.4
+				systems/electrical/bus[2]/voltage LT 26.4
+				systems/electrical/ac/voltage LT 115.0
+				systems/electrical/ac[1]/voltage LT 115.0
+				systems/electrical/ac[2]/voltage LT 115.0
 			</test>
 		</switch>
 

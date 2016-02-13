@@ -263,16 +263,16 @@ var PFD_addpage_p_dps_fc = func(device)
 	p_dps_fc.fc_exitT2.setText(sprintf("%3.0f", exitT2 ));
 	p_dps_fc.fc_exitT3.setText(sprintf("%3.0f", exitT3 ));
 
-	var string = "";
-	if ((running1 == 1) and (condition1 > 0.3)) {string= "ΔP";}
+	var string = "ΔP";
+	if ((running1 == 1) and (condition1 > 0.3)) {string= "";}
  	p_dps_fc.pump1.setText(string);
 
-	string = "";
-	if ((running2 == 1) and (condition2 > 0.3)) {string= "ΔP";}
+	string = "ΔP";
+	if ((running2 == 1) and (condition2 > 0.3)) {string= "";}
  	p_dps_fc.pump2.setText(string);
 
-	string = "";
-	if ((running3 == 1) and (condition3 > 0.3)) {string= "ΔP";}
+	string = "ΔP";
+	if ((running3 == 1) and (condition3 > 0.3)) {string= "";}
  	p_dps_fc.pump3.setText(string);
 
 	string = "OFF";
