@@ -4136,7 +4136,7 @@
  <system file="throttle"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
- <!--<system file="cws"></system>-->
+ <system file="cws"></system>
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
  <system file="navigation"></system>

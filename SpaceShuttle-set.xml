@@ -489,28 +489,34 @@
       <ac>
        <inverter-power-switch type="int">1</inverter-power-switch>
        <inv-ac-switch type="int">1</inv-ac-switch>
+       <voltage type="double">117.0</voltage>
       </ac>
       <ac n="1">
        <inverter-power-switch type="int">1</inverter-power-switch>
        <inv-ac-switch type="int">1</inv-ac-switch>
+       <voltage type="double">117.0</voltage>
       </ac>
       <ac n="2">
        <inverter-power-switch type="int">1</inverter-power-switch>
        <inv-ac-switch type="int">1</inv-ac-switch>
+       <voltage type="double">117.0</voltage>
       </ac>
       <bus>
 	<rel-power-demand type="double">0.5</rel-power-demand>
 	<power-demand-kW type="double">4.0</power-demand-kW>
+	<voltage type="double">30.0</voltage>
 	<tie-switch type="int">0</tie-switch>
       </bus>
       <bus n="1">
 	<rel-power-demand type="double">0.5</rel-power-demand>
 	<power-demand-kW type="double">4.0</power-demand-kW>
+	<voltage type="double">30.0</voltage>
 	<tie-switch type="int">0</tie-switch>
       </bus>
       <bus n="2">
 	<rel-power-demand type="double">0.5</rel-power-demand>
 	<power-demand-kW type="double">4.0</power-demand-kW>
+	<voltage type="double">30.0</voltage>
 	<tie-switch type="int">0</tie-switch>
       </bus>
       <ties>
