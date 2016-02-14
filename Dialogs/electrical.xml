@@ -558,6 +558,10 @@
               <command>dialog-apply</command>
               <object-name>fc1-purge</object-name>
           </binding>
+	  <binding>
+	      <command>nasal</command>
+              <script>SpaceShuttle.fuel_cell_purge_manage(0)</script>
+	  </binding>
         </checkbox>
 
     <checkbox>
@@ -571,6 +575,10 @@
               <command>dialog-apply</command>
               <object-name>fc2-purge</object-name>
           </binding>
+	  <binding>
+	      <command>nasal</command>
+              <script>SpaceShuttle.fuel_cell_purge_manage(1)</script>
+	  </binding>
         </checkbox>
 
     <checkbox>
@@ -584,6 +592,10 @@
               <command>dialog-apply</command>
               <object-name>fc3-purge</object-name>
           </binding>
+	  <binding>
+	      <command>nasal</command>
+              <script>SpaceShuttle.fuel_cell_purge_manage(2)</script>
+	  </binding>
         </checkbox>
 
     <checkbox>
