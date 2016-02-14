@@ -171,17 +171,20 @@ var PFD_addpage_p_dps_fc = func(device)
     	p_dps_fc.amps2.setText(sprintf("%3.0f", amps2 ));
     	p_dps_fc.amps3.setText(sprintf("%3.0f", amps3 ));
 
-	var purge1 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc/purge-valve-status");
-	var purge2 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc[1]/purge-valve-status");
-	var purge3 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc[2]/purge-valve-status");
-    	
-        var o2flow1 = 0.01677 * amps1 * purge1;
-        var o2flow2 = 0.01677 * amps2 * purge2;
-        var o2flow3 = 0.01677 * amps3 * purge3;
+	var throughput = getprop("/fdm/jsbsim/systems/electrical/purge-line-throughput");
 
-	var h2flow1 = 0.00310559 * amps1 * purge1;
-	var h2flow2 = 0.00310559 * amps2 * purge2;
-	var h2flow3 = 0.00310559 * amps3 * purge3;
+	var purge1 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc/purge-valve-status")* throughput;
+	var purge2 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc[1]/purge-valve-status")* throughput;
+	var purge3 = 1.0 + 0.7 * getprop("/fdm/jsbsim/systems/electrical/fc[2]/purge-valve-status")* throughput;
+
+    	
+        var o2flow1 = 0.01677 * amps1 * purge1 ;
+        var o2flow2 = 0.01677 * amps2 * purge2 ;
+        var o2flow3 = 0.01677 * amps3 * purge3 ;
+
+	var h2flow1 = 0.00310559 * amps1 * purge1 ;
+	var h2flow2 = 0.00310559 * amps2 * purge2 ;
+	var h2flow3 = 0.00310559 * amps3 * purge3 ;
 
 	var h2oflow1 = 0.002469 * amps1;
 	var h2oflow2 = 0.002469 * amps2;

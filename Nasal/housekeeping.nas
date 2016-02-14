@@ -10,6 +10,7 @@
 var propellant_dump_completed = 0;
 
 
+
 # helper functions to determine number of open valves
 
 var get_num_LO2_prevalves = func {
@@ -254,6 +255,85 @@ if (fuel_current < target_quantity)
 settimer( func {oms_fuel_dump_loop(target_quantity); } , 1.0);
 
 }
+
+
+#########################################################################################
+# fuel cell purge - needs to check for purge line freezing
+#########################################################################################
+
+var fuel_cell_purge_status = 0;
+
+var fuel_cell_purge_manage = func (cell) {
+
+var purge_valve = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/purge-valve-status");
+
+if (purge_valve == 1) {fuel_cell_purge_start(cell);}
+else {fuel_cell_purge_stop(cell);}
+}
+
+var fuel_cell_purge_start = func (cell) {
+
+
+var T_line = getprop("/fdm/jsbsim/systems/electrical/purge-line-T");
+var p_freeze = 0.0;
+
+var efficiency = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency");
+var efficiency_gain = efficiency / 120.0;
+
+# line temperature should be above 79 F aka 299 K
+
+if (T_line < 299)
+	{
+	p_freeze = (299 - T_line) * 0.003;
+	}
+else 
+	{
+	setprop("/fdm/jsbsim/systems/electrical/purge-line-throughput", 1.0);
+	}
+
+print("Initiating fuel cell purge of FC"~(cell+1)~"...");
+print("Line freeze probability ", p_freeze);
+
+fuel_cell_purge_status = 1;
+fuel_cell_purge_loop (cell, p_freeze, efficiency_gain);
+
+}
+
+var fuel_cell_purge_stop = func (cell) {
+
+print("Fuel cell purge ends.");
+fuel_cell_purge_status = 0;
+
+}
+
+var fuel_cell_purge_loop = func (cell, p_freeze, efficiency_gain) {
+
+if (fuel_cell_purge_status == 0) {return;}
+
+var efficiency = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency");
+efficiency = efficiency + efficiency_gain;
+if (efficiency > 1.0) {efficiency = 1.0;}
+print("Efficiency is now ", efficiency);
+setprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency", efficiency);
+
+if (rand() < p_freeze) 
+	{
+	print("Purge line freezing up...");
+	efficiency_gain = efficiency_gain * 0.5;
+	var throughput = getprop("/fdm/jsbsim/systems/electrical/purge-line-throughput");
+	throughput = throughput * 0.5;
+	setprop("/fdm/jsbsim/systems/electrical/purge-line-throughput", throughput);
+	print("Throughput is now ", throughput);
+	}
+
+
+
+
+settimer ( func {fuel_cell_purge_loop(cell, p_freeze, efficiency_gain);}, 1.0);
+
+}
+
+
 
 
 #########################################################################################

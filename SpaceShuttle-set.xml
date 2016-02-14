@@ -529,6 +529,7 @@
       <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
       <purge-heater-switch type="int">0</purge-heater-switch>
+      <purge-line-throughput type="double">1.0</purge-line-throughput>
      </electrical>
      <landing>
       <landing-gear-arm-cmd type="int">0</landing-gear-arm-cmd>
