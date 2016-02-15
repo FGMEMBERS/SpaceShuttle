@@ -1671,6 +1671,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 67);
 		valid_flag = 1;
 		}
+	if (spec_num == 68) 
+		{
+		page_select(idp_index, "p_dps_cryo");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 68);
+		valid_flag = 1;
+		}
 	if (spec_num == 69) 
 		{
 		page_select(idp_index, "p_dps_fc");
