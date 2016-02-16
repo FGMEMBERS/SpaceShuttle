@@ -24,6 +24,7 @@
 # * p_dps_electric (DISP 67)
 # * p_dps_cryo (DISP 68)
 # * p_dps_fc (DISP 69)
+# * p_dps_sm_sys_summ1 (DISP 78)
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
 # * p_dps_pl_ret (DISP 97)
@@ -51,6 +52,7 @@ io.include("p_dps_pl_bay.nas");
 io.include("p_dps_override.nas");
 io.include("p_dps_time.nas");
 io.include("p_dps_dap.nas");
+io.include("p_dps_sm_sys_summ1.nas");
 io.include("p_dps_sm_sys_summ2.nas");
 io.include("p_dps_antenna.nas");
 io.include("p_dps_fc.nas");
@@ -171,6 +173,7 @@ var MDU_Device =
         me.PFD.p_dps_override = PFD_addpage_p_dps_override(me.PFD);
         me.PFD.p_dps_time = PFD_addpage_p_dps_time(me.PFD);
         me.PFD.p_dps_dap = PFD_addpage_p_dps_dap(me.PFD);
+        me.PFD.p_dps_sm_sys_summ1 = PFD_addpage_p_dps_sm_sys_summ1(me.PFD);
         me.PFD.p_dps_sm_sys_summ2 = PFD_addpage_p_dps_sm_sys_summ2(me.PFD);
         me.PFD.p_dps_antenna = PFD_addpage_p_dps_antenna(me.PFD);
         me.PFD.p_dps_fc = PFD_addpage_p_dps_fc(me.PFD);
@@ -259,7 +262,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_cryo);
+        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_sm_sys_summ1);
         me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
     
@@ -322,7 +325,11 @@ var MDU_Device =
         me.PFD.p_dps_pl_ret.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_pl_ret.addMenuItem(4, "MSG RST", me.PFD.p_dps_pl_ret);
         me.PFD.p_dps_pl_ret.addMenuItem(5, "MSG ACK", me.PFD.p_dps_pl_ret);
-    
+
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ1);
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ1);    
+
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
