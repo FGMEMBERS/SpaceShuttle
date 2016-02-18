@@ -113,6 +113,14 @@ var MDU_Device =
             me.DPS_menu_fault_line.setText("");
             me.DPS_menu_scratch_line.setText("");
             me.DPS_menu_gpc_driver.setText("");
+	    me.DPS_menu_idp.setText("");
+	    me.DPS_menu_line1.setVisible(0);
+	    me.DPS_menu_line2.setVisible(0);
+	    me.DPS_menu_line3.setVisible(0);
+	    me.DPS_menu_line4.setVisible(0);
+	    me.DPS_menu_line_cdr.setVisible(0);
+	    me.DPS_menu_line_plt.setVisible(0);
+
 #setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
         };
 
@@ -137,6 +145,32 @@ var MDU_Device =
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
             me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
             me.DPS_menu_gpc_driver.setText("1");
+
+	    me.DPS_menu_idp.setText(sprintf("%1.0f",port));
+	    me.DPS_menu_line1.setVisible(1);
+	    me.DPS_menu_line2.setVisible(1);
+	    me.DPS_menu_line3.setVisible(1);
+	    me.DPS_menu_line4.setVisible(1);
+
+	    if (SpaceShuttle.kb_array[0].get_idp() == port)
+		{
+		me.DPS_menu_line_cdr.setVisible(1);
+		me.DPS_menu_line_cdr.setColor(1,0,0);
+		}
+	    else
+		{
+		me.DPS_menu_line_cdr.setVisible(0);
+		}
+
+	    if (SpaceShuttle.kb_array[1].get_idp() == port)
+		{
+		me.DPS_menu_line_plt.setVisible(1);
+		me.DPS_menu_line_plt.setColor(1,1,0);
+		}
+	    else
+		{
+		me.DPS_menu_line_plt.setVisible(0);
+		}
 
             var fault_string = getprop("/fdm/jsbsim/systems/dps/error-string");
 
@@ -227,6 +261,13 @@ var MDU_Device =
         me.PFD.DPS_menu_fault_line = me.PFD.svg.getElementById("dps_menu_fault_line");
         me.PFD.DPS_menu_scratch_line = me.PFD.svg.getElementById("dps_menu_scratch_line");
         me.PFD.DPS_menu_gpc_driver = me.PFD.svg.getElementById("dps_menu_gpc_driver");
+        me.PFD.DPS_menu_idp = me.PFD.svg.getElementById("dps_menu_idp");
+        me.PFD.DPS_menu_line1 = me.PFD.svg.getElementById("dps_menu_line1");
+        me.PFD.DPS_menu_line2 = me.PFD.svg.getElementById("dps_menu_line2");
+        me.PFD.DPS_menu_line3 = me.PFD.svg.getElementById("dps_menu_line3");
+        me.PFD.DPS_menu_line4 = me.PFD.svg.getElementById("dps_menu_line4");
+        me.PFD.DPS_menu_line_cdr = me.PFD.svg.getElementById("dps_menu_line_cdr");
+        me.PFD.DPS_menu_line_plt = me.PFD.svg.getElementById("dps_menu_line_plt");
         me.PFD.DPS_menu_blink = 1;
 
         me.PFD.nom_traj_plot = me.PFD._canvas.createGroup();
