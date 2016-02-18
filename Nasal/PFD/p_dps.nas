@@ -54,7 +54,7 @@ print("DPS update ",device.designation);
     	}
         else if (major_function == 2)
     	{
-            device.selectPage(device.p_dps_pl_bay);
+            device.selectPage(device.p_dps_antenna);
     	}
     }
     return p_dps;
