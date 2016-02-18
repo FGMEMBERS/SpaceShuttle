@@ -1342,6 +1342,18 @@
     </config>
    </view>
 
+   <view n="103">
+    <name>Pilot</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+     <from-model type="bool">true</from-model>
+     <x-offset-m archive="y" type="double"> 0.6 </x-offset-m>
+     <y-offset-m archive="y" type="double">-0.17</y-offset-m>
+     <z-offset-m archive="y" type="double">-11.6</z-offset-m>
+    </config>
+   </view>
+
    <menubar>
     <default>
      <menu n="50">
