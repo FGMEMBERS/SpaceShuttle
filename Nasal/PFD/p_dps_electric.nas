@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_electric = func(device)
 {
     var p_dps_electric = device.addPage("CRTElectric", "p_dps_electric");
+
+    p_dps_electric.group = device.svg.getElementById("p_dps_electric");
+    p_dps_electric.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_electric.volt_fc1 = device.svg.getElementById("p_dps_electric_volt_fc1");
     p_dps_electric.volt_fc2 = device.svg.getElementById("p_dps_electric_volt_fc2");

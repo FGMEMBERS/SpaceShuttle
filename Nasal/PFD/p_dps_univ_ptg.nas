@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_univ_ptg = func(device)
 {
     var p_dps_univ_ptg = device.addPage("CRTUnivPtg", "p_dps_univ_ptg");
+
+    p_dps_univ_ptg.group = device.svg.getElementById("p_dps_univ_ptg");
+    p_dps_univ_ptg.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_univ_ptg.cur_roll = device.svg.getElementById("p_dps_univ_ptg_cur_roll");
     p_dps_univ_ptg.cur_pitch = device.svg.getElementById("p_dps_univ_ptg_cur_pitch");

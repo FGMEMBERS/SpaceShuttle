@@ -9,6 +9,8 @@ var PFD_addpage_p_dps_sys_summ2 = func(device)
 {
     var p_dps_sys_summ2 = device.addPage("CRTGNC_SUM2", "p_dps_sys_summ2");
     
+    p_dps_sys_summ2.group = device.svg.getElementById("p_dps_sys_summ2");
+    p_dps_sys_summ2.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_sys_summ2.fwd_rcs_fu_qty = device.svg.getElementById("p_dps_sys_summ2_fwd_rcs_fu_qty");
     p_dps_sys_summ2.fwd_rcs_oxid_qty = device.svg.getElementById("p_dps_sys_summ2_fwd_rcs_oxid_qty");
