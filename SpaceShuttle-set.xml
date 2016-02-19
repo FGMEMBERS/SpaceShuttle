@@ -1260,6 +1260,9 @@
       <displays-red type="double">0.02</displays-red>
       <displays-green type="double">0.1</displays-green>
       <displays-blue type="double">0.0</displays-blue>
+	<!--<displays-red type="double">0.05</displays-red>
+      <displays-green type="double">0.05</displays-green>
+      <displays-blue type="double">0.05</displays-blue>-->
      </lighting>
      <sound>
         <click-avionics type="bool">false</click-avionics>

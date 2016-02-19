@@ -194,6 +194,8 @@ setprop("/fdm/jsbsim/systems/dps/disp", 99);
 var key_sys_summ = func (kb_id) {
 
 var disp = getprop("/fdm/jsbsim/systems/dps/disp");
+var disp_sm = getprop("/fdm/jsbsim/systems/dps/disp-sm");
+
 var idp_index = get_IDP_id(kb_id) - 1;
 
 var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
@@ -213,8 +215,17 @@ if (major_function == 1)
 	}
 else if  (major_function == 2)
 	{
-	page_select(idp_index, "p_dps_sm_sys_summ2");
-	setprop("/fdm/jsbsim/systems/dps/disp-sm", 79);
+	if (disp_sm == 78)
+		{
+		page_select(idp_index, "p_dps_sm_sys_summ2");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 79);
+		}
+	else
+		{
+		page_select(idp_index, "p_dps_sm_sys_summ1");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 78);
+		}
+
 	}
 	
 }
@@ -1681,6 +1692,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_fc");
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 69);
+		valid_flag = 1;
+		}
+	if (spec_num == 78) 
+		{
+		page_select(idp_index, "p_dps_sm_sys_summ1");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 78);
 		valid_flag = 1;
 		}
 	if (spec_num == 79) 
