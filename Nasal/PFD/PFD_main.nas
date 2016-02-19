@@ -30,6 +30,8 @@
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
+# * p_meds_oms_mps
+
 # color definitions
 
 # default CRT-style green for the DPS pages
@@ -73,6 +75,8 @@ io.include("p_dps_fc.nas");
 io.include("p_dps_pl_ret.nas");
 io.include("p_dps_electric.nas");
 io.include("p_dps_cryo.nas");
+
+io.include("p_meds_oms_mps.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -231,6 +235,8 @@ var MDU_Device =
         me.PFD.p_dps_electric = PFD_addpage_p_dps_electric(me.PFD);
         me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
 
+        me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
+
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
                     {
@@ -336,7 +342,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_sm_sys_summ1);
+        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_meds_oms_mps);
         me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
     
@@ -407,6 +413,10 @@ var MDU_Device =
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
+
+        me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_oms_mps.addMenuItem(4, "MSG RST", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
     },
 
     update : func
