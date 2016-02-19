@@ -21,7 +21,11 @@ var PFD_addpage_p_ascent = func(device)
     device.p_ascent_shuttle_sym = device._canvas.createGroup();
     canvas.parsesvg( device.p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
     device.p_ascent_shuttle_sym.setScale(0.3);
+    device.p_ascent_shuttle_sym.setColor(dps_r, dps_g, dps_b);
     
+    p_ascent.group = device.svg.getElementById("p_ascent");
+    p_ascent.group.setColor(dps_r, dps_g, dps_b);
+
     p_ascent.throttle = device.svg.getElementById("p_ascent_throttle");
     p_ascent.throttle_text = device.svg.getElementById("p_ascent_throttle_txt");
     
@@ -99,7 +103,7 @@ var PFD_addpage_p_ascent = func(device)
     
         var plot = device.nom_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(2)
-        .setColor(0.5,0.6,0.5)
+        .setColor(dps_r,dps_g,dps_b)
         .moveTo(traj_data[0][0],traj_data[0][1]); 
     
         for (var i = 1; i< (size(traj_data)-1); i=i+1)

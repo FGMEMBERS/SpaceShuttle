@@ -8,6 +8,9 @@
 var PFD_addpage_p_entry = func(device)
 {
     var p_entry = device.addPage("Entry", "p_entry");
+
+    p_entry.group = device.svg.getElementById("p_entry");
+    p_entry.group.setColor(dps_r, dps_g, dps_b);
     
     p_entry.D_az = device.svg.getElementById("p_entry_D_az");
     p_entry.qbar = device.svg.getElementById("p_entry_qbar");
@@ -75,7 +78,7 @@ var PFD_addpage_p_entry = func(device)
     
         var plot = device.nom_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(2)
-        .setColor(0.5,0.6,0.5)
+        .setColor(dps_r, dps_g, dps_b)
         .moveTo(traj_data[0][0],traj_data[0][1]); 
     
         for (var i = 1; i< (size(traj_data)-1); i=i+1)

@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_cryo = func(device)
 {
     var p_dps_cryo = device.addPage("CRTCryo", "p_dps_cryo");
 
+    p_dps_cryo.group = device.svg.getElementById("p_dps_cryo");
+    p_dps_cryo.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_cryo.p_o2_1 = device.svg.getElementById("p_dps_cryo_p_o2_1");
     p_dps_cryo.p_o2_2 = device.svg.getElementById("p_dps_cryo_p_o2_2");
     p_dps_cryo.p_o2_3 = device.svg.getElementById("p_dps_cryo_p_o2_3");

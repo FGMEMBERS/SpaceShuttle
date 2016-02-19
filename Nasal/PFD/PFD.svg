@@ -64,7 +64,7 @@
   </metadata>
   <g
      inkscape:groupmode="layer"
-     id="layer2"
+     id="MEDSMenu"
      inkscape:label="MEDSMenu"
      style="display:inline">
     <text
@@ -253,11 +253,11 @@
 
   <g
      inkscape:groupmode="layer"
-     id="layer4"
+     id="DPSMenu"
      inkscape:label="DPSMenu"
      style="display:inline">
 
- <text
+ 	<text
          sodipodi:linespacing="125%"
          id="dps_menu_time"
          y="30.178572"

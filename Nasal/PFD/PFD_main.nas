@@ -30,6 +30,15 @@
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
+# color definitions
+
+# default CRT-style green for the DPS pages
+
+var dps_r = getprop("/sim/model/shuttle/lighting/dps-red");
+var dps_g = getprop("/sim/model/shuttle/lighting/dps-green");
+var dps_b = getprop("/sim/model/shuttle/lighting/dps-blue");
+
+
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 
 #
@@ -144,7 +153,11 @@ var MDU_Device =
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
             me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
-            me.DPS_menu_gpc_driver.setText("1");
+
+	    if (SpaceShuttle.idp_array[idp_index].get_major_function() == 1)
+            	{me.DPS_menu_gpc_driver.setText("1");}
+	    else
+		{me.DPS_menu_gpc_driver.setText("4");}
 
 	    me.DPS_menu_idp.setText(sprintf("%1.0f",port));
 	    me.DPS_menu_line1.setVisible(1);
@@ -155,7 +168,6 @@ var MDU_Device =
 	    if (SpaceShuttle.kb_array[0].get_idp() == port)
 		{
 		me.DPS_menu_line_cdr.setVisible(1);
-		me.DPS_menu_line_cdr.setColor(1,0,0);
 		}
 	    else
 		{
@@ -165,7 +177,6 @@ var MDU_Device =
 	    if (SpaceShuttle.kb_array[1].get_idp() == port)
 		{
 		me.DPS_menu_line_plt.setVisible(1);
-		me.DPS_menu_line_plt.setColor(1,1,0);
 		}
 	    else
 		{
@@ -254,6 +265,13 @@ var MDU_Device =
 
         me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
 
+        me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
+
+	me.PFD.DPS_menu = me.PFD.svg.getElementById("DPSMenu");
+	me.PFD.MEDS_menu = me.PFD.svg.getElementById("MEDSMenu");
+
+
+ 
         me.PFD.DPS_menu_time = me.PFD.svg.getElementById("dps_menu_time");
         me.PFD.DPS_menu_crt_time = me.PFD.svg.getElementById("dps_menu_crt_time");
         me.PFD.DPS_menu_ops = me.PFD.svg.getElementById("dps_menu_OPS");
@@ -273,6 +291,16 @@ var MDU_Device =
         me.PFD.nom_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit1_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit2_traj_plot = me.PFD._canvas.createGroup();
+
+	# we can't put the display colors into the emissive animation because the screens
+	# show different colors, so we set common element colors here and page colors at
+	# their pages 
+
+	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
+	me.PFD.MEDS_menu.setColor(dps_r, dps_g, dps_b);
+	me.PFD.DPS_menu_line_plt.setColor(1,1,0);
+	me.PFD.DPS_menu_line_cdr.setColor(1,0,0);
+
 
         me.setupMenus();
     },
