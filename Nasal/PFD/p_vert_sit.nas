@@ -8,8 +8,13 @@
 var PFD_addpage_p_vert_sit = func(device)
 {
     var p_vert_sit = device.addPage("VertSit", "p_vert_sit");
+
+    p_vert_sit.group = device.svg.getElementById("p_vert_sit");
+    p_vert_sit.group.setColor(dps_r, dps_g, dps_b);
     
     p_vert_sit.speedbrake = device.svg.getElementById("p_vert_sit_speedbrake");
+
+
     
     
     
@@ -26,7 +31,7 @@ var PFD_addpage_p_vert_sit = func(device)
     
         var plot = device.nom_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(2)
-        .setColor(0.5,0.6,0.5)
+        .setColor(dps_r,dps_g,dps_b)
         .moveTo(traj_data[0][0],traj_data[0][1]); 
     
         for (var i = 1; i< (size(traj_data)-1); i=i+1)
@@ -37,7 +42,7 @@ var PFD_addpage_p_vert_sit = func(device)
     
         var plot_limit1 = device.limit1_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(1)
-        .setColor(0.5,0.6,0.5)
+        .setColor(dps_r, dps_g, dps_b)
         .moveTo(limit1_data[0][0],limit1_data[0][1]); 
     
         for (var i = 1; i< (size(limit1_data)-1); i=i+1)
@@ -48,7 +53,7 @@ var PFD_addpage_p_vert_sit = func(device)
     
         var plot_limit2 = device.limit2_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(1)
-        .setColor(0.5,0.6,0.5)
+        .setColor(dps_r,dps_g,dps_b)
         .moveTo(limit2_data[0][0],limit2_data[0][1]); 
     
         for (var i = 1; i< (size(limit2_data)-1); i=i+1)

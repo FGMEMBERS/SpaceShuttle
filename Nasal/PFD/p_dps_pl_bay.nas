@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_pl_bay = func(device)
 {
     var p_dps_pl_bay = device.addPage("CRTPlBay", "p_dps_pl_bay");
+
+    p_dps_pl_bay.group = device.svg.getElementById("p_dps_pl_bay");
+    p_dps_pl_bay.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_pl_bay.acpower_on = device.svg.getElementById("p_dps_pl_bay_acpower_on");
     p_dps_pl_bay.acpower_off = device.svg.getElementById("p_dps_pl_bay_acpower_off");

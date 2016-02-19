@@ -9,6 +9,8 @@ var PFD_addpage_p_dps_dap = func(device)
 {
     var p_dps_dap = device.addPage("CRTDAP", "p_dps_dap");
     
+    p_dps_dap.group = device.svg.getElementById("p_dps_dap");
+    p_dps_dap.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_dap.label1 = device.svg.getElementById("p_dps_dap_label1");
     p_dps_dap.label2 = device.svg.getElementById("p_dps_dap_label2");

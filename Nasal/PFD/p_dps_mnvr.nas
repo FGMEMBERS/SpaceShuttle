@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_mnvr = func(device)
 {
     var p_dps_mnvr = device.addPage("CRTMnvr", "p_dps_mnvr");
+
+    p_dps_mnvr.group = device.svg.getElementById("p_dps_mnvr");
+    p_dps_mnvr.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_mnvr.oms_pitch_left = device.svg.getElementById("p_dps_mnvr_gmbl_l_pitch");
     p_dps_mnvr.oms_pitch_right = device.svg.getElementById("p_dps_mnvr_gmbl_r_pitch");

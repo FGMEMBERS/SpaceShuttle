@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_fc = func(device)
 {
     var p_dps_fc = device.addPage("CRTFC", "p_dps_fc");
 
+    p_dps_fc.group = device.svg.getElementById("p_dps_fc");
+    p_dps_fc.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_fc.volts1 = device.svg.getElementById("p_dps_fc_volts1");
     p_dps_fc.volts2 = device.svg.getElementById("p_dps_fc_volts2");
     p_dps_fc.volts3 = device.svg.getElementById("p_dps_fc_volts3");

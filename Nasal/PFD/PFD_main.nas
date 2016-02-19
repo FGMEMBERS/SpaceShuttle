@@ -30,6 +30,22 @@
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
+# * p_meds_oms_mps
+
+# color definitions
+
+# default CRT-style green for the DPS pages
+
+var dps_r = getprop("/sim/model/shuttle/lighting/dps-red");
+var dps_g = getprop("/sim/model/shuttle/lighting/dps-green");
+var dps_b = getprop("/sim/model/shuttle/lighting/dps-blue");
+
+# the MEDS menu is in a light blue
+
+var meds_r = 0.2;
+var meds_g = 0.8;
+var meds_b = 0.8;
+
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 
 #
@@ -59,6 +75,8 @@ io.include("p_dps_fc.nas");
 io.include("p_dps_pl_ret.nas");
 io.include("p_dps_electric.nas");
 io.include("p_dps_cryo.nas");
+
+io.include("p_meds_oms_mps.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -144,7 +162,11 @@ var MDU_Device =
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
             me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
-            me.DPS_menu_gpc_driver.setText("1");
+
+	    if (SpaceShuttle.idp_array[idp_index].get_major_function() == 1)
+            	{me.DPS_menu_gpc_driver.setText("1");}
+	    else
+		{me.DPS_menu_gpc_driver.setText("4");}
 
 	    me.DPS_menu_idp.setText(sprintf("%1.0f",port));
 	    me.DPS_menu_line1.setVisible(1);
@@ -155,7 +177,6 @@ var MDU_Device =
 	    if (SpaceShuttle.kb_array[0].get_idp() == port)
 		{
 		me.DPS_menu_line_cdr.setVisible(1);
-		me.DPS_menu_line_cdr.setColor(1,0,0);
 		}
 	    else
 		{
@@ -165,7 +186,6 @@ var MDU_Device =
 	    if (SpaceShuttle.kb_array[1].get_idp() == port)
 		{
 		me.DPS_menu_line_plt.setVisible(1);
-		me.DPS_menu_line_plt.setColor(1,1,0);
 		}
 	    else
 		{
@@ -215,6 +235,8 @@ var MDU_Device =
         me.PFD.p_dps_electric = PFD_addpage_p_dps_electric(me.PFD);
         me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
 
+        me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
+
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
                     {
@@ -254,6 +276,12 @@ var MDU_Device =
 
         me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
 
+
+	me.PFD.DPS_menu = me.PFD.svg.getElementById("DPSMenu");
+	me.PFD.MEDS_menu = me.PFD.svg.getElementById("MEDSMenu");
+
+
+ 
         me.PFD.DPS_menu_time = me.PFD.svg.getElementById("dps_menu_time");
         me.PFD.DPS_menu_crt_time = me.PFD.svg.getElementById("dps_menu_crt_time");
         me.PFD.DPS_menu_ops = me.PFD.svg.getElementById("dps_menu_OPS");
@@ -273,6 +301,17 @@ var MDU_Device =
         me.PFD.nom_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit1_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit2_traj_plot = me.PFD._canvas.createGroup();
+
+	# we can't put the display colors into the emissive animation because the screens
+	# show different colors, so we set common element colors here and page colors at
+	# their pages 
+
+	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
+	me.PFD.MEDS_menu.setColor(meds_r, meds_g, meds_b);
+	me.PFD.DPS_menu_line_plt.setColor(1,1,0);
+	me.PFD.DPS_menu_line_cdr.setColor(1,0,0);
+	me.PFD.DPS_menu_fault_line.setColor(1,0.2,0.2);
+
 
         me.setupMenus();
     },
@@ -303,7 +342,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_sm_sys_summ1);
+        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_meds_oms_mps);
         me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
     
@@ -374,6 +413,10 @@ var MDU_Device =
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
+
+        me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_oms_mps.addMenuItem(4, "MSG RST", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
     },
 
     update : func
