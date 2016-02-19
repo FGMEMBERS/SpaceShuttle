@@ -38,6 +38,11 @@ var dps_r = getprop("/sim/model/shuttle/lighting/dps-red");
 var dps_g = getprop("/sim/model/shuttle/lighting/dps-green");
 var dps_b = getprop("/sim/model/shuttle/lighting/dps-blue");
 
+# the MEDS menu is in a light blue
+
+var meds_r = 0.2;
+var meds_g = 0.8;
+var meds_b = 0.8;
 
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 
@@ -265,7 +270,6 @@ var MDU_Device =
 
         me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
 
-        me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
 
 	me.PFD.DPS_menu = me.PFD.svg.getElementById("DPSMenu");
 	me.PFD.MEDS_menu = me.PFD.svg.getElementById("MEDSMenu");
@@ -297,9 +301,10 @@ var MDU_Device =
 	# their pages 
 
 	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
-	me.PFD.MEDS_menu.setColor(dps_r, dps_g, dps_b);
+	me.PFD.MEDS_menu.setColor(meds_r, meds_g, meds_b);
 	me.PFD.DPS_menu_line_plt.setColor(1,1,0);
 	me.PFD.DPS_menu_line_cdr.setColor(1,0,0);
+	me.PFD.DPS_menu_fault_line.setColor(1,0.2,0.2);
 
 
         me.setupMenus();

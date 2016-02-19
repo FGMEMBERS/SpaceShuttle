@@ -127,17 +127,53 @@
        transform="scale(0.96038802,1.0412458)"
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
-         x="35.101429"
-         y="449.66193"
+         x="42.101429"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_0</tspan></text>
       <rect
          y="456"
-         x="20.285715"
-         height="25.714285"
-         width="55.42857"
+         x="12.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250a"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line1"
+         d="m 49, 458.0 25.0, 11.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line2"
+         d="m 49, 458.0 -25.0, 11.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line3"
+         d="m 73, 468.0 -15.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line4"
+         d="m 23, 468.0 15.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line5"
+         d="m 38, 468.0 0.0, 20.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="meds_menu_up_line6"
+         d="m 58, 468.0 0.0, 20.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#87f8f8;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
@@ -150,16 +186,16 @@
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
          x="110.101429"
-         y="449.66193"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_1</tspan></text>
       <rect
          y="456"
-         x="95.285715"
-         height="25.714285"
-         width="55.42857"
+         x="87.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250b"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#87f8f8;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
@@ -172,16 +208,16 @@
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
          x="186.00"
-         y="449.66193"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_2</tspan></text>
       <rect
          y="456"
-         x="171.285715"
-         height="25.714285"
-         width="55.42857"
+         x="162.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250c"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        xml:space="preserve"
        style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#87f8f8;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
@@ -194,16 +230,16 @@
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
          x="267.00"
-         y="449.66193"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_3</tspan></text>
       <rect
          y="456"
-         x="252.285715"
-         height="25.714285"
-         width="55.42857"
+         x="237.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250d"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
    <text
        xml:space="preserve"
        style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#87f8f8;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
@@ -216,16 +252,16 @@
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
          x="335.00"
-         y="449.66193"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_4</tspan></text>
       <rect
          y="456"
-         x="320.285715"
-         height="25.714285"
-         width="55.42857"
+         x="312.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250e"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
    <text
        xml:space="preserve"
        style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#87f8f8;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
@@ -238,16 +274,16 @@
        inkscape:label="#text3169-8-2-5-5-2-2-1-8-7"><tspan
          sodipodi:role="line"
          x="410.00"
-         y="449.66193"
+         y="451.66193"
          style="font-size:12.97618866px;fill:#87f8f8;fill-opacity:1"
          id="tspan4445">MI_5</tspan></text>
       <rect
          y="456"
-         x="393.285715"
-         height="25.714285"
-         width="55.42857"
+         x="386.285715"
+         height="35.714285"
+         width="71.42857"
          id="rect4250f"
-         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
   </g>
 
@@ -387,14 +423,14 @@
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="dps_menu_line_cdr"
-         d="m 214, 418.0 14.0, 0.0"
-         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         d="m 184, 421.0 44.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="dps_menu_line_plt"
-         d="m 242, 418.0 14.0, 0.0"
-         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         d="m 242, 421.0 44.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
  
      </g>
    

@@ -1264,9 +1264,9 @@
       <displays-green type="double">0.1</displays-green>
       <displays-blue type="double">0.1</displays-blue>
       <!-- base colors for the CRT-emulated DPS pages -->
-      <dps-red type="double">0.0</dps-red>
+      <dps-red type="double">0.2</dps-red>
       <dps-green type="double">1.0</dps-green>
-      <dps-blue type="double">0.0</dps-blue>
+      <dps-blue type="double">0.2</dps-blue>
      </lighting>
      <sound>
         <click-avionics type="bool">false</click-avionics>
