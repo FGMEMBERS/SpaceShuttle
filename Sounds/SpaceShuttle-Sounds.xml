@@ -714,7 +714,25 @@ adapted by Thorsten Renk 2015
         <reference-dist>20.0</reference-dist>
         <max-dist>1000.0</max-dist>
 	</explosion>
-	
+
+    <!-- Switch click sound -->
+
+    <switch>
+        <name>click-avionics-switch</name>
+        <mode>once</mode>
+        <path>Sounds/click3.wav</path>
+        <condition>
+            <property>/sim/model/shuttle/sound/click-avionics</property>
+        </condition>
+        <position>
+            <x>-11.8375</x>
+            <y>  1.353 </y>
+            <z> -0.6376</z>
+        </position>
+        <reference-dist>0.2</reference-dist>
+        <max-dist>5.0</max-dist>
+    </switch>
+
 	</fx>
 
 </PropertyList>
