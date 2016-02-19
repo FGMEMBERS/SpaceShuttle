@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 {
     var p_dps_sm_sys_summ1 = device.addPage("CRTSMSysSumm1", "p_dps_sm_sys_summ1");
         
+    p_dps_sm_sys_summ1.group = device.svg.getElementById("p_dps_sm_sys_summ1");
+    p_dps_sm_sys_summ1.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_sm_sys_summ1.volts_fc1 = device.svg.getElementById("p_dps_sm_sys_summ1_volts_fc1");
     p_dps_sm_sys_summ1.volts_fc2 = device.svg.getElementById("p_dps_sm_sys_summ1_volts_fc2");
     p_dps_sm_sys_summ1.volts_fc3 = device.svg.getElementById("p_dps_sm_sys_summ1_volts_fc3");

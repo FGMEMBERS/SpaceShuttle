@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_pl_ret = func(device)
 {
     var p_dps_pl_ret = device.addPage("CRTPlRet", "p_dps_pl_ret");
+
+    p_dps_pl_ret.group = device.svg.getElementById("p_dps_pl_ret");
+    p_dps_pl_ret.group.setColor(dps_r, dps_g, dps_b);
   
     p_dps_pl_ret.rfl1_1 = device.svg.getElementById("p_dps_pl_ret_rfl1_1");  
     p_dps_pl_ret.rfl2_1 = device.svg.getElementById("p_dps_pl_ret_rfl2_1");  

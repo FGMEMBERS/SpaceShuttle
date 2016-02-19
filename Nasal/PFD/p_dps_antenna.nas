@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_antenna = func(device)
 {
     var p_dps_antenna = device.addPage("CRTAntenna", "p_dps_antenna");
     
+    p_dps_antenna.group = device.svg.getElementById("p_dps_antenna");
+    p_dps_antenna.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_antenna.stdn = device.svg.getElementById("p_dps_antenna_stdn");
     p_dps_antenna.mode = device.svg.getElementById("p_dps_antenna_mode");
     p_dps_antenna.ant_pm = device.svg.getElementById("p_dps_antenna_ant_pm");

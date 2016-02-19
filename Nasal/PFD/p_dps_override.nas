@@ -8,7 +8,10 @@
 var PFD_addpage_p_dps_override = func(device)
 {
     var p_dps_override = device.addPage("CRTOverride", "p_dps_override");
-    
+
+    p_dps_override.group = device.svg.getElementById("p_dps_override");
+    p_dps_override.group.setColor(dps_r, dps_g, dps_b);    
+
     p_dps_override.etsep_auto =  device.svg.getElementById("p_dps_override_etsep_auto");
     p_dps_override.etsep_sep =  device.svg.getElementById("p_dps_override_etsep_sep");
     p_dps_override.umb_cl =  device.svg.getElementById("p_dps_override_umb_cl");
