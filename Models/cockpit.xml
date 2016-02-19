@@ -1938,9 +1938,261 @@
         </release>
     </animation>
 
-
     <!-- ******************************************************************* -->
-    <!-- ADI -->
+    <!-- Panel R1 -->
+    <!-- ******************************************************************* -->
+
+    <!-- ********** Fuel Cell 1  **********-->
+
+    <!-- Reactant Valve "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>fc0valve</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+        <factor>-70</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8375</x-m>
+            <y-m>  1.353 </y-m>
+            <z-m> -0.6376</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc0valve</tooltip-id>
+                <label>FC1 Reactant Valve: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC1 Start/Stop "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc0-start-cmd</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc0-start-cmd</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc0-start-cmd</tooltip-id>
+            <label>FC1 Start/Stop: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Ready For Load "Talk-Back" Place Holder -->
+
+    <!-- FC Main Bus A "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc0-connector</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc0-connector</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc0-connector</tooltip-id>
+            <label>FC Main Bus A: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Main Bus Tie A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>tie0-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+        <factor>-70</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.1826</x-m>
+            <y-m>  1.2364 </y-m>
+            <z-m> -0.6508 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tie0-switch</tooltip-id>
+                <label>Main Bus Tie A: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Inverter Power 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>inverter0-power-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+        <factor>-70</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.1212</x-m>
+            <y-m>  1.2494 </y-m>
+            <z-m> -0.6769</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>inverter0-power-switch</tooltip-id>
+                <label>AC Inverter Power 1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Inverter AC Bus 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>inv0-ac-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+        <factor>-70</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.088</x-m>
+            <y-m>  1.2603 </y-m>
+            <z-m> -0.6769</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>inv0-ac-switch</tooltip-id>
+                <label>Inverter AC Bus 1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+      <!-- for testing only
     <animation>
         <type>knob</type>
         <object-name>F6SW-1-7</object-name>
@@ -1966,17 +2218,13 @@
                 <max>2</max>
                 <wrap>false</wrap>
             </binding>
-        </action>
-        <!--hovered>
             <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>Dap Mode</tooltip-id>
-                <label>Pitot Heat: %s</label>
-                <mapping>on-off</mapping>
-                <property>controls/anti-ice/pitot-heat</property>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
-        </hovered-->
+        </action>
     </animation>
+    end for testing only -->
   
  <!-- ******************************************************************* -->
  <!--  Commander RHC                                                      -->
