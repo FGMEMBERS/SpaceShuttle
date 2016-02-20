@@ -9,8 +9,6 @@ var PFD_addpage_p_main = func(device)
 {
     var p_main = device.addPage("MainMenu", "p_main");
 
-    p_main.group = device.svg.getElementById("p_main");
-    p_main.group.setColor(dps_r, dps_g, dps_b);
     
     p_main.up1 = device.svg.getElementById("meds_menu_up_line1"); 
     p_main.up2 = device.svg.getElementById("meds_menu_up_line2"); 

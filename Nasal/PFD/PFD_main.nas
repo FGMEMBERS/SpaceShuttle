@@ -54,6 +54,7 @@ io.include("p_helper.nas");
 
 io.include("p_pfd.nas");
 io.include("p_main.nas");
+io.include("p_subsys.nas");
 io.include("p_dps.nas");
 io.include("p_dps_fault.nas");
 io.include("p_dps_sys_summ.nas");
@@ -213,6 +214,7 @@ var MDU_Device =
     {
         me.PFD.p_pfd = PFD_addpage_p_pfd(me.PFD);
         me.PFD.p_main = PFD_addpage_p_main(me.PFD);
+        me.PFD.p_subsys = PFD_addpage_p_subsys(me.PFD);
         me.PFD.p_dps = PFD_addpage_p_dps(me.PFD);
         me.PFD.p_dps_fault = PFD_addpage_p_dps_fault(me.PFD);
         me.PFD.p_dps_sys_summ = PFD_addpage_p_dps_sys_summ(me.PFD);
@@ -308,9 +310,9 @@ var MDU_Device =
 
 	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
 	me.PFD.MEDS_menu.setColor(meds_r, meds_g, meds_b);
-	me.PFD.DPS_menu_line_plt.setColor(1,1,0);
-	me.PFD.DPS_menu_line_cdr.setColor(1,0,0);
-	me.PFD.DPS_menu_fault_line.setColor(1,0.2,0.2);
+	me.PFD.DPS_menu_line_plt.setColor(1,1,0.3);
+	me.PFD.DPS_menu_line_cdr.setColor(1,0.3,0.3);
+	me.PFD.DPS_menu_fault_line.setColor(1,0.3,0.3);
 
 
         me.setupMenus();
@@ -339,12 +341,19 @@ var MDU_Device =
         me.PFD.p_pfd.addMenuItem(4, "MSG RST", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(5, "MSG ACK", me.PFD.p_pfd);
     
-        me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
-        me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
-        me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_meds_oms_mps);
-        me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
-        me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
+        me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
+        me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
+        me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_meds_oms_mps);
+        #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
+        #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
+
+        me.PFD.p_subsys.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_subsys.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
     
         me.PFD.p_dps_fault.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_fault.addMenuItem(4, "MSG RST", me.PFD.p_dps_fault);
@@ -415,8 +424,13 @@ var MDU_Device =
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_meds_oms_mps.addMenuItem(4, "MSG RST", me.PFD.p_meds_oms_mps);
-        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
+
+      
     },
 
     update : func
@@ -466,7 +480,7 @@ append(MDU_array, MEDS_PLT2);
 # Select the appropriate default page on each device.
 MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_pfd);
 MEDS_CDR1.PFD.dps_page_flag = 0;
-MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_pfd);
+MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_meds_oms_mps);
 MEDS_CDR2.PFD.dps_page_flag = 0;
 MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
 MEDS_CRT1.PFD.dps_page_flag = 1;
@@ -478,7 +492,7 @@ MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
 MEDS_CRT2.PFD.dps_page_flag = 1;
 MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_pfd);
 MEDS_MFD2.PFD.dps_page_flag = 0;
-MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_pfd);
+MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
 MEDS_PLT1.PFD.dps_page_flag = 0;
 MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
 MEDS_PLT2.dps_page_flag = 0;
