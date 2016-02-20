@@ -2202,9 +2202,9 @@
         <factor>-70</factor>
         <offset-deg>45</offset-deg>
         <center>
-            <x-m>-11.8348</x-m>
-            <y-m>  1.3431 </y-m>
-            <z-m> -0.6769</z-m>
+            <x-m>-11.8318</x-m>
+            <y-m>  1.3337 </y-m>
+            <z-m> -0.7153</z-m>
         </center>
         <axis>
             <x>1</x>
@@ -2442,7 +2442,7 @@
         </hovered>
     </animation>
 
-    <!-- ********** Fuel Cell 3  **********-->
+    <!-- ********** Fuel Cell 3 **********-->
 
     <!-- FC3 Reactant Valve "Switch"-->
     <animation>
@@ -2452,9 +2452,9 @@
         <factor>-70</factor>
         <offset-deg>45</offset-deg>
         <center>
-            <x-m>-11.8318</x-m>
-            <y-m>  1.3337 </y-m>
-            <z-m> -0.7153</z-m>
+            <x-m>-11.8348</x-m>
+            <y-m>  1.3431 </y-m>
+            <z-m> -0.6769</z-m>
         </center>
         <axis>
             <x>1</x>
