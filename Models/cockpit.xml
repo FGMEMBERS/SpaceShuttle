@@ -2025,7 +2025,14 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 1 "Talk-Back" Place Holder -->
+    <!-- Ready For Load 1 "Talk-Back" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc0-rfl</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+        </condition>
+    </animation>
 
     <!-- FC Main Bus A "Push Button"-->
     <animation>
@@ -2275,7 +2282,14 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 2 "Talk-Back" Place Holder -->
+    <!-- Ready For Load 2 "Talk-Back" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-rfl</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+        </condition>
+    </animation>
 
     <!-- FC Main Bus B "Push Button"-->
     <animation>
@@ -2525,7 +2539,14 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 3 "Talk-Back" Place Holder -->
+    <!-- Ready For Load 3 "Talk-Back" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-rfl</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
+        </condition>
+    </animation>
 
     <!-- FC Main Bus C "Push Button"-->
     <animation>
