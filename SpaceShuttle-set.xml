@@ -182,6 +182,9 @@
 		    <ssme1-condition type="double">1.0</ssme1-condition>
 		    <ssme2-condition type="double">1.0</ssme2-condition>
 		    <ssme3-condition type="double">1.0</ssme3-condition>
+		    <mps-he-left-condition type="double">1.0</mps-he-left-condition>
+		    <mps-he-right-condition type="double">1.0</mps-he-right-condition>
+		    <mps-he-center-condition type="double">1.0</mps-he-center-condition>
 		    <srb1-condition type="double">1.0</srb1-condition>
 		    <srb2-condition type="double">1.0</srb2-condition>
 		    <oms1-condition type="double">1.0</oms1-condition>
