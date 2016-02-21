@@ -72,6 +72,17 @@
     <object-name>MFDR2_B4</object-name>
     <object-name>MFDR2_B5</object-name>
     <object-name>MFDR2_B6</object-name>
+    
+    <object-name>fc-cp-base</object-name>
+    <object-name>fc0-cp</object-name>
+    <object-name>fc0-reac-base</object-name>
+    <object-name>fc0-reac-base1</object-name>
+    <object-name>fc0-reac-h2-cl</object-name>
+    <object-name>fc0-reac-h2-op</object-name>
+    <object-name>fc0-reac-o2-cl</object-name>
+    <object-name>fc0-reac-o2-op</object-name>
+    <object-name>fc0-rfl</object-name>
+    <object-name>fc0-rfl-base</object-name>
 </effect>
 
  <animation>
@@ -1985,7 +1996,44 @@
             </binding>
         </hovered>
     </animation>
-
+ 
+    <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
+    <!-- FC1 reac o2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc0-reac-o2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc0-reac-o2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- FC1 reac h2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc0-reac-h2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc0-reac-h2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- end NOTE: -->
+    
     <!-- FC1 Start/Stop "Push Button"-->
     <animation>
         <type>translate</type>
@@ -2025,7 +2073,7 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 1 "Talk-Back" -->
+    <!-- Ready For Load 1 "Talkback" -->
     <animation>
         <type>select</type>
         <object-name>fc0-rfl</object-name>
@@ -2242,6 +2290,43 @@
             </binding>
         </hovered>
     </animation>
+    
+    <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
+    <!-- FC2 reac o2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-o2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-o2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- FC2 reac h2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-h2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-h2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- end NOTE: -->
 
     <!-- FC2 Start/Stop "Push Button"-->
     <animation>
@@ -2282,7 +2367,7 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 2 "Talk-Back" -->
+    <!-- Ready For Load 2 "Talkback" -->
     <animation>
         <type>select</type>
         <object-name>fc1-rfl</object-name>
@@ -2500,6 +2585,43 @@
         </hovered>
     </animation>
 
+    <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
+    <!-- FC3 reac o2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-o2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-o2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- FC3 reac h2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-h2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-h2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- end NOTE: -->
+
     <!-- FC3 Start/Stop "Push Button"-->
     <animation>
         <type>translate</type>
@@ -2539,7 +2661,7 @@
         </hovered>
     </animation>
 
-    <!-- Ready For Load 3 "Talk-Back" -->
+    <!-- Ready For Load 3 "Talkback" -->
     <animation>
         <type>select</type>
         <object-name>fc2-rfl</object-name>
