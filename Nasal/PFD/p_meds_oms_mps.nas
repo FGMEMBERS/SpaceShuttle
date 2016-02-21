@@ -41,6 +41,12 @@ var PFD_addpage_p_meds_oms_mps = func(device)
     p_meds_oms_mps.menu_item = device.svg.getElementById("MI_1"); 
     p_meds_oms_mps.menu_item_frame = device.svg.getElementById("MI_1_frame"); 
     
+
+
+    p_meds_oms_mps.tape_TkP_left = device.svg.getElementById("p_meds_oms_mps_tape_TkP_left"); 
+    p_meds_oms_mps.tape_TkP_right = device.svg.getElementById("p_meds_oms_mps_tape_TkP_right"); 
+    p_meds_oms_mps.tape_TkP_center = device.svg.getElementById("p_meds_oms_mps_tape_TkP_center"); 
+
     p_meds_oms_mps.tape_Pc_left = device.svg.getElementById("p_meds_oms_mps_tape_Pc_left"); 
     p_meds_oms_mps.tape_Pc_right = device.svg.getElementById("p_meds_oms_mps_tape_Pc_right"); 
     p_meds_oms_mps.tape_Pc_center = device.svg.getElementById("p_meds_oms_mps_tape_Pc_center"); 
@@ -70,6 +76,44 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 
 	var oms_left_He_pressure = getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-pressure-psia");
 	var oms_right_He_pressure = getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-pressure-psia");
+
+	var mps_left_He_pressure = getprop("/fdm/jsbsim/systems/mps/helium/pressure-psia");
+	var mps_right_He_pressure = getprop("/fdm/jsbsim/systems/mps/helium[1]/pressure-psia");
+	var mps_center_He_pressure = getprop("/fdm/jsbsim/systems/mps/helium[2]/pressure-psia");
+
+	p_meds_oms_mps.He_Tk_left.setText(sprintf("%4.0f", mps_left_He_pressure));
+    	p_meds_oms_mps.He_Tk_right.setText(sprintf("%4.0f", mps_right_He_pressure));
+	p_meds_oms_mps.He_Tk_center.setText(sprintf("%4.0f", mps_center_He_pressure));
+
+	var p_He_left_display = (mps_left_He_pressure - 1000.0)/4000.0;
+	var p_He_right_display = (mps_right_He_pressure - 1000.0)/4000.0;
+	var p_He_center_display = (mps_center_He_pressure - 1000.0)/4000.0;
+
+	if (p_He_left_display < 0.0) {p_He_left_display = 0.0;}
+	if (p_He_right_display < 0.0) {p_He_right_display = 0.0;}
+	if (p_He_center_display < 0.0) {p_He_center_display = 0.0;}
+
+	p_meds_oms_mps.tape_TkP_left.setScale(1.0, p_He_left_display);
+	p_meds_oms_mps.tape_TkP_left.setTranslation(0.0, (1.0-p_He_left_display) * (49.4 + 175));
+
+	p_meds_oms_mps.tape_TkP_right.setScale(1.0, p_He_right_display);
+	p_meds_oms_mps.tape_TkP_right.setTranslation(0.0, (1.0-p_He_right_display) * (49.4 + 175));
+
+	p_meds_oms_mps.tape_TkP_center.setScale(1.0, p_He_center_display);
+	p_meds_oms_mps.tape_TkP_center.setTranslation(0.0, (1.0-p_He_center_display) * (49.4 + 175));
+
+	if (mps_left_He_pressure < 1150.0)
+		{p_meds_oms_mps.tape_TkP_left.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_TkP_left.setColorFill(0.0, 1.0, 0.0);}
+
+	if (mps_right_He_pressure < 1150.0)
+		{p_meds_oms_mps.tape_TkP_right.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_TkP_right.setColorFill(0.0, 1.0, 0.0);}
+
+	if (mps_center_He_pressure < 1150.0)
+		{p_meds_oms_mps.tape_TkP_center.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_TkP_center.setColorFill(0.0, 1.0, 0.0);}
+
 
         var oms_Pc_left = getprop("/fdm/jsbsim/fcs/throttle-pos-norm[5]");
         var oms_Pc_right = getprop("/fdm/jsbsim/fcs/throttle-pos-norm[6]");
@@ -109,9 +153,7 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 	p_meds_oms_mps.Pc_oleft.setText(sprintf("%3.0f",  oms_Pc_left * 100.0));
 	p_meds_oms_mps.Pc_oright.setText(sprintf("%3.0f",  oms_Pc_right * 100.0));
 
-    	p_meds_oms_mps.He_Tk_right.setText("0000");
-	p_meds_oms_mps.He_Tk_left.setText("0001");
-	p_meds_oms_mps.He_Tk_center.setText("0002");
+
        	p_meds_oms_mps.He_Tk_pneu.setText("0003");
 	p_meds_oms_mps.He_reg_right.setText("0004");
 	p_meds_oms_mps.He_reg_left.setText("0005");
@@ -143,7 +185,6 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 	if (Pc_disp_right < 0.0) {Pc_disp_right = 0.0;}
 	if (Pc_disp_center < 0.0) {Pc_disp_center = 0.0;}
 	
-	
 
 	p_meds_oms_mps.tape_Pc_left.setScale(1.0, Pc_disp_left);
 	p_meds_oms_mps.tape_Pc_left.setTranslation(0.0, (1.0-Pc_disp_left) * (64.2 + 371));
@@ -155,37 +196,16 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 	p_meds_oms_mps.tape_Pc_center.setTranslation(0.0, (1.0-Pc_disp_center) * (64.2 + 371));
 
 	if (Pc_left < 0.65)
-		{
-		p_meds_oms_mps.tape_Pc_left.setColor(1.0, 0.0, 0.0);
-		p_meds_oms_mps.tape_Pc_left.setColorFill(1.0, 0.0, 0.0);
-		}
-	else
-		{
-		p_meds_oms_mps.tape_Pc_left.setColor(1.0, 1.0, 1.0);
-		p_meds_oms_mps.tape_Pc_left.setColorFill(1.0, 1.0, 1.0);
-		}
+		{p_meds_oms_mps.tape_Pc_left.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_Pc_left.setColorFill(1.0, 1.0, 1.0);}
 
 	if (Pc_right < 0.65)
-		{	
-		p_meds_oms_mps.tape_Pc_right.setColor(1.0, 0.0, 0.0);
-		p_meds_oms_mps.tape_Pc_right.setColorFill(1.0, 0.0, 0.0);
-		}
-	else
-		{
-		p_meds_oms_mps.tape_Pc_right.setColor(1.0, 1.0, 1.0);
-		p_meds_oms_mps.tape_Pc_right.setColorFill(1.0, 1.0, 1.0);
-		}
+		{p_meds_oms_mps.tape_Pc_right.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_Pc_right.setColorFill(1.0, 1.0, 1.0);}
 
 	if (Pc_center < 0.65)
-		{
-		p_meds_oms_mps.tape_Pc_center.setColor(1.0, 0.0, 0.0);
-		p_meds_oms_mps.tape_Pc_center.setColorFill(1.0, 0.0, 0.0);
-		}
-	else
-		{
-		p_meds_oms_mps.tape_Pc_center.setColor(1.0, 1.0, 1.0);
-		p_meds_oms_mps.tape_Pc_center.setColorFill(1.0, 1.0, 1.0);
-		}
+		{p_meds_oms_mps.tape_Pc_center.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_oms_mps.tape_Pc_center.setColorFill(1.0, 1.0, 1.0);}
 	
 
 	Pc_left = Pc_left * 100.0;

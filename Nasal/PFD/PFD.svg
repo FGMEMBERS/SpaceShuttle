@@ -25422,6 +25422,30 @@
        height="80.4997"
        x="147.924"
        y="365.799" />
+
+<rect
+       y="175.674"
+       x="348.324"
+       height="49.525"
+       width="13.525"
+       id="p_meds_oms_mps_tape_TkP_left"
+       style="opacity:1;fill:#00ff00;fill-rule:nonzero;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+
+<rect
+       y="175.674"
+       x="430.599"
+       height="49.525"
+       width="13.525"
+       id="p_meds_oms_mps_tape_TkP_right"
+       style="opacity:1;fill:#00ff00;fill-rule:nonzero;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+
+<rect
+       style="opacity:1;fill:#00ff00;fill-rule:nonzero;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="p_meds_oms_mps_tape_TkP_center"
+       width="13.525"
+       height="49.525"
+       x="389.574"
+       y="175.674" />
  
 
 

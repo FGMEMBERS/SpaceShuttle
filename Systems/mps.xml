@@ -9,6 +9,7 @@
 <!-- NASA engine 3: right engine     JSBSim SSME-3, engine[2]: center engine -->
 
 <system>
+
 	<channel name="Main propulsion system control">
 
 		<!-- the engine controllers draw power from different buses so that any -->
@@ -257,6 +258,65 @@
 
 		<!-- the helium system provides emergency power for valves and shutdown -->
 		<!-- and is used for the propellant dump -->
+
+
+		<fcs_function name="systems/mps/helium/et-fuel-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[0]/contents-lbs</property>
+				<value>1618634.00</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium/et-fuel-fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-left-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[1]/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium/et-fuel-fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-right-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[2]/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium/et-fuel-fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-center-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 		<switch name="systems/mps/helium/pressurized">
 			<default value="0.0"/>
