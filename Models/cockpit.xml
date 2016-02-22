@@ -5,95 +5,206 @@
      Flightgear version by Richard Harrison; rjh@zaretto.com 2015-04-06 -->
 
 <PropertyList>
- <path>cockpit.ac</path>
- <nopreview/>
+    <path>cockpit.ac</path>
+    <nopreview/>
 
-<!-- implicit lighting -->
- <effect>
-  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
-  <object-name>Fwd_PanelsX</object-name>
-  <object-name>Fwd_PanelsY</object-name>
-  <object-name>Fwd_PanelsY.001</object-name>
-  <object-name>Fwd_PanelsY.002</object-name>
-  <object-name>Fwd_PanelsZ</object-name>
-  <object-name>Fwd_PanelsZ.001</object-name>
-  <object-name>Fwd_Equipment_Knobs</object-name>
-    <object-name>MFD1_B1</object-name>
-    <object-name>MFD1_B2</object-name>
-    <object-name>MFD1_B3</object-name>
-    <object-name>MFD1_B4</object-name>
-    <object-name>MFD1_B5</object-name>
-    <object-name>MFD1_B6</object-name>
-    <object-name>MFD2_B1</object-name>
-    <object-name>MFD2_B2</object-name>
-    <object-name>MFD2_B3</object-name>
-    <object-name>MFD2_B4</object-name>
-    <object-name>MFD2_B5</object-name>
-    <object-name>MFD2_B6</object-name>
-    <object-name>MFDC1_B1</object-name>
-    <object-name>MFDC1_B2</object-name>
-    <object-name>MFDC1_B3</object-name>
-    <object-name>MFDC1_B4</object-name>
-    <object-name>MFDC1_B5</object-name>
-    <object-name>MFDC1_B6</object-name>
-    <object-name>MFDC2_B1</object-name>
-    <object-name>MFDC2_B2</object-name>
-    <object-name>MFDC2_B3</object-name>
-    <object-name>MFDC2_B4</object-name>
-    <object-name>MFDC2_B5</object-name>
-    <object-name>MFDC2_B6</object-name>
-    <object-name>MFDC3_B1</object-name>
-    <object-name>MFDC3_B2</object-name>
-    <object-name>MFDC3_B3</object-name>
-    <object-name>MFDC3_B4</object-name>
-    <object-name>MFDC3_B5</object-name>
-    <object-name>MFDC3_B6</object-name>
-    <object-name>MFDC4_B1</object-name>
-    <object-name>MFDC4_B2</object-name>
-    <object-name>MFDC4_B3</object-name>
-    <object-name>MFDC4_B4</object-name>
-    <object-name>MFDC4_B5</object-name>
-    <object-name>MFDC4_B6</object-name>
-    <object-name>MFDC5_B1</object-name>
-    <object-name>MFDC5_B2</object-name>
-    <object-name>MFDC5_B3</object-name>
-    <object-name>MFDC5_B4</object-name>
-    <object-name>MFDC5_B5</object-name>
-    <object-name>MFDC5_B6</object-name>
-    <object-name>MFDR1_B1</object-name>
-    <object-name>MFDR1_B2</object-name>
-    <object-name>MFDR1_B3</object-name>
-    <object-name>MFDR1_B4</object-name>
-    <object-name>MFDR1_B5</object-name>
-    <object-name>MFDR1_B6</object-name>
-    <object-name>MFDR2_B1</object-name>
-    <object-name>MFDR2_B2</object-name>
-    <object-name>MFDR2_B3</object-name>
-    <object-name>MFDR2_B4</object-name>
-    <object-name>MFDR2_B5</object-name>
-    <object-name>MFDR2_B6</object-name>
-    
-    <object-name>fc0-connector</object-name>
-    <object-name>fc0-start-cmd</object-name>
-    <object-name>fc0-valve</object-name>
-    <object-name>fc1-connector</object-name>
-    <object-name>fc1-start-cmd</object-name>
-    <object-name>fc1-valve</object-name>
-    <object-name>fc2-connector</object-name>
-    <object-name>fc2-start-cmd</object-name>
-    <object-name>fc2-valve</object-name>
-
-    <object-name>inv0-ac-switch</object-name>
-    <object-name>inverter0-power-switch</object-name>
-    <object-name>tie0-switch</object-name>
-    <object-name>inv1-ac-switch</object-name>
-    <object-name>inverter1-power-switch</object-name>
-    <object-name>tie1-switch</object-name>
-    <object-name>inv2-ac-switch</object-name>
-    <object-name>inverter2-power-switch</object-name>
-    <object-name>tie2-switch</object-name>
-
-  </effect>
+    <!-- implicit lighting -->
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+        <object-name>Fwd_PanelsX</object-name>
+        <object-name>Fwd_PanelsY</object-name>
+        <object-name>Fwd_PanelsY.001</object-name>
+        <object-name>Fwd_PanelsY.002</object-name>
+        <object-name>Fwd_PanelsZ</object-name>
+        <object-name>Fwd_PanelsZ.001</object-name>
+        <object-name>Fwd_Equipment_Knobs</object-name>
+        <object-name>F6SW-1-10</object-name>
+        <object-name>F6SW-1-4</object-name>
+        <object-name>F6SW-1-5</object-name>
+        <object-name>F6SW-1-6</object-name>
+        <object-name>F6SW-1-7</object-name>
+        <object-name>F6SW-1-8</object-name>
+        <object-name>F6SW-1-9</object-name>
+        <object-name>F6SW-2-3</object-name>
+        <object-name>L1SW-1-1</object-name>
+        <object-name>L1SW-1-10</object-name>
+        <object-name>L1SW-1-11</object-name>
+        <object-name>L1SW-1-12</object-name>
+        <object-name>L1SW-1-13</object-name>
+        <object-name>L1SW-1-14</object-name>
+        <object-name>L1SW-1-2</object-name>
+        <object-name>L1SW-1-3</object-name>
+        <object-name>L1SW-1-4</object-name>
+        <object-name>L1SW-1-5</object-name>
+        <object-name>L1SW-2-1</object-name>
+        <object-name>L1SW-2-12</object-name>
+        <object-name>L1SW-2-13</object-name>
+        <object-name>L1SW-2-14</object-name>
+        <object-name>L1SW-2-3</object-name>
+        <object-name>L1SW-2-4</object-name>
+        <object-name>L1SW-2-5</object-name>
+        <object-name>L1SW-2-6</object-name>
+        <object-name>L1SW-2-7</object-name>
+        <object-name>L1SW-2-8</object-name>
+        <object-name>L1SW-3-1</object-name>
+        <object-name>L1SW-3-10</object-name>
+        <object-name>L1SW-3-11</object-name>
+        <object-name>L1SW-3-12</object-name>
+        <object-name>L1SW-3-13</object-name>
+        <object-name>L1SW-3-14</object-name>
+        <object-name>L1SW-3-3</object-name>
+        <object-name>L1SW-3-5</object-name>
+        <object-name>L1SW-3-6</object-name>
+        <object-name>L1SW-3-8</object-name>
+        <object-name>L1SW-3-9</object-name>
+        <object-name>L1SW-4-1</object-name>
+        <object-name>L1SW-4-10</object-name>
+        <object-name>L1SW-4-11</object-name>
+        <object-name>L1SW-4-12</object-name>
+        <object-name>L1SW-4-13</object-name>
+        <object-name>L1SW-4-2</object-name>
+        <object-name>L1SW-4-4</object-name>
+        <object-name>L1SW-4-5</object-name>
+        <object-name>L1SW-4-5.001</object-name>
+        <object-name>L1SW-4-6</object-name>
+        <object-name>L1SW-4-6.001</object-name>
+        <object-name>L1SW-4-7</object-name>
+        <object-name>L1SW-4-8</object-name>
+        <object-name>L1SW-4-9</object-name>
+        <object-name>MFD1_B1</object-name>
+        <object-name>MFD1_B2</object-name>
+        <object-name>MFD1_B3</object-name>
+        <object-name>MFD1_B4</object-name>
+        <object-name>MFD1_B5</object-name>
+        <object-name>MFD1_B6</object-name>
+        <object-name>MFD2_B1</object-name>
+        <object-name>MFD2_B2</object-name>
+        <object-name>MFD2_B3</object-name>
+        <object-name>MFD2_B4</object-name>
+        <object-name>MFD2_B5</object-name>
+        <object-name>MFD2_B6</object-name>
+        <object-name>MFDC1_B1</object-name>
+        <object-name>MFDC1_B2</object-name>
+        <object-name>MFDC1_B3</object-name>
+        <object-name>MFDC1_B4</object-name>
+        <object-name>MFDC1_B5</object-name>
+        <object-name>MFDC1_B6</object-name>
+        <object-name>MFDC2_B1</object-name>
+        <object-name>MFDC2_B2</object-name>
+        <object-name>MFDC2_B3</object-name>
+        <object-name>MFDC2_B4</object-name>
+        <object-name>MFDC2_B5</object-name>
+        <object-name>MFDC2_B6</object-name>
+        <object-name>MFDC3_B1</object-name>
+        <object-name>MFDC3_B2</object-name>
+        <object-name>MFDC3_B3</object-name>
+        <object-name>MFDC3_B4</object-name>
+        <object-name>MFDC3_B5</object-name>
+        <object-name>MFDC3_B6</object-name>
+        <object-name>MFDC4_B1</object-name>
+        <object-name>MFDC4_B2</object-name>
+        <object-name>MFDC4_B3</object-name>
+        <object-name>MFDC4_B4</object-name>
+        <object-name>MFDC4_B5</object-name>
+        <object-name>MFDC4_B6</object-name>
+        <object-name>MFDC5_B1</object-name>
+        <object-name>MFDC5_B2</object-name>
+        <object-name>MFDC5_B3</object-name>
+        <object-name>MFDC5_B4</object-name>
+        <object-name>MFDC5_B5</object-name>
+        <object-name>MFDC5_B6</object-name>
+        <object-name>MFDR1_B1</object-name>
+        <object-name>MFDR1_B2</object-name>
+        <object-name>MFDR1_B3</object-name>
+        <object-name>MFDR1_B4</object-name>
+        <object-name>MFDR1_B5</object-name>
+        <object-name>MFDR1_B6</object-name>
+        <object-name>MFDR2_B1</object-name>
+        <object-name>MFDR2_B2</object-name>
+        <object-name>MFDR2_B3</object-name>
+        <object-name>MFDR2_B4</object-name>
+        <object-name>MFDR2_B5</object-name>
+        <object-name>MFDR2_B6</object-name>
+        <object-name>Fwd_Equipment_Knobs.001</object-name>
+        <object-name>Fwd_Equipment_Knobs.002</object-name>
+        <object-name>Fwd_Equipment_Knobs.003</object-name>
+        <object-name>Fwd_Equipment_Knobs.004</object-name>
+        <object-name>Fwd_Equipment_Knobs.005</object-name>
+        <object-name>Fwd_Equipment_Knobs.006</object-name>
+        <object-name>Fwd_Equipment_Knobs.007</object-name>
+        <object-name>Fwd_Equipment_Knobs.008</object-name>
+        <object-name>Fwd_Equipment_Knobs.009</object-name>
+        <object-name>Fwd_Equipment_Knobs.010</object-name>
+        <object-name>Fwd_Equipment_Knobs.011</object-name>
+        <object-name>Fwd_Equipment_Knobs.012</object-name>
+        <object-name>Fwd_Equipment_Knobs.013</object-name>
+        <object-name>Fwd_Equipment_Knobs.014</object-name>
+        <object-name>Fwd_Equipment_Knobs.015</object-name>
+        <object-name>Fwd_Equipment_Knobs.016</object-name>
+        <object-name>Fwd_Equipment_Knobs.017</object-name>
+        <object-name>Fwd_Equipment_Knobs.018</object-name>
+        <object-name>Fwd_Equipment_Knobs.019</object-name>
+        <object-name>Fwd_Equipment_Knobs.020</object-name>
+        <object-name>Fwd_Equipment_Knobs.021</object-name>
+        <object-name>Fwd_Equipment_Knobs.022</object-name>
+        <object-name>Fwd_Equipment_Knobs.023</object-name>
+        <object-name>Fwd_Equipment_Knobs.024</object-name>
+        <object-name>Fwd_Equipment_Knobs.025</object-name>
+        <object-name>Fwd_Equipment_Knobs.026</object-name>
+        <object-name>Fwd_Equipment_Knobs.027</object-name>
+        <object-name>Fwd_Equipment_Knobs.028</object-name>
+        <object-name>Fwd_Equipment_Knobs.029</object-name>
+        <object-name>Fwd_Equipment_Knobs.030</object-name>
+        <object-name>Fwd_Equipment_Knobs.031</object-name>
+        <object-name>Fwd_Equipment_Knobs.032</object-name>
+        <object-name>Fwd_Equipment_Knobs.033</object-name>
+        <object-name>Fwd_Equipment_Knobs.034</object-name>
+        <object-name>Fwd_Equipment_Knobs.035</object-name>
+        <object-name>Fwd_Equipment_Knobs.036</object-name>
+        <object-name>Fwd_Equipment_Knobs.037</object-name>
+        <object-name>Fwd_Equipment_Knobs.038</object-name>
+        <object-name>Fwd_Equipment_Knobs.039</object-name>
+        <object-name>Fwd_Equipment_Knobs.040</object-name>
+        <object-name>Fwd_Equipment_Knobs.041</object-name>
+        <object-name>Fwd_Equipment_Knobs.042</object-name>
+        <object-name>Fwd_Equipment_Knobs.043</object-name>
+        <object-name>Fwd_Equipment_Knobs.044</object-name>
+        <object-name>Fwd_Equipment_Knobs.045</object-name>
+        <object-name>Fwd_Equipment_Knobs.046</object-name>
+        <object-name>Fwd_Equipment_Knobs.047</object-name>
+        <object-name>Fwd_Equipment_Knobs.048</object-name>
+        <object-name>Fwd_Equipment_Knobs.049</object-name>
+        <object-name>Fwd_Equipment_Knobs.050</object-name>
+        <object-name>Fwd_Equipment_Knobs.051</object-name>
+        <object-name>Fwd_Equipment_Knobs.052</object-name>
+        <object-name>Fwd_Equipment_Knobs.053</object-name>
+        <object-name>Fwd_Equipment_Knobs.054</object-name>
+        <object-name>Fwd_Equipment_Knobs.055</object-name>
+        <object-name>Fwd_Equipment_Knobs.056</object-name>
+        <object-name>Fwd_Equipment_Knobs.057</object-name>
+        <object-name>Fwd_Equipment_Knobs.058</object-name>
+        <object-name>Fwd_Equipment_Knobs.059</object-name>
+        <object-name>Fwd_Equipment_Knobs.060</object-name>
+        <object-name>Fwd_Equipment_Knobs.061</object-name>  
+        <object-name>fc0-connector</object-name>
+        <object-name>fc0-start-cmd</object-name>
+        <object-name>fc0-valve</object-name>
+        <object-name>fc1-connector</object-name>
+        <object-name>fc1-start-cmd</object-name>
+        <object-name>fc1-valve</object-name>
+        <object-name>fc2-connector</object-name>
+        <object-name>fc2-start-cmd</object-name>
+        <object-name>fc2-valve</object-name>
+        <object-name>inv0-ac-switch</object-name>
+        <object-name>inverter0-power-switch</object-name>
+        <object-name>tie0-switch</object-name>
+        <object-name>inv1-ac-switch</object-name>
+        <object-name>inverter1-power-switch</object-name>
+        <object-name>tie1-switch</object-name>
+        <object-name>inv2-ac-switch</object-name>
+        <object-name>inverter2-power-switch</object-name>
+        <object-name>tie2-switch</object-name>
+    </effect>
 
     <effect>
       <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
@@ -109,6 +220,18 @@
         <object-name>fc2-reac-o2-op</object-name>
         <object-name>fc2-rfl</object-name>
         <object-name>fc2-cp</object-name>
+        <object-name>fc-mb-a-on</object-name>
+        <object-name>inv-ac0-on</object-name>
+        <object-name>inv-pwr0-on</object-name>
+        <object-name>mb-tie-a-on</object-name>
+        <object-name>fc-mb-b-on</object-name>
+        <object-name>inv-ac1-on</object-name>
+        <object-name>inv-pwr1-on</object-name>
+        <object-name>mb-tie-b-on</object-name>
+        <object-name>fc-mb-c-on</object-name>
+        <object-name>inv-ac2-on</object-name>
+        <object-name>inv-pwr2-on</object-name>
+        <object-name>mb-tie-c-on</object-name>
     </effect>
 
     <effect>
@@ -119,278 +242,116 @@
         <object-name>fc1-reac-o2-cl</object-name>
         <object-name>fc2-reac-h2-cl</object-name>
         <object-name>fc2-reac-o2-cl</object-name>
+        <object-name>fc-mb-a-off</object-name>
+        <object-name>inv-ac0-off</object-name>
+        <object-name>inv-pwr0-off</object-name>
+        <object-name>mb-tie-a-off</object-name>
+        <object-name>fc-mb-b-off</object-name>
+        <object-name>inv-ac1-off</object-name>
+        <object-name>inv-pwr1-off</object-name>
+        <object-name>mb-tie-b-off</object-name>
+        <object-name>fc-mb-c-off</object-name>
+        <object-name>inv-ac2-off</object-name>
+        <object-name>inv-pwr2-off</object-name>
+        <object-name>mb-tie-c-off</object-name>        
     </effect>
 
     <effect>
       <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
         <object-name>fc0-reac-base</object-name>
-        <object-name>fc0-reac-base1</object-name>
         <object-name>fc1-reac-base</object-name>
         <object-name>fc2-reac-base</object-name>
         <object-name>fc0-rfl-base</object-name>
         <object-name>fc-cp-base</object-name>
+        <object-name>fc-mb-a-base</object-name>
+        <object-name>mb-tie-a-base</object-name>
+        <object-name>inv-pwr0-base</object-name>
+        <object-name>inv-ac0-base</object-name>
+        <object-name>fc-mb-b-base</object-name>
+        <object-name>mb-tie-b-base</object-name>
+        <object-name>inv-pwr1-base</object-name>
+        <object-name>inv-ac1-base</object-name>
+        <object-name>fc-mb-c-base</object-name>
+        <object-name>mb-tie-c-base</object-name>
+        <object-name>inv-pwr2-base</object-name>
+        <object-name>inv-ac2-base</object-name>
     </effect>
 
- <animation>
-  <type>material</type>
-  <object-name>indicator_light_rcs_roll_l_cmd</object-name>
-  <object-name>indicator_light_rcs_roll_r_cmd</object-name>
-  <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
-  <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
-  <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
-  <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
-  <object-name>indicator_light_rcs_roll_l_plt</object-name>
-  <object-name>indicator_light_rcs_roll_r_plt</object-name>
-  <object-name>indicator_light_rcs_pitch_u_plt</object-name>
-  <object-name>indicator_light_rcs_pitch_d_plt</object-name>
-  <object-name>indicator_light_rcs_yaw_l_plt</object-name>
-  <object-name>indicator_light_rcs_yaw_r_plt</object-name>
-  <emission>
-   <red>1.0</red>
-   <green>0.576</green>
-   <blue>0.161</blue>
-   <factor-prop>/fdm/jsbsim/systems/light/talkback-light-norm</factor-prop>
-  </emission>
- </animation>
+    <animation>
+        <type>material</type>
+        <object-name>indicator_light_rcs_roll_l_cmd</object-name>
+        <object-name>indicator_light_rcs_roll_r_cmd</object-name>
+        <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
+        <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
+        <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
+        <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
+        <object-name>indicator_light_rcs_roll_l_plt</object-name>
+        <object-name>indicator_light_rcs_roll_r_plt</object-name>
+        <object-name>indicator_light_rcs_pitch_u_plt</object-name>
+        <object-name>indicator_light_rcs_pitch_d_plt</object-name>
+        <object-name>indicator_light_rcs_yaw_l_plt</object-name>
+        <object-name>indicator_light_rcs_yaw_r_plt</object-name>
+        <emission>
+            <red>1.0</red>
+            <green>0.576</green>
+            <blue>0.161</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/talkback-light-norm</factor-prop>
+        </emission>
+    </animation>
 
- <animation>
-  <type>material</type>
-  <object-name>button_light_roll-yaw_auto_cmd</object-name>
-  <object-name>button_light_roll-yaw_css_cmd</object-name>
-  <object-name>button_light_pitch_auto_cmd</object-name>
-  <object-name>button_light_pitch_css_cmd</object-name>
-  <object-name>button_light_roll-yaw_auto_plt</object-name>
-  <object-name>button_light_roll-yaw_css_plt</object-name>
-  <object-name>button_light_pitch_auto_plt</object-name>
-  <object-name>button_light_pitch_css_plt</object-name>
-  <emission>
-   <red>1.0</red>
-   <green>0.576</green>
-   <blue>0.161</blue>
-   <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
-  </emission>
- </animation>
+    <animation>
+        <type>material</type>
+        <object-name>button_light_roll-yaw_auto_cmd</object-name>
+        <object-name>button_light_roll-yaw_css_cmd</object-name>
+        <object-name>button_light_pitch_auto_cmd</object-name>
+        <object-name>button_light_pitch_css_cmd</object-name>
+        <object-name>button_light_roll-yaw_auto_plt</object-name>
+        <object-name>button_light_roll-yaw_css_plt</object-name>
+        <object-name>button_light_pitch_auto_plt</object-name>
+        <object-name>button_light_pitch_css_plt</object-name>
+        <emission>
+            <red>1.0</red>
+            <green>0.576</green>
+            <blue>0.161</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+        </emission>
+    </animation>
 
- <effect>
-  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
-  <object-name>Floor_Panel</object-name>
-  <object-name>Fwd_Equipment_Group</object-name>
-  <object-name>Fwd_Equipment_Guards</object-name>
-  <object-name>Fwd_Equipment_Guards.</object-name>
-  <object-name>Fwd_Equipment_Knobs</object-name>
-  <object-name>Fwd_Base_Set</object-name>
-  <object-name>Fwd_Base_Set.001</object-name>
-  <object-name>Fwd_Base_Set.003</object-name>
-  <object-name>Fwd_Base_Set.004</object-name>
-  <object-name>Fwd_Base_Set.006</object-name>
-  <object-name>Fwd_Base_Set.007</object-name>
-  <object-name>Fwd_Base_Set.008</object-name>
-  <object-name>Fwd_Equipment_PullSwi</object-name>
-  <object-name>Fwd_Equipment_Velcro</object-name>
-  <object-name>Fwd_Fixings</object-name>
-  <object-name>Fwd_Window_Assy</object-name>
-  <object-name>Fwd_PanelsX</object-name>
-  <object-name>Fwd_PanelsY</object-name>
-  <object-name>Fwd_PanelsY.001</object-name>
-  <object-name>Fwd_PanelsY.002</object-name>
-  <object-name>Fwd_PanelsZ</object-name>
-  <object-name>Fwd_PanelsZ.001</object-name>
-  <object-name>DisplaysC1</object-name>
-  <object-name>DisplaysC2</object-name>
-  <object-name>DisplaysC3</object-name>
-  <object-name>DisplaysC4</object-name>
-  <object-name>DisplaysC5</object-name>
-  <object-name>DisplaysL1</object-name>
-  <object-name>DisplaysL1bg</object-name>
-  <object-name>DisplaysL2</object-name>
-  <object-name>DisplaysR1</object-name>
-  <object-name>DisplaysR2</object-name>
-  <object-name>backwall</object-name>
-  <object-name>spaceshutt_spstob_3</object-name>
-  <object-name>Roof_Assembly</object-name>
-  <object-name>HUDImage1</object-name>
-  <object-name>HUDImage2</object-name>
-  <object-name>HudLeft</object-name>
-  <object-name>F6SW-1-10</object-name>
-  <object-name>F6SW-1-4</object-name>
-  <object-name>F6SW-1-5</object-name>
-  <object-name>F6SW-1-6</object-name>
-  <object-name>F6SW-1-7</object-name>
-  <object-name>F6SW-1-8</object-name>
-  <object-name>F6SW-1-9</object-name>
-  <object-name>F6SW-2-3</object-name>
-  <object-name>L1SW-1-1</object-name>
-  <object-name>L1SW-1-10</object-name>
-  <object-name>L1SW-1-11</object-name>
-  <object-name>L1SW-1-12</object-name>
-  <object-name>L1SW-1-13</object-name>
-  <object-name>L1SW-1-14</object-name>
-  <object-name>L1SW-1-2</object-name>
-  <object-name>L1SW-1-3</object-name>
-  <object-name>L1SW-1-4</object-name>
-  <object-name>L1SW-1-5</object-name>
-  <object-name>L1SW-2-1</object-name>
-  <object-name>L1SW-2-12</object-name>
-  <object-name>L1SW-2-13</object-name>
-  <object-name>L1SW-2-14</object-name>
-  <object-name>L1SW-2-3</object-name>
-  <object-name>L1SW-2-4</object-name>
-  <object-name>L1SW-2-5</object-name>
-  <object-name>L1SW-2-6</object-name>
-  <object-name>L1SW-2-7</object-name>
-  <object-name>L1SW-2-8</object-name>
-  <object-name>L1SW-3-1</object-name>
-  <object-name>L1SW-3-10</object-name>
-  <object-name>L1SW-3-11</object-name>
-  <object-name>L1SW-3-12</object-name>
-  <object-name>L1SW-3-13</object-name>
-  <object-name>L1SW-3-14</object-name>
-  <object-name>L1SW-3-3</object-name>
-  <object-name>L1SW-3-5</object-name>
-  <object-name>L1SW-3-6</object-name>
-  <object-name>L1SW-3-8</object-name>
-  <object-name>L1SW-3-9</object-name>
-  <object-name>L1SW-4-1</object-name>
-  <object-name>L1SW-4-10</object-name>
-  <object-name>L1SW-4-11</object-name>
-  <object-name>L1SW-4-12</object-name>
-  <object-name>L1SW-4-13</object-name>
-  <object-name>L1SW-4-2</object-name>
-  <object-name>L1SW-4-4</object-name>
-  <object-name>L1SW-4-5</object-name>
-  <object-name>L1SW-4-5.001</object-name>
-  <object-name>L1SW-4-6</object-name>
-  <object-name>L1SW-4-6.001</object-name>
-  <object-name>L1SW-4-7</object-name>
-  <object-name>L1SW-4-8</object-name>
-  <object-name>L1SW-4-9</object-name>
-  <object-name>MFD1_B1</object-name>
-  <object-name>MFD1_B2</object-name>
-  <object-name>MFD1_B3</object-name>
-  <object-name>MFD1_B4</object-name>
-  <object-name>MFD1_B5</object-name>
-  <object-name>MFD1_B6</object-name>
-  <object-name>MFD2_B1</object-name>
-  <object-name>MFD2_B2</object-name>
-  <object-name>MFD2_B3</object-name>
-  <object-name>MFD2_B4</object-name>
-  <object-name>MFD2_B5</object-name>
-  <object-name>MFD2_B6</object-name>
-     <object-name>MFDC1_B1</object-name>
-     <object-name>MFDC1_B2</object-name>
-     <object-name>MFDC1_B3</object-name>
-     <object-name>MFDC1_B4</object-name>
-     <object-name>MFDC1_B5</object-name>
-     <object-name>MFDC1_B6</object-name>
-     <object-name>MFDC2_B1</object-name>
-     <object-name>MFDC2_B2</object-name>
-     <object-name>MFDC2_B3</object-name>
-     <object-name>MFDC2_B4</object-name>
-     <object-name>MFDC2_B5</object-name>
-     <object-name>MFDC2_B6</object-name>
-     <object-name>MFDC3_B1</object-name>
-     <object-name>MFDC3_B2</object-name>
-     <object-name>MFDC3_B3</object-name>
-     <object-name>MFDC3_B4</object-name>
-     <object-name>MFDC3_B5</object-name>
-     <object-name>MFDC3_B6</object-name>
-     <object-name>MFDC4_B1</object-name>
-     <object-name>MFDC4_B2</object-name>
-     <object-name>MFDC4_B3</object-name>
-     <object-name>MFDC4_B4</object-name>
-     <object-name>MFDC4_B5</object-name>
-     <object-name>MFDC4_B6</object-name>
-     <object-name>MFDC5_B1</object-name>
-     <object-name>MFDC5_B2</object-name>
-     <object-name>MFDC5_B3</object-name>
-     <object-name>MFDC5_B4</object-name>
-     <object-name>MFDC5_B5</object-name>
-     <object-name>MFDC5_B6</object-name>
-     <object-name>MFDR1_B1</object-name>
-     <object-name>MFDR1_B2</object-name>
-     <object-name>MFDR1_B3</object-name>
-     <object-name>MFDR1_B4</object-name>
-     <object-name>MFDR1_B5</object-name>
-     <object-name>MFDR1_B6</object-name>
-     <object-name>MFDR2_B1</object-name>
-     <object-name>MFDR2_B2</object-name>
-     <object-name>MFDR2_B3</object-name>
-     <object-name>MFDR2_B4</object-name>
-     <object-name>MFDR2_B5</object-name>
-     <object-name>MFDR2_B6</object-name>
-     <object-name>Fwd_Equipment_Knobs.001</object-name>
-  <object-name>Fwd_Equipment_Knobs.002</object-name>
-  <object-name>Fwd_Equipment_Knobs.003</object-name>
-  <object-name>Fwd_Equipment_Knobs.004</object-name>
-  <object-name>Fwd_Equipment_Knobs.005</object-name>
-  <object-name>Fwd_Equipment_Knobs.006</object-name>
-  <object-name>Fwd_Equipment_Knobs.007</object-name>
-  <object-name>Fwd_Equipment_Knobs.008</object-name>
-  <object-name>Fwd_Equipment_Knobs.009</object-name>
-  <object-name>Fwd_Equipment_Knobs.010</object-name>
-  <object-name>Fwd_Equipment_Knobs.011</object-name>
-  <object-name>Fwd_Equipment_Knobs.012</object-name>
-  <object-name>Fwd_Equipment_Knobs.013</object-name>
-  <object-name>Fwd_Equipment_Knobs.014</object-name>
-  <object-name>Fwd_Equipment_Knobs.015</object-name>
-  <object-name>Fwd_Equipment_Knobs.016</object-name>
-  <object-name>Fwd_Equipment_Knobs.017</object-name>
-  <object-name>Fwd_Equipment_Knobs.018</object-name>
-  <object-name>Fwd_Equipment_Knobs.019</object-name>
-  <object-name>Fwd_Equipment_Knobs.020</object-name>
-  <object-name>Fwd_Equipment_Knobs.021</object-name>
-  <object-name>Fwd_Equipment_Knobs.022</object-name>
-  <object-name>Fwd_Equipment_Knobs.023</object-name>
-  <object-name>Fwd_Equipment_Knobs.024</object-name>
-  <object-name>Fwd_Equipment_Knobs.025</object-name>
-  <object-name>Fwd_Equipment_Knobs.026</object-name>
-  <object-name>Fwd_Equipment_Knobs.027</object-name>
-  <object-name>Fwd_Equipment_Knobs.028</object-name>
-  <object-name>Fwd_Equipment_Knobs.029</object-name>
-  <object-name>Fwd_Equipment_Knobs.030</object-name>
-  <object-name>Fwd_Equipment_Knobs.031</object-name>
-  <object-name>Fwd_Equipment_Knobs.032</object-name>
-  <object-name>Fwd_Equipment_Knobs.033</object-name>
-  <object-name>Fwd_Equipment_Knobs.034</object-name>
-  <object-name>Fwd_Equipment_Knobs.035</object-name>
-  <object-name>Fwd_Equipment_Knobs.036</object-name>
-  <object-name>Fwd_Equipment_Knobs.037</object-name>
-  <object-name>Fwd_Equipment_Knobs.038</object-name>
-  <object-name>Fwd_Equipment_Knobs.039</object-name>
-  <object-name>Fwd_Equipment_Knobs.040</object-name>
-  <object-name>Fwd_Equipment_Knobs.041</object-name>
-  <object-name>Fwd_Equipment_Knobs.042</object-name>
-  <object-name>Fwd_Equipment_Knobs.043</object-name>
-  <object-name>Fwd_Equipment_Knobs.044</object-name>
-  <object-name>Fwd_Equipment_Knobs.045</object-name>
-  <object-name>Fwd_Equipment_Knobs.046</object-name>
-  <object-name>Fwd_Equipment_Knobs.047</object-name>
-  <object-name>Fwd_Equipment_Knobs.048</object-name>
-  <object-name>Fwd_Equipment_Knobs.049</object-name>
-  <object-name>Fwd_Equipment_Knobs.050</object-name>
-  <object-name>Fwd_Equipment_Knobs.051</object-name>
-  <object-name>Fwd_Equipment_Knobs.052</object-name>
-  <object-name>Fwd_Equipment_Knobs.053</object-name>
-  <object-name>Fwd_Equipment_Knobs.054</object-name>
-  <object-name>Fwd_Equipment_Knobs.055</object-name>
-  <object-name>Fwd_Equipment_Knobs.056</object-name>
-  <object-name>Fwd_Equipment_Knobs.057</object-name>
-  <object-name>Fwd_Equipment_Knobs.058</object-name>
-  <object-name>Fwd_Equipment_Knobs.059</object-name>
-  <object-name>Fwd_Equipment_Knobs.060</object-name>
-  <object-name>Fwd_Equipment_Knobs.061</object-name>
-  
-    <object-name>fc-cp-base</object-name>
-    <object-name>fc0-cp</object-name>
-    <object-name>fc0-reac-base</object-name>
-    <object-name>fc0-reac-base1</object-name>
-    <object-name>fc0-reac-h2-cl</object-name>
-    <object-name>fc0-reac-h2-op</object-name>
-    <object-name>fc0-reac-o2-cl</object-name>
-    <object-name>fc0-reac-o2-op</object-name>
-    <object-name>fc0-rfl</object-name>
-    <object-name>fc0-rfl-base</object-name>
- </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
+        <object-name>Floor_Panel</object-name>
+        <object-name>Fwd_Equipment_Group</object-name>
+        <object-name>Fwd_Equipment_Guards</object-name>
+        <object-name>Fwd_Equipment_Guards.</object-name>
+        <object-name>Fwd_Equipment_Knobs</object-name>
+        <object-name>Fwd_Base_Set</object-name>
+        <object-name>Fwd_Base_Set.001</object-name>
+        <object-name>Fwd_Base_Set.003</object-name>
+        <object-name>Fwd_Base_Set.004</object-name>
+        <object-name>Fwd_Base_Set.006</object-name>
+        <object-name>Fwd_Base_Set.007</object-name>
+        <object-name>Fwd_Base_Set.008</object-name>
+        <object-name>Fwd_Equipment_PullSwi</object-name>
+        <object-name>Fwd_Equipment_Velcro</object-name>
+        <object-name>Fwd_Fixings</object-name>
+        <object-name>Fwd_Window_Assy</object-name>
+        <object-name>DisplaysC1</object-name>
+        <object-name>DisplaysC2</object-name>
+        <object-name>DisplaysC3</object-name>
+        <object-name>DisplaysC4</object-name>
+        <object-name>DisplaysC5</object-name>
+        <object-name>DisplaysL1</object-name>
+        <object-name>DisplaysL1bg</object-name>
+        <object-name>DisplaysL2</object-name>
+        <object-name>DisplaysR1</object-name>
+        <object-name>DisplaysR2</object-name>
+        <object-name>backwall</object-name>
+        <object-name>spaceshutt_spstob_3</object-name>
+        <object-name>Roof_Assembly</object-name>
+        <object-name>HUDImage1</object-name>
+        <object-name>HUDImage2</object-name>
+        <object-name>HudLeft</object-name>
+    </effect>
 
     <animation>
         <object-name>DisplayL1</object-name>
@@ -2177,6 +2138,24 @@
           </binding>
         </hovered>
     </animation>
+    
+    <!--FC MB A "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-a-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-a-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+            </not>
+        </condition>
+    </animation>
 
     <!-- Main Bus Tie A "Switch"-->
     <animation>
@@ -2218,6 +2197,24 @@
                 <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Main Bus Tie A "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-a-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-a-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+            </not>
+        </condition>
     </animation>
 
     <!-- AC Inverter Power 1 "Switch"-->
@@ -2262,6 +2259,24 @@
         </hovered>
     </animation>
 
+    <!-- AC Inverter Power 1 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr0-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr0-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+            </not>
+        </condition>
+    </animation>
+
     <!-- Inverter AC Bus 1 "Switch"-->
     <animation>
         <type>knob</type>
@@ -2302,6 +2317,24 @@
                 <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+   <!-- Inverter AC Bus 1 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac0-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac0-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+            </not>
+        </condition>
     </animation>
 
     <!-- ********** Fuel Cell 2  **********-->
@@ -2472,6 +2505,24 @@
         </hovered>
     </animation>
 
+    <!--FC MB B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-b-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-b-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+            </not>
+        </condition>
+    </animation>
+
     <!-- Main Bus Tie B "Switch"-->
     <animation>
         <type>knob</type>
@@ -2512,6 +2563,24 @@
                 <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Main Bus Tie B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-b-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-b-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+            </not>
+        </condition>
     </animation>
 
     <!-- AC Inverter Power 2 "Switch"-->
@@ -2556,6 +2625,24 @@
         </hovered>
     </animation>
 
+    <!-- AC Inverter Power 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr1-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr1-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+            </not>
+        </condition>
+    </animation>
+
     <!-- Inverter AC Bus 2 "Switch"-->
     <animation>
         <type>knob</type>
@@ -2596,6 +2683,24 @@
                 <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Inverter AC Bus 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac1-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac1-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
+            </not>
+        </condition>
     </animation>
 
     <!-- ********** Fuel Cell 3 **********-->
@@ -2766,6 +2871,24 @@
         </hovered>
     </animation>
 
+    <!--FC MB C "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-c-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-c-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+            </not>
+        </condition>
+    </animation>
+
     <!-- Main Bus Tie C "Switch"-->
     <animation>
         <type>knob</type>
@@ -2806,6 +2929,24 @@
                 <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Main Bus Tie C "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-c-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-c-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+            </not>
+        </condition>
     </animation>
 
     <!-- AC Inverter Power 3 "Switch"-->
@@ -2850,6 +2991,24 @@
         </hovered>
     </animation>
 
+    <!-- AC Inverter Power 3 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr2-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr2-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+            </not>
+        </condition>
+    </animation>
+
     <!-- Inverter AC Bus 3 "Switch"-->
     <animation>
         <type>knob</type>
@@ -2890,6 +3049,24 @@
                 <property>/fdm/jsbsim/systems/electrical/ac[2]/inv-ac-switch</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!--  Inverter AC Bus 3 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac2-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[2]/inv-ac-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac2-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[2]/inv-ac-switch</property>
+            </not>
+        </condition>
     </animation>
 
       <!-- for testing only
