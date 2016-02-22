@@ -73,17 +73,63 @@
     <object-name>MFDR2_B5</object-name>
     <object-name>MFDR2_B6</object-name>
     
-    <object-name>fc-cp-base</object-name>
-    <object-name>fc0-cp</object-name>
-    <object-name>fc0-reac-base</object-name>
-    <object-name>fc0-reac-base1</object-name>
-    <object-name>fc0-reac-h2-cl</object-name>
-    <object-name>fc0-reac-h2-op</object-name>
-    <object-name>fc0-reac-o2-cl</object-name>
-    <object-name>fc0-reac-o2-op</object-name>
-    <object-name>fc0-rfl</object-name>
-    <object-name>fc0-rfl-base</object-name>
-</effect>
+    <object-name>fc0-connector</object-name>
+    <object-name>fc0-start-cmd</object-name>
+    <object-name>fc0-valve</object-name>
+    <object-name>fc1-connector</object-name>
+    <object-name>fc1-start-cmd</object-name>
+    <object-name>fc1-valve</object-name>
+    <object-name>fc2-connector</object-name>
+    <object-name>fc2-start-cmd</object-name>
+    <object-name>fc2-valve</object-name>
+
+    <object-name>inv0-ac-switch</object-name>
+    <object-name>inverter0-power-switch</object-name>
+    <object-name>tie0-switch</object-name>
+    <object-name>inv1-ac-switch</object-name>
+    <object-name>inverter1-power-switch</object-name>
+    <object-name>tie1-switch</object-name>
+    <object-name>inv2-ac-switch</object-name>
+    <object-name>inverter2-power-switch</object-name>
+    <object-name>tie2-switch</object-name>
+
+  </effect>
+
+    <effect>
+      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
+        <object-name>fc0-reac-h2-op</object-name>
+        <object-name>fc0-reac-o2-op</object-name>
+        <object-name>fc0-rfl</object-name>
+        <object-name>fc0-cp</object-name>
+        <object-name>fc1-reac-h2-op</object-name>
+        <object-name>fc1-reac-o2-op</object-name>
+        <object-name>fc1-rfl</object-name>
+        <object-name>fc1-cp</object-name>
+        <object-name>fc2-reac-h2-op</object-name>
+        <object-name>fc2-reac-o2-op</object-name>
+        <object-name>fc2-rfl</object-name>
+        <object-name>fc2-cp</object-name>
+    </effect>
+
+    <effect>
+      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-reverse</inherits-from>
+        <object-name>fc0-reac-h2-cl</object-name>
+        <object-name>fc0-reac-o2-cl</object-name>
+        <object-name>fc1-reac-h2-cl</object-name>
+        <object-name>fc1-reac-o2-cl</object-name>
+        <object-name>fc2-reac-h2-cl</object-name>
+        <object-name>fc2-reac-o2-cl</object-name>
+    </effect>
+
+    <effect>
+      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
+        <object-name>fc0-reac-base</object-name>
+        <object-name>fc0-reac-base1</object-name>
+        <object-name>fc1-reac-base</object-name>
+        <object-name>fc2-reac-base</object-name>
+        <object-name>fc0-rfl-base</object-name>
+        <object-name>fc-cp-base</object-name>
+    </effect>
 
  <animation>
   <type>material</type>
@@ -333,6 +379,17 @@
   <object-name>Fwd_Equipment_Knobs.059</object-name>
   <object-name>Fwd_Equipment_Knobs.060</object-name>
   <object-name>Fwd_Equipment_Knobs.061</object-name>
+  
+    <object-name>fc-cp-base</object-name>
+    <object-name>fc0-cp</object-name>
+    <object-name>fc0-reac-base</object-name>
+    <object-name>fc0-reac-base1</object-name>
+    <object-name>fc0-reac-h2-cl</object-name>
+    <object-name>fc0-reac-h2-op</object-name>
+    <object-name>fc0-reac-o2-cl</object-name>
+    <object-name>fc0-reac-o2-op</object-name>
+    <object-name>fc0-rfl</object-name>
+    <object-name>fc0-rfl-base</object-name>
  </effect>
 
     <animation>
@@ -1960,8 +2017,8 @@
         <type>knob</type>
         <object-name>fc0-valve</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-11.838</x-m>
             <y-m>  1.3526 </y-m>
@@ -2126,8 +2183,8 @@
         <type>knob</type>
         <object-name>tie0-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1826</x-m>
             <y-m>  1.2364 </y-m>
@@ -2168,8 +2225,8 @@
         <type>knob</type>
         <object-name>inverter0-power-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1212</x-m>
             <y-m>  1.2494 </y-m>
@@ -2210,8 +2267,8 @@
         <type>knob</type>
         <object-name>inv0-ac-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.088</x-m>
             <y-m>  1.2603 </y-m>
@@ -2254,8 +2311,8 @@
         <type>knob</type>
         <object-name>fc1-valve</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-11.8318</x-m>
             <y-m>  1.3337 </y-m>
@@ -2420,8 +2477,8 @@
         <type>knob</type>
         <object-name>tie1-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1792</x-m>
             <y-m>  1.226 </y-m>
@@ -2462,8 +2519,8 @@
         <type>knob</type>
         <object-name>inverter1-power-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1162</x-m>
             <y-m>  1.2341 </y-m>
@@ -2504,8 +2561,8 @@
         <type>knob</type>
         <object-name>inv1-ac-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.083</x-m>
             <y-m>  1.245 </y-m>
@@ -2548,8 +2605,8 @@
         <type>knob</type>
         <object-name>fc2-valve</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-11.8348</x-m>
             <y-m>  1.3431 </y-m>
@@ -2714,8 +2771,8 @@
         <type>knob</type>
         <object-name>tie2-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1758</x-m>
             <y-m>  1.2158 </y-m>
@@ -2756,8 +2813,8 @@
         <type>knob</type>
         <object-name>inverter2-power-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.1111</x-m>
             <y-m>  1.2185 </y-m>
@@ -2798,8 +2855,8 @@
         <type>knob</type>
         <object-name>inv2-ac-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/ac[2]/inv-ac-switch</property>
-        <factor>-70</factor>
-        <offset-deg>45</offset-deg>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
             <x-m>-12.0779</x-m>
             <y-m>  1.2294 </y-m>
