@@ -31,6 +31,7 @@
 # * p_dps_fault (DISP 99)
 
 # * p_meds_oms_mps
+# * p_meds_apu
 
 # color definitions
 
@@ -78,6 +79,7 @@ io.include("p_dps_electric.nas");
 io.include("p_dps_cryo.nas");
 
 io.include("p_meds_oms_mps.nas");
+io.include("p_meds_apu.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -238,6 +240,7 @@ var MDU_Device =
         me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
+        me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -350,7 +353,7 @@ var MDU_Device =
 
         me.PFD.p_subsys.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_subsys.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
-        me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_subsys);
         me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
         me.PFD.p_subsys.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
@@ -425,10 +428,17 @@ var MDU_Device =
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
-        me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
-        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
+        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
+
+       	me.PFD.p_meds_apu.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_apu.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_apu.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(3, "SPI", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(4, "PORT SEL", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(5, "MSG ACK", me.PFD.p_meds_apu);
 
       
     },
