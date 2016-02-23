@@ -15,11 +15,20 @@ var PFD_addpage_p_meds_apu = func(device)
 
     p_meds_apu.h2o_qty1 = device.svg.getElementById("p_meds_apu_h2o_qty1"); 
     p_meds_apu.h2o_qty2 = device.svg.getElementById("p_meds_apu_h2o_qty2"); 
-    p_meds_apu.h2o_qty3 = device.svg.getElementById("p_meds_apu_h2o_qty3"); 
+    p_meds_apu.h2o_qty3 = device.svg.getElementById("p_meds_apu_h2o_qty3");
+
+    p_meds_apu.tape_h2o_qty1 = device.svg.getElementById("p_meds_apu_tape_h2o_qty1"); 
+    p_meds_apu.tape_h2o_qty2 = device.svg.getElementById("p_meds_apu_tape_h2o_qty2"); 
+    p_meds_apu.tape_h2o_qty3 = device.svg.getElementById("p_meds_apu_tape_h2o_qty3"); 
+
 
     p_meds_apu.fuel_qty1 = device.svg.getElementById("p_meds_apu_fuel_qty1"); 
     p_meds_apu.fuel_qty2 = device.svg.getElementById("p_meds_apu_fuel_qty2"); 
     p_meds_apu.fuel_qty3 = device.svg.getElementById("p_meds_apu_fuel_qty3"); 
+
+    p_meds_apu.tape_fuel_qty1 = device.svg.getElementById("p_meds_apu_tape_fuel_qty1"); 
+    p_meds_apu.tape_fuel_qty2 = device.svg.getElementById("p_meds_apu_tape_fuel_qty2"); 
+    p_meds_apu.tape_fuel_qty3 = device.svg.getElementById("p_meds_apu_tape_fuel_qty3"); 
 
     p_meds_apu.hyd_p1 = device.svg.getElementById("p_dps_apu_hyd_p1"); 
     p_meds_apu.hyd_p2 = device.svg.getElementById("p_dps_apu_hyd_p2"); 
@@ -29,10 +38,18 @@ var PFD_addpage_p_meds_apu = func(device)
     p_meds_apu.oilT2 = device.svg.getElementById("p_meds_apu_oilT2"); 
     p_meds_apu.oilT3 = device.svg.getElementById("p_meds_apu_oilT3"); 
 
+    p_meds_apu.tape_oilT1 = device.svg.getElementById("p_meds_apu_tape_oilT1"); 
+    p_meds_apu.tape_oilT2 = device.svg.getElementById("p_meds_apu_tape_oilT2"); 
+    p_meds_apu.tape_oilT3 = device.svg.getElementById("p_meds_apu_tape_oilT3"); 
+
+
     p_meds_apu.fuelP1 = device.svg.getElementById("p_meds_apu_fuelP1"); 
     p_meds_apu.fuelP2 = device.svg.getElementById("p_meds_apu_fuelP2"); 
     p_meds_apu.fuelP3 = device.svg.getElementById("p_meds_apu_fuelP3"); 
 
+    p_meds_apu.tape_fuelP1 = device.svg.getElementById("p_meds_apu_tape_fuelP1"); 
+    p_meds_apu.tape_fuelP2 = device.svg.getElementById("p_meds_apu_tape_fuelP2"); 
+    p_meds_apu.tape_fuelP3 = device.svg.getElementById("p_meds_apu_tape_fuelP3"); 
 
 
     p_meds_apu.menu_item = device.svg.getElementById("MI_2"); 
@@ -73,6 +90,22 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.h2o_qty2.setText(sprintf("%3.0f", h2o_qty2 * 100.0));
 	p_meds_apu.h2o_qty3.setText(sprintf("%3.0f", h2o_qty3 * 100.0));
 
+	set_tape(p_meds_apu.tape_h2o_qty1, h2o_qty1, 60.7 + 170.4);
+	set_tape(p_meds_apu.tape_h2o_qty2, h2o_qty2, 60.7 + 170.4);
+	set_tape(p_meds_apu.tape_h2o_qty3, h2o_qty3, 60.7 + 170.4);
+
+	if (h2o_qty1 < 0.4) 
+		{p_meds_apu.tape_h2o_qty1.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_h2o_qty1.setColorFill(0.0, 1.0, 0.0);}
+
+	if (h2o_qty2 < 0.4) 
+		{p_meds_apu.tape_h2o_qty2.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_h2o_qty2.setColorFill(0.0, 1.0, 0.0);}
+
+	if (h2o_qty3 < 0.4) 
+		{p_meds_apu.tape_h2o_qty3.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_h2o_qty3.setColorFill(0.0, 1.0, 0.0);}
+
 	# APU hydrazine fuel
 
 	var fuel_qty1 = getprop("/fdm/jsbsim/propulsion/tank[14]/contents-lbs") / 350.0 ;
@@ -82,6 +115,36 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.fuel_qty1.setText(sprintf("%3.0f", fuel_qty1 * 100.0));
 	p_meds_apu.fuel_qty2.setText(sprintf("%3.0f", fuel_qty2 * 100.0));
 	p_meds_apu.fuel_qty3.setText(sprintf("%3.0f", fuel_qty3 * 100.0));
+
+	set_tape(p_meds_apu.tape_fuel_qty1, fuel_qty1, 63.7+60.7);
+	set_tape(p_meds_apu.tape_fuel_qty2, fuel_qty2, 63.7+60.7);
+	set_tape(p_meds_apu.tape_fuel_qty3, fuel_qty3, 63.7+60.7);
+
+	if (fuel_qty1 < 0.2) 
+		{p_meds_apu.tape_fuel_qty1.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_fuel_qty1.setColorFill(0.0, 1.0, 0.0);}
+
+	if (fuel_qty2 < 0.2) 
+		{p_meds_apu.tape_fuel_qty2.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_fuel_qty2.setColorFill(0.0, 1.0, 0.0);}
+
+	if (fuel_qty3 < 0.2) 
+		{p_meds_apu.tape_fuel_qty3.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_fuel_qty3.setColorFill(0.0, 1.0, 0.0);}
+
+	# APU hydrazine fuel pressure
+
+	var fuel_p1 = 350.0 * 0.2/ (1.2 -fuel_qty1);
+	var fuel_p2 = 350.0 * 0.2/ (1.2 -fuel_qty2);
+	var fuel_p3 = 350.0 * 0.2/ (1.2 -fuel_qty3);
+
+	p_meds_apu.fuelP1.setText(sprintf("%4.0f", fuel_p1));
+	p_meds_apu.fuelP2.setText(sprintf("%4.0f", fuel_p2));
+	p_meds_apu.fuelP3.setText(sprintf("%4.0f", fuel_p3));
+
+	set_tape(p_meds_apu.tape_fuelP1, fuel_p1/500.0, 60.7 + 63.7);
+	set_tape(p_meds_apu.tape_fuelP2, fuel_p2/500.0, 60.7 + 63.7);
+	set_tape(p_meds_apu.tape_fuelP3, fuel_p3/500.0, 60.7 + 63.7);
 
 
 	# hydraulic pressure
@@ -104,6 +167,22 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.oilT1.setText(sprintf("%4.0f", oil_in_T1 ));
 	p_meds_apu.oilT2.setText(sprintf("%4.0f", oil_in_T2 ));
 	p_meds_apu.oilT3.setText(sprintf("%4.0f", oil_in_T3 ));
+
+	set_tape(p_meds_apu.tape_oilT1, oil_in_T1/500.0, 170.4+60.7);
+	set_tape(p_meds_apu.tape_oilT2, oil_in_T2/500.0, 170.4+60.7);
+	set_tape(p_meds_apu.tape_oilT3, oil_in_T3/500.0, 170.4+60.7);
+
+	if ((oil_in_T1 < 45.0) or (oil_in_T1 > 290.0))
+		{p_meds_apu.tape_oilT1.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_oilT1.setColorFill(0.0, 1.0, 0.0);}
+
+	if ((oil_in_T2 < 45.0) or (oil_in_T2 > 290.0))
+		{p_meds_apu.tape_oilT2.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_oilT2.setColorFill(0.0, 1.0, 0.0);}
+
+	if ((oil_in_T3 < 45.0) or (oil_in_T3 > 290.0))
+		{p_meds_apu.tape_oilT3.setColorFill(1.0, 0.0, 0.0);}
+	else {p_meds_apu.tape_oilT3.setColorFill(0.0, 1.0, 0.0);}
 
     }
 
