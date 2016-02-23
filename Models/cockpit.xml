@@ -2049,8 +2049,6 @@
     <!-- Panel R1                                                                                                                         -->
     <!-- ******************************************************************* -->
 
-    <!-- ********** Fuel Cell 1  **********-->
-
     <!-- FC1 Reactant Valve "Switch"-->
     <animation>
         <type>knob</type>
@@ -2092,7 +2090,91 @@
             </binding>
         </hovered>
     </animation>
- 
+
+    <!-- FC2 Reactant Valve "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>fc1-valve</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8318</x-m>
+            <y-m>  1.3337 </y-m>
+            <z-m> -0.7153</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc1-valve</tooltip-id>
+                <label>FC2 Reactant Valve: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC3 Reactant Valve "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>fc2-valve</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8348</x-m>
+            <y-m>  1.3431 </y-m>
+            <z-m> -0.6769</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc2-valve</tooltip-id>
+                <label>FC3 Reactant Valve: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
     <!-- FC1 reac o2 "Talkback" -->
     <animation>
@@ -2128,8 +2210,78 @@
             </not>
         </condition>
     </animation>
+
+    <!-- FC2 reac o2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-o2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-o2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- FC2 reac h2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-h2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc1-reac-h2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- FC3 reac o2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-o2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-o2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
+    <!-- FC3 reac h2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-h2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc2-reac-h2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
+            </not>
+        </condition>
+    </animation>
     <!-- end NOTE: -->
-    
+
     <!-- FC1 Start/Stop "Push Button"-->
     <animation>
         <type>translate</type>
@@ -2169,6 +2321,84 @@
         </hovered>
     </animation>
 
+    <!-- FC2 Start/Stop "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc1-start-cmd</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc1-start-cmd</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc1-start-cmd</tooltip-id>
+            <label>FC2 Start/Stop: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC3 Start/Stop "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc2-start-cmd</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc2-start-cmd</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc2-start-cmd</tooltip-id>
+            <label>FC3 Start/Stop: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+          </binding>
+        </hovered>
+    </animation>
+
     <!-- Ready For Load 1 "Talkback" -->
     <animation>
         <type>select</type>
@@ -2176,6 +2406,28 @@
         <condition>
             <not>
                 <property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Ready For Load 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc1-rfl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Ready For Load 3 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc2-rfl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
             </not>
         </condition>
     </animation>
@@ -2218,7 +2470,85 @@
           </binding>
         </hovered>
     </animation>
-    
+
+    <!-- FC Main Bus B "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc1-connector</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc1-connector</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc1-connector</tooltip-id>
+            <label>FC Main Bus B: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC Main Bus C "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>fc2-connector</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fc2-connector</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>fc2-connector</tooltip-id>
+            <label>FC Main Bus C: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+          </binding>
+        </hovered>
+    </animation>
+
     <!--FC MB A "Talkback" -->
     <animation>
         <type>select</type>
@@ -2233,6 +2563,42 @@
         <condition>
             <not>
                 <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!--FC MB B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-b-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-b-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!--FC MB C "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-c-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>fc-mb-c-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
             </not>
         </condition>
     </animation>
@@ -2279,6 +2645,90 @@
         </hovered>
     </animation>
 
+    <!-- Main Bus Tie B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>tie1-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1792</x-m>
+            <y-m>  1.226 </y-m>
+            <z-m> -0.6934 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tie1-switch</tooltip-id>
+                <label>Main Bus Tie B: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Main Bus Tie C "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>tie2-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1758</x-m>
+            <y-m>  1.2158 </y-m>
+            <z-m> -0.7354 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tie2-switch</tooltip-id>
+                <label>Main Bus Tie C: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- Main Bus Tie A "Talkback" -->
     <animation>
         <type>select</type>
@@ -2293,6 +2743,42 @@
         <condition>
             <not>
                 <property>/fdm/jsbsim/systems/electrical/bus/tie-switch</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Main Bus Tie B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-b-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-b-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Main Bus Tie C "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-c-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>mb-tie-c-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
             </not>
         </condition>
     </animation>
@@ -2339,6 +2825,90 @@
         </hovered>
     </animation>
 
+    <!-- AC Inverter Power 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>inverter1-power-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1162</x-m>
+            <y-m>  1.2341 </y-m>
+            <z-m> -0.7397</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>inverter1-power-switch</tooltip-id>
+                <label>AC Inverter Power 2: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Inverter Power 3 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>inverter2-power-switch</object-name>
+        <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1111</x-m>
+            <y-m>  1.2185 </y-m>
+            <z-m> -0.8035</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>inverter2-power-switch</tooltip-id>
+                <label>AC Inverter Power 3: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- AC Inverter Power 1 "Talkback" -->
     <animation>
         <type>select</type>
@@ -2353,6 +2923,42 @@
         <condition>
             <not>
                 <property>/fdm/jsbsim/systems/electrical/ac/inverter-power-switch</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- AC Inverter Power 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr1-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr1-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- AC Inverter Power 3 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr2-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-pwr2-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
             </not>
         </condition>
     </animation>
@@ -2399,332 +3005,6 @@
         </hovered>
     </animation>
 
-   <!-- Inverter AC Bus 1 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>inv-ac0-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>inv-ac0-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- ********** Fuel Cell 2  **********-->
-
-    <!-- FC2 Reactant Valve "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>fc1-valve</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-11.8318</x-m>
-            <y-m>  1.3337 </y-m>
-            <z-m> -0.7153</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>fc1-valve</tooltip-id>
-                <label>FC2 Reactant Valve: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-            </binding>
-        </hovered>
-    </animation>
-    
-    <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
-    <!-- FC2 reac o2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc1-reac-o2-op</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc1-reac-o2-cl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-            </not>
-        </condition>
-    </animation>
-    <!-- FC2 reac h2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc1-reac-h2-op</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc1-reac-h2-cl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-            </not>
-        </condition>
-    </animation>
-    <!-- end NOTE: -->
-
-    <!-- FC2 Start/Stop "Push Button"-->
-    <animation>
-        <type>translate</type>
-        <object-name>fc1-start-cmd</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-        <factor>0.008</factor>
-        <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
-        </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc1-start-cmd</object-name>
-        <visible>true</visible>
-        <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
-        </action>
-        <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc1-start-cmd</tooltip-id>
-            <label>FC2 Start/Stop: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!-- Ready For Load 2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc1-rfl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- FC Main Bus B "Push Button"-->
-    <animation>
-        <type>translate</type>
-        <object-name>fc1-connector</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-        <factor>0.008</factor>
-        <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
-        </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc1-connector</object-name>
-        <visible>true</visible>
-        <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
-        </action>
-        <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc1-connector</tooltip-id>
-            <label>FC Main Bus B: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!--FC MB B "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc-mb-b-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc-mb-b-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- Main Bus Tie B "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>tie1-switch</object-name>
-        <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-12.1792</x-m>
-            <y-m>  1.226 </y-m>
-            <z-m> -0.6934 </z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>tie1-switch</tooltip-id>
-                <label>Main Bus Tie B: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- Main Bus Tie B "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>mb-tie-b-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>mb-tie-b-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/bus[1]/tie-switch</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- AC Inverter Power 2 "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>inverter1-power-switch</object-name>
-        <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-12.1162</x-m>
-            <y-m>  1.2341 </y-m>
-            <z-m> -0.7397</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>inverter1-power-switch</tooltip-id>
-                <label>AC Inverter Power 2: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- AC Inverter Power 2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>inv-pwr1-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>inv-pwr1-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/ac[1]/inverter-power-switch</property>
-            </not>
-        </condition>
-    </animation>
-
     <!-- Inverter AC Bus 2 "Switch"-->
     <animation>
         <type>knob</type>
@@ -2765,332 +3045,6 @@
                 <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
             </binding>
         </hovered>
-    </animation>
-
-    <!-- Inverter AC Bus 2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>inv-ac1-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>inv-ac1-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- ********** Fuel Cell 3 **********-->
-
-    <!-- FC3 Reactant Valve "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>fc2-valve</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-11.8348</x-m>
-            <y-m>  1.3431 </y-m>
-            <z-m> -0.6769</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>fc2-valve</tooltip-id>
-                <label>FC3 Reactant Valve: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- NOTE: Reactant valve talkbacks are part of a redundant system and can also be tripped directly by breaker bus (I think).-->
-    <!-- FC3 reac o2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc2-reac-o2-op</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc2-reac-o2-cl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-            </not>
-        </condition>
-    </animation>
-    <!-- FC3 reac h2 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc2-reac-h2-op</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc2-reac-h2-cl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-            </not>
-        </condition>
-    </animation>
-    <!-- end NOTE: -->
-
-    <!-- FC3 Start/Stop "Push Button"-->
-    <animation>
-        <type>translate</type>
-        <object-name>fc2-start-cmd</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-        <factor>0.008</factor>
-        <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
-        </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc2-start-cmd</object-name>
-        <visible>true</visible>
-        <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
-        </action>
-        <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc2-start-cmd</tooltip-id>
-            <label>FC3 Start/Stop: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!-- Ready For Load 3 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc2-rfl</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- FC Main Bus C "Push Button"-->
-    <animation>
-        <type>translate</type>
-        <object-name>fc2-connector</object-name>
-        <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-        <factor>0.008</factor>
-        <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
-        </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc2-connector</object-name>
-        <visible>true</visible>
-        <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
-        </action>
-        <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc2-connector</tooltip-id>
-            <label>FC Main Bus C: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!--FC MB C "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>fc-mb-c-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>fc-mb-c-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- Main Bus Tie C "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>tie2-switch</object-name>
-        <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-12.1758</x-m>
-            <y-m>  1.2158 </y-m>
-            <z-m> -0.7354 </z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>tie2-switch</tooltip-id>
-                <label>Main Bus Tie C: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- Main Bus Tie C "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>mb-tie-c-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>mb-tie-c-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/bus[2]/tie-switch</property>
-            </not>
-        </condition>
-    </animation>
-
-    <!-- AC Inverter Power 3 "Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>inverter2-power-switch</object-name>
-        <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-        <factor>-25</factor>
-        <offset-deg>20</offset-deg>
-        <center>
-            <x-m>-12.1111</x-m>
-            <y-m>  1.2185 </y-m>
-            <z-m> -0.8035</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>inverter2-power-switch</tooltip-id>
-                <label>AC Inverter Power 3: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- AC Inverter Power 3 "Talkback" -->
-    <animation>
-        <type>select</type>
-        <object-name>inv-pwr2-on</object-name>
-        <condition>
-            <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-        </condition>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>inv-pwr2-off</object-name>
-        <condition>
-            <not>
-                <property>/fdm/jsbsim/systems/electrical/ac[2]/inverter-power-switch</property>
-            </not>
-        </condition>
     </animation>
 
     <!-- Inverter AC Bus 3 "Switch"-->
@@ -3135,6 +3089,42 @@
         </hovered>
     </animation>
 
+   <!-- Inverter AC Bus 1 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac0-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac0-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac/inv-ac-switch</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Inverter AC Bus 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac1-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>inv-ac1-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/ac[1]/inv-ac-switch</property>
+            </not>
+        </condition>
+    </animation>
+
     <!--  Inverter AC Bus 3 "Talkback" -->
     <animation>
         <type>select</type>
@@ -3153,7 +3143,7 @@
         </condition>
     </animation>
 
-      <!-- for testing only
+      <!-- three way switch for testing only
     <animation>
         <type>knob</type>
         <object-name>F6SW-1-7</object-name>
