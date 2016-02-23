@@ -51,6 +51,7 @@ var PFD_addpage_p_meds_oms_mps = func(device)
     p_meds_oms_mps.tape_regP_center = device.svg.getElementById("p_meds_oms_mps_tape_regP_center"); 
     p_meds_oms_mps.tape_regP_pneu = device.svg.getElementById("p_meds_oms_mps_tape_regP_pneu"); 
 
+
     p_meds_oms_mps.tape_Pc_left = device.svg.getElementById("p_meds_oms_mps_tape_Pc_left"); 
     p_meds_oms_mps.tape_Pc_right = device.svg.getElementById("p_meds_oms_mps_tape_Pc_right"); 
     p_meds_oms_mps.tape_Pc_center = device.svg.getElementById("p_meds_oms_mps_tape_Pc_center"); 
@@ -106,7 +107,7 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 	var p_He_left_display = (mps_left_He_pressure - 1000.0)/4000.0;
 	var p_He_right_display = (mps_right_He_pressure - 1000.0)/4000.0;
 	var p_He_center_display = (mps_center_He_pressure - 1000.0)/4000.0;
-	var p_He_pneu_display = (mps_center_He_pressure - 3000.0)/2000.0;
+	var p_He_pneu_display = (mps_pneu_He_pressure - 3000.0)/2000.0;
 
 	var p_He_oleft_display = oms_left_He_pressure/5000.0;
 	var p_He_oright_display = oms_right_He_pressure/5000.0;
