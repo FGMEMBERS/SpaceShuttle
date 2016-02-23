@@ -185,6 +185,7 @@
 		    <mps-he-left-condition type="double">1.0</mps-he-left-condition>
 		    <mps-he-right-condition type="double">1.0</mps-he-right-condition>
 		    <mps-he-center-condition type="double">1.0</mps-he-center-condition>
+		    <mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
 		    <srb1-condition type="double">1.0</srb1-condition>
 		    <srb2-condition type="double">1.0</srb2-condition>
 		    <oms1-condition type="double">1.0</oms1-condition>
