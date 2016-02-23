@@ -8,6 +8,7 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
+
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
@@ -2045,7 +2046,7 @@
     </animation>
 
     <!-- ******************************************************************* -->
-    <!-- Panel R1 -->
+    <!-- Panel R1                                                                                                                         -->
     <!-- ******************************************************************* -->
 
     <!-- ********** Fuel Cell 1  **********-->
@@ -2173,7 +2174,9 @@
         <type>select</type>
         <object-name>fc0-rfl</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc/fc-ready-for-load</property>
+            </not>
         </condition>
     </animation>
 
@@ -2539,7 +2542,9 @@
         <type>select</type>
         <object-name>fc1-rfl</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-ready-for-load</property>
+            </not>
         </condition>
     </animation>
 
@@ -2905,7 +2910,9 @@
         <type>select</type>
         <object-name>fc2-rfl</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
+            <not>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-ready-for-load</property>
+            </not>
         </condition>
     </animation>
 
