@@ -125,18 +125,6 @@
         <object-name>MFDR2_B4</object-name>
         <object-name>MFDR2_B5</object-name>
         <object-name>MFDR2_B6</object-name>
-        <object-name>Fwd_Equipment_Knobs.001</object-name>
-        <object-name>Fwd_Equipment_Knobs.002</object-name>
-        <object-name>Fwd_Equipment_Knobs.003</object-name>
-        <object-name>Fwd_Equipment_Knobs.004</object-name>
-        <object-name>Fwd_Equipment_Knobs.005</object-name>
-        <object-name>Fwd_Equipment_Knobs.006</object-name>
-        <object-name>Fwd_Equipment_Knobs.007</object-name>
-        <object-name>Fwd_Equipment_Knobs.008</object-name>
-        <object-name>Fwd_Equipment_Knobs.009</object-name>
-        <object-name>Fwd_Equipment_Knobs.010</object-name>
-        <object-name>Fwd_Equipment_Knobs.011</object-name>
-        <object-name>Fwd_Equipment_Knobs.012</object-name>
         <object-name>Fwd_Equipment_Knobs.013</object-name>
         <object-name>Fwd_Equipment_Knobs.014</object-name>
         <object-name>Fwd_Equipment_Knobs.015</object-name>
@@ -146,46 +134,15 @@
         <object-name>Fwd_Equipment_Knobs.019</object-name>
         <object-name>Fwd_Equipment_Knobs.020</object-name>
         <object-name>Fwd_Equipment_Knobs.021</object-name>
-        <object-name>Fwd_Equipment_Knobs.022</object-name>
-        <object-name>Fwd_Equipment_Knobs.023</object-name>
-        <object-name>Fwd_Equipment_Knobs.024</object-name>
-        <object-name>Fwd_Equipment_Knobs.025</object-name>
-        <object-name>Fwd_Equipment_Knobs.026</object-name>
-        <object-name>Fwd_Equipment_Knobs.027</object-name>
         <object-name>Fwd_Equipment_Knobs.028</object-name>
         <object-name>Fwd_Equipment_Knobs.029</object-name>
         <object-name>Fwd_Equipment_Knobs.030</object-name>
         <object-name>Fwd_Equipment_Knobs.031</object-name>
-        <object-name>Fwd_Equipment_Knobs.032</object-name>
-        <object-name>Fwd_Equipment_Knobs.033</object-name>
-        <object-name>Fwd_Equipment_Knobs.034</object-name>
-        <object-name>Fwd_Equipment_Knobs.035</object-name>
-        <object-name>Fwd_Equipment_Knobs.036</object-name>
-        <object-name>Fwd_Equipment_Knobs.037</object-name>
         <object-name>Fwd_Equipment_Knobs.038</object-name>
         <object-name>Fwd_Equipment_Knobs.039</object-name>
-        <object-name>Fwd_Equipment_Knobs.040</object-name>
-        <object-name>Fwd_Equipment_Knobs.041</object-name>
-        <object-name>Fwd_Equipment_Knobs.042</object-name>
-        <object-name>Fwd_Equipment_Knobs.043</object-name>
-        <object-name>Fwd_Equipment_Knobs.044</object-name>
-        <object-name>Fwd_Equipment_Knobs.045</object-name>
         <object-name>Fwd_Equipment_Knobs.046</object-name>
         <object-name>Fwd_Equipment_Knobs.047</object-name>
-        <object-name>Fwd_Equipment_Knobs.048</object-name>
-        <object-name>Fwd_Equipment_Knobs.049</object-name>
-        <object-name>Fwd_Equipment_Knobs.050</object-name>
-        <object-name>Fwd_Equipment_Knobs.051</object-name>
-        <object-name>Fwd_Equipment_Knobs.052</object-name>
-        <object-name>Fwd_Equipment_Knobs.053</object-name>
         <object-name>Fwd_Equipment_Knobs.054</object-name>
-        <object-name>Fwd_Equipment_Knobs.055</object-name>
-        <object-name>Fwd_Equipment_Knobs.056</object-name>
-        <object-name>Fwd_Equipment_Knobs.057</object-name>
-        <object-name>Fwd_Equipment_Knobs.058</object-name>
-        <object-name>Fwd_Equipment_Knobs.059</object-name>
-        <object-name>Fwd_Equipment_Knobs.060</object-name>
-        <object-name>Fwd_Equipment_Knobs.061</object-name>  
         <object-name>fc0-connector</object-name>
         <object-name>fc0-start-cmd</object-name>
         <object-name>fc0-valve</object-name>
@@ -204,6 +161,100 @@
         <object-name>inv2-ac-switch</object-name>
         <object-name>inverter2-power-switch</object-name>
         <object-name>tie2-switch</object-name>
+        <!--Panel R1 switches not connected yet -->
+            <object-name>ac-bus-snsr</object-name>
+            <object-name>ac-bus-snsr2</object-name>
+            <object-name>ac-bus-snsr3</object-name>
+            <object-name>ac-cont-1a</object-name>
+            <object-name>ac-cont-1b</object-name>
+            <object-name>ac-cont-1c</object-name>
+            <object-name>ac-cont-2a</object-name>
+            <object-name>ac-cont-2b</object-name>
+            <object-name>ac-cont-2c</object-name>
+            <object-name>ac-cont-3a</object-name>
+            <object-name>ac-cont-3b</object-name>
+            <object-name>ac-cont-3c</object-name>
+            <object-name>cont-bus-pwr-mn-a</object-name>
+            <object-name>cont-bus-pwr-mn-b</object-name>
+            <object-name>cont-bus-pwr-mn-c</object-name>
+            <object-name>ess-bus-src-fc1</object-name>
+            <object-name>ess-bus-src-fc2</object-name>
+            <object-name>ess-bus-src-fc3</object-name>
+            <object-name>ess-bus-src-mn-ab</object-name>
+            <object-name>ess-bus-src-mn-bc</object-name>
+            <object-name>ess-bus-src-mn-ca</object-name>
+            <object-name>h2-man-valve-1</object-name>
+            <object-name>h2-man-valve-2</object-name>
+            <object-name>h2-tank1a-heat</object-name>
+            <object-name>h2-tank1b-heat</object-name>
+            <object-name>h2-tank2a-heat</object-name>
+            <object-name>h2-tank2b-heat</object-name>
+            <object-name>h2-tank3a-heat</object-name>
+            <object-name>h2-tank3b-heat</object-name>
+            <object-name>o2-man-valve-1</object-name>
+            <object-name>o2-man-valve-2</object-name>
+            <object-name>o2-tank1-r-t</object-name>
+            <object-name>o2-tank2-r-t</object-name>
+            <object-name>o2-tank3-r-t</object-name>
+            <object-name>o2-tank1a-heat</object-name>
+            <object-name>o2-tank1b-heat</object-name>
+            <object-name>o2-tank2a-heat</object-name>
+            <object-name>o2-tank2b-heat</object-name>
+            <object-name>o2-tank3a-heat</object-name>
+            <object-name>o2-tank3b-heat</object-name>
+            <object-name>pl-aft-mn-b</object-name>
+            <object-name>pl-aft-mn-c</object-name>
+            <object-name>pl-aux</object-name>
+            <object-name>pl-cabin-mn-a</object-name>
+            <object-name>pl-pri-fc3</object-name>
+            <object-name>pl-pri-mn-b</object-name>
+            <object-name>pl-pri-mn-c</object-name>
+        <!-- End R1 switches not yet connected -->
+    <!-- no longer used and can be deleted
+        <object-name>Fwd_Equipment_Knobs.001</object-name>
+        <object-name>Fwd_Equipment_Knobs.002</object-name>
+        <object-name>Fwd_Equipment_Knobs.003</object-name>
+        <object-name>Fwd_Equipment_Knobs.004</object-name>
+        <object-name>Fwd_Equipment_Knobs.005</object-name>
+        <object-name>Fwd_Equipment_Knobs.006</object-name>
+        <object-name>Fwd_Equipment_Knobs.007</object-name>
+        <object-name>Fwd_Equipment_Knobs.008</object-name>
+        <object-name>Fwd_Equipment_Knobs.009</object-name>
+        <object-name>Fwd_Equipment_Knobs.010</object-name>
+        <object-name>Fwd_Equipment_Knobs.011</object-name>
+        <object-name>Fwd_Equipment_Knobs.012</object-name>
+        <object-name>Fwd_Equipment_Knobs.022</object-name>
+        <object-name>Fwd_Equipment_Knobs.023</object-name>
+        <object-name>Fwd_Equipment_Knobs.024</object-name>
+        <object-name>Fwd_Equipment_Knobs.025</object-name>
+        <object-name>Fwd_Equipment_Knobs.026</object-name>
+        <object-name>Fwd_Equipment_Knobs.027</object-name>
+        <object-name>Fwd_Equipment_Knobs.032</object-name>
+        <object-name>Fwd_Equipment_Knobs.033</object-name>
+        <object-name>Fwd_Equipment_Knobs.034</object-name>
+        <object-name>Fwd_Equipment_Knobs.035</object-name>
+        <object-name>Fwd_Equipment_Knobs.036</object-name>
+        <object-name>Fwd_Equipment_Knobs.037</object-name>
+        <object-name>Fwd_Equipment_Knobs.040</object-name>
+        <object-name>Fwd_Equipment_Knobs.041</object-name>
+        <object-name>Fwd_Equipment_Knobs.042</object-name>
+        <object-name>Fwd_Equipment_Knobs.043</object-name>
+        <object-name>Fwd_Equipment_Knobs.044</object-name>
+        <object-name>Fwd_Equipment_Knobs.045</object-name>
+        <object-name>Fwd_Equipment_Knobs.048</object-name>
+        <object-name>Fwd_Equipment_Knobs.049</object-name>
+        <object-name>Fwd_Equipment_Knobs.050</object-name>
+        <object-name>Fwd_Equipment_Knobs.051</object-name>
+        <object-name>Fwd_Equipment_Knobs.052</object-name>
+        <object-name>Fwd_Equipment_Knobs.053</object-name>
+        <object-name>Fwd_Equipment_Knobs.055</object-name>
+        <object-name>Fwd_Equipment_Knobs.056</object-name>
+        <object-name>Fwd_Equipment_Knobs.057</object-name>
+        <object-name>Fwd_Equipment_Knobs.058</object-name>
+        <object-name>Fwd_Equipment_Knobs.059</object-name>
+        <object-name>Fwd_Equipment_Knobs.060</object-name>
+        <object-name>Fwd_Equipment_Knobs.061</object-name>  
+        -->
     </effect>
 
     <effect>
@@ -232,6 +283,15 @@
         <object-name>inv-ac2-on</object-name>
         <object-name>inv-pwr2-on</object-name>
         <object-name>mb-tie-c-on</object-name>
+        <!--Panel R1 switches not connected yet -->
+        <object-name>h2-mv1-op</object-name>
+        <object-name>h2-mv2-op</object-name>
+        <object-name>o2-mv1-op</object-name>
+        <object-name>o2-mv2-op</object-name>
+        <object-name>pri-fc3-on</object-name>
+        <object-name>pri-mn-b-on</object-name>
+        <object-name>pri-mn-c-on</object-name>
+        <!-- End R1 switches not yet connected -->
     </effect>
 
     <effect>
@@ -253,7 +313,16 @@
         <object-name>fc-mb-c-off</object-name>
         <object-name>inv-ac2-off</object-name>
         <object-name>inv-pwr2-off</object-name>
-        <object-name>mb-tie-c-off</object-name>        
+        <object-name>mb-tie-c-off</object-name>
+        <!--Panel R1 switches not connected yet -->
+        <object-name>h2-mv1-cl</object-name>
+        <object-name>h2-mv2-cl</object-name>
+        <object-name>o2-mv1-cl</object-name>
+        <object-name>o2-mv2-cl</object-name>
+        <object-name>pri-fc3-off</object-name>
+        <object-name>pri-mn-b-off</object-name>
+        <object-name>pri-mn-c-off</object-name>
+        <!-- End R1 switches not yet connected -->
     </effect>
 
     <effect>
@@ -275,6 +344,14 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
+        <!--Panel R1 switches not connected yet -->
+            <object-name>h2-mv-1-base</object-name>
+            <object-name>h2-mv-2-base</object-name>
+            <object-name>o2-mv-1-base</object-name>
+            <object-name>o2-mv-2-base</object-name>
+            <object-name>pri-fc3-base</object-name>
+            <object-name>pri-mn-b-base</object-name>
+        <!-- End R1 switches not yet connected -->
     </effect>
 
     <animation>
