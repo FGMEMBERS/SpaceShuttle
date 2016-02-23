@@ -106,3 +106,9 @@ var jet_option = func (flag)
     else {return "NOSE";}
 
 }
+
+var set_tape = func (handle, value, offset) {
+    handle.setScale(1.0, value);
+    handle.setTranslation(0.0, (1.0-value) * offset);
+}
+
