@@ -26668,10 +26668,10 @@
        inkscape:connector-curvature="0" /><path
        style="display:inline;fill:#00a6d6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 272.923,247.05 -15,0 7.254,15 z"
-       id="path4792"
+       id="p_meds_spi_marker_sb_cmd"
        inkscape:connector-curvature="0" /><path
        inkscape:connector-curvature="0"
-       id="path4794"
+       id="p_meds_spi_marker_sb_act"
        d="m 272.923,242.85 -15,0 7.254,-15 z"
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;" /><path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
@@ -26861,7 +26861,7 @@
          id="tspan4899"
          x="259.07236"
          y="92.1278"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.75px;font-family:Sans;-inkscape-font-specification:Sans;text-align:start;text-anchor:start;fill:#1aca2f;fill-opacity:1;">L AIL</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.75px;font-family:Sans;-inkscape-font-specification:Sans;text-align:start;text-anchor:start;fill:#1aca2f;fill-opacity:1;">L RUD</tspan></text>
 <text
        sodipodi:linespacing="125%"
        id="text4901"
@@ -26873,7 +26873,7 @@
          y="92.1278"
          x="427.52704"
          id="tspan4903"
-         sodipodi:role="line">R AIL</tspan></text>
+         sodipodi:role="line">R RUD</tspan></text>
 <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:OcrB;-inkscape-font-specification:'OcrB, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
@@ -26885,7 +26885,7 @@
          id="tspan4907"
          x="344.74228"
          y="25.364422"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.75px;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff;">AILERON-DEG</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.75px;font-family:Sans;-inkscape-font-specification:Sans;fill:#ffffff;">RUDDER-DEG</tspan></text>
 <text
        sodipodi:linespacing="125%"
        id="text4909"
@@ -26897,7 +26897,7 @@
          y="25.364422"
          x="344.74228"
          id="tspan4911"
-         sodipodi:role="line">AILERON-DEG</tspan></text>
+         sodipodi:role="line">RUDDER-DEG</tspan></text>
 <path
        style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        d="m 407.302,50.9247 0,6.375"
@@ -26984,16 +26984,16 @@
          sodipodi:role="line">20</tspan></text>
 <path
        inkscape:connector-curvature="0"
-       id="path4883"
+       id="p_meds_spi_marker_aileron_deg"
        d="m 351.823,66.1497 -15,0 7.254,-15 z"
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;"
        sodipodi:nodetypes="cccc" /><path
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 351.823,148.35 -15,0 7.254,-15 z"
-       id="path4847"
+       id="p_meds_spi_marker_aileron_fine"
        inkscape:connector-curvature="0" /><text
        sodipodi:linespacing="125%"
-       id="text4971"
+       id="p_meds_spi_sb_act"
        y="202.79547"
        x="423.0658"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:OcrB;-inkscape-font-specification:'OcrB, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffc400;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
@@ -27014,7 +27014,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:OcrB;-inkscape-font-specification:'OcrB, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#00a6d6;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="423.0658"
        y="281.92023"
-       id="text4981"
+       id="p_meds_spi_sb_cmd"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4983"
@@ -27387,23 +27387,23 @@
        style="opacity:1;fill:#6b8689;fill-opacity:1;fill-rule:nonzero;stroke:#1d1a19;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        transform="matrix(0,1,-1,0,0,0)" /><path
        inkscape:connector-curvature="0"
-       id="path5115"
+       id="p_meds_spi_marker_right_inboard"
        d="m 121.627,191.611 0,-15 -15,7.254 z"
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;" /><path
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 184.273,80.7207 0,-15 15,7.2541 z"
-       id="path5117"
+       id="p_meds_spi_marker_body_flap"
        inkscape:connector-curvature="0" /><path
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 127.477,191.611 0,-15 15,7.254 z"
-       id="path5119"
+       id="p_meds_spi_marker_right_outboard"
        inkscape:connector-curvature="0" /><path
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 43.2753,191.646 0,-15 -15,7.254 z"
-       id="path5121"
+       id="p_meds_spi_marker_left_outboard"
        inkscape:connector-curvature="0" /><path
        inkscape:connector-curvature="0"
-       id="path5123"
+       id="p_meds_spi_marker_left_inboard"
        d="m 49.1253,191.646 0,-15 15,7.254 z"
        style="display:inline;fill:#ffc400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;" /><path
        id="path5131"
