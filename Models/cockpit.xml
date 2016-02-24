@@ -3143,27 +3143,179 @@
         </condition>
     </animation>
 
-      <!-- three way switch for testing only
+    <!-- ******************************************************************* -->
+    <!-- Panel R1                                                                                          -->
+    <!-- Un-coded switches and talkbacks                                                        -->
+    <!-- ******************************************************************* -->
+
+    <!-- Control Bus Pwr MN A "Spring Switch"-->
     <animation>
         <type>knob</type>
-        <object-name>F6SW-1-7</object-name>
-        <property>/fdm/jsbsim/systems/adi/toggle-switch</property>
-        <factor>-35</factor>
-        <offset-deg>0</offset-deg>
+        <object-name>cont-bus-pwr-mn-a</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-a</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
         <center>
-            <x-m>-12.3978</x-m>
-            <y-m>-0.5786</y-m>
-            <z-m>-0.7143</z-m>
+            <x-m>-12.3372</x-m>
+            <y-m>  1.1858 </y-m>
+            <z-m> -0.6509</z-m>
         </center>
         <axis>
-            <x>0</x>
-            <y>1</y>
+            <x>1</x>
+            <y>.3</y>
             <z>0</z>
         </axis>
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/adi/toggle-switch</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-a</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-a</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cont-bus-pwr-mn-a</tooltip-id>
+                <label>Control Bus Pwr MN A: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-a</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Control Bus Pwr MN B "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>cont-bus-pwr-mn-b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-b</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.3338</x-m>
+            <y-m>  1.1754 </y-m>
+            <z-m> -0.6936</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-b</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-b</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cont-bus-pwr-mn-b</tooltip-id>
+                <label>Control Bus Pwr MN B: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-b</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Control Bus Pwr MN C "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>cont-bus-pwr-mn-c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-c</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.3304</x-m>
+            <y-m>  1.1651 </y-m>
+            <z-m> -0.736</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-c</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-c</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cont-bus-pwr-mn-c</tooltip-id>
+                <label>Control Bus Pwr MN C: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/cont-bus-pwr-mn-c</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Bus SNSR 1 -->
+    <animation>
+        <type>knob</type>
+        <object-name>ac-bus-snsr1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr1</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.0127</x-m>
+            <y-m>1.2889</y-m>
+            <z-m>-0.6624</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr1</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -3174,11 +3326,577 @@
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ac-bus-snsr1</tooltip-id>
+                <label>AC Bus SNSR 1 DUMMY: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr1</property>
+            </binding>
+        </hovered>
     </animation>
-    end for testing only -->
-  
+
+    <!-- AC Bus SNSR 2-->
+    <animation>
+        <type>knob</type>
+        <object-name>ac-bus-snsr2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr2</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.0075</x-m>
+            <y-m>1.2732</y-m>
+            <z-m>-0.7266</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ac-bus-snsr2</tooltip-id>
+                <label>AC Bus SNSR 2 DUMMY: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Bus SNSR 3-->
+    <animation>
+        <type>knob</type>
+        <object-name>ac-bus-snsr3</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr3</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.0041</x-m>
+            <y-m>1.2628</y-m>
+            <z-m>-0.7899</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr3</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ac-bus-snsr3</tooltip-id>
+                <label>AC Bus SNSR 3 DUMMY: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/ac-bus-snsr3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 1a "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-1a</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1a</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-1a</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1a</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-1a</tooltip-id>
+            <label>AC Controller 1a DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1a</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 1b "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-1b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1b</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-1b</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1b</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-1b</tooltip-id>
+            <label>AC Controller 1b DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1b</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller1c "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-1c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1c</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-1c</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1c</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-1c</tooltip-id>
+            <label>AC Controller 1c DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-1c</property>
+          </binding>
+        </hovered>
+    </animation>
+
+   <!-- AC Controller 2a "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-2a</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2a</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-2a</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2a</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-2a</tooltip-id>
+            <label>AC Controller 2a DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2a</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 2b "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-2b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2b</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-2b</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2b</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-2b</tooltip-id>
+            <label>AC Controller 2b DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2b</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller2c "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-2c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2c</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-2c</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2c</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-2c</tooltip-id>
+            <label>AC Controller 2c DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-2c</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 3a "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-3a</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3a</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-3a</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3a</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-3a</tooltip-id>
+            <label>AC Controller 3a DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3a</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 3b "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-3b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3b</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-3b</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3b</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-3b</tooltip-id>
+            <label>AC Controller 3b DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3b</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC Controller 3c "Push Button"-->
+    <animation>
+        <type>translate</type>
+        <object-name>ac-cont-3c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3c</property>
+        <factor>0.008</factor>
+        <axis>
+          <x>-0.4</x>
+          <y>1.0</y>
+          <z>0.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ac-cont-3c</object-name>
+        <visible>true</visible>
+        <action>
+          <button>0</button>
+          <repeatable>false</repeatable>
+          <binding>
+            <command>property-toggle</command>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3c</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+          </binding>
+        </action>
+        <hovered>
+          <binding>
+            <command>set-tooltip</command>
+            <tooltip-id>ac-cont-3c</tooltip-id>
+            <label>AC Controller 3c DUMMY: %s</label>
+            <mapping>on-off</mapping>
+            <property>/fdm/jsbsim/systems/dummy/button/ac-cont-3c</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- ESS Bus Source FC1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-fc1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2665</x-m>
+            <y-m>  1.2089</y-m>
+            <z-m> -0.6509</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-fc1</tooltip-id>
+                <label>ESS Bus Source FC1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ESS Bus Source FC2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-fc2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2631</x-m>
+            <y-m>  1.1985</y-m>
+            <z-m> -0.6936</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-fc2</tooltip-id>
+                <label>ESS Bus Source FC2: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ESS Bus Source FC3 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-fc3</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2597</x-m>
+            <y-m>  1.1882</y-m>
+            <z-m> -0.736 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-fc3</tooltip-id>
+                <label>ESS Bus Source FC3: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+            </binding>
+        </hovered>
+    </animation>
+
  <!-- ******************************************************************* -->
- <!--  Commander RHC                                                      -->
+ <!--  Commander RHC                                                                               -->
  <!-- ******************************************************************* -->
  <model>
   <path>RHC-cmdr.xml</path>
