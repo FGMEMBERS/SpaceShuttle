@@ -206,56 +206,11 @@
             <object-name>pl-aft-mn-b</object-name>
             <object-name>pl-aft-mn-c</object-name>
             <object-name>pl-aux</object-name>
-            <object-name>pl-cabin-mn-a</object-name>
+            <object-name>pl-cabin</object-name>
             <object-name>pl-pri-fc3</object-name>
             <object-name>pl-pri-mn-b</object-name>
             <object-name>pl-pri-mn-c</object-name>
         <!-- End R1 switches not yet connected -->
-    <!-- no longer used and can be deleted
-        <object-name>Fwd_Equipment_Knobs.001</object-name>
-        <object-name>Fwd_Equipment_Knobs.002</object-name>
-        <object-name>Fwd_Equipment_Knobs.003</object-name>
-        <object-name>Fwd_Equipment_Knobs.004</object-name>
-        <object-name>Fwd_Equipment_Knobs.005</object-name>
-        <object-name>Fwd_Equipment_Knobs.006</object-name>
-        <object-name>Fwd_Equipment_Knobs.007</object-name>
-        <object-name>Fwd_Equipment_Knobs.008</object-name>
-        <object-name>Fwd_Equipment_Knobs.009</object-name>
-        <object-name>Fwd_Equipment_Knobs.010</object-name>
-        <object-name>Fwd_Equipment_Knobs.011</object-name>
-        <object-name>Fwd_Equipment_Knobs.012</object-name>
-        <object-name>Fwd_Equipment_Knobs.022</object-name>
-        <object-name>Fwd_Equipment_Knobs.023</object-name>
-        <object-name>Fwd_Equipment_Knobs.024</object-name>
-        <object-name>Fwd_Equipment_Knobs.025</object-name>
-        <object-name>Fwd_Equipment_Knobs.026</object-name>
-        <object-name>Fwd_Equipment_Knobs.027</object-name>
-        <object-name>Fwd_Equipment_Knobs.032</object-name>
-        <object-name>Fwd_Equipment_Knobs.033</object-name>
-        <object-name>Fwd_Equipment_Knobs.034</object-name>
-        <object-name>Fwd_Equipment_Knobs.035</object-name>
-        <object-name>Fwd_Equipment_Knobs.036</object-name>
-        <object-name>Fwd_Equipment_Knobs.037</object-name>
-        <object-name>Fwd_Equipment_Knobs.040</object-name>
-        <object-name>Fwd_Equipment_Knobs.041</object-name>
-        <object-name>Fwd_Equipment_Knobs.042</object-name>
-        <object-name>Fwd_Equipment_Knobs.043</object-name>
-        <object-name>Fwd_Equipment_Knobs.044</object-name>
-        <object-name>Fwd_Equipment_Knobs.045</object-name>
-        <object-name>Fwd_Equipment_Knobs.048</object-name>
-        <object-name>Fwd_Equipment_Knobs.049</object-name>
-        <object-name>Fwd_Equipment_Knobs.050</object-name>
-        <object-name>Fwd_Equipment_Knobs.051</object-name>
-        <object-name>Fwd_Equipment_Knobs.052</object-name>
-        <object-name>Fwd_Equipment_Knobs.053</object-name>
-        <object-name>Fwd_Equipment_Knobs.055</object-name>
-        <object-name>Fwd_Equipment_Knobs.056</object-name>
-        <object-name>Fwd_Equipment_Knobs.057</object-name>
-        <object-name>Fwd_Equipment_Knobs.058</object-name>
-        <object-name>Fwd_Equipment_Knobs.059</object-name>
-        <object-name>Fwd_Equipment_Knobs.060</object-name>
-        <object-name>Fwd_Equipment_Knobs.061</object-name>  
-        -->
     </effect>
 
     <effect>
@@ -352,6 +307,7 @@
             <object-name>o2-mv-2-base</object-name>
             <object-name>pri-fc3-base</object-name>
             <object-name>pri-mn-b-base</object-name>
+            <object-name>pri-mn-c-base</object-name>
         <!-- End R1 switches not yet connected -->
     </effect>
 
@@ -398,10 +354,8 @@
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
         <object-name>Floor_Panel</object-name>
-        <object-name>Fwd_Equipment_Group</object-name>
         <object-name>Fwd_Equipment_Guards</object-name>
-        <object-name>Fwd_Equipment_Guards.</object-name>
-        <object-name>Fwd_Equipment_Knobs</object-name>
+        <object-name>Fwd_Equipment_Covers</object-name>
         <object-name>Fwd_Base_Set</object-name>
         <object-name>Fwd_Base_Set.001</object-name>
         <object-name>Fwd_Base_Set.003</object-name>
@@ -3895,6 +3849,1359 @@
         </hovered>
     </animation>
 
+    <!-- ESS Bus Source MN BC "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-mn-bc</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.30185 </x-m>
+            <y-m>  1.1974</y-m>
+            <z-m> -0.6509 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-mn-bc</tooltip-id>
+                <label>ESS Bus Source MN BC: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ESS Bus Source MN CA "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-mn-ca</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2984 </x-m>
+            <y-m>  1.187</y-m>
+            <z-m> -0.6936 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-mn-ca</tooltip-id>
+                <label>ESS Bus Source MN CA: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ESS Bus Source MN AB "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>ess-bus-src-mn-ab</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.295 </x-m>
+            <y-m>  1.1766</y-m>
+            <z-m> -0.736 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ess-bus-src-mn-ab</tooltip-id>
+                <label>ESS Bus Source MN AB: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Manifold Valve 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-man-valve-1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7629</x-m>
+            <y-m>  1.3772</y-m>
+            <z-m> -0.6378</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-man-valve-1</tooltip-id>
+                <label>H2 Manifold Valve 1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Manifold Valve 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-man-valve-2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7595</x-m>
+            <y-m>  1.3668</y-m>
+            <z-m> -0.6805</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-man-valve-2</tooltip-id>
+                <label>H2 Manifold Valve 2: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 1A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank1a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7761</x-m>
+            <y-m>  1.3492</y-m>
+            <z-m> -0.7254</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank1a-heat</tooltip-id>
+                <label>H2 Tank 1A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 1B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank1b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7471</x-m>
+            <y-m>  1.3587</y-m>
+            <z-m> -0.7254</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank1b-heat</tooltip-id>
+                <label>H2 Tank 1B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 2A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank2a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7727</x-m>
+            <y-m>  1.3389</y-m>
+            <z-m> -0.7675</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank2a-heat</tooltip-id>
+                <label>H2 Tank 2A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 2B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank2b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7437</x-m>
+            <y-m>  1.3484</y-m>
+            <z-m> -0.7675</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank2b-heat</tooltip-id>
+                <label>H2 Tank 2B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 3A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank3a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7692</x-m>
+            <y-m>  1.3284</y-m>
+            <z-m> -0.8106</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank3a-heat</tooltip-id>
+                <label>H2 Tank 3A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Tank 3B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2-tank3b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.7403</x-m>
+            <y-m>  1.3378</y-m>
+            <z-m> -0.8106</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2-tank3b-heat</tooltip-id>
+                <label>H2 Tank 3B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Manifold Valve 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-man-valve-1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9122</x-m>
+            <y-m>  1.3283</y-m>
+            <z-m> -0.6379</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-man-valve-1</tooltip-id>
+                <label>O2 Manifold Valve 1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Manifold Valve 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-man-valve-2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9088</x-m>
+            <y-m>  1.3179</y-m>
+            <z-m> -0.6805</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-man-valve-2</tooltip-id>
+                <label>O2 Manifold Valve 2: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 1A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank1a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9475</x-m>
+            <y-m>  1.2931</y-m>
+            <z-m> -0.7254</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank1a-heat</tooltip-id>
+                <label>O2 Tank 1A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 1B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank1b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9199</x-m>
+            <y-m>  1.3021</y-m>
+            <z-m> -0.7254</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank1b-heat</tooltip-id>
+                <label>O2 Tank 1B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 2A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank2a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9441</x-m>
+            <y-m>  1.2828</y-m>
+            <z-m> -0.7676</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank2a-heat</tooltip-id>
+                <label>O2 Tank 2A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 2B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank2b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9166</x-m>
+            <y-m>  1.2918</y-m>
+            <z-m> -0.7676</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank2b-heat</tooltip-id>
+                <label>O2 Tank 2B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 3A Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank3a-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9407</x-m>
+            <y-m>  1.2723</y-m>
+            <z-m> -0.8107</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank3a-heat</tooltip-id>
+                <label>O2 Tank 3A Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 3B Heater "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank3b-heat</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.9131</x-m>
+            <y-m>  1.2813</y-m>
+            <z-m> -0.8106</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank3b-heat</tooltip-id>
+                <label>O2 Tank 3B Heater: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 1 Reset/Test "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank1-r-t</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1-r-t</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.891 </x-m>
+            <y-m>  1.3116</y-m>
+            <z-m> -0.7254</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1-r-t</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1-r-t</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank1-r-t</tooltip-id>
+                <label>O2 Tank 1 Reset/Test: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1-r-t</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 2 Reset/Test "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank2-r-t</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2-r-t</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8876</x-m>
+            <y-m>  1.3013</y-m>
+            <z-m> -0.7676</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2-r-t</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2-r-t</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank2-r-t</tooltip-id>
+                <label>O2 Tank 2 Reset/Test: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2-r-t</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Tank 3 Reset/Test "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-tank3-r-t</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3-r-t</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8842</x-m>
+            <y-m>  1.2908</y-m>
+            <z-m> -0.8106</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3-r-t</property>
+                <min>0</min>
+                <max>2</max>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3-r-t</property>
+                <step>0</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+        </release>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.click("avionics")</script>
+        </binding>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-tank3-r-t</tooltip-id>
+                <label>O2 Tank 3 Reset/Test: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3-r-t</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload AFT MN B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-aft-mn-b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1704</x-m>
+            <y-m>  1.1992</y-m>
+            <z-m> -0.8032</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-aft-mn-b</tooltip-id>
+                <label>Payload AFT MN B: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload AFT MN C "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-aft-mn-c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1478</x-m>
+            <y-m>  1.2066</y-m>
+            <z-m> -0.8032</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-aft-mn-c</tooltip-id>
+                <label>Payload AFT MN C: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload AUX MN C "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-aux</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2024</x-m>
+            <y-m>  1.1886</y-m>
+            <z-m> -0.8069</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-aux</tooltip-id>
+                <label>Payload AUX: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload Cabin "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-cabin</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.3135</x-m>
+            <y-m>  1.1522</y-m>
+            <z-m> -0.803 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-cabin</tooltip-id>
+                <label>Payload Cabin: %s</label>
+                <mapping>mna-mnb</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload Primary FC3 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-pri-fc3</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2591</x-m>
+            <y-m>  1.1723</y-m>
+            <z-m> -0.8037</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-pri-fc3</tooltip-id>
+                <label>Payload Primary FC3: %s</label>
+                <mapping>mna-mnb</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload Primary MN B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-pri-mn-b</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.28  </x-m>
+            <y-m>  1.1634</y-m>
+            <z-m> -0.8032</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-pri-mn-b</tooltip-id>
+                <label>Payload Primary MN B: %s</label>
+                <mapping>mna-mnb</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload Primary MN C "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>pl-pri-mn-c</object-name>
+        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+        <factor>-25</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2367</x-m>
+            <y-m>  1.1775</y-m>
+            <z-m> -0.8032</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pl-pri-mn-c</tooltip-id>
+                <label>Payload Primary MN C: %s</label>
+                <mapping>mna-mnb</mapping>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2 Manifold Valve 1 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>h2-mv1-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>h2-mv1-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- H2 Manifold Valve 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>h2-mv2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>h2-mv2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- O2 Manifold Valve 1 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>o2-mv1-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>o2-mv1-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- O2 Manifold Valve 2 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>o2-mv2-op</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>o2-mv2-cl</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Payload Primary FC3 "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>pri-fc3-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>pri-fc3-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Payload MN B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>pri-mn-b-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>pri-mn-b-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+            </not>
+        </condition>
+    </animation>
+
+    <!-- Payload MN C "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>pri-mn-c-on</object-name>
+        <condition>
+            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>pri-mn-c-off</object-name>
+        <condition>
+            <not>
+                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+            </not>
+        </condition>
+    </animation>
+
  <!-- ******************************************************************* -->
  <!--  Commander RHC                                                                               -->
  <!-- ******************************************************************* -->
@@ -3907,7 +5214,7 @@
   </offset>
  </model>
 
-<!-- Left Keypad -->
+<!-- Left Commander Keypad -->
 
  <animation>
   <type>pick</type>
@@ -4549,7 +5856,7 @@
   </hovered>
  </animation>
 
-<!-- Right Keypad -->
+<!-- Right Pilot Keypad -->
 
  <animation>
   <type>pick</type>
