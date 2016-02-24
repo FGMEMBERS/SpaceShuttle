@@ -13,6 +13,10 @@ var PFD_addpage_p_meds_apu = func(device)
     p_meds_apu.hyd_qty2 = device.svg.getElementById("p_meds_apu_hyd_qty2"); 
     p_meds_apu.hyd_qty3 = device.svg.getElementById("p_meds_apu_hyd_qty3"); 
 
+    p_meds_apu.tape_hyd_qty1 = device.svg.getElementById("p_meds_apu_tape_hyd_qty1"); 
+    p_meds_apu.tape_hyd_qty2 = device.svg.getElementById("p_meds_apu_tape_hyd_qty2"); 
+    p_meds_apu.tape_hyd_qty3 = device.svg.getElementById("p_meds_apu_tape_hyd_qty3"); 
+
     p_meds_apu.h2o_qty1 = device.svg.getElementById("p_meds_apu_h2o_qty1"); 
     p_meds_apu.h2o_qty2 = device.svg.getElementById("p_meds_apu_h2o_qty2"); 
     p_meds_apu.h2o_qty3 = device.svg.getElementById("p_meds_apu_h2o_qty3");
@@ -33,6 +37,10 @@ var PFD_addpage_p_meds_apu = func(device)
     p_meds_apu.hyd_p1 = device.svg.getElementById("p_dps_apu_hyd_p1"); 
     p_meds_apu.hyd_p2 = device.svg.getElementById("p_dps_apu_hyd_p2"); 
     p_meds_apu.hyd_p3 = device.svg.getElementById("p_dps_apu_hyd_p3"); 
+
+    p_meds_apu.tape_hyd_p1 = device.svg.getElementById("p_dps_apu_tape_hyd_p1");
+    p_meds_apu.tape_hyd_p2 = device.svg.getElementById("p_dps_apu_tape_hyd_p2"); 
+    p_meds_apu.tape_hyd_p3 = device.svg.getElementById("p_dps_apu_tape_hyd_p3");  
 
     p_meds_apu.oilT1 = device.svg.getElementById("p_meds_apu_oilT1"); 
     p_meds_apu.oilT2 = device.svg.getElementById("p_meds_apu_oilT2"); 
@@ -72,7 +80,9 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.hyd_qty2.setText("71");
 	p_meds_apu.hyd_qty3.setText("73");
 
-	
+	set_tape(p_meds_apu.tape_hyd_qty1, 0.75, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_qty2, 0.71, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_qty3, 0.73, 60.7 + 295.8);
     
 
     }
@@ -157,7 +167,22 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.hyd_p2.setText(sprintf("%4.0f", hyd_p2 ));
 	p_meds_apu.hyd_p3.setText(sprintf("%4.0f", hyd_p3 ));
 
+	set_tape(p_meds_apu.tape_hyd_p1, hyd_p1/4000.0, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_p2, hyd_p2/4000.0, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_p3, hyd_p3/4000.0, 60.7 + 295.8);
 	
+	if ((hyd_p1 < 500.0) or ((hyd_p1 > 1000.0) and (hyd_p1 < 2400.0)))
+		{p_meds_apu.tape_hyd_p1.setColorFill(1.0, 0.0, 0.0);}
+	else	{p_meds_apu.tape_hyd_p1.setColorFill(0.0, 1.0, 0.0);}
+
+	if ((hyd_p2 < 500.0) or ((hyd_p2 > 1000.0) and (hyd_p2 < 2400.0)))
+		{p_meds_apu.tape_hyd_p2.setColorFill(1.0, 0.0, 0.0);}
+	else	{p_meds_apu.tape_hyd_p2.setColorFill(0.0, 1.0, 0.0);}
+
+	if ((hyd_p3 < 500.0) or ((hyd_p3 > 1000.0) and (hyd_p3 < 2400.0)))
+		{p_meds_apu.tape_hyd_p3.setColorFill(1.0, 0.0, 0.0);}
+	else	{p_meds_apu.tape_hyd_p3.setColorFill(0.0, 1.0, 0.0);}
+
 	# APU oil in temperature
 
 	var oil_in_T1 = K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"));
