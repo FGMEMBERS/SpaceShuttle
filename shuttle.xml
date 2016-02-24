@@ -4141,6 +4141,5 @@
  <system file="autopilot"></system>
  <system file="navigation"></system>
  <system file="light"></system>
- <!--<system file="adi"></system>-->
- 
+
 </fdm_config>
