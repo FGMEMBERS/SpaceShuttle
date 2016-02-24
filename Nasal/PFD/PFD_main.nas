@@ -30,8 +30,9 @@
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
-# * p_meds_oms_mps
-# * p_meds_apu
+# * p_meds_oms_mps (MEDS OMS/MPS)
+# * p_meds_apu	(MEDS APU/HYD)
+# * p_meds_spi	(MEDS SPI)
 
 # color definitions
 
@@ -80,6 +81,7 @@ io.include("p_dps_cryo.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
+io.include("p_meds_spi.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -241,6 +243,7 @@ var MDU_Device =
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
+        me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -354,7 +357,7 @@ var MDU_Device =
         me.PFD.p_subsys.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_subsys.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_meds_apu);
-        me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
         me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
         me.PFD.p_subsys.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
     
@@ -429,16 +432,23 @@ var MDU_Device =
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
-        me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
         me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
 
        	me.PFD.p_meds_apu.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_apu.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_apu.addMenuItem(2, "APU", me.PFD.p_meds_apu);
-        me.PFD.p_meds_apu.addMenuItem(3, "SPI", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
         me.PFD.p_meds_apu.addMenuItem(4, "PORT SEL", me.PFD.p_meds_apu);
         me.PFD.p_meds_apu.addMenuItem(5, "MSG ACK", me.PFD.p_meds_apu);
+
+       	me.PFD.p_meds_spi.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_spi.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_spi.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_meds_spi.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
+        me.PFD.p_meds_spi.addMenuItem(4, "PORT SEL", me.PFD.p_meds_spi);
+        me.PFD.p_meds_spi.addMenuItem(5, "MSG ACK", me.PFD.p_meds_spi);
 
       
     },
@@ -494,7 +504,7 @@ MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_meds_oms_mps);
 MEDS_CDR2.PFD.dps_page_flag = 0;
 MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
 MEDS_CRT1.PFD.dps_page_flag = 1;
-MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_apu);
+MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
 MEDS_MFD1.PFD.dps_page_flag = 0;
 MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
 MEDS_CRT3.PFD.dps_page_flag = 1;
