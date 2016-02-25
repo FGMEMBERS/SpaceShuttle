@@ -602,6 +602,7 @@
       <pb-door-mode-auto type="int">1</pb-door-mode-auto>
       <pb-door-software-bypass type="int">0</pb-door-software-bypass>
       <pb-door-software-switch type="int">-2</pb-door-software-switch>
+      <pb-door-init-open type="int">0</pb-door-init-open>
       <ku-antenna-heater-cb type="int">0</ku-antenna-heater-cb>
       <ku-antenna-elec-cb type="int">0</ku-antenna-elec-cb>
       <ku-antenna-cable-heater-cb type="int">0</ku-antenna-cable-heater-cb>

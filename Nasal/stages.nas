@@ -1790,6 +1790,20 @@ if (stage == 5)
 	setprop("/velocities/wBody-fps", 60.0);
 	}
 
+if (stage == 6) 
+	{
+	# nothing is ever simple - we need to consider the rotation of Earth
+
+	var latitude = getprop("/position/latitude-deg") * 3.1415/180.0;
+	var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
+
+	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
+
+	setprop("/position/altitude-ft", 1050000.0);
+	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
+	setprop("/velocities/wBody-fps", 175.0);
+	}
+
 # initialize the DPS hardware
 
 SpaceShuttle.init_gpcs(stage);
@@ -1851,7 +1865,8 @@ if (getprop("/position/altitude-ft") > 350000.0) # we start in orbit
 	settimer(set_speed, 0.5);
 	SRB_separate_silent();
 	gear_up();
-	if (getprop("/sim/presets/stage") == 2) {external_tank_separate_silent();}
+	if ((getprop("/sim/presets/stage") == 2) or (getprop("/sim/presets/stage") == 6))
+		 {external_tank_separate_silent();}
 	else
 		{
 		setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
@@ -1982,4 +1997,28 @@ if (getprop("/sim/presets/stage") == 5) # we start in a gliding test
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 	setprop("/controls/shuttle/control-system-string", "Aerojet");
 	setprop("/controls/shuttle/hud-mode",3);
+	}
+
+if (getprop("/sim/presets/stage") == 6) # we're in high orbit
+	{
+	setprop("/consumables/fuel/tank[0]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[1]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[2]/level-lbs",0.0);
+	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
+
+	et_umbilical_door_close();
+	settimer(SpaceShuttle.init_iss, 5.0);	
+
+	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
+
+	# transfer controls to RCS
+	control_to_rcs();
+
+	# open PBD
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
+	setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
+	
+	settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
+
 	}

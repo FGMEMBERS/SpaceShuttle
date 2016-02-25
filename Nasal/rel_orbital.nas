@@ -26,11 +26,16 @@ var rmsState = {};
 var rmsCoord = {};
 var rmsModel = {};
 
+var issState = {};
+var issCoord = {};
+var issModel = {};
+
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
 var ku_loop_flag = 0;
 var payload_loop_flag = 0;
 var rms_loop_flag = 0;
+var iss_loop_flag = 0;
 
 var ft_to_m = 0.30480;
 var m_to_ft = 1.0/ft_to_m;
@@ -40,6 +45,7 @@ var offset_vec = [];
 var offset_vec_ku = [];
 var offset_vec_payload = [];
 var offset_vec_rms = [];
+var offset_vec_iss = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -361,10 +367,16 @@ return F;
 var set_coords = func (objString, objCoord, objState) {
 
 var lon = getprop("/position/longitude-deg");
+var groundtrack = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+var groundtrack_orig = getprop("/controls/shuttle/"~objString~"/groundtrack-orig-deg");
+
+var yaw_correction = groundtrack - groundtrack_orig;
+
 setprop("/controls/shuttle/"~objString~"/latitude-deg", objCoord.lat());
 setprop("/controls/shuttle/"~objString~"/longitude-deg", objCoord.lon());
 setprop("/controls/shuttle/"~objString~"/elevation-ft", objCoord.alt() * m_to_ft);
 setprop("/controls/shuttle/"~objString~"/pitch-deg", objState.pitch + lon);
+setprop("/controls/shuttle/"~objString~"/heading-deg", objState.yaw + yaw_correction);
 
 }
 
@@ -407,6 +419,9 @@ setprop("/controls/shuttle/"~string~"/elevation-ft", alt);
 setprop("/controls/shuttle/"~string~"/heading-deg", heading);
 setprop("/controls/shuttle/"~string~"/pitch-deg", pitch);
 setprop("/controls/shuttle/"~string~"/roll-deg", roll);
+
+var groundtrack = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+setprop("/controls/shuttle/"~string~"/groundtrack-orig-deg", groundtrack);
 
 #setprop("/controls/shuttle/et-ballistic/latitude-deg", lat);
 #setprop("/controls/shuttle/et-ballistic/longitude-deg", lon);
@@ -933,3 +948,135 @@ if (dist > 5000.0)
 
 if (rms_loop_flag >0 ) {settimer(func {update_rms(delta_lon); },0.0);}
 }
+
+
+
+###########################################################################
+# ISS simulation control routines
+###########################################################################
+
+
+var init_iss = func  {
+
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw = getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+
+
+issCoord = geo.aircraft_position() ;
+
+issCoord.set_lon (issCoord.lon() + 0.001);
+
+issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0,0.0, 0.0 , 90.0);
+
+var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
+
+issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+setprop("/controls/shuttle/ISS/groundtrack-orig-deg", 90.0);
+
+# seems we need small offsets in velocity to get a small separation velocity
+# this looks odd but the error we need to correct is actually a function
+# of the framerate, so we need to include dt here
+# what we do is to pre-empt the correction here and during the first two frames compute
+# it explicitly so that the tank is always at rest when the shuttle pushes off
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+
+settimer(func { 
+		issState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		iss_loop_flag = 1;
+		update_iss(0.0 , 0.0); },0);
+}
+
+
+
+var update_iss = func (delta_lon, d_last) {
+
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec");# * getprop("/sim/speed-up");
+
+
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+
+var F = get_force (issState, shuttleCoord);
+
+issState.update(F[0], F[1], F[2], 0.0,0.0,0.0);
+issCoord.set_xyz(issState.x, issState.y, issState.z);
+issCoord.set_lon(issCoord.lon() - delta_lon);
+
+if (iss_loop_flag < 3)
+	{
+	if (iss_loop_flag ==1)
+		{
+		offset_vec_iss = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
+		}
+	if (iss_loop_flag == 2)
+		{
+		var offset1_vec = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec_iss[0]) / dt, (offset1_vec[1] - offset_vec_iss[1]) / dt, (offset1_vec[2] - offset_vec_iss[2]) / dt];
+		
+
+
+		issState = compute_state_correction  (issState, issCoord, shuttleCoord, v_offset_vec, delta_lon);
+		var iss_placement = geo.Coord.new();
+		iss_placement.set_xyz (issState.x, issState.y, issState.z);
+		iss_placement.set_lon (iss_placement.lon() + 0.005);
+		issState.x = iss_placement.x();
+		issState.y = iss_placement.y();
+		issState.z = iss_placement.z();
+
+		}
+	iss_loop_flag = iss_loop_flag + 1;
+
+	}
+
+
+set_coords("ISS", issCoord, issState);
+
+
+var dist = shuttleCoord.distance_to(issCoord);
+var ddot = (dist - d_last)/dt;
+d_last = dist;
+
+setprop("/fdm/jsbsim/systems/rendezvous/ISS/distance-m", dist);
+setprop("/fdm/jsbsim/systems/rendezvous/ISS/ddot-m_s", ddot);
+
+var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
+var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
+
+var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, 0.0);
+var rel_vec = [issCoord.x() - shuttleCoord.x(), issCoord.y() - shuttleCoord.y(), issCoord.z() - shuttleCoord.z()];
+
+# print (y_vec[0], " ", y_vec[1], " ", y_vec[2]);
+
+var y = SpaceShuttle.dot_product(y_vec, rel_vec);
+
+#print (y);
+
+if (dist > 5000.0) 
+	{
+	print ("ISS explicit simulation ends");
+	issModel.remove();
+	iss_loop_flag = 0;
+	}
+
+
+
+if (iss_loop_flag >0 ) {settimer(func {update_iss(delta_lon, d_last); },0.0);}
+}
+
+
+
+
