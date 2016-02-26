@@ -1067,6 +1067,7 @@
     </forces>
     <ISS>
       <docking-flag type="int">0</docking-flag>
+      <docking-veto type="int">0</docking-veto>
     </ISS>
    </shuttle>
 
