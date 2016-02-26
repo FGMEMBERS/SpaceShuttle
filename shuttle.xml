@@ -108,6 +108,14 @@
                 	<z> -2.7 </z>
             	</location>
 	</pointmass>
+	<pointmass name="Docked object">
+		<weight unit="LBS"> 0.0</weight>
+	 	<location name="POINTMASS" unit="M">
+                	<x> -2.7 </x>
+                	<y>  0.0 </y>
+                	<z> 20.0 </z>
+            	</location>
+	</pointmass>
  </mass_balance>
 
 

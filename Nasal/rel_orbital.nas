@@ -949,6 +949,8 @@ if (rms_loop_flag >0 ) {settimer(func {update_rms(delta_lon); },0.0);}
 ###########################################################################
 
 
+### init ISS in the distance ###
+
 var init_iss = func  {
 
 
@@ -989,32 +991,44 @@ settimer(func {
 }
 
 
+### init ISS undocking from the Shuttle ###
+
 var undock_iss = func  {
 
 if (getprop("/controls/shuttle/ISS/docking-flag") == 0)
 	{return;}
 
 setprop("/controls/shuttle/ISS/docking-flag", 0);
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 0.0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+SpaceShuttle.switch_orbital_dap(1);
+
+# prevent immediate triggering of the docking condition
+setprop("/controls/shuttle/ISS/docking-veto", 1);
+settimer (func { setprop("/controls/shuttle/ISS/docking-veto", 0);}, 5.0);
 
 var pitch = getprop("/orientation/pitch-deg");
 var yaw = getprop("/orientation/heading-deg");
 var roll = getprop("/orientation/roll-deg");
-
+var lon_deg = getprop("/position/longitude-deg");
 
 issCoord = geo.aircraft_position() ;
 
 
-issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, yaw, pitch , roll);
+issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, yaw, pitch - lon_deg , roll);
 
 var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
 
-issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch,roll);
+issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch -lon_deg,roll);
 
-setprop("/controls/shuttle/ISS/groundtrack-orig-deg", yaw);
+#setprop("/controls/shuttle/ISS/groundtrack-orig-deg", yaw);
 
 
 var lat = getprop("/position/latitude-deg") * math.pi/180.0;
-var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var lon = lon_deg * math.pi/180.0;
 var dt = getprop("/sim/time/delta-sec");
 
 var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
@@ -1026,7 +1040,7 @@ var vzoffset = 0.0;
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
-setprop("/controls/flight/elevator", -0.5);
+setprop("/controls/flight/elevator", -1.0);
 
 
 settimer( func{
@@ -1044,7 +1058,7 @@ settimer(func {
 }
 
 
-
+### manage ISS in undocked state ###
 
 var update_iss = func (delta_lon, d_last, y_last, placement_flag) {
 
@@ -1116,7 +1130,7 @@ var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
 
 # print (y_vec[0], " ", y_vec[1], " ", y_vec[2]);
 
-var y = SpaceShuttle.dot_product(y_vec, rel_vec);
+var y = -SpaceShuttle.dot_product(y_vec, rel_vec);
 var ydot = (y - y_last)/dt;
 y_last = y;
 
@@ -1134,10 +1148,34 @@ if (dist > 5000.0)
 
 if (dist < 0.40)
 	{
-	setprop("/sim/messages/copilot", "Successful ISS docking!");
-	setprop("/controls/shuttle/ISS/docking-flag", 1);
-	issModel.remove();
-	iss_loop_flag = 0;
+	var p1 = getprop("/orientation/pitch-deg");
+	var p2 = getprop("/controls/shuttle/ISS/pitch-deg");
+
+	var r1 = getprop("/orientation/roll-deg");
+	var r2 = getprop("/controls/shuttle/ISS/roll-deg");
+
+	var y1 = getprop("/orientation/heading-deg");
+	var y2 = getprop("/controls/shuttle/ISS/heading-deg");
+
+	var Droll = math.abs(r1-r2);
+
+	print ("pitch: ", math.abs(p1-p2), " yaw: ", math.abs(y1-y2), " roll: ", math.abs(r1-r2));
+
+	if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (Droll < 5.0))
+		{
+
+		setprop("/sim/messages/copilot", "Successful ISS docking!");
+		setprop("/controls/shuttle/ISS/docking-flag", 1);
+		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 924740.0);
+		controls.centerFlightControls();
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
+		SpaceShuttle.switch_orbital_dap(4);
+		issModel.remove();
+		iss_loop_flag = 0;
+		}
 	}
 
 
