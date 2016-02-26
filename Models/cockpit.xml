@@ -27,51 +27,6 @@
         <object-name>F6SW-1-8</object-name>
         <object-name>F6SW-1-9</object-name>
         <object-name>F6SW-2-3</object-name>
-        <object-name>L1SW-1-1</object-name>
-        <object-name>L1SW-1-10</object-name>
-        <object-name>L1SW-1-11</object-name>
-        <object-name>L1SW-1-12</object-name>
-        <object-name>L1SW-1-13</object-name>
-        <object-name>L1SW-1-14</object-name>
-        <object-name>L1SW-1-2</object-name>
-        <object-name>L1SW-1-3</object-name>
-        <object-name>L1SW-1-4</object-name>
-        <object-name>L1SW-1-5</object-name>
-        <object-name>L1SW-2-1</object-name>
-        <object-name>L1SW-2-12</object-name>
-        <object-name>L1SW-2-13</object-name>
-        <object-name>L1SW-2-14</object-name>
-        <object-name>L1SW-2-3</object-name>
-        <object-name>L1SW-2-4</object-name>
-        <object-name>L1SW-2-5</object-name>
-        <object-name>L1SW-2-6</object-name>
-        <object-name>L1SW-2-7</object-name>
-        <object-name>L1SW-2-8</object-name>
-        <object-name>L1SW-3-1</object-name>
-        <object-name>L1SW-3-10</object-name>
-        <object-name>L1SW-3-11</object-name>
-        <object-name>L1SW-3-12</object-name>
-        <object-name>L1SW-3-13</object-name>
-        <object-name>L1SW-3-14</object-name>
-        <object-name>L1SW-3-3</object-name>
-        <object-name>L1SW-3-5</object-name>
-        <object-name>L1SW-3-6</object-name>
-        <object-name>L1SW-3-8</object-name>
-        <object-name>L1SW-3-9</object-name>
-        <object-name>L1SW-4-1</object-name>
-        <object-name>L1SW-4-10</object-name>
-        <object-name>L1SW-4-11</object-name>
-        <object-name>L1SW-4-12</object-name>
-        <object-name>L1SW-4-13</object-name>
-        <object-name>L1SW-4-2</object-name>
-        <object-name>L1SW-4-4</object-name>
-        <object-name>L1SW-4-5</object-name>
-        <object-name>L1SW-4-5.001</object-name>
-        <object-name>L1SW-4-6</object-name>
-        <object-name>L1SW-4-6.001</object-name>
-        <object-name>L1SW-4-7</object-name>
-        <object-name>L1SW-4-8</object-name>
-        <object-name>L1SW-4-9</object-name>
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
         <object-name>MFD1_B3</object-name>
@@ -144,6 +99,7 @@
         <object-name>Fwd_Equipment_Knobs.046</object-name>
         <object-name>Fwd_Equipment_Knobs.047</object-name>
         <object-name>Fwd_Equipment_Knobs.054</object-name>
+        <!--Panel R1 switches-->
         <object-name>fc0-connector</object-name>
         <object-name>fc0-start-cmd</object-name>
         <object-name>fc0-valve</object-name>
@@ -162,55 +118,103 @@
         <object-name>inv2-ac-switch</object-name>
         <object-name>inverter2-power-switch</object-name>
         <object-name>tie2-switch</object-name>
-        <!--Panel R1 switches not connected yet -->
-            <object-name>ac-bus-snsr</object-name>
-            <object-name>ac-bus-snsr2</object-name>
-            <object-name>ac-bus-snsr3</object-name>
-            <object-name>ac-cont-1a</object-name>
-            <object-name>ac-cont-1b</object-name>
-            <object-name>ac-cont-1c</object-name>
-            <object-name>ac-cont-2a</object-name>
-            <object-name>ac-cont-2b</object-name>
-            <object-name>ac-cont-2c</object-name>
-            <object-name>ac-cont-3a</object-name>
-            <object-name>ac-cont-3b</object-name>
-            <object-name>ac-cont-3c</object-name>
-            <object-name>cont-bus-pwr-mn-a</object-name>
-            <object-name>cont-bus-pwr-mn-b</object-name>
-            <object-name>cont-bus-pwr-mn-c</object-name>
-            <object-name>ess-bus-src-fc1</object-name>
-            <object-name>ess-bus-src-fc2</object-name>
-            <object-name>ess-bus-src-fc3</object-name>
-            <object-name>ess-bus-src-mn-ab</object-name>
-            <object-name>ess-bus-src-mn-bc</object-name>
-            <object-name>ess-bus-src-mn-ca</object-name>
-            <object-name>h2-man-valve-1</object-name>
-            <object-name>h2-man-valve-2</object-name>
-            <object-name>h2-tank1a-heat</object-name>
-            <object-name>h2-tank1b-heat</object-name>
-            <object-name>h2-tank2a-heat</object-name>
-            <object-name>h2-tank2b-heat</object-name>
-            <object-name>h2-tank3a-heat</object-name>
-            <object-name>h2-tank3b-heat</object-name>
-            <object-name>o2-man-valve-1</object-name>
-            <object-name>o2-man-valve-2</object-name>
-            <object-name>o2-tank1-r-t</object-name>
-            <object-name>o2-tank2-r-t</object-name>
-            <object-name>o2-tank3-r-t</object-name>
-            <object-name>o2-tank1a-heat</object-name>
-            <object-name>o2-tank1b-heat</object-name>
-            <object-name>o2-tank2a-heat</object-name>
-            <object-name>o2-tank2b-heat</object-name>
-            <object-name>o2-tank3a-heat</object-name>
-            <object-name>o2-tank3b-heat</object-name>
-            <object-name>pl-aft-mn-b</object-name>
-            <object-name>pl-aft-mn-c</object-name>
-            <object-name>pl-aux</object-name>
-            <object-name>pl-cabin</object-name>
-            <object-name>pl-pri-fc3</object-name>
-            <object-name>pl-pri-mn-b</object-name>
-            <object-name>pl-pri-mn-c</object-name>
-        <!-- End R1 switches not yet connected -->
+        <!--Panel L1 switches -->
+        <object-name>h2o-pump-l1</object-name>
+        <object-name>h2o-pump-l2</object-name>
+        <object-name>freon-pump-l1</object-name>
+        <object-name>freon-pump-l2</object-name>
+        <object-name>rad-cont-loop1</object-name>
+        <object-name>rad-cont-loop2</object-name>
+        <object-name>rad-bypass-loop1</object-name>
+        <object-name>rad-bypass-loop2</object-name>
+        <object-name>rad-out-temp</object-name>
+        <object-name>flash-evap-cntrl-pria</object-name>
+        <object-name>flash-evap-cntrl-prib</object-name>
+        <object-name>flash-evap-cntrl-sec</object-name>
+        <object-name>hi-load-evap-enable</object-name>
+        <object-name>top-evap-heat-noz-l</object-name>
+        <object-name>top-evap-heat-noz-r</object-name>
+        <!--Panel R1 switches not connected -->
+        <object-name>ac-bus-snsr</object-name>
+        <object-name>ac-bus-snsr2</object-name>
+        <object-name>ac-bus-snsr3</object-name>
+        <object-name>ac-cont-1a</object-name>
+        <object-name>ac-cont-1b</object-name>
+        <object-name>ac-cont-1c</object-name>
+        <object-name>ac-cont-2a</object-name>
+        <object-name>ac-cont-2b</object-name>
+        <object-name>ac-cont-2c</object-name>
+        <object-name>ac-cont-3a</object-name>
+        <object-name>ac-cont-3b</object-name>
+        <object-name>ac-cont-3c</object-name>
+        <object-name>cont-bus-pwr-mn-a</object-name>
+        <object-name>cont-bus-pwr-mn-b</object-name>
+        <object-name>cont-bus-pwr-mn-c</object-name>
+        <object-name>ess-bus-src-fc1</object-name>
+        <object-name>ess-bus-src-fc2</object-name>
+        <object-name>ess-bus-src-fc3</object-name>
+        <object-name>ess-bus-src-mn-ab</object-name>
+        <object-name>ess-bus-src-mn-bc</object-name>
+        <object-name>ess-bus-src-mn-ca</object-name>
+        <object-name>h2-man-valve-1</object-name>
+        <object-name>h2-man-valve-2</object-name>
+        <object-name>h2-tank1a-heat</object-name>
+        <object-name>h2-tank1b-heat</object-name>
+        <object-name>h2-tank2a-heat</object-name>
+        <object-name>h2-tank2b-heat</object-name>
+        <object-name>h2-tank3a-heat</object-name>
+        <object-name>h2-tank3b-heat</object-name>
+        <object-name>o2-man-valve-1</object-name>
+        <object-name>o2-man-valve-2</object-name>
+        <object-name>o2-tank1-r-t</object-name>
+        <object-name>o2-tank2-r-t</object-name>
+        <object-name>o2-tank3-r-t</object-name>
+        <object-name>o2-tank1a-heat</object-name>
+        <object-name>o2-tank1b-heat</object-name>
+        <object-name>o2-tank2a-heat</object-name>
+        <object-name>o2-tank2b-heat</object-name>
+        <object-name>o2-tank3a-heat</object-name>
+        <object-name>o2-tank3b-heat</object-name>
+        <object-name>pl-aft-mn-b</object-name>
+        <object-name>pl-aft-mn-c</object-name>
+        <object-name>pl-aux</object-name>
+        <object-name>pl-cabin</object-name>
+        <object-name>pl-pri-fc3</object-name>
+        <object-name>pl-pri-mn-b</object-name>
+        <object-name>pl-pri-mn-c</object-name>
+        <!-- End R1 switches not connected -->
+        <!--Panel L1 switches not connected -->
+        <object-name>av-bay-1-fan-a</object-name>
+        <object-name>av-bay-1-fan-b</object-name>
+        <object-name>av-bay-2-fan-a</object-name>
+        <object-name>av-bay-2-fan-b</object-name>
+        <object-name>av-bay-3-fan-a</object-name>
+        <object-name>av-bay-3-fan-b</object-name>
+        <object-name>cabin-fan-a</object-name>
+        <object-name>cabin-fan-b</object-name>
+        <object-name>cabin-fan-temp</object-name>
+        <object-name>cabin-fan-temp-cntrl</object-name>
+        <object-name>flash-evap-cntrl-sply</object-name>
+        <object-name>h2o-alt-press</object-name>
+        <object-name>h2o-loop1-bypass-man</object-name>
+        <object-name>h2o-loop1-bypass-mode</object-name>
+        <object-name>h2o-loop2-bypass-man</object-name>
+        <object-name>h2o-loop1-bypass-mode</object-name>
+        <object-name>h2o-pump-loop1-ac1</object-name>
+        <object-name>hi-load-evap</object-name>
+        <object-name>humidity-sep-a</object-name>
+        <object-name>humidity-sep-b</object-name>
+        <object-name>imu-fan-a</object-name>
+        <object-name>imu-fan-b</object-name>
+        <object-name>imu-fan-c</object-name>
+        <object-name>interchg-loop1</object-name>
+        <object-name>interchg-loop2</object-name>
+        <object-name>rad-bypass-vlv-mode1</object-name>
+        <object-name>rad-bypass-vlv-mode2</object-name>
+        <object-name>smoke-detector-circut-test</object-name>
+        <object-name>smoke-detector-sensor</object-name>
+        <object-name>top-evap-heat</object-name>
+        <!-- End L1 switches not connected -->
     </effect>
 
     <effect>
@@ -239,7 +243,7 @@
         <object-name>inv-ac2-on</object-name>
         <object-name>inv-pwr2-on</object-name>
         <object-name>mb-tie-c-on</object-name>
-        <!--Panel R1 switches not connected yet -->
+        <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-op</object-name>
         <object-name>h2-mv2-op</object-name>
         <object-name>o2-mv1-op</object-name>
@@ -247,7 +251,7 @@
         <object-name>pri-fc3-on</object-name>
         <object-name>pri-mn-b-on</object-name>
         <object-name>pri-mn-c-on</object-name>
-        <!-- End R1 switches not yet connected -->
+        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <effect>
@@ -270,7 +274,7 @@
         <object-name>inv-ac2-off</object-name>
         <object-name>inv-pwr2-off</object-name>
         <object-name>mb-tie-c-off</object-name>
-        <!--Panel R1 switches not connected yet -->
+        <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-cl</object-name>
         <object-name>h2-mv2-cl</object-name>
         <object-name>o2-mv1-cl</object-name>
@@ -278,7 +282,7 @@
         <object-name>pri-fc3-off</object-name>
         <object-name>pri-mn-b-off</object-name>
         <object-name>pri-mn-c-off</object-name>
-        <!-- End R1 switches not yet connected -->
+        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <effect>
@@ -300,15 +304,15 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
-        <!--Panel R1 switches not connected yet -->
-            <object-name>h2-mv-1-base</object-name>
-            <object-name>h2-mv-2-base</object-name>
-            <object-name>o2-mv-1-base</object-name>
-            <object-name>o2-mv-2-base</object-name>
-            <object-name>pri-fc3-base</object-name>
-            <object-name>pri-mn-b-base</object-name>
-            <object-name>pri-mn-c-base</object-name>
-        <!-- End R1 switches not yet connected -->
+        <!--Panel R1 talkbacks not connected -->
+        <object-name>h2-mv-1-base</object-name>
+        <object-name>h2-mv-2-base</object-name>
+        <object-name>o2-mv-1-base</object-name>
+        <object-name>o2-mv-2-base</object-name>
+        <object-name>pri-fc3-base</object-name>
+        <object-name>pri-mn-b-base</object-name>
+        <object-name>pri-mn-c-base</object-name>
+        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <animation>
@@ -2236,120 +2240,126 @@
     </animation>
     <!-- end NOTE: -->
 
-    <!-- FC1 Start/Stop "Push Button"-->
-    <animation>
-        <type>translate</type>
+    <!-- FC1 Start/Stop "Switch"-->
+        <animation>
+        <type>knob</type>
         <object-name>fc0-start-cmd</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8516</x-m>
+            <y-m>  1.3156</y-m>
+            <z-m> -0.7804</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc0-start-cmd</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc0-start-cmd</tooltip-id>
-            <label>FC1 Start/Stop: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc0-start-cmd</tooltip-id>
+                <label>FC1 Start/Stop: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc/fc-start-cmd</property>
+            </binding>
         </hovered>
     </animation>
 
-    <!-- FC2 Start/Stop "Push Button"-->
-    <animation>
-        <type>translate</type>
+    <!-- FC2 Start/Stop "Switch"-->
+        <animation>
+        <type>knob</type>
         <object-name>fc1-start-cmd</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8267</x-m>
+            <y-m>  1.3237</y-m>
+            <z-m> -0.7804</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc1-start-cmd</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc1-start-cmd</tooltip-id>
-            <label>FC2 Start/Stop: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc1-start-cmd</tooltip-id>
+                <label>FC2 Start/Stop: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-start-cmd</property>
+            </binding>
         </hovered>
     </animation>
 
-    <!-- FC3 Start/Stop "Push Button"-->
-    <animation>
-        <type>translate</type>
+    <!-- FC3 Start/Stop "Switch"-->
+        <animation>
+        <type>knob</type>
         <object-name>fc2-start-cmd</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8018</x-m>
+            <y-m>  1.3318</y-m>
+            <z-m> -0.7804</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc2-start-cmd</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc2-start-cmd</tooltip-id>
-            <label>FC3 Start/Stop: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc2-start-cmd</tooltip-id>
+                <label>FC3 Start/Stop: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-start-cmd</property>
+            </binding>
         </hovered>
     </animation>
 
@@ -2386,120 +2396,129 @@
         </condition>
     </animation>
 
-    <!-- FC Main Bus A "Push Button"-->
+    <!-- FC Main Bus A "Switch" -->
     <animation>
-        <type>translate</type>
+        <type>knob</type>
         <object-name>fc0-connector</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2306</x-m>
+            <y-m>  1.2265</y-m>
+            <z-m> -0.6513</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc0-connector</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc0-connector</tooltip-id>
-            <label>FC Main Bus A: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc0-connector</tooltip-id>
+                <label>FC Main Bus A: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc/bus-connector-status</property>
+            </binding>
         </hovered>
     </animation>
 
-    <!-- FC Main Bus B "Push Button"-->
+    <!-- FC Main Bus B "Switch" -->
     <animation>
-        <type>translate</type>
+        <type>knob</type>
         <object-name>fc1-connector</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2271</x-m>
+            <y-m>  1.2161</y-m>
+            <z-m> -0.6942</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc1-connector</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc1-connector</tooltip-id>
-            <label>FC Main Bus B: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc1-connector</tooltip-id>
+                <label>FC Main Bus B: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/bus-connector-status</property>
+            </binding>
         </hovered>
     </animation>
 
-    <!-- FC Main Bus C "Push Button"-->
+    <!-- FC Main Bus C "Switch" -->
     <animation>
-        <type>translate</type>
+        <type>knob</type>
         <object-name>fc2-connector</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-        <factor>0.008</factor>
+        <factor>-35</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2238</x-m>
+            <y-m>  1.2059</y-m>
+            <z-m> -0.7359</z-m>
+        </center>
         <axis>
-          <x>-0.4</x>
-          <y>1.0</y>
-          <z>0.0</z>
+            <x>1</x>
+            <y>.3</y>
+            <z>0</z>
         </axis>
-    </animation>
-    <animation>
-        <type>pick</type>
-        <object-name>fc2-connector</object-name>
-        <visible>true</visible>
         <action>
-          <button>0</button>
-          <repeatable>false</repeatable>
-          <binding>
-            <command>property-toggle</command>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-          </binding>
-          <binding>
-            <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
-          </binding>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
-          <binding>
-            <command>set-tooltip</command>
-            <tooltip-id>fc2-connector</tooltip-id>
-            <label>FC Main Bus C: %s</label>
-            <mapping>on-off</mapping>
-            <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
-          </binding>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc2-connector</tooltip-id>
+                <label>FC Main Bus C: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/bus-connector-status</property>
+            </binding>
         </hovered>
     </animation>
 
