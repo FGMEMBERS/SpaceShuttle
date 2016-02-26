@@ -1038,12 +1038,6 @@
    <shuttle>
     <external-fuel-tank type="int">1</external-fuel-tank>
     <solid-rocket-boosters type="int">1</solid-rocket-boosters>
-    <!--<outerspace type="bool">1</outerspace>
-    <EMU type="int">0</EMU>
-    <robotarm type="float">0</robotarm>
-    <door>
-    <position type="float">0</position>
-    </door>-->
     <parachute type="int">0</parachute>
     <control-system-string type="string">Thrust Vectoring</control-system-string>
     <hud-mode type="int">0</hud-mode>
@@ -1071,6 +1065,9 @@
       <force-lb type="double">0.0</force-lb>
      </srb2>
     </forces>
+    <ISS>
+      <docking-flag type="int">0</docking-flag>
+    </ISS>
    </shuttle>
 
    <lighting>
@@ -1932,6 +1929,15 @@ Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two st
     <binding>
      <command>nasal</command>
      <script>SpaceShuttle.ssme_cutoff(2)</script>
+    </binding>
+   </key>
+
+   <key n="21">
+    <name>Control+u</name>
+    <desc>Undock</desc>
+    <binding>
+     <command>nasal</command>
+     <script>SpaceShuttle.undock_iss()</script>
     </binding>
    </key>
 
