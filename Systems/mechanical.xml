@@ -385,7 +385,7 @@
 			</test>
 		</switch>
 
-		<kinematic name="systems/mechanical/pb-door-right-pos">
+		<kinematic name="systems/mechanical/pb-door-right-pos-kin">
 			<input>systems/mechanical/pb-door-right-target</input>
 			<traverse>
 				<setting>
@@ -399,6 +399,13 @@
 			</traverse>
 		</kinematic>
 
+		<switch name="systems/mechanical/pb-door-right-pos">
+			<default value="systems/mechanical/pb-door-right-pos-kin"/>
+			<test value="1.0">
+				systems/mechanical/pb-door-init-open == 1
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/pb-door-left-target">
 			<default value="systems/mechanical/pb-door-left-pos"/>
 			<test logic="AND" value="systems/mechanical/pb-door-left-cmd">
@@ -409,7 +416,7 @@
 			</test>
 		</switch>
 
-		<kinematic name="systems/mechanical/pb-door-left-pos">
+		<kinematic name="systems/mechanical/pb-door-left-pos-kin">
 			<input>systems/mechanical/pb-door-left-target</input>
 			<traverse>
 				<setting>
@@ -422,6 +429,15 @@
 				</setting>
 			</traverse>
 		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-left-pos">
+			<default value="systems/mechanical/pb-door-left-pos-kin"/>
+			<test value="1.0">
+				systems/mechanical/pb-door-init-open == 1
+			</test>
+		</switch>
+
+
 
 		<fcs_function name="systems/mechanical/pb-door-left-animation">
 		<function>

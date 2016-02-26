@@ -210,9 +210,15 @@
 
 <!-- ISS docked -->
 
-<!--<model>
-     <path>Aircraft/SpaceShuttle/Models/ISS/ISS_docked.ac</path>
-</model>-->
+<model>
+     <path>Aircraft/SpaceShuttle/Models/ISS/ISS_docked.xml</path>
+     <condition>
+	<equals>
+		<property>/controls/shuttle/ISS/docking-flag</property>
+		<value>1</value>
+	</equals>
+    </condition>
+</model>
 
 <!-- landing gear -->
 <model>
