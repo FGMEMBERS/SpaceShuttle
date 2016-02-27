@@ -2007,7 +2007,7 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
 
 	et_umbilical_door_close();
-	settimer(SpaceShuttle.init_iss, 5.0);	
+	settimer(SpaceShuttle.init_iss, 2.0);	
 
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
