@@ -125,8 +125,8 @@
         <object-name>freon-pump-l2</object-name>
         <object-name>rad-cont-loop1</object-name>
         <object-name>rad-cont-loop2</object-name>
-        <object-name>rad-bypass-loop1</object-name>
-        <object-name>rad-bypass-loop2</object-name>
+        <object-name>rad-flow-bypass1</object-name>
+        <object-name>rad-flow-bypass2</object-name>
         <object-name>rad-out-temp</object-name>
         <object-name>flash-evap-cntrl-pria</object-name>
         <object-name>flash-evap-cntrl-prib</object-name>
@@ -2013,7 +2013,7 @@
         <object-name>h2o-pump-l1</object-name>
         <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
         <factor>-30</factor>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-11.8357</x-m>
             <y-m> -1.2682</y-m>
@@ -2054,7 +2054,7 @@
         <object-name>h2o-pump-l2</object-name>
         <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
         <factor>-30</factor>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-11.8313</x-m>
             <y-m> -1.2585</y-m>
@@ -2095,7 +2095,7 @@
         <object-name>freon-pump-l1</object-name>
         <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
         <factor>30</factor>
-        <offset-deg>-30</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.0624</x-m>
             <y-m> -1.2047</y-m>
@@ -2136,7 +2136,7 @@
         <object-name>freon-pump-l2</object-name>
         <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
         <factor>30</factor>
-        <offset-deg>-30</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.0922</x-m>
             <y-m> -1.1949</y-m>
@@ -2177,7 +2177,7 @@
         <object-name>rad-cont-loop1</object-name>
         <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
         <factor>30</factor>
-        <offset-deg>-30</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.1756</x-m>
             <y-m> -1.1706</y-m>
@@ -2218,7 +2218,7 @@
         <object-name>rad-cont-loop2</object-name>
         <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
         <factor>30</factor>
-        <offset-deg>-30</offset-deg>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.2126</x-m>
             <y-m> -1.1584</y-m>
@@ -2253,11 +2253,11 @@
         </hovered>
     </animation>
 
-    <!-- Out Temp Hi "Switch"-->
+    <!-- Radiator Out Temp "Switch"-->
     <animation>
         <type>knob</type>
         <object-name>rad-out-temp</object-name>
-        <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+        <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
         <factor>45</factor>
         <offset-deg>-30</offset-deg>
         <center>
@@ -2273,7 +2273,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
                 <factor>-1</factor>
                 <min>1</min>
                 <max>0</max>
@@ -2288,8 +2288,336 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>rad-out-temp</tooltip-id>
-                <label>Radiator Out Temo HI: %s</label>
-                <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+                <label>Radiator Out Temp: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Radiator Flow 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-flow-bypass1</object-name>
+        <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+        <factor>-45</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.1699</x-m>
+            <y-m> -1.154</y-m>
+            <z-m> -0.7151</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-flow-bypass1</tooltip-id>
+                <label>Radiator Flow 1: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Radiator Flow 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-flow-bypass2</object-name>
+        <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+        <factor>-45</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.2069</x-m>
+            <y-m> -1.1418</y-m>
+            <z-m> -0.7152</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-flow-bypass2</tooltip-id>
+                <label>Radiator Flow 2: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Flash Evap Cntrl A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>flash-evap-cntrl-pria</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+        <factor>30</factor>
+        <offset-deg>-10</offset-deg>
+        <center>
+            <x-m>-12.0288</x-m>
+            <y-m> -1.1913</y-m>
+            <z-m> -0.7487</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>flash-evap-cntrl-pria</tooltip-id>
+                <label>Flash Evap Cntrl A: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Flash Evap Cntrl B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>flash-evap-cntrl-prib</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+        <factor>30</factor>
+        <offset-deg>-10</offset-deg>
+        <center>
+            <x-m>-12.053</x-m>
+            <y-m> -1.1834</y-m>
+            <z-m> -0.7488</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>flash-evap-cntrl-prib</tooltip-id>
+                <label>Flash Evap Cntrl B: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Flash Evap Secondary "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>flash-evap-cntrl-sec</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+        <factor>-30</factor>
+        <offset-deg>-10</offset-deg>
+        <center>
+            <x-m>-12.1079</x-m>
+            <y-m> -1.1653</y-m>
+            <z-m> -0.7489 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>flash-evap-cntrl-sec</tooltip-id>
+                <label>Flash Evap Secondary: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Flash Evap Hi Load "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>hi-load-evap-enable</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-hi-load-status</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.1321</x-m>
+            <y-m> -1.1574</y-m>
+            <z-m> -0.749</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-hi-load-status</property>
+                <factor>-1</factor>
+                <min>1</min>
+                <max>0</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hi-load-evap-enable</tooltip-id>
+                <label>Hi Load Evap: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-hi-load-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Topping  Evap Heater Nozzle Left "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>top-evap-heat-noz-l</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
+        <factor>30</factor>
+        <offset-deg>-10</offset-deg>
+        <center>
+            <x-m>-12.0085</x-m>
+            <y-m> -1.1809</y-m>
+            <z-m> -0.8055</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
+                <factor>-1</factor>
+                <min>1</min>
+                <max>-1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>top-evap-heat-noz-l</tooltip-id>
+                <label>Top Evap Heat Nozzle Left: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Topping  Evap Heater Nozzle Right "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>top-evap-heat-noz-r</object-name>
+        <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
+        <factor>30</factor>
+        <offset-deg>-10</offset-deg>
+        <center>
+            <x-m>-12.0383</x-m>
+            <y-m> -1.1728</y-m>
+            <z-m> -0.8066</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
+                <factor>-1</factor>
+                <min>1</min>
+                <max>-1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>top-evap-heat-noz-r</tooltip-id>
+                <label>Top Evap Heat Nozzle Right: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
             </binding>
         </hovered>
     </animation>
