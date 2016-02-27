@@ -2004,7 +2004,298 @@
     </animation>
 
     <!-- ******************************************************************* -->
-    <!-- Panel R1                                                                                                                         -->
+    <!-- Panel L1                                                                                                          -->
+    <!-- ******************************************************************* -->   
+
+    <!-- H2O Pump Loop 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2o-pump-l1</object-name>
+        <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
+        <factor>-30</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.8357</x-m>
+            <y-m> -1.2682</y-m>
+            <z-m> -0.698 </z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2o-pump-l1</tooltip-id>
+                <label>H2O Pump Loop 1: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- H2O Pump Loop 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>h2o-pump-l2</object-name>
+        <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
+        <factor>-30</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.8313</x-m>
+            <y-m> -1.2585</y-m>
+            <z-m> -0.7401</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>h2o-pump-l2</tooltip-id>
+                <label>H2O Pump Loop 2: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Freon Pump Loop 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>freon-pump-l1</object-name>
+        <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+        <factor>30</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.0624</x-m>
+            <y-m> -1.2047</y-m>
+            <z-m> -0.6572</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>freon-pump-l1</tooltip-id>
+                <label>Freon Pump Loop 1: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Freon Pump Loop 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>freon-pump-l2</object-name>
+        <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+        <factor>30</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.0922</x-m>
+            <y-m> -1.1949</y-m>
+            <z-m> -0.6573</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>freon-pump-l2</tooltip-id>
+                <label>Freon Pump Loop 2: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Radiator Controller Loop 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-cont-loop1</object-name>
+        <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+        <factor>30</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.1756</x-m>
+            <y-m> -1.1706</y-m>
+            <z-m> -0.6454</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-cont-loop1</tooltip-id>
+                <label>Radiator Controller Loop 1: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Radiator Controller Loop 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-cont-loop2</object-name>
+        <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+        <factor>30</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.2126</x-m>
+            <y-m> -1.1584</y-m>
+            <z-m> -0.6456</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+                <factor>-1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-cont-loop2</tooltip-id>
+                <label>Radiator Controller Loop 2: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Out Temp Hi "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-out-temp</object-name>
+        <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.1398</x-m>
+            <y-m> -1.1826</y-m>
+            <z-m> -0.6445</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+                <factor>-1</factor>
+                <min>1</min>
+                <max>0</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-out-temp</tooltip-id>
+                <label>Radiator Out Temo HI: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/rad-out-temp-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel R1                                                                                                          -->
     <!-- ******************************************************************* -->
 
     <!-- FC1 Reactant Valve "Switch"-->
