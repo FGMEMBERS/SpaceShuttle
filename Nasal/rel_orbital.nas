@@ -6,7 +6,7 @@
 # (* analytic Kepler orbit)
 ###########################################################################
 
-
+var temp_storage = 0.0;
 
 var evaState = {};
 
@@ -354,8 +354,9 @@ var cos_lat = math.cos(shuttleCoord.lat() * 3.1515/180.0);
 var sin_lon = math.sin(shuttleCoord.lon() * 3.1415/180.0);
 var cos_lon = math.cos(shuttleCoord.lon() * 3.1515/180.0);
 
-#A_mag = 0.027 * sin_lat * cos_lat;
-A_mag = 0.029 * sin_lat * cos_lat;
+A_mag = 0.0243 * sin_lat * cos_lat;
+
+
 
 var A = [A_mag * cos_lon * sin_lat, A_mag * sin_lon * sin_lat, -A_mag * cos_lat];
 
@@ -1165,10 +1166,11 @@ d_last = dist;
 setprop("/fdm/jsbsim/systems/rendezvous/ISS/distance-m", dist);
 setprop("/fdm/jsbsim/systems/rendezvous/ISS/ddot-m_s", ddot);
 
+var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
 var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
 var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
 
-var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, 0.0);
+var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, iss_roll);
 
 var lat_to_m = 110952.0;
 var lon_to_m  = math.cos(issCoord.lat()*math.pi/180.0) * lat_to_m;
@@ -1179,6 +1181,10 @@ var z_lvlh = (issCoord.alt() - shuttleCoord.alt());
 
 var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
 
+var v_y_test = (y_lvlh - temp_storage)/dt;
+temp_storage = y_lvlh;
+
+print (v_y_test);
 
 var y = -SpaceShuttle.dot_product(y_vec, rel_vec);
 var ydot = (y - y_last)/dt;
@@ -1199,7 +1205,7 @@ if (dist > 5000.0)
 	iss_loop_flag = 0;
 	}
 
-if (dist < 0.40)
+if (dist < 1.0)
 	{
 	var p1 = getprop("/orientation/pitch-deg");
 	var p2 = getprop("/controls/shuttle/ISS/pitch-deg");
@@ -1213,14 +1219,14 @@ if (dist < 0.40)
 	var D_roll = math.abs(r1-r2);
 	var D_pitch = math.abs(p1-p2);
 
-	print ("pitch: ", math.abs(p1-p2), " yaw: ", math.abs(y1-y2), " roll: ", math.abs(r1-r2));
+	#print ("pitch: ", math.abs(p1-p2), " yaw: ", math.abs(y1-y2), " roll: ", math.abs(r1-r2));
 
 
 
 	if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (theta < 15.0))
 		{
 		setprop("/sim/messages/copilot", "Successful ISS docking!");
-		setprop("/controls/shuttle/ISS/rel-heading-deg", y1-y2); 
+
 		setprop("/controls/shuttle/ISS/docking-flag", 1);
 		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 924740.0);
 		controls.centerFlightControls();
@@ -1231,6 +1237,21 @@ if (dist < 0.40)
 		SpaceShuttle.switch_orbital_dap(4);
 		issModel.remove();
 		iss_loop_flag = 0;
+
+		var x1_vec = orientTaitBryan([1.0, 0.0,0.0], iss_yaw, iss_pitch, iss_roll);
+		var x2_vec = orientTaitBryan([0.0, 1.0, 0.0], iss_yaw, iss_pitch, iss_roll);
+
+		var shuttleLVLHX = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[2]")];
+
+		var shuttleLVLHY = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[2]")];
+
+		var omega = 180/math.pi * math.acos(SpaceShuttle.dot_product(shuttleLVLHX, x1_vec));
+		
+		if (SpaceShuttle.dot_product(shuttleLVLHY, x2_vec) < 0.0)
+			{
+			omega = - omega;
+			}
+		setprop("/controls/shuttle/ISS/rel-heading-deg", omega); 
 		}
 
 	}
