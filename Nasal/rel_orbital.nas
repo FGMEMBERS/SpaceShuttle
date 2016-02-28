@@ -6,7 +6,6 @@
 # (* analytic Kepler orbit)
 ###########################################################################
 
-var temp_storage = 0.0;
 
 var evaState = {};
 
@@ -1107,9 +1106,9 @@ if (iss_loop_flag < 3)
 			var iss_placement = geo.Coord.new();
 			iss_placement.set_xyz (issState.x, issState.y, issState.z);
 			iss_placement.set_lon (iss_placement.lon() + 0.005);
-			#issState.x = iss_placement.x();
-			#issState.y = iss_placement.y();
-			#issState.z = iss_placement.z();
+			issState.x = iss_placement.x();
+			issState.y = iss_placement.y();
+			issState.z = iss_placement.z();
 			}
 		else if (placement_flag == 2)
 			{
@@ -1181,15 +1180,11 @@ var z_lvlh = (issCoord.alt() - shuttleCoord.alt());
 
 var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
 
-var v_y_test = (y_lvlh - temp_storage)/dt;
-temp_storage = y_lvlh;
-
-print (v_y_test);
 
 var y = -SpaceShuttle.dot_product(y_vec, rel_vec);
 var ydot = (y - y_last)/dt;
 y_last = y;
-var theta = math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
+var theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
 
 
 setprop("/fdm/jsbsim/systems/rendezvous/ISS/Y-m",y);
@@ -1205,19 +1200,19 @@ if (dist > 5000.0)
 	iss_loop_flag = 0;
 	}
 
-if (dist < 1.0)
+if (dist < 0.4)
 	{
-	var p1 = getprop("/orientation/pitch-deg");
-	var p2 = getprop("/controls/shuttle/ISS/pitch-deg");
+	#var p1 = getprop("/orientation/pitch-deg");
+	#var p2 = getprop("/controls/shuttle/ISS/pitch-deg");
 
-	var r1 = getprop("/orientation/roll-deg");
-	var r2 = getprop("/controls/shuttle/ISS/roll-deg");
+	#var r1 = getprop("/orientation/roll-deg");
+	#var r2 = getprop("/controls/shuttle/ISS/roll-deg");
 
-	var y1 = getprop("/orientation/heading-deg");
-	var y2 = getprop("/controls/shuttle/ISS/heading-deg");
+	#var y1 = getprop("/orientation/heading-deg");
+	#var y2 = getprop("/controls/shuttle/ISS/heading-deg");
 
-	var D_roll = math.abs(r1-r2);
-	var D_pitch = math.abs(p1-p2);
+	#var D_roll = math.abs(r1-r2);
+	#var D_pitch = math.abs(p1-p2);
 
 	#print ("pitch: ", math.abs(p1-p2), " yaw: ", math.abs(y1-y2), " roll: ", math.abs(r1-r2));
 
@@ -1251,7 +1246,7 @@ if (dist < 1.0)
 			{
 			omega = - omega;
 			}
-		setprop("/controls/shuttle/ISS/rel-heading-deg", omega); 
+		setprop("/controls/shuttle/ISS/rel-heading-deg", -omega); 
 		}
 
 	}
