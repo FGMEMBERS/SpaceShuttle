@@ -1167,11 +1167,55 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable", state);
 			valid_flag =1;
 			}
+		else if (item == 2)
+			{
+			var state = getprop("/fdm/jsbsim/systems/rendezvous/ku-enable");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/rendezvous/ku-enable", state);
+			valid_flag =1;
+			}
 		else if (item == 4)
 			{
 			var state = getprop("/fdm/jsbsim/systems/rendezvous/sv-select");
 			if (state == 0) {state = 1;} else {state = 0;}
 			setprop("/fdm/jsbsim/systems/rendezvous/sv-select", state);
+			valid_flag =1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 0);
+			valid_flag =1;
+			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 1);
+			valid_flag =1;
+			}
+		else if (item == 14)
+			{
+			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 2);
+			valid_flag =1;
+			}
+
+		else if (item == 31)
+			{
+			var state = getprop("/fdm/jsbsim/systems/navigation/gps-1-select");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/navigation/gps-1-select", state);
+			valid_flag =1;
+			}
+		else if (item == 32)
+			{
+			var state = getprop("/fdm/jsbsim/systems/navigation/gps-2-select");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/navigation/gps-2-select", state);
+			valid_flag =1;
+			}
+		else if (item == 33)
+			{
+			var state = getprop("/fdm/jsbsim/systems/navigation/gps-3-select");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/navigation/gps-3-select", state);
 			valid_flag =1;
 			}
 		}

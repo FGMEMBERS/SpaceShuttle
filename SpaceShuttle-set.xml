@@ -681,6 +681,27 @@
       <air-data-4-deselect-cmd type="int">0</air-data-4-deselect-cmd>
       <radar-altimeter-1-switch type="int">1</radar-altimeter-1-switch>
       <radar-altimeter-2-switch type="int">1</radar-altimeter-2-switch>
+      <gps-1-select type="int">1</gps-1-select>
+      <gps-2-select type="int">1</gps-2-select>
+      <gps-3-select type="int">1</gps-3-select>
+      <state-vector>
+	<use-realistic-sv type="int">1</use-realistic-sv>
+	<error-star-tracker>
+	  <pitch-deg type="double">0.5</pitch-deg>
+	  <yaw-deg type="double">0.1</yaw-deg>
+	  <roll-deg type="double">0.2</roll-deg>
+	</error-star-tracker>
+	<error-coas>
+	  <pitch-deg type="double">1.0</pitch-deg>
+	  <yaw-deg type="double">0.5</yaw-deg>
+	  <roll-deg type="double">-0.6</roll-deg>
+	</error-coas>
+	<error-prop>
+	  <pitch-deg type="double">4.0</pitch-deg>
+	  <yaw-deg type="double">3.5</yaw-deg>
+	  <roll-deg type="double">2.6</roll-deg>
+	</error-prop>
+      </state-vector>
      </navigation>
      <oms>
       <oms-dump-cmd type="int">0</oms-dump-cmd>
@@ -875,6 +896,8 @@
      <rendezvous>
 	<rel-nav-enable type="int">0</rel-nav-enable>
 	<sv-select type="int">0</sv-select>
+	<ku-enable type="int">0</ku-enable>
+	<angle-sensor-selection type="int">0</angle-sensor-selection>
 	<target>
 	   <Y-m type="double">0.0</Y-m>
 	   <Ydot-m_s type="double">0.0</Ydot-m_s>

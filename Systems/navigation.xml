@@ -329,4 +329,49 @@
 
 	</channel>
 
+	<channel name="State vector">
+		
+		<fcs_function name="systems/navigation/state-vector/pitch-deg-A">
+		<function>
+			<sum>
+				<property>/orientation/pitch-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/pitch-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/pitch-deg-B">
+		<function>
+			<difference>
+				<value>90.0</value>
+				<property>systems/navigation/state-vector/pitch-deg-A</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/pitch-deg-C">
+		<function>
+			<difference>
+				<value>-90.0</value>
+				<property>systems/navigation/state-vector/pitch-deg-A</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/navigation/state-vector/pitch-deg">
+			<default value="systems/navigation/state-vector/pitch-deg-A"/>
+			<test value="systems/navigation/state-vector/pitch-deg-B">
+				systems/navigation/state-vector/pitch-deg-A GT 90.0
+			</test>
+			<test value="systems/navigation/state-vector/pitch-deg-C">
+				systems/navigation/state-vector/pitch-deg-A LT -90.0 
+			</test>
+
+		</switch>
+
+	</channel>
+
 </system>
