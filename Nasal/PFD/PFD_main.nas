@@ -17,6 +17,7 @@
 # * p_dps_antenna (SM OPS 202)
 # * p_dps_time (SPEC 2)
 # * p_dps_dap (SPEC 20)
+# * p_dps_rel_nav (SPEC 33)
 # * p_dps_override (SPEC 51)
 # * p_dps_pl_bay (SM OPS 202, SPEC 63)
 # * p_dps_sys_summ (DISP 18)
@@ -68,6 +69,7 @@ io.include("p_dps_mnvr.nas");
 io.include("p_dps_univ_ptg.nas");
 io.include("p_dps_apu_hyd.nas");
 io.include("p_dps_pl_bay.nas");
+io.include("p_dps_rel_nav.nas");
 io.include("p_dps_override.nas");
 io.include("p_dps_time.nas");
 io.include("p_dps_dap.nas");
@@ -240,6 +242,7 @@ var MDU_Device =
         me.PFD.p_dps_pl_ret = PFD_addpage_p_dps_pl_ret(me.PFD);
         me.PFD.p_dps_electric = PFD_addpage_p_dps_electric(me.PFD);
         me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
+        me.PFD.p_dps_rel_nav = PFD_addpage_p_dps_rel_nav(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -350,7 +353,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_meds_oms_mps);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rel_nav);
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
@@ -428,6 +431,10 @@ var MDU_Device =
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
+
+        me.PFD.p_dps_rel_nav.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rel_nav.addMenuItem(4, "MSG RST", me.PFD.p_dps_rel_nav);
+        me.PFD.p_dps_rel_nav.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rel_nav);
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
