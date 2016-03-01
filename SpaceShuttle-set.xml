@@ -872,6 +872,17 @@
       <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
       <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
      </rcs-hardware>	
+     <rendezvous>
+	<rel-nav-enable type="int">0</rel-nav-enable>
+	<sv-select type="int">0</sv-select>
+	<target>
+	   <Y-m type="double">0.0</Y-m>
+	   <Ydot-m_s type="double">0.0</Ydot-m_s>
+	   <theta type="double">0.0</theta>
+	   <distance-m type="double">0.0</distance-m>
+	   <ddot-m_s type="double">0.0</ddot-m_s>
+	</target>
+     </rendezvous>
      <rms>
       <port-heater-A-switch type="int">0</port-heater-A-switch>
       <port-heater-B-switch type="int">0</port-heater-B-switch>
@@ -1147,9 +1158,9 @@
    <status>beta</status>
    <rating>
     <FDM type="int">4</FDM>
-    <systems type="int">3</systems>
+    <systems type="int">4</systems>
     <cockpit type="int">2</cockpit>
-    <model type="int">2</model>
+    <model type="int">3</model>
    </rating>
 
    <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
