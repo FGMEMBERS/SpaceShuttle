@@ -34,13 +34,13 @@ var PFD_addpage_p_meds_apu = func(device)
     p_meds_apu.tape_fuel_qty2 = device.svg.getElementById("p_meds_apu_tape_fuel_qty2"); 
     p_meds_apu.tape_fuel_qty3 = device.svg.getElementById("p_meds_apu_tape_fuel_qty3"); 
 
-    p_meds_apu.hyd_p1 = device.svg.getElementById("p_dps_apu_hyd_p1"); 
-    p_meds_apu.hyd_p2 = device.svg.getElementById("p_dps_apu_hyd_p2"); 
-    p_meds_apu.hyd_p3 = device.svg.getElementById("p_dps_apu_hyd_p3"); 
+    p_meds_apu.hyd_p1 = device.svg.getElementById("p_meds_apu_hyd_p1"); 
+    p_meds_apu.hyd_p2 = device.svg.getElementById("p_meds_apu_hyd_p2"); 
+    p_meds_apu.hyd_p3 = device.svg.getElementById("p_meds_apu_hyd_p3"); 
 
-    p_meds_apu.tape_hyd_p1 = device.svg.getElementById("p_dps_apu_tape_hyd_p1");
-    p_meds_apu.tape_hyd_p2 = device.svg.getElementById("p_dps_apu_tape_hyd_p2"); 
-    p_meds_apu.tape_hyd_p3 = device.svg.getElementById("p_dps_apu_tape_hyd_p3");  
+    p_meds_apu.tape_hyd_p1 = device.svg.getElementById("p_meds_apu_tape_hyd_p1");
+    p_meds_apu.tape_hyd_p2 = device.svg.getElementById("p_meds_apu_tape_hyd_p2"); 
+    p_meds_apu.tape_hyd_p3 = device.svg.getElementById("p_meds_apu_tape_hyd_p3");  
 
     p_meds_apu.oilT1 = device.svg.getElementById("p_meds_apu_oilT1"); 
     p_meds_apu.oilT2 = device.svg.getElementById("p_meds_apu_oilT2"); 
