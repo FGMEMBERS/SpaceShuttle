@@ -8,6 +8,7 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
+jjjjj
 
     <!-- implicit lighting -->
     <effect>
@@ -182,7 +183,6 @@
         <object-name>pl-pri-fc3</object-name>
         <object-name>pl-pri-mn-b</object-name>
         <object-name>pl-pri-mn-c</object-name>
-        <!-- End R1 switches not connected -->
         <!--Panel L1 switches not connected -->
         <object-name>av-bay-1-fan-a</object-name>
         <object-name>av-bay-1-fan-b</object-name>
@@ -207,18 +207,21 @@
         <object-name>imu-fan-a</object-name>
         <object-name>imu-fan-b</object-name>
         <object-name>imu-fan-c</object-name>
-        <object-name>interchg-loop1</object-name>
-        <object-name>interchg-loop2</object-name>
+        <object-name>flow prop-vlv-loop1</object-name>
+        <object-name>flow prop-vlv-loop2</object-name>
         <object-name>rad-bypass-vlv-mode1</object-name>
         <object-name>rad-bypass-vlv-mode2</object-name>
         <object-name>smoke-detector-circut-test</object-name>
         <object-name>smoke-detector-sensor</object-name>
         <object-name>top-evap-heat</object-name>
-        <!-- End L1 switches not connected -->
+        <object-name>fire-sup-av-bay1</object-name>
+        <object-name>fire-sup-av-bay2</object-name>
+        <object-name>fire-sup-av-bay3</object-name>
     </effect>
 
     <effect>
       <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
+        <!--Panel R1 talkbacks -->
         <object-name>fc0-reac-h2-op</object-name>
         <object-name>fc0-reac-o2-op</object-name>
         <object-name>fc0-rfl</object-name>
@@ -243,6 +246,15 @@
         <object-name>inv-ac2-on</object-name>
         <object-name>inv-pwr2-on</object-name>
         <object-name>mb-tie-c-on</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>rad-cntrl-l-rad</object-name>
+        <object-name>rad-cntrl-r-rad</object-name>
+        <object-name>rad-cntrl-r-bp</object-name>
+        <object-name>rad-cntrl-l-bp</object-name>
+        <object-name>aft-cp-l-ich</object-name>
+        <object-name>aft-cp-r-ich</object-name>
+        <object-name>aft-cp-r-bp</object-name>
+        <object-name>aft-cp-l-bp</object-name>
         <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-op</object-name>
         <object-name>h2-mv2-op</object-name>
@@ -251,11 +263,11 @@
         <object-name>pri-fc3-on</object-name>
         <object-name>pri-mn-b-on</object-name>
         <object-name>pri-mn-c-on</object-name>
-        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <effect>
       <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-reverse</inherits-from>
+        <!--Panel R1 talkbacks -->
         <object-name>fc0-reac-h2-cl</object-name>
         <object-name>fc0-reac-o2-cl</object-name>
         <object-name>fc1-reac-h2-cl</object-name>
@@ -274,6 +286,11 @@
         <object-name>inv-ac2-off</object-name>
         <object-name>inv-pwr2-off</object-name>
         <object-name>mb-tie-c-off</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>rad-cntrl-l-byp</object-name>
+        <object-name>rad-cntrl-r-byp</object-name>
+        <object-name>aft-cp-l-pld</object-name>
+        <object-name>aft-cp-r-pld</object-name>       
         <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-cl</object-name>
         <object-name>h2-mv2-cl</object-name>
@@ -282,11 +299,11 @@
         <object-name>pri-fc3-off</object-name>
         <object-name>pri-mn-b-off</object-name>
         <object-name>pri-mn-c-off</object-name>
-        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <effect>
       <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
+        <!-- Panel L1 talkbacks -->
         <object-name>fc0-reac-base</object-name>
         <object-name>fc1-reac-base</object-name>
         <object-name>fc2-reac-base</object-name>
@@ -304,6 +321,9 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
+        <!-- Panel R1 talkbacks -->       
+        <object-name>rad-cntrl-base</object-name>
+        <object-name>aft-cp-base</object-name>
         <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv-1-base</object-name>
         <object-name>h2-mv-2-base</object-name>
@@ -312,7 +332,6 @@
         <object-name>pri-fc3-base</object-name>
         <object-name>pri-mn-b-base</object-name>
         <object-name>pri-mn-c-base</object-name>
-        <!-- End R1 talkbacks not connected -->
     </effect>
 
     <animation>
@@ -386,7 +405,26 @@
         <object-name>Roof_Assembly</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
-        <object-name>HudLeft</object-name>
+        <object-name>HudLeft</object-name> 
+        <object-name>ess-bus-src-fc1-cvr</object-name>
+        <object-name>ess-bus-src-fc2-cvr</object-name>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <object-name>h2-tk1-heat-a-cvr</object-name>
+        <object-name>h2-tk1-heat-b-cvr</object-name>
+        <object-name>h2-tk2-heat-a-cvr</object-name>
+        <object-name>h2-tk2-heat-b-cvr</object-name>
+        <object-name>h2-tk3-heat-a-cvr</object-name>
+        <object-name>h2-tk3-heat-b-cvr</object-name>
+        <object-name>o2-tk1-heat-a-cvr</object-name>
+        <object-name>o2-tk1-heat-b-cvr</object-name>
+        <object-name>o2-tk2-heat-a-cvr</object-name>
+        <object-name>o2-tk2-heat-b-cvr</object-name>
+        <object-name>o2-tk3-heat-a-cvr</object-name>
+        <object-name>o2-tk3-heat-b-cvr</object-name>
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name>
     </effect>
 
     <animation>
@@ -2171,6 +2209,47 @@
         </hovered>
     </animation>
 
+    <!-- Radiator Out Temp "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>rad-out-temp</object-name>
+        <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-12.1398</x-m>
+            <y-m> -1.1826</y-m>
+            <z-m> -0.6445</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+                <factor>-1</factor>
+                <min>1</min>
+                <max>0</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rad-out-temp</tooltip-id>
+                <label>Radiator Out Temp: %s</label>
+                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- Radiator Controller Loop 1 "Switch"-->
     <animation>
         <type>knob</type>
@@ -2253,45 +2332,92 @@
         </hovered>
     </animation>
 
-    <!-- Radiator Out Temp "Switch"-->
+    <!-- Rad CRTNL Left "Talkback" -->
     <animation>
-        <type>knob</type>
-        <object-name>rad-out-temp</object-name>
-        <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
-        <factor>45</factor>
-        <offset-deg>-30</offset-deg>
-        <center>
-            <x-m>-12.1398</x-m>
-            <y-m> -1.1826</y-m>
-            <z-m> -0.6445</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>-.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
-                <factor>-1</factor>
-                <min>1</min>
-                <max>0</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>rad-out-temp</tooltip-id>
-                <label>Radiator Out Temp: %s</label>
-                <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
-            </binding>
-        </hovered>
+        <type>select</type>
+        <object-name>rad-cntrl-l-rad</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+                    <value>0</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>rad-cntrl-l-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>rad-cntrl-l-byp</object-name>
+        <condition>
+             <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+                    <value>1</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- Rad CRTNL Right "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>rad-cntrl-r-rad</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+                    <value>0</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>rad-cntrl-r-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>rad-cntrl-r-byp</object-name>
+        <condition>
+             <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+                    <value>1</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- Radiator Flow 1 "Switch"-->
@@ -2623,7 +2749,308 @@
     </animation>
 
     <!-- ******************************************************************* -->
-    <!-- Panel R1                                                                                                          -->
+    <!-- Panel L1                                                                                          -->
+    <!-- Un-coded switches and talkbacks                                                        -->
+    <!-- ******************************************************************* -->
+
+    <!-- Flow Prop Valve Loop 1 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>flow-prop-vlv-loop1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop1</property>
+        <factor>-45</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-11.9849</x-m>
+            <y-m> -1.2183</y-m>
+            <z-m> -0.7015</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop1</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>flow-prop-vlv-loop1</tooltip-id>
+                <label>Flow Prop Vlv Loop 1: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Flow Prop Valve Loop 2 "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>flow-prop-vlv-loop2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop2</property>
+        <factor>-45</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.022 </x-m>
+            <y-m> -1.2086</y-m>
+            <z-m> -0.7025</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>flow-prop-vlv-loop2</tooltip-id>
+                <label>Flow Prop Vlv Loop 2: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Aft CP Left "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-l-ich</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop1</property>
+                    <value>0</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-l-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-l-pld</object-name>
+        <condition>
+             <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop1</property>
+                    <value>1</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- Aft CP Right "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-r-ich</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop2</property>
+                    <value>0</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-r-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>aft-cp-r-pld</object-name>
+        <condition>
+             <and>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dummy/switch/flow-prop-vlv-loop2</property>
+                    <value>1</value>
+                </equals>
+                <not-equals>
+                    <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+                    <value>0</value>
+                </not-equals>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- Fire Sup AV Bay 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay1</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
+        <factor>-35</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.3068</x-m>
+            <y-m> -1.1317</y-m>
+            <z-m> -0.6377</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay1</tooltip-id>
+                <label>Fire Sup AV Bay 1: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Sup AV Bay 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay2</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
+        <factor>-35</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.3325</x-m>
+            <y-m> -1.1243</y-m>
+            <z-m> -0.6381</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay2</tooltip-id>
+                <label>Fire Sup AV Bay 2: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Sup AV Bay 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay3</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
+        <factor>-35</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.3587</x-m>
+            <y-m> -1.1147</y-m>
+            <z-m> -0.6379</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay3</tooltip-id>
+                <label>Fire Sup AV Bay 3: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel R1                                                                                          -->
     <!-- ******************************************************************* -->
 
     <!-- FC1 Reactant Valve "Switch"-->
@@ -4365,7 +4792,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-fc1</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc1</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4381,7 +4808,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc1</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4398,7 +4825,7 @@
                 <tooltip-id>ess-bus-src-fc1</tooltip-id>
                 <label>ESS Bus Source FC1: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc1</property>
             </binding>
         </hovered>
     </animation>
@@ -4407,7 +4834,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-fc2</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc2</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4423,7 +4850,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc2</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4440,7 +4867,7 @@
                 <tooltip-id>ess-bus-src-fc2</tooltip-id>
                 <label>ESS Bus Source FC2: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc2</property>
             </binding>
         </hovered>
     </animation>
@@ -4449,7 +4876,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-fc3</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc3</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4465,7 +4892,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc3</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4482,7 +4909,7 @@
                 <tooltip-id>ess-bus-src-fc3</tooltip-id>
                 <label>ESS Bus Source FC3: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-fc3</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-fc3</property>
             </binding>
         </hovered>
     </animation>
@@ -4491,7 +4918,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-mn-bc</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-bc</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4507,7 +4934,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-bc</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4524,7 +4951,7 @@
                 <tooltip-id>ess-bus-src-mn-bc</tooltip-id>
                 <label>ESS Bus Source MN BC: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-bc</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-bc</property>
             </binding>
         </hovered>
     </animation>
@@ -4533,7 +4960,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-mn-ca</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ca</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4549,7 +4976,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ca</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4566,7 +4993,7 @@
                 <tooltip-id>ess-bus-src-mn-ca</tooltip-id>
                 <label>ESS Bus Source MN CA: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ca</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ca</property>
             </binding>
         </hovered>
     </animation>
@@ -4575,7 +5002,7 @@
     <animation>
         <type>knob</type>
         <object-name>ess-bus-src-mn-ab</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ab</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4591,7 +5018,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ab</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4608,7 +5035,7 @@
                 <tooltip-id>ess-bus-src-mn-ab</tooltip-id>
                 <label>ESS Bus Source MN AB: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/ess-bus-src-mn-ab</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/ess-bus-src-mn-ab</property>
             </binding>
         </hovered>
     </animation>
@@ -4617,7 +5044,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-man-valve-1</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-1</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4633,7 +5060,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-1</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4650,7 +5077,7 @@
                 <tooltip-id>h2-man-valve-1</tooltip-id>
                 <label>H2 Manifold Valve 1: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-1</property>
             </binding>
         </hovered>
     </animation>
@@ -4659,7 +5086,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-man-valve-2</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-2</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4675,7 +5102,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-2</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4692,7 +5119,7 @@
                 <tooltip-id>h2-man-valve-2</tooltip-id>
                 <label>H2 Manifold Valve 2: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-2</property>
             </binding>
         </hovered>
     </animation>
@@ -4701,7 +5128,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank1a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4717,7 +5144,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4733,7 +5160,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank1a-heat</tooltip-id>
                 <label>H2 Tank 1A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4742,7 +5169,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank1b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4758,7 +5185,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4774,7 +5201,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank1b-heat</tooltip-id>
                 <label>H2 Tank 1B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank1b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank1b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4783,7 +5210,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank2a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4799,7 +5226,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4815,7 +5242,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank2a-heat</tooltip-id>
                 <label>H2 Tank 2A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4824,7 +5251,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank2b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4840,7 +5267,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4856,7 +5283,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank2b-heat</tooltip-id>
                 <label>H2 Tank 2B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank2b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank2b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4865,7 +5292,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank3a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4881,7 +5308,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4897,7 +5324,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank3a-heat</tooltip-id>
                 <label>H2 Tank 3A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4906,7 +5333,7 @@
     <animation>
         <type>knob</type>
         <object-name>h2-tank3b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -4922,7 +5349,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -4938,7 +5365,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>h2-tank3b-heat</tooltip-id>
                 <label>H2 Tank 3B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-tank3b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-tank3b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -4947,7 +5374,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-man-valve-1</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-1</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -4963,7 +5390,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-1</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4980,7 +5407,7 @@
                 <tooltip-id>o2-man-valve-1</tooltip-id>
                 <label>O2 Manifold Valve 1: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-1</property>
             </binding>
         </hovered>
     </animation>
@@ -4989,7 +5416,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-man-valve-2</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-2</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5005,7 +5432,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-2</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5022,7 +5449,7 @@
                 <tooltip-id>o2-man-valve-2</tooltip-id>
                 <label>O2 Manifold Valve 2: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-2</property>
             </binding>
         </hovered>
     </animation>
@@ -5031,7 +5458,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank1a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5047,7 +5474,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5063,7 +5490,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank1a-heat</tooltip-id>
                 <label>O2 Tank 1A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5072,7 +5499,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank1b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5088,7 +5515,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5104,7 +5531,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank1b-heat</tooltip-id>
                 <label>O2 Tank 1B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank1b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank1b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5113,7 +5540,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank2a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5129,7 +5556,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5145,7 +5572,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank2a-heat</tooltip-id>
                 <label>O2 Tank 2A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5154,7 +5581,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank2b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5170,7 +5597,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5186,7 +5613,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank2b-heat</tooltip-id>
                 <label>O2 Tank 2B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank2b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank2b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5195,7 +5622,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank3a-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3a-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5211,7 +5638,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3a-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5227,7 +5654,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank3a-heat</tooltip-id>
                 <label>O2 Tank 3A Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3a-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3a-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5236,7 +5663,7 @@
     <animation>
         <type>knob</type>
         <object-name>o2-tank3b-heat</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3b-heat</property>
         <factor>-15</factor>
         <offset-deg>30</offset-deg>
         <center>
@@ -5252,7 +5679,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3b-heat</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>2</max>
@@ -5268,7 +5695,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>o2-tank3b-heat</tooltip-id>
                 <label>O2 Tank 3B Heater: %s</label>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-tank3b-heat</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-tank3b-heat</property>
             </binding>
         </hovered>
     </animation>
@@ -5424,7 +5851,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-aft-mn-b</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-b</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5440,7 +5867,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-b</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5457,7 +5884,7 @@
                 <tooltip-id>pl-aft-mn-b</tooltip-id>
                 <label>Payload AFT MN B: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-b</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-b</property>
             </binding>
         </hovered>
     </animation>
@@ -5466,7 +5893,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-aft-mn-c</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-c</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5482,7 +5909,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-c</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5499,7 +5926,7 @@
                 <tooltip-id>pl-aft-mn-c</tooltip-id>
                 <label>Payload AFT MN C: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aft-mn-c</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aft-mn-c</property>
             </binding>
         </hovered>
     </animation>
@@ -5508,7 +5935,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-aux</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-aux</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5524,7 +5951,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aux</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5541,7 +5968,7 @@
                 <tooltip-id>pl-aux</tooltip-id>
                 <label>Payload AUX: %s</label>
                 <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-aux</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-aux</property>
             </binding>
         </hovered>
     </animation>
@@ -5550,7 +5977,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-cabin</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-cabin</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5566,7 +5993,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-cabin</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5583,7 +6010,7 @@
                 <tooltip-id>pl-cabin</tooltip-id>
                 <label>Payload Cabin: %s</label>
                 <mapping>mna-mnb</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-cabin</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-cabin</property>
             </binding>
         </hovered>
     </animation>
@@ -5592,7 +6019,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-pri-fc3</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-fc3</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5608,7 +6035,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-fc3</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5625,7 +6052,7 @@
                 <tooltip-id>pl-pri-fc3</tooltip-id>
                 <label>Payload Primary FC3: %s</label>
                 <mapping>mna-mnb</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-fc3</property>
             </binding>
         </hovered>
     </animation>
@@ -5634,7 +6061,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-pri-mn-b</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-b</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5650,7 +6077,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-b</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5667,7 +6094,7 @@
                 <tooltip-id>pl-pri-mn-b</tooltip-id>
                 <label>Payload Primary MN B: %s</label>
                 <mapping>mna-mnb</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-b</property>
             </binding>
         </hovered>
     </animation>
@@ -5676,7 +6103,7 @@
     <animation>
         <type>knob</type>
         <object-name>pl-pri-mn-c</object-name>
-        <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+        <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-c</property>
         <factor>-25</factor>
         <offset-deg>20</offset-deg>
         <center>
@@ -5692,7 +6119,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-c</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5709,7 +6136,7 @@
                 <tooltip-id>pl-pri-mn-c</tooltip-id>
                 <label>Payload Primary MN C: %s</label>
                 <mapping>mna-mnb</mapping>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-c</property>
             </binding>
         </hovered>
     </animation>
@@ -5719,7 +6146,7 @@
         <type>select</type>
         <object-name>h2-mv1-op</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-1</property>
         </condition>
     </animation>
     <animation>
@@ -5727,7 +6154,7 @@
         <object-name>h2-mv1-cl</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-1</property>
             </not>
         </condition>
     </animation>
@@ -5737,7 +6164,7 @@
         <type>select</type>
         <object-name>h2-mv2-op</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-2</property>
         </condition>
     </animation>
     <animation>
@@ -5745,7 +6172,7 @@
         <object-name>h2-mv2-cl</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/h2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/h2-man-valve-2</property>
             </not>
         </condition>
     </animation>
@@ -5755,7 +6182,7 @@
         <type>select</type>
         <object-name>o2-mv1-op</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-1</property>
         </condition>
     </animation>
     <animation>
@@ -5763,7 +6190,7 @@
         <object-name>o2-mv1-cl</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-1</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-1</property>
             </not>
         </condition>
     </animation>
@@ -5773,7 +6200,7 @@
         <type>select</type>
         <object-name>o2-mv2-op</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-2</property>
         </condition>
     </animation>
     <animation>
@@ -5781,7 +6208,7 @@
         <object-name>o2-mv2-cl</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/o2-man-valve-2</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/o2-man-valve-2</property>
             </not>
         </condition>
     </animation>
@@ -5791,7 +6218,7 @@
         <type>select</type>
         <object-name>pri-fc3-on</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-fc3</property>
         </condition>
     </animation>
     <animation>
@@ -5799,7 +6226,7 @@
         <object-name>pri-fc3-off</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-fc3</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-fc3</property>
             </not>
         </condition>
     </animation>
@@ -5809,7 +6236,7 @@
         <type>select</type>
         <object-name>pri-mn-b-on</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-b</property>
         </condition>
     </animation>
     <animation>
@@ -5817,7 +6244,7 @@
         <object-name>pri-mn-b-off</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-b</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-b</property>
             </not>
         </condition>
     </animation>
@@ -5827,7 +6254,7 @@
         <type>select</type>
         <object-name>pri-mn-c-on</object-name>
         <condition>
-            <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+            <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-c</property>
         </condition>
     </animation>
     <animation>
@@ -5835,10 +6262,124 @@
         <object-name>pri-mn-c-off</object-name>
         <condition>
             <not>
-                <property>/fdm/jsbsim/systems/dummy/button/pl-pri-mn-c</property>
+                <property>/fdm/jsbsim/systems/dummy/switch/pl-pri-mn-c</property>
             </not>
         </condition>
     </animation>
+
+    <!-- Switch Covers -->
+    <animation>
+        <type>select</type>
+        <object-name>ess-bus-src-fc1-cvr</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ess-bus-src-fc1-cvr</object-name>
+        <object-name>ess-bus-src-fc1</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
+                <value>false</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <condition>
+                    <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
+                </condition>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-cover</tooltip-id>
+                <label>Remove Cover</label>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>ess-bus-src-fc2-cvr</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ess-bus-src-fc2-cvr</object-name>
+        <object-name>ess-bus-src-fc2</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
+                <value>false</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <condition>
+                    <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
+                </condition>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-cover</tooltip-id>
+                <label>Remove Cover</label>
+            </binding>
+        </hovered>
+    </animation>
+     <animation>
+        <type>select</type>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
+        </condition>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <object-name>ess-bus-src-fc3</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
+                <value>false</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <condition>
+                    <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
+                </condition>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-cover</tooltip-id>
+                <label>Remove Cover</label>
+            </binding>
+        </hovered>
+    </animation>
+   
+    <!--object-name>ess-bus-src-fc2-cvr</object-name>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <object-name>h2-tk1-heat-a-cvr</object-name>
+        <object-name>h2-tk1-heat-b-cvr</object-name>
+        <object-name>h2-tk2-heat-a-cvr</object-name>
+        <object-name>h2-tk2-heat-b-cvr</object-name>
+        <object-name>h2-tk3-heat-a-cvr</object-name>
+        <object-name>h2-tk3-heat-b-cvr</object-name>
+        <object-name>o2-tk1-heat-a-cvr</object-name>
+        <object-name>o2-tk1-heat-b-cvr</object-name>
+        <object-name>o2-tk2-heat-a-cvr</object-name>
+        <object-name>o2-tk2-heat-b-cvr</object-name>
+        <object-name>o2-tk3-heat-a-cvr</object-name>
+        <object-name>o2-tk3-heat-b-cvr</object-name>
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name-->
 
  <!-- ******************************************************************* -->
  <!--  Commander RHC                                                                               -->
