@@ -131,6 +131,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 	var antenna_func = SpaceShuttle.antenna_manager.function;
 	var ku_enable = getprop("/fdm/jsbsim/systems/rendezvous/ku-enable");
+	var tgt_acquired = SpaceShuttle.antenna_manager.tgt_acquired;
+
 
 	p_dps_rel_nav.rr_mode.setText(SpaceShuttle.antenna_manager.function);
 
@@ -139,7 +141,7 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		{symbol = "";}
 	p_dps_rel_nav.ku_ant_enable.setText(symbol);
 
-	if ((antenna_func == "COMM") or (ku_enable == 0))
+	if ((antenna_func == "COMM") or (ku_enable == 0) or (tgt_acquired == 0))
 		{
 		p_dps_rel_nav.rng_ku.setText("");
 		p_dps_rel_nav.rdot_ku.setText("");
@@ -150,8 +152,20 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		}
 	else
 		{
+		var ku_elevation_body = antenna_manager.ku_elevation;
+		var ku_azimuth_body = antenna_manager.ku_azimuth;
+
+		var ku_pointing_body = SpaceShuttle.get_vec_az_el(ku_azimuth_body, ku_elevation_body);
+		var ku_pointing_inertial = SpaceShuttle.vtransform_body_inertial(ku_pointing_body);
+		var angles_inertial = SpaceShuttle.get_pitch_yaw(ku_pointing_inertial);
+		var ku_azimuth_inertial = angles_inertial[1] * 180.0/math.pi;
+		var ku_elevation_inertial = angles_inertial[0] * 180.0/math.pi;
+
+
 		p_dps_rel_nav.rng_ku.setText(sprintf("%4.3f", range / 1000. / 0.3048));
 		p_dps_rel_nav.rdot_ku.setText(sprintf("%+4.2f", rdot / 0.3048));
+		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_inertial));
+    		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_inertial));
 		}		
 	
 	symbol = "*";

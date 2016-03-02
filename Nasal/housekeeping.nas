@@ -525,12 +525,23 @@ var ku_antenna_track_TDRS = func (index) {
 
 var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(index);
 
-ku_antenna_point (angles[1], angles[0]);
+antenna_manager.ku_azimuth =  angles[1];
+antenna_manager.ku_elevation = angles[0];
 
+ku_antenna_point (angles[1], angles[0]);
 
 }
 
+var ku_antenna_track_target = func (coord) {
 
+var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord);
+
+antenna_manager.ku_azimuth =  angles[1];
+antenna_manager.ku_elevation = angles[0];
+
+ku_antenna_point (angles[1], angles[0]);
+
+}
 
 var antenna_manager = {
 
@@ -538,7 +549,9 @@ var antenna_manager = {
 	hemisphere : "LO",
 	station : "",
 	mode : "S-HI",
+	rr_mode : "GPC",
 	function: "COMM",
+	tgt_acquired : 0,
 	TDRS_view_array : [0,0,0,0,0,0],
 	TDRS_A : 0,
 	TDRS_B : 0,
@@ -546,11 +559,19 @@ var antenna_manager = {
 	TDRS_s_primary : "A",
 	TDRS_ku_track : 0,
 	TDRS_ku_tgt : 0,
+	ku_azimuth : 0.0,
+	ku_elevation: 0.0,
+	rr_target: {},
+	rr_target_available: 0,
+	rvdz_data: 0,
 
-	set_function: func (function) {
-		
-	me.function = function;
-	
+	set_function: func (function) {	
+		me.function = function;
+	},
+
+	set_rr_target: func (coord) {
+		me.rr_target = coord;
+		me.rr_target_available = 1;
 	},
 
 	run: func {
@@ -618,13 +639,48 @@ var antenna_manager = {
 		}
 	me.TDRS_ku_track = track_index +1;
 
-	if (me.mode == "COMM") {ku_antenna_track_TDRS (track_index);}
+	if (me.function == "COMM") 
+		{ku_antenna_track_TDRS (track_index);}
+	else if (me.function = "RDR PASSIVE") 
+		{
+			if ((me.rr_target_available == 1) and (me.rvdz_data == 1))
+				{
+				ku_antenna_track_target(me.rr_target);
+				}		
+		}
+
+	# check whether antenna is in position already
+	var ku_beta_act = getprop("/controls/shuttle/ku-antenna-beta-deg");
+	var ku_beta_cmd = getprop("/controls/shuttle/ku-antenna-beta-deg-cmd");
+
+	var ku_alpha_act = getprop("/controls/shuttle/ku-antenna-alpha-deg");
+	var ku_alpha_cmd = getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd");
+
+	#print (ku_beta_act - ku_beta_cmd);
+	#print (ku_alpha_act - ku_alpha_cmd);
+
+	var delta_alpha = math.abs(ku_alpha_act - ku_alpha_cmd);
+	var delta_beta = math.abs(ku_beta_act - ku_beta_cmd);
 
 
-	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0))
+	if ((delta_alpha < 1.5) and (delta_beta < 1.5))
+		{
+		me.tgt_acquired = 1;
+		}
+	else
+		{
+		me.tgt_acquired = 0;
+		}
+
+
+	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0) and (me.tgt_acquired == 1))
 		{me.TDRS_ku_tgt = 1;}
 	else
 		{me.TDRS_ku_tgt = 0;}
+
+
+
+
 	},
 
 };
