@@ -215,6 +215,53 @@ return [pitch, yaw];
 }
 
 ######################################
+# general helper function to get a 
+# pointing vector 
+# given azimuth and elevation
+######################################
+
+
+var get_vec_az_el = func (azimuth, elevation) {
+
+var az_rad = azimuth / 180.0 * math.pi;
+var el_rad = elevation / 180.0 * math.pi;
+
+var x = math.cos(az_rad) * math.cos(el_rad);
+var y = math.sin(az_rad) * math.cos(el_rad);
+var z = math.sin(el_rad);
+
+return [x,y,z];
+}
+
+######################################
+# pointing vector coordinate 
+# transformationn
+######################################
+
+var vtransform_body_inertial = func (vec) {
+
+# body axis vectors in inertial coords
+
+var body_x = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]")];
+
+var body_y = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]")];
+
+var body_z = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]")];
+
+var vec1 = scalar_product(vec[0], body_x);
+var vec2 = scalar_product(vec[1], body_y);
+var vec3 = scalar_product(vec[2], body_z);
+
+var outvec = add_vector(vec1, vec2);
+outvec = add_vector (outvec, vec3);
+
+return outvec;
+
+
+}
+
+
+######################################
 # creation of an inertial maneuver target
 ######################################
 

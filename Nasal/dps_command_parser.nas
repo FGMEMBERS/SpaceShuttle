@@ -1165,6 +1165,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 			var state = getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable");
 			if (state == 0) {state = 1;} else {state = 0;}
 			setprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable", state);
+			antenna_manager.rvdz_data = state;
 			valid_flag =1;
 			}
 		else if (item == 2)

@@ -312,8 +312,16 @@ else
 
 var com_get_TDRS_azimuth_elevation = func (index) {
 
-var shuttle_pos = geo.aircraft_position();
+
 var tdrs_pos = com_TDRS_array[index].coord;
+
+return com_get_pointing_azimuth_elevation(tdrs_pos);
+}
+
+
+var com_get_pointing_azimuth_elevation  = func (coord) {
+
+var shuttle_pos = geo.aircraft_position();
 
 # body axis upward pointing vector in FG world coords
 
@@ -327,12 +335,12 @@ var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("
 
 var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]")];
 
-# pointing vector towards satellite in world coordinates
+# pointing vector  in world coordinates
 
 var shuttle_world = shuttle_pos.xyz();
-var tdrs_world = tdrs_pos.xyz();
+var tgt_world = coord.xyz();
 
-var pointer = SpaceShuttle.normalize(SpaceShuttle.subtract_vector(tdrs_world, shuttle_world));
+var pointer = SpaceShuttle.normalize(SpaceShuttle.subtract_vector(tgt_world, shuttle_world));
 
 # get the components of the pointing vector in body coordinates
 
@@ -341,20 +349,13 @@ var pointer_by = SpaceShuttle.dot_product(body_y, pointer);
 var pointer_bz = SpaceShuttle.dot_product(body_z, pointer);
 
 var pointer_body = [pointer_bx, pointer_by, pointer_bz];
-
 var angles = SpaceShuttle.get_pitch_yaw(pointer_body);
 
 angles[0] = angles[0] * 180.0/math.pi;
 angles[1] = angles[1] * 180.0/math.pi;
 
-#if (pointer_bx < 0.0) {angles[1] = angles[1] + 180.0;}
-#if (angles[1] > 360.0) {angles[1] = angles[1] - 360.0;}
-
-
-#print(pointer_body[0], " ", pointer_body[1], " ", pointer_body[2]);
-
-#print ("Elevation: ", angles[0], " azimuth: ", angles[1]);
-
 return angles;
+
+
 }
 

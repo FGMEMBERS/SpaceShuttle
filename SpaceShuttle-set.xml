@@ -1087,6 +1087,8 @@
     <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
     <ku-antenna-beta-deg type="double">0.0</ku-antenna-beta-deg>
     <ku-antenna-alpha-deg type="double">0.0</ku-antenna-alpha-deg>
+    <ku-antenna-beta-deg-cmd type="double">0.0</ku-antenna-beta-deg-cmd>
+    <ku-antenna-alpha-deg-cmd type="double">0.0</ku-antenna-alpha-deg-cmd>
     <forces>
      <srb1>
       <force-azimuth-deg type="double">0.0</force-azimuth-deg>
