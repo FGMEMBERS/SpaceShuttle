@@ -1162,8 +1162,8 @@ var dist = shuttleCoord.distance_to(issCoord);
 var ddot = (dist - d_last)/dt;
 d_last = dist;
 
-setprop("/fdm/jsbsim/systems/rendezvous/ISS/distance-m", dist);
-setprop("/fdm/jsbsim/systems/rendezvous/ISS/ddot-m_s", ddot);
+setprop("/fdm/jsbsim/systems/rendezvous/target/distance-m", dist);
+setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s", ddot);
 
 var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
 var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
@@ -1187,9 +1187,9 @@ y_last = y;
 var theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
 
 
-setprop("/fdm/jsbsim/systems/rendezvous/ISS/Y-m",y);
-setprop("/fdm/jsbsim/systems/rendezvous/ISS/Ydot-m_s",ydot);
-setprop("/fdm/jsbsim/systems/rendezvous/ISS/theta",theta);
+setprop("/fdm/jsbsim/systems/rendezvous/target/Y-m",y);
+setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s",ydot);
+setprop("/fdm/jsbsim/systems/rendezvous/target/theta",theta);
 
 
 
@@ -1202,22 +1202,7 @@ if (dist > 5000.0)
 
 if (dist < 0.4)
 	{
-	#var p1 = getprop("/orientation/pitch-deg");
-	#var p2 = getprop("/controls/shuttle/ISS/pitch-deg");
-
-	#var r1 = getprop("/orientation/roll-deg");
-	#var r2 = getprop("/controls/shuttle/ISS/roll-deg");
-
-	#var y1 = getprop("/orientation/heading-deg");
-	#var y2 = getprop("/controls/shuttle/ISS/heading-deg");
-
-	#var D_roll = math.abs(r1-r2);
-	#var D_pitch = math.abs(p1-p2);
-
-	#print ("pitch: ", math.abs(p1-p2), " yaw: ", math.abs(y1-y2), " roll: ", math.abs(r1-r2));
-
-
-
+	
 	if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (theta < 15.0))
 		{
 		setprop("/sim/messages/copilot", "Successful ISS docking!");

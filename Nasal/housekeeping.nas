@@ -538,6 +538,7 @@ var antenna_manager = {
 	hemisphere : "LO",
 	station : "",
 	mode : "S-HI",
+	function: "COMM",
 	TDRS_view_array : [0,0,0,0,0,0],
 	TDRS_A : 0,
 	TDRS_B : 0,
@@ -545,6 +546,12 @@ var antenna_manager = {
 	TDRS_s_primary : "A",
 	TDRS_ku_track : 0,
 	TDRS_ku_tgt : 0,
+
+	set_function: func (function) {
+		
+	me.function = function;
+	
+	},
 
 	run: func {
 
@@ -611,7 +618,7 @@ var antenna_manager = {
 		}
 	me.TDRS_ku_track = track_index +1;
 
-	ku_antenna_track_TDRS (track_index);
+	if (me.mode == "COMM") {ku_antenna_track_TDRS (track_index);}
 
 
 	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0))
@@ -622,14 +629,7 @@ var antenna_manager = {
 
 };
 
-var antenna_management = func {
 
-
-
-
-
-
-}
 
 #########################################################################################
 # management rountines for internal timers
