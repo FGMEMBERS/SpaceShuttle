@@ -19,7 +19,7 @@
    <jsbsim>
 	<systems>
 	   <dps>
-		<ops type="int">1</ops>
+		<ops type="int">2</ops>
 		<major-mode type="int">201</major-mode>
 	   </dps>
 	</systems>

@@ -24446,7 +24446,7 @@
            y="58.178572"
            x="352.928574"
            id="tspan3112"
-           sodipodi:role="line">AVG G ON     5</tspan></text>
+           sodipodi:role="line">AVG G ON      5</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_rel_nav_avg_g"
@@ -24583,7 +24583,7 @@
            sodipodi:role="line">RR</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_sv_sel_rr"
+         id="p_dps_rel_nav_rr_mode"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25474,7 +25474,7 @@
            y="254.178572"
            x="29.928574"
            id="tspan3112"
-           sodipodi:role="line">COVAR REINIT  15</tspan></text>
+           sodipodi:role="line">COVAR REINIT  16</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_rel_nav_covar_reinit"
