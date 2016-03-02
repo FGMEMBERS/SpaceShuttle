@@ -63,6 +63,46 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
     p_dps_rel_nav.vely_resid = device.svg.getElementById("p_dps_rel_nav_vely_resid");
 
+    p_dps_rel_nav.rdot_resid = device.svg.getElementById("p_dps_rel_nav_rdot_resid");
+    p_dps_rel_nav.rdot_ratio = device.svg.getElementById("p_dps_rel_nav_rdot_ratio");
+
+    p_dps_rel_nav.rng_resid = device.svg.getElementById("p_dps_rel_nav_rng_resid");
+    p_dps_rel_nav.rng_ratio = device.svg.getElementById("p_dps_rel_nav_rng_ratio");
+    p_dps_rel_nav.rng_acpt = device.svg.getElementById("p_dps_rel_nav_rng_acpt");
+    p_dps_rel_nav.rng_rej = device.svg.getElementById("p_dps_rel_nav_rng_rej");
+    p_dps_rel_nav.rng_for = device.svg.getElementById("p_dps_rel_nav_rng_for");
+    p_dps_rel_nav.rng_inh = device.svg.getElementById("p_dps_rel_nav_rng_inh");
+    p_dps_rel_nav.rng_aut = device.svg.getElementById("p_dps_rel_nav_rng_aut");
+
+    p_dps_rel_nav.rdot_resid = device.svg.getElementById("p_dps_rel_nav_rdot_resid");
+    p_dps_rel_nav.rdot_ratio = device.svg.getElementById("p_dps_rel_nav_rdot_ratio");
+    p_dps_rel_nav.rdot_acpt = device.svg.getElementById("p_dps_rel_nav_rdot_acpt");
+    p_dps_rel_nav.rdot_rej = device.svg.getElementById("p_dps_rel_nav_rdot_rej");
+    p_dps_rel_nav.rdot_for = device.svg.getElementById("p_dps_rel_nav_rdot_for");
+    p_dps_rel_nav.rdot_inh = device.svg.getElementById("p_dps_rel_nav_rdot_inh");
+    p_dps_rel_nav.rdot_aut = device.svg.getElementById("p_dps_rel_nav_rdot_aut");
+
+    p_dps_rel_nav.vely_resid = device.svg.getElementById("p_dps_rel_nav_vely_resid");
+    p_dps_rel_nav.vely_ratio = device.svg.getElementById("p_dps_rel_nav_vely_ratio");
+    p_dps_rel_nav.vely_acpt = device.svg.getElementById("p_dps_rel_nav_vely_acpt");
+    p_dps_rel_nav.vely_rej = device.svg.getElementById("p_dps_rel_nav_vely_rej");
+    p_dps_rel_nav.vely_for = device.svg.getElementById("p_dps_rel_nav_vely_for");
+    p_dps_rel_nav.vely_inh = device.svg.getElementById("p_dps_rel_nav_vely_inh");
+    p_dps_rel_nav.vely_aut = device.svg.getElementById("p_dps_rel_nav_vely_aut");
+
+    p_dps_rel_nav.hazx_acpt = device.svg.getElementById("p_dps_rel_nav_hazx_acpt");
+    p_dps_rel_nav.hazx_rej = device.svg.getElementById("p_dps_rel_nav_hazx_rej");
+
+    p_dps_rel_nav.gps_inh = device.svg.getElementById("p_dps_rel_nav_gps_inh");
+    p_dps_rel_nav.gps_for = device.svg.getElementById("p_dps_rel_nav_gps_for");
+    p_dps_rel_nav.gps_aut = device.svg.getElementById("p_dps_rel_nav_gps_aut");
+
+    p_dps_rel_nav.node = device.svg.getElementById("p_dps_rel_nav_node");
+
+    p_dps_rel_nav.sv_trans_pos = device.svg.getElementById("p_dps_rel_nav_sv_trans_pos");
+    p_dps_rel_nav.sv_trans_vel = device.svg.getElementById("p_dps_rel_nav_sv_trans_vel");
+
+
 
 
     p_dps_rel_nav.ondisplay = func
@@ -90,6 +130,27 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	p_dps_rel_nav.gps_1s_p.setText("250");
 	p_dps_rel_nav.gps_2s_p.setText("250");
 	p_dps_rel_nav.gps_3s_p.setText("250");
+	p_dps_rel_nav.rng_acpt.setText("");
+    	p_dps_rel_nav.rng_rej.setText("");
+    	p_dps_rel_nav.rng_for.setText("");
+    	p_dps_rel_nav.rng_inh.setText("*");
+    	p_dps_rel_nav.rng_aut.setText("");
+	p_dps_rel_nav.rdot_acpt.setText("");
+    	p_dps_rel_nav.rdot_rej.setText("");
+    	p_dps_rel_nav.rdot_for.setText("");
+    	p_dps_rel_nav.rdot_inh.setText("*");
+    	p_dps_rel_nav.rdot_aut.setText("");
+	p_dps_rel_nav.vely_acpt.setText("");
+    	p_dps_rel_nav.vely_rej.setText("");
+    	p_dps_rel_nav.vely_for.setText("");
+    	p_dps_rel_nav.vely_inh.setText("*");
+    	p_dps_rel_nav.vely_aut.setText("");
+    	p_dps_rel_nav.gps_inh.setText("*");
+    	p_dps_rel_nav.gps_for.setText("");
+    	p_dps_rel_nav.gps_aut.setText("");
+	p_dps_rel_nav.hazx_acpt.setText("");
+    	p_dps_rel_nav.hazx_rej.setText("");
+	p_dps_rel_nav.node.setText("00:00:00");
     }
     
     p_dps_rel_nav.update = func
@@ -141,6 +202,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		{symbol = "";}
 	p_dps_rel_nav.ku_ant_enable.setText(symbol);
 
+	var rr_active = 1;
+
 	if ((antenna_func == "COMM") or (ku_enable == 0) or (tgt_acquired == 0))
 		{
 		p_dps_rel_nav.rng_ku.setText("");
@@ -149,6 +212,7 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     		p_dps_rel_nav.az_ku.setText("");
     		p_dps_rel_nav.omega_p_ku.setText("");
     		p_dps_rel_nav.omega_r_ku.setText("");
+		rr_active = 0;
 		}
 	else
 		{
@@ -198,7 +262,24 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	symbol = "";
 	if (angle_sensor_selection == 2) {symbol = "*";}
 	p_dps_rel_nav.coas.setText(symbol);
+
+	var vx_prop = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s");
+	var vy_prop = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s");
+	var vz_prop = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s");
+
+ 	var vx_tgt =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vx-m_s");
+	var vy_tgt =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vy-m_s");
+	var vz_tgt =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vz-m_s");
 	
+	var delta_vx = vx_prop + vx_tgt;
+	var delta_vy = vy_prop + vy_tgt;
+	var delta_vz = vz_prop + vz_tgt;
+
+	var delta_v = math.sqrt (delta_vx*delta_vx + delta_vy*delta_vy + delta_vz*delta_vz);
+	
+	var v_fltr_minus_prop =  delta_v - getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/rdot-m_s");
+	p_dps_rel_nav.sv_trans_vel.setText(sprintf("%2.2f", v_fltr_minus_prop));
+
     	var pitch_error_prop = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
 	
 	var pitch_error_sensor = 0.0;
