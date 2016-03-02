@@ -25743,7 +25743,7 @@
            sodipodi:role="line">.</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_resid"
+         id="p_dps_rel_nav_rdot_resid"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25755,7 +25755,7 @@
            sodipodi:role="line">+XX.XX</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_ratio"
+         id="p_dps_rel_nav_rdot_ratio"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25767,7 +25767,7 @@
            sodipodi:role="line">X.X</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_acpt"
+         id="p_dps_rel_nav_rdot_acpt"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25779,7 +25779,7 @@
            sodipodi:role="line">XXX</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_rej"
+         id="p_dps_rel_nav_rdot_rej"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25803,7 +25803,7 @@
            sodipodi:role="line">20</tspan></text>	
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_aut"
+         id="p_dps_rel_nav_rdot_aut"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25827,7 +25827,7 @@
            sodipodi:role="line">21</tspan></text>	
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_inh"
+         id="p_dps_rel_nav_rdot_inh"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -25851,7 +25851,7 @@
            sodipodi:role="line">22</tspan></text>	
 	<text
          sodipodi:linespacing="125%"
-         id="p_dps_rel_nav_rbar_for"
+         id="p_dps_rel_nav_rdot_for"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
