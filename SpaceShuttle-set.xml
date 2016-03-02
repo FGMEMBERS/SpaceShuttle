@@ -1285,25 +1285,25 @@
     </effects>
     <panel>
      <cover>
-        <ess-bus-src-fc1-cvr type="bool">true</ess-bus-src-fc1-cvr>
-        <ess-bus-src-fc2-cvr type="bool">true</ess-bus-src-fc2-cvr>
-        <ess-bus-src-fc3-cvr type="bool">true</ess-bus-src-fc3-cvr>
-        <h2-tk1-heat-a-cvr type="bool">true</h2-tk1-heat-a-cvr>
-        <h2-tk1-heat-b-cvr type="bool">true</h2-tk1-heat-b-cvr>
-        <h2-tk2-heat-a-cvr type="bool">true</h2-tk2-heat-a-cvr>
-        <h2-tk2-heat-b-cvr type="bool">true</h2-tk2-heat-b-cvr>
-        <h2-tk3-heat-a-cvr type="bool">true</h2-tk3-heat-a-cvr>
-        <h2-tk3-heat-b-cvr type="bool">true</h2-tk3-heat-b-cvr>
-        <o2-tk1-heat-a-cvr type="bool">true</o2-tk1-heat-a-cvr>
-        <o2-tk1-heat-b-cvr type="bool">true</o2-tk1-heat-b-cvr>
-        <o2-tk2-heat-a-cvr type="bool">true</o2-tk2-heat-a-cvr>
-        <o2-tk2-heat-b-cvr type="bool">true</o2-tk2-heat-b-cvr>
-        <o2-tk3-heat-a-cvr type="bool">true</o2-tk3-heat-a-cvr>
-        <o2-tk3-heat-b-cvr type="bool">true</o2-tk3-heat-b-cvr>
-        <flash-evap-cntrl-pri-cvr type="bool">true</flash-evap-cntrl-pri-cvr>
-        <flash-evap-cntrl-sec-cvr type="bool">true</flash-evap-cntrl-sec-cvr>
-        <nh3-cntrl-tka-cvr type="bool">true</nh3-cntrl-tka-cvr>
-        <nh3-cntrl-tkb-cvr type="bool">true</nh3-cntrl-tkb-cvr>
+        <ess-bus-src-fc1-cvr type="int">0</ess-bus-src-fc1-cvr>
+        <ess-bus-src-fc2-cvr type="int">0</ess-bus-src-fc2-cvr>
+        <ess-bus-src-fc3-cvr type="int">0</ess-bus-src-fc3-cvr>
+        <h2-tk1-heat-a-cvr type="int">0</h2-tk1-heat-a-cvr>
+        <h2-tk1-heat-b-cvr type="int">0</h2-tk1-heat-b-cvr>
+        <h2-tk2-heat-a-cvr type="int">0</h2-tk2-heat-a-cvr>
+        <h2-tk2-heat-b-cvr type="int">0</h2-tk2-heat-b-cvr>
+        <h2-tk3-heat-a-cvr type="int">0</h2-tk3-heat-a-cvr>
+        <h2-tk3-heat-b-cvr type="int">0</h2-tk3-heat-b-cvr>
+        <o2-tk1-heat-a-cvr type="int">0</o2-tk1-heat-a-cvr>
+        <o2-tk1-heat-b-cvr type="int">0</o2-tk1-heat-b-cvr>
+        <o2-tk2-heat-a-cvr type="int">0</o2-tk2-heat-a-cvr>
+        <o2-tk2-heat-b-cvr type="int">0</o2-tk2-heat-b-cvr>
+        <o2-tk3-heat-a-cvr type="int">0</o2-tk3-heat-a-cvr>
+        <o2-tk3-heat-b-cvr type="int">0</o2-tk3-heat-b-cvr>
+        <flash-evap-cntrl-pri-cvr type="int">0</flash-evap-cntrl-pri-cvr>
+        <flash-evap-cntrl-sec-cvr type="int">0</flash-evap-cntrl-sec-cvr>
+        <nh3-cntrl-tka-cvr type="int">0</nh3-cntrl-tka-cvr>
+        <nh3-cntrl-tkb-cvr type="int">0</nh3-cntrl-tkb-cvr>
      </cover>
     </panel>
    </model>
