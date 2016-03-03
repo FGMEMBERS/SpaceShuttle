@@ -2201,7 +2201,7 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>property-assign</command>
-                <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                <property>/controls/gear/gear-down</property>
                 <value>1</value>
             </binding>
         </action>
@@ -2222,22 +2222,16 @@
         <object-name>landing_gear_right_cmd_talkback</object-name>
         <object-name>landing_gear_middle_cmd_talkback</object-name>
         <condition>
-            <and>
+            <or>
                 <equals>
-                    <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
                     <value>1</value>
                 </equals>
-                <or>
-                    <equals>
-                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                        <value>1</value>
-                    </equals>
-                    <equals>
-                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                        <value>2</value>
-                    </equals>
-                </or>
-            </and>
+                <equals>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                    <value>2</value>
+                </equals>
+            </or>
         </condition>
     </animation>
 
@@ -2373,7 +2367,7 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>property-assign</command>
-                <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                <property>/controls/gear/gear-down</property>
                 <value>1</value>
             </binding>
         </action>
@@ -2394,22 +2388,16 @@
         <object-name>landing_gear_right_plt_talkback</object-name>
         <object-name>landing_gear_middle_plt_talkback</object-name>
         <condition>
-            <and>
+            <or>
                 <equals>
-                    <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
                     <value>1</value>
                 </equals>
-                <or>
-                    <equals>
-                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                        <value>1</value>
-                    </equals>
-                    <equals>
-                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                        <value>2</value>
-                    </equals>
-                </or>
-            </and>
+                <equals>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                    <value>2</value>
+                </equals>
+            </or>
         </condition>
     </animation>
 
