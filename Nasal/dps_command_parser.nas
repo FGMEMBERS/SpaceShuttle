@@ -1175,6 +1175,13 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/rendezvous/ku-enable", state);
 			valid_flag =1;
 			}
+		else if (item == 3)
+			{
+			var state = getprop("/fdm/jsbsim/systems/rendezvous/meas-enable");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/rendezvous/meas-enable", state);
+			valid_flag =1;
+			}
 		else if (item == 4)
 			{
 			var state = getprop("/fdm/jsbsim/systems/rendezvous/sv-select");
@@ -1196,6 +1203,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{
 			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 2);
 			valid_flag =1;
+			}
+		else if (item == 15)
+			{
+			if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 0)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rendezvous/filter-update");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rendezvous/filter-update", state);
+				valid_flag =1;
+				}
 			}
 
 		else if (item == 31)

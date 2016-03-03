@@ -734,9 +734,11 @@
 	  <x-m type="double">0.0</x-m>
 	  <y-m type="double">0.0</y-m>
 	  <z-m type="double">0.0</z-m>
+	  <pos-m type="double">0.0</pos-m>
 	  <vx-m_s type="double">0.0</vx-m_s>
 	  <vy-m_s type="double">0.0</vy-m_s>
 	  <vz-m_s type="double">0.0</vz-m_s>
+	  <v-m_s type="double">0.0</v-m_s>
 	</error-rndz>
       </state-vector>
      </navigation>
@@ -934,7 +936,9 @@
 	<rel-nav-enable type="int">0</rel-nav-enable>
 	<sv-select type="int">0</sv-select>
 	<ku-enable type="int">0</ku-enable>
+	<meas-enable type="int">0</meas-enable>
 	<angle-sensor-selection type="int">0</angle-sensor-selection>
+	<filter-update type="int">0</filter-update>
 	<target>
 	   <Y-m type="double">0.0</Y-m>
 	   <Ydot-m_s type="double">0.0</Ydot-m_s>
