@@ -467,6 +467,15 @@
         <!-- Panel F8 "Covers"-->
         <object-name>landing-gear-arm-plt-cvr</object-name>
         <object-name>landing-gear-down-plt-cvr</object-name>
+        <!-- Panel F2 "Covers"-->
+        <object-name>chute-arm-cmd-cvr</object-name>
+        <object-name>chute-deploy-cmd-cvr</object-name>
+        <!-- Panel F3 "Covers"-->
+        <object-name>chute-arm-plt-cvr</object-name>
+        <object-name>chute-deploy-plt-cvr</object-name>
+        <object-name>chute-jett-cmd-cvr</object-name>
+        <!-- Panel F4 "Covers"-->
+        <object-name>chute-jett-plt-cvr</object-name>
     </effect>
 
     <animation>
