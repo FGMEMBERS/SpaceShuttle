@@ -1377,8 +1377,10 @@
         <flash-evap-cntrl-sec-cvr type="int">0</flash-evap-cntrl-sec-cvr>
         <nh3-cntrl-tka-cvr type="int">0</nh3-cntrl-tka-cvr>
         <nh3-cntrl-tkb-cvr type="int">0</nh3-cntrl-tkb-cvr>
-        <landing-gear-arm-cvr type="int">0</landing-gear-arm-cvr>
-        <landing-gear-down-cvr type="int">0</landing-gear-down-cvr>
+        <landing-gear-arm-cmd-cvr type="int">0</landing-gear-arm-cmd-cvr>
+        <landing-gear-down-cmd-cvr type="int">0</landing-gear-down-cmd-cvr>
+        <landing-gear-arm-plt-cvr type="int">0</landing-gear-arm-plt-cvr>
+        <landing-gear-down-plt-cvr type="int">0</landing-gear-down-plt-cvr>
      </cover>
     </panel>
    </model>
