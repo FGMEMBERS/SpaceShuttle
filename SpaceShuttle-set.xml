@@ -688,20 +688,44 @@
       <state-vector>
 	<use-realistic-sv type="int">1</use-realistic-sv>
 	<error-star-tracker>
-	  <pitch-deg type="double">0.5</pitch-deg>
-	  <yaw-deg type="double">0.1</yaw-deg>
-	  <roll-deg type="double">0.2</roll-deg>
+	  <pitch-deg type="double">0.1</pitch-deg>
+	  <yaw-deg type="double">-0.05</yaw-deg>
+	  <roll-deg type="double">0.02</roll-deg>
 	</error-star-tracker>
 	<error-coas>
+	  <pitch-deg type="double">0.5</pitch-deg>
+	  <yaw-deg type="double">0.15</yaw-deg>
+	  <roll-deg type="double">-0.7</roll-deg>
+	</error-coas>
+	<error-rr>
+	  <pitch-deg type="double">0.1</pitch-deg>
+	  <yaw-deg type="double">0.02</yaw-deg>
+	  <roll-deg type="double">-0.03</roll-deg>
+	  <rng-m type="double">0.1</rng-m>
+	  <rdot-m_s type="double">0.01</rdot-m_s>
+	</error-rr>
+	<error-prop>
 	  <pitch-deg type="double">1.0</pitch-deg>
 	  <yaw-deg type="double">0.5</yaw-deg>
-	  <roll-deg type="double">-0.6</roll-deg>
-	</error-coas>
-	<error-prop>
-	  <pitch-deg type="double">4.0</pitch-deg>
-	  <yaw-deg type="double">3.5</yaw-deg>
-	  <roll-deg type="double">2.6</roll-deg>
+	  <roll-deg type="double">0.2</roll-deg>
+	  <x-m type="double">-3.0</x-m>
+	  <y-m type="double">5.0</y-m>
+	  <z-m type="double">1.0</z-m>
+	  <vx-m_s type="double">0.03</vx-m_s>
+	  <vy-m_s type="double">0.01</vy-m_s>
+	  <vz-m_s type="double">-0.005</vz-m_s>
 	</error-prop>
+	<error-tgt>
+	  <pitch-deg type="double">0.6</pitch-deg>
+	  <yaw-deg type="double">0.1</yaw-deg>
+	  <roll-deg type="double">-0.2</roll-deg>
+	  <x-m type="double">-2.0</x-m>
+	  <y-m type="double">1.0</y-m>
+	  <z-m type="double">-1.0</z-m>
+	  <vx-m_s type="double">0.03</vx-m_s>
+	  <vy-m_s type="double">0.015</vy-m_s>
+	  <vz-m_s type="double">-0.045</vz-m_s>
+	</error-tgt>
       </state-vector>
      </navigation>
      <oms>
@@ -1088,6 +1112,8 @@
     <bodyflap-pos-rad type="double">0.0</bodyflap-pos-rad>
     <ku-antenna-beta-deg type="double">0.0</ku-antenna-beta-deg>
     <ku-antenna-alpha-deg type="double">0.0</ku-antenna-alpha-deg>
+    <ku-antenna-beta-deg-cmd type="double">0.0</ku-antenna-beta-deg-cmd>
+    <ku-antenna-alpha-deg-cmd type="double">0.0</ku-antenna-alpha-deg-cmd>
     <forces>
      <srb1>
       <force-azimuth-deg type="double">0.0</force-azimuth-deg>

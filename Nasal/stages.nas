@@ -1609,6 +1609,18 @@ setprop("/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd", 1);
 }
 
 
+var ku_antenna_deploy = func {
+
+setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-elec-cb", 1);
+setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-heater-cb", 1);
+setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-cable-heater-cb", 1);
+setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-sig-proc-cb", 1);
+
+setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch", 1);
+
+
+}
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -2018,6 +2030,9 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable", 1);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
+
+	# deploy Ku-antenna
+	ku_antenna_deploy();
 	
 	settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
 

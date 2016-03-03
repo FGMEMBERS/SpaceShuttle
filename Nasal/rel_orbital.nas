@@ -1139,6 +1139,9 @@ if (iss_loop_flag < 3)
 
 set_coords("ISS", issCoord, issState);
 
+# forward the target coordinates to the antenna manager for tracking
+antenna_manager.set_rr_target(issCoord);
+
 # check docking conditions
 # we need to do this for the docking collar, so we need its position in FG world
 # coordinates
