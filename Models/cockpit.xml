@@ -8,8 +8,6 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
-jjjjj
-
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
@@ -263,6 +261,10 @@ jjjjj
         <object-name>pri-fc3-on</object-name>
         <object-name>pri-mn-b-on</object-name>
         <object-name>pri-mn-c-on</object-name>
+        <!-- Panel F8 talkbacks -->
+        <object-name>landing_gear_left_talkback</object-name>
+        <object-name>landing_gear_right_talkback</object-name>
+        <object-name>landing_gear_middle_talkback</object-name>
     </effect>
 
     <effect>
@@ -336,6 +338,17 @@ jjjjj
 
     <animation>
         <type>material</type>
+        <object-name>landing_gear_down_light_cmd</object-name>
+        <emission>
+            <red>0.05</red>
+            <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/green-talkback-light-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <type>material</type>
         <object-name>indicator_light_rcs_roll_l_cmd</object-name>
         <object-name>indicator_light_rcs_roll_r_cmd</object-name>
         <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
@@ -348,6 +361,7 @@ jjjjj
         <object-name>indicator_light_rcs_pitch_d_plt</object-name>
         <object-name>indicator_light_rcs_yaw_l_plt</object-name>
         <object-name>indicator_light_rcs_yaw_r_plt</object-name>
+        <object-name>landing_gear_arm_light_cmd</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -405,7 +419,8 @@ jjjjj
         <object-name>Roof_Assembly</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
-        <object-name>HudLeft</object-name> 
+        <object-name>HudLeft</object-name>
+        <!-- Panel R1 "Covers"-->
         <object-name>ess-bus-src-fc1-cvr</object-name>
         <object-name>ess-bus-src-fc2-cvr</object-name>
         <object-name>ess-bus-src-fc3-cvr</object-name>
@@ -421,10 +436,14 @@ jjjjj
         <object-name>o2-tk2-heat-b-cvr</object-name>
         <object-name>o2-tk3-heat-a-cvr</object-name>
         <object-name>o2-tk3-heat-b-cvr</object-name>
+        <!-- Panel L1 "Covers"-->
         <object-name>flash-evap-cntrl-pri-cvr</object-name>
         <object-name>flash-evap-cntrl-sec-cvr</object-name>
         <object-name>nh3-cntrl-tka-cvr</object-name>
         <object-name>nh3-cntrl-tkb-cvr</object-name>
+        <!-- Panel F8 "Covers"-->
+        <object-name>landing-gear-arm-cvr</object-name>
+        <object-name>landing-gear-down-cvr</object-name>
     </effect>
 
     <animation>
@@ -2042,7 +2061,201 @@ jjjjj
     </animation>
 
     <!-- ******************************************************************* -->
-    <!-- Panel L1                                                                                                          -->
+    <!-- Panel F8                                                                                          -->
+    <!-- ******************************************************************* -->
+<!--
+  0.12727  =   14
+  0.20909 =   23
+  1           = -110
+pg
+F8 and F6
+
+var gear_state = getprop("/fdm/jsbsim/gear/gear-pos-norm");
+gear-command-norm
+
+if (gear_state == 0)
+	{setprop("/controls/shuttle/gear-string", "up");}
+else if (gear_state == 1)
+	{setprop("/controls/shuttle/gear-string", "down");}
+else {setprop("/controls/shuttle/gear-string", "transit");}
+
+var arm_gear = func {
+
+setprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd", 1);
+setprop("/controls/shuttle/gear-string", "armed");
+}
+-->
+
+    <!-- Landing Gear Arm Commander "Cover"-->
+    <animation>
+        <type>knob</type>
+        <object-name>landing-gear-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/landing-gear-arm-cvr</property>
+        <factor>110</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3861</x-m>
+            <y-m> -0.8515</y-m>
+            <z-m> -0.7548</z-m>
+        </center>
+        <axis>
+            <x>.12727</x>
+            <y>.08</y>
+            <z>-1</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/landing-gear-arm-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>landing-gear-arm-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/landing-gear-arm-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Landing Gear Down Commander "Cover"-->
+    <animation>
+        <type>knob</type>
+        <object-name>landing-gear-down-cvr</object-name>
+        <property>/sim/model/panel/cover/landing-gear-down-cvr</property>
+        <factor>110</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3861</x-m>
+            <y-m> -0.8033</y-m>
+            <z-m> -0.7548</z-m>
+        </center>
+        <axis>
+            <x>.12727</x>
+            <y>.08</y>
+            <z>-1</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/landing-gear-down-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>landing-gear-down-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/landing-gear-down-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Landing Gear Arm Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>landing_gear_arm_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.arm_gear()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>beacon-switch</tooltip-id>
+                <label>Arm Gear</label>
+                <property>landing_gear_arm_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_arm_light_cmd</object-name>
+        <object-name>landing_gear_down_light_cmd</object-name>
+        <condition>
+            <and>
+                 <equals>
+                      <property>/fdm/jsbsim/systems/landing/landing-gear-arm-cmd</property>
+                      <value>1</value>
+                 </equals>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- Landing Gear Down Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>landing_gear_down_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                <value>1</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>beacon-switch</tooltip-id>
+                <label>Deploy Gear</label>
+                <property>landing_gear_down_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Landing Gear Down "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_left_talkback</object-name>
+        <object-name>landing_gear_right_talkback</object-name>
+        <object-name>landing_gear_middle_talkback</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/fdm/jsbsim/gear/gear-command-norm</property>
+                    <value>1</value>
+                </equals>
+                <or>
+                    <equals>
+                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                        <value>1</value>
+                    </equals>
+                    <equals>
+                        <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                        <value>2</value>
+                    </equals>
+                </or>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel L1                                                                                          -->
     <!-- ******************************************************************* -->   
 
     <!-- H2O Pump Loop 1 "Switch"-->
