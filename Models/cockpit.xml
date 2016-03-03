@@ -340,6 +340,20 @@
         <object-name>pri-mn-c-base</object-name>
     </effect>
 
+    <!-- Yellow lights -->
+    <animation>
+        <type>material</type>
+        <object-name>landing_gear_arm_light_cmd</object-name>
+        <object-name>landing_gear_arm_light_plt</object-name>
+        <emission>
+            <red>1</red>
+            <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <!-- Green lights -->
     <animation>
         <type>material</type>
         <object-name>landing_gear_down_light_cmd</object-name>
@@ -348,10 +362,11 @@
             <red>0.05</red>
             <green>1</green>
             <blue>0.05</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/green-talkback-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
         </emission>
     </animation>
 
+    <!-- White talkback lights -->
     <animation>
         <type>material</type>
         <object-name>indicator_light_rcs_roll_l_cmd</object-name>
@@ -366,8 +381,6 @@
         <object-name>indicator_light_rcs_pitch_d_plt</object-name>
         <object-name>indicator_light_rcs_yaw_l_plt</object-name>
         <object-name>indicator_light_rcs_yaw_r_plt</object-name>
-        <object-name>landing_gear_arm_light_cmd</object-name>
-        <object-name>landing_gear_arm_light_plt</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -376,6 +389,7 @@
         </emission>
     </animation>
 
+    <!-- White lights -->
     <animation>
         <type>material</type>
         <object-name>button_light_roll-yaw_auto_cmd</object-name>
@@ -2219,7 +2233,7 @@
         <condition>
             <and>
                  <equals>
-                      <property>/fdm/jsbsim/systems/landing/landing-gear-arm-cmd</property>
+                      <property>/controls/gear/gear-down</property>
                       <value>1</value>
                  </equals>
             </and>
@@ -2396,7 +2410,7 @@
         <condition>
             <and>
                  <equals>
-                      <property>/fdm/jsbsim/systems/landing/landing-gear-arm-cmd</property>
+                      <property>/controls/gear/gear-down</property>
                       <value>1</value>
                  </equals>
             </and>
