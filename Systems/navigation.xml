@@ -331,6 +331,49 @@
 
 	<channel name="State vector">
 		
+		<!--<fcs_function name="systems/navigation/state-vector/error-prop/v-m_s">
+		<function>
+			<sqrt>
+			<sum>
+				<pow>
+				<property>systems/navigation/state-vector/error-prop/vx-m_s</property>
+				<value>2.0</value>
+				</pow>
+				<pow>
+				<property>systems/navigation/state-vector/error-prop/vy-m_s</property>
+				<value>2.0</value>
+				</pow>
+				<pow>
+				<property>systems/navigation/state-vector/error-prop/vz-m_s</property>
+				<value>2.0</value>
+				</pow>
+			</sum>
+			</sqrt>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/error-tgt/v-m_s">
+		<function>
+			<sqrt>
+			<sum>
+				<pow>
+				<property>systems/navigation/state-vector/error-tgt/vx-m_s</property>
+				<value>2.0</value>
+				</pow>
+				<pow>
+				<property>systems/navigation/state-vector/error-tgt/vy-m_s</property>
+				<value>2.0</value>
+				</pow>
+				<pow>
+				<property>systems/navigation/state-vector/error-tgt/vz-m_s</property>
+				<value>2.0</value>
+				</pow>
+			</sum>
+			</sqrt>
+		</function>
+		</fcs_function>-->
+
+
 		<fcs_function name="systems/navigation/state-vector/pitch-deg-A">
 		<function>
 			<sum>
