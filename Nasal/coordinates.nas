@@ -9,6 +9,18 @@ var tracking_loop_flag = 0;
 var trackingCoord = geo.Coord.new() ;
 
 ##################################################
+# general helper functions for scalar computations
+##################################################
+
+var clamp = func (x, a, b) {
+
+if (x<a) {return a;}
+else if (x > b) {return b;}
+else {return x;}
+
+}
+
+##################################################
 # general helper functions for vector computations
 ##################################################
 

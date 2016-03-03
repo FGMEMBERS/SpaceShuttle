@@ -219,7 +219,8 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	var alt = getprop("/position/altitude-ft");
 	if (alt > SpaceShuttle.earthview_transition_alt)
 		{
-		local_weather.clear_all();
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.clear_all();}
 		earthview.start();
 		}
 
@@ -801,6 +802,8 @@ SpaceShuttle.antenna_manager.run();
 SpaceShuttle.update_timers();
 
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+
+settimer(SpaceShuttle.update_sv_errors, 0.4);
 
 settimer(orbital_loop, 1.0);
 }
