@@ -559,6 +559,7 @@
       <console-eff-norm type="float">0.7</console-eff-norm>
       <text-legend-light-norm type="float">1.0</text-legend-light-norm>
       <talkback-light-norm type="float">1.0</talkback-light-norm>
+      <green-talkback-light-norm type="float">1.0</green-talkback-light-norm>
       <talkback-norm type="float">0.7</talkback-norm>
       <talkback-base-norm type="float">0.3</talkback-base-norm>
       <button-light-norm type="float">1.0</button-light-norm>
@@ -1338,6 +1339,8 @@
         <flash-evap-cntrl-sec-cvr type="int">0</flash-evap-cntrl-sec-cvr>
         <nh3-cntrl-tka-cvr type="int">0</nh3-cntrl-tka-cvr>
         <nh3-cntrl-tkb-cvr type="int">0</nh3-cntrl-tkb-cvr>
+        <landing-gear-arm-cvr type="int">0</landing-gear-arm-cvr>
+        <landing-gear-down-cvr type="int">0</landing-gear-down-cvr>
      </cover>
     </panel>
    </model>
