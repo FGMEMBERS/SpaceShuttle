@@ -2180,7 +2180,6 @@
     <animation>
         <type>select</type>
         <object-name>landing_gear_arm_light_cmd</object-name>
-        <object-name>landing_gear_down_light_cmd</object-name>
         <condition>
             <and>
                  <equals>
@@ -2213,6 +2212,18 @@
                 <property>landing_gear_down_cmd</property>
             </binding>
         </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_down_light_cmd</object-name>
+        <condition>
+            <and>
+                 <equals>
+                      <property>/fdm/jsbsim/systems/landing/landing-gear-arm-cmd</property>
+                      <value>1</value>
+                 </equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- Landing Gear Down Commander "Talkbacks" -->
@@ -2346,7 +2357,6 @@
     <animation>
         <type>select</type>
         <object-name>landing_gear_arm_light_plt</object-name>
-        <object-name>landing_gear_down_light_plt</object-name>
         <condition>
             <and>
                  <equals>
@@ -2379,6 +2389,18 @@
                 <property>landing_gear_down_plt</property>
             </binding>
         </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_down_light_plt</object-name>
+        <condition>
+            <and>
+                 <equals>
+                      <property>/fdm/jsbsim/systems/landing/landing-gear-arm-cmd</property>
+                      <value>1</value>
+                 </equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- Landing Gear Down Pilot "Talkbacks" -->
