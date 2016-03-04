@@ -2146,6 +2146,39 @@
         </hovered>
     </animation>
 
+    <!-- Chute Arm Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_arm_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.arm_drag_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_arm_cmd</tooltip-id>
+                <label>Arm Drag Chute</label>
+                <property>button_chute_arm_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_arm_cmd</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/drag-chute-armed</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Chute Deploy Commander "Cover" -->
     <animation>
         <type>knob</type>
@@ -2185,6 +2218,41 @@
                 <property>/sim/model/panel/cover/chute-dpy-cmd-cvr</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Chute Deploy Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_dpy_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.deploy_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_dpy_cmd</tooltip-id>
+                <label>Deploy Drag Chute</label>
+                <property>button_chute_dpy_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_dpy_cmd</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/controls/shuttle/parachute</property>
+                    <value>2</value>
+                </equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
@@ -2231,6 +2299,41 @@
             </binding>
         </hovered>
     </animation>
+    
+    <!-- Chute Jettison Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_jett_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.jettison_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_jett_cmd</tooltip-id>
+                <label>Jettison Drag Chute</label>
+                <property>button_chute_jett_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_jett_cmd</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/controls/shuttle/drag-chute-jettisoned</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
 
     <!-- Chute Arm Pilot "Cover" -->
     <animation>
@@ -2273,6 +2376,39 @@
         </hovered>
     </animation>
 
+    <!-- Chute Arm Pilot "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_arm_plt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.arm_drag_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_arm_plt</tooltip-id>
+                <label>Arm Drag Chute</label>
+                <property>button_chute_arm_plt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_arm_plt</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/drag-chute-armed</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Chute Deploy Pilot "Cover" -->
     <animation>
         <type>knob</type>
@@ -2312,6 +2448,41 @@
                 <property>/sim/model/panel/cover/chute-dpy-plt-cvr</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Chute Deploy Pilot "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_dpy_plt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.deploy_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_dpy_plt</tooltip-id>
+                <label>Deploy Drag Chute</label>
+                <property>button_chute_dpy_plt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_dpy_plt</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/controls/shuttle/parachute</property>
+                    <value>2</value>
+                </equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
@@ -2357,6 +2528,41 @@
                 <property>/sim/model/panel/cover/chute-jett-plt-cvr</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Chute Jettison Pilot "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_chute_jett_plt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.jettison_chute()</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_chute_jett_plt</tooltip-id>
+                <label>Jettison Drag Chute</label>
+                <property>button_chute_jett_plt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_chute_jett_plt</object-name>
+        <condition>
+            <and>
+                <equals>
+                    <property>/controls/shuttle/drag-chute-jettisoned</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
