@@ -1385,6 +1385,12 @@
         <landing-gear-down-cmd-cvr type="int">0</landing-gear-down-cmd-cvr>
         <landing-gear-arm-plt-cvr type="int">0</landing-gear-arm-plt-cvr>
         <landing-gear-down-plt-cvr type="int">0</landing-gear-down-plt-cvr>
+        <chute-arm-cmd-cvr type="int">0</chute-arm-cmd-cvr>
+        <chute-dpy-cmd-cvr type="int">0</chute-dpy-cmd-cvr>
+        <chute-jett-cmd-cvr type="int">0</chute-jett-cmd-cvr>
+        <chute-arm-plt-cvr type="int">0</chute-arm-plt-cvr>
+        <chute-dpy-plt-cvr type="int">0</chute-dpy-plt-cvr>
+        <chute-jett-plt-cvr type="int">0</chute-jett-plt-cvr>
      </cover>
     </panel>
    </model>
