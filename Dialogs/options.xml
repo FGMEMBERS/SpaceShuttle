@@ -67,6 +67,41 @@
      	 	<col>3</col>
     	</text>
 
+	<text>
+      		<label>Navigation</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>perfect</label>
+      		<halign>center</halign>
+      		<row>2</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>nav-switch</name>
+      		<row>2</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>1</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>nav-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>realistic</label>
+      		<halign>center</halign>
+      		<row>2</row>
+     	 	<col>3</col>
+    	</text>
+
   </group>
 	
         <empty>

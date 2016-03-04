@@ -988,7 +988,7 @@ settimer(func {
 		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
 		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
 		iss_loop_flag = 1;
-		update_iss(0.0 , 0.0, 0.0, 1); },0);
+		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 1); },0);
 }
 
 
@@ -1067,13 +1067,13 @@ settimer(func {
 		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
 		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
 		iss_loop_flag = 1;
-		update_iss(0.0 , 0.0, 0.0, 2); },0);
+		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 2); },0);
 }
 
 
 ### manage ISS in undocked state ###
 
-var update_iss = func (delta_lon, d_last, y_last, placement_flag) {
+var update_iss = func (delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag) {
 
 var shuttleCoord = geo.aircraft_position();
 var dt = getprop("/sim/time/delta-sec");
@@ -1139,8 +1139,20 @@ if (iss_loop_flag < 3)
 
 set_coords("ISS", issCoord, issState);
 
-# forward the target coordinates to the antenna manager for tracking
-antenna_manager.set_rr_target(issCoord);
+# we have to do the antenna tracking here rather than in the antenna manager, because
+# the antenna manager might run outside a frame, in which case the coordinate is displaced
+# leading to odd tracking angles for the antenna
+
+SpaceShuttle.antenna_manager.set_rr_target(issCoord);
+if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
+		{
+			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
+				{
+				ku_antenna_track_target(issCoord);
+				}		
+		}
+
+
 
 # check docking conditions
 # we need to do this for the docking collar, so we need its position in FG world
@@ -1189,10 +1201,10 @@ var ydot = (y - y_last)/dt;
 y_last = y;
 var theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
 
-
 setprop("/fdm/jsbsim/systems/rendezvous/target/Y-m",y);
 setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s",ydot);
 setprop("/fdm/jsbsim/systems/rendezvous/target/theta",theta);
+
 
 
 
@@ -1240,7 +1252,36 @@ if (dist < 0.4)
 	}
 
 
-if (iss_loop_flag >0 ) {settimer(func {update_iss(delta_lon, d_last, y_last, placement_flag); },0.0);}
+
+# in addition to the real docking parameters (which we have to use to evaluate docking)
+# we have to generate the displayed ones repeating the computation with the
+# ISS coordinates plus errors
+
+issCoord = SpaceShuttle.blur_tgt_coord(issCoord);
+dist = shuttleCoord.distance_to(issCoord);
+ddot = (dist - d_disp_last)/dt;
+d_disp_last = dist;
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/distance-prop-m", dist);
+setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s", ddot);
+
+x_lvlh = (issCoord.lon() - shuttleCoord.lon()) * lon_to_m;
+y_lvlh = (issCoord.lat() - shuttleCoord.lat()) * lat_to_m;
+z_lvlh = (issCoord.alt() - shuttleCoord.alt());
+
+rel_vec = [x_lvlh, y_lvlh, z_lvlh];
+
+y = -SpaceShuttle.dot_product(y_vec, rel_vec);
+ydot = (y - y_disp_last)/dt;
+y_disp_last = y;
+theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m",y);
+setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s",ydot);
+setprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop",theta);
+
+
+if (iss_loop_flag >0 ) {settimer(func {update_iss(delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag); },0.0);}
 }
 
 
