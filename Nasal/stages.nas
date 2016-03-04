@@ -1441,7 +1441,6 @@ setprop("/controls/shuttle/gear-string", "armed");
 
 }
 
-
 # cutoff switches for SSME
 
 var ssme_cutoff = func (n) {
@@ -1474,6 +1473,10 @@ setprop("/sim/input/selected/engine["~n~"]",0);
 
 }
 
+var arm_drag_chute = func {
+setprop("/controls/shuttle/drag-chute-armed", 1);
+}
+
 var deploy_chute = func {
 
 var wheels_down = getprop("/fdm/jsbsim/gear/wow");
@@ -1485,11 +1488,19 @@ if (wheels_down==0)
 	}
 
 var current_state = getprop("/controls/shuttle/parachute");
+var chute_armed = getprop("/controls/shuttle/drag-chute-armed");
 
 if (current_state == 0)
 	{
-	setprop("/controls/shuttle/parachute",1);
-	SpaceShuttle.check_limits_touchdown();
+    if (chute_armed)
+        {
+        setprop("/controls/shuttle/parachute",1);
+        SpaceShuttle.check_limits_touchdown();
+        } else
+        {
+        setprop("/sim/messages/copilot", "Chute can only be deployed if armed!");
+        return;
+        }
 	}
 if (current_state == 1)
 	{
@@ -1498,6 +1509,11 @@ if (current_state == 1)
 setprop("/controls/shuttle/drag-chute-string", "deployed");
 
 }
+
+var jettison_chute = func {
+    #drag chute jettison place holder
+}
+
 
 #########################################################
 # the slowdown loop checks for wheels stop
