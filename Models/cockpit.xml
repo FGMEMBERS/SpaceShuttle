@@ -343,8 +343,8 @@
     <!-- Yellow lights -->
     <animation>
         <type>material</type>
-        <object-name>landing_gear_arm_light_cmd</object-name>
-        <object-name>landing_gear_arm_light_plt</object-name>
+        <object-name>button_light_landing_gear_arm_cmd</object-name>
+        <object-name>button_light_landing_gear_arm_plt</object-name>
         <emission>
             <red>1</red>
             <green>1</green>
@@ -356,8 +356,8 @@
     <!-- Green lights -->
     <animation>
         <type>material</type>
-        <object-name>landing_gear_down_light_cmd</object-name>
-        <object-name>landing_gear_down_light_plt</object-name>
+        <object-name>button_light_landing_gear_down_cmd</object-name>
+        <object-name>button_light_landing_gear_down_plt</object-name>
         <emission>
             <red>0.05</red>
             <green>1</green>
@@ -389,7 +389,7 @@
         </emission>
     </animation>
 
-    <!-- White lights -->
+    <!-- White button lights -->
     <animation>
         <type>material</type>
         <object-name>button_light_roll-yaw_auto_cmd</object-name>
@@ -400,6 +400,15 @@
         <object-name>button_light_roll-yaw_css_plt</object-name>
         <object-name>button_light_pitch_auto_plt</object-name>
         <object-name>button_light_pitch_css_plt</object-name>
+        <!-- Panel F2 -->
+        <object-name>button_light_chute_arm_cmd</object-name>
+        <object-name>button_light_chute_dpy_cmd</object-name>
+        <!-- Panel F3 -->
+        <object-name>button_light_chute_arm_plt</object-name>
+        <object-name>button_light_chute_dpy_plt</object-name>
+        <object-name>button_light_chute_jett_cmd</object-name>
+        <!-- Panel F4 -->
+        <object-name>button_light_chute_jett_plt</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -440,7 +449,7 @@
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
-        <!-- Panel R1 "Covers"-->
+        <!-- Panel R1 "Covers" -->
         <object-name>ess-bus-src-fc1-cvr</object-name>
         <object-name>ess-bus-src-fc2-cvr</object-name>
         <object-name>ess-bus-src-fc3-cvr</object-name>
@@ -456,25 +465,25 @@
         <object-name>o2-tk2-heat-b-cvr</object-name>
         <object-name>o2-tk3-heat-a-cvr</object-name>
         <object-name>o2-tk3-heat-b-cvr</object-name>
-        <!-- Panel L1 "Covers"-->
+        <!-- Panel L1 "Covers" -->
         <object-name>flash-evap-cntrl-pri-cvr</object-name>
         <object-name>flash-evap-cntrl-sec-cvr</object-name>
         <object-name>nh3-cntrl-tka-cvr</object-name>
         <object-name>nh3-cntrl-tkb-cvr</object-name>
-        <!-- Panel F6 "Covers"-->
+        <!-- Panel F6 "Covers" -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
-        <!-- Panel F8 "Covers"-->
+        <!-- Panel F8 "Covers" -->
         <object-name>landing-gear-arm-plt-cvr</object-name>
         <object-name>landing-gear-down-plt-cvr</object-name>
-        <!-- Panel F2 "Covers"-->
+        <!-- Panel F2 "Covers" -->
         <object-name>chute-arm-cmd-cvr</object-name>
-        <object-name>chute-deploy-cmd-cvr</object-name>
-        <!-- Panel F3 "Covers"-->
+        <object-name>chute-dpy-cmd-cvr</object-name>
+        <!-- Panel F3 "Covers" -->
         <object-name>chute-arm-plt-cvr</object-name>
-        <object-name>chute-deploy-plt-cvr</object-name>
+        <object-name>chute-dpy-plt-cvr</object-name>
         <object-name>chute-jett-cmd-cvr</object-name>
-        <!-- Panel F4 "Covers"-->
+        <!-- Panel F4 "Covers" -->
         <object-name>chute-jett-plt-cvr</object-name>
     </effect>
 
@@ -2093,6 +2102,264 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel F2                                                                                          -->
+    <!-- ******************************************************************* -->
+
+    <!-- Chute Arm Commander "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-arm-cmd-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-arm-cmd-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3802</x-m>
+            <y-m> -0.7879</y-m>
+            <z-m> -0.2446</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-arm-cmd-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-arm-cmd-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-arm-cmd-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Chute Deploy Commander "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-dpy-cmd-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-dpy-cmd-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.38  </x-m>
+            <y-m> -0.7424</y-m>
+            <z-m> -0.2452</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-dpy-cmd-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-dpy-cmd-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-dpy-cmd-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel F3                                                                                          -->
+    <!-- ******************************************************************* -->
+
+    <!-- Chute Jettison Commander "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-jett-cmd-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-jett-cmd-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3771</x-m>
+            <y-m> -0.4785</y-m>
+            <z-m> -0.2492</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-jett-cmd-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-jett-cmd-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-jett-cmd-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Chute Arm Pilot "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-arm-plt-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-arm-plt-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3787</x-m>
+            <y-m>  0.5307</y-m>
+            <z-m> -0.2438</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-arm-plt-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-arm-plt-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-arm-plt-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Chute Deploy Pilot "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-dpy-plt-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-dpy-plt-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3788</x-m>
+            <y-m>  0.5762</y-m>
+            <z-m> -0.2434</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-dpy-plt-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-dpy-plt-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-dpy-plt-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel F4                                                                                          -->
+    <!-- ******************************************************************* -->
+
+    <!-- Chute Jettison Pilot "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>chute-jett-plt-cvr</object-name>
+        <property>/sim/model/panel/cover/chute-jett-plt-cvr</property>
+        <factor>120</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.3795</x-m>
+            <y-m>  0.8183</y-m>
+            <z-m> -0.2461</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y>-1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/chute-jett-plt-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>chute-jett-plt-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/chute-jett-plt-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel F6                                                                                          -->
     <!-- ******************************************************************* -->
 
@@ -2181,7 +2448,7 @@
     <!-- Landing Gear Arm Commander "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>landing_gear_arm_cmd</object-name>
+        <object-name>button_landing_gear_arm_cmd</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -2194,15 +2461,15 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>beacon-switch</tooltip-id>
+                <tooltip-id>button_landing_gear_arm_cmd</tooltip-id>
                 <label>Arm Gear</label>
-                <property>landing_gear_arm_cmd</property>
+                <property>button_landing_gear_arm_cmd</property>
             </binding>
         </hovered>
     </animation>
     <animation>
         <type>select</type>
-        <object-name>landing_gear_arm_light_cmd</object-name>
+        <object-name>button_light_landing_gear_arm_cmd</object-name>
         <condition>
             <and>
                  <equals>
@@ -2216,7 +2483,7 @@
     <!-- Landing Gear Down Commander "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>landing_gear_down_cmd</object-name>
+        <object-name>button_landing_gear_down_cmd</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -2230,15 +2497,15 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>beacon-switch</tooltip-id>
+                <tooltip-id>button_landing_gear_down_cmd</tooltip-id>
                 <label>Deploy Gear</label>
-                <property>landing_gear_down_cmd</property>
+                <property>button_landing_gear_down_cmd</property>
             </binding>
         </hovered>
     </animation>
     <animation>
         <type>select</type>
-        <object-name>landing_gear_down_light_cmd</object-name>
+        <object-name>button_light_landing_gear_down_cmd</object-name>
         <condition>
             <and>
                  <equals>
@@ -2358,7 +2625,7 @@
     <!-- Landing Gear Arm Pilot "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>landing_gear_arm_plt</object-name>
+        <object-name>button_landing_gear_arm_plt</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -2371,15 +2638,15 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>beacon-switch</tooltip-id>
+                <tooltip-id>button_landing_gear_arm_plt</tooltip-id>
                 <label>Arm Gear</label>
-                <property>landing_gear_arm_plt</property>
+                <property>button_landing_gear_arm_plt</property>
             </binding>
         </hovered>
     </animation>
     <animation>
         <type>select</type>
-        <object-name>landing_gear_arm_light_plt</object-name>
+        <object-name>button_light_landing_gear_arm_plt</object-name>
         <condition>
             <and>
                  <equals>
@@ -2393,7 +2660,7 @@
     <!-- Landing Gear Down Pilot "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>landing_gear_down_plt</object-name>
+        <object-name>button_landing_gear_down_plt</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -2407,15 +2674,15 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>beacon-switch</tooltip-id>
+                <tooltip-id>button_landing_gear_down_plt</tooltip-id>
                 <label>Deploy Gear</label>
-                <property>landing_gear_down_plt</property>
+                <property>button_landing_gear_down_plt</property>
             </binding>
         </hovered>
     </animation>
     <animation>
         <type>select</type>
-        <object-name>landing_gear_down_light_plt</object-name>
+        <object-name>button_light_landing_gear_down_plt</object-name>
         <condition>
             <and>
                  <equals>
