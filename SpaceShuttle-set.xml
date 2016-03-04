@@ -1947,7 +1947,7 @@ Landing
 
 Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway). Do not aim to touch down at the usual point for aircraft, the Shuttle touchdown point is some 2.500 ft from the start of teh runway. Be careful to keep sinkrate below 9 ft/s or 540 ft/min at touchdown to avoid gear damage, don't pull the nose up more than 15 degrees to avoid a tail scrape. 
 
-Once the nose wheel is on the ground, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
+After main gear touchdown, prior to derotation, deploy drag chute using 'c' (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. At appx. 60 kt jettison the drag chute. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
     </text>
    </help>
