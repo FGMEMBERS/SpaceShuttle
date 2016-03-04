@@ -561,6 +561,12 @@ var antenna_manager = {
 	TDRS_ku_tgt : 0,
 	ku_azimuth : 0.0,
 	ku_elevation: 0.0,
+	ku_inertial_azimuth: 0.0,
+	ku_inertial_elevation: 0.0,
+	ku_inertial_azimuth_last: 0.0,
+	ku_inertial_elevation_last: 0.0,
+	ku_inertial_azimuth_rate : 0.0,
+	ku_inertial_elevation_rate : 0.0,
 	rr_target: {},
 	rr_target_available: 0,
 	rvdz_data: 0,
@@ -650,21 +656,15 @@ var antenna_manager = {
 	var ku_alpha_act = getprop("/controls/shuttle/ku-antenna-alpha-deg");
 	var ku_alpha_cmd = getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd");
 
-	#print (ku_beta_act - ku_beta_cmd);
-	#print (ku_alpha_act - ku_alpha_cmd);
 
 	var delta_alpha = math.abs(ku_alpha_act - ku_alpha_cmd);
 	var delta_beta = math.abs(ku_beta_act - ku_beta_cmd);
 
 
 	if ((delta_alpha < 1.5) and (delta_beta < 1.5))
-		{
-		me.tgt_acquired = 1;
-		}
+		{me.tgt_acquired = 1;}
 	else
-		{
-		me.tgt_acquired = 0;
-		}
+		{me.tgt_acquired = 0;}
 
 
 	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0) and (me.tgt_acquired == 1))
@@ -672,8 +672,17 @@ var antenna_manager = {
 	else
 		{me.TDRS_ku_tgt = 0;}
 
+	
+	# compute inertial attitude change rate if antenna is on target
 
+	if (me.tgt_acquired == 1)
+		{
+		me.ku_inertial_azimuth_rate = (me.ku_inertial_azimuth - me.ku_inertial_azimuth_last);
+		me.ku_inertial_elevation_rate =(me.ku_inertial_elevation - me.ku_inertial_elevation_last);
 
+		me.ku_inertial_azimuth_last = me.ku_inertial_azimuth;
+		me.ku_inertial_elevation_last = me.ku_inertial_elevation;
+		}
 
 	},
 

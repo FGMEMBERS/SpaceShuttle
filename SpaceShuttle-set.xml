@@ -687,17 +687,21 @@
       <gps-3-select type="int">1</gps-3-select>
       <state-vector>
 	<use-realistic-sv type="int">1</use-realistic-sv>
+	<update-pos type="double">0.0</update-pos>
+	<update-vel type="double">0.0</update-vel>
 	<error-star-tracker>
 	  <pitch-deg type="double">0.0</pitch-deg>
 	  <yaw-deg type="double">0.0</yaw-deg>
 	  <roll-deg type="double">0.0</roll-deg>
 	  <quality-pos type="double">0.1</quality-pos>
+	  <quality-ang type="double">0.02</quality-ang>
 	</error-star-tracker>
 	<error-coas>
 	  <pitch-deg type="double">0.0</pitch-deg>
 	  <yaw-deg type="double">0.0</yaw-deg>
 	  <roll-deg type="double">0.0</roll-deg>
 	  <quality-pos type="double">0.3</quality-pos>
+	  <quality-ang type="double">0.2</quality-ang>
 	</error-coas>
 	<error-rr>
 	  <pitch-deg type="double">0.0</pitch-deg>
@@ -706,11 +710,13 @@
 	  <rng-m type="double">0.0</rng-m>
 	  <rdot-m_s type="double">0.0</rdot-m_s>
 	  <quality-pos type="double">0.02</quality-pos>
+	  <quality-ang type="double">0.01</quality-ang>
 	</error-rr>
 	<error-prop>
-	  <pitch-deg type="double">0.1</pitch-deg>
-	  <yaw-deg type="double">0.5</yaw-deg>
-	  <roll-deg type="double">0.2</roll-deg>
+	  <pitch-deg type="double">0.0</pitch-deg>
+	  <yaw-deg type="double">0.0</yaw-deg>
+	  <roll-deg type="double">0.0</roll-deg>
+	  <angle-deg type="double">0.0</angle-deg>
 	  <x-m type="double">0.0</x-m>
 	  <y-m type="double">0.0</y-m>
 	  <z-m type="double">0.0</z-m>
@@ -720,9 +726,10 @@
 	  <v-m_s type="double">0.0</v-m_s>
 	</error-prop>
 	<error-tgt>
-	  <pitch-deg type="double">0.6</pitch-deg>
-	  <yaw-deg type="double">0.1</yaw-deg>
-	  <roll-deg type="double">-0.2</roll-deg>
+	  <pitch-deg type="double">0.0</pitch-deg>
+	  <yaw-deg type="double">0.0</yaw-deg>
+	  <roll-deg type="double">00.0</roll-deg>
+	  <angle-deg type="double">0.0</angle-deg>
 	  <x-m type="double">0.0</x-m>
 	  <y-m type="double">0.0</y-m>
 	  <z-m type="double">0.0</z-m>

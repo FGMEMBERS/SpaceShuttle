@@ -13,6 +13,7 @@
 var update_sv_errors = func {
 
 var v_error_rate = 0.001; # 0.1 mm/s^2
+var ang_error_rate = 0.001; # 0.001 deg/s
 var gps_pos_accuracy = 70.0;
 
 
@@ -66,6 +67,19 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m", pos_e);
 
 # drift of pitch, yaw and roll errors
 
+var pe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
+var ye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
+var re = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg");
+
+pe = pe + ang_error_rate * 2.0 * (rand() - 0.5);
+ye = ye + ang_error_rate * 2.0 * (rand() - 0.5);
+re = re + ang_error_rate * 2.0 * (rand() - 0.5);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", pe);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", ye);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", re);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", 0.333* (pe + ye + re));
 
 # if we have rendezvous navigation on, we also need to update target and combined errors
 
@@ -126,6 +140,7 @@ if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 1)
 # we model the filter as providing accuracies which we apply to the errors
 
 # a filter can be applied to orbiter or target state vector
+# or to the relative state vector, in which case it preserves absolute errors
 
 var filter_to_orb_sv  = func (accuracy_pos, accuracy_v, accuracy_ang) {
 
@@ -176,3 +191,63 @@ coord.set_z (coord.z() + zec);
 
 return coord;
 }
+
+
+# init function to clear all errors (perfect navigation)
+
+var perfect_nav_on = func {
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/x-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/y-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/z-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vx-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vy-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vz-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/v-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/x-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/y-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/z-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/pos-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vx-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vy-m_s", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vz-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/x-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/y-m", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/z-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m", 0.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", 0.0);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/rol-deg", 0.0);
+}
+
+
+var manage_nav_handling = func {
+
+var handling = getprop("/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv");
+
+if (handling == 0)
+	{
+	perfect_nav_on();
+	print("Switching to perfect navigation state...");
+	}
+}
+
+setlistener("/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv", func {manage_nav_handling();}, 0,0);

@@ -115,6 +115,13 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.gps1_x = device.svg.getElementById("p_dps_rel_nav_gps1_x");
     p_dps_rel_nav.gps2_x = device.svg.getElementById("p_dps_rel_nav_gps2_x");
 
+    p_dps_rel_nav.update_pos = device.svg.getElementById("p_dps_rel_nav_update_pos");
+    p_dps_rel_nav.update_vel = device.svg.getElementById("p_dps_rel_nav_update_vel");
+
+    p_dps_rel_nav.stat_x = device.svg.getElementById("p_dps_rel_nav_stat_x");
+    p_dps_rel_nav.stat_y = device.svg.getElementById("p_dps_rel_nav_stat_y");
+
+
     p_dps_rel_nav.ondisplay = func
     {
         device.DPS_menu_title.setText("REL NAV");
@@ -168,6 +175,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     	p_dps_rel_nav.gps2_ratio.setText("");
    	p_dps_rel_nav.gps1_x.setText("");
    	p_dps_rel_nav.gps2_x.setText("");
+	p_dps_rel_nav.stat_x.setText("");
+	p_dps_rel_nav.stat_y.setText("");
     }
     
     p_dps_rel_nav.update = func
@@ -208,6 +217,14 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos");}
 	else if (angle_sensor_selection == 2)
 		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos");}
+
+	var filter_quality_ang = 0.0;
+	if (angle_sensor_selection == 0)
+		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-ang");}
+	else if (angle_sensor_selection == 1)
+		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-ang");}
+	else if (angle_sensor_selection == 2)
+		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-ang");}
 
 	var range_filtered = filter_quality_pos * range_prop + (1.0 - filter_quality_pos) * range;
 	var rdot_filtered = filter_quality_pos * rdot_prop + (1.0 - filter_quality_pos) * rdot;
@@ -282,11 +299,19 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		var ku_azimuth_inertial = angles_inertial[1] * 180.0/math.pi;
 		var ku_elevation_inertial = angles_inertial[0] * 180.0/math.pi;
 
+		antenna_manager.ku_inertial_azimuth = ku_azimuth_inertial;
+		antenna_manager.ku_inertial_elevation = ku_elevation_inertial;
+		
+		var omega_p_ku = antenna_manager.ku_inertial_elevation_rate;
+		var omega_r_ku = antenna_manager.ku_inertial_azimuth_rate;
 
 		p_dps_rel_nav.rng_ku.setText(sprintf("%4.3f", range / 1000. / 0.3048));
 		p_dps_rel_nav.rdot_ku.setText(sprintf("%+4.2f", rdot / 0.3048));
 		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_inertial));
     		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_inertial));
+
+		p_dps_rel_nav.omega_p_ku.setText(sprintf("%2.1f", omega_p_ku * 57297.0));
+		p_dps_rel_nav.omega_r_ku.setText(sprintf("%2.1f", omega_r_ku * 57297.0));
 		}		
 	
 	symbol = "*";
@@ -327,16 +352,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	
 
     	var pitch_error_prop = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
-	
-	var pitch_error_sensor = 0.0;
-	if (angle_sensor_selection == 0)
-		{
-		pitch_error_sensor = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/pitch-deg");
-		}
-	else if (angle_sensor_selection == 2)
-		{
-		pitch_error_sensor = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/pitch-deg");	
-		}
+	var yaw_error_prop =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
+
+	var pitch_error_filtered = filter_quality_ang * pitch_error_prop;
+	var yaw_error_filtered = filter_quality_ang * yaw_error_prop;
 
 	# residuals and filters are only shown with REL NAV enabled
 	if (rel_nav_enable == 0)
@@ -355,7 +374,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		}
 	else
 		{
-		p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f", pitch_error_prop - pitch_error_sensor ));
+		p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f", pitch_error_prop - pitch_error_filtered  ));
+		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - pitch_error_filtered ));
 
 		p_dps_rel_nav.rng_resid.setText(sprintf("%+2.2f", (range - range_prop) / 1000. / 0.3048));
 		p_dps_rel_nav.rng_ratio.setText(sprintf("%1.1f", (range / range_prop) ));
@@ -364,6 +384,12 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		p_dps_rel_nav.rdot_ratio.setText(sprintf("%1.1f", (rdot / rdot_prop) ));
 
 		}
+
+	var update_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos");
+	var update_vel = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel");
+
+	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos));
+	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel));
 
         device.update_common_DPS();
     }
