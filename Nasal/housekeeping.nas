@@ -641,13 +641,7 @@ var antenna_manager = {
 
 	if (me.function == "COMM") 
 		{ku_antenna_track_TDRS (track_index);}
-	else if (me.function = "RDR PASSIVE") 
-		{
-			if ((me.rr_target_available == 1) and (me.rvdz_data == 1))
-				{
-				ku_antenna_track_target(me.rr_target);
-				}		
-		}
+	
 
 	# check whether antenna is in position already
 	var ku_beta_act = getprop("/controls/shuttle/ku-antenna-beta-deg");

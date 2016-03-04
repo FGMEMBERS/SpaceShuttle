@@ -688,21 +688,24 @@
       <state-vector>
 	<use-realistic-sv type="int">1</use-realistic-sv>
 	<error-star-tracker>
-	  <pitch-deg type="double">0.1</pitch-deg>
-	  <yaw-deg type="double">-0.05</yaw-deg>
-	  <roll-deg type="double">0.02</roll-deg>
+	  <pitch-deg type="double">0.0</pitch-deg>
+	  <yaw-deg type="double">0.0</yaw-deg>
+	  <roll-deg type="double">0.0</roll-deg>
+	  <quality-pos type="double">0.1</quality-pos>
 	</error-star-tracker>
 	<error-coas>
-	  <pitch-deg type="double">0.5</pitch-deg>
-	  <yaw-deg type="double">0.15</yaw-deg>
-	  <roll-deg type="double">-0.7</roll-deg>
+	  <pitch-deg type="double">0.0</pitch-deg>
+	  <yaw-deg type="double">0.0</yaw-deg>
+	  <roll-deg type="double">0.0</roll-deg>
+	  <quality-pos type="double">0.3</quality-pos>
 	</error-coas>
 	<error-rr>
-	  <pitch-deg type="double">0.1</pitch-deg>
-	  <yaw-deg type="double">0.02</yaw-deg>
-	  <roll-deg type="double">-0.03</roll-deg>
-	  <rng-m type="double">0.1</rng-m>
-	  <rdot-m_s type="double">0.01</rdot-m_s>
+	  <pitch-deg type="double">0.0</pitch-deg>
+	  <yaw-deg type="double">0.0</yaw-deg>
+	  <roll-deg type="double">0.0</roll-deg>
+	  <rng-m type="double">0.0</rng-m>
+	  <rdot-m_s type="double">0.0</rdot-m_s>
+	  <quality-pos type="double">0.02</quality-pos>
 	</error-rr>
 	<error-prop>
 	  <pitch-deg type="double">0.1</pitch-deg>
@@ -945,6 +948,8 @@
 	   <theta type="double">0.0</theta>
 	   <distance-m type="double">0.0</distance-m>
 	   <ddot-m_s type="double">0.0</ddot-m_s>
+	   <distance-prop-m type="double">0.0</distance-prop-m>
+	   <ddot-prop-m_s type="double">0.0</ddot-prop-m_s>
 	</target>
      </rendezvous>
      <rms>

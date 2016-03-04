@@ -159,3 +159,20 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s", vze*cor
 
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s", correction_v * current_acc_v);
 }
+
+
+
+# helper function to blur a coord hash with the current coord errors
+
+var blur_tgt_coord  = func (coord) {
+
+var xec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/x-m");
+var yec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/y-m");
+var zec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/z-m");
+
+coord.set_x (coord.x() + xec);
+coord.set_y (coord.y() + yec);
+coord.set_z (coord.z() + zec);
+
+return coord;
+}
