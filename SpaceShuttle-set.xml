@@ -694,6 +694,7 @@
 	  <yaw-deg type="double">0.0</yaw-deg>
 	  <roll-deg type="double">0.0</roll-deg>
 	  <quality-pos type="double">0.1</quality-pos>
+	  <quality-v type="double">0.1</quality-v>
 	  <quality-ang type="double">0.02</quality-ang>
 	</error-star-tracker>
 	<error-coas>
@@ -701,6 +702,7 @@
 	  <yaw-deg type="double">0.0</yaw-deg>
 	  <roll-deg type="double">0.0</roll-deg>
 	  <quality-pos type="double">0.3</quality-pos>
+	  <quality-v type="double">0.3</quality-v>
 	  <quality-ang type="double">0.2</quality-ang>
 	</error-coas>
 	<error-rr>
@@ -710,6 +712,7 @@
 	  <rng-m type="double">0.0</rng-m>
 	  <rdot-m_s type="double">0.0</rdot-m_s>
 	  <quality-pos type="double">0.02</quality-pos>
+	  <quality-v type="double">0.02</quality-v>
 	  <quality-ang type="double">0.01</quality-ang>
 	</error-rr>
 	<error-prop>
@@ -724,6 +727,7 @@
 	  <vy-m_s type="double">0.0</vy-m_s>
 	  <vz-m_s type="double">0.0</vz-m_s>
 	  <v-m_s type="double">0.0</v-m_s>
+	  <pos-m type="double">0.0</pos-m>
 	</error-prop>
 	<error-tgt>
 	  <pitch-deg type="double">0.0</pitch-deg>
@@ -733,9 +737,11 @@
 	  <x-m type="double">0.0</x-m>
 	  <y-m type="double">0.0</y-m>
 	  <z-m type="double">0.0</z-m>
+	  <pos-m type="double">0.0</pos-m>
 	  <vx-m_s type="double">0.0</vx-m_s>
 	  <vy-m_s type="double">0.0</vy-m_s>
 	  <vz-m_s type="double">0.0</vz-m_s>
+	  <v-m_s type="double">0.0</v-m_s>
 	</error-tgt>
 	<error-rndz>
 	  <pitch-deg type="double">0.0</pitch-deg>

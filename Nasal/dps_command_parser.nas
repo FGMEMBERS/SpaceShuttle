@@ -1189,6 +1189,17 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/rendezvous/sv-select", state);
 			valid_flag =1;
 			}
+		else if (item == 8)
+			{
+			var update_tgt = getprop("/fdm/jsbsim/systems/rendezvous/filter-update");
+			if (update_tgt == 1) # update target SV
+				{
+				SpaceShuttle.filter_to_prop_tgt();
+				valid_flag = 1;		
+				}
+
+
+			}
 		else if (item == 12)
 			{
 			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 0);
