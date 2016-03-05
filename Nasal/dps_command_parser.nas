@@ -1197,8 +1197,36 @@ if ((header == "ITEM") and (end = "EXEC"))
 				SpaceShuttle.filter_to_prop_tgt();
 				valid_flag = 1;		
 				}
+			else 
+				{
+				SpaceShuttle.filter_to_prop_orb();
+				valid_flag = 1;	
+				}
 
 
+			}
+		else if (item == 9)
+			{
+			var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+
+			if (angle_sensor_selection == 0)
+				{
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-pos", 1.0);
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-v", 1.0);
+				valid_flag = 1;
+				}
+			else if (angle_sensor_selection == 1)
+				{
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos", 1.0);
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-v", 1.0);
+				valid_flag = 1;
+				}
+			else if (angle_sensor_selection == 2)
+				{
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos", 1.0);
+				setprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-v", 1.0);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 12)
 			{

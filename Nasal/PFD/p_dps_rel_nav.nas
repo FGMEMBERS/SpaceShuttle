@@ -369,7 +369,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	else
 		{
 		p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f", pitch_error_prop - pitch_error_filtered  ));
-		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - pitch_error_filtered ));
+		p_dps_rel_nav.vely_ratio.setText(sprintf("%1.1f", ((pitch_error_prop - pitch_error_filtered) + 1.0) / 1.0  ));
+
+		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - yaw_error_filtered ));
+		p_dps_rel_nav.hazx_ratio.setText(sprintf("%1.1f", ((yaw_error_prop - yaw_error_filtered) + 1.0) / 1.0  ));
 
 		p_dps_rel_nav.rng_resid.setText(sprintf("%+2.2f", (range - range_prop) / 1000. / 0.3048));
 		p_dps_rel_nav.rng_ratio.setText(sprintf("%1.1f", (range / range_prop) ));
@@ -382,8 +385,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	var update_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos");
 	var update_vel = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel");
 
-	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos));
-	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel));
+	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos / 1000. / 0.3048));
+	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel / 0.3048));
 
         device.update_common_DPS();
     }
