@@ -205,18 +205,12 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	var rdot = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s");
 	var rdot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s");
 
-	var Y = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m");
-	var Ydot = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s");
+	var Y_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m");
+	var Ydot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s");
 
 	var theta = getprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop");
 
-	var filter_quality_pos = 0.0;
-	if (angle_sensor_selection == 0)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-pos");}
-	else if (angle_sensor_selection == 1)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos");}
-	else if (angle_sensor_selection == 2)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos");}
+	var filter_quality_pos = SpaceShuttle.get_filter_quality_pos();
 
 	var filter_quality_ang = 0.0;
 	if (angle_sensor_selection == 0)
@@ -247,17 +241,17 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		p_dps_rel_nav.rng_prop.setText(sprintf("%4.3f", range_prop / 1000. / 0.3048));
 		p_dps_rel_nav.rdot_prop.setText(sprintf("%+4.2f", rdot_prop / 0.3048));
 		p_dps_rel_nav.theta_prop.setText(sprintf("%3.2f", theta));
-    		p_dps_rel_nav.y_prop.setText(sprintf("%+2.2f", Y/1000. / 0.3048));
-    		p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot / 0.3048));
+    		p_dps_rel_nav.y_prop.setText(sprintf("%+2.2f", Y_prop/1000. / 0.3048));
+    		p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot_prop / 0.3048));
 
 		var ver = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
 		var v_fltr_minus_prop =  ver - getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/rdot-m_s");
 
 		p_dps_rel_nav.sv_trans_vel.setText(sprintf("%2.2f", v_fltr_minus_prop));
 
-		var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m_s");
+		var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
 		var pos_fltr_minus_prop = pos_e;
-		p_dps_rel_nav.sv_trans_pos.setText(sprintf("%2.2f", pos_fltr_minus_prop));
+		p_dps_rel_nav.sv_trans_pos.setText(sprintf("%2.2f", pos_fltr_minus_prop / 1000. /0.3048));
 		}
 
 	# unless the antenna is tracking, the RR properties are blanked
