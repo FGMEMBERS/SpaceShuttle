@@ -1487,20 +1487,20 @@ if (wheels_down==0)
 	return;
 	}
 
-var current_state = getprop("/controls/shuttle/parachute");
 var chute_armed = getprop("/controls/shuttle/drag-chute-armed");
+
+if (chute_armed == 0)
+    {
+    setprop("/sim/messages/copilot", "Chute can only be deployed if armed!");
+        return;
+    }
+
+var current_state = getprop("/controls/shuttle/parachute");
 
 if (current_state == 0)
 	{
-    if (chute_armed)
-        {
         setprop("/controls/shuttle/parachute",1);
         SpaceShuttle.check_limits_touchdown();
-        } else
-        {
-        setprop("/sim/messages/copilot", "Chute can only be deployed if armed!");
-        return;
-        }
 	}
 if (current_state == 1)
 	{
