@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>ku-antenna</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>300</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Ku antenna settings</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<group>
+ 	<layout>table</layout>
+
+   	<text>
+      	 <label>Mode:</label>
+         <halign>left</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+   	<combo>
+  	<row>0</row>
+        <col>1</col>
+        <name>ku-function</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>200</pref-width>
+        <property>/sim/gui/dialogs/SpaceShuttle/ku-antenna/function</property>
+	<value>COMM</value>
+	<value>RDR PASSIVE</value>
+	<value>RDR COOP</value>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>ku-function</object-name>
+        </binding>
+	<binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.antenna_manager.set_function(getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function"));</script>
+	</binding>
+      </combo>
+
+	<text>
+      	 <label>Control:</label>
+         <halign>left</halign>
+         <row>1</row>
+         <col>0</col>
+        </text>
+
+   	<combo>
+  	<row>1</row>
+        <col>1</col>
+        <name>ku-control</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>200</pref-width>
+        <property>/sim/gui/dialogs/SpaceShuttle/ku-antenna/control</property>
+	<value>GPC</value>
+	<value>GPC DESIG</value>
+	<value>AUTO TRACK</value>
+	<value>MAN SLEW</value>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>ku-control</object-name>
+        </binding>
+	<binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.antenna_manager.rr_mode = getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function");</script>
+	</binding>
+      </combo>
+
+        </group>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.apply_failure_scenario()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
