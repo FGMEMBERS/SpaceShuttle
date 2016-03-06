@@ -2173,7 +2173,7 @@
         <object-name>button_light_chute_arm_cmd</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/drag-chute-armed</property>
+                <property>/controls/shuttle/drag-chute-arm</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2246,12 +2246,10 @@
         <type>select</type>
         <object-name>button_light_chute_dpy_cmd</object-name>
         <condition>
-            <and>
-                <equals>
-                    <property>/controls/shuttle/parachute</property>
-                    <value>2</value>
-                </equals>
-            </and>
+            <equals>
+                <property>/controls/shuttle/drag-chute-deploy</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
@@ -2310,7 +2308,7 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.jettison_chute()</script>
+                <script>SpaceShuttle.jettison_drag_chute()</script>
             </binding>
         </action>
         <hovered>
@@ -2326,12 +2324,10 @@
         <type>select</type>
         <object-name>button_light_chute_jett_cmd</object-name>
         <condition>
-            <and>
-                <equals>
-                    <property>/controls/shuttle/drag-chute-jettisoned</property>
-                    <value>1</value>
-                </equals>
-            </and>
+            <equals>
+                <property>/controls/shuttle/drag-chute-jettison</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
@@ -2403,7 +2399,7 @@
         <object-name>button_light_chute_arm_plt</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/drag-chute-armed</property>
+                <property>/controls/shuttle/drag-chute-arm</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2476,12 +2472,10 @@
         <type>select</type>
         <object-name>button_light_chute_dpy_plt</object-name>
         <condition>
-            <and>
-                <equals>
-                    <property>/controls/shuttle/parachute</property>
-                    <value>2</value>
-                </equals>
-            </and>
+            <equals>
+                <property>/controls/shuttle/drag-chute-deploy</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
@@ -2556,12 +2550,10 @@
         <type>select</type>
         <object-name>button_light_chute_jett_plt</object-name>
         <condition>
-            <and>
-                <equals>
-                    <property>/controls/shuttle/drag-chute-jettisoned</property>
-                    <value>1</value>
-                </equals>
-            </and>
+            <equals>
+                <property>/controls/shuttle/drag-chute-jettison</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 

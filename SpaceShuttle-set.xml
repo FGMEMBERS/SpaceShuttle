@@ -1126,8 +1126,10 @@
     <external-fuel-tank type="int">1</external-fuel-tank>
     <solid-rocket-boosters type="int">1</solid-rocket-boosters>
     <parachute type="int">0</parachute>
-    <drag-chute-armed type="int">0</drag-chute-armed>
-    <drag-chute-jettisoned type="int">0</drag-chute-jettisoned>
+    <drag-chute-arm type="int">0</drag-chute-arm>
+    <drag-chute-deploy type="int">0</drag-chute-deploy>
+    <drag-chute-jettison type="int">0</drag-chute-jettison>
+    <drag-chute-deploy-timer type="double">0.0</drag-chute-deploy-timer>
     <control-system-string type="string">Thrust Vectoring</control-system-string>
     <hud-mode type="int">0</hud-mode>
     <gear-string type="string">up</gear-string>
@@ -1961,7 +1963,7 @@ Landing
 
 Descend with a glidepath of -17 to -15 deg, using speedbrakes to keep the velocity at around 320-340 kt. At 1.700 ft above ground, pull up and reduce glidepath to -3 deg, deploy gear, flare and aim for a touchdown at between 200 and 220 kt (you may need a long runway). Do not aim to touch down at the usual point for aircraft, the Shuttle touchdown point is some 2.500 ft from the start of teh runway. Be careful to keep sinkrate below 9 ft/s or 540 ft/min at touchdown to avoid gear damage, don't pull the nose up more than 15 degrees to avoid a tail scrape. 
 
-After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c' "arm" then 'c' "deploy" (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. At appx. 60 kt jettison the drag chute. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
+After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c' "arm and deploy" (it has two stages, the first stage is 40% reefed). Coast till velocity has dropped to 180 kt, then gradually lower the nose. Be careful not to do this too fast, or you'll break nose gear. At appx. 60 kt jettison the drag chute 'c'. Only once all wheels are on the ground, apply wheel brakes 'b' to bring the Shuttle to a stop. Congratulations, you're home.
 
     </text>
    </help>
@@ -2105,11 +2107,15 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
 
    <key n="67">
     <name>Shift+c</name>
-    <desc>Arm drag chute</desc>
+    <desc>Arm and deploy drag chute</desc>
     <repeatable type="bool">false</repeatable>
     <binding>
      <command>nasal</command>
      <script>SpaceShuttle.arm_drag_chute()</script>
+    </binding>
+    <binding>
+     <command>nasal</command>
+     <script>SpaceShuttle.deploy_chute()</script>
     </binding>
    </key>
 
@@ -2177,10 +2183,10 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
 
    <key n="99">
     <name>c</name>
-    <desc>Deploy drag chute</desc>
+    <desc>Jettison drag chute</desc>
     <binding>
      <command>nasal</command>
-     <script>SpaceShuttle.deploy_chute()</script>
+     <script>SpaceShuttle.jettison_drag_chute()</script>
     </binding>
    </key>
 
