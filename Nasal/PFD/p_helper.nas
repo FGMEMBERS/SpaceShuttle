@@ -112,3 +112,40 @@ var set_tape = func (handle, value, offset) {
     handle.setTranslation(0.0, (1.0-value) * offset);
 }
 
+
+var get_filter_quality_pos = func {
+
+var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+
+var filter_quality_pos = 1.0;
+	
+if (angle_sensor_selection == 0)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-pos");}
+else if (angle_sensor_selection == 1)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos");}
+else if (angle_sensor_selection == 2)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos");}
+
+return filter_quality_pos;
+
+}
+
+
+var get_filter_quality_v = func {
+
+var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+
+var filter_quality_v = 1.0;
+	
+if (angle_sensor_selection == 0)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-v");}
+else if (angle_sensor_selection == 1)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-v");}
+else if (angle_sensor_selection == 2)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-v");}
+
+return filter_quality_v;
+
+}
+
+
