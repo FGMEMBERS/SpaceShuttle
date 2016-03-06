@@ -15,6 +15,7 @@ var update_sv_errors = func {
 var v_error_rate = 0.001; # 0.1 mm/s^2
 var ang_error_rate = 0.001; # 0.001 deg/s
 var gps_pos_accuracy = 70.0;
+var star_tracker_ang_accuracy = 0.2;
 
 
 # do nothing if we don't model state vector error drift
@@ -68,15 +69,21 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m", pos_e);
 # drift of pitch, yaw and roll errors
 
 var pe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
-var ye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
+var yawe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
 var re = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg");
 
 pe = pe + ang_error_rate * 2.0 * (rand() - 0.5);
-ye = ye + ang_error_rate * 2.0 * (rand() - 0.5);
+yawe = yawe + ang_error_rate * 2.0 * (rand() - 0.5);
 re = re + ang_error_rate * 2.0 * (rand() - 0.5);
 
+# clamp to star tracker accuracy
+
+pe = SpaceShuttle.clamp(pe, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
+yawe = SpaceShuttle.clamp(yawe, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
+re = SpaceShuttle.clamp(re, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
+
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", pe);
-setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", ye);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", yawe);
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", re);
 
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", 0.333* (pe + ye + re));
@@ -97,6 +104,9 @@ if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 1)
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vy-m_s", vyet);
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vz-m_s", vzet);
 
+	var vet = SpaceShuttle.norm([vxet, vyet, vzet]);
+	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/v-m_s", vet);
+
 	var xet = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/x-m");
 	var yet = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/y-m");
 	var zet = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/z-m");
@@ -109,9 +119,14 @@ if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 1)
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/y-m", yet);
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/z-m", zet);
 
-	var vxec = vxet + vxe;
-	var vyec = vyet + vye;
-	var vzec = vzet + vze;
+	var pos_et = SpaceShuttle.norm([xet, yet, zet]);
+	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/pos-m", pos_et);
+
+	# combined Rendezvous errors are the differences of the sets
+
+	var vxec = vxet - vxe;
+	var vyec = vyet - vye;
+	var vzec = vzet - vze;
 
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vx-m_s", vxec);
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vy-m_s", vyec);
@@ -121,9 +136,9 @@ if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 1)
 
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s", vec);
 
-	var xec = xe + xet;
-	var yec = ye + yet;
-	var zec = ze + zet;
+	var xec = xet - xe;
+	var yec = yet - ye;
+	var zec = zet - ze;
 	
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/x-m", xec);
 	setprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/y-m", yec);
@@ -142,7 +157,175 @@ if (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 1)
 # a filter can be applied to orbiter or target state vector
 # or to the relative state vector, in which case it preserves absolute errors
 
-var filter_to_orb_sv  = func (accuracy_pos, accuracy_v, accuracy_ang) {
+var filter_to_prop_tgt = func {
+
+var filter_quality_pos = SpaceShuttle.get_filter_quality_pos();
+var prop_pos_resolution = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/pos-m");
+var new_resolution_pos = filter_quality_pos * prop_pos_resolution;
+
+var filter_quality_v = SpaceShuttle.get_filter_quality_v();
+var prop_v_resolution = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/v-m_s");
+var new_resolution_v = filter_quality_v * prop_v_resolution;
+
+print("Applying state vector filter to TGT");
+print("resolutions: ", new_resolution_pos, " ", new_resolution_v);
+
+filter_to_tgt (new_resolution_pos, new_resolution_v, 0.1);
+}
+
+var filter_to_prop_orb = func {
+
+var filter_quality_pos = SpaceShuttle.get_filter_quality_pos();
+var prop_pos_resolution = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m");
+var new_resolution_pos = filter_quality_pos * prop_pos_resolution;
+
+var filter_quality_v = SpaceShuttle.get_filter_quality_v();
+var prop_v_resolution = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s");
+var new_resolution_v = filter_quality_v * prop_v_resolution;
+
+print("Applying state vector filter to ORB");
+print("resolutions: ", new_resolution_pos, " ", new_resolution_v);
+
+filter_to_orb (new_resolution_pos, new_resolution_v, 0.1);
+}
+
+
+var filter_to_tgt = func (accuracy_pos, accuracy_v, accuracy_ang) {
+
+# first compute the filter offsets
+
+var xec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/x-m");
+var yec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/y-m");
+var zec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/z-m");
+
+var pos_ec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
+
+var scale = 1.0;
+if (accuracy_pos > 0.0) {scale = accuracy_pos/pos_ec;}
+if (scale > 1.0) {scale = 1.0;}
+
+xef = scale * xec;
+yef = scale * yec;
+zef = scale * zec;
+
+var vxec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vx-m_s");
+var vyec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vy-m_s");
+var vzec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vz-m_s");
+
+var vec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
+
+if (vec > 0.0)
+	{scale = accuracy_v/vec;}
+else {scale = 0;}
+
+if (scale > 1.0) {scale = 1.0;}
+
+vxef = scale * vxec;
+vyef = scale * vyec;
+vzef = scale * vzec;
+
+# the new tgt errors are the orbiter propagated errors plus the filter errors
+# in this way tgt - orb will be set to the filter value on the next update
+
+var vxe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s");
+var vye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s");
+var vze = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s");
+
+var v_before = SpaceShuttle.norm([vxe, vye, vze]);
+
+var xe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/x-m");
+var ye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/y-m");
+var ze = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/z-m");
+
+var pos_before = SpaceShuttle.norm([xe, ye, ze]);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vx-m_s", vxe + vxef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vy-m_s", vye + vyef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vz-m_s", vze + vzef);
+
+var v_aft = SpaceShuttle.norm([vxe + vxef, vye + vyef, vze + vzef]);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/x-m", xe + xef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/y-m", ye + yef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/z-m", ze + zef);
+
+var pos_aft = SpaceShuttle.norm([xe + xef, ye + yef, ze + zef]);
+
+setprop("/fdm/jsbism/systems/navigation/state-vector/update-vel", v_before - v_aft);
+setprop("/fdm/jsbism/systems/navigation/state-vector/update-pos", pos_before - pos_aft);
+}
+
+
+
+var filter_to_orb = func (accuracy_pos, accuracy_v, accuracy_ang) {
+
+# first compute the filter offsets
+
+var xec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/x-m");
+var yec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/y-m");
+var zec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/z-m");
+
+var pos_ec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
+
+var scale = 1.0;
+if (accuracy_pos > 0.0) {scale = accuracy_pos/pos_ec;}
+if (scale > 1.0) {scale = 1.0;}
+
+xef = scale * xec;
+yef = scale * yec;
+zef = scale * zec;
+
+var vxec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vx-m_s");
+var vyec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vy-m_s");
+var vzec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/vz-m_s");
+
+var vec = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
+
+if (vec > 0.0)
+	{scale = accuracy_v/vec;}
+else {scale = 0;}
+
+if (scale > 1.0) {scale = 1.0;}
+
+vxef = scale * vxec;
+vyef = scale * vyec;
+vzef = scale * vzec;
+
+# the new orb errors are the tgt propagated errors minus the filter errors
+# in this way tgt - orb will be set to the filter value on the next update
+
+var vxe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vx-m_s");
+var vye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vy-m_s");
+var vze = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/vz-m_s");
+
+var v_before = SpaceShuttle.norm([vxe, vye, vze]);
+
+var xe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/x-m");
+var ye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/y-m");
+var ze = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tgt/z-m");
+
+var pos_before = SpaceShuttle.norm([xe, ye, ze]);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s", vxe - vxef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s", vye - vyef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s", vze - vzef);
+
+var v_aft = SpaceShuttle.norm([vxe - vxef, vye - vyef, vze - vzef]);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/x-m", xe - xef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/y-m", ye - yef);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/z-m", ze - zef);
+
+var pos_aft = SpaceShuttle.norm([xe - xef, ye - yef, ze - zef]);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel", v_before - v_aft);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos", pos_before - pos_aft);
+}
+
+
+
+
+var update_orb_sv  = func (accuracy_pos, accuracy_v, accuracy_ang) {
 
 var current_acc_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m");
 

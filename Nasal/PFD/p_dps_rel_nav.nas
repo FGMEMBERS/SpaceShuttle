@@ -184,6 +184,7 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 	var rel_nav_enable = getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable");
 	var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+	var disp_sv_selection = getprop("/fdm/jsbsim/systems/rendezvous/sv-select");
 
 	var symbol = "*";
 	if (rel_nav_enable == 0)
@@ -205,20 +206,19 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	var rdot = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s");
 	var rdot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s");
 
-	var Y = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m");
-	var Ydot = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s");
+	var Y = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-m");
+	var Y_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m");
 
-	var theta = getprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop");
+	var Ydot = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s");
+	var Ydot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s");
 
-	var filter_quality_pos = 0.0;
-	if (angle_sensor_selection == 0)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-pos");}
-	else if (angle_sensor_selection == 1)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos");}
-	else if (angle_sensor_selection == 2)
-		{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos");}
+	var theta = getprop("/fdm/jsbsim/systems/rendezvous/target/theta");
+	var theta_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop");
 
-	var filter_quality_ang = 0.0;
+	var filter_quality_pos = SpaceShuttle.get_filter_quality_pos();
+	var filter_quality_v = SpaceShuttle.get_filter_quality_v();
+
+	var filter_quality_ang = 1.0;
 	if (angle_sensor_selection == 0)
 		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-ang");}
 	else if (angle_sensor_selection == 1)
@@ -227,8 +227,12 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-ang");}
 
 	var range_filtered = filter_quality_pos * range_prop + (1.0 - filter_quality_pos) * range;
-	var rdot_filtered = filter_quality_pos * rdot_prop + (1.0 - filter_quality_pos) * rdot;
+	var rdot_filtered = filter_quality_v * rdot_prop + (1.0 - filter_quality_v) * rdot;
 
+	var Y_filtered = filter_quality_pos * Y_prop + (1.0 - filter_quality_pos) * Y;
+	var Ydot_filtered = filter_quality_v * Ydot_prop + (1.0 - filter_quality_v) * Ydot;
+
+	var theta_filtered = filter_quality_ang * theta_prop + (1.0 - filter_quality_ang) * theta;
 
 	# if RNDZ NAV is not enabled, the properties are blanked
 
@@ -242,22 +246,33 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		p_dps_rel_nav.sv_trans_vel.setText("");
 		p_dps_rel_nav.sv_trans_pos.setText("");
 		}
-	else
+	else 
 		{
-		p_dps_rel_nav.rng_prop.setText(sprintf("%4.3f", range_prop / 1000. / 0.3048));
-		p_dps_rel_nav.rdot_prop.setText(sprintf("%+4.2f", rdot_prop / 0.3048));
-		p_dps_rel_nav.theta_prop.setText(sprintf("%3.2f", theta));
-    		p_dps_rel_nav.y_prop.setText(sprintf("%+2.2f", Y/1000. / 0.3048));
-    		p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot / 0.3048));
+		if (disp_sv_selection == 0)
+			{
+			p_dps_rel_nav.rng_prop.setText(sprintf("%4.3f", range_prop / 1000. / 0.3048));
+			p_dps_rel_nav.rdot_prop.setText(sprintf("%+4.2f", rdot_prop / 0.3048));
+			p_dps_rel_nav.theta_prop.setText(sprintf("%3.2f", theta_prop));
+    			p_dps_rel_nav.y_prop.setText(sprintf("%+2.2f", Y_prop/1000. / 0.3048));
+    			p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot_prop / 0.3048));
+			}
+		else
+			{
+			p_dps_rel_nav.rng_prop.setText(sprintf("%4.3f", range_filtered / 1000. / 0.3048));
+			p_dps_rel_nav.rdot_prop.setText(sprintf("%+4.2f", rdot_filtered / 0.3048));
+			p_dps_rel_nav.theta_prop.setText(sprintf("%3.2f", theta_filtered));
+    			p_dps_rel_nav.y_prop.setText(sprintf("%+2.2f", Y_filtered/1000. / 0.3048));
+    			p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot_filtered / 0.3048));
+			}
 
 		var ver = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
 		var v_fltr_minus_prop =  ver - getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/rdot-m_s");
 
 		p_dps_rel_nav.sv_trans_vel.setText(sprintf("%2.2f", v_fltr_minus_prop));
 
-		var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m_s");
+		var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
 		var pos_fltr_minus_prop = pos_e;
-		p_dps_rel_nav.sv_trans_pos.setText(sprintf("%2.2f", pos_fltr_minus_prop));
+		p_dps_rel_nav.sv_trans_pos.setText(sprintf("%2.2f", pos_fltr_minus_prop / 1000. /0.3048));
 		}
 
 	# unless the antenna is tracking, the RR properties are blanked
@@ -328,7 +343,7 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 
 	var text = "PROP";
-	if (getprop("/fdm/jsbsim/systems/rendezvous/sv-select") == 1) {text = "FLTR";}
+	if (disp_sv_selection == 1) {text = "FLTR";}
 	p_dps_rel_nav.sv_sel.setText(text);
 
 	text = "ORB";
@@ -375,7 +390,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	else
 		{
 		p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f", pitch_error_prop - pitch_error_filtered  ));
-		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - pitch_error_filtered ));
+		p_dps_rel_nav.vely_ratio.setText(sprintf("%1.1f", ((pitch_error_prop - pitch_error_filtered) + 1.0) / 1.0  ));
+
+		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - yaw_error_filtered ));
+		p_dps_rel_nav.hazx_ratio.setText(sprintf("%1.1f", ((yaw_error_prop - yaw_error_filtered) + 1.0) / 1.0  ));
 
 		p_dps_rel_nav.rng_resid.setText(sprintf("%+2.2f", (range - range_prop) / 1000. / 0.3048));
 		p_dps_rel_nav.rng_ratio.setText(sprintf("%1.1f", (range / range_prop) ));
@@ -388,8 +406,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	var update_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos");
 	var update_vel = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel");
 
-	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos));
-	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel));
+	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos / 1000. / 0.3048));
+	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel / 0.3048));
 
         device.update_common_DPS();
     }
