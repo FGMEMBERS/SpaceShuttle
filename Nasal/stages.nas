@@ -1453,66 +1453,82 @@ setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
 
 var ssme_lockup = func (n) {
 
-print ("SSME lockup ", n);
+    print ("SSME lockup ", n);
 
-var number = 0;
+    var number = 0;
 
-if (n==0) {number = 2; SpaceShuttle.failure_cmd.ssme1 = 0;}
-if (n==1) {number = 3; SpaceShuttle.failure_cmd.ssme2 = 0;}
-if (n==2) {number = 1; SpaceShuttle.failure_cmd.ssme3 = 0;}
+    if (n==0) {number = 2; SpaceShuttle.failure_cmd.ssme1 = 0;}
+    if (n==1) {number = 3; SpaceShuttle.failure_cmd.ssme2 = 0;}
+    if (n==2) {number = 1; SpaceShuttle.failure_cmd.ssme3 = 0;}
 
-
-if (lockup_message_flag == 0)
-	{
-	setprop("/sim/messages/copilot", "Lockup of engine "~number~"!");
-	lockup_message_flag =1;	
-	}
-setprop("/sim/input/selected/engine["~n~"]",0);
-
-
-
+    if (lockup_message_flag == 0)
+        {
+        setprop("/sim/messages/copilot", "Lockup of engine "~number~"!");
+        lockup_message_flag =1;
+        }
+    setprop("/sim/input/selected/engine["~n~"]",0);
 }
 
 var arm_drag_chute = func {
-setprop("/controls/shuttle/drag-chute-armed", 1);
+    setprop("/controls/shuttle/drag-chute-arm", 1);
+}
+
+var jettison_drag_chute = func {
+    setprop("/controls/shuttle/drag-chute-jettison", 1);
 }
 
 var deploy_chute = func {
 
-var wheels_down = getprop("/fdm/jsbsim/gear/wow");
-
-if (wheels_down==0)	
-	{
-	setprop("/sim/messages/copilot", "Chute can only be deployed after touchdown!");
-	return;
-	}
-
-var chute_armed = getprop("/controls/shuttle/drag-chute-armed");
-
-if (chute_armed == 0)
-    {
-    setprop("/sim/messages/copilot", "Chute can only be deployed if armed!");
+    var wheels_down = getprop("/fdm/jsbsim/gear/wow");
+    if (wheels_down==0) {
+        setprop("/sim/messages/copilot", "Chute can only be deployed after touchdown!");
         return;
     }
 
-var current_state = getprop("/controls/shuttle/parachute");
+    var chute_armed = getprop("/controls/shuttle/drag-chute-arm");
+    if (chute_armed == 0) {
+        setprop("/sim/messages/copilot", "Chute can only be deployed if armed!");
+            return;
+    }
 
-if (current_state == 0)
-	{
-        setprop("/controls/shuttle/parachute",1);
-        SpaceShuttle.check_limits_touchdown();
-	}
-if (current_state == 1)
-	{
-	setprop("/controls/shuttle/parachute",2);
-	}
-setprop("/controls/shuttle/drag-chute-string", "deployed");
+    var current_state = getprop("/controls/shuttle/parachute");
+    if (current_state == 0) {
+            setprop("/controls/shuttle/parachute",1);
+            setprop("/controls/shuttle/drag-chute-deploy", 1);
+            SpaceShuttle.check_limits_touchdown();
+            if (getprop("/fdm/jsbsim/systems/failures/drag-chute-condition") == 0.0) {
+                setprop("/controls/shuttle/drag-chute-jettison", 1);
+            }
+    }
 
+    if (current_state == 1){
+        setprop("/controls/shuttle/parachute",2);
+    }
+
+    setprop("/controls/shuttle/drag-chute-string", "deployed");
 }
 
-var jettison_chute = func {
-    #drag chute jettison place holder
-}
+var chuteDeployTime = 0;
+var chute_deploy_animation = func {
+
+    chuteDeployTime=chuteDeployTime+1;
+    setprop("/controls/shuttle/drag-chute-deploy-timer", chuteDeployTime);
+
+    if (chuteDeployTime > 7 or chuteDeployTime == 0){
+        chute_deploy_timer.stop();
+    }
+};
+
+var chute_deploy_timer = maketimer(1, chute_deploy_animation);
+setlistener("/controls/shuttle/drag-chute-deploy", func {
+    chute_deploy_timer.start();
+});
+
+setlistener("/controls/shuttle/drag-chute-jettison", func {
+    chute_deploy_timer.stop();
+    setprop("/controls/shuttle/drag-chute-deploy-timer", 0);
+    chuteDeployTime = 0;
+});
 
 
 #########################################################
