@@ -72,4 +72,21 @@
 		</axis>
 	</animation>
 
+    <animation>
+        <type>rotate</type>
+        <property>orientation/pitch-deg</property>
+        <factor>-1.0</factor>
+
+        <center>
+            <x-m> 0.0</x-m>
+            <y-m> 0.0</y-m>
+            <z-m> 0.0</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+
 </PropertyList>
