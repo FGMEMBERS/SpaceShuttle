@@ -954,7 +954,7 @@
 	<ku-enable type="int">0</ku-enable>
 	<meas-enable type="int">0</meas-enable>
 	<angle-sensor-selection type="int">0</angle-sensor-selection>
-	<filter-update type="int">0</filter-update>
+	<filter-update type="int">1</filter-update>
 	<target>
 	   <Y-m type="double">0.0</Y-m>
 	   <Ydot-m_s type="double">0.0</Ydot-m_s>
