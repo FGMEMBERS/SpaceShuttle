@@ -317,16 +317,19 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		antenna_manager.ku_inertial_azimuth = ku_azimuth_inertial;
 		antenna_manager.ku_inertial_elevation = ku_elevation_inertial;
 		
-		var omega_p_ku = antenna_manager.ku_inertial_elevation_rate;
-		var omega_r_ku = antenna_manager.ku_inertial_azimuth_rate;
+		var omega_p_ku = antenna_manager.ku_inertial_elevation_rate  * 57297.0;
+		var omega_r_ku = antenna_manager.ku_inertial_azimuth_rate  * 57297.0;
+
+		omega_p_ku = SpaceShuttle.clamp(omega_p_ku, -99.0, 99.0);
+		omega_r_ku = SpaceShuttle.clamp(omega_r_ku, -99.0, 99.0);
 
 		p_dps_rel_nav.rng_ku.setText(sprintf("%4.3f", range / 1000. / 0.3048));
 		p_dps_rel_nav.rdot_ku.setText(sprintf("%+4.2f", rdot / 0.3048));
 		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_inertial));
     		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_inertial));
 
-		p_dps_rel_nav.omega_p_ku.setText(sprintf("%2.1f", omega_p_ku * 57297.0));
-		p_dps_rel_nav.omega_r_ku.setText(sprintf("%2.1f", omega_r_ku * 57297.0));
+		p_dps_rel_nav.omega_p_ku.setText(sprintf("%2.1f", omega_p_ku));
+		p_dps_rel_nav.omega_r_ku.setText(sprintf("%2.1f", omega_r_ku));
 		}		
 	
 	symbol = "*";

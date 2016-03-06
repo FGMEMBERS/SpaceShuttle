@@ -1561,6 +1561,13 @@
        </binding>
       </item>
       <item>
+       <label>Ku antenna</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.ku_dlg.open()</script>
+       </binding>
+      </item>
+      <item>
        <label>Main Propulsion System</label>
        <binding>
         <command>nasal</command>

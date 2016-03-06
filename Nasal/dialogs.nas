@@ -37,6 +37,8 @@ var rcs_oms_thermal_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rcs_oms_
 
 var electrical_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/electrical/dialog","Aircraft/SpaceShuttle/Dialogs/electrical.xml");
 
+var ku_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/ku/dialog","Aircraft/SpaceShuttle/Dialogs/ku_antenna.xml");
+
 var mechanical_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mechanical/dialog","Aircraft/SpaceShuttle/Dialogs/mechanical.xml");
 
 var mps_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mps/dialog","Aircraft/SpaceShuttle/Dialogs/mps.xml");
@@ -85,6 +87,9 @@ setprop("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode-description", descripti
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", "none");
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", " ");
 setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 0);
+
+setprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function", "COMM");
+setprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/control", "GPC");
 
 gui.menuBind("fuel-and-payload", "SpaceShuttle.propellant_dlg.open()");
 gui.menuEnable("fuel-and-payload", 1);
