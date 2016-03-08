@@ -1136,6 +1136,8 @@
     <drag-chute-deploy type="int">0</drag-chute-deploy>
     <drag-chute-jettison type="int">0</drag-chute-jettison>
     <drag-chute-deploy-timer type="double">0.0</drag-chute-deploy-timer>
+    <button_bf_mode type="int">0</button_bf_mode>
+    <button_sb_mode type="int">0</button_sb_mode>
     <control-system-string type="string">Thrust Vectoring</control-system-string>
     <hud-mode type="int">0</hud-mode>
     <gear-string type="string">up</gear-string>
