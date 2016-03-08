@@ -403,12 +403,20 @@
         <!-- Panel F2 -->
         <object-name>button_light_chute_arm_cmd</object-name>
         <object-name>button_light_chute_dpy_cmd</object-name>
+        <object-name>button_light_bf_auto_cmd</object-name>
+        <object-name>button_light_bf_man_cmd</object-name>
+        <object-name>button_light_sb_auto_cmd</object-name>
+        <object-name>button_light_sb_man_cmd</object-name>
         <!-- Panel F3 -->
         <object-name>button_light_chute_arm_plt</object-name>
         <object-name>button_light_chute_dpy_plt</object-name>
         <object-name>button_light_chute_jett_cmd</object-name>
         <!-- Panel F4 -->
         <object-name>button_light_chute_jett_plt</object-name>
+        <object-name>button_light_bf_auto_plt</object-name>
+        <object-name>button_light_bf_man_plt</object-name>
+        <object-name>button_light_sb_auto_plt</object-name>
+        <object-name>button_light_sb_man_plt</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -2105,6 +2113,100 @@
     <!-- Panel F2                                                                                          -->
     <!-- ******************************************************************* -->
 
+    <!-- Body Flap Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_bf_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <!--binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.body_flap_mode()</script>
+            </binding-->
+            <binding>
+                <command>property-toggle</command>
+                <property>/controls/shuttle/button_bf_mode</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_bf_cmd</tooltip-id>
+                <label>Body Flap Mode</label>
+                <property>button_bf_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_bf_auto_cmd</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_bf_mode</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_bf_man_cmd</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_bf_mode</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Speed Brake Commander "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_sb_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <!--binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.speed_brake_mode()</script>
+            </binding-->
+            <binding>
+                <command>property-toggle</command>
+                <property>/controls/shuttle/button_sb_mode</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_sb_cmd</tooltip-id>
+                <label>Speed Brake Mode</label>
+                <property>button_sb_cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_sb_auto_cmd</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_sb_mode</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_sb_man_cmd</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_sb_mode</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Chute Arm Commander "Cover" -->
     <animation>
         <type>knob</type>
@@ -2482,6 +2584,100 @@
     <!-- ******************************************************************* -->
     <!-- Panel F4                                                                                          -->
     <!-- ******************************************************************* -->
+
+    <!-- Body Flap Pilot "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_bf_plt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <!--binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.body_flap_mode()</script>
+            </binding-->
+            <binding>
+                <command>property-toggle</command>
+                <property>/controls/shuttle/button_bf_mode</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_bf_plt</tooltip-id>
+                <label>Body Flap Mode</label>
+                <property>button_bf_plt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_bf_auto_plt</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_bf_mode</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_bf_man_plt</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_bf_mode</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Speed Brake Pilot "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_sb_plt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <!--binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.speed_brake_mode()</script>
+            </binding-->
+            <binding>
+                <command>property-toggle</command>
+                <property>/controls/shuttle/button_sb_mode</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_sb_plt</tooltip-id>
+                <label>Speed Brake Mode</label>
+                <property>button_sb_plt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_sb_auto_plt</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_sb_mode</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_sb_man_plt</object-name>
+        <condition>
+            <equals>
+                <property>/controls/shuttle/button_sb_mode</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
 
     <!-- Chute Jettison Pilot "Cover" -->
     <animation>
