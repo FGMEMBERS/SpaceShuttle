@@ -11,6 +11,35 @@
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+        <!-- Misc -->        
+        <object-name>Fwd_Equipment_Guards</object-name>
+        <object-name>Fwd_Equipment_Covers</object-name>
+        <object-name>Fwd_Base_Set.001</object-name>
+        <object-name>Fwd_Base_Set.003</object-name>
+        <object-name>Fwd_Base_Set.004</object-name>
+        <object-name>Fwd_Base_Set.006</object-name>
+        <object-name>Fwd_Base_Set.007</object-name>
+        <object-name>Fwd_Base_Set.008</object-name>
+        <object-name>Fwd_Equipment_PullSwi</object-name>
+        <object-name>Fwd_Equipment_Velcro</object-name>
+        <object-name>Fwd_Fixings</object-name>
+        <object-name>Fwd_Window_Assy</object-name>
+        <object-name>backwall</object-name>
+        <object-name>spaceshutt_spstob_3</object-name>
+        <object-name>Fwd_Equipment_PullSwi_L4</object-name>
+        <object-name>Fwd_Fixings_L4</object-name>
+        <object-name>Fwd_Panels_L4</object-name>
+        <object-name>Fwd_Equipment_Guards_R4</object-name>
+        <object-name>Fwd_Equipment_Knobs_R4</object-name>
+        <object-name>Fwd_Equipment_PullSwi_R4</object-name>
+        <object-name>Fwd_Fixings_R4</object-name>
+        <object-name>Fwd_Panels_R4</object-name>
+        <object-name>Rear_Equipment_Guards_R7</object-name>
+        <object-name>Rear_Equipment_Knobs_R7</object-name>
+        <object-name>Rear_Equipment_PullSwi_R7</object-name>
+        <object-name>Rear_Fixings_R7</object-name>
+        <object-name>Rear_PanelsX_R7</object-name>
+        <object-name>Rear_Panels_R7</object-name>
         <object-name>Fwd_PanelsX</object-name>
         <object-name>Fwd_PanelsY</object-name>
         <object-name>Fwd_PanelsY.001</object-name>
@@ -257,22 +286,6 @@
         <object-name>chute-jett-cmd-cvr</object-name>
         <!-- Panel F4 "Covers" -->
         <object-name>chute-jett-plt-cvr</object-name>
-        <!-- Misc -->        
-        <object-name>Fwd_Equipment_Guards</object-name>
-        <object-name>Fwd_Equipment_Covers</object-name>
-        <object-name>Fwd_Base_Set</object-name>
-        <object-name>Fwd_Base_Set.001</object-name>
-        <object-name>Fwd_Base_Set.003</object-name>
-        <object-name>Fwd_Base_Set.004</object-name>
-        <object-name>Fwd_Base_Set.006</object-name>
-        <object-name>Fwd_Base_Set.007</object-name>
-        <object-name>Fwd_Base_Set.008</object-name>
-        <object-name>Fwd_Equipment_PullSwi</object-name>
-        <object-name>Fwd_Equipment_Velcro</object-name>
-        <object-name>Fwd_Fixings</object-name>
-        <object-name>Fwd_Window_Assy</object-name>
-        <object-name>backwall</object-name>
-        <object-name>spaceshutt_spstob_3</object-name>
     </effect>
 
     <effect>
@@ -500,6 +513,7 @@
         <object-name>HudLeft</object-name>
         <object-name>Roof_Assembly</object-name>
         <object-name>Floor_Panel</object-name>
+        <object-name>Fwd_Base_Set</object-name>
     </effect>
 
     <animation>
