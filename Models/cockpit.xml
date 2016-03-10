@@ -522,6 +522,7 @@
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
+        <object-name>HudRight</object-name>
         <object-name>roof_assembly</object-name>
         <object-name>Fwd_Base_Set</object-name>
     </effect>
@@ -700,33 +701,114 @@
     </animation>
 
     <animation>
-  <object-name>HUDImage1</object-name>
-  <object-name>HUDImage2</object-name>
-  <type>material</type>
-  <condition>
-   <not>
-    <property>/sim/rendering/rembrandt/enabled</property>
-   </not>
-  </condition>
-  <emission>
-   <!--<factor-prop>sim/model/f15/controls/HUD/brightness</factor-prop>-->
-   <red>  0.6</red>
-   <green>0.6</green>
-   <blue> 0.6</blue>
-  </emission>
- </animation>
+        <object-name>HUDImage1</object-name>
+        <type>material</type>
+        <condition>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <red>  0.6</red>
+            <green>0.6</green>
+            <blue> 0.6</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/hud-light-cmd-norm</factor-prop>
+        </emission>
+    </animation>
 
- <animation>
-  <object-name>HUDImage1</object-name>
-  <object-name>HUDImage2</object-name>
-  <type>select</type>
-  <condition>
-   <greater-than>
-    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-    <value>0</value>
-   </greater-than>
-  </condition>
- </animation>
+    <animation>
+        <object-name>HUDImage2</object-name>
+        <type>material</type>
+        <condition>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <red>  0.6</red>
+            <green>0.6</green>
+            <blue> 0.6</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/hud-light-plt-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <animation>
+        <object-name>HUDImage1</object-name>
+        <type>select</type>
+        <condition>
+            <greater-than>
+                <!--property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property-->
+                <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+    <animation>
+        <object-name>HUDImage2</object-name>
+        <type>select</type>
+        <condition>
+            <greater-than>
+                <!--property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property-->
+                <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+    <!-- HUD Commander light control    -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-cmd-dim</object-name>
+        <visible>true</visible>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/hud-light-cmd-norm</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1.0</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-cmd-dim</tooltip-id>
+                <label>HUD Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/hud-light-cmd-norm</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- HUD Pilot light control    -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-plt-dim</object-name>
+        <visible>true</visible>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/hud-light-plt-norm</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1.0</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-plt-dim</tooltip-id>
+                <label>Hud Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/hud-light-plt-norm</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
 
     <animation>
         <type>knob</type>
