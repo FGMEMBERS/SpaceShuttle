@@ -689,6 +689,16 @@ var antenna_manager = {
 };
 
 
+#########################################################################################
+# Sensors
+#########################################################################################
+
+var update_sensors = func {
+
+SpaceShuttle.star_tracker_array[0].run();
+SpaceShuttle.star_tracker_array[1].run();
+
+}
 
 #########################################################################################
 # management rountines for internal timers

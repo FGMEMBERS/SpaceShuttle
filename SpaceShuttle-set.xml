@@ -315,6 +315,10 @@
 		    <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 		    <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition>
 		    <shuttle-destroyed type="bool">false</shuttle-destroyed>
+		    <sensors>
+		      <star-tracker-Y-condition type="double">1.0</star-tracker-Y-condition>
+		      <star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
+		    </sensors>
      </failures>
      <orbital>
       <gm type="double">14.07644180e15</gm>
@@ -957,8 +961,11 @@
 	<filter-update type="int">1</filter-update>
 	<target>
 	   <Y-m type="double">0.0</Y-m>
+	   <Y-prop-m type="double">0.0</Y-prop-m>
 	   <Ydot-m_s type="double">0.0</Ydot-m_s>
+	   <Ydot-prop-m_s type="double">0.0</Ydot-prop-m_s>
 	   <theta type="double">0.0</theta>
+	   <theta-prop type="double">0.0</theta-prop>
 	   <distance-m type="double">0.0</distance-m>
 	   <ddot-m_s type="double">0.0</ddot-m_s>
 	   <distance-prop-m type="double">0.0</distance-prop-m>
@@ -2288,6 +2295,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/dps_command_parser.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/dps_hardware.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/communications.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/sensors.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/sound.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
