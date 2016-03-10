@@ -1100,7 +1100,7 @@
 <!-- cockpit no damage -->
  <animation>
     <type>select</type>
-    <object-name>Fwd_Window_Assy</object-name>
+    <object-name>fwd_window_assy</object-name>
     <object-name>Roof_Assembly.001</object-name>
     <object-name>spaceshutt_spstob_1</object-name>
     <object-name>spaceshutt_spstob</object-name>
