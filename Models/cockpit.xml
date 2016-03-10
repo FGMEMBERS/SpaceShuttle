@@ -43,6 +43,7 @@
         <object-name>F6SW-1-8</object-name>
         <object-name>F6SW-1-9</object-name>
         <object-name>F6SW-2-3</object-name>
+        <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
         <object-name>MFD1_B3</object-name>
@@ -97,24 +98,24 @@
         <object-name>MFDR2_B4</object-name>
         <object-name>MFDR2_B5</object-name>
         <object-name>MFDR2_B6</object-name>
-        <object-name>Fwd_Equipment_Knobs.013</object-name>
-        <object-name>Fwd_Equipment_Knobs.014</object-name>
-        <object-name>Fwd_Equipment_Knobs.015</object-name>
-        <object-name>Fwd_Equipment_Knobs.016</object-name>
-        <object-name>Fwd_Equipment_Knobs.017</object-name>
-        <object-name>Fwd_Equipment_Knobs.018</object-name>
-        <object-name>Fwd_Equipment_Knobs.019</object-name>
-        <object-name>Fwd_Equipment_Knobs.020</object-name>
-        <object-name>Fwd_Equipment_Knobs.021</object-name>
-        <object-name>Fwd_Equipment_Knobs.028</object-name>
-        <object-name>Fwd_Equipment_Knobs.029</object-name>
-        <object-name>Fwd_Equipment_Knobs.030</object-name>
-        <object-name>Fwd_Equipment_Knobs.031</object-name>
-        <object-name>Fwd_Equipment_Knobs.038</object-name>
-        <object-name>Fwd_Equipment_Knobs.039</object-name>
-        <object-name>Fwd_Equipment_Knobs.046</object-name>
-        <object-name>Fwd_Equipment_Knobs.047</object-name>
-        <object-name>Fwd_Equipment_Knobs.054</object-name>
+        <object-name>C1-disp-pwr</object-name>
+        <object-name>C1-disp-dim</object-name>
+        <object-name>C2-disp-pwr</object-name>
+        <object-name>C2-disp-dim</object-name>
+        <object-name>C3-disp-pwr</object-name>
+        <object-name>C3-disp-dim</object-name>
+        <object-name>C4-disp-pwr</object-name>
+        <object-name>C4-disp-dim</object-name>
+        <object-name>C5-disp-pwr</object-name>
+        <object-name>C5-disp-dim</object-name>
+        <object-name>L1-disp-pwr</object-name>
+        <object-name>L1-disp-dim</object-name>
+        <object-name>L2-disp-pwr</object-name>
+        <object-name>L2-disp-dim</object-name>
+        <object-name>R1-disp-pwr</object-name>
+        <object-name>R1-disp-dim</object-name>
+        <object-name>R2-disp-pwr</object-name>
+        <object-name>R2-disp-dim</object-name>
         <!--Panel R1 switches-->
         <object-name>fc0-connector</object-name>
         <object-name>fc0-start-cmd</object-name>
@@ -291,6 +292,9 @@
         <object-name>Rear_Fixings_R7</object-name>
         <object-name>Rear_PanelsX_R7</object-name>
         <object-name>Rear_Panels_R7</object-name>
+        <!-- hud -->
+        <object-name>hud-left-dim</object-name>
+        <object-name>hud-right-dim</object-name>
     </effect>
 
     <effect>
