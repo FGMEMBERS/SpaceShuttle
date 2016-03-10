@@ -538,6 +538,10 @@
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
       <purge-heater-switch type="int">0</purge-heater-switch>
       <purge-line-throughput type="double">1.0</purge-line-throughput>
+     <hud>
+      <cmd-pwr-switch type="int">1</cmd-pwr-switch>
+      <plt-pwr-switch type="int">1</plt-pwr-switch>
+     </hud>
      </electrical>
      <landing>
       <landing-gear-arm-cmd type="int">0</landing-gear-arm-cmd>
@@ -567,6 +571,8 @@
       <talkback-norm type="float">0.7</talkback-norm>
       <talkback-base-norm type="float">0.3</talkback-base-norm>
       <button-light-norm type="float">1.0</button-light-norm>
+      <hud-light-cmd-norm type="float">1.0</hud-light-cmd-norm>
+      <hud-light-plt-norm type="float">1.0</hud-light-plt-norm>
      </light>
      <mechanical>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
