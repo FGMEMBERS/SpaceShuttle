@@ -25,7 +25,7 @@ var star_tracker = {
 	},
 
 	set_mode: func (mode) {
-	if (me.operational = 0) {return;}
+	if (me.operational == 0) {return;}
 	me.mode = mode;
 
 	},
@@ -42,6 +42,25 @@ var star_tracker = {
 		me.failure = "BITE";
 		}
 
+	},
+
+
+	run: func () {
+
+	if (me.operational == 0) {return;}
+
+	var rate_q = math.abs(getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957);
+	var rate_p = math.abs(getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957);
+	var rate_r = math.abs(getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957);
+
+	me.status = "";
+
+	if ((rate_q > 0.1) or (rate_p > 0.1) or (rate_r > 0.1))
+		{
+		me.status = "HI RATE";
+		return;
+		}
+	
 	},
 };
 

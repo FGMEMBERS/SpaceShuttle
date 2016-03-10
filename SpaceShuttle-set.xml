@@ -961,8 +961,11 @@
 	<filter-update type="int">1</filter-update>
 	<target>
 	   <Y-m type="double">0.0</Y-m>
+	   <Y-prop-m type="double">0.0</Y-prop-m>
 	   <Ydot-m_s type="double">0.0</Ydot-m_s>
+	   <Ydot-prop-m_s type="double">0.0</Ydot-prop-m_s>
 	   <theta type="double">0.0</theta>
+	   <theta-prop type="double">0.0</theta-prop>
 	   <distance-m type="double">0.0</distance-m>
 	   <ddot-m_s type="double">0.0</ddot-m_s>
 	   <distance-prop-m type="double">0.0</distance-prop-m>
