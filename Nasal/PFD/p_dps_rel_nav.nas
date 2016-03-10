@@ -167,7 +167,6 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	p_dps_rel_nav.hazx_acpt.setText("");
     	p_dps_rel_nav.hazx_rej.setText("");
 	p_dps_rel_nav.node.setText("00:00:00");
-	p_dps_rel_nav.stat1.setText("");
    	p_dps_rel_nav.gps1_resid.setText("");
     	p_dps_rel_nav.gps2_resid.setText("");
     	p_dps_rel_nav.gps1_ratio.setText("");
@@ -412,10 +411,28 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel / 0.3048));
 	
 	text = "";
-	if ((star_tracker_array[0].failure == "BITE") or (star_tracker_array[0].failure == "BITE"))
-		{p_dps_rel_nav.stat2.setText("BITE");}
+
+	var selected_tracker = -1;
+
+	if (SpaceShuttle.star_tracker_array[1].mode == 2)
+		{
+		selected_tracker = 1;
+		}
+	else if (SpaceShuttle.star_tracker_array[0].mode == 2)
+		{
+		selected_tracker = 0;
+		}
+
+	if (selected_tracker > -1)
+		{
+		p_dps_rel_nav.stat2.setText(SpaceShuttle.star_tracker_array[selected_tracker].failure);
+		p_dps_rel_nav.stat1.setText(SpaceShuttle.star_tracker_array[selected_tracker].status);
+		}
 	else
-		{p_dps_rel_nav.stat2.setText("");}
+		{
+		p_dps_rel_nav.stat2.setText("");
+		p_dps_rel_nav.stat1.setText("");
+		}
 
         device.update_common_DPS();
     }

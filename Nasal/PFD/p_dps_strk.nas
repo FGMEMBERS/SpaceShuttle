@@ -26,7 +26,14 @@ var PFD_addpage_p_dps_strk = func(device)
 
     p_dps_strk.idle_y = device.svg.getElementById("p_dps_strk_idle_y");
     p_dps_strk.idle_z = device.svg.getElementById("p_dps_strk_idle_z");
-    
+
+    p_dps_strk.shutter_y = device.svg.getElementById("p_dps_strk_shutter_y");
+    p_dps_strk.shutter_z = device.svg.getElementById("p_dps_strk_shutter_z");
+
+    p_dps_strk.status_y = device.svg.getElementById("p_dps_strk_status_y");
+    p_dps_strk.status_z = device.svg.getElementById("p_dps_strk_status_z");
+
+
     p_dps_strk.ondisplay = func
     {
         device.DPS_menu_title.setText("S TRK/COAS CNTL");
@@ -74,12 +81,23 @@ var PFD_addpage_p_dps_strk = func(device)
 	p_dps_strk.idle_z.setText(symbol);
 
 
-
 	var text = SpaceShuttle.star_tracker_array[0].failure; 
 	p_dps_strk.status_y_2.setText(text);
 
 	text = SpaceShuttle.star_tracker_array[1].failure; 
 	p_dps_strk.status_z_2.setText(text);
+
+	text = SpaceShuttle.star_tracker_array[0].shutter;
+    	p_dps_strk.shutter_y.setText(text);
+
+	text = SpaceShuttle.star_tracker_array[1].shutter;
+    	p_dps_strk.shutter_z.setText(text);
+
+	text = SpaceShuttle.star_tracker_array[0].status;
+	p_dps_strk.status_y.setText(text);
+
+	text = SpaceShuttle.star_tracker_array[1].status;
+	p_dps_strk.status_z.setText(text);
 
         device.update_common_DPS();
     }
