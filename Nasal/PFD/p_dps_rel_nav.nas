@@ -168,7 +168,6 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     	p_dps_rel_nav.hazx_rej.setText("");
 	p_dps_rel_nav.node.setText("00:00:00");
 	p_dps_rel_nav.stat1.setText("");
-	p_dps_rel_nav.stat2.setText("");
    	p_dps_rel_nav.gps1_resid.setText("");
     	p_dps_rel_nav.gps2_resid.setText("");
     	p_dps_rel_nav.gps1_ratio.setText("");
@@ -411,6 +410,12 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos / 1000. / 0.3048));
 	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel / 0.3048));
+	
+	text = "";
+	if ((star_tracker_array[0].failure == "BITE") or (star_tracker_array[0].failure == "BITE"))
+		{p_dps_rel_nav.stat2.setText("BITE");}
+	else
+		{p_dps_rel_nav.stat2.setText("");}
 
         device.update_common_DPS();
     }
