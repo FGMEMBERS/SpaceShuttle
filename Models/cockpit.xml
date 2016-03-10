@@ -2145,7 +2145,7 @@
         <type>translate</type>
         <object-name>man-sb-thrust-sel-cmd</object-name>
         <property>/controls/shuttle/man-sb-thrust-select</property>
-        <factor>0.00596</factor>
+        <factor>0.00500</factor>
         <axis>
           <x>0.0</x>
           <y>-1.0</y>
@@ -2227,7 +2227,7 @@
         <type>translate</type>
         <object-name>man-sb-thrust-sel-plt</object-name>
         <property>/controls/shuttle/man-sb-thrust-select</property>
-        <factor>0.00596</factor>
+        <factor>0.00500</factor>
         <axis>
           <x>0.0</x>
           <y>-1.0</y>
