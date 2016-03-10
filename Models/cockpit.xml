@@ -11,21 +11,24 @@
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+        <!-- cabin -->
+        <object-name>Fwd_Base_Set.001</object-name>
+        <object-name>Fwd_Base_Set.003</object-name>
+        <object-name>backwall</object-name>
+        <object-name>spaceshutt_spstob_3</object-name>
+        <object-name>cabin_floor</object-name>
+        <object-name>cabin_panel_framing</object-name>
+        <object-name>left_braking_system</object-name>        
+        <object-name>right_braking_system</object-name>
+        <object-name>left_bulkhead</object-name>
+        <object-name>right_bulkhead</object-name>
         <!-- Misc -->        
         <object-name>Fwd_Equipment_Guards</object-name>
         <object-name>Fwd_Equipment_Covers</object-name>
-        <object-name>Fwd_Base_Set.001</object-name>
-        <object-name>Fwd_Base_Set.003</object-name>
-        <object-name>Fwd_Base_Set.004</object-name>
-        <object-name>Fwd_Base_Set.006</object-name>
-        <object-name>Fwd_Base_Set.007</object-name>
-        <object-name>Fwd_Base_Set.008</object-name>
         <object-name>Fwd_Equipment_PullSwi</object-name>
         <object-name>Fwd_Equipment_Velcro</object-name>
         <object-name>Fwd_Fixings</object-name>
         <object-name>Fwd_Window_Assy</object-name>
-        <object-name>backwall</object-name>
-        <object-name>spaceshutt_spstob_3</object-name>
         <object-name>Fwd_Equipment_PullSwi_L4</object-name>
         <object-name>Fwd_Fixings_L4</object-name>
         <object-name>Fwd_Panels_L4</object-name>
@@ -511,8 +514,8 @@
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
-        <object-name>Roof_Assembly</object-name>
-        <object-name>Floor_Panel</object-name>
+        <object-name>roof_assembly</object-name>
+        <object-name>floor_panel</object-name>
         <object-name>Fwd_Base_Set</object-name>
     </effect>
 
@@ -691,6 +694,7 @@
 
     <animation>
   <object-name>HUDImage1</object-name>
+  <object-name>HUDImage2</object-name>
   <type>material</type>
   <condition>
    <not>
@@ -707,6 +711,7 @@
 
  <animation>
   <object-name>HUDImage1</object-name>
+  <object-name>HUDImage2</object-name>
   <type>select</type>
   <condition>
    <greater-than>
