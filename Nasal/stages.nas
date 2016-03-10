@@ -1479,7 +1479,10 @@ var jettison_drag_chute = func {
 
 var deploy_chute = func {
 
-    var wheels_down = getprop("/fdm/jsbsim/gear/wow");
+    var wheels_down = 0;
+    if (getprop("/fdm/jsbsim/gear/unit[1]/WOW") and getprop("/fdm/jsbsim/gear/unit[2]/WOW")) {
+        wheels_down = 1;
+    }
     if (wheels_down==0) {
         setprop("/sim/messages/copilot", "Chute can only be deployed after touchdown!");
         return;
