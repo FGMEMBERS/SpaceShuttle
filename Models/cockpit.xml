@@ -117,6 +117,7 @@
         <object-name>R2-disp-pwr</object-name>
         <object-name>R2-disp-dim</object-name>
         <!--Panel R1 switches-->
+        <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
         <object-name>fc0-start-cmd</object-name>
         <object-name>fc0-valve</object-name>
@@ -135,22 +136,22 @@
         <object-name>inv2-ac-switch</object-name>
         <object-name>inverter2-power-switch</object-name>
         <object-name>tie2-switch</object-name>
-        <!--Panel L1 switches -->
-        <object-name>h2o-pump-l1</object-name>
-        <object-name>h2o-pump-l2</object-name>
-        <object-name>freon-pump-l1</object-name>
-        <object-name>freon-pump-l2</object-name>
-        <object-name>rad-cont-loop1</object-name>
-        <object-name>rad-cont-loop2</object-name>
-        <object-name>rad-flow-bypass1</object-name>
-        <object-name>rad-flow-bypass2</object-name>
-        <object-name>rad-out-temp</object-name>
-        <object-name>flash-evap-cntrl-pria</object-name>
-        <object-name>flash-evap-cntrl-prib</object-name>
-        <object-name>flash-evap-cntrl-sec</object-name>
-        <object-name>hi-load-evap-enable</object-name>
-        <object-name>top-evap-heat-noz-l</object-name>
-        <object-name>top-evap-heat-noz-r</object-name>
+        <!-- Panel R1 "Covers" -->
+        <object-name>ess-bus-src-fc1-cvr</object-name>
+        <object-name>ess-bus-src-fc2-cvr</object-name>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <object-name>h2-tk1-heat-a-cvr</object-name>
+        <object-name>h2-tk1-heat-b-cvr</object-name>
+        <object-name>h2-tk2-heat-a-cvr</object-name>
+        <object-name>h2-tk2-heat-b-cvr</object-name>
+        <object-name>h2-tk3-heat-a-cvr</object-name>
+        <object-name>h2-tk3-heat-b-cvr</object-name>
+        <object-name>o2-tk1-heat-a-cvr</object-name>
+        <object-name>o2-tk1-heat-b-cvr</object-name>
+        <object-name>o2-tk2-heat-a-cvr</object-name>
+        <object-name>o2-tk2-heat-b-cvr</object-name>
+        <object-name>o2-tk3-heat-a-cvr</object-name>
+        <object-name>o2-tk3-heat-b-cvr</object-name>
         <!--Panel R1 switches not connected -->
         <object-name>ac-bus-snsr</object-name>
         <object-name>ac-bus-snsr2</object-name>
@@ -199,6 +200,28 @@
         <object-name>pl-pri-fc3</object-name>
         <object-name>pl-pri-mn-b</object-name>
         <object-name>pl-pri-mn-c</object-name>
+        <!--Panel L1 switches -->
+        <object-name>L1-panel</object-name>
+        <object-name>h2o-pump-l1</object-name>
+        <object-name>h2o-pump-l2</object-name>
+        <object-name>freon-pump-l1</object-name>
+        <object-name>freon-pump-l2</object-name>
+        <object-name>rad-cont-loop1</object-name>
+        <object-name>rad-cont-loop2</object-name>
+        <object-name>rad-flow-bypass1</object-name>
+        <object-name>rad-flow-bypass2</object-name>
+        <object-name>rad-out-temp</object-name>
+        <object-name>flash-evap-cntrl-pria</object-name>
+        <object-name>flash-evap-cntrl-prib</object-name>
+        <object-name>flash-evap-cntrl-sec</object-name>
+        <object-name>hi-load-evap-enable</object-name>
+        <object-name>top-evap-heat-noz-l</object-name>
+        <object-name>top-evap-heat-noz-r</object-name>
+        <!-- Panel L1 "Covers" -->
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name>
         <!--Panel L1 switches not connected -->
         <object-name>av-bay-1-fan-a</object-name>
         <object-name>av-bay-1-fan-b</object-name>
@@ -239,27 +262,6 @@
         <object-name>man-sb-thrust-plt</object-name>
         <object-name>man-sb-thrust-housing-cmd</object-name>
         <object-name>man-sb-thrust-housing-plt</object-name>
-        <!-- Panel R1 "Covers" -->
-        <object-name>ess-bus-src-fc1-cvr</object-name>
-        <object-name>ess-bus-src-fc2-cvr</object-name>
-        <object-name>ess-bus-src-fc3-cvr</object-name>
-        <object-name>h2-tk1-heat-a-cvr</object-name>
-        <object-name>h2-tk1-heat-b-cvr</object-name>
-        <object-name>h2-tk2-heat-a-cvr</object-name>
-        <object-name>h2-tk2-heat-b-cvr</object-name>
-        <object-name>h2-tk3-heat-a-cvr</object-name>
-        <object-name>h2-tk3-heat-b-cvr</object-name>
-        <object-name>o2-tk1-heat-a-cvr</object-name>
-        <object-name>o2-tk1-heat-b-cvr</object-name>
-        <object-name>o2-tk2-heat-a-cvr</object-name>
-        <object-name>o2-tk2-heat-b-cvr</object-name>
-        <object-name>o2-tk3-heat-a-cvr</object-name>
-        <object-name>o2-tk3-heat-b-cvr</object-name>
-        <!-- Panel L1 "Covers" -->
-        <object-name>flash-evap-cntrl-pri-cvr</object-name>
-        <object-name>flash-evap-cntrl-sec-cvr</object-name>
-        <object-name>nh3-cntrl-tka-cvr</object-name>
-        <object-name>nh3-cntrl-tkb-cvr</object-name>
         <!-- Panel F6 "Covers" -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
