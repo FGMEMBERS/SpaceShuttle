@@ -389,9 +389,11 @@ command_parse(idp_index);
 
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
+var spec22 = [201, 202, 301];
 var spec33 = [201, 202];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
+
 
 
 var test_spec_ops_validity = func (spec, ops) {
@@ -1158,6 +1160,60 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 		}
 
+	if (spec == 22)
+		{
+		if (item == 1)
+			{
+			star_tracker_array[0].set_mode(0);
+			valid_flag =1;
+			}
+		else if (item == 2)
+			{
+			star_tracker_array[1].set_mode(0);
+			valid_flag =1;
+			}
+		else if (item == 3)
+			{
+			star_tracker_array[0].set_mode(1);
+			valid_flag =1;
+			}
+		else if (item == 4)
+			{
+			star_tracker_array[1].set_mode(1);
+			valid_flag =1;
+			}
+		else if (item == 5)
+			{
+			star_tracker_array[0].set_mode(2);
+			valid_flag =1;
+			}
+		else if (item == 6)
+			{
+			star_tracker_array[1].set_mode(2);
+			valid_flag =1;
+			}
+		else if (item == 7)
+			{
+			star_tracker_array[0].set_mode(3);
+			valid_flag =1;
+			}
+		else if (item == 8)
+			{
+			star_tracker_array[1].set_mode(3);
+			valid_flag =1;
+			}
+		else if (item == 9)
+			{
+			star_tracker_array[0].set_mode(4);
+			valid_flag =1;
+			}
+		else if (item == 10)
+			{
+			star_tracker_array[1].set_mode(4);
+			valid_flag =1;
+			}
+		}
+
 	if (spec == 33)
 		{
 		if (item == 1)
@@ -1684,6 +1740,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_dap");
 		setprop("/fdm/jsbsim/systems/dps/spec", 20);
+		valid_flag = 1;
+		}
+	if ((spec_num == 22) and (test_spec_ops_validity(spec22, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_strk");
+		setprop("/fdm/jsbsim/systems/dps/spec", 22);
 		valid_flag = 1;
 		}
 	if ((spec_num == 33) and (test_spec_ops_validity(spec33, major_mode) == 1))
