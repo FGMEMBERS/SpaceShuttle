@@ -295,8 +295,8 @@
         <object-name>Rear_PanelsX_R7</object-name>
         <object-name>Rear_Panels_R7</object-name>
         <!-- hud -->
-        <object-name>hud-left-dim</object-name>
-        <object-name>hud-right-dim</object-name>
+        <object-name>hud-cmd-dim</object-name>
+        <object-name>hud-plt-dim</object-name>
     </effect>
 
     <effect>
@@ -736,11 +736,16 @@
         <object-name>HUDImage1</object-name>
         <type>select</type>
         <condition>
-            <greater-than>
-                <!--property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property-->
-                <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
-                <value>0</value>
-            </greater-than>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
+                    <value>0</value>
+                </greater-than>
+            </and>
         </condition>
     </animation>
 
@@ -748,11 +753,16 @@
         <object-name>HUDImage2</object-name>
         <type>select</type>
         <condition>
-            <greater-than>
-                <!--property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property-->
-                <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
-                <value>0</value>
-            </greater-than>
+             <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
+                    <value>0</value>
+                </greater-than>
+            </and>
         </condition>
     </animation>
 
@@ -760,7 +770,18 @@
     <animation>
         <type>knob</type>
         <object-name>hud-cmd-dim</object-name>
-        <visible>true</visible>
+        <property>/fdm/jsbsim/systems/light/hud-light-cmd-norm</property>
+        <factor>-100</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>-12.33607</x-m>
+            <y-m> -0.59886</y-m>
+            <z-m> -0.35064</z-m>
+        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -787,7 +808,18 @@
     <animation>
         <type>knob</type>
         <object-name>hud-plt-dim</object-name>
-        <visible>true</visible>
+        <property>/fdm/jsbsim/systems/light/hud-light-plt-norm</property>
+        <factor>-100</factor>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+            <z>0</z>
+        </axis>
+        <center>
+            <x-m>-12.33097</x-m>
+            <y-m>  0.69632</y-m>
+            <z-m> -0.35129</z-m>
+        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
