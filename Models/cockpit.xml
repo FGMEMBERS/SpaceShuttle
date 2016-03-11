@@ -777,8 +777,8 @@
         <type>knob</type>
         <object-name>hud-pwr-cmd-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
-        <factor>-35</factor>
-        <offset-deg>35</offset-deg>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
         <center>
             <x-m>-12.3529</x-m>
             <y-m> -0.4732</y-m>
@@ -822,8 +822,8 @@
         <factor>-110</factor>
         <axis>
             <x>1</x>
-            <y>0</y>
-            <z>0</z>
+            <y>0.145</y>
+            <z>0.2</z>
         </axis>
         <center>
             <x-m>-12.33607</x-m>
@@ -857,8 +857,8 @@
         <type>knob</type>
         <object-name>hud-pwr-plt-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
-        <factor>-35</factor>
-        <offset-deg>35</offset-deg>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
         <center>
             <x-m>-12.3526</x-m>
             <y-m>  0.5717</y-m>
@@ -902,8 +902,8 @@
         <factor>-110</factor>
         <axis>
             <x>1</x>
-            <y>0</y>
-            <z>0</z>
+            <y>0.145</y>
+            <z>0.2</z>
         </axis>
         <center>
             <x-m>-12.33097</x-m>
