@@ -1212,6 +1212,20 @@ if ((header == "ITEM") and (end = "EXEC"))
 			star_tracker_array[1].set_mode(4);
 			valid_flag =1;
 			}
+		else if (item == 13)
+			{
+			if (value == 0) {star_tracker_array[0].threshold = 0; valid_flag =1;}
+			else if (value == 1) {star_tracker_array[0].threshold = 1; valid_flag =1;}
+			else if (value == 2) {star_tracker_array[0].threshold = 2; valid_flag =1;}
+			else if (value == 3) {star_tracker_array[0].threshold = 3; valid_flag =1;}
+			}
+		else if (item == 14)
+			{
+			if (value == 0) {star_tracker_array[1].threshold = 0; valid_flag =1;}
+			else if (value == 1) {star_tracker_array[1].threshold = 1; valid_flag =1;}
+			else if (value == 2) {star_tracker_array[1].threshold = 2; valid_flag =1;}
+			else if (value == 3) {star_tracker_array[1].threshold = 3; valid_flag =1;}
+			}
 		}
 
 	if (spec == 33)
