@@ -33,6 +33,9 @@ var PFD_addpage_p_dps_strk = func(device)
     p_dps_strk.status_y = device.svg.getElementById("p_dps_strk_status_y");
     p_dps_strk.status_z = device.svg.getElementById("p_dps_strk_status_z");
 
+    p_dps_strk.thold_y = device.svg.getElementById("p_dps_strk_thold_y");
+    p_dps_strk.thold_z = device.svg.getElementById("p_dps_strk_thold_z");
+
 
     p_dps_strk.ondisplay = func
     {
@@ -98,6 +101,9 @@ var PFD_addpage_p_dps_strk = func(device)
 
 	text = SpaceShuttle.star_tracker_array[1].status;
 	p_dps_strk.status_z.setText(text);
+
+	p_dps_strk.thold_y.setText(sprintf("%d",SpaceShuttle.star_tracker_array[0].threshold) );
+	p_dps_strk.thold_z.setText(sprintf("%d",SpaceShuttle.star_tracker_array[1].threshold) );
 
         device.update_common_DPS();
     }
