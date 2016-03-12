@@ -1,3 +1,24 @@
+##########################################
+# HUD Brightness Mode Selector
+##########################################
+
+var hud_bright_mode = func (name) {
+
+    var hud_day_mode_norm = .9;
+    var hud_night_mode_norm = .6;
+
+    var bright_switch_selection = getprop("/fdm/jsbsim/systems/light/hud-bright-" ~ name);
+
+    if (bright_switch_selection == 2) {
+        setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_day_mode_norm);
+    }
+    if (bright_switch_selection == 0) {
+        setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_night_mode_norm);
+    }
+
+};
+
+
 # Space Shuttle HUD, ref 2.7-21 based on F-15
 # ---------------------------
 # HUD class has dataprovider

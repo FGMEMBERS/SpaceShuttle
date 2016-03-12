@@ -573,6 +573,8 @@
       <button-light-norm type="float">1.0</button-light-norm>
       <hud-light-cmd-norm type="float">1.0</hud-light-cmd-norm>
       <hud-light-plt-norm type="float">1.0</hud-light-plt-norm>
+      <hud-bright-cmd type="int">1</hud-bright-cmd>
+      <hud-bright-plt type="int">1</hud-bright-plt>
      </light>
      <mechanical>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
