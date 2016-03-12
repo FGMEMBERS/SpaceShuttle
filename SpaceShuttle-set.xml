@@ -542,6 +542,17 @@
       <cmd-pwr-switch type="int">1</cmd-pwr-switch>
       <plt-pwr-switch type="int">1</plt-pwr-switch>
      </hud>
+      <display>
+        <L1-pwr-switch type="int">1</L1-pwr-switch>
+        <L2-pwr-switch type="int">1</L2-pwr-switch>
+        <C1-pwr-switch type="int">1</C1-pwr-switch>
+        <C2-pwr-switch type="int">1</C2-pwr-switch>
+        <C3-pwr-switch type="int">1</C3-pwr-switch>
+        <C4-pwr-switch type="int">1</C4-pwr-switch>
+        <C5-pwr-switch type="int">1</C5-pwr-switch>
+        <R1-pwr-switch type="int">1</R1-pwr-switch>
+        <R2-pwr-switch type="int">1</R2-pwr-switch>
+      </display>
      </electrical>
      <landing>
       <landing-gear-arm-cmd type="int">0</landing-gear-arm-cmd>
@@ -575,6 +586,8 @@
       <hud-light-plt-norm type="float">1.0</hud-light-plt-norm>
       <hud-bright-cmd type="int">1</hud-bright-cmd>
       <hud-bright-plt type="int">1</hud-bright-plt>
+      <hud-dim-cmd type="float">1.0</hud-dim-cmd>
+      <hud-dim-plt type="float">1.0</hud-dim-plt>
      </light>
      <mechanical>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
