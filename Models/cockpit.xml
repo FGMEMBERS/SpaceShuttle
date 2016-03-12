@@ -297,12 +297,12 @@
         <!-- hud -->
         <object-name>hud-cmd-dim-knob</object-name>
         <object-name>hud-plt-dim-knob</object-name>
-        <object-name>hud-bright-mode-cmd-switch</object-name>
-        <object-name>hud-bright-mode-plt-switch</object-name>
+        <object-name>hud-mode-cmd-switch</object-name>
+        <object-name>hud-mode-plt-switch</object-name>
         <object-name>hud-pwr-cmd-switch</object-name>
         <object-name>hud-pwr-plt-switch</object-name>
-        <object-name>hud-test-cmd-switch</object-name>
-        <object-name>hud-test-plt-switch</object-name>
+        <object-name>hud-bright-cmd-switch</object-name>
+        <object-name>hud-bright-plt-switch</object-name>
     </effect>
 
     <effect>
@@ -747,10 +747,10 @@
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
                 </greater-than>
-                <greater-than>
+                <equals>
                     <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
-                    <value>0</value>
-                </greater-than>
+                    <value>1</value>
+                </equals>
             </and>
         </condition>
     </animation>
@@ -764,21 +764,21 @@
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
                 </greater-than>
-                <greater-than>
+                <equals>
                     <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
-                    <value>0</value>
-                </greater-than>
+                    <value>1</value>
+                </equals>
             </and>
         </condition>
     </animation>
 
-    <!-- HUD Power Commander "Switch"-->
+    <!-- HUD Power Commander "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hud-pwr-cmd-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/hud/cmd-pwr-switch</property>
         <factor>-45</factor>
-        <offset-deg>45</offset-deg>
+        <offset-deg>30</offset-deg>
         <center>
             <x-m>-12.3529</x-m>
             <y-m> -0.4732</y-m>
@@ -821,14 +821,14 @@
         <property>/fdm/jsbsim/systems/light/hud-light-cmd-norm</property>
         <factor>-110</factor>
         <axis>
-            <x>1</x>
+            <x>1.0  </x>
             <y>0.145</y>
-            <z>0.2</z>
+            <z>0.2  </z>
         </axis>
         <center>
-            <x-m>-12.33607</x-m>
-            <y-m> -0.59886</y-m>
-            <z-m> -0.35064</z-m>
+            <x-m>-12.3334</x-m>
+            <y-m> -0.5989</y-m>
+            <z-m> -0.3506</z-m>
         </center>
         <action>
             <repeatable>true</repeatable>
@@ -852,13 +852,99 @@
         </hovered>
     </animation>
 
-    <!-- HUD Power Pilot "Switch"-->
+    <!-- HUD Mode Commander "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-mode-cmd-switch</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-cmd</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.3312</x-m>
+            <y-m> -0.6621</y-m>
+            <z-m> -0.3485</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-mode-cmd-switch</tooltip-id>
+                <label>HUD Mode</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- HUD Bright Commander "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-bright-cmd-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/hud-bright-cmd</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.3312</x-m>
+            <y-m> -0.5385</y-m>
+            <z-m> -0.348</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/hud-bright-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.hud_bright_mode("cmd")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-mode-cmd-switch</tooltip-id>
+                <label>HUD Brightness Mode</label>
+                <property>/fdm/jsbsim/systems/light/hud-bright-cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- HUD Power Pilot "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hud-pwr-plt-switch</object-name>
         <property>/fdm/jsbsim/systems/electrical/hud/plt-pwr-switch</property>
         <factor>-45</factor>
-        <offset-deg>45</offset-deg>
+        <offset-deg>30</offset-deg>
         <center>
             <x-m>-12.3526</x-m>
             <y-m>  0.5717</y-m>
@@ -901,9 +987,9 @@
         <property>/fdm/jsbsim/systems/light/hud-light-plt-norm</property>
         <factor>-110</factor>
         <axis>
-            <x>1</x>
+            <x>1.0  </x>
             <y>0.145</y>
-            <z>0.2</z>
+            <z>0.2  </z>
         </axis>
         <center>
             <x-m>-12.33097</x-m>
@@ -928,6 +1014,92 @@
                 <label>Hud Brightness: %3d%%</label>
                 <property>/fdm/jsbsim/systems/light/hud-light-plt-norm</property>
                 <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- HUD Mode Pilot "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-mode-plt-switch</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-plt</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.3283</x-m>
+            <y-m>  0.6338</y-m>
+            <z-m> -0.3485</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-plt</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-mode-plt-switch</tooltip-id>
+                <label>HUD Mode</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/hud-mode-plt</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- HUD Bright Pilot "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hud-bright-plt-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/hud-bright-plt</property>
+        <factor>-15</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.3284</x-m>
+            <y-m>  0.7574</y-m>
+            <z-m> -0.348 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/hud-bright-plt</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.hud_bright_mode("plt")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-mode-plt-switch</tooltip-id>
+                <label>HUD Brightness Mode</label>
+                <property>/fdm/jsbsim/systems/light/hud-bright-plt</property>
             </binding>
         </hovered>
     </animation>
