@@ -15,12 +15,15 @@ var star_tracker = {
 	new: func (designation, pointing_vec) {
  	var s = { parents: [star_tracker] };
 	s.designation = designation;
-	s.pointing_vec = pointing_vec;
+	s.pointing_vec = pointing_vec;	
+	s.world_pointing_vec = [0.0, 0.0, 0.0];
 	s.mode = 1;
 	s.failure = "";
 	s.status = "";
 	s.shutter = "OP";
+	s.manual = 0;
 	s.operational = 1;
+	s.threshold = 3;
 	return s;
 	},
 
@@ -55,10 +58,52 @@ var star_tracker = {
 
 	me.status = "";
 
+	# check whether attitude change rate is too high
+
 	if ((rate_q > 0.1) or (rate_p > 0.1) or (rate_r > 0.1))
 		{
 		me.status = "HI RATE";
 		return;
+		}
+	# check whether REL NAV forwards targeting information if we request target tracking
+
+	if ((me.mode == 2) and (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 0))
+		{
+		me.status = "NO TARGET";
+		return;
+		}
+
+	# check shutter status
+
+	# this is a hack, we should use pointing vector and geometry rather than designation
+	# - but it's much faster to just fetch the appropriate vectors directly
+
+	if (me.designation == "-Z") 
+		{
+		me.world_pointing_vec[0] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[0]");
+		me.world_pointing_vec[1] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]");
+		me.world_pointing_vec[2] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]");
+		}
+	else if (me.designation == "-Y")
+		{
+		me.world_pointing_vec[0] = -getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]");
+		me.world_pointing_vec[1] = -getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]");
+		me.world_pointing_vec[2] = -getprop("/fdm/jsbsim/systems/pointing/world/body-y[2]");
+		}
+
+	var sun_vec = [getprop("/ephemeris/sun/local/x"), getprop("/ephemeris/sun/local/y"), getprop("/ephemeris/sun/local/z")];
+
+	var sun_angle_to_tracker = SpaceShuttle.dot_product(me.world_pointing_vec, sun_vec);
+
+	#print (sun_angle_to_tracker);
+
+	if ((me.manual == 0) and (sun_angle_to_tracker > 0.93))
+		{
+		me.shutter = "CL";
+		}
+	else
+		{
+		me.shutter = "OP";
 		}
 	
 	},
