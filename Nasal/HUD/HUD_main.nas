@@ -4,6 +4,17 @@
 
 var hud_bright_mode = func (name) {
 
+    if (name == "dim-cmd") {
+        var hud_dim_cmd = getprop("/fdm/jsbsim/systems/light/hud-dim-cmd");  
+        setprop("/fdm/jsbsim/systems/light/hud-light-cmd-norm", hud_dim_cmd);
+        return;
+    }
+    if (name == "dim-plt") {
+        var hud_dim_plt = getprop("/fdm/jsbsim/systems/light/hud-dim-plt");  
+        setprop("/fdm/jsbsim/systems/light/hud-light-plt-norm", hud_dim_plt);
+        return;
+    }
+
     var hud_day_mode_norm = .9;
     var hud_night_mode_norm = .6;
 
@@ -11,9 +22,11 @@ var hud_bright_mode = func (name) {
 
     if (bright_switch_selection == 2) {
         setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_day_mode_norm);
+        return;
     }
     if (bright_switch_selection == 0) {
         setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_night_mode_norm);
+        return;
     }
 
 };
