@@ -51,6 +51,28 @@ var PFD_addpage_p_dps_strk = func(device)
     p_dps_strk.s_pres_y = device.svg.getElementById("p_dps_strk_s_pres_y");
     p_dps_strk.s_pres_z = device.svg.getElementById("p_dps_strk_s_pres_z");
 
+    p_dps_strk.trk_id1 = device.svg.getElementById("p_dps_strk_trk_id1");
+    p_dps_strk.trk_id2 = device.svg.getElementById("p_dps_strk_trk_id2");
+    p_dps_strk.trk_id3 = device.svg.getElementById("p_dps_strk_trk_id3");
+
+    p_dps_strk.trk_dmin1 = device.svg.getElementById("p_dps_strk_trk_dmin1");
+    p_dps_strk.trk_dmin2 = device.svg.getElementById("p_dps_strk_trk_dmin2");
+    p_dps_strk.trk_dmin3 = device.svg.getElementById("p_dps_strk_trk_dmin3");
+
+    p_dps_strk.angdif1 = device.svg.getElementById("p_dps_strk_angdif1");
+    p_dps_strk.angdif2 = device.svg.getElementById("p_dps_strk_angdif2");
+    p_dps_strk.angdif3 = device.svg.getElementById("p_dps_strk_angdif3");
+
+    p_dps_strk.angerr1 = device.svg.getElementById("p_dps_strk_angerr1");
+    p_dps_strk.angerr2 = device.svg.getElementById("p_dps_strk_angerr2");
+    p_dps_strk.angerr3 = device.svg.getElementById("p_dps_strk_angerr3");
+
+    p_dps_strk.sel1 = device.svg.getElementById("p_dps_strk_sel1");
+    p_dps_strk.sel2 = device.svg.getElementById("p_dps_strk_sel2");
+    p_dps_strk.sel3 = device.svg.getElementById("p_dps_strk_sel3");
+
+
+
     p_dps_strk.ondisplay = func
     {
         device.DPS_menu_title.setText("S TRK/COAS CNTL");
@@ -147,6 +169,8 @@ var PFD_addpage_p_dps_strk = func(device)
 	p_dps_strk.strk_dang_z.setText(sprintf("%+1.2f", angular_error * -0.4));
 
 	var track_id = star_tracker_array[0].star_ID;
+	var current_time = getprop("/sim/time/elapsed-sec");
+
 	if (track_id == 0)
 		{    
 		p_dps_strk.trk_id_y.setText("");
@@ -165,6 +189,75 @@ var PFD_addpage_p_dps_strk = func(device)
 		{
 		p_dps_strk.trk_id_z.setText(sprintf("%d",track_id));
 		}
+
+	# star table
+
+	var minutes = 0;
+
+	track_id = SpaceShuttle.star_table.track_ID[0];
+	if (track_id == 0)
+		{    
+		p_dps_strk.trk_id1.setText("");
+		p_dps_strk.trk_dmin1.setText("");
+		p_dps_strk.angdif1.setText("");
+		p_dps_strk.angerr1.setText("");
+		p_dps_strk.sel1.setText("");
+		}
+	else
+		{
+		p_dps_strk.trk_id1.setText(sprintf("%d",track_id));
+		minutes = int((current_time - SpaceShuttle.star_table.time_stamp[0])/60.);
+		p_dps_strk.trk_dmin1.setText(sprintf("%d",minutes));
+		p_dps_strk.angdif1.setText(sprintf("%3.1f",SpaceShuttle.star_table.ang_diff[0]));
+		p_dps_strk.angerr1.setText(sprintf("%2.2f",SpaceShuttle.star_table.ang_err[0]));
+		symbol = "";
+		if (SpaceShuttle.star_table.sel[0] == 1) {symbol = "*";}
+		p_dps_strk.sel1.setText(symbol);
+		}
+
+	track_id = SpaceShuttle.star_table.track_ID[1];
+	if (track_id == 0)
+		{    
+		p_dps_strk.trk_id2.setText("");
+		p_dps_strk.trk_dmin2.setText("");
+		p_dps_strk.angdif2.setText("");
+		p_dps_strk.angerr2.setText("");
+		p_dps_strk.sel2.setText("");
+		}
+	else
+		{
+		p_dps_strk.trk_id2.setText(sprintf("%d",track_id));
+		minutes = int((current_time - SpaceShuttle.star_table.time_stamp[1])/60.);
+		p_dps_strk.trk_dmin2.setText(sprintf("%d",minutes));
+		p_dps_strk.angdif2.setText(sprintf("%3.1f",SpaceShuttle.star_table.ang_diff[1]));
+		p_dps_strk.angerr2.setText(sprintf("%2.2f",SpaceShuttle.star_table.ang_err[1]));
+		symbol = "";
+		if (SpaceShuttle.star_table.sel[1] == 1) {symbol = "*";}
+		p_dps_strk.sel2.setText(symbol);
+		}
+
+	track_id = SpaceShuttle.star_table.track_ID[2];
+	if (track_id == 0)
+		{    
+		p_dps_strk.trk_id3.setText("");
+		p_dps_strk.trk_dmin3.setText("");
+		p_dps_strk.angdif3.setText("");
+		p_dps_strk.angerr3.setText("");
+		p_dps_strk.sel3.setText("");
+		}
+	else
+		{
+		p_dps_strk.trk_id3.setText(sprintf("%d",track_id));
+		minutes = int((current_time - SpaceShuttle.star_table.time_stamp[2])/60.);
+		p_dps_strk.trk_dmin3.setText(sprintf("%d",minutes));
+		p_dps_strk.angdif3.setText(sprintf("%3.1f",SpaceShuttle.star_table.ang_diff[2]));
+		p_dps_strk.angerr3.setText(sprintf("%2.2f",SpaceShuttle.star_table.ang_err[2]));
+		symbol = "";
+		if (SpaceShuttle.star_table.sel[2] == 1) {symbol = "*";}
+		p_dps_strk.sel3.setText(symbol);
+		}
+
+
 
 
         device.update_common_DPS();

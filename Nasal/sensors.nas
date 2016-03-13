@@ -77,6 +77,7 @@ var star_tracker = {
 	if ((rate_q > 0.1) or (rate_p > 0.1) or (rate_r > 0.1))
 		{
 		me.status = "HI RATE";
+		me.star_in_view = 0;
 		return;
 		}
 	# check whether REL NAV forwards targeting information if we request target tracking
@@ -84,6 +85,7 @@ var star_tracker = {
 	if ((me.mode == 2) and ((me.target_available == 0) or (getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable") == 0)))
 		{
 		me.status = "NO TARGET";
+		me.star_in_view = 0;
 		return;
 		}
 
@@ -164,16 +166,18 @@ var star_tracker = {
 
 		#print ("Pointing diff: ", pointing_diff);
 
-		if (pointing_diff < 0.96)
+		if (pointing_diff < 0.98)
 			{
 			#print ("Star tracker - new FOV");
 
-			var p_star = 0.3;
+			var p_star = 0.5;
 
 			if (rand() < p_star)
 				{
 				me.star_in_view = 1;
 				me.star_ID = int (10.0 + rand() * 100.0);
+
+				star_table.insert(me.star_ID, me.pointing_vec);
 				}
 			else
 				{
@@ -200,3 +204,89 @@ append(star_tracker_array, star_tracker_z);
 
 setlistener("/fdm/jsbsim/systems/failures/sensors/star-tracker-Y-condition", func (n) { star_tracker_array[0].fail(n.getValue());});
 setlistener("/fdm/jsbsim/systems/failures/sensors/star-tracker-Z-condition", func (n) { star_tracker_array[1].fail(n.getValue());});
+
+
+
+###############################################################################
+# star table
+###############################################################################
+
+
+var star_table = {
+
+	track_ID: [0, 0, 0],
+	delta_min : [0.0, 0.0, 0.0],
+	ang_diff: [0.0, 0.0, 0.0],
+	pointing: [[0.0, 0.0, 0.0], [0.0,0.0,0.0], [0.0,0.0,0.0]],
+	ang_err: [0.0, 0.0, 0.0],
+	time_stamp: [0.0, 0.0, 0.0],
+	sel: [0,0,0],
+	init_flag: 0,
+
+
+	insert: func (track_ID, pointing) {
+
+		me.sel[0] = 0;
+		me.sel[1] = 0;
+		me.sel[2] = 0;
+
+		# convert pointing vec to inertial
+
+		pointing = SpaceShuttle.vtransform_body_inertial(pointing);
+
+		# first, copy 2 -> 3 and 1 -> 2, then overwrite 1	
+	
+		me.track_ID[2] = me.track_ID[1];
+		me.track_ID[1] = me.track_ID[0];
+
+		me.delta_min[2] = me.delta_min[1];
+		me.delta_min[1] = me.delta_min[0];
+
+		me.ang_diff[2] = me.ang_diff[1];
+		me.ang_diff[1] = me.ang_diff[0];
+
+		me.ang_err[2] = me.ang_err[1];
+		me.ang_err[1] = me.ang_err[0];
+
+		me.time_stamp[2] = me.time_stamp[1];
+		me.time_stamp[1] = me.time_stamp[0];
+
+		me.pointing[2][0] = me.pointing[1][0];
+		me.pointing[1][0] = me.pointing[0][0];
+
+		me.pointing[2][1] = me.pointing[1][1];
+		me.pointing[1][1] = me.pointing[0][1];
+
+		me.pointing[2][2] = me.pointing[1][2];
+		me.pointing[1][2] = me.pointing[0][2];
+
+		me.track_ID[0] = track_ID;
+		me.pointing[0][0] = pointing[0];
+		me.pointing[0][1] = pointing[1];
+		me.pointing[0][2] = pointing[2];
+
+		var elapsed = getprop("/sim/time/elapsed-sec");
+		me.time_stamp[0] = elapsed;
+
+		var angle = SpaceShuttle.dot_product(me.pointing[0], me.pointing[1]);
+		angle = math.acos(angle) * 180.0/math.pi;
+		me.ang_diff[0] = angle;
+		if (me.init_flag == 0)
+			{me.ang_diff[0] = 0.0;}
+		me.init_flag = 1;
+
+		me.ang_err[0] =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+
+
+	},
+
+	clear: func () {
+
+		me.track_ID[0] = 0;
+		me.track_ID[1] = 0;
+		me.track_ID[2] = 0;
+		me.init_flag = 0;
+
+
+	},
+}
