@@ -1143,14 +1143,24 @@ set_coords("ISS", issCoord, issState);
 # the antenna manager might run outside a frame, in which case the coordinate is displaced
 # leading to odd tracking angles for the antenna
 
-SpaceShuttle.antenna_manager.set_rr_target(issCoord);
+
 if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
 		{
+		SpaceShuttle.antenna_manager.set_rr_target(issCoord);
 			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
 				{
 				ku_antenna_track_target(issCoord);
 				}		
 		}
+if (SpaceShuttle.star_tracker_array[0].mode == 2)
+	{
+	SpaceShuttle.star_tracker_array[0].set_target(issCoord);
+	}
+
+if (SpaceShuttle.star_tracker_array[1].mode == 2)
+{
+	SpaceShuttle.star_tracker_array[1].set_target(issCoord);
+	}
 
 
 

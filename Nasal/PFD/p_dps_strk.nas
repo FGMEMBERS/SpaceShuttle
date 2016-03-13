@@ -36,6 +36,20 @@ var PFD_addpage_p_dps_strk = func(device)
     p_dps_strk.thold_y = device.svg.getElementById("p_dps_strk_thold_y");
     p_dps_strk.thold_z = device.svg.getElementById("p_dps_strk_thold_z");
 
+    p_dps_strk.man_op_y = device.svg.getElementById("p_dps_strk_man_op_y");
+    p_dps_strk.man_op_z = device.svg.getElementById("p_dps_strk_man_op_z");
+
+    p_dps_strk.strk_dang_y = device.svg.getElementById("p_dps_strk_dang_y");
+    p_dps_strk.strk_dang_z = device.svg.getElementById("p_dps_strk_dang_z");
+
+    p_dps_strk.reqd_id_y = device.svg.getElementById("p_dps_strk_reqd_id_y");
+    p_dps_strk.reqd_id_z = device.svg.getElementById("p_dps_strk_reqd_id_z");
+
+    p_dps_strk.trk_id_y = device.svg.getElementById("p_dps_strk_trk_id_y");
+    p_dps_strk.trk_id_z = device.svg.getElementById("p_dps_strk_trk_id_z");
+
+    p_dps_strk.s_pres_y = device.svg.getElementById("p_dps_strk_s_pres_y");
+    p_dps_strk.s_pres_z = device.svg.getElementById("p_dps_strk_s_pres_z");
 
     p_dps_strk.ondisplay = func
     {
@@ -46,6 +60,12 @@ var PFD_addpage_p_dps_strk = func(device)
     
         var ops_string = major_mode~"1/022/";
         device.DPS_menu_ops.setText(ops_string);
+
+	# defaults for things which aren't implemented yet
+
+	p_dps_strk.reqd_id_y.setText("0");
+	p_dps_strk.reqd_id_z.setText("0");
+	
     }
     
     p_dps_strk.update = func
@@ -83,6 +103,22 @@ var PFD_addpage_p_dps_strk = func(device)
 	if (SpaceShuttle.star_tracker_array[1].mode == 4) {symbol = "*";}
 	p_dps_strk.idle_z.setText(symbol);
 
+	symbol = "";
+	if (SpaceShuttle.star_tracker_array[0].manual == 1) {symbol = "*";}
+	p_dps_strk.man_op_y.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.star_tracker_array[1].manual == 1) {symbol = "*";}
+	p_dps_strk.man_op_z.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.star_tracker_array[0].star_in_view == 1) {symbol = "*";}
+	p_dps_strk.s_pres_y.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.star_tracker_array[1].star_in_view == 1) {symbol = "*";}
+	p_dps_strk.s_pres_z.setText(symbol);
+
 
 	var text = SpaceShuttle.star_tracker_array[0].failure; 
 	p_dps_strk.status_y_2.setText(text);
@@ -104,6 +140,32 @@ var PFD_addpage_p_dps_strk = func(device)
 
 	p_dps_strk.thold_y.setText(sprintf("%d",SpaceShuttle.star_tracker_array[0].threshold) );
 	p_dps_strk.thold_z.setText(sprintf("%d",SpaceShuttle.star_tracker_array[1].threshold) );
+
+	var angular_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+
+	p_dps_strk.strk_dang_y.setText(sprintf("%+1.2f", angular_error * 0.7));
+	p_dps_strk.strk_dang_z.setText(sprintf("%+1.2f", angular_error * -0.4));
+
+	var track_id = star_tracker_array[0].star_ID;
+	if (track_id == 0)
+		{    
+		p_dps_strk.trk_id_y.setText("");
+		}
+	else
+		{
+		p_dps_strk.trk_id_y.setText(sprintf("%d",track_id));
+		}
+
+	track_id = star_tracker_array[1].star_ID;
+	if (track_id == 0)
+		{    
+		p_dps_strk.trk_id_z.setText("");
+		}
+	else
+		{
+		p_dps_strk.trk_id_z.setText(sprintf("%d",track_id));
+		}
+
 
         device.update_common_DPS();
     }
