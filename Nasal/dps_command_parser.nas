@@ -1244,6 +1244,32 @@ if ((header == "ITEM") and (end = "EXEC"))
 				{star_tracker_array[1].manual = 1;}
 			valid_flag =1;
 			}
+		else if (item == 17)
+			{
+			var state = SpaceShuttle.star_table.sel[0];
+			if (state == 0) {SpaceShuttle.star_table.sel[0] = 1;}
+			else {SpaceShuttle.star_table.sel[0] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 18)
+			{
+			var state = SpaceShuttle.star_table.sel[1];
+			if (state == 0) {SpaceShuttle.star_table.sel[1] = 1;}
+			else {SpaceShuttle.star_table.sel[1] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 19)
+			{
+			var state = SpaceShuttle.star_table.sel[2];
+			if (state == 0) {SpaceShuttle.star_table.sel[2] = 1;}
+			else {SpaceShuttle.star_table.sel[2] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 20)
+			{
+			SpaceShuttle.star_table.clear();
+			valid_flag =1;
+			}
 		}
 
 	if (spec == 33)
