@@ -548,7 +548,6 @@
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
         </emission>
     </animation>
-
     <animation>
         <object-name>DisplayL1</object-name>
         <type>select</type>
@@ -559,22 +558,21 @@
                     <value>0</value>
                 </greater-than>
                 <equals>
-                    <property>/fdm/jsbsim/systems/electrical/L1-pwr-switch</property>
+                    <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
                     <value>1</value>
                 </equals>
             </and>
         </condition>
     </animation>
-
     <!-- Display L1 Power "Knob" -->
     <animation>
         <type>knob</type>
         <object-name>L1-disp-pwr</object-name>
-        <property>/fdm/jsbsim/systems/electrical/L1-pwr-switch</property>
+        <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
         <factor>-45</factor>
         <axis>
             <x>1.0  </x>
-            <y>0.044  </y>
+            <y>0.0  </y>
             <z>0.266</z>
         </axis>
         <center>
@@ -586,7 +584,7 @@
             <repeatable>true</repeatable>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/electrical/L1-pwr-switch</property>
+                <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -602,12 +600,11 @@
                 <command>set-tooltip</command>
                 <tooltip-id>L1-disp-pwr</tooltip-id>
                 <label>L1 Power: %s</label>
-                <property>/fdm/jsbsim/systems/electrical/L1-pwr-switch</property>
+                <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
                 <mapping>on-off</mapping>
             </binding>
         </hovered>
     </animation>
-
     <!-- Display L1 Dimmer "Knob" -->
     <animation>
         <type>knob</type>
@@ -616,8 +613,8 @@
         <factor>-110</factor>
         <axis>
             <x>1.0  </x>
-            <y>0.145</y>
-            <z>0.2  </z>
+            <y>0.0  </y>
+            <z>0.266</z>
         </axis>
         <center>
             <x-m>-12.40858</x-m>
@@ -654,10 +651,6 @@
         <object-name>DisplayL2</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
@@ -669,21 +662,229 @@
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
         </emission>
     </animation>
+    <animation>
+        <object-name>DisplayL2</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display L2 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>L2-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858</x-m>
+            <y-m> -0.59838</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>L1-disp-pwr</tooltip-id>
+                <label>L2 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display L2 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>L2-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode2</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858</x-m>
+            <y-m> -0.37912</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode2</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>L2-disp-dim</tooltip-id>
+                <label>L2 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode2</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
 
     <animation>
         <object-name>DisplayC1</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode3</factor-prop>
+            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
+            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
+            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
+        </emission>
+    </animation>
+    <animation>
+        <object-name>DisplayC1</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display C1 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C1-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.43003</x-m>
+            <y-m> -0.31994</y-m>
+            <z-m> -0.56678</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C1-disp-pwr</tooltip-id>
+                <label>C1 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display C1 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C1-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode3</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.43003</x-m>
+            <y-m> -0.10068</y-m>
+            <z-m> -0.56678</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode3</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C1-disp-dim</tooltip-id>
+                <label>C1 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode3</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayC2</object-name>
+        <type>material</type>
+        <condition>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode4</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -691,18 +892,113 @@
     </animation>
     <animation>
         <object-name>DisplayC2</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display C2 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C2-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3694 </x-m>
+            <y-m> -0.31994</y-m>
+            <z-m> -0.77758</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C2-disp-pwr</tooltip-id>
+                <label>C2 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display C2 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C2-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode4</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3694 </x-m>
+            <y-m> -0.10068</y-m>
+            <z-m> -0.77758</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode4</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C2-disp-dim</tooltip-id>
+                <label>C2 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode4</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayC3</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode5</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -710,18 +1006,113 @@
     </animation>
     <animation>
         <object-name>DisplayC3</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display C3 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C3-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.39933</x-m>
+            <y-m> -0.06682</y-m>
+            <z-m> -0.67353</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C3-disp-pwr</tooltip-id>
+                <label>C3 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display C3 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C3-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode5</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.39933</x-m>
+            <y-m>  0.15243</y-m>
+            <z-m> -0.67353</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode5</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C3-disp-dim</tooltip-id>
+                <label>C3 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode5</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayC4</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode6</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -729,18 +1120,113 @@
     </animation>
     <animation>
         <object-name>DisplayC4</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display C4 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C4-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.43003  </x-m>
+            <y-m>  0.18787</y-m>
+            <z-m> -0.56678</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C4-disp-pwr</tooltip-id>
+                <label>C4 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display C4 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C4-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode6</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.43003</x-m>
+            <y-m>  0.40712</y-m>
+            <z-m> -0.56678</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode6</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C4-disp-dim</tooltip-id>
+                <label>C4 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode6</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayC5</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode7</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -748,18 +1234,113 @@
     </animation>
     <animation>
         <object-name>DisplayC5</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/C5-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display C5 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C5-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/C5-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3694 </x-m>
+            <y-m>  0.18787</y-m>
+            <z-m> -0.77758</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/C5-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C5-disp-pwr</tooltip-id>
+                <label>C5 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/C5-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display C5 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>C5-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode7</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3694 </x-m>
+            <y-m>  0.40713</y-m>
+            <z-m> -0.77758</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode7</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>C5-disp-dim</tooltip-id>
+                <label>C5 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode7</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayR1</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode8</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -767,18 +1348,113 @@
     </animation>
     <animation>
         <object-name>DisplayR1</object-name>
+        <type>select</type>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/R1-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
+        </condition>
+    </animation>
+    <!-- Display R1 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>R1-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/R1-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858 </x-m>
+            <y-m>  0.46562</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/R1-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>R1-disp-pwr</tooltip-id>
+                <label>R1 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/R1-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display R1 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>R1-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode8</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858 </x-m>
+            <y-m>  0.68488</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode8</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>R1-disp-dim</tooltip-id>
+                <label>R1 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode8</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <object-name>DisplayR2</object-name>
         <type>material</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
             <not>
                 <property>/sim/rendering/rembrandt/enabled</property>
             </not>
         </condition>
         <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
+            <factor-prop>sim/model/shuttle/controls/PFD/mode9</factor-prop>
             <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
             <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
             <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
@@ -786,22 +1462,101 @@
     </animation>
     <animation>
         <object-name>DisplayR2</object-name>
-        <type>material</type>
+        <type>select</type>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-                <value>0</value>
-            </greater-than>
-            <not>
-                <property>/sim/rendering/rembrandt/enabled</property>
-            </not>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/electrical/display/R2-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+            </and>
         </condition>
-        <emission>
-            <factor-prop>sim/model/shuttle/controls/PFD/mode2</factor-prop>
-            <red-prop>sim/model/shuttle/lighting/displays-red</red-prop>
-            <green-prop>sim/model/shuttle/lighting/displays-green</green-prop>
-            <blue-prop>sim/model/shuttle/lighting/displays-blue</blue-prop>
-        </emission>
+    </animation>
+    <!-- Display R2 Power "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>R2-disp-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/display/R2-pwr-switch</property>
+        <factor>-45</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858 </x-m>
+            <y-m>  0.71543</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/display/R2-pwr-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>R2-disp-pwr</tooltip-id>
+                <label>R2 Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/display/R2-pwr-switch</property>
+                <mapping>on-off</mapping>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- Display R2 Dimmer "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>R2-disp-dim</object-name>
+        <property>sim/model/shuttle/controls/PFD/mode9</property>
+        <factor>-110</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.40858 </x-m>
+            <y-m>  0.93468</y-m>
+            <z-m> -0.64136</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>sim/model/shuttle/controls/PFD/mode9</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>10</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>R2-disp-dim</tooltip-id>
+                <label>R2 Brightness: %3d%%</label>
+                <property>sim/model/shuttle/controls/PFD/mode9</property>
+               <mapping>percent</mapping>
+            </binding>
+        </hovered>
     </animation>
 
     <animation>
