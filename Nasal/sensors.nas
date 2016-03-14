@@ -269,6 +269,7 @@ var star_table = {
 		me.time_stamp[0] = elapsed;
 
 		var angle = SpaceShuttle.dot_product(me.pointing[0], me.pointing[1]);
+		angle = SpaceShuttle.clamp(angle, -1.0, 1.0);
 		angle = math.acos(angle) * 180.0/math.pi;
 		me.ang_diff[0] = angle;
 		if (me.init_flag == 0)
@@ -289,4 +290,56 @@ var star_table = {
 
 
 	},
-}
+};
+
+###############################################################################
+# COAS
+###############################################################################
+
+var coas_fix_attitude = func {
+
+
+var att_vec = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
+
+var tmp1 = math.cos(s_ang) * att_vec[0] - math.sin(s_ang) * att_vec[1];
+var tmp2 = math.sin(s_ang) * att_vec[0] + math.cos(s_ang) * att_vec[1];
+
+att_vec[0] = tmp1;
+att_vec[1] = tmp2;
+
+print("COAS: ", att_vec[0], " ", att_vec[1], " ", att_vec[2]);
+
+foreach (s; coas_star_table)
+	{
+	var diff_angle = SpaceShuttle.dot_product(att_vec, s.pointing_vec);
+
+	if (diff_angle > 0.99)
+		{
+		print("COAS: Star ", s.designation, " found.");
+		}
+
+	}
+
+};
+
+
+
+var coas_star_table = [];
+
+var star_entry = {
+
+new: func (designation, pointing_vec) {
+ 	var s = { parents: [star_entry] };
+	s.designation = designation;
+	s.pointing_vec = pointing_vec;	
+	return s;
+	},
+};
+
+var star1 = star_entry.new("Shedir", [-0.007, -0.5490, 0.8357]);
+append(coas_star_table, star1);
+
+var star2 = star_entry.new("Mirphak", [0.4186, -0.4866, 0.7667]);
+append(coas_star_table, star2);
