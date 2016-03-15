@@ -296,10 +296,77 @@ var star_table = {
 # COAS
 ###############################################################################
 
-var coas_fix_attitude = func {
+
+var coas = {
+
+	reqd_id: 0,
+	star_index: 0,
+	Ddeg_x: 0.0,
+	Ddeg_y: 0.0,
+	sight_mode : 0,
+	cal_mode: 0,
+	deselect: 0,
+	pos: 0,
+	Dbias_x: 0,
+	Dbias_y: 0,
+	n_marks : 0,
+	loop_flag: 0,
+
+	set_id: func (value) {
+
+	if (value == 0) {me.stop(); return;}
+	if ((value > 17) or (value < 11)) {return;} # we can only enter IDs in the explicit table
+	me.reqd_id = value;
+	me.star_index = me.reqd_id - 11;
+
+	if (me.loop_flag == 0)  {me.loop_flag =1; coas_loop(); print("Init loop");}
+	
+	},
+
+	run: func () {
+
+	var star_vec = coas_star_table[me.star_index].pointing_vec;
+
+	var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[2]")];
+	body_y_fi = SpaceShuttle.vtransform_world_fixed_inertial(body_y);
+	me.Ddeg_y = math.acos(SpaceShuttle.dot_product(body_y_fi, star_vec)) * 180.0/math.pi;
+
+	var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+	body_x_fi = SpaceShuttle.vtransform_world_fixed_inertial(body_x);
+	me.Ddeg_x = math.acos(SpaceShuttle.dot_product(body_x_fi, star_vec)) * 180.0/math.pi;
+
+	#print (me.Ddeg_x, " ", me.Ddeg_y);
+	},
+
+	stop: func () {
+
+	me.loop_flag = 0;
+
+	},
 
 
-var att_vec = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+};
+
+
+var coas_loop = func {
+
+coas.run();
+
+if (coas.loop_flag == 1) {settimer(coas_loop, 1.0);}
+
+}
+
+var coas_att_ref = func {
+
+
+if (coas.pos == 0)
+	{var att_vec = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];}
+else
+	{
+	var att_vec = [getprop("/fdm/jsbsim/systems/pointing/world/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+	}
+
+
 
 var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
 
@@ -343,3 +410,21 @@ append(coas_star_table, star1);
 
 var star2 = star_entry.new("Mirphak", [0.4186, -0.4866, 0.7667]);
 append(coas_star_table, star2);
+
+var star3 = star_entry.new("Mizar", [-0.0988, 0.56751, 0.8174]);
+append(coas_star_table, star3);
+
+var star4 = star_entry.new("Arcturus", [-0.37197, 0.8687, 0.32703]);
+append(coas_star_table, star4);
+
+var star5 = star_entry.new("Betelgeuse", [0.9703, -0.20406, 0.12928]);
+append(coas_star_table, star5);
+
+var star6 = star_entry.new("Procyon", [0.9575, 0.0084, -0.2883]);
+append(coas_star_table, star6);
+ 
+var star7 = star_entry.new("Spica", [-0.1825, 0.9632, -0.1968]);
+append(coas_star_table, star7);
+
+
+

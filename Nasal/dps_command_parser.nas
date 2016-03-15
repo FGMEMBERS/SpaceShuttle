@@ -1270,6 +1270,30 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.star_table.clear();
 			valid_flag =1;
 			}
+		else if (item == 21)
+			{
+			SpaceShuttle.coas.set_id(value);
+			valid_flag =1;
+			}
+		else if (item == 22)
+			{
+			var state = SpaceShuttle.coas.sight_mode;
+			if (state ==0)
+				{SpaceShuttle.coas.sight_mode = 1;}
+			else
+				{SpaceShuttle.coas.sight_mode = 0;}
+			valid_flag =1;
+			}
+		else if (item == 26)
+			{
+			SpaceShuttle.coas.pos = 0;
+			valid_flag =1;
+			}
+		else if (item == 27)
+			{
+			SpaceShuttle.coas.pos = 1;
+			valid_flag =1;
+			}
 		}
 
 	if (spec == 33)

@@ -269,9 +269,23 @@ outvec = add_vector (outvec, vec3);
 
 return outvec;
 
-
 }
 
+
+var vtransform_world_fixed_inertial = func (vec) {
+
+# FG world coords to sidereal fixed inertial coordinates
+
+var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
+
+var tmp1 = math.cos(s_ang) * vec[0] - math.sin(s_ang) * vec[1];
+var tmp2 = math.sin(s_ang) * vec[0] + math.cos(s_ang) * vec[1];
+
+vec[0] = tmp1;
+vec[1] = tmp2;
+
+return vec;
+}
 
 ######################################
 # creation of an inertial maneuver target
