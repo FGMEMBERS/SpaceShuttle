@@ -1660,6 +1660,15 @@ setprop("/fdm/jsbsim/systems/mechanical/ku-antenna-deploy-switch", 1);
 
 }
 
+var pb_door_open = func {
+
+setprop("/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable", 1);
+setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
+setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
+settimer( func{ SpaceShuttle.payload_bay_door_open_auto(0); }, 1.0);
+
+}
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -2066,9 +2075,7 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	control_to_rcs();
 
 	# open PBD
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-sys1-enable", 1);
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
+	pb_door_open();
 
 	# deploy Ku-antenna
 	ku_antenna_deploy();
