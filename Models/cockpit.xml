@@ -43,6 +43,10 @@
         <object-name>F6SW-1-8</object-name>
         <object-name>F6SW-1-9</object-name>
         <object-name>F6SW-2-3</object-name>
+        <object-name>trim-panel-cmd</object-name>
+        <object-name>trim-panel-plt</object-name>
+        <object-name>trim-rhc-pnl-cmd</object-name>
+        <object-name>trim-rhc-pnl-cmd</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -256,6 +260,10 @@
         <object-name>fire-sup-av-bay1</object-name>
         <object-name>fire-sup-av-bay2</object-name>
         <object-name>fire-sup-av-bay3</object-name>
+        <object-name>fs-bay1-safe-cvr</object-name>
+        <object-name>fs-bay2-safe-cvr</object-name>
+        <object-name>fs-bay3-safe-cvr</object-name>
+        <object-name>fs-bays-safe-bg</object-name>
         <object-name>man-sb-thrust-sel-cmd</object-name>
         <object-name>man-sb-thrust-sel-plt</object-name>
         <object-name>man-sb-thrust-cmd</object-name>
@@ -610,7 +618,7 @@
         <type>knob</type>
         <object-name>L1-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode1</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -640,9 +648,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>L1-disp-dim</tooltip-id>
-                <label>L1 Brightness: %3d%%</label>
+                <label>L1 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode1</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -724,7 +736,7 @@
         <type>knob</type>
         <object-name>L2-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode2</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -754,9 +766,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>L2-disp-dim</tooltip-id>
-                <label>L2 Brightness: %3d%%</label>
+                <label>L2 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode2</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -838,7 +854,7 @@
         <type>knob</type>
         <object-name>C1-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode3</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -868,9 +884,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>C1-disp-dim</tooltip-id>
-                <label>C1 Brightness: %3d%%</label>
+                <label>C1 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode3</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -952,7 +972,7 @@
         <type>knob</type>
         <object-name>C2-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode4</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -982,9 +1002,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>C2-disp-dim</tooltip-id>
-                <label>C2 Brightness: %3d%%</label>
+                <label>C2 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode4</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -1066,7 +1090,7 @@
         <type>knob</type>
         <object-name>C3-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode5</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -1096,9 +1120,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>C3-disp-dim</tooltip-id>
-                <label>C3 Brightness: %3d%%</label>
+                <label>C3 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode5</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -1180,7 +1208,7 @@
         <type>knob</type>
         <object-name>C4-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode6</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -1210,9 +1238,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>C4-disp-dim</tooltip-id>
-                <label>C4 Brightness: %3d%%</label>
+                <label>C4 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode6</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -1294,7 +1326,7 @@
         <type>knob</type>
         <object-name>C5-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode7</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -1324,9 +1356,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>C5-disp-dim</tooltip-id>
-                <label>C5 Brightness: %3d%%</label>
+                <label>C5 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode7</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -1408,7 +1444,7 @@
         <type>knob</type>
         <object-name>R1-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode8</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -1438,9 +1474,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>R1-disp-dim</tooltip-id>
-                <label>R1 Brightness: %3d%%</label>
+                <label>R1 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode8</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -1522,7 +1562,7 @@
         <type>knob</type>
         <object-name>R2-disp-dim</object-name>
         <property>sim/model/shuttle/controls/PFD/mode9</property>
-        <factor>-110</factor>
+        <factor>-36</factor>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -1552,9 +1592,13 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>R2-disp-dim</tooltip-id>
-                <label>R2 Brightness: %3d%%</label>
+                <label>R2 Brightness: %s</label>
                 <property>sim/model/shuttle/controls/PFD/mode9</property>
-               <mapping>percent</mapping>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4602,6 +4646,11 @@
                 <tooltip-id>h2o-pump-l1</tooltip-id>
                 <label>H2O Pump Loop 1: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/water-pump-1-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON', 'GPC'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4643,6 +4692,11 @@
                 <tooltip-id>h2o-pump-l2</tooltip-id>
                 <label>H2O Pump Loop 2: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/water-pump-2-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON', 'GPC'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4684,6 +4738,11 @@
                 <tooltip-id>freon-pump-l1</tooltip-id>
                 <label>Freon Pump Loop 1: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/freon-pump-1-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'A', 'B'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4725,6 +4784,11 @@
                 <tooltip-id>freon-pump-l2</tooltip-id>
                 <label>Freon Pump Loop 2: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/freon-pump-2-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'A', 'B'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4766,6 +4830,11 @@
                 <tooltip-id>rad-out-temp</tooltip-id>
                 <label>Radiator Out Temp: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/out-temp-hi-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['NORM', 'HI'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4807,6 +4876,11 @@
                 <tooltip-id>rad-cont-loop1</tooltip-id>
                 <label>Radiator Controller Loop 1: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = OFF', 'AUTO A', 'AUTO B'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4848,6 +4922,11 @@
                 <tooltip-id>rad-cont-loop2</tooltip-id>
                 <label>Radiator Controller Loop 2: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'AUTO A', 'AUTO B'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -4977,6 +5056,11 @@
                 <tooltip-id>rad-flow-bypass1</tooltip-id>
                 <label>Radiator Flow 1: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['RAD FLOW', 'BYPASS'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5018,6 +5102,11 @@
                 <tooltip-id>rad-flow-bypass2</tooltip-id>
                 <label>Radiator Flow 2: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['RAD FLOW', 'BYPASS'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5059,6 +5148,11 @@
                 <tooltip-id>flash-evap-cntrl-pria</tooltip-id>
                 <label>Flash Evap Cntrl A: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'GPC', 'ON'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5100,6 +5194,11 @@
                 <tooltip-id>flash-evap-cntrl-prib</tooltip-id>
                 <label>Flash Evap Cntrl B: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'GPC', 'ON'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5141,6 +5240,11 @@
                 <tooltip-id>flash-evap-cntrl-sec</tooltip-id>
                 <label>Flash Evap Secondary: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON', 'GPC'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5182,6 +5286,11 @@
                 <tooltip-id>hi-load-evap-enable</tooltip-id>
                 <label>Hi Load Evap: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-hi-load-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ENABLE'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5191,7 +5300,7 @@
         <type>knob</type>
         <object-name>top-evap-heat-noz-l</object-name>
         <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
-        <factor>30</factor>
+        <factor>-30</factor>
         <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.0085</x-m>
@@ -5207,9 +5316,9 @@
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
-                <factor>-1</factor>
-                <min>1</min>
-                <max>-1</max>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
                 <wrap>false</wrap>
             </binding>
             <binding>
@@ -5223,6 +5332,11 @@
                 <tooltip-id>top-evap-heat-noz-l</tooltip-id>
                 <label>Top Evap Heat Nozzle Left: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-heater-left-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'B AUTO', 'A AUTO'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -5232,7 +5346,7 @@
         <type>knob</type>
         <object-name>top-evap-heat-noz-r</object-name>
         <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
-        <factor>30</factor>
+        <factor>-30</factor>
         <offset-deg>-10</offset-deg>
         <center>
             <x-m>-12.0383</x-m>
@@ -5248,9 +5362,9 @@
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
-                <factor>-1</factor>
-                <min>1</min>
-                <max>-1</max>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
                 <wrap>false</wrap>
             </binding>
             <binding>
@@ -5264,6 +5378,11 @@
                 <tooltip-id>top-evap-heat-noz-r</tooltip-id>
                 <label>Top Evap Heat Nozzle Right: %s</label>
                 <property>/fdm/jsbsim/systems/atcs/fes-heater-right-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'B AUTO', 'A AUTO'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
