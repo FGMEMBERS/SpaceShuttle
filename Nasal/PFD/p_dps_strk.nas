@@ -71,7 +71,19 @@ var PFD_addpage_p_dps_strk = func(device)
     p_dps_strk.sel2 = device.svg.getElementById("p_dps_strk_sel2");
     p_dps_strk.sel3 = device.svg.getElementById("p_dps_strk_sel3");
 
+    p_dps_strk.reqd_id_coas = device.svg.getElementById("p_dps_strk_reqd_id_coas");
+    p_dps_strk.ddeg_x = device.svg.getElementById("p_dps_strk_ddeg_x");
+    p_dps_strk.ddeg_y = device.svg.getElementById("p_dps_strk_ddeg_y");
 
+    p_dps_strk.cal_mode = device.svg.getElementById("p_dps_strk_cal_mode");
+    p_dps_strk.sight_mode = device.svg.getElementById("p_dps_strk_sight_mode");
+    p_dps_strk.des = device.svg.getElementById("p_dps_strk_des");
+
+    p_dps_strk.pos_x = device.svg.getElementById("p_dps_strk_pos_x");
+    p_dps_strk.pos_z = device.svg.getElementById("p_dps_strk_pos_z");
+
+    p_dps_strk.dbias1 = device.svg.getElementById("p_dps_strk_dbias1");
+    p_dps_strk.dbias2 = device.svg.getElementById("p_dps_strk_dbias2");
 
     p_dps_strk.ondisplay = func
     {
@@ -87,7 +99,9 @@ var PFD_addpage_p_dps_strk = func(device)
 
 	p_dps_strk.reqd_id_y.setText("0");
 	p_dps_strk.reqd_id_z.setText("0");
-	
+	p_dps_strk.cal_mode.setText("");
+	p_dps_strk.dbias1.setText("0.00");
+	p_dps_strk.dbias2.setText("0.00");
     }
     
     p_dps_strk.update = func
@@ -140,6 +154,8 @@ var PFD_addpage_p_dps_strk = func(device)
 	symbol = "";
 	if (SpaceShuttle.star_tracker_array[1].star_in_view == 1) {symbol = "*";}
 	p_dps_strk.s_pres_z.setText(symbol);
+
+
 
 
 	var text = SpaceShuttle.star_tracker_array[0].failure; 
@@ -256,6 +272,32 @@ var PFD_addpage_p_dps_strk = func(device)
 		if (SpaceShuttle.star_table.sel[2] == 1) {symbol = "*";}
 		p_dps_strk.sel3.setText(symbol);
 		}
+
+	# COAS
+
+	var coas_star_id = SpaceShuttle.coas.reqd_id;
+
+	if (coas_star_id == 0) {p_dps_strk.reqd_id_coas.setText("");}
+	else {p_dps_strk.reqd_id_coas.setText(sprintf("%d", coas_star_id));}
+
+	p_dps_strk.ddeg_x.setText(sprintf("%1.1f",SpaceShuttle.coas.Ddeg_x));
+	p_dps_strk.ddeg_y.setText(sprintf("%1.1f",SpaceShuttle.coas.Ddeg_y));
+
+	symbol = "";
+	if (SpaceShuttle.coas.deselect == 1) {symbol = "*";}
+	p_dps_strk.des.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.coas.pos == 0) {symbol = "*";}
+	p_dps_strk.pos_x.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.coas.pos == 1) {symbol = "*";}
+	p_dps_strk.pos_z.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.coas.sight_mode == 1) {symbol = "*";}
+	p_dps_strk.sight_mode.setText(symbol);
 
 
 
