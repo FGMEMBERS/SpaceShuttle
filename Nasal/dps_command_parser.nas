@@ -1226,6 +1226,74 @@ if ((header == "ITEM") and (end = "EXEC"))
 			else if (value == 2) {star_tracker_array[1].threshold = 2; valid_flag =1;}
 			else if (value == 3) {star_tracker_array[1].threshold = 3; valid_flag =1;}
 			}
+		else if (item == 15)
+			{
+			var state = star_tracker_array[0].manual;
+			if (state == 1)
+				{star_tracker_array[0].manual = 0;}
+			else
+				{star_tracker_array[0].manual = 1;}
+			valid_flag =1;
+			}
+		else if (item == 16)
+			{
+			var state = star_tracker_array[1].manual;
+			if (state == 1)
+				{star_tracker_array[1].manual = 0;}
+			else
+				{star_tracker_array[1].manual = 1;}
+			valid_flag =1;
+			}
+		else if (item == 17)
+			{
+			var state = SpaceShuttle.star_table.sel[0];
+			if (state == 0) {SpaceShuttle.star_table.sel[0] = 1;}
+			else {SpaceShuttle.star_table.sel[0] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 18)
+			{
+			var state = SpaceShuttle.star_table.sel[1];
+			if (state == 0) {SpaceShuttle.star_table.sel[1] = 1;}
+			else {SpaceShuttle.star_table.sel[1] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 19)
+			{
+			var state = SpaceShuttle.star_table.sel[2];
+			if (state == 0) {SpaceShuttle.star_table.sel[2] = 1;}
+			else {SpaceShuttle.star_table.sel[2] = 0;}
+			valid_flag =1;
+			}
+		else if (item == 20)
+			{
+			SpaceShuttle.star_table.clear();
+			valid_flag =1;
+			}
+		else if (item == 21)
+			{
+			SpaceShuttle.coas.set_id(value);
+			valid_flag =1;
+			}
+		else if (item == 22)
+			{
+			var state = SpaceShuttle.coas.sight_mode;
+			if (state ==0)
+				{SpaceShuttle.coas.sight_mode = 1;}
+			else
+				{SpaceShuttle.coas.sight_mode = 0;}
+			valid_flag =1;
+			}
+		else if (item == 26)
+			{
+			SpaceShuttle.coas.pos = 0;
+			valid_flag =1;
+			}
+		else if (item == 27)
+			{
+			SpaceShuttle.coas.pos = 1;
+			valid_flag =1;
+			}
 		}
 
 	if (spec == 33)
