@@ -310,6 +310,8 @@ var coas = {
 	Dbias_x: 0,
 	Dbias_y: 0,
 	n_marks : 0,
+	mark_vec: [[0.0, 0.0, 0.0],[0.0,0.0,0.0]],
+	mark_quality: [0.0, 0.0],
 	loop_flag: 0,
 
 	set_id: func (value) {
@@ -327,20 +329,50 @@ var coas = {
 
 	var star_vec = coas_star_table[me.star_index].pointing_vec;
 
+
+	# first we determine the angular difference to the -Z axis for the display
 	var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[2]")];
 	body_y_fi = SpaceShuttle.vtransform_world_fixed_inertial(body_y);
-	me.Ddeg_y = math.acos(SpaceShuttle.dot_product(body_y_fi, star_vec)) * 180.0/math.pi;
+	me.Ddeg_y = math.asin(SpaceShuttle.dot_product(body_y_fi, star_vec)) * 180.0/math.pi;
 
 	var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
 	body_x_fi = SpaceShuttle.vtransform_world_fixed_inertial(body_x);
-	me.Ddeg_x = math.acos(SpaceShuttle.dot_product(body_x_fi, star_vec)) * 180.0/math.pi;
+	me.Ddeg_x = math.asin(SpaceShuttle.dot_product(body_x_fi, star_vec)) * 180.0/math.pi;
 
-	#print (me.Ddeg_x, " ", me.Ddeg_y);
 	},
 
 	stop: func () {
 
 	me.loop_flag = 0;
+
+	},
+
+
+	accept: func () {
+		if (me.n_marks == 0)
+			{
+			me.n_marks = 1;
+			}
+		else if (me.n_marks == 1)
+			{
+			print ("COAS: combined quality: ", me.mark_quality[0]+ me.mark_quality[1]);
+		
+			var rel_angle = SpaceShuttle.dot_product(me.mark_vec[0], me.mark_vec[1]);
+			rel_angle = math.acos(rel_angle) * 180.0/math.pi;
+		
+			print ("COAS: angle between marks: ", rel_angle);	
+
+					
+
+			}
+
+	},
+
+	clear_table: func () {
+
+		me.n_marks = 0;
+		me.reqd_id = 0;
+		me.star_index = 0;
 
 	},
 
@@ -357,6 +389,8 @@ if (coas.loop_flag == 1) {settimer(coas_loop, 1.0);}
 }
 
 var coas_att_ref = func {
+
+
 
 
 if (coas.pos == 0)
@@ -386,6 +420,16 @@ foreach (s; coas_star_table)
 		{
 		print("COAS: Star ", s.designation, " found.");
 		}
+
+	if ((coas.reqd_id > 0) and(s.designation == coas_star_table[coas.star_index].designation))
+			{
+			diff_angle = math.acos(diff_angle) * 180.0/math.pi;
+			print ("COAS mark, quality ", diff_angle);
+			coas.mark_vec[coas.n_marks][0] = s.pointing_vec[0];
+			coas.mark_vec[coas.n_marks][1] = s.pointing_vec[1];
+			coas.mark_vec[coas.n_marks][2] = s.pointing_vec[2];
+			coas.mark_quality[coas.n_marks] = diff_angle;
+			}
 
 	}
 

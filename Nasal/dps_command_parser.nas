@@ -1268,6 +1268,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 20)
 			{
 			SpaceShuttle.star_table.clear();
+			SpaceShuttle.coas.clear_table();
 			valid_flag =1;
 			}
 		else if (item == 21)
@@ -1282,6 +1283,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 				{SpaceShuttle.coas.sight_mode = 1;}
 			else
 				{SpaceShuttle.coas.sight_mode = 0;}
+			valid_flag =1;
+			}
+		else if (item == 23)
+			{
+			SpaceShuttle.coas.accept();
 			valid_flag =1;
 			}
 		else if (item == 26)
