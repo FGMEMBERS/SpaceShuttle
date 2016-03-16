@@ -1844,6 +1844,10 @@
      <desc>override FCS mode selection</desc>
     </key>
     <key>
+     <name>Ctrl-a</name>
+     <desc>COAS attitude reference</desc>
+    </key>
+    <key>
      <name>s</name>
      <desc>deploy speed brake</desc>
     </key>
@@ -2066,6 +2070,16 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
  <input>
   <keyboard>
 
+   <key n="1"> 
+    <name>Ctrl+a</name>
+    <desc>COAS attitude reference</desc>
+    <repeatable type="bool">false</repeatable>
+    <binding>
+     <command>nasal</command>
+     <script>SpaceShuttle.coas_att_ref()</script>
+    </binding>
+   </key>
+
    <key n="4"> 
     <name>Ctrl+d</name>
     <desc>Force external tank drop</desc>
@@ -2124,7 +2138,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    </key>
 
    <key n="17">
-    <name>Control+q</name>
+    <name>Ctrl+q</name>
     <desc>Cutoff switch engine 1</desc>
     <binding>
      <command>nasal</command>
@@ -2133,7 +2147,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    </key>
 
    <key n="21">
-    <name>Control+u</name>
+    <name>Ctrl+u</name>
     <desc>Undock</desc>
     <binding>
      <command>nasal</command>
