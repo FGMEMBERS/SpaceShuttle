@@ -1300,6 +1300,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.coas.pos = 1;
 			valid_flag =1;
 			}
+		else if (item == 28)
+			{
+			SpaceShuttle.coas.update_state();
+			valid_flag =1;
+			}
+		else if (item == 29)
+			{
+			SpaceShuttle.coas.update_state();
+			valid_flag =1;
+			}
 		}
 
 	if (spec == 33)

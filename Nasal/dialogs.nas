@@ -14,6 +14,8 @@ var scenario_string_single_engine_failure = "During ascent, a single main engine
 
 var scenario_string_single_engine_lockup = "During ascent, a condition occurs which makes one engine lock up, i.e. the engine can no longer be throttled. Anticipate to shut down the affected engine manually prior to MECO using the cutoff switches.";
 
+var scenario_string_attitude = "The Shuttle GNC function has drifted off attitude to a degree that the star trackers no longer function - pitch, yaw and roll will all be off. Use a COAS procedure to fix inertial attitude and re-activate the star tracker.";
+
 var scenario_string_stuck_speedbrake = "During the final aerodynamical glide phase, the speedbrake gets stuck. Dependent on when and in what position this happens, TAEM needs to be modified and the aim point for the final approach changed. Deploy gear early to make use of its high drag.";
 
 var scenario_string_hydraulic_failure = "Two of the three hydraulics systems are damaged and priority rate limiting is used to best allocate the remaining hydraulic force to the airfoils. Expect the orbiter to react more sluggish in agressive maneuvers.";
@@ -137,6 +139,11 @@ else if (scenario_string == "ascent single engine lockup")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_single_engine_lockup);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 2);
+	}
+else if (scenario_string == "off attitude")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_attitude);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 20);
 	}
 else if (scenario_string == "stuck speedbrake")
 	{
