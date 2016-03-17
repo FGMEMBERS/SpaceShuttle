@@ -100,8 +100,6 @@ var PFD_addpage_p_dps_strk = func(device)
 	p_dps_strk.reqd_id_y.setText("0");
 	p_dps_strk.reqd_id_z.setText("0");
 	p_dps_strk.cal_mode.setText("");
-	p_dps_strk.dbias1.setText("0.00");
-	p_dps_strk.dbias2.setText("0.00");
     }
     
     p_dps_strk.update = func
@@ -299,6 +297,8 @@ var PFD_addpage_p_dps_strk = func(device)
 	if (SpaceShuttle.coas.sight_mode == 1) {symbol = "*";}
 	p_dps_strk.sight_mode.setText(symbol);
 
+	p_dps_strk.dbias1.setText(sprintf("%1.2f", coas.Dbias_x) );
+	p_dps_strk.dbias2.setText(sprintf("%1.2f", coas.Dbias_y) );
 
 
 

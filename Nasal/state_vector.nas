@@ -15,7 +15,7 @@ var update_sv_errors = func {
 var v_error_rate = 0.001; # 0.1 mm/s^2
 var ang_error_rate = 0.001; # 0.001 deg/s
 var gps_pos_accuracy = 70.0;
-var star_tracker_ang_accuracy = 0.2;
+var ang_accuracy = 10.0;
 
 
 # do nothing if we don't model state vector error drift
@@ -76,17 +76,17 @@ pe = pe + ang_error_rate * 2.0 * (rand() - 0.5);
 yawe = yawe + ang_error_rate * 2.0 * (rand() - 0.5);
 re = re + ang_error_rate * 2.0 * (rand() - 0.5);
 
-# clamp to star tracker accuracy
+# clamp to max. angular error
 
-pe = SpaceShuttle.clamp(pe, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
-yawe = SpaceShuttle.clamp(yawe, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
-re = SpaceShuttle.clamp(re, -star_tracker_ang_accuracy, star_tracker_ang_accuracy);
+pe = SpaceShuttle.clamp(pe, -ang_accuracy, ang_accuracy);
+yawe = SpaceShuttle.clamp(yawe, -ang_accuracy,ang_accuracy);
+re = SpaceShuttle.clamp(re, -ang_accuracy, ang_accuracy);
 
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", pe);
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", yawe);
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", re);
 
-setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", 0.333* (pe + ye + re));
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", 0.333* (math.abs(pe) + math.abs(ye) + math.abs(re)));
 
 # if we have rendezvous navigation on, we also need to update target and combined errors
 
@@ -327,6 +327,8 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos", pos_before - p
 
 var update_orb_sv  = func (accuracy_pos, accuracy_v, accuracy_ang) {
 
+# position
+
 var current_acc_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m");
 
 var xe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/x-m");
@@ -342,6 +344,8 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/z-m", ze*correct
 
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m", correction * current_acc_pos);
 
+# velocity
+
 var current_acc_v = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s");
 
 var vxe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s");
@@ -356,6 +360,23 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s", vye*cor
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s", vze*correction_v);
 
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s", correction_v * current_acc_v);
+
+# attitude
+
+var current_acc_ang = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+
+var pitch_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
+var yaw_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
+var roll_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg");
+
+var correction_ang = accuracy_ang/current_acc_ang;
+correction_ang = SpaceShuttle.clamp(correction_ang, 0.0, 1.0);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", pitch_e * correction_ang);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", yaw_e * correction_ang);
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", roll_e * correction_ang);
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", correction_ang * current_acc_ang);
 }
 
 

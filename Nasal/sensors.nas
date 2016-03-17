@@ -196,6 +196,8 @@ var star_tracker = {
 };
 
 
+
+
 var star_tracker_y = star_tracker.new("-Y", [0, -1, 0]);
 var star_tracker_z = star_tracker.new("-Z", [0, 0, 1]);
 
@@ -205,6 +207,40 @@ append(star_tracker_array, star_tracker_z);
 setlistener("/fdm/jsbsim/systems/failures/sensors/star-tracker-Y-condition", func (n) { star_tracker_array[0].fail(n.getValue());});
 setlistener("/fdm/jsbsim/systems/failures/sensors/star-tracker-Z-condition", func (n) { star_tracker_array[1].fail(n.getValue());});
 
+
+
+var apply_star_tracker_filter = func {
+
+
+# first check whether trackers are tracking
+
+if ((star_tracker_array[0].mode != 1) and (star_tracker_array[1].mode !=1))
+	{return;}
+
+if ((star_tracker_array[0].operational != 1) and (star_tracker_array[1].operational !=1))
+	{return;}
+
+# then check whether we are in the cycle
+
+if ((star_tracker_array[0].cycle == 1) or (star_tracker_array[1].cycle == 1))
+	{
+
+	var tracker_quality = 0.2;
+
+	if (star_tracker_array[0].star_in_view == 1)
+		{
+		tracker_quality = 0.5 * tracker_quality;
+		}
+	if (star_tracker_array[1].star_in_view == 1)
+		{
+		tracker_quality = 0.5 * tracker_quality;
+		}
+
+	var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+	SpaceShuttle.update_orb_sv(1000.0, 1000.0, tracker_quality * current_error);
+
+	}
+}
 
 
 ###############################################################################
@@ -292,6 +328,9 @@ var star_table = {
 	},
 };
 
+
+
+
 ###############################################################################
 # COAS
 ###############################################################################
@@ -313,6 +352,7 @@ var coas = {
 	mark_vec: [[0.0, 0.0, 0.0],[0.0,0.0,0.0]],
 	mark_quality: [0.0, 0.0],
 	loop_flag: 0,
+	filter_quality: 1.0,
 
 	set_id: func (value) {
 
@@ -355,15 +395,29 @@ var coas = {
 			}
 		else if (me.n_marks == 1)
 			{
-			print ("COAS: combined quality: ", me.mark_quality[0]+ me.mark_quality[1]);
+			var combined_quality = 	me.mark_quality[0]+ me.mark_quality[1];	
+
 		
 			var rel_angle = SpaceShuttle.dot_product(me.mark_vec[0], me.mark_vec[1]);
 			rel_angle = math.acos(rel_angle) * 180.0/math.pi;
 		
 			print ("COAS: angle between marks: ", rel_angle);	
+		
+			combined_quality = combined_quality * 10.0/rel_angle;
 
-					
+			if (combined_quality > 5.0) {combined_quality = 5.0;}
+			if (combined_quality < 0.1) {combined_quality = 0.1;}
 
+			print ("COAS: combined quality: ", combined_quality);
+
+			var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+
+			me.filter_quality = combined_quality/current_error;
+
+			me.Dbias_x = current_error * ((1.0 - me.filter_quality) + me.filter_quality * 2.0 * (rand() - 0.5));
+			me.Dbias_y = current_error * ((1.0 - me.filter_quality) + me.filter_quality * 2.0 * (rand() - 0.5));
+
+			
 			}
 
 	},
@@ -373,9 +427,19 @@ var coas = {
 		me.n_marks = 0;
 		me.reqd_id = 0;
 		me.star_index = 0;
+		me.Dbias_x = 0;
+		me.Dbias_y = 0;
+		me.loop_flag = 0;
 
 	},
 
+	update_state: func () {
+		
+		var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+		SpaceShuttle.update_orb_sv(1000.0, 1000.0, me.filter_quality * current_error);
+		me.clear_table();
+
+	},
 
 };
 
