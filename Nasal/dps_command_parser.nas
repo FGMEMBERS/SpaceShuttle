@@ -1268,6 +1268,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 20)
 			{
 			SpaceShuttle.star_table.clear();
+			SpaceShuttle.coas.clear_table();
 			valid_flag =1;
 			}
 		else if (item == 21)
@@ -1284,6 +1285,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 				{SpaceShuttle.coas.sight_mode = 0;}
 			valid_flag =1;
 			}
+		else if (item == 23)
+			{
+			SpaceShuttle.coas.accept();
+			valid_flag =1;
+			}
 		else if (item == 26)
 			{
 			SpaceShuttle.coas.pos = 0;
@@ -1292,6 +1298,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 27)
 			{
 			SpaceShuttle.coas.pos = 1;
+			valid_flag =1;
+			}
+		else if (item == 28)
+			{
+			SpaceShuttle.coas.update_state();
+			valid_flag =1;
+			}
+		else if (item == 29)
+			{
+			SpaceShuttle.coas.update_state();
 			valid_flag =1;
 			}
 		}

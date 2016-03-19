@@ -698,6 +698,8 @@ var update_sensors = func {
 SpaceShuttle.star_tracker_array[0].run();
 SpaceShuttle.star_tracker_array[1].run();
 
+SpaceShuttle.apply_star_tracker_filter();
+
 }
 
 #########################################################################################
