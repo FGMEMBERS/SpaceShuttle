@@ -120,6 +120,18 @@
         <object-name>R1-disp-dim</object-name>
         <object-name>R2-disp-pwr</object-name>
         <object-name>R2-disp-dim</object-name>
+        <!-- Panel C2 -->
+        <object-name>crt1-pwr</object-name>
+        <object-name>crt2-pwr</object-name>
+        <object-name>crt3-pwr</object-name>
+        <object-name>crtl-sel</object-name>
+        <object-name>crtr-sel</object-name>
+        <object-name>crt1-maj-func</object-name>
+        <object-name>crt2-maj-func</object-name>
+        <object-name>crt3-maj-func</object-name>
+        <object-name>event-tmr-mode</object-name>
+        <object-name>event-tmr-cntrl</object-name>
+        <object-name>event-timer</object-name>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
@@ -226,6 +238,9 @@
         <object-name>flash-evap-cntrl-sec-cvr</object-name>
         <object-name>nh3-cntrl-tka-cvr</object-name>
         <object-name>nh3-cntrl-tkb-cvr</object-name>
+        <object-name>fs-bay1-safe-cvr</object-name>
+        <object-name>fs-bay2-safe-cvr</object-name>
+        <object-name>fs-bay3-safe-cvr</object-name>
         <!--Panel L1 switches not connected -->
         <object-name>av-bay-1-fan-a</object-name>
         <object-name>av-bay-1-fan-b</object-name>
@@ -260,9 +275,6 @@
         <object-name>fire-sup-av-bay1</object-name>
         <object-name>fire-sup-av-bay2</object-name>
         <object-name>fire-sup-av-bay3</object-name>
-        <object-name>fs-bay1-safe-cvr</object-name>
-        <object-name>fs-bay2-safe-cvr</object-name>
-        <object-name>fs-bay3-safe-cvr</object-name>
         <object-name>fs-bays-safe-bg</object-name>
         <object-name>man-sb-thrust-sel-cmd</object-name>
         <object-name>man-sb-thrust-sel-plt</object-name>
