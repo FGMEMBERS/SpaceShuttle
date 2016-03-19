@@ -19,6 +19,7 @@
 # * p_dps_dap (SPEC 20)
 # * p_dps_strk (SPEC 22)
 # * p_dps_rel_nav (SPEC 33)
+# * p_dps_hsit (SPEC 50)
 # * p_dps_override (SPEC 51)
 # * p_dps_pl_bay (SM OPS 202, SPEC 63)
 # * p_dps_sys_summ (DISP 18)
@@ -82,6 +83,7 @@ io.include("p_dps_strk.nas");
 io.include("p_dps_pl_ret.nas");
 io.include("p_dps_electric.nas");
 io.include("p_dps_cryo.nas");
+io.include("p_dps_hsit.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -246,6 +248,7 @@ var MDU_Device =
         me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
         me.PFD.p_dps_rel_nav = PFD_addpage_p_dps_rel_nav(me.PFD);
         me.PFD.p_dps_strk = PFD_addpage_p_dps_strk(me.PFD);
+        me.PFD.p_dps_hsit = PFD_addpage_p_dps_hsit(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -356,7 +359,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_strk);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_hsit);
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
@@ -418,6 +421,10 @@ var MDU_Device =
        	me.PFD.p_dps_strk.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_strk.addMenuItem(4, "MSG RST", me.PFD.p_dps_strk);
         me.PFD.p_dps_strk.addMenuItem(5, "MSG ACK", me.PFD.p_dps_strk);
+
+       	me.PFD.p_dps_hsit.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_hsit.addMenuItem(4, "MSG RST", me.PFD.p_dps_hsit);
+        me.PFD.p_dps_hsit.addMenuItem(5, "MSG ACK", me.PFD.p_dps_hsit);
 
         me.PFD.p_dps_electric.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_electric.addMenuItem(4, "MSG RST", me.PFD.p_dps_electric);
