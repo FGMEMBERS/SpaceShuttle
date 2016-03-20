@@ -391,6 +391,7 @@ var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
 var spec33 = [201, 202];
+var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
 var spec63 = [201, 202];
 
@@ -1431,6 +1432,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 50)
+		{
+		if (item == 9)
+			{
+			setprop("/instrumentation/altimeter/setting-inhg", value);
+			valid_flag = 1;
+			}
+		}
+
+
 	if (spec == 51)
 		{
 		if (item == 1)
@@ -1850,6 +1861,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_rel_nav");
 		setprop("/fdm/jsbsim/systems/dps/spec", 33);
+		valid_flag = 1;
+		}
+	if ((spec_num == 50) and (test_spec_ops_validity(spec50, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_hsit");
+		setprop("/fdm/jsbsim/systems/dps/spec", 50);
 		valid_flag = 1;
 		}
 	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))
