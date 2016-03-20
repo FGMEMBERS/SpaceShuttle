@@ -120,7 +120,7 @@
         <object-name>R1-disp-dim</object-name>
         <object-name>R2-disp-pwr</object-name>
         <object-name>R2-disp-dim</object-name>
-        <!-- Panel C2 -->
+        <!-- Panel C2 switches -->
         <object-name>crt1-pwr</object-name>
         <object-name>crt2-pwr</object-name>
         <object-name>crt3-pwr</object-name>
@@ -132,6 +132,15 @@
         <object-name>event-tmr-mode</object-name>
         <object-name>event-tmr-cntrl</object-name>
         <object-name>event-timer</object-name>
+        <!-- Panel C2 buttons -->
+        <object-name>timer1-set-dn</object-name>
+        <object-name>timer2-set-dn</object-name>
+        <object-name>timer3-set-dn</object-name>
+        <object-name>timer4-set-dn</object-name>
+        <object-name>timer1-set-up</object-name>
+        <object-name>timer2-set-up</object-name>
+        <object-name>timer3-set-up</object-name>
+        <object-name>timer4-set-up</object-name>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
