@@ -29,6 +29,18 @@ var TAEM_predictor_set = {
 
 	},
 
+	evolve: func (x,y, angle, groundspeed, rate) {
+
+	for (var i=0; i < 20; i=i+1)
+		{
+		x = x + math.sin(angle) * groundspeed;
+		y = y + math.cos(angle) * groundspeed;
+		angle = angle + rate;
+		}
+	return [x, y];
+
+	},
+
 };
 
 

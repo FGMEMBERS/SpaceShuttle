@@ -13,7 +13,31 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_hsit.altm = device.svg.getElementById("p_dps_hsit_altm");  
+    p_dps_hsit.pti = device.svg.getElementById("p_dps_hsit_pti"); 
+    p_dps_hsit.pti_index_1 = device.svg.getElementById("p_dps_hsit_pti_index_1"); 
+    p_dps_hsit.pti_index_2 = device.svg.getElementById("p_dps_hsit_pti_index_2");     	
 
+    p_dps_hsit.tal_label = device.svg.getElementById("p_dps_hsit_label8");  
+    p_dps_hsit.tal_site = device.svg.getElementById("p_dps_hsit_tal_site");  
+
+    p_dps_hsit.landing_label = device.svg.getElementById("p_dps_hsit_label9");
+    p_dps_hsit.landing_site = device.svg.getElementById("p_dps_hsit_landing_site");    
+
+    p_dps_hsit.gn_approach = device.svg.getElementById("p_dps_hsit_gn_approach");
+    p_dps_hsit.entry_point = device.svg.getElementById("p_dps_hsit_entry_point");
+    p_dps_hsit.aim = device.svg.getElementById("p_dps_hsit_aim");
+    p_dps_hsit.sb = device.svg.getElementById("p_dps_hsit_sb");
+    p_dps_hsit.pri_rwy = device.svg.getElementById("p_dps_hsit_pri_rwy");
+    p_dps_hsit.sec_rwy = device.svg.getElementById("p_dps_hsit_sec_rwy");
+
+
+    p_dps_hsit.tac_az_aut = device.svg.getElementById("p_dps_hsit_tac_az_aut");
+    p_dps_hsit.tac_az_inh = device.svg.getElementById("p_dps_hsit_tac_az_inh");
+    p_dps_hsit.tac_az_for = device.svg.getElementById("p_dps_hsit_tac_az_for");
+
+    p_dps_hsit.gps_aut = device.svg.getElementById("p_dps_hsit_gps_aut");
+    p_dps_hsit.gps_inh = device.svg.getElementById("p_dps_hsit_gps_inh");
+    p_dps_hsit.gps_for = device.svg.getElementById("p_dps_hsit_gps_for");
 
 
     
@@ -26,6 +50,21 @@ var PFD_addpage_p_dps_hsit = func(device)
     
         var ops_string = major_mode~"1/050/";
         device.DPS_menu_ops.setText(ops_string);
+
+		
+	# set defaults for functions which are not yet implemented
+
+	p_dps_hsit.pti.setText("INH");
+	p_dps_hsit.pti_index_1.setText("");
+	p_dps_hsit.pti_index_2.setText("");
+	p_dps_hsit.aim.setText("NOM");
+	p_dps_hsit.sb.setText("NOM");
+	p_dps_hsit.tac_az_aut.setText("");
+	p_dps_hsit.tac_az_inh.setText("*");
+	p_dps_hsit.tac_az_for.setText("");
+	p_dps_hsit.gps_aut.setText("*");
+	p_dps_hsit.gps_inh.setText("");
+	p_dps_hsit.gps_for.setText("");
 
 	# generate the symbols for the graphical part of the display
 
@@ -92,8 +131,47 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.update = func
     {
     
+
+	var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+	var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+
 	p_dps_hsit.altm.setText(sprintf("%2.2f", getprop("/instrumentation/altimeter/setting-inhg") ));
       
+	if ((ops == 1) and (guidance_mode == 1))
+		{
+		p_dps_hsit.tal_site.setText(sprintf("%2d",SpaceShuttle.landing_site.index));
+		p_dps_hsit.tal_label.setText("40 TAL  SITE");
+		}
+	else 
+		{
+		p_dps_hsit.tal_label.setText("");
+		p_dps_hsit.tal_site.setText("");
+		}
+
+
+	if (guidance_mode == 1)
+		{p_dps_hsit.landing_label.setText("41 LAND SITE");}
+	else if (guidance_mode == 2)
+		{p_dps_hsit.landing_label.setText("41 TAL  SITE");}
+	else if (guidance_mode == 3)
+		{p_dps_hsit.landing_label.setText("41 RTLS SITE");}
+	else
+		{p_dps_hsit.landing_label.setText("41 LAND SITE");}
+	
+	p_dps_hsit.landing_site.setText(sprintf("%2d",SpaceShuttle.landing_site.index));
+
+	var string = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
+	p_dps_hsit.gn_approach.setText(string);
+
+	string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
+	p_dps_hsit.entry_point.setText(string);
+
+	p_dps_hsit.pri_rwy.setText(SpaceShuttle.landing_site.rwy_pri);
+	p_dps_hsit.sec_rwy.setText(SpaceShuttle.landing_site.rwy_sec);
+
+
+	# create the graphical portion of the display
+
 	if (SpaceShuttle.TAEM_guidance_available == 1)
 	{
 
