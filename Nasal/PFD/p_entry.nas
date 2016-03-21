@@ -25,34 +25,33 @@ var PFD_addpage_p_entry = func(device)
         # called once whenever this page goes on display
     
         p_entry.bias.setText("+00");
-        device.p_ascent_shuttle_sym.setScale(0.3);
         device.MEDS_menu_title.setText("       DPS MENU");
 
+	# acquire the symbols we'd like to draw
+
 	var data = SpaceShuttle.draw_triangle_down();
-
- 	 p_entry.markers = device._canvas.createGroup("trailer_set");
 	
-	 p_entry.marker1 = p_entry.markers.createChild("path", "m1")
+	 p_entry.marker1 = device.symbols.createChild("path", "m1")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(data[0][0], data[0][1]);
 
-	p_entry.marker2 = p_entry.markers.createChild("path", "m2")
+	p_entry.marker2 = device.symbols.createChild("path", "m2")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(data[0][0], data[0][1]);
 
-	p_entry.marker3 = p_entry.markers.createChild("path", "m3")
+	p_entry.marker3 = device.symbols.createChild("path", "m3")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(data[0][0], data[0][1]);
 
-	p_entry.marker4 = p_entry.markers.createChild("path", "m4")
+	p_entry.marker4 = device.symbols.createChild("path", "m4")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(data[0][0], data[0][1]);
 
-	p_entry.marker5 = p_entry.markers.createChild("path", "m5")
+	p_entry.marker5 = device.symbols.createChild("path", "m5")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(data[0][0], data[0][1]);
@@ -66,11 +65,24 @@ var PFD_addpage_p_entry = func(device)
 		p_entry.marker4.lineTo(set[0], set[1]);
 		p_entry.marker5.lineTo(set[0], set[1]);
 		}
-	p_entry.marker1.lineTo(data[0][0], data[0][1]);
-	p_entry.marker2.lineTo(data[0][0], data[0][1]);
-	p_entry.marker3.lineTo(data[0][0], data[0][1]);
-	p_entry.marker4.lineTo(data[0][0], data[0][1]);
-	p_entry.marker5.lineTo(data[0][0], data[0][1]);
+
+	setsize(data, 0);
+
+	data = SpaceShuttle.draw_shuttle_side();
+	 
+	p_entry.shuttle_sym = device.symbols.createChild("path", "shuttle_sym")
+        .setStrokeLineWidth(0.25)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_entry.shuttle_sym.lineTo(set[0], set[1]);
+		}
+
+	p_entry.shuttle_sym.setScale(6.0);
+
 
 	
 	
@@ -80,9 +92,9 @@ var PFD_addpage_p_entry = func(device)
     {
         device.nom_traj_plot.removeAllChildren();
         device.p_ascent_shuttle_sym.setScale(0.0);
-    
+     
 	
-	p_entry.markers.removeAllChildren();
+	device.symbols.removeAllChildren();
         device.set_DPS_off();
     }
     
@@ -143,7 +155,8 @@ var PFD_addpage_p_entry = func(device)
         var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
         var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
         var y = SpaceShuttle.parameter_to_y(velocity, SpaceShuttle.traj_display_flag);
-        device.p_ascent_shuttle_sym.setTranslation(x,y);
+        #device.p_ascent_shuttle_sym.setTranslation(x,y);
+	p_entry.shuttle_sym.setTranslation(x,y);
 
 	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[0][0], SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[0][1], SpaceShuttle.traj_display_flag);
