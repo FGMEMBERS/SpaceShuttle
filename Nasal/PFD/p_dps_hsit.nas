@@ -12,7 +12,10 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.group = device.svg.getElementById("p_dps_hsit");
     p_dps_hsit.group.setColor(dps_r, dps_g, dps_b);
     
-  
+    p_dps_hsit.altm = device.svg.getElementById("p_dps_hsit_altm");  
+
+
+
     
     p_dps_hsit.ondisplay = func
     {
@@ -28,6 +31,7 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.update = func
     {
     
+	p_dps_hsit.altm.setText(sprintf("%2.2f", getprop("/instrumentation/altimeter/setting-inhg") ));
       
     
         device.update_common_DPS();
