@@ -319,6 +319,8 @@ var MDU_Device =
         me.PFD.limit1_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit2_traj_plot = me.PFD._canvas.createGroup();
 
+	me.PFD.symbols = me.PFD._canvas.createGroup();
+
 	# we can't put the display colors into the emissive animation because the screens
 	# show different colors, so we set common element colors here and page colors at
 	# their pages 
