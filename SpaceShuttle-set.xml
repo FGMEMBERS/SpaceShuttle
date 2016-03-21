@@ -2308,7 +2308,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
  </payload>
 
  <nasal>
-  <SpaceShuttle>
+  <SpaceShuttle>	
+   <file>Aircraft/SpaceShuttle/Nasal/canvas_draw.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/orbital_planning.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/coordinates.nas</file>
