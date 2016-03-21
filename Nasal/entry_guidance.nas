@@ -1,6 +1,10 @@
 # entry guidance computer for the Space Shuttle
 
 var landing_site = geo.Coord.new();
+landing_site.index = 0;
+landing_site.rwy_pri = "";
+landing_site.rwy_sec = "";
+
 var entry_interface = geo.Coord.new();
 var v_aero_last = 0.0;
 var v_aero = 0.0;
