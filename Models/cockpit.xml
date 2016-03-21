@@ -47,6 +47,15 @@
         <object-name>trim-panel-plt</object-name>
         <object-name>trim-rhc-pnl-cmd</object-name>
         <object-name>trim-rhc-pnl-cmd</object-name>
+        <object-name>air-data</object-name>
+        <object-name>hsi-mode-plt</object-name>
+        <object-name>hsi-sourcea-plt</object-name>
+        <object-name>hsi-sourceb-plt</object-name>
+        <object-name>rdr-altm-plt</object-name>
+        <object-name>Fwd_Equipment_Knobs.004</object-name>
+        <object-name>Fwd_Equipment_Knobs.005</object-name>
+        <object-name>Fwd_Equipment_Knobs.006</object-name>
+        <object-name>Fwd_Equipment_Knobs.008</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -291,6 +300,8 @@
         <object-name>man-sb-thrust-plt</object-name>
         <object-name>man-sb-thrust-housing-cmd</object-name>
         <object-name>man-sb-thrust-housing-plt</object-name>
+        <object-name>nh3-tk-a</object-name>
+        <object-name>nh3-tk-b</object-name>
         <!-- Panel F6 "Covers" -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
@@ -332,6 +343,8 @@
         <object-name>hud-pwr-plt-switch</object-name>
         <object-name>hud-bright-cmd-switch</object-name>
         <object-name>hud-bright-plt-switch</object-name>
+        <object-name>hud-data-bus-cmd</object-name>
+        <object-name>hud-data-bus-plt</object-name>
     </effect>
 
     <effect>
