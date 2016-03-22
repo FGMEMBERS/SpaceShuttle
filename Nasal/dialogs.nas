@@ -218,6 +218,12 @@ else if (site_string == "White Sands Space Harbor")
 	{
 	lat = 32.943;
 	lon = -106.420;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
+	rwy_pri = "WSS14";
+	rwy_sec = "WSS32";
+        gui.dialog_update("entry_guidance", "runway-selection");
 	index = 4;
 	}
 else if (site_string == "Zaragoza Airport")
