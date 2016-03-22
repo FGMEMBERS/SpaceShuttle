@@ -9,7 +9,39 @@ var TAEM_guidance_available = 0;
 
 var final_approach_reserve = 7.0;
 
+var TAEM_predictor_set = {
 
+	entry: [[0.0, 0.0], [0.0,0.0], [0.0,0.0]],
+	
+	update: func {
+
+	var groundspeed = getprop("/velocities/groundspeed-kt") * 0.51444;
+	var rate = getprop("/orientation/yaw-rate-degps");	
+
+	me.entry[0][0] = groundspeed * 20.0;
+	me.entry[0][1] = 0.0; #rate * 20.0;	
+
+	me.entry[1][0] = groundspeed * 40.0;
+	me.entry[1][1] = 0.0; # rate * 40.0;	
+
+	me.entry[2][0] = groundspeed * 60.0;
+	me.entry[2][1] = 0.0; #rate * 60.0;
+
+	},
+
+	evolve: func (x,y, angle, groundspeed, rate) {
+
+	for (var i=0; i < 20; i=i+1)
+		{
+		x = x + math.sin(angle) * groundspeed;
+		y = y + math.cos(angle) * groundspeed;
+		angle = angle + rate;
+		}
+	return [x, y];
+
+	},
+
+};
 
 
 var compute_TAEM_guidance_targets = func {
@@ -165,6 +197,8 @@ var TAEM_guidance_loop = func (stage) {
 
 var pos = geo.aircraft_position();
 
+TAEM_predictor_set.update();
+
 if (TAEM_guidance_available == 0)
 	{
 	return;
@@ -263,5 +297,21 @@ else
 	TAEM_threshold.set_lat(0.0);
 	TAEM_threshold.set_lon(0.0);
 	}
+
+}
+
+
+var get_hsit_x = func (dist, rel_angle) {
+
+var dist_x = math.sin(rel_angle) * dist;
+return x = 265 + dist_x / 240.0;
+
+
+}
+
+var get_hsit_y = func (dist, rel_angle) {
+
+var dist_y = math.cos (rel_angle) * dist;
+return 230 - dist_y / 240.0;
 
 }

@@ -15,5 +15,58 @@ append(shape_data, point);
 point = [-6.9, -3.0];
 append(shape_data, point);
 
+point = [0, 5.0];
+append(shape_data, point);
+
+return shape_data;
+}
+
+
+var draw_shuttle_side = func {
+
+var shape_data = [];
+
+var point = [-2.0, 0.5];
+append(shape_data, point);
+
+point = [-2.0, 0.25];
+append(shape_data, point);
+
+point = [-1.0, -0.5];
+append(shape_data, point);
+
+point = [1.0, -0.5];
+append(shape_data, point);
+
+point = [1.5, -1.5];
+append(shape_data, point);
+
+point = [1.5, -0.5];
+append(shape_data, point);
+
+point = [2.0, 0.0];
+append(shape_data, point);
+
+point = [1.5, 0.5];
+append(shape_data, point);
+
+point = [-2.0, 0.5];
+append(shape_data, point);
+}
+
+var draw_circle = func (radius, resolution) {
+
+var shape_data = [];
+
+for (var i=0; i< resolution; i=i+1)
+	{
+	var angle = i * 2.0 * math.pi / (resolution-1);
+
+	var x = radius * math.sin(angle);	
+	var y = radius * math.cos(angle);
+
+	append(shape_data, [x,y]); 
+
+	}
 return shape_data;
 }
