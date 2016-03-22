@@ -29,6 +29,9 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.sb = device.svg.getElementById("p_dps_hsit_sb");
     p_dps_hsit.pri_rwy = device.svg.getElementById("p_dps_hsit_pri_rwy");
     p_dps_hsit.sec_rwy = device.svg.getElementById("p_dps_hsit_sec_rwy");
+    p_dps_hsit.gn_dir = device.svg.getElementById("p_dps_hsit_gn_dir");
+    p_dps_hsit.hsi_dir = device.svg.getElementById("p_dps_hsit_hsi_dir");
+
 
     p_dps_hsit.nav_Dx = device.svg.getElementById("p_dps_hsit_nav_Dx");
     p_dps_hsit.nav_Dy = device.svg.getElementById("p_dps_hsit_nav_Dy");
@@ -37,6 +40,7 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.nav_Dydot = device.svg.getElementById("p_dps_hsit_nav_Dydot");
     p_dps_hsit.nav_Dzdot = device.svg.getElementById("p_dps_hsit_nav_Dzdot");
 
+    p_dps_hsit.tac_az_ratio = device.svg.getElementById("p_dps_hsit_tac_az_ratio");
     p_dps_hsit.tac_az_aut = device.svg.getElementById("p_dps_hsit_tac_az_aut");
     p_dps_hsit.tac_az_inh = device.svg.getElementById("p_dps_hsit_tac_az_inh");
     p_dps_hsit.tac_az_for = device.svg.getElementById("p_dps_hsit_tac_az_for");
@@ -44,6 +48,8 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.gps_aut = device.svg.getElementById("p_dps_hsit_gps_aut");
     p_dps_hsit.gps_inh = device.svg.getElementById("p_dps_hsit_gps_inh");
     p_dps_hsit.gps_for = device.svg.getElementById("p_dps_hsit_gps_for");
+
+
 
 
     
@@ -187,8 +193,21 @@ var PFD_addpage_p_dps_hsit = func(device)
 	string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
 	p_dps_hsit.entry_point.setText(string);
 
+	string = "";
+	var rwy_sel = "";
+	if (SpaceShuttle.TAEM_guidance_available == 1)
+		{
+		if (SpaceShuttle.TAEM_WP_1.turn_direction == "left"){string = "L";}
+		else {string = "R";}
+
+		}
+	p_dps_hsit.gn_dir.setText(string);
+	p_dps_hsit.hsi_dir.setText(string);
+
 	p_dps_hsit.pri_rwy.setText(SpaceShuttle.landing_site.rwy_pri);
 	p_dps_hsit.sec_rwy.setText(SpaceShuttle.landing_site.rwy_sec);
+
+	p_dps_hsit.tac_az_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-ang")));
 
 	p_dps_hsit.nav_Dx.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dx")));
 	p_dps_hsit.nav_Dy.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dy")));
