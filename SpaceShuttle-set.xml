@@ -1061,6 +1061,12 @@
       <approach-mode-string type="string">OVHD</approach-mode-string>
       <entry-point-string type="string">NEP</entry-point-string>
       <distance-to-runway-nm type="double">0.0</distance-to-runway-nm>
+      <Dxdot type="double">0.0</Dxdot>
+      <Dydot type="double">0.0</Dydot>
+      <Dzdot type="double">0.0</Dzdot>
+      <Dx type="double">0.0</Dx>
+      <Dy type="double">0.0</Dy>
+      <Dz type="double">0.0</Dz>
      </taem-guidance>
      <thermal-distribution>
       <freon-loop-switch type="double">0.4</freon-loop-switch>

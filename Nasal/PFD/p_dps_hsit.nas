@@ -30,6 +30,12 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.pri_rwy = device.svg.getElementById("p_dps_hsit_pri_rwy");
     p_dps_hsit.sec_rwy = device.svg.getElementById("p_dps_hsit_sec_rwy");
 
+    p_dps_hsit.nav_Dx = device.svg.getElementById("p_dps_hsit_nav_Dx");
+    p_dps_hsit.nav_Dy = device.svg.getElementById("p_dps_hsit_nav_Dy");
+    p_dps_hsit.nav_Dz = device.svg.getElementById("p_dps_hsit_nav_Dz");
+    p_dps_hsit.nav_Dxdot = device.svg.getElementById("p_dps_hsit_nav_Dxdot");
+    p_dps_hsit.nav_Dydot = device.svg.getElementById("p_dps_hsit_nav_Dydot");
+    p_dps_hsit.nav_Dzdot = device.svg.getElementById("p_dps_hsit_nav_Dzdot");
 
     p_dps_hsit.tac_az_aut = device.svg.getElementById("p_dps_hsit_tac_az_aut");
     p_dps_hsit.tac_az_inh = device.svg.getElementById("p_dps_hsit_tac_az_inh");
@@ -120,6 +126,21 @@ var PFD_addpage_p_dps_hsit = func(device)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(0,0);
 
+	data = SpaceShuttle.draw_shuttle_top();
+
+	 p_dps_hsit.shuttle_marker = device.symbols.createChild("path", "shuttle")
+        .setStrokeLineWidth(0.25)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_dps_hsit.shuttle_marker.lineTo(set[0], set[1]);
+		}
+	p_dps_hsit.shuttle_marker.setScale (5.0);
+	p_dps_hsit.shuttle_marker.setTranslation (265, 265);
+
     }
 
     p_dps_hsit.offdisplay = func 
@@ -169,6 +190,13 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.pri_rwy.setText(SpaceShuttle.landing_site.rwy_pri);
 	p_dps_hsit.sec_rwy.setText(SpaceShuttle.landing_site.rwy_sec);
 
+	p_dps_hsit.nav_Dx.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dx")));
+	p_dps_hsit.nav_Dy.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dy")));
+	p_dps_hsit.nav_Dz.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dz")));
+
+	p_dps_hsit.nav_Dxdot.setText(sprintf("%+3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/Dxdot")));
+	p_dps_hsit.nav_Dydot.setText(sprintf("%+3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/Dydot")));
+	p_dps_hsit.nav_Dzdot.setText(sprintf("%+3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/Dzdot")));
 
 	# create the graphical portion of the display
 
