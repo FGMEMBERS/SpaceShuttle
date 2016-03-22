@@ -70,3 +70,49 @@ for (var i=0; i< resolution; i=i+1)
 	}
 return shape_data;
 }
+
+
+var draw_shuttle_top = func {
+
+var shape_data = [];
+
+var point = [0.0, 1.25];
+append(shape_data, point);
+
+point = [-0.25, 1.0];
+append(shape_data, point);
+
+point = [-1.5, 1.0];
+append(shape_data, point);
+
+point = [-1.5, 0.8];
+append(shape_data, point);
+
+point = [-0.75, 0.0];
+append(shape_data, point);
+
+point = [-0.15, -2.0];
+append(shape_data, point);
+
+point = [0.0, -2.1];
+append(shape_data, point);
+
+point = [0.15, -2.0];
+append(shape_data, point);
+
+point = [0.75, 0.0];
+append(shape_data, point);
+
+point = [1.5, 0.8];
+append(shape_data, point);
+
+point = [1.5, 1.0];
+append(shape_data, point);
+
+point = [0.25, 1.0];
+append(shape_data, point);
+
+point = [0.0, 1.25];
+append(shape_data, point);
+
+}

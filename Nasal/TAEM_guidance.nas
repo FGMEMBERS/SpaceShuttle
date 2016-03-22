@@ -18,7 +18,7 @@ var TAEM_predictor_set = {
 	var groundspeed = getprop("/velocities/groundspeed-kt") * 0.51444;
 	var rate = getprop("/orientation/yaw-rate-degps");	
 
-	me.entry[0][0] = groundspeed * 20.0;
+	me.entry[0][0] = groundspeed * 0.0;#20.0;
 	me.entry[0][1] = 0.0; #rate * 20.0;	
 
 	me.entry[1][0] = groundspeed * 40.0;
@@ -312,6 +312,6 @@ return x = 265 + dist_x / 240.0;
 var get_hsit_y = func (dist, rel_angle) {
 
 var dist_y = math.cos (rel_angle) * dist;
-return 230 - dist_y / 240.0;
+return 265 - dist_y / 240.0;
 
 }
