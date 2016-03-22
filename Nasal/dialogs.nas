@@ -171,6 +171,9 @@ var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
 
 var lat = 0.0;
 var lon = 0.0;
+var index = 0;
+var rwy_pri = "";
+var rwy_sec = "";
 
 setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",0);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
@@ -182,6 +185,9 @@ if (site_string == "Kennedy Space Center")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "33");
+	index = 1;
+	rwy_pri = "KSC15";
+	rwy_sec = "KSC33";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "Vandenberg Air Force Base")
@@ -191,6 +197,9 @@ else if (site_string == "Vandenberg Air Force Base")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "12");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
+	index = 2;
+	rwy_pri = "VBG12";
+	rwy_sec = "VBG30";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "Edwards Air Force Base")
@@ -200,33 +209,43 @@ else if (site_string == "Edwards Air Force Base")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "06");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "24");
+	index = 3;
+	rwy_pri = "EDW06";
+	rwy_sec = "EDW24";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "White Sands Space Harbor")
 	{
 	lat = 32.943;
 	lon = -106.420;
+	index = 4;
 	}
 else if (site_string == "Zaragoza Airport")
 	{
 	lat = 41.666;
 	lon = -1.042;
+	index = 5;
 	}
 else if (site_string == "RAF Fairford")
 	{
 	lat = 51.682;
 	lon = -1.79;
+	index = 6;
 	}
 else if (site_string == "Banjul International Airport")
 	{
 	lat = 13.337;
 	lon = -16.652;
+	index = 7;
 	}
 
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon", lon);
 SpaceShuttle.landing_site.set_latlon(lat,lon);
+SpaceShuttle.landing_site.index = index;
+SpaceShuttle.landing_site.rwy_pri = rwy_pri;
+SpaceShuttle.landing_site.rwy_sec = rwy_sec;
 
 }
 
