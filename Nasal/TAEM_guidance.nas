@@ -12,32 +12,47 @@ var final_approach_reserve = 7.0;
 var TAEM_predictor_set = {
 
 	entry: [[0.0, 0.0], [0.0,0.0], [0.0,0.0]],
+	x: 0.0,
+	y: 0.0,
+	angle: 0.0,
 	
 	update: func {
 
 	var groundspeed = getprop("/velocities/groundspeed-kt") * 0.51444;
 	var rate = getprop("/orientation/yaw-rate-degps");	
 
-	me.entry[0][0] = groundspeed * 0.0;#20.0;
-	me.entry[0][1] = 0.0; #rate * 20.0;	
+	me.x = 0;
+	me.y = 0;
+	me.angle = 0;
 
-	me.entry[1][0] = groundspeed * 40.0;
-	me.entry[1][1] = 0.0; # rate * 40.0;	
+	me.evolve(groundspeed, rate);
 
-	me.entry[2][0] = groundspeed * 60.0;
-	me.entry[2][1] = 0.0; #rate * 60.0;
+	me.entry[0][0] = math.sqrt(me.x * me.x + me.y * me.y);
+	me.entry[0][1] = math.asin(me.x/me.entry[0][0]);	
+	
+	me.evolve(groundspeed, rate);
+
+	me.entry[1][0] = math.sqrt(me.x * me.x + me.y * me.y);
+	me.entry[1][1] = math.asin(me.x/me.entry[1][0]);
+
+	me.evolve(groundspeed, rate);
+
+	me.entry[2][0] = math.sqrt(me.x * me.x + me.y * me.y);
+	me.entry[2][1] = math.asin(me.x/me.entry[2][0]);
+
+
+
 
 	},
 
-	evolve: func (x,y, angle, groundspeed, rate) {
+	evolve: func (groundspeed, rate) {
 
 	for (var i=0; i < 20; i=i+1)
 		{
-		x = x + math.sin(angle) * groundspeed;
-		y = y + math.cos(angle) * groundspeed;
-		angle = angle + rate;
+		me.x = me.x + math.sin(me.angle * math.pi/180.0) * groundspeed;
+		me.y = me.y + math.cos(me.angle * math.pi/180.0) * groundspeed;
+		me.angle = me.angle + rate;
 		}
-	return [x, y];
 
 	},
 
@@ -288,6 +303,21 @@ else if (site_string == "Edwards Air Force Base")
 		TAEM_threshold.set_latlon(34.9655,-117.8200);
 		TAEM_threshold.heading = 244.5;
 		TAEM_threshold.elevation = 2280.0;
+		}
+	}
+else if (site_string == "White Sands Space Harbour")
+	{
+	if (runway_string == "14")
+		{
+		TAEM_threshold.set_latlon(32.9754,-106.3313);
+		TAEM_threshold.heading = 142.0;
+		TAEM_threshold.elevation = 4450.0;
+		}
+	else if (runway_string == "32")
+		{
+		TAEM_threshold.set_latlon(32.8815,-106.2477);
+		TAEM_threshold.heading = 322.0;
+		TAEM_threshold.elevation = 4450.0;
 		}
 	}
 

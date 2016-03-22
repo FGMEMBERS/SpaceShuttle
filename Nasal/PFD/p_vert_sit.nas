@@ -67,7 +67,7 @@ var PFD_addpage_p_vert_sit = func(device)
 	 
 	p_vert_sit.shuttle_sym = device.symbols.createChild("path", "shuttle_sym")
         .setStrokeLineWidth(0.25)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	for (var i = 0; (i< size(data)-1); i=i+1)
@@ -77,7 +77,7 @@ var PFD_addpage_p_vert_sit = func(device)
 		}
 
 	p_vert_sit.shuttle_sym.setScale(6.0);
-	p_vert_sit.shuttle_sym.setRotation(-0.52);
+
 
     
     }
@@ -109,7 +109,13 @@ var PFD_addpage_p_vert_sit = func(device)
             var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
             if (range < 20.0) {device.selectPage(p_vert_sit2);}
+
+	    var vspeed = getprop("/velocities/vertical-speed-fps");
+	    var mach = getprop("/velocities/mach");
+	    if (mach< 0.5) {mach = 0.5;}	
+	    p_vert_sit.shuttle_sym.setRotation(vspeed * 0.005 /mach);
     
+
             p_vert_sit.shuttle_sym.setTranslation(x,y);
     	}
     
@@ -175,7 +181,7 @@ var PFD_addpage_p_vert_sit = func(device)
 	 
 	p_vert_sit2.shuttle_sym = device.symbols.createChild("path", "shuttle_sym")
         .setStrokeLineWidth(0.25)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	for (var i = 0; (i< size(data)-1); i=i+1)
@@ -185,7 +191,7 @@ var PFD_addpage_p_vert_sit = func(device)
 		}
 
 	p_vert_sit2.shuttle_sym.setScale(6.0);
-	p_vert_sit2.shuttle_sym.setRotation(-0.52);
+
     
     }
     
@@ -214,7 +220,10 @@ var PFD_addpage_p_vert_sit = func(device)
             var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
             #device.p_ascent_shuttle_sym.setTranslation(x,y);
+	    var vspeed = getprop("/velocities/vertical-speed-fps");
+	    p_vert_sit.shuttle_sym.setRotation(vspeed * 0.00225);
 	    p_vert_sit2.shuttle_sym.setTranslation(x,y);
+
     	}
     
         p_vert_sit2.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
