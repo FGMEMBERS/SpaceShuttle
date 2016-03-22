@@ -1777,6 +1777,25 @@ if (stage == 3)
 	setprop("/position/longitude-deg", place_lon); 
 
 	setprop("/velocities/uBody-fps",2400.0);
+
+	MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_dps_hsit);
+	MEDS_CDR1.PFD.dps_page_flag = 1;
+	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
+	MEDS_CDR2.PFD.dps_page_flag = 1;
+	MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);
+	MEDS_CRT1.PFD.dps_page_flag = 0;
+	MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
+	MEDS_MFD1.PFD.dps_page_flag = 0;
+	MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
+	MEDS_CRT3.PFD.dps_page_flag = 1;
+	MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_meds_spi);
+	MEDS_CRT2.PFD.dps_page_flag = 0;
+	MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
+	MEDS_MFD2.PFD.dps_page_flag = 0;
+	MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_dps);
+	MEDS_PLT1.PFD.dps_page_flag = 1;
+	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
+	MEDS_PLT2.dps_page_flag = 1;
 	}
 
 if (stage == 4) 

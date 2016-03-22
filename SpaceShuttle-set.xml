@@ -722,6 +722,10 @@
 	  <quality-v type="double">0.1</quality-v>
 	  <quality-ang type="double">0.02</quality-ang>
 	</error-star-tracker>
+	<error-tacan>
+	  <quality-pos type="double">0.0</quality-pos>
+	  <quality-ang type="double">0.0</quality-ang>
+	</error-tacan>
 	<error-coas>
 	  <pitch-deg type="double">0.0</pitch-deg>
 	  <yaw-deg type="double">0.0</yaw-deg>
@@ -1061,6 +1065,12 @@
       <approach-mode-string type="string">OVHD</approach-mode-string>
       <entry-point-string type="string">NEP</entry-point-string>
       <distance-to-runway-nm type="double">0.0</distance-to-runway-nm>
+      <Dxdot type="double">0.0</Dxdot>
+      <Dydot type="double">0.0</Dydot>
+      <Dzdot type="double">0.0</Dzdot>
+      <Dx type="double">0.0</Dx>
+      <Dy type="double">0.0</Dy>
+      <Dz type="double">0.0</Dz>
      </taem-guidance>
      <thermal-distribution>
       <freon-loop-switch type="double">0.4</freon-loop-switch>

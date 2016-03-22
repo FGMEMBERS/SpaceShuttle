@@ -540,6 +540,7 @@ MEDS_PLT1.PFD.dps_page_flag = 0;
 MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
 MEDS_PLT2.dps_page_flag = 0;
     
+
 var frame_device_update_id = 0;
 
 
