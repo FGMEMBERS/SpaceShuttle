@@ -1071,6 +1071,10 @@
       <Dx type="double">0.0</Dx>
       <Dy type="double">0.0</Dy>
       <Dz type="double">0.0</Dz>
+      <tacan-abs type="int">0</tacan-abs>
+      <tacan1-des type="int">0</tacan1-des>
+      <tacan2-des type="int">0</tacan2-des>
+      <tacan3-des type="int">0</tacan3-des>
      </taem-guidance>
      <thermal-distribution>
       <freon-loop-switch type="double">0.4</freon-loop-switch>
