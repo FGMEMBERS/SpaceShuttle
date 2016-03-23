@@ -31,7 +31,12 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.sec_rwy = device.svg.getElementById("p_dps_hsit_sec_rwy");
     p_dps_hsit.gn_dir = device.svg.getElementById("p_dps_hsit_gn_dir");
     p_dps_hsit.hsi_dir = device.svg.getElementById("p_dps_hsit_hsi_dir");
+    p_dps_hsit.gps_fom = device.svg.getElementById("p_dps_hsit_gps_fom");
+    p_dps_hsit.gps_ra = device.svg.getElementById("p_dps_hsit_gps_ra");
 
+
+    p_dps_hsit.pri_rwy_sel = device.svg.getElementById("p_dps_hsit_pri_rwy_sel");
+    p_dps_hsit.sec_rwy_sel = device.svg.getElementById("p_dps_hsit_sec_rwy_sel");
 
     p_dps_hsit.nav_Dx = device.svg.getElementById("p_dps_hsit_nav_Dx");
     p_dps_hsit.nav_Dy = device.svg.getElementById("p_dps_hsit_nav_Dy");
@@ -43,13 +48,22 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 
     p_dps_hsit.tac_az_ratio = device.svg.getElementById("p_dps_hsit_tac_az_ratio");
-    p_dps_hsit.tac_az_resid = device.svg.getElementById("p_dps_hsit_tac_az_ratio");
+    p_dps_hsit.tac_az_resid = device.svg.getElementById("p_dps_hsit_tac_az_resid");
     p_dps_hsit.tac_az_aut = device.svg.getElementById("p_dps_hsit_tac_az_aut");
     p_dps_hsit.tac_az_inh = device.svg.getElementById("p_dps_hsit_tac_az_inh");
     p_dps_hsit.tac_az_for = device.svg.getElementById("p_dps_hsit_tac_az_for");
 
     p_dps_hsit.tac_rng_resid = device.svg.getElementById("p_dps_hsit_tac_rng_resid");
     p_dps_hsit.tac_rng_ratio = device.svg.getElementById("p_dps_hsit_tac_rng_ratio");
+
+    p_dps_hsit.dragh_resid = device.svg.getElementById("p_dps_hsit_dragh_resid");
+    p_dps_hsit.dragh_ratio = device.svg.getElementById("p_dps_hsit_dragh_ratio");
+
+    p_dps_hsit.gps_resid = device.svg.getElementById("p_dps_hsit_gps_resid");
+    p_dps_hsit.gps_ratio = device.svg.getElementById("p_dps_hsit_gps_ratio");
+
+    p_dps_hsit.adtah_resid = device.svg.getElementById("p_dps_hsit_adtah_resid");
+    p_dps_hsit.adtah_ratio = device.svg.getElementById("p_dps_hsit_adtah_ratio");
 
     p_dps_hsit.gps_aut = device.svg.getElementById("p_dps_hsit_gps_aut");
     p_dps_hsit.gps_inh = device.svg.getElementById("p_dps_hsit_gps_inh");
@@ -70,6 +84,36 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.tac2_des = device.svg.getElementById("p_dps_hsit_tac2_des");
     p_dps_hsit.tac3_des = device.svg.getElementById("p_dps_hsit_tac3_des");
     
+    p_dps_hsit.tac = device.svg.getElementById("p_dps_hsit_tac");
+    p_dps_hsit.tac1 = device.svg.getElementById("p_dps_hsit_tac1");
+    p_dps_hsit.tac2 = device.svg.getElementById("p_dps_hsit_tac2");
+    p_dps_hsit.tac3 = device.svg.getElementById("p_dps_hsit_tac3");
+
+
+    p_dps_hsit.statlabel = device.svg.getElementById("p_dps_hsit_statlabel");
+
+    p_dps_hsit.adtah_aut = device.svg.getElementById("p_dps_hsit_adtah_aut");
+    p_dps_hsit.adtah_inh = device.svg.getElementById("p_dps_hsit_adtah_inh");
+    p_dps_hsit.adtah_for = device.svg.getElementById("p_dps_hsit_adtah_for");
+
+    p_dps_hsit.dragh_aut = device.svg.getElementById("p_dps_hsit_dragh_aut");
+    p_dps_hsit.dragh_inh = device.svg.getElementById("p_dps_hsit_dragh_inh");
+    p_dps_hsit.dragh_for = device.svg.getElementById("p_dps_hsit_dragh_for");
+
+    p_dps_hsit.adta_aut = device.svg.getElementById("p_dps_hsit_adta_aut");
+    p_dps_hsit.adta_inh = device.svg.getElementById("p_dps_hsit_adta_inh");
+    p_dps_hsit.adta_for = device.svg.getElementById("p_dps_hsit_adta_for");
+
+    p_dps_hsit.aif1 = device.svg.getElementById("p_dps_hsit_aif1");
+    p_dps_hsit.aif2 = device.svg.getElementById("p_dps_hsit_aif2");
+    p_dps_hsit.aif3 = device.svg.getElementById("p_dps_hsit_aif3");
+
+    p_dps_hsit.gps_s_rn = device.svg.getElementById("p_dps_hsit_gps_s_rn");
+    p_dps_hsit.gps_az = device.svg.getElementById("p_dps_hsit_gps_az");
+    p_dps_hsit.gps_h = device.svg.getElementById("p_dps_hsit_gps_h");
+
+
+
     p_dps_hsit.ondisplay = func
     {
         device.DPS_menu_title.setText("HORIZ SIT");
@@ -95,6 +139,21 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.gps_inh.setText("");
 	p_dps_hsit.gps_for.setText("");
 	p_dps_hsit.Dt.setText("+00:00");
+	p_dps_hsit.statlabel.setText("");
+	p_dps_hsit.adtah_aut.setText("");
+	p_dps_hsit.adtah_inh.setText("*");
+	p_dps_hsit.adtah_for.setText("");
+	p_dps_hsit.dragh_aut.setText("");
+	p_dps_hsit.dragh_inh.setText("*");
+	p_dps_hsit.dragh_for.setText("");
+	p_dps_hsit.adta_aut.setText("");
+	p_dps_hsit.adta_inh.setText("*");
+	p_dps_hsit.adta_for.setText("");
+	p_dps_hsit.aif1.setText("");
+	p_dps_hsit.aif2.setText("*");
+	p_dps_hsit.aif3.setText("");
+	p_dps_hsit.gps_fom.setText("4");
+	p_dps_hsit.gps_ra.setText("");
 
 	# generate the symbols for the graphical part of the display
 
@@ -213,10 +272,12 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 	string = "";
 	var rwy_sel = "";
+	var field_altitude = 0.0;
 	if (SpaceShuttle.TAEM_guidance_available == 1)
 		{
 		if (SpaceShuttle.TAEM_WP_1.turn_direction == "left"){string = "L";}
 		else {string = "R";}
+		field_altitude = SpaceShuttle.TAEM_threshold.elevation;
 		}
 
 
@@ -250,21 +311,64 @@ var PFD_addpage_p_dps_hsit = func(device)
 	var tacan3_des = getprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des");
 	if (tacan3_des == 1){string = "*";}
 	p_dps_hsit.tac3_des.setText(string);
+	
+	string = "";
+	if (SpaceShuttle.landing_site.rwy_sel == 0){string = "*";}
+	p_dps_hsit.pri_rwy_sel.setText(string);
+
+	string = "";
+	if (SpaceShuttle.landing_site.rwy_sel == 1){string = "*";}
+	p_dps_hsit.sec_rwy_sel.setText(string);
+
+	var error_pos_m = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pos-m");
+	var error_ang_deg = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");	
+
+	var tacan_quality_ang = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-ang");
+	var tacan_quality_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-pos");
+
+	var adta_quality_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-adta/quality-pos");
+	var drag_h_quality_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-drag-h/quality-pos");
+	var gps_quality_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-gps/quality-pos");
+
+	var tacan_resid_pos = error_pos_m * tacan_quality_pos / 0.3048;
+	var tacan_resid_ang = error_ang_deg * tacan_quality_ang;
+
+	var adta_resid_pos = error_pos_m * adta_quality_pos / 0.3048;
+	var drag_h_resid_pos = error_pos_m * drag_h_quality_pos / 0.3048;
+	var gps_resid_pos = error_pos_m * gps_quality_pos / 0.3048;
+
+	p_dps_hsit.adtah_resid.setText(sprintf("%5.0f", adta_resid_pos));
+	p_dps_hsit.adtah_ratio.setText(sprintf("%2.1f", adta_quality_pos));
+
+	p_dps_hsit.dragh_resid.setText(sprintf("%5.0f", drag_h_resid_pos));
+	p_dps_hsit.dragh_ratio.setText(sprintf("%2.1f", drag_h_quality_pos));
+
+	p_dps_hsit.gps_resid.setText(sprintf("%5.0f", gps_resid_pos));
+	p_dps_hsit.gps_ratio.setText(sprintf("%2.1f", gps_quality_pos));
+
+	p_dps_hsit.tac.setText(SpaceShuttle.landing_site.tacan);
+	p_dps_hsit.tac1.setText(SpaceShuttle.landing_site.tacan);
+	p_dps_hsit.tac2.setText(SpaceShuttle.landing_site.tacan);
+	p_dps_hsit.tac3.setText(SpaceShuttle.landing_site.tacan);
 
 	if (SpaceShuttle.TAEM_guidance_available == 1)
 		{
-		p_dps_hsit.tac_az_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-ang")));
-		p_dps_hsit.tac_rng_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-pos")));
+		p_dps_hsit.tac_az_ratio.setText(sprintf("%2.1f", tacan_quality_ang));
+		p_dps_hsit.tac_rng_ratio.setText(sprintf("%2.1f", tacan_quality_pos));
+
+		p_dps_hsit.tac_az_resid.setText(sprintf("%2.2f", tacan_resid_ang));
+		p_dps_hsit.tac_rng_resid.setText(sprintf("%2.2f", tacan_resid_pos));
 
 		var course = getprop("/fdm/jsbsim/systems/taem-guidance/course");
 		var heading = getprop("/orientation/heading-deg");
 		var range = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
 
-		if (tacan_disp_mode == 0) {course = course - heading;}
+		var course_disp = course;
+		if (tacan_disp_mode == 0) {course_disp = course - heading;}
 		
 		if (tacan1_des == 0)
 			{
-			p_dps_hsit.tac_az_tac1.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_az_tac1.setText(sprintf("%+3.2f", course_disp));
 			p_dps_hsit.tac_rng_tac1.setText(sprintf("%+3.2f", range));
 			}
 		else
@@ -275,7 +379,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 		if (tacan2_des == 0)
 			{
-			p_dps_hsit.tac_az_tac2.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_az_tac2.setText(sprintf("%+3.2f", course_disp));
 			p_dps_hsit.tac_rng_tac2.setText(sprintf("%+3.2f", range));
 			}
 		else
@@ -286,7 +390,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 		if (tacan3_des == 0)
 			{
-			p_dps_hsit.tac_az_tac3.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_az_tac3.setText(sprintf("%+3.2f", course_disp));
 			p_dps_hsit.tac_rng_tac3.setText(sprintf("%+3.2f", range));
 			}
 		else
@@ -295,7 +399,11 @@ var PFD_addpage_p_dps_hsit = func(device)
 			p_dps_hsit.tac_rng_tac3.setText("");
 			}
 	
-	
+		var altitude_above_site = (getprop("/position/altitude-ft") - field_altitude)/1000.0;
+
+  		p_dps_hsit.gps_s_rn.setText(sprintf("%+3.2f",range));
+    		p_dps_hsit.gps_az.setText(sprintf("%+3.2f", course_disp));
+		p_dps_hsit.gps_h.setText(sprintf("%3.1f", altitude_above_site));
 
 
 		
@@ -305,6 +413,8 @@ var PFD_addpage_p_dps_hsit = func(device)
 		{
 		p_dps_hsit.tac_az_ratio.setText("");
 		p_dps_hsit.tac_rng_ratio.setText("");
+		p_dps_hsit.tac_az_resid.setText("");
+		p_dps_hsit.tac_rng_resid.setText("");
 		p_dps_hsit.tac_az_tac1.setText("");
 		p_dps_hsit.tac_az_tac2.setText("");
 		p_dps_hsit.tac_az_tac3.setText("");
@@ -312,7 +422,15 @@ var PFD_addpage_p_dps_hsit = func(device)
 		p_dps_hsit.tac_rng_tac2.setText("");
 		p_dps_hsit.tac_rng_tac3.setText("");
 
+  		p_dps_hsit.gps_s_rn.setText("");
+    		p_dps_hsit.gps_az.setText("");
+		p_dps_hsit.gps_h.setText("");
+
 		}
+
+	
+
+
 
 	p_dps_hsit.nav_Dx.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dx")));
 	p_dps_hsit.nav_Dy.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dy")));

@@ -734,6 +734,15 @@
 	  <quality-v type="double">0.3</quality-v>
 	  <quality-ang type="double">0.2</quality-ang>
 	</error-coas>
+	<error-adta>
+	  <quality-pos type="double">0.0</quality-pos>
+	</error-adta>
+	<error-drag-h>
+	  <quality-pos type="double">0.0</quality-pos>
+	</error-drag-h>
+	<error-gps>
+	  <quality-pos type="double">0.0</quality-pos>
+	</error-gps>
 	<error-rr>
 	  <pitch-deg type="double">0.0</pitch-deg>
 	  <yaw-deg type="double">0.0</yaw-deg>

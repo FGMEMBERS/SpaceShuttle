@@ -1434,7 +1434,17 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	if (spec == 50)
 		{
-		if (item == 9)
+		if (item == 3)
+			{
+			SpaceShuttle.update_runway_by_flag(0);
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			SpaceShuttle.update_runway_by_flag(1);
+			valid_flag = 1;
+			}
+		else if (item == 9)
 			{
 			setprop("/instrumentation/altimeter/setting-inhg", value);
 			valid_flag = 1;
@@ -1468,6 +1478,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 35)
 			{
 			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",0);
+			valid_flag = 1;
+			}
+		else if (item == 41)
+			{
+			SpaceShuttle.update_site_by_index(value);
 			valid_flag = 1;
 			}
 		}
