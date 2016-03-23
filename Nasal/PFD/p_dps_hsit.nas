@@ -39,19 +39,36 @@ var PFD_addpage_p_dps_hsit = func(device)
     p_dps_hsit.nav_Dxdot = device.svg.getElementById("p_dps_hsit_nav_Dxdot");
     p_dps_hsit.nav_Dydot = device.svg.getElementById("p_dps_hsit_nav_Dydot");
     p_dps_hsit.nav_Dzdot = device.svg.getElementById("p_dps_hsit_nav_Dzdot");
+    p_dps_hsit.Dt = device.svg.getElementById("p_dps_hsit_Dt");
+
 
     p_dps_hsit.tac_az_ratio = device.svg.getElementById("p_dps_hsit_tac_az_ratio");
+    p_dps_hsit.tac_az_resid = device.svg.getElementById("p_dps_hsit_tac_az_ratio");
     p_dps_hsit.tac_az_aut = device.svg.getElementById("p_dps_hsit_tac_az_aut");
     p_dps_hsit.tac_az_inh = device.svg.getElementById("p_dps_hsit_tac_az_inh");
     p_dps_hsit.tac_az_for = device.svg.getElementById("p_dps_hsit_tac_az_for");
+
+    p_dps_hsit.tac_rng_resid = device.svg.getElementById("p_dps_hsit_tac_rng_resid");
+    p_dps_hsit.tac_rng_ratio = device.svg.getElementById("p_dps_hsit_tac_rng_ratio");
 
     p_dps_hsit.gps_aut = device.svg.getElementById("p_dps_hsit_gps_aut");
     p_dps_hsit.gps_inh = device.svg.getElementById("p_dps_hsit_gps_inh");
     p_dps_hsit.gps_for = device.svg.getElementById("p_dps_hsit_gps_for");
 
+    p_dps_hsit.abs = device.svg.getElementById("p_dps_hsit_abs");
+    p_dps_hsit.delta = device.svg.getElementById("p_dps_hsit_delta");
 
+    p_dps_hsit.tac_az_tac1 = device.svg.getElementById("p_dps_hsit_tac_az_tac1");
+    p_dps_hsit.tac_az_tac2 = device.svg.getElementById("p_dps_hsit_tac_az_tac2");
+    p_dps_hsit.tac_az_tac3 = device.svg.getElementById("p_dps_hsit_tac_az_tac3");
 
+    p_dps_hsit.tac_rng_tac1 = device.svg.getElementById("p_dps_hsit_tac_rng_tac1");
+    p_dps_hsit.tac_rng_tac2 = device.svg.getElementById("p_dps_hsit_tac_rng_tac2");
+    p_dps_hsit.tac_rng_tac3 = device.svg.getElementById("p_dps_hsit_tac_rng_tac3");
 
+    p_dps_hsit.tac1_des = device.svg.getElementById("p_dps_hsit_tac1_des");
+    p_dps_hsit.tac2_des = device.svg.getElementById("p_dps_hsit_tac2_des");
+    p_dps_hsit.tac3_des = device.svg.getElementById("p_dps_hsit_tac3_des");
     
     p_dps_hsit.ondisplay = func
     {
@@ -77,6 +94,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.gps_aut.setText("*");
 	p_dps_hsit.gps_inh.setText("");
 	p_dps_hsit.gps_for.setText("");
+	p_dps_hsit.Dt.setText("+00:00");
 
 	# generate the symbols for the graphical part of the display
 
@@ -199,15 +217,102 @@ var PFD_addpage_p_dps_hsit = func(device)
 		{
 		if (SpaceShuttle.TAEM_WP_1.turn_direction == "left"){string = "L";}
 		else {string = "R";}
-
 		}
+
+
 	p_dps_hsit.gn_dir.setText(string);
 	p_dps_hsit.hsi_dir.setText(string);
 
 	p_dps_hsit.pri_rwy.setText(SpaceShuttle.landing_site.rwy_pri);
 	p_dps_hsit.sec_rwy.setText(SpaceShuttle.landing_site.rwy_sec);
 
-	p_dps_hsit.tac_az_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-ang")));
+	var tacan_disp_mode = getprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs");
+
+	string = "";
+	if (tacan_disp_mode == 1) {string = "*";}
+	p_dps_hsit.abs.setText(string);
+
+	string = "";
+	if (tacan_disp_mode == 0) {string = "*";}
+	p_dps_hsit.delta.setText(string);
+
+	string = "";
+	var tacan1_des = getprop("/fdm/jsbsim/systems/taem-guidance/tacan1-des");
+	if (tacan1_des == 1){string = "*";}
+	p_dps_hsit.tac1_des.setText(string);
+
+	string = "";
+	var tacan2_des = getprop("/fdm/jsbsim/systems/taem-guidance/tacan2-des");
+	if (tacan2_des == 1){string = "*";}
+	p_dps_hsit.tac2_des.setText(string);
+
+	string = "";
+	var tacan3_des = getprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des");
+	if (tacan3_des == 1){string = "*";}
+	p_dps_hsit.tac3_des.setText(string);
+
+	if (SpaceShuttle.TAEM_guidance_available == 1)
+		{
+		p_dps_hsit.tac_az_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-ang")));
+		p_dps_hsit.tac_rng_ratio.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/navigation/state-vector/error-tacan/quality-pos")));
+
+		var course = getprop("/fdm/jsbsim/systems/taem-guidance/course");
+		var heading = getprop("/orientation/heading-deg");
+		var range = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+
+		if (tacan_disp_mode == 0) {course = course - heading;}
+		
+		if (tacan1_des == 0)
+			{
+			p_dps_hsit.tac_az_tac1.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_rng_tac1.setText(sprintf("%+3.2f", range));
+			}
+		else
+			{
+			p_dps_hsit.tac_az_tac1.setText("");
+			p_dps_hsit.tac_rng_tac1.setText("");
+			}
+
+		if (tacan2_des == 0)
+			{
+			p_dps_hsit.tac_az_tac2.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_rng_tac2.setText(sprintf("%+3.2f", range));
+			}
+		else
+			{
+			p_dps_hsit.tac_az_tac2.setText("");
+			p_dps_hsit.tac_rng_tac2.setText("");
+			}
+
+		if (tacan3_des == 0)
+			{
+			p_dps_hsit.tac_az_tac3.setText(sprintf("%+3.2f", course));
+			p_dps_hsit.tac_rng_tac3.setText(sprintf("%+3.2f", range));
+			}
+		else
+			{
+			p_dps_hsit.tac_az_tac3.setText("");
+			p_dps_hsit.tac_rng_tac3.setText("");
+			}
+	
+	
+
+
+		
+		}
+
+	else
+		{
+		p_dps_hsit.tac_az_ratio.setText("");
+		p_dps_hsit.tac_rng_ratio.setText("");
+		p_dps_hsit.tac_az_tac1.setText("");
+		p_dps_hsit.tac_az_tac2.setText("");
+		p_dps_hsit.tac_az_tac3.setText("");
+		p_dps_hsit.tac_rng_tac1.setText("");
+		p_dps_hsit.tac_rng_tac2.setText("");
+		p_dps_hsit.tac_rng_tac3.setText("");
+
+		}
 
 	p_dps_hsit.nav_Dx.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dx")));
 	p_dps_hsit.nav_Dy.setText(sprintf("%+4.2f", getprop("/fdm/jsbsim/systems/taem-guidance/Dy")));
@@ -217,12 +322,13 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.nav_Dydot.setText(sprintf("%+3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/Dydot")));
 	p_dps_hsit.nav_Dzdot.setText(sprintf("%+3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/Dzdot")));
 
-	# create the graphical portion of the display
+
 
 	if (SpaceShuttle.TAEM_guidance_available == 1)
 	{
 
 
+	# create the graphical portion of the display
 	# the graphical portion is a 230 x 140 sheet at 150-380:90-230 
 	var pos = geo.aircraft_position();
 

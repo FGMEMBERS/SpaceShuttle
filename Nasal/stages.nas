@@ -1778,6 +1778,8 @@ if (stage == 3)
 
 	setprop("/velocities/uBody-fps",2400.0);
 
+	# arrange the displays to be set
+
 	MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_dps_hsit);
 	MEDS_CDR1.PFD.dps_page_flag = 1;
 	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
@@ -1796,6 +1798,8 @@ if (stage == 3)
 	MEDS_PLT1.PFD.dps_page_flag = 1;
 	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
 	MEDS_PLT2.dps_page_flag = 1;
+
+	setprop("/fdm/jsbsim/systems/dps/spec", 50);
 	}
 
 if (stage == 4) 

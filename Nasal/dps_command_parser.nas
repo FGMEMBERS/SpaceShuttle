@@ -1439,6 +1439,37 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/instrumentation/altimeter/setting-inhg", value);
 			valid_flag = 1;
 			}
+		else if (item == 31)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan1-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan1-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 32)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan2-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan2-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 34)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",1);
+			valid_flag = 1;
+			}
+		else if (item == 35)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",0);
+			valid_flag = 1;
+			}
 		}
 
 

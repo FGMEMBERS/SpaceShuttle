@@ -163,6 +163,14 @@ else if (scenario_string == "hydraulic failure")
 
 }
 
+var update_runway = func {
+
+#print("Hello!");
+
+var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+var runway_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+}
+
 var update_site = func {
 
 #print("Hello!");
@@ -509,6 +517,7 @@ setprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target", apoapsis_target);
 setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles", update_inclination);
 setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination", update_inclination);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
+setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", update_runway);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", update_entry_mode);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/config/shuttle/TC-config", update_TC_config);
