@@ -21,6 +21,26 @@ append(shape_data, point);
 return shape_data;
 }
 
+var draw_tmarker_right = func {
+
+var shape_data = [];
+
+var point = [0, 0];
+append(shape_data, point);
+
+point = [-8.0, -6.9];
+append(shape_data, point);
+
+point = [-8.0, 6.9];
+append(shape_data, point);
+
+point = [0, 0];
+append(shape_data, point);
+
+return shape_data;
+
+}
+
 
 var draw_shuttle_side = func {
 
