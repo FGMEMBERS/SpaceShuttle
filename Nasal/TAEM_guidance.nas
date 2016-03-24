@@ -7,7 +7,7 @@ var TAEM_threshold = geo.Coord.new();
 var TAEM_HAC_center = geo.Coord.new();
 var TAEM_guidance_available = 0;
 
-var final_approach_reserve = 7.0;
+var final_approach_reserve = 4.0;
 
 var TAEM_predictor_set = {
 
