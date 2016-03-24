@@ -188,6 +188,11 @@ else if (site_string == "White Sands Space Harbor")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
 	}
+else if (site_string == "Banjul International Airport")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
+	}
 }
 
 var update_runway = func {
@@ -213,6 +218,11 @@ else if (site_string == "Edwards Air Force Base")
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
 else if (site_string == "White Sands Space Harbor")
+	{
+	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Banjul International Airport")
 	{
 	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
@@ -337,6 +347,12 @@ else if (site_string == "Banjul International Airport")
 	{
 	lat = 13.337;
 	lon = -16.652;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
+	rwy_pri = "BJL14";
+	rwy_sec = "BJL32";
+        gui.dialog_update("entry_guidance", "runway-selection");
 	index = 7;
 	}
 
