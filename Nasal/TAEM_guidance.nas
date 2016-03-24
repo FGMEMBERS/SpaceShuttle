@@ -320,6 +320,21 @@ else if (site_string == "White Sands Space Harbour")
 		TAEM_threshold.elevation = 4450.0;
 		}
 	}
+else if (site_string == "Banjul International Airport")
+	{
+	if (runway_string == "32")
+		{
+		TAEM_threshold.set_latlon(13.3301,-16.6428);
+		TAEM_threshold.heading = 311.0;
+		TAEM_threshold.elevation = 102.0;
+		}
+	else if (runway_string == "14")
+		{
+		TAEM_threshold.set_latlon(13.3451,-16.6608);
+		TAEM_threshold.heading = 131.0;
+		TAEM_threshold.elevation = 102.0;
+		}
+	}
 
 else
 	{
