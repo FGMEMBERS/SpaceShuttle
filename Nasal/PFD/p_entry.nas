@@ -101,6 +101,20 @@ var PFD_addpage_p_entry = func(device)
 		p_entry.alpha.lineTo(set[0], set[1]);
 		}
 
+	setsize(data,0);
+
+	data = SpaceShuttle.draw_arrowmarker_right();
+	p_entry.alpha_nom = device.symbols.createChild("path", "alpha_nom")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_entry.alpha_nom.lineTo(set[0], set[1]);
+		}
+
 
 
 	
@@ -110,8 +124,6 @@ var PFD_addpage_p_entry = func(device)
     p_entry.offdisplay = func
     {
         device.nom_traj_plot.removeAllChildren();
-        #device.p_ascent_shuttle_sym.setScale(0.0);
-     
 	
 	device.symbols.removeAllChildren();
         device.set_DPS_off();
@@ -205,9 +217,10 @@ var PFD_addpage_p_entry = func(device)
 	alpha_nom = SpaceShuttle.clamp(alpha_nom, alpha_min, alpha_max);
 
 	var alpha_fract = (alpha_act - alpha_min)/(alpha_max - alpha_min);
-	
+	var alpha_nom_fract = (alpha_nom - alpha_min)/(alpha_max - alpha_min);
 
 	p_entry.alpha.setTranslation(48.0, 360.0 - 270 * alpha_fract);
+	p_entry.alpha_nom.setTranslation(38.0, 360.0 - 270 * alpha_nom_fract);
     
         var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
         var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
