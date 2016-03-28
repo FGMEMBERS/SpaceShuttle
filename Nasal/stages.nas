@@ -1174,7 +1174,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
