@@ -1705,10 +1705,17 @@
        </binding>
       </item>
       <item>
-       <label>Vertical trajectory management</label>
+       <label>Replicate CDR1 MDU</label>
        <binding>
         <command>nasal</command>
-        <script>SpaceShuttle.create_traj_display()</script>
+        <script>SpaceShuttle.create_MDU_clone(0)</script>
+       </binding>
+      </item>
+      <item>
+       <label>Replicate CDR2 MDU</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.create_MDU_clone(1)</script>
        </binding>
       </item>
 
