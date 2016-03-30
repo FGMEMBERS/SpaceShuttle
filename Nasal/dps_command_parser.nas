@@ -390,6 +390,7 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
+var spec25 = [201, 202];
 var spec33 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
@@ -1931,6 +1932,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_strk");
 		setprop("/fdm/jsbsim/systems/dps/spec", 22);
+		valid_flag = 1;
+		}
+	if ((spec_num == 25) and (test_spec_ops_validity(spec25, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_rm_orbit");
+		setprop("/fdm/jsbsim/systems/dps/spec", 25);
 		valid_flag = 1;
 		}
 	if ((spec_num == 33) and (test_spec_ops_validity(spec33, major_mode) == 1))
