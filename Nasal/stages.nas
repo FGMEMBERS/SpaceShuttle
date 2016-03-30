@@ -804,7 +804,7 @@ SpaceShuttle.update_timers();
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 settimer(SpaceShuttle.update_sv_errors, 0.4);
-settimer(SpaceShuttle.update_sensors, 0.4);
+settimer(SpaceShuttle.update_sensors, 0.5);
 
 settimer(orbital_loop, 1.0);
 }
