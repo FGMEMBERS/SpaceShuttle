@@ -17,9 +17,13 @@ var PFD_addpage_p_entry = func(device)
     p_entry.dref = device.svg.getElementById("p_entry_dref");
     p_entry.bias = device.svg.getElementById("p_entry_bias");
     
-    
-    
-    
+    p_entry.alabel1 = device.svg.getElementById("p_entry_alabel1");
+    p_entry.alabel2 = device.svg.getElementById("p_entry_alabel2");
+    p_entry.alabel3 = device.svg.getElementById("p_entry_alabel3");
+    p_entry.alabel4 = device.svg.getElementById("p_entry_alabel4");
+    p_entry.alabel5 = device.svg.getElementById("p_entry_alabel5");
+    p_entry.alabel6 = device.svg.getElementById("p_entry_alabel6");
+
     p_entry.ondisplay = func
     {
         # called once whenever this page goes on display
@@ -83,6 +87,35 @@ var PFD_addpage_p_entry = func(device)
 
 	p_entry.shuttle_sym.setScale(6.0);
 
+	setsize(data,0);
+
+	data = SpaceShuttle.draw_tmarker_right();
+	p_entry.alpha = device.symbols.createChild("path", "alpha")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_entry.alpha.lineTo(set[0], set[1]);
+		}
+
+	setsize(data,0);
+
+	data = SpaceShuttle.draw_arrowmarker_right();
+	p_entry.alpha_nom = device.symbols.createChild("path", "alpha_nom")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_entry.alpha_nom.lineTo(set[0], set[1]);
+		}
+
+
 
 	
 	
@@ -91,8 +124,6 @@ var PFD_addpage_p_entry = func(device)
     p_entry.offdisplay = func
     {
         device.nom_traj_plot.removeAllChildren();
-        device.p_ascent_shuttle_sym.setScale(0.0);
-     
 	
 	device.symbols.removeAllChildren();
         device.set_DPS_off();
@@ -112,27 +143,55 @@ var PFD_addpage_p_entry = func(device)
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
     
+	var alpha_max = 50.0;
+	var alpha_min = 25.0;
     
         if  ((SpaceShuttle.traj_display_flag == 3) and (major_mode == 304))
     	{
             device.DPS_menu_title.setText("ENTRY TRAJ 1");
             device.DPS_menu_ops.setText("3041/     /");
+
     	}
         else if ((SpaceShuttle.traj_display_flag == 4) and (major_mode == 304))
     	{
             device.DPS_menu_title.setText("ENTRY TRAJ 2");
+	    
     	}
         else if ((SpaceShuttle.traj_display_flag == 5) and (major_mode == 304))
     	{
             device.DPS_menu_title.setText("ENTRY TRAJ 3");
+	    p_entry.alabel1.setText("45");
+	    p_entry.alabel2.setText("40");
+	    p_entry.alabel3.setText("35");
+	    p_entry.alabel4.setText("30");
+	    p_entry.alabel5.setText("25");
+	    p_entry.alabel6.setText("20");
+	    alpha_max = 45.0;
+	    alpha_min = 20.0;
     	}
         else if (( SpaceShuttle.traj_display_flag == 6) and (major_mode == 304))
     	{
             device.DPS_menu_title.setText("ENTRY TRAJ 4");
+	    p_entry.alabel1.setText("45");
+	    p_entry.alabel2.setText("40");
+	    p_entry.alabel3.setText("35");
+	    p_entry.alabel4.setText("30");
+	    p_entry.alabel5.setText("25");
+	    p_entry.alabel6.setText("20");
+	    alpha_max = 45.0;
+	    alpha_min = 20.0;
     	}
         else if ((SpaceShuttle.traj_display_flag == 7)and (major_mode == 304))
     	{
             device.DPS_menu_title.setText("ENTRY TRAJ 5");
+	    p_entry.alabel1.setText("30");
+	    p_entry.alabel2.setText("25");
+	    p_entry.alabel3.setText("20");
+	    p_entry.alabel4.setText("15");
+	    p_entry.alabel5.setText("10");
+	    p_entry.alabel6.setText(" 5");
+	    alpha_max = 30.0;
+	    alpha_min = 5.0;
     	}
     
     
@@ -151,6 +210,17 @@ var PFD_addpage_p_entry = func(device)
         var velocity = SpaceShuttle.ascent_traj_update_velocity();
         var altitude = getprop("/position/altitude-ft");
     
+	var alpha_act = getprop("/fdm/jsbsim/aero/alpha-deg");
+	var alpha_nom = getprop("/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg");
+
+	alpha_act = SpaceShuttle.clamp(alpha_act, alpha_min, alpha_max);
+	alpha_nom = SpaceShuttle.clamp(alpha_nom, alpha_min, alpha_max);
+
+	var alpha_fract = (alpha_act - alpha_min)/(alpha_max - alpha_min);
+	var alpha_nom_fract = (alpha_nom - alpha_min)/(alpha_max - alpha_min);
+
+	p_entry.alpha.setTranslation(48.0, 360.0 - 270 * alpha_fract);
+	p_entry.alpha_nom.setTranslation(38.0, 360.0 - 270 * alpha_nom_fract);
     
         var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
         var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);

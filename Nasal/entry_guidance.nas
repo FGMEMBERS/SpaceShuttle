@@ -4,6 +4,8 @@ var landing_site = geo.Coord.new();
 landing_site.index = 0;
 landing_site.rwy_pri = "";
 landing_site.rwy_sec = "";
+landing_site.tacan = "";
+landing_site.rwy_sel = 0;
 
 var entry_interface = geo.Coord.new();
 var v_aero_last = 0.0;

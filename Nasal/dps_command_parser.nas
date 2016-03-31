@@ -390,6 +390,7 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
+var spec25 = [201, 202];
 var spec33 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
@@ -1434,9 +1435,85 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	if (spec == 50)
 		{
-		if (item == 9)
+		if (item == 3)
+			{
+			SpaceShuttle.update_runway_by_flag(0);
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			SpaceShuttle.update_runway_by_flag(1);
+			valid_flag = 1;
+			}
+		else if (item == 9)
 			{
 			setprop("/instrumentation/altimeter/setting-inhg", value);
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dx", value);
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dy", value);
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dz", value);
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dxdot", value);
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dydot", value);
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/Dzdot", value);
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan1-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan1-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 32)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan2-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan2-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+			var state = getprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan3-des", state);
+			valid_flag = 1;
+			}
+		else if (item == 34)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",1);
+			valid_flag = 1;
+			}
+		else if (item == 35)
+			{
+			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",0);
+			valid_flag = 1;
+			}
+		else if (item == 41)
+			{
+			SpaceShuttle.update_site_by_index(value);
 			valid_flag = 1;
 			}
 		}
@@ -1855,6 +1932,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_strk");
 		setprop("/fdm/jsbsim/systems/dps/spec", 22);
+		valid_flag = 1;
+		}
+	if ((spec_num == 25) and (test_spec_ops_validity(spec25, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_rm_orbit");
+		setprop("/fdm/jsbsim/systems/dps/spec", 25);
 		valid_flag = 1;
 		}
 	if ((spec_num == 33) and (test_spec_ops_validity(spec33, major_mode) == 1))

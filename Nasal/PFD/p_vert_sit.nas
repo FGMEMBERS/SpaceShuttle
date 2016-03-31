@@ -20,6 +20,8 @@ var PFD_addpage_p_vert_sit = func(device)
     
     p_vert_sit.ondisplay = func
     {
+
+
         SpaceShuttle.fill_vert_sit1_nom_data();
         SpaceShuttle.fill_vert_sit1_SB_data();
         SpaceShuttle.fill_vert_sit1_maxLD_data();
@@ -78,6 +80,20 @@ var PFD_addpage_p_vert_sit = func(device)
 
 	p_vert_sit.shuttle_sym.setScale(6.0);
 
+	data = SpaceShuttle.draw_tmarker_right();
+	p_vert_sit.theta = device.symbols.createChild("path", "theta")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_vert_sit.theta.lineTo(set[0], set[1]);
+		}
+
+ 
+
 
     
     }
@@ -113,11 +129,18 @@ var PFD_addpage_p_vert_sit = func(device)
 	    var vspeed = getprop("/velocities/vertical-speed-fps");
 	    var mach = getprop("/velocities/mach");
 	    if (mach< 0.5) {mach = 0.5;}	
-	    p_vert_sit.shuttle_sym.setRotation(vspeed * 0.005 /mach);
+	    var rot = vspeed * 0.005 /mach;
+	    rot = SpaceShuttle.clamp(rot, -1.57, 1.57);
+	    p_vert_sit.shuttle_sym.setRotation(rot);
     
 
             p_vert_sit.shuttle_sym.setTranslation(x,y);
+
     	}
+
+	    var pitch = getprop("/orientation/pitch-deg");
+	    var yp = 254.0 - (pitch -5.0) * 5.6;
+	    p_vert_sit.theta.setTranslation(467,yp);
     
         p_vert_sit.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
     
@@ -129,7 +152,8 @@ var PFD_addpage_p_vert_sit = func(device)
     var p_vert_sit2 = device.addPage("VertSit2", "p_vert_sit2");
     
     p_vert_sit2.speedbrake = device.svg.getElementById("p_vert_sit2_speedbrake");
-    
+    p_vert_sit2.group = device.svg.getElementById("p_vert_sit2");
+    p_vert_sit2.group.setColor(dps_r, dps_g, dps_b);
     
     
     p_vert_sit2.ondisplay = func
@@ -192,6 +216,18 @@ var PFD_addpage_p_vert_sit = func(device)
 
 	p_vert_sit2.shuttle_sym.setScale(6.0);
 
+	data = SpaceShuttle.draw_tmarker_right();
+	p_vert_sit2.theta = device.symbols.createChild("path", "theta")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_vert_sit2.theta.lineTo(set[0], set[1]);
+		}
+
     
     }
     
@@ -219,12 +255,19 @@ var PFD_addpage_p_vert_sit = func(device)
             var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
             var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
-            #device.p_ascent_shuttle_sym.setTranslation(x,y);
-	    var vspeed = getprop("/velocities/vertical-speed-fps");
-	    p_vert_sit.shuttle_sym.setRotation(vspeed * 0.00225);
+            var vspeed = getprop("/velocities/vertical-speed-fps");
+	    var mach = getprop("/velocities/mach");
+	    if (mach< 0.5) {mach = 0.5;}	
+	    var rot = vspeed * 0.005 /mach;
+	    rot = SpaceShuttle.clamp(rot, -1.57, 1.57);
+	    p_vert_sit2.shuttle_sym.setRotation(rot);
 	    p_vert_sit2.shuttle_sym.setTranslation(x,y);
 
     	}
+
+	    var pitch = getprop("/orientation/pitch-deg");
+	    var yp = 254.0 - (pitch -5.0) * 5.6;
+	    p_vert_sit2.theta.setTranslation(467,yp);
     
         p_vert_sit2.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
     
