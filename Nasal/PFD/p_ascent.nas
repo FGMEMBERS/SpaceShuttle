@@ -18,10 +18,10 @@ var PFD_addpage_p_ascent = func(device)
     var p_ascent_next_update = 0;
     
     
-    device.p_ascent_shuttle_sym = device._canvas.createGroup();
-    canvas.parsesvg( device.p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
-    device.p_ascent_shuttle_sym.setScale(0.3);
-    device.p_ascent_shuttle_sym.setColor(dps_r, dps_g, dps_b);
+    #device.p_ascent_shuttle_sym = device._canvas.createGroup();
+    #canvas.parsesvg( device.p_ascent_shuttle_sym, "/Nasal/canvas/map/Images/boeingAirplane.svg");
+    #device.p_ascent_shuttle_sym.setScale(0.3);
+    #device.p_ascent_shuttle_sym.setColor(dps_r, dps_g, dps_b);
     
     p_ascent.group = device.svg.getElementById("p_ascent");
     p_ascent.group.setColor(dps_r, dps_g, dps_b);
@@ -35,14 +35,34 @@ var PFD_addpage_p_ascent = func(device)
     p_ascent.ondisplay = func
     {
         # called once whenever this page goes on display/
-        device.p_ascent_shuttle_sym.setScale(0.3);
+         #device.p_ascent_shuttle_sym.setScale(0.3);
         device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
+
+	# generate the symbols for the graphical part of the display
+
+	var data = SpaceShuttle.draw_triangle_up();
+	
+	 p_ascent.shuttle_marker = device.symbols.createChild("path", "shuttle_marker")
+        .setStrokeLineWidth(2)
+        .setColor(0.8, 0.8, 0.4)
+	.moveTo(data[0][0], data[0][1]);
+
+ 	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_ascent.shuttle_marker.lineTo(set[0], set[1]);
+		}
+
+	setsize(data,0);
+
+
     }
     
     p_ascent.offdisplay = func
     {
         device.nom_traj_plot.removeAllChildren();
-        device.p_ascent_shuttle_sym.setScale(0.0);
+    	device.symbols.removeAllChildren();
+        #device.p_ascent_shuttle_sym.setScale(0.0);
     
         device.set_DPS_off();
     }
@@ -119,7 +139,10 @@ var PFD_addpage_p_ascent = func(device)
         var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
         var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
-        device.p_ascent_shuttle_sym.setTranslation(x,y);
+	#print (x, " ", y);
+
+	p_ascent.shuttle_marker.setTranslation(x,y);
+        #device.p_ascent_shuttle_sym.setTranslation(x,y);
     
     
     };

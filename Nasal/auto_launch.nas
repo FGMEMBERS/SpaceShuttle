@@ -23,9 +23,9 @@ if (auto_launch_stage == 0)
 	}
 else if (auto_launch_stage == 1)
 	{
-	# check for launch course reached, then initiate pitch down
+	# check for launch course reached, then initiate pitch down assuming we're high enough
 
-	if (math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01)
+	if ((math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01) and (getprop("/position/altitude-agl-ft") > 6000.0))
 		{
 		auto_launch_stage = 2;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 2);
@@ -45,9 +45,9 @@ else if (auto_launch_stage == 2)
 		{
 		if (aux_flag == 0)
 			{
-			setprop("/controls/engines/engine[0]/throttle", 0.61);
-			setprop("/controls/engines/engine[1]/throttle", 0.61);
-			setprop("/controls/engines/engine[2]/throttle", 0.61);
+			setprop("/controls/engines/engine[0]/throttle", 0.65);
+			setprop("/controls/engines/engine[1]/throttle", 0.65);
+			setprop("/controls/engines/engine[2]/throttle", 0.65);
 			aux_flag = 1;
 			}
 		}

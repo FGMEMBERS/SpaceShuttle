@@ -577,6 +577,10 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
 
 var update_inclination = func {
 
+# do not accept updates if guidance is running
+
+if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1) {return;}
+
 var raw = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination");
 var lat = getprop("/position/latitude-deg");
 
@@ -584,7 +588,22 @@ var inc = lat + (90 - lat) * raw;
 
 setprop("/fdm/jsbsim/systems/ap/launch/inclination-target", inc);
 
-var la_north = 180.0/math.pi *  math.asin(math.cos(inc * math.pi/180.0) / math.cos (lat * math.pi/180.0));
+var la_raw =  math.asin(math.cos(inc * math.pi/180.0) / math.cos (lat * math.pi/180.0));
+
+#print ("Raw: ", la_raw * 180/math.pi);
+
+# approx correction due to Earth's rotation
+var v_orbit = 7700; # 300 km orbit
+var v_earth = 465;
+var v_xe = v_orbit * math.sin(la_raw) - v_earth * math.cos(lat * math.pi/180.0);
+var v_ye = v_orbit * math.cos(la_raw);
+
+#print("vx: ", v_xe, "vy: ", v_ye);
+
+var la_north = math.atan2(v_xe,v_ye);
+
+la_north = 180.0/math.pi * la_north;
+
 var la_south = 180.0 - la_north;
 
 setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-north", la_north);
