@@ -1178,9 +1178,9 @@
 						<property>systems/ap/launch/stage1-course-error</property>
 						<value>-2.0</value>
 					</product>
-					<value>-0.6</value>
+					<value>-0.8</value>
 				</max>
-				<value>0.6</value>
+				<value>0.8</value>
 			</min>
 		</function>
 		</fcs_function>

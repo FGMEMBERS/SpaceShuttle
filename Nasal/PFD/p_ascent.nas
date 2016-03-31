@@ -12,7 +12,7 @@ var PFD_addpage_p_ascent = func(device)
     #
     #
     # Ascent page update
-    var p_ascent_view = device.svg.getElementById("ascent_view");
+    # var p_ascent_view = device.svg.getElementById("ascent_view");
     SpaceShuttle.fill_traj1_data();
     var p_ascent_time = 0;
     var p_ascent_next_update = 0;
@@ -140,6 +140,7 @@ var PFD_addpage_p_ascent = func(device)
     	{
             device.DPS_menu_title.setText("ASCENT TRAJ 2");
             device.DPS_menu_ops.setText("1031/     /");
+	    p_ascent.pred2.setVisible(1);
     	}
     
     
@@ -171,6 +172,14 @@ var PFD_addpage_p_ascent = func(device)
 	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 
 	p_ascent.pred1.setTranslation(x,y);
+
+	velocity = SpaceShuttle.ascent_predictors[1][0];
+	altitude = SpaceShuttle.ascent_predictors[1][1];
+
+	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+
+	p_ascent.pred2.setTranslation(x,y);
         #device.p_ascent_shuttle_sym.setTranslation(x,y);
     
     
