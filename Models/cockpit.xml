@@ -56,6 +56,7 @@
         <object-name>Fwd_Equipment_Knobs.005</object-name>
         <object-name>Fwd_Equipment_Knobs.006</object-name>
         <object-name>Fwd_Equipment_Knobs.008</object-name>
+        <object-name>Fwd_Equipment_Knobs.011</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -150,6 +151,42 @@
         <object-name>timer2-set-up</object-name>
         <object-name>timer3-set-up</object-name>
         <object-name>timer4-set-up</object-name>
+        <!-- Panel C3 switches -->    
+        <object-name>air-data-probe-right</object-name>
+        <object-name>air-data-probe-left</object-name>
+        <object-name>srb-sep</object-name>
+        <object-name>sband-control</object-name>
+        <object-name>roll-trim</object-name>
+        <object-name>pitch-trim</object-name>
+        <object-name>payload-safing1</object-name>
+        <object-name>payload-safing2</object-name>
+        <object-name>payload-safing3</object-name>
+        <object-name>payload-safing4</object-name>
+        <object-name>payload-safing5</object-name>
+        <object-name>osm-eng-right</object-name>
+        <object-name>osm-eng-left</object-name>
+        <object-name>oi-pcmmu-pwr</object-name>
+        <object-name>main-eng-limit-shut-on</object-name>
+        <object-name>fuel-cell-reac-vlv1</object-name>
+        <object-name>fuel-cell-reac-vlv2</object-name>
+        <object-name>fuel-cell-reac-vlv3</object-name>
+        <object-name>emergency-lighting</object-name>
+        <object-name>caution-warning-mode</object-name>
+        <object-name>caution-warning-memory</object-name>
+        <object-name>bfc-crt-select</object-name>
+        <object-name>bfc-crt-display</object-name>
+        <object-name>audio-center</object-name>
+        <object-name>air-data-prob-stow-right</object-name>
+        <object-name>air-data-prob-stow-left</object-name>
+        <object-name>oi-pcmmu-format</object-name>
+        <!-- Panel C3 covers -->
+        <object-name>osm-arm-cvr</object-name>
+        <object-name>air-data-probe-cvr</object-name>
+        <object-name>srb-sep-cvr</object-name>
+        <object-name>main-eng-sd-left-cvr</object-name>
+        <object-name>main-eng-sd-right-cvr</object-name>
+        <object-name>main-eng-sd-ctr-cvr</object-name>
+        <object-name>et-sep-cvr</object-name>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
@@ -3477,6 +3514,97 @@
         </release>
     </animation>
 
+
+    <!-- ******************************************************************* -->
+    <!-- Panel C3                                                                                          -->                                                    -->
+    <!-- ******************************************************************* -->
+
+    <!-- OSM Arm "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>osm-arm-cover</object-name>
+        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <factor>-70</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.0866</x-m>
+            <y-m> -0.1165</y-m>
+            <z-m> -1.015</z-m>
+        </center>
+        <axis>
+            <x> 1</x>
+            <y> 0</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>osm-arm-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+    
+    <!-- Air Data Probe "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>air-data-probe-cvr</object-name>
+        <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+        <factor>-70</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.7425</x-m>
+            <y-m> -0.0941</y-m>
+            <z-m> -1.0209</z-m>
+        </center>
+        <axis>
+            <x> 1</x>
+            <y> 0</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>air-data-probe-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+    
+    <!-- ******************************************************************* -->
+    <!-- Thrust Controllers                                                                                          -->                                                    -->
+    <!-- ******************************************************************* -->
+    
     <!-- Commander Manual Speed Brake/Thrust Select "Knob"-->
     <animation>
         <type>translate</type>
