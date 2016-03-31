@@ -55,6 +55,29 @@ var PFD_addpage_p_ascent = func(device)
 
 	setsize(data,0);
 
+	data = SpaceShuttle.draw_circle(3, 10);
+
+	p_ascent.pred1 = device.symbols.createChild("path", "pred1")
+        .setStrokeLineWidth(1)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	 p_ascent.pred2 = device.symbols.createChild("path", "pred2")
+        .setStrokeLineWidth(1)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	p_ascent.pred2.setVisible(0);
+
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_ascent.pred1.lineTo(set[0], set[1]);
+		p_ascent.pred2.lineTo(set[0], set[1]);
+		}
+
+
 
     }
     
@@ -77,7 +100,7 @@ var PFD_addpage_p_ascent = func(device)
         if (SpaceShuttle.traj_display_flag < 3)
     	{
             var throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm");
-            if (throttle < 0.67) {throttle = 0.0;} else {throttle = throttle * 100.0;}
+            if (throttle < 0.61) {throttle = 0.0;} else {throttle = throttle * 100.0;}
             p_ascent.throttle.setText(sprintf("%3.0f",throttle));
             p_ascent.throttle_text.setText(sprintf("THROT"));
     	}
@@ -134,14 +157,20 @@ var PFD_addpage_p_ascent = func(device)
     
         var velocity = SpaceShuttle.ascent_traj_update_velocity();
         var altitude = getprop("/position/altitude-ft");
-    
-    
+        
+
         var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
         var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
-	#print (x, " ", y);
-
 	p_ascent.shuttle_marker.setTranslation(x,y);
+
+	velocity = SpaceShuttle.ascent_predictors[0][0];
+	altitude = SpaceShuttle.ascent_predictors[0][1];
+
+	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+
+	p_ascent.pred1.setTranslation(x,y);
         #device.p_ascent_shuttle_sym.setTranslation(x,y);
     
     

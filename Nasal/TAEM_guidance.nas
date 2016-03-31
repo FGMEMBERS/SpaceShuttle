@@ -9,6 +9,8 @@ var TAEM_guidance_available = 0;
 
 var final_approach_reserve = 4.0;
 
+
+
 var TAEM_predictor_set = {
 
 	entry: [[0.0, 0.0], [0.0,0.0], [0.0,0.0]],

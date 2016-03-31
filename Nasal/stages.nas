@@ -212,7 +212,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
 	{SpaceShuttle.update_entry_guidance();}
 
 SpaceShuttle.check_limits_ascent();
-#SpaceShuttle.update_LVLH_to_ECI();
+
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
 	{
@@ -226,12 +226,15 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 	}
 	
+settimer(SpaceShuttle.update_ascent_predictors, 0.4);
 
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 
+
+
 # some log output
-# print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"));
+#print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/ned-velocity-mag-fps"));
 # print(t_elapsed, " ", getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps"), " ", getprop("/position/altitude-ft"));
 
 settimer(launch_loop, 1.0);

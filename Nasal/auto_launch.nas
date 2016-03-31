@@ -29,8 +29,8 @@ else if (auto_launch_stage == 1)
 		{
 		auto_launch_stage = 2;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 2);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 78.0);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.2);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 75.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.15);
 		aux_flag = 0;
 		}
 
@@ -62,13 +62,23 @@ else if (auto_launch_stage == 2)
 			}
 		}
 
-	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 510.0) and (auto_launch_timer > 42.0))
+	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 610.0) and (auto_launch_timer > 42.0))
 		{
 		if (aux_flag == 2)
 			{
-			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 55.0);
-			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.12);
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 45.0);
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.04);
 			aux_flag = 3;
+			}
+		}
+
+	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 510.0) and (auto_launch_timer > 42.0))
+		{
+		if (aux_flag == 3)
+			{
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 45.0);
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.12);
+			aux_flag = 4;
 			}
 		}
 
