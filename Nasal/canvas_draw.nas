@@ -21,6 +21,58 @@ append(shape_data, point);
 return shape_data;
 }
 
+var draw_tmarker_right = func {
+
+var shape_data = [];
+
+var point = [0, 0];
+append(shape_data, point);
+
+point = [-8.0, -6.9];
+append(shape_data, point);
+
+point = [-8.0, 6.9];
+append(shape_data, point);
+
+point = [0, 0];
+append(shape_data, point);
+
+return shape_data;
+
+}
+
+var draw_arrowmarker_right = func {
+
+var shape_data = [];
+
+var point = [0, 0];
+append(shape_data, point);
+
+point = [-4.5, 3.0];
+append(shape_data, point);
+
+point = [-4.5, 1.5];
+append(shape_data, point);
+
+point = [-24.0, 1.5];
+append(shape_data, point);
+
+point = [-24.0, -1.5];
+append(shape_data, point);
+
+point = [-4.5, -1.5];
+append(shape_data, point);
+
+point = [-4.5, -3.0];
+append(shape_data, point);
+
+point = [0.0, 0.0];
+append(shape_data, point);
+
+return shape_data;
+
+}
+
 
 var draw_shuttle_side = func {
 

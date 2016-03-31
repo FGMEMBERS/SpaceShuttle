@@ -804,7 +804,7 @@ SpaceShuttle.update_timers();
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 settimer(SpaceShuttle.update_sv_errors, 0.4);
-settimer(SpaceShuttle.update_sensors, 0.4);
+settimer(SpaceShuttle.update_sensors, 0.5);
 
 settimer(orbital_loop, 1.0);
 }
@@ -1174,7 +1174,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if ((getprop("/position/altitude-ft") < 85000.0) and (deorbit_stage_flag == 3))
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
@@ -1778,6 +1778,8 @@ if (stage == 3)
 
 	setprop("/velocities/uBody-fps",2400.0);
 
+	# arrange the displays to be set
+
 	MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_dps_hsit);
 	MEDS_CDR1.PFD.dps_page_flag = 1;
 	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
@@ -1796,6 +1798,8 @@ if (stage == 3)
 	MEDS_PLT1.PFD.dps_page_flag = 1;
 	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
 	MEDS_PLT2.dps_page_flag = 1;
+
+	setprop("/fdm/jsbsim/systems/dps/spec", 50);
 	}
 
 if (stage == 4) 

@@ -365,9 +365,12 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/v-m_s", correcti
 
 var current_acc_ang = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
 
+
 var pitch_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
 var yaw_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
 var roll_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg");
+
+#print (accuracy_ang, " ", current_acc_ang);
 
 var correction_ang = accuracy_ang/current_acc_ang;
 correction_ang = SpaceShuttle.clamp(correction_ang, 0.0, 1.0);
