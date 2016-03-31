@@ -13,6 +13,9 @@ var sym_shuttle_asc = {};
 var trajectory = {};
 
 
+var ascent_predictors = [[0.0, 0.0], [0.0,0.0]];
+
+
 
 var create_MDU_clone = func (index) {
 
@@ -77,6 +80,26 @@ if (update_vtraj_loop_flag == 0 ) {return;}
 ascent_traj_process (trajectory, sym_shuttle_asc);
 
 settimer(ascent_traj_update, 1.0);
+}
+
+
+var update_ascent_predictors = func {
+
+var altitude = getprop("/position/altitude-ft");
+var vspeed = getprop("/fdm/jsbsim/velocities/v-down-fps");
+
+if (traj_display_flag == 1)
+	{var speed = getprop("/fdm/jsbsim/velocities/ned-velocity-mag-fps");}
+else
+	{var speed = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");}
+
+var pitch = getprop("/orientation/pitch-deg") * math.pi/180.0;
+var acc = getprop("/fdm/jsbsim/systems/navigation/acceleration-x") - 32.18;
+
+ascent_predictors[0][0] = speed + 20.0 * acc;
+ascent_predictors[0][1] = altitude - 20.0 * vspeed;
+
+
 }
 
 
@@ -157,12 +180,20 @@ if (traj_display_flag == 8)
 
 var ascent_traj_update_velocity = func {
 
+if (traj_display_flag == 1)
+	{
+	return getprop("/fdm/jsbsim/velocities/ned-velocity-mag-fps");
+	}
+else
+	{
+	return getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+	}
+
 var latitude = getprop("/position/latitude-deg");
 var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 var earth_rotation = 1420.0 * math.cos(latitude);
-#var range = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
 
-#print(velocity, " ", earth_rotation);
+
 
 # the TRAJ 1 display shows relative rather than inertial velocity
 if (traj_display_flag == 1)
@@ -171,6 +202,7 @@ if (traj_display_flag == 1)
 return velocity;
 
 }
+
 
 
 
@@ -363,45 +395,30 @@ else if (display == 9)
 
 var fill_traj1_data = func {
 
-var point = [];
+#var point = [];
 
-point = [0.0, 0.0];
+setsize(traj_data,0);
+
+var point = [0.0, 0.0];
 append(traj_data, point);
 
-point = [568.0, 3250.0];
+var point = [285.0, 1800.0];
 append(traj_data, point);
 
-point = [806.0, 6310.0];
+var point = [711.0, 9734.0];
 append(traj_data, point);
 
-point = [1004.0, 10400.0];
+var point = [1109.0, 25900.0];
 append(traj_data, point);
 
-point = [1182.0, 15400.0];
+var point = [2005.0, 64550.0];
 append(traj_data, point);
 
-point = [1432.0, 25800.0];
+var point = [3080.0, 116400.0];
 append(traj_data, point);
 
-point = [1622.0, 34400.0];
+var point = [3914.0, 167700.0];
 append(traj_data, point);
-
-point = [2041.0, 50600.0];
-append(traj_data, point);
-
-point = [2740.0, 75500.0];
-append(traj_data, point);
-
-point = [3404.0, 101000.0];
-append(traj_data, point);
-
-point = [4050, 130100.0];
-append(traj_data, point);
-
-point = [4654.0, 167800.0];
-append(traj_data, point);
-
-
 
 for (i=0; i< size(traj_data); i=i+1)
 	{
