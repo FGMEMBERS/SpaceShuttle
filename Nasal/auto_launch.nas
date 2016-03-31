@@ -25,12 +25,12 @@ else if (auto_launch_stage == 1)
 	{
 	# check for launch course reached, then initiate pitch down assuming we're high enough
 
-	if ((math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01) and (getprop("/position/altitude-agl-ft") > 6000.0))
+	if (math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01) 
 		{
 		auto_launch_stage = 2;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 2);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 75.0);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.15);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 74.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.2);
 		aux_flag = 0;
 		}
 
@@ -41,7 +41,7 @@ else if (auto_launch_stage == 2)
 	{
 
 
-	if ((auto_launch_timer > 20.0) and (auto_launch_timer < 42.0))
+	if ((auto_launch_timer > 18.0) and (auto_launch_timer < 42.0))
 		{
 		if (aux_flag == 0)
 			{
@@ -55,6 +55,8 @@ else if (auto_launch_stage == 2)
 		{
 		if (aux_flag == 1)
 			{
+		
+
 			setprop("/controls/engines/engine[0]/throttle", 1.0);
 			setprop("/controls/engines/engine[1]/throttle", 1.0);
 			setprop("/controls/engines/engine[2]/throttle", 1.0);
@@ -62,7 +64,7 @@ else if (auto_launch_stage == 2)
 			}
 		}
 
-	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 610.0) and (auto_launch_timer > 42.0))
+	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 620.0) and (auto_launch_timer > 42.0))
 		{
 		if (aux_flag == 2)
 			{
@@ -86,7 +88,9 @@ else if (auto_launch_stage == 2)
 		{
 		auto_launch_stage = 3;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 3);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", -5.0);
+		var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
+
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 5.0 + 5.0 * payload_factor);
 		aux_flag = 0;
 		}
 
@@ -96,13 +100,13 @@ else if (auto_launch_stage == 3)
 
 	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -300.0) and (aux_flag == 0))
 		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 18.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 10.0);
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
 		aux_flag = 1;
 		}
 	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -100.0) and (aux_flag == 1))
 		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 15.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 10.0);
 		aux_flag = 2;
 		}
 	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  20.0) and (aux_flag == 2))
