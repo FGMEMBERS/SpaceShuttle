@@ -2344,6 +2344,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/orbital_planning.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/coordinates.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/state_vector.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/vertical_traj.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/auto_launch.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/housekeeping.nas</file>
@@ -2352,7 +2353,6 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/entry_guidance.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/TAEM_guidance.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/map.nas</file>
-   <file>Aircraft/SpaceShuttle/Nasal/vertical_traj.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/failures.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/cws.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/thermal_balance.nas</file>
