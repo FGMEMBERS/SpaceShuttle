@@ -31,7 +31,11 @@ var PFD_addpage_p_ascent = func(device)
     
     p_ascent.prplt = device.svg.getElementById("p_ascent_prplt");
     p_ascent.prplt_text = device.svg.getElementById("p_ascent_prplt_txt");
-    
+
+    p_ascent.vco  = device.svg.getElementById("p_ascent_vco");
+    p_ascent.vcoscale_co = device.svg.getElementById("p_ascent_vcoscale_co");
+    p_ascent.vcoscale_labelco = device.svg.getElementById("p_ascent_vcoscale_labelco");
+
     p_ascent.ondisplay = func
     {
         # called once whenever this page goes on display/
@@ -77,7 +81,29 @@ var PFD_addpage_p_ascent = func(device)
 		p_ascent.pred2.lineTo(set[0], set[1]);
 		}
 
+	setsize(data,0);
 
+	data = SpaceShuttle.draw_tmarker_down();
+
+	p_ascent.vco_marker = device.symbols.createChild("path", "vco_marker")
+        .setStrokeLineWidth(1)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_ascent.vco_marker.lineTo(set[0], set[1]);
+		}
+
+	p_ascent.vco_marker.setTranslation(78.0 + 0.0 * 400.0 ,92.0);
+	
+	var co_shift = (25850.0-25000.0)/1000.0;
+	p_ascent.vcoscale_co.setTranslation( co_shift * 400.0, 0.0);
+    	p_ascent.vcoscale_labelco.setTranslation( co_shift * 400.0, 0.0);
+
+	p_ascent.vco.setVisible(0);
+	p_ascent.vco_marker.setVisible(0);
 
     }
     
@@ -114,6 +140,11 @@ var PFD_addpage_p_ascent = func(device)
     	{
             p_ascent.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
             p_ascent.prplt_text.setText(sprintf("PRPLT"));
+	    p_ascent.vco.setVisible(1);
+	    p_ascent.vco_marker.setVisible(1);
+	    p_ascent.vcoscale_co.setVisible(1);
+	    p_ascent.vcoscale_labelco.setVisible(1);
+
     	}
         else 	
     	{
@@ -159,6 +190,10 @@ var PFD_addpage_p_ascent = func(device)
         var velocity = SpaceShuttle.ascent_traj_update_velocity();
         var altitude = getprop("/position/altitude-ft");
         
+	var vfrac = (velocity - 25000.0)/1000.0;
+	if (vfrac < 0) {vfrac = 0.0;}
+
+	p_ascent.vco_marker.setTranslation(78.0 + vfrac * 400.0 ,92.0);
 
         var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
         var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
