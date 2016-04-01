@@ -51,9 +51,19 @@ else
 	}
 
 var pitch = getprop("/orientation/pitch-deg") * math.pi/180.0;
-var acc = getprop("/fdm/jsbsim/systems/navigation/acceleration-x") ;
+var roll = getprop("/orientation/roll-deg") * math.pi/180.0;
 
-var acc_vert = acc * math.sin(pitch) - 32.18;
+if (traj_display_flag == 2) 
+	{
+	# SSME engines are pitched
+	pitch = pitch - 16.0 * math.pi/180.0 * math.cos(roll); 
+	}
+
+var acc = getprop("/fdm/jsbsim/systems/navigation/acceleration-x") ;
+var gravity = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2");
+var centrifugal = getprop("/fdm/jsbsim/accelerations/a-centrifugal-ft_sec2");
+
+var acc_vert = acc * math.sin(pitch) - gravity + centrifugal;
 var acc_horiz = acc * math.cos(pitch);
 
 var acc_eff = math.sqrt(acc_vert * acc_vert + acc_horiz * acc_horiz);

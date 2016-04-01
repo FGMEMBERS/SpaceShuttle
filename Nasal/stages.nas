@@ -228,6 +228,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	
 settimer(SpaceShuttle.update_ascent_predictors, 0.4);
 
+
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 
