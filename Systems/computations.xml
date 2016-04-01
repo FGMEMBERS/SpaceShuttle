@@ -25,6 +25,24 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="accelerations/a-centrifugal-ft_sec2">
+		<function>
+		<quotient>
+			<sum>
+				<pow>
+					<property>velocities/v-east-fps</property>
+					<value>2.0</value>
+				</pow>
+				<pow>
+					<property>velocities/v-north-fps</property>
+					<value>2.0</value>
+				</pow>
+			</sum>
+			<property>position/eci-norm-ft</property>
+		</quotient>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="velocities/course-deg">
 		<function>
 			<product>

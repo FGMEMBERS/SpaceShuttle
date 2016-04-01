@@ -1178,9 +1178,9 @@
 						<property>systems/ap/launch/stage1-course-error</property>
 						<value>-2.0</value>
 					</product>
-					<value>-0.6</value>
+					<value>-0.8</value>
 				</max>
-				<value>0.6</value>
+				<value>0.8</value>
 			</min>
 		</function>
 		</fcs_function>
@@ -1325,7 +1325,7 @@
       						<table>
         					<independentVar lookup="row">velocities/mach</independentVar>
          					<tableData>
-      						  5.0	0.0
+      						  7.0	0.0
 						  8.0	100.0
 						  14.0	300.0
 						  25.0	500.0
@@ -1451,8 +1451,8 @@
       						<table>
         					<independentVar lookup="row">velocities/mach</independentVar>
          					<tableData>
-      						  5.0	0.0
-						  8.0	100.0
+      						  6.0	0.0
+						  7.0	100.0
 						  14.0	300.0
 						  25.0	100.0
        					  	</tableData>
