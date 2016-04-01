@@ -56,7 +56,6 @@
         <object-name>Fwd_Equipment_Knobs.005</object-name>
         <object-name>Fwd_Equipment_Knobs.006</object-name>
         <object-name>Fwd_Equipment_Knobs.008</object-name>
-        <object-name>Fwd_Equipment_Knobs.011</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -166,6 +165,7 @@
         <object-name>osm-eng-right</object-name>
         <object-name>osm-eng-left</object-name>
         <object-name>oi-pcmmu-pwr</object-name>
+        <object-name>oi-pcmmu-format</object-name>
         <object-name>main-eng-limit-shut-on</object-name>
         <object-name>fuel-cell-reac-vlv1</object-name>
         <object-name>fuel-cell-reac-vlv2</object-name>
@@ -178,7 +178,19 @@
         <object-name>audio-center</object-name>
         <object-name>air-data-prob-stow-right</object-name>
         <object-name>air-data-prob-stow-left</object-name>
-        <object-name>oi-pcmmu-format</object-name>
+        <object-name>audio-center</object-name>
+        <object-name>body-flap</object-name>
+        <object-name>et-sep</object-name>
+        <object-name>fcs-channel1</object-name>
+        <object-name>fcs-channel2</object-name>
+        <object-name>fcs-channel3</object-name>
+        <object-name>fcs-channel4</object-name>
+        <object-name>fuel-cell-reac-vlv1-brk</object-name>
+        <object-name>fuel-cell-reac-vlv2-brk</object-name>
+        <object-name>fuel-cell-reac-vlv3-brk</object-name>
+        <object-name>master-mads-pwr</object-name>
+        <object-name>uplink</object-name>
+        <object-name>Fwd_Equipment_Knobs.011</object-name>
         <!-- Panel C3 covers -->
         <object-name>osm-arm-cvr</object-name>
         <object-name>air-data-probe-cvr</object-name>
@@ -3514,15 +3526,14 @@
         </release>
     </animation>
 
-
     <!-- ******************************************************************* -->
-    <!-- Panel C3                                                                                          -->                                                    -->
+    <!-- Panel C3                                                                                                         -->                                                    -->
     <!-- ******************************************************************* -->
 
     <!-- OSM Arm "Cover" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-arm-cover</object-name>
+        <object-name>osm-arm-cvr</object-name>
         <property>/sim/model/panel/cover/osm-arm-cvr</property>
         <factor>-70</factor>
         <offset-deg>0</offset-deg>
@@ -3559,7 +3570,7 @@
             </binding>
         </hovered>
     </animation>
-    
+
     <!-- Air Data Probe "Cover" -->
     <animation>
         <type>knob</type>
@@ -3600,7 +3611,211 @@
             </binding>
         </hovered>
     </animation>
-    
+
+    <!-- Main Engine Shutdown Left "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>main-eng-sd-left-cvr</object-name>
+        <property>/sim/model/panel/cover/main-eng-sd-left-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.0083</x-m>
+            <y-m> -0.0114</y-m>
+            <z-m> -1.0165</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y> 1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/main-eng-sd-left-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>main-eng-sd-left-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/main-eng-sd-left-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Main Engine Shutdown Right "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>main-eng-sd-right-cvr</object-name>
+        <property>/sim/model/panel/cover/main-eng-sd-right-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.00832</x-m>
+            <y-m>  0.05045</y-m>
+            <z-m> -1.01646</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y> 1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/main-eng-sd-right-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>main-eng-sd-right-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/main-eng-sd-right-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Main Engine Shutdown Center "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>main-eng-sd-ctr-cvr</object-name>
+        <property>/sim/model/panel/cover/main-eng-sd-ctr-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.01828</x-m>
+            <y-m>  0.01941</y-m>
+            <z-m> -1.01646</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y> 1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/main-eng-sd-ctr-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>main-eng-sd-ctr-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/main-eng-sd-ctr-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- SRB Separation "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>srb-sep-cvr</object-name>
+        <property>/sim/model/panel/cover/srb-sep-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94683</x-m>
+            <y-m>  0.07532</y-m>
+            <z-m> -1.01646</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y> 1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/srb-sep-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>srb-sep-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/srb-sep-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Separation "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-sep-cvr</object-name>
+        <property>/sim/model/panel/cover/et-sep-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94683</x-m>
+            <y-m>  0.14264</y-m>
+            <z-m> -1.01646</z-m>
+        </center>
+        <axis>
+            <x> 0</x>
+            <y> 1</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/et-sep-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-sep-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/et-sep-cvr</property>
+            </binding>
+        </hovered>
+    </animation>    
     <!-- ******************************************************************* -->
     <!-- Thrust Controllers                                                                                          -->                                                    -->
     <!-- ******************************************************************* -->
