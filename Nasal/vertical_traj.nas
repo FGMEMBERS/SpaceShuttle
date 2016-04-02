@@ -287,13 +287,13 @@ append(traj_data, point);
 var point = [1109.0, 25900.0];
 append(traj_data, point);
 
-var point = [2005.0, 64550.0];
+var point = [2078.0, 65300.0];
 append(traj_data, point);
 
-var point = [3080.0, 116400.0];
+var point = [3208.0, 115130.0];
 append(traj_data, point);
 
-var point = [3914.0, 167700.0];
+var point = [4122.0, 167900.0];
 append(traj_data, point);
 
 for (i=0; i< size(traj_data); i=i+1)
