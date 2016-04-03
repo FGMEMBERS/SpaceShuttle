@@ -69,7 +69,7 @@ else if (auto_launch_stage == 2)
 		if (aux_flag == 2)
 			{
 			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 45.0);
-			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.04);
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.06);
 			aux_flag = 3;
 			}
 		}
@@ -90,7 +90,13 @@ else if (auto_launch_stage == 2)
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 3);
 		var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
 
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 5.0 + 5.0 * payload_factor);
+		var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+		var heading = getprop("/orientation/heading-deg") * math.pi/180.0;
+		var geo_factor = math.sin(heading) * math.cos(lat);
+
+		var pitch_target = 5.0 + 5.0 * payload_factor + 4.0 - 6.0 * geo_factor;
+
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", pitch_target);
 		aux_flag = 0;
 		}
 
