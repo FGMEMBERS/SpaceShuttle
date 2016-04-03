@@ -155,6 +155,7 @@
         <object-name>air-data-probe-left</object-name>
         <object-name>srb-sep</object-name>
         <object-name>sband-control</object-name>
+        <object-name>sband-pm</object-name>
         <object-name>roll-trim</object-name>
         <object-name>pitch-trim</object-name>
         <object-name>payload-safing1</object-name>
@@ -3527,8 +3528,147 @@
     </animation>
 
     <!-- ******************************************************************* -->
-    <!-- Panel C3                                                                                                         -->                                                    -->
+    <!-- Panel C3                                                                                          -->                                                    -->
     <!-- ******************************************************************* -->
+
+    <!--  Left OSM Engine Arm "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>osm-eng-left</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
+        <factor>-35</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.0875</x-m>
+            <y-m> -0.1506</y-m>
+            <z-m> -1.0329</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>osm-eng-left</tooltip-id>
+                <label>Left OSM Engine Arm: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ARM/PRESS', 'ARM'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!--  Right OSM Engine Arm "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>osm-eng-right</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
+        <factor>-35</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-12.0875</x-m>
+            <y-m> -0.1271</y-m>
+            <z-m> -1.0329</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>osm-eng-right</tooltip-id>
+                <label>Right OSM Engine Arm: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ARM/PRESS', 'ARM'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- SBand "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>sband-pm</object-name>
+        <property>/fdm/jsbsim/systems/dummy/switch/sband-pm</property>
+        <factor>-31</factor>
+        <offset-deg>-145</offset-deg>
+        <axis>
+            <x> 0 </x>
+            <y> 0 </y>
+            <z> 1 </z>
+        </axis>
+        <center>
+            <x-m>-11.8345</x-m>
+            <y-m>  0.2071</y-m>
+            <z-m> -1.0176</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                  <property>/fdm/jsbsim/systems/dummy/switch/sband-pm</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>8</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>sband-pm</tooltip-id>
+                <label>SBand: %s</label>
+                <property>/fdm/jsbsim/systems/dummy/switch/sband-pm</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['GPC', 'LL FWD', 'LL AFT', 'UL FWD', 'UL AFT', 'UR FWD', 'UR AFT', 'LR FWD', 'LR AFT', 'Pause'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
 
     <!-- OSM Arm "Cover" -->
     <animation>
