@@ -1189,7 +1189,7 @@
 
 	<!-- climbout to SRB separation -->
 
-	<channel name="Auto launch stage 2">
+	<channel name="Auto launch stage 2" execute="systems/ap/launch/stage2-active">
 
 		<fcs_function name="systems/ap/launch/stage2-pitch-error">
 		<function>
@@ -1197,6 +1197,25 @@
 				<property>/orientation/pitch-deg</property>
 				<property>/fdm/jsbsim/systems/ap/launch/pitch-target</property>
 			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage2-yaw-error">
+		<function>
+			<product>
+			<difference>
+				<property>/orientation/heading-deg</property>
+				<property>/fdm/jsbsim/systems/ap/launch/launch-azimuth</property>
+			</difference>
+			<table>
+        			<independentVar lookup="row">/orientation/pitch-deg</independentVar>
+         			<tableData>
+      					0.00	1.0
+					80.0	1.0
+					90.0	0.0	
+       				</tableData>
+    			</table>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -1220,10 +1239,20 @@
 
 		<fcs_function name="systems/ap/launch/stage2-roll-error">
 		<function>
+			<product>
 			<difference>
 				<property>systems/ap/launch/stage2-roll-deg</property>
 				<value>180.0</value>
 			</difference>
+			<table>
+        			<independentVar lookup="row">/orientation/pitch-deg</independentVar>
+         			<tableData>
+      					0.00	1.0
+					80.0	1.0
+					90.0	0.0	
+       				</tableData>
+    			</table>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -1244,6 +1273,23 @@
 					</product>
 				</max>
 				<property>systems/ap/launch/pitch-max-rate-norm</property>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage2-yaw-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/launch/stage2-yaw-error</property>
+						<value>-0.1</value>
+					</product>
+					<product>	
+					<value>-0.1</value>
+					</product>
+				</max>
+				<value>0.1</value>
 			</min>
 		</function>
 		</fcs_function>
@@ -1328,7 +1374,7 @@
       						  7.0	0.0
 						  8.0	100.0
 						  14.0	300.0
-						  25.0	500.0
+						  25.0	100.0
        					  	</tableData>
     						</table>
 					</product>
@@ -1339,11 +1385,28 @@
 		</function>
 		</fcs_function>
 
+  		<deadband name="systems/ap/launch/stage3-beta-PID-trigger">
+			<input>systems/ap/launch/stage3-beta-target</input>
+			<width>0.3</width>
+  		</deadband>
+
+		<pid name="systems/ap/launch/stage3-beta-pid">
+			<input>systems/ap/launch/stage3-beta-target</input>
+			<kp> 0.7 </kp>
+			<ki> 0.2 </ki>
+			<kd> 0.3</kd>
+			<trigger>systems/ap/launch/stage3-beta-PID-trigger</trigger>
+			<clipto>
+				<min> -10.0 </min>
+        			<max>  10.0 </max>
+			</clipto>
+		</pid>
+
 
 		<fcs_function name="systems/ap/launch/stage3-yaw-error">
 		<function>
 			<difference>
-				<property>systems/ap/launch/stage3-beta-target</property>
+				<property>systems/ap/launch/stage3-beta-pid</property>
 				<property>aero/beta-deg</property>
 			</difference>
 		</function>
@@ -1465,10 +1528,29 @@
 		</function>
 		</fcs_function>
 
+ 		<deadband name="systems/ap/launch/stage4-beta-PID-trigger">
+			<input>systems/ap/launch/stage4-beta-target</input>
+			<width>0.3</width>
+  		</deadband>
+
+		<pid name="systems/ap/launch/stage4-beta-pid">
+			<input>systems/ap/launch/stage4-beta-target</input>
+			<kp> 0.7 </kp>
+			<ki> 0.0 </ki>
+			<kd> 0.0</kd>
+			<!--<ki> 0.2 </ki>
+			<kd> 0.3</kd>-->
+			<trigger>systems/ap/launch/stage4-beta-PID-trigger</trigger>
+			<clipto>
+				<min> -10.0 </min>
+        			<max>  10.0 </max>
+			</clipto>
+		</pid>
+
 		<fcs_function name="systems/ap/launch/stage4-yaw-error">
 		<function>
 			<difference>
-				<property>systems/ap/launch/stage4-beta-target</property>
+				<property>systems/ap/launch/stage4-beta-pid</property>
 				<property>aero/beta-deg</property>
 			</difference>
 		</function>
@@ -1597,6 +1679,9 @@
 
 		<switch name="systems/ap/launch/yaw-cmd">
 			<default value="0.0"/>
+			<test value="systems/ap/launch/stage2-yaw-cmd">
+				systems/ap/launch/stage == 2
+			</test>
 			<test value="systems/ap/launch/stage3-yaw-cmd">
 				systems/ap/launch/stage == 3
 			</test>
