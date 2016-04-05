@@ -60,7 +60,8 @@ var ht_debug = 0;
 
 #var pitch_offset = 12;
 #var pitch_factor = 19.8;
-var pitch_offset = -6.0;
+var pitch_offset = -4.0;
+var pitch_offset2 = -60.0;
 var pitch_factor = 20.1;
 #var pitch_factor_2 = pitch_factor * 180.0 / 3.14159;
 var alt_range_factor = (9317-191) / 100000; # alt tape size and max value.
@@ -165,7 +166,7 @@ var STSHUD = {
   
 #pitch ladder
         me.ladder.setTranslation (0.0, hdp.pitch * pitch_factor+pitch_offset);                                           
-        me.ladder.setCenter (118,830 - hdp.pitch * pitch_factor-pitch_offset);
+        me.ladder.setCenter (118,830 - hdp.pitch * pitch_factor -pitch_offset2);
         me.ladder.setRotation (roll_rad);
   
 # velocity vector
