@@ -209,11 +209,9 @@ var auto_TAL_init = func {
 
 # we need to pitch up more on the ballistic climb to get into a good trajectory
 
-var current_pitch_target = getprop("/fdm/jsbsim/systems/ap/launch/pitch-target");
 
-var compensated_target = 180/math.pi * math.asin(1.5 * math.sin (current_pitch_target * math.pi/180.0));
 
-setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", compensated_target);
+setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 35.0);
 
 auto_TAL_loop();
 
@@ -233,18 +231,18 @@ if (auto_launch_stage == 3)
 	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
 
 
-	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -300.0) and (aux_flag == 0))
+	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -500.0) and (aux_flag == 0))
 		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 15.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 30.0);
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
 		aux_flag = 1;
 		}
-	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -100.0) and (aux_flag == 1))
+	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -200.0) and (aux_flag == 1))
 		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 15.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 25.0);
 		aux_flag = 2;
 		}
-	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  20.0) and (aux_flag == 2))
+	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  100.0) and (aux_flag == 2))
 		{
 		auto_launch_stage = 4;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 4);
@@ -254,6 +252,71 @@ if (auto_launch_stage == 3)
 		}	
 	
 	}
+else if (auto_launch_stage == 4)
+	{
+
+	var shuttle_pos = geo.aircraft_position();
+	
+	var course_tgt = shuttle_pos.course_to (SpaceShuttle.landing_site);
+	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
+
+	# dynamically throttle back when we reach acceleration limit
+	
+	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
+		{
+		var current_throttle = getprop("/controls/engines/engine[0]/throttle");
+		var new_throttle = current_throttle * 0.99;
+
+		if (new_throttle < 0.61) {new_throttle = 0.61;}
+
+		setprop("/controls/engines/engine[0]/throttle", new_throttle);
+		setprop("/controls/engines/engine[1]/throttle", new_throttle);
+		setprop("/controls/engines/engine[2]/throttle", new_throttle);
+
+		}
+
+	# change hdot target to 0 prior to MECO
+
+	if ((aux_flag == 0) and (getprop("/fdm/jsbsim/velocities/mach") > 23.0))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", 0.0);
+		aux_flag = 1;
+		} 
+
+	# increase pitch maneuverability as centrifugal force builds up
+
+	if ((aux_flag == 1) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > -500.0))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.15);
+		aux_flag = 2;
+		}
+
+
+	# null all rates prior to MECO
+
+	if ((aux_flag == 2) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > 0.0))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/stage", 5);
+		aux_flag = 3;
+		}
+
+
+
+	# MECO if apoapsis target is met
+
+	if (getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") > getprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target"))
+		{
+
+		setprop("/controls/engines/engine[0]/throttle", 0.0);
+		setprop("/controls/engines/engine[1]/throttle", 0.0);
+		setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+		print ("MECO - auto-launch guidance signing off!");
+		print ("Thank you for flying with us!");
+		return;
+		}
+	}
+
 
 
 auto_launch_timer = auto_launch_timer + 0.1;

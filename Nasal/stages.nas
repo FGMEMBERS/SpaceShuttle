@@ -1449,6 +1449,7 @@ setprop("/controls/shuttle/gear-string", "armed");
 # cutoff switches for SSME
 
 var ssme_cutoff = func (n) {
+#print ("Engine ", n, " cutoff command received!");
 
 setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
 
