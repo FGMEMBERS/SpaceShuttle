@@ -93,7 +93,8 @@ if (traj_display_flag == 1)
 	}
 if (traj_display_flag == 2)
 	{
-	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0) # we're preparing for de-orbit
+	#if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0) # we're preparing for de-orbit
+	if (getprop("/fdm/jsbsim/systems/dps/ops") == 3)
 		{
 		fill_entry1_data();
 		traj_display_flag = 3;

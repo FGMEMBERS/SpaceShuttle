@@ -10,6 +10,7 @@ var aux_flag = 0;
 var auto_launch_loop = func {
 
 
+
 if (auto_launch_stage == 0)
 	{
 	# check for clear gantry, then initiate rotation to launch course
@@ -104,6 +105,15 @@ else if (auto_launch_stage == 2)
 else if (auto_launch_stage == 3)
 	{
 
+	var guidance = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+
+	if (guidance == 2) # TAL abort requires different guidance after SRB sep
+		{
+		print ("TAL abort declared, switching to TAL guidance...");
+		auto_TAL_init();
+		return;
+		}
+
 	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -300.0) and (aux_flag == 0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 10.0);
@@ -189,6 +199,64 @@ else if (auto_launch_stage == 4)
 
 auto_launch_timer = auto_launch_timer + 0.1;
 
+
 settimer(auto_launch_loop, 0.1);
 
+}
+
+
+var auto_TAL_init = func {
+
+# we need to pitch up more on the ballistic climb to get into a good trajectory
+
+var current_pitch_target = getprop("/fdm/jsbsim/systems/ap/launch/pitch-target");
+
+var compensated_target = 180/math.pi * math.asin(1.5 * math.sin (current_pitch_target * math.pi/180.0));
+
+setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", compensated_target);
+
+auto_TAL_loop();
+
+}
+
+
+
+var auto_TAL_loop = func {
+
+
+if (auto_launch_stage == 3)
+	{
+
+	var shuttle_pos = geo.aircraft_position();
+	
+	var course_tgt = shuttle_pos.course_to (SpaceShuttle.landing_site);
+	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
+
+
+	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -300.0) and (aux_flag == 0))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 15.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
+		aux_flag = 1;
+		}
+	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -100.0) and (aux_flag == 1))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 15.0);
+		aux_flag = 2;
+		}
+	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  20.0) and (aux_flag == 2))
+		{
+		auto_launch_stage = 4;
+		setprop("/fdm/jsbsim/systems/ap/launch/stage", 4);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.05);
+		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", 50.0);
+		aux_flag = 0;
+		}	
+	
+	}
+
+
+auto_launch_timer = auto_launch_timer + 0.1;
+
+settimer(auto_TAL_loop, 0.1);
 }

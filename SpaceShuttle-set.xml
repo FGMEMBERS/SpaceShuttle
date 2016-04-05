@@ -46,6 +46,7 @@
 	  <pitch-target type="double">90.0</pitch-target>
 	  <pitch-max-rate-norm type="double">0.1</pitch-max-rate-norm>
 	  <inclination-target type="double">28.7</inclination-target>
+	  <course-target type="double">90.0</course-target>
 	  <hdot-target type="double">0.0</hdot-target>
 	  <apoapsis-target type="double">320.0</apoapsis-target>
        </launch>
