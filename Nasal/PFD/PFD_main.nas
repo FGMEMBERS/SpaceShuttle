@@ -504,26 +504,26 @@ var MDU_array = [];
 
 var MEDS_CDR1 =  MDU_Device.new("CDR1", "DisplayL1", 3, 1, 3, 1);
 var MEDS_CDR2 =  MDU_Device.new("CDR2", "DisplayL2", 1, 2, 1, 2);
-var MEDS_CRT1 =  MDU_Device.new("CRT1", "DisplayC1", 1, 1, 1, 3);
-var MEDS_MFD1 =  MDU_Device.new("MFD1", "DisplayC2", 2, 3, 2, 4);
-var MEDS_CRT3 =  MDU_Device.new("CRT3", "DisplayC3", 3, 3, 3, 5);
-var MEDS_CRT2 =  MDU_Device.new("CRT2", "DisplayC4", 2, 2, 2, 6);
-var MEDS_MFD2 =  MDU_Device.new("MFD2", "DisplayC5", 1, 3, 1, 7);
-var MEDS_PLT1 =  MDU_Device.new("PLT1", "DisplayR1", 2, 3, 2, 8);
-var MEDS_PLT2 =  MDU_Device.new("PLT2", "DisplayR2", 3, 2, 3, 9);
+#var MEDS_CRT1 =  MDU_Device.new("CRT1", "DisplayC1", 1, 1, 1, 3);
+#var MEDS_MFD1 =  MDU_Device.new("MFD1", "DisplayC2", 2, 3, 2, 4);
+#var MEDS_CRT3 =  MDU_Device.new("CRT3", "DisplayC3", 3, 3, 3, 5);
+#var MEDS_CRT2 =  MDU_Device.new("CRT2", "DisplayC4", 2, 2, 2, 6);
+#var MEDS_MFD2 =  MDU_Device.new("MFD2", "DisplayC5", 1, 3, 1, 7);
+#var MEDS_PLT1 =  MDU_Device.new("PLT1", "DisplayR1", 2, 3, 2, 8);
+#var MEDS_PLT2 =  MDU_Device.new("PLT2", "DisplayR2", 3, 2, 3, 9);
 
 # all generated devices should be appended to the MDU array, then the parsers can do the appropriate
 # OPS transitions etc. on all MDUs connected to a given IDP
 
 append(MDU_array, MEDS_CDR1);
 append(MDU_array, MEDS_CDR2);
-append(MDU_array, MEDS_CRT1);
-append(MDU_array, MEDS_MFD1);
-append(MDU_array, MEDS_CRT3);
-append(MDU_array, MEDS_CRT2);
-append(MDU_array, MEDS_MFD2);
-append(MDU_array, MEDS_PLT1);
-append(MDU_array, MEDS_PLT2);
+#append(MDU_array, MEDS_CRT1);
+#append(MDU_array, MEDS_MFD1);
+#append(MDU_array, MEDS_CRT3);
+#append(MDU_array, MEDS_CRT2);
+#append(MDU_array, MEDS_MFD2);
+#append(MDU_array, MEDS_PLT1);
+#append(MDU_array, MEDS_PLT2);
 
 
 #    
@@ -532,20 +532,20 @@ MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_pfd);
 MEDS_CDR1.PFD.dps_page_flag = 0;
 MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_meds_oms_mps);
 MEDS_CDR2.PFD.dps_page_flag = 0;
-MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
-MEDS_CRT1.PFD.dps_page_flag = 1;
-MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
-MEDS_MFD1.PFD.dps_page_flag = 0;
-MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
-MEDS_CRT3.PFD.dps_page_flag = 1;
-MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
-MEDS_CRT2.PFD.dps_page_flag = 1;
-MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
-MEDS_MFD2.PFD.dps_page_flag = 0;
-MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
-MEDS_PLT1.PFD.dps_page_flag = 0;
-MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
-MEDS_PLT2.dps_page_flag = 0;
+#MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
+#MEDS_CRT1.PFD.dps_page_flag = 1;
+#MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
+#MEDS_MFD1.PFD.dps_page_flag = 0;
+#MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
+#MEDS_CRT3.PFD.dps_page_flag = 1;
+#MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
+#MEDS_CRT2.PFD.dps_page_flag = 1;
+#MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
+#MEDS_MFD2.PFD.dps_page_flag = 0;
+#MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
+#MEDS_PLT1.PFD.dps_page_flag = 0;
+#MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
+#MEDS_PLT2.dps_page_flag = 0;
     
 
 var frame_device_update_id = 0;
