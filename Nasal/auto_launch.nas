@@ -231,22 +231,17 @@ if (auto_launch_stage == 3)
 	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
 
 
-	if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -500.0) and (aux_flag == 0))
+	if (((getprop("/fdm/jsbsim/velocities/v-down-fps") > -500.0) or (getprop("/position/altitude-ft") > 508530.0)) and (aux_flag == 0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 30.0);
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
 		aux_flag = 1;
 		}
-	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") > -200.0) and (aux_flag == 1))
-		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 25.0);
-		aux_flag = 2;
-		}
-	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  100.0) and (aux_flag == 2))
+	else if ((getprop("/fdm/jsbsim/velocities/v-down-fps") >  120.0) and (aux_flag == 1))
 		{
 		auto_launch_stage = 4;
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 4);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.05);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
 		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", 50.0);
 		aux_flag = 0;
 		}	
@@ -259,7 +254,7 @@ else if (auto_launch_stage == 4)
 	
 	var course_tgt = shuttle_pos.course_to (SpaceShuttle.landing_site);
 	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
-
+	
 	# dynamically throttle back when we reach acceleration limit
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
@@ -275,44 +270,57 @@ else if (auto_launch_stage == 4)
 
 		}
 
+	# we need to pitch up briskly, but then reduce sensitivity to avoid oscillations
+
+	if ((aux_flag == 0) and (getprop("/orientation/pitch-deg") > 40.0))
+		{
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.05);
+		aux_flag = 1;
+		}
+
+
 	# change hdot target to 0 prior to MECO
 
-	if ((aux_flag == 0) and (getprop("/fdm/jsbsim/velocities/mach") > 23.0))
+	if ((aux_flag == 1) and (getprop("/fdm/jsbsim/velocities/mach") > 23.0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", 0.0);
-		aux_flag = 1;
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.03);
+		aux_flag = 2;
 		} 
 
-	# increase pitch maneuverability as centrifugal force builds up
+	# compute MECO target
 
-	if ((aux_flag == 1) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > -500.0))
-		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.15);
-		aux_flag = 2;
-		}
+	var a = getprop("/fdm/jsbsim/systems/orbital/semimajor-axis-length-ft");
+	var epsilon = getprop("/fdm/jsbsim/systems/orbital/epsilon");
+	var b = a * math.sqrt(1.0 - epsilon * epsilon);
+	var f = 0.5 * math.sqrt(a*a - b*b);
+	var R = getprop("/position/sea-level-radius-ft");
+	
+	var A = b*b - a*a;
+	var B = - 2.0 * a * a * f;
+	var C = a*a * R*R - a*a * b*b - a*a * f*f;
 
+	var x = 1.0/(2.0 * A) * (-B - math.sqrt(B*B - 4.0 * A * C));
+	
+	var arg = SpaceShuttle.clamp(x/R, 0.0, 1.0);
 
-	# null all rates prior to MECO
+	var alpha = math.acos(arg);
+	var dist_ballistic = alpha * R * 0.3048;
+	var dist = shuttle_pos.distance_to (SpaceShuttle.landing_site);
 
-	if ((aux_flag == 2) and (getprop("/fdm/jsbsim/systems/orbital/periapsis-km") > 0.0))
-		{
-		setprop("/fdm/jsbsim/systems/ap/launch/stage", 5);
-		aux_flag = 3;
-		}
-
-
+	setprop("/fdm/jsbsim/systems/ap/launch/ballistic-distance-km", dist_ballistic/1000.0);
 
 	# MECO if apoapsis target is met
 
-	if (getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") > getprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target"))
+	if (dist_ballistic >  (dist - 500000.0))
 		{
 
 		setprop("/controls/engines/engine[0]/throttle", 0.0);
 		setprop("/controls/engines/engine[1]/throttle", 0.0);
 		setprop("/controls/engines/engine[2]/throttle", 0.0);
 
-		print ("MECO - auto-launch guidance signing off!");
-		print ("Thank you for flying with us!");
+		print ("MECO - auto-TAL guidance signing off!");
+		print ("Have a good entry and remember to close umbilical doors!");
 		return;
 		}
 	}
