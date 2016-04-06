@@ -1982,9 +1982,9 @@
 						<property>systems/ap/launch/stage4-TAL-yaw-error</property>
 						<value>0.1</value>
 					</product>
-					<value>-0.2</value>
+					<value>-0.1</value>
 				</max>
-				<value>0.2</value>
+				<value>0.1</value>
 			</min>
 		</function>
 		</fcs_function>
