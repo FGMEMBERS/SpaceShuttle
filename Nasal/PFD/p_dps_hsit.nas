@@ -181,17 +181,17 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 	 p_dps_hsit.pred1 = device.symbols.createChild("path", "pred1")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	 p_dps_hsit.pred2 = device.symbols.createChild("path", "pred2")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	 p_dps_hsit.pred3 = device.symbols.createChild("path", "pred3")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 
