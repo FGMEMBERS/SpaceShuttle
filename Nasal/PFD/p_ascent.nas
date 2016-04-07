@@ -63,12 +63,12 @@ var PFD_addpage_p_ascent = func(device)
 
 	p_ascent.pred1 = device.symbols.createChild("path", "pred1")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	 p_ascent.pred2 = device.symbols.createChild("path", "pred2")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	p_ascent.pred2.setVisible(0);
@@ -126,6 +126,8 @@ var PFD_addpage_p_ascent = func(device)
         if (SpaceShuttle.traj_display_flag < 3)
     	{
             var throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm");
+	    if (throttle == 0 ){throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm[1]");}
+	    if (throttle == 0 ){throttle = getprop("/fdm/jsbsim/fcs/throttle-pos-norm[2]");}
             if (throttle < 0.61) {throttle = 0.0;} else {throttle = throttle * 100.0;}
             p_ascent.throttle.setText(sprintf("%3.0f",throttle));
             p_ascent.throttle_text.setText(sprintf("THROT"));
