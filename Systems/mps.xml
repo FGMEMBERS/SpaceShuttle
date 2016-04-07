@@ -28,13 +28,36 @@
 		</function>
 		</fcs_function>
 
+		<!-- freeze helium usage for engines that are off -->
+
+		<switch name="systems/mps/helium/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium/fraction">
+				systems/mps/engine/engine-operational == 0
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[1]/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium[1]/fraction">
+				systems/mps/engine[1]/engine-operational == 0
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[2]/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium[2]/fraction">
+				systems/mps/engine[2]/engine-operational == 0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/mps/helium/pressure-psia">
 		<function>
 			<product>
 				<sum>
 					<value>1400.0</value>
 					<product>
-						<property>systems/mps/helium/et-fuel-fraction</property>
+						<property>systems/mps/helium/fraction</property>
 						<value>3300.0</value>
 					</product>
 				</sum>
@@ -43,13 +66,14 @@
 		</function>
 		</fcs_function>
 
+
 		<fcs_function name="systems/mps/helium[1]/pressure-psia">
 		<function>
 			<product>
 				<sum>
 					<value>1400.0</value>
 					<product>
-						<property>systems/mps/helium/et-fuel-fraction</property>
+						<property>systems/mps/helium[1]/fraction</property>
 						<value>3300.0</value>
 					</product>
 				</sum>
@@ -64,7 +88,7 @@
 				<sum>
 					<value>1400.0</value>
 					<product>
-						<property>systems/mps/helium/et-fuel-fraction</property>
+						<property>systems/mps/helium[2]/fraction</property>
 						<value>3300.0</value>
 					</product>
 				</sum>
