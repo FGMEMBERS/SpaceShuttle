@@ -71,7 +71,7 @@
 	<pointmass name="External_tank1_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location  unit="M">
-		<x> -11.50 </x>
+		<x> -12.50 </x>
        		<y> -2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -79,7 +79,7 @@
 	<pointmass name="External_tank2_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location unit="M">
-		<x> -11.50 </x>
+		<x> -12.50 </x>
        		<y> 2.50 </y>
        		<z>-10.6 </z>
      		</location>

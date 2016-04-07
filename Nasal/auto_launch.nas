@@ -231,6 +231,27 @@ if (auto_launch_stage == 3)
 	setprop("/fdm/jsbsim/systems/ap/launch/course-target", course_tgt);
 
 
+	# compute MECO target
+	# ballistic impact range approx. range to site
+
+	var a = getprop("/fdm/jsbsim/systems/orbital/semimajor-axis-length-ft");
+	var epsilon = getprop("/fdm/jsbsim/systems/orbital/epsilon");
+	var R = getprop("/position/sea-level-radius-ft");
+	
+	var A = -a*a * epsilon * epsilon;
+	var B = -2.0 * a * a * a * epsilon;
+	var C = a*a * (R*R - a*a );
+
+	var x = 1.0/(2.0 * A) * (-B - math.sqrt(B*B - 4.0 * A * C)) + a * epsilon;
+	
+	var arg = x/R;
+
+	var dist_ballistic = math.acos(arg) * R * 0.3048;
+	var dist = shuttle_pos.distance_to (SpaceShuttle.landing_site);
+
+	setprop("/fdm/jsbsim/systems/ap/launch/distance-ballistic-km", dist_ballistic/1000.0);
+	setprop("/fdm/jsbsim/systems/ap/launch/distance-site-km", dist/1000.0);
+
 	if (((getprop("/fdm/jsbsim/velocities/v-down-fps") > -500.0) or (getprop("/position/altitude-ft") > 508530.0)) and (aux_flag == 0))
 		{
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 30.0);
@@ -289,30 +310,28 @@ else if (auto_launch_stage == 4)
 		} 
 
 	# compute MECO target
+	# ballistic impact range approx. range to site
 
 	var a = getprop("/fdm/jsbsim/systems/orbital/semimajor-axis-length-ft");
 	var epsilon = getprop("/fdm/jsbsim/systems/orbital/epsilon");
-	var b = a * math.sqrt(1.0 - epsilon * epsilon);
-	var f = 0.5 * math.sqrt(a*a - b*b);
 	var R = getprop("/position/sea-level-radius-ft");
 	
-	var A = b*b - a*a;
-	var B = - 2.0 * a * a * f;
-	var C = a*a * R*R - a*a * b*b - a*a * f*f;
+	var A = -a*a * epsilon * epsilon;
+	var B = -2.0 * a * a * a * epsilon;
+	var C = a*a * (R*R - a*a );
 
-	var x = 1.0/(2.0 * A) * (-B - math.sqrt(B*B - 4.0 * A * C));
+	var x = 1.0/(2.0 * A) * (-B - math.sqrt(B*B - 4.0 * A * C)) + a * epsilon;
 	
 	var arg = SpaceShuttle.clamp(x/R, 0.0, 1.0);
 
-	var alpha = math.acos(arg);
-	var dist_ballistic = alpha * R * 0.3048;
+	var dist_ballistic = math.acos(arg) * R * 0.3048;
 	var dist = shuttle_pos.distance_to (SpaceShuttle.landing_site);
 
 	setprop("/fdm/jsbsim/systems/ap/launch/ballistic-distance-km", dist_ballistic/1000.0);
 
 	# MECO if apoapsis target is met
 
-	if (dist_ballistic >  (dist - 500000.0))
+	if (dist_ballistic >  (dist - 700000.0))
 		{
 
 		setprop("/controls/engines/engine[0]/throttle", 0.0);
