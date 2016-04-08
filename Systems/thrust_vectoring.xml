@@ -681,6 +681,17 @@
 			</clipto>
 		</pid>
 
+
+		<switch name="systems/vectoring/SSME-center-roll-gain">
+			<default value="0.0"/>
+			<test value="-1.0">
+				systems/mps/engine/engine-operational == 0
+			</test>
+			<test value="1.0">
+				systems/mps/engine[1]/engine-operational == 0
+			</test>
+		</switch>
+
   		<pure_gain name="systems/vectoring/SRB-left-roll">
 			<input>systems/vectoring/SRB-roll</input>
 			<gain>-1.0</gain>
@@ -701,6 +712,10 @@
 			<gain>1.0</gain>
    		</pure_gain>
 
+		<pure_gain name="systems/vectoring/SSME-center-roll">
+			<input>systems/vectoring/SSME-roll</input>
+			<gain>systems/vectoring/SSME-center-roll-gain</gain>
+   		</pure_gain>
 
 		<fcs_function name="systems/vectoring/yaw-rate-error">
 		<function>
@@ -802,6 +817,7 @@
 
   		<summer name="SSME 3 pitch motion Sum">
       			<input>systems/vectoring/SSME-pitch</input>
+      			<input>systems/vectoring/SSME-center-roll</input>
       			<input>propulsion/engine[2]/pitch-to-CoG</input>
       			<clipto>
         			<min> -0.45 </min>

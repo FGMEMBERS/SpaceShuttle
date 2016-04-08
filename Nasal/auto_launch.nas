@@ -207,11 +207,13 @@ settimer(auto_launch_loop, 0.1);
 
 var auto_TAL_init = func {
 
-# we need to pitch up more on the ballistic climb to get into a good trajectory
+if (auto_launch_stage == 3)
+	{
+	# we need to pitch up more on the ballistic climb to get into a good trajectory
 
-
-
-setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 35.0);
+	var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
+	setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 35.0 + 12.0 * payload_factor);
+	}
 
 auto_TAL_loop();
 
