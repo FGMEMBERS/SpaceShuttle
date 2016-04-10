@@ -734,13 +734,14 @@
 			<input>systems/mps/engine[2]/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[1]/controller-B-power-demand-kW</input>
 			<input>systems/electrical/fc/pump-power-consumption-kW</input>
+			<input>systems/mechanical/pb-door-sys1-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/ac[1]/power-demand-kW">
 			<input>systems/mps/engine/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[2]/controller-B-power-demand-kW</input>
 			<input>systems/electrical/fc[1]/pump-power-consumption-kW</input>
-
+			<input>systems/mechanical/pb-door-sys2-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/ac[2]/power-demand-kW">
