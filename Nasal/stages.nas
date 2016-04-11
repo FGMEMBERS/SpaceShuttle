@@ -1672,6 +1672,7 @@ setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
 setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
 settimer( func{ SpaceShuttle.payload_bay_door_open_auto(0); }, 1.0);
 
+settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
 }
 
 ##############################################################################
@@ -2108,6 +2109,6 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	# deploy Ku-antenna
 	ku_antenna_deploy();
 	
-	settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
+
 
 	}
