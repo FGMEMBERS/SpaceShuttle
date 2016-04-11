@@ -70,7 +70,7 @@ var PFD_addpage_p_dps_univ_ptg = func(device)
         # these really need to be deleted when leaving the ascent page - do we have
         # an 'upon exit' functionality here
         device.nom_traj_plot.removeAllChildren();
-        device.p_ascent_shuttle_sym.setScale(0.0);
+
     
         device.update_common_DPS();
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");

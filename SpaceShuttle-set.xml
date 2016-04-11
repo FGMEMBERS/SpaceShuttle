@@ -2108,6 +2108,23 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/uBody-fps</path>
     <path>/save/vBody-fps</path>
     <path>/save/wBody-fps</path>
+    <path>/save/state</path>
+    <path>/save/ops</path>
+    <path>/save/major-mode</path>
+    <path>/save/major-mode-sm</path>
+    <path>/save/tank1-level-lbs</path>
+    <path>/save/tank2-level-lbs</path>
+    <path>/save/tank3-level-lbs</path>
+    <path>/save/tank4-level-lbs</path>
+    <path>/save/tank5-level-lbs</path>
+    <path>/save/tank6-level-lbs</path>
+    <path>/save/tank7-level-lbs</path>
+    <path>/save/tank8-level-lbs</path>
+    <path>/save/tank9-level-lbs</path>
+    <path>/save/tank10-level-lbs</path>
+    <path>/save/tank11-level-lbs</path>
+    <path>/save/tank12-level-lbs</path>
+    <path>/save/tank13-level-lbs</path>
   </aircraft-data>
 
 
