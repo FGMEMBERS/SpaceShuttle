@@ -78,6 +78,13 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.off_r = device.svg.getElementById("p_dps_mnvr_off_r");
     p_dps_mnvr.gmbl_ck = device.svg.getElementById("p_dps_mnvr_gmbl_ck");
     
+    p_dps_mnvr.c1 = device.svg.getElementById("p_dps_mnvr_c1");
+    p_dps_mnvr.c2 = device.svg.getElementById("p_dps_mnvr_c2");
+    p_dps_mnvr.ht = device.svg.getElementById("p_dps_mnvr_ht");
+    p_dps_mnvr.tt = device.svg.getElementById("p_dps_mnvr_tt");
+    p_dps_mnvr.prplt = device.svg.getElementById("p_dps_mnvr_prplt");
+
+
     p_dps_mnvr.blink = 0;
     
     
@@ -108,7 +115,19 @@ var PFD_addpage_p_dps_mnvr = func(device)
         device.DPS_menu_title.setText(string1~"MNVR"~string2);
         device.DPS_menu_ops.setText(major_mode~"1/    /");
         device.MEDS_menu_title.setText("       DPS MENU");
+
+	
+	# blank items which aren't implemented yet
+
+   	p_dps_mnvr.c1.setText("");
+    	p_dps_mnvr.c2.setText("");
+    	p_dps_mnvr.ht.setText("");
+    	p_dps_mnvr.tt.setText("");
+    	p_dps_mnvr.prplt.setText("");
+
     }
+
+
     
     
     p_dps_mnvr.update = func
