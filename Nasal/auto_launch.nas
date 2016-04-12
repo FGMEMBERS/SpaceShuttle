@@ -191,6 +191,13 @@ else if (auto_launch_stage == 4)
 
 		print ("MECO - auto-launch guidance signing off!");
 		print ("Thank you for flying with us!");
+
+		settimer( func {setprop("/fdm/jsbsim/systems/dps/major-mode", 104);
+		SpaceShuttle.ops_transition_auto("p_dps_mnvr");}, 9.0);
+
+		settimer( external_tank_separate, 10.0);
+	
+
 		return;
 		}
 
