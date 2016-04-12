@@ -449,6 +449,25 @@ var ops_transition = func (idp_index, page_id) {
 	}
 }
 
+# an automatic ops transition occurs only for GNC and will leave SM unaffected
+
+var ops_transition_auto = func (page_id) {
+
+# we now switch over all screens on GNC IDPs in DPS mode
+
+    foreach (M; SpaceShuttle.MDU_array)
+	{
+        var index = M.PFD.port_selected - 1;
+        var current_major_function = SpaceShuttle.idp_array[index].get_major_function();
+
+        if ((current_major_function == 1) and (M.PFD.dps_page_flag == 1))
+		{
+            	M.PFD.selectPage(M.PFD.page_index[page_id]);
+		}
+	}
+
+}
+
 
 
 var page_select = func (idp_index, page_id)

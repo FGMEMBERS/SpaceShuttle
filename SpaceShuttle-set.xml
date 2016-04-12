@@ -2109,6 +2109,11 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/vBody-fps</path>
     <path>/save/wBody-fps</path>
     <path>/save/state</path>
+    <path>/save/radiator-state</path>
+    <path>/save/umbilical-state</path>
+    <path>/save/control-mode</path>
+    <path>/save/control-string</path>
+    <path>/save/orbital-dap-sel</path>
     <path>/save/ops</path>
     <path>/save/major-mode</path>
     <path>/save/major-mode-sm</path>

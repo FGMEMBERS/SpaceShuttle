@@ -94,6 +94,40 @@ if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1)
 
 setprop("/save/state", state);
 
+var umbilical_state = 0;
+
+if ((getprop("/fdm/jsbsim/systems/mechanical/et-door-right-pos") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/et-door-left-pos") == 1))
+	{
+	umbilical_state = 1;
+	}
+
+setprop("/save/umbilical-state", umbilical_state);
+
+var radiator_state = 0;
+
+if (getprop("/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity") > 0.0)
+	{
+	radiator_state = 1;
+	}
+
+setprop("/save/radiator-state", radiator_state);
+
+
+var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+var control_string = getprop("/controls/shuttle/control-system-string");
+
+var orbital_dap_sel = 0;
+
+if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
+	{orbital_dap_sel = 1;}
+else if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh") == 1)
+	{orbital_dap_sel = 2;}
+else if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-free") == 1)
+	{orbital_dap_sel = 3;}
+
+setprop("/save/control-mode", control_mode);
+setprop("/save/orbital-dap-sel", orbital_dap_sel);
+
 
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -102,6 +136,7 @@ var major_mode_sm = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
 setprop("/save/ops", ops);
 setprop("/save/major-mode", major_mode);
 setprop("/save/major-mode-sm", major_mode_sm);
+setprop("/save/control-string", control_string);
 
 print("Current state written to buffer!");
 
@@ -197,6 +232,55 @@ if (state > 3)
 	SpaceShuttle.ku_antenna_deploy();
 	}
 
+
+if (getprop("/save/umbilical-state") == 1)
+	{
+	SpaceShuttle.et_umbilical_door_close();
+	}
+
+if (getprop("/save/radiator-state") == 1)
+	{
+	SpaceShuttle.radiator_activate();
+	}
+
+var control_mode = getprop("/save/control-mode");
+var orbital_dap_sel = getprop("/save/orbital-dap-sel");
+
+setprop("/fdm/jsbsim/systems/fcs/control-mode", control_mode);
+
+if (orbital_dap_sel == 0)
+	{
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+	}
+else if (orbital_dap_sel == 1)
+	{
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+	}
+else if (orbital_dap_sel == 2)
+	{
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 1);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+	}
+else if (orbital_dap_sel == 3)
+	{
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
+	}
+
+var control_string = getprop("/save/control-string");
+
+setprop("/controls/shuttle/control-system-string", control_string);
+
 var ops = getprop("/save/ops");
 var major_mode = getprop("/save/major-mode");
 var major_mode_sm = getprop("/save/major-mode-sm");
@@ -207,37 +291,37 @@ setprop("/fdm/jsbsim/systems/dps/major-mode-sm", major_mode_sm);
 
 
 if (major_mode == 101)
-		{SpaceShuttle.ops_transition(0, "p_ascent");}
+		{SpaceShuttle.ops_transition_auto("p_ascent");}
 else if (major_mode == 102)
-		{SpaceShuttle.ops_transition(0, "p_ascent");}
+		{SpaceShuttle.ops_transition_auto("p_ascent");}
 else if (major_mode == 103)
-		{SpaceShuttle.ops_transition(0, "p_ascent");}
+		{SpaceShuttle.ops_transition_auto("p_ascent");}
 else if (major_mode == 104) 
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 105)
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 106) 
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 201)
-		{SpaceShuttle.ops_transition(0, "p_dps_univ_ptg");}
+		{SpaceShuttle.ops_transition_auto("p_dps_univ_ptg");}
 else if (major_mode == 202)
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 301)
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 302)
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 304) 
-		{SpaceShuttle.ops_transition(0, "p_dps_mnvr");}
+		{SpaceShuttle.ops_transition_auto("p_dps_mnvr");}
 else if (major_mode == 304)
 		{
 		SpaceShuttle.traj_display_flag = 3;
 		SpaceShuttle.fill_entry1_data();
-		SpaceShuttle.ops_transition(0, "p_entry");
+		SpaceShuttle.ops_transition_auto("p_entry");
 		}
 else if (major_mode == 305)
 		{
 		SpaceShuttle.traj_display_flag = 8;
-		SpaceShuttle.ops_transition(0, "p_vert_sit");
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
 		}
 
 
