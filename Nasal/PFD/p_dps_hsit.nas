@@ -241,7 +241,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 	p_dps_hsit.altm.setText(sprintf("%2.2f", getprop("/instrumentation/altimeter/setting-inhg") ));
       
-	if ((ops == 1) and (guidance_mode == 1))
+	if ((ops == 1) and (guidance_mode == 0))
 		{
 		p_dps_hsit.tal_site.setText(sprintf("%2d",SpaceShuttle.landing_site.index));
 		p_dps_hsit.tal_label.setText("40 TAL  SITE");
@@ -253,7 +253,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 		}
 
 
-	if (guidance_mode == 1)
+	if ((guidance_mode == 1) or (guidance_mode == 0))
 		{p_dps_hsit.landing_label.setText("41 LAND SITE");}
 	else if (guidance_mode == 2)
 		{p_dps_hsit.landing_label.setText("41 TAL  SITE");}
