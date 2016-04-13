@@ -204,7 +204,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 		p_dps_hsit.pred3.lineTo(set[0], set[1]);
 		}
 
- 	p_dps_hsit.aim = device.symbols.createChild("path", "aim")
+ 	p_dps_hsit.aimpoint = device.symbols.createChild("path", "aimpoint")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(0,0);
@@ -243,7 +243,8 @@ var PFD_addpage_p_dps_hsit = func(device)
       
 	if ((ops == 1) and (guidance_mode == 0))
 		{
-		p_dps_hsit.tal_site.setText(sprintf("%2d",SpaceShuttle.landing_site.index));
+		var tal_iloaded = getprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded");
+		p_dps_hsit.tal_site.setText(sprintf("%2d",tal_iloaded));
 		p_dps_hsit.tal_label.setText("40 TAL  SITE");
 		}
 	else 
