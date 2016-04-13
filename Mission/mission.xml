@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+<launch>
+  <stage-defined type="int">1</stage-defined>
+  <target-inclination type="double">51.5</target-inclination>
+  <target-apoapsis-miles type="double">100.0</target-apoapsis-miles>
+</launch>
+
+
+</PropertyList>

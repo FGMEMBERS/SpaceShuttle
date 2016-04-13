@@ -1530,6 +1530,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",0);
 			valid_flag = 1;
 			}
+		else if (item == 40)
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+			if ((ops == 1) and (guidance_mode == 0))
+				{
+				setprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded", value);
+				valid_flag = 1;
+				}
+			}
 		else if (item == 41)
 			{
 			SpaceShuttle.update_site_by_index(value);
@@ -1566,6 +1576,8 @@ if ((header == "ITEM") and (end = "EXEC"))
 			if (status_tal == 1)
 				{
 				setprop("/fdm/jsbsim/systems/abort/abort-mode", 2);
+				var tal_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded");
+				SpaceShuttle.update_site_by_index(tal_site_index);
 				setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
 				}
 			else if (status_ato == 1)
