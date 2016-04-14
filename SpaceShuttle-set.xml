@@ -2277,6 +2277,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/sensors.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/sound.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/save.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/mission.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>
