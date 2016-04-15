@@ -1539,9 +1539,9 @@
 						  25.0	100.0
        					  	</tableData>-->
 						<tableData>
-						  14.0	0.0
-						  16.0  100.0
-						  25.0	100.0
+						  17.0	0.0
+						  18.0  200.0
+						  25.0	200.0
        					  	</tableData>
     						</table>
 					</product>
@@ -1566,8 +1566,8 @@
 			<kd> 0.3</kd>-->
 			<trigger>systems/ap/launch/stage4-beta-PID-trigger</trigger>
 			<clipto>
-				<min> -10.0 </min>
-        			<max>  10.0 </max>
+				<min> -4.0 </min>
+        			<max>  4.0 </max>
 			</clipto>
 		</pid>
 
@@ -1640,9 +1640,9 @@
 						<property>systems/ap/launch/stage4-yaw-error</property>
 						<value>0.1</value>
 					</product>
-					<value>-0.2</value>
+					<value>-0.25</value>
 				</max>
-				<value>0.2</value>
+				<value>0.25</value>
 			</min>
 		</function>
 		</fcs_function>
