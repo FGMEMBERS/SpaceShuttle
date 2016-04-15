@@ -68,7 +68,75 @@ if (getprop("/mission/configuration/section-defined"))
 		}
 
 	}
+
+# DAP
+
+if (getprop("/mission/dap/section-defined"))
+	{
+	var par = getprop("/mission/dap/dap-A-PRI-rot-rate");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-rate", par);
+	
+	par = getprop("/mission/dap/dap-B-PRI-rot-rate");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-rate", par);
+
+	par = getprop("/mission/dap/dap-A-VRN-rot-rate");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", par);
+
+	par = getprop("/mission/dap/dap-B-VRN-rot-rate");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", par);
+
+	}
 }
 
+
+var mission_post_meco = func {
+
+if (getprop("/mission/post-meco/section-defined"))
+	{
+	if (getprop("/mission/post-meco/automatic-fuel-dump"))
+		{
+		setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 1);
+		setprop("/fdm/jsbsim/systems/propellant/LH2-inboard-status", 1);
+		setprop("/fdm/jsbsim/systems/propellant/LH2-outboard-status", 1);
+		
+		settimer( func {SpaceShuttle.fuel_dump_start();}, 20.0);
+
+		settimer( func {setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 0);}, 130.0);
+		}
+
+	if (getprop("/mission/post-meco/auto-oms1-burn"))
+		{
+
+
+		var dvx = getprop("/mission/post-meco/oms1-dvx");
+		var dvy = getprop("/mission/post-meco/oms1-dvy");
+		var dvz = getprop("/mission/post-meco/oms1-dvz");
+
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz);
+
+		SpaceShuttle.create_oms_burn_vector();
+		setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+		SpaceShuttle.tracking_loop_flag = 0;
+
+
+
+		settimer(func {
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
+			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
+			if (flag == 0) {flag = 1;} else {flag =0;}
+			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag); } , 140.0);
+
+		}
+
+	}
+}
 
 setlistener("/sim/signals/fdm-initialized", func { mission_init(); },0,0);
