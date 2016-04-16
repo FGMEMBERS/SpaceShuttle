@@ -71,7 +71,10 @@ setprop("/save/tank12-level-lbs", tank12);
 var tank13 = getprop("/consumables/fuel/tank[12]/level-lbs");
 setprop("/save/tank13-level-lbs", tank13);
 
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
+setprop("/save/MET", MET);
 
 var state = 0;
 
@@ -211,6 +214,15 @@ setprop("/consumables/fuel/tank[11]/level-lbs", tank12);
 
 var tank13 = getprop("/save/tank13-level-lbs");
 setprop("/consumables/fuel/tank[12]/level-lbs", tank13);
+
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = getprop("/save/MET");
+
+var delta_MET = MET - elapsed;
+setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
+
+
 
 var state = getprop("/save/state");
 

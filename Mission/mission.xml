@@ -13,7 +13,7 @@
 <launch>
   <section-defined type="bool">true</section-defined>
   <target-inclination type="double">51.5</target-inclination>
-  <target-apoapsis-miles type="double">100.0</target-apoapsis-miles>
+  <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">6</tal-site-index>
 </launch>
@@ -29,7 +29,7 @@
 
 
 <dap>
-  <section-defined type="bool">true</section-defined>
+  <section-defined type="bool">false</section-defined>
   <dap-A-PRI-rot-rate type="double">1.0</dap-A-PRI-rot-rate>
   <dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
   <dap-A-VRN-rot-rate type="double">0.1</dap-A-VRN-rot-rate>

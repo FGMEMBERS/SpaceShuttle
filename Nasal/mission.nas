@@ -85,6 +85,21 @@ if (getprop("/mission/dap/section-defined"))
 	par = getprop("/mission/dap/dap-B-VRN-rot-rate");
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", par);
 
+	par = getprop("/mission/dap/dap-A-PRI-att-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-att-db", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-att-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-att-db", par);
+
+	par = getprop("/mission/dap/dap-A-VRN-att-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-att-db", par);
+
+	par = getprop("/mission/dap/dap-B-VRN-att-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db", par);
+
+
+
+
 	}
 }
 
@@ -116,14 +131,19 @@ if (getprop("/mission/post-meco/section-defined"))
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz);
 
-		SpaceShuttle.create_oms_burn_vector();
-		setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
-		SpaceShuttle.tracking_loop_flag = 0;
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", getprop("/fdm/jsbsim/inertia/weight-lbs"));
 
 
+		# burn plan needs to be computed a frame later to pick up the properties
+		settimer( func {
+			SpaceShuttle.create_oms_burn_vector();
+			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+			SpaceShuttle.tracking_loop_flag = 0; }, 0.2);
 
+
+		# wait for fuel dump to finish before we start the OMS maneuver
 		settimer(func {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
