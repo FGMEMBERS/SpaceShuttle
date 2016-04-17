@@ -71,6 +71,24 @@ setprop("/save/tank12-level-lbs", tank12);
 var tank13 = getprop("/consumables/fuel/tank[12]/level-lbs");
 setprop("/save/tank13-level-lbs", tank13);
 
+var tank14 = getprop("/consumables/fuel/tank[13]/level-lbs");
+setprop("/save/tank14-level-lbs", tank14);
+
+var tank15 = getprop("/consumables/fuel/tank[14]/level-lbs");
+setprop("/save/tank15-level-lbs", tank15);
+
+var tank16 = getprop("/consumables/fuel/tank[15]/level-lbs");
+setprop("/save/tank16-level-lbs", tank16);
+
+var tank17 = getprop("/consumables/fuel/tank[16]/level-lbs");
+setprop("/save/tank17-level-lbs", tank17);
+
+var tank18 = getprop("/consumables/fuel/tank[17]/level-lbs");
+setprop("/save/tank18-level-lbs", tank18);
+
+var tank19 = getprop("/consumables/fuel/tank[18]/level-lbs");
+setprop("/save/tank19-level-lbs", tank19);
+
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
@@ -215,6 +233,23 @@ setprop("/consumables/fuel/tank[11]/level-lbs", tank12);
 var tank13 = getprop("/save/tank13-level-lbs");
 setprop("/consumables/fuel/tank[12]/level-lbs", tank13);
 
+var tank14 = getprop("/save/tank14-level-lbs");
+setprop("/consumables/fuel/tank[13]/level-lbs", tank14);
+
+var tank15 = getprop("/save/tank15-level-lbs");
+setprop("/consumables/fuel/tank[14]/level-lbs", tank15);
+
+var tank16 = getprop("/save/tank16-level-lbs");
+setprop("/consumables/fuel/tank[15]/level-lbs", tank16);
+
+var tank17 = getprop("/save/tank17-level-lbs");
+setprop("/consumables/fuel/tank[16]/level-lbs", tank17);
+
+var tank18 = getprop("/save/tank18-level-lbs");
+setprop("/consumables/fuel/tank[17]/level-lbs", tank18);
+
+var tank19 = getprop("/save/tank19-level-lbs");
+setprop("/consumables/fuel/tank[18]/level-lbs", tank19);
 
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = getprop("/save/MET");

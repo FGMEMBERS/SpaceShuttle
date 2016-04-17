@@ -1989,6 +1989,12 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/tank11-level-lbs</path>
     <path>/save/tank12-level-lbs</path>
     <path>/save/tank13-level-lbs</path>
+    <path>/save/tank14-level-lbs</path>
+    <path>/save/tank15-level-lbs</path>
+    <path>/save/tank16-level-lbs</path>
+    <path>/save/tank17-level-lbs</path>
+    <path>/save/tank18-level-lbs</path>
+    <path>/save/tank19-level-lbs</path>
     <path>/save/MET</path>
   </aircraft-data>
 
