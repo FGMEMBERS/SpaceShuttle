@@ -271,8 +271,8 @@ var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var spec = SpaceShuttle.idp_array[idp_index].get_spec();
 var disp = SpaceShuttle.idp_array[idp_index].get_disp();
 
-print ("spec: ", spec);
-print ("disp: ", disp);
+#print ("spec: ", spec);
+#print ("disp: ", disp);
 
 if ((disp > 0) and (spec > 0)) 
 	{
