@@ -3,9 +3,6 @@
 <PropertyList>
 
 <limit-simulation-mode type="int">1</limit-simulation-mode>
-<ssme1-condition type="double">1.0</ssme1-condition>
-<ssme2-condition type="double">1.0</ssme2-condition>
-<ssme3-condition type="double">1.0</ssme3-condition>
 <mps-he-left-condition type="double">1.0</mps-he-left-condition>
 <mps-he-right-condition type="double">1.0</mps-he-right-condition>
 <mps-he-center-condition type="double">1.0</mps-he-center-condition>
@@ -38,6 +35,11 @@
 <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
 <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
 <tps-condition type="double">1.0</tps-condition>
+<mps>
+	<ssme1-condition type="double">1.0</ssme1-condition>
+	<ssme2-condition type="double">1.0</ssme2-condition>
+	<ssme3-condition type="double">1.0</ssme3-condition>
+</mps>
 <rcs>
 	<rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
 	<rcs-F3F-condition type="double">1.0</rcs-F3F-condition>

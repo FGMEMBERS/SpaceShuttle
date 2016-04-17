@@ -51,6 +51,10 @@ settimer(gear_up, 5.0);
 launch_loop_flag = 1;
 
 
+# zero MET at engine ignition
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+setprop("/fdm/jsbsim/systems/timer/delta-MET", -elapsed);
 
 launch_loop();
 

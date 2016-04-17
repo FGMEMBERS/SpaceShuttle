@@ -1,6 +1,40 @@
 # support for i-loaded mission parameters for the Space Shuttle
 # Thorsten Renk 2016
 
+var predefined_failures = [];
+
+var failure_pre = {new: func (node, time, probability, value) {
+ 	var f = { parents: [failure_pre] };
+	f.node = node;
+	f.time = time;
+	f.probability = probability;
+	f.value = value;
+	f.flag = 0;
+	return f;
+	},
+
+	test: func (met) {
+
+	if (me.flag == 1) {return;}
+	if (met > me.time)
+		{
+		me.flag = 1;
+		if (rand() < me.probability)
+			{
+			me.execute();
+
+			}
+		}
+	},
+
+	execute: func {
+
+	setprop(me.node, me.value);
+
+	},
+		
+};
+
 
 var mission_init = func {
 
@@ -98,9 +132,33 @@ if (getprop("/mission/dap/section-defined"))
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db", par);
 
 
+	}
 
+# predefined failures
+
+if (getprop("/mission/failures/section-defined"))
+	{
+
+	var modes = props.globals.getNode("/mission/failures", 1).getChildren("mode");
+
+	foreach (m; modes)
+		{
+		var nstring = m.getValue("node");
+		var time = m.getValue("occurs-met-s");
+		var probability = m.getValue("probability");
+		var value = m.getValue("value");
+
+		#print ("Failure: ", nstring);
+		#print ("Time: ", time, " probability: ", probability, " value: ", value);
+
+
+		var fpre = failure_pre.new(nstring, time, probability, value);
+		append(predefined_failures, fpre);
+
+		}
 
 	}
+
 }
 
 
@@ -131,7 +189,9 @@ if (getprop("/mission/post-meco/section-defined"))
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz);
 
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", getprop("/fdm/jsbsim/inertia/weight-lbs"));
+		var orbiter_weight = getprop("/mission/post-meco/orbiter-weight");
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", orbiter_weight);
+		#setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", getprop("/fdm/jsbsim/inertia/weight-lbs"));
 
 
 		# burn plan needs to be computed a frame later to pick up the properties
@@ -157,6 +217,22 @@ if (getprop("/mission/post-meco/section-defined"))
 		}
 
 	}
+}
+
+
+var mission_predefined_failures = func {
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+#print ("MET: ", MET);
+
+foreach (var fail;  predefined_failures)
+	{
+	fail.test(MET);
+	}
+
+
 }
 
 setlistener("/sim/signals/fdm-initialized", func { mission_init(); },0,0);
