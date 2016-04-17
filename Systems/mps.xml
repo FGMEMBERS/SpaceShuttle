@@ -327,7 +327,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine/controller-power</property>
-				<property>systems/failures/ssme1-condition</property>
+				<property>systems/failures/mps/ssme1-condition</property>
 				<property>systems/mps/engine/run-cmd</property>
 				<property>systems/propellant/LO2-left-prevalve-status</property>
 				<property>systems/propellant/LH2-left-prevalve-status</property>
@@ -339,7 +339,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine[1]/controller-power</property>
-				<property>systems/failures/ssme2-condition</property>
+				<property>systems/failures/mps/ssme2-condition</property>
 				<property>systems/mps/engine[1]/run-cmd</property>
 				<property>systems/propellant/LO2-right-prevalve-status</property>
 				<property>systems/propellant/LH2-right-prevalve-status</property>
@@ -351,7 +351,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine[2]/controller-power</property>
-				<property>systems/failures/ssme3-condition</property>
+				<property>systems/failures/mps/ssme3-condition</property>
 				<property>systems/mps/engine[2]/run-cmd</property>
 				<property>systems/propellant/LO2-center-prevalve-status</property>
 				<property>systems/propellant/LH2-center-prevalve-status</property>

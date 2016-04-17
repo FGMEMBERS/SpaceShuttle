@@ -365,7 +365,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[0]</property>
-					<!--<property>systems/failures/ssme1-condition</property>-->
 					<property>systems/mps/engine/engine-operational</property>
 				</product>
 			</function>
@@ -387,7 +386,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[1]</property>
-					<!--<property>systems/failures/ssme2-condition</property>-->
 					<property>systems/mps/engine[1]/engine-operational</property>
 				</product>
 			</function>
@@ -398,7 +396,6 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[2]</property>
-					<!--<property>systems/failures/ssme3-condition</property>-->
 					<property>systems/mps/engine[2]/engine-operational</property>
 				</product>
 			</function>

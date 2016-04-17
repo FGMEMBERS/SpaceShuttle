@@ -32,15 +32,15 @@
 
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/ssme1-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/mps/ssme1-condition</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/ssme2-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/mps/ssme2-condition</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/ssme3-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/mps/ssme3-condition</property>
     </signal>
 
 	<signal>
