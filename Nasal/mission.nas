@@ -131,6 +131,22 @@ if (getprop("/mission/dap/section-defined"))
 	par = getprop("/mission/dap/dap-B-VRN-att-db");
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-att-db", par);
 
+	par = getprop("/mission/dap/dap-A-PRI-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rate-db", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rate-db", par);
+
+	par = getprop("/mission/dap/dap-A-VRN-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", par);
+
+	par = getprop("/mission/dap/dap-B-VRN-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", par);
+
+
+
+
+
 
 	}
 

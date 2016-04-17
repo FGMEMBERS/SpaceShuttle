@@ -205,6 +205,8 @@ var idp = {
 	i.operational = 1;
 	i.major_function = 1;
 	i.major_function_string = "GNC";
+	i.spec = 0;
+	i.disp = 0;
 	return i;
 	},
 	# power switch
@@ -228,6 +230,24 @@ var idp = {
 		else if (major_function == 3)
 			{me.major_function_string = "PL";}
 	},
+	# store and retrieve spec and disp per IDP
+	set_spec: func (num) {
+		me.spec = num;
+
+	},
+	set_disp : func (num) {
+		me.disp = num;
+
+	},
+
+	get_spec: func {
+		return me.spec;
+	},
+	get_disp: func {
+		return me.disp;
+	},
+
+
 	# query major function
 	get_major_function : func {
 		if (me.operational == 1)
@@ -310,8 +330,16 @@ else if (major_function == 2)
 	major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
 	}
 
+# SPEC and OPS pages are remembered after major function switches, DISP are not
 
-SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+var new_page = SpaceShuttle.get_ops_page(major_function, major_mode);
+if ((I.get_spec() > 0) and (major_function == 1))
+	{
+	new_page = SpaceShuttle.get_spec_page( I.get_spec());
+	I.set_disp(0);
+	}
+
+SpaceShuttle.page_select(idp_index, new_page);
 
 
 
