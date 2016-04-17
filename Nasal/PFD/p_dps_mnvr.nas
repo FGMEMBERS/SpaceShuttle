@@ -84,6 +84,9 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.tt = device.svg.getElementById("p_dps_mnvr_tt");
     p_dps_mnvr.prplt = device.svg.getElementById("p_dps_mnvr_prplt");
 
+    p_dps_mnvr.tta = device.svg.getElementById("p_dps_mnvr_tta");
+    p_dps_mnvr.rei = device.svg.getElementById("p_dps_mnvr_rei");
+
 
     p_dps_mnvr.blink = 0;
     
@@ -124,6 +127,8 @@ var PFD_addpage_p_dps_mnvr = func(device)
     	p_dps_mnvr.ht.setText("");
     	p_dps_mnvr.tt.setText("");
     	p_dps_mnvr.prplt.setText("");
+	p_dps_mnvr.rei.setText("");
+
 
     }
 
@@ -227,12 +232,32 @@ var PFD_addpage_p_dps_mnvr = func(device)
     
         p_dps_mnvr.mnvr.setText(oms_mnvr_text);
         p_dps_mnvr.active_dap.setText(dap_text);
+
+        var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+
+	if ((oms_mnvr_flag == 1) and (dap_text == "AUTO") and (attitude_flag == 0))
+		{
+		var rate = getprop("/fdm/jsbsim/systems/ap/rot-rate-degps");
+		var yaw_error = getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
+		var pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
+		var roll_error = getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+
+		var tt_pitch_yaw = math.max(pitch_error, yaw_error)/rate;
+		var tt_roll = roll_error/rate;
+
+		var tta = SpaceShuttle.seconds_to_stringMS (tt_pitch_yaw + tt_roll);
+		p_dps_mnvr.tta.setText(tta);
+		}
+	else
+		{
+		p_dps_mnvr.tta.setText("");
+		}
     
     
         p_dps_mnvr.dvtot.setText(sprintf("%+4.2f",getprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot")));
         p_dps_mnvr.tgo.setText(getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string"));
     
-        var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+
         var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
     
     
