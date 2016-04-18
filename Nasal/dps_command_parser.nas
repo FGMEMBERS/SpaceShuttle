@@ -415,6 +415,7 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
+var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
@@ -1444,6 +1445,121 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 23)
+		{
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 1);
+			valid_flag =1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 2);
+			valid_flag =1;
+			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 3);
+			valid_flag =1;
+			}
+		else if (item == 9)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel", state);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel", state);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel", state);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel", state);
+				}
+			valid_flag = 1;
+			}
+		}
+
 	if (spec == 33)
 		{
 		if (item == 1)
@@ -2079,6 +2195,13 @@ if ((header == "SPEC") and (end =="PRO"))
 		page_select(idp_index, "p_dps_strk");
 		setprop("/fdm/jsbsim/systems/dps/spec", 22);
 		SpaceShuttle.idp_array[idp_index].set_spec(22);
+		valid_flag = 1;
+		}
+	if ((spec_num == 23) and (test_spec_ops_validity(spec23, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_rcs");
+		setprop("/fdm/jsbsim/systems/dps/spec", 23);
+		SpaceShuttle.idp_array[idp_index].set_spec(23);
 		valid_flag = 1;
 		}
 	if ((spec_num == 25) and (test_spec_ops_validity(spec25, major_mode) == 1))

@@ -766,6 +766,25 @@
       <aft-dump-time-s type="int">0</aft-dump-time-s>
 
       <thrust-normalizer type="double">0.0</thrust-normalizer>
+      <jet-table>
+	<table-index type="int">1</table-index>
+	<F1L-sel type="int">1</F1L-sel>
+	<F3L-sel type="int">1</F3L-sel>
+	<F2R-sel type="int">1</F2R-sel>
+	<F4R-sel type="int">1</F4R-sel>
+
+
+	<L4L-sel type="int">1</L4L-sel>
+	<L2L-sel type="int">1</L2L-sel>
+	<L3L-sel type="int">1</L3L-sel>
+	<L1L-sel type="int">1</L1L-sel>
+
+	<R4R-sel type="int">1</R4R-sel>
+	<R2R-sel type="int">1</R2R-sel>
+	<R3R-sel type="int">1</R3R-sel>
+	<R1R-sel type="int">1</R1R-sel>
+      </jet-table>
+
      </rcs>
      <rcs-hardware>
       <helium-left-rcs-pressure-1-psia type="double">280.0</helium-left-rcs-pressure-1-psia>
