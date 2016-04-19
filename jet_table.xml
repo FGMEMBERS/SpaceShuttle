@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+	<table-index type="int">1</table-index>
+
+	<F1L-sel type="int">1</F1L-sel>
+	<F3L-sel type="int">1</F3L-sel>
+	<F2R-sel type="int">1</F2R-sel>
+	<F4R-sel type="int">1</F4R-sel>
+
+	<F1L-inh type="int">0</F1L-inh>
+	<F3L-inh type="int">0</F3L-inh>
+	<F2R-inh type="int">0</F2R-inh>
+	<F4R-inh type="int">0</F4R-inh>
+
+	<F1L-pty type="int">2</F1L-pty>
+	<F3L-pty type="int">1</F3L-pty>
+	<F2R-pty type="int">2</F2R-pty>
+	<F4R-pty type="int">1</F4R-pty>
+
+	<L4L-sel type="int">1</L4L-sel>
+	<L2L-sel type="int">1</L2L-sel>
+	<L3L-sel type="int">1</L3L-sel>
+	<L1L-sel type="int">1</L1L-sel>
+
+	<L4L-inh type="int">0</L4L-inh>
+	<L2L-inh type="int">0</L2L-inh>
+	<L3L-inh type="int">0</L3L-inh>
+	<L1L-inh type="int">0</L1L-inh>
+
+	<L4L-pty type="int">3</L4L-pty>
+	<L2L-pty type="int">4</L2L-pty>
+	<L3L-pty type="int">2</L3L-pty>
+	<L1L-pty type="int">1</L1L-pty>
+
+	<R4R-sel type="int">1</R4R-sel>
+	<R2R-sel type="int">1</R2R-sel>
+	<R3R-sel type="int">1</R3R-sel>
+	<R1R-sel type="int">1</R1R-sel>
+
+	<R4R-inh type="int">0</R4R-inh>
+	<R2R-inh type="int">0</R2R-inh>
+	<R3R-inh type="int">0</R3R-inh>
+	<R1R-inh type="int">0</R1R-inh>
+
+	<R4R-pty type="int">4</R4R-pty>
+	<R2R-pty type="int">3</R2R-pty>
+	<R3R-pty type="int">1</R3R-pty>
+	<R1R-pty type="int">2</R1R-pty>
+
+</PropertyList>

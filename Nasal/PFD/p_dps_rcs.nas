@@ -21,11 +21,25 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdesig_y3 = device.svg.getElementById("p_dps_rcs_jdesig_y3");
     p_dps_rcs.jdesig_y4 = device.svg.getElementById("p_dps_rcs_jdesig_y4");
 
+    p_dps_rcs.jfail_y1 = device.svg.getElementById("p_dps_rcs_jfail_y1");
+    p_dps_rcs.jfail_y2 = device.svg.getElementById("p_dps_rcs_jfail_y2");
+    p_dps_rcs.jfail_y3 = device.svg.getElementById("p_dps_rcs_jfail_y3");
+    p_dps_rcs.jfail_y4 = device.svg.getElementById("p_dps_rcs_jfail_y4");
+
     p_dps_rcs.jdes_y1 = device.svg.getElementById("p_dps_rcs_jdes_y1");
     p_dps_rcs.jdes_y2 = device.svg.getElementById("p_dps_rcs_jdes_y2");
     p_dps_rcs.jdes_y3 = device.svg.getElementById("p_dps_rcs_jdes_y3");
     p_dps_rcs.jdes_y4 = device.svg.getElementById("p_dps_rcs_jdes_y4");
 
+    p_dps_rcs.jdesi_y1 = device.svg.getElementById("p_dps_rcs_jdesi_y1");
+    p_dps_rcs.jdesi_y2 = device.svg.getElementById("p_dps_rcs_jdesi_y2");
+    p_dps_rcs.jdesi_y3 = device.svg.getElementById("p_dps_rcs_jdesi_y3");
+    p_dps_rcs.jdesi_y4 = device.svg.getElementById("p_dps_rcs_jdesi_y4");
+
+    p_dps_rcs.jpty_y1 = device.svg.getElementById("p_dps_rcs_jpty_y1");
+    p_dps_rcs.jpty_y2 = device.svg.getElementById("p_dps_rcs_jpty_y2");
+    p_dps_rcs.jpty_y3 = device.svg.getElementById("p_dps_rcs_jpty_y3");
+    p_dps_rcs.jpty_y4 = device.svg.getElementById("p_dps_rcs_jpty_y4");
 
 
     p_dps_rcs.jdesig_z1 = device.svg.getElementById("p_dps_rcs_jdesig_z1");
@@ -67,11 +81,11 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.manf_p4_oxid = device.svg.getElementById("p_dps_rcs_manf_p4_oxid");
     p_dps_rcs.manf_p4_fu = device.svg.getElementById("p_dps_rcs_manf_p4_fu");
 
-    p_dps_rcs.manf_p5_oxid = device.svg.getElementById("p_dps_rcs_manf_p5_oxid");
-    p_dps_rcs.manf_p5_fu = device.svg.getElementById("p_dps_rcs_manf_p5_fu");
-
-
-
+    p_dps_rcs.manf_v1_stat = device.svg.getElementById("p_dps_rcs_manf_v1_stat");
+    p_dps_rcs.manf_v2_stat = device.svg.getElementById("p_dps_rcs_manf_v2_stat");
+    p_dps_rcs.manf_v3_stat = device.svg.getElementById("p_dps_rcs_manf_v3_stat");
+    p_dps_rcs.manf_v4_stat = device.svg.getElementById("p_dps_rcs_manf_v4_stat");
+    p_dps_rcs.manf_v5_stat = device.svg.getElementById("p_dps_rcs_manf_v5_stat");
     
     p_dps_rcs.ondisplay = func
     {
@@ -119,7 +133,47 @@ var PFD_addpage_p_dps_rcs = func(device)
 		p_dps_rcs.jdesig_v1.setText("F5L");
 		p_dps_rcs.jdesig_v2.setText(" 5R");
 
+		# failure
+
+		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+
+		# deselection inhibit
+
 		var symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y2.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y4.setText(symbol);
+	
+		
+
+		# deselect
+
+		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y1.setText(symbol);
 
@@ -134,6 +188,14 @@ var PFD_addpage_p_dps_rcs = func(device)
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y4.setText(symbol);
+
+		# priority
+
+   		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-pty")));
+    		p_dps_rcs.jpty_y2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-pty")));
+    		p_dps_rcs.jpty_y3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-pty")));
+    		p_dps_rcs.jpty_y4.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-pty")));
+
 
 		# propellant flow
 
@@ -161,8 +223,12 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.manf_p4_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fwd-mfold4-oxidizer-pressure-psia")));
     		p_dps_rcs.manf_p4_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/fwd-mfold4-fuel-pressure-psia"))); 
 
-   		#p_dps_rcs.manf_p5_oxid
-    		#p_dps_rcs.manf_p5_fu
+	    	p_dps_rcs.manf_v1_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status")));
+    		p_dps_rcs.manf_v2_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status")));
+    		p_dps_rcs.manf_v3_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status")));
+    		p_dps_rcs.manf_v4_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status"))); 
+    		p_dps_rcs.manf_v5_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status")));
+
 
 		}
 	else if (table_index == 2) # left jets
@@ -193,7 +259,46 @@ var PFD_addpage_p_dps_rcs = func(device)
 		p_dps_rcs.jdesig_v1.setText("L5L");
 		p_dps_rcs.jdesig_v2.setText(" 5D");
 
+		# failure
+
+		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1L-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+
+
+		# deselection inhibit
+
 		var symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y2.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y4.setText(symbol);
+
+		# deselect
+
+		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y1.setText(symbol);
 
@@ -208,6 +313,13 @@ var PFD_addpage_p_dps_rcs = func(device)
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y4.setText(symbol);
+
+		# priority
+
+   		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-pty")));
+    		p_dps_rcs.jpty_y2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-pty")));
+    		p_dps_rcs.jpty_y3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-pty")));
+    		p_dps_rcs.jpty_y4.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-pty")));
 
 		# propellant flow
 
@@ -235,8 +347,11 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.manf_p4_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/left-mfold4-oxidizer-pressure-psia")));
     		p_dps_rcs.manf_p4_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/left-mfold4-fuel-pressure-psia"))); 
 
-   		#p_dps_rcs.manf_p5_oxid
-    		#p_dps_rcs.manf_p5_fu
+	    	p_dps_rcs.manf_v1_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status")));
+    		p_dps_rcs.manf_v2_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status")));
+    		p_dps_rcs.manf_v3_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status")));
+    		p_dps_rcs.manf_v4_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status"))); 
+    		p_dps_rcs.manf_v5_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status")));
 
 		}
 	else # right jets
@@ -267,7 +382,45 @@ var PFD_addpage_p_dps_rcs = func(device)
 		p_dps_rcs.jdesig_v1.setText("R5R");
 		p_dps_rcs.jdesig_v2.setText(" 5D");
 
+		# failure
+
+		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1R-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+
+		# deselection inhibit
+
 		var symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y2.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_y4.setText(symbol);
+
+		# deselect
+
+		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y1.setText(symbol);
 
@@ -282,6 +435,13 @@ var PFD_addpage_p_dps_rcs = func(device)
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_y4.setText(symbol);
+
+		# priority
+
+   		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-pty")));
+    		p_dps_rcs.jpty_y2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-pty")));
+    		p_dps_rcs.jpty_y3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-pty")));
+    		p_dps_rcs.jpty_y4.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-pty")));
 
 		# propellant flow
 
@@ -309,8 +469,11 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.manf_p4_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/right-mfold4-oxidizer-pressure-psia")));
     		p_dps_rcs.manf_p4_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/right-mfold4-fuel-pressure-psia"))); 
 
-   		#p_dps_rcs.manf_p5_oxid
-    		#p_dps_rcs.manf_p5_fu
+	    	p_dps_rcs.manf_v1_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status")));
+    		p_dps_rcs.manf_v2_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status")));
+    		p_dps_rcs.manf_v3_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status")));
+    		p_dps_rcs.manf_v4_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status"))); 
+    		p_dps_rcs.manf_v5_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status")));
 		
 		}    
 	
