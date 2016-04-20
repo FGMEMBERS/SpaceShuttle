@@ -175,19 +175,19 @@ var PFD_addpage_p_dps_rcs = func(device)
 		# failure
 
 		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
+		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
 		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
+		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
 		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
+		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
 		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
+		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
 		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1U-condition");
@@ -334,8 +334,8 @@ var PFD_addpage_p_dps_rcs = func(device)
     		p_dps_rcs.tk_p_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia")));
     		p_dps_rcs.tk_p_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia")));
 
-    		#p_dps_rcs.tk_t_oxid 
-   		#p_dps_rcs.tk_t_fu 
+    		p_dps_rcs.tk_t_oxid.setText(" 80");
+   		p_dps_rcs.tk_t_fu.setText(" 80"); 
 
     		p_dps_rcs.tk_qty_oxid.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[12]/level-lbs")/14.770)); 
     		p_dps_rcs.tk_qty_fu.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[13]/level-lbs")/9.280));
@@ -545,8 +545,8 @@ var PFD_addpage_p_dps_rcs = func(device)
     		p_dps_rcs.tk_p_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia")));
     		p_dps_rcs.tk_p_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-left-rcs-blowdown-psia")));
 
-    		#p_dps_rcs.tk_t_oxid
-   		#p_dps_rcs.tk_t_fu
+    		p_dps_rcs.tk_t_oxid.setText(" 80");
+   		p_dps_rcs.tk_t_fu.setText(" 80");
 
     		p_dps_rcs.tk_qty_oxid.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[8]/level-lbs")/14.770)); 
     		p_dps_rcs.tk_qty_fu.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[9]/level-lbs")/9.280)); 
@@ -755,8 +755,8 @@ var PFD_addpage_p_dps_rcs = func(device)
     		p_dps_rcs.tk_p_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia")));
     		p_dps_rcs.tk_p_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-right-rcs-blowdown-psia")));
 
-    		#p_dps_rcs.tk_t_oxid 
-   		#p_dps_rcs.tk_t_fu 
+    		p_dps_rcs.tk_t_oxid.setText(" 80"); 
+   		p_dps_rcs.tk_t_fu.setText(" 80"); 
 
     		p_dps_rcs.tk_qty_oxid.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[10]/level-lbs")/14.770)); 
     		p_dps_rcs.tk_qty_fu.setText(sprintf("%4.0f", getprop("/consumables/fuel/tank[11]/level-lbs")/9.280));

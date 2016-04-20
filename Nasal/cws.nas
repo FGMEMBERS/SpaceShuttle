@@ -82,6 +82,33 @@ if (f1f + f1l + f1u + f1d < 4.0) # we have a manifold 1 fail off condition
 		cws_msg_hash.f1d = 1;
 		}
 	}
+else if (f1f + f1l + f1u + f1d > 4.0) # we have a manifold 1 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f1", 2);
+
+	if ((f1f > 1.0) and (cws_msg_hash.f1f == 0))
+		{
+		create_fault_message("    F RCS F JET", 1, 2);
+		cws_msg_hash.f1f = 1;
+		}
+	if ((f1l > 1.0) and (cws_msg_hash.f1l == 0))
+		{
+		create_fault_message("    F RCS L JET", 1, 2);
+		cws_msg_hash.f1l = 1;
+		}
+	if ((f1u > 1.0) and (cws_msg_hash.f1u == 0))
+		{
+		create_fault_message("    F RCS U JET", 1, 2);
+		cws_msg_hash.f1u = 1;
+		}
+	if ((f1d > 1.0) and (cws_msg_hash.f1d == 0))
+		{
+		create_fault_message("    F RCS D JET", 1, 2);
+		cws_msg_hash.f1d = 1;
+		}
+
+	}
+
 
 # FWD manifold 2
 

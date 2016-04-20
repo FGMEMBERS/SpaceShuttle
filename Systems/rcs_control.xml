@@ -2854,7 +2854,46 @@
 		<output>systems/rcs/R5R-fire-cmd</output>
 		</fcs_function>
 
-	
+	</channel>
+
+	<channel name="RCS inhibition" execute="systems/fcs/rcs-active">
+
+		<fcs_function name="systems/rcs/F1L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1L-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3L-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2R-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F4R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F4R-fire-cmd</property>
+				<property>systems/rcs/jet-table/F4R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 
