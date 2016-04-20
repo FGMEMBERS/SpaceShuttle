@@ -24,6 +24,10 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdesig_z1 = device.svg.getElementById("p_dps_rcs_jdesig_z1");
     p_dps_rcs.jdesig_z2 = device.svg.getElementById("p_dps_rcs_jdesig_z2");
     p_dps_rcs.jdesig_z3 = device.svg.getElementById("p_dps_rcs_jdesig_z3");
+    p_dps_rcs.jdesig_z4 = device.svg.getElementById("p_dps_rcs_jdesig_z4");
+    p_dps_rcs.jdesig_z5 = device.svg.getElementById("p_dps_rcs_jdesig_z5");
+    p_dps_rcs.jdesig_z6 = device.svg.getElementById("p_dps_rcs_jdesig_z6");
+    p_dps_rcs.jdesig_z7 = device.svg.getElementById("p_dps_rcs_jdesig_z7");
 
     p_dps_rcs.jfail_y1 = device.svg.getElementById("p_dps_rcs_jfail_y1");
     p_dps_rcs.jfail_y2 = device.svg.getElementById("p_dps_rcs_jfail_y2");
@@ -33,6 +37,10 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jfail_z1 = device.svg.getElementById("p_dps_rcs_jfail_z1");
     p_dps_rcs.jfail_z2 = device.svg.getElementById("p_dps_rcs_jfail_z2");
     p_dps_rcs.jfail_z3 = device.svg.getElementById("p_dps_rcs_jfail_z3");
+    p_dps_rcs.jfail_z4 = device.svg.getElementById("p_dps_rcs_jfail_z4");
+    p_dps_rcs.jfail_z5 = device.svg.getElementById("p_dps_rcs_jfail_z5");
+    p_dps_rcs.jfail_z6 = device.svg.getElementById("p_dps_rcs_jfail_z6");
+    p_dps_rcs.jfail_z7 = device.svg.getElementById("p_dps_rcs_jfail_z7");
 
     p_dps_rcs.jdes_y1 = device.svg.getElementById("p_dps_rcs_jdes_y1");
     p_dps_rcs.jdes_y2 = device.svg.getElementById("p_dps_rcs_jdes_y2");
@@ -42,6 +50,10 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdes_z1 = device.svg.getElementById("p_dps_rcs_jdes_z1");
     p_dps_rcs.jdes_z2 = device.svg.getElementById("p_dps_rcs_jdes_z2");
     p_dps_rcs.jdes_z3 = device.svg.getElementById("p_dps_rcs_jdes_z3");
+    p_dps_rcs.jdes_z4 = device.svg.getElementById("p_dps_rcs_jdes_z4");
+    p_dps_rcs.jdes_z5 = device.svg.getElementById("p_dps_rcs_jdes_z5");
+    p_dps_rcs.jdes_z6 = device.svg.getElementById("p_dps_rcs_jdes_z6");
+    p_dps_rcs.jdes_z7 = device.svg.getElementById("p_dps_rcs_jdes_z7");
 
     p_dps_rcs.jdesi_y1 = device.svg.getElementById("p_dps_rcs_jdesi_y1");
     p_dps_rcs.jdesi_y2 = device.svg.getElementById("p_dps_rcs_jdesi_y2");
@@ -51,6 +63,10 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdesi_z1 = device.svg.getElementById("p_dps_rcs_jdesi_z1");
     p_dps_rcs.jdesi_z2 = device.svg.getElementById("p_dps_rcs_jdesi_z2");
     p_dps_rcs.jdesi_z3 = device.svg.getElementById("p_dps_rcs_jdesi_z3");
+    p_dps_rcs.jdesi_z4 = device.svg.getElementById("p_dps_rcs_jdesi_z4");
+    p_dps_rcs.jdesi_z5 = device.svg.getElementById("p_dps_rcs_jdesi_z5");
+    p_dps_rcs.jdesi_z6 = device.svg.getElementById("p_dps_rcs_jdesi_z6");
+    p_dps_rcs.jdesi_z7 = device.svg.getElementById("p_dps_rcs_jdesi_z7");
 
     p_dps_rcs.jpty_y1 = device.svg.getElementById("p_dps_rcs_jpty_y1");
     p_dps_rcs.jpty_y2 = device.svg.getElementById("p_dps_rcs_jpty_y2");
@@ -60,13 +76,14 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jpty_z1 = device.svg.getElementById("p_dps_rcs_jpty_z1");
     p_dps_rcs.jpty_z2 = device.svg.getElementById("p_dps_rcs_jpty_z2");
     p_dps_rcs.jpty_z3 = device.svg.getElementById("p_dps_rcs_jpty_z3");
+    p_dps_rcs.jpty_z4 = device.svg.getElementById("p_dps_rcs_jpty_z4");
+    p_dps_rcs.jpty_z5 = device.svg.getElementById("p_dps_rcs_jpty_z5");
+    p_dps_rcs.jpty_z6 = device.svg.getElementById("p_dps_rcs_jpty_z6");
+    p_dps_rcs.jpty_z7 = device.svg.getElementById("p_dps_rcs_jpty_z7");
 
 
    
-    p_dps_rcs.jdesig_z4 = device.svg.getElementById("p_dps_rcs_jdesig_z4");
-    p_dps_rcs.jdesig_z5 = device.svg.getElementById("p_dps_rcs_jdesig_z5");
-    p_dps_rcs.jdesig_z6 = device.svg.getElementById("p_dps_rcs_jdesig_z6");
-    p_dps_rcs.jdesig_z7 = device.svg.getElementById("p_dps_rcs_jdesig_z7");
+
 
     p_dps_rcs.jdesig_x1 = device.svg.getElementById("p_dps_rcs_jdesig_x1");
     p_dps_rcs.jdesig_x2 = device.svg.getElementById("p_dps_rcs_jdesig_x2");
@@ -98,6 +115,10 @@ var PFD_addpage_p_dps_rcs = func(device)
 
     p_dps_rcs.manf_p4_oxid = device.svg.getElementById("p_dps_rcs_manf_p4_oxid");
     p_dps_rcs.manf_p4_fu = device.svg.getElementById("p_dps_rcs_manf_p4_fu");
+
+    p_dps_rcs.xfeedp_oxid = device.svg.getElementById("p_dps_rcs_xfeedp_oxid");
+    p_dps_rcs.xfeedp_fu = device.svg.getElementById("p_dps_rcs_xfeedp_fu");
+
 
     p_dps_rcs.manf_v1_stat = device.svg.getElementById("p_dps_rcs_manf_v1_stat");
     p_dps_rcs.manf_v2_stat = device.svg.getElementById("p_dps_rcs_manf_v2_stat");
@@ -181,6 +202,22 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (state < 1.0) {state = 1;} else {state = 0;}
 		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
 
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z4.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+
 		# deselection inhibit
 
 		var symbol = "";
@@ -210,6 +247,22 @@ var PFD_addpage_p_dps_rcs = func(device)
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2U-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z4.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F3D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z7.setText(symbol);
 
 		# deselect
 
@@ -241,6 +294,22 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2U-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z3.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z4.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F3D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z7.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-pty")));
@@ -251,6 +320,10 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.jpty_z1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1U-pty")));
    		p_dps_rcs.jpty_z2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F3U-pty")));
    		p_dps_rcs.jpty_z3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F2U-pty")));
+		p_dps_rcs.jpty_z4.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1D-pty")));
+		p_dps_rcs.jpty_z5.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F3D-pty")));
+		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F2D-pty")));
+		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-pty")));
 
 
 		# propellant flow
@@ -345,6 +418,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (state < 1.0) {state = 1;} else {state = 0;}
 		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
 
+		p_dps_rcs.jfail_z4.setText("");
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+
 
 		# deselection inhibit
 
@@ -376,6 +463,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1U-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z3.setText(symbol);
 
+		p_dps_rcs.jdesi_z4.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L4D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L2D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z7.setText(symbol);
+
 		# deselect
 
 		symbol = "";
@@ -406,6 +507,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1U-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z3.setText(symbol);
 
+		p_dps_rcs.jdes_z4.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L4D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L2D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z7.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-pty")));
@@ -416,6 +531,11 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.jpty_z1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4U-pty")));
    		p_dps_rcs.jpty_z2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L2U-pty")));
    		p_dps_rcs.jpty_z3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L1U-pty")));
+
+		p_dps_rcs.jpty_z4.setText("");
+   		p_dps_rcs.jpty_z5.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4D-pty")));
+ 		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L2D-pty")));
+ 		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-pty")));
 
 		# propellant flow
 
@@ -508,6 +628,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (state < 1.0) {state = 1;} else {state = 0;}
 		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
 
+		p_dps_rcs.jfail_z4.setText("");
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3D-condition");
+		if (state < 1.0) {state = 1;} else {state = 0;}
+		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+
 		# deselection inhibit
 
 		var symbol = "";
@@ -537,6 +671,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1U-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z3.setText(symbol);
+
+		p_dps_rcs.jdesi_z4.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R4D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R2D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_z7.setText(symbol);
 
 		# deselect
 
@@ -568,6 +716,20 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1U-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z3.setText(symbol);
 
+		p_dps_rcs.jdes_z4.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R4D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z5.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R2D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z6.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_z7.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-pty")));
@@ -578,6 +740,12 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.jpty_z1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4U-pty")));
    		p_dps_rcs.jpty_z2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R2U-pty")));
    		p_dps_rcs.jpty_z3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R1U-pty")));
+
+		p_dps_rcs.jpty_z4.setText("");
+
+		p_dps_rcs.jpty_z5.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4D-pty")));
+		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R2D-pty")));
+		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-pty")));
 
 		# propellant flow
 
@@ -612,6 +780,9 @@ var PFD_addpage_p_dps_rcs = func(device)
     		p_dps_rcs.manf_v5_stat.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status")));
 		
 		}    
+
+    	p_dps_rcs.xfeedp_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/xfeed-oxidizer-pressure-psia")));
+   	p_dps_rcs.xfeedp_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/xfeed-fuel-pressure-psia")));
 	
 
      
