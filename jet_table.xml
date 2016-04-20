@@ -13,6 +13,11 @@
 	<F3U-sel type="int">1</F3U-sel>
 	<F2U-sel type="int">1</F2U-sel>
 
+	<F1D-sel type="int">1</F1D-sel>
+	<F3D-sel type="int">1</F3D-sel>
+	<F2D-sel type="int">1</F2D-sel>
+	<F4D-sel type="int">1</F4D-sel>
+
 	<F1L-inh type="int">0</F1L-inh>
 	<F3L-inh type="int">0</F3L-inh>
 	<F2R-inh type="int">0</F2R-inh>
@@ -21,6 +26,11 @@
 	<F1U-inh type="int">0</F1U-inh>
 	<F3U-inh type="int">0</F3U-inh>
 	<F2U-inh type="int">0</F2U-inh>
+
+	<F1D-inh type="int">0</F1D-inh>
+	<F3D-inh type="int">0</F3D-inh>
+	<F2D-inh type="int">0</F2D-inh>
+	<F4D-inh type="int">0</F4D-inh>
 
 	<F1L-pty type="int">2</F1L-pty>
 	<F3L-pty type="int">1</F3L-pty>
@@ -31,6 +41,11 @@
 	<F3U-pty type="int">1</F3U-pty>
 	<F2U-pty type="int">3</F2U-pty>
 
+	<F1D-pty type="int">2</F1D-pty>
+	<F3D-pty type="int">1</F3D-pty>
+	<F2D-pty type="int">2</F2D-pty>
+	<F4D-pty type="int">1</F4D-pty>
+
 	<L4L-sel type="int">1</L4L-sel>
 	<L2L-sel type="int">1</L2L-sel>
 	<L3L-sel type="int">1</L3L-sel>
@@ -40,6 +55,9 @@
 	<L2U-sel type="int">1</L2U-sel>
 	<L1U-sel type="int">1</L1U-sel>
 
+	<L4D-sel type="int">1</L4D-sel>
+	<L2D-sel type="int">1</L2D-sel>
+	<L3D-sel type="int">1</L3D-sel>
 
 	<L4L-inh type="int">0</L4L-inh>
 	<L2L-inh type="int">0</L2L-inh>
@@ -50,6 +68,10 @@
 	<L2U-inh type="int">0</L2U-inh>
 	<L1U-inh type="int">0</L1U-inh>
 
+	<L4D-inh type="int">0</L4D-inh>
+	<L2D-inh type="int">0</L2D-inh>
+	<L3D-inh type="int">0</L3D-inh>
+
 	<L4L-pty type="int">3</L4L-pty>
 	<L2L-pty type="int">4</L2L-pty>
 	<L3L-pty type="int">2</L3L-pty>
@@ -58,6 +80,10 @@
 	<L4U-pty type="int">2</L4U-pty>
 	<L2U-pty type="int">3</L2U-pty>
 	<L1U-pty type="int">1</L1U-pty>
+
+	<L4D-pty type="int">3</L4D-pty>
+	<L2D-pty type="int">2</L2D-pty>
+	<L3D-pty type="int">1</L3D-pty>
 
 	<R4R-sel type="int">1</R4R-sel>
 	<R2R-sel type="int">1</R2R-sel>
@@ -68,6 +94,10 @@
 	<R2U-sel type="int">1</R2U-sel>
 	<R1U-sel type="int">1</R1U-sel>
 
+	<R4D-sel type="int">1</R4D-sel>
+	<R2D-sel type="int">1</R2D-sel>
+	<R3D-sel type="int">1</R3D-sel>
+
 	<R4R-inh type="int">0</R4R-inh>
 	<R2R-inh type="int">0</R2R-inh>
 	<R3R-inh type="int">0</R3R-inh>
@@ -77,6 +107,10 @@
 	<R2U-inh type="int">0</R2U-inh>
 	<R1U-inh type="int">0</R1U-inh>
 
+	<R4D-inh type="int">0</R4D-inh>
+	<R2D-inh type="int">0</R2D-inh>
+	<R3D-inh type="int">0</R3D-inh>
+
 	<R4R-pty type="int">4</R4R-pty>
 	<R2R-pty type="int">3</R2R-pty>
 	<R3R-pty type="int">1</R3R-pty>
@@ -85,5 +119,9 @@
 	<R4U-pty type="int">2</R4U-pty>
 	<R2U-pty type="int">3</R2U-pty>
 	<R1U-pty type="int">1</R1U-pty>
+
+	<R4D-pty type="int">3</R4D-pty>
+	<R2D-pty type="int">2</R2D-pty>
+	<R3D-pty type="int">1</R3D-pty>
 
 </PropertyList>

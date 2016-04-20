@@ -734,6 +734,60 @@
 		<output>systems/rcs-hardware/fwd-mfold4-oxidizer-pressure-psia</output>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs-hardware/xfeed-fuel-pressure-psia">
+		<function>
+			<max>
+			<product>
+			<difference>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
+				<value>4.0</value>
+			</difference>
+			<max>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-12-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-345-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-345-status</property>
+				</product>
+
+			</max>
+			</product>
+			<product>
+			<difference>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
+				<value>2.0</value>
+			</difference>
+			<max>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-12-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-345-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-345-status</property>
+				</product>
+
+			</max>
+			</product>
+
+			<value>0</value>
+			</max>
+		</function>
+		<output>systems/rcs-hardware/xfeed-oxidizer-pressure-psia</output>
+		</fcs_function>
+
+	
+
 
 		<!-- fuel can flow if either the tank is pressurized or the blowdown pressure is sufficient -->
 		<!-- to qualify as available the tank also needs to be more than 1% full -->
