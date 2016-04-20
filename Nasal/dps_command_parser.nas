@@ -1558,6 +1558,121 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			valid_flag = 1;
 			}
+		else if (item == 40)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 41)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 42)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 43)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 44)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status", state);
+				}
+			valid_flag = 1;				
+			}
 		}
 
 	if (spec == 33)
