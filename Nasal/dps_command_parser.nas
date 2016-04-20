@@ -604,6 +604,14 @@ var get_spec_page = func (spec)
 }
 
 
+var toggle_property = func (node) {
+
+var state = getprop(node);
+if (state == 0) {state = 1;} else {state = 0;}
+
+setprop(node, state);
+}
+
 #####################################################################
 # The command parser
 #####################################################################
@@ -1467,23 +1475,12 @@ if ((header == "ITEM") and (end = "EXEC"))
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
 
 			if (index == 1)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel");}
 			else if (index == 2)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel");}
 			else if (index == 3)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel");}
+
 			valid_flag = 1;
 			}
 		else if (item == 11)
@@ -1491,23 +1488,12 @@ if ((header == "ITEM") and (end = "EXEC"))
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
 
 			if (index == 1)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel");}
 			else if (index == 2)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel");}
 			else if (index == 3)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel");}
+
 			valid_flag = 1;
 			}
 		else if (item == 13)
@@ -1515,23 +1501,12 @@ if ((header == "ITEM") and (end = "EXEC"))
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
 
 			if (index == 1)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel");}
 			else if (index == 2)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel");}
 			else if (index == 3)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel");}
+
 			valid_flag = 1;
 			}
 		else if (item == 15)
@@ -1539,23 +1514,11 @@ if ((header == "ITEM") and (end = "EXEC"))
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
 
 			if (index == 1)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel");}
 			else if (index == 2)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel");}
 			else if (index == 3)
-				{
-				var state = getprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel");
-				if (state == 0) {state = 1;} else {state = 0;}
-				setprop("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel", state);
-				}
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel");}
 			valid_flag = 1;
 			}
 		else if (item == 40)
