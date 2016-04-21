@@ -152,6 +152,19 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.manf_v4_stat = device.svg.getElementById("p_dps_rcs_manf_v4_stat");
     p_dps_rcs.manf_v5_stat = device.svg.getElementById("p_dps_rcs_manf_v5_stat");
     
+    p_dps_rcs.aut_manf_cl = device.svg.getElementById("p_dps_rcs_aut_manf_cl");
+    p_dps_rcs.press = device.svg.getElementById("p_dps_rcs_press");
+
+    p_dps_rcs.oms_rcs_qty_l = device.svg.getElementById("p_dps_rcs_oms_rcs_qty_l");
+    p_dps_rcs.oms_rcs_qty_r = device.svg.getElementById("p_dps_rcs_oms_rcs_qty_r");
+
+    p_dps_rcs.l_oms_aft = device.svg.getElementById("p_dps_rcs_l_oms_aft");
+    p_dps_rcs.r_oms_aft = device.svg.getElementById("p_dps_rcs_r_oms_aft");
+    p_dps_rcs.off = device.svg.getElementById("p_dps_rcs_off");
+
+    p_dps_rcs.pri_fail_lim = device.svg.getElementById("p_dps_rcs_pri_fail_lim");
+
+
     p_dps_rcs.ondisplay = func
     {
         device.DPS_menu_title.setText("RCS");
@@ -161,6 +174,16 @@ var PFD_addpage_p_dps_rcs = func(device)
     
         var ops_string = major_mode~"1/023/";
         device.DPS_menu_ops.setText(ops_string);
+
+	# defaults for functions which are not yet implemented
+
+	p_dps_rcs.aut_manf_cl.setText("INH");
+	p_dps_rcs.press.setText("ENA");
+	
+    	p_dps_rcs.oms_rcs_qty_l.setText("0.00");
+    	p_dps_rcs.oms_rcs_qty_r.setText("0.00");
+	p_dps_rcs.pri_fail_lim.setText("2");
+
     }
     
     p_dps_rcs.update = func
@@ -956,8 +979,21 @@ var PFD_addpage_p_dps_rcs = func(device)
     	p_dps_rcs.xfeedp_oxid.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/xfeed-oxidizer-pressure-psia")));
    	p_dps_rcs.xfeedp_fu.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/rcs-hardware/xfeed-fuel-pressure-psia")));
 	
-
+	var oms_qty_gauging_left = getprop("/fdm/jsbsim/systems/rcs-hardware/oms-left-xfeed-qty-enable");
+	var oms_qty_gauging_right = getprop("/fdm/jsbsim/systems/rcs-hardware/oms-right-xfeed-qty-enable");
      
+	symbol = "";
+	if (oms_qty_gauging_left == 1) {symbol = "*";}
+    	p_dps_rcs.l_oms_aft.setText(symbol);
+
+	symbol = "";
+	if (oms_qty_gauging_right == 1) {symbol = "*";}
+    	p_dps_rcs.r_oms_aft.setText(symbol);
+
+	symbol = "";
+	if ((oms_qty_gauging_left == 0) and (oms_qty_gauging_right == 0)) {symbol = "*";}
+	p_dps_rcs.off.setText(symbol);
+
     
         device.update_common_DPS();
     }

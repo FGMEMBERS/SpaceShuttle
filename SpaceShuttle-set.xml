@@ -856,6 +856,9 @@
       <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
       <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
 
+      <oms-left-xfeed-qty-enable type="int">0</oms-left-xfeed-qty-enable>
+      <oms-right-xfeed-qty-enable type="int">0</oms-right-xfeed-qty-enable>
+
       <F1L-fire type="double">0.0</F1L-fire>    
       <F3L-fire type="double">0.0</F3L-fire> 
       <F2R-fire type="double">0.0</F2R-fire>  

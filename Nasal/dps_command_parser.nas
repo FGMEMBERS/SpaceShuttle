@@ -1470,6 +1470,22 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 3);
 			valid_flag =1;
 			}
+		else if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-left-xfeed-qty-enable", 1);
+			valid_flag =1;
+			}
+		else if (item == 6)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-right-xfeed-qty-enable", 1);
+			valid_flag =1;
+			}
+		else if (item == 7)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-left-xfeed-qty-enable", 0);
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-right-xfeed-qty-enable", 0);
+			valid_flag =1;
+			}
 		else if (item == 9)
 			{
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
