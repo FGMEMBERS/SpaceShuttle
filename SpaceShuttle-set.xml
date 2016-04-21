@@ -771,7 +771,14 @@
       <F1L-fire-cmd-inh type="double">0.0</F1L-fire-cmd-inh> 
       <F3L-fire-cmd-inh type="double">0.0</F3L-fire-cmd-inh>  
       <F2R-fire-cmd-inh type="double">0.0</F2R-fire-cmd-inh>  
-      <F4R-fire-cmd-inh type="double">0.0</F4R-fire-cmd-inh>      
+      <F4R-fire-cmd-inh type="double">0.0</F4R-fire-cmd-inh>   
+      <F1U-fire-cmd-inh type="double">0.0</F1U-fire-cmd-inh>
+      <F3U-fire-cmd-inh type="double">0.0</F3U-fire-cmd-inh>
+      <F2U-fire-cmd-inh type="double">0.0</F2U-fire-cmd-inh> 
+      <F1D-fire-cmd-inh type="double">0.0</F1D-fire-cmd-inh>
+      <F3D-fire-cmd-inh type="double">0.0</F3D-fire-cmd-inh> 
+      <F2D-fire-cmd-inh type="double">0.0</F2D-fire-cmd-inh>
+      <F4D-fire-cmd-inh type="double">0.0</F4D-fire-cmd-inh>                                                      
      </rcs>
      <rcs-hardware>
       <helium-left-rcs-pressure-1-psia type="double">280.0</helium-left-rcs-pressure-1-psia>
@@ -862,7 +869,15 @@
       <F1L-fire type="double">0.0</F1L-fire>    
       <F3L-fire type="double">0.0</F3L-fire> 
       <F2R-fire type="double">0.0</F2R-fire>  
-      <F4R-fire type="double">0.0</F4R-fire>                            
+      <F4R-fire type="double">0.0</F4R-fire>   
+      <F1U-fire type="double">0.0</F1U-fire>  
+      <F3U-fire type="double">0.0</F3U-fire>                                                     
+      <F2U-fire type="double">0.0</F2U-fire>   
+      <F1D-fire type="double">0.0</F1D-fire>
+      <F3D-fire type="double">0.0</F3D-fire>
+      <F2D-fire type="double">0.0</F2D-fire>                                     
+      <F4D-fire type="double">0.0</F4D-fire>          
+                                                        
      </rcs-hardware>	
      <rendezvous>
 	<rel-nav-enable type="int">0</rel-nav-enable>
