@@ -11,6 +11,16 @@ var valve_status_to_string = func (status)
     else {return "OP";}
 }
 
+var jet_conditions_to_string = func (con1, con2)
+{
+if (con1 < 1.0) {return "OFF";} 
+else if (con1 > 1.0) {return "ON";}
+else if (con2 < 1.0) {return "LK";} 
+else {return "";}
+
+
+}
+
 var jet_status_to_string = func (status)
 {
     if (status == 1) {return "OFF";}
