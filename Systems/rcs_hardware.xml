@@ -1768,6 +1768,69 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rcs-hardware/F1U-fire-cmd-final">
+			<default value="systems/rcs/F1U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1U-fire-cmd-final">
+				systems/rcs-hardware/F1U-fire GT 0.0
+				systems/failures/rcs/rcs-F1U-condition GT 1.0
+				systems/rcs/F1U-fire-cmd-inh LT systems/rcs-hardware/F1U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3U-fire-cmd-final">
+			<default value="systems/rcs/F3U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3U-fire-cmd-final">
+				systems/rcs-hardware/F3U-fire GT 0.0
+				systems/failures/rcs/rcs-F3U-condition GT 1.0
+				systems/rcs/F3U-fire-cmd-inh LT systems/rcs-hardware/F3U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2U-fire-cmd-final">
+			<default value="systems/rcs/F2U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2U-fire-cmd-final">
+				systems/rcs-hardware/F2U-fire GT 0.0
+				systems/failures/rcs/rcs-F2U-condition GT 1.0
+				systems/rcs/F2U-fire-cmd-inh LT systems/rcs-hardware/F2U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F1D-fire-cmd-final">
+			<default value="systems/rcs/F1D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1D-fire-cmd-final">
+				systems/rcs-hardware/F1D-fire GT 0.0
+				systems/failures/rcs/rcs-F1D-condition GT 1.0
+				systems/rcs/F1D-fire-cmd-inh LT systems/rcs-hardware/F1D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3D-fire-cmd-final">
+			<default value="systems/rcs/F3D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3D-fire-cmd-final">
+				systems/rcs-hardware/F3D-fire GT 0.0
+				systems/failures/rcs/rcs-F3D-condition GT 1.0
+				systems/rcs/F3D-fire-cmd-inh LT systems/rcs-hardware/F3D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2D-fire-cmd-final">
+			<default value="systems/rcs/F2D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2D-fire-cmd-final">
+				systems/rcs-hardware/F2D-fire GT 0.0
+				systems/failures/rcs/rcs-F2D-condition GT 1.0
+				systems/rcs/F2D-fire-cmd-inh LT systems/rcs-hardware/F2D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F4D-fire-cmd-final">
+			<default value="systems/rcs/F4D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F4D-fire-cmd-final">
+				systems/rcs-hardware/F4D-fire GT 0.0
+				systems/failures/rcs/rcs-F4D-condition GT 1.0
+				systems/rcs/F4D-fire-cmd-inh LT systems/rcs-hardware/F4D-fire
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="RCS hardware thruster firing simulation">
@@ -1864,9 +1927,12 @@
 		<fcs_function name="systems/rcs-hardware/F2U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs-hardware/F2U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2U-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F2U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[14]</output>
@@ -1875,9 +1941,12 @@
 		<fcs_function name="systems/rcs-hardware/F3U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs-hardware/F3U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3U-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F3U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[15]</output>
@@ -1886,9 +1955,12 @@
 		<fcs_function name="systems/rcs-hardware/F1U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs-hardware/F1U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1U-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F1U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[16]</output>
@@ -1897,9 +1969,12 @@
 		<fcs_function name="systems/rcs-hardware/F2D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs-hardware/F2D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2D-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F2D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[17]</output>
@@ -1908,9 +1983,12 @@
 		<fcs_function name="systems/rcs-hardware/F1D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs-hardware/F1D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1D-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F1D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[18]</output>
@@ -1919,9 +1997,12 @@
 		<fcs_function name="systems/rcs-hardware/F4D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs-hardware/F4D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F4D-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F4D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F4D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[19]</output>
@@ -1930,9 +2011,12 @@
 		<fcs_function name="systems/rcs-hardware/F3D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs-hardware/F3D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3D-fuel-available</property>
-				<property>systems/failures/rcs/rcs-F3D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[20]</output>

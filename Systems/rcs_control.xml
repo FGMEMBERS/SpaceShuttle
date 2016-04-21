@@ -2894,6 +2894,69 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs/F1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F1D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 
