@@ -29,6 +29,13 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdesig_z6 = device.svg.getElementById("p_dps_rcs_jdesig_z6");
     p_dps_rcs.jdesig_z7 = device.svg.getElementById("p_dps_rcs_jdesig_z7");
 
+    p_dps_rcs.jdesig_x1 = device.svg.getElementById("p_dps_rcs_jdesig_x1");
+    p_dps_rcs.jdesig_x2 = device.svg.getElementById("p_dps_rcs_jdesig_x2");
+    p_dps_rcs.jdesig_x3 = device.svg.getElementById("p_dps_rcs_jdesig_x3");
+
+    p_dps_rcs.jdesig_v1 = device.svg.getElementById("p_dps_rcs_jdesig_v1");
+    p_dps_rcs.jdesig_v2 = device.svg.getElementById("p_dps_rcs_jdesig_v2");
+
     p_dps_rcs.jfail_y1 = device.svg.getElementById("p_dps_rcs_jfail_y1");
     p_dps_rcs.jfail_y2 = device.svg.getElementById("p_dps_rcs_jfail_y2");
     p_dps_rcs.jfail_y3 = device.svg.getElementById("p_dps_rcs_jfail_y3");
@@ -41,6 +48,14 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jfail_z5 = device.svg.getElementById("p_dps_rcs_jfail_z5");
     p_dps_rcs.jfail_z6 = device.svg.getElementById("p_dps_rcs_jfail_z6");
     p_dps_rcs.jfail_z7 = device.svg.getElementById("p_dps_rcs_jfail_z7");
+
+    p_dps_rcs.jfail_x1 = device.svg.getElementById("p_dps_rcs_jfail_x1");
+    p_dps_rcs.jfail_x2 = device.svg.getElementById("p_dps_rcs_jfail_x2");
+    p_dps_rcs.jfail_x3 = device.svg.getElementById("p_dps_rcs_jfail_x3");
+
+    p_dps_rcs.jfail_v1 = device.svg.getElementById("p_dps_rcs_jfail_v1");
+    p_dps_rcs.jfail_v2 = device.svg.getElementById("p_dps_rcs_jfail_v2");
+
 
     p_dps_rcs.jdes_y1 = device.svg.getElementById("p_dps_rcs_jdes_y1");
     p_dps_rcs.jdes_y2 = device.svg.getElementById("p_dps_rcs_jdes_y2");
@@ -55,6 +70,14 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdes_z6 = device.svg.getElementById("p_dps_rcs_jdes_z6");
     p_dps_rcs.jdes_z7 = device.svg.getElementById("p_dps_rcs_jdes_z7");
 
+    p_dps_rcs.jdes_x1 = device.svg.getElementById("p_dps_rcs_jdes_x1");
+    p_dps_rcs.jdes_x2 = device.svg.getElementById("p_dps_rcs_jdes_x2");
+    p_dps_rcs.jdes_x3 = device.svg.getElementById("p_dps_rcs_jdes_x3");
+
+    p_dps_rcs.jdes_v1 = device.svg.getElementById("p_dps_rcs_jdes_v1");
+    p_dps_rcs.jdes_v2 = device.svg.getElementById("p_dps_rcs_jdes_v2");
+
+
     p_dps_rcs.jdesi_y1 = device.svg.getElementById("p_dps_rcs_jdesi_y1");
     p_dps_rcs.jdesi_y2 = device.svg.getElementById("p_dps_rcs_jdesi_y2");
     p_dps_rcs.jdesi_y3 = device.svg.getElementById("p_dps_rcs_jdesi_y3");
@@ -67,6 +90,13 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jdesi_z5 = device.svg.getElementById("p_dps_rcs_jdesi_z5");
     p_dps_rcs.jdesi_z6 = device.svg.getElementById("p_dps_rcs_jdesi_z6");
     p_dps_rcs.jdesi_z7 = device.svg.getElementById("p_dps_rcs_jdesi_z7");
+
+    p_dps_rcs.jdesi_x1 = device.svg.getElementById("p_dps_rcs_jdesi_x1");
+    p_dps_rcs.jdesi_x2 = device.svg.getElementById("p_dps_rcs_jdesi_x2");
+    p_dps_rcs.jdesi_x3 = device.svg.getElementById("p_dps_rcs_jdesi_x3");
+
+    p_dps_rcs.jdesi_v1 = device.svg.getElementById("p_dps_rcs_jdesi_v1");
+    p_dps_rcs.jdesi_v2 = device.svg.getElementById("p_dps_rcs_jdesi_v2");
 
     p_dps_rcs.jpty_y1 = device.svg.getElementById("p_dps_rcs_jpty_y1");
     p_dps_rcs.jpty_y2 = device.svg.getElementById("p_dps_rcs_jpty_y2");
@@ -81,16 +111,12 @@ var PFD_addpage_p_dps_rcs = func(device)
     p_dps_rcs.jpty_z6 = device.svg.getElementById("p_dps_rcs_jpty_z6");
     p_dps_rcs.jpty_z7 = device.svg.getElementById("p_dps_rcs_jpty_z7");
 
+    p_dps_rcs.jpty_x1 = device.svg.getElementById("p_dps_rcs_jpty_x1");
+    p_dps_rcs.jpty_x2 = device.svg.getElementById("p_dps_rcs_jpty_x2");
+    p_dps_rcs.jpty_x3 = device.svg.getElementById("p_dps_rcs_jpty_x3");
 
-   
-
-
-    p_dps_rcs.jdesig_x1 = device.svg.getElementById("p_dps_rcs_jdesig_x1");
-    p_dps_rcs.jdesig_x2 = device.svg.getElementById("p_dps_rcs_jdesig_x2");
-    p_dps_rcs.jdesig_x3 = device.svg.getElementById("p_dps_rcs_jdesig_x3");
-
-    p_dps_rcs.jdesig_v1 = device.svg.getElementById("p_dps_rcs_jdesig_v1");
-    p_dps_rcs.jdesig_v2 = device.svg.getElementById("p_dps_rcs_jdesig_v2");
+    p_dps_rcs.jpty_v1 = device.svg.getElementById("p_dps_rcs_jpty_v1");
+    p_dps_rcs.jpty_v2 = device.svg.getElementById("p_dps_rcs_jpty_v2");
 
     p_dps_rcs.he_p_oxid = device.svg.getElementById("p_dps_rcs_he_p_oxid");
     p_dps_rcs.he_p_fu = device.svg.getElementById("p_dps_rcs_he_p_fu");
@@ -175,48 +201,53 @@ var PFD_addpage_p_dps_rcs = func(device)
 		# failure
 
 		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1L-condition");
-		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
-		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition");
-		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
-		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2R-condition");
-		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
-		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y3.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4R-condition");
-		if (state < 1.0) {state = 1;} else if (state > 1.0) {state = 2;} else {state = 0;}
-		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y4.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z3.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z4.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z4.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z5.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z6.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z7.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1F-condition");
+		p_dps_rcs.jfail_x1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3F-condition");
+		p_dps_rcs.jfail_x2.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2F-condition");
+		p_dps_rcs.jfail_x3.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F5L-condition");
+		p_dps_rcs.jfail_v1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F5R-condition");
+		p_dps_rcs.jfail_v2.setText(jet_conditions_to_string(state, 1.0));
+
 
 		# deselection inhibit
 
@@ -264,6 +295,26 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1F-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F3F-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x2.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2F-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F5L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F5R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v2.setText(symbol);
+
 		# deselect
 
 		symbol = "";
@@ -310,6 +361,26 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F1F-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F3F-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x2.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F2F-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x3.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F5L-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/F5R-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v2.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1L-pty")));
@@ -325,6 +396,12 @@ var PFD_addpage_p_dps_rcs = func(device)
 		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F2D-pty")));
 		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F4D-pty")));
 
+		p_dps_rcs.jpty_x1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F1F-pty")));
+		p_dps_rcs.jpty_x2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F3F-pty")));
+		p_dps_rcs.jpty_x3.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F2F-pty")));
+
+		p_dps_rcs.jpty_v1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F5L-pty")));
+		p_dps_rcs.jpty_v2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/F5R-pty")));
 
 		# propellant flow
 
@@ -391,46 +468,50 @@ var PFD_addpage_p_dps_rcs = func(device)
 		# failure
 
 		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y3.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1L-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y4.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z3.setText(jet_conditions_to_string(state, 1.0));
 
 		p_dps_rcs.jfail_z4.setText("");
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z5.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z6.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z7.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3A-condition");
+		p_dps_rcs.jfail_x1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1A-condition");
+		p_dps_rcs.jfail_x2.setText(jet_conditions_to_string(state, 1.0));
+
+		p_dps_rcs.jfail_x3.setText("");
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L5L-condition");
+		p_dps_rcs.jfail_v1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L5D-condition");
+		p_dps_rcs.jfail_v2.setText(jet_conditions_to_string(state, 1.0));
 
 
 		# deselection inhibit
@@ -477,6 +558,24 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3A-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1A-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x2.setText(symbol);
+
+		p_dps_rcs.jdesi_x3.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5L-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v2.setText(symbol);
+
 		# deselect
 
 		symbol = "";
@@ -521,6 +620,24 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L3A-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1A-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x2.setText(symbol);
+
+		p_dps_rcs.jdes_x1.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5L-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v2.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4L-pty")));
@@ -536,6 +653,13 @@ var PFD_addpage_p_dps_rcs = func(device)
    		p_dps_rcs.jpty_z5.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L4D-pty")));
  		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L2D-pty")));
  		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L3D-pty")));
+
+ 		p_dps_rcs.jpty_x1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L3A-pty")));
+ 		p_dps_rcs.jpty_x2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L1A-pty")));
+		p_dps_rcs.jpty_x3.setText("");
+
+		p_dps_rcs.jpty_v1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L5L-pty")));
+ 		p_dps_rcs.jpty_v2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/L5D-pty")));
 
 		# propellant flow
 
@@ -601,46 +725,50 @@ var PFD_addpage_p_dps_rcs = func(device)
 		# failure
 
 		var state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y3.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1R-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_y4.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_y4.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z1.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z1.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z2.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z2.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1U-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z3.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z3.setText(jet_conditions_to_string(state, 1.0));
 
 		p_dps_rcs.jfail_z4.setText("");
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z5.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z5.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z6.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z6.setText(jet_conditions_to_string(state, 1.0));
 
 		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3D-condition");
-		if (state < 1.0) {state = 1;} else {state = 0;}
-		p_dps_rcs.jfail_z7.setText(jet_status_to_string(state));
+		p_dps_rcs.jfail_z7.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1A-condition");
+		p_dps_rcs.jfail_x1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3A-condition");
+		p_dps_rcs.jfail_x2.setText(jet_conditions_to_string(state, 1.0));
+
+		p_dps_rcs.jfail_x3.setText("");
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R5R-condition");
+		p_dps_rcs.jfail_v1.setText(jet_conditions_to_string(state, 1.0));
+
+		state = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R5D-condition");
+		p_dps_rcs.jfail_v2.setText(jet_conditions_to_string(state, 1.0));
 
 		# deselection inhibit
 
@@ -686,6 +814,24 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-inh") == 1) {symbol = "*";}
 		p_dps_rcs.jdesi_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1A-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3A-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_x2.setText(symbol);
+
+		p_dps_rcs.jdesi_x3.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R5R-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R5D-inh") == 1) {symbol = "*";}
+		p_dps_rcs.jdesi_v2.setText(symbol);
+
 		# deselect
 
 		symbol = "";
@@ -730,6 +876,24 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_z7.setText(symbol);
 
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R1A-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R3A-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_x2.setText(symbol);
+
+		p_dps_rcs.jdes_x3.setText("");
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R5R-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v1.setText(symbol);
+
+		symbol = "";
+		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/R5D-sel") == 0) {symbol = "*";}
+		p_dps_rcs.jdes_v2.setText(symbol);
+
 		# priority
 
    		p_dps_rcs.jpty_y1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4R-pty")));
@@ -746,6 +910,14 @@ var PFD_addpage_p_dps_rcs = func(device)
 		p_dps_rcs.jpty_z5.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R4D-pty")));
 		p_dps_rcs.jpty_z6.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R2D-pty")));
 		p_dps_rcs.jpty_z7.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R3D-pty")));
+
+		p_dps_rcs.jpty_x1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R1A-pty")));
+		p_dps_rcs.jpty_x2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R3A-pty")));
+
+		p_dps_rcs.jpty_x3.setText("");
+
+		p_dps_rcs.jpty_v1.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R5R-pty")));
+		p_dps_rcs.jpty_v2.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/jet-table/R5D-pty")));
 
 		# propellant flow
 

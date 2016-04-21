@@ -1521,6 +1521,147 @@ if ((header == "ITEM") and (end = "EXEC"))
 				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel");}
 			valid_flag = 1;
 			}
+		else if (item == 17)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1D-sel");
+				valid_flag = 1;
+				}
+
+			}
+		else if (item == 25)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F4D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1F-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3A-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1A-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3F-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1A-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3A-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 35)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2F-sel");
+				valid_flag = 1;
+				}
+			}
+		else if (item == 37)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F5L-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L5L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R5R-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 39)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F5R-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L5D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R5D-sel");}
+			valid_flag = 1;
+			}
 		else if (item == 40)
 			{
  			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
