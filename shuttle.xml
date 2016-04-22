@@ -71,7 +71,7 @@
 	<pointmass name="External_tank1_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location  unit="M">
-		<x> -12.00 </x>
+		<x> -14.00 </x>
        		<y> -2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -79,7 +79,7 @@
 	<pointmass name="External_tank2_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location unit="M">
-		<x> -12.00 </x>
+		<x> -14.00 </x>
        		<y> 2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -103,7 +103,7 @@
 	<pointmass name="Payload">
 		<weight unit="LBS"> 0.0</weight>
 	 	<location name="POINTMASS" unit="M">
-                	<x> -2.7 </x>
+                	<x>  1.0 </x>
                 	<y>  0.0 </y>
                 	<z> -2.7 </z>
             	</location>

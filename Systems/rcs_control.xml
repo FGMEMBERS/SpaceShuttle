@@ -2473,7 +2473,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-yaw</property>
-			<property>systems/failures/rcs-nose-left-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/rcs/fwd-dump-cmd</property>
@@ -2492,7 +2491,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-yaw</property>
-			<property>systems/failures/rcs-nose-right-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/rcs/fwd-dump-cmd</property>
@@ -2510,7 +2508,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
@@ -2527,7 +2524,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-pitch</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
@@ -2543,7 +2539,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-pitch</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 		</function>
@@ -2559,7 +2554,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-pitch</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
@@ -2575,7 +2569,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-pitch</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
@@ -2591,7 +2584,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-nose-active-pitch</property>
-			<property>systems/failures/rcs-nose-fwd-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
@@ -2609,7 +2601,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-pitch</property>
-			<property>systems/failures/rcs-pod1-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
@@ -2632,7 +2623,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-pitch</property>
-			<property>systems/failures/rcs-pod1-down-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2653,7 +2643,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-yaw</property>
-			<property>systems/failures/rcs-pod1-left-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2674,7 +2663,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
-			<property>systems/failures/rcs-pod1-back-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2694,7 +2682,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-pitch</property>
-			<property>systems/failures/rcs-pod2-up-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
@@ -2717,7 +2704,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-pitch</property>
-			<property>systems/failures/rcs-pod2-down-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2738,7 +2724,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active-yaw</property>
-			<property>systems/failures/rcs-pod2-right-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2759,7 +2744,6 @@
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
 			<property>systems/fcs/rcs-tail-active</property>
-			<property>systems/failures/rcs-pod2-back-condition</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
 			<property>systems/oms/oms-rcs-dump-cmd</property>
@@ -2781,8 +2765,6 @@
 				<property>systems/rcs/nose-rightdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-nose-active</property>-->
-			<property>systems/failures/rcs-nose-right-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2799,8 +2781,6 @@
 				<property>systems/rcs/nose-leftdown-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-nose-active</property>-->
-			<property>systems/failures/rcs-nose-left-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2817,8 +2797,6 @@
 				<property>systems/rcs/pod1-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-tail-active</property>-->
-			<property>systems/failures/rcs-pod1-down-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2835,8 +2813,6 @@
 				<property>systems/rcs/pod2-down-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-tail-active</property>-->
-			<property>systems/failures/rcs-pod2-down-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2853,8 +2829,6 @@
 				<property>systems/rcs/pod1-left-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-tail-active</property>-->
-			<property>systems/failures/rcs-pod1-left-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2871,8 +2845,6 @@
 				<property>systems/rcs/pod2-right-raw</property>
 				<property>systems/rcs/thrust-normalizer</property>
 			</quotient>
-			<!--<property>systems/fcs/rcs-tail-active</property>-->
-			<property>systems/failures/rcs-pod2-right-condition</property>
 			<difference>
 				<value>1.0</value>
 				<property>systems/fcs/rcs-default-thrusters</property>
@@ -2882,17 +2854,109 @@
 		<output>systems/rcs/R5R-fire-cmd</output>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/fcs/rcs-throttle-test">
-			<function>
-				<value>1.0</value>
-			</function>
-			<output>fcs/throttle-pos-norm[48]</output>
-			<output>fcs/throttle-pos-norm[49]</output>
-			<output>fcs/throttle-pos-norm[50]</output>
-			<output>fcs/throttle-pos-norm[57]</output>
-			<output>fcs/throttle-pos-norm[58]</output>
-			<output>fcs/throttle-pos-norm[59]</output>
-		</fcs_function>-->
+	</channel>
+
+	<channel name="RCS inhibition" execute="systems/fcs/rcs-active">
+
+		<fcs_function name="systems/rcs/F1L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1L-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3L-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2R-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F4R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F4R-fire-cmd</property>
+				<property>systems/rcs/jet-table/F4R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F1D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/F4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 

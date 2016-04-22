@@ -37,27 +37,27 @@ var PFD_addpage_p_entry = func(device)
 	
 	 p_entry.marker1 = device.symbols.createChild("path", "m1")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	p_entry.marker2 = device.symbols.createChild("path", "m2")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	p_entry.marker3 = device.symbols.createChild("path", "m3")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	p_entry.marker4 = device.symbols.createChild("path", "m4")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	p_entry.marker5 = device.symbols.createChild("path", "m5")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	for (var i = 0; (i< size(data)-1); i=i+1)
@@ -76,7 +76,7 @@ var PFD_addpage_p_entry = func(device)
 	 
 	p_entry.shuttle_sym = device.symbols.createChild("path", "shuttle_sym")
         .setStrokeLineWidth(0.25)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	for (var i = 0; (i< size(data)-1); i=i+1)

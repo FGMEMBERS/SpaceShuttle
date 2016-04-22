@@ -365,7 +365,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[0]</property>
-					<!--<property>systems/failures/ssme1-condition</property>-->
 					<property>systems/mps/engine/engine-operational</property>
 				</product>
 			</function>
@@ -387,7 +386,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[1]</property>
-					<!--<property>systems/failures/ssme2-condition</property>-->
 					<property>systems/mps/engine[1]/engine-operational</property>
 				</product>
 			</function>
@@ -398,7 +396,6 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[2]</property>
-					<!--<property>systems/failures/ssme3-condition</property>-->
 					<property>systems/mps/engine[2]/engine-operational</property>
 				</product>
 			</function>
@@ -681,6 +678,17 @@
 			</clipto>
 		</pid>
 
+
+		<switch name="systems/vectoring/SSME-center-roll-gain">
+			<default value="0.0"/>
+			<test value="-1.0">
+				systems/mps/engine/engine-operational == 0
+			</test>
+			<test value="1.0">
+				systems/mps/engine[1]/engine-operational == 0
+			</test>
+		</switch>
+
   		<pure_gain name="systems/vectoring/SRB-left-roll">
 			<input>systems/vectoring/SRB-roll</input>
 			<gain>-1.0</gain>
@@ -701,6 +709,10 @@
 			<gain>1.0</gain>
    		</pure_gain>
 
+		<pure_gain name="systems/vectoring/SSME-center-roll">
+			<input>systems/vectoring/SSME-roll</input>
+			<gain>systems/vectoring/SSME-center-roll-gain</gain>
+   		</pure_gain>
 
 		<fcs_function name="systems/vectoring/yaw-rate-error">
 		<function>
@@ -802,6 +814,7 @@
 
   		<summer name="SSME 3 pitch motion Sum">
       			<input>systems/vectoring/SSME-pitch</input>
+      			<input>systems/vectoring/SSME-center-roll</input>
       			<input>propulsion/engine[2]/pitch-to-CoG</input>
       			<clipto>
         			<min> -0.45 </min>
@@ -1180,7 +1193,7 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[0]</property>
-					<property>systems/failures/ssme1-condition</property>
+					<property>systems/mps/engine/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[0]</output>
@@ -1190,7 +1203,7 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[1]</property>
-					<property>systems/failures/ssme2-condition</property>
+					<property>systems/mps/engine[1]/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[1]</output>
@@ -1200,31 +1213,13 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[2]</property>
-					<property>systems/failures/ssme3-condition</property>
+					<property>systems/mps/engine[2]/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[2]</output>
  		</fcs_function>
 
-		<!--<fcs_function name ="Thrust loss OMS 1">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[5]</property>
-					<property>systems/failures/oms1-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[5]</output>
- 		</fcs_function>
-
-		<fcs_function name ="Thrust loss OMS 2">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[6]</property>
-					<property>systems/failures/oms2-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[6]</output>
- 		</fcs_function>-->
+		
 
 	</channel>
 

@@ -187,6 +187,7 @@ var idp_index = get_IDP_id(kb_id) - 1;
 
 page_select(idp_index, "p_dps_fault");
 setprop("/fdm/jsbsim/systems/dps/disp", 99);
+SpaceShuttle.idp_array[idp_index].set_disp(99);
 }
 
 # SYS SUMM key #######################################################
@@ -206,11 +207,13 @@ if (major_function == 1)
 		{
 		page_select(idp_index, "p_dps_sys_summ2");
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		SpaceShuttle.idp_array[idp_index].set_disp(19);
 		}
 	else
 		{
 		page_select(idp_index, "p_dps_sys_summ");
 		setprop("/fdm/jsbsim/systems/dps/disp", 18);
+		SpaceShuttle.idp_array[idp_index].set_disp(18);
 		}
 	}
 else if  (major_function == 2)
@@ -262,10 +265,14 @@ if (major_function == 1)
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
-var spec = getprop("/fdm/jsbsim/systems/dps/spec");
-var disp = getprop("/fdm/jsbsim/systems/dps/disp");
+#var spec = getprop("/fdm/jsbsim/systems/dps/spec");
+#var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 
+var spec = SpaceShuttle.idp_array[idp_index].get_spec();
+var disp = SpaceShuttle.idp_array[idp_index].get_disp();
 
+#print ("spec: ", spec);
+#print ("disp: ", disp);
 
 if ((disp > 0) and (spec > 0)) 
 	{
@@ -277,6 +284,22 @@ if ((disp > 0) and (spec > 0))
 		{
 		page_select(idp_index, "p_dps_dap");
 		}
+	else if (spec == 22)
+		{
+		page_select(idp_index, "p_dps_strk");
+		}
+	else if (spec == 25)
+		{
+		page_select(idp_index, "p_dps_rm_orbit");
+		}
+	else if (spec == 33)
+		{
+		page_select(idp_index, "p_dps_rel_nav");
+		}
+	else if (spec == 50)
+		{
+		page_select(idp_index, "p_dps_hsit");
+		}
 	else if (spec == 51)
 		{
 		page_select(idp_index, "p_dps_override");
@@ -286,6 +309,7 @@ if ((disp > 0) and (spec > 0))
 		page_select(idp_index, "p_dps_pl_bay");
 		}
 	setprop("/fdm/jsbsim/systems/dps/disp", 0);
+	SpaceShuttle.idp_array[idp_index].set_disp(0);
 	}
 else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 	{
@@ -327,6 +351,7 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 			}
 		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
+	SpaceShuttle.idp_array[idp_index].set_spec(0);
 	}
 }
 else if (major_function == 2)
@@ -390,6 +415,7 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
+var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
@@ -430,6 +456,7 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 # the same way
 # moreover OPS transitions will affect the GPC memory content and apply to all screens
 
+# during a MM transition,SPEC and DISP are retained
 
 var ops_transition = func (idp_index, page_id) {
 
@@ -447,6 +474,49 @@ var ops_transition = func (idp_index, page_id) {
             M.PFD.selectPage(M.PFD.page_index[page_id]);
 		}
 	}
+}
+
+
+var major_mode_transition = func (idp_index, page_id) {
+
+    var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+# we now switch over all screens on IDPs showing the same major function which are in dps mode
+# if they're not showing SPEC or DISP
+
+    foreach (M; SpaceShuttle.MDU_array)
+	{
+        var index = M.PFD.port_selected - 1;
+        var current_major_function = SpaceShuttle.idp_array[index].get_major_function();
+
+	var current_spec = SpaceShuttle.idp_array[index].get_spec();
+	var current_disp = SpaceShuttle.idp_array[index].get_disp();
+
+        if ((current_major_function == major_function) and (M.PFD.dps_page_flag == 1) and (current_spec == 0) and (current_disp == 0))
+		{
+            M.PFD.selectPage(M.PFD.page_index[page_id]);
+		}
+	}
+
+}
+
+# an automatic ops transition occurs only for GNC and will leave SM unaffected
+
+var ops_transition_auto = func (page_id) {
+
+# we now switch over all screens on GNC IDPs in DPS mode
+
+    foreach (M; SpaceShuttle.MDU_array)
+	{
+        var index = M.PFD.port_selected - 1;
+        var current_major_function = SpaceShuttle.idp_array[index].get_major_function();
+
+        if ((current_major_function == 1) and (M.PFD.dps_page_flag == 1))
+		{
+            	M.PFD.selectPage(M.PFD.page_index[page_id]);
+		}
+	}
+
 }
 
 
@@ -489,6 +559,58 @@ var get_ops_page  = func (major_function, major_mode)
     return "p_ascent";
 }
 
+var get_spec_page = func (spec)
+{
+
+	if (spec == 2)
+		{
+		return "p_dps_time";
+		}
+	else if (spec == 20)
+		{
+		return "p_dps_dap";
+		}
+	else if (spec == 22)
+		{
+		return "p_dps_strk";
+		}
+	else if (spec == 23)
+		{
+		return "p_dps_rcs";
+		}
+	else if (spec == 25)
+		{
+		return "p_dps_rm_orbit";
+		}
+	else if (spec == 33)
+		{
+		return "p_dps_rel_nav";
+		}
+	else if (spec == 50)
+		{
+		return "p_dps_hsit";
+		}
+	else if (spec == 51)
+		{
+		return "p_dps_override";
+		}
+	else if (spec == 63)
+		{
+		return "p_dps_pl_bay";
+		}
+	
+
+    print("error locating page for SPEC", spec);
+}
+
+
+var toggle_property = func (node) {
+
+var state = getprop(node);
+if (state == 0) {state = 1;} else {state = 0;}
+
+setprop(node, state);
+}
 
 #####################################################################
 # The command parser
@@ -538,36 +660,43 @@ if ((header == "OPS") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/ops", 1);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 101);
 		ops_transition(idp_index, "p_ascent");
+		foreach (I; SpaceShuttle.idp_array)
+			{
+			I.set_spec(0);
+			I.set_disp(0);
+			}
+		setprop("/fdm/jsbsim/systems/dps/spec", 0);
+		setprop("/fdm/jsbsim/systems/dps/disp", 0);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 102) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 102);
-		ops_transition(idp_index, "p_ascent");
+		major_mode_transition(idp_index, "p_ascent");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 103) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
-		ops_transition(idp_index, "p_ascent");
+		major_mode_transition(idp_index, "p_ascent");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 104) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 104);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 105) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 105);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 106) and (current_ops == 1))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 106);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	if (major_mode == 201)
@@ -575,12 +704,19 @@ if ((header == "OPS") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/ops", 2);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 201);
 		ops_transition(idp_index, "p_dps_univ_ptg");
+		foreach (I; SpaceShuttle.idp_array)
+			{
+			I.set_spec(0);
+			I.set_disp(0);
+			}
+		setprop("/fdm/jsbsim/systems/dps/spec", 0);
+		setprop("/fdm/jsbsim/systems/dps/disp", 0);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 202) and (current_ops == 2))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 202);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	if (major_mode == 301)
@@ -588,18 +724,25 @@ if ((header == "OPS") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/ops", 3);
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 301);
 		ops_transition(idp_index, "p_dps_mnvr");
+		foreach (I; SpaceShuttle.idp_array)
+			{
+			I.set_spec(0);
+			I.set_disp(0);
+			}
+		setprop("/fdm/jsbsim/systems/dps/spec", 0);
+		setprop("/fdm/jsbsim/systems/dps/disp", 0);
 		valid_flag = 1;
 		}
 	else if ((major_mode == 302) and (current_ops == 3))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 302);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 303) and (current_ops == 3))
 		{
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 303);
-		ops_transition(idp_index, "p_dps_mnvr");
+		major_mode_transition(idp_index, "p_dps_mnvr");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 304) and (current_ops == 3))
@@ -607,30 +750,26 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.traj_display_flag = 3;
 		SpaceShuttle.fill_entry1_data();
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 304);
-		ops_transition(idp_index, "p_entry");
+		major_mode_transition(idp_index, "p_entry");
 		valid_flag = 1;
 		}
 	else if ((major_mode == 305) and (current_ops == 3))
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
-		ops_transition(idp_index, "p_vert_sit");
+		major_mode_transition(idp_index, "p_vert_sit");
 		valid_flag = 1;
 		}
 
 
-	if (valid_flag == 1)
-		{
-		setprop("/fdm/jsbsim/systems/dps/spec", 0);
-		setprop("/fdm/jsbsim/systems/dps/disp", 0);
-		}
 
 	}
 
 if ((header == "ITEM") and (end = "EXEC"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-	var spec = getprop("/fdm/jsbsim/systems/dps/spec");
+	#var spec = getprop("/fdm/jsbsim/systems/dps/spec");
+	var spec = SpaceShuttle.idp_array[idp_index].get_spec();
 
 	var item = int(body);
 
@@ -1314,6 +1453,348 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 23)
+		{
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 1);
+			valid_flag =1;
+			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 2);
+			valid_flag =1;
+			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/rcs/jet-table/table-index", 3);
+			valid_flag =1;
+			}
+		else if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-left-xfeed-qty-enable", 1);
+			valid_flag =1;
+			}
+		else if (item == 6)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-right-xfeed-qty-enable", 1);
+			valid_flag =1;
+			}
+		else if (item == 7)
+			{
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-left-xfeed-qty-enable", 0);
+			setprop("/fdm/jsbsim/systems/rcs-hardware/oms-right-xfeed-qty-enable", 0);
+			valid_flag =1;
+			}
+		else if (item == 9)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1L-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4R-sel");}
+
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3L-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2R-sel");}
+
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2R-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3R-sel");}
+
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F4R-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1R-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2U-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1U-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1U-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1D-sel");
+				valid_flag = 1;
+				}
+
+			}
+		else if (item == 25)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L4D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R4D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L2D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R2D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F4D-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F1F-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L3A-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R1A-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 33)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F3F-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L1A-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R3A-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 35)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{
+				toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F2F-sel");
+				valid_flag = 1;
+				}
+			}
+		else if (item == 37)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F5L-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L5L-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R5R-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 39)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+
+			if (index == 1)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/F5R-sel");}
+			else if (index == 2)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/L5D-sel");}
+			else if (index == 3)
+				{toggle_property("/fdm/jsbsim/systems/rcs/jet-table/R5D-sel");}
+			valid_flag = 1;
+			}
+		else if (item == 40)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-1-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-1-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 41)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-2-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-2-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 42)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-3-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-3-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 43)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-4-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-4-status", state);
+				}
+			valid_flag = 1;				
+			}
+		else if (item == 44)
+			{
+ 			var index = getprop("/fdm/jsbsim/systems/rcs/jet-table/table-index");
+			if (index == 1)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status", state);
+				}
+			else if (index == 2)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-left-rcs-valve-5-status", state);
+				}
+			else if (index == 3)
+				{
+				var state = getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status");
+				if (state == 0) {state = 1;} else {state = 0;}
+				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status", state);
+				}
+			valid_flag = 1;				
+			}
+		}
+
 	if (spec == 33)
 		{
 		if (item == 1)
@@ -1511,6 +1992,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/taem-guidance/tacan-abs",0);
 			valid_flag = 1;
 			}
+		else if (item == 40)
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+			if ((ops == 1) and (guidance_mode == 0))
+				{
+				setprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded", value);
+				valid_flag = 1;
+				}
+			}
 		else if (item == 41)
 			{
 			SpaceShuttle.update_site_by_index(value);
@@ -1547,6 +2038,8 @@ if ((header == "ITEM") and (end = "EXEC"))
 			if (status_tal == 1)
 				{
 				setprop("/fdm/jsbsim/systems/abort/abort-mode", 2);
+				var tal_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded");
+				SpaceShuttle.update_site_by_index(tal_site_index);
 				setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
 				}
 			else if (status_ato == 1)
@@ -1908,75 +2401,86 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_time");
 		setprop("/fdm/jsbsim/systems/dps/spec", 2);
+		SpaceShuttle.idp_array[idp_index].set_spec(2);
 		valid_flag = 1;
 		}
 	if (spec_num == 18)
 		{
 		page_select(idp_index, "p_dps_sys_summ");
 		setprop("/fdm/jsbsim/systems/dps/disp", 18);
+		SpaceShuttle.idp_array[idp_index].set_disp(18);
 		valid_flag = 1;
 		}
 	if (spec_num == 19)
 		{
 		page_select(idp_index, "p_dps_sys_summ2");
 		setprop("/fdm/jsbsim/systems/dps/disp", 19);
+		SpaceShuttle.idp_array[idp_index].set_disp(19);
 		valid_flag = 1;
 		}
 	if ((spec_num == 20) and (test_spec_ops_validity(spec20, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_dap");
 		setprop("/fdm/jsbsim/systems/dps/spec", 20);
+		SpaceShuttle.idp_array[idp_index].set_spec(20);
 		valid_flag = 1;
 		}
 	if ((spec_num == 22) and (test_spec_ops_validity(spec22, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_strk");
 		setprop("/fdm/jsbsim/systems/dps/spec", 22);
+		SpaceShuttle.idp_array[idp_index].set_spec(22);
+		valid_flag = 1;
+		}
+	if ((spec_num == 23) and (test_spec_ops_validity(spec23, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_rcs");
+		setprop("/fdm/jsbsim/systems/dps/spec", 23);
+		SpaceShuttle.idp_array[idp_index].set_spec(23);
 		valid_flag = 1;
 		}
 	if ((spec_num == 25) and (test_spec_ops_validity(spec25, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_rm_orbit");
 		setprop("/fdm/jsbsim/systems/dps/spec", 25);
+		SpaceShuttle.idp_array[idp_index].set_spec(25);
 		valid_flag = 1;
 		}
 	if ((spec_num == 33) and (test_spec_ops_validity(spec33, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_rel_nav");
 		setprop("/fdm/jsbsim/systems/dps/spec", 33);
+		SpaceShuttle.idp_array[idp_index].set_spec(33);
 		valid_flag = 1;
 		}
 	if ((spec_num == 50) and (test_spec_ops_validity(spec50, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_hsit");
 		setprop("/fdm/jsbsim/systems/dps/spec", 50);
+		SpaceShuttle.idp_array[idp_index].set_spec(50);
 		valid_flag = 1;
 		}
 	if ((spec_num == 51) and (test_spec_ops_validity(spec51, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_override");
-		setprop("/fdm/jsbsim/systems/dps/spec", 51);
+		setprop("/fdm/jsbsim/systems/dps/spec", 51);		
+		SpaceShuttle.idp_array[idp_index].set_spec(51);
 		valid_flag = 1;
 		}
 	if ((spec_num == 63) and (test_spec_ops_validity(spec63, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_pl_bay");
 		setprop("/fdm/jsbsim/systems/dps/spec", 63);
+		SpaceShuttle.idp_array[idp_index].set_spec(63);
 		valid_flag = 1;
 		}
-	if ((spec_num == 86) )
-		{
-		page_select(idp_index, "p_dps_apu_hyd");
-		setprop("/fdm/jsbsim/systems/dps/disp", 86);
-		valid_flag = 1;
-		}
-
 	if (spec_num == 99)
 		{
 		page_select(idp_index, "p_dps_fault");
 		# calling the display with SPEC 99 PRO clears all fault messages
 		SpaceShuttle.cws_message_array_long = ["","","","","","","","","","","","","","",""];
 		setprop("/fdm/jsbsim/systems/dps/disp", 99);
+		SpaceShuttle.idp_array[idp_index].set_disp(99);
 		valid_flag = 1;
 		}
 	}

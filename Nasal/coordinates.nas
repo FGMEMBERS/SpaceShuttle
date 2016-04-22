@@ -948,6 +948,24 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", 0.0);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 0);
 
+# remove N2 for purging
+
+var nstarts_left = getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-nstarts");
+var nstarts_right = getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-nstarts");
+
+nstarts_left = nstarts_left - 1;
+nstarts_right = nstarts_right -1;
+
+if (nstarts_left < 0) {nstarts_left = 0;}
+if (nstarts_right < 0) {nstarts_right = 0;}
+
+settimer( func {
+
+setprop("/fdm/jsbsim/systems/oms-hardware/n2-left-nstarts", nstarts_left);
+setprop("/fdm/jsbsim/systems/oms-hardware/n2-right-nstarts", nstarts_right);
+
+}, 1.0);
+
 tracking_loop_flag = 0;
 }
 

@@ -181,17 +181,17 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 	 p_dps_hsit.pred1 = device.symbols.createChild("path", "pred1")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	 p_dps_hsit.pred2 = device.symbols.createChild("path", "pred2")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 	 p_dps_hsit.pred3 = device.symbols.createChild("path", "pred3")
         .setStrokeLineWidth(1)
-        .setColor(dps_r, dps_g, dps_b)
+        .setColor(0.8, 0.8, 0.4)
 	.moveTo(data[0][0], data[0][1]);
 
 
@@ -204,7 +204,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 		p_dps_hsit.pred3.lineTo(set[0], set[1]);
 		}
 
- 	p_dps_hsit.aim = device.symbols.createChild("path", "aim")
+ 	p_dps_hsit.aimpoint = device.symbols.createChild("path", "aimpoint")
         .setStrokeLineWidth(1)
         .setColor(dps_r, dps_g, dps_b)
 	.moveTo(0,0);
@@ -241,9 +241,10 @@ var PFD_addpage_p_dps_hsit = func(device)
 
 	p_dps_hsit.altm.setText(sprintf("%2.2f", getprop("/instrumentation/altimeter/setting-inhg") ));
       
-	if ((ops == 1) and (guidance_mode == 1))
+	if ((ops == 1) and (guidance_mode == 0))
 		{
-		p_dps_hsit.tal_site.setText(sprintf("%2d",SpaceShuttle.landing_site.index));
+		var tal_iloaded = getprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded");
+		p_dps_hsit.tal_site.setText(sprintf("%2d",tal_iloaded));
 		p_dps_hsit.tal_label.setText("40 TAL  SITE");
 		}
 	else 
@@ -253,7 +254,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 		}
 
 
-	if (guidance_mode == 1)
+	if ((guidance_mode == 1) or (guidance_mode == 0))
 		{p_dps_hsit.landing_label.setText("41 LAND SITE");}
 	else if (guidance_mode == 2)
 		{p_dps_hsit.landing_label.setText("41 TAL  SITE");}

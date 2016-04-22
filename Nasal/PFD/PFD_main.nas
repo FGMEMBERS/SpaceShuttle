@@ -18,6 +18,7 @@
 # * p_dps_time (SPEC 2)
 # * p_dps_dap (SPEC 20)
 # * p_dps_strk (SPEC 22)
+# * p_dps_rcs (SPEC 23)
 # * p_dps_rm_orbit (SPEC 25)
 # * p_dps_rel_nav (SPEC 33)
 # * p_dps_hsit (SPEC 50)
@@ -86,6 +87,7 @@ io.include("p_dps_electric.nas");
 io.include("p_dps_cryo.nas");
 io.include("p_dps_hsit.nas");
 io.include("p_dps_rm_orbit.nas");
+io.include("p_dps_rcs.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -252,6 +254,7 @@ var MDU_Device =
         me.PFD.p_dps_strk = PFD_addpage_p_dps_strk(me.PFD);
         me.PFD.p_dps_hsit = PFD_addpage_p_dps_hsit(me.PFD);
         me.PFD.p_dps_rm_orbit = PFD_addpage_p_dps_rm_orbit(me.PFD);
+        me.PFD.p_dps_rcs = PFD_addpage_p_dps_rcs(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -364,7 +367,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rm_orbit);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rcs);
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
@@ -458,6 +461,10 @@ var MDU_Device =
         me.PFD.p_dps_rm_orbit.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_rm_orbit.addMenuItem(4, "MSG RST", me.PFD.p_dps_rm_orbit);
         me.PFD.p_dps_rm_orbit.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rm_orbit);
+
+        me.PFD.p_dps_rcs.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rcs.addMenuItem(4, "MSG RST", me.PFD.p_dps_rcs);
+        me.PFD.p_dps_rcs.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rcs);
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);

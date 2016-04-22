@@ -622,6 +622,8 @@ else
 	setprop("/fdm/jsbsim/systems/ap/launch/inc-acquire-sign", 1);
 	}
 
+setprop("/fdm/jsbsim/systems/ap/launch/launch-azimuth", launch_azimuth);
+
 launch_azimuth = launch_azimuth * math.pi/180.0;
 
 setprop("/fdm/jsbsim/systems/ap/launch/course-vector", -math.cos(launch_azimuth));
