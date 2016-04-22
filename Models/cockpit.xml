@@ -192,6 +192,12 @@
         <object-name>master-mads-pwr</object-name>
         <object-name>uplink</object-name>
         <object-name>Fwd_Equipment_Knobs.011</object-name>
+        <object-name>button_label_main_eng_sd_left</object-name>
+        <object-name>button_label_main_eng_sd_center</object-name>
+        <object-name>button_label_main_eng_sd_right</object-name>
+        <object-name>button_main_eng_sd_left</object-name>
+        <object-name>button_main_eng_sd_center</object-name>
+        <object-name>button_main_eng_sd_right</object-name>
         <!-- Panel C3 covers -->
         <object-name>osm-arm-cvr</object-name>
         <object-name>air-data-probe-cvr</object-name>
@@ -597,6 +603,10 @@
         <object-name>button_light_bf_man_plt</object-name>
         <object-name>button_light_sb_auto_plt</object-name>
         <object-name>button_light_sb_man_plt</object-name>
+        <!-- Panel C3 -->
+        <object-name>button_light_main_eng_sd_left</object-name>
+        <object-name>button_light_main_eng_sd_center</object-name>
+        <object-name>button_light_main_eng_sd_right</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -3988,6 +3998,108 @@
         </hovered>
     </animation>
 
+    <!-- Main Engine Shutdown Left "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_main_eng_sd_left</object-name>
+        <object-name>button_label_main_eng_sd_left</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.ssme_cutoff(2)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_main_eng_sd_left</tooltip-id>
+                <label>Shutdown Left Main Engine</label>
+                <property>button_main_eng_sd_left</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_main_eng_sd_left</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Main Engine Shutdown Center "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_main_eng_sd_center</object-name>
+        <object-name>button_label_main_eng_sd_center</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.ssme_cutoff(0)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_main_eng_sd_center</tooltip-id>
+                <label>Shutdown Center Main Engine</label>
+                <property>button_main_eng_sd_center</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_main_eng_sd_center</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[0]/run-cmd</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Main Engine Shutdown Right "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_main_eng_sd_right</object-name>
+        <object-name>button_label_main_eng_sd_right</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.ssme_cutoff(1)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_main_eng_sd_right</tooltip-id>
+                <label>Shutdown Right Main Engine</label>
+                <property>button_main_eng_sd_right</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_main_eng_sd_right</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- SBand "Knob" -->
     <animation>
         <type>knob</type>
@@ -4320,7 +4432,8 @@
                 <property>/sim/model/panel/cover/et-sep-cvr</property>
             </binding>
         </hovered>
-    </animation>    
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Thrust Controllers                                                                                          -->                                                    -->
     <!-- ******************************************************************* -->
