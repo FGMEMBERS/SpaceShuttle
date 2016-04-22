@@ -30,9 +30,9 @@ var orbiter_destroy = func {
 
 # kill main engines
 
-setprop("/fdm/jsbsim/systems/failures/ssme1-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/ssme2-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/ssme3-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme3-condition", 0.0);
 
 # disconnect the SRBs
 

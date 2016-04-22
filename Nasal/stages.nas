@@ -51,6 +51,10 @@ settimer(gear_up, 5.0);
 launch_loop_flag = 1;
 
 
+# zero MET at engine ignition
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+setprop("/fdm/jsbsim/systems/timer/delta-MET", -elapsed);
 
 launch_loop();
 
@@ -822,16 +826,13 @@ var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
 if ((current_mode == 0) or (current_mode == 10))
 	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+	setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
 
-	if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
 	}
 else if ((current_mode ==1) or (current_mode ==2) or (current_mode == 11) or (current_mode==20) or (current_mode == 21) or (current_mode==22) or (current_mode ==23) or (current_mode == 25) or (current_mode==26) or (current_mode ==27) or (current_mode ==28))
 	{
@@ -1449,6 +1450,7 @@ setprop("/controls/shuttle/gear-string", "armed");
 # cutoff switches for SSME
 
 var ssme_cutoff = func (n) {
+#print ("Engine ", n, " cutoff command received!");
 
 setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
 
@@ -1671,7 +1673,21 @@ setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 1);
 setprop("/fdm/jsbsim/systems/mechanical/pb-door-auto-switch",1);
 settimer( func{ SpaceShuttle.payload_bay_door_open_auto(0); }, 1.0);
 
+settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
 }
+
+var radiator_activate = func {
+
+setprop("/fdm/jsbsim/systems/atcs/flow-bypass-1-status", 0);
+setprop("/fdm/jsbsim/systems/atcs/flow-bypass-2-status", 0);
+setprop("/fdm/jsbsim/systems/atcs/rad-controller-1-status", 1);
+setprop("/fdm/jsbsim/systems/atcs/rad-controller-2-status", 1);
+setprop("/fdm/jsbsim/systems/atcs/fes-controller-A-status", 0);
+setprop("/fdm/jsbsim/systems/atcs/fes-controller-B-status", 0);
+setprop("/fdm/jsbsim/systems/atcs/fes-controller-sec-status", 0);
+setprop("/fdm/jsbsim/systems/atcs/fes-hi-load-status", 0);
+}
+
 
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
@@ -2107,6 +2123,6 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	# deploy Ku-antenna
 	ku_antenna_deploy();
 	
-	settimer( func {setprop("/fdm/jsbsim/systems/mechanical/pb-door-init-open", 0);}, 200.0); 
+
 
 	}

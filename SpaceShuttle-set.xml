@@ -42,9 +42,11 @@
           <course-vector type="double">0.0</course-vector>
           <course-vector type="double" n="1">-1.0</course-vector>
           <course-vector type="double" n="2">0.0</course-vector>
+	  <launch-azimuth type="double">0.0</launch-azimuth>
 	  <pitch-target type="double">90.0</pitch-target>
 	  <pitch-max-rate-norm type="double">0.1</pitch-max-rate-norm>
 	  <inclination-target type="double">28.7</inclination-target>
+	  <course-target type="double">90.0</course-target>
 	  <hdot-target type="double">0.0</hdot-target>
 	  <apoapsis-target type="double">320.0</apoapsis-target>
        </launch>
@@ -176,150 +178,9 @@
      <guidance-mode type="int">0</guidance-mode>
      <target-azimuth-deg type="double">0.0</target-azimuth-deg>
      <remaining-distance-nm type="double">0.0</remaining-distance-nm>
+     <tal-site-iloaded type="int">7</tal-site-iloaded>
     </entry_guidance>
-    <failures>
-		    <limit-simulation-mode type="int">1</limit-simulation-mode>
-		    <ssme1-condition type="double">1.0</ssme1-condition>
-		    <ssme2-condition type="double">1.0</ssme2-condition>
-		    <ssme3-condition type="double">1.0</ssme3-condition>
-		    <mps-he-left-condition type="double">1.0</mps-he-left-condition>
-		    <mps-he-right-condition type="double">1.0</mps-he-right-condition>
-		    <mps-he-center-condition type="double">1.0</mps-he-center-condition>
-		    <mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
-		    <srb1-condition type="double">1.0</srb1-condition>
-		    <srb2-condition type="double">1.0</srb2-condition>
-		    <oms1-condition type="double">1.0</oms1-condition>
-		    <oms2-condition type="double">1.0</oms2-condition>
-		    <oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
-		    <oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
-		    <oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
-		    <oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
-		    <rcs-nose-up-condition type="double">1.0</rcs-nose-up-condition>
-		    <oms1-n2-condition type="double">1.0</oms1-n2-condition>
-		    <oms2-n2-condition type="double">1.0</oms2-n2-condition>
-		    <oms-he-left-condition type="double">1.0</oms-he-left-condition>
-		    <oms-he-right-condition type="double">1.0</oms-he-right-condition>
-		    <rcs-nose-down-condition type="double">1.0</rcs-nose-down-condition>
-		    <rcs-nose-left-condition type="double">1.0</rcs-nose-left-condition>
-		    <rcs-nose-right-condition type="double">1.0</rcs-nose-right-condition>
-		    <rcs-nose-fwd-condition type="double">1.0</rcs-nose-fwd-condition>
-		    <rcs-pod1-down-condition type="double">1.0</rcs-pod1-down-condition>
-		    <rcs-pod1-up-condition type="double">1.0</rcs-pod1-up-condition>
-		    <rcs-pod1-left-condition type="double">1.0</rcs-pod1-left-condition>
-		    <rcs-pod1-back-condition type="double">1.0</rcs-pod1-back-condition>
-		    <rcs-pod2-down-condition type="double">1.0</rcs-pod2-down-condition>
-		    <rcs-pod2-up-condition type="double">1.0</rcs-pod2-up-condition>
-		    <rcs-pod2-right-condition type="double">1.0</rcs-pod2-right-condition>
-		    <rcs-pod2-back-condition type="double">1.0</rcs-pod2-back-condition>
-		    <airfoils-pitch-condition type="double">1.0</airfoils-pitch-condition>
-		    <airfoils-yaw-condition type="double">1.0</airfoils-yaw-condition>
-		    <airfoils-roll-condition type="double">1.0</airfoils-roll-condition>
-		    <aero-structure-condition type="double">1.0</aero-structure-condition>
-		    <controls-condition type="double">1.0</controls-condition>
-		    <speedbrake-condition type="double">1.0</speedbrake-condition>
-		    <speedbrake-control type="int">1</speedbrake-control>
-		    <drag-chute-condition type="double">1.0</drag-chute-condition>
-		    <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
-		    <tire-nose-condition type="double">1.0</tire-nose-condition>
-		    <tire-left-condition type="double">1.0</tire-left-condition>
-		    <tire-right-condition type="double">1.0</tire-right-condition>
-      		    <gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
-		    <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
-		    <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
-		    <tps-condition type="double">1.0</tps-condition>
-		    <rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
-		    <rcs-F3F-condition type="double">1.0</rcs-F3F-condition>
-		    <rcs-F1F-condition type="double">1.0</rcs-F1F-condition>
-		    <rcs-F1L-condition type="double">1.0</rcs-F1L-condition>
-		    <rcs-F3L-condition type="double">1.0</rcs-F3L-condition>
-		    <rcs-F2R-condition type="double">1.0</rcs-F2R-condition>
-		    <rcs-F4R-condition type="double">1.0</rcs-F4R-condition>
-      		    <rcs-F2U-condition type="double">1.0</rcs-F2U-condition>
-		    <rcs-F3U-condition type="double">1.0</rcs-F3U-condition>
-		    <rcs-F1U-condition type="double">1.0</rcs-F1U-condition>
-		    <rcs-F2D-condition type="double">1.0</rcs-F2D-condition>
-		    <rcs-F1D-condition type="double">1.0</rcs-F1D-condition>
-		    <rcs-F4D-condition type="double">1.0</rcs-F4D-condition>
-		    <rcs-F3D-condition type="double">1.0</rcs-F3D-condition>
-		    <rcs-F5R-condition type="double">1.0</rcs-F5R-condition>
-		    <rcs-F5L-condition type="double">1.0</rcs-F5L-condition>
-		    <rcs-R3A-condition type="double">1.0</rcs-R3A-condition>
-		    <rcs-R1A-condition type="double">1.0</rcs-R1A-condition>
-      		    <rcs-L3A-condition type="double">1.0</rcs-L3A-condition>
-		    <rcs-L1A-condition type="double">1.0</rcs-L1A-condition>
-		    <rcs-L4L-condition type="double">1.0</rcs-L4L-condition>
-		    <rcs-L2L-condition type="double">1.0</rcs-L2L-condition>
-		    <rcs-L3L-condition type="double">1.0</rcs-L3L-condition>
-		    <rcs-L1L-condition type="double">1.0</rcs-L1L-condition>
-     		    <rcs-R4R-condition type="double">1.0</rcs-R4R-condition>
-      		    <rcs-R2R-condition type="double">1.0</rcs-R2R-condition>
-      		    <rcs-R3R-condition type="double">1.0</rcs-R3R-condition>
-      		    <rcs-R1R-condition type="double">1.0</rcs-R1R-condition>
-		    <rcs-L4U-condition type="double">1.0</rcs-L4U-condition>
-		    <rcs-L2U-condition type="double">1.0</rcs-L2U-condition>
-		    <rcs-L1U-condition type="double">1.0</rcs-L1U-condition>
-		    <rcs-R4U-condition type="double">1.0</rcs-R4U-condition>
-		    <rcs-R2U-condition type="double">1.0</rcs-R2U-condition>
-		    <rcs-R1U-condition type="double">1.0</rcs-R1U-condition>
-		    <rcs-L4D-condition type="double">1.0</rcs-L4D-condition>
-		    <rcs-L2D-condition type="double">1.0</rcs-L2D-condition>
-		    <rcs-L3D-condition type="double">1.0</rcs-L3D-condition>
-		    <rcs-R4D-condition type="double">1.0</rcs-R4D-condition>
-		    <rcs-R2D-condition type="double">1.0</rcs-R2D-condition>
-		    <rcs-R3D-condition type="double">1.0</rcs-R3D-condition>
-		    <rcs-L5D-condition type="double">1.0</rcs-L5D-condition>
-		    <rcs-R5D-condition type="double">1.0</rcs-R5D-condition>
-		    <rcs-L5L-condition type="double">1.0</rcs-L5L-condition>
-		    <rcs-R5R-condition type="double">1.0</rcs-R5R-condition>
-		    <rcs-he-left-1-condition type="double">1.0</rcs-he-left-1-condition>
-		    <rcs-he-left-2-condition type="double">1.0</rcs-he-left-2-condition>
-		    <rcs-he-right-1-condition type="double">1.0</rcs-he-right-1-condition>
-		    <rcs-he-right-2-condition type="double">1.0</rcs-he-right-2-condition>
-		    <rcs-he-fwd-1-condition type="double">1.0</rcs-he-fwd-1-condition>
-		    <rcs-he-fwd-2-condition type="double">1.0</rcs-he-fwd-2-condition>
-		    <apu1-condition type="double">1.0</apu1-condition>
-		    <apu2-condition type="double">1.0</apu2-condition>
-		    <apu3-condition type="double">1.0</apu3-condition>
-		    <boiler1-condition type="double">1.0</boiler1-condition>
-		    <boiler2-condition type="double">1.0</boiler2-condition>
-		    <boiler3-condition type="double">1.0</boiler3-condition>
-		    <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
-		    <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
-		    <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
-		    <fc1-condition type="double">1.0</fc1-condition>
-		    <fc2-condition type="double">1.0</fc2-condition>
-		    <fc3-condition type="double">1.0</fc3-condition>
-		    <fc1-coolant-pump-condition type="double">1.0</fc1-coolant-pump-condition>
-		    <fc2-coolant-pump-condition type="double">1.0</fc2-coolant-pump-condition>
-		    <fc3-coolant-pump-condition type="double">1.0</fc3-coolant-pump-condition>
-		    <radiator-condition type="double">1.0</radiator-condition>
-		    <fes-topping-condition type="double">1.0</fes-topping-condition>
-		    <fes-hiload-condition type="double">1.0</fes-hiload-condition>
-		    <freon-pump-1-condition type="double">1.0</freon-pump-1-condition>
-		    <freon-pump-2-condition type="double">1.0</freon-pump-2-condition>
-      		    <water-pump-1-condition type="double">1.0</water-pump-1-condition>
-		    <water-pump-2-condition type="double">1.0</water-pump-2-condition>
-		    <spray-boiler-1-condition type="double">1.0</spray-boiler-1-condition>
-		    <spray-boiler-2-condition type="double">1.0</spray-boiler-2-condition>
-		    <spray-boiler-3-condition type="double">1.0</spray-boiler-3-condition>
-		    <ku-band-antenna-condition type="double">1.0</ku-band-antenna-condition>
-		    <ku-band-antenna-stow-condition type="double">1.0</ku-band-antenna-stow-condition>
-		    <rms-shoulder-yaw-condition type="double">1.0</rms-shoulder-yaw-condition>
-		    <rms-shoulder-pitch-condition type="double">1.0</rms-shoulder-pitch-condition>
-		    <rms-elbow-pitch-condition type="double">1.0</rms-elbow-pitch-condition>
-		    <rms-wrist-pitch-condition type="double">1.0</rms-wrist-pitch-condition>
-		    <rms-wrist-yaw-condition type="double">1.0</rms-wrist-yaw-condition>
-		    <rms-wrist-roll-condition type="double">1.0</rms-wrist-roll-condition>
-		    <floodlight-aft-condition type="double">1.0</floodlight-aft-condition>
-		    <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
-		    <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
-		    <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition>
-		    <shuttle-destroyed type="bool">false</shuttle-destroyed>
-		    <sensors>
-		      <star-tracker-Y-condition type="double">1.0</star-tracker-Y-condition>
-		      <star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
-		    </sensors>
-     </failures>
+    <failures include="component_condition.xml"/>
      <orbital>
       <gm type="double">14.07644180e15</gm>
       <semimajor-axis-length-ft type="double">0.0</semimajor-axis-length-ft>
@@ -657,6 +518,7 @@
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
        <helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
+       <engine-operational type="int">1</engine-operational>
       </engine>
       <engine n="1">
        <controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
@@ -665,10 +527,12 @@
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
        <helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
+       <engine-operational type="int">1</engine-operational>
       </engine>
       <engine n="2">
        <controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
        <controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
+       <engine-operational type="int">1</engine-operational>
        <run-cmd type="int">1</run-cmd>
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
@@ -902,6 +766,19 @@
       <aft-dump-time-s type="int">0</aft-dump-time-s>
 
       <thrust-normalizer type="double">0.0</thrust-normalizer>
+      <jet-table include="jet_table.xml"/>
+
+      <F1L-fire-cmd-inh type="double">0.0</F1L-fire-cmd-inh> 
+      <F3L-fire-cmd-inh type="double">0.0</F3L-fire-cmd-inh>  
+      <F2R-fire-cmd-inh type="double">0.0</F2R-fire-cmd-inh>  
+      <F4R-fire-cmd-inh type="double">0.0</F4R-fire-cmd-inh>   
+      <F1U-fire-cmd-inh type="double">0.0</F1U-fire-cmd-inh>
+      <F3U-fire-cmd-inh type="double">0.0</F3U-fire-cmd-inh>
+      <F2U-fire-cmd-inh type="double">0.0</F2U-fire-cmd-inh> 
+      <F1D-fire-cmd-inh type="double">0.0</F1D-fire-cmd-inh>
+      <F3D-fire-cmd-inh type="double">0.0</F3D-fire-cmd-inh> 
+      <F2D-fire-cmd-inh type="double">0.0</F2D-fire-cmd-inh>
+      <F4D-fire-cmd-inh type="double">0.0</F4D-fire-cmd-inh>                                                      
      </rcs>
      <rcs-hardware>
       <helium-left-rcs-pressure-1-psia type="double">280.0</helium-left-rcs-pressure-1-psia>
@@ -985,6 +862,22 @@
       <fuel-right-crossfeed-correction type="double">0.0</fuel-right-crossfeed-correction>
       <oxidizer-left-crossfeed-correction type="double">0.0</oxidizer-left-crossfeed-correction>
       <oxidizer-right-crossfeed-correction type="double">0.0</oxidizer-right-crossfeed-correction>
+
+      <oms-left-xfeed-qty-enable type="int">0</oms-left-xfeed-qty-enable>
+      <oms-right-xfeed-qty-enable type="int">0</oms-right-xfeed-qty-enable>
+
+      <F1L-fire type="double">0.0</F1L-fire>    
+      <F3L-fire type="double">0.0</F3L-fire> 
+      <F2R-fire type="double">0.0</F2R-fire>  
+      <F4R-fire type="double">0.0</F4R-fire>   
+      <F1U-fire type="double">0.0</F1U-fire>  
+      <F3U-fire type="double">0.0</F3U-fire>                                                     
+      <F2U-fire type="double">0.0</F2U-fire>   
+      <F1D-fire type="double">0.0</F1D-fire>
+      <F3D-fire type="double">0.0</F3D-fire>
+      <F2D-fire type="double">0.0</F2D-fire>                                     
+      <F4D-fire type="double">0.0</F4D-fire>          
+                                                        
      </rcs-hardware>	
      <rendezvous>
 	<rel-nav-enable type="int">0</rel-nav-enable>
@@ -2091,9 +1984,65 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     </dialogs>
   </gui>
 
+  <aircraft-data>
+    <path>/sim/config/shuttle/rendering/use-earthview</path>
+    <path>/sim/config/shuttle/rendering/earthview-transition-alt-ft</path>
+    <path>/save/latitude-deg</path>
+    <path>/save/longitude-deg</path>
+    <path>/save/altitude-ft</path>
+    <path>/save/pitch-deg</path>
+    <path>/save/heading-deg</path>
+    <path>/save/roll-deg</path>
+    <path>/save/uBody-fps</path>
+    <path>/save/vBody-fps</path>
+    <path>/save/wBody-fps</path>
+    <path>/save/state</path>
+    <path>/save/radiator-state</path>
+    <path>/save/umbilical-state</path>
+    <path>/save/control-mode</path>
+    <path>/save/control-string</path>
+    <path>/save/orbital-dap-sel</path>
+    <path>/save/ops</path>
+    <path>/save/major-mode</path>
+    <path>/save/major-mode-sm</path>
+    <path>/save/tank1-level-lbs</path>
+    <path>/save/tank2-level-lbs</path>
+    <path>/save/tank3-level-lbs</path>
+    <path>/save/tank4-level-lbs</path>
+    <path>/save/tank5-level-lbs</path>
+    <path>/save/tank6-level-lbs</path>
+    <path>/save/tank7-level-lbs</path>
+    <path>/save/tank8-level-lbs</path>
+    <path>/save/tank9-level-lbs</path>
+    <path>/save/tank10-level-lbs</path>
+    <path>/save/tank11-level-lbs</path>
+    <path>/save/tank12-level-lbs</path>
+    <path>/save/tank13-level-lbs</path>
+    <path>/save/tank14-level-lbs</path>
+    <path>/save/tank15-level-lbs</path>
+    <path>/save/tank16-level-lbs</path>
+    <path>/save/tank17-level-lbs</path>
+    <path>/save/tank18-level-lbs</path>
+    <path>/save/tank19-level-lbs</path>
+    <path>/save/MET</path>
+  </aircraft-data>
 
 
  </sim>
+
+
+ <save>
+   <valid-flag type="bool">false</valid-flag>
+   <latitude-deg type="double">0.0</latitude-deg>
+   <longitude-deg type="double">0.0</longitude-deg>
+   <altitude-ft type="double">0.0</altitude-ft>
+   <pitch-deg type="double">0.0</pitch-deg>
+   <heading-deg type="double">0.0</heading-deg>
+   <roll-deg type="double">0.0</roll-deg>
+   <uBody-fps type="double">0.0</uBody-fps>
+   <vBody-fps type="double">0.0</vBody-fps>
+   <wBody-fps type="double">0.0</wBody-fps>
+ </save>
 
  <!-- Key mapping -->
 
@@ -2363,6 +2312,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/communications.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/sensors.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/sound.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/save.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/mission.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>
@@ -2394,6 +2345,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
 		  <spray-density type="double">0</spray-density>
 		</gear>
 	</gear>
+
+  <mission include="Mission/mission.xml"/>
 
 </PropertyList>
 
