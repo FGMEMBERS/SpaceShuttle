@@ -779,7 +779,15 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	if (((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303)) and (spec == 0))
 		{
-		if (item == 6)
+		if (item == 1)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",1); valid_flag = 1;}
+		else if (item == 2)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",2); valid_flag = 1;}
+		else if (item == 3)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",3); valid_flag = 1;}
+		else if (item == 4)
+			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",4); valid_flag = 1;}
+		else if (item == 6)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-pitch",num(value)); valid_flag = 1;}
 		else if (item == 7)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-yaw-left",num(value)); valid_flag = 1;}

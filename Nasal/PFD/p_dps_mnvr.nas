@@ -187,12 +187,38 @@ var PFD_addpage_p_dps_mnvr = func(device)
             p_dps_mnvr.surf_drive_off.setText("*");
     	}
     
-    # right now, we don't have the capability to use single OMS engine burns
-    
-        p_dps_mnvr.oms_both.setText("*");
-        p_dps_mnvr.oms_l.setText("");
-        p_dps_mnvr.oms_r.setText("");
-        p_dps_mnvr.rcs_sel.setText("");
+
+	var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
+	if (burn_mode == 1)
+		{
+       		p_dps_mnvr.oms_both.setText("*");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 2)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("*");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 3)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("*");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 4)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("*");
+		}
+
     
     
         p_dps_mnvr.tv_roll.setText(sprintf("%3.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/tv-roll")));

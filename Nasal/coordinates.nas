@@ -446,8 +446,15 @@ var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
 
 var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
 
-# need to change that as soon as we can do single engine burns
+var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
 var thrust_lb = 12174.0;
+
+
+if ((burn_mode == 2) or (burn_mode == 3))
+	{
+	thrust_lb = 0.5 * thrust_lb;
+	}
 
 var acceleration = thrust_lb/weight_lb;
 
@@ -893,17 +900,40 @@ var tig = oms_burn_target.tig;
 
 if (tig - MET < 0.0) # if we're at or past ignition time, we go
 	{
-	# DAP to OMS TVC
-	setprop("/fdm/jsbsim/systems/fcs/control-mode", 11);
+	var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
 
-	# throttles to full
-	setprop("/controls/engines/engine[5]/throttle", 1.0);
-	setprop("/controls/engines/engine[6]/throttle", 1.0);
+	if (burn_mode == 1)
+		{
+		# DAP to OMS TVC
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 11);
 
-	setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		# throttles to full
+		setprop("/controls/engines/engine[5]/throttle", 1.0);
+		setprop("/controls/engines/engine[6]/throttle", 1.0);
 
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
+	else if (burn_mode == 2)
+		{
+		# DAP to OMS TVC with wraparound
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 12);
+
+		# throttle left to full
+		setprop("/controls/engines/engine[5]/throttle", 1.0);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
+	else if (burn_mode == 3)
+		{
+		# DAP to OMS TVC with wraparound
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 12);
+
+		# throttle right to full
+		setprop("/controls/engines/engine[6]/throttle", 1.0);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
 	# start the burn
 	oms_burn(time);
+		
 	}
 else # we delay
 	{
@@ -953,8 +983,21 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 0);
 var nstarts_left = getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-nstarts");
 var nstarts_right = getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-nstarts");
 
-nstarts_left = nstarts_left - 1;
-nstarts_right = nstarts_right -1;
+var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
+if (burn_mode == 1)
+	{
+	nstarts_left = nstarts_left - 1;
+	nstarts_right = nstarts_right -1;
+	}
+else if (burn_mode == 2)
+	{
+	nstarts_left = nstarts_left - 1;
+	}
+else if (burn_mode == 3)
+	{
+	nstarts_right = nstarts_right - 1;
+	}
 
 if (nstarts_left < 0) {nstarts_left = 0;}
 if (nstarts_right < 0) {nstarts_right = 0;}
