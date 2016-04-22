@@ -7,6 +7,7 @@
 	<!-- 1:  RCS rotation - stick controls thrust -->
 	<!-- 2:  RCS translation - stick controls thrust -->
 	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
+	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
 	<!-- 20: RCS DAP-A - precision attitude hold, stick controls rate -->
 	<!-- 21: RCS DAP-B - propellant conserving attitude hold, stick controls rate -->
 	<!-- 22: RCS ROT TAIL ONLY - nose thrusters are off, stick controls thrust --> 
@@ -29,6 +30,7 @@
 				systems/fcs/control-mode == 2
 				systems/fcs/control-mode == 3
 				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 12
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
@@ -510,6 +512,7 @@
 		<switch name="systems/fcs/rate-control-master">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 12
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 24
@@ -598,12 +601,20 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/roll-wraparound-veto">
+			<default value="1.0"/>
+			<test value="0.0">
+				systems/fcs/control-mode == 12
+			</test>
+		</switch>
+
 
 		<!-- for error-rate controlled modes, we don't need to fire compensating thrusters -->
 
 		<switch name="systems/fcs/rcs-modemixing-damper">
 			<default value="1.0"/>
-			<test value="0.0">
+			<test logic="OR" value="0.0">
+				systems/fcs/control-mode == 12
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 25
@@ -693,6 +704,7 @@
 						<property>systems/fcs/rcs-entry-mode</property>
 					</difference>
 					<property>systems/rcs/dap-pitch-cmd-orbit</property>
+					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
 				<property>systems/ap/lvlh/pitch-rate-cmd</property>
 			</sum>
@@ -925,6 +937,7 @@
 						<property>systems/fcs/rcs-entry-mode</property>
 					</difference>
 					<property>systems/rcs/dap-yaw-cmd-orbit</property>
+					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
 				<property>systems/ap/lvlh/yaw-rate-cmd</property>
 			</sum>
@@ -971,6 +984,7 @@
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 1
 				systems/fcs/control-mode == 3
+				systems/fcs/control-mode == 12
 				systems/fcs/control-mode == 20
 				systems/fcs/control-mode == 21
 				systems/fcs/control-mode == 22
