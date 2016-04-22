@@ -889,17 +889,143 @@
 			</test>
 		</switch>
 
-		<!-- sample-hold current pitch, yaw and roll -->
+		<!-- unfortunately FG LVLH isn't shuttle LVLH, need to rotate coords to align with orbital track -->
+
+		<fcs_function name="systems/ap/lvlh/transformation-angle-rad">
+		<function>
+			<product>
+				<difference>
+					<property>velocities/course-deg</property>
+					<value>90.0</value>
+				</difference>
+				<value>0.01745329</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/s">
+		<function>
+			<sin>
+				<property>systems/ap/lvlh/transformation-angle-rad</property>
+			</sin>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/c">
+		<function>
+			<cos>
+				<property>systems/ap/lvlh/transformation-angle-rad</property>
+			</cos>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/body-x[0]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/s</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/body-x[1]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/s</property>
+					<value>-1.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/ap/lvlh/body-y[0]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-y[1]</property>
+					<property>systems/ap/lvlh/s</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-y[0]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/body-y[1]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-y[1]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-y[0]</property>
+					<property>systems/ap/lvlh/s</property>
+					<value>-1.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/body-z[0]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-z[1]</property>
+					<property>systems/ap/lvlh/s</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-z[0]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/lvlh/body-z[1]">
+		<function>
+			<sum>
+				<product>
+					<property>systems/pointing/lvlh/body-z[1]</property>
+					<property>systems/ap/lvlh/c</property>
+				</product>
+				<product>
+					<property>systems/pointing/lvlh/body-z[0]</property>
+					<property>systems/ap/lvlh/s</property>
+					<value>-1.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<!-- sample-hold current pitch, yaw and roll in Shuttle LVLH -->
 
 		<switch name="systems/ap/lvlh/target-vector-pitch[0]">
-			<default value="systems/pointing/lvlh/body-z[0]"/>
+			<default value="systems/ap/lvlh/body-z[0]"/>
 			<test value="systems/ap/lvlh/target-vector-pitch[0]">
 				systems/ap/lvlh/attitude-hold-cmd == 1
 			</test>
 		</switch>
 
 		<switch name="systems/ap/lvlh/target-vector-pitch[1]">
-			<default value="systems/pointing/lvlh/body-z[1]"/>
+			<default value="systems/ap/lvlh/body-z[1]"/>
 			<test value="systems/ap/lvlh/target-vector-pitch[1]">
 				systems/ap/lvlh/attitude-hold-cmd == 1
 			</test>
@@ -913,14 +1039,14 @@
 		</switch>
 
 		<switch name="systems/ap/lvlh/target-vector-yaw[0]">
-			<default value="systems/pointing/lvlh/body-y[0]"/>
+			<default value="systems/ap/lvlh/body-y[0]"/>
 			<test value="systems/ap/lvlh/target-vector-yaw[0]">
 				systems/ap/lvlh/attitude-hold-cmd == 1
 			</test>
 		</switch>
 
 		<switch name="systems/ap/lvlh/target-vector-yaw[1]">
-			<default value="systems/pointing/lvlh/body-y[1]"/>
+			<default value="systems/ap/lvlh/body-y[1]"/>
 			<test value="systems/ap/lvlh/target-vector-yaw[1]">
 				systems/ap/lvlh/attitude-hold-cmd == 1
 			</test>
@@ -944,11 +1070,11 @@
 		<function>
 			<sum>
 				<product>
-					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/body-x[0]</property>
 					<property>systems/ap/lvlh/target-vector-pitch[0]</property>
 				</product>
 				<product>
-					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/body-x[1]</property>
 					<property>systems/ap/lvlh/target-vector-pitch[1]</property>
 				</product>
 				<product>
@@ -964,11 +1090,11 @@
 		<function>
 			<sum>
 				<product>
-					<property>systems/pointing/lvlh/body-x[0]</property>
+					<property>systems/ap/lvlh/body-x[0]</property>
 					<property>systems/ap/lvlh/target-vector-yaw[0]</property>
 				</product>
 				<product>
-					<property>systems/pointing/lvlh/body-x[1]</property>
+					<property>systems/ap/lvlh/body-x[1]</property>
 					<property>systems/ap/lvlh/target-vector-yaw[1]</property>
 				</product>
 				<product>
@@ -999,6 +1125,7 @@
 						<property>systems/ap/lvlh/pitch-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
+						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1015,6 +1142,7 @@
 						<property>systems/ap/lvlh/yaw-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
+						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1032,6 +1160,7 @@
 						<property>systems/ap/lvlh/roll-error</property>
 						<value>-0.1</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
+						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
