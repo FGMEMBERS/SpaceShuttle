@@ -7,6 +7,7 @@
 	<!-- 0:  Thrust vectoring for SSME with direct control over engine gimbal -->
 	<!-- 10: Thrust vectoring for SSME with rate control -->
 	<!-- 11: Thrust vectoring for OMS  with rate control -->
+	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
 
 	<channel name="CoG-pointing pitch and yaw angles of engines">
 
@@ -1230,6 +1231,14 @@
 
 		<switch name="systems/vectoring/OMS-rate-master">
 			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 12
+			</test>
+		</switch>
+
+		<switch name="systems/vectoring/OMS-roll-control">
+			<default value="0.0"/>
 			<test value="1.0">
 				systems/fcs/control-mode == 11
 			</test>
@@ -1336,14 +1345,20 @@
 			</clipto>
 		</pid>
 
+ 		<deadband name="systems/vectoring/OMS-yaw-PID-trigger">
+			<input>systems/vectoring/OMS-yaw-rate-error</input>
+			<width>0.002</width>
+  		</deadband>
+
 		<pid name="systems/vectoring/OMS-yaw">
 			<input>systems/vectoring/OMS-yaw-rate-error</input>
-			<kp> 50.0 </kp>
-			<ki> 0.0 </ki>
+			<kp> 80.0 </kp>
+			<ki> 50.0 </ki>
 			<kd> 0.0</kd>
+			<trigger>systems/vectoring/OMS-yaw-PID-trigger</trigger>
 			<clipto>
-				<min> -0.122 </min>
-        			<max>  0.122 </max>
+				<min> -0.25 </min>
+        			<max>  0.25 </max>
 			</clipto>
 		</pid>
 
@@ -1381,6 +1396,7 @@
 			<product>
 				<property>systems/vectoring/OMS-rate-master</property>	
 				<property>systems/vectoring/OMS-roll</property>
+				<property>systems/vectoring/OMS-roll-control</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -1423,8 +1439,10 @@
       			<input>systems/vectoring/OMS-yaw-merged</input>
       			<input>propulsion/engine[5]/yaw-to-CoG</input>
       			<clipto>
-        			<min> -0.122 </min>
-        			<max>  0.122 </max>
+        			<!--<min> -0.122 </min>
+        			<max>  0.122 </max>-->
+				<min> -0.026 </min>
+        			<max>  0.218</max>
       			</clipto>
 			<output>propulsion/engine[5]/yaw-angle-rad-sum</output>
    		</summer>
@@ -1433,8 +1451,10 @@
       			<input>systems/vectoring/OMS-yaw-merged</input>
       			<input>propulsion/engine[6]/yaw-to-CoG</input>
       			<clipto>
-        			<min> -0.122 </min>
-        			<max>  0.122 </max>
+        			<!--<min> -0.122 </min>
+        			<max>  0.122 </max>-->
+        			<min> -0.218 </min>
+        			<max>  0.026 </max>
       			</clipto>
 			<output>propulsion/engine[6]/yaw-angle-rad-sum</output>
    		</summer>

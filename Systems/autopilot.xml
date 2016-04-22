@@ -28,8 +28,9 @@
 
 		<switch name="systems/ap/rot-rate-degps">
 			<default value="0.0"/>
-			<test value="3.0">
+			<test logic="OR" value="3.0">
 				systems/fcs/control-mode == 11	
+				systems/fcs/control-mode == 12	
 			</test>
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-rate">
 				systems/fcs/control-mode == 20	
@@ -54,8 +55,9 @@
 
 		<switch name="systems/ap/att-db-deg">
 			<default value="0.0"/>
-			<test value="0.12">
+			<test logic="OR" value="0.12">
 				systems/fcs/control-mode == 11	
+				systems/fcs/control-mode == 12	
 			</test>
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-att-db">
 				systems/fcs/control-mode == 20
@@ -89,8 +91,9 @@
 
 		<switch name="systems/ap/rate-db-degps">
 			<default value="0.0"/>
-			<test value="0.01">
+			<test logic="OR" value="0.01">
 				systems/fcs/control-mode == 11	
+				systems/fcs/control-mode == 12	
 			</test>
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rate-db">
 				systems/fcs/control-mode == 20	
