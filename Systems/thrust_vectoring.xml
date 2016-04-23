@@ -8,6 +8,7 @@
 	<!-- 10: Thrust vectoring for SSME with rate control -->
 	<!-- 11: Thrust vectoring for OMS  with rate control -->
 	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
+	<!-- 13: Single engine SSME TVC and roll control via RCS -->
 
 	<channel name="CoG-pointing pitch and yaw angles of engines">
 
@@ -573,8 +574,16 @@
 
 		<switch name="systems/vectoring/vectoring-rate-master">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic = "OR" value="1.0">
 				systems/fcs/control-mode == 10
+				systems/fcs/control-mode == 13
+			</test>
+		</switch>
+
+		<switch name="systems/vectoring/roll-control-veto">
+			<default value="1.0"/>
+			<test  value="0.0">
+				systems/fcs/control-mode == 13
 			</test>
 		</switch>
 
@@ -628,6 +637,7 @@
 
 		<fcs_function name="systems/vectoring/roll-rate-error">
 		<function>
+			<product>
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
@@ -647,6 +657,8 @@
 					<value>0.3</value>
 				</product>
 			</difference>
+			<property>systems/vectoring/roll-control-veto</property>
+			</product>
 		</function>
 		</fcs_function>
 
