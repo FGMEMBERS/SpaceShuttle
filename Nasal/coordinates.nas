@@ -455,6 +455,10 @@ if ((burn_mode == 2) or (burn_mode == 3))
 	{
 	thrust_lb = 0.5 * thrust_lb;
 	}
+else if (burn_mode == 4)
+	{
+	thrust_lb = 3480.0;
+	}
 
 var acceleration = thrust_lb/weight_lb;
 
@@ -931,6 +935,15 @@ if (tig - MET < 0.0) # if we're at or past ignition time, we go
 		setprop("/controls/engines/engine[6]/throttle", 1.0);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
 		}
+	else if (burn_mode == 4)
+		{
+		# RCS TRANS ATT HLD
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 26);
+
+		# throttle to full
+		setprop("/controls/flight/rudder", 1);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
 	# start the burn
 	oms_burn(time);
 		
@@ -997,6 +1010,10 @@ else if (burn_mode == 2)
 else if (burn_mode == 3)
 	{
 	nstarts_right = nstarts_right - 1;
+	}
+else if (burn_mode == 4)
+	{
+	setprop("/controls/flight/rudder", 0);
 	}
 
 if (nstarts_left < 0) {nstarts_left = 0;}
