@@ -6,6 +6,12 @@
 	<!-- we transform from body to local horizon using pitch, yaw and roll -->
 	<!-- then using lat and lon to the FG world co-rotating coordinate system-->
 	<!-- and finally using the Earth rotation angle to a true inertial system -->
+	<!-- to make matters worse, JSBSim's inertial system is initialized to agree with -->
+	<!-- FG co-rotating, so it's not astronomically fixed, i.e. we need sidereal time -->
+	<!-- to do pointing at specific stars -->
+	<!-- also the Shuttle's LVLH system is not FG's local horizon frame -->
+	<!-- because the Shuttle LVLH orients along the orbital track rather than heading -->
+	
 
 	<channel name="Sidereal time">
 
