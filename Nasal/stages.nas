@@ -79,12 +79,13 @@ var thrust_engine1 = getprop("/engines/engine[0]/thrust_lb");
 var thrust_engine2 = getprop("/engines/engine[1]/thrust_lb");
 var thrust_engine3 = getprop("/engines/engine[2]/thrust_lb");
 
-
+var SRB_separation_button_pressed = getprop("/controls/shuttle/srb-separation");
+if (SRB_separation_button_pressed) SRB_message_flag = 1;
 
 if ((SRB_fuel < 0.1) and (SRB_message_flag == 0))
 	{SRB_warn(); SRB_message_flag = 1;}
 
-if ((SRB_fuel < 0.01) and (SRB_message_flag == 1))
+if ((SRB_fuel < 0.01 or SRB_separation_button_pressed) and SRB_message_flag == 1)
 	{SRB_separate(); SRB_message_flag = 2;}
 
 if ((t_elapsed > 34.0) and (launch_message_flag ==0) and (SRB_burn_timer >0.0))
@@ -645,7 +646,7 @@ if (SRB_message_flag < 2)
 	return;
 	}
 
-
+setprop("/controls/shuttle/et-separation", 1);
 
 # we can drop the tank only once
 if (getprop("/controls/shuttle/ET-static-model") == 0) {return;}
