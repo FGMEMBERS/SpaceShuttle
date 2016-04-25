@@ -390,6 +390,9 @@ else if (mode_string == "RTLS")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
 	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition(idp_index, "p_dps_rtls");
 	}
 
 }

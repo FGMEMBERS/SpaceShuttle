@@ -48,6 +48,11 @@ print("DPS update ",device.designation);
                     device.selectPage(device.p_vert_sit);
     			}	
     		}
+	    else if (ops == 6)
+			{
+                    device.selectPage(device.p_dps_rtls);
+			}
+	
             else 
     		    device.selectPage(device.p_main);
     
