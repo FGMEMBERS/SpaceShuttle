@@ -2181,6 +2181,15 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     </binding>
    </key>
 
+   <key n="73">
+    <name>Shift+i</name>
+    <desc>Ignition</desc>
+    <binding>
+     <command>nasal</command>
+     <script>SpaceShuttle.ignition()</script>
+    </binding>
+   </key>
+
    <key n="77">
     <name>M</name>
     <desc>RCS detailed mode</desc>
