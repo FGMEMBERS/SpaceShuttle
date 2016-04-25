@@ -777,6 +777,21 @@ if ((header == "ITEM") and (end = "EXEC"))
 	#print("Spec: ", spec);
 
 
+	if (((major_mode == 103) or (major_mode == 601)) and (spec == 0))
+		{
+		if (item == 6)
+			{
+			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+		
+			if (control_mode == 10) {control_mode = 13;}
+			else {control_mode = 10;}
+
+			setprop("/fdm/jsbsim/systems/fcs/control-mode", control_mode);
+			valid_flag = 1;
+			}
+
+		}
+
 	if (((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 303)) and (spec == 0))
 		{
 		if (item == 1)

@@ -36,6 +36,9 @@ var PFD_addpage_p_ascent = func(device)
     p_ascent.vcoscale_co = device.svg.getElementById("p_ascent_vcoscale_co");
     p_ascent.vcoscale_labelco = device.svg.getElementById("p_ascent_vcoscale_labelco");
 
+    p_ascent.serc = device.svg.getElementById("p_ascent_serc");
+    p_ascent.serc_on = device.svg.getElementById("p_ascent_serc_on");
+
     p_ascent.ondisplay = func
     {
         # called once whenever this page goes on display/
@@ -138,6 +141,20 @@ var PFD_addpage_p_ascent = func(device)
             p_ascent.throttle_text.setText(sprintf(""));
     	}
     
+
+	var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+
+	if (control_mode == 13)
+    		{
+		p_ascent.serc.setText("*");
+    		p_ascent.serc_on.setText("ON");
+		}
+	else
+		{
+		p_ascent.serc.setText("");
+    		p_ascent.serc_on.setText("");
+		}
+	
         if (major_mode == 103)
     	{
             p_ascent.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
