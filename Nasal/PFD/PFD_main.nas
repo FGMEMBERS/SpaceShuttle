@@ -15,6 +15,7 @@
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_antenna (SM OPS 202)
+# * p_dps_rtls (OPS 601)
 # * p_dps_time (SPEC 2)
 # * p_dps_dap (SPEC 20)
 # * p_dps_strk (SPEC 22)
@@ -67,6 +68,7 @@ io.include("p_dps_fault.nas");
 io.include("p_dps_sys_summ.nas");
 io.include("p_dps_sys_summ2.nas");
 io.include("p_ascent.nas");
+io.include("p_dps_rtls.nas");
 io.include("p_entry.nas");
 io.include("p_vert_sit.nas");
 io.include("p_dps_mnvr.nas");
@@ -234,6 +236,7 @@ var MDU_Device =
         me.PFD.p_dps_sys_summ = PFD_addpage_p_dps_sys_summ(me.PFD);
         me.PFD.p_dps_sys_summ2 = PFD_addpage_p_dps_sys_summ2(me.PFD);
         me.PFD.p_ascent = PFD_addpage_p_ascent(me.PFD);
+        me.PFD.p_dps_rtls = PFD_addpage_p_dps_rtls(me.PFD);
         me.PFD.p_entry = PFD_addpage_p_entry(me.PFD);
         me.PFD.p_vert_sit = PFD_addpage_p_vert_sit(me.PFD);
         me.PFD.p_dps_mnvr = PFD_addpage_p_dps_mnvr(me.PFD);
@@ -347,6 +350,10 @@ var MDU_Device =
         me.PFD.p_ascent.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_ascent.addMenuItem(4, "MSG RST", me.PFD.p_ascent);
         me.PFD.p_ascent.addMenuItem(5, "MSG ACK", me.PFD.p_ascent);
+
+        me.PFD.p_dps_rtls.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rtls.addMenuItem(4, "MSG RST", me.PFD.p_dps_rtls);
+        me.PFD.p_dps_rtls.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rtls);
     
         me.PFD.p_entry.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_entry.addMenuItem(4, "MSG RST", me.PFD.p_entry);
@@ -367,7 +374,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rcs);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rtls);
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
