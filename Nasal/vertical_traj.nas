@@ -153,6 +153,20 @@ if (traj_display_flag == 8)
 
 }
 
+
+var rtls_traj_update_set = func {
+
+var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+
+print ("Updating RTLS traj set");
+
+
+fill_rtls2_data();
+traj_display_flag = 2;
+
+}
+
+
 var ascent_traj_update_velocity = func {
 
 if (traj_display_flag == 1)
@@ -224,6 +238,10 @@ else if (display == 9)
 	{
 	return ((par -5.0)/20.0 * 0.68 + 0.1) * 512.0;
 	}
+else if (display == 10)
+	{
+	return ((par + 8000.0)/18000. * 0.8 + 0.1) * 512.0;
+	}
 }
 
 var parameter_to_y = func (par, display) {
@@ -263,6 +281,10 @@ else if (display == 8)
 else if (display == 9)
 	{
 	return 512.0 - ((par - 8000.0) / 22000.0 * 0.52 + 0.2) * 512.0;
+	}
+else if (display == 10)
+	{
+	return 512.0 - ((par - 150000)/450000. * 0.52 + 0.2) * 512.0;
 	}
 }
 
@@ -368,6 +390,99 @@ for (i=0; i< size(traj_data); i=i+1)
 	}
 
 }
+
+
+var fill_rtls2_data = func {
+
+#var point = [];
+
+setsize(traj_data,0);
+
+var point = [4000, 170000.0];
+append(traj_data, point);
+
+point = [6000, 380000.0];
+append(traj_data, point);
+
+point = [7000, 420000.0];
+append(traj_data, point);
+
+point = [10000, 460000.0];
+append(traj_data, point);
+
+#print ("Processing traj data.");
+
+for (i=0; i< size(traj_data); i=i+1)
+	{
+	traj_data[i][0] = parameter_to_x(traj_data[i][0], 10);
+	traj_data[i][1] = parameter_to_y(traj_data[i][1], 10); 
+	}
+
+setsize(limit1_data,0);
+
+point = [5500.0, 465000.0];
+append(limit1_data, point);
+
+point = [5500.0, 465000.0];
+append(limit1_data, point);
+
+point = [4000.0, 450000.0];
+append(limit1_data, point);
+
+point = [2000.0, 430000.0];
+append(limit1_data, point);
+
+point = [1000.0, 410000.0];
+append(limit1_data, point);
+
+point = [0.0, 390000.0];
+append(limit1_data, point);
+
+for (i=0; i< size(limit1_data); i=i+1)
+	{
+	limit1_data[i][0] = parameter_to_x(limit1_data[i][0], 10);
+	limit1_data[i][1] = parameter_to_y(limit1_data[i][1], 10); 
+	}
+
+setsize(limit2_data,0);
+
+point = [2400.0, 200000.0];
+append(limit2_data, point);
+
+point = [3000.0, 360000.0];
+append(limit2_data, point);
+
+point = [3400.0, 370000.0];
+append(limit2_data, point);
+
+point = [0.0, 350000.0];
+append(limit2_data, point);
+
+point = [-2000.0, 320000.0];
+append(limit2_data, point);
+
+point = [-4500.0, 290000.0];
+append(limit2_data, point);
+
+point = [-5000.0, 285000.0];
+append(limit2_data, point);
+
+point = [-5500.0, 290000.0];
+append(limit2_data, point);
+
+point = [-7000.0, 310000.0];
+append(limit2_data, point);
+
+for (i=0; i< size(limit2_data); i=i+1)
+	{
+	limit2_data[i][0] = parameter_to_x(limit2_data[i][0], 10);
+	limit2_data[i][1] = parameter_to_y(limit2_data[i][1], 10); 
+	}
+
+}
+
+
+
 
 
 var fill_entry1_data = func {
