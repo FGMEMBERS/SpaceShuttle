@@ -20,6 +20,16 @@ aircraft.HUD.cycle_color();
 
 settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0);}, 30.0);
 
+var ignition = func{
+    launch_loop_flag = 0;
+    setprop("/controls/engines/engine[0]/throttle", 1.0);
+    setprop("/controls/engines/engine[1]/throttle", 1.0);
+    setprop("/controls/engines/engine[2]/throttle", 1.0);
+    setprop("/engines/engine[0]/thrust_lb", 400000.0);
+    setprop("/engines/engine[1]/thrust_lb", 400000.0);
+    setprop("/engines/engine[2]/thrust_lb", 400000.0);
+    launch_loop_start();
+}
 
 #########################################################################################
 # The launch loop takes care of ingition sequence, FDM changes due to SRB and external tank separation
@@ -46,7 +56,7 @@ setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
 setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
 
 settimer(SRB_ignite, 3.0);
-settimer(gear_up, 5.0);	
+settimer(gear_up, 5.0);
 	
 launch_loop_flag = 1;
 
@@ -80,12 +90,21 @@ var thrust_engine2 = getprop("/engines/engine[1]/thrust_lb");
 var thrust_engine3 = getprop("/engines/engine[2]/thrust_lb");
 
 var SRB_separation_button_pressed = getprop("/controls/shuttle/srb-separation");
-if (SRB_separation_button_pressed) SRB_message_flag = 1;
+
+if (SRB_separation_button_pressed)
+    {
+    SRB_separate();
+    SRB_message_flag = 2;
+    setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+    setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);    
+    setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+    setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+    }
 
 if ((SRB_fuel < 0.1) and (SRB_message_flag == 0))
 	{SRB_warn(); SRB_message_flag = 1;}
 
-if ((SRB_fuel < 0.01 or SRB_separation_button_pressed) and SRB_message_flag == 1)
+if ((SRB_fuel < 0.01) and (SRB_message_flag == 1))
 	{SRB_separate(); SRB_message_flag = 2;}
 
 if ((t_elapsed > 34.0) and (launch_message_flag ==0) and (SRB_burn_timer >0.0))
