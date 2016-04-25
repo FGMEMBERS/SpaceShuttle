@@ -91,7 +91,7 @@ var thrust_engine3 = getprop("/engines/engine[2]/thrust_lb");
 
 var SRB_separation_button_pressed = getprop("/controls/shuttle/srb-separation");
 
-if (SRB_separation_button_pressed)
+if (SRB_separation_button_pressed and SRB_message_flag < 2)
     {
     SRB_separate();
     SRB_message_flag = 2;
