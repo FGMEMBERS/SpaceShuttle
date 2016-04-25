@@ -158,7 +158,7 @@ var rtls_traj_update_set = func {
 
 var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 
-print ("Updating RTLS traj set");
+#print ("Updating RTLS traj set");
 
 
 fill_rtls2_data();
@@ -398,17 +398,27 @@ var fill_rtls2_data = func {
 
 setsize(traj_data,0);
 
-var point = [4000, 170000.0];
+var point = [3000, 170000.0];
 append(traj_data, point);
 
-point = [6000, 380000.0];
+point = [4500, 240000.0];
 append(traj_data, point);
 
-point = [7000, 420000.0];
+point = [5000, 306000.0];
 append(traj_data, point);
 
-point = [10000, 460000.0];
+point = [6000, 360000.0];
 append(traj_data, point);
+
+point = [6500, 380000.0];
+append(traj_data, point);
+
+point = [7500, 410000.0];
+append(traj_data, point);
+
+point = [9500, 430000.0];
+append(traj_data, point);
+
 
 #print ("Processing traj data.");
 
@@ -420,19 +430,19 @@ for (i=0; i< size(traj_data); i=i+1)
 
 setsize(limit1_data,0);
 
-point = [5500.0, 465000.0];
+point = [5900.0, 480000.0];
 append(limit1_data, point);
 
-point = [5500.0, 465000.0];
+point = [5500.0, 478000.0];
 append(limit1_data, point);
 
-point = [4000.0, 450000.0];
+point = [4000.0, 463000.0];
 append(limit1_data, point);
 
-point = [2000.0, 430000.0];
+point = [2000.0, 443000.0];
 append(limit1_data, point);
 
-point = [1000.0, 410000.0];
+point = [1000.0, 422000.0];
 append(limit1_data, point);
 
 point = [0.0, 390000.0];
@@ -455,22 +465,22 @@ append(limit2_data, point);
 point = [3400.0, 370000.0];
 append(limit2_data, point);
 
-point = [0.0, 350000.0];
+point = [0.0, 340000.0];
 append(limit2_data, point);
 
-point = [-2000.0, 320000.0];
+point = [-2000.0, 300000.0];
 append(limit2_data, point);
 
-point = [-4500.0, 290000.0];
+point = [-4500.0, 270000.0];
 append(limit2_data, point);
 
-point = [-5000.0, 285000.0];
+point = [-5000.0, 265000.0];
 append(limit2_data, point);
 
-point = [-5500.0, 290000.0];
+point = [-5500.0, 270000.0];
 append(limit2_data, point);
 
-point = [-7000.0, 310000.0];
+point = [-7000.0, 280000.0];
 append(limit2_data, point);
 
 for (i=0; i< size(limit2_data); i=i+1)

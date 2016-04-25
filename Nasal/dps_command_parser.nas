@@ -415,11 +415,11 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
-var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
+var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
-var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601];
-var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305];
+var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
+var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec63 = [201, 202];
 
 
@@ -758,6 +758,18 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.traj_display_flag = 8;
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
 		major_mode_transition(idp_index, "p_vert_sit");
+		valid_flag = 1;
+		}
+	else if ((major_mode == 601) and (current_ops == 1))
+		{
+		#SpaceShuttle.traj_display_flag = 10;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+		setprop("/fdm/jsbsim/systems/dps/ops", 6);
+		ops_transition(idp_index, "p_dps_rtls");
+		var landing_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/rtls-site-iloaded");
+		SpaceShuttle.update_site_by_index(landing_site_index);
+		setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
+		setprop("/controls/shuttle/hud-mode",2);
 		valid_flag = 1;
 		}
 

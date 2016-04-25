@@ -869,6 +869,186 @@
     </g>
   </g>
 
+  <g
+     inkscape:groupmode="layer"
+     id="g3207"
+     inkscape:label="p_dps_rtls"
+     style="display:inline">
+    <g
+       id="p_dps_rtls"
+       inkscape:label="#g4491">
+     <text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_throttle_txt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="371.928574"
+           id="tspan3112"
+           sodipodi:role="line">THROT </tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="67.928574"
+           id="tspan3112"
+           sodipodi:role="line">6</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_serc"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="77.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="96.428574"
+           id="tspan3112"
+           sodipodi:role="line">SERC</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_serc_on"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">XX</tspan></text>
+
+	 <text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_throttle"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.178572"
+           x="428.928574"
+           id="tspan3112"
+           sodipodi:role="line">100</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_prplt_txt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="371.928574"
+           id="tspan3112"
+           sodipodi:role="line">PRPLT </tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_prplt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="428.928574"
+           id="tspan3112"
+           sodipodi:role="line">100</tspan></text>
+	<g
+       id="p_dps_rtls_vco"
+       inkscape:label="#g4691">
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_rtls_vcoscale"
+         d="m 58.0,62.0 400.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_rtls_vcoscale_start"
+         d="m 58.0,62.0 0.0, 10.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_rtls_vcoscale_end"
+         d="m 458.0,62.0 0.0, 10.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_rtls_vcoscale_co"
+         d="m 58.0,62.0 0.0, 10.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_vcoscale_label1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="48.928574"
+           id="tspan3112"
+           sodipodi:role="line">25</tspan></text>
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_vcoscale_label2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="448.928574"
+           id="tspan3112"
+           sodipodi:role="line">26</tspan></text>
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_vcoscale_labelco"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.178572"
+           x="48.92875"
+           id="tspan3112"
+           sodipodi:role="line">CO</tspan></text>
+
+
+        </g>
+    </g>
+  </g>
+
   
 
 

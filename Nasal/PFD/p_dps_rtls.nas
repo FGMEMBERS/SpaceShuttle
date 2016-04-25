@@ -7,23 +7,23 @@
 
 var PFD_addpage_p_dps_rtls = func(device)
 {
-    var p_dps_rtls = device.addPage("CRTRTLS", "p_ascent");
+    var p_dps_rtls = device.addPage("CRTRTLS", "p_dps_rtls");
 
-    p_dps_rtls.group = device.svg.getElementById("p_ascent");
+    p_dps_rtls.group = device.svg.getElementById("p_dps_rtls");
     p_dps_rtls.group.setColor(dps_r, dps_g, dps_b);
 
-    p_dps_rtls.throttle = device.svg.getElementById("p_ascent_throttle");
-    p_dps_rtls.throttle_text = device.svg.getElementById("p_ascent_throttle_txt");
+    p_dps_rtls.throttle = device.svg.getElementById("p_dps_rtls_throttle");
+    p_dps_rtls.throttle_text = device.svg.getElementById("p_dps_rtls_throttle_txt");
     
-    p_dps_rtls.prplt = device.svg.getElementById("p_ascent_prplt");
-    p_dps_rtls.prplt_text = device.svg.getElementById("p_ascent_prplt_txt");
+    p_dps_rtls.prplt = device.svg.getElementById("p_dps_rtls_prplt");
+    p_dps_rtls.prplt_text = device.svg.getElementById("p_dps_rtls_prplt_txt");
 
-    p_dps_rtls.vco  = device.svg.getElementById("p_ascent_vco");
-    p_dps_rtls.vcoscale_co = device.svg.getElementById("p_ascent_vcoscale_co");
-    p_dps_rtls.vcoscale_labelco = device.svg.getElementById("p_ascent_vcoscale_labelco");   
+    p_dps_rtls.vco  = device.svg.getElementById("p_dps_rtls_vco");
+    p_dps_rtls.vcoscale_co = device.svg.getElementById("p_dps_rtls_vcoscale_co");
+    p_dps_rtls.vcoscale_labelco = device.svg.getElementById("p_dps_rtls_vcoscale_labelco");   
 
-    p_dps_rtls.serc = device.svg.getElementById("p_ascent_serc");
-    p_dps_rtls.serc_on = device.svg.getElementById("p_ascent_serc_on");
+    p_dps_rtls.serc = device.svg.getElementById("p_dps_rtls_serc");
+    p_dps_rtls.serc_on = device.svg.getElementById("p_dps_rtls_serc_on");
     
     p_dps_rtls.ondisplay = func
     {
