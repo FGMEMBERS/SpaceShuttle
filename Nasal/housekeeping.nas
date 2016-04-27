@@ -243,12 +243,14 @@ if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0)
 	return;	
 	}
 
-if (fuel_current < target_quantity)
+# check a ttg requirement because oxidizer may run out before fuel
+if ((fuel_current < target_quantity) or (ttg < - 5))
 	{
 	#print("Fuel dump ends.");
 	setprop("/fdm/jsbsim/systems/rcs/oms-rcs-dump-cmd", 0); 
 	setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", 0);
 	SpaceShuttle.toggle_oms_fuel_dump();
+	SpaceShuttle.unset_oms_rcs_crossfeed();
 	return;
 	}
 

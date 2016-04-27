@@ -750,6 +750,8 @@ if ((header == "OPS") and (end =="PRO"))
 		SpaceShuttle.traj_display_flag = 3;
 		SpaceShuttle.fill_entry1_data();
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 304);
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+		setprop("/controls/shuttle/control-system-string", "Aerojet");
 		major_mode_transition(idp_index, "p_entry");
 		valid_flag = 1;
 		}
