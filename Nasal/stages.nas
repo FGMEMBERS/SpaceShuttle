@@ -260,7 +260,7 @@ settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 
 # some log output
 #print(t_elapsed, " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/ned-velocity-mag-fps"));
-# print(t_elapsed, " ", getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps"), " ", getprop("/position/altitude-ft"));
+#print(t_elapsed, " ", getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps"), " ", getprop("/position/altitude-ft"));
 
 settimer(launch_loop, 1.0);
 }

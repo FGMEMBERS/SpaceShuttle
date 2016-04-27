@@ -108,6 +108,30 @@ var PFD_addpage_p_dps_rtls = func(device)
         }
 
 
+	setsize(data,0);
+
+	var set = [SpaceShuttle.parameter_to_x(0.0, 10), SpaceShuttle.parameter_to_y(200000, 10)];
+	append(data, set);
+	set = [SpaceShuttle.parameter_to_x(0.0, 10), SpaceShuttle.parameter_to_y(450000, 10)];
+	append(data, set);
+
+	 p_dps_rtls.zero_line = device.symbols.createChild("path", "zline")
+        .setStrokeLineWidth(2)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1])
+	.lineTo(data[1][0], data[1][1]);
+
+	p_dps_rtls.zero_line_text = device.symbols.createChild("text")
+      	.setText("0")
+        .setColor(dps_r, dps_g, dps_b)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+        .setTranslation(data[0][0], data[0][1] + 18.0);
+
+
+
+
         device.DPS_menu_title.setText("RTLS TRAJ 2");
         device.MEDS_menu_title.setText("       DPS MENU");
     
@@ -154,9 +178,6 @@ var PFD_addpage_p_dps_rtls = func(device)
 		}
 
         var velocity = getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps");
-	
-	
-
         var altitude = getprop("/position/altitude-ft");
 
 	
@@ -167,7 +188,22 @@ var PFD_addpage_p_dps_rtls = func(device)
 	p_dps_rtls.shuttle_marker.setTranslation(x,y);
 
 
-    
+	var velocity1 = SpaceShuttle.ascent_predictors[0][2] + velocity;
+	altitude = SpaceShuttle.ascent_predictors[0][1];
+
+	x = SpaceShuttle.parameter_to_x(velocity1, 10);
+	y = SpaceShuttle.parameter_to_y(altitude, 10);
+
+	p_dps_rtls.pred1.setTranslation(x,y);
+
+	velocity1 = SpaceShuttle.ascent_predictors[1][2] + velocity;
+	altitude = SpaceShuttle.ascent_predictors[1][1];
+
+	x = SpaceShuttle.parameter_to_x(velocity1, 10);
+	y = SpaceShuttle.parameter_to_y(altitude, 10);
+
+	p_dps_rtls.pred2   .setTranslation(x,y); 
+
         device.update_common_DPS();
     }
     

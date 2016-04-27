@@ -188,7 +188,17 @@ var PFD_addpage_p_ascent = func(device)
     	}
         else if ( major_mode == 103)
     	{
-            device.DPS_menu_title.setText("ASCENT TRAJ 2");
+
+	    var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+		
+	    if (guidance_mode == 2)
+		{
+            	device.DPS_menu_title.setText("TAL TRAJ 2");
+		}
+	    else
+		{
+            	device.DPS_menu_title.setText("ASCENT TRAJ 2");
+		}
             device.DPS_menu_ops.setText("1031/     /");
 	    p_ascent.pred2.setVisible(1);
     	}

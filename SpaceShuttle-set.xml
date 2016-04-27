@@ -179,7 +179,7 @@
      <target-azimuth-deg type="double">0.0</target-azimuth-deg>
      <remaining-distance-nm type="double">0.0</remaining-distance-nm>
      <tal-site-iloaded type="int">7</tal-site-iloaded>
-     <rtls-site-iloaded type="int">2</rtls-site-iloaded>
+     <rtls-site-iloaded type="int">1</rtls-site-iloaded>
      <vrel-fps type="double">0.0</vrel-fps>
     </entry_guidance>
     <failures include="component_condition.xml"/>

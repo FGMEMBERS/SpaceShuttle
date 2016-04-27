@@ -13,7 +13,7 @@ var sym_shuttle_asc = {};
 var trajectory = {};
 
 
-var ascent_predictors = [[0.0, 0.0], [0.0,0.0]];
+var ascent_predictors = [[0.0, 0.0, 0.0], [0.0,0.0, 0.0]];
 
 
 
@@ -53,7 +53,9 @@ else
 var pitch = getprop("/orientation/pitch-deg") * math.pi/180.0;
 var roll = getprop("/orientation/roll-deg") * math.pi/180.0;
 
-if (traj_display_flag == 2) 
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+if ((traj_display_flag == 2) or (ops == 6))
 	{
 	# SSME engines are pitched
 	pitch = pitch - 16.0 * math.pi/180.0 * math.cos(roll); 
@@ -70,10 +72,11 @@ var acc_eff = math.sqrt(acc_vert * acc_vert + acc_horiz * acc_horiz);
 
 ascent_predictors[0][0] = speed + time_base * acc_eff;
 ascent_predictors[0][1] = altitude - time_base * vspeed + 0.5 * acc_vert * time_base * time_base;
+ascent_predictors[0][2] = time_base * acc_horiz;
 
 ascent_predictors[1][0] = speed + 2.0 * time_base * acc_eff;
 ascent_predictors[1][1] = altitude - 2.0 * time_base * vspeed + 2.0 * acc_vert * time_base * time_base;
-
+ascent_predictors[1][2] = 2.0 * time_base * acc_horiz;
 }
 
 
@@ -471,16 +474,19 @@ append(limit2_data, point);
 point = [-2000.0, 300000.0];
 append(limit2_data, point);
 
-point = [-4500.0, 270000.0];
+point = [-4500.0, 260000.0];
 append(limit2_data, point);
 
-point = [-5000.0, 265000.0];
+point = [-5000.0, 255000.0];
 append(limit2_data, point);
 
-point = [-5500.0, 270000.0];
+point = [-5500.0, 258000.0];
 append(limit2_data, point);
 
-point = [-7000.0, 280000.0];
+point = [-7000.0, 263000.0];
+append(limit2_data, point);
+
+point = [-8200.0, 265000.0];
 append(limit2_data, point);
 
 for (i=0; i< size(limit2_data); i=i+1)
