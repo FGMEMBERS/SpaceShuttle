@@ -199,6 +199,12 @@
         <object-name>button_label_main_eng_sd_left</object-name>
         <object-name>button_label_main_eng_sd_center</object-name>
         <object-name>button_label_main_eng_sd_right</object-name>
+        <object-name>button_label_od_control_selecta</object-name>
+        <object-name>button_label_od_control_selectb</object-name>
+        <object-name>button_label_od_control_auto</object-name>
+        <object-name>button_label_od_control_inrtl</object-name>
+        <object-name>button_label_od_control_lvlh</object-name>
+        <object-name>button_label_od_control_free</object-name>
         <object-name>button_main_eng_sd_left</object-name>
         <object-name>button_main_eng_sd_center</object-name>
         <object-name>button_main_eng_sd_right</object-name>
@@ -613,6 +619,12 @@
         <object-name>button_light_main_eng_sd_right</object-name>
         <object-name>button_light_srb_sep</object-name>
         <object-name>button_light_et_sep</object-name>
+        <object-name>button_light_selecta</object-name>
+        <object-name>button_light_selectb</object-name>
+        <object-name>button_light_od_control_auto</object-name>
+        <object-name>button_light_od_control_inrtl</object-name>
+        <object-name>button_light_od_control_lvlh</object-name>
+        <object-name>button_light_od_control_free</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -3552,8 +3564,8 @@
         <type>knob</type>
         <object-name>fuel-cell-reac-vlv1</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc/reactant-valve-status</property>
-        <factor>-35</factor>
-        <offset-deg>30</offset-deg>
+        <factor>-45</factor>
+        <offset-deg>40</offset-deg>
         <center>
             <x-m>-11.7466</x-m>
             <y-m> -0.0478</y-m>
@@ -3561,7 +3573,7 @@
         </center>
         <axis>
             <x>0</x>
-            <y>1</y>
+            <y>-1</y>
             <z>0</z>
         </axis>
         <action>
@@ -3598,8 +3610,8 @@
         <type>knob</type>
         <object-name>fuel-cell-reac-vlv2</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[1]/reactant-valve-status</property>
-        <factor>-35</factor>
-        <offset-deg>30</offset-deg>
+        <factor>-45</factor>
+        <offset-deg>40</offset-deg>
         <center>
             <x-m>-11.7466</x-m>
             <y-m> -0.0228</y-m>
@@ -3607,7 +3619,7 @@
         </center>
         <axis>
             <x>0</x>
-            <y>1</y>
+            <y>-1</y>
             <z>0</z>
         </axis>
         <action>
@@ -3644,8 +3656,8 @@
         <type>knob</type>
         <object-name>fuel-cell-reac-vlv3</object-name>
         <property>/fdm/jsbsim/systems/electrical/fc[2]/reactant-valve-status</property>
-        <factor>-35</factor>
-        <offset-deg>30</offset-deg>
+        <factor>-45</factor>
+        <offset-deg>40</offset-deg>
         <center>
             <x-m>-11.7466</x-m>
             <y-m>  0.0021</y-m>
@@ -3653,7 +3665,7 @@
         </center>
         <axis>
             <x>0</x>
-            <y>1</y>
+            <y>-1</y>
             <z>0</z>
         </axis>
         <action>
@@ -3691,7 +3703,7 @@
         <object-name>bodyflap</object-name>
         <property>/fdm/jsbsim/systems/bodyflap</property>
         <factor>-35</factor>
-        <offset-deg>30</offset-deg>
+        <offset-deg>-30</offset-deg>
         <center>
             <x-m>-12.0754</x-m>
             <y-m>  0.1426</y-m>
@@ -4106,6 +4118,218 @@
         </condition>
     </animation>
 
+    <!-- Orbital DAP Control Auto "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_od_control_auto</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+                <value>1</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.switch_orbital_dap(1)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_od_control_auto</tooltip-id>
+                <label>Orbital DAP Control Auto</label>
+                <property>button_od_control_auto</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_control_auto</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Orbital DAP Control Inertial "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_od_control_inrtl</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+                <value>1</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.switch_orbital_dap(2)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_od_control_inrtl</tooltip-id>
+                <label>Orbital DAP Control Inertial</label>
+                <property>button_od_control_inrtl</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_control_inrtl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Orbital DAP Control LVLH "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_od_control_lvlh</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+                <value>1</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.switch_orbital_dap(3)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_od_control_lvlh</tooltip-id>
+                <label>Orbital DAP Control LVLH</label>
+                <property>button_od_control_lvlh</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_control_lvlh</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Orbital DAP Control Free "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button_od_control_free</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>1</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.switch_orbital_dap(4)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button_od_control_free</tooltip-id>
+                <label>Orbital DAP Control Free</label>
+                <property>button_od_control_free</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_control_free</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Man/Auto SRB Separation "Switch" -->
     <animation>
         <type>knob</type>
@@ -4182,10 +4406,16 @@
         <type>select</type>
         <object-name>button_light_srb_sep</object-name>
         <condition>
-            <equals>
-                <property>/controls/shuttle/srb-separation</property>
-                <value>1</value>
-            </equals>
+            <or>
+                <equals>
+                    <property>/controls/shuttle/srb-separation</property>
+                    <value>1</value>
+                </equals>
+                <equals>
+                    <property>/controls/shuttle/srb-separation-mode</property>
+                    <value>1</value>
+                </equals>
+            </or>
         </condition>
     </animation>
 
@@ -4194,8 +4424,8 @@
         <type>knob</type>
         <object-name>et-sep</object-name>
         <property>/controls/shuttle/et-separation-mode</property>
-        <factor>-90</factor>
-        <offset-deg>30</offset-deg>
+        <factor>-70</factor>
+        <offset-deg>0</offset-deg>
         <center>
             <x-m>-11.9194 </x-m>
             <y-m>  0.1111 </y-m>
@@ -4265,10 +4495,16 @@
         <type>select</type>
         <object-name>button_light_et_sep</object-name>
         <condition>
-            <equals>
-                <property>/controls/shuttle/et-separation</property>
-                <value>1</value>
-            </equals>
+            <or>
+                <equals>
+                    <property>/controls/shuttle/et-separation</property>
+                    <value>1</value>
+                </equals>
+                <equals>
+                    <property>/controls/shuttle/et-separation-mode</property>
+                    <value>1</value>
+                </equals>
+            </or>
         </condition>
     </animation>
 
