@@ -220,7 +220,12 @@ if (auto_launch_stage == 3)
 	{
 	# we need to pitch up more on the ballistic climb to get into a good trajectory
 
+	var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+	var heading = getprop("/orientation/heading-deg") * math.pi/180.0;
+
 	var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
+	payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
+
 	var geo_factor = math.sin(heading) * math.cos(lat);
 	setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 35.0 + 12.0 * payload_factor) + 12.0 - 15.0 * geo_factor;
 	}
