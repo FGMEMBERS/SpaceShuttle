@@ -2031,6 +2031,21 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/tank18-level-lbs</path>
     <path>/save/tank19-level-lbs</path>
     <path>/save/MET</path>
+    <path>/save/temperature[0]</path>
+    <path>/save/temperature[1]</path>
+    <path>/save/temperature[2]</path>
+    <path>/save/temperature[3]</path>
+    <path>/save/temperature[4]</path>
+    <path>/save/temperature[5]</path>
+    <path>/save/temperature[6]</path>
+    <path>/save/temperature[7]</path>
+    <path>/save/temperature[8]</path>
+    <path>/save/temperature[9]</path>
+    <path>/save/temperature[10]</path>
+    <path>/save/temperature[11]</path>
+    <path>/save/temperature[12]</path>
+    <path>/save/temperature[13]</path>
+    <path>/save/temperature[14]</path>
   </aircraft-data>
 
 

@@ -159,6 +159,19 @@ setprop("/save/major-mode", major_mode);
 setprop("/save/major-mode-sm", major_mode_sm);
 setprop("/save/control-string", control_string);
 
+
+# thermal distribution
+
+var n = size (SpaceShuttle.thermal_array);
+
+for (var i =0; i< n; i=i+1 )
+	{
+	var T = SpaceShuttle.thermal_array[i].temperature;
+	setprop("/save/temperature["~i~"]",T);
+	
+	}
+
+
 print("Current state written to buffer!");
 
 }
@@ -371,6 +384,18 @@ else if (major_mode == 305)
 		SpaceShuttle.ops_transition_auto("p_vert_sit");
 		}
 
+
+# thermal distribution
+
+var n = size (SpaceShuttle.thermal_array);
+
+for (var i =0; i< n; i=i+1 )
+	{
+	var T = getprop("/save/temperature["~i~"]");
+	SpaceShuttle.thermal_array[i].temperature = T;
+	var C_heat = SpaceShuttle.thermal_array[i].mass * SpaceShuttle.thermal_array[i].heat_capacity;
+	SpaceShuttle.thermal_array[i].thermal_energy = T * C_heat;
+	}
 
 
 print("State resumed!");
