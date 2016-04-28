@@ -2977,7 +2977,50 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rcs/F1F-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F1F-fire-cmd</property>
+				<property>systems/rcs/jet-table/F1F-sel</property>
+			</product>
+		</function>
+		</fcs_function>
 
+		<fcs_function name="systems/rcs/F3F-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F3F-fire-cmd</property>
+				<property>systems/rcs/jet-table/F3F-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F2F-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F2F-fire-cmd</property>
+				<property>systems/rcs/jet-table/F2F-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F5L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F5L-fire-cmd</property>
+				<property>systems/rcs/jet-table/F5L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/F5R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/F5R-fire-cmd</property>
+				<property>systems/rcs/jet-table/F5R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
 	</channel>
 
 </system>
