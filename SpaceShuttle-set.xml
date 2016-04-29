@@ -173,6 +173,11 @@
 	<gpc3-power-demand-kW type="double">0.56</gpc3-power-demand-kW>
 	<gpc4-power-demand-kW type="double">0.56</gpc4-power-demand-kW>
 	<gpc5-power-demand-kW type="double">0.56</gpc5-power-demand-kW>
+    <crtl-sel type="int">0</crtl-sel>
+    <crtr-sel type="int">1</crtr-sel>
+    <!--crt1-pwr type="int">1</crt1-pwr>
+    <crt2-pwr type="int">1</crt2-pwr>
+    <crt3-pwr type="int">1</crt3-pwr-->
     </dps>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>
