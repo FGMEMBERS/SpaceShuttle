@@ -444,8 +444,10 @@ var dvz = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvz");
 
 var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
 
-#var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
-var weight_lb = getprop("/fdm/jsbsim/inertia/weight-lbs");
+var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
+
+if (getprop("/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv") == 0)
+	{weight_lb = getprop("/fdm/jsbsim/inertia/weight-lbs");}
 
 var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
 
@@ -1098,6 +1100,30 @@ if (tgt_id == 1)
 			}
 		}
 
+	}
+
+else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
+	{
+
+        var tta = SpaceShuttle.time_to_apsis();
+
+	print("TTA: ",tta[0], " ", tta[1]);
+
+	if (tta[0] == 2) # we're going to apoapsis
+		{
+
+		# set TIG to 2 minutes prior to apsis
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tta[1]-120.0);
+		SpaceShuttle.set_oms_mnvr_timer();
+
+		var periapsis_tgt = 105.0;
+		if (tgt_id == 4) {periapsis_tgt = 30.0;}
+		else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
+		var delta_alt = periapsis_tgt - periapsis_miles;
+
+		delta_v = 1.5 * delta_alt;
+		}
 	}
 
 

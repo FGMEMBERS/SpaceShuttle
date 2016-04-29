@@ -324,7 +324,7 @@ var PFD_addpage_p_dps_mnvr = func(device)
         var tta = SpaceShuttle.time_to_apsis();
     
         var tta_string = "TTP";
-        if (tta[0] = 2) {tta_string = "TTA";}
+        if (tta[0] == 2) {tta_string = "TTA";}
     
         var tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);
     
