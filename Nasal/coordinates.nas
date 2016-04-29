@@ -444,7 +444,8 @@ var dvz = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvz");
 
 var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
 
-var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
+#var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
+var weight_lb = getprop("/fdm/jsbsim/inertia/weight-lbs");
 
 var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
 
@@ -1048,7 +1049,60 @@ settimer(func {oms_burn(time - 1);}, 1.0);
 }
 
 
+######################################
+# approximate AOA and ATO OMS targets
+######################################
 
+
+var compute_oms_abort_tgt = func (tgt_id) {
+
+
+# tgt_id  1 is an immediate burn to raise apoapsis to 105 miles
+# from there we can either circularize (3) or do a steep (4) or shallow (5) de-orbit burn
+
+var apoapsis_miles = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km")/1.853;
+var periapsis_miles = getprop("/fdm/jsbsim/systems/orbital/periapsis-km")/1.853;
+var current_alt_miles = getprop("/position/altitude-ft")  * 0.00016449001618;
+
+var delta_v = 0.0;
+
+if (tgt_id == 1)
+	{
+
+	if (apoapsis_miles > 105.0)
+		{
+		delta_v = 0.0;
+		}
+	else 	
+		{
+
+		var apoapsis_diff = math.abs(current_alt_miles - apoapsis_miles);
+		var periapsis_diff = math.abs(current_alt_miles - periapsis_miles);
+
+		var at_periapsis = 1;
+		if (apoapsis_diff < periapsis_diff) {at_periapsis = 0;}
+
+		print("At periapsis: ", at_periapsis);
+		print ("Ap: ", apoapsis_miles, " P: ", periapsis_miles, "Cur: ", current_alt_miles);
+
+		if (at_periapsis == 1) # need to raise apoapsis
+			{
+			var delta_alt = 105.0 - apoapsis_miles;
+			delta_v = 1.5 * delta_alt;
+
+			}
+		else # need to raise periapsis
+			{
+			delta_alt = 105.0 - periapsis_miles;
+			delta_v = 1.5 * delta_alt;
+			}
+		}
+
+	}
+
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",delta_v);
+}
 
 ###################
 # some diagnostics
