@@ -87,6 +87,9 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.tta = device.svg.getElementById("p_dps_mnvr_tta");
     p_dps_mnvr.rei = device.svg.getElementById("p_dps_mnvr_rei");
 
+    p_dps_mnvr.abort_tgt = device.svg.getElementById("p_dps_mnvr_abort_tgt");
+
+
 
     p_dps_mnvr.blink = 0;
     
@@ -269,7 +272,7 @@ var PFD_addpage_p_dps_mnvr = func(device)
 		var roll_error = getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
 
 		var tt_pitch_yaw = math.max(pitch_error, yaw_error)/rate;
-		var tt_roll = roll_error/rate;
+		var tt_roll = math.abs(roll_error)/rate;
 
 		var tta = SpaceShuttle.seconds_to_stringMS (tt_pitch_yaw + tt_roll);
 		p_dps_mnvr.tta.setText(tta);
@@ -363,6 +366,8 @@ var PFD_addpage_p_dps_mnvr = func(device)
         if (gimbal_check == 1) {gsym1 = "*";} else {gsym1 = "";}
     
         p_dps_mnvr.gmbl_ck.setText( gsym1);
+
+	p_dps_mnvr.abort_tgt.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/abort/oms-abort-tgt-id")));
     }
     
     return p_dps_mnvr;

@@ -930,6 +930,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			settimer(func{ setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 0);}, 15.0);
 			valid_flag = 1;
 			}
+		else if (item == 35)
+			{
+
+			if ((major_mode == 104) or (major_mode == 105))
+				{
+				setprop("/fdm/jsbsim/systems/abort/oms-abort-tgt-id", int(value));
+				SpaceShuttle.compute_oms_abort_tgt(int(value));
+				valid_flag = 1;
+				}
+			}
 		else if (item == 36)
 			{
 			setprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd", 1);

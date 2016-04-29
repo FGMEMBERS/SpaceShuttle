@@ -12,6 +12,7 @@
        <arm-tal type="int">0</arm-tal>
        <arm-ato type="int">0</arm-ato>
        <abort-mode type="int">0</abort-mode>
+       <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>
