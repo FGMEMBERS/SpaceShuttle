@@ -143,10 +143,59 @@ if (getprop("/mission/dap/section-defined"))
 	par = getprop("/mission/dap/dap-B-VRN-rate-db");
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", par);
 
+	par = getprop("/mission/dap/dap-A-ALT-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-ALT-rate-db", par);
 
+	par = getprop("/mission/dap/dap-B-ALT-rate-db");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-ALT-rate-db", par);
 
+	par = getprop("/mission/dap/dap-A-PRI-rot-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-rot-pls", par);
 
+	par = getprop("/mission/dap/dap-B-PRI-rot-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-rot-pls", par);
 
+	par = getprop("/mission/dap/dap-A-VRN-rot-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-pls", par);
+
+	par = getprop("/mission/dap/dap-B-VRN-rot-pl");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pl", par);
+
+	par = getprop("/mission/dap/dap-A-PRI-comp");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-comp", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-comp");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-comp", par);
+
+	par = getprop("/mission/dap/dap-A-VRN-comp");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-comp", par);
+
+	par = getprop("/mission/dap/dap-B-VRN-comp");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-comp", par);
+
+	par = getprop("/mission/dap/dap-A-PRI-p-opt");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-p-opt", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-p-opt");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-p-opt", par);
+
+	par = getprop("/mission/dap/dap-A-PRI-y-opt");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-y-opt");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt", par);
+
+	par = getprop("/mission/dap/dap-A-PRI-tran-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-tran-pls", par);
+
+	par = getprop("/mission/dap/dap-B-PRI-tran-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-tran-pls", par);
+
+	par = getprop("/mission/dap/dap-A-ALT-n-jets");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-ALT-n-jets", par);
+
+	par = getprop("/mission/dap/dap-B-ALT-n-jets");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-ALT-n-jets", par);
 
 	}
 
