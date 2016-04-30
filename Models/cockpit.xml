@@ -917,6 +917,10 @@
                     <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
                     <value>1</value>
                 </equals>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dps/idp-power-status</property>
+                    <value>1</value>
+                </equals>
             </and>
         </condition>
     </animation>
@@ -1153,6 +1157,10 @@
                     <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
                     <value>1</value>
                 </equals>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dps/idp-power-status[2]</property>
+                    <value>1</value>
+                </equals>
             </and>
         </condition>
     </animation>
@@ -1269,6 +1277,10 @@
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
+                    <value>1</value>
+                </equals>
+                <equals>
+                    <property>/fdm/jsbsim/systems/dps/idp-power-status[1]</property>
                     <value>1</value>
                 </equals>
             </and>
@@ -3589,14 +3601,7 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/dps/idp-power-status");
-                    #SpaceShuttle.idp_array[0].set_power(selection);
-                    if (selection == 0) {
-                        setprop("/fdm/jsbsim/systems/dps/idp-power-status[0]", 0);
-                        SpaceShuttle.idp_array[0].set_power(0);
-                    } else if (selection == 1) {
-                        setprop("/fdm/jsbsim/systems/dps/idp-power-status[0]", 1);
-                        SpaceShuttle.idp_array[0].set_power(1);
-                     }
+                    SpaceShuttle.idp_array[0].set_power(selection);
                 </script>
             </binding>
             <binding>
