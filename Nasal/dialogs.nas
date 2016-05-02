@@ -188,6 +188,11 @@ else if (site_string == "White Sands Space Harbor")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
 	}
+else if (site_string == "Zaragoza Airport")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
+	}
 else if (site_string == "Banjul International Airport")
 	{
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
@@ -225,6 +230,11 @@ else if (site_string == "White Sands Space Harbor")
 else if (site_string == "Banjul International Airport")
 	{
 	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Zaragoza Airport")
+	{
+	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
 }
@@ -335,6 +345,12 @@ else if (site_string == "Zaragoza Airport")
 	{
 	lat = 41.666;
 	lon = -1.042;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
+	rwy_pri = "ZZA12";
+	rwy_sec = "ZZA30";
+        gui.dialog_update("entry_guidance", "runway-selection");
 	index = 5;
 	}
 else if (site_string == "RAF Fairford")

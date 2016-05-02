@@ -322,6 +322,21 @@ else if (site_string == "White Sands Space Harbour")
 		TAEM_threshold.elevation = 4450.0;
 		}
 	}
+else if (site_string == "Zaragoza Airport")
+	{
+	if (runway_string == "12")
+		{
+		TAEM_threshold.set_latlon(41.6783,-1.0781);
+		TAEM_threshold.heading = 120.0;
+		TAEM_threshold.elevation = 834.0;
+		}
+	else if (runway_string == "30")
+		{
+		TAEM_threshold.set_latlon(41.6647,-1.0466);
+		TAEM_threshold.heading = 300.0;
+		TAEM_threshold.elevation = 866.0;
+		}
+	}
 else if (site_string == "Banjul International Airport")
 	{
 	if (runway_string == "32")
