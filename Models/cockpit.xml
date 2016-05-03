@@ -541,9 +541,26 @@
         <type>material</type>
         <object-name>button_light_landing_gear_arm_cmd</object-name>
         <object-name>button_light_landing_gear_arm_plt</object-name>
+        <object-name>mes-left-y</object-name>
+        <object-name>mes-right-y</object-name>
+        <object-name>mes-ctr-y</object-name>
         <emission>
             <red>1</red>
             <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <!-- Red lights -->
+    <animation>
+        <type>material</type>
+        <object-name>mes-left-r</object-name>
+        <object-name>mes-right-r</object-name>
+        <object-name>mes-ctr-r</object-name>
+        <emission>
+            <red>1</red>
+            <green>0.05</green>
             <blue>0.05</blue>
             <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
         </emission>
@@ -3568,6 +3585,95 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel F7                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- Main Engine Status  "Lights" -->
+    <animation>
+        <type>select</type>
+        <object-name>mes-left-r</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>/fdm/jsbsim/systems/mps/engine[1]/engine-operational</property>
+                    <value>0</value>
+                </equals>
+                <equals>
+                  <property>/controls/engines/engine/throttle</property>
+                  <value>0.0</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-ctr-r</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>/fdm/jsbsim/systems/mps/engine[0]/engine-operational</property>
+                    <value>0</value>
+                </equals>
+                <equals>
+                  <property>/controls/engines/engine/throttle</property>
+                  <value>0.0</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-right-r</object-name>
+        <condition>
+            <or>
+                <equals>
+                    <property>/fdm/jsbsim/systems/mps/engine[2]/engine-operational</property>
+                    <value>0</value>
+                </equals>
+                <equals>
+                  <property>/controls/engines/engine/throttle</property>
+                  <value>0.0</value>
+                </equals>
+            </or>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-left-y</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/lockup</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-ctr-y</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[0]/lockup</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-right-y</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/lockup</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel C2                                                             -->
     <!-- ******************************************************************* -->
 
@@ -4463,7 +4569,7 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.ssme_cutoff(2)</script>
+                <script>SpaceShuttle.ssme_cutoff(1)</script>
             </binding>
         </action>
         <hovered>
@@ -4480,7 +4586,7 @@
         <object-name>button_light_main_eng_sd_left</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -4531,7 +4637,7 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.ssme_cutoff(1)</script>
+                <script>SpaceShuttle.ssme_cutoff(2)</script>
             </binding>
         </action>
         <hovered>
@@ -4548,7 +4654,7 @@
         <object-name>button_light_main_eng_sd_right</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -6243,6 +6349,10 @@
                       <property>/controls/gear/gear-down</property>
                       <value>1</value>
                  </equals>
+                 <not-equals>
+                        <property>/fdm/jsbsim/systems/dps/major-mode</property>
+                        <value>101</value>
+                 </not-equals>
             </and>
         </condition>
     </animation>
@@ -6420,6 +6530,10 @@
                       <property>/controls/gear/gear-down</property>
                       <value>1</value>
                  </equals>
+                 <not-equals>
+                        <property>/fdm/jsbsim/systems/dps/major-mode</property>
+                        <value>101</value>
+                 </not-equals>
             </and>
         </condition>
     </animation>
