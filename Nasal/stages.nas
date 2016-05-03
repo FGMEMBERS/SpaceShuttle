@@ -1873,7 +1873,7 @@ if (stage == 3)
 	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
 	MEDS_PLT2.dps_page_flag = 1;
 
-	setprop("/fdm/jsbsim/systems/dps/spec", 50);
+	#setprop("/fdm/jsbsim/systems/dps/spec", 50);
 	}
 
 if (stage == 4) 

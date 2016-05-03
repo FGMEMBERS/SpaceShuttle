@@ -28,25 +28,35 @@ print("DPS update ",device.designation);
         {
             var ops = getprop("/fdm/jsbsim/systems/dps/ops");
             var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+		print("ops: ", ops, " MM: ", major_mode);
     
             if (ops == 1)
+		{
 		if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
     		    	{device.selectPage(device.p_ascent);}
 		else 
 			{device.selectPage(device.p_dps_mnvr);}
+		}
             else if (ops == 2)
+		{
 		if (major_mode == 201)
 			{device.selectPage(device.p_dps_univ_ptg);}
 		else if (major_mode == 202)
 			{device.selectPage(device.p_dps_mnvr);}
-            else if ( ops == 3)
+		}
+            else if (ops == 3)
     		{ 
+		#print("OPS == 3 condition");
                 if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
     			{device.selectPage(device.p_dps_mnvr);}
                 else if (major_mode == 304)
     			{device.selectPage(device.p_entry);}	
                 else
-    			{device.selectPage(device.p_vert_sit);}	
+    			{
+			#print("Vert Sit selection");
+			device.selectPage(device.p_vert_sit);
+			}	
     		}
 	    else if (ops == 6)
 			{
