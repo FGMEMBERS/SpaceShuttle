@@ -3593,23 +3593,7 @@
         <type>select</type>
         <object-name>mes-left-r</object-name>
         <condition>
-            <or>
-                <equals>
-                    <property>/fdm/jsbsim/systems/mps/engine[1]/engine-operational</property>
-                    <value>0</value>
-                </equals>
-                <equals>
-                  <property>/controls/engines/engine/throttle</property>
-                  <value>0.0</value>
-                </equals>
-            </or>
-        </condition>
-    </animation>
-
-    <animation>
-        <type>select</type>
-        <object-name>mes-ctr-r</object-name>
-        <condition>
+	    <and>
             <or>
                 <equals>
                     <property>/fdm/jsbsim/systems/mps/engine[0]/engine-operational</property>
@@ -3620,6 +3604,34 @@
                   <value>0.0</value>
                 </equals>
             </or>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+	    </and>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>mes-ctr-r</object-name>
+        <condition>
+	    <and>
+            <or>
+                <equals>
+                    <property>/fdm/jsbsim/systems/mps/engine[2]/engine-operational</property>
+                    <value>0</value>
+                </equals>
+                <equals>
+                  <property>/controls/engines/engine[2]/throttle</property>
+                  <value>0.0</value>
+                </equals>
+            </or>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+	    </and>
         </condition>
     </animation>
 
@@ -3627,16 +3639,22 @@
         <type>select</type>
         <object-name>mes-right-r</object-name>
         <condition>
+	    <and>
             <or>
                 <equals>
-                    <property>/fdm/jsbsim/systems/mps/engine[2]/engine-operational</property>
+                    <property>/fdm/jsbsim/systems/mps/engine[1]/engine-operational</property>
                     <value>0</value>
                 </equals>
                 <equals>
-                  <property>/controls/engines/engine/throttle</property>
+                  <property>/controls/engines/engine[1]/throttle</property>
                   <value>0.0</value>
                 </equals>
             </or>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+ 	    </and>
         </condition>
     </animation>
 
@@ -3644,10 +3662,16 @@
         <type>select</type>
         <object-name>mes-left-y</object-name>
         <condition>
+	    <and>
             <equals>
-                <property>/fdm/jsbsim/systems/mps/engine[1]/lockup</property>
+                <property>/fdm/jsbsim/systems/mps/engine[0]/lockup</property>
                 <value>1</value>
             </equals>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+	    </and>
         </condition>
     </animation>
 
@@ -3655,10 +3679,16 @@
         <type>select</type>
         <object-name>mes-ctr-y</object-name>
         <condition>
+	    <and>
             <equals>
-                <property>/fdm/jsbsim/systems/mps/engine[0]/lockup</property>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/lockup</property>
                 <value>1</value>
             </equals>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+	    </and>
         </condition>
     </animation>
 
@@ -3666,10 +3696,16 @@
         <type>select</type>
         <object-name>mes-right-y</object-name>
         <condition>
+	    <and>
             <equals>
-                <property>/fdm/jsbsim/systems/mps/engine[2]/lockup</property>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/lockup</property>
                 <value>1</value>
             </equals>
+	    <equals>
+		 <property>/controls/shuttle/ET-static-model</property>
+		 <value>1</value>
+	    </equals>
+	    </and>
         </condition>
     </animation>
 
