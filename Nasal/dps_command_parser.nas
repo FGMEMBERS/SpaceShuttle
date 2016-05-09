@@ -2665,7 +2665,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	var item = int(body);
 
-	print("Major mode: ", major_mode);
+	print("Major mode (SM): ", major_mode);
 	print("Spec: ", spec);
 
 

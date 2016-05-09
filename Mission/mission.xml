@@ -3,7 +3,7 @@
 <PropertyList>
 
 <configuration>
-  <section-defined type="bool">true</section-defined>
+  <section-defined type="bool">false</section-defined>
   <external-tank type="string">standard weight</external-tank>
   <payload-explicit type="bool">false</payload-explicit>
   <payload type="string">TDRS demo</payload>
@@ -11,7 +11,7 @@
 </configuration>
 
 <launch>
-  <section-defined type="bool">true</section-defined>
+  <section-defined type="bool">false</section-defined>
   <target-inclination type="double">51.5</target-inclination>
   <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
@@ -19,7 +19,7 @@
 </launch>
 
 <post-meco>
-  <section-defined type="bool">true</section-defined>
+  <section-defined type="bool">false</section-defined>
   <automatic-fuel-dump type="bool">true</automatic-fuel-dump>
   <auto-oms1-burn type="bool">true</auto-oms1-burn>
   <oms1-dvx type="double">80.0</oms1-dvx>
