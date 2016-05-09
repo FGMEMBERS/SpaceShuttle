@@ -834,6 +834,8 @@ settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 settimer(SpaceShuttle.update_sv_errors, 0.4);
 settimer(SpaceShuttle.update_sensors, 0.5);
 
+#print(getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, " ", getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048);
+
 settimer(orbital_loop, 1.0);
 }
 

@@ -113,7 +113,7 @@ var PFD_addpage_p_dps_pl_bay = func(device)
         var symbol1 = "";
         var symbol2 = "";
     
-        if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-power-on") == 1)
+        if (getprop("/fdm/jsbsim/systems/mechanical/pb-door-power") == 1)
     	{symbol1 = "*";}
         else 
     	{symbol2 = "*";}
