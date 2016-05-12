@@ -167,7 +167,7 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz", state_v[2]);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
 
 var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048;
-print ("x: ", state_x[0] - radius, " y: ", state_x[1]- radius, " z: ", state_x[2]);
-print ("vx: ", state_v[0], " vy: ", state_v[1], " vz: ", state_v[2]);
+#print ("x: ", state_x[0], " y: ", state_x[1], " z: ", state_x[2]);
+#print ("vx: ", state_v[0], " vy: ", state_v[1], " vz: ", state_v[2]);
 
 }

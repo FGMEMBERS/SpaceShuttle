@@ -568,22 +568,29 @@ var v = [vx, vy, vz];
 # prograde and radial don't really form an ON system for eccentric orbits, so we correct that
 # we need exact prograde orientation so we tilt the radial base vector for pointing
 
-var norm_x = math.sqrt(x*x + y*y + z*z);
-var norm_v = math.sqrt(vx*vx + vy*vy + vz*vz);
+#var norm_x = math.sqrt(x*x + y*y + z*z);
+#var norm_v = math.sqrt(vx*vx + vy*vy + vz*vz);
 
-var prograde = [vx/norm_v, vy/norm_v, vz/norm_v];
-var radial = [x/norm_x, y/norm_x, z/norm_x];
+#var prograde = [vx/norm_v, vy/norm_v, vz/norm_v];
+#var radial = [x/norm_x, y/norm_x, z/norm_x];
 
-var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
+var prograde = [vx, vy, vz];
+var radial = [x, y, z];
 
-radial[0] = radial[0] - prograde[0] * corr_angle;
-radial[1] = radial[1] - prograde[1] * corr_angle;
-radial[2] = radial[2] - prograde[2] * corr_angle;
+prograde = normalize(prograde);
+radial = normalize(radial);
+radial = orthonormalize(prograde, radial);
 
-var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
-radial[0] = radial[0]/radial_norm;
-radial[1] = radial[1]/radial_norm;
-radial[2] = radial[2]/radial_norm;
+#var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
+
+#radial[0] = radial[0] - prograde[0] * corr_angle;
+#radial[1] = radial[1] - prograde[1] * corr_angle;
+#radial[2] = radial[2] - prograde[2] * corr_angle;
+
+#var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
+#radial[0] = radial[0]/radial_norm;
+#radial[1] = radial[1]/radial_norm;
+#radial[2] = radial[2]/radial_norm;
 
 # now correct for the about 11.5 deg offset of the OMS thrust axis
 
@@ -602,9 +609,15 @@ var normal = cross_product(prograde, radial);
 
 # now get the inertial velocity change components for the burn taget
 
+#print("Prograde:");
+#print (prograde[0], " ", prograde[1], " ", prograde[2]);
+
 var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
 var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];
 var tgt2 = oms_burn_target.tx * prograde[2] + oms_burn_target.ty * normal[2] + oms_burn_target.tz * radial[2];
+
+#print("Target:");
+#print(tgt0, " ", tgt1, " ", tgt2);
 
 # add the burn target velocity components to the state vector
 
@@ -621,6 +634,7 @@ var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
 var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
 var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
 
+print("TA: ", apoapsis_nm, "TP: ", periapsis_nm); 
 
 oms_burn_target.apoapsis = apoapsis_nm;
 oms_burn_target.periapsis = periapsis_nm;
