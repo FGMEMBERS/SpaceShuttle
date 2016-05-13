@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
 {
     var p_dps_apu_hyd = device.addPage("CRTApuHyd", "p_dps_apu_hyd");
     
+    p_dps_apu_hyd.group = device.svg.getElementById("p_dps_apu_hyd");
+    p_dps_apu_hyd.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_apu_hyd.speed_pct_1 = device.svg.getElementById("p_dps_apu_hyd_speed_pct_1");
     p_dps_apu_hyd.speed_pct_2 = device.svg.getElementById("p_dps_apu_hyd_speed_pct_2");
     p_dps_apu_hyd.speed_pct_3 = device.svg.getElementById("p_dps_apu_hyd_speed_pct_3");

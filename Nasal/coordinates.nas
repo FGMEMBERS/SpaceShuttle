@@ -9,6 +9,18 @@ var tracking_loop_flag = 0;
 var trackingCoord = geo.Coord.new() ;
 
 ##################################################
+# general helper functions for scalar computations
+##################################################
+
+var clamp = func (x, a, b) {
+
+if (x<a) {return a;}
+else if (x > b) {return b;}
+else {return x;}
+
+}
+
+##################################################
 # general helper functions for vector computations
 ##################################################
 
@@ -215,6 +227,67 @@ return [pitch, yaw];
 }
 
 ######################################
+# general helper function to get a 
+# pointing vector 
+# given azimuth and elevation
+######################################
+
+
+var get_vec_az_el = func (azimuth, elevation) {
+
+var az_rad = azimuth / 180.0 * math.pi;
+var el_rad = elevation / 180.0 * math.pi;
+
+var x = math.cos(az_rad) * math.cos(el_rad);
+var y = math.sin(az_rad) * math.cos(el_rad);
+var z = math.sin(el_rad);
+
+return [x,y,z];
+}
+
+######################################
+# pointing vector coordinate 
+# transformationn
+######################################
+
+var vtransform_body_inertial = func (vec) {
+
+# body axis vectors in inertial coords
+
+var body_x = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]")];
+
+var body_y = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]")];
+
+var body_z = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]")];
+
+var vec1 = scalar_product(vec[0], body_x);
+var vec2 = scalar_product(vec[1], body_y);
+var vec3 = scalar_product(vec[2], body_z);
+
+var outvec = add_vector(vec1, vec2);
+outvec = add_vector (outvec, vec3);
+
+return outvec;
+
+}
+
+
+var vtransform_world_fixed_inertial = func (vec) {
+
+# FG world coords to sidereal fixed inertial coordinates
+
+var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
+
+var tmp1 = math.cos(s_ang) * vec[0] - math.sin(s_ang) * vec[1];
+var tmp2 = math.sin(s_ang) * vec[0] + math.cos(s_ang) * vec[1];
+
+vec[0] = tmp1;
+vec[1] = tmp2;
+
+return vec;
+}
+
+######################################
 # creation of an inertial maneuver target
 ######################################
 
@@ -373,8 +446,22 @@ var dvtot = math.sqrt(dvx*dvx + dvy*dvy + dvz * dvz);
 
 var weight_lb = getprop("/fdm/jsbsim/systems/ap/oms-plan/weight");
 
-# need to change that as soon as we can do single engine burns
+if (getprop("/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv") == 0)
+	{weight_lb = getprop("/fdm/jsbsim/inertia/weight-lbs");}
+
+var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
 var thrust_lb = 12174.0;
+
+
+if ((burn_mode == 2) or (burn_mode == 3))
+	{
+	thrust_lb = 0.5 * thrust_lb;
+	}
+else if (burn_mode == 4)
+	{
+	thrust_lb = 3480.0;
+	}
 
 var acceleration = thrust_lb/weight_lb;
 
@@ -820,17 +907,49 @@ var tig = oms_burn_target.tig;
 
 if (tig - MET < 0.0) # if we're at or past ignition time, we go
 	{
-	# DAP to OMS TVC
-	setprop("/fdm/jsbsim/systems/fcs/control-mode", 11);
+	var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
 
-	# throttles to full
-	setprop("/controls/engines/engine[5]/throttle", 1.0);
-	setprop("/controls/engines/engine[6]/throttle", 1.0);
+	if (burn_mode == 1)
+		{
+		# DAP to OMS TVC
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 11);
 
-	setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		# throttles to full
+		setprop("/controls/engines/engine[5]/throttle", 1.0);
+		setprop("/controls/engines/engine[6]/throttle", 1.0);
 
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
+	else if (burn_mode == 2)
+		{
+		# DAP to OMS TVC with wraparound
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 12);
+
+		# throttle left to full
+		setprop("/controls/engines/engine[5]/throttle", 1.0);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
+	else if (burn_mode == 3)
+		{
+		# DAP to OMS TVC with wraparound
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 12);
+
+		# throttle right to full
+		setprop("/controls/engines/engine[6]/throttle", 1.0);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
+	else if (burn_mode == 4)
+		{
+		# RCS TRANS ATT HLD
+		setprop("/fdm/jsbsim/systems/fcs/control-mode", 26);
+
+		# throttle to full
+		setprop("/controls/flight/rudder", 1);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+		}
 	# start the burn
 	oms_burn(time);
+		
 	}
 else # we delay
 	{
@@ -875,6 +994,41 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", 0.0);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 0);
 
+# remove N2 for purging
+
+var nstarts_left = getprop("/fdm/jsbsim/systems/oms-hardware/n2-left-nstarts");
+var nstarts_right = getprop("/fdm/jsbsim/systems/oms-hardware/n2-right-nstarts");
+
+var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
+if (burn_mode == 1)
+	{
+	nstarts_left = nstarts_left - 1;
+	nstarts_right = nstarts_right -1;
+	}
+else if (burn_mode == 2)
+	{
+	nstarts_left = nstarts_left - 1;
+	}
+else if (burn_mode == 3)
+	{
+	nstarts_right = nstarts_right - 1;
+	}
+else if (burn_mode == 4)
+	{
+	setprop("/controls/flight/rudder", 0);
+	}
+
+if (nstarts_left < 0) {nstarts_left = 0;}
+if (nstarts_right < 0) {nstarts_right = 0;}
+
+settimer( func {
+
+setprop("/fdm/jsbsim/systems/oms-hardware/n2-left-nstarts", nstarts_left);
+setprop("/fdm/jsbsim/systems/oms-hardware/n2-right-nstarts", nstarts_right);
+
+}, 1.0);
+
 tracking_loop_flag = 0;
 }
 
@@ -897,7 +1051,84 @@ settimer(func {oms_burn(time - 1);}, 1.0);
 }
 
 
+######################################
+# approximate AOA and ATO OMS targets
+######################################
 
+
+var compute_oms_abort_tgt = func (tgt_id) {
+
+
+# tgt_id  1 is an immediate burn to raise apoapsis to 105 miles
+# from there we can either circularize (3) or do a steep (4) or shallow (5) de-orbit burn
+
+var apoapsis_miles = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km")/1.853;
+var periapsis_miles = getprop("/fdm/jsbsim/systems/orbital/periapsis-km")/1.853;
+var current_alt_miles = getprop("/position/altitude-ft")  * 0.00016449001618;
+
+var delta_v = 0.0;
+
+if (tgt_id == 1)
+	{
+
+	if (apoapsis_miles > 105.0)
+		{
+		delta_v = 0.0;
+		}
+	else 	
+		{
+
+		var apoapsis_diff = math.abs(current_alt_miles - apoapsis_miles);
+		var periapsis_diff = math.abs(current_alt_miles - periapsis_miles);
+
+		var at_periapsis = 1;
+		if (apoapsis_diff < periapsis_diff) {at_periapsis = 0;}
+
+		print("At periapsis: ", at_periapsis);
+		print ("Ap: ", apoapsis_miles, " P: ", periapsis_miles, "Cur: ", current_alt_miles);
+
+		if (at_periapsis == 1) # need to raise apoapsis
+			{
+			var delta_alt = 105.0 - apoapsis_miles;
+			delta_v = 1.5 * delta_alt;
+
+			}
+		else # need to raise periapsis
+			{
+			delta_alt = 105.0 - periapsis_miles;
+			delta_v = 1.5 * delta_alt;
+			}
+		}
+
+	}
+
+else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
+	{
+
+        var tta = SpaceShuttle.time_to_apsis();
+
+	print("TTA: ",tta[0], " ", tta[1]);
+
+	if (tta[0] == 2) # we're going to apoapsis
+		{
+
+		# set TIG to 2 minutes prior to apsis
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tta[1]-120.0);
+		SpaceShuttle.set_oms_mnvr_timer();
+
+		var periapsis_tgt = 105.0;
+		if (tgt_id == 4) {periapsis_tgt = 30.0;}
+		else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
+		var delta_alt = periapsis_tgt - periapsis_miles;
+
+		delta_v = 1.5 * delta_alt;
+		}
+	}
+
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",delta_v);
+}
 
 ###################
 # some diagnostics

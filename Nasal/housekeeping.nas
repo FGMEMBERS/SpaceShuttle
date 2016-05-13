@@ -10,6 +10,7 @@
 var propellant_dump_completed = 0;
 
 
+
 # helper functions to determine number of open valves
 
 var get_num_LO2_prevalves = func {
@@ -242,18 +243,99 @@ if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0)
 	return;	
 	}
 
-if (fuel_current < target_quantity)
+# check a ttg requirement because oxidizer may run out before fuel
+if ((fuel_current < target_quantity) or (ttg < - 5))
 	{
 	#print("Fuel dump ends.");
 	setprop("/fdm/jsbsim/systems/rcs/oms-rcs-dump-cmd", 0); 
 	setprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s", 0);
 	SpaceShuttle.toggle_oms_fuel_dump();
+	SpaceShuttle.unset_oms_rcs_crossfeed();
 	return;
 	}
 
 settimer( func {oms_fuel_dump_loop(target_quantity); } , 1.0);
 
 }
+
+
+#########################################################################################
+# fuel cell purge - needs to check for purge line freezing
+#########################################################################################
+
+var fuel_cell_purge_status = 0;
+
+var fuel_cell_purge_manage = func (cell) {
+
+var purge_valve = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/purge-valve-status");
+
+if (purge_valve == 1) {fuel_cell_purge_start(cell);}
+else {fuel_cell_purge_stop(cell);}
+}
+
+var fuel_cell_purge_start = func (cell) {
+
+
+var T_line = getprop("/fdm/jsbsim/systems/electrical/purge-line-T");
+var p_freeze = 0.0;
+
+var efficiency = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency");
+var efficiency_gain = efficiency / 120.0;
+
+# line temperature should be above 79 F aka 299 K
+
+if (T_line < 299)
+	{
+	p_freeze = (299 - T_line) * 0.003;
+	}
+else 
+	{
+	setprop("/fdm/jsbsim/systems/electrical/purge-line-throughput", 1.0);
+	}
+
+print("Initiating fuel cell purge of FC"~(cell+1)~"...");
+print("Line freeze probability ", p_freeze);
+
+fuel_cell_purge_status = 1;
+fuel_cell_purge_loop (cell, p_freeze, efficiency_gain);
+
+}
+
+var fuel_cell_purge_stop = func (cell) {
+
+print("Fuel cell purge ends.");
+fuel_cell_purge_status = 0;
+
+}
+
+var fuel_cell_purge_loop = func (cell, p_freeze, efficiency_gain) {
+
+if (fuel_cell_purge_status == 0) {return;}
+
+var efficiency = getprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency");
+efficiency = efficiency + efficiency_gain;
+if (efficiency > 1.0) {efficiency = 1.0;}
+print("Efficiency is now ", efficiency);
+setprop("/fdm/jsbsim/systems/electrical/fc["~cell~"]/fc-efficiency", efficiency);
+
+if (rand() < p_freeze) 
+	{
+	print("Purge line freezing up...");
+	efficiency_gain = efficiency_gain * 0.5;
+	var throughput = getprop("/fdm/jsbsim/systems/electrical/purge-line-throughput");
+	throughput = throughput * 0.5;
+	setprop("/fdm/jsbsim/systems/electrical/purge-line-throughput", throughput);
+	print("Throughput is now ", throughput);
+	}
+
+
+
+
+settimer ( func {fuel_cell_purge_loop(cell, p_freeze, efficiency_gain);}, 1.0);
+
+}
+
+
 
 
 #########################################################################################
@@ -445,12 +527,23 @@ var ku_antenna_track_TDRS = func (index) {
 
 var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(index);
 
-ku_antenna_point (angles[1], angles[0]);
+antenna_manager.ku_azimuth =  angles[1];
+antenna_manager.ku_elevation = angles[0];
 
+ku_antenna_point (angles[1], angles[0]);
 
 }
 
+var ku_antenna_track_target = func (coord) {
 
+var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord);
+
+antenna_manager.ku_azimuth =  angles[1];
+antenna_manager.ku_elevation = angles[0];
+
+ku_antenna_point (angles[1], angles[0]);
+
+}
 
 var antenna_manager = {
 
@@ -458,6 +551,9 @@ var antenna_manager = {
 	hemisphere : "LO",
 	station : "",
 	mode : "S-HI",
+	rr_mode : "GPC",
+	function: "COMM",
+	tgt_acquired : 0,
 	TDRS_view_array : [0,0,0,0,0,0],
 	TDRS_A : 0,
 	TDRS_B : 0,
@@ -465,6 +561,26 @@ var antenna_manager = {
 	TDRS_s_primary : "A",
 	TDRS_ku_track : 0,
 	TDRS_ku_tgt : 0,
+	ku_azimuth : 0.0,
+	ku_elevation: 0.0,
+	ku_inertial_azimuth: 0.0,
+	ku_inertial_elevation: 0.0,
+	ku_inertial_azimuth_last: 0.0,
+	ku_inertial_elevation_last: 0.0,
+	ku_inertial_azimuth_rate : 0.0,
+	ku_inertial_elevation_rate : 0.0,
+	rr_target: {},
+	rr_target_available: 0,
+	rvdz_data: 0,
+
+	set_function: func (function) {	
+		me.function = function;
+	},
+
+	set_rr_target: func (coord) {
+		me.rr_target = coord;
+		me.rr_target_available = 1;
+	},
 
 	run: func {
 
@@ -531,23 +647,60 @@ var antenna_manager = {
 		}
 	me.TDRS_ku_track = track_index +1;
 
-	ku_antenna_track_TDRS (track_index);
+	if (me.function == "COMM") 
+		{ku_antenna_track_TDRS (track_index);}
+	
+
+	# check whether antenna is in position already
+	var ku_beta_act = getprop("/controls/shuttle/ku-antenna-beta-deg");
+	var ku_beta_cmd = getprop("/controls/shuttle/ku-antenna-beta-deg-cmd");
+
+	var ku_alpha_act = getprop("/controls/shuttle/ku-antenna-alpha-deg");
+	var ku_alpha_cmd = getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd");
 
 
-	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0))
+	var delta_alpha = math.abs(ku_alpha_act - ku_alpha_cmd);
+	var delta_beta = math.abs(ku_beta_act - ku_beta_cmd);
+
+
+	if ((delta_alpha < 1.5) and (delta_beta < 1.5))
+		{me.tgt_acquired = 1;}
+	else
+		{me.tgt_acquired = 0;}
+
+
+	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0) and (me.tgt_acquired == 1))
 		{me.TDRS_ku_tgt = 1;}
 	else
 		{me.TDRS_ku_tgt = 0;}
+
+	
+	# compute inertial attitude change rate if antenna is on target
+
+	if (me.tgt_acquired == 1)
+		{
+		me.ku_inertial_azimuth_rate = (me.ku_inertial_azimuth - me.ku_inertial_azimuth_last);
+		me.ku_inertial_elevation_rate =(me.ku_inertial_elevation - me.ku_inertial_elevation_last);
+
+		me.ku_inertial_azimuth_last = me.ku_inertial_azimuth;
+		me.ku_inertial_elevation_last = me.ku_inertial_elevation;
+		}
+
 	},
 
 };
 
-var antenna_management = func {
 
+#########################################################################################
+# Sensors
+#########################################################################################
 
+var update_sensors = func {
 
+SpaceShuttle.star_tracker_array[0].run();
+SpaceShuttle.star_tracker_array[1].run();
 
-
+SpaceShuttle.apply_star_tracker_filter();
 
 }
 

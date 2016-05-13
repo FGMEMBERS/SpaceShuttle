@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_mnvr = func(device)
 {
     var p_dps_mnvr = device.addPage("CRTMnvr", "p_dps_mnvr");
+
+    p_dps_mnvr.group = device.svg.getElementById("p_dps_mnvr");
+    p_dps_mnvr.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_mnvr.oms_pitch_left = device.svg.getElementById("p_dps_mnvr_gmbl_l_pitch");
     p_dps_mnvr.oms_pitch_right = device.svg.getElementById("p_dps_mnvr_gmbl_r_pitch");
@@ -75,6 +78,19 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.off_r = device.svg.getElementById("p_dps_mnvr_off_r");
     p_dps_mnvr.gmbl_ck = device.svg.getElementById("p_dps_mnvr_gmbl_ck");
     
+    p_dps_mnvr.c1 = device.svg.getElementById("p_dps_mnvr_c1");
+    p_dps_mnvr.c2 = device.svg.getElementById("p_dps_mnvr_c2");
+    p_dps_mnvr.ht = device.svg.getElementById("p_dps_mnvr_ht");
+    p_dps_mnvr.tt = device.svg.getElementById("p_dps_mnvr_tt");
+    p_dps_mnvr.prplt = device.svg.getElementById("p_dps_mnvr_prplt");
+
+    p_dps_mnvr.tta = device.svg.getElementById("p_dps_mnvr_tta");
+    p_dps_mnvr.rei = device.svg.getElementById("p_dps_mnvr_rei");
+
+    p_dps_mnvr.abort_tgt = device.svg.getElementById("p_dps_mnvr_abort_tgt");
+
+
+
     p_dps_mnvr.blink = 0;
     
     
@@ -105,7 +121,21 @@ var PFD_addpage_p_dps_mnvr = func(device)
         device.DPS_menu_title.setText(string1~"MNVR"~string2);
         device.DPS_menu_ops.setText(major_mode~"1/    /");
         device.MEDS_menu_title.setText("       DPS MENU");
+
+	
+	# blank items which aren't implemented yet
+
+   	p_dps_mnvr.c1.setText("");
+    	p_dps_mnvr.c2.setText("");
+    	p_dps_mnvr.ht.setText("");
+    	p_dps_mnvr.tt.setText("");
+    	p_dps_mnvr.prplt.setText("");
+	p_dps_mnvr.rei.setText("");
+
+
     }
+
+
     
     
     p_dps_mnvr.update = func
@@ -160,12 +190,38 @@ var PFD_addpage_p_dps_mnvr = func(device)
             p_dps_mnvr.surf_drive_off.setText("*");
     	}
     
-    # right now, we don't have the capability to use single OMS engine burns
-    
-        p_dps_mnvr.oms_both.setText("*");
-        p_dps_mnvr.oms_l.setText("");
-        p_dps_mnvr.oms_r.setText("");
-        p_dps_mnvr.rcs_sel.setText("");
+
+	var burn_mode = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode");
+
+	if (burn_mode == 1)
+		{
+       		p_dps_mnvr.oms_both.setText("*");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 2)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("*");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 3)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("*");
+        	p_dps_mnvr.rcs_sel.setText("");
+		}
+	else if (burn_mode == 4)
+		{
+       		p_dps_mnvr.oms_both.setText("");
+        	p_dps_mnvr.oms_l.setText("");
+        	p_dps_mnvr.oms_r.setText("");
+        	p_dps_mnvr.rcs_sel.setText("*");
+		}
+
     
     
         p_dps_mnvr.tv_roll.setText(sprintf("%3.0f",getprop("fdm/jsbsim/systems/ap/oms-plan/tv-roll")));
@@ -205,12 +261,32 @@ var PFD_addpage_p_dps_mnvr = func(device)
     
         p_dps_mnvr.mnvr.setText(oms_mnvr_text);
         p_dps_mnvr.active_dap.setText(dap_text);
+
+        var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+
+	if ((oms_mnvr_flag == 1) and (dap_text == "AUTO") and (attitude_flag == 0))
+		{
+		var rate = getprop("/fdm/jsbsim/systems/ap/rot-rate-degps");
+		var yaw_error = getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
+		var pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
+		var roll_error = getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+
+		var tt_pitch_yaw = math.max(pitch_error, yaw_error)/rate;
+		var tt_roll = math.abs(roll_error)/rate;
+
+		var tta = SpaceShuttle.seconds_to_stringMS (tt_pitch_yaw + tt_roll);
+		p_dps_mnvr.tta.setText(tta);
+		}
+	else
+		{
+		p_dps_mnvr.tta.setText("");
+		}
     
     
         p_dps_mnvr.dvtot.setText(sprintf("%+4.2f",getprop("/fdm/jsbsim/systems/ap/oms-plan/dvtot")));
         p_dps_mnvr.tgo.setText(getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string"));
     
-        var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+
         var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
     
     
@@ -248,7 +324,7 @@ var PFD_addpage_p_dps_mnvr = func(device)
         var tta = SpaceShuttle.time_to_apsis();
     
         var tta_string = "TTP";
-        if (tta[0] = 2) {tta_string = "TTA";}
+        if (tta[0] == 2) {tta_string = "TTA";}
     
         var tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);
     
@@ -290,6 +366,8 @@ var PFD_addpage_p_dps_mnvr = func(device)
         if (gimbal_check == 1) {gsym1 = "*";} else {gsym1 = "";}
     
         p_dps_mnvr.gmbl_ck.setText( gsym1);
+
+	p_dps_mnvr.abort_tgt.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/abort/oms-abort-tgt-id")));
     }
     
     return p_dps_mnvr;

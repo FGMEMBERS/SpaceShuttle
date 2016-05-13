@@ -30,9 +30,9 @@ var orbiter_destroy = func {
 
 # kill main engines
 
-setprop("/fdm/jsbsim/systems/failures/ssme1-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/ssme2-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/ssme3-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/mps/ssme3-condition", 0.0);
 
 # disconnect the SRBs
 
@@ -207,6 +207,10 @@ else if (scenario_ID == 2)
 	{
 	init_one_engine_failure();
 	}
+else if (scenario_ID == 20)
+	{
+	init_alignment_error();
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;
@@ -216,8 +220,6 @@ else if (scenario_ID == 31)
 		setprop("/controls/shuttle/speedbrake", 0.8);
 		setprop("/controls/shuttle/speedbrake-string","80%");
 		}
-	
-
 	}
 else if (scenario_ID == 32)
 	{
@@ -247,6 +249,15 @@ for (var i =0; i<3; i=i+1)
 }
 
 
+
+var init_alignment_error = func {
+
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", 10.0 * (rand() - 0.5));
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", 10.0 * (rand() - 0.5));
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 * (rand() - 0.5));
+
+}
 
 
 

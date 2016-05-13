@@ -11,6 +11,16 @@ var valve_status_to_string = func (status)
     else {return "OP";}
 }
 
+var jet_conditions_to_string = func (con1, con2)
+{
+if (con1 < 1.0) {return "OFF";} 
+else if (con1 > 1.0) {return "ON";}
+else if (con2 < 1.0) {return "LK";} 
+else {return "";}
+
+
+}
+
 var jet_status_to_string = func (status)
 {
     if (status == 1) {return "OFF";}
@@ -90,6 +100,14 @@ var door_stat_to_microsw = func (status, door_status)
     {return "00000";}
 }
 
+var ret_latch_to_microsw = func (status)
+{
+    if (status == 0) {return "11/00";}
+    else if (status == 1) {return "00/11";}
+    else {return "00/00";}
+
+}
+
 var jet_option = func (flag)
 {
 
@@ -98,3 +116,46 @@ var jet_option = func (flag)
     else {return "NOSE";}
 
 }
+
+var set_tape = func (handle, value, offset) {
+    handle.setScale(1.0, value);
+    handle.setTranslation(0.0, (1.0-value) * offset);
+}
+
+
+var get_filter_quality_pos = func {
+
+var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+
+var filter_quality_pos = 1.0;
+	
+if (angle_sensor_selection == 0)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-pos");}
+else if (angle_sensor_selection == 1)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-pos");}
+else if (angle_sensor_selection == 2)
+	{filter_quality_pos  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-pos");}
+
+return filter_quality_pos;
+
+}
+
+
+var get_filter_quality_v = func {
+
+var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
+
+var filter_quality_v = 1.0;
+	
+if (angle_sensor_selection == 0)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-v");}
+else if (angle_sensor_selection == 1)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-v");}
+else if (angle_sensor_selection == 2)
+	{filter_quality_v  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-v");}
+
+return filter_quality_v;
+
+}
+
+

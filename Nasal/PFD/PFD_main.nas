@@ -5,7 +5,7 @@
 # Based on F-15 MPCD
 # ---------------------------
 # Richard Harrison: 2015-01-23 : rjh@zaretto.com
-# addition of DPS pages (old CRT style) Thorsten Renk 2015
+# addition of DPS pages (old CRT style) Thorsten Renk 2015-2016
 # ---------------------------
 
 # pages available are
@@ -15,15 +15,44 @@
 # * p_dps_mnvr (OPS 104, 105, 106, 202, 301, 302, 303)
 # * p_pds_univ_ptg (OPS 201)
 # * p_dps_antenna (SM OPS 202)
+# * p_dps_rtls (OPS 601)
 # * p_dps_time (SPEC 2)
 # * p_dps_dap (SPEC 20)
+# * p_dps_strk (SPEC 22)
+# * p_dps_rcs (SPEC 23)
+# * p_dps_rm_orbit (SPEC 25)
+# * p_dps_rel_nav (SPEC 33)
+# * p_dps_hsit (SPEC 50)
 # * p_dps_override (SPEC 51)
 # * p_dps_pl_bay (SM OPS 202, SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
+# * p_dps_electric (DISP 67)
+# * p_dps_cryo (DISP 68)
+# * p_dps_fc (DISP 69)
+# * p_dps_sm_sys_summ1 (DISP 78)
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
+# * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
+
+# * p_meds_oms_mps (MEDS OMS/MPS)
+# * p_meds_apu	(MEDS APU/HYD)
+# * p_meds_spi	(MEDS SPI)
+
+# color definitions
+
+# default CRT-style green for the DPS pages
+
+var dps_r = getprop("/sim/model/shuttle/lighting/dps-red");
+var dps_g = getprop("/sim/model/shuttle/lighting/dps-green");
+var dps_b = getprop("/sim/model/shuttle/lighting/dps-blue");
+
+# the MEDS menu is in a light blue
+
+var meds_r = 0.2;
+var meds_g = 0.8;
+var meds_b = 0.8;
 
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 
@@ -33,22 +62,38 @@ io.include("p_helper.nas");
 
 io.include("p_pfd.nas");
 io.include("p_main.nas");
+io.include("p_subsys.nas");
 io.include("p_dps.nas");
 io.include("p_dps_fault.nas");
 io.include("p_dps_sys_summ.nas");
 io.include("p_dps_sys_summ2.nas");
 io.include("p_ascent.nas");
+io.include("p_dps_rtls.nas");
 io.include("p_entry.nas");
 io.include("p_vert_sit.nas");
 io.include("p_dps_mnvr.nas");
 io.include("p_dps_univ_ptg.nas");
 io.include("p_dps_apu_hyd.nas");
 io.include("p_dps_pl_bay.nas");
+io.include("p_dps_rel_nav.nas");
 io.include("p_dps_override.nas");
 io.include("p_dps_time.nas");
 io.include("p_dps_dap.nas");
+io.include("p_dps_sm_sys_summ1.nas");
 io.include("p_dps_sm_sys_summ2.nas");
 io.include("p_dps_antenna.nas");
+io.include("p_dps_fc.nas");
+io.include("p_dps_strk.nas");
+io.include("p_dps_pl_ret.nas");
+io.include("p_dps_electric.nas");
+io.include("p_dps_cryo.nas");
+io.include("p_dps_hsit.nas");
+io.include("p_dps_rm_orbit.nas");
+io.include("p_dps_rcs.nas");
+
+io.include("p_meds_oms_mps.nas");
+io.include("p_meds_apu.nas");
+io.include("p_meds_spi.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -103,6 +148,14 @@ var MDU_Device =
             me.DPS_menu_fault_line.setText("");
             me.DPS_menu_scratch_line.setText("");
             me.DPS_menu_gpc_driver.setText("");
+	    me.DPS_menu_idp.setText("");
+	    me.DPS_menu_line1.setVisible(0);
+	    me.DPS_menu_line2.setVisible(0);
+	    me.DPS_menu_line3.setVisible(0);
+	    me.DPS_menu_line4.setVisible(0);
+	    me.DPS_menu_line_cdr.setVisible(0);
+	    me.DPS_menu_line_plt.setVisible(0);
+
 #setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
         };
 
@@ -126,7 +179,35 @@ var MDU_Device =
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
             me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
-            me.DPS_menu_gpc_driver.setText("1");
+
+	    if (SpaceShuttle.idp_array[idp_index].get_major_function() == 1)
+            	{me.DPS_menu_gpc_driver.setText("1");}
+	    else
+		{me.DPS_menu_gpc_driver.setText("4");}
+
+	    me.DPS_menu_idp.setText(sprintf("%1.0f",port));
+	    me.DPS_menu_line1.setVisible(1);
+	    me.DPS_menu_line2.setVisible(1);
+	    me.DPS_menu_line3.setVisible(1);
+	    me.DPS_menu_line4.setVisible(1);
+
+	    if (SpaceShuttle.kb_array[0].get_idp() == port)
+		{
+		me.DPS_menu_line_cdr.setVisible(1);
+		}
+	    else
+		{
+		me.DPS_menu_line_cdr.setVisible(0);
+		}
+
+	    if (SpaceShuttle.kb_array[1].get_idp() == port)
+		{
+		me.DPS_menu_line_plt.setVisible(1);
+		}
+	    else
+		{
+		me.DPS_menu_line_plt.setVisible(0);
+		}
 
             var fault_string = getprop("/fdm/jsbsim/systems/dps/error-string");
 
@@ -149,11 +230,13 @@ var MDU_Device =
     {
         me.PFD.p_pfd = PFD_addpage_p_pfd(me.PFD);
         me.PFD.p_main = PFD_addpage_p_main(me.PFD);
+        me.PFD.p_subsys = PFD_addpage_p_subsys(me.PFD);
         me.PFD.p_dps = PFD_addpage_p_dps(me.PFD);
         me.PFD.p_dps_fault = PFD_addpage_p_dps_fault(me.PFD);
         me.PFD.p_dps_sys_summ = PFD_addpage_p_dps_sys_summ(me.PFD);
         me.PFD.p_dps_sys_summ2 = PFD_addpage_p_dps_sys_summ2(me.PFD);
         me.PFD.p_ascent = PFD_addpage_p_ascent(me.PFD);
+        me.PFD.p_dps_rtls = PFD_addpage_p_dps_rtls(me.PFD);
         me.PFD.p_entry = PFD_addpage_p_entry(me.PFD);
         me.PFD.p_vert_sit = PFD_addpage_p_vert_sit(me.PFD);
         me.PFD.p_dps_mnvr = PFD_addpage_p_dps_mnvr(me.PFD);
@@ -163,8 +246,22 @@ var MDU_Device =
         me.PFD.p_dps_override = PFD_addpage_p_dps_override(me.PFD);
         me.PFD.p_dps_time = PFD_addpage_p_dps_time(me.PFD);
         me.PFD.p_dps_dap = PFD_addpage_p_dps_dap(me.PFD);
+        me.PFD.p_dps_sm_sys_summ1 = PFD_addpage_p_dps_sm_sys_summ1(me.PFD);
         me.PFD.p_dps_sm_sys_summ2 = PFD_addpage_p_dps_sm_sys_summ2(me.PFD);
         me.PFD.p_dps_antenna = PFD_addpage_p_dps_antenna(me.PFD);
+        me.PFD.p_dps_fc = PFD_addpage_p_dps_fc(me.PFD);
+        me.PFD.p_dps_pl_ret = PFD_addpage_p_dps_pl_ret(me.PFD);
+        me.PFD.p_dps_electric = PFD_addpage_p_dps_electric(me.PFD);
+        me.PFD.p_dps_cryo = PFD_addpage_p_dps_cryo(me.PFD);
+        me.PFD.p_dps_rel_nav = PFD_addpage_p_dps_rel_nav(me.PFD);
+        me.PFD.p_dps_strk = PFD_addpage_p_dps_strk(me.PFD);
+        me.PFD.p_dps_hsit = PFD_addpage_p_dps_hsit(me.PFD);
+        me.PFD.p_dps_rm_orbit = PFD_addpage_p_dps_rm_orbit(me.PFD);
+        me.PFD.p_dps_rcs = PFD_addpage_p_dps_rcs(me.PFD);
+
+        me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
+        me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
+        me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -205,6 +302,12 @@ var MDU_Device =
 
         me.PFD.MEDS_menu_title = me.PFD.svg.getElementById("MEDS_title");
 
+
+	me.PFD.DPS_menu = me.PFD.svg.getElementById("DPSMenu");
+	me.PFD.MEDS_menu = me.PFD.svg.getElementById("MEDSMenu");
+
+
+ 
         me.PFD.DPS_menu_time = me.PFD.svg.getElementById("dps_menu_time");
         me.PFD.DPS_menu_crt_time = me.PFD.svg.getElementById("dps_menu_crt_time");
         me.PFD.DPS_menu_ops = me.PFD.svg.getElementById("dps_menu_OPS");
@@ -212,11 +315,31 @@ var MDU_Device =
         me.PFD.DPS_menu_fault_line = me.PFD.svg.getElementById("dps_menu_fault_line");
         me.PFD.DPS_menu_scratch_line = me.PFD.svg.getElementById("dps_menu_scratch_line");
         me.PFD.DPS_menu_gpc_driver = me.PFD.svg.getElementById("dps_menu_gpc_driver");
+        me.PFD.DPS_menu_idp = me.PFD.svg.getElementById("dps_menu_idp");
+        me.PFD.DPS_menu_line1 = me.PFD.svg.getElementById("dps_menu_line1");
+        me.PFD.DPS_menu_line2 = me.PFD.svg.getElementById("dps_menu_line2");
+        me.PFD.DPS_menu_line3 = me.PFD.svg.getElementById("dps_menu_line3");
+        me.PFD.DPS_menu_line4 = me.PFD.svg.getElementById("dps_menu_line4");
+        me.PFD.DPS_menu_line_cdr = me.PFD.svg.getElementById("dps_menu_line_cdr");
+        me.PFD.DPS_menu_line_plt = me.PFD.svg.getElementById("dps_menu_line_plt");
         me.PFD.DPS_menu_blink = 1;
 
         me.PFD.nom_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit1_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit2_traj_plot = me.PFD._canvas.createGroup();
+
+	me.PFD.symbols = me.PFD._canvas.createGroup();
+
+	# we can't put the display colors into the emissive animation because the screens
+	# show different colors, so we set common element colors here and page colors at
+	# their pages 
+
+	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
+	me.PFD.MEDS_menu.setColor(meds_r, meds_g, meds_b);
+	me.PFD.DPS_menu_line_plt.setColor(1,1,0.3);
+	me.PFD.DPS_menu_line_cdr.setColor(1,0.3,0.3);
+	me.PFD.DPS_menu_fault_line.setColor(1,0.3,0.3);
+
 
         me.setupMenus();
     },
@@ -227,6 +350,10 @@ var MDU_Device =
         me.PFD.p_ascent.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_ascent.addMenuItem(4, "MSG RST", me.PFD.p_ascent);
         me.PFD.p_ascent.addMenuItem(5, "MSG ACK", me.PFD.p_ascent);
+
+        me.PFD.p_dps_rtls.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rtls.addMenuItem(4, "MSG RST", me.PFD.p_dps_rtls);
+        me.PFD.p_dps_rtls.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rtls);
     
         me.PFD.p_entry.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_entry.addMenuItem(4, "MSG RST", me.PFD.p_entry);
@@ -244,12 +371,19 @@ var MDU_Device =
         me.PFD.p_pfd.addMenuItem(4, "MSG RST", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(5, "MSG ACK", me.PFD.p_pfd);
     
-        me.PFD.p_main.addMenuItem(0, "FLT", me.PFD.p_pfd);
-        me.PFD.p_main.addMenuItem(1, "SUB", me.PFD.p_main);
-        me.PFD.p_main.addMenuItem(2, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(3, "MAINT", me.PFD.p_dps_antenna);
-        me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
-        me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
+        me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
+        me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
+        me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_rtls);
+        #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
+        #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
+
+        me.PFD.p_subsys.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_subsys.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
+        me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
+        me.PFD.p_subsys.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
     
         me.PFD.p_dps_fault.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_fault.addMenuItem(4, "MSG RST", me.PFD.p_dps_fault);
@@ -294,10 +428,73 @@ var MDU_Device =
         me.PFD.p_dps_dap.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_dap.addMenuItem(4, "MSG RST", me.PFD.p_dps_dap);
         me.PFD.p_dps_dap.addMenuItem(5, "MSG ACK", me.PFD.p_dps_dap);
-    
+
+        me.PFD.p_dps_fc.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_fc.addMenuItem(4, "MSG RST", me.PFD.p_dps_fc);
+        me.PFD.p_dps_fc.addMenuItem(5, "MSG ACK", me.PFD.p_dps_fc);
+
+       	me.PFD.p_dps_strk.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_strk.addMenuItem(4, "MSG RST", me.PFD.p_dps_strk);
+        me.PFD.p_dps_strk.addMenuItem(5, "MSG ACK", me.PFD.p_dps_strk);
+
+       	me.PFD.p_dps_hsit.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_hsit.addMenuItem(4, "MSG RST", me.PFD.p_dps_hsit);
+        me.PFD.p_dps_hsit.addMenuItem(5, "MSG ACK", me.PFD.p_dps_hsit);
+
+        me.PFD.p_dps_electric.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_electric.addMenuItem(4, "MSG RST", me.PFD.p_dps_electric);
+        me.PFD.p_dps_electric.addMenuItem(5, "MSG ACK", me.PFD.p_dps_electric);
+
+        me.PFD.p_dps_cryo.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_cryo.addMenuItem(4, "MSG RST", me.PFD.p_dps_cryo);
+        me.PFD.p_dps_cryo.addMenuItem(5, "MSG ACK", me.PFD.p_dps_cryo);
+
+        me.PFD.p_dps_pl_ret.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_pl_ret.addMenuItem(4, "MSG RST", me.PFD.p_dps_pl_ret);
+        me.PFD.p_dps_pl_ret.addMenuItem(5, "MSG ACK", me.PFD.p_dps_pl_ret);
+
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ1);
+        me.PFD.p_dps_sm_sys_summ1.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ1);    
+
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(4, "MSG RST", me.PFD.p_dps_sm_sys_summ2);
         me.PFD.p_dps_sm_sys_summ2.addMenuItem(5, "MSG ACK", me.PFD.p_dps_sm_sys_summ2);
+
+        me.PFD.p_dps_rel_nav.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rel_nav.addMenuItem(4, "MSG RST", me.PFD.p_dps_rel_nav);
+        me.PFD.p_dps_rel_nav.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rel_nav);
+
+        me.PFD.p_dps_rm_orbit.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rm_orbit.addMenuItem(4, "MSG RST", me.PFD.p_dps_rm_orbit);
+        me.PFD.p_dps_rm_orbit.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rm_orbit);
+
+        me.PFD.p_dps_rcs.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_rcs.addMenuItem(4, "MSG RST", me.PFD.p_dps_rcs);
+        me.PFD.p_dps_rcs.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rcs);
+
+        me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
+        me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
+
+       	me.PFD.p_meds_apu.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_apu.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_apu.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
+        me.PFD.p_meds_apu.addMenuItem(4, "PORT SEL", me.PFD.p_meds_apu);
+        me.PFD.p_meds_apu.addMenuItem(5, "MSG ACK", me.PFD.p_meds_apu);
+
+       	me.PFD.p_meds_spi.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_spi.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
+        me.PFD.p_meds_spi.addMenuItem(2, "APU", me.PFD.p_meds_apu);
+        me.PFD.p_meds_spi.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
+        me.PFD.p_meds_spi.addMenuItem(4, "PORT SEL", me.PFD.p_meds_spi);
+        me.PFD.p_meds_spi.addMenuItem(5, "MSG ACK", me.PFD.p_meds_spi);
+
+      
     },
 
     update : func
@@ -347,23 +544,24 @@ append(MDU_array, MEDS_PLT2);
 # Select the appropriate default page on each device.
 MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_pfd);
 MEDS_CDR1.PFD.dps_page_flag = 0;
-MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_pfd);
+MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_meds_oms_mps);
 MEDS_CDR2.PFD.dps_page_flag = 0;
 MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
 MEDS_CRT1.PFD.dps_page_flag = 1;
-MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_pfd);
+MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
 MEDS_MFD1.PFD.dps_page_flag = 0;
 MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
 MEDS_CRT3.PFD.dps_page_flag = 1;
 MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
 MEDS_CRT2.PFD.dps_page_flag = 1;
-MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_pfd);
+MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
 MEDS_MFD2.PFD.dps_page_flag = 0;
-MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_pfd);
+MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
 MEDS_PLT1.PFD.dps_page_flag = 0;
 MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
 MEDS_PLT2.dps_page_flag = 0;
     
+
 var frame_device_update_id = 0;
 
 

@@ -1,0 +1,184 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+	<table-index type="int">1</table-index>
+
+	<F1L-sel type="int">1</F1L-sel>
+	<F3L-sel type="int">1</F3L-sel>
+	<F2R-sel type="int">1</F2R-sel>
+	<F4R-sel type="int">1</F4R-sel>
+
+	<F1U-sel type="int">1</F1U-sel>
+	<F3U-sel type="int">1</F3U-sel>
+	<F2U-sel type="int">1</F2U-sel>
+
+	<F1D-sel type="int">1</F1D-sel>
+	<F3D-sel type="int">1</F3D-sel>
+	<F2D-sel type="int">1</F2D-sel>
+	<F4D-sel type="int">1</F4D-sel>
+
+	<F1F-sel type="int">1</F1F-sel>
+	<F3F-sel type="int">1</F3F-sel>
+	<F2F-sel type="int">1</F2F-sel>
+
+	<F5L-sel type="int">1</F5L-sel>
+	<F5R-sel type="int">1</F5R-sel>
+
+	<F1L-inh type="int">0</F1L-inh>
+	<F3L-inh type="int">0</F3L-inh>
+	<F2R-inh type="int">0</F2R-inh>
+	<F4R-inh type="int">0</F4R-inh>
+
+	<F1U-inh type="int">0</F1U-inh>
+	<F3U-inh type="int">0</F3U-inh>
+	<F2U-inh type="int">0</F2U-inh>
+
+	<F1D-inh type="int">0</F1D-inh>
+	<F3D-inh type="int">0</F3D-inh>
+	<F2D-inh type="int">0</F2D-inh>
+	<F4D-inh type="int">0</F4D-inh>
+
+	<F1F-inh type="int">0</F1F-inh>
+	<F3F-inh type="int">0</F3F-inh>
+	<F2F-inh type="int">0</F2F-inh>
+
+	<F5L-inh type="int">0</F5L-inh>
+	<F5R-inh type="int">0</F5R-inh>
+
+	<F1L-pty type="int">2</F1L-pty>
+	<F3L-pty type="int">1</F3L-pty>
+	<F2R-pty type="int">2</F2R-pty>
+	<F4R-pty type="int">1</F4R-pty>
+
+	<F1U-pty type="int">2</F1U-pty>
+	<F3U-pty type="int">1</F3U-pty>
+	<F2U-pty type="int">3</F2U-pty>
+
+	<F1D-pty type="int">2</F1D-pty>
+	<F3D-pty type="int">1</F3D-pty>
+	<F2D-pty type="int">2</F2D-pty>
+	<F4D-pty type="int">1</F4D-pty>
+
+	<F1F-pty type="int">1</F1F-pty>
+	<F3F-pty type="int">3</F3F-pty>
+	<F2F-pty type="int">2</F2F-pty>
+
+	<F5L-pty type="int">1</F5L-pty>
+	<F5R-pty type="int">1</F5R-pty>
+
+	<L4L-sel type="int">1</L4L-sel>
+	<L2L-sel type="int">1</L2L-sel>
+	<L3L-sel type="int">1</L3L-sel>
+	<L1L-sel type="int">1</L1L-sel>
+
+	<L4U-sel type="int">1</L4U-sel>
+	<L2U-sel type="int">1</L2U-sel>
+	<L1U-sel type="int">1</L1U-sel>
+
+	<L4D-sel type="int">1</L4D-sel>
+	<L2D-sel type="int">1</L2D-sel>
+	<L3D-sel type="int">1</L3D-sel>
+
+	<L3A-sel type="int">1</L3A-sel>
+	<L1A-sel type="int">1</L1A-sel>
+
+	<L5L-sel type="int">1</L5L-sel>
+	<L5D-sel type="int">1</L5D-sel>
+
+	<L4L-inh type="int">0</L4L-inh>
+	<L2L-inh type="int">0</L2L-inh>
+	<L3L-inh type="int">0</L3L-inh>
+	<L1L-inh type="int">0</L1L-inh>
+
+	<L4U-inh type="int">0</L4U-inh>
+	<L2U-inh type="int">0</L2U-inh>
+	<L1U-inh type="int">0</L1U-inh>
+
+	<L4D-inh type="int">0</L4D-inh>
+	<L2D-inh type="int">0</L2D-inh>
+	<L3D-inh type="int">0</L3D-inh>
+
+	<L3A-inh type="int">0</L3A-inh>
+	<L1A-inh type="int">0</L1A-inh>
+
+	<L5L-inh type="int">0</L5L-inh>
+	<L5D-inh type="int">0</L5D-inh>
+
+	<L4L-pty type="int">3</L4L-pty>
+	<L2L-pty type="int">4</L2L-pty>
+	<L3L-pty type="int">2</L3L-pty>
+	<L1L-pty type="int">1</L1L-pty>
+
+	<L4U-pty type="int">2</L4U-pty>
+	<L2U-pty type="int">3</L2U-pty>
+	<L1U-pty type="int">1</L1U-pty>
+
+	<L4D-pty type="int">3</L4D-pty>
+	<L2D-pty type="int">2</L2D-pty>
+	<L3D-pty type="int">1</L3D-pty>
+
+	<L3A-pty type="int">1</L3A-pty>
+	<L1A-pty type="int">2</L1A-pty>
+
+	<L5L-pty type="int">1</L5L-pty>
+	<L5D-pty type="int">1</L5D-pty>
+
+	<R4R-sel type="int">1</R4R-sel>
+	<R2R-sel type="int">1</R2R-sel>
+	<R3R-sel type="int">1</R3R-sel>
+	<R1R-sel type="int">1</R1R-sel>
+
+	<R4U-sel type="int">1</R4U-sel>
+	<R2U-sel type="int">1</R2U-sel>
+	<R1U-sel type="int">1</R1U-sel>
+
+	<R4D-sel type="int">1</R4D-sel>
+	<R2D-sel type="int">1</R2D-sel>
+	<R3D-sel type="int">1</R3D-sel>
+
+	<R1A-sel type="int">1</R1A-sel>
+	<R3A-sel type="int">1</R3A-sel>
+
+	<R5R-sel type="int">1</R5R-sel>
+	<R5D-sel type="int">1</R5D-sel>
+
+	<R4R-inh type="int">0</R4R-inh>
+	<R2R-inh type="int">0</R2R-inh>
+	<R3R-inh type="int">0</R3R-inh>
+	<R1R-inh type="int">0</R1R-inh>
+
+	<R4U-inh type="int">0</R4U-inh>
+	<R2U-inh type="int">0</R2U-inh>
+	<R1U-inh type="int">0</R1U-inh>
+
+	<R4D-inh type="int">0</R4D-inh>
+	<R2D-inh type="int">0</R2D-inh>
+	<R3D-inh type="int">0</R3D-inh>
+
+	<R1A-inh type="int">0</R1A-inh>
+	<R3A-inh type="int">0</R3A-inh>
+
+	<R5R-inh type="int">0</R5R-inh>
+	<R5D-inh type="int">0</R5D-inh>
+
+	<R4R-pty type="int">4</R4R-pty>
+	<R2R-pty type="int">3</R2R-pty>
+	<R3R-pty type="int">1</R3R-pty>
+	<R1R-pty type="int">2</R1R-pty>
+
+	<R4U-pty type="int">2</R4U-pty>
+	<R2U-pty type="int">3</R2U-pty>
+	<R1U-pty type="int">1</R1U-pty>
+
+	<R4D-pty type="int">3</R4D-pty>
+	<R2D-pty type="int">2</R2D-pty>
+	<R3D-pty type="int">1</R3D-pty>
+
+	<R1A-pty type="int">2</R1A-pty>
+	<R3A-pty type="int">1</R3A-pty>
+
+	<R5R-pty type="int">1</R5R-pty>
+	<R5D-pty type="int">1</R5D-pty>
+
+</PropertyList>

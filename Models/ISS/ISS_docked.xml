@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+    <path>ISS_simple_docked.ac</path>
+	<nopreview/>
+
+    	<offsets>
+       		<x-m> -8.1 </x-m>
+       		<y-m>  0.0 </y-m>
+       		<z-m> -1.0 </z-m>
+    	</offsets>
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	     <object-name>ISS</object-name>
+	 </effect>
+
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+
+	<animation>	
+	<type>rotate</type>
+	<property>/controls/shuttle/ISS/rel-heading-deg</property>
+	<axis>
+   		<x>0</x>
+   		<y>0</y>
+   		<z>1</z>
+  	</axis>
+  	<center>
+   		<x-m> 0</x-m>
+   		<y-m> 0</y-m>
+   		<z-m> 0</z-m>
+  	</center>
+	</animation>
+
+	
+	
+</PropertyList>

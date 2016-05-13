@@ -6,8 +6,10 @@
 
 	<switch name="systems/entry_guidance/guidance-active">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test logic="OR" value="1.0">
 				systems/entry_guidance/guidance-mode == 1
+				systems/entry_guidance/guidance-mode == 2
+				systems/entry_guidance/guidance-mode == 3
 			</test>
 	</switch>
 

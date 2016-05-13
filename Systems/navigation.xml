@@ -329,4 +329,131 @@
 
 	</channel>
 
+	<channel name="State vector">
+
+		<fcs_function name="systems/navigation/state-vector/merge/pitch-deg-A">
+		<function>
+			<sum>
+				<property>/orientation/pitch-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/pitch-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/pitch-deg-B">
+		<function>
+			<difference>
+				<value>180.0</value>
+				<property>systems/navigation/state-vector/merge/pitch-deg-A</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/pitch-deg-C">
+		<function>
+			<difference>
+				<value>-180.0</value>
+				<property>systems/navigation/state-vector/merge/pitch-deg-A</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/navigation/state-vector/pitch-deg">
+			<default value="systems/navigation/state-vector/merge/pitch-deg-A"/>
+			<test value="systems/navigation/state-vector/merge/pitch-deg-B">
+				systems/navigation/state-vector/merge/pitch-deg-A GT 90.0
+			</test>
+			<test value="systems/navigation/state-vector/merge/pitch-deg-C">
+				systems/navigation/state-vector/merge/pitch-deg-A LT -90.0 
+			</test>
+
+		</switch>
+
+		<fcs_function name="systems/navigation/state-vector/merge/yaw-deg-A">
+		<function>
+			<sum>
+				<property>/orientation/heading-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/yaw-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/yaw-deg-B">
+		<function>
+			<difference>
+				<property>systems/navigation/state-vector/merge/yaw-deg-A</property>
+				<value>360.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/yaw-deg-C">
+		<function>
+			<sum>
+				<property>systems/navigation/state-vector/merge/yaw-deg-A</property>
+				<value>360.0</value>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/navigation/state-vector/yaw-deg">
+			<default value="systems/navigation/state-vector/merge/yaw-deg-A"/>
+			<test value="systems/navigation/state-vector/merge/yaw-deg-B">
+				systems/navigation/state-vector/merge/yaw-deg-A GT 360.0
+			</test>
+			<test value="systems/navigation/state-vector/merge/yaw-deg-C">
+				systems/navigation/state-vector/merge/yaw-deg-A LT 0.0 
+			</test>
+
+		</switch>
+
+		<fcs_function name="systems/navigation/state-vector/merge/roll-deg-A">
+		<function>
+			<sum>
+				<property>/orientation/roll-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/roll-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/roll-deg-B">
+		<function>
+			<difference>
+				<property>systems/navigation/state-vector/merge/roll-deg-A</property>
+				<value>360.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/roll-deg-C">
+		<function>
+			<sum>
+				<property>systems/navigation/state-vector/merge/roll-deg-A</property>
+				<value>360.0</value>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/navigation/state-vector/roll-deg">
+			<default value="systems/navigation/state-vector/merge/roll-deg-A"/>
+			<test value="systems/navigation/state-vector/merge/roll-deg-B">
+				systems/navigation/state-vector/merge/roll-deg-A GT 180.0
+			</test>
+			<test value="systems/navigation/state-vector/merge/roll-deg-C">
+				systems/navigation/state-vector/merge/roll-deg-A LT -180 
+			</test>
+
+		</switch>
+
+	</channel>
+
 </system>
