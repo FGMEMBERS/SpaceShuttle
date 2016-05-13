@@ -1116,7 +1116,7 @@ if (tgt_id == 1)
 
 	}
 
-else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
+else if (tgt_id == 3)
 	{
 
         var tta = SpaceShuttle.time_to_apsis();
@@ -1127,19 +1127,81 @@ else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
 		{
 
 		# set TIG to 2 minutes prior to apsis
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tta[1]-120.0);
+		var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", MET + tta[1]-120.0);
 		SpaceShuttle.set_oms_mnvr_timer();
 
 		var periapsis_tgt = 105.0;
-		if (tgt_id == 4) {periapsis_tgt = 30.0;}
-		else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
 
 		var delta_alt = periapsis_tgt - periapsis_miles;
 
 		delta_v = 1.5 * delta_alt;
 		}
 	}
+else if ((tgt_id == 4) or (tgt_id == 5)) # we need to do the de-orbit burn opposite to site
+	{
 
+	var lon = getprop("/position/longitude-deg");
+	var tgt_lon = landing_site.lon() - 160.0;
+	var delta_lon = tgt_lon - lon;
+	if (lon < 0.0) {lon = lon + 360;}
+	if (tgt_lon < 0.0) {tgt_lon = tgt_lon + 360.0;}
+
+	print("Current lon: ", lon, " target lon: ", tgt_lon);
+	print("Delta_lon_before: ", delta_lon);
+	if (delta_lon < 0.0) {delta_lon = delta_lon + 360.0;} 
+	if (delta_lon > 360.0) {delta_lon = delta_lon - 360.0;}
+
+	print("Delta_lon: ", delta_lon);
+
+	var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+	var ttb = delta_lon/360.0 * orbital_period;
+
+	# set TIG to 2 minutes prior to 180 degree point
+	var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", MET + ttb-120.0);
+	SpaceShuttle.set_oms_mnvr_timer();
+
+	if (tgt_id == 4) {periapsis_tgt = 25.0;}
+	else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
+	var delta_alt_corr = 0.0;
+        var tta = SpaceShuttle.time_to_apsis();
+	if (tta[0] == 2) # to apoapsis
+		{
+		if (ttb < tta[1]) # we burn before reaching apoapsis
+			{
+			var fraction = ttb/(0.5 * orbital_period);
+			delta_alt_corr = (1.0 - fraction) * (apoapsis_miles - periapsis_miles);
+			}
+		else # we burn on the way to periapsis
+			{
+			var fraction = (ttb - tta[1])/(0.5 * orbital_period);
+			delta_alt_corr = fraction * (apoapsis_miles - periapsis_miles);
+			}
+		}
+	else
+		{
+		if (ttb < tta[1]) # we burn before reaching periapsis
+			{
+			var fraction = ttb/(0.5 * orbital_period);
+			delta_alt_corr = fraction * (apoapsis_miles - periapsis_miles);
+			}
+		else # we burn on the way to apoapsis
+			{
+			var fraction = (ttb - tta[1])/(0.5 * orbital_period);
+			delta_alt_corr = (1.0 - fraction) * (apoapsis_miles - periapsis_miles);
+			}
+		}
+	print ("Fraction: ", fraction);
+	print ("Delta alt correction: ", delta_alt_corr);
+
+	var delta_alt = periapsis_tgt - periapsis_miles - delta_alt_corr;
+	delta_v = 1.5 * delta_alt;
+
+	}
+	
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",delta_v);
 }
