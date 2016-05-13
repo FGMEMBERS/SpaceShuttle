@@ -7,6 +7,8 @@
 	<!-- 0:  Thrust vectoring for SSME with direct control over engine gimbal -->
 	<!-- 10: Thrust vectoring for SSME with rate control -->
 	<!-- 11: Thrust vectoring for OMS  with rate control -->
+	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
+	<!-- 13: Single engine SSME TVC and roll control via RCS -->
 
 	<channel name="CoG-pointing pitch and yaw angles of engines">
 
@@ -365,7 +367,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[0]</property>
-					<!--<property>systems/failures/ssme1-condition</property>-->
 					<property>systems/mps/engine/engine-operational</property>
 				</product>
 			</function>
@@ -387,7 +388,6 @@
 					<value>1.0</value>
 					</min>
 					<property>fcs/throttle-pos-norm[1]</property>
-					<!--<property>systems/failures/ssme2-condition</property>-->
 					<property>systems/mps/engine[1]/engine-operational</property>
 				</product>
 			</function>
@@ -398,7 +398,6 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[2]</property>
-					<!--<property>systems/failures/ssme3-condition</property>-->
 					<property>systems/mps/engine[2]/engine-operational</property>
 				</product>
 			</function>
@@ -575,8 +574,16 @@
 
 		<switch name="systems/vectoring/vectoring-rate-master">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic = "OR" value="1.0">
 				systems/fcs/control-mode == 10
+				systems/fcs/control-mode == 13
+			</test>
+		</switch>
+
+		<switch name="systems/vectoring/roll-control-veto">
+			<default value="1.0"/>
+			<test  value="0.0">
+				systems/fcs/control-mode == 13
 			</test>
 		</switch>
 
@@ -585,7 +592,20 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<property>fcs/elevator-cmd-norm</property>
+  					<!--<property>fcs/elevator-cmd-norm</property>-->
+					<sum>
+						<product>
+  						<property>fcs/elevator-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-pitch-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/pitch-cmd</property>
+							<property>systems/ap/launch/autolaunch-pitch-channel</property>
+						</product>
+					</sum>
 					<value>-0.2</value>
 				</product>
 			</difference>
@@ -617,13 +637,28 @@
 
 		<fcs_function name="systems/vectoring/roll-rate-error">
 		<function>
+			<product>
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>fcs/aileron-cmd-norm</property>
+					<sum>
+						<product>
+  						<property>fcs/aileron-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/roll-cmd</property>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</product>
+					</sum>
 					<value>0.3</value>
 				</product>
 			</difference>
+			<property>systems/vectoring/roll-control-veto</property>
+			</product>
 		</function>
 		</fcs_function>
 
@@ -656,6 +691,17 @@
 			</clipto>
 		</pid>
 
+
+		<switch name="systems/vectoring/SSME-center-roll-gain">
+			<default value="0.0"/>
+			<test value="-1.0">
+				systems/mps/engine/engine-operational == 0
+			</test>
+			<test value="1.0">
+				systems/mps/engine[1]/engine-operational == 0
+			</test>
+		</switch>
+
   		<pure_gain name="systems/vectoring/SRB-left-roll">
 			<input>systems/vectoring/SRB-roll</input>
 			<gain>-1.0</gain>
@@ -676,13 +722,30 @@
 			<gain>1.0</gain>
    		</pure_gain>
 
+		<pure_gain name="systems/vectoring/SSME-center-roll">
+			<input>systems/vectoring/SSME-roll</input>
+			<gain>systems/vectoring/SSME-center-roll-gain</gain>
+   		</pure_gain>
 
 		<fcs_function name="systems/vectoring/yaw-rate-error">
 		<function>
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<property>fcs/rudder-cmd-norm</property>
+  					<!--<property>fcs/rudder-cmd-norm</property>-->
+					<sum>
+						<product>
+  						<property>fcs/rudder-cmd-norm</property>
+						<difference>
+							<value>1.0</value>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</difference>
+						</product>
+						<product>
+							<property>systems/ap/launch/yaw-cmd</property>
+							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
+						</product>
+					</sum>
 					<value>-0.1</value>
 				</product>
 			</difference>
@@ -764,6 +827,7 @@
 
   		<summer name="SSME 3 pitch motion Sum">
       			<input>systems/vectoring/SSME-pitch</input>
+      			<input>systems/vectoring/SSME-center-roll</input>
       			<input>propulsion/engine[2]/pitch-to-CoG</input>
       			<clipto>
         			<min> -0.45 </min>
@@ -1142,7 +1206,7 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[0]</property>
-					<property>systems/failures/ssme1-condition</property>
+					<property>systems/mps/engine/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[0]</output>
@@ -1152,7 +1216,7 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[1]</property>
-					<property>systems/failures/ssme2-condition</property>
+					<property>systems/mps/engine[1]/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[1]</output>
@@ -1162,31 +1226,13 @@
 			<function>
 				<product>
 					<property>fcs/throttle-pos-norm[2]</property>
-					<property>systems/failures/ssme3-condition</property>
+					<property>systems/mps/engine[2]/engine-operational</property>
 				</product>
 			</function>
 			<output>fcs/throttle-pos-norm[2]</output>
  		</fcs_function>
 
-		<!--<fcs_function name ="Thrust loss OMS 1">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[5]</property>
-					<property>systems/failures/oms1-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[5]</output>
- 		</fcs_function>
-
-		<fcs_function name ="Thrust loss OMS 2">
-			<function>
-				<product>
-					<property>fcs/throttle-pos-norm[6]</property>
-					<property>systems/failures/oms2-condition</property>
-				</product>
-			</function>
-			<output>fcs/throttle-pos-norm[6]</output>
- 		</fcs_function>-->
+		
 
 	</channel>
 
@@ -1196,6 +1242,14 @@
 	<!-- engines can be gimbaled to 7 deg (0.12 rad) yaw and 6 deg  (0.10 rad) pitch from their zero position-->
 
 		<switch name="systems/vectoring/OMS-rate-master">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 12
+			</test>
+		</switch>
+
+		<switch name="systems/vectoring/OMS-roll-control">
 			<default value="0.0"/>
 			<test value="1.0">
 				systems/fcs/control-mode == 11
@@ -1303,14 +1357,20 @@
 			</clipto>
 		</pid>
 
+ 		<deadband name="systems/vectoring/OMS-yaw-PID-trigger">
+			<input>systems/vectoring/OMS-yaw-rate-error</input>
+			<width>0.002</width>
+  		</deadband>
+
 		<pid name="systems/vectoring/OMS-yaw">
 			<input>systems/vectoring/OMS-yaw-rate-error</input>
-			<kp> 50.0 </kp>
-			<ki> 0.0 </ki>
+			<kp> 80.0 </kp>
+			<ki> 50.0 </ki>
 			<kd> 0.0</kd>
+			<trigger>systems/vectoring/OMS-yaw-PID-trigger</trigger>
 			<clipto>
-				<min> -0.122 </min>
-        			<max>  0.122 </max>
+				<min> -0.25 </min>
+        			<max>  0.25 </max>
 			</clipto>
 		</pid>
 
@@ -1348,6 +1408,7 @@
 			<product>
 				<property>systems/vectoring/OMS-rate-master</property>	
 				<property>systems/vectoring/OMS-roll</property>
+				<property>systems/vectoring/OMS-roll-control</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -1390,8 +1451,10 @@
       			<input>systems/vectoring/OMS-yaw-merged</input>
       			<input>propulsion/engine[5]/yaw-to-CoG</input>
       			<clipto>
-        			<min> -0.122 </min>
-        			<max>  0.122 </max>
+        			<!--<min> -0.122 </min>
+        			<max>  0.122 </max>-->
+				<min> -0.026 </min>
+        			<max>  0.218</max>
       			</clipto>
 			<output>propulsion/engine[5]/yaw-angle-rad-sum</output>
    		</summer>
@@ -1400,8 +1463,10 @@
       			<input>systems/vectoring/OMS-yaw-merged</input>
       			<input>propulsion/engine[6]/yaw-to-CoG</input>
       			<clipto>
-        			<min> -0.122 </min>
-        			<max>  0.122 </max>
+        			<!--<min> -0.122 </min>
+        			<max>  0.122 </max>-->
+        			<min> -0.218 </min>
+        			<max>  0.026 </max>
       			</clipto>
 			<output>propulsion/engine[6]/yaw-angle-rad-sum</output>
    		</summer>

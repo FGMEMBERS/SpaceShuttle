@@ -9,6 +9,9 @@ var PFD_addpage_p_dps_antenna = func(device)
 {
     var p_dps_antenna = device.addPage("CRTAntenna", "p_dps_antenna");
     
+    p_dps_antenna.group = device.svg.getElementById("p_dps_antenna");
+    p_dps_antenna.group.setColor(dps_r, dps_g, dps_b);
+
     p_dps_antenna.stdn = device.svg.getElementById("p_dps_antenna_stdn");
     p_dps_antenna.mode = device.svg.getElementById("p_dps_antenna_mode");
     p_dps_antenna.ant_pm = device.svg.getElementById("p_dps_antenna_ant_pm");
@@ -74,7 +77,7 @@ var PFD_addpage_p_dps_antenna = func(device)
     p_dps_antenna.rdr_rng_min = device.svg.getElementById("p_dps_antenna_rdr_rng_min");
 
     p_dps_antenna.tdrs_ku = device.svg.getElementById("p_dps_antenna_tdrs_ku");
-
+    p_dps_antenna.pos_marker = device.svg.getElementById("p_dps_antenna_pos_marker");
 
     p_dps_antenna.ondisplay = func
     {
@@ -112,6 +115,9 @@ var PFD_addpage_p_dps_antenna = func(device)
     
     p_dps_antenna.update = func
     {
+
+	var antenna_deploy = getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos");
+
 	p_dps_antenna.stdn.setText(SpaceShuttle.antenna_manager.station); 
 	p_dps_antenna.mode.setText(SpaceShuttle.antenna_manager.mode); 
 
@@ -123,6 +129,21 @@ var PFD_addpage_p_dps_antenna = func(device)
 
 	p_dps_antenna.el_cmd.setText(sprintf("%+2.1f", getprop("/controls/shuttle/ku-antenna-beta-deg-cmd")));
 	p_dps_antenna.az_cmd.setText(sprintf("%+3.1f", getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd")));
+
+	if (antenna_deploy == 1.0)
+		{p_dps_antenna.pos_marker.setVisible(1);}
+	else
+		{p_dps_antenna.pos_marker.setVisible(0);}
+
+	
+
+	var azimuth = SpaceShuttle.antenna_manager.ku_azimuth + 180.0;
+	if (azimuth > 360.0) {azimuth = azimuth - 360.0;}
+	var marker_x = 140.0 + 0.72 * azimuth;
+	var marker_y = 75.0  + 0.72 * (90.0-SpaceShuttle.antenna_manager.ku_elevation);
+
+	p_dps_antenna.pos_marker.setTranslation(marker_x,marker_y);
+
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[0] == 1)
 		{p_dps_antenna.view1.setText("*");}

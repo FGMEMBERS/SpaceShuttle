@@ -10,7 +10,7 @@
 	<function>
 		<sum>
 			<product>
-				<property>systems/electrical/total-demanded-power-kW</property>
+				<property>systems/electrical/total-power-demand-kW</property>
 				<value>0.0002138</value>
 			</product>
 			<property>systems/atcs/fes-water-consumption-lbs</property>

@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+<configuration>
+  <section-defined type="bool">false</section-defined>
+  <external-tank type="string">standard weight</external-tank>
+  <payload-explicit type="bool">false</payload-explicit>
+  <payload type="string">TDRS demo</payload>
+  <payload-weight-lbs>5000.0</payload-weight-lbs>
+</configuration>
+
+<launch>
+  <section-defined type="bool">false</section-defined>
+  <target-inclination type="double">51.5</target-inclination>
+  <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
+  <select-north type="bool">true</select-north>
+  <tal-site-index type="int">6</tal-site-index>
+</launch>
+
+<post-meco>
+  <section-defined type="bool">false</section-defined>
+  <automatic-fuel-dump type="bool">true</automatic-fuel-dump>
+  <auto-oms1-burn type="bool">true</auto-oms1-burn>
+  <oms1-dvx type="double">80.0</oms1-dvx>
+  <oms1-dvy type="double">0.0</oms1-dvy>
+  <oms1-dvz type="double">0.0</oms1-dvz>
+  <orbiter-weight type="double">411468.0</orbiter-weight>
+</post-meco>
+
+
+<dap>
+  <section-defined type="bool">false</section-defined>
+  <dap-A-PRI-rot-rate type="double">1.0</dap-A-PRI-rot-rate>
+  <dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
+  <dap-A-VRN-rot-rate type="double">0.1</dap-A-VRN-rot-rate>
+  <dap-B-VRN-rot-rate type="double">0.05</dap-B-VRN-rot-rate>
+  <dap-A-PRI-att-db type="double">0.12</dap-A-PRI-att-db>
+  <dap-B-PRI-att-db type="double">0.15</dap-B-PRI-att-db>
+  <dap-A-VRN-att-db type="double">0.12</dap-A-VRN-att-db>
+  <dap-B-VRN-att-db type="double">0.15</dap-B-VRN-att-db>
+  <dap-A-PRI-rate-db type="double">0.001</dap-A-PRI-rate-db>
+  <dap-B-PRI-rate-db type="double">0.1</dap-B-PRI-rate-db>
+  <dap-A-VRN-rate-db type="double">0.001</dap-A-VRN-rate-db>
+  <dap-B-VRN-rate-db type="double">0.005</dap-B-VRN-rate-db>
+  <dap-A-ALT-rate-db type="double">0.2</dap-A-ALT-rate-db>
+  <dap-B-ALT-rate-db type="double">0.2</dap-B-ALT-rate-db>
+  <dap-A-PRI-rot-pls type="double">0.1</dap-A-PRI-rot-pls>
+  <dap-B-PRI-rot-pls type="double">0.05</dap-B-PRI-rot-pls>
+  <dap-A-VRN-rot-pls type="double">0.01</dap-A-VRN-rot-pls>
+  <dap-B-VRN-rot-pls type="double">0.002</dap-B-VRN-rot-pls>
+  <dap-A-PRI-comp type="double">0.0</dap-A-PRI-comp>
+  <dap-B-PRI-comp type="double">0.0</dap-B-PRI-comp>
+  <dap-A-VRN-comp type="double">0.0</dap-A-VRN-comp>
+  <dap-B-VRN-comp type="double">0.0</dap-B-VRN-comp>
+  <dap-A-PRI-p-opt type="int">0</dap-A-PRI-p-opt>
+  <dap-B-PRI-p-opt type="int">0</dap-B-PRI-p-opt>
+  <dap-A-PRI-y-opt type="int">0</dap-A-PRI-y-opt>
+  <dap-B-PRI-y-opt type="int">0</dap-B-PRI-y-opt>
+  <dap-A-PRI-tran-pls type="double">0.100</dap-A-PRI-tran-pls>
+  <dap-B-PRI-tran-pls type="double">0.100</dap-B-PRI-tran-pls>
+  <dap-A-ALT-n-jets type="int">3</dap-A-ALT-n-jets>
+  <dap-B-ALT-n-jets type="int">3</dap-B-ALT-n-jets>
+</dap>
+
+<entry>
+  <landing-site-index type="int">1</landing-site-index>
+</entry>
+
+
+<failures>
+  <section-defined type="bool">false</section-defined>
+
+  <mode n="0">
+  <node  type="string">/fdm/jsbsim/systems/failures/mps/ssme1-condition</node>
+  <occurs-met-s  type="double">120.0</occurs-met-s>
+  <probability  type="double">1.0</probability>
+  <value  type="double">0.0</value>
+  </mode>
+
+  <mode n="1">
+  <node  type="string">/fdm/jsbsim/systems/failures/mps/ssme2-condition</node>
+  <occurs-met-s  type="double">130.0</occurs-met-s>
+  <probability  type="double">1.0</probability>
+  <value  type="double">0.0</value>
+  </mode>
+</failures>
+</PropertyList>

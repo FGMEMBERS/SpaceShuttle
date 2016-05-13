@@ -12,6 +12,9 @@ var PFD_addpage_p_pfd = func(device)
     #
     #
     # device page update
+    p_pfd.group = device.svg.getElementById("p_pfd");
+    p_pfd.group.setColor(dps_r, dps_g, dps_b);
+
     p_pfd.keas = device.svg.getElementById("p_pfd_keas");
     p_pfd.beta = device.svg.getElementById("p_pfd_beta");
     

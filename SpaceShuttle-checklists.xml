@@ -91,6 +91,27 @@
       </condition> 
    </item>
 
+  <item>
+      <name>T-6:15 water spray boiler N2 flow </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
    <item>
       <name>T-6:15 ready to start indicator</name>
       <value>READY</value>
@@ -1341,6 +1362,27 @@
    </item>
 
    <item>
+      <name>water spray boiler N2 flow </name>
+      <value>OPEN</value>
+      <condition>
+	<or>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</or>
+      </condition> 
+   </item>
+
+   <item>
       <name>ready to start indicator</name>
       <value>READY</value>
       <condition>
@@ -1603,6 +1645,27 @@
       </condition> 
    </item>
 
+  <item>
+      <name>water spray boiler N2 flow </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
    <item>
       <name>Ready to start indicator</name>
       <value>READY</value>
@@ -1709,26 +1772,7 @@
       </condition>     
     </item>
 
-  <item>
-      <name>set water spray boiler N2 valves </name>
-      <value>OPEN</value>
-      <condition>
-	<and>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
-          <value>1</value>
-        </equals>
-        <equals>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
-          <value>1</value>
-        </equals>
-	</and>
-      </condition> 
-   </item>
+
 
    <item>
       <name>set water spray boiler controller power </name>
@@ -1745,6 +1789,27 @@
         </equals>
         <equals>
           <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>1</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+  <item>
+      <name>set water spray boiler N2 valves </name>
+      <value>OPEN</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
           <value>1</value>
         </equals>
 	</and>

@@ -1,5 +1,5 @@
 # Nasal scripts for Space Shuttle dialogs
-# Thorsten Renk 2015
+# Thorsten Renk 2015 - 2016
 
 
 var description_string_soft = "Aerodynamical, structural and other limits are called out but not enforced, i.e. violating limits does not cause damage to the orbiter.";
@@ -14,6 +14,8 @@ var scenario_string_single_engine_failure = "During ascent, a single main engine
 
 var scenario_string_single_engine_lockup = "During ascent, a condition occurs which makes one engine lock up, i.e. the engine can no longer be throttled. Anticipate to shut down the affected engine manually prior to MECO using the cutoff switches.";
 
+var scenario_string_attitude = "The Shuttle GNC function has drifted off attitude to a degree that the star trackers no longer function - pitch, yaw and roll will all be off. Use a COAS procedure to fix inertial attitude and re-activate the star tracker.";
+
 var scenario_string_stuck_speedbrake = "During the final aerodynamical glide phase, the speedbrake gets stuck. Dependent on when and in what position this happens, TAEM needs to be modified and the aim point for the final approach changed. Deploy gear early to make use of its high drag.";
 
 var scenario_string_hydraulic_failure = "Two of the three hydraulics systems are damaged and priority rate limiting is used to best allocate the remaining hydraulic force to the airfoils. Expect the orbiter to react more sluggish in agressive maneuvers.";
@@ -24,6 +26,9 @@ var propellant_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant/di
 
 var entry_guidance_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/entry_guidance/dialog","Aircraft/SpaceShuttle/Dialogs/entry_guidance.xml");
 
+var autolaunch_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/autolaunch/dialog","Aircraft/SpaceShuttle/Dialogs/auto_launch.xml");
+
+
 var limits_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/limits/dialog","Aircraft/SpaceShuttle/Dialogs/limits.xml");
 
 var apu_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/apu/dialog","Aircraft/SpaceShuttle/Dialogs/apu.xml");
@@ -33,6 +38,8 @@ var atcs_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/atcs/dialog","Aircr
 var rcs_oms_thermal_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/rcs_oms_thermal/dialog","Aircraft/SpaceShuttle/Dialogs/rcs_oms_thermal.xml");
 
 var electrical_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/electrical/dialog","Aircraft/SpaceShuttle/Dialogs/electrical.xml");
+
+var ku_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/ku/dialog","Aircraft/SpaceShuttle/Dialogs/ku_antenna.xml");
 
 var mechanical_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mechanical/dialog","Aircraft/SpaceShuttle/Dialogs/mechanical.xml");
 
@@ -83,6 +90,9 @@ setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", "none");
 setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", " ");
 setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 0);
 
+setprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function", "COMM");
+setprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/control", "GPC");
+
 gui.menuBind("fuel-and-payload", "SpaceShuttle.propellant_dlg.open()");
 gui.menuEnable("fuel-and-payload", 1);
 
@@ -130,6 +140,11 @@ else if (scenario_string == "ascent single engine lockup")
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_single_engine_lockup);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 2);
 	}
+else if (scenario_string == "off attitude")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_attitude);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 20);
+	}
 else if (scenario_string == "stuck speedbrake")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_stuck_speedbrake);
@@ -148,6 +163,117 @@ else if (scenario_string == "hydraulic failure")
 
 }
 
+
+var update_runway_by_flag = func (flag) {
+
+var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+
+if (site_string == "Kennedy Space Center")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "15");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "33");}
+	}
+else if (site_string == "Vandenberg Air Force Base")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
+	}
+else if (site_string == "Edwards Air Force Base")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "24");}
+	}
+else if (site_string == "White Sands Space Harbor")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
+	}
+else if (site_string == "Zaragoza Airport")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
+	}
+else if (site_string == "Banjul International Airport")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
+	}
+}
+
+var update_runway = func {
+
+#print("Hello!");
+
+var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+var runway_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+
+if (site_string == "Kennedy Space Center")
+	{
+	if (runway_string == "15"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Vandenberg Air Force Base")
+	{
+	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Edwards Air Force Base")
+	{
+	if (runway_string == "06"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "White Sands Space Harbor")
+	{
+	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Banjul International Airport")
+	{
+	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Zaragoza Airport")
+	{
+	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+}
+
+
+var update_site_by_index = func (index) {
+
+if (index == 1)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Kennedy Space Center");
+	}
+else if (index == 2)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Vandenberg Air Force Base");
+	}
+else if (index == 3)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Edwards Air Force Base");
+	}
+else if (index == 4)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "White Sands Space Harbor");
+	}
+else if (index == 5)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Zaragoza Airport");
+	}
+else if (index == 6)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "RAF Fairford");
+	}
+else if (index == 7)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Banjul International Airport");
+	}
+
+update_site();
+}
+
 var update_site = func {
 
 #print("Hello!");
@@ -156,6 +282,10 @@ var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
 
 var lat = 0.0;
 var lon = 0.0;
+var index = 0;
+var rwy_pri = "";
+var rwy_sec = "";
+var tacan = "";
 
 setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",0);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
@@ -167,6 +297,10 @@ if (site_string == "Kennedy Space Center")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "15");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "33");
+	index = 1;
+	rwy_pri = "KSC15";
+	rwy_sec = "KSC33";
+	tacan = "059";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "Vandenberg Air Force Base")
@@ -176,6 +310,10 @@ else if (site_string == "Vandenberg Air Force Base")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "12");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
+	index = 2;
+	rwy_pri = "VBG12";
+	rwy_sec = "VBG30";
+	tacan = "059";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "Edwards Air Force Base")
@@ -185,33 +323,63 @@ else if (site_string == "Edwards Air Force Base")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "06");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "24");
+	index = 3;
+	rwy_pri = "EDW06";
+	rwy_sec = "EDW24";
+	tacan = "111";
         gui.dialog_update("entry_guidance", "runway-selection");
 	}
 else if (site_string == "White Sands Space Harbor")
 	{
 	lat = 32.943;
 	lon = -106.420;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
+	rwy_pri = "WSS14";
+	rwy_sec = "WSS32";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 4;
 	}
 else if (site_string == "Zaragoza Airport")
 	{
 	lat = 41.666;
 	lon = -1.042;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
+	rwy_pri = "ZZA12";
+	rwy_sec = "ZZA30";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 5;
 	}
 else if (site_string == "RAF Fairford")
 	{
 	lat = 51.682;
 	lon = -1.79;
+	index = 6;
 	}
 else if (site_string == "Banjul International Airport")
 	{
 	lat = 13.337;
 	lon = -16.652;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "14");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
+	rwy_pri = "BJL14";
+	rwy_sec = "BJL32";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 7;
 	}
 
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon", lon);
 SpaceShuttle.landing_site.set_latlon(lat,lon);
+SpaceShuttle.landing_site.index = index;
+SpaceShuttle.landing_site.rwy_pri = rwy_pri;
+SpaceShuttle.landing_site.rwy_sec = rwy_sec;
+SpaceShuttle.landing_site.tacan = tacan;
 
 }
 
@@ -238,6 +406,9 @@ else if (mode_string == "RTLS")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
 	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition(idp_index, "p_dps_rtls");
 	}
 
 }
@@ -423,8 +594,74 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 1)
 }
 
 
+var update_inclination = func {
 
+# do not accept updates if guidance is running
+
+if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1) {return;}
+
+var raw = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination");
+var lat = getprop("/position/latitude-deg");
+
+var inc = lat + (90 - lat) * raw;
+
+setprop("/fdm/jsbsim/systems/ap/launch/inclination-target", inc);
+
+var la_raw =  math.asin(math.cos(inc * math.pi/180.0) / math.cos (lat * math.pi/180.0));
+
+#print ("Raw: ", la_raw * 180/math.pi);
+
+# approx correction due to Earth's rotation
+var v_orbit = 7700; # 300 km orbit
+var v_earth = 465;
+var v_xe = v_orbit * math.sin(la_raw) - v_earth * math.cos(lat * math.pi/180.0);
+var v_ye = v_orbit * math.cos(la_raw);
+
+#print("vx: ", v_xe, "vy: ", v_ye);
+
+var la_north = math.atan2(v_xe,v_ye);
+
+la_north = 180.0/math.pi * la_north;
+
+var la_south = 180.0 - la_north;
+
+setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-north", la_north);
+setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-south", la_south);
+
+var direction = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north");
+
+if (direction == 1)
+	{
+	var launch_azimuth = la_north;
+	setprop("/fdm/jsbsim/systems/ap/launch/inc-acquire-sign", -1);
+	}
+else
+	{
+	var launch_azimuth = la_south;
+	setprop("/fdm/jsbsim/systems/ap/launch/inc-acquire-sign", 1);
+	}
+
+setprop("/fdm/jsbsim/systems/ap/launch/launch-azimuth", launch_azimuth);
+
+launch_azimuth = launch_azimuth * math.pi/180.0;
+
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector", -math.cos(launch_azimuth));
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector[1]", -math.sin(launch_azimuth) );
+setprop("/fdm/jsbsim/systems/ap/launch/course-vector[2]", 0.0);
+
+
+var apoapsis_target = getprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles");
+apoapsis_target = apoapsis_target * 1.852;
+
+setprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target", apoapsis_target);
+
+}
+
+
+setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles", update_inclination);
+setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination", update_inclination);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
+setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", update_runway);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", update_entry_mode);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/config/shuttle/TC-config", update_TC_config);

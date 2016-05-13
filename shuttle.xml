@@ -71,7 +71,7 @@
 	<pointmass name="External_tank1_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location  unit="M">
-		<x> -12.00 </x>
+		<x> -14.00 </x>
        		<y> -2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -79,7 +79,7 @@
 	<pointmass name="External_tank2_dry">
             <weight unit="LBS"> 29250.0 </weight>
 		<location unit="M">
-		<x> -12.00 </x>
+		<x> -14.00 </x>
        		<y> 2.50 </y>
        		<z>-10.6 </z>
      		</location>
@@ -103,9 +103,17 @@
 	<pointmass name="Payload">
 		<weight unit="LBS"> 0.0</weight>
 	 	<location name="POINTMASS" unit="M">
-                	<x> -2.7 </x>
+                	<x>  1.0 </x>
                 	<y>  0.0 </y>
                 	<z> -2.7 </z>
+            	</location>
+	</pointmass>
+	<pointmass name="Docked object">
+		<weight unit="LBS"> 0.0</weight>
+	 	<location name="POINTMASS" unit="M">
+                	<x> -2.7 </x>
+                	<y>  0.0 </y>
+                	<z> 20.0 </z>
             	</location>
 	</pointmass>
  </mass_balance>
@@ -4136,11 +4144,10 @@
  <system file="throttle"></system>
  <system file="thrust_vectoring"></system>
  <system file="failures"></system>
- <!--<system file="cws"></system>-->
+ <system file="cws"></system>
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
  <system file="navigation"></system>
  <system file="light"></system>
- <!--<system file="adi"></system>-->
- 
+
 </fdm_config>

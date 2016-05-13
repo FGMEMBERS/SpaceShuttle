@@ -1,0 +1,56 @@
+Avionics index tables
+=====================
+
+The Shuttle DPS accepts settings of several important items by index, for instance the landing site is chosen by entering a number.
+
+In reality, these numbers are i-loaded for a specific mission, in FG they are hard coded. In the following is a list of all the items that are accessible via indices.
+
+Landing, TAL and contingency sites
+==================================
+
+Landing sites are chosen in SPEC 50 as ITEM 41. There are regular landing sites, TAL sites and contingency landing sites available.
+
+
+Currently implemented are
+
+Index	Name				status
+-----	----				------
+ 1 	Kennedy Space Center 	 	regular 
+ 2 	Vandenberg Air Force Base 	regular 
+ 3 	Edwards Air Force Base 	 	regular 
+ 4 	White Sands Space Harbor 	regular, lakebed landing 
+ 5 	Zaragoza Airbase 	 	TAL
+ 6 	RAF Fairford 	 		TAL, currently no TAEM guidance 
+ 7 	Banjul International Airport 	TAL
+
+
+Stars available for COAS
+========================
+
+The COAS procedure requires to enter a star index by hand and identify the corresponding star visibly by alignig the Shuttle (you need to be able to visually identify the star using a star chart or in the sky to do a COAS).
+
+The star ID is entered in SPEC 22 as ITEM 21.
+
+Index 	 star
+-----	 ---- 
+ 11 	 Shedir 
+ 12 	 Mirphak 
+ 13 	 Mizar 
+ 14 	 Arcturus 
+ 15 	 Betelgeuse 
+ 16 	 Procyon 
+ 17 	 Spica
+
+Abort burn targets
+==================
+
+For an ATO or AOA abort, burn targets for the OMS can be called up in OPS 104 and OPS 105 via ITEM 35 via a target index.
+
+The corresponding burn targets (see the crew manual section 6 for details) are
+
+Index 	 target
+-----	 -----
+ 1	 OMS-1 burn to raise apoapsis to a safe value
+ 3	 ATO OMS-2 burn to circularize orbit
+ 4	 AOA OMS-2 de-orbit burn for a nominal entry trajectory
+ 5	 AOA OMS-2 de-orbit burn for a shallow entry trajectory

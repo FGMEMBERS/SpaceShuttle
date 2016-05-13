@@ -8,6 +8,9 @@
 var PFD_addpage_p_dps_fault = func(device)
 {
     var p_dps_fault = device.addPage("CRTFault", "p_dps_fault");
+
+    p_dps_fault.group = device.svg.getElementById("p_dps_fault");
+    p_dps_fault.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_fault.string1 = device.svg.getElementById("p_dps_fault_string1");
     p_dps_fault.string2 = device.svg.getElementById("p_dps_fault_string2");

@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>auto_launch</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Launch Guidance</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Target inclination</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>tgt-inclination</name>
+      <row>0</row>
+      <col>1</col>
+      <min>0.0</min>
+      <max>1.0</max>
+      <step>0.0001</step>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>tgt-inclination</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>0</row>
+      <col>2</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.2f deg</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/ap/launch/inclination-target</property>
+    </text> 
+
+    <text>
+      <label>Launch azimuth</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+	
+
+    <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.2f deg</format>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-north</property>
+    </text> 
+
+    <text>
+      <row>1</row>
+      <col>2</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.2f deg</format>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/azimuth-south</property>
+    </text> 
+
+  <radio>
+      <row>2</row>
+      <col>1</col>
+      <label>north</label>
+      <halign>left</halign>
+      <name>azimuth-north</name>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-south</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north</property>
+         <value>1</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.update_inclination()</script>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>2</row>
+      <col>2</col>
+      <label>south</label>
+      <halign>left</halign>
+      <name>azimuth-south</name>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-south</property>
+      <live>true</live>
+      <binding>
+         <command>property-assign</command>
+         <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north</property>
+         <value>0</value>
+      </binding>
+      <binding>
+         <command>property-assign</command>
+         <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/select-south</property>
+         <value>1</value>
+      </binding>
+      <binding>
+	 <command>nasal</command>
+	 <script>SpaceShuttle.update_inclination()</script>
+      </binding>
+    </radio>
+
+   <text>
+      <label>Target apoapsis</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>tgt-apoapsis</name>
+      <row>3</row>
+      <col>1</col>
+      <min>100.0</min>
+      <max>350.0</max>
+      <step>1.0</step>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>tgt-apoapsis</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <row>3</row>
+      <col>2</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.f miles</format>
+      <live>true</live>
+      <property>/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles</property>
+    </text> 
+
+    <button>
+      <row>4</row>
+      <col>0</col>
+       <legend>Activate</legend>
+       <visible>
+	  <equals>
+	   <property>/fdm/jsbsim/systems/ap/launch/autolaunch-master</property>	
+	   <value>0</value>
+	  </equals>
+       </visible>
+       <default>false</default>
+       <binding>
+	  <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/ap/launch/autolaunch-master</property>
+          <value>1</value>
+	</binding>
+    </button>
+
+    <button>
+      <row>4</row>
+      <col>0</col>
+       <legend>Cancel</legend>
+       <visible>
+	  <equals>
+	   <property>/fdm/jsbsim/systems/ap/launch/autolaunch-master</property>	
+	   <value>1</value>
+	  </equals>
+       </visible>
+       <default>false</default>
+       <binding>
+	  <command>property-assign</command>
+          <property>/fdm/jsbsim/systems/ap/launch/autolaunch-master</property>
+          <value>0</value>
+	</binding>
+    </button>
+
+   <text>
+      <label>active</label>
+       <visible>
+	  <equals>
+	   <property>/fdm/jsbsim/systems/ap/launch/autolaunch-master</property>	
+	   <value>1</value>
+	  </equals>
+       </visible>
+      <halign>left</halign>
+      <row>4</row>
+      <col>1</col>
+    </text>
+
+
+
+  </group>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>
