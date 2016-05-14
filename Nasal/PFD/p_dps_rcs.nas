@@ -177,7 +177,7 @@ var PFD_addpage_p_dps_rcs = func(device)
 
 	# defaults for functions which are not yet implemented
 
-	p_dps_rcs.aut_manf_cl.setText("INH");
+
 	p_dps_rcs.press.setText("ENA");
 	
     	p_dps_rcs.oms_rcs_qty_l.setText("0.00");
@@ -995,6 +995,11 @@ var PFD_addpage_p_dps_rcs = func(device)
 	p_dps_rcs.off.setText(symbol);
 
     
+	if (getprop("/fdm/jsbsim/systems/rcs/auto-manf-close") == 0)
+		{p_dps_rcs.aut_manf_cl.setText("INH");}
+	else
+		{p_dps_rcs.aut_manf_cl.setText("ENA");}
+
         device.update_common_DPS();
     }
     

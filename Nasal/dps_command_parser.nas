@@ -415,7 +415,7 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
-var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
+var spec23 = [101, 102, 103, 104, 105, 106, 201, 202, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
@@ -1839,6 +1839,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 				setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-right-rcs-valve-5-status", state);
 				}
 			valid_flag = 1;				
+			}
+		else if (item == 51)
+			{
+			toggle_property("/fdm/jsbsim/systems/rcs/auto-manf-close");
+			valid_flag = 1;
 			}
 		}
 
