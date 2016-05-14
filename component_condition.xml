@@ -3,22 +3,9 @@
 <PropertyList>
 
 <limit-simulation-mode type="int">1</limit-simulation-mode>
-<mps-he-left-condition type="double">1.0</mps-he-left-condition>
-<mps-he-right-condition type="double">1.0</mps-he-right-condition>
-<mps-he-center-condition type="double">1.0</mps-he-center-condition>
-<mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
+
 <srb1-condition type="double">1.0</srb1-condition>
 <srb2-condition type="double">1.0</srb2-condition>
-<oms1-condition type="double">1.0</oms1-condition>
-<oms2-condition type="double">1.0</oms2-condition>
-<oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
-<oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
-<oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
-<oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
-<oms1-n2-condition type="double">1.0</oms1-n2-condition>
-<oms2-n2-condition type="double">1.0</oms2-n2-condition>
-<oms-he-left-condition type="double">1.0</oms-he-left-condition>
-<oms-he-right-condition type="double">1.0</oms-he-right-condition>
 <airfoils-pitch-condition type="double">1.0</airfoils-pitch-condition>
 <airfoils-yaw-condition type="double">1.0</airfoils-yaw-condition>
 <airfoils-roll-condition type="double">1.0</airfoils-roll-condition>
@@ -39,7 +26,23 @@
 	<ssme1-condition type="double">1.0</ssme1-condition>
 	<ssme2-condition type="double">1.0</ssme2-condition>
 	<ssme3-condition type="double">1.0</ssme3-condition>
+	<mps-he-left-condition type="double">1.0</mps-he-left-condition>
+	<mps-he-right-condition type="double">1.0</mps-he-right-condition>
+	<mps-he-center-condition type="double">1.0</mps-he-center-condition>
+	<mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
 </mps>
+<oms>
+	<oms1-condition type="double">1.0</oms1-condition>
+	<oms2-condition type="double">1.0</oms2-condition>
+	<oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
+	<oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
+	<oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
+	<oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
+	<oms1-n2-condition type="double">1.0</oms1-n2-condition>
+	<oms2-n2-condition type="double">1.0</oms2-n2-condition>
+	<oms-he-left-condition type="double">1.0</oms-he-left-condition>
+	<oms-he-right-condition type="double">1.0</oms-he-right-condition>
+</oms>
 <rcs>
 	<rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
 	<rcs-F3F-condition type="double">1.0</rcs-F3F-condition>
@@ -129,11 +132,10 @@
 <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
 <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition> 
-<shuttle-destroyed type="bool">false</shuttle-destroyed>
 <sensors>
 	<star-tracker-Y-condition type="double">1.0</star-tracker-Y-condition>
 	<star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
 </sensors>
-
+<shuttle-destroyed type="bool">false</shuttle-destroyed>
 
 </PropertyList>

@@ -8,7 +8,7 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				propulsion/engine[5]/thrust-lbs GT 0.0
-				systems/failures/oms1-condition LT 0.8
+				systems/failures/oms/oms1-condition LT 0.8
 			</test>
 		</switch>
 
@@ -26,7 +26,7 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				propulsion/engine[6]/thrust-lbs GT 0.0
-				systems/failures/oms2-condition LT 0.8
+				systems/failures/oms/oms2-condition LT 0.8
 			</test>
 		</switch>
 
@@ -43,10 +43,10 @@
 		<switch name="systems/cws/oms-tvc">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
-				systems/failures/oms-left-pri-gimbal-condition LT 0.8
-				systems/failures/oms-left-sec-gimbal-condition LT 0.8
-				systems/failures/oms-right-pri-gimbal-condition LT 0.8
-				systems/failures/oms-right-sec-gimbal-condition LT 0.8
+				systems/failures/oms/oms-left-pri-gimbal-condition LT 0.8
+				systems/failures/oms/oms-left-sec-gimbal-condition LT 0.8
+				systems/failures/oms/oms-right-pri-gimbal-condition LT 0.8
+				systems/failures/oms/oms-right-sec-gimbal-condition LT 0.8
 			</test>
 		</switch>
 
