@@ -1476,11 +1476,11 @@
 			<max>
 				<product>
 					<property>systems/oms-hardware/gimbal-left-pri-selected</property>
-					<property>systems/failures/oms-left-pri-gimbal-condition</property>
+					<property>systems/failures/oms/oms-left-pri-gimbal-condition</property>
 				</product>
 				<product>
 					<property>systems/oms-hardware/gimbal-left-sec-selected</property>
-					<property>systems/failures/oms-left-sec-gimbal-condition</property>
+					<property>systems/failures/oms/oms-left-sec-gimbal-condition</property>
 				</product>
 			</max>
 		</function>
@@ -1491,11 +1491,11 @@
 			<max>
 				<product>
 					<property>systems/oms-hardware/gimbal-right-pri-selected</property>
-					<property>systems/failures/oms-right-pri-gimbal-condition</property>
+					<property>systems/failures/oms/oms-right-pri-gimbal-condition</property>
 				</product>
 				<product>
 					<property>systems/oms-hardware/gimbal-right-sec-selected</property>
-					<property>systems/failures/oms-right-sec-gimbal-condition</property>
+					<property>systems/failures/oms/oms-right-sec-gimbal-condition</property>
 				</product>
 			</max>
 		</function>
