@@ -29,7 +29,7 @@ if (inspection_group == 0)
 if (inspection_group == 1) 
 	{cws_inspect_left_rcs_thrusters();}
 
-if (inspection_group == 1) 
+if (inspection_group == 2) 
 	{cws_inspect_right_rcs_thrusters();}
 
 if (inspection_group == 3)
@@ -142,6 +142,31 @@ if (f2f + f2r + f2u + f2d < 4.0) # we have a manifold 2 fail off condition
 		cws_msg_hash.f2d = 1;
 		}
 	}
+else if (f2f + f2r + f2u + f2d > 4.0) # we have a manifold 2 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f2", 2);
+
+	if ((f2f > 1.0) and (cws_msg_hash.f2f == 0))
+		{
+		create_fault_message("    F RCS F JET", 1, 2);
+		cws_msg_hash.f2f = 1;
+		}
+	if ((f2r > 1.0) and (cws_msg_hash.f2r == 0))
+		{
+		create_fault_message("    F RCS R JET", 1, 2);
+		cws_msg_hash.f2r = 1;
+		}
+	if ((f2u > 1.0) and (cws_msg_hash.f2u == 0))
+		{
+		create_fault_message("    F RCS U JET", 1, 2);
+		cws_msg_hash.f2u = 1;
+		}
+	if ((f2d > 1.0) and (cws_msg_hash.f2d == 0))
+		{
+		create_fault_message("    F RCS D JET", 1, 2);
+		cws_msg_hash.f2d = 1;
+		}
+	}
 
 # FWD manifold 3
 
@@ -175,6 +200,31 @@ if (f3f + f3l + f3u + f3d < 4.0) # we have a manifold 3 fail off condition
 		cws_msg_hash.f3d = 1;
 		}
 	}
+else if (f3f + f3l + f3u + f3d > 4.0) # we have a manifold 3 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f3", 2);
+
+	if ((f3f > 1.0) and (cws_msg_hash.f3f == 0))
+		{
+		create_fault_message("    F RCS F JET", 1, 2);
+		cws_msg_hash.f3f = 1;
+		}
+	if ((f3l > 1.0) and (cws_msg_hash.f3l == 0))
+		{
+		create_fault_message("    F RCS L JET", 1, 2);
+		cws_msg_hash.f3l = 1;
+		}
+	if ((f3u > 1.0) and (cws_msg_hash.f3u == 0))
+		{
+		create_fault_message("    F RCS U JET", 1, 2);
+		cws_msg_hash.f3u = 1;
+		}
+	if ((f3d > 1.0) and (cws_msg_hash.f3d == 0))
+		{
+		create_fault_message("    F RCS D JET", 1, 2);
+		cws_msg_hash.f3d = 1;
+		}
+	}
 
 # FWD manifold 4
 
@@ -197,6 +247,21 @@ if (f4r + f4d < 2.0) # we have a manifold 4 fail off condition
 		cws_msg_hash.f4d = 1;
 		}
 	}
+else if (f4r + f4d > 2.0) # we have a manifold 4 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f4", 2);
+
+	if ((f4r > 1.0) and (cws_msg_hash.f4r == 0))
+		{
+		create_fault_message("    F RCS R JET", 1, 2);
+		cws_msg_hash.f4r = 1;
+		}
+	if ((f4d > 1.0) and (cws_msg_hash.f4d == 0))
+		{
+		create_fault_message("    F RCS D JET", 1, 2);
+		cws_msg_hash.f4d = 1;
+		}
+	}
 
 # FWD manifold 5
 
@@ -214,6 +279,21 @@ if (f5r + f5l < 2.0) # we have a manifold 5 fail off condition
 		cws_msg_hash.f5r = 1;
 		}
 	if ((f5l < 1.0) and (cws_msg_hash.f5l == 0))
+		{
+		create_fault_message("    F RCS L JET", 1, 2);
+		cws_msg_hash.f5l = 1;
+		}
+	}
+else if (f5r + f5l > 2.0) # we have a manifold 5 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f5", 2);
+
+	if ((f5r > 1.0) and (cws_msg_hash.f5r == 0))
+		{
+		create_fault_message("    F RCS R JET", 1, 2);
+		cws_msg_hash.f5r = 1;
+		}
+	if ((f5l > 1.0) and (cws_msg_hash.f5l == 0))
 		{
 		create_fault_message("    F RCS L JET", 1, 2);
 		cws_msg_hash.f5l = 1;

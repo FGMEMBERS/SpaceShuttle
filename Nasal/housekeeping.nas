@@ -1138,3 +1138,35 @@ setprop("/lighting/effects/color-10", light_intensity);
 
 
 }
+
+
+#########################################################################################
+# listeners and code to automatically shut down a manifold for a fail-on condition
+#########################################################################################
+
+var auto_manifold_shutdown = func(manifold, state) {
+
+if ((state < 1.0) or (state == 1.0)) {return;}
+
+if (getprop("/fdm/jsbsim/systems/rcs/auto-manf-close") == 0) {return;}
+
+if (manifold == "F1")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status", 0);}
+else if (manifold == "F2")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status", 0);}
+else if (manifold == "F3")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status", 0);}
+else if (manifold == "F4")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status", 0);}
+else if (manifold == "F5")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status", 0);}
+
+}
+
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f1", func (n) {auto_manifold_shutdown("F1", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f2", func (n) {auto_manifold_shutdown("F2", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f3", func (n) {auto_manifold_shutdown("F3", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f4", func (n) {auto_manifold_shutdown("F4", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f5", func (n) {auto_manifold_shutdown("F5", n.getValue());}, 0,0);
+
+

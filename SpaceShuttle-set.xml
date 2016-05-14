@@ -774,6 +774,9 @@
       <aft-dump-time-s type="int">0</aft-dump-time-s>
 
       <thrust-normalizer type="double">0.0</thrust-normalizer>
+
+      <auto-manf-close type="int">0</auto-manf-close>
+
       <jet-table include="jet_table.xml"/>
 
       <F1L-fire-cmd-inh type="double">0.0</F1L-fire-cmd-inh> 
