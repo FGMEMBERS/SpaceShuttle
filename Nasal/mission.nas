@@ -2,6 +2,8 @@
 # Thorsten Renk 2016
 
 var predefined_failures = [];
+var oTgt = {};
+var n_orbital_targets = 0;
 
 var failure_pre = {new: func (node, time, probability, value) {
  	var f = { parents: [failure_pre] };
@@ -221,6 +223,20 @@ if (getprop("/mission/failures/section-defined"))
 		append(predefined_failures, fpre);
 
 		}
+
+	}
+
+# orbiting objects
+
+if (getprop("/mission/orbital-targets/section-defined"))
+	{
+
+	oTgt = orbital_target.orbitalTarget.new(430000.0, 51.65, 0.0, 0.0);
+	oTgt.start();
+	print("Adding ISS");
+
+	SpaceShuttle.tgt_history_init();
+	n_orbital_targets = 1;
 
 	}
 

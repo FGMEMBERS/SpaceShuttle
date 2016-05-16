@@ -85,4 +85,9 @@
   <value  type="double">0.0</value>
   </mode>
 </failures>
+
+<orbital-targets>
+  <section-defined type="bool">true</section-defined>
+</orbital-targets>
+
 </PropertyList>
