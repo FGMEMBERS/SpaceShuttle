@@ -78,8 +78,26 @@ var child=root.createChild("image")
                                    .setTranslation(0,0)
                                    .setSize(800,400);
 sym_shuttle = mapCanvas.createGroup();
-canvas.parsesvg(sym_shuttle, "/Nasal/canvas/map/Images/boeingAirplane.svg");
-sym_shuttle.setScale(0.2);
+#canvas.parsesvg(sym_shuttle, "/Nasal/canvas/map/Images/boeingAirplane.svg");
+#sym_shuttle.setScale(0.2);
+
+
+var data = SpaceShuttle.draw_shuttle_top();
+
+	 sym_shuttle_plot = sym_shuttle.createChild("path", "shuttle")
+        .setStrokeLineWidth(0.25)
+        .setColor(0.0, 0.0, 0.0)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		sym_shuttle_plot.lineTo(set[0], set[1]);
+		}
+sym_shuttle.setScale(5.0);
+
+setsize(data,0);
+
 
 sym_landing_site = mapCanvas.createGroup();
 canvas.parsesvg(sym_landing_site, "/gui/dialogs/images/ndb_symbol.svg");
@@ -104,6 +122,14 @@ sym_oTgt_marker = sym_oTgt.createChild("path", "marker")
 		var set = data[i+1]; 
 		sym_oTgt_marker.lineTo(set[0], set[1]);
 		}
+
+
+sym_oTgt_label = sym_oTgt.createChild("text")
+      	.setText("ISS")
+        .setColor(0.0, 0.0, 0.0)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom");
 
 sym_oTgt.setVisible(0);
 
@@ -143,6 +169,7 @@ if (SpaceShuttle.n_orbital_targets > 0)
 	x = lon_to_x(lla[1]);
 	y = lat_to_y(lla[0]);
 	sym_oTgt.setTranslation(x,y);
+
 	}
 
 var EIpos = EI_update();
@@ -247,7 +274,7 @@ var plot = graph.createChild("path", "data")
 if (SpaceShuttle.n_orbital_targets > 0)
 	{
 	var tplot = graph.createChild("path", "data")
-                                   .setStrokeLineWidth(2)
+                                   .setStrokeLineWidth(1)
                                    .setColor(0,0,1)
                                    .moveTo(tgt_history[0][0],tgt_history[0][1]); 
 
@@ -327,7 +354,7 @@ var lon = getprop("/position/longitude-deg");
 var x =  lon_to_x(lon);
 var y =  lat_to_y(lat);
 
-for (var i = 0; i < 1000; i = i+1)
+for (var i = 0; i < 350; i = i+1)
 	{
 	var set = [x,y];
 	append(history,set);
@@ -352,7 +379,6 @@ for (var i = 0; i < 250; i = i+1)
 	var set = [x,y];
 	append(tgt_history,set);
 	}
-#print("Harray length: ", size(tgt_history));
 
 
 }
@@ -381,7 +407,7 @@ if (SpaceShuttle.n_orbital_targets > 0)
 	append(tgt_history, [x,y]);
 	}
 
-settimer(history_update, 10.0);
+settimer(history_update, 30.0);
 }
 
 
