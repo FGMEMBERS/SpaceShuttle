@@ -3,11 +3,13 @@
 var sym_shuttle = {};
 var sym_landing_site = {};
 var sym_EI = {};
+var sym_oTgt = {};
 
 var graph = {};
 var radius = {};
 var samples = [];
 var history = [];
+var tgt_history = [];
 var track_prediction = [];
 var EI_location = [];
 var EI_flag = 0;
@@ -88,7 +90,22 @@ canvas.parsesvg(sym_EI, "/Nasal/canvas/map/Airbus/Images/airbus_vor.svg");
 sym_EI.setScale(0.0);
 EI_location = [0,0];
 
+sym_oTgt = mapCanvas.createGroup();
 
+data = SpaceShuttle.draw_circle(3, 10);
+
+sym_oTgt_marker = sym_oTgt.createChild("path", "marker")
+        .setStrokeLineWidth(1)
+        .setColor(0.0, 0.0, 0.0)
+	.moveTo(data[0][0], data[0][1]);
+
+ for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		sym_oTgt_marker.lineTo(set[0], set[1]);
+		}
+
+sym_oTgt.setVisible(0);
 
 graph = root.createChild("group");
 radius = root.createChild("group");
@@ -118,6 +135,15 @@ var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
 sym_shuttle.setTranslation(x,y);
 sym_shuttle.setRotation(heading);
 
+
+if (SpaceShuttle.n_orbital_targets > 0)
+	{
+	sym_oTgt.setVisible(1);
+	var lla = SpaceShuttle.oTgt.get_latlonalt();
+	x = lon_to_x(lla[1]);
+	y = lat_to_y(lla[0]);
+	sym_oTgt.setTranslation(x,y);
+	}
 
 var EIpos = EI_update();
 
@@ -218,6 +244,31 @@ var plot = graph.createChild("path", "data")
 				}
 			}
 
+if (SpaceShuttle.n_orbital_targets > 0)
+	{
+	var tplot = graph.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(0,0,1)
+                                   .moveTo(tgt_history[0][0],tgt_history[0][1]); 
+
+		
+
+		for (var i = 1; i< (size(tgt_history)-1); i=i+1)
+			{
+			var set = tgt_history[i+1];
+			if (prograde_flag * tgt_history[i+1][0] > prograde_flag * tgt_history[i][0])
+				{
+				plot.lineTo(set[0], set[1]);
+				}
+			else
+				{
+				plot.moveTo(set[0], set[1]);
+				}
+			}
+
+
+	}
+
 
 var pred_plot = graph.createChild("path", "data")
                                    .setStrokeLineWidth(2)
@@ -281,7 +332,28 @@ for (var i = 0; i < 1000; i = i+1)
 	var set = [x,y];
 	append(history,set);
 	}
+
 history_update();
+
+}
+
+
+var tgt_history_init = func {
+
+
+var lla = SpaceShuttle.oTgt.get_latlonalt();
+var lat = lla[0];
+var lon = lla[1];
+var x =  lon_to_x(lon);
+var y =  lat_to_y(lat);
+
+for (var i = 0; i < 250; i = i+1)
+	{
+	var set = [x,y];
+	append(tgt_history,set);
+	}
+#print("Harray length: ", size(tgt_history));
+
 
 }
 
@@ -295,6 +367,19 @@ var x =  lon_to_x(lon);
 var y =  lat_to_y(lat);
 
 append(history, [x,y]);
+
+if (SpaceShuttle.n_orbital_targets > 0)
+	{
+	tgt_history = delete_from_vector(tgt_history,0);
+
+	var lla = SpaceShuttle.oTgt.get_latlonalt();
+	lat = lla[0];
+	lon = lla[1];
+	x =  lon_to_x(lon);
+	y =  lat_to_y(lat);
+
+	append(tgt_history, [x,y]);
+	}
 
 settimer(history_update, 10.0);
 }
@@ -519,5 +604,5 @@ for (var i = 0; i<40; i = i+1)
 }
 
 
-history_init();
+settimer(history_init,1.0);
 
