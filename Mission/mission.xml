@@ -88,6 +88,12 @@
 
 <orbital-targets>
   <section-defined type="bool">true</section-defined>
+
+  <object-label type="string">ISS</object-label>
+  <inclination-deg type="double">51.65</inclination-deg>
+  <alt-km type="double">413.0</alt-km>
+  <node-lon-deg type="double">180.0</node-lon-deg>
+  <anomaly-deg type="double">350.0</anomaly-deg>
 </orbital-targets>
 
 </PropertyList>
