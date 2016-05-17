@@ -582,6 +582,9 @@
       <gps-1-select type="int">1</gps-1-select>
       <gps-2-select type="int">1</gps-2-select>
       <gps-3-select type="int">1</gps-3-select>
+      <orbital-tgt>
+	<tgt-id type="int">0</tgt-id>
+      </orbital-tgt>
       <state-vector>
 	<use-realistic-sv type="int">1</use-realistic-sv>
 	<update-pos type="double">0.0</update-pos>

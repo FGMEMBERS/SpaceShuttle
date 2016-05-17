@@ -244,6 +244,7 @@ if (getprop("/mission/orbital-targets/section-defined"))
 
 	SpaceShuttle.tgt_history_init();
 	n_orbital_targets = 1;
+	#setprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id", 1);
 
 	}
 
