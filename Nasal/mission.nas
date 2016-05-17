@@ -231,9 +231,16 @@ if (getprop("/mission/failures/section-defined"))
 if (getprop("/mission/orbital-targets/section-defined"))
 	{
 
-	oTgt = orbital_target.orbitalTarget.new(430000.0, 51.65, 0.0, 0.0);
+	var tgt_label = getprop("/mission/orbital-targets/object-label");
+	var tgt_alt = getprop("/mission/orbital-targets/alt-km") * 1000.0;
+	var tgt_inc = getprop("/mission/orbital-targets/inclination-deg");
+	var tgt_node_lon = getprop("/mission/orbital-targets/node-lon-deg");
+	var tgt_anomaly = getprop("/mission/orbital-targets/anomaly-deg");
+
+	oTgt = orbital_target.orbitalTarget.new(tgt_alt, tgt_inc, tgt_node_lon, tgt_anomaly);
+	oTgt.label = tgt_label;	
 	oTgt.start();
-	print("Adding ISS");
+	print("Adding ", tgt_label);
 
 	SpaceShuttle.tgt_history_init();
 	n_orbital_targets = 1;

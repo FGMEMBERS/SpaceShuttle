@@ -125,7 +125,7 @@ sym_oTgt_marker = sym_oTgt.createChild("path", "marker")
 
 
 sym_oTgt_label = sym_oTgt.createChild("text")
-      	.setText("ISS")
+      	.setText(SpaceShuttle.oTgt.label)
         .setColor(0.0, 0.0, 0.0)
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")

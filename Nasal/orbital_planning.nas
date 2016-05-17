@@ -61,6 +61,60 @@ if (vspeed > 0.0) # we're heading to the apoapsis
 return [apsis_type, angle/(2.0 * math.pi) * orbital_period]; 
 }
 
+############################################################
+# prediction of node crossing time
+############################################################
+
+var time_to_node = func (L2) {
+
+var L1 = [getprop("/fdm/jsbsim/systems/orbital/plane-x"), getprop("/fdm/jsbsim/systems/orbital/plane-y"), getprop("/fdm/jsbsim/systems/orbital/plane-z")];
+
+
+L1 = SpaceShuttle.normalize(L1);
+
+var pointing_vec_1 = SpaceShuttle.cross_product(L1, L2);
+var pointing_vec_2 = SpaceShuttle.scalar_product(-1.0, pointing_vec_1);
+
+pointing_vec_1 = SpaceShuttle.normalize(pointing_vec_1);
+pointing_vec_2 = SpaceShuttle.normalize(pointing_vec_2);
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft");
+var y = getprop("/fdm/jsbsim/position/eci-y-ft");
+var z = getprop("/fdm/jsbsim/position/eci-z-ft");
+var radial = [x, y, z];
+radial = SpaceShuttle.normalize(radial);
+
+var vx = getprop("/fdm/jsbsim/velocities/eci-x-fps");
+var vy = getprop("/fdm/jsbsim/velocities/eci-y-fps");
+var vz = getprop("/fdm/jsbsim/velocities/eci-z-fps");
+var prograde = [vx, vy, vz];
+prograde = SpaceShuttle.normalize(prograde);
+
+print("L1: ", L1[0], " ", L1[1], " ", L1[2]);
+print("L2: ", L2[0], " ", L2[1], " ", L2[2]);
+print("R : ", radial[0], " ", radial[1], " ", radial[2]);
+print("P1: ", pointing_vec_1[0], " ", pointing_vec_1[1], " ", pointing_vec_1[2]);
+print("P2: ", pointing_vec_2[0], " ", pointing_vec_2[1], " ", pointing_vec_2[2]);
+
+var P1dotV = SpaceShuttle.dot_product(pointing_vec_1, prograde);
+var PdotR = 0.0;
+
+if (P1dotV > 0.0) 
+	{PdotR = SpaceShuttle.dot_product(pointing_vec_1, radial);} 
+else 	
+	{PdotR = SpaceShuttle.dot_product(pointing_vec_2, radial);} 
+
+
+var ang = math.acos(PdotR);
+
+var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+var time = ang/(2.0 * math.pi) * orbital_period;
+
+print("Ang: ", ang, " Time: ",time );
+
+
+
+}
 
 ############################################################
 # extrapolation of state vector
