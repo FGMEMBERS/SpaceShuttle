@@ -34548,7 +34548,7 @@
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
-           y="226.178572"
+           y="216.178572"
            x="10.928574"
            id="tspan3112"
            sodipodi:role="line">       .</tspan></text>
@@ -34575,7 +34575,7 @@
            y="240.178572"
            x="10.928574"
            id="tspan3112"
-           sodipodi:role="line">12    ΔY</tspan></text>
+           sodipodi:role="line">12    ΔZ</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_orbit_tgt_label25a"
@@ -34584,7 +34584,7 @@
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
-           y="240.178572"
+           y="230.178572"
            x="10.928574"
            id="tspan3112"
            sodipodi:role="line">       .</tspan></text>
@@ -34636,6 +34636,295 @@
            x="333.928574"
            id="tspan3112"
            sodipodi:role="line">ORBITER STATE</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label28"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">17    ΔT</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_t2_dt"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="181.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX.XX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_time"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="324.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXX/XX:XX:XX.XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label29"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">18    ΔX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_t2_dx"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="181.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX.XX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label30"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_x"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XXXXX.XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label31"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">19    ΔY</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_t2_dy"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="181.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX.XX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label32"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">Y</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_y"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XXXXX.XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label33"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">20    ΔZ</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_t2_dz"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="181.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX.XX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label34"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">Z</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_z"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XXXXX.XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label35"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">21 BASE TIME</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_base_time"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="143.928574"
+           id="tspan3112"
+           sodipodi:role="line">XXX/XX:XX:XX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label36"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">VX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_vx"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XX.XXXXXX</tspan></text>
+<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label37"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">VY</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_vy"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XX.XXXXXX</tspan></text>
+<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_label37"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">VZ</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_orbit_tgt_ostate_vz"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="381.428574"
+           id="tspan3112"
+           sodipodi:role="line">+XX.XXXXXX</tspan></text>
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_orbit_tgt_line1"
+         d="m 314.0,240.0 0.0, 120.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_dps_orbit_tgt_line2"
+         d="m 314.0,240.0 150, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
     </g>
   </g>
