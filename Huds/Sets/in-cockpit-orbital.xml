@@ -1152,7 +1152,7 @@
 
 <!-- engine status display showing functionality and whether engine is ignited -->
     
-     <label>
+     <!--<label>
 		<condition>
 			<equals>
 				<property>/sim/current-view/view-number</property>
@@ -1269,11 +1269,11 @@
 		<format>    %s    </format>
 		<halign>left</halign>
 		<input><property>controls/engines/engine[4]/status-hud</property></input>
-    </label>
+    </label>-->
 
 <!-- ignition -->
 
-   <label>
+   <!--<label>
  		<condition>
 			<equals>
 				<property>/sim/current-view/view-number</property>
@@ -1377,7 +1377,7 @@
 		<format>    %s    </format>
 		<halign>left</halign>
 		<input><property>controls/engines/engine[4]/ignited-hud</property></input>
-    </label>
+    </label>-->
    
    
    
