@@ -117,8 +117,32 @@ var time = ang/(2.0 * math.pi) * orbital_period;
 
 }
 
+
 ############################################################
-# extrapolation of state vector
+# computation of Hohmann transfer orbit parameters
+############################################################
+
+var compute_hohmann = func (r1, r2) {
+
+var GM = 398759391386476.0; 
+
+var t_H = math.pi * math.sqrt(math.pow(r1+r2,3.0)/(8.0 * GM));
+var omega_2 = math.sqrt(GM/math.pow(r2,3.0));
+var alpha = math.pi - omega_2 * t_H;
+
+var dv1 = math.sqrt(GM/r1) * (math.sqrt((2.0*r2)/(r1+r2)) - 1.0 );
+var dv2 = math.sqrt(GM/r2) * (1.0 - math.sqrt((2.0 * r1 )/(r1+r2)));
+
+print("Hohmann transfer orbit computer:");
+print("Transfer time: ", t_H, " angular alignment: ", alpha);
+print("Dv1: ", dv1, " Dv2: ", dv2);
+
+return [t_H, alpha, dv1, dv2];
+}
+
+
+############################################################
+# numerical extrapolation of state vector
 ############################################################
 
 
