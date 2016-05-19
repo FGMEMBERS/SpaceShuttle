@@ -418,6 +418,7 @@ var spec22 = [201, 202, 301];
 var spec23 = [101, 102, 103, 104, 105, 106, 201, 202, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
+var spec34 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec63 = [201, 202];
@@ -2503,6 +2504,13 @@ if ((header == "SPEC") and (end =="PRO"))
 		page_select(idp_index, "p_dps_rel_nav");
 		setprop("/fdm/jsbsim/systems/dps/spec", 33);
 		SpaceShuttle.idp_array[idp_index].set_spec(33);
+		valid_flag = 1;
+		}
+	if ((spec_num == 34) and (test_spec_ops_validity(spec34, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_orbit_tgt");
+		setprop("/fdm/jsbsim/systems/dps/spec", 34);
+		SpaceShuttle.idp_array[idp_index].set_spec(34);
 		valid_flag = 1;
 		}
 	if ((spec_num == 50) and (test_spec_ops_validity(spec50, major_mode) == 1))
