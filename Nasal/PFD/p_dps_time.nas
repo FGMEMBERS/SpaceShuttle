@@ -9,6 +9,8 @@ var PFD_addpage_p_dps_time = func(device)
 {
     var p_dps_time = device.addPage("CRTTime", "p_dps_time");
     
+    p_dps_time.group = device.svg.getElementById("p_dps_time");
+    p_dps_time.group.setColor(dps_r, dps_g, dps_b);
     
     p_dps_time.gmt_delta =  device.svg.getElementById("p_dps_time_gmt_delta");
     p_dps_time.met_delta =  device.svg.getElementById("p_dps_time_met_delta");

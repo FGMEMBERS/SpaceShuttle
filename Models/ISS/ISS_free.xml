@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+    <path>ISS_simple_docked.ac</path>
+	<nopreview/>
+
+	 <effect>
+	    <inherits-from>Effects/space</inherits-from>
+	     <object-name>ISS</object-name>
+	 </effect>
+
+
+	 <animation>
+   		<enable-hot type="bool">false</enable-hot>
+	 </animation>
+
+
+	
+	
+</PropertyList>

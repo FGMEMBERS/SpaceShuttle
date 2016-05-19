@@ -9,6 +9,200 @@
 <!-- NASA engine 3: right engine     JSBSim SSME-3, engine[2]: center engine -->
 
 <system>
+
+	<channel name="Main propulsion system helium flow">
+
+		<!-- the helium system provides emergency power for valves and shutdown -->
+		<!-- and is used for the propellant dump -->
+
+
+		<fcs_function name="systems/mps/helium/et-fuel-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[0]/contents-lbs</property>
+				<value>1618634.00</value>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<!-- freeze helium usage for engines that are off -->
+
+		<switch name="systems/mps/helium/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium/fraction">
+				systems/mps/engine/engine-operational == 0
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[1]/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium[1]/fraction">
+				systems/mps/engine[1]/engine-operational == 0
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[2]/fraction">
+			<default value="systems/mps/helium/et-fuel-fraction"/>
+			<test value="systems/mps/helium[2]/fraction">
+				systems/mps/engine[2]/engine-operational == 0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mps/helium/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium/fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-left-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/mps/helium[1]/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium[1]/fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-right-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[2]/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>1400.0</value>
+					<product>
+						<property>systems/mps/helium[2]/fraction</property>
+						<value>3300.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-center-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[3]/pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>3900.0</value>
+					<product>
+						<property>systems/mps/helium/et-fuel-fraction</property>
+						<value>800.0</value>
+					</product>
+				</sum>
+				<property>systems/failures/mps-he-pneu-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/mps/helium/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine/helium-isolation-valve-A-status == 1
+				systems/mps/engine/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[1]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[1]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[1]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[2]/pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/engine[2]/helium-isolation-valve-A-status == 1
+				systems/mps/engine[2]/helium-isolation-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/helium[3]/pressurized">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/mps/helium-isolation-valve-P-status == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/mps/helium/reg-pressure-psia">
+		<function>
+			<product>
+				<min>
+					<property>systems/mps/helium/pressure-psia</property>
+					<value>751.0</value>
+				</min>
+				<property>systems/mps/helium/pressurized</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[1]/reg-pressure-psia">
+		<function>
+			<product>
+				<min>
+					<property>systems/mps/helium[1]/pressure-psia</property>
+					<value>749.0</value>
+				</min>
+				<property>systems/mps/helium[1]/pressurized</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[2]/reg-pressure-psia">
+		<function>
+			<product>
+				<min>
+					<property>systems/mps/helium[2]/pressure-psia</property>
+					<value>755.0</value>
+				</min>
+				<property>systems/mps/helium[2]/pressurized</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/mps/helium[3]/reg-pressure-psia">
+		<function>
+			<product>
+				<min>
+					<property>systems/mps/helium[3]/pressure-psia</property>
+					<value>738.0</value>
+				</min>
+				<property>systems/mps/helium[3]/pressurized</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/mps/helium-system-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/helium/pressurized == 1
+				systems/mps/helium[1]/pressurized == 1
+				systems/mps/helium[2]/pressurized == 1
+			</test>
+		</switch>
+
+	</channel>
+
 	<channel name="Main propulsion system control">
 
 		<!-- the engine controllers draw power from different buses so that any -->
@@ -17,7 +211,7 @@
 		<switch name="systems/mps/engine/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus1-power-available == 1
+				systems/electrical/ac[1]/power-available == 1
 				systems/mps/engine/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -25,7 +219,7 @@
 		<switch name="systems/mps/engine/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus2-power-available == 1
+				systems/electrical/ac[2]/power-available == 1
 				systems/mps/engine/controller-B-power-switch-status == 1
 			</test>
 		</switch>
@@ -33,7 +227,7 @@
 		<switch name="systems/mps/engine[1]/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus2-power-available == 1
+				systems/electrical/ac[2]/power-available == 1
 				systems/mps/engine[1]/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -41,7 +235,7 @@
 		<switch name="systems/mps/engine[1]/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus3-power-available == 1
+				systems/electrical/ac/power-available == 1
 				systems/mps/engine[1]/controller-B-power-switch-status == 1
 			</test>
 		</switch>
@@ -49,7 +243,7 @@
 		<switch name="systems/mps/engine[2]/controller-A-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus1-power-available == 1
+				systems/electrical/ac/power-available == 1
 				systems/mps/engine[2]/controller-A-power-switch-status == 1
 			</test>
 		</switch>
@@ -57,10 +251,53 @@
 		<switch name="systems/mps/engine[2]/controller-B-power">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/bus3-power-available == 1
+				systems/electrical/ac[1]/power-available == 1
 				systems/mps/engine[2]/controller-B-power-switch-status == 1
 			</test>
 		</switch>
+
+		<switch name="systems/mps/engine/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[1]/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[1]/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[1]/controller-B-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-A-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[2]/controller-A-power == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mps/engine[2]/controller-B-power-demand-kW">
+		<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mps/engine[2]/controller-B-power == 1
+			</test>
+		</switch>
+
 
 		<switch name="systems/mps/engine/controller-power">
 			<default value="0.0"/>
@@ -90,7 +327,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine/controller-power</property>
-				<property>systems/failures/ssme1-condition</property>
+				<property>systems/failures/mps/ssme1-condition</property>
 				<property>systems/mps/engine/run-cmd</property>
 				<property>systems/propellant/LO2-left-prevalve-status</property>
 				<property>systems/propellant/LH2-left-prevalve-status</property>
@@ -102,7 +339,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine[1]/controller-power</property>
-				<property>systems/failures/ssme2-condition</property>
+				<property>systems/failures/mps/ssme2-condition</property>
 				<property>systems/mps/engine[1]/run-cmd</property>
 				<property>systems/propellant/LO2-right-prevalve-status</property>
 				<property>systems/propellant/LH2-right-prevalve-status</property>
@@ -114,7 +351,7 @@
 		<function>
 			<product>
 				<property>systems/mps/engine[2]/controller-power</property>
-				<property>systems/failures/ssme3-condition</property>
+				<property>systems/failures/mps/ssme3-condition</property>
 				<property>systems/mps/engine[2]/run-cmd</property>
 				<property>systems/propellant/LO2-center-prevalve-status</property>
 				<property>systems/propellant/LH2-center-prevalve-status</property>
@@ -210,44 +447,7 @@
 
 	</channel>
 
-	<channel name="Main propulsion system helium flow">
 
-		<!-- the helium system provides emergency power for valves and shutdown -->
-		<!-- and is used for the propellant dump -->
-
-		<switch name="systems/mps/helium/pressurized">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/mps/engine/helium-isolation-valve-A-status == 1
-				systems/mps/engine/helium-isolation-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/mps/helium[1]/pressurized">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/mps/engine[1]/helium-isolation-valve-A-status == 1
-				systems/mps/engine[1]/helium-isolation-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/mps/helium[2]/pressurized">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/mps/engine[2]/helium-isolation-valve-A-status == 1
-				systems/mps/engine[2]/helium-isolation-valve-B-status == 1
-			</test>
-		</switch>
-
-		<switch name="systems/mps/helium-system-pressurized">
-			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/mps/helium/pressurized == 1
-				systems/mps/helium[1]/pressurized == 1
-				systems/mps/helium[2]/pressurized == 1
-			</test>
-		</switch>
-	</channel>
 
 	<channel name="Main propulsion tanks vent if valves open">
 

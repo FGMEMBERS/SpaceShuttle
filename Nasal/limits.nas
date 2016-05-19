@@ -159,6 +159,10 @@ if (limit_simulation_mode ==2)
 	}
 
 
+# check for pre-defined failures
+
+SpaceShuttle.mission_predefined_failures();
+
 }
 
 
@@ -247,6 +251,10 @@ if (limit_simulation_mode ==2)
 		}	
 
 	}
+
+# check for pre-defined failures
+
+SpaceShuttle.mission_predefined_failures();
 
 
 }
@@ -377,6 +385,10 @@ if (limit_simulation_mode ==2)
 		}	
 
 	}
+
+# check for pre-defined failures
+
+SpaceShuttle.mission_predefined_failures();
 }
 
 #################################
@@ -491,6 +503,10 @@ if (limit_simulation_mode == 2)
 		}	
 
 	}
+
+# check for pre-defined failures
+
+SpaceShuttle.mission_predefined_failures();
 
 
 }

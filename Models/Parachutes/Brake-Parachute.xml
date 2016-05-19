@@ -5,11 +5,9 @@
     ###################################################################################
 -->
 
-
-
 <PropertyList>
 
-<!-- Brake Parachute -->
+    <!-- Brake Parachute -->
 
 	<path>Main-Parachute.ac</path>
 	<nopreview/>
@@ -21,22 +19,42 @@
 		<pitch-deg>0</pitch-deg>
 	</offsets>
 
-	<animation>
-		<type>scale</type>
-		<x-offset>0.35</x-offset>
-                <y-offset>0.35</y-offset>
-                <z-offset>0.35</z-offset>                
-	</animation>
-	
-	<!--<animation>
-		<type>select</type>
-		<condition>            
-	          <equals>
-                   <property>sim/multiplay/generic/int[3]</property>
-                   <value>1</value>
-                  </equals>                    
-                 </condition>
-	</animation>-->
+    <animation>
+        <type>scale</type>
+        <property>/controls/shuttle/drag-chute-deploy-timer</property>
+        <interpolation>
+            <entry>
+                <ind>1</ind>
+                <dep>.09</dep>
+            </entry>
+            <entry>
+                <ind>2</ind>
+                <dep>.09</dep>
+            </entry>
+            <entry>
+                <ind>3</ind>
+                <dep>.17</dep>
+            </entry>
+            <entry>
+                <ind>6</ind>
+                <dep>.17</dep>
+            </entry>
+            <entry>
+                <ind>7</ind>
+                <dep>.35</dep>
+            </entry>
+        </interpolation>
+        <center>
+            <x-m> 0.0</x-m>
+            <y-m> 0.0</y-m>
+            <z-m> 0.0</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>1</z>
+        </axis>
+    </animation>
 
 	<animation>
 		<type>spin</type>
@@ -54,50 +72,21 @@
 		</axis>
 	</animation>
 
-	<animation>
- 		<type>rotate</type>
-  		<property>orientation/pitch-deg</property>
-  		<factor>-1.0</factor>
+    <animation>
+        <type>rotate</type>
+        <property>orientation/pitch-deg</property>
+        <factor>-1.0</factor>
 
-  		<center>
-   			<x-m> 0.0</x-m>
-   			<y-m> 0.0</y-m>
-   			<z-m> 0.0</z-m>
-  		</center>
-  		<axis>
-   			<x>0</x>
-   			<y>1</y>
-   			<z>0</z>
-  		</axis>
- 	</animation>
-
-	<animation>
-  	<type>translate</type>  
-	<property>gear/gear[1]/rollspeed-ms</property>
-  	<interpolation>
-  		<entry>
-    		  <ind>450</ind>
-    		  <dep>0</dep>
-   		</entry>
-    		<entry>
-      		  <ind>50</ind>
-      		  <dep>0</dep>
-   		 </entry>
-    		<entry>
-      		  <ind>45</ind>
-      		  <dep>75</dep>
-    		</entry>
-  	</interpolation>
-  	<center>
-   		<x-m> 0.0</x-m>
-   		<y-m> 0.0</y-m>
-   		<z-m> 0.0</z-m>   
-  	</center>
-  	<axis>
-   		<x>0</x>
-   		<y>0</y>
-   		<z>1</z>
-  	</axis>
-	</animation> 
+        <center>
+            <x-m> 0.0</x-m>
+            <y-m> 0.0</y-m>
+            <z-m> 0.0</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+    </animation>
 
 </PropertyList>

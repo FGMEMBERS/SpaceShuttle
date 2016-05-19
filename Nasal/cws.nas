@@ -16,6 +16,7 @@ l1a : 0, l1l : 0, l1u : 0, l2u: 0, l2l : 0, l2d : 0, l3l : 0, l3a : 0, l3d : 0, 
 r1a : 0, r1r : 0, r1u : 0, r2u: 0, r2r : 0, r2d : 0, r3r : 0, r3a : 0, r3d : 0, r4u : 0, r4r : 0, r4d : 0, r5d : 0, r5r : 0,
 fhep : 0, fpop : 0, fleak : 0, lhep: 0, lpop: 0, lleak: 0, rhep: 0, rpop: 0, rleak: 0,
 omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0, omslpc : 0, omsrpc : 0, omsltkp: 0, omsrtkp: 0,
+acvolt : 0,
 };
 
 
@@ -34,6 +35,9 @@ if (inspection_group == 1)
 if (inspection_group == 3)
 	{cws_inspect_oms();}
 
+if (inspection_group == 4)
+	{cws_inspect_fc_electric();}
+
 
 inspection_group = inspection_group + 1;
 if (inspection_group == 10) {inspection_group = 0;}
@@ -48,10 +52,10 @@ var cws_inspect_fwd_rcs_thrusters = func {
 
 # FWD manifold 1
 
-var f1f = getprop("/fdm/jsbsim/systems/failures/rcs-F1F-condition");
-var f1l = getprop("/fdm/jsbsim/systems/failures/rcs-F1L-condition");
-var f1u = getprop("/fdm/jsbsim/systems/failures/rcs-F1U-condition");
-var f1d = getprop("/fdm/jsbsim/systems/failures/rcs-F1D-condition");
+var f1f = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1F-condition");
+var f1l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1L-condition");
+var f1u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1U-condition");
+var f1d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1D-condition");
 
 if (f1f + f1l + f1u + f1d < 4.0) # we have a manifold 1 fail off condition
 	{
@@ -78,13 +82,40 @@ if (f1f + f1l + f1u + f1d < 4.0) # we have a manifold 1 fail off condition
 		cws_msg_hash.f1d = 1;
 		}
 	}
+else if (f1f + f1l + f1u + f1d > 4.0) # we have a manifold 1 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f1", 2);
+
+	if ((f1f > 1.0) and (cws_msg_hash.f1f == 0))
+		{
+		create_fault_message("    F RCS F JET", 1, 2);
+		cws_msg_hash.f1f = 1;
+		}
+	if ((f1l > 1.0) and (cws_msg_hash.f1l == 0))
+		{
+		create_fault_message("    F RCS L JET", 1, 2);
+		cws_msg_hash.f1l = 1;
+		}
+	if ((f1u > 1.0) and (cws_msg_hash.f1u == 0))
+		{
+		create_fault_message("    F RCS U JET", 1, 2);
+		cws_msg_hash.f1u = 1;
+		}
+	if ((f1d > 1.0) and (cws_msg_hash.f1d == 0))
+		{
+		create_fault_message("    F RCS D JET", 1, 2);
+		cws_msg_hash.f1d = 1;
+		}
+
+	}
+
 
 # FWD manifold 2
 
-var f2f = getprop("/fdm/jsbsim/systems/failures/rcs-F2F-condition");
-var f2r = getprop("/fdm/jsbsim/systems/failures/rcs-F2R-condition");
-var f2u = getprop("/fdm/jsbsim/systems/failures/rcs-F2U-condition");
-var f2d = getprop("/fdm/jsbsim/systems/failures/rcs-F2D-condition");
+var f2f = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2F-condition");
+var f2r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2R-condition");
+var f2u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2U-condition");
+var f2d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2D-condition");
 
 if (f2f + f2r + f2u + f2d < 4.0) # we have a manifold 2 fail off condition
 	{
@@ -114,10 +145,10 @@ if (f2f + f2r + f2u + f2d < 4.0) # we have a manifold 2 fail off condition
 
 # FWD manifold 3
 
-var f3f = getprop("/fdm/jsbsim/systems/failures/rcs-F3F-condition");
-var f3l = getprop("/fdm/jsbsim/systems/failures/rcs-F3L-condition");
-var f3u = getprop("/fdm/jsbsim/systems/failures/rcs-F3U-condition");
-var f3d = getprop("/fdm/jsbsim/systems/failures/rcs-F3D-condition");
+var f3f = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3F-condition");
+var f3l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition");
+var f3u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3U-condition");
+var f3d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3D-condition");
 
 if (f3f + f3l + f3u + f3d < 4.0) # we have a manifold 3 fail off condition
 	{
@@ -147,8 +178,8 @@ if (f3f + f3l + f3u + f3d < 4.0) # we have a manifold 3 fail off condition
 
 # FWD manifold 4
 
-var f4r = getprop("/fdm/jsbsim/systems/failures/rcs-F4R-condition");
-var f4d = getprop("/fdm/jsbsim/systems/failures/rcs-F4D-condition");
+var f4r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4R-condition");
+var f4d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition");
 
 
 if (f4r + f4d < 2.0) # we have a manifold 4 fail off condition
@@ -169,8 +200,8 @@ if (f4r + f4d < 2.0) # we have a manifold 4 fail off condition
 
 # FWD manifold 5
 
-var f5r = getprop("/fdm/jsbsim/systems/failures/rcs-F5R-condition");
-var f5l = getprop("/fdm/jsbsim/systems/failures/rcs-F5L-condition");
+var f5r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F5R-condition");
+var f5l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-F5L-condition");
 
 
 if (f5r + f5l < 2.0) # we have a manifold 5 fail off condition
@@ -246,9 +277,9 @@ var cws_inspect_left_rcs_thrusters = func {
 
 # LEFT manifold 1
 
-var l1a = getprop("/fdm/jsbsim/systems/failures/rcs-L1A-condition");
-var l1l = getprop("/fdm/jsbsim/systems/failures/rcs-L1L-condition");
-var l1u = getprop("/fdm/jsbsim/systems/failures/rcs-L1U-condition");
+var l1a = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1A-condition");
+var l1l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1L-condition");
+var l1u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1U-condition");
 
 
 if (l1a + l1l + l1u < 3.0) # we have a manifold 1 fail off condition
@@ -274,9 +305,9 @@ if (l1a + l1l + l1u < 3.0) # we have a manifold 1 fail off condition
 
 # LEFT manifold 2
 
-var l2u = getprop("/fdm/jsbsim/systems/failures/rcs-L2U-condition");
-var l2l = getprop("/fdm/jsbsim/systems/failures/rcs-L2L-condition");
-var l2d = getprop("/fdm/jsbsim/systems/failures/rcs-L2D-condition");
+var l2u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2U-condition");
+var l2l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2L-condition");
+var l2d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2D-condition");
 
 
 if (l2u + l2l + l2d < 3.0) # we have a manifold 2 fail off condition
@@ -302,9 +333,9 @@ if (l2u + l2l + l2d < 3.0) # we have a manifold 2 fail off condition
 
 # LEFT manifold 3
 
-var l3l = getprop("/fdm/jsbsim/systems/failures/rcs-L3L-condition");
-var l3a = getprop("/fdm/jsbsim/systems/failures/rcs-L3A-condition");
-var l3d = getprop("/fdm/jsbsim/systems/failures/rcs-L3D-condition");
+var l3l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3L-condition");
+var l3a = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3A-condition");
+var l3d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3D-condition");
 
 
 if (l3l + l3a + l3d < 3.0) # we have a manifold 3 fail off condition
@@ -330,9 +361,9 @@ if (l3l + l3a + l3d < 3.0) # we have a manifold 3 fail off condition
 
 # LEFT manifold 4
 
-var l4u = getprop("/fdm/jsbsim/systems/failures/rcs-L4U-condition");
-var l4l = getprop("/fdm/jsbsim/systems/failures/rcs-L4L-condition");
-var l4d = getprop("/fdm/jsbsim/systems/failures/rcs-L4D-condition");
+var l4u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4U-condition");
+var l4l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition");
+var l4d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4D-condition");
 
 
 if (l4u + l4l + l4d < 3.0) # we have a manifold 4 fail off condition
@@ -358,8 +389,8 @@ if (l4u + l4l + l4d < 3.0) # we have a manifold 4 fail off condition
 
 # LEFT manifold 5
 
-var l5d = getprop("/fdm/jsbsim/systems/failures/rcs-L5D-condition");
-var l5l = getprop("/fdm/jsbsim/systems/failures/rcs-L5L-condition");
+var l5d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L5D-condition");
+var l5l = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-L5L-condition");
 
 
 
@@ -440,9 +471,9 @@ var cws_inspect_right_rcs_thrusters = func {
 
 # RIGHT manifold 1
 
-var r1a = getprop("/fdm/jsbsim/systems/failures/rcs-R1A-condition");
-var r1r = getprop("/fdm/jsbsim/systems/failures/rcs-R1R-condition");
-var r1u = getprop("/fdm/jsbsim/systems/failures/rcs-R1U-condition");
+var r1a = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1A-condition");
+var r1r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1R-condition");
+var r1u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1U-condition");
 
 
 if (r1a + r1r + r1u < 3.0) # we have a manifold 1 fail off condition
@@ -468,9 +499,9 @@ if (r1a + r1r + r1u < 3.0) # we have a manifold 1 fail off condition
 
 # RIGHT manifold 2
 
-var r2u = getprop("/fdm/jsbsim/systems/failures/rcs-R2U-condition");
-var r2r = getprop("/fdm/jsbsim/systems/failures/rcs-R2R-condition");
-var r2d = getprop("/fdm/jsbsim/systems/failures/rcs-R2D-condition");
+var r2u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2U-condition");
+var r2r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2R-condition");
+var r2d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition");
 
 
 if (r2u + r2r + r2d < 3.0) # we have a manifold 2 fail off condition
@@ -496,9 +527,9 @@ if (r2u + r2r + r2d < 3.0) # we have a manifold 2 fail off condition
 
 # RIGHT manifold 3
 
-var r3r = getprop("/fdm/jsbsim/systems/failures/rcs-R3R-condition");
-var r3a = getprop("/fdm/jsbsim/systems/failures/rcs-R3A-condition");
-var r3d = getprop("/fdm/jsbsim/systems/failures/rcs-R3D-condition");
+var r3r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3R-condition");
+var r3a = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3A-condition");
+var r3d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3D-condition");
 
 
 if (r3r + r3a + r3d < 3.0) # we have a manifold 3 fail off condition
@@ -524,9 +555,9 @@ if (r3r + r3a + r3d < 3.0) # we have a manifold 3 fail off condition
 
 # RIGHT manifold 4
 
-var r4u = getprop("/fdm/jsbsim/systems/failures/rcs-R4U-condition");
-var r4r = getprop("/fdm/jsbsim/systems/failures/rcs-R4R-condition");
-var r4d = getprop("/fdm/jsbsim/systems/failures/rcs-R4D-condition");
+var r4u = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4U-condition");
+var r4r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition");
+var r4d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4D-condition");
 
 
 if (r4u + r4r + r4d < 3.0) # we have a manifold 4 fail off condition
@@ -552,8 +583,8 @@ if (r4u + r4r + r4d < 3.0) # we have a manifold 4 fail off condition
 
 # RIGHT manifold 5
 
-var r5d = getprop("/fdm/jsbsim/systems/failures/rcs-R5D-condition");
-var r5r = getprop("/fdm/jsbsim/systems/failures/rcs-R5R-condition");
+var r5d = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R5D-condition");
+var r5r = getprop("/fdm/jsbsim/systems/failures/rcs/rcs-R5R-condition");
 
 
 
@@ -765,6 +796,32 @@ if ((right_oms_N2_p < 1200.0) or (right_oms_N2_reg_p < 299.0) or (right_oms_N2_r
 
 }
 
+
+
+#################################################
+# CWS checks of fuel cell and electric systems
+#################################################
+
+var cws_inspect_fc_electric = func {
+
+var init_phase = getprop("/fdm/jsbsim/systems/electrical/init-electrical-on");
+
+if (init_phase > 0.0) {init_phase = 1.0;} else {init_phase = 0.0;}
+
+var voltage_ac1 = getprop("/fdm/jsbsim/systems/electrical/ac/voltage");
+var voltage_ac2 = getprop("/fdm/jsbsim/systems/electrical/ac[1]/voltage");
+var voltage_ac3 = getprop("/fdm/jsbsim/systems/electrical/ac[2]/voltage");
+
+if (((voltage_ac1 < 115.0) or (voltage_ac2 < 115.0) or (voltage_ac3 < 115.0)) and (init_phase == 0.0))
+	{
+		if (cws_msg_hash.acvolt == 0)
+		{
+		create_fault_message("S67 AC VOLTS   ", 1, 2);
+		cws_msg_hash.acvolt = 1;
+		}
+	}
+
+}
 
 
 var insert_fault_message_long = func (message) {

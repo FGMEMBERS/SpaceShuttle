@@ -134,20 +134,20 @@
 		<!-- JSBSim init quirk - to initialize the right way, it seems best -->
 		<!-- to define closed door and latch positions as 0 -->
 
-		<switch name="systems/mechanical/pb-door-power-on">
-			<default value="0.0"/>
-			<test logic="OR" value ="1.0">
-				systems/mechanical/pb-door-sys1-enable == 1
-				systems/mechanical/pb-door-sys2-enable == 1
-				systems/mechanical/pb-door-software-acpower-enable == 1
-			</test>
-		</switch>
 
 		<switch name="systems/mechanical/pb-door-power">
 			<default value="0.0"/>
 			<test logic="AND" value ="1.0">
-				systems/mechanical/pb-door-power-on == 1
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/mechanical/pb-door-sys1-enable == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-sys2-enable == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+			<test logic="AND" value ="1.0">
+				systems/mechanical/pb-door-software-acpower-enable == 1
+				systems/electrical/ac/voltage GT 110.0
 			</test>
 		</switch>
 
@@ -220,6 +220,8 @@
 			</traverse>
 		</kinematic>
 
+
+
 		<kinematic name="systems/mechanical/pb-door-cl5-8-latch-pos">
 			<input>systems/mechanical/pb-door-cl5-8-latch-target</input>
 			<traverse>
@@ -261,6 +263,7 @@
 				</setting>
 			</traverse>
 		</kinematic>
+
 
 		<switch name="systems/mechanical/pb-door-cl-latch-status">
 			<default value="0.0"/>
@@ -385,7 +388,7 @@
 			</test>
 		</switch>
 
-		<kinematic name="systems/mechanical/pb-door-right-pos">
+		<kinematic name="systems/mechanical/pb-door-right-pos-kin">
 			<input>systems/mechanical/pb-door-right-target</input>
 			<traverse>
 				<setting>
@@ -399,6 +402,13 @@
 			</traverse>
 		</kinematic>
 
+		<switch name="systems/mechanical/pb-door-right-pos">
+			<default value="systems/mechanical/pb-door-right-pos-kin"/>
+			<test value="1.0">
+				systems/mechanical/pb-door-init-open == 1
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/pb-door-left-target">
 			<default value="systems/mechanical/pb-door-left-pos"/>
 			<test logic="AND" value="systems/mechanical/pb-door-left-cmd">
@@ -409,7 +419,7 @@
 			</test>
 		</switch>
 
-		<kinematic name="systems/mechanical/pb-door-left-pos">
+		<kinematic name="systems/mechanical/pb-door-left-pos-kin">
 			<input>systems/mechanical/pb-door-left-target</input>
 			<traverse>
 				<setting>
@@ -422,6 +432,177 @@
 				</setting>
 			</traverse>
 		</kinematic>
+
+		<switch name="systems/mechanical/pb-door-left-pos">
+			<default value="systems/mechanical/pb-door-left-pos-kin"/>
+			<test value="1.0">
+				systems/mechanical/pb-door-init-open == 1
+			</test>
+		</switch>
+
+		<switch name="systems/mechanical/pb-door-sys1-power-demand-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl1-4-latch-pos NE systems/mechanical/pb-door-cl1-4-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl1-4-latch-pos NE systems/mechanical/pb-door-cl1-4-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl5-8-latch-pos NE systems/mechanical/pb-door-cl5-8-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl5-8-latch-pos NE systems/mechanical/pb-door-cl5-8-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl9-12-latch-pos NE systems/mechanical/pb-door-cl9-12-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl9-12-latch-pos NE systems/mechanical/pb-door-cl9-12-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl13-16-latch-pos NE systems/mechanical/pb-door-cl13-16-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl13-16-latch-pos NE systems/mechanical/pb-door-cl13-16-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-fwd-latch-pos NE systems/mechanical/pb-door-right-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-fwd-latch-pos NE systems/mechanical/pb-door-right-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-aft-latch-pos NE systems/mechanical/pb-door-right-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-aft-latch-pos NE systems/mechanical/pb-door-right-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-fwd-latch-pos NE systems/mechanical/pb-door-left-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-fwd-latch-pos NE systems/mechanical/pb-door-left-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-aft-latch-pos NE systems/mechanical/pb-door-left-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-aft-latch-pos NE systems/mechanical/pb-door-left-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-pos NE systems/mechanical/pb-door-left-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-pos NE systems/mechanical/pb-door-left-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-pos NE systems/mechanical/pb-door-right-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys1-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-pos NE systems/mechanical/pb-door-right-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-software-acpower-enable == 1
+			</test>
+
+		</switch>
+
+
+
+
+		<switch name="systems/mechanical/pb-door-sys2-power-demand-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl1-4-latch-pos NE systems/mechanical/pb-door-cl1-4-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl5-8-latch-pos NE systems/mechanical/pb-door-cl5-8-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl9-12-latch-pos NE systems/mechanical/pb-door-cl9-12-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-cl13-16-latch-pos NE systems/mechanical/pb-door-cl13-16-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-fwd-latch-pos NE systems/mechanical/pb-door-right-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-aft-latch-pos NE systems/mechanical/pb-door-right-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-fwd-latch-pos NE systems/mechanical/pb-door-left-fwd-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-aft-latch-pos NE systems/mechanical/pb-door-left-aft-latch-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-right-pos NE systems/mechanical/pb-door-right-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+			<test logic="AND" value="0.5">
+				systems/mechanical/pb-door-left-pos NE systems/mechanical/pb-door-left-cmd
+				systems/mechanical/pb-door-move == 1
+				systems/mechanical/pb-door-sys2-enable == 1
+			</test>
+		</switch>
+
+
 
 		<fcs_function name="systems/mechanical/pb-door-left-animation">
 		<function>

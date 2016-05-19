@@ -96,7 +96,7 @@
 						<value>2553.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-left-1-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-left-1-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -115,7 +115,7 @@
 						<value>2551.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-left-2-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-left-2-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -134,7 +134,7 @@
 						<value>2555.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-right-1-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-right-1-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -153,7 +153,7 @@
 						<value>2556.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-right-2-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-right-2-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -172,7 +172,7 @@
 						<value>2554.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-fwd-1-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-fwd-1-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -191,7 +191,7 @@
 						<value>2548.0</value>
 					</product>
 				</sum>
-				<property>/fdm/jsbsim/systems/failures/rcs-he-fwd-2-condition</property>
+				<property>/fdm/jsbsim/systems/failures/rcs/rcs-he-fwd-2-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -733,6 +733,60 @@
 		</function>
 		<output>systems/rcs-hardware/fwd-mfold4-oxidizer-pressure-psia</output>
 		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/xfeed-fuel-pressure-psia">
+		<function>
+			<max>
+			<product>
+			<difference>
+				<property>systems/rcs-hardware/tanks-left-rcs-blowdown-psia</property>
+				<value>4.0</value>
+			</difference>
+			<max>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-12-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-345-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-left-rcs-valve-345B-status</property>
+					<property>systems/rcs-hardware/crossfeed-left-rcs-valve-345-status</property>
+				</product>
+
+			</max>
+			</product>
+			<product>
+			<difference>
+				<property>systems/rcs-hardware/tanks-right-rcs-blowdown-psia</property>
+				<value>2.0</value>
+			</difference>
+			<max>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-12-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345A-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-345-status</property>
+				</product>
+				<product>
+					<property>systems/rcs-hardware/tank-right-rcs-valve-345B-status</property>
+					<property>systems/rcs-hardware/crossfeed-right-rcs-valve-345-status</property>
+				</product>
+
+			</max>
+			</product>
+
+			<value>0</value>
+			</max>
+		</function>
+		<output>systems/rcs-hardware/xfeed-oxidizer-pressure-psia</output>
+		</fcs_function>
+
+	
 
 
 		<!-- fuel can flow if either the tank is pressurized or the blowdown pressure is sufficient -->
@@ -1669,17 +1723,172 @@
 
 	</channel>
 
+
+
+
 	<!-- the RCS control routines provide output in terms of firing commands for the thrusters -->
+	<!-- the fail-on simulation keeps a fire command if the fail-on mode is triggered -->
 	<!-- the RCS hardware simulation checks whether the thruster is operational and has the required fuel -->
 	
+	<channel name="RCS hardware fail-on simulation">
+
+		<switch name="systems/rcs-hardware/F1L-fire-cmd-final">
+			<default value="systems/rcs/F1L-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1L-fire-cmd-final">
+				systems/rcs-hardware/F1L-fire GT 0.0
+				systems/failures/rcs/rcs-F1L-condition GT 1.0
+				systems/rcs/F1L-fire-cmd-inh LT systems/rcs-hardware/F1L-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3L-fire-cmd-final">
+			<default value="systems/rcs/F3L-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3L-fire-cmd-final">
+				systems/rcs-hardware/F3L-fire GT 0.0
+				systems/failures/rcs/rcs-F3L-condition GT 1.0
+				systems/rcs/F3L-fire-cmd-inh LT systems/rcs-hardware/F3L-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2R-fire-cmd-final">
+			<default value="systems/rcs/F2R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2R-fire-cmd-final">
+				systems/rcs-hardware/F2R-fire GT 0.0
+				systems/failures/rcs/rcs-F2R-condition GT 1.0
+				systems/rcs/F2R-fire-cmd-inh LT systems/rcs-hardware/F2R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F4R-fire-cmd-final">
+			<default value="systems/rcs/F4R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F4R-fire-cmd-final">
+				systems/rcs-hardware/F4R-fire GT 0.0
+				systems/failures/rcs/rcs-F4R-condition GT 1.0
+				systems/rcs/F4R-fire-cmd-inh LT systems/rcs-hardware/F4R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F1U-fire-cmd-final">
+			<default value="systems/rcs/F1U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1U-fire-cmd-final">
+				systems/rcs-hardware/F1U-fire GT 0.0
+				systems/failures/rcs/rcs-F1U-condition GT 1.0
+				systems/rcs/F1U-fire-cmd-inh LT systems/rcs-hardware/F1U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3U-fire-cmd-final">
+			<default value="systems/rcs/F3U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3U-fire-cmd-final">
+				systems/rcs-hardware/F3U-fire GT 0.0
+				systems/failures/rcs/rcs-F3U-condition GT 1.0
+				systems/rcs/F3U-fire-cmd-inh LT systems/rcs-hardware/F3U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2U-fire-cmd-final">
+			<default value="systems/rcs/F2U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2U-fire-cmd-final">
+				systems/rcs-hardware/F2U-fire GT 0.0
+				systems/failures/rcs/rcs-F2U-condition GT 1.0
+				systems/rcs/F2U-fire-cmd-inh LT systems/rcs-hardware/F2U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F1D-fire-cmd-final">
+			<default value="systems/rcs/F1D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1D-fire-cmd-final">
+				systems/rcs-hardware/F1D-fire GT 0.0
+				systems/failures/rcs/rcs-F1D-condition GT 1.0
+				systems/rcs/F1D-fire-cmd-inh LT systems/rcs-hardware/F1D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3D-fire-cmd-final">
+			<default value="systems/rcs/F3D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3D-fire-cmd-final">
+				systems/rcs-hardware/F3D-fire GT 0.0
+				systems/failures/rcs/rcs-F3D-condition GT 1.0
+				systems/rcs/F3D-fire-cmd-inh LT systems/rcs-hardware/F3D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2D-fire-cmd-final">
+			<default value="systems/rcs/F2D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2D-fire-cmd-final">
+				systems/rcs-hardware/F2D-fire GT 0.0
+				systems/failures/rcs/rcs-F2D-condition GT 1.0
+				systems/rcs/F2D-fire-cmd-inh LT systems/rcs-hardware/F2D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F4D-fire-cmd-final">
+			<default value="systems/rcs/F4D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F4D-fire-cmd-final">
+				systems/rcs-hardware/F4D-fire GT 0.0
+				systems/failures/rcs/rcs-F4D-condition GT 1.0
+				systems/rcs/F4D-fire-cmd-inh LT systems/rcs-hardware/F4D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F1F-fire-cmd-final">
+			<default value="systems/rcs/F1F-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F1F-fire-cmd-final">
+				systems/rcs-hardware/F1F-fire GT 0.0
+				systems/failures/rcs/rcs-F1F-condition GT 1.0
+				systems/rcs/F1F-fire-cmd-inh LT systems/rcs-hardware/F1F-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F3F-fire-cmd-final">
+			<default value="systems/rcs/F3F-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F3F-fire-cmd-final">
+				systems/rcs-hardware/F3F-fire GT 0.0
+				systems/failures/rcs/rcs-F3F-condition GT 1.0
+				systems/rcs/F3F-fire-cmd-inh LT systems/rcs-hardware/F3F-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F2F-fire-cmd-final">
+			<default value="systems/rcs/F2F-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F2F-fire-cmd-final">
+				systems/rcs-hardware/F2F-fire GT 0.0
+				systems/failures/rcs/rcs-F2F-condition GT 1.0
+				systems/rcs/F2F-fire-cmd-inh LT systems/rcs-hardware/F2F-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F5L-fire-cmd-final">
+			<default value="systems/rcs/F5L-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F5L-fire-cmd-final">
+				systems/rcs-hardware/F5L-fire GT 0.0
+				systems/failures/rcs/rcs-F5L-condition GT 1.0
+				systems/rcs/F5L-fire-cmd-inh LT systems/rcs-hardware/F5L-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/F5R-fire-cmd-final">
+			<default value="systems/rcs/F5R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/F5R-fire-cmd-final">
+				systems/rcs-hardware/F5R-fire GT 0.0
+				systems/failures/rcs/rcs-F5R-condition GT 1.0
+				systems/rcs/F5R-fire-cmd-inh LT systems/rcs-hardware/F5R-fire
+			</test>
+		</switch>
+
+	</channel>
+
 	<channel name="RCS hardware thruster firing simulation">
 
 		<fcs_function name="systems/rcs-hardware/F2F-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2F-fire-cmd</property>
+				<property>systems/rcs-hardware/F2F-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2F-fuel-available</property>
-				<property>systems/failures/rcs-F2F-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2F-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[7]</output>
@@ -1688,9 +1897,12 @@
 		<fcs_function name="systems/rcs-hardware/F3F-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3F-fire-cmd</property>
+				<property>systems/rcs-hardware/F3F-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3F-fuel-available</property>
-				<property>systems/failures/rcs-F3F-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3F-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[8]</output>
@@ -1699,9 +1911,12 @@
 		<fcs_function name="systems/rcs-hardware/F1F-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1F-fire-cmd</property>
+				<property>systems/rcs-hardware/F1F-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1F-fuel-available</property>
-				<property>systems/failures/rcs-F1F-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1F-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[9]</output>
@@ -1710,9 +1925,12 @@
 		<fcs_function name="systems/rcs-hardware/F1L-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1L-fire-cmd</property>
+				<property>systems/rcs-hardware/F1L-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1L-fuel-available</property>
-				<property>systems/failures/rcs-F1L-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1L-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[10]</output>
@@ -1721,9 +1939,12 @@
 		<fcs_function name="systems/rcs-hardware/F3L-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3L-fire-cmd</property>
+				<property>systems/rcs-hardware/F3L-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3L-fuel-available</property>
-				<property>systems/failures/rcs-F3L-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3L-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[11]</output>
@@ -1732,9 +1953,12 @@
 		<fcs_function name="systems/rcs-hardware/F2R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2R-fire-cmd</property>
+				<property>systems/rcs-hardware/F2R-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2R-fuel-available</property>
-				<property>systems/failures/rcs-F2R-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2R-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[12]</output>
@@ -1743,9 +1967,12 @@
 		<fcs_function name="systems/rcs-hardware/F4R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F4R-fire-cmd</property>
+				<property>systems/rcs-hardware/F4R-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F4R-fuel-available</property>
-				<property>systems/failures/rcs-F4R-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F4R-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[13]</output>
@@ -1754,9 +1981,12 @@
 		<fcs_function name="systems/rcs-hardware/F2U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2U-fire-cmd</property>
+				<property>systems/rcs-hardware/F2U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2U-fuel-available</property>
-				<property>systems/failures/rcs-F2U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[14]</output>
@@ -1765,9 +1995,12 @@
 		<fcs_function name="systems/rcs-hardware/F3U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3U-fire-cmd</property>
+				<property>systems/rcs-hardware/F3U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3U-fuel-available</property>
-				<property>systems/failures/rcs-F3U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[15]</output>
@@ -1776,9 +2009,12 @@
 		<fcs_function name="systems/rcs-hardware/F1U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1U-fire-cmd</property>
+				<property>systems/rcs-hardware/F1U-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1U-fuel-available</property>
-				<property>systems/failures/rcs-F1U-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1U-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[16]</output>
@@ -1787,9 +2023,12 @@
 		<fcs_function name="systems/rcs-hardware/F2D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F2D-fire-cmd</property>
+				<property>systems/rcs-hardware/F2D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F2D-fuel-available</property>
-				<property>systems/failures/rcs-F2D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F2D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[17]</output>
@@ -1798,9 +2037,12 @@
 		<fcs_function name="systems/rcs-hardware/F1D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F1D-fire-cmd</property>
+				<property>systems/rcs-hardware/F1D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F1D-fuel-available</property>
-				<property>systems/failures/rcs-F1D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F1D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[18]</output>
@@ -1809,9 +2051,12 @@
 		<fcs_function name="systems/rcs-hardware/F4D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F4D-fire-cmd</property>
+				<property>systems/rcs-hardware/F4D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F4D-fuel-available</property>
-				<property>systems/failures/rcs-F4D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F4D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[19]</output>
@@ -1820,9 +2065,12 @@
 		<fcs_function name="systems/rcs-hardware/F3D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F3D-fire-cmd</property>
+				<property>systems/rcs-hardware/F3D-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F3D-fuel-available</property>
-				<property>systems/failures/rcs-F3D-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F3D-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[20]</output>
@@ -1836,7 +2084,7 @@
 					<property>systems/rcs-hardware/R3A-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R3A-condition</property>
+				<property>systems/failures/rcs/rcs-R3A-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[21]</output>
@@ -1850,7 +2098,7 @@
 					<property>systems/rcs-hardware/R1A-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R1A-condition</property>
+				<property>systems/failures/rcs/rcs-R1A-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[22]</output>
@@ -1864,7 +2112,7 @@
 					<property>systems/rcs-hardware/L3A-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L3A-condition</property>
+				<property>systems/failures/rcs/rcs-L3A-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[23]</output>
@@ -1878,7 +2126,7 @@
 					<property>systems/rcs-hardware/L1A-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L1A-condition</property>
+				<property>systems/failures/rcs/rcs-L1A-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[24]</output>
@@ -1892,7 +2140,7 @@
 					<property>systems/rcs-hardware/L4L-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L4L-condition</property>
+				<property>systems/failures/rcs/rcs-L4L-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[25]</output>
@@ -1906,7 +2154,7 @@
 					<property>systems/rcs-hardware/L2L-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L2L-condition</property>
+				<property>systems/failures/rcs/rcs-L2L-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[26]</output>
@@ -1920,7 +2168,7 @@
 					<property>systems/rcs-hardware/L3L-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L3L-condition</property>
+				<property>systems/failures/rcs/rcs-L3L-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[27]</output>
@@ -1934,7 +2182,7 @@
 					<property>systems/rcs-hardware/L1L-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L1L-condition</property>
+				<property>systems/failures/rcs/rcs-L1L-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[28]</output>
@@ -1948,7 +2196,7 @@
 					<property>systems/rcs-hardware/R4R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R4R-condition</property>
+				<property>systems/failures/rcs/rcs-R4R-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[29]</output>
@@ -1962,7 +2210,7 @@
 					<property>systems/rcs-hardware/R2R-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R2R-condition</property>
+				<property>systems/failures/rcs/rcs-R2R-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[30]</output>
@@ -1976,7 +2224,7 @@
 					<property>systems/rcs-hardware/R3R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R3R-condition</property>
+				<property>systems/failures/rcs/rcs-R3R-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[31]</output>
@@ -1990,7 +2238,7 @@
 					<property>systems/rcs-hardware/R1R-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R1R-condition</property>
+				<property>systems/failures/rcs/rcs-R1R-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[32]</output>
@@ -2004,7 +2252,7 @@
 					<property>systems/rcs-hardware/L4U-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L4U-condition</property>
+				<property>systems/failures/rcs/rcs-L4U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[33]</output>
@@ -2018,7 +2266,7 @@
 					<property>systems/rcs-hardware/L2U-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L2U-condition</property>
+				<property>systems/failures/rcs/rcs-L2U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[34]</output>
@@ -2032,7 +2280,7 @@
 					<property>systems/rcs-hardware/L1U-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L1U-condition</property>
+				<property>systems/failures/rcs/rcs-L1U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[35]</output>
@@ -2046,7 +2294,7 @@
 					<property>systems/rcs-hardware/R4U-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R4U-condition</property>
+				<property>systems/failures/rcs/rcs-R4U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[36]</output>
@@ -2060,7 +2308,7 @@
 					<property>systems/rcs-hardware/R2U-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R2U-condition</property>
+				<property>systems/failures/rcs/rcs-R2U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[37]</output>
@@ -2074,7 +2322,7 @@
 					<property>systems/rcs-hardware/R1U-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R1U-condition</property>
+				<property>systems/failures/rcs/rcs-R1U-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[38]</output>
@@ -2088,7 +2336,7 @@
 					<property>systems/rcs-hardware/L4D-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L4D-condition</property>
+				<property>systems/failures/rcs/rcs-L4D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[39]</output>
@@ -2102,7 +2350,7 @@
 					<property>systems/rcs-hardware/L2D-fuel-available</property>
 					<property>systems/rcs-hardware/left-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L2D-condition</property>
+				<property>systems/failures/rcs/rcs-L2D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[40]</output>
@@ -2116,7 +2364,7 @@
 					<property>systems/rcs-hardware/L3D-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L3D-condition</property>
+				<property>systems/failures/rcs/rcs-L3D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[41]</output>
@@ -2130,7 +2378,7 @@
 					<property>systems/rcs-hardware/R4D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R4D-condition</property>
+				<property>systems/failures/rcs/rcs-R4D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[42]</output>
@@ -2144,7 +2392,7 @@
 					<property>systems/rcs-hardware/R2D-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R2D-condition</property>
+				<property>systems/failures/rcs/rcs-R2D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[43]</output>
@@ -2158,7 +2406,7 @@
 					<property>systems/rcs-hardware/R3D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R3D-condition</property>
+				<property>systems/failures/rcs/rcs-R3D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[44]</output>
@@ -2169,9 +2417,12 @@
 		<fcs_function name="systems/rcs-hardware/F5R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F5R-fire-cmd</property>
+				<property>systems/rcs-hardware/F5R-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F5R-fuel-available</property>
-				<property>systems/failures/rcs-F5R-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F5R-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[45]</output>
@@ -2180,9 +2431,12 @@
 		<fcs_function name="systems/rcs-hardware/F5L-fire">
 		<function>
 			<product>
-				<property>systems/rcs/F5L-fire-cmd</property>
+				<property>systems/rcs-hardware/F5L-fire-cmd-final</property>
 				<property>systems/rcs-hardware/F5L-fuel-available</property>
-				<property>systems/failures/rcs-F5L-condition</property>
+				<min>
+					<property>systems/failures/rcs/rcs-F5L-condition</property>
+					<value>1.0</value>
+				</min>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[46]</output>
@@ -2196,7 +2450,7 @@
 					<property>systems/rcs-hardware/L5D-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L5D-condition</property>
+				<property>systems/failures/rcs/rcs-L5D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[47]</output>
@@ -2210,7 +2464,7 @@
 					<property>systems/rcs-hardware/R5D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R5D-condition</property>
+				<property>systems/failures/rcs/rcs-R5D-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[48]</output>
@@ -2224,7 +2478,7 @@
 					<property>systems/rcs-hardware/L5L-fuel-available</property>
 					<property>systems/rcs-hardware/left-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-L5L-condition</property>
+				<property>systems/failures/rcs/rcs-L5L-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[49]</output>
@@ -2238,7 +2492,7 @@
 					<property>systems/rcs-hardware/R5R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
 				</max>
-				<property>systems/failures/rcs-R5R-condition</property>
+				<property>systems/failures/rcs/rcs-R5R-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[50]</output>

@@ -1,6 +1,12 @@
 # entry guidance computer for the Space Shuttle
 
 var landing_site = geo.Coord.new();
+landing_site.index = 0;
+landing_site.rwy_pri = "";
+landing_site.rwy_sec = "";
+landing_site.tacan = "";
+landing_site.rwy_sel = 0;
+
 var entry_interface = geo.Coord.new();
 var v_aero_last = 0.0;
 var v_aero = 0.0;
@@ -8,6 +14,47 @@ var distance_last = 0.0;
 
 var radius_set = [];
 
+var trailer_set = {
+
+	entry: [[0,0], [0,0], [0,0], [0,0], [0,0]],
+	timer: 0,
+	time_limit: 30,
+	
+	update: func (distance) {
+
+	if (me.timer == 0)
+		{
+		me.timer = me.timer + 1;
+		me.create_entry(distance);
+		}
+	else
+		{me.timer = me.timer + 1;}
+	if (me.timer == me.time_limit) {me.timer = 0;}
+
+
+	},
+
+	create_entry: func (distance) {
+
+	var velocity = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");	
+
+	me.entry[4][0] = me.entry[3][0];
+	me.entry[4][1] = me.entry[3][1];
+
+	me.entry[3][0] = me.entry[2][0];
+	me.entry[3][1] = me.entry[2][1];
+
+	me.entry[2][0] = me.entry[1][0];
+	me.entry[2][1] = me.entry[1][1];
+
+	me.entry[1][0] = me.entry[0][0];
+	me.entry[1][1] = me.entry[0][1];
+
+	me.entry[0][0] = distance;
+	me.entry[0][1] = velocity;
+	},
+
+};
 
 # this is Vandenberg  we update later upon selection
 
@@ -29,6 +76,10 @@ distance = distance/ 1853.0;
 
 setprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg", course);
 setprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", distance);
+
+
+
+trailer_set.update(distance);
 
 v_aero = getprop("/fdm/jsbsim/systems/entry_guidance/ground-relative-velocity-fps");
 

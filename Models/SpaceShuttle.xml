@@ -210,9 +210,15 @@
 
 <!-- ISS docked -->
 
-<!--<model>
-     <path>Aircraft/SpaceShuttle/Models/ISS/ISS_docked.ac</path>
-</model>-->
+<model>
+     <path>Aircraft/SpaceShuttle/Models/ISS/ISS_docked.xml</path>
+     <condition>
+	<equals>
+		<property>/controls/shuttle/ISS/docking-flag</property>
+		<value>1</value>
+	</equals>
+    </condition>
+</model>
 
 <!-- landing gear -->
 <model>
@@ -1094,7 +1100,7 @@
 <!-- cockpit no damage -->
  <animation>
     <type>select</type>
-    <object-name>Fwd_Window_Assy</object-name>
+    <object-name>fwd_window_assy</object-name>
     <object-name>Roof_Assembly.001</object-name>
     <object-name>spaceshutt_spstob_1</object-name>
     <object-name>spaceshutt_spstob</object-name>
@@ -2012,58 +2018,29 @@
 			<pitch-deg>0</pitch-deg>
 		</offsets>
 	</model>
-
- <!--Parachutes -->
 	
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Parachutes/Brake-Parachute.xml</path>
-     <offsets>
-       <x-m> 17.7 </x-m>
-       <y-m> 0.0 </y-m>
-       <z-m> 1.22 </z-m>
-       <pitch-deg>90</pitch-deg>
-     </offsets>
-        <condition>
-	<and>
-		<greater-than>
-		<property>gear/gear[1]/rollspeed-ms</property>
-		<value>45</value>
-		</greater-than>
-    
-		<greater-than>
-			<property>/controls/shuttle/parachute</property>
-			<value>0</value>
-		</greater-than>
-	</and>
-	</condition>
-
-</model>  
-
-<model>
-    <path>Aircraft/SpaceShuttle/Models/Parachutes/Brake-Parachute2.xml</path>
-     <offsets>
-       <x-m> 45.7 </x-m>
-       <y-m> 0.0 </y-m>
-       <z-m>-6.85 </z-m>
-       <pitch-deg>90</pitch-deg>
-     </offsets>
-       <condition>
-       <and>
-		<greater-than>
-			<property>sim/multiplay/generic/float[0]</property>
-			<value>1</value>
-		</greater-than> 
-		<less-than>
-			<property>sim/multiplay/generic/float[0]</property>
-			<value>44.999</value>
-		</less-than>  
-		<greater-than>
-			<property>/controls/shuttle/parachute</property>
-			<value>0</value>
-		</greater-than>     
-	</and>
-      </condition>
-</model>
+    <!--Parachutes -->
+    <model>
+        <path>Aircraft/SpaceShuttle/Models/Parachutes/Brake-Parachute.xml</path>
+         <offsets>
+           <x-m> 17.7 </x-m>
+           <y-m> 0.0 </y-m>
+           <z-m> 1.22 </z-m>
+           <pitch-deg>90</pitch-deg>
+         </offsets>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>/controls/shuttle/drag-chute-deploy-timer</property>
+                        <value>0</value>
+                    </greater-than>
+                    <greater-than>
+                        <property>sim/multiplay/generic/float[0]</property>
+                        <value>5</value>
+                    </greater-than>
+                </and>
+        </condition>
+    </model>
 
 	<!-- wing strike -->
 	<model>

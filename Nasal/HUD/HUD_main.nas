@@ -1,3 +1,37 @@
+##########################################
+# HUD Brightness Mode Selector
+##########################################
+
+var hud_bright_mode = func (name) {
+
+    if (name == "dim-cmd") {
+        var hud_dim_cmd = getprop("/fdm/jsbsim/systems/light/hud-dim-cmd");  
+        setprop("/fdm/jsbsim/systems/light/hud-light-cmd-norm", hud_dim_cmd);
+        return;
+    }
+    if (name == "dim-plt") {
+        var hud_dim_plt = getprop("/fdm/jsbsim/systems/light/hud-dim-plt");  
+        setprop("/fdm/jsbsim/systems/light/hud-light-plt-norm", hud_dim_plt);
+        return;
+    }
+
+    var hud_day_mode_norm = .9;
+    var hud_night_mode_norm = .6;
+
+    var bright_switch_selection = getprop("/fdm/jsbsim/systems/light/hud-bright-" ~ name);
+
+    if (bright_switch_selection == 2) {
+        setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_day_mode_norm);
+        return;
+    }
+    if (bright_switch_selection == 0) {
+        setprop("/fdm/jsbsim/systems/light/hud-light-" ~ name ~ "-norm", hud_night_mode_norm);
+        return;
+    }
+
+};
+
+
 # Space Shuttle HUD, ref 2.7-21 based on F-15
 # ---------------------------
 # HUD class has dataprovider
@@ -24,9 +58,12 @@ var ht_debug = 0;
 #  });
 #SpaceShuttle.svg.setTranslation (-6.0, 37.0);
 
-var pitch_offset = 12;
-var pitch_factor = 19.8;
-var pitch_factor_2 = pitch_factor * 180.0 / 3.14159;
+#var pitch_offset = 12;
+#var pitch_factor = 19.8;
+var pitch_offset = -4.0;
+var pitch_offset2 = -60.0;
+var pitch_factor = 20.1;
+#var pitch_factor_2 = pitch_factor * 180.0 / 3.14159;
 var alt_range_factor = (9317-191) / 100000; # alt tape size and max value.
 var ias_range_factor = (694-191) / 1100;
 
@@ -129,7 +166,7 @@ var STSHUD = {
   
 #pitch ladder
         me.ladder.setTranslation (0.0, hdp.pitch * pitch_factor+pitch_offset);                                           
-        me.ladder.setCenter (118,830 - hdp.pitch * pitch_factor-pitch_offset);
+        me.ladder.setCenter (118,830 - hdp.pitch * pitch_factor -pitch_offset2);
         me.ladder.setRotation (roll_rad);
   
 # velocity vector
@@ -187,13 +224,16 @@ var HUD_DataProvider  = {
         me.alpha = getprop ("fdm/jsbsim/aero/alpha-deg");
         me.beta = getprop ("fdm/jsbsim/aero/beta-deg");
         me.altitude_ft =  getprop ("/position/altitude-ft");
-        me.heading =  getprop("/orientation/heading-deg");
+        #me.heading =  getprop("/orientation/heading-deg");
+	me.heading =  getprop("/fdm/jsbsim/systems/navigation/state-vector/yaw-deg");
         me.mach = getprop ("/velocities/mach");
         me.measured_altitude = getprop("/instrumentation/altimeter/indicated-altitude-ft");
         if (me.measured_altitude == nil)
             me.measured_altitude = me.altitude_ft;
-        me.pitch =  getprop ("orientation/pitch-deg");
-        me.roll =  getprop ("orientation/roll-deg");
+        #me.pitch =  getprop ("orientation/pitch-deg");
+	me.pitch = getprop("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg");
+        #me.roll =  getprop ("orientation/roll-deg");
+	me.roll =  getprop("/fdm/jsbsim/systems/navigation/state-vector/roll-deg");
         me.speed = getprop("/fdm/jsbsim/velocities/vt-fps");
         me.v = getprop("/fdm/jsbsim/velocities/v-fps");
         me.w = getprop("/fdm/jsbsim/velocities/w-fps");
@@ -205,7 +245,7 @@ var HUD_DataProvider  = {
             me.window7 = sprintf(" %1.3f",me.mach);
 
         me.roll_rad = 0.0;
-        me.VV_x = -me.beta*10; # adjust for view
+        me.VV_x = me.beta*10; # adjust for view
         me.VV_y = (me.alpha); # adjust for view
 
     },

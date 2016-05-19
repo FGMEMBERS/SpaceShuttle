@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+    <name>Effects/talkback</name>
+    <inherits-from>Effects/model-interior</inherits-from>
+    <parameters>
+        <texture n="4">
+            <type>cubemap</type>
+            <images>
+                <positive-x>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</positive-x>
+                <negative-x>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</negative-x>
+                <positive-y>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</positive-y>
+                <negative-y>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</negative-y>
+                <positive-z>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</positive-z>
+                <negative-z>Aircraft/SpaceShuttle/Models/Effects/Interior/white.png</negative-z>
+            </images>
+        </texture>
+        <implicit-lightmap-enabled type="int">1</implicit-lightmap-enabled>
+        <implicit-lightmap-tag-color type="vec3d">0.89 0.89 0.89</implicit-lightmap-tag-color>
+        <implicit-lightmap-emit-color type="vec3d">1.0 0.576 0.161</implicit-lightmap-emit-color>
+        <implicit-lightmap-threshold-low type="float">0.3</implicit-lightmap-threshold-low>
+        <implicit-lightmap-threshold-high type="float">0.6</implicit-lightmap-threshold-high>
+        <implicit-lightmap-intensity><use>/fdm/jsbsim/systems/light/talkback-norm</use></implicit-lightmap-intensity>
+        <residual-ambience-r type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-r</use></residual-ambience-r>
+        <residual-ambience-g type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-g</use></residual-ambience-g>
+        <residual-ambience-b type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-b</use></residual-ambience-b>
+        <ra-irradiance-map-type type="int">2</ra-irradiance-map-type>
+        <ra-irradiance-map-strength type="float">0.5</ra-irradiance-map-strength>
+        <light-filter-one type="vec3d">0.5 0.5 0.5</light-filter-one>
+        <light-filter-two type="vec3d">0.9 0.2 0.2</light-filter-two>
+        <light-radius type="float">15</light-radius>
+    </parameters>
+</PropertyList>

@@ -6,6 +6,71 @@
 	<!-- we transform from body to local horizon using pitch, yaw and roll -->
 	<!-- then using lat and lon to the FG world co-rotating coordinate system-->
 	<!-- and finally using the Earth rotation angle to a true inertial system -->
+	<!-- to make matters worse, JSBSim's inertial system is initialized to agree with -->
+	<!-- FG co-rotating, so it's not astronomically fixed, i.e. we need sidereal time -->
+	<!-- to do pointing at specific stars -->
+	<!-- also the Shuttle's LVLH system is not FG's local horizon frame -->
+	<!-- because the Shuttle LVLH orients along the orbital track rather than heading -->
+	
+
+	<channel name="Sidereal time">
+
+	<fcs_function name="systems/pointing/sidereal/year-days">
+	<function>
+		<sum>
+			<table>
+        		<independentVar lookup="row">/sim/time/utc/month</independentVar>
+        		<tableData>
+          		1	0
+			2	31
+			3	59
+			4	90
+			5	120
+			6	151
+			7	181
+			8	212
+			9	243
+			10	273
+			11	304
+			12	334
+        		</tableData>
+      			</table>
+			<difference>
+				<property>/sim/time/utc/day</property>
+				<value>1.0</value>
+			</difference>
+			<quotient>
+				<property>/sim/time/utc/day-seconds</property>
+				<value>86400</value>
+			</quotient>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/pointing/sidereal/sid-day-fraction">
+	<function>
+		<fraction>
+		<quotient>
+			<property>systems/pointing/sidereal/year-days</property>
+			<value>0.99726958</value>
+		</quotient>
+		</fraction>
+	</function>
+	</fcs_function>
+
+
+
+	<fcs_function name="systems/pointing/sidereal/sidereal-angle-rad">
+	<function>
+		<product>
+			<property>systems/pointing/sidereal/sid-day-fraction</property>
+			<value>6.2831852</value>
+		</product>
+	</function>
+	</fcs_function>
+
+	</channel>
+
 
 	<channel name="Local horizon frame ">
 

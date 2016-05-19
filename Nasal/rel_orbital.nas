@@ -7,7 +7,6 @@
 ###########################################################################
 
 
-
 var evaState = {};
 
 var etState = {};
@@ -26,11 +25,16 @@ var rmsState = {};
 var rmsCoord = {};
 var rmsModel = {};
 
+var issState = {};
+var issCoord = {};
+var issModel = {};
+
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
 var ku_loop_flag = 0;
 var payload_loop_flag = 0;
 var rms_loop_flag = 0;
+var iss_loop_flag = 0;
 
 var ft_to_m = 0.30480;
 var m_to_ft = 1.0/ft_to_m;
@@ -40,6 +44,7 @@ var offset_vec = [];
 var offset_vec_ku = [];
 var offset_vec_payload = [];
 var offset_vec_rms = [];
+var offset_vec_iss = [];
 
 ###########################################################################
 # basic state vector management for imposed external accelerations
@@ -66,8 +71,8 @@ var stateVector = {
 
 		if (dt == nil)
 			{
-			var speedup = getprop("/sim/speed-up");
-			dt = getprop("/sim/time/delta-sec") * speedup;
+			#var speedup = getprop("/sim/speed-up");
+			dt = getprop("/sim/time/delta-sec");# * speedup;
 			}
 
 		me.x = me.x + me.vx * dt + 0.5 * ax * dt * dt;
@@ -341,14 +346,16 @@ G[2] = -G[2]/Gnorm * g;
 
 
 # compensating acceleration to dampen the drift error by coordinate trafo
-
+# this might actually be non-spherical gravity of JSBSim
 
 var sin_lat = math.sin(shuttleCoord.lat() * 3.1415/180.0);
 var cos_lat = math.cos(shuttleCoord.lat() * 3.1515/180.0);
 var sin_lon = math.sin(shuttleCoord.lon() * 3.1415/180.0);
 var cos_lon = math.cos(shuttleCoord.lon() * 3.1515/180.0);
 
-A_mag = 0.027 * sin_lat * cos_lat;
+A_mag = 0.0243 * sin_lat * cos_lat;
+
+
 
 var A = [A_mag * cos_lon * sin_lat, A_mag * sin_lon * sin_lat, -A_mag * cos_lat];
 
@@ -361,10 +368,16 @@ return F;
 var set_coords = func (objString, objCoord, objState) {
 
 var lon = getprop("/position/longitude-deg");
+var groundtrack = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+var groundtrack_orig = getprop("/controls/shuttle/"~objString~"/groundtrack-orig-deg");
+
+var yaw_correction = groundtrack - groundtrack_orig;
+
 setprop("/controls/shuttle/"~objString~"/latitude-deg", objCoord.lat());
 setprop("/controls/shuttle/"~objString~"/longitude-deg", objCoord.lon());
 setprop("/controls/shuttle/"~objString~"/elevation-ft", objCoord.alt() * m_to_ft);
 setprop("/controls/shuttle/"~objString~"/pitch-deg", objState.pitch + lon);
+setprop("/controls/shuttle/"~objString~"/heading-deg", objState.yaw + yaw_correction);
 
 }
 
@@ -408,12 +421,8 @@ setprop("/controls/shuttle/"~string~"/heading-deg", heading);
 setprop("/controls/shuttle/"~string~"/pitch-deg", pitch);
 setprop("/controls/shuttle/"~string~"/roll-deg", roll);
 
-#setprop("/controls/shuttle/et-ballistic/latitude-deg", lat);
-#setprop("/controls/shuttle/et-ballistic/longitude-deg", lon);
-#setprop("/controls/shuttle/et-ballistic/elevation-ft", alt);
-#setprop("/controls/shuttle/et-ballistic/heading-deg", heading);
-#setprop("/controls/shuttle/et-ballistic/pitch-deg", pitch);
-#setprop("/controls/shuttle/et-ballistic/roll-deg", roll);
+var groundtrack = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+setprop("/controls/shuttle/"~string~"/groundtrack-orig-deg", groundtrack);
 
 
 var etmodel = props.globals.getNode("/controls/shuttle/"~string, 1);
@@ -504,7 +513,7 @@ settimer(func {
 var update_tank = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
+var dt = getprop("/sim/time/delta-sec");# * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -637,7 +646,7 @@ settimer(func {
 var update_ku = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
+var dt = getprop("/sim/time/delta-sec");# * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -765,7 +774,7 @@ settimer(func {
 var update_payload = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
+var dt = getprop("/sim/time/delta-sec");# * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -884,7 +893,7 @@ settimer(func {
 var update_rms = func (delta_lon) {
 
 var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec") * getprop("/sim/speed-up");
+var dt = getprop("/sim/time/delta-sec");# * getprop("/sim/speed-up");
 
 
 delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
@@ -933,3 +942,358 @@ if (dist > 5000.0)
 
 if (rms_loop_flag >0 ) {settimer(func {update_rms(delta_lon); },0.0);}
 }
+
+
+
+###########################################################################
+# ISS simulation control routines
+###########################################################################
+
+
+### init ISS in the distance ###
+
+var init_iss = func  {
+
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw = getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+
+
+issCoord = geo.aircraft_position() ;
+
+issCoord.set_lon (issCoord.lon() + 0.001);
+
+issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, 90.0, 0.0 , 0.0);
+
+var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
+
+issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch,roll);
+
+setprop("/controls/shuttle/ISS/groundtrack-orig-deg", 90.0);
+
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+
+settimer(func { 
+		issState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		iss_loop_flag = 1;
+		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 1); },0);
+}
+
+
+### init ISS undocking from the Shuttle ###
+
+var undock_iss = func  {
+
+if (getprop("/controls/shuttle/ISS/docking-flag") == 0)
+	{return;}
+
+setprop("/controls/shuttle/ISS/docking-flag", 0);
+setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 0.0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+SpaceShuttle.switch_orbital_dap(1);
+
+# prevent immediate triggering of the docking condition
+setprop("/controls/shuttle/ISS/docking-veto", 1);
+settimer (func { setprop("/controls/shuttle/ISS/docking-veto", 0);}, 10.0);
+
+var pitch = getprop("/orientation/pitch-deg");
+var yaw = getprop("/orientation/heading-deg");
+var roll = getprop("/orientation/roll-deg");
+var lon_deg = getprop("/position/longitude-deg");
+
+issCoord = geo.aircraft_position();
+
+# correct for docking collar position
+
+var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
+
+issCoord.set_x( issCoord.x() - dockingCollarOffset[0]); 
+issCoord.set_y( issCoord.y() - dockingCollarOffset[1]); 
+issCoord.set_z( issCoord.z() - dockingCollarOffset[2]); 
+
+issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, yaw, pitch - lon_deg , roll);
+
+var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
+
+issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch -lon_deg,roll);
+
+
+
+var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+var lon = lon_deg * math.pi/180.0;
+var dt = getprop("/sim/time/delta-sec");
+
+var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+var vzoffset = 0.0;
+
+
+# now we push the the orbiter away 
+
+var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
+setprop("/controls/flight/elevator", -1.0);
+
+
+settimer( func{
+	controls.centerFlightControls();
+	SpaceShuttle.control_to_rcs();
+	}, 3.0);
+
+
+settimer(func { 
+		issState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+		iss_loop_flag = 1;
+		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 2); },0);
+}
+
+
+### manage ISS in undocked state ###
+
+var update_iss = func (delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag) {
+
+var shuttleCoord = geo.aircraft_position();
+var dt = getprop("/sim/time/delta-sec");
+
+
+delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+
+var F = get_force (issState, shuttleCoord);
+
+issState.update(F[0], F[1], F[2], 0.0,0.0,0.0);
+issCoord.set_xyz(issState.x, issState.y, issState.z);
+issCoord.set_lon(issCoord.lon() - delta_lon);
+
+if (iss_loop_flag < 3)
+	{
+	if (iss_loop_flag ==1)
+		{
+		offset_vec_iss = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
+		}
+	if (iss_loop_flag == 2)
+		{
+		var offset1_vec = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
+		var v_offset_vec = [(offset1_vec[0] - offset_vec_iss[0]) / dt, (offset1_vec[1] - offset_vec_iss[1]) / dt, (offset1_vec[2] - offset_vec_iss[2]) / dt];
+		
+
+
+		issState = compute_state_correction  (issState, issCoord, shuttleCoord, v_offset_vec, delta_lon);
+		if (placement_flag == 1)
+			{
+			var iss_placement = geo.Coord.new();
+			iss_placement.set_xyz (issState.x, issState.y, issState.z);
+			iss_placement.set_lon (iss_placement.lon() + 0.005);
+			issState.x = iss_placement.x();
+			issState.y = iss_placement.y();
+			issState.z = iss_placement.z();
+			}
+		else if (placement_flag == 2)
+			{
+			var iss_placement = geo.Coord.new();
+			iss_placement.set_xyz (issState.x, issState.y, issState.z);
+
+			var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+			var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+			var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+			var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(-8.1, shuttleWorldX), SpaceShuttle.scalar_product(1.0, shuttleWorldZ));
+
+			iss_placement.set_x( iss_placement.x() - dockingCollarOffset[0]); 
+			iss_placement.set_y( iss_placement.y() - dockingCollarOffset[1]); 
+			iss_placement.set_z( iss_placement.z() - dockingCollarOffset[2]); 
+
+			issState.x = iss_placement.x();
+			issState.y = iss_placement.y();
+			issState.z = iss_placement.z();
+			}
+		}
+	iss_loop_flag = iss_loop_flag + 1;
+
+	}
+
+
+set_coords("ISS", issCoord, issState);
+
+# we have to do the antenna tracking here rather than in the antenna manager, because
+# the antenna manager might run outside a frame, in which case the coordinate is displaced
+# leading to odd tracking angles for the antenna
+
+
+if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
+		{
+		SpaceShuttle.antenna_manager.set_rr_target(issCoord);
+			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
+				{
+				ku_antenna_track_target(issCoord);
+				}		
+		}
+if (SpaceShuttle.star_tracker_array[0].mode == 2)
+	{
+	SpaceShuttle.star_tracker_array[0].set_target(issCoord);
+	}
+
+if (SpaceShuttle.star_tracker_array[1].mode == 2)
+{
+	SpaceShuttle.star_tracker_array[1].set_target(issCoord);
+	}
+
+
+
+# check docking conditions
+# we need to do this for the docking collar, so we need its position in FG world
+# coordinates
+# we also need LVLH coordinates for the Y vector and theta
+# since FG manages attitude in LVLH pitch, yaw and roll
+# (basically this is a mess)
+
+var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
+
+shuttleCoord.set_x (shuttleCoord.x() + dockingCollarOffset[0]);
+shuttleCoord.set_y (shuttleCoord.y() + dockingCollarOffset[1]);
+shuttleCoord.set_z (shuttleCoord.z() + dockingCollarOffset[2]);
+
+var dist = shuttleCoord.distance_to(issCoord);
+var ddot = (dist - d_last)/dt;
+d_last = dist;
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/distance-m", dist);
+setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s", ddot);
+
+var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
+var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
+var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
+
+var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, iss_roll);
+
+var lat_to_m = 110952.0;
+var lon_to_m  = math.cos(issCoord.lat()*math.pi/180.0) * lat_to_m;
+
+var x_lvlh = (issCoord.lon() - shuttleCoord.lon()) * lon_to_m;
+var y_lvlh = (issCoord.lat() - shuttleCoord.lat()) * lat_to_m;
+var z_lvlh = (issCoord.alt() - shuttleCoord.alt());
+
+var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
+
+
+var y = -SpaceShuttle.dot_product(y_vec, rel_vec);
+var ydot = (y - y_last)/dt;
+y_last = y;
+var theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/Y-m",y);
+setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s",ydot);
+setprop("/fdm/jsbsim/systems/rendezvous/target/theta",theta);
+
+
+
+
+if (dist > 5000.0) 
+	{
+	print ("ISS explicit simulation ends");
+	issModel.remove();
+	iss_loop_flag = 0;
+	}
+
+if (dist < 0.4)
+	{
+	
+	if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (theta < 15.0))
+		{
+		setprop("/sim/messages/copilot", "Successful ISS docking!");
+
+		setprop("/controls/shuttle/ISS/docking-flag", 1);
+		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 924740.0);
+		controls.centerFlightControls();
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+		setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
+		SpaceShuttle.switch_orbital_dap(4);
+		issModel.remove();
+		iss_loop_flag = 0;
+
+		var x1_vec = orientTaitBryan([1.0, 0.0,0.0], iss_yaw, iss_pitch, iss_roll);
+		var x2_vec = orientTaitBryan([0.0, 1.0, 0.0], iss_yaw, iss_pitch, iss_roll);
+
+		var shuttleLVLHX = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[2]")];
+
+		var shuttleLVLHY = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[2]")];
+
+		var omega = 180/math.pi * math.acos(SpaceShuttle.dot_product(shuttleLVLHX, x1_vec));
+		
+		if (SpaceShuttle.dot_product(shuttleLVLHY, x2_vec) < 0.0)
+			{
+			omega = - omega;
+			}
+		setprop("/controls/shuttle/ISS/rel-heading-deg", -omega); 
+		}
+
+	}
+
+
+
+# in addition to the real docking parameters (which we have to use to evaluate docking)
+# we have to generate the displayed ones repeating the computation with the
+# ISS coordinates plus errors
+
+issCoord = SpaceShuttle.blur_tgt_coord(issCoord);
+dist = shuttleCoord.distance_to(issCoord);
+ddot = (dist - d_disp_last)/dt;
+d_disp_last = dist;
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/distance-prop-m", dist);
+setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s", ddot);
+
+x_lvlh = (issCoord.lon() - shuttleCoord.lon()) * lon_to_m;
+y_lvlh = (issCoord.lat() - shuttleCoord.lat()) * lat_to_m;
+z_lvlh = (issCoord.alt() - shuttleCoord.alt());
+
+rel_vec = [x_lvlh, y_lvlh, z_lvlh];
+
+y = -SpaceShuttle.dot_product(y_vec, rel_vec);
+ydot = (y - y_disp_last)/dt;
+y_disp_last = y;
+theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
+
+setprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m",y);
+setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s",ydot);
+setprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop",theta);
+
+
+if (iss_loop_flag >0 ) {settimer(func {update_iss(delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag); },0.0);}
+}
+
+
+
+
