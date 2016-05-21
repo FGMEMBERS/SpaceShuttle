@@ -1967,6 +1967,15 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 34)
+		{
+		if (item == 28)
+			{
+			SpaceShuttle.orbital_tgt_compute_t1();
+			valid_flag =1;
+			}
+		}
+
 	if (spec == 50)
 		{
 		if (item == 3)

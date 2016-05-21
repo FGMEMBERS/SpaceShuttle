@@ -142,6 +142,74 @@ return [t_H, alpha, dv1, dv2];
 
 
 ############################################################
+# orbital targeting
+############################################################
+
+var orbital_tgt_compute_t1 = func {
+
+var tgt_id = getprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id");
+
+if (tgt_id > SpaceShuttle.n_orbital_targets) {return;}
+if (tgt_id == 0) {return;}
+
+
+# first, check whether we are in a circular orbit
+
+var semimajor = getprop("/fdm/jsbsim/systems/orbital/semimajor-axis-length-ft") * 0.3048;
+var epsilon = getprop("/fdm/jsbsim/systems/orbital/epsilon");
+
+var r_max = semimajor * (1.0+epsilon);
+var r_min = semimajor * (1.0-epsilon);
+
+if ((r_max - r_min) > 5000.0)
+	{
+	print("Circularize orbit before calling rendezvous navigation!");
+	return;
+	}
+
+# now get the angular distance between target and shuttle
+
+var tgt_aol = oTgt.anomaly;
+var aol = getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg");
+
+
+var alpha = tgt_aol - aol;
+
+# get the approach rate
+
+var tgt_period = oTgt.period;
+var period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+
+var omega = 2.0 * math.pi/period;
+var tgt_omega = 2.0 * math.pi/tgt_period;
+
+var alpha_rate = (omega - tgt_omega) * 180.0/math.pi;
+
+print("alpha: ", alpha, " alpha_rate: ", alpha_rate);
+
+# compute the Hohmann transfer orbit parameters
+
+var hohmann_pars = compute_hohmann(semimajor, oTgt.radius);
+
+var alpha_h = hohmann_pars[1] * 180.0/math.pi;
+var tig = (alpha - alpha_h)/alpha_rate;
+
+print("TIG in: ", tig, " seconds");
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", hohmann_pars[2]/0.3048);
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", int(MET + tig)); 			
+SpaceShuttle.set_oms_mnvr_timer();
+
+}
+
+
+
+
+############################################################
 # numerical extrapolation of state vector
 ############################################################
 
