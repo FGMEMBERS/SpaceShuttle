@@ -196,6 +196,9 @@ var tig = (alpha - alpha_h)/alpha_rate;
 
 print("TIG in: ", tig, " seconds");
 
+
+# write resulting parameters to OMS burn plan
+
 setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", hohmann_pars[2]/0.3048);
 
 var elapsed = getprop("/sim/time/elapsed-sec");
@@ -204,9 +207,48 @@ var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", int(MET + tig)); 			
 SpaceShuttle.set_oms_mnvr_timer();
 
+# compute target position at TIG
+
+var future_tgt_pos = oTgt.get_future_inertial_pos(tig);
+
 }
 
 
+
+var distance_to_tgt = func {
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+var tgt_pos = oTgt.get_inertial_pos();
+
+var dx = x - tgt_pos[0];
+var dy = y - tgt_pos[1];
+var dz = z - tgt_pos[2];
+
+var alt = math.sqrt(x*x + y*y + z*z);
+var alt_tgt = math.sqrt(tgt_pos[0]*tgt_pos[0] + tgt_pos[1]*tgt_pos[1] + tgt_pos[2]*tgt_pos[2]);
+var dalt = alt_tgt - alt;
+
+var dist = math.sqrt(dx * dx + dy * dy + dz * dz);
+
+var tgt_aol = oTgt.anomaly;
+var aol = getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg");
+var path_dist = (tgt_aol - aol) * math.pi/180.0 * alt;
+
+var resid = dist * dist - path_dist * path_dist - dalt * dalt;
+
+if (resid > 0.) {resid = math.sqrt(resid);} else {resid =0.0;}
+
+print("Distance to target: ", dist/1000.0, " km");
+print("Alt. difference: ", dalt/1000.0, " anomaly dist: ", path_dist/1000.0);
+print("Lateral residual: ", resid/1000.0);
+
+
+
+
+}
 
 
 ############################################################
