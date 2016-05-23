@@ -4,6 +4,12 @@
 
 
 ############################################################
+# gravitational constant
+############################################################ 
+
+var GM = 398759391386476.0; 
+
+############################################################
 # prediction of apoapsis and periapsis for PEG 7 burn target
 ############################################################
 
@@ -124,8 +130,6 @@ var time = ang/(2.0 * math.pi) * orbital_period;
 
 var compute_hohmann = func (r1, r2) {
 
-var GM = 398759391386476.0; 
-
 var t_H = math.pi * math.sqrt(math.pow(r1+r2,3.0)/(8.0 * GM));
 var omega_2 = math.sqrt(GM/math.pow(r2,3.0));
 var alpha = math.pi - omega_2 * t_H;
@@ -211,6 +215,53 @@ SpaceShuttle.set_oms_mnvr_timer();
 
 var future_tgt_pos = oTgt.get_future_inertial_pos(tig);
 
+# numerical state extrapolation to TIG
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate", (MET +tig));
+state_extrapolate_current(tig);
+
+orbital_tgt_t1_numerics();
+}
+
+
+var orbital_tgt_t1_numerics = func {
+
+
+if (getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag") == 0)
+	{
+	print ("Computing TIG...");
+	settimer (orbital_tgt_t1_numerics, 1.0);
+	return;
+	}
+
+var state_tig_x = [0,0,0];
+var state_tig_v = [0,0,0];
+
+state_tig_x[0] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-x");
+state_tig_x[1] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-y");
+state_tig_x[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-z");
+
+state_tig_v[0] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vx");
+state_tig_v[1] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy");
+state_tig_v[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz");
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate");
+
+var time = tig_test - MET;
+var tgt_pos = oTgt.get_future_inertial_pos(time);
+
+
+var dx = state_tig_x[0] - tgt_pos[0];
+var dy = state_tig_x[1] - tgt_pos[1];
+var dz = state_tig_x[2] - tgt_pos[2];
+
+var dist = math.sqrt(dx * dx + dy * dy + dz * dz);
+
+
+print("Distance at TIG: ", dist);
 }
 
 
@@ -246,8 +297,6 @@ print("Alt. difference: ", dalt/1000.0, " anomaly dist: ", path_dist/1000.0);
 print("Lateral residual: ", resid/1000.0);
 
 
-
-
 }
 
 
@@ -256,7 +305,7 @@ print("Lateral residual: ", resid/1000.0);
 ############################################################
 
 
-var state_extrapolate_test = func (time) {
+var state_extrapolate_current = func (time) {
 
 var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
 
@@ -275,8 +324,7 @@ var state_extrapolate = func (state_x, state_v, time_sum, time_end) {
 # GM is extracted from JSBSIm, Wikipedia gives rather 398600.44 km^2/s^-2, the reason is
 # that JSBSim does not assume a Newtonian pointmass Earth
 
-var GM = 398759391386476.0; 
-
+ 
 var dt = 0.05;
 var n = 0;
 
@@ -352,6 +400,40 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-z", state_x[2]);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vx", state_v[0]);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy", state_v[1]);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz", state_v[2]);
+
+# compute the orbital elements of the extrapolated vectors
+
+
+var r_dot_v = SpaceShuttle.dot_product(state_x, state_v);
+var h = SpaceShuttle.cross_product(state_x, state_v);
+var h_norm = SpaceShuttle.norm(h);
+
+var epsilon_vec = SpaceShuttle.scalar_product(1.0/GM, SpaceShuttle.cross_product(state_v, h));
+epsilon_vec = SpaceShuttle.subtract_vector(epsilon_vec,SpaceShuttle.normalize(state_x));
+var epsilon = SpaceShuttle.norm(epsilon_vec);
+
+var inc = math.acos(h[2]/h_norm);
+
+var n_vec = [-h[1], h[0], 0.0];
+var n_norm = SpaceShuttle.norm(n_vec);
+
+var Omega = math.acos(n_vec[0]/n_norm);
+if (n_vec[1] < 0.0) {Omega = 2.0 * math.pi - Omega;}
+
+var parg = math.acos(SpaceShuttle.dot_product(SpaceShuttle.normalize(n_vec), SpaceShuttle.normalize(epsilon_vec)));
+if (epsilon_vec[2] < 0.0) {parg = 2.0 * math.pi - parg;}
+
+var true_anomaly = math.acos(SpaceShuttle.dot_product(SpaceShuttle.normalize(epsilon_vec), SpaceShuttle.normalize(state_x)));
+
+if (r_dot_v < 0.0) {true_anomaly = 2.0 * math.pi - true_anomaly;}
+
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-epsilon", epsilon);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-inclination-deg", inc * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-asc-node-long-deg", Omega * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-periapsis-arg-deg", parg * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-true-anomaly-deg", true_anomaly * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg", (true_anomaly + parg) * 180.0/math.pi);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
 
