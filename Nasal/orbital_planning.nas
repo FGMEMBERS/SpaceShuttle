@@ -1,11 +1,18 @@
 
 # orbital planning tools for the Space Shuttle
-# Thorsten Renk 2015
+# Thorsten Renk 2015 - 2016
+
+# note that the orbital computations here are all done in metric units
+# and need to be converted to imperial units for display purposes
 
 
 ############################################################
 # gravitational constant
 ############################################################ 
+
+# GM is extracted from JSBSIm, Wikipedia gives rather 398600.44 km^2/s^-2, the reason is
+# that JSBSim does not assume a Newtonian pointmass Earth
+# what we do is an approximation still...
 
 var GM = 398759391386476.0; 
 
@@ -218,8 +225,7 @@ var future_tgt_pos = oTgt.get_future_inertial_pos(tig);
 # numerical state extrapolation to TIG
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate", (MET +tig));
-state_extrapolate_current(tig);
+state_extrapolate_current_to_condition(2.0 * tig, 0, alpha_h);
 
 orbital_tgt_t1_numerics();
 }
@@ -248,9 +254,10 @@ state_tig_v[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz"
 
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
-var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate");
+#var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate");
+#var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
 
-var time = tig_test - MET;
+var time = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
 var tgt_pos = oTgt.get_future_inertial_pos(time);
 
 
@@ -330,10 +337,6 @@ state_extrapolate(x, v, 0.0, time);
 
 var state_extrapolate = func (state_x, state_v, time_sum, time_end) {
 
-# GM is extracted from JSBSIm, Wikipedia gives rather 398600.44 km^2/s^-2, the reason is
-# that JSBSim does not assume a Newtonian pointmass Earth
-
- 
 var dt = 0.05;
 var n = 0;
 
@@ -341,13 +344,10 @@ while (time_sum < time_end)
 	{
 	# gravity vector is along radius vector
 	var G = [state_x[0], state_x[1], state_x[2]];
-
-	#print(G[0], G[1], G[2]);
 	var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
 
 	# gravitational acceleration
 	var g = GM/(Gnorm* Gnorm);
-	#print(g);
 
 	G[0] = -G[0]/Gnorm * g;
 	G[1] = -G[1]/Gnorm * g;
@@ -400,6 +400,113 @@ else
 
 }
 
+
+var state_extrapolate_current_to_condition = func (time, condition_flag, condition_value) {
+
+var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
+
+var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048];
+
+
+
+state_extrapolate_to_condition(x, v, 0.0, time, condition_flag, condition_value);
+
+}
+
+var state_extrapolate_to_condition = func (state_x, state_v, time_sum, time_end, condition_id, condition_value) {
+
+var dt = 0.05;
+var n = 0;
+var n1 = 0;
+
+var condition_flag = 0;
+
+while (time_sum < time_end) 
+	{
+	# gravity vector is along radius vector
+	var G = [state_x[0], state_x[1], state_x[2]];
+	var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
+
+	# gravitational acceleration
+	var g = GM/(Gnorm* Gnorm);
+
+	G[0] = -G[0]/Gnorm * g;
+	G[1] = -G[1]/Gnorm * g;
+	G[2] = -G[2]/Gnorm * g;
+
+	# right now, gravity is the only force, but we can extend here
+	var acc = [0,0,0];
+
+	acc[0] = G[0];
+	acc[1] = G[1];
+	acc[2] = G[2];
+
+	# update position
+	state_x[0] = state_x[0] + state_v[0] * dt + 0.5 * acc[0] * dt * dt;
+	state_x[1] = state_x[1] + state_v[1] * dt + 0.5 * acc[1] * dt * dt;
+	state_x[2] = state_x[2] + state_v[2] * dt + 0.5 * acc[2] * dt * dt;
+
+	# update velocity
+
+	state_v[0] = state_v[0] + acc[0] * dt;
+	state_v[1] = state_v[1] + acc[1] * dt;
+	state_v[2] = state_v[2] + acc[2] * dt;
+
+
+	n=n+1;
+	n1 = n1 + 1;
+	time_sum += dt;
+
+	if ((time_sum > time_end) or (n > 1000)) {break;}
+
+	# check condition every 100 iterations or 5 seconds
+
+	if (n1 == 100)
+		{
+		n1 = 0;
+
+		if (condition_id == 0) # alpha value relative to a target
+			{
+			var elements = get_orbital_elements(state_x, state_v);
+			var aol = (elements[4] + elements[5]) * 180.0/math.pi;
+			var target_aol = oTgt.anomaly + time_sum/oTgt.period * 360.0;
+			
+			var alpha = target_aol - aol;
+			if (alpha < 0.0) {alpha = alpha + 360.0;}
+			if (alpha > 360.0) {alpha = alpha - 360.0;}
+
+			if (alpha < condition_value) 
+				{
+				condition_flag = 1; 
+				print("alpha:", alpha, " tgt_alpha: ", condition_value); 
+				}
+
+			}
+
+		}
+
+	if (condition_flag == 1) {break;}
+
+	}
+
+	
+if ((time_sum > time_end) or (condition_flag == 1))
+	{
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time", time_sum);
+	print("Finished, time is: ", time_sum);
+	state_extrapolate_finish(state_x, state_v);
+	return;
+	}
+else
+	{
+	settimer ( func{state_extrapolate_to_condition(state_x, state_v, time_sum, time_end, condition_id, condition_value); }, 0.0 );
+	}
+
+
+}
+
+
+
 var state_extrapolate_finish = func (state_x, state_v) {
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-x", state_x[0]);
@@ -414,12 +521,15 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz", state_v[2]);
 
 var elements = get_orbital_elements(state_x, state_v);
 
+var aol = elements[5]+elements[4];
+if (aol > 2.0 * math.pi) {aol = aol - 2.0 * math.pi;}
+
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-epsilon", elements[1]);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-inclination-deg", elements[2] * 180.0/math.pi);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-asc-node-long-deg", elements[3] * 180.0/math.pi);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-periapsis-arg-deg", elements[4] * 180.0/math.pi);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-true-anomaly-deg", elements[5] * 180.0/math.pi);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg", (elements[5] + elements[4]) * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg", aol * 180.0/math.pi);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
 
