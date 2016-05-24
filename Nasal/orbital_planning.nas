@@ -261,7 +261,16 @@ var dz = state_tig_x[2] - tgt_pos[2];
 var dist = math.sqrt(dx * dx + dy * dy + dz * dz);
 
 
-print("Distance at TIG: ", dist);
+print("Distance at TIG [km]: ", dist/1000.0);
+
+print("Current tgt anomaly: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
+
+var target_anomaly = oTgt.anomaly + time/oTgt.period * 360.0;
+var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
+
+print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
+print("Angular dist at TIG: ", target_anomaly - anomaly);
+
 }
 
 
@@ -403,6 +412,48 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz", state_v[2]);
 
 # compute the orbital elements of the extrapolated vectors
 
+var elements = get_orbital_elements(state_x, state_v);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-epsilon", elements[1]);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-inclination-deg", elements[2] * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-asc-node-long-deg", elements[3] * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-periapsis-arg-deg", elements[4] * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-true-anomaly-deg", elements[5] * 180.0/math.pi);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg", (elements[5] + elements[4]) * 180.0/math.pi);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
+
+var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048;
+#print ("x: ", state_x[0], " y: ", state_x[1], " z: ", state_x[2]);
+#print ("vx: ", state_v[0], " vy: ", state_v[1], " vz: ", state_v[2]);
+
+}
+
+
+############################################################
+# compute orbital elements from state vector
+############################################################
+
+var test_orbital_elements = func {
+
+var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
+
+var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048];
+
+var elements = get_orbital_elements(x, v);
+
+print("Semimajor axis [km]: ", elements[0]/1000.0);
+print("Eccentricity: ", elements[1]);
+print("Inclination [deg]: ", elements[2] * 180.0/math.pi);
+print("Asc. node [deg]: " , elements[3] * 180.0/math.pi);
+print("Periapsis arg [deg]: ", elements[4] * 180.0/math.pi);
+print("True anomaly [deg]: ", elements[5] * 180.0/math.pi);
+}
+
+var get_orbital_elements = func (state_x, state_v) {
+
+var specific_energy = 0.5 * SpaceShuttle.dot_product(state_v, state_v) - GM/SpaceShuttle.norm(state_x);
+var semimajor = - GM/(2.0 * specific_energy);
 
 var r_dot_v = SpaceShuttle.dot_product(state_x, state_v);
 var h = SpaceShuttle.cross_product(state_x, state_v);
@@ -427,18 +478,6 @@ var true_anomaly = math.acos(SpaceShuttle.dot_product(SpaceShuttle.normalize(eps
 
 if (r_dot_v < 0.0) {true_anomaly = 2.0 * math.pi - true_anomaly;}
 
-
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-epsilon", epsilon);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-inclination-deg", inc * 180.0/math.pi);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-asc-node-long-deg", Omega * 180.0/math.pi);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-periapsis-arg-deg", parg * 180.0/math.pi);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-true-anomaly-deg", true_anomaly * 180.0/math.pi);
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg", (true_anomaly + parg) * 180.0/math.pi);
-
-setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
-
-var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048;
-#print ("x: ", state_x[0], " y: ", state_x[1], " z: ", state_x[2]);
-#print ("vx: ", state_v[0], " vy: ", state_v[1], " vz: ", state_v[2]);
+return [semimajor, epsilon, inc, Omega, parg, true_anomaly];
 
 }

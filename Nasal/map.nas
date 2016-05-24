@@ -21,7 +21,7 @@ var lat_to_m = 110952.0; # latitude degrees to meters
 var m_to_lat = 9.01290648208234e-06; # meters to latitude degrees
 var lon_to_m = 0.0; # needs to be calculated dynamically
 var m_to_lon = 0.0; # we do this on startup
-var GM = 398600.0 ;
+var GMkm = 398600.0 ;
 
 var delete_from_vector = func(vec, index) {
 
@@ -458,7 +458,7 @@ for (i=0; i < 1000.0; i=i+1)
 	var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
 	var R = Gnorm;
 
-	var g = GM/math.pow(R/1000.0, 2.0) * 1000.0 * 0.999;
+	var g = GMkm/math.pow(R/1000.0, 2.0) * 1000.0 * 0.999;
 	#print ("g: ", g);
 
 	G[0] = -G[0]/Gnorm * g;
