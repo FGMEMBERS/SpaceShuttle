@@ -146,6 +146,13 @@
         <vgo-y type="double">0.0</vgo-y>
         <vgo-z type="double">0.0</vgo-z>
     </oms-plan>
+    <orbit-tgt>
+	<computation-t1 type="int">0</computation-t1>
+	<computation-t2 type="int">0</computation-t2>
+	<t1-dx type="double">0.0</t1-dx>
+	<t1-dy type="double">0.0</t1-dy>
+	<t1-dz type="double">0.0</t1-dz>
+    </orbit-tgt>
     </ap>
     <dps>
 	<command-string type="string"></command-string>
