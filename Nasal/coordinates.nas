@@ -112,6 +112,14 @@ outvec = scalar_product(1.0/norm(outvec) , outvec);
 return outvec;
 }
 
+var distance_between = func (v1, v2) {
+
+var v3 = subtract_vector(v1, v2);
+
+return norm(v3);
+
+}
+
 
 var update_LVLH_to_ECI = func {
 
@@ -536,7 +544,7 @@ var oms_future_burn_hold = func {
 
 var flag = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag");
 
-print("Holding...");
+print("Computing trajectory prediction...");
 
 if (flag == 1)
 	{
@@ -581,16 +589,7 @@ prograde = normalize(prograde);
 radial = normalize(radial);
 radial = orthonormalize(prograde, radial);
 
-#var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
 
-#radial[0] = radial[0] - prograde[0] * corr_angle;
-#radial[1] = radial[1] - prograde[1] * corr_angle;
-#radial[2] = radial[2] - prograde[2] * corr_angle;
-
-#var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
-#radial[0] = radial[0]/radial_norm;
-#radial[1] = radial[1]/radial_norm;
-#radial[2] = radial[2]/radial_norm;
 
 # now correct for the about 11.5 deg offset of the OMS thrust axis
 
@@ -609,8 +608,7 @@ var normal = cross_product(prograde, radial);
 
 # now get the inertial velocity change components for the burn taget
 
-#print("Prograde:");
-#print (prograde[0], " ", prograde[1], " ", prograde[2]);
+
 
 var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
 var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];

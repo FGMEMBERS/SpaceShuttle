@@ -222,9 +222,10 @@ SpaceShuttle.set_oms_mnvr_timer();
 
 var future_tgt_pos = oTgt.get_future_inertial_pos(tig);
 
-# numerical state extrapolation to TIG
+# numerical state extrapolation to TIG 1
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
 state_extrapolate_current_to_condition(2.0 * tig, 0, alpha_h);
 
 orbital_tgt_t1_numerics();
@@ -236,10 +237,12 @@ var orbital_tgt_t1_numerics = func {
 
 if (getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag") == 0)
 	{
-	print ("Computing TIG...");
+	print ("Computing TIG 1...");
 	settimer (orbital_tgt_t1_numerics, 1.0);
 	return;
 	}
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",0);
 
 var state_tig_x = [0,0,0];
 var state_tig_v = [0,0,0];
@@ -268,19 +271,66 @@ var dz = state_tig_x[2] - tgt_pos[2];
 var dist = math.sqrt(dx * dx + dy * dy + dz * dz);
 
 
-print("Distance at TIG [km]: ", dist/1000.0);
+print("Distance at TIG 1 [km]: ", dist/1000.0);
 
 print("Current tgt anomaly: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
 
 var target_anomaly = oTgt.anomaly + time/oTgt.period * 360.0;
 var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
 
-print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
+#print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
 print("Angular dist at TIG: ", target_anomaly - anomaly);
+
+
+# numerical state extrapolation to TIG 2
+
+var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx");
+
+state_tig_v = add_peg7_target(state_tig_x, state_tig_v, [dvx, 0, 0]);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+state_extrapolate_to_condition (state_tig_x, state_tig_v, time, time+3000.0, 2, 20000.0, 1e6);
+
+orbital_tgt_t2_numerics();
 
 }
 
 
+var orbital_tgt_t2_numerics = func {
+
+
+
+if (getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag") == 0)
+	{
+	print ("Computing TIG 2...");
+	settimer (orbital_tgt_t2_numerics, 1.0);
+	return;
+	}
+
+var state_tig_x = [0,0,0];
+var state_tig_v = [0,0,0];
+
+state_tig_x[0] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-x");
+state_tig_x[1] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-y");
+state_tig_x[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-z");
+
+state_tig_v[0] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vx");
+state_tig_v[1] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy");
+state_tig_v[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz");
+
+var time = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
+var tgt_pos = oTgt.get_future_inertial_pos(time);
+
+var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
+
+print("Distance at TIG 2 [km]: ", dist/1000.0);
+
+}
+
+
+############################################################
+# various distance measures to the target
+############################################################
 
 var distance_to_tgt = func {
 
@@ -401,6 +451,10 @@ else
 }
 
 
+################################################################
+# numerical extrapolation of state vector to a certain condition
+################################################################
+
 var state_extrapolate_current_to_condition = func (time, condition_flag, condition_value) {
 
 var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
@@ -409,11 +463,11 @@ var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsb
 
 
 
-state_extrapolate_to_condition(x, v, 0.0, time, condition_flag, condition_value);
+state_extrapolate_to_condition(x, v, 0.0, time, condition_flag, condition_value, 0.0);
 
 }
 
-var state_extrapolate_to_condition = func (state_x, state_v, time_sum, time_end, condition_id, condition_value) {
+var state_extrapolate_to_condition = func (state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last) {
 
 var dt = 0.05;
 var n = 0;
@@ -482,6 +536,41 @@ while (time_sum < time_end)
 				}
 
 			}
+		else if (condition_id == 1) # closest distance
+			{
+			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum);
+
+			var dist = SpaceShuttle.distance_between(state_x, tgt_inertial_pos);
+
+			print (dist);
+
+			if (dist > par_last)
+				{
+				condition_flag = 1; 
+				print("Closest distance:", dist/1000.0, " km"); 
+				}
+			par_last = dist;
+
+			}
+		else if (condition_id == 2) # closest altitude difference
+			{
+			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum);
+
+			var tgt_alt = SpaceShuttle.norm(tgt_inertial_pos);
+			var alt = SpaceShuttle.norm(state_x);
+
+			var dist = math.abs(tgt_alt - alt);
+			#print (dist);
+			
+			if ((dist > par_last) and (dist < condition_value))
+				{
+				condition_flag = 1; 
+				print("Closest altitude distance:", dist/1000.0, " km"); 
+				}
+			par_last = dist;
+
+			}
+			
 
 		}
 
@@ -499,7 +588,7 @@ if ((time_sum > time_end) or (condition_flag == 1))
 	}
 else
 	{
-	settimer ( func{state_extrapolate_to_condition(state_x, state_v, time_sum, time_end, condition_id, condition_value); }, 0.0 );
+	settimer ( func{state_extrapolate_to_condition(state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last); }, 0.0 );
 	}
 
 
@@ -539,6 +628,41 @@ var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048;
 
 }
 
+############################################################
+# add a PEG 7 target to the state vector
+############################################################
+
+var add_peg7_target = func (state_x, state_v, dv) {
+
+# construct prograde/radial/normal coordinate system for this state vector
+
+var prograde = [state_v[0], state_v[1], state_v[2]];
+var radial = [state_x[0], state_x[1], state_x[2]];
+
+prograde = SpaceShuttle.normalize(prograde);
+radial = SpaceShuttle.normalize(radial);
+radial = SpaceShuttle.orthonormalize(prograde, radial);
+
+var normal = SpaceShuttle.cross_product(prograde, radial);
+
+# now get the inertial velocity change components for the burn taget
+
+var tgt = [0,0,0];
+
+tgt[0] = dv[0] * prograde[0] + dv[1] * normal[0] + dv[2] * radial[0];
+tgt[1] = dv[0] * prograde[1] + dv[1] * normal[1] + dv[2] * radial[1];
+tgt[2] = dv[0] * prograde[2] + dv[1] * normal[2] + dv[2] * radial[2];
+
+
+
+# add the burn target velocity components to the state vector
+#var dv = scalar_product(oms_burn_target.dvtot, [tgt0, tgt1, tgt2]);
+
+state_v = add_vector(state_v, tgt);
+
+
+return state_v;
+}
 
 ############################################################
 # compute orbital elements from state vector
