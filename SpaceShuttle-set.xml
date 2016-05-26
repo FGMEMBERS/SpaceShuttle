@@ -152,6 +152,9 @@
 	<t1-dx type="double">0.0</t1-dx>
 	<t1-dy type="double">0.0</t1-dy>
 	<t1-dz type="double">0.0</t1-dz>
+	<t1-dxdot type="double">0.0</t1-dxdot>
+	<t1-dydot type="double">0.0</t1-dydot>
+	<t1-dzdot type="double">0.0</t1-dzdot>
     </orbit-tgt>
     </ap>
     <dps>
