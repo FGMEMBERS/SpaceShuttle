@@ -35,6 +35,9 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     p_dps_orbit_tgt.t1_dy = device.svg.getElementById("p_dps_orbit_tgt_t1_dy");
     p_dps_orbit_tgt.t1_dz = device.svg.getElementById("p_dps_orbit_tgt_t1_dz");
 
+    p_dps_orbit_tgt.t1_dxdot = device.svg.getElementById("p_dps_orbit_tgt_t1_dxdot");
+    p_dps_orbit_tgt.t1_dydot = device.svg.getElementById("p_dps_orbit_tgt_t1_dydot");
+    p_dps_orbit_tgt.t1_dzdot = device.svg.getElementById("p_dps_orbit_tgt_t1_dzdot");
 
 
 
@@ -97,6 +100,10 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
 	p_dps_orbit_tgt.t1_dx.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx")));
 	p_dps_orbit_tgt.t1_dy.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy")));
 	p_dps_orbit_tgt.t1_dz.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz")));
+
+	p_dps_orbit_tgt.t1_dxdot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot")));
+	p_dps_orbit_tgt.t1_dydot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot")));
+	p_dps_orbit_tgt.t1_dzdot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot")));
 
         device.update_common_DPS();
     }

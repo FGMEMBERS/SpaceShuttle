@@ -10,11 +10,23 @@
 # gravitational constant
 ############################################################ 
 
-# GM is extracted from JSBSIm, Wikipedia gives rather 398600.44 km^2/s^-2, the reason is
+# GM is extracted from JSBSim, Wikipedia gives rather 398600.44 km^2/s^-2, the reason is
 # that JSBSim does not assume a Newtonian pointmass Earth
 # what we do is an approximation still...
 
 var GM = 398759391386476.0; 
+
+############################################################
+# reference constants
+############################################################ 
+
+# calculations take a finite time, we need to store the point where
+# we started them, or we'll incur errors
+
+var target_reference_anomaly = 0.0;
+var target_reference_time = 0.0;
+
+
 
 ############################################################
 # prediction of apoapsis and periapsis for PEG 7 burn target
@@ -218,11 +230,11 @@ var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", int(MET + tig)); 			
 SpaceShuttle.set_oms_mnvr_timer();
 
-# compute target position at TIG
 
-var future_tgt_pos = oTgt.get_future_inertial_pos(tig);
 
 # numerical state extrapolation to TIG 1
+
+target_reference_anomaly = oTgt.anomaly;
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
@@ -261,25 +273,33 @@ var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 #var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
 
 var time = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
-var tgt_pos = oTgt.get_future_inertial_pos(time);
+var time_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+var tgt_pos = oTgt.get_future_inertial_pos(time - time_offset);
 
+# write delta's into the targeting plan
 
-var dx = state_tig_x[0] - tgt_pos[0];
-var dy = state_tig_x[1] - tgt_pos[1];
-var dz = state_tig_x[2] - tgt_pos[2];
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx", (tgt_pos[0] - state_tig_x[0])/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy", (tgt_pos[1] - state_tig_x[1])/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz", (tgt_pos[2] - state_tig_x[2])/1000.0 / 0.3048);
 
-var dist = math.sqrt(dx * dx + dy * dy + dz * dz);
+var tgt_pos1 = oTgt.get_future_inertial_pos(time - time_offset + 1.0);
+var tgt_v = SpaceShuttle.subtract_vector(tgt_pos1, tgt_pos);
 
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot", (tgt_v[0] - state_tig_v[0]) / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot", (tgt_v[1] - state_tig_v[1]) / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot", (tgt_v[2] - state_tig_v[2]) / 0.3048);
+
+var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
 print("Distance at TIG 1 [km]: ", dist/1000.0);
 
 print("Current tgt anomaly: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
 
-var target_anomaly = oTgt.anomaly + time/oTgt.period * 360.0;
+var target_anomaly = target_reference_anomaly + time/oTgt.period * 360.0;
 var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
 
 #print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
-print("Angular dist at TIG: ", target_anomaly - anomaly);
+print("Angular dist at TIG 1: ", target_anomaly - anomaly);
 
 
 # numerical state extrapolation to TIG 2
@@ -289,7 +309,7 @@ var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx");
 state_tig_v = add_peg7_target(state_tig_x, state_tig_v, [dvx, 0, 0]);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
-state_extrapolate_to_condition (state_tig_x, state_tig_v, time, time+3000.0, 2, 20000.0, 1e6);
+state_extrapolate_to_condition (state_tig_x, state_tig_v, time, time+3000.0, 1, 25000.0, 1e6, 1e6);
 
 orbital_tgt_t2_numerics();
 
@@ -319,11 +339,18 @@ state_tig_v[1] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy"
 state_tig_v[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz");
 
 var time = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
-var tgt_pos = oTgt.get_future_inertial_pos(time);
+var time_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+var tgt_pos = oTgt.get_future_inertial_pos(time - time_offset);
 
 var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
 print("Distance at TIG 2 [km]: ", dist/1000.0);
+
+var target_anomaly = target_reference_anomaly + time/oTgt.period * 360.0;
+var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
+
+#print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
+print("Angular dist at TIG 2: ", target_anomaly - anomaly);
 
 }
 
@@ -457,17 +484,20 @@ else
 
 var state_extrapolate_current_to_condition = func (time, condition_flag, condition_value) {
 
+target_reference_anomaly = oTgt.anomaly;
+target_reference_time = getprop("/sim/time/elapsed-sec");
+
 var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
 
 var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048];
 
 
 
-state_extrapolate_to_condition(x, v, 0.0, time, condition_flag, condition_value, 0.0);
+state_extrapolate_to_condition(x, v, 0.0, time, condition_flag, condition_value, 0.0, 0.0);
 
 }
 
-var state_extrapolate_to_condition = func (state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last) {
+var state_extrapolate_to_condition = func (state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last, par_llast) {
 
 var dt = 0.05;
 var n = 0;
@@ -523,7 +553,7 @@ while (time_sum < time_end)
 			{
 			var elements = get_orbital_elements(state_x, state_v);
 			var aol = (elements[4] + elements[5]) * 180.0/math.pi;
-			var target_aol = oTgt.anomaly + time_sum/oTgt.period * 360.0;
+			var target_aol = target_reference_anomaly + time_sum/oTgt.period * 360.0;
 			
 			var alpha = target_aol - aol;
 			if (alpha < 0.0) {alpha = alpha + 360.0;}
@@ -538,29 +568,72 @@ while (time_sum < time_end)
 			}
 		else if (condition_id == 1) # closest distance
 			{
-			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum);
+
+			var time_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum - time_offset);
 
 			var dist = SpaceShuttle.distance_between(state_x, tgt_inertial_pos);
 
-			print (dist);
+			# diagnostics...
+			var elements = get_orbital_elements(state_x, state_v);
+			var aol = (elements[4] + elements[5]) * 180.0/math.pi;
+			var target_aol = target_reference_anomaly + time_sum/oTgt.period * 360.0;
+			var alpha = target_aol - aol;
+			if (alpha < 0.0) {alpha = alpha + 360.0;}
+			if (alpha > 360.0) {alpha = alpha - 360.0;}
+			var tgt_alt = SpaceShuttle.norm(tgt_inertial_pos);
+			var alt = SpaceShuttle.norm(state_x);
+			var path_dist = alpha * alt /180.0 * math.pi;
+			var dalt = tgt_alt - alt;
+			
+			var resid = dist * dist - path_dist * path_dist - dalt * dalt;	
+			if (resid > 0.0) {resid = math.sqrt(resid);} else {resid = 0.0;}
 
-			if (dist > par_last)
+
+
+			#print("Distance to target: ", dist/1000.0, " km");
+			#print("Alpha: ", alpha);
+			#print("Alt. difference: ", dalt/1000.0, " anomaly dist: ", path_dist/1000.0);
+			#print("Lateral residual: ", resid/1000.0);
+
+			if ((dist > par_last)  and (dist < condition_value) and (dist > par_llast + 2.0))
 				{
 				condition_flag = 1; 
 				print("Closest distance:", dist/1000.0, " km"); 
 				}
+			if (dist < par_last) {par_llast = dist;}
 			par_last = dist;
 
 			}
 		else if (condition_id == 2) # closest altitude difference
 			{
-			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum);
+			var time_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+			var tgt_inertial_pos = oTgt.get_future_inertial_pos(time_sum - time_offset);
 
 			var tgt_alt = SpaceShuttle.norm(tgt_inertial_pos);
 			var alt = SpaceShuttle.norm(state_x);
 
 			var dist = math.abs(tgt_alt - alt);
 			#print (dist);
+
+			# diagnostics...
+			var elements = get_orbital_elements(state_x, state_v);
+			var aol = (elements[4] + elements[5]) * 180.0/math.pi;
+			var target_aol = target_reference_anomaly + time_sum/oTgt.period * 360.0;
+			var alpha = target_aol - aol;
+			if (alpha < 0.0) {alpha = alpha + 360.0;}
+			if (alpha > 360.0) {alpha = alpha - 360.0;}
+			var path_dist = alpha * alt /180.0 * math.pi;
+			var dist1 = SpaceShuttle.distance_between(state_x, tgt_inertial_pos);
+			var resid = dist1 * dist1 - path_dist * path_dist - dist * dist;	
+			if (resid > 0.0) {resid = math.sqrt(resid);} else {resid = 0.0;}
+
+
+
+			#print("Distance to target: ", dist1/1000.0, " km");
+			#print("Alpha: ", alpha);
+			#print("Alt. difference: ", dist/1000.0, " anomaly dist: ", path_dist/1000.0);
+			#print("Lateral residual: ", resid/1000.0);
 			
 			if ((dist > par_last) and (dist < condition_value))
 				{
@@ -588,7 +661,7 @@ if ((time_sum > time_end) or (condition_flag == 1))
 	}
 else
 	{
-	settimer ( func{state_extrapolate_to_condition(state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last); }, 0.0 );
+	settimer ( func{state_extrapolate_to_condition(state_x, state_v, time_sum, time_end, condition_id, condition_value, par_last, par_llast); }, 0.0 );
 	}
 
 
