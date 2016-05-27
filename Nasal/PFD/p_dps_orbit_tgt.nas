@@ -39,6 +39,15 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     p_dps_orbit_tgt.t1_dydot = device.svg.getElementById("p_dps_orbit_tgt_t1_dydot");
     p_dps_orbit_tgt.t1_dzdot = device.svg.getElementById("p_dps_orbit_tgt_t1_dzdot");
 
+    p_dps_orbit_tgt.t2_dx = device.svg.getElementById("p_dps_orbit_tgt_t2_dx");
+    p_dps_orbit_tgt.t2_dy = device.svg.getElementById("p_dps_orbit_tgt_t2_dy");
+    p_dps_orbit_tgt.t2_dz = device.svg.getElementById("p_dps_orbit_tgt_t2_dz");
+    p_dps_orbit_tgt.t2_dt = device.svg.getElementById("p_dps_orbit_tgt_t2_dt");
+
+    p_dps_orbit_tgt.t1_tig = device.svg.getElementById("p_dps_orbit_tgt_t1_tig");
+    p_dps_orbit_tgt.t2_tig = device.svg.getElementById("p_dps_orbit_tgt_t2_tig");
+    p_dps_orbit_tgt.base_time = device.svg.getElementById("p_dps_orbit_tgt_base_time");
+
 
 
     p_dps_orbit_tgt.ondisplay = func
@@ -104,6 +113,19 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
 	p_dps_orbit_tgt.t1_dxdot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot")));
 	p_dps_orbit_tgt.t1_dydot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot")));
 	p_dps_orbit_tgt.t1_dzdot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot")));
+
+	p_dps_orbit_tgt.t2_dx.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx")));
+	p_dps_orbit_tgt.t2_dy.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy")));
+	p_dps_orbit_tgt.t2_dz.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz")));
+
+	var t2_dt = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s") -  getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s") ;
+	if (t2_dt < 0.0) {t2_dt = 0.0;}
+
+	p_dps_orbit_tgt.t2_dt.setText(sprintf("%+3.2f", t2_dt / 60.0));
+
+   	p_dps_orbit_tgt.t1_tig.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string"));
+    	p_dps_orbit_tgt.t2_tig.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string"));
+    	p_dps_orbit_tgt.base_time.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string"));
 
         device.update_common_DPS();
     }
