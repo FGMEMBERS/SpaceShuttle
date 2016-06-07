@@ -442,8 +442,8 @@ print("Altitude difference at TIG 2: ", dalt/1000.0);
 
 # iteration code, doesn't work properly yet
 
-if (0==1)
-#if (math.abs(alpha_error) > 0.1)
+#if (0==1)
+if (math.abs(alpha_error) > 0.1)
 	{
 	if ((getprop("/sim/time/elapsed-sec") - target_reference_time) > 60.0)
 		{
@@ -461,7 +461,7 @@ if (0==1)
 	# get current angular distance
 
  	var alpha_current = angle_to_tgt();
-	var new_alpha_tgt = alpha_h - 0.5 * alpha_error;	
+	var new_alpha_tgt = alpha_h -  alpha_error;	
 	
 	print("Current alpha: ", alpha_current, " new alpha: ", new_alpha_tgt);
 
@@ -477,7 +477,9 @@ if (0==1)
 	target_reference_anomaly = oTgt.anomaly;
 	target_reference_time = getprop("/sim/time/elapsed-sec");
 	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 	state_extrapolate_current_to_condition(2.0 * tig_h, 0, new_alpha_tgt);
+
 
 	orbital_tgt_t1_numerics();
 	return;
