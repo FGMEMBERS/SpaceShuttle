@@ -274,11 +274,9 @@ state_tig_v[2] = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz"
 
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
-#var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/tig-candidate");
-#var tig_test = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
-
 var time = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-time");
 var time_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+
 #print("Calculation duration: ", time_offset, " s");
 var tgt_pos = oTgt.get_future_inertial_pos(time - time_offset);
 
@@ -289,8 +287,9 @@ prograde = SpaceShuttle.normalize(prograde);
 var radial = [state_tig_x[0], state_tig_x[1], state_tig_x[2]];
 radial = SpaceShuttle.normalize(radial);
 radial = SpaceShuttle.orthonormalize(prograde, radial);
-
 var normal = SpaceShuttle.cross_product(prograde, radial);
+
+# get a set of distance vectors along the base vectors
 
 var dvec = SpaceShuttle.subtract_vector(tgt_pos, state_tig_x);
 
@@ -298,10 +297,18 @@ var d_prograde = SpaceShuttle.dot_product(dvec,prograde);
 var d_radial = SpaceShuttle.dot_product(dvec,radial);
 var d_normal = SpaceShuttle.dot_product(dvec,normal);
 
+# get target velocity
+
 var tgt_pos1 = oTgt.get_future_inertial_pos(time - time_offset + 1.0);
 var tgt_v = SpaceShuttle.subtract_vector(tgt_pos1, tgt_pos);
 
+#print("tgt_v: ", tgt_v[0], " ", tgt_v[1], " ", tgt_v[2]);
+#print("shuttle_v: ", state_tig_v[0], " ", state_tig_v[1], " ", state_tig_v[2]);
+#print("radial: ", radial[0], " ", radial[1], " ", radial[2]);
+
 var dv_vec = SpaceShuttle.subtract_vector(tgt_v, state_tig_v);
+
+#print("dv_vec: ", dv_vec[0], " ", dv_vec[1], " ", dv_vec[2]);
 
 var v_prograde = SpaceShuttle.dot_product(dv_vec, prograde);
 var v_radial = SpaceShuttle.dot_product(dv_vec, radial);
@@ -309,30 +316,21 @@ var v_normal = SpaceShuttle.dot_product(dv_vec, normal);
 
 # write delta's into the targeting plan
 
+# tig starts earlier since we have an extended burn duration and not an impulse approximation
+
 var tig_t1 = int(MET + time - time_offset - 15.0);
-
-print(tig_t1, " ", state_tig_x[0], " ", state_tig_x[1], " ", state_tig_x[2]);
-
 setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tig_t1); 
 SpaceShuttle.set_oms_mnvr_timer();
+
+#print((MET + time - time_offset), " ", state_tig_x[0], " ", state_tig_x[1], " ", state_tig_x[2]);
+
 
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s", tig_t1); 
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string", SpaceShuttle.seconds_to_stringDHMS(tig_t1));
 
-
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx", (tgt_pos[0] - state_tig_x[0])/1000.0 / 0.3048);
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy", (tgt_pos[1] - state_tig_x[1])/1000.0 / 0.3048);
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz", (tgt_pos[2] - state_tig_x[2])/1000.0 / 0.3048);
-
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx", (d_prograde)/1000.0 / 0.3048);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy", (d_normal)/1000.0 / 0.3048);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz", (d_radial)/1000.0 / 0.3048);
-
-
-
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot", (tgt_v[0] - state_tig_v[0]) / 0.3048);
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot", (tgt_v[1] - state_tig_v[1]) / 0.3048);
-#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot", (tgt_v[2] - state_tig_v[2]) / 0.3048);
 
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot", (v_prograde) / 0.3048);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot", (v_normal) / 0.3048);
@@ -340,16 +338,10 @@ setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot", (v_radial) / 0.3048);
 
 var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
-#print("Distance at TIG 1 [km]: ", dist/1000.0);
+print("Distance at TIG 1 [km]: ", dist/1000.0);
 
+var alpha_error = d_prograde/(2.0 * math.pi * SpaceShuttle.norm(state_tig_x)) * 360.0;
 
-var target_anomaly = target_reference_anomaly + time/oTgt.period * 360.0;
-var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
-
-var alpha_error = target_anomaly - anomaly;
-if (alpha_error > 360.0) {alpha_error = alpha_error - 360.0;}
-
-print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
 print("Angular dist at TIG 1: ", alpha_error);
 
 
@@ -360,8 +352,7 @@ state_tig_v = add_peg7_target(state_tig_x, state_tig_v, [dvx, 0, 0]);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 
-# target closest approach 
-# state_extrapolate_to_condition (state_tig_x, state_tig_v, time, time+3000.0, 1, 25000.0, 1e6, 1e6);
+
 
 # target apoapsis - require to reach within 5 km of target alt because we may cross periapsis first
 var tgt_alt = SpaceShuttle.norm(tgt_pos);
@@ -403,26 +394,56 @@ var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s", int(MET + time-time_offset)); 
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string", SpaceShuttle.seconds_to_stringDHMS(int(MET + time-time_offset)));
 
+# get set of basis vectors
+
+var prograde = [state_tig_v[0], state_tig_v[1], state_tig_v[2]];
+prograde = SpaceShuttle.normalize(prograde);
+var radial = [state_tig_x[0], state_tig_x[1], state_tig_x[2]];
+radial = SpaceShuttle.normalize(radial);
+radial = SpaceShuttle.orthonormalize(prograde, radial);
+var normal = SpaceShuttle.cross_product(prograde, radial);
+
+# get a set of distance vectors along the base vectors
+
+var dvec = SpaceShuttle.subtract_vector(tgt_pos, state_tig_x);
+
+var d_prograde = SpaceShuttle.dot_product(dvec,prograde);
+var d_radial = SpaceShuttle.dot_product(dvec,radial);
+var d_normal = SpaceShuttle.dot_product(dvec,normal);
+
+# get target velocity
+
+var tgt_pos1 = oTgt.get_future_inertial_pos(time - time_offset + 1.0);
+var tgt_v = SpaceShuttle.subtract_vector(tgt_pos1, tgt_pos);
+
+#print("tgt_v: ", tgt_v[0], " ", tgt_v[1], " ", tgt_v[2]);
+#print("shuttle_v: ", state_tig_v[0], " ", state_tig_v[1], " ", state_tig_v[2]);
+
+var dv_vec = SpaceShuttle.subtract_vector(tgt_v, state_tig_v);
+
+var v_prograde = SpaceShuttle.dot_product(dv_vec, prograde);
+var v_radial = SpaceShuttle.dot_product(dv_vec, radial);
+var v_normal = SpaceShuttle.dot_product(dv_vec, normal);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx", (d_prograde)/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy", (d_normal)/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz", (d_radial)/1000.0 / 0.3048);
 
 var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
 print("Distance at TIG 2 [km]: ", dist/1000.0);
 
-var target_anomaly = target_reference_anomaly + time/oTgt.period * 360.0;
-var anomaly = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-arg-of-lat-deg");
-var alpha_error = target_anomaly - anomaly;
-if (alpha_error > 360.0) {alpha_error = alpha_error - 360.0;}
-
-#print("Tgt: ", target_anomaly, " Shuttle: ", anomaly);
+var alpha_error = d_prograde/(2.0 * math.pi * SpaceShuttle.norm(state_tig_x)) * 360.0;
 
 var dalt = SpaceShuttle.norm(tgt_pos) - SpaceShuttle.norm(state_tig_x);
 
 print("Angular dist at TIG 2: ", alpha_error);
 print("Altitude difference at TIG 2: ", dalt/1000.0);
 
-# iteration code, currently off
+# iteration code, doesn't work properly yet
 
 if (0==1)
+#if (math.abs(alpha_error) > 0.1)
 	{
 	if ((getprop("/sim/time/elapsed-sec") - target_reference_time) > 60.0)
 		{
@@ -430,18 +451,33 @@ if (0==1)
 		return;
 		}
 
+	print (" ");
 	print ("Iterating TIG 1");
 	var alpha_h = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/alpha-hohmann-deg");
 	var tig_h = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/tig-hohmann-s");
 
-	print ("alpha_H: ",alpha_h, " alpha_error: ", alpha_error);
-	print("Current tgt AOL: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
+ 
+
+	# get current angular distance
+
+ 	var alpha_current = angle_to_tgt();
+	var new_alpha_tgt = alpha_h - 0.5 * alpha_error;	
+	
+	print("Current alpha: ", alpha_current, " new alpha: ", new_alpha_tgt);
+
+	if (alpha_current  < new_alpha_tgt)
+		{
+		print("TIG 1 solution in the past - exiting");
+		}
+
+	#print ("alpha_H: ",alpha_h, " alpha_error: ", alpha_error);
+	#print("Current tgt AOL: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
 
 
 	target_reference_anomaly = oTgt.anomaly;
 	target_reference_time = getprop("/sim/time/elapsed-sec");
 	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
-	state_extrapolate_current_to_condition(2.0 * tig_h, 0, alpha_h - alpha_error);
+	state_extrapolate_current_to_condition(2.0 * tig_h, 0, new_alpha_tgt);
 
 	orbital_tgt_t1_numerics();
 	return;
@@ -520,6 +556,41 @@ print("Lateral residual: ", resid/1000.0);
 print("Prograde: ", dist_prograde/1000.0);
 print("Radial: ", dist_radial/1000.0);
 print("Normal: ", dist_normal/1000.0);
+
+
+}
+
+var angle_to_tgt = func {
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+var tgt_pos = oTgt.get_inertial_pos();
+
+var dx = x - tgt_pos[0];
+var dy = y - tgt_pos[1];
+var dz = z - tgt_pos[2];
+
+var alt = math.sqrt(x*x + y*y + z*z);
+
+var vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048;
+var vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048;
+var vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048;
+
+var prograde = [vx, vy, vz];
+prograde = SpaceShuttle.normalize(prograde);
+var radial = [x,y,z];
+radial = SpaceShuttle.normalize(radial);
+radial = SpaceShuttle.orthonormalize(prograde, radial);
+
+var normal = SpaceShuttle.cross_product(prograde, radial);
+
+var dvec = [dx, dy, dz];
+
+var dist_prograde = -SpaceShuttle.dot_product(dvec, prograde);
+
+return  dist_prograde/(2.0 * math.pi * alt) * 360.0;
 
 
 }
@@ -654,15 +725,15 @@ while (time_sum < time_end)
 
 	var sin_lat = pos_norm[2];
 	var cos_lat = math.sqrt(1.0 - sin_lat * sin_lat);
-	var sin_lon = pos_norm[0];
-	var cos_lon = pos_norm[1];
+	var sin_lon = pos_norm[1];
+	var cos_lon = pos_norm[0];
 
 	
 	var A_mag = 0.0243 * sin_lat * cos_lat;
 	var A = [A_mag * cos_lon * sin_lat, A_mag * sin_lon * sin_lat, -A_mag * cos_lat];
 
 
-	# right now, gravity is the only force, but we can extend here
+	# point mass gravity plus corrections
 	var acc = [0,0,0];
 
 	acc[0] = G[0] + A[0];
@@ -683,7 +754,7 @@ while (time_sum < time_end)
 
 	n=n+1;
 	n1 = n1 + 1;
-	time_sum += 1.01 * dt;
+	time_sum += dt;
 
 	if ((time_sum > time_end) or (n > 1000)) {break;}
 
@@ -691,6 +762,9 @@ while (time_sum < time_end)
 
 	if (n1 == 100)
 		{
+		var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+		var t_offset = getprop("/sim/time/elapsed-sec") - target_reference_time;
+		#print(time_sum - t_offset + MET, " ", state_x[0], " ", state_x[1], " ", state_x[2]);
 		n1 = 0;
 
 		if (condition_id == 0) # alpha value relative to a target
