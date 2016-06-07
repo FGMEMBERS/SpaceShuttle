@@ -348,7 +348,9 @@ print("Angular dist at TIG 1: ", alpha_error);
 # numerical state extrapolation to TIG 2
 
 var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx") * 0.3048;
-state_tig_v = add_peg7_target(state_tig_x, state_tig_v, [dvx, 0, 0]);
+var dvy = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvy") * 0.3048;
+var dvz = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvz") * 0.3048;
+state_tig_v = add_peg7_target(state_tig_x, state_tig_v, [dvx, dvy, dvz]);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 
@@ -439,15 +441,25 @@ var dalt = SpaceShuttle.norm(tgt_pos) - SpaceShuttle.norm(state_tig_x);
 
 print("Angular dist at TIG 2: ", alpha_error);
 print("Altitude difference at TIG 2: ", dalt/1000.0);
+print("Lateral difference at TIG 2: ", d_normal/1000.0);
 
-# iteration code, doesn't work properly yet
+# iteration code
 
-#if (0==1)
-if (math.abs(alpha_error) > 0.1)
+# check how good we are
+
+var iterate_flag = 0;
+
+if (math.abs(alpha_error) > 0.1) {iterate_flag = 1;}
+if (math.abs(dalt) > 500.0) {iterate_flag = 1;}
+#if (math.abs(d_normal > 10000.0) {iterate_flag = 1;}
+
+
+#if (math.abs(alpha_error) > 0.1)
+if (iterate_flag == 1)
 	{
-	if ((getprop("/sim/time/elapsed-sec") - target_reference_time) > 60.0)
+	if ((getprop("/sim/time/elapsed-sec") - target_reference_time) > 120.0)
 		{
-		print("No convergence in 60 seconds - exiting");
+		print("No convergence in 120 seconds - exiting");
 		return;
 		}
 
@@ -462,6 +474,8 @@ if (math.abs(alpha_error) > 0.1)
 
  	var alpha_current = angle_to_tgt();
 	var new_alpha_tgt = alpha_h -  alpha_error;	
+
+	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/alpha-hohmann-deg", new_alpha_tgt);
 	
 	print("Current alpha: ", alpha_current, " new alpha: ", new_alpha_tgt);
 
@@ -470,8 +484,26 @@ if (math.abs(alpha_error) > 0.1)
 		print("TIG 1 solution in the past - exiting");
 		}
 
-	#print ("alpha_H: ",alpha_h, " alpha_error: ", alpha_error);
-	#print("Current tgt AOL: ", oTgt.anomaly, " Shuttle: ", getprop("/fdm/jsbsim/systems/orbital/argument-of-latitude-deg"));
+	# improve vertical targeting
+
+	var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx") * 0.3048;
+	dvx = dvx + 0.05 * dalt/1000.0;
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx/0.3048);
+
+	# improve lateral targeting
+
+	var last_lateral_error = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-lateral-error-m");
+	var last_lateral_sign = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-lateral-sign");
+	var sign = last_lateral_sign;
+	if (d_normal > last_lateral_error) {sign = - sign;}
+
+	var dvy = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvy") * 0.3048;
+	dvy = dvy + 0.15 * sign * d_normal/1000.0;
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy/0.3048);
+	
+	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-lateral-error-m", d_normal);
+	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-lateral-sign", sign);
+
 
 
 	target_reference_anomaly = oTgt.anomaly;

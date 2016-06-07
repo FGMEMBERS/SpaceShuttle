@@ -171,6 +171,8 @@
 	<t2-dvz type="double">0.0</t2-dvz>
 	<t2-tig-s type="double">0.0</t2-tig-s>
 	<t2-tig-string type="string">000/00:00:00</t2-tig-string>
+	<last-lateral-error-m type="double">100000.0</last-lateral-error-m>
+	<last-lateral-sign type="int">1</last-lateral-sign>
     </orbit-tgt>
     </ap>
     <dps>

@@ -573,14 +573,6 @@ var v = [vx, vy, vz];
 
 # construct prograde/radial/normal coordinate system for this state vector
 
-# prograde and radial don't really form an ON system for eccentric orbits, so we correct that
-# we need exact prograde orientation so we tilt the radial base vector for pointing
-
-#var norm_x = math.sqrt(x*x + y*y + z*z);
-#var norm_v = math.sqrt(vx*vx + vy*vy + vz*vz);
-
-#var prograde = [vx/norm_v, vy/norm_v, vz/norm_v];
-#var radial = [x/norm_x, y/norm_x, z/norm_x];
 
 var prograde = [vx, vy, vz];
 var radial = [x, y, z];
@@ -915,6 +907,14 @@ var oms_burn_start = func (time) {
 
 var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 var tig = oms_burn_target.tig; 
+
+# some log output
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+#print (MET, " ", x, " ", y, " ", z);
 
 
 if (tig - MET < 0.0) # if we're at or past ignition time, we go
