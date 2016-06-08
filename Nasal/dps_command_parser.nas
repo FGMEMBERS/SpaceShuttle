@@ -1969,7 +1969,12 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	if (spec == 34)
 		{
-		if (item == 25)
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 25)
 			{
 			SpaceShuttle.copy_t2_to_t1();
 			valid_flag = 1;

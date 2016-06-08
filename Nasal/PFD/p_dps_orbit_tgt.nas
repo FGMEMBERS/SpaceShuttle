@@ -54,6 +54,7 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     p_dps_orbit_tgt.el = device.svg.getElementById("p_dps_orbit_tgt_el");
     p_dps_orbit_tgt.load = device.svg.getElementById("p_dps_orbit_tgt_load");
 
+    p_dps_orbit_tgt.tgt_no = device.svg.getElementById("p_dps_orbit_tgt_tgt_no");
 
 
     p_dps_orbit_tgt.ondisplay = func
@@ -141,8 +142,9 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     	p_dps_orbit_tgt.base_time.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string"));
 
 	p_dps_orbit_tgt.mnvr_n.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/mnvr-n")));
+	p_dps_orbit_tgt.tgt_no.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id")));
 
-        device.update_common_DPS();
+        device.update_common_DPS(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/mnvr-n")));
     }
     
     
