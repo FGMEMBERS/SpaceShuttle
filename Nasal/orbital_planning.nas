@@ -259,7 +259,7 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag") == 0)
 	return;
 	}
 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",0);
+
 
 var state_tig_x = [0,0,0];
 var state_tig_v = [0,0,0];
@@ -313,6 +313,8 @@ var dv_vec = SpaceShuttle.subtract_vector(tgt_v, state_tig_v);
 var v_prograde = SpaceShuttle.dot_product(dv_vec, prograde);
 var v_radial = SpaceShuttle.dot_product(dv_vec, radial);
 var v_normal = SpaceShuttle.dot_product(dv_vec, normal);
+var v_alt = SpaceShuttle.dot_product(tgt_v, radial) - SpaceShuttle.dot_product(state_tig_v, radial);
+
 
 # write delta's into the targeting plan
 
@@ -325,16 +327,16 @@ SpaceShuttle.set_oms_mnvr_timer();
 #print((MET + time - time_offset), " ", state_tig_x[0], " ", state_tig_x[1], " ", state_tig_x[2]);
 
 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s", tig_t1); 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string", SpaceShuttle.seconds_to_stringDHMS(tig_t1));
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s-tmp", tig_t1); 
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string-tmp", SpaceShuttle.seconds_to_stringDHMS(tig_t1));
 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx", (d_prograde)/1000.0 / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy", (d_normal)/1000.0 / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz", (d_radial)/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx-tmp", (d_prograde)/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy-tmp", (d_normal)/1000.0 / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz-tmp", (d_radial)/1000.0 / 0.3048);
 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot", (v_prograde) / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot", (v_normal) / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot", (v_radial) / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot-tmp", (v_prograde) / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot-tmp", (v_normal) / 0.3048);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot-tmp", (v_alt) / 0.3048);
 
 var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
@@ -427,9 +429,9 @@ var v_prograde = SpaceShuttle.dot_product(dv_vec, prograde);
 var v_radial = SpaceShuttle.dot_product(dv_vec, radial);
 var v_normal = SpaceShuttle.dot_product(dv_vec, normal);
 
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx", (d_prograde)/1000.0 / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy", (d_normal)/1000.0 / 0.3048);
-setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz", (d_radial)/1000.0 / 0.3048);
+#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx", (d_prograde)/1000.0 / 0.3048);
+#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy", (d_normal)/1000.0 / 0.3048);
+#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz", (d_radial)/1000.0 / 0.3048);
 
 var dist = SpaceShuttle.distance_between(state_tig_x, tgt_pos);
 
@@ -450,8 +452,10 @@ print("Lateral difference at TIG 2: ", d_normal/1000.0);
 var iterate_flag = 0;
 
 if (math.abs(alpha_error) > 0.1) {iterate_flag = 1;}
-if (math.abs(dalt) > 500.0) {iterate_flag = 1;}
+if (math.abs(dalt) > 800.0) {iterate_flag = 1;}
 #if (math.abs(d_normal > 10000.0) {iterate_flag = 1;}
+
+if (dist < 5000.0) {iterate_flag = 0;}
 
 
 #if (math.abs(alpha_error) > 0.1)
@@ -468,12 +472,23 @@ if (iterate_flag == 1)
 	var alpha_h = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/alpha-hohmann-deg");
 	var tig_h = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/tig-hohmann-s");
 
- 
+	
+	# if fit quality doesn't improve, we're likely oscillating around solution
+	# reduce sensitivity then
+
+	var fit_gain = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/fit-gain-factor");
+	var last_quality = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-fit-quality");
+	if (last_quality < dist)
+		{
+		fit_gain = 0.75 * fit_gain;
+		setprop("/fdm/jsbsim/systems/ap/orbit-tgt/fit-gain-factor", fit_gain);
+		}
+
 
 	# get current angular distance
 
  	var alpha_current = angle_to_tgt();
-	var new_alpha_tgt = alpha_h -  alpha_error;	
+	var new_alpha_tgt = alpha_h -  fit_gain *  alpha_error;	
 
 	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/alpha-hohmann-deg", new_alpha_tgt);
 	
@@ -487,7 +502,7 @@ if (iterate_flag == 1)
 	# improve vertical targeting
 
 	var dvx = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvx") * 0.3048;
-	dvx = dvx + 0.05 * dalt/1000.0;
+	dvx = dvx + fit_gain * 0.05 * dalt/1000.0;
 	setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx/0.3048);
 
 	# improve lateral targeting
@@ -498,7 +513,7 @@ if (iterate_flag == 1)
 	if (d_normal > last_lateral_error) {sign = - sign;}
 
 	var dvy = getprop("/fdm/jsbsim/systems/ap/oms-plan/dvy") * 0.3048;
-	dvy = dvy + 0.15 * sign * d_normal/1000.0;
+	dvy = dvy + fit_gain * 0.15 * sign * d_normal/1000.0;
 	setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy/0.3048);
 	
 	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/last-lateral-error-m", d_normal);
@@ -508,7 +523,7 @@ if (iterate_flag == 1)
 
 	target_reference_anomaly = oTgt.anomaly;
 	target_reference_time = getprop("/sim/time/elapsed-sec");
-	setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
+	#setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",1);
 	setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 	state_extrapolate_current_to_condition(2.0 * tig_h, 0, new_alpha_tgt);
 
@@ -518,6 +533,8 @@ if (iterate_flag == 1)
 	}
 
 # accept the solution and write the deltas into targeting plan
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1",0);
 
 var tgt_pos1 = oTgt.get_future_inertial_pos(time - time_offset + 1.0);
 var tgt_v = SpaceShuttle.subtract_vector(tgt_pos1, tgt_pos);
@@ -529,6 +546,29 @@ setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvz", (tgt_v[2] - state_tig_v[2]) /
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx", (tgt_pos[0] - state_tig_x[0])/1000.0 / 0.3048);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy", (tgt_pos[1] - state_tig_x[1])/1000.0 / 0.3048);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz", (tgt_pos[2] - state_tig_x[2])/1000.0 / 0.3048);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/pred-match-ft", dist / 0.3048);
+
+# copy the temporary values of the T1 determination into the final slots
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s-tmp")); 
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string-tmp"));
+
+var t1_dx = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx-tmp");
+var t1_dy = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy-tmp");
+var t1_dz = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz-tmp");
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx", t1_dx);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy", t1_dy);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz", t1_dz);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot-tmp"));
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot-tmp"));
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dzdot-tmp"));
+
+var el_angle = math.asin(t1_dz/SpaceShuttle.norm([t1_dx, t1_dy, t1_dz])) * 180.0/math.pi;
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-el-deg", el_angle);
 
 }
 
@@ -1027,6 +1067,8 @@ state_v = add_vector(state_v, tgt);
 return state_v;
 }
 
+
+
 ############################################################
 # compute orbital elements from state vector
 ############################################################
@@ -1077,4 +1119,42 @@ if (r_dot_v < 0.0) {true_anomaly = 2.0 * math.pi - true_anomaly;}
 
 return [semimajor, epsilon, inc, Omega, parg, true_anomaly];
 
+}
+
+
+############################################################
+# copy T2 burn targets to T1
+############################################################
+
+
+var copy_t2_to_t1 = func {
+
+# copy properties over
+
+var dvx_t2 = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvx");
+var dvy_t2 = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvy");
+var dvz_t2 = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvz");
+var tig_t2 = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s");
+var tig_t2_string = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string");
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dvx", dvx_t2);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx_t2);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dvy", dvy_t2);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy_t2);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dvz", dvz_t2);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz_t2);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s", tig_t2);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string", tig_t2_string);
+
+# blank t2
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvx", 0.0);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvy", 0.0);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvz", 0.0);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s", 0.0);
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string", 0.0);
 }

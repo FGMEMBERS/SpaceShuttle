@@ -22,6 +22,7 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     p_dps_orbit_tgt.ostate_vy = device.svg.getElementById("p_dps_orbit_tgt_ostate_vy");
     p_dps_orbit_tgt.ostate_vz = device.svg.getElementById("p_dps_orbit_tgt_ostate_vz");
 
+    p_dps_orbit_tgt.mnvr_n =  device.svg.getElementById("p_dps_orbit_tgt_mnvr_n");
     p_dps_orbit_tgt.mnvr_tig = device.svg.getElementById("p_dps_orbit_tgt_mnvr_tig");
     p_dps_orbit_tgt.mnvr_dvx = device.svg.getElementById("p_dps_orbit_tgt_mnvr_dvx");
     p_dps_orbit_tgt.mnvr_dvy = device.svg.getElementById("p_dps_orbit_tgt_mnvr_dvy");
@@ -48,6 +49,11 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     p_dps_orbit_tgt.t2_tig = device.svg.getElementById("p_dps_orbit_tgt_t2_tig");
     p_dps_orbit_tgt.base_time = device.svg.getElementById("p_dps_orbit_tgt_base_time");
 
+    p_dps_orbit_tgt.pred_match = device.svg.getElementById("p_dps_orbit_tgt_pred_match");
+
+    p_dps_orbit_tgt.el = device.svg.getElementById("p_dps_orbit_tgt_el");
+    p_dps_orbit_tgt.load = device.svg.getElementById("p_dps_orbit_tgt_load");
+
 
 
     p_dps_orbit_tgt.ondisplay = func
@@ -59,6 +65,8 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     
         var ops_string = major_mode~"1/034/";
         device.DPS_menu_ops.setText(ops_string);
+
+	p_dps_orbit_tgt.load.setText("");
     }
     
     p_dps_orbit_tgt.update = func
@@ -97,6 +105,9 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
     	p_dps_orbit_tgt.mnvr_dvz.setText(sprintf("%+2.1f", mnvr_dvz));
     	p_dps_orbit_tgt.mnvr_dvt.setText(sprintf("%+3.1f", mnvr_dvt));
 
+	var pred_match = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/pred-match-ft");
+	p_dps_orbit_tgt.pred_match.setText(sprintf("%7.0f", pred_match));
+
 	var symbol = "";
 	if (getprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1") == 1){symbol = "*";}
 	p_dps_orbit_tgt.comp_t1.setText(symbol);
@@ -109,6 +120,8 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
 	p_dps_orbit_tgt.t1_dx.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dx")));
 	p_dps_orbit_tgt.t1_dy.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dy")));
 	p_dps_orbit_tgt.t1_dz.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dz")));
+
+	p_dps_orbit_tgt.el.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-el-deg")));
 
 	p_dps_orbit_tgt.t1_dxdot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dxdot")));
 	p_dps_orbit_tgt.t1_dydot.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-dydot")));
@@ -126,6 +139,8 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
    	p_dps_orbit_tgt.t1_tig.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string"));
     	p_dps_orbit_tgt.t2_tig.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string"));
     	p_dps_orbit_tgt.base_time.setText(getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string"));
+
+	p_dps_orbit_tgt.mnvr_n.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/mnvr-n")));
 
         device.update_common_DPS();
     }

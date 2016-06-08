@@ -1969,7 +1969,12 @@ if ((header == "ITEM") and (end = "EXEC"))
 
 	if (spec == 34)
 		{
-		if (item == 28)
+		if (item == 25)
+			{
+			SpaceShuttle.copy_t2_to_t1();
+			valid_flag = 1;
+			}	
+		else if (item == 28)
 			{
 			SpaceShuttle.orbital_tgt_compute_t1();
 			valid_flag =1;
