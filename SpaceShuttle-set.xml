@@ -1027,6 +1027,13 @@
       <rms-port-jett-fwd-switch type="int">0</rms-port-jett-fwd-switch>
       <rms-port-jett-mid-switch type="int">0</rms-port-jett-mid-switch>
       <rms-port-jett-aft-switch type="int">0</rms-port-jett-aft-switch>
+      <software>
+	<io-enable type="int">0</io-enable>
+	<soft-stop-enable type="int">1</soft-stop-enable>
+	<autobrake-enable type="int">1</autobrake-enable>
+	<pohs-cntl-enable type="int">1</pohs-cntl-enable>
+	<pos-enc-ck-enable type="int">1</pos-enc-ck-enable>
+      </software>
      </rms>
      <taem-guidance>
       <approach-mode-string type="string">OVHD</approach-mode-string>

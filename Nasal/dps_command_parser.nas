@@ -2681,6 +2681,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 86);
 		valid_flag = 1;
 		}
+	if (spec_num == 94) 
+		{
+		page_select(idp_index, "p_dps_pdrs_control");
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 94);
+		valid_flag = 1;
+		}
 	if (spec_num == 97) 
 		{
 		page_select(idp_index, "p_dps_pl_ret");
@@ -2964,7 +2970,60 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			}
 		}
+	if (spec == 94)
+		{
+		if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/io-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/io-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/autobrake-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pohs-cntl-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pohs-cntl-enable", 0);
+			valid_flag = 1;
+			}
 
+		}
 	
 
 
