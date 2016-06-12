@@ -19,6 +19,7 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
     p_dps_pdrs_control.port = device.svg.getElementById("p_dps_pdrs_control_port");
     p_dps_pdrs_control.stbd = device.svg.getElementById("p_dps_pdrs_control_stbd");
     p_dps_pdrs_control.end_eff = device.svg.getElementById("p_dps_pdrs_control_end_eff");
+    p_dps_pdrs_control.rms_sn = device.svg.getElementById("p_dps_pdrs_control_rms_sn");
 
 
     p_dps_pdrs_control.soft_stop_ena = device.svg.getElementById("p_dps_pdrs_control_soft_stop_ena");
@@ -41,6 +42,9 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
     p_dps_pdrs_control.auto_3 = device.svg.getElementById("p_dps_pdrs_control_auto_3");
     p_dps_pdrs_control.auto_4 = device.svg.getElementById("p_dps_pdrs_control_auto_4");
 
+    p_dps_pdrs_control.last_pt = device.svg.getElementById("p_dps_pdrs_control_last_pt");
+    p_dps_pdrs_control.start_pt = device.svg.getElementById("p_dps_pdrs_control_start_pt");
+
     p_dps_pdrs_control.endpos_x = device.svg.getElementById("p_dps_pdrs_control_endpos_x");
     p_dps_pdrs_control.endpos_y = device.svg.getElementById("p_dps_pdrs_control_endpos_y");
     p_dps_pdrs_control.endpos_z = device.svg.getElementById("p_dps_pdrs_control_endpos_z");
@@ -48,6 +52,15 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
     p_dps_pdrs_control.endatt_p = device.svg.getElementById("p_dps_pdrs_control_endatt_p");
     p_dps_pdrs_control.endatt_y = device.svg.getElementById("p_dps_pdrs_control_endatt_y");
     p_dps_pdrs_control.endatt_r = device.svg.getElementById("p_dps_pdrs_control_endatt_r");
+
+    p_dps_pdrs_control.latches_aft = device.svg.getElementById("p_dps_pdrs_control_latches_aft");
+    p_dps_pdrs_control.latches_mid = device.svg.getElementById("p_dps_pdrs_control_latches_mid");
+    p_dps_pdrs_control.latches_fwd = device.svg.getElementById("p_dps_pdrs_control_latches_fwd");
+
+    p_dps_pdrs_control.mpm_sto_dply = device.svg.getElementById("p_dps_pdrs_control_mpm_sto_dply");
+
+    p_dps_pdrs_control.mpm_discretes = device.svg.getElementById("p_dps_pdrs_control_mpm_discretes");
+
 
 
     p_dps_pdrs_control.ondisplay = func
@@ -63,7 +76,10 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	p_dps_pdrs_control.auto_3.setText("");
 	p_dps_pdrs_control.auto_4.setText("");
 	p_dps_pdrs_control.end_eff.setText("1");
-
+	p_dps_pdrs_control.last_pt.setText("");
+	p_dps_pdrs_control.start_pt.setText("");
+	p_dps_pdrs_control.rms_sn.setText("201");
+	p_dps_pdrs_control.mpm_sto_dply.setText("PORT");
 
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
     
@@ -152,6 +168,44 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 
 	p_dps_pdrs_control.pl_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-id")));
 	p_dps_pdrs_control.pl_init_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-init-id")));
+
+	var mpm_status = getprop("/fdm/jsbsim/systems/rms/mpm-deploy-pos");
+	var mpm_status_string = "0 0 0 0";
+	
+	if (mpm_status == 1)
+		{
+		mpm_status_string = "0 0 1 1";
+		}
+	else if (mpm_status == 0)
+		{
+		mpm_status_string = "1 1 0 0";
+		}
+
+	p_dps_pdrs_control.mpm_discretes.setText(mpm_status_string);
+
+	var mpm_latch_status = getprop("/fdm/jsbsim/systems/rms/mpm-latch-pos");
+	var mpm_ready_latch_status = getprop("/fdm/jsbsim/systems/rms/ready-to-latch");
+	mpm_status_string = "0 0 0 0 0 0";
+	
+	if (mpm_latch_status == 1)
+		{
+		mpm_status_string = "1 1 0 0 0 0";
+		}
+	else if (mpm_ready_latch_status == 1)
+		{
+		mpm_status_string = "0 0 0 0 1 1";
+		}
+	else if ((mpm_ready_latch_status == 0) and (latch_status == 1))	
+		{
+		mpm_status_string = "0 0 1 1 0 0";
+		}
+
+	p_dps_pdrs_control.latches_aft.setText(mpm_status_string);
+	p_dps_pdrs_control.latches_mid.setText(mpm_status_string);
+	p_dps_pdrs_control.latches_fwd.setText(mpm_status_string);
+
+
+
 
         device.update_common_DPS();
     }

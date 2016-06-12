@@ -1503,6 +1503,9 @@
 				systems/rms/ang-wrist-roll-deg GT 442.0
 				systems/rms/ang-wrist-roll-deg LT -442.0		
 			</test>
+			<test value="0.0">
+				systems/rms/software/soft-stop-enable EQ 0.0
+			</test>
 		</switch>
 
 		<switch name="systems/rms/ready-to-latch">
