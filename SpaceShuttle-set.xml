@@ -1033,6 +1033,14 @@
 	<autobrake-enable type="int">1</autobrake-enable>
 	<pohs-cntl-enable type="int">1</pohs-cntl-enable>
 	<pos-enc-ck-enable type="int">1</pos-enc-ck-enable>
+	<tgt-pos-x type="double">0.0</tgt-pos-x>
+	<tgt-pos-y type="double">0.0</tgt-pos-y>
+	<tgt-pos-z type="double">0.0</tgt-pos-z>
+	<tgt-att-p type="double">0.0</tgt-att-p>
+	<tgt-att-y type="double">0.0</tgt-att-y>
+	<tgt-att-r type="double">0.0</tgt-att-r>
+	<pl-id type="int">0</pl-id>
+	<pl-init-id type="int">0</pl-init-id>
       </software>
      </rms>
      <taem-guidance>

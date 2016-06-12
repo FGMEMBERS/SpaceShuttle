@@ -33,13 +33,21 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
     p_dps_pdrs_control.pohs_cntl_ena = device.svg.getElementById("p_dps_pdrs_control_pohs_cntl_ena");
     p_dps_pdrs_control.pohs_cntl_inh = device.svg.getElementById("p_dps_pdrs_control_pohs_cntl_inh");
 
+    p_dps_pdrs_control.pl_id = device.svg.getElementById("p_dps_pdrs_control_pl_id");
+    p_dps_pdrs_control.pl_init_id = device.svg.getElementById("p_dps_pdrs_control_pl_init_id");
+
     p_dps_pdrs_control.auto_1 = device.svg.getElementById("p_dps_pdrs_control_auto_1");
     p_dps_pdrs_control.auto_2 = device.svg.getElementById("p_dps_pdrs_control_auto_2");
     p_dps_pdrs_control.auto_3 = device.svg.getElementById("p_dps_pdrs_control_auto_3");
     p_dps_pdrs_control.auto_4 = device.svg.getElementById("p_dps_pdrs_control_auto_4");
 
-
-
+    p_dps_pdrs_control.endpos_x = device.svg.getElementById("p_dps_pdrs_control_endpos_x");
+    p_dps_pdrs_control.endpos_y = device.svg.getElementById("p_dps_pdrs_control_endpos_y");
+    p_dps_pdrs_control.endpos_z = device.svg.getElementById("p_dps_pdrs_control_endpos_z");
+	
+    p_dps_pdrs_control.endatt_p = device.svg.getElementById("p_dps_pdrs_control_endatt_p");
+    p_dps_pdrs_control.endatt_y = device.svg.getElementById("p_dps_pdrs_control_endatt_y");
+    p_dps_pdrs_control.endatt_r = device.svg.getElementById("p_dps_pdrs_control_endatt_r");
 
 
     p_dps_pdrs_control.ondisplay = func
@@ -134,7 +142,16 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 		p_dps_pdrs_control.pohs_cntl_inh.setText("");
 		}
 	
+	p_dps_pdrs_control.endpos_x.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x")));
+	p_dps_pdrs_control.endpos_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y")));
+	p_dps_pdrs_control.endpos_z.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z")));
 
+	p_dps_pdrs_control.endatt_p.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-p")));
+	p_dps_pdrs_control.endatt_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-y")));
+	p_dps_pdrs_control.endatt_r.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-r")));
+
+	p_dps_pdrs_control.pl_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-id")));
+	p_dps_pdrs_control.pl_init_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-init-id")));
 
         device.update_common_DPS();
     }

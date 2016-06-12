@@ -2972,7 +2972,12 @@ if ((header == "ITEM") and (end = "EXEC"))
 		}
 	if (spec == 94)
 		{
-		if (item == 5)
+		if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pl-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 5)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/io-enable", 1);
 			valid_flag = 1;
@@ -3010,6 +3015,41 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 12)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", value);
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y", value);
+			valid_flag = 1;
+			}
+		else if (item == 20)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z", value);
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-p", value);
+			valid_flag = 1;
+			}
+		else if (item == 22)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-y", value);
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-r", value);
+			valid_flag = 1;
+			}
+		else if (item == 24)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pl-init-id", int(value));
 			valid_flag = 1;
 			}
 		else if (item == 28)
