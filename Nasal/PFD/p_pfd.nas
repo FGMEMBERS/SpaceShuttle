@@ -23,6 +23,22 @@ var pfd_segment_draw = func (data, plot) {
 
 }
 
+var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffset) {
+
+	var placement = SpaceShuttle.compass_label_pos(radius, angle);
+
+	var text = group.createChild("text")
+      	.setText(text)
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(angle * math.pi/180.0 * flag)
+	.setTranslation(placement[0] + xoffset,-placement[1] + yoffset);
+
+
+}
+
 
 var PFD_addpage_p_pfd = func(device)
 {
@@ -36,6 +52,7 @@ var PFD_addpage_p_pfd = func(device)
 
     p_pfd.keas = device.svg.getElementById("p_pfd_keas");
     p_pfd.beta = device.svg.getElementById("p_pfd_beta");
+
     
     p_pfd.ondisplay = func
     {
@@ -51,56 +68,86 @@ var PFD_addpage_p_pfd = func(device)
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
-	var data = SpaceShuttle.draw_compass_scale(67.5,12, 1.1, 6, 1.05);
+	var data = SpaceShuttle.draw_compass_scale(71.25,12, 1.1, 6, 1.05);
 	pfd_segment_draw(data, plot_compass_upper);
 
-	data = SpaceShuttle.draw_circle(67.5, 30);
+	data = SpaceShuttle.draw_circle(71.25, 30);
 	pfd_segment_draw(data, plot_compass_upper);
 
-	data = SpaceShuttle.draw_circle(90.0, 30);
+	data = SpaceShuttle.draw_circle(95.0, 30);
 	pfd_segment_draw(data, plot_compass_upper);
 
 	plot_compass_upper.setTranslation (255, 175);
 
+	place_compass_label(device.symbols, "0", 0.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "33", 30.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "30", 60.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "27", 90.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "24", 120.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "21", 150.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "18", 180.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "15", 210.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "12", 240.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "9", 270.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "6", 300.0, 85.0, 0,255,180);
+	place_compass_label(device.symbols, "3", 330.0, 85.0, 0,255,180);
+
 	# lower HSI compass rose
 
 	device.symbols.set("clip", "rect(0px, 512px, 460px, 0px)");
+	device.HSI.set("clip", "rect(0px, 512px, 460px, 0px)");
 
 	var plot_compass_lower = device.symbols.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
-	data = SpaceShuttle.draw_circle(90.0, 30);
+	data = SpaceShuttle.draw_circle(95.0, 30);
 	pfd_segment_draw(data, plot_compass_lower);
 
-	data = SpaceShuttle.draw_compass_scale(90.0,8, 1.05, 1, 1.0);
+	data = SpaceShuttle.draw_compass_scale(95.0,8, 1.05, 1, 1.0);
 	pfd_segment_draw(data, plot_compass_lower);
 	plot_compass_lower.setTranslation (255, 425);
 
 
 	# inner lower HSI compass rose
 
-	var plot_inner_compass_lower = device.symbols.createChild("path", "data")
+
+	var plot_inner_compass_lower = device.HSI.createChild("path", "data")
         .setStrokeLineWidth(1)
 	.setColorFill(0.5, 0.5, 0.5)
         .setColor(1,1,1);
 
-	data = SpaceShuttle.draw_circle(80.0, 30);
+	data = SpaceShuttle.draw_circle(84.0, 30);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-	data = SpaceShuttle.draw_compass_scale(80,36, 0.9, 2, 0.95);
+	data = SpaceShuttle.draw_compass_scale(84,36, 0.9, 2, 0.95);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-	data = SpaceShuttle.draw_circle(55.0, 30);
+	data = SpaceShuttle.draw_circle(58.0, 30);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-	plot_inner_compass_lower.setTranslation (255, 425);
 
-    }
+
+	place_compass_label(device.HSI, "N", 0.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "E", 90.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "S", 180.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "W", 270.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "3", 30.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "6", 60.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "12", 120.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "15", 150.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "21", 210.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "24", 240.0, 63.0, 1,0,0);    
+	place_compass_label(device.HSI, "30", 300.0, 63.0, 1,0,0);
+	place_compass_label(device.HSI, "33", 330.0, 63.0, 1,0,0);
+
+	}
+
     
     p_pfd.offdisplay = func
     {
 	device.symbols.removeAllChildren();
+	device.HSI.removeAllChildren();
 	device.nom_traj_plot.removeAllChildren();
     }
     
@@ -174,6 +221,9 @@ var PFD_addpage_p_pfd = func(device)
 
 
 	plot.setTranslation (255, 175);
+
+	device.HSI.setRotation(-yaw * math.pi/180.0);
+	device.HSI.setTranslation (255, 425);
     
        
         p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));

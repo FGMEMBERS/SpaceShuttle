@@ -319,8 +319,8 @@ for (var i = 0; i < npoints; i=i+1)
 	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
 	projected_point = circle_clipping(projected_point, 0.75);
 
-	projected_point[0] *=90.0;
-	projected_point[1] *=90.0;
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
 
 	if (projected_point[2] > -1)
 		{append(shape_data, projected_point);}
@@ -350,8 +350,8 @@ for (var i = 0; i < npoints; i=i+1)
 	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
 	projected_point = circle_clipping(projected_point, 0.75);
 
-	projected_point[0] *=90.0;
-	projected_point[1] *=90.0;
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
 
 	if (projected_point[2] > -1)
 		{append(shape_data, projected_point);}
@@ -359,6 +359,19 @@ for (var i = 0; i < npoints; i=i+1)
 	}
 
 return shape_data;
+
+}
+
+# placement of compass text labels
+
+var compass_label_pos = func (radius, angle) {
+
+var x = radius * math.sin(angle * math.pi/180.0);
+var y = radius * math.cos(angle * math.pi/180.0);
+
+#print(x, " ", y);
+
+return [x,y];
 
 }
  
