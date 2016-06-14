@@ -157,7 +157,7 @@ for (var i=0; i< resolution; i=i+1)
 	var x = radius * math.sin(angle);	
 	var y = radius * math.cos(angle);
 
-	append(shape_data, [x,y]); 
+	append(shape_data, [x,y,1]); 
 
 	}
 return shape_data;
@@ -210,6 +210,43 @@ append(shape_data, point);
 }
 
 
+# draw a compass
+
+var draw_compass_scale = func (radius, n_major, major_size, n_minor, minor_size) {
+
+var n_total = n_major * n_minor;
+
+var shape_data = [];
+
+var dangle = 360.0/n_total * math.pi/180.0;
+var minor_count = 0;
+
+for (var i = 0; i< n_total; i=i+1)
+	{
+	var angle = i * dangle;
+	var size = minor_size;
+	if (minor_count ==0) {size = major_size;}
+
+	var x = radius * math.sin(angle);
+	var y = radius * math.cos(angle);
+
+	var point = [x,y,0];
+	append(shape_data, point);
+ 
+	x*=size;
+	y*=size;
+
+	var point = [x,y,1];
+	append(shape_data, point);
+	minor_count = minor_count+1;
+	if (minor_count == n_minor) {minor_count = 0;}
+
+	}
+
+return shape_data;
+}
+
+
 # draw a sphere in 3d space for the PFD, then project it
 
 var projection_vecs = func (pitch, yaw, roll) {
@@ -232,11 +269,31 @@ var projected_point = [0.0, 0.0, 0.0];
 projected_point[0] = SpaceShuttle.dot_product(point_coords, x_proj);
 projected_point[1] = SpaceShuttle.dot_product(point_coords, y_proj);
 
-if (SpaceShuttle.dot_product(point_coords, view_vec) < 0.0)
+var hemisphere = SpaceShuttle.dot_product(point_coords, view_vec);
+
+if (hemisphere < -0.2)
+	{projected_point[2] = -1;}
+else if (hemisphere < 0.0)
 	{projected_point[2] = 0;}
 else
 	{projected_point[2] = 1;}
 
+return projected_point;
+
+}
+
+var circle_clipping = func (projected_point, radius) {
+
+var length = math.sqrt(projected_point[0] * projected_point[0] + projected_point[1] * projected_point[1]);
+
+if (length > 1.2 * radius)
+	{
+	projected_point[2] = -1;
+	}
+else if (length > radius)
+	{
+	projected_point[2] = 0;
+	}
 return projected_point;
 
 }
@@ -260,11 +317,13 @@ for (var i = 0; i < npoints; i=i+1)
 	var z = math.sin(lat_rad);	
 
 	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
 
-	projected_point[0] *=100.0;
-	projected_point[1] *=100.0;
+	projected_point[0] *=90.0;
+	projected_point[1] *=90.0;
 
-	append(shape_data, projected_point);
+	if (projected_point[2] > -1)
+		{append(shape_data, projected_point);}
 	}
 
 return shape_data;
@@ -289,11 +348,14 @@ for (var i = 0; i < npoints; i=i+1)
 	var z = math.sin(lat_rad);	
 
 	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
 
-	projected_point[0] *=100.0;
-	projected_point[1] *=100.0;
+	projected_point[0] *=90.0;
+	projected_point[1] *=90.0;
 
-	append(shape_data, projected_point);
+	if (projected_point[2] > -1)
+		{append(shape_data, projected_point);}
+
 	}
 
 return shape_data;
