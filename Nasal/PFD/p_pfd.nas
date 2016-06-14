@@ -39,6 +39,24 @@ var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffs
 
 }
 
+var write_sphere_label = func (group, text, angle, coords) {
+
+
+if (coords[2] ==1)
+	{
+
+	var text = group.createChild("text")
+      	.setText(text)
+        .setColor(1,1,1)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(coords[0], coords[1]);
+	}
+
+}
+
 
 var PFD_addpage_p_pfd = func(device)
 {
@@ -149,6 +167,7 @@ var PFD_addpage_p_pfd = func(device)
 	device.symbols.removeAllChildren();
 	device.HSI.removeAllChildren();
 	device.nom_traj_plot.removeAllChildren();
+	device.nom_traj_plot.setTranslation(0,0);
     }
     
     p_pfd.update = func
@@ -163,64 +182,137 @@ var PFD_addpage_p_pfd = func(device)
 	var meridian_res = 90;
 	var circle_res = 90;
 
-	var data = SpaceShuttle.draw_meridian(0.0, 30, pitch, yaw, roll );
+	var data = SpaceShuttle.draw_meridian(0.0, 30, -pitch, yaw, -roll );
 
 	var plot = device.nom_traj_plot.createChild("path", "data")
-        .setStrokeLineWidth(2)
+        .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(30.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(30.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(60.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(60.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(90.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(90.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(120.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(120.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(150.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(150.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(180.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(180.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(270.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(270.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(300.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(300.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_meridian(330.0, meridian_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_meridian(330.0, meridian_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(0.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(0.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(30.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(30.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(60.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(60.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(85.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(85.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
-	data = SpaceShuttle.draw_coord_circle(-85.0, circle_res, pitch, yaw, roll );
+	data = SpaceShuttle.draw_coord_circle(-85.0, circle_res, -pitch, yaw, -roll );
 	pfd_segment_draw(data, plot);
 
+	# projection vecs for labels
+	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
 
+	var coords = SpaceShuttle.label_coords_sphere(15.0, 0.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "0", 0.0, coords);
 
-	plot.setTranslation (255, 175);
+	coords = SpaceShuttle.label_coords_sphere(15.0, 30.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "3", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 60.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "6", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 90.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "9", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 120.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "12", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 150.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "15", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 180.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "18", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 210.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "21", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 240.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "24", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 270.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "27", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 300.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "30", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(15.0, 330.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "33", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 0.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "0", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 30.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "3", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 60.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "6", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 90.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "9", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 120.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "12", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 150.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "15", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 180.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "18", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 210.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "21", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 240.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "24", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 270.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "27", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 300.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "30", 0.0, coords);
+
+	coords = SpaceShuttle.label_coords_sphere(-15.0, 330.0, p_vecs);
+	write_sphere_label(device.nom_traj_plot, "33", 0.0, coords);
+
+	device.nom_traj_plot.setTranslation (255, 175);
 
 	device.HSI.setRotation(-yaw * math.pi/180.0);
 	device.HSI.setTranslation (255, 425);

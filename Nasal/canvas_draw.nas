@@ -299,6 +299,27 @@ return projected_point;
 }
 
 
+var label_coords_sphere = func(lat, lon, p_vecs) {
+
+var lon_rad = (90-lon) * math.pi/180.0;
+var lat_rad = -lat * math.pi/180.0;
+
+var x = math.sin(lon_rad) * math.cos(lat_rad);
+var y = math.cos(lon_rad) * math.cos(lat_rad);
+var z = math.sin(lat_rad);
+
+var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+projected_point = circle_clipping(projected_point, 0.65);
+
+projected_point[0] *=95.0;
+projected_point[1] *=95.0;
+
+#print("Point:", projected_point[0], " ", projected_point[1], " ", projected_point[2]);
+
+return projected_point;
+}
+
+
 var draw_meridian = func (lon, npoints, pitch, yaw, roll) {
 
 var dlat = 180.0 / (npoints-1);
