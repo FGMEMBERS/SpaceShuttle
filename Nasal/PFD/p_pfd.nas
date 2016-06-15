@@ -5,6 +5,9 @@
 #      Author: Thorsten Renk, 2015
 #---------------------------------------
 
+
+
+
 var pfd_segment_draw = func (data, plot) {
 
 	if (size(data) < 2) {return;}
@@ -51,7 +54,7 @@ if (coords[2] ==1)
 	.setFontSize(12)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setRotation(0.0)
+	.setRotation(angle)
 	.setTranslation(coords[0], coords[1]);
 	}
 
@@ -110,6 +113,76 @@ var PFD_addpage_p_pfd = func(device)
 	place_compass_label(device.symbols, "6", 300.0, 85.0, 0,255,180);
 	place_compass_label(device.symbols, "3", 330.0, 85.0, 0,255,180);
 
+	# nose position indicator
+
+	data = [[0.0, -26.0, 0], [0.0, -26.0, 1], [0.0, 26.0,1], [-28.0,0.0,0],[-23.0,0.0,1],[23.0,0.0,0],[28.0,0.0,1], [-10,0,0], [-8.6, 5.0, 1], [-5.0, 8.6, 1], [0.0,10.0,1],[5.0,8.6,1],[8.6,5.0,1],[10.0,0.0,1]];
+	var plot_cross_thick = device.symbols.createChild("path", "cross_thick")
+        .setStrokeLineWidth(2)
+        .setColor(0.4, 0.9, 0.7);
+	pfd_segment_draw(data, plot_cross_thick);
+	plot_cross_thick.setTranslation (255, 175);
+
+	data = [[-23.0, 0.0, 0], [-23.0, 0.0, 1], [23.0,0.0,1]];
+	var plot_cross_thin = device.symbols.createChild("path", "cross_thin")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7);
+	pfd_segment_draw(data, plot_cross_thin);
+	plot_cross_thin.setTranslation (255, 175);
+
+
+	# ADI rate ladders
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 0);
+	var plot_ADI_rate_roll = device.symbols.createChild("path", "ADI_rate_roll")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_roll);
+	plot_ADI_rate_roll.setTranslation(255, 70);
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 1);
+	var plot_ADI_rate_yaw = device.symbols.createChild("path", "ADI_rate_yaw")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_yaw);
+	plot_ADI_rate_yaw.setTranslation(255, 280);
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 1, 1);
+	var plot_ADI_rate_pitch = device.symbols.createChild("path", "ADI_rate_pitch")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_pitch);
+	plot_ADI_rate_pitch.setTranslation(360, 175);
+
+	# ADI rate needles
+
+	data = SpaceShuttle.draw_tmarker_down();
+	p_pfd.adi_roll_rate_needle = device.symbols.createChild("path", "ADI_roll_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd.adi_roll_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+
+	data = SpaceShuttle.draw_tmarker_left();
+	p_pfd.adi_pitch_rate_needle = device.symbols.createChild("path", "ADI_pitch_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd.adi_pitch_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+
+	data = SpaceShuttle.draw_tmarker_up();
+	p_pfd.adi_yaw_rate_needle = device.symbols.createChild("path", "ADI_yaw_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd.adi_yaw_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+	
+
 	# lower HSI compass rose
 
 	device.symbols.set("clip", "rect(0px, 512px, 460px, 0px)");
@@ -144,8 +217,6 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_circle(58.0, 30);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-
-
 	place_compass_label(device.HSI, "N", 0.0, 63.0, 1,0,0);
 	place_compass_label(device.HSI, "E", 90.0, 63.0, 1,0,0);
 	place_compass_label(device.HSI, "S", 180.0, 63.0, 1,0,0);
@@ -158,6 +229,8 @@ var PFD_addpage_p_pfd = func(device)
 	place_compass_label(device.HSI, "24", 240.0, 63.0, 1,0,0);    
 	place_compass_label(device.HSI, "30", 300.0, 63.0, 1,0,0);
 	place_compass_label(device.HSI, "33", 330.0, 63.0, 1,0,0);
+
+	
 
 	}
 
@@ -240,77 +313,21 @@ var PFD_addpage_p_pfd = func(device)
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
 
-	var coords = SpaceShuttle.label_coords_sphere(15.0, 0.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "0", 0.0, coords);
+	draw_sphere_labels(device.nom_traj_plot, p_vecs, roll);
+	
+	# ADI rate needles
 
-	coords = SpaceShuttle.label_coords_sphere(15.0, 30.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "3", 0.0, coords);
+	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
+	roll_rate = SpaceShuttle.clamp(roll_rate, -5.0, 5.0);
+	p_pfd.adi_roll_rate_needle.setTranslation(255 + 13.0 * roll_rate, 70);
 
-	coords = SpaceShuttle.label_coords_sphere(15.0, 60.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "6", 0.0, coords);
+	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+	pitch_rate = SpaceShuttle.clamp(pitch_rate, -5.0, 5.0);
+	p_pfd.adi_pitch_rate_needle.setTranslation(360, 175 - 13.0 * pitch_rate);
 
-	coords = SpaceShuttle.label_coords_sphere(15.0, 90.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "9", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 120.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "12", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 150.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "15", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 180.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "18", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 210.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "21", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 240.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "24", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 270.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "27", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 300.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "30", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(15.0, 330.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "33", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 0.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "0", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 30.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "3", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 60.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "6", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 90.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "9", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 120.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "12", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 150.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "15", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 180.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "18", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 210.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "21", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 240.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "24", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 270.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "27", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 300.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "30", 0.0, coords);
-
-	coords = SpaceShuttle.label_coords_sphere(-15.0, 330.0, p_vecs);
-	write_sphere_label(device.nom_traj_plot, "33", 0.0, coords);
+	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
+	yaw_rate = SpaceShuttle.clamp(yaw_rate, -5.0, 5.0);
+	p_pfd.adi_yaw_rate_needle.setTranslation(255+13.0 * yaw_rate, 280.0);
 
 	device.nom_traj_plot.setTranslation (255, 175);
 
@@ -324,3 +341,97 @@ var PFD_addpage_p_pfd = func(device)
     
     return p_pfd;
 }
+
+
+
+
+# batch functions for label drawing
+
+var label_from_degree = func (angle, flag) {
+
+if (angle == 0.0) 
+	{
+	if (flag == 1) {return "N";}
+	else {return "0";}
+	}
+else if (angle == 30.0)
+	{return "3";}
+else if (angle == 60.0)
+	{return "6";}
+else if (angle == 90.0)
+	{
+	if (flag == 1) {return "E";}	
+	else	{return "9";}
+	}
+else if (angle == 120.0)
+	{return "12";}
+else if (angle == 15.0)
+	{return "15";}
+else if (angle == 180.0)
+	{
+	if (flag == 1) {return "S";}
+	else {return "18";}
+	}
+else if (angle == 210.0)
+	{return "21";}
+else if (angle == 240.0)
+	{return "24";}
+else if (angle == 270.0)
+	{	
+	if (flag == 1) {return "W";}
+	else {return "27";}
+	}
+else if (angle == 300.0)
+	{return "30";}
+else if (angle == 330.0)
+	{return "33";}
+else return "";
+}
+
+
+var draw_sphere_labels = func (group, p_vecs, roll) {
+
+var coords = [];
+var label = "";
+var lon = 0;
+
+
+var lat = 15;
+for (var i=0; i< 12; i=i+1)
+	{
+	lon = 30.0 * i;
+	label = label_from_degree(lon, 0);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
+	}
+
+var lat = 45;
+for (var i=0; i< 12; i=i+1)
+	{
+	lon = 30.0 * i;
+	label = label_from_degree(lon, 0);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
+	}
+
+var lat = -15;
+for (var i=0; i< 12; i=i+1)
+	{
+	lon = 30.0 * i;
+	label = label_from_degree(lon, 0);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
+	}
+
+var lat = -45;
+for (var i=0; i< 12; i=i+1)
+	{
+	lon = 30.0 * i;
+	label = label_from_degree(lon, 0);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
+	}
+
+}
+
+

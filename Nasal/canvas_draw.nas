@@ -58,7 +58,25 @@ point = [0, 0];
 append(shape_data, point);
 
 return shape_data;
+}
 
+var draw_tmarker_left = func {
+
+var shape_data = [];
+
+var point = [0, 0];
+append(shape_data, point);
+
+point = [8.0, -6.9];
+append(shape_data, point);
+
+point = [8.0, 6.9];
+append(shape_data, point);
+
+point = [0, 0];
+append(shape_data, point);
+
+return shape_data;
 }
 
 var draw_tmarker_down = func {
@@ -78,7 +96,25 @@ point = [0, 0];
 append(shape_data, point);
 
 return shape_data;
+}
 
+var draw_tmarker_up = func {
+
+var shape_data = [];
+
+var point = [0, 0];
+append(shape_data, point);
+
+point = [-6.9, 8.0];
+append(shape_data, point);
+
+point = [6.9, 8.0];
+append(shape_data, point);
+
+point = [0, 0];
+append(shape_data, point);
+
+return shape_data;
 }
 
 var draw_arrowmarker_right = func {
@@ -144,6 +180,8 @@ append(shape_data, point);
 
 point = [-2.0, 0.5];
 append(shape_data, point);
+
+return shape_data;
 }
 
 var draw_circle = func (radius, resolution) {
@@ -207,10 +245,12 @@ append(shape_data, point);
 point = [0.0, 1.25];
 append(shape_data, point);
 
+return shape_data;
 }
 
-
+#####################################################
 # draw a compass
+#####################################################
 
 var draw_compass_scale = func (radius, n_major, major_size, n_minor, minor_size) {
 
@@ -246,8 +286,83 @@ for (var i = 0; i< n_total; i=i+1)
 return shape_data;
 }
 
+#####################################################
+# draw ladders
+#####################################################
 
-# draw a sphere in 3d space for the PFD, then project it
+var draw_ladder = func (length, n_major, major_size, n_minor, minor_size, primary_direction, secondary_direction) {
+
+# primary direction 0: horizontal 1: vertical
+
+
+# draw ladder body
+
+var shape_data = [];
+
+if (primary_direction == 0)
+	{
+	point = [-0.5 * length, 0.0, 0];
+	append(shape_data, point);
+
+	point = [-0.5* length, 0.0, 0];
+	append(shape_data, point);
+
+	point = [0.5* length, 0.0, 1];
+	append(shape_data, point);
+	}
+else
+	{
+	point = [0.0,-0.5 * length, 0];
+	append(shape_data, point);
+
+	point = [0.0,-0.5* length, 0];
+	append(shape_data, point);
+
+	point = [0.0,0.5* length, 1];
+	append(shape_data, point);
+	}
+
+var n_total = (n_major-1) * (n_minor+1) + 1;
+var dl = length/(n_total-1);
+
+# draw ladder rungs
+
+var x = 0;
+var y = 0;
+var minor_count = 0;
+
+for (var i=0; i< n_total; i=i+1)
+	{
+	x = -0.5 * length + i * dl;
+	y = 0.0;
+
+	if (primary_direction == 0)
+		{append(shape_data, [x,y,0]);}
+	else
+		{append(shape_data, [y,x,0]);}
+
+	var size = minor_size;
+	if (minor_count ==0) {size = major_size;}
+	if (secondary_direction ==1) {size = -size;}
+
+	y = length * size;
+
+	if (primary_direction == 0)
+		{append(shape_data, [x,y,1]);}
+	else
+		{append(shape_data, [y,x,1]);}
+
+	minor_count = minor_count+1;
+	if (minor_count == (n_minor+1)) {minor_count = 0;}
+
+	}
+
+return shape_data;
+}
+
+##############################################################
+# draw an ADI sphere in 3d space for the PFD, then project it
+##############################################################
 
 var projection_vecs = func (pitch, yaw, roll) {
 
@@ -383,7 +498,9 @@ return shape_data;
 
 }
 
+#####################################################
 # placement of compass text labels
+#####################################################
 
 var compass_label_pos = func (radius, angle) {
 
