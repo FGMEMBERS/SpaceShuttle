@@ -60,14 +60,14 @@ if (coords[2] ==1)
 
 }
 
-var write_tape_label = func (group, text, coords) {
+var write_tape_label = func (group, text, coords, color) {
 
 
 if (coords[2] ==1)
 	{
 	var text = group.createChild("text")
       	.setText(text)
-        .setColor(0,0,0)
+        .setColor(color[0],color[1],color[2])
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
@@ -254,8 +254,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	# KEAS tape ################################################
 
-
-
 	# frame
 	var plot_keas_tape = device.keas.createChild("path", "data")
         .setStrokeLineWidth(1)
@@ -313,13 +311,76 @@ var PFD_addpage_p_pfd = func(device)
 
 	# alpha tape ################################################
 
+	# frame
+
 	var plot_alpha_tape = device.alpha.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_alpha_tape);
 	plot_alpha_tape.setTranslation (120, 200);
 
-	# H tape
+	# inner tape
+
+	p_pfd.alpha_tape = device.alpha.createChild("group");
+	p_pfd.alpha_tape.set("clip", "rect(105px, 142.5px, 295px, 97.5px)");
+
+	p_pfd.alpha_tape_background1 = p_pfd.alpha_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(0.0, -427.5)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 855);
+	pfd_segment_draw(data1, p_pfd.alpha_tape_background1);
+
+	p_pfd.alpha_tape_background2 = p_pfd.alpha_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.5, 0.5, 0.5)
+	.setTranslation(0.0, 427.5)
+        .setColor(1,1,1);
+	pfd_segment_draw(data1, p_pfd.alpha_tape_background2);
+
+	p_pfd.alpha_tape_ladder_upper = p_pfd.alpha_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(10,-427.5)
+        .setColor(0,0,0);	
+	data1 = SpaceShuttle.draw_ladder(855, 90, 0.01169, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, p_pfd.alpha_tape_ladder_upper);
+
+	p_pfd.alpha_tape_ladder_lower = p_pfd.alpha_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(10,427.5)
+        .setColor(1,1,1);	
+	pfd_segment_draw(data1, p_pfd.alpha_tape_ladder_lower);
+
+	p_pfd.alpha_tape.labels_upper = p_pfd.alpha_tape.createChild("group");
+	draw_alpha_labels_upper(p_pfd.alpha_tape.labels_upper);
+
+	p_pfd.alpha_tape.labels_lower = p_pfd.alpha_tape.createChild("group");
+	draw_alpha_labels_lower(p_pfd.alpha_tape.labels_lower);
+
+	# display box
+
+	p_pfd.alpha_display_box = device.alpha.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0, 0, 0)
+        .setColor(1,1,1);
+	data1= [[-24, -10,0], [-24, 10, 1], [16, 10, 1], [22,0,1], [16,-10,1],[-24,-10,1], [-24,-10,1]];
+	pfd_segment_draw(data1, p_pfd.alpha_display_box);
+	p_pfd.alpha_display_box.setTranslation (120, 200);
+
+	p_pfd.alpha_display_text = device.alpha.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(120,205)
+	.setRotation(0.0);
+
+
+
+
+	# H tape  ################################################
 
 	var plot_H_tape = device.H.createChild("path", "data")
         .setStrokeLineWidth(1)
@@ -448,6 +509,13 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.keas_tape.setTranslation (70, 200 - 5400 + 381.0 * mach);       
 	p_pfd.keas_display_text.setText(sprintf("%2.1f",mach));
 
+	# alpha tape
+	
+	var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
+	p_pfd.alpha_display_text.setText(sprintf("%2.1f",alpha));
+	p_pfd.alpha_tape.setTranslation (120, 200 + 9.5 * alpha);
+
+
 
         p_pfd.beta.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/aero/beta-deg")));
         p_pfd.keas.setText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
@@ -558,7 +626,37 @@ for (var i=0; i< 140; i=i+1)
 
 	var label = sprintf("%2.1f", 0.2 * i);
 
-	write_tape_label(group, label, coords);
+	write_tape_label(group, label, coords, [0,0,0]);
+	}
+
+}
+
+var draw_alpha_labels_upper = func (group)
+{
+
+for (var i=0; i< 18; i=i+1)
+	{
+	var y = 5.0 - i * 47.5;
+	var coords = [0.0, y, 1];
+
+	var label = sprintf("%d", 5 * i);
+
+	write_tape_label(group, label, coords, [0,0,0]);
+	}
+
+}
+
+var draw_alpha_labels_lower = func (group)
+{
+
+for (var i=0; i< 18; i=i+1)
+	{
+	var y = 5.0 + i * 47.5;
+	var coords = [0.0, y, 1];
+
+	var label = sprintf("%d", -5 * i);
+
+	write_tape_label(group, label, coords, [1,1,1]);
 	}
 
 }
