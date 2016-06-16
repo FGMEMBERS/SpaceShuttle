@@ -38,6 +38,7 @@
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 
+# * p_pfd (MEDS PFD)
 # * p_meds_oms_mps (MEDS OMS/MPS)
 # * p_meds_apu	(MEDS APU/HYD)
 # * p_meds_spi	(MEDS SPI)
@@ -336,6 +337,10 @@ var MDU_Device =
 
 	me.PFD.symbols = me.PFD._canvas.createGroup();
 	me.PFD.HSI = me.PFD._canvas.createGroup();
+	me.PFD.keas = me.PFD._canvas.createGroup();
+	me.PFD.alpha = me.PFD._canvas.createGroup();
+	me.PFD.H = me.PFD._canvas.createGroup();
+	me.PFD.Hdot = me.PFD._canvas.createGroup();
 
 	# we can't put the display colors into the emissive animation because the screens
 	# show different colors, so we set common element colors here and page colors at
