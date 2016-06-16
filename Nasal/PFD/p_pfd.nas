@@ -14,7 +14,7 @@ var pfd_segment_draw = func (data, plot) {
 
 	plot.moveTo(data[0][0],data[0][1]); 
 
-        for (var i = 1; i< (size(data)-1); i=i+1)
+        for (var i = 0; i< (size(data)-1); i=i+1)
         {
             var set = data[i+1];
 	    if (set[2] == 1)
@@ -60,6 +60,23 @@ if (coords[2] ==1)
 
 }
 
+var write_tape_label = func (group, text, coords) {
+
+
+if (coords[2] ==1)
+	{
+	var text = group.createChild("text")
+      	.setText(text)
+        .setColor(0,0,0)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(coords[0], coords[1]);
+	}
+
+}
+
 
 var PFD_addpage_p_pfd = func(device)
 {
@@ -82,6 +99,8 @@ var PFD_addpage_p_pfd = func(device)
         device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
 
 	# draw the fixed elements
+
+	# ADI ################################################
 
 	# upper compass rose
 
@@ -129,24 +148,25 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, plot_cross_thin);
 	plot_cross_thin.setTranslation (255, 175);
 
+	# ADI rate indicators ################################################
 
 	# ADI rate ladders
 
-	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 0);
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 0 , 1);
 	var plot_ADI_rate_roll = device.symbols.createChild("path", "ADI_rate_roll")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
 	pfd_segment_draw(data, plot_ADI_rate_roll);
 	plot_ADI_rate_roll.setTranslation(255, 70);
 
-	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 1);
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 1, 1);
 	var plot_ADI_rate_yaw = device.symbols.createChild("path", "ADI_rate_yaw")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
 	pfd_segment_draw(data, plot_ADI_rate_yaw);
 	plot_ADI_rate_yaw.setTranslation(255, 280);
 
-	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 1, 1);
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 1, 1, 1);
 	var plot_ADI_rate_pitch = device.symbols.createChild("path", "ADI_rate_pitch")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
@@ -183,6 +203,8 @@ var PFD_addpage_p_pfd = func(device)
 		{p_pfd.adi_yaw_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
 	
 
+	# HSI ################################################
+
 	# lower HSI compass rose
 
 	device.symbols.set("clip", "rect(0px, 512px, 460px, 0px)");
@@ -200,7 +222,7 @@ var PFD_addpage_p_pfd = func(device)
 	plot_compass_lower.setTranslation (255, 425);
 
 
-	# inner lower HSI compass rose
+	# inner lower HSI compass rose 
 
 
 	var plot_inner_compass_lower = device.HSI.createChild("path", "data")
@@ -230,7 +252,89 @@ var PFD_addpage_p_pfd = func(device)
 	place_compass_label(device.HSI, "30", 300.0, 63.0, 1,0,0);
 	place_compass_label(device.HSI, "33", 330.0, 63.0, 1,0,0);
 
+	# KEAS tape ################################################
+
+
+
+	# frame
+	var plot_keas_tape = device.keas.createChild("path", "data")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+	data= SpaceShuttle.draw_rect(45, 190);
+	pfd_segment_draw(data, plot_keas_tape);
+	plot_keas_tape.setTranslation (70, 200);
+
+	# inner tape
+
+	p_pfd.keas_tape = device.keas.createChild("group");
+	p_pfd.keas_tape.set("clip", "rect(105px, 92.5px, 295px, 47.5px)");
+
+	p_pfd.keas_tape_background = p_pfd.keas_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 10800);
+	pfd_segment_draw(data1, p_pfd.keas_tape_background);
+
+	p_pfd.keas_tape_ladder = p_pfd.keas_tape.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(0,0,0);	
+	data1 = SpaceShuttle.draw_ladder(10800, 280, 0.002592, 0, 0, 1, 1, 0);
+	pfd_segment_draw(data1, p_pfd.keas_tape_ladder);
+	p_pfd.keas_tape_ladder.setTranslation(-10,0);
+
+	p_pfd.keas_tape.labels = p_pfd.keas_tape.createChild("group");
+	draw_mach_labels(p_pfd.keas_tape.labels);
+
+	# display box
+
+	p_pfd.keas_display_box = device.keas.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0, 0, 0)
+        .setColor(1,1,1);
+	data1= SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data1, p_pfd.keas_display_box);
+	p_pfd.keas_display_box.setTranslation (70, 200);
+
+	p_pfd.keas_display_text = device.keas.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(70,205)
+	.setRotation(0.0);
+
+
+
+
 	
+	
+
+	# alpha tape ################################################
+
+	var plot_alpha_tape = device.alpha.createChild("path", "data")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, plot_alpha_tape);
+	plot_alpha_tape.setTranslation (120, 200);
+
+	# H tape
+
+	var plot_H_tape = device.H.createChild("path", "data")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, plot_H_tape);
+	plot_H_tape.setTranslation (400, 200);
+
+	# Hdot tape
+
+	var plot_Hdot_tape = device.Hdot.createChild("path", "data")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, plot_Hdot_tape);
+	plot_Hdot_tape.setTranslation (450, 200);
+
 
 	}
 
@@ -239,6 +343,10 @@ var PFD_addpage_p_pfd = func(device)
     {
 	device.symbols.removeAllChildren();
 	device.HSI.removeAllChildren();
+	device.H.removeAllChildren();
+	device.Hdot.removeAllChildren();
+	device.alpha.removeAllChildren();
+	device.keas.removeAllChildren();
 	device.nom_traj_plot.removeAllChildren();
 	device.nom_traj_plot.setTranslation(0,0);
     }
@@ -334,9 +442,15 @@ var PFD_addpage_p_pfd = func(device)
 	device.HSI.setRotation(-yaw * math.pi/180.0);
 	device.HSI.setTranslation (255, 425);
     
-       
-        p_pfd.beta.setText(sprintf("%5.1f",getprop("fdm/jsbsim/aero/beta-deg")));
-        p_pfd.keas.setText(sprintf("%5.0f",getprop("velocities/airspeed-kt")));
+	# KEAS /Mach tape
+
+	var mach = getprop("/fdm/jsbsim/velocities/mach");
+	p_pfd.keas_tape.setTranslation (70, 200 - 5400 + 381.0 * mach);       
+	p_pfd.keas_display_text.setText(sprintf("%2.1f",mach));
+
+
+        p_pfd.beta.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/aero/beta-deg")));
+        p_pfd.keas.setText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
     };
     
     return p_pfd;
@@ -430,6 +544,21 @@ for (var i=0; i< 12; i=i+1)
 	label = label_from_degree(lon, 0);
 	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
 	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
+	}
+
+}
+
+var draw_mach_labels = func (group)
+{
+
+for (var i=0; i< 140; i=i+1)
+	{
+	var y = 5385 - i * 76.0;
+	var coords = [0.0, y, 1];
+
+	var label = sprintf("%2.1f", 0.2 * i);
+
+	write_tape_label(group, label, coords);
 	}
 
 }

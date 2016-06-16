@@ -117,6 +117,32 @@ append(shape_data, point);
 return shape_data;
 }
 
+var draw_rect = func (width, height) {
+
+var shape_data = [];
+
+var point = [-width * 0.5, -height*0.5,0];
+append(shape_data, point);
+
+point = [-width * 0.5, -height * 0.5, 0];
+append(shape_data, point);
+
+point = [-width * 0.5, height * 0.5, 1];
+append(shape_data, point);
+
+point = [width * 0.5, height * 0.5, 1];
+append(shape_data, point);
+
+point = [width * 0.5, -height * 0.5, 1];
+append(shape_data, point);
+
+point = [-width * 0.5, -height * 0.5, 1];
+append(shape_data, point);
+
+return shape_data;
+}
+
+
 var draw_arrowmarker_right = func {
 
 var shape_data = [];
@@ -290,7 +316,7 @@ return shape_data;
 # draw ladders
 #####################################################
 
-var draw_ladder = func (length, n_major, major_size, n_minor, minor_size, primary_direction, secondary_direction) {
+var draw_ladder = func (length, n_major, major_size, n_minor, minor_size, primary_direction, secondary_direction, style) {
 
 # primary direction 0: horizontal 1: vertical
 
@@ -299,28 +325,32 @@ var draw_ladder = func (length, n_major, major_size, n_minor, minor_size, primar
 
 var shape_data = [];
 
-if (primary_direction == 0)
+if (style==1)
 	{
-	point = [-0.5 * length, 0.0, 0];
-	append(shape_data, point);
 
-	point = [-0.5* length, 0.0, 0];
-	append(shape_data, point);
+	if (primary_direction == 0)
+		{
+		point = [-0.5 * length, 0.0, 0];
+		append(shape_data, point);
 
-	point = [0.5* length, 0.0, 1];
-	append(shape_data, point);
+		point = [-0.5* length, 0.0, 0];
+		append(shape_data, point);
+
+		point = [0.5* length, 0.0, 1];
+		append(shape_data, point);
+		}
+	else
+		{
+		point = [0.0,-0.5 * length, 0];
+		append(shape_data, point);
+
+		point = [0.0,-0.5* length, 0];
+		append(shape_data, point);
+
+		point = [0.0,0.5* length, 1];
+		append(shape_data, point);
 	}
-else
-	{
-	point = [0.0,-0.5 * length, 0];
-	append(shape_data, point);
-
-	point = [0.0,-0.5* length, 0];
-	append(shape_data, point);
-
-	point = [0.0,0.5* length, 1];
-	append(shape_data, point);
-	}
+}
 
 var n_total = (n_major-1) * (n_minor+1) + 1;
 var dl = length/(n_total-1);
@@ -359,6 +389,13 @@ for (var i=0; i< n_total; i=i+1)
 
 return shape_data;
 }
+
+
+#####################################################
+# draw tapes
+#####################################################
+
+
 
 ##############################################################
 # draw an ADI sphere in 3d space for the PFD, then project it
