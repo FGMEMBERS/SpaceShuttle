@@ -451,7 +451,7 @@ return projected_point;
 }
 
 
-var label_coords_sphere = func(lat, lon, p_vecs) {
+var label_coords_sphere = func(lat, lon, p_vecs, pitch, yaw) {
 
 var lon_rad = (90-lon) * math.pi/180.0;
 var lat_rad = -lat * math.pi/180.0;
@@ -466,24 +466,28 @@ projected_point = circle_clipping(projected_point, 0.65);
 projected_point[0] *=95.0;
 projected_point[1] *=95.0;
 
+var slant = -math.sin(lat_rad) * math.sin(lon_rad - (90-yaw) * math.pi/180.0);
+
+append(projected_point, slant);
+
 #print("Point:", projected_point[0], " ", projected_point[1], " ", projected_point[2]);
 
 return projected_point;
 }
 
 
-var draw_meridian = func (lon, npoints, pitch, yaw, roll) {
+var draw_meridian = func (lon, npoints, p_vecs) {
 
-var dlat = 180.0 / (npoints-1);
+var dlat = 170.0 / (npoints-1);
 var lon_rad = lon * math.pi/180.0;
 
-var p_vecs = projection_vecs (pitch, yaw, roll);
+#var p_vecs = projection_vecs (pitch, yaw, roll);
 
 var shape_data = [];
 
 for (var i = 0; i < npoints; i=i+1)
 	{
-	var lat_rad = -90.0 + i * dlat * math.pi/90.0;
+	var lat_rad = (-85.0 + i * dlat) * math.pi/180.0;
 	
 	var x = math.sin(lon_rad) * math.cos(lat_rad);
 	var y = math.cos(lon_rad) * math.cos(lat_rad);
@@ -503,18 +507,74 @@ return shape_data;
 
 }
 
-var draw_coord_circle = func (lat, npoints, pitch, yaw, roll) {
+var draw_meridian_ladder = func (lon, nticks, p_vecs) {
 
-var dlon = 360.0 / (npoints-1);
-var lat_rad = lat * math.pi/180.0;
+var npoints = 6 * nticks;
 
-var p_vecs = projection_vecs (pitch, yaw, roll);
+var dlat = 180.0 / (npoints-1);
+var dlon = 2.0 * math.pi/180.0;
+var lon_rad = lon * math.pi/180.0;
+
 
 var shape_data = [];
 
 for (var i = 0; i < npoints; i=i+1)
 	{
-	var lon_rad = 360.0 + i * dlon * math.pi/180.0;
+	var lat_rad = (-90.0 + i * dlat) * math.pi/180.0;
+	
+	var x = math.sin(lon_rad - dlon) * math.cos(lat_rad);
+	var y = math.cos(lon_rad - dlon) * math.cos(lat_rad);
+	var z = math.sin(lat_rad);	
+
+	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
+
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
+
+	if (math.abs(lat_rad) > 75.0 * math.pi/180.0)
+		{projected_point[2] = -1;}
+
+	if (projected_point[2] > -1)
+		{
+		projected_point[2] = 0;
+		append(shape_data, projected_point);
+		}
+	
+
+	x = math.sin(lon_rad + dlon) * math.cos(lat_rad);
+	y = math.cos(lon_rad + dlon) * math.cos(lat_rad);
+	z = math.sin(lat_rad);	
+
+	projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
+
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
+
+	if (math.abs(lat_rad) > 75.0 * math.pi/180.0)
+		{projected_point[2] = -1;}
+
+	if (projected_point[2] > -1)
+		{append(shape_data, projected_point);}
+	}	
+
+return shape_data;
+
+}
+
+var draw_coord_circle = func (lat, npoints, p_vecs) {
+
+var dlon = 360.0 / (npoints-1);
+var lat_rad = lat * math.pi/180.0;
+
+#var p_vecs = projection_vecs (pitch, yaw, roll);
+
+var shape_data = [];
+
+for (var i = 0; i < npoints; i=i+1)
+	{
+	var lon_rad = (i * dlon) * math.pi/180.0;
 	
 	var x = math.sin(lon_rad) * math.cos(lat_rad);
 	var y = math.cos(lon_rad) * math.cos(lat_rad);

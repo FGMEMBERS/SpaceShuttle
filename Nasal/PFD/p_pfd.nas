@@ -54,7 +54,7 @@ if (coords[2] ==1)
 	.setFontSize(12)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setRotation(angle)
+	.setRotation(angle + coords[3] * 0.8 * math.pi/2.0)
 	.setTranslation(coords[0], coords[1]);
 	}
 
@@ -421,68 +421,20 @@ var PFD_addpage_p_pfd = func(device)
 	var yaw = getprop("/orientation/heading-deg");
 	var roll = getprop("/orientation/roll-deg");
 
-	var meridian_res = 90;
-	var circle_res = 90;
 
-	var data = SpaceShuttle.draw_meridian(0.0, 30, -pitch, yaw, -roll );
 
-	var plot = device.nom_traj_plot.createChild("path", "data")
+
+
+	var adi_sphere = device.nom_traj_plot.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(30.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(60.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(90.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(120.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(150.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(180.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(270.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(300.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_meridian(330.0, meridian_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(0.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(30.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(60.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(85.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
-
-	data = SpaceShuttle.draw_coord_circle(-85.0, circle_res, -pitch, yaw, -roll );
-	pfd_segment_draw(data, plot);
 
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
 
-	draw_sphere_labels(device.nom_traj_plot, p_vecs, roll);
+	draw_adi_sphere(adi_sphere, p_vecs);
+
+	draw_sphere_labels(device.nom_traj_plot, p_vecs, pitch, yaw, roll);
 	
 	# ADI rate needles
 
@@ -571,7 +523,7 @@ else return "";
 }
 
 
-var draw_sphere_labels = func (group, p_vecs, roll) {
+var draw_sphere_labels = func (group, p_vecs, pitch, yaw, roll) {
 
 var coords = [];
 var label = "";
@@ -583,7 +535,7 @@ for (var i=0; i< 12; i=i+1)
 	{
 	lon = 30.0 * i;
 	label = label_from_degree(lon, 0);
-	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs, pitch, yaw);
 	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
 	}
 
@@ -592,7 +544,7 @@ for (var i=0; i< 12; i=i+1)
 	{
 	lon = 30.0 * i;
 	label = label_from_degree(lon, 0);
-	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs, pitch, yaw);
 	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
 	}
 
@@ -601,7 +553,7 @@ for (var i=0; i< 12; i=i+1)
 	{
 	lon = 30.0 * i;
 	label = label_from_degree(lon, 0);
-	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs, pitch, yaw);
 	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
 	}
 
@@ -610,7 +562,7 @@ for (var i=0; i< 12; i=i+1)
 	{
 	lon = 30.0 * i;
 	label = label_from_degree(lon, 0);
-	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs);
+	coords = SpaceShuttle.label_coords_sphere(lat, lon, p_vecs, pitch, yaw);
 	write_sphere_label(group, label, -roll * math.pi/180.0, coords);
 	}
 
@@ -661,4 +613,43 @@ for (var i=0; i< 18; i=i+1)
 
 }
 
+var draw_adi_sphere = func (group, p_vecs) {
+
+var meridian_res = 60;
+var circle_res = 90;
+
+var data = [];
+
+for (var i = 0; i<12; i=i+1)
+	{
+	data = SpaceShuttle.draw_meridian(i * 30.0, meridian_res, p_vecs );
+	pfd_segment_draw(data, group);
+
+	data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
+	pfd_segment_draw(data, group);
+	}
+
+
+data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(60.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(85.0, int(0.3 * circle_res), p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_coord_circle(-85.0, int (0.3 * circle_res), p_vecs );
+pfd_segment_draw(data, group);
+
+}
 
