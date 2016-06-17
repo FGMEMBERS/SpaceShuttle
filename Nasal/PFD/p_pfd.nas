@@ -382,11 +382,76 @@ var PFD_addpage_p_pfd = func(device)
 
 	# H tape  ################################################
 
+	p_pfd.H_tape = device.alpha.createChild("group");
+	p_pfd.H_tape.set("clip", "rect(105px, 422.5px, 295px, 377.5px)");
+
+	# frame
+
 	var plot_H_tape = device.H.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_H_tape);
 	plot_H_tape.setTranslation (400, 200);
+
+	# inner tape
+
+	p_pfd.H_tape_background1 = p_pfd.H_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(0.0, -500.0)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 1000.0);
+	pfd_segment_draw(data1, p_pfd.H_tape_background1);
+
+	p_pfd.H_tape_background2 = p_pfd.H_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.5, 0.5, 0.5)
+	.setTranslation(0.0, 50.0)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 100.0);
+	pfd_segment_draw(data1, p_pfd.H_tape_background2);
+
+	p_pfd.H_tape_ladder_upper = p_pfd.H_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(-5,-500)
+        .setColor(0,0,0);	
+	data1 = SpaceShuttle.draw_ladder(1000, 100, 0.01, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, p_pfd.H_tape_ladder_upper);
+
+	p_pfd.H_tape_ladder_lower = p_pfd.H_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(-5, 50)
+        .setColor(1,1,1);	
+	data1 = SpaceShuttle.draw_ladder(100, 10, 0.1, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, p_pfd.H_tape_ladder_lower);
+
+	p_pfd.H_tape.labels_upper_miles = p_pfd.H_tape.createChild("group");
+	draw_H_labels_upper_miles(p_pfd.H_tape.labels_upper_miles);
+
+	p_pfd.H_tape.labels_lower_miles = p_pfd.H_tape.createChild("group");
+	draw_H_labels_lower_miles(p_pfd.H_tape.labels_lower_miles);
+
+	# display box
+
+	p_pfd.H_display_box = device.H.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0, 0, 0)
+        .setColor(1,1,1);
+	data1= SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data1, p_pfd.H_display_box);
+	p_pfd.H_display_box.setTranslation (400, 200);
+
+	p_pfd.H_display_text = device.H.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(400,205)
+	.setRotation(0.0);
+
+
+
 
 	# Hdot tape
 
@@ -395,6 +460,8 @@ var PFD_addpage_p_pfd = func(device)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_Hdot_tape);
 	plot_Hdot_tape.setTranslation (450, 200);
+
+	#p_pfd.Hdot_tape.setTranslation (120, 200 + 9.5 * alpha);
 
 
 	}
@@ -466,6 +533,15 @@ var PFD_addpage_p_pfd = func(device)
 	var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
 	p_pfd.alpha_display_text.setText(sprintf("%2.1f",alpha));
 	p_pfd.alpha_tape.setTranslation (120, 200 + 9.5 * alpha);
+
+	# H tape
+
+	var altitude = getprop("/position/altitude-ft");
+	var H_miles = altitude / 6076.1154;
+	var tape_offset = (H_miles - 70.0) * 10.0;
+	if (tape_offset<0.0) {tape_offset = 0.0;}
+	p_pfd.H_display_text.setText(sprintf("%3.1f",H_miles)~"M");
+	p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 
 
@@ -612,6 +688,39 @@ for (var i=0; i< 18; i=i+1)
 	}
 
 }
+
+
+var draw_H_labels_upper_miles = func (group)
+{
+
+for (var i=0; i< 20; i=i+1)
+	{
+	var y = 5.0 - i * 50.0;
+	var coords = [0.0, y, 1];
+
+	var label = sprintf("%d", 70 + 5* i);
+	label=label~"M";
+	write_tape_label(group, label, coords, [0,0,0]);
+	}
+
+}
+
+var draw_H_labels_lower_miles = func (group)
+{
+
+for (var i=0; i< 2; i=i+1)
+	{
+	var y = 5.0 + i * 50.0;
+	var coords = [0.0, y, 1];
+
+	var label = sprintf("%d", 70 - 5* i);
+	label=label~"M";
+
+	write_tape_label(group, label, coords, [1,1,1]);
+	}
+
+}
+
 
 var draw_adi_sphere = func (group, p_vecs) {
 
