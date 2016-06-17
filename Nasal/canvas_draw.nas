@@ -227,6 +227,28 @@ for (var i=0; i< resolution; i=i+1)
 return shape_data;
 }
 
+var draw_arc = func (radius, resolution, ang1, ang2) {
+
+var shape_data = [];
+
+#if (ang1 < 0.0) {ang1 = ang1 + 360.0;}
+#if (ang2 < 0.0) {ang2 = ang2 + 360.0;}
+
+var d_ang = (math.pi/180.0 * (ang2 - ang1))/(resolution-1);
+
+for (var i=0; i< resolution; i=i+1)
+	{
+	var angle = ang1 * math.pi/180.0 + i * d_ang;
+
+	var x = radius * math.sin(angle);	
+	var y = -radius * math.cos(angle);
+
+	append(shape_data, [x,y,1]); 
+
+	}
+return shape_data;
+}
+
 
 var draw_shuttle_top = func {
 
@@ -391,9 +413,7 @@ return shape_data;
 }
 
 
-#####################################################
-# draw tapes
-#####################################################
+
 
 
 
@@ -450,6 +470,76 @@ return projected_point;
 
 }
 
+
+var draw_adi_bg = func (pitch, yaw, roll) {
+
+var shape_data = [];
+
+var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, 0.0);
+
+shape_data = draw_coord_circle(0.0, 90, p_vecs);
+
+var n = size(shape_data);
+
+if ((n < 2) or (pitch < -47))
+	{
+	shape_data = draw_circle(0.75 * 95.0, 30);
+	return shape_data;
+	}
+
+var x_min = 1000.0;
+var x_max = - 1000.0;
+var i_min = -1;
+var i_max = -1;
+
+for (var i=0; i< n; i=i+1)
+	{
+	if ((shape_data[i][0] < x_min) and (shape_data[i][2] == 1)) {x_min = shape_data[i][0]; i_min = i;}
+	if ((shape_data[i][0] > x_max) and (shape_data[i][2] == 1)) {x_max = shape_data[i][0]; i_max = i;}
+	}
+
+
+
+var ang1 = math.atan2(shape_data[i_max][0], -shape_data[i_max][1]) * 180.0/math.pi;
+var ang2 = math.atan2(shape_data[i_min][0], -shape_data[i_min][1]) * 180.0/math.pi;
+
+if (ang2 < 0.0) {ang2 = ang2 + 360.0;}
+
+var arc_data = draw_arc(0.75 * 95.0, 30, ang1, ang2);
+
+var final_data = [];
+
+for (var i=i_min; i>-1; i=i-1)
+	{
+	if (shape_data[i][2] == 1)
+		{append(final_data, shape_data[i]);}
+	}
+for (var i=(n-1); i>i_min; i=i-1)
+	{
+	if (shape_data[i][2] == 1)
+		{append(final_data, shape_data[i]);}
+	}
+
+for (var i=0; i< size(arc_data); i=i+1)
+	{
+	append(final_data, arc_data[i]);
+	}
+
+var roll_rad = roll * math.pi/180.0;
+
+for (var i=0; i<size(final_data); i=i+1)
+	{
+	var x = math.cos(roll_rad) * final_data[i][0] + math.sin(roll_rad) * final_data[i][1];	
+	var y = -math.sin(roll_rad) * final_data[i][0] + math.cos(roll_rad) * final_data[i][1];	
+	
+	final_data[i][0] = x;
+	final_data[i][1] = y;
+	}
+
+
+return final_data;
+
+}
 
 var label_coords_sphere = func(lat, lon, p_vecs, pitch, yaw) {
 
@@ -562,6 +652,67 @@ for (var i = 0; i < npoints; i=i+1)
 return shape_data;
 
 }
+
+
+
+var draw_circle_ladder = func (lat, nticks, p_vecs) {
+
+var npoints = 6 * nticks;
+
+var dlon = 360.0 / (npoints-1);
+var dlat = 2.0 * math.pi/180.0;
+var lat_rad = lat * math.pi/180.0;
+
+
+var shape_data = [];
+
+for (var i = 0; i < npoints; i=i+1)
+	{
+	var lon_rad = i * dlon * math.pi/180.0;
+	
+	var x = math.sin(lon_rad) * math.cos(lat_rad - dlat);
+	var y = math.cos(lon_rad ) * math.cos(lat_rad - dlat);
+	var z = math.sin(lat_rad - dlat);	
+
+	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
+
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
+
+	if (math.abs(lat_rad) > 75.0 * math.pi/180.0)
+		{projected_point[2] = -1;}
+
+	if (projected_point[2] > -1)
+		{
+		projected_point[2] = 0;
+		append(shape_data, projected_point);
+		}
+	
+
+	x = math.sin(lon_rad) * math.cos(lat_rad + dlat);
+	y = math.cos(lon_rad) * math.cos(lat_rad + dlat);
+	z = math.sin(lat_rad + dlat);	
+
+	projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
+	projected_point = circle_clipping(projected_point, 0.75);
+
+	projected_point[0] *=95.0;
+	projected_point[1] *=95.0;
+
+	if (math.abs(lat_rad) > 75.0 * math.pi/180.0)
+		{projected_point[2] = -1;}
+
+	if (projected_point[2] > -1)
+		{append(shape_data, projected_point);}
+	}	
+
+return shape_data;
+
+}
+
+
+
 
 var draw_coord_circle = func (lat, npoints, p_vecs) {
 

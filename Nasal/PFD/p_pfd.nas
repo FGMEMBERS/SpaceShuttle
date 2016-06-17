@@ -51,7 +51,7 @@ if (coords[2] ==1)
 	var canvas_text = group.createChild("text")
       	.setText(text)
         .setColor(1,1,1)
-	.setColorFill(0.1,0.1,0.1)
+	.setColorFill(0.2,0.2,0.2)
 	.setFontSize(12)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
@@ -555,15 +555,33 @@ var PFD_addpage_p_pfd = func(device)
 	var roll = getprop("/orientation/roll-deg");
 
 
+	# ADI sphere animation ##############################################
 
+	var adi_sphere_bg = device.nom_traj_plot.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.15,0.15,0.15)
+        .setColor(1,1,1);
 
+	var adi_sphere_bg_bright = device.nom_traj_plot.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.3,0.3,0.3)
+        .setColor(1,1,1);
 
 	var adi_sphere = device.nom_traj_plot.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
+
+
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
+
+	# ADI sphere
+	var data = SpaceShuttle.draw_circle(0.75*95, 30);
+	pfd_segment_draw(data,adi_sphere_bg);
+
+	var data = SpaceShuttle.draw_adi_bg(pitch, yaw, roll);
+	pfd_segment_draw(data,adi_sphere_bg_bright);
 
 	draw_adi_sphere(adi_sphere, p_vecs);
 
@@ -859,13 +877,27 @@ for (var i = 0; i<12; i=i+1)
 data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
+data = SpaceShuttle.draw_circle_ladder(15.0, 12, p_vecs );
+pfd_segment_draw(data, group);
+
 data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
+pfd_segment_draw(data, group);
+
 
 data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
+data = SpaceShuttle.draw_circle_ladder(45.0, 12, p_vecs );
+pfd_segment_draw(data, group);
+
+
 data = SpaceShuttle.draw_coord_circle(60.0, circle_res, p_vecs );
+pfd_segment_draw(data, group);
+
+data = SpaceShuttle.draw_circle_ladder(-45.0, 12, p_vecs );
 pfd_segment_draw(data, group);
 
 data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
