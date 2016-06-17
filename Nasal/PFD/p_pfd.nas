@@ -30,7 +30,7 @@ var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffs
 
 	var placement = SpaceShuttle.compass_label_pos(radius, angle);
 
-	var text = group.createChild("text")
+	var canvas_text = group.createChild("text")
       	.setText(text)
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -48,14 +48,17 @@ var write_sphere_label = func (group, text, angle, coords) {
 if (coords[2] ==1)
 	{
 
-	var text = group.createChild("text")
+	var canvas_text = group.createChild("text")
       	.setText(text)
         .setColor(1,1,1)
+	.setColorFill(0.1,0.1,0.1)
 	.setFontSize(12)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
 	.setRotation(angle + coords[3] * 0.8 * math.pi/2.0)
 	.setTranslation(coords[0], coords[1]);
+
+	canvas_text.setDrawMode(canvas_text.FILLEDBOUNDINGBOX + canvas_text.TEXT);
 	}
 
 }
@@ -65,7 +68,7 @@ var write_tape_label = func (group, text, coords, color) {
 
 if (coords[2] ==1)
 	{
-	var text = group.createChild("text")
+	var canvas_text = group.createChild("text")
       	.setText(text)
         .setColor(color[0],color[1],color[2])
 	.setFontSize(14)
@@ -91,6 +94,9 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.keas = device.svg.getElementById("p_pfd_keas");
     p_pfd.beta = device.svg.getElementById("p_pfd_beta");
 
+    p_pfd.r = device.svg.getElementById("p_pfd_r");
+    p_pfd.p = device.svg.getElementById("p_pfd_p");
+    p_pfd.y = device.svg.getElementById("p_pfd_y");
     
     p_pfd.ondisplay = func
     {
@@ -453,7 +459,10 @@ var PFD_addpage_p_pfd = func(device)
 
 
 
-	# Hdot tape
+	# Hdot tape ##############################################
+
+	p_pfd.Hdot_tape = device.alpha.createChild("group");
+	p_pfd.Hdot_tape.set("clip", "rect(105px, 472.5px, 295px, 427.5px)");
 
 	var plot_Hdot_tape = device.Hdot.createChild("path", "data")
         .setStrokeLineWidth(1)
@@ -461,7 +470,64 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, plot_Hdot_tape);
 	plot_Hdot_tape.setTranslation (450, 200);
 
-	#p_pfd.Hdot_tape.setTranslation (120, 200 + 9.5 * alpha);
+
+	# inner tape
+
+	p_pfd.Hdot_tape_background1 = p_pfd.Hdot_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(0.0, -900.0)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 1800.0);
+	pfd_segment_draw(data1, p_pfd.Hdot_tape_background1);
+
+	p_pfd.Hdot_tape_background2 = p_pfd.Hdot_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.5, 0.5, 0.5)
+	.setTranslation(0.0, 900.0)
+        .setColor(1,1,1);
+	var data1 = SpaceShuttle.draw_rect(43, 1800.0);
+	pfd_segment_draw(data1, p_pfd.Hdot_tape_background2);
+
+	p_pfd.Hdot_tape_ladder_upper = p_pfd.Hdot_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(-5,-900)
+        .setColor(0,0,0);	
+	data1 = SpaceShuttle.draw_ladder(1800, 60, 0.0055, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, p_pfd.Hdot_tape_ladder_upper);
+
+	p_pfd.Hdot_tape_ladder_lower = p_pfd.Hdot_tape.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(-5, 900)
+        .setColor(1,1,1);	
+	data1 = SpaceShuttle.draw_ladder(1800, 60, 0.0055, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, p_pfd.Hdot_tape_ladder_lower);
+
+	p_pfd.Hdot_tape.labels_upper = p_pfd.Hdot_tape.createChild("group");
+	draw_Hdot_labels_upper(p_pfd.Hdot_tape.labels_upper);
+
+	p_pfd.Hdot_tape.labels_lower = p_pfd.Hdot_tape.createChild("group");
+	draw_Hdot_labels_lower(p_pfd.Hdot_tape.labels_lower);
+
+	# display box
+
+	p_pfd.Hdot_display_box = device.Hdot.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0, 0, 0)
+        .setColor(1,1,1);
+	data1= SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data1, p_pfd.Hdot_display_box);
+	p_pfd.Hdot_display_box.setTranslation (450, 200);
+
+	p_pfd.Hdot_display_text = device.Hdot.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(450,205)
+	.setRotation(0.0);
+
 
 
 	}
@@ -543,10 +609,23 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.H_display_text.setText(sprintf("%3.1f",H_miles)~"M");
 	p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
+	# Hdot tape
 
+	var vspeed = -getprop("/fdm/jsbsim/velocities/v-down-fps");
+
+	var tape_offset = SpaceShuttle.clamp(vspeed, -3000.0, 3000.0) * 0.6;
+	p_pfd.Hdot_tape.setTranslation (450, 200 + tape_offset);
+	p_pfd.Hdot_display_text.setText(sprintf("%4.0f",vspeed));
+
+	# numerical values
 
         p_pfd.beta.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/aero/beta-deg")));
         p_pfd.keas.setText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
+
+	p_pfd.r.setText(sprintf("%d", roll));
+	p_pfd.p.setText(sprintf("%d", pitch));
+	p_pfd.y.setText(sprintf("%d", yaw));
+
     };
     
     return p_pfd;
@@ -721,6 +800,44 @@ for (var i=0; i< 2; i=i+1)
 
 }
 
+
+var draw_Hdot_labels_upper = func (group)
+{
+
+for (var i=0; i< 30; i=i+1)
+	{
+	var y = 5.0 - i * 60.0;
+	var coords = [0.0, y, 1];
+
+	var label_value = i * 100;
+	var label = "";
+
+	if (label_value < 1000)
+		{label = sprintf("%d", label_value);}
+	else
+		{label = sprintf("%d", label_value/1000)~"k";}
+	write_tape_label(group, label, coords, [0,0,0]);
+	}
+}
+
+var draw_Hdot_labels_lower = func (group)
+{
+
+for (var i=0; i< 30; i=i+1)
+	{
+	var y = 5.0 + i * 60.0;
+	var coords = [0.0, y, 1];
+
+	var label_value = -i * 100;
+	var label = "";
+
+	if (label_value > -1000)
+		{label = sprintf("%d", label_value);}
+	else
+		{label = sprintf("%d", label_value/1000)~"k";}
+	write_tape_label(group, label, coords, [1,1,1]);
+	}
+}
 
 var draw_adi_sphere = func (group, p_vecs) {
 
