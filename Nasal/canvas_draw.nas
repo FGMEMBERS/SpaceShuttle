@@ -147,32 +147,62 @@ var draw_arrowmarker_right = func {
 
 var shape_data = [];
 
-var point = [0, 0];
+var point = [0, 0, 0];
 append(shape_data, point);
 
-point = [-4.5, 3.0];
+point = [-4.5, 3.0, 1];
 append(shape_data, point);
 
-point = [-4.5, 1.5];
+point = [-4.5, 1.5, 1];
 append(shape_data, point);
 
-point = [-24.0, 1.5];
+point = [-24.0, 1.5, 1];
 append(shape_data, point);
 
-point = [-24.0, -1.5];
+point = [-24.0, -1.5, 1];
 append(shape_data, point);
 
-point = [-4.5, -1.5];
+point = [-4.5, -1.5, 1];
 append(shape_data, point);
 
-point = [-4.5, -3.0];
+point = [-4.5, -3.0, 1];
 append(shape_data, point);
 
-point = [0.0, 0.0];
+point = [0.0, 0.0, 1];
 append(shape_data, point);
 
 return shape_data;
+}
 
+var draw_slim_arrow_down = func {
+
+var shape_data = [];
+
+var point = [-0.8, 0, 0];
+append(shape_data, point);
+
+var point = [-0.8, 19.5, 1];
+append(shape_data, point);
+
+var point = [-3.0, 19.5, 1];
+append(shape_data, point);
+
+var point = [0.0, 34.0, 1];
+append(shape_data, point);
+
+var point = [3.0, 19.5, 1];
+append(shape_data, point);
+
+var point = [0.8, 19.5, 1];
+append(shape_data, point);
+
+var point = [0.8, 0, 1];
+append(shape_data, point);
+
+var point = [-0.8, 0, 1];
+append(shape_data, point);
+
+return shape_data;
 }
 
 
@@ -231,8 +261,6 @@ var draw_arc = func (radius, resolution, ang1, ang2) {
 
 var shape_data = [];
 
-#if (ang1 < 0.0) {ang1 = ang1 + 360.0;}
-#if (ang2 < 0.0) {ang2 = ang2 + 360.0;}
 
 var d_ang = (math.pi/180.0 * (ang2 - ang1))/(resolution-1);
 
@@ -332,6 +360,48 @@ for (var i = 0; i< n_total; i=i+1)
 	}
 
 return shape_data;
+}
+
+
+#####################################################
+# draw tics on an arc
+#####################################################
+
+var draw_arc_scale = func (radius, n_major, major_size, n_minor, minor_size, ang1, ang2) {
+
+var n_total = n_major * (n_minor + 1);
+
+var shape_data = [];
+
+var d_ang = (math.pi/180.0 * (ang2 - ang1))/(n_total-1);
+
+
+var minor_count = 0;
+
+for (var i = 0; i< n_total; i=i+1)
+	{
+	var angle = ang1 * math.pi/180.0 + i * d_ang;
+	var size = minor_size;
+	if (minor_count ==0) {size = major_size;}
+
+	var x = radius * math.sin(angle);	
+	var y = -radius * math.cos(angle);
+
+	var point = [x,y,0];
+	append(shape_data, point);
+ 
+	x*=size;
+	y*=size;
+
+	var point = [x,y,1];
+	append(shape_data, point);
+	minor_count = minor_count+1;
+	if (minor_count == (n_minor +1)) {minor_count = 0;}
+
+	}
+
+return shape_data;
+
 }
 
 #####################################################
