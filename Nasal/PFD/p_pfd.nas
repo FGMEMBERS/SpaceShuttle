@@ -528,8 +528,64 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(450,205)
 	.setRotation(0.0);
 
+	# accelerometer #############################################
+
+	
+
+	var acc_arc = device.symbols.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+	data= SpaceShuttle.draw_arc(35, 20, 135.0, 360.0);
+	pfd_segment_draw(data, acc_arc);
+
+	data = SpaceShuttle.draw_arc_scale(35 ,6, 1.15, 0, 1.0, 135.0,360.0);
+	pfd_segment_draw(data, acc_arc);
+
+	var acc_labels = device.symbols.createChild("group");
+	draw_acc_labels(acc_labels);
+
+	acc_arc.setTranslation (95, 400);
+	acc_labels.setTranslation (95, 405);
+
+	# display box
+
+	p_pfd.acc_display_box = device.symbols.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.1, 0.1, 0.1)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data, p_pfd.acc_display_box);
+	p_pfd.acc_display_box.setTranslation (118, 377);
+
+	p_pfd.acc_display_text = device.symbols.createChild("text")
+	.setText("0.0g")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(118,384)
+	.setRotation(0.0);
+
+	var acc_label = device.symbols.createChild("text")
+	.setText("Accel")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(118,400)
+	.setRotation(0.0);
+
+	# marker arrow
 
 
+	p_pfd.acc_needle = device.symbols.createChild("path")
+        .setStrokeLineWidth(2)
+	.setColorFill(0.4, 0.9, 0.7)
+        .setColor(0.4, 0.9, 0.7);
+	
+	data = draw_slim_arrow_down();
+	pfd_segment_draw(data, p_pfd.acc_needle);
+	p_pfd.acc_needle.setTranslation (95, 400);
 	}
 
     
@@ -634,6 +690,15 @@ var PFD_addpage_p_pfd = func(device)
 	var tape_offset = SpaceShuttle.clamp(vspeed, -3000.0, 3000.0) * 0.6;
 	p_pfd.Hdot_tape.setTranslation (450, 200 + tape_offset);
 	p_pfd.Hdot_display_text.setText(sprintf("%4.0f",vspeed));
+
+	# accelerometer needle
+
+	var acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+
+	var acc_needle_rot = acceleration * 45.0 * math.pi/180.0;
+
+	p_pfd.acc_needle.setRotation(acc_needle_rot);
+	p_pfd.acc_display_text.setText(sprintf("%1.1f",acceleration)~"g");
 
 	# numerical values
 
@@ -833,7 +898,7 @@ for (var i=0; i< 30; i=i+1)
 	if (label_value < 1000)
 		{label = sprintf("%d", label_value);}
 	else
-		{label = sprintf("%d", label_value/1000)~"k";}
+		{label = sprintf("%1.1f", label_value/1000)~"k";}
 	write_tape_label(group, label, coords, [0,0,0]);
 	}
 }
@@ -856,6 +921,28 @@ for (var i=0; i< 30; i=i+1)
 	write_tape_label(group, label, coords, [1,1,1]);
 	}
 }
+
+var draw_acc_labels = func (group)
+{
+
+for (var i=0; i<5; i=i+1)
+	{
+	var ang = 135.0 + i * 45;
+	ang = math.pi/180.0 * ang;
+
+	var x = 45 * math.sin(ang);	
+	var y = -45 * math.cos(ang);
+
+	var coords = [x,y,1];
+	var label = sprintf("%d", -1+i);
+
+	write_tape_label(group, label, coords, [1,1,1]);
+	}
+
+
+}
+
+
 
 var draw_adi_sphere = func (group, p_vecs) {
 
