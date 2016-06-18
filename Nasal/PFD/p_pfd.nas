@@ -154,6 +154,52 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, plot_cross_thin);
 	plot_cross_thin.setTranslation (255, 175);
 
+
+	# ADI error needles
+
+	var adi_errors = device.symbols.createChild("group");
+
+	var plot_error_arcs = adi_errors.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(0.9, 0.1, 0.85);
+	data = SpaceShuttle.draw_arc (92, 10, 335, 385);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_arc (92, 10, 65, 115);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_arc (92, 10, 155, 205);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	p_pfd.att_error_needles = adi_errors.createChild("group");
+
+	p_pfd.att_error_pitch = p_pfd.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[28.0, 0.0, 0], [95.0,0.0, 1]];
+	pfd_segment_draw(data, p_pfd.att_error_pitch);
+
+	p_pfd.att_error_yaw = p_pfd.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[0.0, 28, 0], [0.0,95.0, 1]];
+	pfd_segment_draw(data, p_pfd.att_error_yaw);
+	
+	p_pfd.att_error_roll = p_pfd.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[0.0, -28, 0], [0.0,-95.0, 1]];
+	pfd_segment_draw(data, p_pfd.att_error_roll);
+	
+
+	#p_pfd.att_error_needles.setTranslation (255, 175);
+
+	
+	 adi_errors.setTranslation (255, 175);
+
 	# ADI rate indicators ################################################
 
 	# ADI rate ladders
@@ -530,8 +576,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	# accelerometer #############################################
 
-	
-
 	var acc_arc = device.symbols.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
@@ -551,7 +595,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.acc_display_box = device.symbols.createChild("path")
         .setStrokeLineWidth(1)
-	.setColorFill(0.1, 0.1, 0.1)
         .setColor(1,1,1);
 	data = SpaceShuttle.draw_rect(48, 20);
 	pfd_segment_draw(data, p_pfd.acc_display_box);
@@ -586,6 +629,69 @@ var PFD_addpage_p_pfd = func(device)
 	data = draw_slim_arrow_down();
 	pfd_segment_draw(data, p_pfd.acc_needle);
 	p_pfd.acc_needle.setTranslation (95, 400);
+
+	# numerical values #############################################
+
+	# X-Trk
+
+	var xtrk = device.symbols.createChild("group");
+
+	p_pfd.xtrk_display_box = xtrk.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(450,360)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data, p_pfd.xtrk_display_box);
+
+	p_pfd.xtrk_display_text = xtrk.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(450,365)
+	.setRotation(0.0);
+
+	var xtrk_label = xtrk.createChild("text")
+	.setText("X-Trk")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(400,365)
+	.setRotation(0.0);
+	
+	# Delta-Inc
+
+	var dInc = device.symbols.createChild("group");
+
+	p_pfd.dInc_display_box = dInc.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(445,390)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(58, 20);
+	pfd_segment_draw(data, p_pfd.dInc_display_box);
+
+	p_pfd.dInc_display_text = dInc.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(450,395)
+	.setRotation(0.0);
+
+	var dInc_label = dInc.createChild("text")
+	.setText("ΔInc")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(395,395)
+	.setRotation(0.0);
+
+
+
 	}
 
     
@@ -605,6 +711,8 @@ var PFD_addpage_p_pfd = func(device)
     {
 
         device.nom_traj_plot.removeAllChildren();
+
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
@@ -636,13 +744,45 @@ var PFD_addpage_p_pfd = func(device)
 	var data = SpaceShuttle.draw_circle(0.75*95, 30);
 	pfd_segment_draw(data,adi_sphere_bg);
 
-	var data = SpaceShuttle.draw_adi_bg(pitch, yaw, roll);
+	data = SpaceShuttle.draw_adi_bg(pitch, yaw, roll);
 	pfd_segment_draw(data,adi_sphere_bg_bright);
 
 	draw_adi_sphere(adi_sphere, p_vecs);
 
 	draw_sphere_labels(device.nom_traj_plot, p_vecs, pitch, yaw, roll);
 	
+	# ADI error needles
+
+	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+
+	var pitch_error = 0.0;
+	var yaw_error = 0.0;
+	var roll_error = 0.0;
+
+	if (((major_mode == 102) or (major_mode == 103)) and (launch_stage < 5) and (launch_stage >0))
+		{
+		if ((launch_stage > 1) and (launch_stage < 5))
+			{
+			pitch_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-pitch-error");
+			yaw_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-yaw-error");
+			roll_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-roll-error");
+			}
+		}
+
+
+	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
+	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * 8.0;
+	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * 8.0;
+
+	p_pfd.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
+	p_pfd.att_error_yaw.setTranslation(yaw_error_ntrans, 0.0);
+	p_pfd.att_error_roll.setTranslation(roll_error_ntrans,0.0);
+	
+	p_pfd.att_error_pitch.setScale(math.sqrt(9025. - pitch_error_ntrans*pitch_error_ntrans)/95.0,1.0);
+	p_pfd.att_error_yaw.setScale(1.0,math.sqrt(9025. - yaw_error_ntrans*yaw_error_ntrans)/95.0);
+	p_pfd.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
+	
+
 	# ADI rate needles
 
 	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
