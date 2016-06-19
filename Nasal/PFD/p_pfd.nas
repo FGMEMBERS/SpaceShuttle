@@ -332,7 +332,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setRotation(0.0)
 	.setTranslation(0.0, -95.0);
 
-	p_pfd.bearing_earth_relative.setRotation(30.0 * math.pi/180.0);
+
 
 	# inertial
 
@@ -357,6 +357,54 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(0.0, -85.0);
 
 	p_pfd.bearing_inertial.setRotation(45.0 * math.pi/180.0);
+
+	# HAC WP 1
+
+	p_pfd.bearing_HAC_H = HSI_dynamic_group.createChild("group");
+
+	var bearing_HAC_H_symbol = p_pfd.bearing_HAC_H.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1,1,1)	
+	.setTranslation(0.0,-101.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_runway_pointer_up();
+	pfd_segment_draw(data, bearing_HAC_H_symbol);
+
+	var bearing_HAC_H_label = p_pfd.bearing_HAC_H.createChild("text")
+      	.setText("H")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(0.0, -88.0);
+
+	p_pfd.bearing_HAC_H.setRotation(90.0 * math.pi/180.0);
+
+	# HAC center
+
+	p_pfd.bearing_HAC_C = HSI_dynamic_group.createChild("group");
+
+	var bearing_HAC_C_symbol = p_pfd.bearing_HAC_C.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1,1,1)	
+	.setTranslation(0.0,-98.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_runway_pointer_up();
+	pfd_segment_draw(data, bearing_HAC_C_symbol);
+
+	var bearing_HAC_C_label = p_pfd.bearing_HAC_C.createChild("text")
+      	.setText("C")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(0.0, -85.0);
+
+	p_pfd.bearing_HAC_C.setRotation(120.0 * math.pi/180.0);
 
 	# HSI course arrow 
 
@@ -706,6 +754,9 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(450,205)
 	.setRotation(0.0);
 
+
+	device.HSI.setTranslation (255, 425);
+
 	# accelerometer #############################################
 
 	var acc_arc = device.symbols.createChild("path")
@@ -841,12 +892,75 @@ var PFD_addpage_p_pfd = func(device)
 
         device.nom_traj_plot.removeAllChildren();
 
+	# get mission-specific parameters and manage devices #########################################
+
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
 	var roll = getprop("/orientation/roll-deg");
 
+	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+
+	var altitude = getprop("/position/altitude-ft");
+	var beta_deg = getprop("/fdm/jsbsim/aero/beta-deg");
+
+	var pitch_error = 0.0;
+	var yaw_error = 0.0;
+	var roll_error = 0.0;
+	
+	var Delta_inc = 0.0;
+	var hsi_course = - yaw;
+
+	var bearing_earthrel = 0.0;
+	var bearing_inertial = 0.0;
+
+	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
+		{
+		p_pfd.bearing_HAC_H.setVisible(0);
+		p_pfd.bearing_HAC_C.setVisible(0);
+		p_pfd.bearing_inertial.setVisible(1);
+		if (altitude < 200000.0)
+			{p_pfd.bearing_earth_relative.setVisible(1);}
+		else
+			{p_pfd.bearing_earth_relative.setVisible(0);}
+
+
+		if ((launch_stage > 0) and (launch_stage < 5) and (altitude > 500.0)) # we have launch guidance
+		{
+
+		var tgt_inc = getprop("/fdm/jsbsim/systems/ap/launch/inclination-target");
+		var current_inc = getprop("/fdm/jsbsim/systems/orbital/inclination-deg");
+
+		var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+		var inertial_course_deg = yaw + beta_deg;
+
+		bearing_earthrel = groundtrack_course_deg - yaw;
+		bearing_inertial = inertial_course_deg - yaw;
+
+		Delta_inc = tgt_inc - current_inc;
+
+		hsi_course = Delta_inc;
+
+		if (launch_stage == 1)
+			{
+			roll_error = -math.asin(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) * 180.0/math.pi;
+			}
+
+		else if ((launch_stage > 1) and (launch_stage < 5))
+			{
+			pitch_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-pitch-error");
+			yaw_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-yaw-error");
+			roll_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-roll-error");
+			}
+		}
+
+		if (altitude < 500.0) #zero motion of HSI before liftoff
+			{
+			hsi_course = 0.0;
+			}
+
+		}
 
 	# ADI sphere animation ##############################################
 
@@ -864,8 +978,6 @@ var PFD_addpage_p_pfd = func(device)
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
-
-
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
 
@@ -882,21 +994,7 @@ var PFD_addpage_p_pfd = func(device)
 	
 	# ADI error needles
 
-	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
 
-	var pitch_error = 0.0;
-	var yaw_error = 0.0;
-	var roll_error = 0.0;
-
-	if (((major_mode == 102) or (major_mode == 103)) and (launch_stage < 5) and (launch_stage >0))
-		{
-		if ((launch_stage > 1) and (launch_stage < 5))
-			{
-			pitch_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-pitch-error");
-			yaw_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-yaw-error");
-			roll_error = getprop("/fdm/jsbsim/systems/ap/launch/stage"~launch_stage~"-roll-error");
-			}
-		}
 
 
 	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
@@ -928,8 +1026,12 @@ var PFD_addpage_p_pfd = func(device)
 
 	device.nom_traj_plot.setTranslation (255, 175);
 
-	device.HSI.setRotation(-yaw * math.pi/180.0);
-	device.HSI.setTranslation (255, 425);
+	# HSI
+
+	device.HSI.setRotation(hsi_course * math.pi/180.0);
+
+	p_pfd.bearing_earth_relative.setRotation(bearing_earthrel * math.pi/180.0);
+	p_pfd.bearing_inertial.setRotation(bearing_inertial * math.pi/180.0);
     
 	# KEAS /Mach tape
 
@@ -945,7 +1047,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# H tape
 
-	var altitude = getprop("/position/altitude-ft");
+
 	var H_miles = altitude / 6076.1154;
 	var tape_offset = (H_miles - 70.0) * 10.0;
 	if (tape_offset<0.0) {tape_offset = 0.0;}
@@ -971,12 +1073,13 @@ var PFD_addpage_p_pfd = func(device)
 
 	# numerical values
 
-        p_pfd.beta.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/aero/beta-deg")));
+        p_pfd.beta.setText(sprintf("%1.1f",beta_deg));
         p_pfd.keas.setText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
 
 	p_pfd.r.setText(sprintf("%d", roll));
 	p_pfd.p.setText(sprintf("%d", pitch));
 	p_pfd.y.setText(sprintf("%d", yaw));
+	p_pfd.dInc_display_text.setText(sprintf("%2.2f", Delta_inc));
 
     };
     
