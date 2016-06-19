@@ -257,12 +257,17 @@ var PFD_addpage_p_pfd = func(device)
 
 	# HSI ################################################
 
-	# lower HSI compass rose
+	# common clipping for all elements
 
-	device.symbols.set("clip", "rect(0px, 512px, 460px, 0px)");
 	device.HSI.set("clip", "rect(0px, 512px, 460px, 0px)");
 
-	var plot_compass_lower = device.symbols.createChild("path")
+	var HSI_static_group = device.HSI.createChild("group");
+	var HSI_dynamic_group = device.HSI.createChild("group");
+
+	# lower HSI compass rose
+
+
+	var plot_compass_lower = HSI_static_group.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
@@ -271,17 +276,12 @@ var PFD_addpage_p_pfd = func(device)
 
 	data = SpaceShuttle.draw_compass_scale(95.0,8, 1.05, 1, 1.0);
 	pfd_segment_draw(data, plot_compass_lower);
-	plot_compass_lower.setTranslation (255, 425);
-
-	
-
-	
 
 
 	# inner lower HSI compass rose 
 
 
-	var plot_inner_compass_lower = device.HSI.createChild("path")
+	var plot_inner_compass_lower = HSI_dynamic_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.5, 0.5, 0.5)
         .setColor(1,1,1);
@@ -295,24 +295,24 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_circle(58.0, 30);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-	place_compass_label(device.HSI, "N", 0.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "E", 90.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "S", 180.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "W", 270.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "3", 30.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "6", 60.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "12", 120.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "15", 150.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "21", 210.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "24", 240.0, 63.0, 1,0,0);    
-	place_compass_label(device.HSI, "30", 300.0, 63.0, 1,0,0);
-	place_compass_label(device.HSI, "33", 330.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "N", 0.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "E", 90.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "S", 180.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "W", 270.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "3", 30.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "6", 60.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "12", 120.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "15", 150.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "21", 210.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "24", 240.0, 63.0, 1,0,0);    
+	place_compass_label(HSI_dynamic_group, "30", 300.0, 63.0, 1,0,0);
+	place_compass_label(HSI_dynamic_group, "33", 330.0, 63.0, 1,0,0);
 
 	# HSI bearing pointers 
 	
 	# earth-relative
 
-	p_pfd.bearing_earth_relative = device.HSI.createChild("group");
+	p_pfd.bearing_earth_relative = HSI_dynamic_group.createChild("group");
 
 	var bearing_earthrel_symbol = p_pfd.bearing_earth_relative.createChild("path")
         .setStrokeLineWidth(1)
@@ -336,7 +336,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# inertial
 
-	p_pfd.bearing_inertial = device.HSI.createChild("group");
+	p_pfd.bearing_inertial = HSI_dynamic_group.createChild("group");
 
 	var bearing_inertial_symbol = p_pfd.bearing_inertial.createChild("path")
         .setStrokeLineWidth(1)
@@ -360,7 +360,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# HSI course arrow 
 
-	p_pfd.course_arrow = device.HSI.createChild("group");
+	p_pfd.course_arrow = HSI_dynamic_group.createChild("group");
 
 	var course_arrow_symbol = p_pfd.course_arrow.createChild("path")
         .setStrokeLineWidth(1)
@@ -374,7 +374,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# CDI
 
-	p_pfd.cdi = device.HSI.createChild("group");
+	p_pfd.cdi = HSI_dynamic_group.createChild("group");
 
 	var cdi_center = p_pfd.cdi.createChild("path")
         .setStrokeLineWidth(1)
@@ -424,10 +424,18 @@ var PFD_addpage_p_pfd = func(device)
 	data = [[0.0,-35.0,0],[0.0, 35.0, 1]];
 	pfd_segment_draw(data, p_pfd.cdi_needle);
 
+
+
 	# KEAS tape ################################################
 
+	# common clipping for tape group
+
+	device.tapes.set("clip", "rect(105px, 512px, 295px, 0px)");
+
+	var keas_group = device.tapes.createChild("group");
+
 	# frame
-	var plot_keas_tape = device.keas.createChild("path", "data")
+	var plot_keas_tape = keas_group.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	data= SpaceShuttle.draw_rect(45, 190);
@@ -436,8 +444,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# inner tape
 
-	p_pfd.keas_tape = device.keas.createChild("group");
-	p_pfd.keas_tape.set("clip", "rect(105px, 92.5px, 295px, 47.5px)");
+	p_pfd.keas_tape = keas_group.createChild("group");
 
 	p_pfd.keas_tape_background = p_pfd.keas_tape.createChild("path")
         .setStrokeLineWidth(1)
@@ -449,7 +456,7 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.keas_tape_ladder = p_pfd.keas_tape.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(0,0,0);	
-	data1 = SpaceShuttle.draw_ladder(10800, 280, 0.002592, 0, 0, 1, 1, 0);
+	data1 = SpaceShuttle.draw_ladder(10800, 280, 0.001296, 0, 0, 1, 1, 0);
 	pfd_segment_draw(data1, p_pfd.keas_tape_ladder);
 	p_pfd.keas_tape_ladder.setTranslation(-10,0);
 
@@ -458,7 +465,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# display box
 
-	p_pfd.keas_display_box = device.keas.createChild("path")
+	p_pfd.keas_display_box = keas_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0, 0, 0)
         .setColor(1,1,1);
@@ -466,7 +473,7 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data1, p_pfd.keas_display_box);
 	p_pfd.keas_display_box.setTranslation (70, 200);
 
-	p_pfd.keas_display_text = device.keas.createChild("text")
+	p_pfd.keas_display_text = keas_group.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -483,9 +490,11 @@ var PFD_addpage_p_pfd = func(device)
 
 	# alpha tape ################################################
 
+	var alpha_group = device.tapes.createChild("group");
+
 	# frame
 
-	var plot_alpha_tape = device.alpha.createChild("path", "data")
+	var plot_alpha_tape = alpha_group.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_alpha_tape);
@@ -493,8 +502,8 @@ var PFD_addpage_p_pfd = func(device)
 
 	# inner tape
 
-	p_pfd.alpha_tape = device.alpha.createChild("group");
-	p_pfd.alpha_tape.set("clip", "rect(105px, 142.5px, 295px, 97.5px)");
+	p_pfd.alpha_tape = alpha_group.createChild("group");
+
 
 	p_pfd.alpha_tape_background1 = p_pfd.alpha_tape.createChild("path")
         .setStrokeLineWidth(1)
@@ -532,7 +541,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# display box
 
-	p_pfd.alpha_display_box = device.alpha.createChild("path")
+	p_pfd.alpha_display_box = alpha_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0, 0, 0)
         .setColor(1,1,1);
@@ -540,7 +549,7 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data1, p_pfd.alpha_display_box);
 	p_pfd.alpha_display_box.setTranslation (120, 200);
 
-	p_pfd.alpha_display_text = device.alpha.createChild("text")
+	p_pfd.alpha_display_text = alpha_group.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -554,12 +563,13 @@ var PFD_addpage_p_pfd = func(device)
 
 	# H tape  ################################################
 
-	p_pfd.H_tape = device.alpha.createChild("group");
-	p_pfd.H_tape.set("clip", "rect(105px, 422.5px, 295px, 377.5px)");
+	var H_group = device.tapes.createChild("group");
+
+	p_pfd.H_tape = H_group.createChild("group");
 
 	# frame
 
-	var plot_H_tape = device.H.createChild("path", "data")
+	var plot_H_tape = H_group.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_H_tape);
@@ -605,7 +615,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# display box
 
-	p_pfd.H_display_box = device.H.createChild("path")
+	p_pfd.H_display_box = H_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0, 0, 0)
         .setColor(1,1,1);
@@ -613,7 +623,7 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data1, p_pfd.H_display_box);
 	p_pfd.H_display_box.setTranslation (400, 200);
 
-	p_pfd.H_display_text = device.H.createChild("text")
+	p_pfd.H_display_text = H_group.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -627,10 +637,12 @@ var PFD_addpage_p_pfd = func(device)
 
 	# Hdot tape ##############################################
 
-	p_pfd.Hdot_tape = device.alpha.createChild("group");
-	p_pfd.Hdot_tape.set("clip", "rect(105px, 472.5px, 295px, 427.5px)");
+	var Hdot_group = device.tapes.createChild("group");
 
-	var plot_Hdot_tape = device.Hdot.createChild("path", "data")
+	p_pfd.Hdot_tape = Hdot_group.createChild("group");
+
+
+	var plot_Hdot_tape = Hdot_group.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 	pfd_segment_draw(data, plot_Hdot_tape);
@@ -677,7 +689,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# display box
 
-	p_pfd.Hdot_display_box = device.Hdot.createChild("path")
+	p_pfd.Hdot_display_box = Hdot_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0, 0, 0)
         .setColor(1,1,1);
@@ -685,7 +697,7 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data1, p_pfd.Hdot_display_box);
 	p_pfd.Hdot_display_box.setTranslation (450, 200);
 
-	p_pfd.Hdot_display_text = device.Hdot.createChild("text")
+	p_pfd.Hdot_display_text = Hdot_group.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -819,10 +831,7 @@ var PFD_addpage_p_pfd = func(device)
     {
 	device.symbols.removeAllChildren();
 	device.HSI.removeAllChildren();
-	device.H.removeAllChildren();
-	device.Hdot.removeAllChildren();
-	device.alpha.removeAllChildren();
-	device.keas.removeAllChildren();
+	device.tapes.removeAllChildren();
 	device.nom_traj_plot.removeAllChildren();
 	device.nom_traj_plot.setTranslation(0,0);
     }
