@@ -146,6 +146,31 @@ append(shape_data, point);
 return shape_data;
 }
 
+var draw_runway_pointer_up = func {
+
+var shape_data = [];
+
+var point = [0, 0, 0];
+append(shape_data, point);
+
+point = [-5, 7.0, 1];
+append(shape_data, point);
+
+point = [-3.0, 14.0, 1];
+append(shape_data, point);
+
+point = [3.0, 14.0, 1];
+append(shape_data, point);
+
+point = [5, 7.0, 1];
+append(shape_data, point);
+
+point = [0, 0, 1];
+append(shape_data, point);
+
+return shape_data;
+}
+
 
 var draw_course_arrow = func {
 
