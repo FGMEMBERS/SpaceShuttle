@@ -117,6 +117,116 @@ append(shape_data, point);
 return shape_data;
 }
 
+
+var draw_bearing_pointer_up = func {
+
+var shape_data = [];
+
+var point = [0, 0, 0];
+append(shape_data, point);
+
+point = [-8, 14.0, 1];
+append(shape_data, point);
+
+point = [-3.0, 14.0, 1];
+append(shape_data, point);
+
+point = [0.0, 20.0, 1];
+append(shape_data, point);
+
+point = [3.0, 14.0, 1];
+append(shape_data, point);
+
+point = [8, 14.0, 1];
+append(shape_data, point);
+
+point = [0, 0, 1];
+append(shape_data, point);
+
+return shape_data;
+}
+
+
+var draw_course_arrow = func {
+
+var shape_data = [];
+
+var point = [0, 0, 0];
+append(shape_data, point);
+
+point = [1, 0, 1];
+append(shape_data, point);
+
+point = [5, 30, 1];
+append(shape_data, point);
+
+point = [15, 40, 1];
+append(shape_data, point);
+
+point = [14, 44, 1];
+append(shape_data, point);
+
+point = [5, 36, 1];
+append(shape_data, point);
+
+point = [0, 45, 1];
+append(shape_data, point);
+
+point = [-5, 36, 1];
+append(shape_data, point);
+
+point = [-14, 44, 1];
+append(shape_data, point);
+
+point = [-15, 40, 1];
+append(shape_data, point);
+
+point = [-5, 30, 1];
+append(shape_data, point);
+
+point = [-1, 0, 1];
+append(shape_data, point);
+
+point = [0, 0, 1];
+append(shape_data, point);
+
+point = [0, 45, 1];
+append(shape_data, point);
+
+return shape_data;
+
+}
+
+
+var draw_cdi_center = func {
+
+var shape_data = [];
+
+var point = [0, 0, 0];
+append(shape_data, point);
+
+point = [-3, 14.0, 1];
+append(shape_data, point);
+
+point = [-8.0, 16.0, 1];
+append(shape_data, point);
+
+point = [0.0, 24.0, 1];
+append(shape_data, point);
+
+point = [8.0, 16.0, 1];
+append(shape_data, point);
+
+point = [3, 14.0, 1];
+append(shape_data, point);
+
+point = [0, 0, 1];
+append(shape_data, point);
+
+return shape_data;
+}
+
+
 var draw_rect = func (width, height) {
 
 var shape_data = [];

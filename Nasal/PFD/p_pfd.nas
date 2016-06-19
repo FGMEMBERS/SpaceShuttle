@@ -262,7 +262,7 @@ var PFD_addpage_p_pfd = func(device)
 	device.symbols.set("clip", "rect(0px, 512px, 460px, 0px)");
 	device.HSI.set("clip", "rect(0px, 512px, 460px, 0px)");
 
-	var plot_compass_lower = device.symbols.createChild("path", "data")
+	var plot_compass_lower = device.symbols.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
@@ -273,11 +273,15 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, plot_compass_lower);
 	plot_compass_lower.setTranslation (255, 425);
 
+	
+
+	
+
 
 	# inner lower HSI compass rose 
 
 
-	var plot_inner_compass_lower = device.HSI.createChild("path", "data")
+	var plot_inner_compass_lower = device.HSI.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.5, 0.5, 0.5)
         .setColor(1,1,1);
@@ -303,6 +307,122 @@ var PFD_addpage_p_pfd = func(device)
 	place_compass_label(device.HSI, "24", 240.0, 63.0, 1,0,0);    
 	place_compass_label(device.HSI, "30", 300.0, 63.0, 1,0,0);
 	place_compass_label(device.HSI, "33", 330.0, 63.0, 1,0,0);
+
+	# HSI bearing pointers 
+	
+	# earth-relative
+
+	p_pfd.bearing_earth_relative = device.HSI.createChild("group");
+
+	var bearing_earthrel_symbol = p_pfd.bearing_earth_relative.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1,0.3,0.15)	
+	.setTranslation(0.0,-108.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_bearing_pointer_up();
+	pfd_segment_draw(data, bearing_earthrel_symbol);
+
+	var bearing_earthrel_label = p_pfd.bearing_earth_relative.createChild("text")
+      	.setText("E")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(0.0, -95.0);
+
+	p_pfd.bearing_earth_relative.setRotation(30.0 * math.pi/180.0);
+
+	# inertial
+
+	p_pfd.bearing_inertial = device.HSI.createChild("group");
+
+	var bearing_inertial_symbol = p_pfd.bearing_inertial.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1,1,1)	
+	.setTranslation(0.0,-98.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_bearing_pointer_up();
+	pfd_segment_draw(data, bearing_inertial_symbol);
+
+	var bearing_inertial_label = p_pfd.bearing_inertial.createChild("text")
+      	.setText("I")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(0.0, -85.0);
+
+	p_pfd.bearing_inertial.setRotation(45.0 * math.pi/180.0);
+
+	# HSI course arrow 
+
+	p_pfd.course_arrow = device.HSI.createChild("group");
+
+	var course_arrow_symbol = p_pfd.course_arrow.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.9, 0.1, 0.85)
+	.setTranslation(0.0,-80.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_course_arrow();
+	pfd_segment_draw(data, course_arrow_symbol);
+
+
+	# CDI
+
+	p_pfd.cdi = device.HSI.createChild("group");
+
+	var cdi_center = p_pfd.cdi.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(0.0, -20.0)
+        .setColor(1,1,1);
+
+	data = SpaceShuttle.draw_cdi_center();
+	pfd_segment_draw(data, cdi_center);
+
+	var cdi_dot1 = p_pfd.cdi.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(20.0,0)
+        .setColor(1,1,1);
+
+	data = SpaceShuttle.draw_circle(4, 10);
+	pfd_segment_draw(data, cdi_dot1);
+
+	var cdi_dot2 = p_pfd.cdi.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(40.0,0)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, cdi_dot2);
+
+	var cdi_dot3 = p_pfd.cdi.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(-20.0,0)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, cdi_dot3);
+
+	var cdi_dot4 = p_pfd.cdi.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(-40.0,0)
+        .setColor(1,1,1);
+	pfd_segment_draw(data, cdi_dot4);
+
+	# CDI needle
+	
+	p_pfd.cdi_needle = p_pfd.cdi.createChild("path")
+	.setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[0.0,-35.0,0],[0.0, 35.0, 1]];
+	pfd_segment_draw(data, p_pfd.cdi_needle);
 
 	# KEAS tape ################################################
 
@@ -771,8 +891,8 @@ var PFD_addpage_p_pfd = func(device)
 
 
 	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
-	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * 8.0;
-	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * 8.0;
+	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * -8.0;
+	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * -8.0;
 
 	p_pfd.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
 	p_pfd.att_error_yaw.setTranslation(yaw_error_ntrans, 0.0);
