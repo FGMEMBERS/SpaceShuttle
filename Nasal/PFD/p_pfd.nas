@@ -286,7 +286,7 @@ var PFD_addpage_p_pfd = func(device)
 	device.HSI.set("clip", "rect(0px, 512px, 460px, 0px)");
 
 	var HSI_static_group = device.HSI.createChild("group");
-	var HSI_dynamic_group = device.HSI.createChild("group");
+	p_pfd.HSI_dynamic_group = device.HSI.createChild("group");
 
 	# lower HSI compass rose
 
@@ -305,7 +305,7 @@ var PFD_addpage_p_pfd = func(device)
 	# inner lower HSI compass rose 
 
 
-	var plot_inner_compass_lower = HSI_dynamic_group.createChild("path")
+	var plot_inner_compass_lower = p_pfd.HSI_dynamic_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.5, 0.5, 0.5)
         .setColor(1,1,1);
@@ -319,24 +319,24 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_circle(58.0, 30);
 	pfd_segment_draw(data, plot_inner_compass_lower);
 
-	place_compass_label(HSI_dynamic_group, "N", 0.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "E", 90.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "S", 180.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "W", 270.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "3", 30.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "6", 60.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "12", 120.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "15", 150.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "21", 210.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "24", 240.0, 63.0, 1,0,0);    
-	place_compass_label(HSI_dynamic_group, "30", 300.0, 63.0, 1,0,0);
-	place_compass_label(HSI_dynamic_group, "33", 330.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "N", 0.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "E", 90.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "S", 180.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "W", 270.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "3", 30.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "6", 60.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "12", 120.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "15", 150.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "21", 210.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "24", 240.0, 63.0, 1,0,0);    
+	place_compass_label(p_pfd.HSI_dynamic_group, "30", 300.0, 63.0, 1,0,0);
+	place_compass_label(p_pfd.HSI_dynamic_group, "33", 330.0, 63.0, 1,0,0);
 
 	# HSI bearing pointers 
 	
 	# earth-relative
 
-	p_pfd.bearing_earth_relative = HSI_dynamic_group.createChild("group");
+	p_pfd.bearing_earth_relative = p_pfd.HSI_dynamic_group.createChild("group");
 
 	var bearing_earthrel_symbol = p_pfd.bearing_earth_relative.createChild("path")
         .setStrokeLineWidth(1)
@@ -360,7 +360,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# inertial
 
-	p_pfd.bearing_inertial = HSI_dynamic_group.createChild("group");
+	p_pfd.bearing_inertial = p_pfd.HSI_dynamic_group.createChild("group");
 
 	var bearing_inertial_symbol = p_pfd.bearing_inertial.createChild("path")
         .setStrokeLineWidth(1)
@@ -384,7 +384,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# HAC WP 1
 
-	p_pfd.bearing_HAC_H = HSI_dynamic_group.createChild("group");
+	p_pfd.bearing_HAC_H = p_pfd.HSI_dynamic_group.createChild("group");
 
 	var bearing_HAC_H_symbol = p_pfd.bearing_HAC_H.createChild("path")
         .setStrokeLineWidth(1)
@@ -404,11 +404,11 @@ var PFD_addpage_p_pfd = func(device)
 	.setRotation(0.0)
 	.setTranslation(0.0, -88.0);
 
-	p_pfd.bearing_HAC_H.setRotation(90.0 * math.pi/180.0);
+	#p_pfd.bearing_HAC_H.setRotation(90.0 * math.pi/180.0);
 
 	# HAC center
 
-	p_pfd.bearing_HAC_C = HSI_dynamic_group.createChild("group");
+	p_pfd.bearing_HAC_C = p_pfd.HSI_dynamic_group.createChild("group");
 
 	var bearing_HAC_C_symbol = p_pfd.bearing_HAC_C.createChild("path")
         .setStrokeLineWidth(1)
@@ -428,11 +428,11 @@ var PFD_addpage_p_pfd = func(device)
 	.setRotation(0.0)
 	.setTranslation(0.0, -85.0);
 
-	p_pfd.bearing_HAC_C.setRotation(120.0 * math.pi/180.0);
+	#p_pfd.bearing_HAC_C.setRotation(120.0 * math.pi/180.0);
 
 	# HSI course arrow 
 
-	p_pfd.course_arrow = HSI_dynamic_group.createChild("group");
+	p_pfd.course_arrow = p_pfd.HSI_dynamic_group.createChild("group");
 
 	var course_arrow_symbol = p_pfd.course_arrow.createChild("path")
         .setStrokeLineWidth(1)
@@ -446,9 +446,10 @@ var PFD_addpage_p_pfd = func(device)
 
 	# CDI
 
-	p_pfd.cdi = HSI_dynamic_group.createChild("group");
+	p_pfd.cdi = p_pfd.HSI_dynamic_group.createChild("group");
 
-	var cdi_center = p_pfd.cdi.createChild("path")
+	#var cdi_center = p_pfd.cdi.createChild("path")
+	var cdi_center = HSI_static_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
 	.setTranslation(0.0, -20.0)
@@ -580,28 +581,28 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.alpha_tape_background1 = p_pfd.alpha_tape.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
-	.setTranslation(0.0, -427.5)
+	.setTranslation(0.0, -855.0)
         .setColor(1,1,1);
-	var data1 = SpaceShuttle.draw_rect(43, 855);
+	var data1 = SpaceShuttle.draw_rect(43, 1710);
 	pfd_segment_draw(data1, p_pfd.alpha_tape_background1);
 
 	p_pfd.alpha_tape_background2 = p_pfd.alpha_tape.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.5, 0.5, 0.5)
-	.setTranslation(0.0, 427.5)
+	.setTranslation(0.0, 855.0)
         .setColor(1,1,1);
 	pfd_segment_draw(data1, p_pfd.alpha_tape_background2);
 
 	p_pfd.alpha_tape_ladder_upper = p_pfd.alpha_tape.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(10,-427.5)
+	.setTranslation(10,-855.0)
         .setColor(0,0,0);	
-	data1 = SpaceShuttle.draw_ladder(855, 90, 0.01169, 0, 0, 1, 0, 0);
+	data1 = SpaceShuttle.draw_ladder(1710, 180, 0.5*0.01169, 0, 0, 1, 0, 0);
 	pfd_segment_draw(data1, p_pfd.alpha_tape_ladder_upper);
 
 	p_pfd.alpha_tape_ladder_lower = p_pfd.alpha_tape.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(10,427.5)
+	.setTranslation(10,855.0)
         .setColor(1,1,1);	
 	pfd_segment_draw(data1, p_pfd.alpha_tape_ladder_lower);
 
@@ -865,16 +866,16 @@ var PFD_addpage_p_pfd = func(device)
 
 	# X-Trk
 
-	var xtrk = device.symbols.createChild("group");
+	p_pfd.xtrk = device.symbols.createChild("group");
 
-	p_pfd.xtrk_display_box = xtrk.createChild("path")
+	p_pfd.xtrk_display_box = p_pfd.xtrk.createChild("path")
         .setStrokeLineWidth(1)
 	.setTranslation(450,360)
         .setColor(1,1,1);
 	data = SpaceShuttle.draw_rect(48, 20);
 	pfd_segment_draw(data, p_pfd.xtrk_display_box);
 
-	p_pfd.xtrk_display_text = xtrk.createChild("text")
+	p_pfd.xtrk_display_text = p_pfd.xtrk.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -883,7 +884,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(450,365)
 	.setRotation(0.0);
 
-	var xtrk_label = xtrk.createChild("text")
+	var xtrk_label =p_pfd.xtrk.createChild("text")
 	.setText("X-Trk")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -894,16 +895,16 @@ var PFD_addpage_p_pfd = func(device)
 	
 	# Delta-Inc
 
-	var dInc = device.symbols.createChild("group");
+	p_pfd.dInc = device.symbols.createChild("group");
 
-	p_pfd.dInc_display_box = dInc.createChild("path")
+	p_pfd.dInc_display_box = p_pfd.dInc.createChild("path")
         .setStrokeLineWidth(1)
 	.setTranslation(445,390)
         .setColor(1,1,1);
 	data = SpaceShuttle.draw_rect(58, 20);
 	pfd_segment_draw(data, p_pfd.dInc_display_box);
 
-	p_pfd.dInc_display_text = dInc.createChild("text")
+	p_pfd.dInc_display_text = p_pfd.dInc.createChild("text")
 	.setText("0.0")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -912,7 +913,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(450,395)
 	.setRotation(0.0);
 
-	var dInc_label = dInc.createChild("text")
+	var dInc_label = p_pfd.dInc.createChild("text")
 	.setText("ΔInc")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -960,9 +961,12 @@ var PFD_addpage_p_pfd = func(device)
 	
 	var Delta_inc = 0.0;
 	var hsi_course = - yaw;
+	var course_arrow = 0.0;
 
 	var bearing_earthrel = 0.0;
 	var bearing_inertial = 0.0;
+	var bearing_HAC_C = 0.0;
+	var bearing_HAC_H = 0.0;
 
 	var dap_text = "CSS";
 	var throt_text = "";
@@ -976,6 +980,8 @@ var PFD_addpage_p_pfd = func(device)
 			{p_pfd.bearing_earth_relative.setVisible(1);}
 		else
 			{p_pfd.bearing_earth_relative.setVisible(0);}
+		p_pfd.dInc.setVisible(1);
+		p_pfd.xtrk.setVisible(1);
 
 
 		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
@@ -983,9 +989,9 @@ var PFD_addpage_p_pfd = func(device)
 			var auto_pitch = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-pitch-channel");
 			var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-roll-yaw-channel");
 
-			throt_text = "AUTO";
+			throt_text = "Auto";
 		
-			if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "AUTO";}
+			if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
 			}
 
 		if ((launch_stage > 0) and (launch_stage < 5) and (altitude > 500.0)) # we have launch guidance
@@ -1027,6 +1033,38 @@ var PFD_addpage_p_pfd = func(device)
 			}
 
 		}
+
+	if ((major_mode == 304) or (major_mode == 305))
+		{
+		p_pfd.bearing_inertial.setVisible(0);
+		p_pfd.bearing_earth_relative.setVisible(0);
+		p_pfd.dInc.setVisible(0);
+		p_pfd.xtrk.setVisible(0);
+
+		if (SpaceShuttle.TAEM_guidance_available == 1)
+			{
+			p_pfd.bearing_HAC_H.setVisible(1);
+			p_pfd.bearing_HAC_C.setVisible(1);
+	
+			var pos = geo.aircraft_position();
+			var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
+			var course_WP1 = pos.course_to (TAEM_WP_1);
+			var course_HAC_C = pos.course_to (TAEM_HAC_center);
+			
+			hsi_course = -yaw;
+			bearing_HAC_C = course_HAC_C;
+			bearing_HAC_H = course_WP1;
+			course_arrow = SpaceShuttle.TAEM_threshold.heading;
+			
+
+			}
+		else
+			{
+			p_pfd.bearing_HAC_H.setVisible(1);
+			p_pfd.bearing_HAC_C.setVisible(1);
+			}
+		}
+
 
 	# ADI sphere animation ##############################################
 
@@ -1094,10 +1132,17 @@ var PFD_addpage_p_pfd = func(device)
 
 	# HSI
 
-	device.HSI.setRotation(hsi_course * math.pi/180.0);
+	p_pfd.HSI_dynamic_group.setRotation(hsi_course * math.pi/180.0);
 
 	p_pfd.bearing_earth_relative.setRotation(bearing_earthrel * math.pi/180.0);
 	p_pfd.bearing_inertial.setRotation(bearing_inertial * math.pi/180.0);
+
+	p_pfd.bearing_HAC_C.setRotation(bearing_HAC_C * math.pi/180.0);
+	p_pfd.bearing_HAC_H.setRotation(bearing_HAC_H * math.pi/180.0);
+
+
+	p_pfd.course_arrow.setRotation(course_arrow *  math.pi/180.0);
+	p_pfd.cdi.setRotation(course_arrow * math.pi/180.0);
     
 	# KEAS /Mach tape
 
@@ -1358,7 +1403,7 @@ for (var i=0; i< 140; i=i+1)
 var draw_alpha_labels_upper = func (group)
 {
 
-for (var i=0; i< 18; i=i+1)
+for (var i=0; i< 36; i=i+1)
 	{
 	var y = 5.0 - i * 47.5;
 	var coords = [0.0, y, 1];
@@ -1373,7 +1418,7 @@ for (var i=0; i< 18; i=i+1)
 var draw_alpha_labels_lower = func (group)
 {
 
-for (var i=0; i< 18; i=i+1)
+for (var i=0; i< 36; i=i+1)
 	{
 	var y = 5.0 + i * 47.5;
 	var coords = [0.0, y, 1];
