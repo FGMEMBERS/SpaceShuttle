@@ -448,7 +448,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.cdi = p_pfd.HSI_dynamic_group.createChild("group");
 
-	#var cdi_center = p_pfd.cdi.createChild("path")
 	var cdi_center = HSI_static_group.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
@@ -923,6 +922,65 @@ var PFD_addpage_p_pfd = func(device)
 	.setRotation(0.0);
 
 
+	# dist to rwy
+
+	p_pfd.dist_to_rwy = device.symbols.createChild("group");
+
+	p_pfd.dist_to_rwy_display_box = p_pfd.dist_to_rwy.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(390,390)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data, p_pfd.dist_to_rwy_display_box);
+
+	p_pfd.dist_to_rwy_display_text = p_pfd.dist_to_rwy.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(390,395)
+	.setRotation(0.0);
+
+	 p_pfd.dist_to_rwy_label = p_pfd.dist_to_rwy.createChild("text")
+	.setText("RWY")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(390,377)
+	.setRotation(0.0);
+
+	# dist to HAC-C
+
+	p_pfd.dist_to_HAC_C = device.symbols.createChild("group");
+
+	p_pfd.dist_to_HAC_C_display_box = p_pfd.dist_to_HAC_C.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(390,430)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(48, 20);
+	pfd_segment_draw(data, p_pfd.dist_to_HAC_C_display_box);
+
+	p_pfd.dist_to_HAC_C_display_text = p_pfd.dist_to_HAC_C.createChild("text")
+	.setText("0.0")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(390,435)
+	.setRotation(0.0);
+
+	 p_pfd.dist_to_HAC_C_label = p_pfd.dist_to_HAC_C.createChild("text")
+	.setText("HAC-C")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(390,417)
+	.setRotation(0.0);
+
+
 
 	}
 
@@ -961,6 +1019,8 @@ var PFD_addpage_p_pfd = func(device)
 	
 	var Delta_inc = 0.0;
 	var hsi_course = - yaw;
+	var cdi_limit = 10.0;
+	var cdi_displacement = 0.0;
 	var course_arrow = 0.0;
 
 	var bearing_earthrel = 0.0;
@@ -968,8 +1028,11 @@ var PFD_addpage_p_pfd = func(device)
 	var bearing_HAC_C = 0.0;
 	var bearing_HAC_H = 0.0;
 
+	var hac_c_distance = 0.0;
+
 	var dap_text = "CSS";
 	var throt_text = "";
+	var landing_site_text = "";
 
 	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
 		{
@@ -982,6 +1045,7 @@ var PFD_addpage_p_pfd = func(device)
 			{p_pfd.bearing_earth_relative.setVisible(0);}
 		p_pfd.dInc.setVisible(1);
 		p_pfd.xtrk.setVisible(1);
+		p_pfd.dist_to_rwy.setVisible(0);
 
 
 		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
@@ -1040,6 +1104,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.bearing_earth_relative.setVisible(0);
 		p_pfd.dInc.setVisible(0);
 		p_pfd.xtrk.setVisible(0);
+		p_pfd.dist_to_rwy.setVisible(1);
 
 		if (SpaceShuttle.TAEM_guidance_available == 1)
 			{
@@ -1047,21 +1112,31 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.bearing_HAC_C.setVisible(1);
 	
 			var pos = geo.aircraft_position();
-			var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
-			var course_WP1 = pos.course_to (TAEM_WP_1);
-			var course_HAC_C = pos.course_to (TAEM_HAC_center);
+			var dist = pos.distance_to(SpaceShuttle.TAEM_WP_1) / 1853.0;
+			hac_c_distance = pos.distance_to(SpaceShuttle.TAEM_HAC_center) / 1853.;
+			var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
+			var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
 			
 			hsi_course = -yaw;
 			bearing_HAC_C = course_HAC_C;
 			bearing_HAC_H = course_WP1;
 			course_arrow = SpaceShuttle.TAEM_threshold.heading;
-			
 
+			cdi_displacement = SpaceShuttle.TAEM_threshold.heading - yaw;
+
+			if (SpaceShuttle.TAEM_guidance_phase == 3) {cdi_limit = 2.5;}
+			cdi_displacement = SpaceShuttle.clamp(cdi_displacement, -cdi_limit, cdi_limit);
+			
+			if (SpaceShuttle.landing_site.rwy_sel == 0)
+				{landing_site_text = SpaceShuttle.landing_site.rwy_pri;}
+			else	
+				{landing_site_text = SpaceShuttle.landing_site.rwy_sec;}
 			}
 		else
 			{
 			p_pfd.bearing_HAC_H.setVisible(1);
 			p_pfd.bearing_HAC_C.setVisible(1);
+			landing_site_text = "RWY";
 			}
 		}
 
@@ -1144,6 +1219,8 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.course_arrow.setRotation(course_arrow *  math.pi/180.0);
 	p_pfd.cdi.setRotation(course_arrow * math.pi/180.0);
     
+	p_pfd.cdi_needle.setTranslation(cdi_displacement/cdi_limit * 40.0, 0);
+
 	# KEAS /Mach tape
 
 	var mach = getprop("/fdm/jsbsim/velocities/mach");
@@ -1281,12 +1358,14 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.p.setText(sprintf("%d", pitch));
 	p_pfd.y.setText(sprintf("%d", yaw));
 	p_pfd.dInc_display_text.setText(sprintf("%2.2f", Delta_inc));
-
+	p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm")));
+	p_pfd.dist_to_HAC_C_display_text.setText(sprintf("%3.1f",hac_c_distance));
 
 	# mode texts
 
 	p_pfd.dap.setText(dap_text);
     	p_pfd.throt.setText(throt_text);
+	p_pfd.dist_to_rwy_label.setText(landing_site_text);
 
     };
     

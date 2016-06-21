@@ -6,6 +6,7 @@ var TAEM_WP_2 = geo.Coord.new();
 var TAEM_threshold = geo.Coord.new();
 var TAEM_HAC_center = geo.Coord.new();
 var TAEM_guidance_available = 0;
+var TAEM_guidance_phase = 0;
 
 var final_approach_reserve = 4.0;
 
@@ -64,7 +65,7 @@ var TAEM_predictor_set = {
 var compute_TAEM_guidance_targets = func {
 
 TAEM_guidance_available = 0;
-
+TAEM_guidance_phase = 0;
 
 var lat_to_m = 110952.0; 
 var lon_to_m  = math.cos(getprop("/position/latitude-deg")*math.pi/180.0) * lat_to_m;
@@ -205,6 +206,8 @@ if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 
 TAEM_WP_1.turn_direction = turn_direction;
 
+TAEM_guidance_phase = 1;
+
 TAEM_guidance_loop(0);
 }
 
@@ -229,6 +232,7 @@ if (stage == 0)
 	if (dist < 1.0) {
 			print("Waypoint 1 reached!"); 	stage = stage + 1;
 			setprop("/sim/messages/copilot", "Turn "~TAEM_WP_1.turn_direction~" into HAC!");
+			TAEM_guidance_phase = 2;
 			}
 
 	}
@@ -243,6 +247,7 @@ else if (stage == 1)
 
 	if (distance_to_runway < 7.0)
 		{
+		TAEM_guidance_phase = 3;
 		print("TAEM guidance finished.");
 		stage = 2;
 		}
