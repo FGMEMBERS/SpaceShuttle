@@ -980,6 +980,66 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(390,417)
 	.setRotation(0.0);
 
+	# glideslope box
+
+	p_pfd.glideslope = device.symbols.createChild("group");
+
+	var glideslope_upper_box = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(435,350)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(15, 60);
+	pfd_segment_draw(data, glideslope_upper_box);
+
+	var glideslope_lower_box = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(435,410)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(15, 60);
+	pfd_segment_draw(data, glideslope_lower_box);
+
+	var glideslope_dot1 = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(435.0,330.0)
+        .setColor(1,1,1);
+
+	data = SpaceShuttle.draw_circle(4, 10);
+	pfd_segment_draw(data, glideslope_dot1);
+
+	var glideslope_dot2 = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(435.0,355.0)
+        .setColor(1,1,1);
+
+	pfd_segment_draw(data, glideslope_dot2);
+
+	var glideslope_dot3 = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(435.0,405.0)
+        .setColor(1,1,1);
+
+	pfd_segment_draw(data, glideslope_dot3);
+
+	var glideslope_dot4 = p_pfd.glideslope.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(1, 1, 1)
+	.setTranslation(435.0,430.0)
+        .setColor(1,1,1);
+
+	pfd_segment_draw(data, glideslope_dot4);
+
+	data = SpaceShuttle.draw_tmarker_left();
+	p_pfd.glideslope_needle = device.symbols.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setScale(2.0,1.4)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd.glideslope_needle.lineTo(data[i+1][0], data[i+1][1]);}
 
 
 	}
@@ -1022,6 +1082,7 @@ var PFD_addpage_p_pfd = func(device)
 	var cdi_limit = 10.0;
 	var cdi_displacement = 0.0;
 	var course_arrow = 0.0;
+	var glideslope_needle_offset = 0.0;
 
 	var bearing_earthrel = 0.0;
 	var bearing_inertial = 0.0;
@@ -1038,6 +1099,7 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		p_pfd.bearing_HAC_H.setVisible(0);
 		p_pfd.bearing_HAC_C.setVisible(0);
+		p_pfd.glideslope.setVisible(0);
 		p_pfd.bearing_inertial.setVisible(1);
 		if (altitude < 200000.0)
 			{p_pfd.bearing_earth_relative.setVisible(1);}
@@ -1106,6 +1168,15 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.xtrk.setVisible(0);
 		p_pfd.dist_to_rwy.setVisible(1);
 
+		if (major_mode == 304)
+			{
+			p_pfd.glideslope.setVisible(0);
+			}
+		else
+			{
+			p_pfd.glideslope.setVisible(1);
+			}
+
 		if (SpaceShuttle.TAEM_guidance_available == 1)
 			{
 			p_pfd.bearing_HAC_H.setVisible(1);
@@ -1131,6 +1202,11 @@ var PFD_addpage_p_pfd = func(device)
 				{landing_site_text = SpaceShuttle.landing_site.rwy_pri;}
 			else	
 				{landing_site_text = SpaceShuttle.landing_site.rwy_sec;}
+
+			var glideslope_deviation = 5000.0;
+
+			glideslope_needle_offset = SpaceShuttle.clamp(glideslope_deviation, -5000, 5000)/5000.0 * 50.0;
+
 			}
 		else
 			{
@@ -1344,6 +1420,11 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.acc_needle.setRotation(acc_needle_rot);
 	p_pfd.acc_display_text.setText(sprintf("%1.1f",acceleration)~"g");
+
+	# glideslope needle
+
+	p_pfd.glideslope_needle.setTranslation(435,380 - glideslope_needle_offset);
+
 
 	# numerical values
 
