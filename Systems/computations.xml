@@ -402,39 +402,13 @@
 		</fcs_function>
 
 
-		<!--<fcs_function name="systems/various/spacecraft-entry-internal-volume">
-			<function>
-				<product>
-					<quotient>
-						<property>aero/qbar-psf</property>
-						<value>2116</value>
-					</quotient>
-					<quotient>
-						<property>systems/thermal/nose-temperature-F</property>
-						<value>3000</value>
-					</quotient>
-				</product>
-			</function>		
-		</fcs_function>
-
-		<fcs_function name="systems/various/spacecraft-entry-external-volume">
-			<function>
-				<product>
-					<quotient>
-						<property>aero/qbar-psf</property>
-						<value>2116</value>
-					</quotient>
-					<quotient>
-						<property>systems/thermal/nose-temperature-F</property>
-						<value>3000</value>
-					</quotient>
-					<quotient>
-						<property>/environment/pressure-inhg</property>
-						<property>/environment/pressure-sea-level-inhg</property>
-					</quotient>
-				</product>
-			</function>
-		</fcs_function>-->
+		<pid name="systems/various/hdotdot-ft_s2">
+			<input>velocities/v-down-fps</input>
+			<kp> 0.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.0</kd>
+			<output>accelerations/hdotdot-ft_s2</output>
+  		</pid>
 		
 	</channel>
 </system>

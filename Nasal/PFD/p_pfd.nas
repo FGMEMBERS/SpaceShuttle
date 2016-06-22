@@ -861,20 +861,20 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, p_pfd.acc_needle);
 	p_pfd.acc_needle.setTranslation (95, 400);
 
-	# glideslope box ######################################################
+	# glideslope indicator ######################################################
 
 	p_pfd.glideslope = device.symbols.createChild("group");
 
 	var glideslope_upper_box = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(435,350)
+	.setTranslation(425,350)
         .setColor(1,1,1);
 	data = SpaceShuttle.draw_rect(15, 60);
 	pfd_segment_draw(data, glideslope_upper_box);
 
 	var glideslope_lower_box = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(435,410)
+	.setTranslation(425,410)
         .setColor(1,1,1);
 	data = SpaceShuttle.draw_rect(15, 60);
 	pfd_segment_draw(data, glideslope_lower_box);
@@ -882,7 +882,7 @@ var PFD_addpage_p_pfd = func(device)
 	var glideslope_dot1 = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
-	.setTranslation(435.0,330.0)
+	.setTranslation(425.0,330.0)
         .setColor(1,1,1);
 
 	data = SpaceShuttle.draw_circle(4, 10);
@@ -891,7 +891,7 @@ var PFD_addpage_p_pfd = func(device)
 	var glideslope_dot2 = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
-	.setTranslation(435.0,355.0)
+	.setTranslation(425.0,355.0)
         .setColor(1,1,1);
 
 	pfd_segment_draw(data, glideslope_dot2);
@@ -899,7 +899,7 @@ var PFD_addpage_p_pfd = func(device)
 	var glideslope_dot3 = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
-	.setTranslation(435.0,405.0)
+	.setTranslation(425.0,405.0)
         .setColor(1,1,1);
 
 	pfd_segment_draw(data, glideslope_dot3);
@@ -907,20 +907,91 @@ var PFD_addpage_p_pfd = func(device)
 	var glideslope_dot4 = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
-	.setTranslation(435.0,430.0)
+	.setTranslation(425.0,430.0)
         .setColor(1,1,1);
 
 	pfd_segment_draw(data, glideslope_dot4);
 
 	data = SpaceShuttle.draw_tmarker_left();
-	p_pfd.glideslope_needle = device.symbols.createChild("path")
+	p_pfd.glideslope_needle = p_pfd.glideslope.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(0.4, 0.9, 0.7)
-	.setScale(2.0,1.4)
+	.setScale(1.6,1.1)
 	.setColorFill(0.4, 0.9, 0.7)
 	.moveTo(data[0][0], data[0][1]);
 	for (var i = 0; (i< size(data)-1); i=i+1) 
 		{p_pfd.glideslope_needle.lineTo(data[i+1][0], data[i+1][1]);}
+
+	# H dot dot indicator ######################################################
+
+	p_pfd.vert_acc = device.symbols.createChild("group");
+
+	var vert_acc_upper_box = p_pfd.vert_acc.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(455,350)
+	.setColorFill(1,1,1)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(10, 60);
+	pfd_segment_draw(data, vert_acc_upper_box);
+
+	var vert_acc_lower_box = p_pfd.vert_acc.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(455,410)
+	.setColorFill(0.5,0.5,0.5)
+        .setColor(1,1,1);
+	data = SpaceShuttle.draw_rect(10, 60);
+	pfd_segment_draw(data, vert_acc_lower_box);
+
+	var vert_acc_ladder = p_pfd.vert_acc.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation(460, 380)
+        .setColor(1,1,1);	
+	data1 = SpaceShuttle.draw_ladder(110, 11, 0.05, 0, 0, 1, 0, 0);
+	pfd_segment_draw(data1, vert_acc_ladder);
+
+	var vert_acc_label1 = p_pfd.vert_acc.createChild("text")
+	.setText("H")
+        .setColor(1,1,1)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(455,315)
+	.setRotation(0.0);
+
+	var vert_acc_label2 = p_pfd.vert_acc.createChild("text")
+	.setText("..")
+        .setColor(1,1,1)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(455,306);
+
+	var vert_acc_label3 = p_pfd.vert_acc.createChild("text")
+	.setText("10")
+        .setColor(1,1,1)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(475,328);
+
+	var vert_acc_label4 = p_pfd.vert_acc.createChild("text")
+	.setText("-10")
+        .setColor(1,1,1)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(475,438);
+
+	data = SpaceShuttle.draw_tmarker_right();
+	p_pfd.vert_acc_needle = p_pfd.vert_acc.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setScale(1.6,1.1)
+	.setTranslation(455, 380)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd.vert_acc_needle.lineTo(data[i+1][0], data[i+1][1]);}
 
 
 
@@ -991,9 +1062,9 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.dist_to_rwy_display_box = p_pfd.dist_to_rwy.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(390,390)
+	.setTranslation(380,390)
         .setColor(1,1,1);
-	data = SpaceShuttle.draw_rect(48, 20);
+	data = SpaceShuttle.draw_rect(44, 20);
 	pfd_segment_draw(data, p_pfd.dist_to_rwy_display_box);
 
 	p_pfd.dist_to_rwy_display_text = p_pfd.dist_to_rwy.createChild("text")
@@ -1002,7 +1073,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(390,395)
+	.setTranslation(380,395)
 	.setRotation(0.0);
 
 	 p_pfd.dist_to_rwy_label = p_pfd.dist_to_rwy.createChild("text")
@@ -1011,7 +1082,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(390,377)
+	.setTranslation(380,377)
 	.setRotation(0.0);
 
 	# dist to HAC-C
@@ -1020,9 +1091,9 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.dist_to_HAC_C_display_box = p_pfd.dist_to_HAC_C.createChild("path")
         .setStrokeLineWidth(1)
-	.setTranslation(390,430)
+	.setTranslation(380,430)
         .setColor(1,1,1);
-	data = SpaceShuttle.draw_rect(48, 20);
+	data = SpaceShuttle.draw_rect(44, 20);
 	pfd_segment_draw(data, p_pfd.dist_to_HAC_C_display_box);
 
 	p_pfd.dist_to_HAC_C_display_text = p_pfd.dist_to_HAC_C.createChild("text")
@@ -1031,7 +1102,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(390,435)
+	.setTranslation(380,435)
 	.setRotation(0.0);
 
 	 p_pfd.dist_to_HAC_C_label = p_pfd.dist_to_HAC_C.createChild("text")
@@ -1040,7 +1111,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setFontSize(14)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(390,417)
+	.setTranslation(380,417)
 	.setRotation(0.0);
 
 	# Delta-Az
@@ -1124,6 +1195,8 @@ var PFD_addpage_p_pfd = func(device)
 
 	var hac_c_distance = 0.0;
 
+	var v_acc_needle_offset = 0.0;
+
 	var delta_az = 0.0;
 
 	var dap_text = "CSS";
@@ -1136,6 +1209,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.bearing_HAC_C.setVisible(0);
 		p_pfd.glideslope.setVisible(0);
 		p_pfd.Daz.setVisible(0);
+		p_pfd.vert_acc.setVisible(0);
 		p_pfd.bearing_inertial.setVisible(1);
 		if (altitude < 200000.0)
 			{p_pfd.bearing_earth_relative.setVisible(1);}
@@ -1205,13 +1279,21 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.dist_to_rwy.setVisible(1);
 		p_pfd.glideslope.setVisible(1);
 		p_pfd.Daz.setVisible(1);
+		p_pfd.vert_acc.setVisible(1);
+
+		
 
 		if (major_mode == 304)
 			{
+			p_pfd.vert_acc_needle.setVisible(1);
 			p_pfd.glideslope_needle.setVisible(0);
+			v_acc_needle_offset = SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
+
+			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 			}
 		else
 			{
+			p_pfd.vert_acc_needle.setVisible(0);
 			p_pfd.glideslope_needle.setVisible(1);
 			}
 
@@ -1462,8 +1544,11 @@ var PFD_addpage_p_pfd = func(device)
 
 	# glideslope needle
 
-	p_pfd.glideslope_needle.setTranslation(435,380 - glideslope_needle_offset);
+	p_pfd.glideslope_needle.setTranslation(425,380 - glideslope_needle_offset);
 
+	# H dot dot needle
+
+	p_pfd.vert_acc_needle.setTranslation(455, 380 - v_acc_needle_offset);
 
 	# numerical values
 
