@@ -4,6 +4,9 @@
 
  <fdm>
   <jsbsim>
+   <accelerations>
+    <hdotdot-ft_s2 type="double">0.0</hdotdot-ft_s2>
+   </accelerations>
    <simulation>
     <gravitational-torque type="bool">true</gravitational-torque>
    </simulation>
