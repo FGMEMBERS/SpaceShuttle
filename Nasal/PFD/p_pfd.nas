@@ -121,6 +121,10 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.dap = device.svg.getElementById("p_pfd_dap");
     p_pfd.throt = device.svg.getElementById("p_pfd_throt");
 
+    p_pfd.label_throt = device.svg.getElementById("p_pfd_label_throt");
+
+    p_pfd.att = device.svg.getElementById("p_pfd_att");
+    p_pfd.MM = device.svg.getElementById("p_pfd_MM");
 
     p_pfd.ondisplay = func
     {
@@ -1171,6 +1175,28 @@ var PFD_addpage_p_pfd = func(device)
 	var yaw = getprop("/orientation/heading-deg");
 	var roll = getprop("/orientation/roll-deg");
 
+	var pitch_adi = pitch;
+	var yaw_adi = yaw;
+	var roll_adi = roll;
+
+	var adi_att_selection = getprop("/fdm/jsbsim/systems/adi/attitude-select");
+	var adi_att_string = "LVLH";
+		
+	if (adi_att_selection == 1)
+		{
+		if ((major_mode == 304) or (major_mode == 305))
+			{
+			adi_att_string = "LVLH";
+			}
+		else
+			{
+			pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+			yaw_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+			roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+			adi_att_string = "INRTL";
+			}
+		}
+
 	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
 
 	var altitude = getprop("/position/altitude-ft");
@@ -1202,15 +1228,20 @@ var PFD_addpage_p_pfd = func(device)
 	var dap_text = "CSS";
 	var throt_text = "";
 	var landing_site_text = "";
+	var throt_label_text = "";
 
 	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
 		{
+
 		p_pfd.bearing_HAC_H.setVisible(0);
 		p_pfd.bearing_HAC_C.setVisible(0);
 		p_pfd.glideslope.setVisible(0);
 		p_pfd.Daz.setVisible(0);
 		p_pfd.vert_acc.setVisible(0);
+		p_pfd.dist_to_HAC_C.setVisible(0);
 		p_pfd.bearing_inertial.setVisible(1);
+		p_pfd.cdi_needle.setVisible(1);
+		p_pfd.course_arrow.setVisible(1);
 		if (altitude < 200000.0)
 			{p_pfd.bearing_earth_relative.setVisible(1);}
 		else
@@ -1219,6 +1250,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.xtrk.setVisible(1);
 		p_pfd.dist_to_rwy.setVisible(0);
 
+		throt_label_text = "Throt:";
 
 		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
 			{
@@ -1270,6 +1302,23 @@ var PFD_addpage_p_pfd = func(device)
 
 		}
 
+	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+		{
+		p_pfd.bearing_inertial.setVisible(0);
+		p_pfd.bearing_earth_relative.setVisible(0);
+		p_pfd.dInc.setVisible(0);
+		p_pfd.xtrk.setVisible(0);
+		p_pfd.dist_to_rwy.setVisible(0);
+		p_pfd.glideslope.setVisible(0);
+		p_pfd.Daz.setVisible(0);
+		p_pfd.vert_acc.setVisible(0);
+		p_pfd.dist_to_HAC_C.setVisible(0);
+		p_pfd.cdi_needle.setVisible(0);	
+		p_pfd.course_arrow.setVisible(0);	
+	
+		}
+	
+
 	if ((major_mode == 304) or (major_mode == 305))
 		{
 		p_pfd.bearing_inertial.setVisible(0);
@@ -1280,14 +1329,18 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.glideslope.setVisible(1);
 		p_pfd.Daz.setVisible(1);
 		p_pfd.vert_acc.setVisible(1);
+		p_pfd.dist_to_HAC_C.setVisible(1);
+		p_pfd.cdi_needle.setVisible(1);
+		p_pfd.course_arrow.setVisible(1);
 
-		
+		throt_label_text = "SB:";
+		throt_text = "Man";
 
 		if (major_mode == 304)
 			{
 			p_pfd.vert_acc_needle.setVisible(1);
 			p_pfd.glideslope_needle.setVisible(0);
-			v_acc_needle_offset = SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
+			v_acc_needle_offset = -SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
 
 			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 			}
@@ -1355,18 +1408,18 @@ var PFD_addpage_p_pfd = func(device)
         .setColor(1,1,1);
 
 	# projection vecs for labels
-	var p_vecs = SpaceShuttle.projection_vecs(-pitch, yaw, -roll);
+	var p_vecs = SpaceShuttle.projection_vecs(-pitch_adi, yaw_adi, -roll_adi);
 
 	# ADI sphere
 	var data = SpaceShuttle.draw_circle(0.75*95, 30);
 	pfd_segment_draw(data,adi_sphere_bg);
 
-	data = SpaceShuttle.draw_adi_bg(pitch, yaw, roll);
+	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
 	pfd_segment_draw(data,adi_sphere_bg_bright);
 
 	draw_adi_sphere(adi_sphere, p_vecs);
 
-	draw_sphere_labels(device.nom_traj_plot, p_vecs, pitch, yaw, roll);
+	draw_sphere_labels(device.nom_traj_plot, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
 	# ADI error needles
 
@@ -1572,7 +1625,11 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.dap.setText(dap_text);
     	p_pfd.throt.setText(throt_text);
+	p_pfd.label_throt.setText(throt_label_text);
 	p_pfd.dist_to_rwy_label.setText(landing_site_text);
+	p_pfd.MM.setText(sprintf("%d", major_mode));
+	p_pfd.att.setText(adi_att_string);
+	
 
     };
     
