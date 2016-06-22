@@ -244,6 +244,7 @@ var MDU_Device =
         me.PFD.p_dps_rtls = PFD_addpage_p_dps_rtls(me.PFD);
         me.PFD.p_entry = PFD_addpage_p_entry(me.PFD);
         me.PFD.p_vert_sit = PFD_addpage_p_vert_sit(me.PFD);
+        me.PFD.p_vert_sit2 = PFD_addpage_p_vert_sit2(me.PFD);
         me.PFD.p_dps_mnvr = PFD_addpage_p_dps_mnvr(me.PFD);
         me.PFD.p_dps_univ_ptg = PFD_addpage_p_dps_univ_ptg(me.PFD);
         me.PFD.p_dps_apu_hyd = PFD_addpage_p_dps_apu_hyd(me.PFD);
@@ -377,6 +378,10 @@ var MDU_Device =
         me.PFD.p_vert_sit.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_vert_sit.addMenuItem(4, "MSG RST", me.PFD.p_vert_sit);
         me.PFD.p_vert_sit.addMenuItem(5, "MSG ACK", me.PFD.p_vert_sit);
+
+       	me.PFD.p_vert_sit2.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_vert_sit2.addMenuItem(4, "MSG RST", me.PFD.p_vert_sit2);
+        me.PFD.p_vert_sit2.addMenuItem(5, "MSG ACK", me.PFD.p_vert_sit2);
     
         me.PFD.p_pfd.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd.addMenuItem(1, "A/E", me.PFD.p_pfd);

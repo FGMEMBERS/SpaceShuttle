@@ -1047,6 +1047,7 @@
       <approach-mode-string type="string">OVHD</approach-mode-string>
       <entry-point-string type="string">NEP</entry-point-string>
       <distance-to-runway-nm type="double">0.0</distance-to-runway-nm>
+      <glideslope-deviation-ft type="double">0.0</glideslope-deviation-ft>
       <Dxdot type="double">0.0</Dxdot>
       <Dydot type="double">0.0</Dydot>
       <Dzdot type="double">0.0</Dzdot>

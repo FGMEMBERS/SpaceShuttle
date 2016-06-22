@@ -9,6 +9,8 @@ var traj_data = [];
 var limit1_data = [];
 var limit2_data = [];
 
+var TAEM_nominal_trajectory = [];
+
 var sym_shuttle_asc = {};
 var trajectory = {};
 
@@ -922,3 +924,78 @@ var plot = trajectory.createChild("path", "data")
 			}
 
 }
+
+
+var fill_TAEM_nom_data = func {
+
+var point = [];
+
+point = [95.0, 86200.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [71.0, 72600.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [51.0, 59000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [41.0, 49000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [31.0, 39000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [21.0, 30000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [15.0, 21400.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [10.0, 14400.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [5.0, 8000.0];
+append(TAEM_nominal_trajectory, point);
+
+}
+
+
+var get_glideslope_deviation = func (alt, distance) {
+
+var t = TAEM_nominal_trajectory;
+
+var n = size(t);
+
+if (n==0) {return 0.0;}
+
+var i_ref = 0;
+
+for (var i=0; i<n; i=i+1)
+	{
+	if (distance > t[i][0]) {i_ref = i;  break;}
+	}
+
+i = i_ref;
+
+if (i==n) {i=n-1;}
+var tgt_alt = 0.0;
+
+if ((i==0) or (i == (n-1))) {return 0.0;}
+else
+	{
+	tgt_alt = t[i][1] + (t[i-1][1] - t[i][1]) * ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+	}
+
+var interpolation_factor =  ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+
+#print (distance, " ", interpolation_factor);
+#print ("ti0: ",  t[i][0], " tim10: ", t[i-1][0]);
+
+return tgt_alt - alt;
+
+
+}
+
+# initialize the TAEM nominal trajectory for guidance upon startup
+
+fill_TAEM_nom_data ();
