@@ -124,7 +124,7 @@ var PFD_addpage_p_vert_sit = func(device)
             var x = SpaceShuttle.parameter_to_x(range, SpaceShuttle.traj_display_flag);
             var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
-            if (range < 20.0) {device.selectPage(p_vert_sit2);}
+            if (range < 20.0) {device.selectPage(device.p_vert_sit2);}
 
 	    var vspeed = getprop("/velocities/vertical-speed-fps");
 	    var mach = getprop("/velocities/mach");
@@ -146,8 +146,14 @@ var PFD_addpage_p_vert_sit = func(device)
     
     
     };
+
+return p_vert_sit;
+}
     
-    
+
+var PFD_addpage_p_vert_sit2 = func(device)
+{    
+
     
     var p_vert_sit2 = device.addPage("VertSit2", "p_vert_sit2");
     
@@ -276,5 +282,5 @@ var PFD_addpage_p_vert_sit = func(device)
     
     
     
-    return p_vert_sit;
+    return p_vert_sit2;
 }

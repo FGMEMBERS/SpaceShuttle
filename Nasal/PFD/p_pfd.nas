@@ -1203,7 +1203,7 @@ var PFD_addpage_p_pfd = func(device)
 			else	
 				{landing_site_text = SpaceShuttle.landing_site.rwy_sec;}
 
-			var glideslope_deviation = 5000.0;
+			var glideslope_deviation = getprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft");
 
 			glideslope_needle_offset = SpaceShuttle.clamp(glideslope_deviation, -5000, 5000)/5000.0 * 50.0;
 

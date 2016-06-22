@@ -224,11 +224,17 @@ if (TAEM_guidance_available == 0)
 	return;
 	} 
 
+
 if (stage == 0)
 	{
 	setprop("/fdm/jsbsim/systems/taem-guidance/course", pos.course_to(TAEM_WP_1));
 	var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
-	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", dist + TAEM_WP_1.distance_to_runway_m/1853.0);
+	var dist_to_go = dist + TAEM_WP_1.distance_to_runway_m/1853.0;
+	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", dist_to_go);
+
+	var glideslope_deviation = SpaceShuttle.get_glideslope_deviation(pos.alt()/0.3048, dist_to_go);
+	setprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft", glideslope_deviation);
+
 	if (dist < 1.0) {
 			print("Waypoint 1 reached!"); 	stage = stage + 1;
 			setprop("/sim/messages/copilot", "Turn "~TAEM_WP_1.turn_direction~" into HAC!");
