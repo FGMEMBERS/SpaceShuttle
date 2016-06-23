@@ -39,6 +39,7 @@
 # * p_dps_fault (DISP 99)
 
 # * p_pfd (MEDS PFD)
+# * p_pfd_orbit (MEDS ORBIT PFD)
 # * p_meds_oms_mps (MEDS OMS/MPS)
 # * p_meds_apu	(MEDS APU/HYD)
 # * p_meds_spi	(MEDS SPI)
@@ -234,6 +235,7 @@ var MDU_Device =
     addPages : func
     {
         me.PFD.p_pfd = PFD_addpage_p_pfd(me.PFD);
+        me.PFD.p_pfd_orbit = PFD_addpage_p_pfd_orbit(me.PFD);
         me.PFD.p_main = PFD_addpage_p_main(me.PFD);
         me.PFD.p_subsys = PFD_addpage_p_subsys(me.PFD);
         me.PFD.p_dps = PFD_addpage_p_dps(me.PFD);
@@ -343,7 +345,7 @@ var MDU_Device =
 
 	me.PFD.tapes = me.PFD.pfd.createChild("group");
 	me.PFD.HSI = me.PFD.pfd.createChild("group");
-
+	me.PFD.ADI = me.PFD.pfd.createChild("group");
 
 	# we can't put the display colors into the emissive animation because the screens
 	# show different colors, so we set common element colors here and page colors at
@@ -385,10 +387,17 @@ var MDU_Device =
     
         me.PFD.p_pfd.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd.addMenuItem(1, "A/E", me.PFD.p_pfd);
-        me.PFD.p_pfd.addMenuItem(2, "ORBIT", me.PFD.p_pfd);
+        me.PFD.p_pfd.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
         me.PFD.p_pfd.addMenuItem(3, "DATA", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(4, "MSG RST", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(5, "MSG ACK", me.PFD.p_pfd);
+
+        me.PFD.p_pfd_orbit.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_pfd_orbit.addMenuItem(1, "A/E", me.PFD.p_pfd);
+        me.PFD.p_pfd_orbit.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
+        me.PFD.p_pfd_orbit.addMenuItem(3, "DATA", me.PFD.p_pfd_orbit);
+        me.PFD.p_pfd_orbit.addMenuItem(4, "MSG RST", me.PFD.p_pfd_orbit);
+        me.PFD.p_pfd_orbit.addMenuItem(5, "MSG ACK", me.PFD.p_pfd_orbit);
     
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);

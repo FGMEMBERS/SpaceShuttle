@@ -1,104 +1,13 @@
 #---------------------------------------
 # SpaceShuttle PFD Page include:
-#        Page: p_pfd
+#        Page: p_pfd, p_pfd_orbit
 # Description: PFD page
-#      Author: Thorsten Renk, 2015
+#      Author: Thorsten Renk, 2015 - 2016
 #---------------------------------------
 
 
 
 
-var pfd_segment_draw = func (data, plot) {
-
-	if (size(data) < 2) {return;}
-
-	plot.moveTo(data[0][0],data[0][1]); 
-
-        for (var i = 0; i< (size(data)-1); i=i+1)
-        {
-            var set = data[i+1];
-	    if (set[2] == 1)
-            	{plot.lineTo(set[0], set[1]);}
-	    else
-		{plot.moveTo(set[0], set[1]);}	
-        }
-
-
-}
-
-var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffset) {
-
-	var placement = SpaceShuttle.compass_label_pos(radius, angle);
-
-	var canvas_text = group.createChild("text")
-      	.setText(text)
-        .setColor(1,1,1)
-	.setFontSize(14)
-	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
-	.setAlignment("center-bottom")
-	.setRotation(angle * math.pi/180.0 * flag)
-	.setTranslation(placement[0] + xoffset,-placement[1] + yoffset);
-
-
-}
-
-var write_sphere_label = func (group, text, angle, coords) {
-
-
-if (coords[2] ==1)
-	{
-
-	var canvas_text = group.createChild("text")
-      	.setText(text)
-        .setColor(1,1,1)
-	.setColorFill(0.2,0.2,0.2)
-	.setFontSize(12)
-	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
-	.setAlignment("center-bottom")
-	.setRotation(angle + coords[3] * 0.8 * math.pi/2.0)
-	.setTranslation(coords[0], coords[1]);
-
-	canvas_text.setDrawMode(canvas_text.FILLEDBOUNDINGBOX + canvas_text.TEXT);
-	}
-
-}
-
-var write_tape_label = func (group, text, coords, color) {
-
-
-if (coords[2] ==1)
-	{
-	var canvas_text = group.createChild("text")
-      	.setText(text)
-        .setColor(color[0],color[1],color[2])
-	.setFontSize(14)
-	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
-	.setAlignment("center-bottom")
-	.setRotation(0.0)
-	.setTranslation(coords[0], coords[1]);
-	}
-
-}
-
-var write_tape_label_bg = func (group, text, coords, color, bg_color) {
-
-
-if (coords[2] ==1)
-	{
-	var canvas_text = group.createChild("text")
-      	.setText(text)
-        .setColor(color[0],color[1],color[2])
-        .setColorFill(bg_color[0],bg_color[1],bg_color[2])
-	.setFontSize(14)
-	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
-	.setAlignment("center-bottom")
-	.setRotation(0.0)
-	.setTranslation(coords[0], coords[1]);
-
-	canvas_text.setDrawMode(canvas_text.FILLEDBOUNDINGBOX + canvas_text.TEXT);
-	}
-
-}
 
 
 var PFD_addpage_p_pfd = func(device)
@@ -1639,7 +1548,426 @@ var PFD_addpage_p_pfd = func(device)
 
 
 
-# batch functions for label drawing
+
+var PFD_addpage_p_pfd_orbit = func(device)
+{
+    var p_pfd_orbit = device.addPage("PFDOrbit", "p_pfd_orbit");
+    
+    #
+    #
+    # device page update
+    p_pfd_orbit.group = device.svg.getElementById("p_pfd_orbit");
+    p_pfd_orbit.group.setColor(1, 1, 1);
+
+
+    p_pfd_orbit.r = device.svg.getElementById("p_pfd_orbit_r");
+    p_pfd_orbit.p = device.svg.getElementById("p_pfd_orbit_p");
+    p_pfd_orbit.y = device.svg.getElementById("p_pfd_orbit_y");
+    
+
+    p_pfd_orbit.ondisplay = func
+    {
+        device.set_DPS_off();
+        device.dps_page_flag = 0;
+        device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
+
+
+	# group for dynamically re-drawn inner part
+
+	p_pfd_orbit.adi_inner = device.ADI.createChild("group");
+
+	# draw the fixed elements
+
+	# ADI ################################################
+
+	# upper compass rose
+
+	var plot_compass_upper = device.ADI.createChild("path", "data")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	var data = SpaceShuttle.draw_compass_scale(71.25,12, 1.1, 6, 1.05);
+	pfd_segment_draw(data, plot_compass_upper);
+
+	data = SpaceShuttle.draw_circle(71.25, 30);
+	pfd_segment_draw(data, plot_compass_upper);
+
+	data = SpaceShuttle.draw_circle(95.0, 30);
+	pfd_segment_draw(data, plot_compass_upper);
+
+	plot_compass_upper.setTranslation (255, 175);
+
+	place_compass_label(device.ADI, "0", 0.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "33", 30.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "30", 60.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "27", 90.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "24", 120.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "21", 150.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "18", 180.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "15", 210.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "12", 240.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "9", 270.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "6", 300.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "3", 330.0, 85.0, 0,255,180);
+
+	# nose position indicator
+
+	data = [[0.0, -26.0, 0], [0.0, -26.0, 1], [0.0, 26.0,1], [-28.0,0.0,0],[-23.0,0.0,1],[23.0,0.0,0],[28.0,0.0,1], [-10,0,0], [-8.6, 5.0, 1], [-5.0, 8.6, 1], [0.0,10.0,1],[5.0,8.6,1],[8.6,5.0,1],[10.0,0.0,1]];
+	var plot_cross_thick = device.ADI.createChild("path", "cross_thick")
+        .setStrokeLineWidth(2)
+        .setColor(0.4, 0.9, 0.7);
+	pfd_segment_draw(data, plot_cross_thick);
+	plot_cross_thick.setTranslation (255, 175);
+
+	data = [[-23.0, 0.0, 0], [-23.0, 0.0, 1], [23.0,0.0,1]];
+	var plot_cross_thin = device.ADI.createChild("path", "cross_thin")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7);
+	pfd_segment_draw(data, plot_cross_thin);
+	plot_cross_thin.setTranslation (255, 175);
+
+
+	# ADI error needles
+
+	var adi_errors = device.ADI.createChild("group");
+
+	var plot_error_arcs = adi_errors.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(0.9, 0.1, 0.85);
+	data = SpaceShuttle.draw_arc (92, 10, 335, 385);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_arc (92, 10, 65, 115);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_arc (92, 10, 155, 205);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	p_pfd_orbit.att_error_needles = adi_errors.createChild("group");
+
+	p_pfd_orbit.att_error_pitch = p_pfd_orbit.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[28.0, 0.0, 0], [95.0,0.0, 1]];
+	pfd_segment_draw(data, p_pfd_orbit.att_error_pitch);
+
+	p_pfd_orbit.att_error_yaw = p_pfd_orbit.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[0.0, 28, 0], [0.0,95.0, 1]];
+	pfd_segment_draw(data, p_pfd_orbit.att_error_yaw);
+	
+	p_pfd_orbit.att_error_roll = p_pfd_orbit.att_error_needles.createChild("path")
+        .setStrokeLineWidth(3)
+        .setColor(0.9, 0.1, 0.85);
+
+	data = [[0.0, -28, 0], [0.0,-95.0, 1]];
+	pfd_segment_draw(data, p_pfd_orbit.att_error_roll);
+	
+
+	
+	 adi_errors.setTranslation (255, 175);
+
+	# ADI rate indicators ################################################
+
+	# ADI rate ladders
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 0 , 1);
+	var plot_ADI_rate_roll = device.ADI.createChild("path", "ADI_rate_roll")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_roll);
+	plot_ADI_rate_roll.setTranslation(255, 70);
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 1, 1);
+	var plot_ADI_rate_yaw = device.ADI.createChild("path", "ADI_rate_yaw")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_yaw);
+	plot_ADI_rate_yaw.setTranslation(255, 280);
+
+	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 1, 1, 1);
+	var plot_ADI_rate_pitch = device.ADI.createChild("path", "ADI_rate_pitch")
+        .setStrokeLineWidth(1)
+        .setColor(1, 1, 1);
+	pfd_segment_draw(data, plot_ADI_rate_pitch);
+	plot_ADI_rate_pitch.setTranslation(360, 175);
+
+	# ADI rate needles
+
+	data = SpaceShuttle.draw_tmarker_down();
+	p_pfd_orbit.adi_roll_rate_needle = device.ADI.createChild("path", "ADI_roll_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd_orbit.adi_roll_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+
+	data = SpaceShuttle.draw_tmarker_left();
+	p_pfd_orbit.adi_pitch_rate_needle = device.ADI.createChild("path", "ADI_pitch_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd_orbit.adi_pitch_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+
+	data = SpaceShuttle.draw_tmarker_up();
+	p_pfd_orbit.adi_yaw_rate_needle = device.ADI.createChild("path", "ADI_yaw_rate_needle")
+        .setStrokeLineWidth(1)
+        .setColor(0.4, 0.9, 0.7)
+	.setColorFill(0.4, 0.9, 0.7)
+	.moveTo(data[0][0], data[0][1]);
+	for (var i = 0; (i< size(data)-1); i=i+1) 
+		{p_pfd_orbit.adi_yaw_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
+	
+
+
+
+
+
+	}
+
+    
+    p_pfd_orbit.offdisplay = func
+    {
+	device.ADI.removeAllChildren();
+
+	
+    }
+    
+    p_pfd_orbit.update = func
+    {
+
+        p_pfd_orbit.adi_inner.removeAllChildren();
+
+	# get mission-specific parameters and manage devices #########################################
+
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+	var pitch = getprop("/orientation/pitch-deg");
+	var yaw = getprop("/orientation/heading-deg");
+	var roll = getprop("/orientation/roll-deg");
+
+	var pitch_adi = pitch;
+	var yaw_adi = yaw;
+	var roll_adi = roll;
+
+	var adi_att_selection = getprop("/fdm/jsbsim/systems/adi/attitude-select");
+		
+	if (adi_att_selection == 1)
+		{
+
+		pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+		yaw_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+		roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+
+			
+		}
+
+
+	var altitude = getprop("/position/altitude-ft");
+
+
+	var pitch_error = 0.0;
+	var yaw_error = 0.0;
+	var roll_error = 0.0;
+
+
+
+	
+
+	# ADI sphere animation ##############################################
+
+	var adi_sphere_bg = p_pfd_orbit.adi_inner.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.15,0.15,0.15)
+        .setColor(1,1,1);
+
+	var adi_sphere_bg_bright = p_pfd_orbit.adi_inner.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.3,0.3,0.3)
+        .setColor(1,1,1);
+
+	var adi_sphere = p_pfd_orbit.adi_inner.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	# projection vecs for labels
+	var p_vecs = SpaceShuttle.projection_vecs(-pitch_adi, yaw_adi, -roll_adi);
+
+	# ADI sphere
+	var data = SpaceShuttle.draw_circle(0.75*95, 30);
+	pfd_segment_draw(data,adi_sphere_bg);
+
+	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
+	pfd_segment_draw(data,adi_sphere_bg_bright);
+
+	draw_adi_sphere(adi_sphere, p_vecs);
+
+	draw_sphere_labels(p_pfd_orbit.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
+	
+	# ADI error needles
+
+
+
+
+	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
+	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * -8.0;
+	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * -8.0;
+
+	p_pfd_orbit.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
+	p_pfd_orbit.att_error_yaw.setTranslation(yaw_error_ntrans, 0.0);
+	p_pfd_orbit.att_error_roll.setTranslation(roll_error_ntrans,0.0);
+	
+	p_pfd_orbit.att_error_pitch.setScale(math.sqrt(9025. - pitch_error_ntrans*pitch_error_ntrans)/95.0,1.0);
+	p_pfd_orbit.att_error_yaw.setScale(1.0,math.sqrt(9025. - yaw_error_ntrans*yaw_error_ntrans)/95.0);
+	p_pfd_orbit.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
+	
+
+	# ADI rate needles
+
+	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
+	roll_rate = SpaceShuttle.clamp(roll_rate, -5.0, 5.0);
+	p_pfd_orbit.adi_roll_rate_needle.setTranslation(255 + 13.0 * roll_rate, 70);
+
+	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+	pitch_rate = SpaceShuttle.clamp(pitch_rate, -5.0, 5.0);
+	p_pfd_orbit.adi_pitch_rate_needle.setTranslation(360, 175 - 13.0 * pitch_rate);
+
+	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
+	yaw_rate = SpaceShuttle.clamp(yaw_rate, -5.0, 5.0);
+	p_pfd_orbit.adi_yaw_rate_needle.setTranslation(255+13.0 * yaw_rate, 280.0);
+
+
+
+	p_pfd_orbit.adi_inner.setTranslation(255,175);
+	device.ADI.setScale (1.3);
+	device.ADI.setTranslation (-76.5, 40.0);
+
+	# numerical pitch, yaw and roll readouts
+
+	p_pfd_orbit.r.setText(sprintf("%d", roll_adi));
+	p_pfd_orbit.p.setText(sprintf("%d", pitch_adi));
+	p_pfd_orbit.y.setText(sprintf("%d", yaw_adi));
+
+
+
+
+	
+	
+
+    };
+    
+    return p_pfd_orbit;
+}
+
+
+
+
+
+
+
+###############################################################################################
+# batch functions for label drawing ###########################################################
+###############################################################################################
+
+var pfd_segment_draw = func (data, plot) {
+
+	if (size(data) < 2) {return;}
+
+	plot.moveTo(data[0][0],data[0][1]); 
+
+        for (var i = 0; i< (size(data)-1); i=i+1)
+        {
+            var set = data[i+1];
+	    if (set[2] == 1)
+            	{plot.lineTo(set[0], set[1]);}
+	    else
+		{plot.moveTo(set[0], set[1]);}	
+        }
+
+
+}
+
+var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffset) {
+
+	var placement = SpaceShuttle.compass_label_pos(radius, angle);
+
+	var canvas_text = group.createChild("text")
+      	.setText(text)
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(angle * math.pi/180.0 * flag)
+	.setTranslation(placement[0] + xoffset,-placement[1] + yoffset);
+
+
+}
+
+var write_sphere_label = func (group, text, angle, coords) {
+
+
+if (coords[2] ==1)
+	{
+
+	var canvas_text = group.createChild("text")
+      	.setText(text)
+        .setColor(1,1,1)
+	.setColorFill(0.2,0.2,0.2)
+	.setFontSize(12)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(angle + coords[3] * 0.8 * math.pi/2.0)
+	.setTranslation(coords[0], coords[1]);
+
+	canvas_text.setDrawMode(canvas_text.FILLEDBOUNDINGBOX + canvas_text.TEXT);
+	}
+
+}
+
+var write_tape_label = func (group, text, coords, color) {
+
+
+if (coords[2] ==1)
+	{
+	var canvas_text = group.createChild("text")
+      	.setText(text)
+        .setColor(color[0],color[1],color[2])
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(coords[0], coords[1]);
+	}
+
+}
+
+var write_tape_label_bg = func (group, text, coords, color, bg_color) {
+
+
+if (coords[2] ==1)
+	{
+	var canvas_text = group.createChild("text")
+      	.setText(text)
+        .setColor(color[0],color[1],color[2])
+        .setColorFill(bg_color[0],bg_color[1],bg_color[2])
+	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(coords[0], coords[1]);
+
+	canvas_text.setDrawMode(canvas_text.FILLEDBOUNDINGBOX + canvas_text.TEXT);
+	}
+
+}
+
+
 
 var label_from_degree = func (angle, flag) {
 
@@ -1997,8 +2325,11 @@ for (var i=0; i<5; i=i+1)
 
 var draw_adi_sphere = func (group, p_vecs) {
 
-var meridian_res = 60;
-var circle_res = 90;
+#var meridian_res = 60;
+#var circle_res = 90;
+
+var meridian_res = 30;
+var circle_res = 30;
 
 var data = [];
 

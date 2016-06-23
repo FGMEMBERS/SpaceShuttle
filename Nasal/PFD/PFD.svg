@@ -770,6 +770,114 @@
            sodipodi:role="line">Beta</tspan></text>
     </g>
   </g>
+
+
+ <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="p_pfd_orbit"
+     style="display:inline">
+    <g
+       id="p_pfd_orbit"
+       inkscape:label="#g4491">
+
+      <text
+         transform="scale(1.0492647,0.95304837)"
+         inkscape:transform-center-x="23.91087"
+         sodipodi:linespacing="125%"
+         id="text3169-8-2-5"
+         y="43.905617"
+         x="302.95963"
+         style="font-size:41.97058487px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14.6897049px;fill:#ffffff"
+           y="103.905617"
+           x="321.95963"
+           id="tspan3171-8-4-5"
+           sodipodi:role="line">R</tspan></text>
+      <text
+         inkscape:transform-center-y="-1.1413432"
+         inkscape:transform-center-x="23.8836"
+         sodipodi:linespacing="125%"
+         id="text3169-8-2-5-1"
+         y="57.87537"
+         x="317.96326"
+         style="font-size:41.97058487px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14.6897049px;fill:#ffffff"
+           y="116.87537"
+           x="338.96326"
+           id="tspan3171-8-4-5-7"
+           sodipodi:role="line">P</tspan></text>
+      <text
+         inkscape:transform-center-y="-1.1413432"
+         inkscape:transform-center-x="23.8836"
+         sodipodi:linespacing="125%"
+         id="text3169-8-2-5-1-1"
+         y="71.665993"
+         x="319.0535"
+         style="font-size:41.97058487px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14.6897049px;fill:#ffffff"
+           y="131.665993"
+           x="339.0535"
+           id="tspan3171-8-4-5-7-1"
+           sodipodi:role="line">Y</tspan></text>
+      <text
+         inkscape:label="#text3169-8-2-5-5"
+         transform="scale(0.96038802,1.0412458)"
+         inkscape:transform-center-x="19.332624"
+         sodipodi:linespacing="125%"
+         id="p_pfd_orbit_r"
+         y="39.63205"
+         x="343.38571"
+         style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12.97618866px;fill:#ffffff"
+           y="95.63205"
+           x="363.38571"
+           id="tspan3171-8-4-5-2"
+           sodipodi:role="line">180</tspan></text>
+      <text
+         inkscape:label="#text3169-8-2-5-5-7"
+         transform="scale(0.96038802,1.0412458)"
+         inkscape:transform-center-x="19.332624"
+         sodipodi:linespacing="125%"
+         id="p_pfd_orbit_p"
+         y="53.289513"
+         x="344.26007"
+         style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12.97618866px;fill:#ffffff"
+           y="111.289513"
+           x="364.26007"
+           id="tspan3171-8-4-5-2-6"
+           sodipodi:role="line">016</tspan></text>
+      <text
+         inkscape:label="#text3169-8-2-5-5-1"
+         transform="scale(0.96038802,1.0412458)"
+         inkscape:transform-center-x="19.332624"
+         sodipodi:linespacing="125%"
+         id="p_pfd_orbit_y"
+         y="66.837845"
+         x="344.26007"
+         style="font-size:37.07482529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:12.97618866px;fill:#ffffff"
+           y="126.837845"
+           x="364.26007"
+           id="tspan3171-8-4-5-2-4"
+           sodipodi:role="line">000</tspan></text>
+    
+ 
+
+
+   
+    </g>
+  </g>
+
+
+
  <g
      inkscape:groupmode="layer"
      id="g3113"
