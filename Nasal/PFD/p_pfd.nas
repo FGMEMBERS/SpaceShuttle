@@ -41,13 +41,24 @@ var PFD_addpage_p_pfd = func(device)
         device.dps_page_flag = 0;
         device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
 
+	# group for dynamically re-drawn inner part
+
+	p_pfd.adi_inner = device.ADI.createChild("group");
+	p_pfd.adi_inner.flag = 0;
+
+	p_pfd.adi_inner.adi_group0 = p_pfd.adi_inner.createChild("group");
+	p_pfd.adi_inner.adi_group1 = p_pfd.adi_inner.createChild("group");
+	p_pfd.adi_inner.adi_group2 = p_pfd.adi_inner.createChild("group");
+	p_pfd.adi_inner.adi_group3 = p_pfd.adi_inner.createChild("group");
+	p_pfd.adi_inner.adi_group4 = p_pfd.adi_inner.createChild("group");
+
 	# draw the fixed elements
 
 	# ADI ################################################
 
 	# upper compass rose
 
-	var plot_compass_upper = device.symbols.createChild("path", "data")
+	var plot_compass_upper = device.ADI.createChild("path", "data")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
@@ -62,30 +73,30 @@ var PFD_addpage_p_pfd = func(device)
 
 	plot_compass_upper.setTranslation (255, 175);
 
-	place_compass_label(device.symbols, "0", 0.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "33", 30.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "30", 60.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "27", 90.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "24", 120.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "21", 150.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "18", 180.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "15", 210.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "12", 240.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "9", 270.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "6", 300.0, 85.0, 0,255,180);
-	place_compass_label(device.symbols, "3", 330.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "0", 0.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "33", 30.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "30", 60.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "27", 90.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "24", 120.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "21", 150.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "18", 180.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "15", 210.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "12", 240.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "9", 270.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "6", 300.0, 85.0, 0,255,180);
+	place_compass_label(device.ADI, "3", 330.0, 85.0, 0,255,180);
 
 	# nose position indicator
 
 	data = [[0.0, -26.0, 0], [0.0, -26.0, 1], [0.0, 26.0,1], [-28.0,0.0,0],[-23.0,0.0,1],[23.0,0.0,0],[28.0,0.0,1], [-10,0,0], [-8.6, 5.0, 1], [-5.0, 8.6, 1], [0.0,10.0,1],[5.0,8.6,1],[8.6,5.0,1],[10.0,0.0,1]];
-	var plot_cross_thick = device.symbols.createChild("path", "cross_thick")
+	var plot_cross_thick = device.ADI.createChild("path", "cross_thick")
         .setStrokeLineWidth(2)
         .setColor(0.4, 0.9, 0.7);
 	pfd_segment_draw(data, plot_cross_thick);
 	plot_cross_thick.setTranslation (255, 175);
 
 	data = [[-23.0, 0.0, 0], [-23.0, 0.0, 1], [23.0,0.0,1]];
-	var plot_cross_thin = device.symbols.createChild("path", "cross_thin")
+	var plot_cross_thin = device.ADI.createChild("path", "cross_thin")
         .setStrokeLineWidth(1)
         .setColor(0.4, 0.9, 0.7);
 	pfd_segment_draw(data, plot_cross_thin);
@@ -94,7 +105,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	# ADI error needles
 
-	var adi_errors = device.symbols.createChild("group");
+	var adi_errors = device.ADI.createChild("group");
 
 	var plot_error_arcs = adi_errors.createChild("path")
         .setStrokeLineWidth(1)
@@ -142,21 +153,21 @@ var PFD_addpage_p_pfd = func(device)
 	# ADI rate ladders
 
 	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 0 , 1);
-	var plot_ADI_rate_roll = device.symbols.createChild("path", "ADI_rate_roll")
+	var plot_ADI_rate_roll = device.ADI.createChild("path", "ADI_rate_roll")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
 	pfd_segment_draw(data, plot_ADI_rate_roll);
 	plot_ADI_rate_roll.setTranslation(255, 70);
 
 	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 0, 1, 1);
-	var plot_ADI_rate_yaw = device.symbols.createChild("path", "ADI_rate_yaw")
+	var plot_ADI_rate_yaw = device.ADI.createChild("path", "ADI_rate_yaw")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
 	pfd_segment_draw(data, plot_ADI_rate_yaw);
 	plot_ADI_rate_yaw.setTranslation(255, 280);
 
 	data = SpaceShuttle.draw_ladder (130, 3, 0.07, 4, 0.04, 1, 1, 1);
-	var plot_ADI_rate_pitch = device.symbols.createChild("path", "ADI_rate_pitch")
+	var plot_ADI_rate_pitch = device.ADI.createChild("path", "ADI_rate_pitch")
         .setStrokeLineWidth(1)
         .setColor(1, 1, 1);
 	pfd_segment_draw(data, plot_ADI_rate_pitch);
@@ -165,7 +176,7 @@ var PFD_addpage_p_pfd = func(device)
 	# ADI rate needles
 
 	data = SpaceShuttle.draw_tmarker_down();
-	p_pfd.adi_roll_rate_needle = device.symbols.createChild("path", "ADI_roll_rate_needle")
+	p_pfd.adi_roll_rate_needle = device.ADI.createChild("path", "ADI_roll_rate_needle")
         .setStrokeLineWidth(1)
         .setColor(0.4, 0.9, 0.7)
 	.setColorFill(0.4, 0.9, 0.7)
@@ -174,7 +185,7 @@ var PFD_addpage_p_pfd = func(device)
 		{p_pfd.adi_roll_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
 
 	data = SpaceShuttle.draw_tmarker_left();
-	p_pfd.adi_pitch_rate_needle = device.symbols.createChild("path", "ADI_pitch_rate_needle")
+	p_pfd.adi_pitch_rate_needle = device.ADI.createChild("path", "ADI_pitch_rate_needle")
         .setStrokeLineWidth(1)
         .setColor(0.4, 0.9, 0.7)
 	.setColorFill(0.4, 0.9, 0.7)
@@ -183,7 +194,7 @@ var PFD_addpage_p_pfd = func(device)
 		{p_pfd.adi_pitch_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
 
 	data = SpaceShuttle.draw_tmarker_up();
-	p_pfd.adi_yaw_rate_needle = device.symbols.createChild("path", "ADI_yaw_rate_needle")
+	p_pfd.adi_yaw_rate_needle = device.ADI.createChild("path", "ADI_yaw_rate_needle")
         .setStrokeLineWidth(1)
         .setColor(0.4, 0.9, 0.7)
 	.setColorFill(0.4, 0.9, 0.7)
@@ -1067,14 +1078,14 @@ var PFD_addpage_p_pfd = func(device)
 	device.symbols.removeAllChildren();
 	device.HSI.removeAllChildren();
 	device.tapes.removeAllChildren();
-	device.nom_traj_plot.removeAllChildren();
-	device.nom_traj_plot.setTranslation(0,0);
+	device.ADI.removeAllChildren();
+	p_pfd.adi_inner.flag = -1;
+
     }
     
     p_pfd.update = func
     {
 
-        device.nom_traj_plot.removeAllChildren();
 
 	# get mission-specific parameters and manage devices #########################################
 
@@ -1302,17 +1313,25 @@ var PFD_addpage_p_pfd = func(device)
 
 	# ADI sphere animation ##############################################
 
-	var adi_sphere_bg = device.nom_traj_plot.createChild("path")
+	# clear previous step
+
+	p_pfd.adi_inner.removeAllChildren();
+
+	#p_pfd.adi_inner.adi_group0.removeAllChildren();
+
+	# draw
+
+	var adi_sphere_bg = p_pfd.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.15,0.15,0.15)
         .setColor(1,1,1);
 
-	var adi_sphere_bg_bright = device.nom_traj_plot.createChild("path")
+	var adi_sphere_bg_bright =p_pfd.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.3,0.3,0.3)
         .setColor(1,1,1);
 
-	var adi_sphere = device.nom_traj_plot.createChild("path")
+	var adi_sphere = p_pfd.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
@@ -1328,7 +1347,9 @@ var PFD_addpage_p_pfd = func(device)
 
 	draw_adi_sphere(adi_sphere, p_vecs);
 
-	draw_sphere_labels(device.nom_traj_plot, p_vecs, pitch_adi, yaw_adi, roll_adi);
+	#draw_adi_sphere_staggered(p_pfd.adi_inner, p_vecs, 0);
+
+	draw_sphere_labels(p_pfd.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
 	# ADI error needles
 
@@ -1362,7 +1383,7 @@ var PFD_addpage_p_pfd = func(device)
 	yaw_rate = SpaceShuttle.clamp(yaw_rate, -5.0, 5.0);
 	p_pfd.adi_yaw_rate_needle.setTranslation(255+13.0 * yaw_rate, 280.0);
 
-	device.nom_traj_plot.setTranslation (255, 175);
+	p_pfd.adi_inner.setTranslation (255, 175);
 
 	# HSI
 
@@ -1582,7 +1603,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	# upper compass rose
 
-	var plot_compass_upper = device.ADI.createChild("path", "data")
+	var plot_compass_upper = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(1,1,1);
 
@@ -1735,14 +1756,14 @@ var PFD_addpage_p_pfd_orbit = func(device)
     p_pfd_orbit.offdisplay = func
     {
 	device.ADI.removeAllChildren();
+	device.ADI.setScale(1.0);
+	device.ADI.setTranslation (0, 0);
 
 	
     }
     
     p_pfd_orbit.update = func
     {
-
-        p_pfd_orbit.adi_inner.removeAllChildren();
 
 	# get mission-specific parameters and manage devices #########################################
 
@@ -1781,6 +1802,12 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	
 
 	# ADI sphere animation ##############################################
+
+	# clear previous step
+
+	p_pfd_orbit.adi_inner.removeAllChildren();
+
+	# draw
 
 	var adi_sphere_bg = p_pfd_orbit.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
@@ -2323,6 +2350,119 @@ for (var i=0; i<5; i=i+1)
 
 
 
+var draw_adi_sphere_staggered = func (group, p_vecs, cycle) {
+
+var meridian_res = 30;
+var circle_res = 30;
+
+var data = [];
+
+if (group.flag == -1) {return;}
+
+# do not accept update calls while update is running
+if ((group.flag == 1) and (cycle==0 ))
+	{return;}
+
+if (cycle == 0)
+	{
+	settimer(func {draw_adi_sphere_staggered(group, p_vecs, 1);}, 0 );
+	}
+else if (cycle == 1)
+	{
+	group.flag = 1;
+	group.adi_group1.removeAllChildren();
+	var plot = group.adi_group1.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	for (var i = 0; i<12; i=i+1)
+		{
+		data = SpaceShuttle.draw_meridian(i * 30.0, meridian_res, p_vecs );
+		pfd_segment_draw(data, plot);
+		}
+
+	settimer(func {draw_adi_sphere_staggered(group, p_vecs, 3);}, 0 );
+
+	}
+else if (cycle == 2)
+	{
+	group.adi_group2.removeAllChildren();
+	var plot = group.adi_group2.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	for (var i = 0; i<12; i=i+1)
+		{
+		data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
+		pfd_segment_draw(data, plot);
+		}
+
+	settimer(func {draw_adi_sphere_staggered(group, p_vecs, 3);}, 0 );
+	}
+else if (cycle == 3)
+	{
+	group.adi_group3.removeAllChildren();
+	var plot = group.adi_group3.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(60.0, circle_res, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(85.0, int(0.3 * circle_res), p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_coord_circle(-85.0, int (0.3 * circle_res), p_vecs );
+	pfd_segment_draw(data, plot);
+
+	group.flag = 0;
+	#settimer(func {draw_adi_sphere_staggered(group, p_vecs, 4);}, 0 );
+
+	}
+
+else if (cycle == 4)
+	{
+	group.adi_group4.removeAllChildren();
+	var plot = group.adi_group4.createChild("path")
+        .setStrokeLineWidth(1)
+        .setColor(1,1,1);
+
+	data = SpaceShuttle.draw_circle_ladder(15.0, 12, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_circle_ladder(45.0, 12, p_vecs );
+	pfd_segment_draw(data, plot);
+
+	data = SpaceShuttle.draw_circle_ladder(-45.0, 12, p_vecs );
+	pfd_segment_draw(data, plot);
+	
+	group.flag = 0;
+
+	}
+
+
+
+
+}
+
+
+
+
 var draw_adi_sphere = func (group, p_vecs) {
 
 #var meridian_res = 60;
@@ -2331,6 +2471,10 @@ var draw_adi_sphere = func (group, p_vecs) {
 var meridian_res = 30;
 var circle_res = 30;
 
+var quality_level = getprop("/fdm/jsbsim/systems/adi/quality-level");
+
+
+
 var data = [];
 
 for (var i = 0; i<12; i=i+1)
@@ -2338,35 +2482,27 @@ for (var i = 0; i<12; i=i+1)
 	data = SpaceShuttle.draw_meridian(i * 30.0, meridian_res, p_vecs );
 	pfd_segment_draw(data, group);
 
-	data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
-	pfd_segment_draw(data, group);
+	if (quality_level > 1)
+		{
+		data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
+		pfd_segment_draw(data, group);
+		}
 	}
+
 
 
 data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
-data = SpaceShuttle.draw_circle_ladder(15.0, 12, p_vecs );
-pfd_segment_draw(data, group);
+
 
 data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
-data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
-pfd_segment_draw(data, group);
-
-
 data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
-data = SpaceShuttle.draw_circle_ladder(45.0, 12, p_vecs );
-pfd_segment_draw(data, group);
-
-
 data = SpaceShuttle.draw_coord_circle(60.0, circle_res, p_vecs );
-pfd_segment_draw(data, group);
-
-data = SpaceShuttle.draw_circle_ladder(-45.0, 12, p_vecs );
 pfd_segment_draw(data, group);
 
 data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
@@ -2377,6 +2513,24 @@ pfd_segment_draw(data, group);
 
 data = SpaceShuttle.draw_coord_circle(-85.0, int (0.3 * circle_res), p_vecs );
 pfd_segment_draw(data, group);
+
+if (quality_level > 1)
+	{
+	data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
+	pfd_segment_draw(data, group);
+
+	data = SpaceShuttle.draw_circle_ladder(15.0, 12, p_vecs );
+	pfd_segment_draw(data, group);
+
+	data = SpaceShuttle.draw_circle_ladder(45.0, 12, p_vecs );
+	pfd_segment_draw(data, group);
+
+	data = SpaceShuttle.draw_circle_ladder(-45.0, 12, p_vecs );
+	pfd_segment_draw(data, group);
+	}
+
+
+
 
 }
 
