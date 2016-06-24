@@ -1206,6 +1206,10 @@ var PFD_addpage_p_pfd = func(device)
 		
 			if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
 			}
+		else
+			{
+			throt_text = "Man";
+			}
 
 		if ((launch_stage > 0) and (launch_stage < 5) and (altitude > 500.0)) # we have launch guidance
 		{
@@ -1261,6 +1265,12 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.cdi_needle.setVisible(0);	
 		p_pfd.course_arrow.setVisible(0);	
 
+	
+		if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
+			{dap_text = "Auto";}
+		else
+			{dap_text = "INRTL";}
+	
 
 		if ((getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag") > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
 			{
