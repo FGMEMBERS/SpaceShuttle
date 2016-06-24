@@ -58,6 +58,12 @@ var meds_r = 0.2;
 var meds_g = 0.8;
 var meds_b = 0.8;
 
+
+# the MDU update time is set from the dialogs
+
+var MDU_update_time = 0.1;
+var MDU_update_number = 1;
+
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
 
 #
@@ -601,7 +607,7 @@ MEDS_PLT2.dps_page_flag = 0;
 var frame_device_update_id = 0;
 
 
-# update displays at nominal 5hz
+# update displays 
 var rtExec_loop = func
 {
 # logic to not update all displays per frame.
@@ -609,15 +615,20 @@ var rtExec_loop = func
 # (so we could do 3 displays per timer event)
 # or, as is currently done just to iterate through the devices and just do one per frame.
 
-    if (frame_device_update_id >= size(MDU_array))
-        frame_device_update_id = 0;
 
-    if (frame_device_update_id < size(MDU_array))
+    for (var i=0; i < MDU_update_number;i=i+1)
+ 	{
+    	if (frame_device_update_id >= size(MDU_array))
+        	frame_device_update_id = 0;
+
+    	#if (frame_device_update_id < size(MDU_array))
         MDU_array[frame_device_update_id].update();
 
-    frame_device_update_id = frame_device_update_id+1;
+    	frame_device_update_id = frame_device_update_id+1;
+	}
+    
 
-    settimer(rtExec_loop, 0.1);	 # 0.1 is 10hz - so each device will be updated once per second. This may need revising upwards
+    settimer(rtExec_loop, MDU_update_time);	 # set from the options dialog, defaults to 0.11
 }
     
 rtExec_loop();
