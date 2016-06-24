@@ -173,6 +173,17 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, plot_ADI_rate_pitch);
 	plot_ADI_rate_pitch.setTranslation(360, 175);
 
+	# ADI rate labels
+
+	p_pfd.rate_label_r_l = write_small_label(device.ADI, "5", [184, 78,1], [1,1,1]);
+	p_pfd.rate_label_r_r = write_small_label(device.ADI, "5", [326, 78,1], [1,1,1]);
+
+	p_pfd.rate_label_y_l = write_small_label(device.ADI, "5", [184, 280,1], [1,1,1]);
+	p_pfd.rate_label_y_r = write_small_label(device.ADI, "5", [326, 280,1], [1,1,1]);
+
+	p_pfd.rate_label_p_u = write_small_label(device.ADI, "5", [355, 109,1], [1,1,1]);
+	p_pfd.rate_label_p_l = write_small_label(device.ADI, "5", [355, 252,1], [1,1,1]);
+
 	# ADI rate needles
 
 	data = SpaceShuttle.draw_tmarker_down();
@@ -1101,6 +1112,20 @@ var PFD_addpage_p_pfd = func(device)
 
 	var adi_att_selection = getprop("/fdm/jsbsim/systems/adi/attitude-select");
 	var adi_att_string = "LVLH";
+
+	var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
+
+	var adi_rate_range = 5.0;
+
+	if (major_mode != 305)
+		{
+		if (adi_rate_selection == 0) {adi_rate_range = 1.0;}
+		else if (adi_rate_selection == 1) {adi_rate_range = 5.0;}
+		else {adi_rate_range = 10.0;}
+			
+		}
+
+
 		
 	if (adi_att_selection == 1)
 		{
@@ -1235,7 +1260,14 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.dist_to_HAC_C.setVisible(0);
 		p_pfd.cdi_needle.setVisible(0);	
 		p_pfd.course_arrow.setVisible(0);	
-	
+
+
+		if ((getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag") > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+			{
+			yaw_error = -getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
+			pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
+			roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+			}
 		}
 	
 
@@ -1356,12 +1388,10 @@ var PFD_addpage_p_pfd = func(device)
 	
 	# ADI error needles
 
-
-
-
 	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
 	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * -8.0;
 	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * -8.0;
+
 
 	p_pfd.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
 	p_pfd.att_error_yaw.setTranslation(yaw_error_ntrans, 0.0);
@@ -1374,17 +1404,24 @@ var PFD_addpage_p_pfd = func(device)
 
 	# ADI rate needles
 
+	p_pfd.rate_label_r_l.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_r_r.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_y_l.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_y_r.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_p_u.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_p_l.setText(sprintf("%d", adi_rate_range));
+
 	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
-	roll_rate = SpaceShuttle.clamp(roll_rate, -5.0, 5.0);
-	p_pfd.adi_roll_rate_needle.setTranslation(255 + 13.0 * roll_rate, 70);
+	roll_rate = SpaceShuttle.clamp(roll_rate, -adi_rate_range, adi_rate_range);
+	p_pfd.adi_roll_rate_needle.setTranslation(255 - 13.0 * roll_rate * 5.0/adi_rate_range, 70);
 
 	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
-	pitch_rate = SpaceShuttle.clamp(pitch_rate, -5.0, 5.0);
-	p_pfd.adi_pitch_rate_needle.setTranslation(360, 175 - 13.0 * pitch_rate);
+	pitch_rate = SpaceShuttle.clamp(pitch_rate, -adi_rate_range, adi_rate_range);
+	p_pfd.adi_pitch_rate_needle.setTranslation(360, 175 + 13.0 * pitch_rate * 5.0/adi_rate_range);
 
 	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
-	yaw_rate = SpaceShuttle.clamp(yaw_rate, -5.0, 5.0);
-	p_pfd.adi_yaw_rate_needle.setTranslation(255+13.0 * yaw_rate, 280.0);
+	yaw_rate = SpaceShuttle.clamp(yaw_rate, -adi_rate_range, adi_rate_range);
+	p_pfd.adi_yaw_rate_needle.setTranslation(255 -13.0 * yaw_rate * 5.0/adi_rate_range, 280.0);
 
 	p_pfd.adi_inner.setTranslation (255, 175);
 
@@ -1719,6 +1756,17 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	pfd_segment_draw(data, plot_ADI_rate_pitch);
 	plot_ADI_rate_pitch.setTranslation(360, 175);
 
+	# ADI rate labels
+
+	p_pfd_orbit.rate_label_r_l = write_small_label(device.ADI, "5", [184, 78,1], [1,1,1]);
+	p_pfd_orbit.rate_label_r_r = write_small_label(device.ADI, "5", [326, 78,1], [1,1,1]);
+
+	p_pfd_orbit.rate_label_y_l = write_small_label(device.ADI, "5", [184, 280,1], [1,1,1]);
+	p_pfd_orbit.rate_label_y_r = write_small_label(device.ADI, "5", [326, 280,1], [1,1,1]);
+
+	p_pfd_orbit.rate_label_p_u = write_small_label(device.ADI, "5", [355, 109,1], [1,1,1]);
+	p_pfd_orbit.rate_label_p_l = write_small_label(device.ADI, "5", [355, 252,1], [1,1,1]);
+
 	# ADI rate needles
 
 	data = SpaceShuttle.draw_tmarker_down();
@@ -1793,12 +1841,35 @@ var PFD_addpage_p_pfd_orbit = func(device)
 		}
 
 
-	var altitude = getprop("/position/altitude-ft");
+	var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
+
+	var adi_rate_range = 5.0;
+
+	if (major_mode != 305)
+		{
+		if (adi_rate_selection == 0) {adi_rate_range = 1.0;}
+		else if (adi_rate_selection == 1) {adi_rate_range = 5.0;}
+		else {adi_rate_range = 10.0;}
+			
+		}
+
 
 
 	var pitch_error = 0.0;
 	var yaw_error = 0.0;
 	var roll_error = 0.0;
+
+	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+		{
+			
+
+		if ((getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag") > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+			{
+			yaw_error = -getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
+			pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
+			roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+			}
+		}
 
 
 
@@ -1861,20 +1932,27 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	p_pfd_orbit.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
 	
 
+
 	# ADI rate needles
 
+	p_pfd_orbit.rate_label_r_l.setText(sprintf("%d", adi_rate_range));
+	p_pfd_orbit.rate_label_r_r.setText(sprintf("%d", adi_rate_range));
+	p_pfd_orbit.rate_label_y_l.setText(sprintf("%d", adi_rate_range));
+	p_pfd_orbit.rate_label_y_r.setText(sprintf("%d", adi_rate_range));
+	p_pfd_orbit.rate_label_p_u.setText(sprintf("%d", adi_rate_range));
+	p_pfd_orbit.rate_label_p_l.setText(sprintf("%d", adi_rate_range));
+
 	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
-	roll_rate = SpaceShuttle.clamp(roll_rate, -5.0, 5.0);
-	p_pfd_orbit.adi_roll_rate_needle.setTranslation(255 + 13.0 * roll_rate, 70);
+	roll_rate = SpaceShuttle.clamp(roll_rate, -adi_rate_range, adi_rate_range);
+	p_pfd_orbit.adi_roll_rate_needle.setTranslation(255 - 13.0 * roll_rate * 5.0/adi_rate_range, 70);
 
 	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
-	pitch_rate = SpaceShuttle.clamp(pitch_rate, -5.0, 5.0);
-	p_pfd_orbit.adi_pitch_rate_needle.setTranslation(360, 175 - 13.0 * pitch_rate);
+	pitch_rate = SpaceShuttle.clamp(pitch_rate, -adi_rate_range, adi_rate_range);
+	p_pfd_orbit.adi_pitch_rate_needle.setTranslation(360, 175 + 13.0 * pitch_rate * 5.0/adi_rate_range);
 
 	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
-	yaw_rate = SpaceShuttle.clamp(yaw_rate, -5.0, 5.0);
-	p_pfd_orbit.adi_yaw_rate_needle.setTranslation(255+13.0 * yaw_rate, 280.0);
-
+	yaw_rate = SpaceShuttle.clamp(yaw_rate, -adi_rate_range, adi_rate_range);
+	p_pfd_orbit.adi_yaw_rate_needle.setTranslation(255 -13.0 * yaw_rate * 5.0/adi_rate_range, 280.0);
 
 
 	p_pfd_orbit.adi_inner.setTranslation(255,175);
@@ -1963,6 +2041,9 @@ if (coords[2] ==1)
 
 }
 
+
+
+
 var write_tape_label = func (group, text, coords, color) {
 
 
@@ -1972,6 +2053,23 @@ if (coords[2] ==1)
       	.setText(text)
         .setColor(color[0],color[1],color[2])
 	.setFontSize(14)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(coords[0], coords[1]);
+	}
+
+}
+
+var write_small_label = func (group, text, coords, color) {
+
+
+if (coords[2] ==1)
+	{
+	var canvas_text = group.createChild("text")
+      	.setText(text)
+        .setColor(color[0],color[1],color[2])
+	.setFontSize(12)
 	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
 	.setAlignment("center-bottom")
 	.setRotation(0.0)
