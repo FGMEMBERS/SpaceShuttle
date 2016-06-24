@@ -102,6 +102,77 @@
      	 	<col>3</col>
     	</text>
 
+	<text>
+      		<label>MDU update speed</label>
+      		<halign>left</halign>
+      		<row>3</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>slow</label>
+      		<halign>center</halign>
+      		<row>3</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>mdu-update-speed-switch</name>
+      		<row>3</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>3</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/mdu-update-speed</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>mdu-update-speed-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>fast</label>
+      		<halign>center</halign>
+      		<row>3</row>
+     	 	<col>3</col>
+    	</text>
+
+	<text>
+      		<label>ADI ball detail</label>
+      		<halign>left</halign>
+      		<row>4</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>low</label>
+      		<halign>center</halign>
+      		<row>4</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>adi-quality-switch</name>
+      		<row>4</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>4</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/fdm/jsbsim/systems/adi/quality-level</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>adi-quality-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>high</label>
+      		<halign>center</halign>
+      		<row>4</row>
+     	 	<col>3</col>
+    	</text>
+
+
   </group>
 	
         <empty>

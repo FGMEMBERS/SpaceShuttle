@@ -1345,7 +1345,10 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
 	pfd_segment_draw(data,adi_sphere_bg_bright);
 
-	draw_adi_sphere(adi_sphere, p_vecs);
+	if (getprop("/fdm/jsbsim/systems/adi/quality-level") > 0)
+		{
+		draw_adi_sphere(adi_sphere, p_vecs);
+		}
 
 	#draw_adi_sphere_staggered(p_pfd.adi_inner, p_vecs, 0);
 
@@ -1833,7 +1836,10 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
 	pfd_segment_draw(data,adi_sphere_bg_bright);
 
-	draw_adi_sphere(adi_sphere, p_vecs);
+	if (getprop("/fdm/jsbsim/systems/adi/quality-level") > 0)
+		{
+		draw_adi_sphere(adi_sphere, p_vecs);
+		}
 
 	draw_sphere_labels(p_pfd_orbit.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
@@ -2471,8 +2477,22 @@ var draw_adi_sphere = func (group, p_vecs) {
 var meridian_res = 30;
 var circle_res = 30;
 
+
+
+
 var quality_level = getprop("/fdm/jsbsim/systems/adi/quality-level");
 
+
+if (quality_level == 1)
+	{
+	meridian_res = 15;
+	circle_res = 15;
+	}
+else if (quality_level == 4)
+	{
+	meridian_res = 60;
+	circle_res = 60;
+	}
 
 
 var data = [];
@@ -2482,7 +2502,7 @@ for (var i = 0; i<12; i=i+1)
 	data = SpaceShuttle.draw_meridian(i * 30.0, meridian_res, p_vecs );
 	pfd_segment_draw(data, group);
 
-	if (quality_level > 1)
+	if (quality_level > 2)
 		{
 		data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
 		pfd_segment_draw(data, group);
@@ -2514,7 +2534,7 @@ pfd_segment_draw(data, group);
 data = SpaceShuttle.draw_coord_circle(-85.0, int (0.3 * circle_res), p_vecs );
 pfd_segment_draw(data, group);
 
-if (quality_level > 1)
+if (quality_level > 2)
 	{
 	data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
 	pfd_segment_draw(data, group);
