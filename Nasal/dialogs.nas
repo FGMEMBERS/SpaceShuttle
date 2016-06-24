@@ -413,6 +413,22 @@ else if (mode_string == "RTLS")
 
 }
 
+var update_MDU_speed = func {
+
+
+var setting = getprop("/sim/config/shuttle/mdu-update-speed");
+
+if (setting == 0)
+	{SpaceShuttle.MDU_update_time = 0.2; SpaceShuttle.MDU_update_number = 1;}
+else if (setting == 1)
+	{SpaceShuttle.MDU_update_time = 0.1; SpaceShuttle.MDU_update_number = 1;}
+else if (setting == 2)
+	{SpaceShuttle.MDU_update_time = 0.05; SpaceShuttle.MDU_update_number = 1;}
+else
+	{SpaceShuttle.MDU_update_time = 0.0; SpaceShuttle.MDU_update_number = 2;}
+
+}
+
 var update_ET_config = func{
 
 var ET_string = getprop("/sim/config/shuttle/ET-config");
@@ -663,6 +679,7 @@ setlistener("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination", update_incl
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", update_site);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", update_runway);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/entry-mode", update_entry_mode);
+setlistener("/sim/config/shuttle/mdu-update-speed", update_MDU_speed);
 setlistener("/sim/config/shuttle/ET-config", update_ET_config);
 setlistener("/sim/config/shuttle/TC-config", update_TC_config);
 setlistener("/sim/gui/dialogs/SpaceShuttle/limits/limit-mode", update_description);
@@ -672,3 +689,5 @@ setlistener("/sim/config/shuttle/thermal-system-computation-speed", thermal_spee
 setlistener("/sim/config/shuttle/rendering/use-earthview", update_earthview_manager,0,0);
 setlistener("/sim/config/shuttle/rendering/earthview-transition-alt-ft", update_earthview_manager,0,0);
 setlistener("/sim/gui/dialogs/SpaceShuttle/entry_guidance/EI-radius", update_entry_guidance_target ,0,0);
+
+

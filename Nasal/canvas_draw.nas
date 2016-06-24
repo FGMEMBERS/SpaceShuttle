@@ -672,6 +672,37 @@ else if (length > radius)
 	projected_point[2] = 0;
 	}
 return projected_point;
+}
+
+
+var circle_clipping_hard = func (projected_point, radius) {
+
+var length = math.sqrt(projected_point[0] * projected_point[0] + projected_point[1] * projected_point[1]);
+
+if (length >  radius)
+	{
+	projected_point[2] = -1;
+	}
+return projected_point;
+}
+
+
+var center_resolution_culling = func (array, radius) {
+
+var out_array = [];
+var counter = 0;
+
+for (var i=0; i< size(array); i=i+1)
+	{
+	var point = array[i];
+	var length = math.sqrt(point[0] * point[0] + point[1] * point[1]);
+
+	if ((length > 0.95 * radius) or (counter == 0))
+		{
+		append(out_array, point);
+		}
+	}
+return out_array;
 
 }
 
@@ -798,6 +829,8 @@ for (var i = 0; i < npoints; i=i+1)
 		{append(shape_data, projected_point);}
 	}
 
+shape_data = center_resolution_culling(shape_data, 95.0);
+
 return shape_data;
 
 }
@@ -842,7 +875,7 @@ for (var i = 0; i < npoints; i=i+1)
 	z = math.sin(lat_rad);	
 
 	projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
-	projected_point = circle_clipping(projected_point, 0.75);
+	projected_point = circle_clipping_hard(projected_point, 0.75);
 
 	projected_point[0] *=95.0;
 	projected_point[1] *=95.0;
@@ -880,7 +913,7 @@ for (var i = 0; i < npoints; i=i+1)
 	var z = math.sin(lat_rad - dlat);	
 
 	var projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
-	projected_point = circle_clipping(projected_point, 0.75);
+	projected_point = circle_clipping_hard(projected_point, 0.75);
 
 	projected_point[0] *=95.0;
 	projected_point[1] *=95.0;
@@ -946,6 +979,8 @@ for (var i = 0; i < npoints; i=i+1)
 		{append(shape_data, projected_point);}
 
 	}
+
+shape_data = center_resolution_culling(shape_data, 95.0);
 
 return shape_data;
 

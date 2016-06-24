@@ -2485,8 +2485,8 @@ var quality_level = getprop("/fdm/jsbsim/systems/adi/quality-level");
 
 if (quality_level == 1)
 	{
-	meridian_res = 15;
-	circle_res = 15;
+	meridian_res = 20;
+	circle_res = 20;
 	}
 else if (quality_level == 4)
 	{
