@@ -2207,19 +2207,41 @@
 	</function>
    </fcs_function>
 
+   <switch name="fcs/ap/auto-elevator-cmd-norm">
+	<default value="0.0"/>
+	<test  value="systems/ap/alpha-controller-elevator-cmd-norm">
+		systems/ap/auto-entry-active == 1
+	</test>
+	<test  value="systems/ap/taem/taem-controller-elevator-cmd-norm">
+		systems/ap/auto-taem-active == 1
+	</test>
+   </switch>
+
+   <switch name="fcs/ap/auto-pitch-active">
+	<default value="0.0"/>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-entry-active == 1
+		systems/ap/automatic-pitch-control == 1
+	</test>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-taem-active == 1
+		systems/ap/automatic-pitch-control == 1
+	</test>
+   </switch>
+
    <fcs_function name="fcs/elevator-ap-cmd-merge">
    <function>
 	<sum>
 		<product>
 			<difference>
 				<value>1</value>
-				<property>systems/ap/alpha-hold-mode</property>
+				<property>fcs/ap/auto-pitch-active</property>
 			</difference>
 			<property>fcs/elevator-cmd-norm</property>
 		</product>
 		<product>
-			<property>systems/ap/alpha-hold-mode</property>
-			<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
+			<property>fcs/ap/auto-pitch-active</property>
+			<property>fcs/ap/auto-elevator-cmd-norm</property>
 		</product>
 	</sum>
    </function>
@@ -2453,6 +2475,39 @@
 	<output>fcs/beta-dot-damper-cmd-norm</output>
    </fcs_function>
 
+   <switch name="fcs/ap/auto-aileron-cmd-norm">
+	<default value="0.0"/>
+	<test  value="systems/ap/taem/taem-controller-aileron-cmd-norm">
+		systems/ap/auto-taem-active == 1
+	</test>
+   </switch>
+
+   <switch name="fcs/ap/auto-roll-active">
+	<default value="0.0"/>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-taem-active == 1
+		systems/ap/automatic-roll-control == 1
+	</test>
+   </switch>
+
+   <fcs_function name="fcs/aileron-ap-cmd-merge">
+   <function>
+	<sum>
+		<product>
+			<difference>
+				<value>1</value>
+				<property>fcs/ap/auto-roll-active</property>
+			</difference>
+			<property>fcs/aileron-cmd-norm</property>
+		</product>
+		<product>
+			<property>fcs/ap/auto-roll-active</property>
+			<property>fcs/ap/auto-aileron-cmd-norm</property>
+		</product>
+	</sum>
+   </function>
+   </fcs_function>
+
 
    <fcs_function name="fcs/roll-error">
 	 <function>
@@ -2460,7 +2515,7 @@
 	 	<difference>
 			<property>velocities/p-rad_sec</property>
 			<product>
-				<property>fcs/aileron-cmd-norm</property>
+				<property>fcs/aileron-ap-cmd-merge</property>
 				<value>0.5</value>
 			</product>
 		</difference>

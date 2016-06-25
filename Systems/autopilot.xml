@@ -869,7 +869,7 @@
 
 	</channel>
 
-	<channel name="LVLH attitude hold">
+	<channel name="LVLH attitude hold" execute="systems/ap/orbital-dap-lvlh">
 
 		<!-- LVLH attitude hold is commanded when controls are idle -->
 		<!-- or when controls are translational -->
@@ -1177,18 +1177,40 @@
 
 	</channel>
 	
+	<!-- auto-entry/TAEM - due to the very different demands, this is organized in stages -->
+	<!-- and the relevant guidance targets are fed by a Nasal script -->
 
-	<channel name="Entry auto-pitch hold">
+	<channel name="Auto glide management">
+
+		<switch name="systems/ap/auto-entry-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/dps/major-mode == 304
+			</test>
+		</switch>
 
 		<switch name="systems/ap/alpha-hold-mode">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/ap/automatic-pitch-control == 1
-				/position/altitude-ft GT 85000.0
 				systems/fcs/control-mode == 29
+				systems/dps/major-mode == 304
 			</test>
 		</switch>
-		
+
+		<switch name="systems/ap/auto-taem-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 305
+				systems/ap/taem/auto-taem-master == 1
+			</test>
+		</switch>
+
+	</channel>
+
+
+	<channel name="Entry auto-pitch hold" execute="systems/ap/auto-entry-active">
+
 		<fcs_function name="systems/ap/alpha-error">
 		<function>
 			<difference>
@@ -1227,6 +1249,100 @@
 		</fcs_function>
 
 	</channel>
+
+	<!-- TAEM guidance targets feed into aerojet DAP -->
+	<!-- they're mostly descent rate acquire/hold and direction acquire/hold -->
+	<!-- the higher level energy management is done by Nasal -->
+
+	<channel name="TAEM auto-glide" execute="systems/ap/auto-taem-active">
+
+		<fcs_function name="systems/ap/taem/vspeed-target">
+		<function>
+			<sum>
+			<value>50.0</value>
+			<product>
+				<property>velocities/mach</property>
+				<value>50.0</value>
+			</product>
+			<product>	
+				<value>-0.02</value>			
+				<property>systems/taem-guidance/glideslope-deviation-ft</property>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>	
+
+
+		<fcs_function name="systems/ap/taem/vspeed-error">
+		<function>
+	
+			<product>
+				<difference>
+					<property>systems/ap/taem/vspeed-target</property>
+					<property>velocities/v-down-fps</property>
+				</difference>
+				<value>0.005</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+ 		 <pid name="systems/ap/taem/taem-controller-elevator-cmd-norm">
+			<input>systems/ap/taem/vspeed-error</input>
+			<kp> 1.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.5</kd>
+			<clipto>
+				<min> -0.5 </min>
+        			<max>  0.5 </max>
+			</clipto>
+  		</pid>
+
+
+		<fcs_function name="systems/ap/taem/az-bank-target">
+		<function>
+			<max>
+			<min>
+			<product>
+				<property>systems/taem-guidance/delta-azimuth-deg</property>
+				<value>10.0</value>
+			</product>
+			<value>15.0</value>
+			</min>
+			<value>-15.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/taem/bank-error">
+		<function>
+	
+			<product>
+				<difference>
+					<property>systems/ap/taem/az-bank-target</property>
+					<property>/orientation/roll-deg</property>
+				</difference>
+				<value>0.05</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+ 		 <pid name="systems/ap/taem/taem-controller-aileron-cmd-norm">
+			<input>systems/ap/taem/bank-error</input>
+			<kp> 1.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.5</kd>
+			<clipto>
+				<min> -0.5 </min>
+        			<max>  0.5 </max>
+			</clipto>
+  		</pid>
+
+
+
+	</channel>
+
 
 	<!-- auto-launch - due to the very different demands, this is organized in stages -->
 	<!-- and the relevant guidance targets are fed by a Nasal script -->
@@ -1299,6 +1415,9 @@
 		
 
 	</channel>
+
+
+
 
 	<!-- liftoff and rotation to launch course -->
 	

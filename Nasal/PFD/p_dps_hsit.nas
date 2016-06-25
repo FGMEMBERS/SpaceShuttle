@@ -365,7 +365,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 		var range = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
 
 		var course_disp = course;
-		if (tacan_disp_mode == 0) {course_disp = course - heading;}
+		if (tacan_disp_mode == 0) {course_disp = getprop("/fdm/jsbsim/systems/taem-guidance/delta-azimuth-deg");}
 		
 		if (tacan1_des == 0)
 			{
@@ -452,7 +452,8 @@ var PFD_addpage_p_dps_hsit = func(device)
 	var pos = geo.aircraft_position();
 
 	var dist = pos.distance_to(SpaceShuttle.TAEM_HAC_center);
-	var rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_HAC_center) - getprop("/orientation/heading-deg"));
+	#var rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_HAC_center) - getprop("/orientation/heading-deg"));
+	var rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_HAC_center) - heading);
 
 	var x = SpaceShuttle.get_hsit_x(dist, rel_angle);
 	var y = SpaceShuttle.get_hsit_y(dist, rel_angle);
@@ -460,7 +461,8 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.hac.setTranslation (x,y);
 
 	dist = pos.distance_to(SpaceShuttle.TAEM_threshold);
-	rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_threshold) - getprop("/orientation/heading-deg"));
+	#rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_threshold) - getprop("/orientation/heading-deg"));
+	rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_threshold) - heading);
 
 
 	x = SpaceShuttle.get_hsit_x(dist, rel_angle);
@@ -475,7 +477,8 @@ var PFD_addpage_p_dps_hsit = func(device)
         .moveTo(x,y);
 
 	dist = pos.distance_to(SpaceShuttle.TAEM_WP_2);
-	rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_WP_2) - getprop("/orientation/heading-deg"));
+	#rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_WP_2) - getprop("/orientation/heading-deg"));
+	rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_WP_2) -heading);
 
 	x = SpaceShuttle.get_hsit_x(dist, rel_angle);
 	y = SpaceShuttle.get_hsit_y(dist, rel_angle);

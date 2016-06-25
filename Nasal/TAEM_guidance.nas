@@ -97,6 +97,8 @@ if (pos.distance_to(TAEM_threshold) > 200000.0)
 
 print("TAEM guidance available");
 TAEM_guidance_available = 1;
+setprop("/fdm/jsbsim/systems/ap/taem/auto-taem-master",1);
+
 
 var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry_point_string");
 
@@ -227,7 +229,18 @@ if (TAEM_guidance_available == 0)
 
 if (stage == 0)
 	{
-	setprop("/fdm/jsbsim/systems/taem-guidance/course", pos.course_to(TAEM_WP_1));
+	var course = pos.course_to(TAEM_WP_1);
+		
+	setprop("/fdm/jsbsim/systems/taem-guidance/course", course);
+
+	var heading = getprop("/orientation/heading-deg");
+
+	var delta_az = course - heading;
+	if (delta_az > 180.0) {delta_az = delta_az - 360.0;}
+	if (delta_az < -180.0) {delta_az = delta_az + 360.0;}
+
+	setprop("/fdm/jsbsim/systems/taem-guidance/delta-azimuth-deg", delta_az);
+	
 	var dist = pos.distance_to(TAEM_WP_1) / 1853.0;
 	var dist_to_go = dist + TAEM_WP_1.distance_to_runway_m/1853.0;
 	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", dist_to_go);

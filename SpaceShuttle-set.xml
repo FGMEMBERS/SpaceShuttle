@@ -58,6 +58,11 @@
 	  <hdot-target type="double">0.0</hdot-target>
 	  <apoapsis-target type="double">320.0</apoapsis-target>
        </launch>
+     <taem>
+	  <auto-taem-master type="int">0</auto-taem-master>
+	  <vspeed-target type="double">200.0</vspeed-target>
+	  <bank-target type="double">30.0</bank-target>
+     </taem>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
 	  <dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
@@ -1055,6 +1060,7 @@
       <entry-point-string type="string">NEP</entry-point-string>
       <distance-to-runway-nm type="double">0.0</distance-to-runway-nm>
       <glideslope-deviation-ft type="double">0.0</glideslope-deviation-ft>
+      <delta-azimuth-deg type="double">0.0</delta-azimuth-deg>
       <Dxdot type="double">0.0</Dxdot>
       <Dydot type="double">0.0</Dydot>
       <Dzdot type="double">0.0</Dzdot>
