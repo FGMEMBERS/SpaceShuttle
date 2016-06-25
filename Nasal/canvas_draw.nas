@@ -413,6 +413,46 @@ return shape_data;
 }
 
 
+var draw_comb = func (radius, n_ticks, tick_size, ang1, ang2, direction) {
+
+var shape_data = [];
+
+var size = radius * tick_size;
+
+var displacement = [];
+
+if (direction == 0)
+	{displacement = [size, 0];}
+else if (direction == 1)
+	{displacement = [0, size];}
+else if (direction == 2)
+	{displacement = [-size, 0];}
+else if (direction == 3)
+	{displacement = [0, -size];}
+
+var d_ang = (math.pi/180.0 * (ang2 - ang1))/(n_ticks-1);
+
+
+
+for (var i=0; i< n_ticks; i=i+1)
+	{
+	var angle = ang1 * math.pi/180.0 + i * d_ang;
+
+	var x = radius * math.sin(angle);	
+	var y = -radius * math.cos(angle);
+
+	append(shape_data, [x,y,0]); 
+
+	x = x + displacement[0];
+	y = y + displacement[1];
+
+	append(shape_data, [x,y,1]); 
+
+	}
+return shape_data;
+}
+
+
 var draw_shuttle_top = func {
 
 var shape_data = [];
