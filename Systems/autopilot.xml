@@ -832,17 +832,6 @@
 		</function>
 		</fcs_function>
 
-		<!--<pid name="systems/ap/roll-rate-controller">
-			<input>systems/ap/roll-rate-error</input>
-			<kp> 50.0 </kp>
-			<ki> 0.0 </ki>
-			<kd> 5.0</kd>
-			<clipto>
-				<min> -1.0 </min>
-        			<max>  1.0 </max>
-			</clipto>
-			<output>systems/ap/test-roll</output>
-  		</pid>-->
 
 		<fcs_function name="systems/ap/roll-rate-controller">
 		<function>
@@ -1177,10 +1166,16 @@
 
 	</channel>
 	
+	<!-- OPS 304 and 305 automatic entry and TAEM -->
+
+	
+	
 	<!-- auto-entry/TAEM - due to the very different demands, this is organized in stages -->
 	<!-- and the relevant guidance targets are fed by a Nasal script -->
 
-	<channel name="Auto glide management">
+	<!-- general mode selection parameters activating the channels -->
+
+	<channel name="Auto TAEM glide management">
 
 		<switch name="systems/ap/auto-entry-active">
 			<default value="0.0"/>
@@ -1208,6 +1203,7 @@
 
 	</channel>
 
+	<!-- automatic pitch channel alpha-hold during entry -->
 
 	<channel name="Entry auto-pitch hold" execute="systems/ap/auto-entry-active">
 
@@ -1268,6 +1264,24 @@
 				<value>-0.02</value>			
 				<property>systems/taem-guidance/glideslope-deviation-ft</property>
 			</product>
+			<product>
+				<value>-60.0</value>
+				<sin>
+					<abs>
+						<property>attitude/roll-rad</property>
+					</abs>
+				</sin>
+			</product>
+			<product>
+			<max>
+				<difference>	
+					<value>220.0</value>
+					<property>velocities/ve-kts</property>
+				</difference>
+				<value>0.0</value>
+			</max>
+			<value>15.0</value>
+			</product>			
 			</sum>
 		</function>
 		</fcs_function>	
@@ -1314,12 +1328,44 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/taem/hac-bank-target">
+		<function>
+			<sum>
+			<property>systems/ap/taem/set-bank-target</property>
+			<product>
+			<max>
+				<min>
+					<product>
+						<property>systems/taem-guidance/radial-error-nm</property>
+						<value>-2.0</value>
+					</product>
+					<value>1.0</value>
+				</min>
+				<value>-1.0</value>
+			</max>
+			<property>systems/ap/taem/set-bank-target</property>
+			<value>0.5</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/taem/bank-target">
+			<default value="systems/ap/taem/az-bank-target"/>
+			<test value="systems/ap/taem/hac-bank-target">
+				systems/ap/taem/hac-turn-init == 1
+			</test>
+			<test value="systems/ap/taem/set-bank-target">
+				systems/ap/taem/s-turn-init == 1
+			</test>
+		</switch>
+
 		<fcs_function name="systems/ap/taem/bank-error">
 		<function>
 	
 			<product>
 				<difference>
-					<property>systems/ap/taem/az-bank-target</property>
+					<property>systems/ap/taem/bank-target</property>
 					<property>/orientation/roll-deg</property>
 				</difference>
 				<value>0.05</value>

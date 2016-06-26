@@ -153,6 +153,7 @@ if (entry_point_string == "MEP")
 #print(runway_perp_vec[0], " ", runway_perp_vec[1]);
 
 TAEM_HAC_center.set_latlon(TAEM_WP_2.lat() + m_to_lat * runway_perp_vec[1] * hac_radius, TAEM_WP_2.lon() + m_to_lon * runway_perp_vec[0] * hac_radius);
+TAEM_HAC_center.radius = hac_radius;
 
 # WP-1 is the tangent on the HAC which leads, after the turn, to a tangent pointing at the runway
 
@@ -208,10 +209,18 @@ if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 
 TAEM_WP_1.turn_direction = turn_direction;
 
+if (turn_direction == "right")
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);}
+else
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -30.0);}
+
 TAEM_guidance_phase = 1;
 
 TAEM_guidance_loop(0);
 }
+
+
+# the central TAEM guidance loop #########################################################
 
 
 var TAEM_guidance_loop = func (stage) {
@@ -227,7 +236,7 @@ if (TAEM_guidance_available == 0)
 	} 
 
 
-if (stage == 0)
+if (stage == 0) # glide to WP 1
 	{
 	var course = pos.course_to(TAEM_WP_1);
 		
@@ -248,14 +257,17 @@ if (stage == 0)
 	var glideslope_deviation = SpaceShuttle.get_glideslope_deviation(pos.alt()/0.3048, dist_to_go);
 	setprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft", glideslope_deviation);
 
+	TAEM_energy_management();
+
 	if (dist < 1.0) {
 			print("Waypoint 1 reached!"); 	stage = stage + 1;
 			setprop("/sim/messages/copilot", "Turn "~TAEM_WP_1.turn_direction~" into HAC!");
 			TAEM_guidance_phase = 2;
+			setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 1);
 			}
 
 	}
-else if (stage == 1)
+else if (stage == 1) # turn around HAC
 	{
 
 	var distance_to_runway = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
@@ -263,6 +275,14 @@ else if (stage == 1)
 	distance_to_runway = distance_to_runway - 0.2 * airspeed_kt / 3600.0;
 
 	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", distance_to_runway);
+
+	var glideslope_deviation = SpaceShuttle.get_glideslope_deviation(pos.alt()/0.3048, distance_to_runway);
+	setprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft", glideslope_deviation);
+
+	var radius_error = TAEM_HAC_center.radius - pos.distance_to(TAEM_HAC_center);
+
+	setprop("/fdm/jsbsim/systems/taem-guidance/radial-error-nm", radius_error/ 1853.);
+
 
 	if (distance_to_runway < 7.0)
 		{
@@ -282,6 +302,60 @@ else if (stage == 2)
 settimer( func {TAEM_guidance_loop(stage); }, 0.2);
 
 }
+
+
+# TAEM energy management - SB and S-Turns #################################################
+
+var TAEM_energy_management = func {
+
+var alt = getprop("/position/altitude-ft") * 0.3048;
+var gsld = getprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft") * 0.3048;
+var nominal_alt = gsld + alt;
+
+var speed_kts = getprop("/fdm/jsbsim/velocities/ve-kts");
+
+var speed = speed_kts * 1853.0 / 3600.0;
+var nominal_speed = 240.0 * 1853.0 / 3600.0;
+var sd = 240.0 - speed_kts;
+
+var g = 9.81;
+
+var E_act = g * alt + speed * speed;
+var E_nom = g * nominal_alt + nominal_speed * nominal_speed;
+
+var E_ratio = E_act/E_nom;
+
+var dH_equiv_ft = (E_act - E_nom)/g / 0.3048;
+
+setprop("/fdm/jsbsim/systems/taem-guidance/energy-ratio", E_ratio);
+setprop("/fdm/jsbsim/systems/taem-guidance/dH-equiv-ft", dH_equiv_ft);
+
+# auto-SB
+
+var sb_max = 0.0;
+
+if (sd < -30.0)
+	{sb_max = 1.0;}
+else if (sd < -24.0)
+	{sb_max = 0.8;}
+else if (sd < -15.0)
+	{sb_max = 0.6;}
+else if (sd < -10.0)
+	{sb_max = 0.4;}
+else if (sd < -5.0)
+	{sb_max = 0.2;}
+
+if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)	
+	{
+	var sb_state = getprop("/controls/shuttle/speedbrake");
+
+	if (sb_state > sb_max) {SpaceShuttle.decrease_speedbrake();}
+	else if (sb_state < sb_max) {SpaceShuttle.increase_speedbrake();}
+	}
+
+}
+
+# set threshold for TAEM guidance #########################################################
 
 var set_TAEM_threshold = func (site_string, runway_string) {
 

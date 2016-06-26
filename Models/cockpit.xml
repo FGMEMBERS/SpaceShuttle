@@ -5653,7 +5653,8 @@
             </binding-->
             <binding>
                 <command>property-toggle</command>
-                <property>/controls/shuttle/button_sb_mode</property>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
             </binding>
         </action>
         <hovered>
@@ -5670,8 +5671,9 @@
         <object-name>button_light_sb_auto_cmd</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/button_sb_mode</property>
-                <value>0</value>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <value>1</value>
             </equals>
         </condition>
     </animation>
@@ -5680,8 +5682,9 @@
         <object-name>button_light_sb_man_cmd</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/button_sb_mode</property>
-                <value>1</value>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <value>0</value>
             </equals>
         </condition>
     </animation>
@@ -6125,7 +6128,8 @@
             </binding-->
             <binding>
                 <command>property-toggle</command>
-                <property>/controls/shuttle/button_sb_mode</property>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
             </binding>
         </action>
         <hovered>
@@ -6142,8 +6146,9 @@
         <object-name>button_light_sb_auto_plt</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/button_sb_mode</property>
-                <value>0</value>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <value>1</value>
             </equals>
         </condition>
     </animation>
@@ -6152,8 +6157,9 @@
         <object-name>button_light_sb_man_plt</object-name>
         <condition>
             <equals>
-                <property>/controls/shuttle/button_sb_mode</property>
-                <value>1</value>
+		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <!--<property>/controls/shuttle/button_sb_mode</property>-->
+                <value>0</value>
             </equals>
         </condition>
     </animation>

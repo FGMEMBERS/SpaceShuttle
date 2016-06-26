@@ -29,6 +29,8 @@
        <css-pitch-control type="int">1</css-pitch-control>
        <automatic-roll-control type="int">0</automatic-roll-control>
        <css-roll-control type="int">1</css-roll-control>
+       <automatic-sb-control type="int">1</automatic-sb-control>
+       <automatic-throttle-control type="int">0</automatic-throttle-control>
        <orbital-dap-auto type="int">0</orbital-dap-auto>
        <orbital-dap-inertial type="int">0</orbital-dap-inertial>
        <orbital-dap-lvlh type="int">0</orbital-dap-lvlh>
@@ -61,7 +63,9 @@
      <taem>
 	  <auto-taem-master type="int">0</auto-taem-master>
 	  <vspeed-target type="double">200.0</vspeed-target>
-	  <bank-target type="double">30.0</bank-target>
+	  <set-bank-target type="double">0.0</set-bank-target>
+	  <hac-turn-init type="int">0</hac-turn-init>
+	  <s-turn-init type="int">0</s-turn-init>
      </taem>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
@@ -1061,6 +1065,7 @@
       <distance-to-runway-nm type="double">0.0</distance-to-runway-nm>
       <glideslope-deviation-ft type="double">0.0</glideslope-deviation-ft>
       <delta-azimuth-deg type="double">0.0</delta-azimuth-deg>
+      <radial-error-nm type="double">0.0</radial-error-nm>
       <Dxdot type="double">0.0</Dxdot>
       <Dydot type="double">0.0</Dydot>
       <Dzdot type="double">0.0</Dzdot>
@@ -1071,6 +1076,8 @@
       <tacan1-des type="int">0</tacan1-des>
       <tacan2-des type="int">0</tacan2-des>
       <tacan3-des type="int">0</tacan3-des>
+      <energy-ratio type="double">0.0</energy-ratio>
+      <dH-equiv-ft type="double">0.0</dH-equiv-ft>
      </taem-guidance>
      <thermal-distribution>
       <freon-loop-switch type="double">0.4</freon-loop-switch>
