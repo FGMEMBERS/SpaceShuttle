@@ -210,9 +210,9 @@ if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 TAEM_WP_1.turn_direction = turn_direction;
 
 if (turn_direction == "right")
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 20.0);}
 else
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -30.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -20.0);}
 
 TAEM_guidance_phase = 1;
 
@@ -261,8 +261,15 @@ if (stage == 0) # glide to WP 1
 
 	if (dist < 1.0) {
 			print("Waypoint 1 reached!"); 	stage = stage + 1;
-			setprop("/sim/messages/copilot", "Turn "~TAEM_WP_1.turn_direction~" into HAC!");
+			var turn_direction = TAEM_WP_1.turn_direction;
+			setprop("/sim/messages/copilot", "Turn "~turn_direction~" into HAC!");
 			TAEM_guidance_phase = 2;
+	
+			if (turn_direction == "right")
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 20.0);}
+			else
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -20.0);}
+
 			setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 1);
 			}
 
@@ -283,11 +290,24 @@ else if (stage == 1) # turn around HAC
 
 	setprop("/fdm/jsbsim/systems/taem-guidance/radial-error-nm", radius_error/ 1853.);
 
+	TAEM_energy_management();
 
-	if (distance_to_runway < 7.0)
+	var heading = getprop("/orientation/heading-deg");
+	var delta_az = TAEM_threshold.heading - heading;
+	var alt = getprop("/position/altitude-ft");
+
+	if (delta_az > 180.0) {delta_az = delta_az - 360.0;}
+	if (delta_az < -180.0) {delta_az = delta_az + 360.0;}
+	
+
+	if ((distance_to_runway < 7.0) or ((math.abs(delta_az) < 5.0) and (alt < 20000.0)))
 		{
 		TAEM_guidance_phase = 3;
 		print("TAEM guidance finished.");
+		setprop("/sim/messages/copilot", "Take CSS and turn into final!");
+		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 0.0);
+		setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 0);
+		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init", 0);
 		stage = 2;
 		}
 	}
@@ -330,6 +350,48 @@ var dH_equiv_ft = (E_act - E_nom)/g / 0.3048;
 setprop("/fdm/jsbsim/systems/taem-guidance/energy-ratio", E_ratio);
 setprop("/fdm/jsbsim/systems/taem-guidance/dH-equiv-ft", dH_equiv_ft);
 
+# S-turns if lots of energy is to be depleted
+
+if ((dH_equiv_ft > 10000.0) and (TAEM_guidance_phase == 1))
+	{
+	if (getprop("/fdm/jsbsim/systems/ap/taem/s-turn-init") == 1) # we are in a turn
+		{
+		var delta_az = getprop("/fdm/jsbsim/systems/taem-guidance/delta-azimuth-deg");
+		if (delta_az > 30.0)		
+			{
+			if (getprop("/fdm/jsbsim/systems/ap/taem/set-bank-target") == -30.0)
+				{
+				setprop("/sim/messages/copilot", "S-turn reversal!");
+				}
+
+			setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);
+
+			}
+		else if (delta_az < -30.0)
+			{
+			if (getprop("/fdm/jsbsim/systems/ap/taem/set-bank-target") == 30.0)
+				{
+				setprop("/sim/messages/copilot", "S-turn reversal!");
+				}
+			setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -30.0);
+			}
+
+		}
+	else
+		{
+		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);
+		setprop("/sim/messages/copilot", "Initiating S-turn to deplete energy!");
+		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init",1);
+	
+		}	
+
+	}
+else # no S-turn
+	{
+	setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init",0);
+	}
+
+
 # auto-SB
 
 var sb_max = 0.0;
@@ -344,6 +406,11 @@ else if (sd < -10.0)
 	{sb_max = 0.4;}
 else if (sd < -5.0)
 	{sb_max = 0.2;}
+
+if (getprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init") == 1)
+	{
+	if (sb_max > 0.0) {sb_max = sb_max - 0.2;}
+	}
 
 if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)	
 	{

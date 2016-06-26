@@ -1254,8 +1254,13 @@
 
 		<fcs_function name="systems/ap/taem/vspeed-target">
 		<function>
+			<min>
 			<sum>
 			<value>50.0</value>
+			<product>
+				<property>systems/ap/taem/hac-turn-init</property>
+				<value>20.0</value>
+			</product>
 			<product>
 				<property>velocities/mach</property>
 				<value>50.0</value>
@@ -1265,7 +1270,7 @@
 				<property>systems/taem-guidance/glideslope-deviation-ft</property>
 			</product>
 			<product>
-				<value>-60.0</value>
+				<value>-40.0</value>
 				<sin>
 					<abs>
 						<property>attitude/roll-rad</property>
@@ -1275,7 +1280,7 @@
 			<product>
 			<max>
 				<difference>	
-					<value>220.0</value>
+					<value>225.0</value>
 					<property>velocities/ve-kts</property>
 				</difference>
 				<value>0.0</value>
@@ -1283,6 +1288,8 @@
 			<value>15.0</value>
 			</product>			
 			</sum>
+			<value>370.0</value>
+			</min>
 		</function>
 		</fcs_function>	
 
@@ -1337,9 +1344,9 @@
 				<min>
 					<product>
 						<property>systems/taem-guidance/radial-error-nm</property>
-						<value>-2.0</value>
+						<value>-3.0</value>
 					</product>
-					<value>1.0</value>
+					<value>0.3</value>
 				</min>
 				<value>-1.0</value>
 			</max>
