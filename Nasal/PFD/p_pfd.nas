@@ -107,17 +107,35 @@ var PFD_addpage_p_pfd = func(device)
 
 	var adi_errors = device.ADI.createChild("group");
 
+	# scale
+	
 	var plot_error_arcs = adi_errors.createChild("path")
         .setStrokeLineWidth(1)
         .setColor(0.9, 0.1, 0.85);
 	data = SpaceShuttle.draw_arc (92, 10, 335, 385);
 	pfd_segment_draw(data, plot_error_arcs);
 
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 335, 385, 1);
+	pfd_segment_draw(data, plot_error_arcs);
+
 	data = SpaceShuttle.draw_arc (92, 10, 65, 115);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 65, 115, 2);
 	pfd_segment_draw(data, plot_error_arcs);
 
 	data = SpaceShuttle.draw_arc (92, 10, 155, 205);
 	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 155, 205, 3);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	# labels	
+
+	p_pfd.adi_error_label_p_u = write_small_label(device.ADI, "5", [348, 139,1], [0.9,0.1,0.85]);
+	p_pfd.adi_error_label_p_l = write_small_label(device.ADI, "5", [348, 222,1], [0.9,0.1,0.85]);
+
+	# needles
 
 	p_pfd.att_error_needles = adi_errors.createChild("group");
 
@@ -1114,8 +1132,10 @@ var PFD_addpage_p_pfd = func(device)
 	var adi_att_string = "LVLH";
 
 	var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
+	var adi_error_selection = getprop("/fdm/jsbsim/systems/adi/error-range-select");
 
 	var adi_rate_range = 5.0;
+	var adi_error_range = 5.0;
 
 	if (major_mode != 305)
 		{
@@ -1125,7 +1145,13 @@ var PFD_addpage_p_pfd = func(device)
 			
 		}
 
-
+	if ((major_mode != 305) and (major_mode != 304) and (major_mode != 602))
+		{
+		if (adi_error_selection == 0) {adi_error_range = 1.0;}
+		else if (adi_error_selection == 1) {adi_error_range = 5.0;}
+		else {adi_error_range = 10.0;}	
+		}		
+	
 		
 	if (adi_att_selection == 1)
 		{
@@ -1328,7 +1354,7 @@ var PFD_addpage_p_pfd = func(device)
 			bearing_HAC_H = course_WP1;
 			course_arrow = SpaceShuttle.TAEM_threshold.heading;
 
-			cdi_displacement = SpaceShuttle.TAEM_threshold.heading - yaw;
+			cdi_displacement = yaw - SpaceShuttle.TAEM_threshold.heading;
 
 			if (SpaceShuttle.TAEM_guidance_phase == 3) {cdi_limit = 2.5;}
 			cdi_displacement = SpaceShuttle.clamp(cdi_displacement, -cdi_limit, cdi_limit);
@@ -1398,9 +1424,11 @@ var PFD_addpage_p_pfd = func(device)
 	
 	# ADI error needles
 
-	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
-	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * -8.0;
-	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * -8.0;
+
+
+	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
+	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
+	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
 
 
 	p_pfd.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
@@ -1411,6 +1439,9 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.att_error_yaw.setScale(1.0,math.sqrt(9025. - yaw_error_ntrans*yaw_error_ntrans)/95.0);
 	p_pfd.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
 	
+
+	p_pfd.adi_error_label_p_u.setText(sprintf("%d", adi_error_range));
+	p_pfd.adi_error_label_p_l.setText(sprintf("%d", adi_error_range));
 
 	# ADI rate needles
 
@@ -1714,6 +1745,18 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	data = SpaceShuttle.draw_arc (92, 10, 155, 205);
 	pfd_segment_draw(data, plot_error_arcs);
 
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 335, 385, 1);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 65, 115, 2);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	data = SpaceShuttle.draw_comb (92, 11, 0.05, 155, 205, 3);
+	pfd_segment_draw(data, plot_error_arcs);
+
+	p_pfd_orbit.adi_error_label_p_u = write_small_label(device.ADI, "5", [348, 139,1], [0.9,0.1,0.85]);
+	p_pfd_orbit.adi_error_label_p_l = write_small_label(device.ADI, "5", [348, 222,1], [0.9,0.1,0.85]);
+
 	p_pfd_orbit.att_error_needles = adi_errors.createChild("group");
 
 	p_pfd_orbit.att_error_pitch = p_pfd_orbit.att_error_needles.createChild("path")
@@ -1852,8 +1895,10 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 
 	var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
+	var adi_error_selection = getprop("/fdm/jsbsim/systems/adi/error-range-select");
 
 	var adi_rate_range = 5.0;
+	var adi_error_range = 5.0;
 
 	if (major_mode != 305)
 		{
@@ -1862,6 +1907,13 @@ var PFD_addpage_p_pfd_orbit = func(device)
 		else {adi_rate_range = 10.0;}
 			
 		}
+
+	if ((major_mode != 305) and (major_mode != 304) and (major_mode != 602))
+		{
+		if (adi_error_selection == 0) {adi_error_range = 1.0;}
+		else if (adi_error_selection == 1) {adi_error_range = 5.0;}
+		else {adi_error_range = 10.0;}	
+		}		
 
 
 
@@ -1926,12 +1978,11 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	
 	# ADI error needles
 
+	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
+	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
+	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -adi_error_range, adi_error_range) * -40.0/adi_error_range;
 
 
-
-	var pitch_error_ntrans = SpaceShuttle.clamp(pitch_error, -5.0, 5.0) * -8.0;
-	var yaw_error_ntrans = SpaceShuttle.clamp(yaw_error, -5.0, 5.0) * -8.0;
-	var roll_error_ntrans = SpaceShuttle.clamp(roll_error, -5.0, 5.0) * -8.0;
 
 	p_pfd_orbit.att_error_pitch.setTranslation(0.0, pitch_error_ntrans);
 	p_pfd_orbit.att_error_yaw.setTranslation(yaw_error_ntrans, 0.0);
@@ -1940,8 +1991,12 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	p_pfd_orbit.att_error_pitch.setScale(math.sqrt(9025. - pitch_error_ntrans*pitch_error_ntrans)/95.0,1.0);
 	p_pfd_orbit.att_error_yaw.setScale(1.0,math.sqrt(9025. - yaw_error_ntrans*yaw_error_ntrans)/95.0);
 	p_pfd_orbit.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
-	
 
+	p_pfd_orbit.adi_error_label_p_u.setText(sprintf("%d", adi_error_range));
+	p_pfd_orbit.adi_error_label_p_l.setText(sprintf("%d", adi_error_range));
+
+	
+	
 
 	# ADI rate needles
 

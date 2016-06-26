@@ -26,7 +26,6 @@ var PFD_addpage_p_vert_sit = func(device)
         SpaceShuttle.fill_vert_sit1_SB_data();
         SpaceShuttle.fill_vert_sit1_maxLD_data();
         SpaceShuttle.traj_display_flag = 8;
-        #device.p_ascent_shuttle_sym.setScale(0.3);
         device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
         device.DPS_menu_ops.setText(sprintf("%s","3051/     /"));
         device.DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
@@ -92,6 +91,18 @@ var PFD_addpage_p_vert_sit = func(device)
 		p_vert_sit.theta.lineTo(set[0], set[1]);
 		}
 
+	data = SpaceShuttle.draw_tmarker_left();
+	p_vert_sit.energy = device.symbols.createChild("path", "energy")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		p_vert_sit.energy.lineTo(set[0], set[1]);
+		}
+
  
 
 
@@ -104,7 +115,6 @@ var PFD_addpage_p_vert_sit = func(device)
         device.limit1_traj_plot.removeAllChildren();
         device.limit2_traj_plot.removeAllChildren();
 	device.symbols.removeAllChildren();
-        #device.p_ascent_shuttle_sym.setScale(0.0);
         device.set_DPS_off();
     }
     
@@ -141,6 +151,13 @@ var PFD_addpage_p_vert_sit = func(device)
 	    var pitch = getprop("/orientation/pitch-deg");
 	    var yp = 254.0 - (pitch -5.0) * 5.6;
 	    p_vert_sit.theta.setTranslation(467,yp);
+
+	    var dE = getprop("/fdm/jsbsim/systems/taem-guidance/dH-equiv-ft");
+
+	    dE = SpaceShuttle.clamp(dE, -20000.0, 20000.0);		
+
+	    var yde = 254.0 - dE/10000.0 * 28.;
+	    p_vert_sit.energy.setTranslation(467,yde);
     
         p_vert_sit.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
     
