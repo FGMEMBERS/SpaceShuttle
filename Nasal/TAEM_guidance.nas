@@ -210,9 +210,9 @@ if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 TAEM_WP_1.turn_direction = turn_direction;
 
 if (turn_direction == "right")
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 20.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 25.0);}
 else
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -20.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -25.0);}
 
 TAEM_guidance_phase = 1;
 
@@ -266,9 +266,9 @@ if (stage == 0) # glide to WP 1
 			TAEM_guidance_phase = 2;
 	
 			if (turn_direction == "right")
-				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 20.0);}
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 25.0);}
 			else
-				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -20.0);}
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -25.0);}
 
 			setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 1);
 			}
@@ -278,8 +278,8 @@ else if (stage == 1) # turn around HAC
 	{
 
 	var distance_to_runway = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
-	var airspeed_kt = getprop("/velocities/airspeed-kt");
-	distance_to_runway = distance_to_runway - 0.2 * airspeed_kt / 3600.0;
+	var groundspeed_kt = getprop("/velocities/groundspeed-kt");
+	distance_to_runway = distance_to_runway - 0.2 * groundspeed_kt / 3600.0;
 
 	setprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm", distance_to_runway);
 

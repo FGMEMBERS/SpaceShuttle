@@ -1259,7 +1259,7 @@
 			<value>50.0</value>
 			<product>
 				<property>systems/ap/taem/hac-turn-init</property>
-				<value>20.0</value>
+				<value>40.0</value>
 			</product>
 			<product>
 				<property>velocities/mach</property>
@@ -1280,7 +1280,7 @@
 			<product>
 			<max>
 				<difference>	
-					<value>225.0</value>
+					<value>235.0</value>
 					<property>velocities/ve-kts</property>
 				</difference>
 				<value>0.0</value>
@@ -1344,14 +1344,14 @@
 				<min>
 					<product>
 						<property>systems/taem-guidance/radial-error-nm</property>
-						<value>-3.0</value>
+						<value>-0.7</value>
 					</product>
-					<value>0.3</value>
+					<value>0.6</value>
 				</min>
 				<value>-1.0</value>
 			</max>
 			<property>systems/ap/taem/set-bank-target</property>
-			<value>0.5</value>
+			<value>1.0</value>
 			</product>
 			</sum>
 		</function>

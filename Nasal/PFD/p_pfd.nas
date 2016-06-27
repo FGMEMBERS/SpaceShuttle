@@ -1348,13 +1348,14 @@ var PFD_addpage_p_pfd = func(device)
 			hac_c_distance = pos.distance_to(SpaceShuttle.TAEM_HAC_center) / 1853.;
 			var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
 			var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
-			
+			var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);	
+
 			hsi_course = -yaw;
 			bearing_HAC_C = course_HAC_C;
 			bearing_HAC_H = course_WP1;
 			course_arrow = SpaceShuttle.TAEM_threshold.heading;
 
-			cdi_displacement = yaw - SpaceShuttle.TAEM_threshold.heading;
+			cdi_displacement =  course_threshold - SpaceShuttle.TAEM_threshold.heading;
 
 			if (SpaceShuttle.TAEM_guidance_phase == 3) {cdi_limit = 2.5;}
 			cdi_displacement = SpaceShuttle.clamp(cdi_displacement, -cdi_limit, cdi_limit);
