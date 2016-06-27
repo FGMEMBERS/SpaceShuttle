@@ -1335,12 +1335,54 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/taem/radial-speed-target-fps">
+		<function>
+			<min>
+			<max>
+			<product>
+				<value>-400.0</value>
+				<property>systems/taem-guidance/radial-error-nm</property>
+			</product>
+			<value>-200.0</value>
+			</max>
+			<value>200.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/taem/rdot-error">
+		<function>
+			<quotient>
+			<difference>
+				<property>systems/ap/taem/radial-speed-target-fps</property>
+				<property>systems/taem-guidance/rdot-fps</property>
+			</difference>
+			<value>200.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+  	
+
+  		<!--<pid name="systems/ap/taem/hac-adaptive-bank-target">
+			<input>systems/ap/taem/rdot-error</input>
+			<kp> 1.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 0.0</kd>
+			<clipto>
+				<min> -1.0 </min>
+        			<max>  1.0 </max>
+			</clipto>
+ 		</pid>-->
+
+
+
 		<fcs_function name="systems/ap/taem/hac-bank-target">
 		<function>
 			<sum>
 			<property>systems/ap/taem/set-bank-target</property>
 			<product>
-			<max>
+			<!--<max>
 				<min>
 					<product>
 						<property>systems/taem-guidance/radial-error-nm</property>
@@ -1349,9 +1391,10 @@
 					<value>0.6</value>
 				</min>
 				<value>-1.0</value>
-			</max>
+			</max>-->
+			<property>systems/ap/taem/rdot-error</property>
 			<property>systems/ap/taem/set-bank-target</property>
-			<value>1.0</value>
+			<value>1.5</value>
 			</product>
 			</sum>
 		</function>

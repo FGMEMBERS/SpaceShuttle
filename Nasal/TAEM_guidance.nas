@@ -167,7 +167,7 @@ if ((wp1_dot_rwy < 0.0) and (approach_mode == "OVHD"))
 if ((wp1_dot_rwy > 0.0) and (approach_mode == "STRT"))
 	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
 
-TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.3, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.3);
+TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.2, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.2);
 
 # now, determine how much we have to turn and store the info
 
@@ -210,20 +210,20 @@ if (SpaceShuttle.dot_product_2d(runway_dir_vec, test_vec) > 0.0)
 TAEM_WP_1.turn_direction = turn_direction;
 
 if (turn_direction == "right")
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 25.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 15.0);}
 else
-	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -25.0);}
+	{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -15.0);}
 
 TAEM_guidance_phase = 1;
 
-TAEM_guidance_loop(0);
+TAEM_guidance_loop(0, 0.0);
 }
 
 
 # the central TAEM guidance loop #########################################################
 
 
-var TAEM_guidance_loop = func (stage) {
+var TAEM_guidance_loop = func (stage, radius_error_last) {
 
 
 var pos = geo.aircraft_position();
@@ -266,9 +266,9 @@ if (stage == 0) # glide to WP 1
 			TAEM_guidance_phase = 2;
 	
 			if (turn_direction == "right")
-				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 25.0);}
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 15.0);}
 			else
-				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -25.0);}
+				{setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -15.0);}
 
 			setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 1);
 			}
@@ -287,8 +287,13 @@ else if (stage == 1) # turn around HAC
 	setprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft", glideslope_deviation);
 
 	var radius_error = TAEM_HAC_center.radius - pos.distance_to(TAEM_HAC_center);
+	var rdot = (radius_error - radius_error_last)/0.2;
+	if (radius_error_last == -1.0) {rdot = 0.0;}
+	radius_error_last  = radius_error;
+	
 
 	setprop("/fdm/jsbsim/systems/taem-guidance/radial-error-nm", radius_error/ 1853.);
+	setprop("/fdm/jsbsim/systems/taem-guidance/rdot-fps", rdot / 0.3048);
 
 	TAEM_energy_management();
 
@@ -319,7 +324,7 @@ else if (stage == 2)
 	}
 
 
-settimer( func {TAEM_guidance_loop(stage); }, 0.2);
+settimer( func {TAEM_guidance_loop(stage, radius_error_last); }, 0.2);
 
 }
 
