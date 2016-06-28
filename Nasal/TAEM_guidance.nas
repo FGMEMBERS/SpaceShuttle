@@ -167,6 +167,8 @@ if ((wp1_dot_rwy < 0.0) and (approach_mode == "OVHD"))
 if ((wp1_dot_rwy > 0.0) and (approach_mode == "STRT"))
 	{wp1_vec = [-wp1_vec[0], -wp1_vec[1]];}
 
+# the aim point is at 1.2 HAC radius because we spiral inward
+
 TAEM_WP_1.set_latlon(TAEM_HAC_center.lat() + m_to_lat * wp1_vec[1] * hac_radius * 1.2, TAEM_HAC_center.lon() + m_to_lon * wp1_vec[0] * hac_radius * 1.2);
 
 # now, determine how much we have to turn and store the info
@@ -183,7 +185,7 @@ print("Turn degrees: ", turn_degrees);
 
 TAEM_WP_1.turn_deg = turn_degrees;
 TAEM_WP_1.approach_dir = approach_dir;
-TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * 1.2 * hac_radius + final_approach_reserve * 1853.0;
+TAEM_WP_1.distance_to_runway_m = 2.0 * math.pi * turn_degrees/360.0 * 1.3 * hac_radius + final_approach_reserve * 1853.0;
 TAEM_WP_1.hac_radius = hac_radius;
 
 #print("Distance to WP1: ", pos.distance_to(TAEM_WP_1));
@@ -313,6 +315,10 @@ else if (stage == 1) # turn around HAC
 		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 0.0);
 		setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 0);
 		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init", 0);
+		#setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
+		#setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+		#setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+		#setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
 		stage = 2;
 		}
 	}
