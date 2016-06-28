@@ -1207,6 +1207,104 @@
 
 	<channel name="Entry auto-pitch hold" execute="systems/ap/auto-entry-active">
 
+
+		<fcs_function name="systems/ap/entry/vspeed-error">
+		<function>
+			<quotient>
+			<max>
+				<min>
+				<product>
+					<difference>
+						<property>systems/ap/entry/vspeed-target-fps</property>
+						<property>velocities/v-down-fps</property>
+					</difference>
+					<value>1.0</value>
+					</product>
+				<value>100.0</value>
+				</min>
+			<value>-100.0</value>
+			</max>
+			<value>100.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+  		<deadband name="systems/ap/entry/abs-bank-target-trigger">
+			<input>systems/ap/entry/vspeed-error</input>
+			<width>0.5</width>
+  		</deadband>
+
+		<pid name="systems/ap/entry/abs-bank-modifier-deg">
+			<input>systems/ap/entry/vspeed-error</input>
+			<kp> 60.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 60.0</kd>
+			<trigger>systems/ap/entry/abs-bank-target-trigger</trigger>
+			<clipto>
+				<min> -60.0</min>
+        			<max>  15.0 </max>
+			</clipto>
+  		</pid>
+
+		<fcs_function name="systems/ap/entry/drag-bank-angle-target-deg">
+		<function>
+			<product>
+			<sum>
+				<value>60.0</value>
+				<property>systems/ap/entry/abs-bank-modifier-deg</property>
+			</sum>
+			<property>systems/ap/entry/roll-sign</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/entry/bank-angle-target-deg">
+			<default value="systems/ap/entry/drag-bank-angle-target-deg"/>
+			<test value="systems/ap/entry/reversel-bank-angle-target-deg">
+				systems/ap/entry/roll-reversal-init == 1
+			</test>
+		</switch>
+
+
+
+	
+
+		<fcs_function name="systems/ap/entry/bank-angle-error">
+		<function>
+			<max>
+			<min>
+			<quotient>
+			<difference>
+				<property>systems/ap/entry/bank-angle-target-deg</property>
+				<property>/orientation/roll-deg</property>
+			</difference>
+			<value>20.0</value>
+			</quotient>
+			<value>1.0</value>
+			</min>
+			<value>-1.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/entry/roll-gain">
+			<default value="0.1"/>
+			<test value="0.2">
+				systems/ap/entry/roll-reversal-init == 1
+			</test>
+		</switch>
+
+
+		<fcs_function name="systems/ap/entry/entry-controller-aileron-cmd-norm">
+		<function>
+			<product>
+				<property>systems/ap/entry/bank-angle-error</property>
+				<property>systems/ap/entry/roll-gain</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
 		<fcs_function name="systems/ap/alpha-error">
 		<function>
 			<difference>
@@ -1362,39 +1460,15 @@
 		</function>
 		</fcs_function>
 
-  	
-
-  		<!--<pid name="systems/ap/taem/hac-adaptive-bank-target">
-			<input>systems/ap/taem/rdot-error</input>
-			<kp> 1.0 </kp>
-			<ki> 0.0 </ki>
-			<kd> 0.0</kd>
-			<clipto>
-				<min> -1.0 </min>
-        			<max>  1.0 </max>
-			</clipto>
- 		</pid>-->
-
-
 
 		<fcs_function name="systems/ap/taem/hac-bank-target">
 		<function>
 			<sum>
 			<property>systems/ap/taem/set-bank-target</property>
 			<product>
-			<!--<max>
-				<min>
-					<product>
-						<property>systems/taem-guidance/radial-error-nm</property>
-						<value>-0.7</value>
-					</product>
-					<value>0.6</value>
-				</min>
-				<value>-1.0</value>
-			</max>-->
-			<property>systems/ap/taem/rdot-error</property>
-			<property>systems/ap/taem/set-bank-target</property>
-			<value>1.5</value>
+				<property>systems/ap/taem/rdot-error</property>
+				<property>systems/ap/taem/set-bank-target</property>
+				<value>1.5</value>
 			</product>
 			</sum>
 		</function>

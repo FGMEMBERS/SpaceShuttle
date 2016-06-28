@@ -2480,12 +2480,19 @@
 	<test  value="systems/ap/taem/taem-controller-aileron-cmd-norm">
 		systems/ap/auto-taem-active == 1
 	</test>
+	<test  value="systems/ap/entry/entry-controller-aileron-cmd-norm">
+		systems/ap/auto-entry-active == 1
+	</test>
    </switch>
 
    <switch name="fcs/ap/auto-roll-active">
 	<default value="0.0"/>
 	<test logic="AND" value="1.0">
 		systems/ap/auto-taem-active == 1
+		systems/ap/automatic-roll-control == 1
+	</test>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-entry-active == 1
 		systems/ap/automatic-roll-control == 1
 	</test>
    </switch>

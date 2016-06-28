@@ -43,6 +43,12 @@
        <mnvr-timer-sec type="int">0</mnvr-timer-sec>
        <mnvr-timer-min type="int">0</mnvr-timer-min>
        <mnvr-timer-h type="int">0</mnvr-timer-h>
+       <entry>
+	  <vspeed-target-fps type="double">230.0</vspeed-target-fps>
+	  <roll-sign type="int">1</roll-sign>
+	  <roll-reversal-init type="int">0</roll-reversal-init>
+	  <reversel-bank-angle-target-deg type="double">0</reversel-bank-angle-target-deg>
+       </entry>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
 	  <inc-acquire-sign type="int">1</inc-acquire-sign>
