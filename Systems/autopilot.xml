@@ -1175,7 +1175,7 @@
 
 	<!-- general mode selection parameters activating the channels -->
 
-	<channel name="Auto TAEM glide management">
+	<channel name="Auto entry and TAEM glide management">
 
 		<switch name="systems/ap/auto-entry-active">
 			<default value="0.0"/>
@@ -1203,10 +1203,22 @@
 
 	</channel>
 
-	<!-- automatic pitch channel alpha-hold during entry -->
+	<!-- automatic entry  - roll reversals are commanded by Nasal high-level code-->
 
-	<channel name="Entry auto-pitch hold" execute="systems/ap/auto-entry-active">
+	<channel name="Entry autopilot" execute="systems/ap/auto-entry-active">
 
+		
+		<fcs_function name="systems/ap/entry/vspeed-target-fps">
+		<function>
+			<sum>
+			<value>230.0</value>
+			<product>		
+				<property>systems/entry_guidance/v-error-fps</property>
+				<value>-0.3</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/ap/entry/vspeed-error">
 		<function>
@@ -1260,7 +1272,10 @@
 
 		<switch name="systems/ap/entry/bank-angle-target-deg">
 			<default value="systems/ap/entry/drag-bank-angle-target-deg"/>
-			<test value="systems/ap/entry/reversel-bank-angle-target-deg">
+			<test value="0.0">
+				systems/ap/entry/taem-transit-init == 1
+			</test>
+			<test value="systems/ap/entry/reversal-bank-angle-target-deg">
 				systems/ap/entry/roll-reversal-init == 1
 			</test>
 		</switch>
@@ -1305,10 +1320,73 @@
 		</fcs_function>
 
 
+		<!-- pitch channel including alpha  hold and fast drag modulation -->
+
+
+		<switch name="systems/ap/entry/fast-drag-modulation-factor">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				accelerations/hdotdot-ft_s2 GT 0.0
+				systems/entry_guidance/v-error-fps GT 0.0
+			</test>
+			<test logic="AND" value="-1.0">
+				accelerations/hdotdot-ft_s2 LT 0.0
+				systems/entry_guidance/v-error-fps LT 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/entry/fast-drag-vspeed-error">
+		<function>
+			<quotient>
+			<max>
+				<min>
+					<difference>
+						<property>systems/ap/entry/vspeed-target-fps</property>
+						<property>velocities/v-down-fps</property>
+					</difference>
+				<value>30.0</value>
+				</min>
+			<value>-30.0</value>
+			</max>
+			<value>30.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/entry/fast-drag-dalpha-rad">
+		<function>
+			<product>
+				<value>0.052358333</value>
+				<property>systems/ap/entry/fast-drag-vspeed-error</property>
+				<property>systems/ap/entry/fast-drag-modulation-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/entry/target-alpha-rad">
+		<function>
+			<sum>
+				<property>systems/entry_guidance/nominal-alpha-rad</property>	
+				<property>systems/ap/entry/fast-drag-dalpha-rad</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		
+
+		<switch name="systems/ap/entry/alpha-target-rad">
+			<!--<default value="systems/entry_guidance/nominal-alpha-rad"/>-->
+			<default value="systems/ap/entry/target-alpha-rad"/>
+			<test value="0.087263">
+				systems/ap/entry/taem-transit-init == 1
+			</test>
+		</switch>
+
+
 		<fcs_function name="systems/ap/alpha-error">
 		<function>
 			<difference>
-				<property>systems/entry_guidance/nominal-alpha-rad</property>
+				<property>systems/ap/entry/alpha-target-rad</property>
 				<property>aero/alpha-rad</property>
 			</difference>
 		</function>

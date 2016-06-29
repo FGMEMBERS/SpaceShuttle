@@ -47,7 +47,8 @@
 	  <vspeed-target-fps type="double">230.0</vspeed-target-fps>
 	  <roll-sign type="int">1</roll-sign>
 	  <roll-reversal-init type="int">0</roll-reversal-init>
-	  <reversel-bank-angle-target-deg type="double">0</reversel-bank-angle-target-deg>
+	  <reversal-bank-angle-target-deg type="double">0</reversal-bank-angle-target-deg>
+	  <taem-transit-init type="int">0</taem-transit-init>
        </entry>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
@@ -237,11 +238,8 @@
 	<gpc3-power-demand-kW type="double">0.56</gpc3-power-demand-kW>
 	<gpc4-power-demand-kW type="double">0.56</gpc4-power-demand-kW>
 	<gpc5-power-demand-kW type="double">0.56</gpc5-power-demand-kW>
-    <crtl-sel type="int">0</crtl-sel>
-    <crtr-sel type="int">1</crtr-sel>
-    <!--crt1-pwr type="int">1</crt1-pwr>
-    <crt2-pwr type="int">1</crt2-pwr>
-    <crt3-pwr type="int">1</crt3-pwr-->
+    	<crtl-sel type="int">0</crtl-sel>
+    	<crtr-sel type="int">1</crtr-sel>
     </dps>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>
@@ -250,6 +248,7 @@
      <tal-site-iloaded type="int">7</tal-site-iloaded>
      <rtls-site-iloaded type="int">1</rtls-site-iloaded>
      <vrel-fps type="double">0.0</vrel-fps>
+     <v-error-fps type="double">0.0</v-error-fps>
     </entry_guidance>
     <failures include="component_condition.xml"/>
      <orbital>

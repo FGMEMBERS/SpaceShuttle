@@ -66,6 +66,7 @@ var update_entry_guidance =  func {
 var pos = geo.aircraft_position();
 
 var course = pos.course_to(landing_site);
+var v_eci = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 var distance = pos.distance_to(landing_site);
 
 var v_rel_fps = (distance - distance_last) /0.3048;
@@ -74,12 +75,18 @@ distance_last = distance;
 
 distance = distance/ 1853.0;
 
+var v_error = SpaceShuttle.get_entry_drag_deviation(v_eci, distance);
+
+
+setprop("/fdm/jsbsim/systems/entry_guidance/v-error-fps", v_error);
 setprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg", course);
 setprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", distance);
 
-
-
 trailer_set.update(distance);
+
+
+roll_reversal_management();
+
 
 v_aero = getprop("/fdm/jsbsim/systems/entry_guidance/ground-relative-velocity-fps");
 
@@ -88,6 +95,59 @@ var a_aero = (v_aero_last - v_aero) * 0.3048 / 9.81;
 setprop("/fdm/jsbsim/systems/entry_guidance/current-deceleration-g", a_aero);
 
 v_aero_last = v_aero;
+
+# cease banking and alpha management in the transition to TAEM
+
+if (distance < 80.0)
+	{
+	setprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init",1);
+	}
+
+
+}
+
+
+# manage roll reversals #################################################
+
+var roll_reversal_management = func {
+
+var current_bank = getprop("/orientation/roll-deg");
+var roll_direction = getprop("/fdm/jsbsim/systems/ap/entry/roll-sign");
+
+# if a roll reversal is on, we need to check whether to end it
+
+if (getprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init") == 1)
+	{
+	var commanded_bank = getprop("/fdm/jsbsim/systems/ap/entry/reversal-bank-angle-target-deg");
+
+	if (math.abs(current_bank - commanded_bank) < 5.0)
+		{
+
+		roll_direction = - roll_direction;
+		setprop("/fdm/jsbsim/systems/ap/entry/roll-sign", roll_direction);
+		setprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init", 0);
+		print("Ending roll reversal!");
+		return;
+		}
+
+	}
+
+
+var delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
+if (math.abs(delta_az) < 10.0) {return;}
+
+var drag_bank = getprop("/fdm/jsbsim/systems/ap/entry/drag-bank-angle-target-deg");
+
+if (getprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init") == 0)
+{
+if (((delta_az > 10.0) and (roll_direction == 1)) or ((delta_az < -10.0) and (roll_direction == -1)))
+	{
+	setprop("/fdm/jsbsim/systems/ap/entry/reversal-bank-angle-target-deg", -current_bank);
+	print("Initiating roll reversal!");
+	setprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init", 1);
+	}
+}
+
 
 }
 

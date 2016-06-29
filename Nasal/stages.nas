@@ -1215,9 +1215,28 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 	return;
 	}
 
+# switch to TAEM guidance 75 miles to site if we're under entry guidance
 
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
-	{SpaceShuttle.update_entry_guidance();}
+	{
+	SpaceShuttle.update_entry_guidance();
+
+	if (getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm") < 75.0)
+		{
+		SpaceShuttle.compute_TAEM_guidance_targets();
+		glide_loop();
+
+		setprop("/sim/messages/copilot", "TAEM interface reached.");
+		setprop("/controls/shuttle/hud-mode",3);
+
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		return;
+		}
+
+
+
+	}
 
 SpaceShuttle.check_limits_entry();
 
@@ -1860,20 +1879,20 @@ if (stage == 3)
 	MEDS_CDR1.PFD.dps_page_flag = 1;
 	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
 	MEDS_CDR2.PFD.dps_page_flag = 1;
-	MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);
-	MEDS_CRT1.PFD.dps_page_flag = 0;
-	MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
-	MEDS_MFD1.PFD.dps_page_flag = 0;
-	MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
-	MEDS_CRT3.PFD.dps_page_flag = 1;
-	MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_meds_spi);
-	MEDS_CRT2.PFD.dps_page_flag = 0;
-	MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
-	MEDS_MFD2.PFD.dps_page_flag = 0;
-	MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_dps);
-	MEDS_PLT1.PFD.dps_page_flag = 1;
-	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
-	MEDS_PLT2.dps_page_flag = 1;
+	#MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);
+	#MEDS_CRT1.PFD.dps_page_flag = 0;
+	#MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
+	#MEDS_MFD1.PFD.dps_page_flag = 0;
+	#MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
+	#MEDS_CRT3.PFD.dps_page_flag = 1;
+	#MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_meds_spi);
+	#MEDS_CRT2.PFD.dps_page_flag = 0;
+	#MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
+	#MEDS_MFD2.PFD.dps_page_flag = 0;
+	#MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_dps);
+	#MEDS_PLT1.PFD.dps_page_flag = 1;
+	#MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
+	#MEDS_PLT2.dps_page_flag = 1;
 
 	#setprop("/fdm/jsbsim/systems/dps/spec", 50);
 	}
