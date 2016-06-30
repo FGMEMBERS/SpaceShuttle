@@ -1215,13 +1215,13 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 	return;
 	}
 
-# switch to TAEM guidance 75 miles to site if we're under entry guidance
+# switch to TAEM guidance 80 miles to site if we're under entry guidance
 
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{
 	SpaceShuttle.update_entry_guidance();
 
-	if (getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm") < 75.0)
+	if (getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm") < 80.0)
 		{
 		SpaceShuttle.compute_TAEM_guidance_targets();
 		glide_loop();

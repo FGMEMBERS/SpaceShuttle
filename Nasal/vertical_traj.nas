@@ -127,7 +127,7 @@ if (traj_display_flag == 4)
 
 if (traj_display_flag == 5)
 	{
-	if (velocity < 12000.0)
+	if (velocity < 10000.0)
 		{
 		fill_entry4_data();
 		traj_display_flag = 6;
@@ -996,19 +996,19 @@ append(entry_nominal_trajectory, point);
 point = [241.1797, 9113.4238];
 append(entry_nominal_trajectory, point);
 
-point = [201.2034, 8208.7248];
+point = [201.2034, 8108.7248];
 append(entry_nominal_trajectory, point);
 
 point = [160.3208, 7207.121];
 append(entry_nominal_trajectory, point);
 
-point = [120.4003, 6053.7832];
+point = [120.4003, 5853.7832];
 append(entry_nominal_trajectory, point);
 
-point = [95.6635, 5513.766];
+point = [95.6635, 5213.766];
 append(entry_nominal_trajectory, point);
 
-point=[60.527, 4342.2923];
+point=[60.527, 3942.2923];
 append(entry_nominal_trajectory, point);
 
 }

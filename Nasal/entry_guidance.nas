@@ -8,8 +8,8 @@ landing_site.tacan = "";
 landing_site.rwy_sel = 0;
 
 var entry_interface = geo.Coord.new();
-var v_aero_last = 0.0;
-var v_aero = 0.0;
+#var v_aero_last = 0.0;
+#var v_aero = 0.0;
 var distance_last = 0.0;
 
 var radius_set = [];
@@ -64,6 +64,7 @@ landing_site.set_latlon(34.722, -120.567);
 var update_entry_guidance =  func {
 
 var pos = geo.aircraft_position();
+var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var course = pos.course_to(landing_site);
 var v_eci = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
@@ -75,35 +76,30 @@ distance_last = distance;
 
 distance = distance/ 1853.0;
 
-var v_error = SpaceShuttle.get_entry_drag_deviation(v_eci, distance);
 
-
-setprop("/fdm/jsbsim/systems/entry_guidance/v-error-fps", v_error);
 setprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg", course);
 setprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", distance);
 
-trailer_set.update(distance);
 
-
-roll_reversal_management();
-
-
-v_aero = getprop("/fdm/jsbsim/systems/entry_guidance/ground-relative-velocity-fps");
-
-var a_aero = (v_aero_last - v_aero) * 0.3048 / 9.81;
-
-setprop("/fdm/jsbsim/systems/entry_guidance/current-deceleration-g", a_aero);
-
-v_aero_last = v_aero;
-
-# cease banking and alpha management in the transition to TAEM
-
-if (distance < 80.0)
+if (mm == 304)
 	{
-	setprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init",1);
+	var v_error = SpaceShuttle.get_entry_drag_deviation(v_eci, distance);
+	setprop("/fdm/jsbsim/systems/entry_guidance/v-error-fps", v_error);
+
+	trailer_set.update(distance);
+	roll_reversal_management();
+
+	# cease banking and alpha management in the transition to TAEM
+
+	if (distance < 95.0)
+		{
+		if (getprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init") ==0)
+			{
+			print("Preparing transition to TAEM guidance!");
+			setprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init",1);
+			}
+		}
 	}
-
-
 }
 
 

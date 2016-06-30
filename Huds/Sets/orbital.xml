@@ -163,7 +163,9 @@
 		<format>Nom. AoA:%4.2f deg</format>
 		<halign>left</halign>
 		<input>
-			<property>/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg</property>
+			<!--<property>/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg</property>-->
+			<property>/fdm/jsbsim/systems/ap/entry/drag-target-alpha-rad</property>
+			<factor>57.295780</factor>
 		</input>
        </label>	
 

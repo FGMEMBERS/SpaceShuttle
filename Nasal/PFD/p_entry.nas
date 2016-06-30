@@ -211,7 +211,8 @@ var PFD_addpage_p_entry = func(device)
         var altitude = getprop("/position/altitude-ft");
     
 	var alpha_act = getprop("/fdm/jsbsim/aero/alpha-deg");
-	var alpha_nom = getprop("/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg");
+	#var alpha_nom = getprop("/fdm/jsbsim/systems/entry_guidance/nominal-alpha-deg");
+	var alpha_nom = getprop("/fdm/jsbsim/systems/ap/entry/drag-target-alpha-rad") * 180.0/math.pi;
 
 	alpha_act = SpaceShuttle.clamp(alpha_act, alpha_min, alpha_max);
 	alpha_nom = SpaceShuttle.clamp(alpha_nom, alpha_min, alpha_max);

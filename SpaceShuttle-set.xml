@@ -49,6 +49,7 @@
 	  <roll-reversal-init type="int">0</roll-reversal-init>
 	  <reversal-bank-angle-target-deg type="double">0</reversal-bank-angle-target-deg>
 	  <taem-transit-init type="int">0</taem-transit-init>
+	  <drag-management-init type="int">0</drag-management-init>
        </entry>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
