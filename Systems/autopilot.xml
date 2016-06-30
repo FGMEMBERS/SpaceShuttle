@@ -1292,9 +1292,6 @@
 		</switch>
 
 
-
-	
-
 		<fcs_function name="systems/ap/entry/bank-angle-error">
 		<function>
 			<max>

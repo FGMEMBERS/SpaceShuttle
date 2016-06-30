@@ -9061,6 +9061,66 @@
            sodipodi:role="line">+XX.X</tspan></text>
 	<text
          sodipodi:linespacing="125%"
+         id="p_entry_text6"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="371.928574"
+           id="tspan3112"
+           sodipodi:role="line">H BIAS</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_entry_text7"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="314.178572"
+           x="371.928574"
+           id="tspan3112"
+           sodipodi:role="line">.</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_entry_hdot_bias"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="447.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_entry_text7"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="400.428574"
+           id="tspan3112"
+           sodipodi:role="line">REF</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_entry_hdot_ref"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="338.178572"
+           x="447.928574"
+           id="tspan3112"
+           sodipodi:role="line">+XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
          id="p_entry_alabel1"
          y="30.178572"
          x="43.928574"
@@ -9172,6 +9232,30 @@
          inkscape:connector-curvature="0"
          id="p_entry_hdiv6"
          d="m 25.0,330.0 10.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_entry_phug"
+         d="m 60.0,50.0 180.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_entry_phugv1"
+         d="m 60.0,50.0 0.0, 8.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_entry_phugv2"
+         d="m 240.0,50.0 0.0, 8.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_entry_phugv3"
+         d="m 150.0,50.0 0.0, 8.0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
 
     </g>

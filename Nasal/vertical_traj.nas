@@ -715,20 +715,21 @@ var point = [];
 setsize(traj_data,0);
 
 
-point = [95.6635, 5513.766];
+point = [95.6635, 5213.766];
 append(traj_data, point);
 
-point= [90.8323, 5406.4754];
+point= [90.8323, 5106.4754];
 append(traj_data, point);
 
-point=[80.9173, 5164.8333];
+point=[80.9173, 4764.8333];
 append(traj_data, point);
 
-point= [70.5462, 4777.7644];
+point= [70.5462, 4477.7644];
 append(traj_data, point);
 
-point=[60.527, 4342.2923];
+point=[60.527, 3942.2923];
 append(traj_data, point);
+
 
 for (i=0; i< size(traj_data); i=i+1)
 	{
@@ -1015,6 +1016,9 @@ append(entry_nominal_trajectory, point);
 
 
 var get_entry_drag_deviation = func (v, distance) {
+
+# bias the distance to get better match to TAEM
+distance = distance - 20.0;
 
 var t = entry_nominal_trajectory;
 

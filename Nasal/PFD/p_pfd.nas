@@ -1329,13 +1329,15 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.vert_acc_needle.setVisible(1);
 			p_pfd.glideslope_needle.setVisible(0);
 			v_acc_needle_offset = -SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
-
+			roll_error = roll - getprop("/fdm/jsbsim/systems/ap/entry/bank-angle-target-deg");
+			pitch_error = getprop("/fdm/jsbsim/systems/ap/alpha-error") * 180.0/math.pi;
 			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 			}
 		else
 			{
 			p_pfd.vert_acc_needle.setVisible(0);
 			p_pfd.glideslope_needle.setVisible(1);
+
 			}
 
 		if (SpaceShuttle.TAEM_guidance_available == 1)

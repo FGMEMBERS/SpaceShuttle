@@ -315,10 +315,17 @@ else if (stage == 1) # turn around HAC
 		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 0.0);
 		setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 0);
 		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init", 0);
-		#setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
-		#setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
-		#setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
-		#setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+
+		settimer( func {
+		
+		setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+		setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+
+		}, 5.0);
+
+
 		stage = 2;
 		}
 	}
