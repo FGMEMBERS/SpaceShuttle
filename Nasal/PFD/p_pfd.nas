@@ -793,7 +793,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(118,384)
 	.setRotation(0.0);
 
-	var acc_label = device.symbols.createChild("text")
+	p_pfd.acc_label = device.symbols.createChild("text")
 	.setText("Accel")
         .setColor(1,1,1)
 	.setFontSize(14)
@@ -1123,6 +1123,11 @@ var PFD_addpage_p_pfd = func(device)
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
 	var roll = getprop("/orientation/roll-deg");
+	var course = getprop("/fdm/jsbsim/velocities/course-deg");
+	
+
+	var beta_deg = getprop("/fdm/jsbsim/aero/beta-deg");
+	var alpha_deg = getprop("/fdm/jsbsim/aero/alpha-deg");
 
 	var pitch_adi = pitch;
 	var yaw_adi = yaw;
@@ -1167,12 +1172,21 @@ var PFD_addpage_p_pfd = func(device)
 			adi_att_string = "INRTL";
 			}
 		}
+	else
+		{
+		if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+			{
+			yaw_adi = yaw - course;
+			if (yaw_adi < 0.0) {yaw_adi = yaw_adi + 360.0;}
+			}
+
+		}
 
 	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
 
 	var altitude = getprop("/position/altitude-ft");
-	var beta_deg = getprop("/fdm/jsbsim/aero/beta-deg");
-	var alpha_deg = getprop("/fdm/jsbsim/aero/alpha-deg");
+
+
 
 	var pitch_error = 0.0;
 	var yaw_error = 0.0;
@@ -1184,6 +1198,7 @@ var PFD_addpage_p_pfd = func(device)
 	var cdi_displacement = 0.0;
 	var course_arrow = 0.0;
 	var glideslope_needle_offset = 0.0;
+	var acceleration = 0.0;
 
 	var bearing_earthrel = 0.0;
 	var bearing_inertial = 0.0;
@@ -1200,6 +1215,7 @@ var PFD_addpage_p_pfd = func(device)
 	var throt_text = "";
 	var landing_site_text = "";
 	var throt_label_text = "";
+	var acc_label_text = "Accel";
 
 	if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
 		{
@@ -1222,6 +1238,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.dist_to_rwy.setVisible(0);
 
 		throt_label_text = "Throt:";
+		acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
 
 		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
 			{
@@ -1323,6 +1340,10 @@ var PFD_addpage_p_pfd = func(device)
 
 		throt_label_text = "SB:";
 		throt_text = "Man";
+		acc_label_text = "Nz";
+
+		acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
+
 
 		if (major_mode == 304)
 			{
@@ -1332,6 +1353,15 @@ var PFD_addpage_p_pfd = func(device)
 			roll_error = roll - getprop("/fdm/jsbsim/systems/ap/entry/bank-angle-target-deg");
 			pitch_error = getprop("/fdm/jsbsim/systems/ap/alpha-error") * 180.0/math.pi;
 			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
+
+
+			if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
+				{
+				var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
+				var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
+				if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
+				}
+
 			}
 		else
 			{
@@ -1356,6 +1386,10 @@ var PFD_addpage_p_pfd = func(device)
 			bearing_HAC_C = course_HAC_C;
 			bearing_HAC_H = course_WP1;
 			course_arrow = SpaceShuttle.TAEM_threshold.heading;
+
+			var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
+			var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
+			if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
 
 			cdi_displacement =  course_threshold - SpaceShuttle.TAEM_threshold.heading;
 
@@ -1602,8 +1636,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	# accelerometer needle
 
-	var acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
-
 	var acc_needle_rot = acceleration * 45.0 * math.pi/180.0;
 
 	p_pfd.acc_needle.setRotation(acc_needle_rot);
@@ -1643,6 +1675,7 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.dist_to_rwy_label.setText(landing_site_text);
 	p_pfd.MM.setText(sprintf("%d", major_mode));
 	p_pfd.att.setText(adi_att_string);
+	p_pfd.acc_label.setText(acc_label_text);
 	
 
     };
@@ -1894,6 +1927,11 @@ var PFD_addpage_p_pfd_orbit = func(device)
 		roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
 
 			
+		}
+	else
+		{
+		yaw_adi = yaw - getprop("/fdm/jsbsim/velocities/course-deg");
+		if (yaw_adi < 0.0) {yaw_adi = yaw_adi + 360.0;}
 		}
 
 

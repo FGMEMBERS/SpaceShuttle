@@ -18,6 +18,10 @@ var PFD_addpage_p_entry = func(device)
     p_entry.bias = device.svg.getElementById("p_entry_bias");
     p_entry.hdot_bias = device.svg.getElementById("p_entry_hdot_bias");    
     p_entry.hdot_ref = device.svg.getElementById("p_entry_hdot_ref");    
+    p_entry.ny = device.svg.getElementById("p_entry_ny");   
+    p_entry.ny_trim = device.svg.getElementById("p_entry_ny_trim");
+    p_entry.ail_trim = device.svg.getElementById("p_entry_ail_trim");     
+    p_entry.rud_trim = device.svg.getElementById("p_entry_rud_trim");          
 
     p_entry.alabel1 = device.svg.getElementById("p_entry_alabel1");
     p_entry.alabel2 = device.svg.getElementById("p_entry_alabel2");
@@ -32,6 +36,12 @@ var PFD_addpage_p_entry = func(device)
     
         p_entry.bias.setText("+00");
         device.MEDS_menu_title.setText("       DPS MENU");
+
+	# draw defaults
+
+	p_entry.ny_trim.setText("0.000");
+	p_entry.ail_trim.setText("0.0");
+	p_entry.rud_trim.setText("0.0");
 
 	# acquire the symbols we'd like to draw
 
@@ -282,6 +292,7 @@ var PFD_addpage_p_entry = func(device)
 
 	p_entry.hdot_bias.setText(sprintf("%+3.0f", vspeed_bias));
 	p_entry.hdot_ref.setText(sprintf("%+3.0f", vspeed_ref));
+	p_entry.ny.setText(sprintf("%1.3f", getprop("/fdm/jsbsim/accelerations/Ny")));
 
     };
     

@@ -7,6 +7,7 @@ var TAEM_threshold = geo.Coord.new();
 var TAEM_HAC_center = geo.Coord.new();
 var TAEM_guidance_available = 0;
 var TAEM_guidance_phase = 0;
+var TAEM_loop_running = 0;
 
 var final_approach_reserve = 4.0;
 
@@ -218,7 +219,8 @@ else
 
 TAEM_guidance_phase = 1;
 
-TAEM_guidance_loop(0, 0.0);
+if (TAEM_loop_running == 0)
+	{TAEM_guidance_loop(0, 0.0);}
 }
 
 
@@ -227,6 +229,7 @@ TAEM_guidance_loop(0, 0.0);
 
 var TAEM_guidance_loop = func (stage, radius_error_last) {
 
+TAEM_loop_running = 1;
 
 var pos = geo.aircraft_position();
 
