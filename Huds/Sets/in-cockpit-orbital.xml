@@ -925,7 +925,7 @@
      </label>
 
 
-	<label>
+	<!--<label>
 		<condition>
 			<and>
 			<equals>
@@ -945,16 +945,15 @@
 		<format>Current deceleration:%2.2f g</format>
 		<halign>left</halign>
 		<input>
-			<!--<property>fdm/jsbsim/systems/entry_guidance/current-deceleration-g</property>-->
 			<property>accelerations/nlf</property>
 			<factor>-1.0</factor>
 		</input>
-     </label>
+     </label>-->
 
 
 
 
-    <label>
+    <!--<label>
 		<condition>
 			<and>
 			<equals>
@@ -976,7 +975,7 @@
 		<input>
 			<property>fdm/jsbsim/systems/entry_guidance/target-deceleration-g</property>
 		</input>
-     </label>
+     </label>-->
 
      <label>
 		<condition>

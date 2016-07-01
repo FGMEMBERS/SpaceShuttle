@@ -3,7 +3,7 @@
 <system>
 
 	<!-- This contains AP routines for the orbital DAP set to 'Auto' -->
- 	<!--  for AoA hold during entry and for auto-launch--> 
+ 	<!--  for auto-launch, entry and TAEM--> 
 
 	<!-- Orbital DAP largely follows the universal pointing menu -->
 	<!-- the main mode is given by up-mnvr-flag,  modes are -->
@@ -1170,8 +1170,7 @@
 
 	
 	
-	<!-- auto-entry/TAEM - due to the very different demands, this is organized in stages -->
-	<!-- and the relevant guidance targets are fed by a Nasal script -->
+	<!-- auto-entry/TAEM - guidance targets are fed by a Nasal script -->
 
 	<!-- general mode selection parameters activating the channels -->
 
@@ -1280,11 +1279,23 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/entry/low-e-bank-angle-target-deg">
+		<function>
+			<product>
+				<value>-2.2</value>
+				<property>systems/entry_guidance/delta-azimuth-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/ap/entry/bank-angle-target-deg">
 			<default value="systems/ap/entry/drag-bank-angle-target-deg"/>
 			<test logic="OR" value="0.0">
 				systems/ap/entry/taem-transit-init == 1
 				systems/ap/entry/drag-management-init == 0
+			</test>
+			<test value="systems/ap/entry/low-e-bank-angle-target-deg">
+				systems/ap/entry/low-energy-logic == 1
 			</test>
 			<test value="systems/ap/entry/reversal-bank-angle-target-deg">
 				systems/ap/entry/roll-reversal-init == 1
@@ -1366,11 +1377,21 @@
 
 		<fcs_function name="systems/ap/entry/fast-drag-dalpha-rad">
 		<function>
+			<sum>
 			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/ap/entry/low-energy-logic</property>
+				</difference>
 				<value>0.052358333</value>
 				<property>systems/ap/entry/fast-drag-vspeed-error</property>
 				<property>systems/ap/entry/fast-drag-modulation-factor</property>
 			</product>
+			<product>
+				<value>-0.05235987</value>
+				<property>systems/ap/entry/low-energy-logic</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 

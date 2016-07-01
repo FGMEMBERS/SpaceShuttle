@@ -21,7 +21,10 @@ var PFD_addpage_p_entry = func(device)
     p_entry.ny = device.svg.getElementById("p_entry_ny");   
     p_entry.ny_trim = device.svg.getElementById("p_entry_ny_trim");
     p_entry.ail_trim = device.svg.getElementById("p_entry_ail_trim");     
-    p_entry.rud_trim = device.svg.getElementById("p_entry_rud_trim");          
+    p_entry.rud_trim = device.svg.getElementById("p_entry_rud_trim"); 
+    p_entry.low_energy = device.svg.getElementById("p_entry_low_energy");
+    p_entry.loe_label_bright = device.svg.getElementById("p_entry_loe_label_bright");
+                       
 
     p_entry.alabel1 = device.svg.getElementById("p_entry_alabel1");
     p_entry.alabel2 = device.svg.getElementById("p_entry_alabel2");
@@ -42,6 +45,7 @@ var PFD_addpage_p_entry = func(device)
 	p_entry.ny_trim.setText("0.000");
 	p_entry.ail_trim.setText("0.0");
 	p_entry.rud_trim.setText("0.0");
+	p_entry.loe_label_bright.setVisible(0);
 
 	# acquire the symbols we'd like to draw
 
@@ -261,23 +265,23 @@ var PFD_addpage_p_entry = func(device)
         var y = SpaceShuttle.parameter_to_y(velocity, SpaceShuttle.traj_display_flag);
 	p_entry.shuttle_sym.setTranslation(x,y);
 
-	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[0][0], SpaceShuttle.traj_display_flag);
+	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[0][0] -20.0, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[0][1], SpaceShuttle.traj_display_flag);
     	p_entry.marker1.setTranslation(x,y);
 
-	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[1][0], SpaceShuttle.traj_display_flag);
+	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[1][0] -20.0, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[1][1], SpaceShuttle.traj_display_flag);
     	p_entry.marker2.setTranslation(x,y);
 
-	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[2][0], SpaceShuttle.traj_display_flag);
+	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[2][0] -20.0, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[2][1], SpaceShuttle.traj_display_flag);
     	p_entry.marker3.setTranslation(x,y);
 
-	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[3][0], SpaceShuttle.traj_display_flag);
+	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[3][0] -20.0, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[3][1], SpaceShuttle.traj_display_flag);
     	p_entry.marker4.setTranslation(x,y);
 
-	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[4][0], SpaceShuttle.traj_display_flag);
+	x = SpaceShuttle.parameter_to_x(SpaceShuttle.trailer_set.entry[4][0] -20.0, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(SpaceShuttle.trailer_set.entry[4][1], SpaceShuttle.traj_display_flag);
     	p_entry.marker5.setTranslation(x,y);
     
@@ -293,6 +297,19 @@ var PFD_addpage_p_entry = func(device)
 	p_entry.hdot_bias.setText(sprintf("%+3.0f", vspeed_bias));
 	p_entry.hdot_ref.setText(sprintf("%+3.0f", vspeed_ref));
 	p_entry.ny.setText(sprintf("%1.3f", getprop("/fdm/jsbsim/accelerations/Ny")));
+
+	var low_energy = getprop("/fdm/jsbsim/systems/ap/entry/low-energy-logic");
+
+	if (low_energy == 0) 
+		{
+		p_entry.low_energy.setText("INH");
+		p_entry.loe_label_bright.setVisible(0);
+		}
+	else 
+		{
+		p_entry.low_energy.setText("ENA");
+		p_entry.loe_label_bright.setVisible(1);
+		}
 
     };
     

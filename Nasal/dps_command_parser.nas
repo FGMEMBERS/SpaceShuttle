@@ -1034,6 +1034,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
+
+	if ((major_mode == 304) and (spec == 0))
+		{
+		if (item == 3)
+			{
+			toggle_property("/fdm/jsbsim/systems/ap/entry/low-energy-logic");
+			valid_flag = 1;
+			}
+		}
+
 	if (spec == 2)
 		{
 		if (item == 1)

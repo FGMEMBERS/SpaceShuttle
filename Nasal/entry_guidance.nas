@@ -8,8 +8,6 @@ landing_site.tacan = "";
 landing_site.rwy_sel = 0;
 
 var entry_interface = geo.Coord.new();
-#var v_aero_last = 0.0;
-#var v_aero = 0.0;
 var distance_last = 0.0;
 
 var radius_set = [];

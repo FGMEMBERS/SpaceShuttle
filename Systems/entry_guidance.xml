@@ -86,7 +86,7 @@
 	</fcs_function>
 
 
-	<fcs_function name="systems/entry_guidance/target-deceleration-g">
+	<!--<fcs_function name="systems/entry_guidance/target-deceleration-g">
 		<function>
 		<product>
 			<quotient>
@@ -136,7 +136,7 @@
 			<property>systems/entry_guidance/guidance-active</property>
 		</product>
 		</function>
-	</fcs_function>
+	</fcs_function>-->
 
 	<fcs_function name="systems/entry_guidance/delta-azimuth-deg">
 		<function>

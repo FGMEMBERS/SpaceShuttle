@@ -50,6 +50,7 @@
 	  <reversal-bank-angle-target-deg type="double">0</reversal-bank-angle-target-deg>
 	  <taem-transit-init type="int">0</taem-transit-init>
 	  <drag-management-init type="int">0</drag-management-init>
+	  <low-energy-logic type="int">0</low-energy-logic>
        </entry>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
