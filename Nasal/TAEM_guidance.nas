@@ -349,6 +349,13 @@ settimer( func {TAEM_guidance_loop(stage, radius_error_last); }, 0.2);
 
 var TAEM_energy_management = func {
 
+# no TAEM energy management during powered RTLS
+
+if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 601)
+	{
+	return;
+	}
+
 var alt = getprop("/position/altitude-ft") * 0.3048;
 var gsld = getprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft") * 0.3048;
 var nominal_alt = gsld + alt;
