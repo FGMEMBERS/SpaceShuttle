@@ -18,6 +18,8 @@ var PFD_addpage_p_dps_rtls = func(device)
     p_dps_rtls.prplt = device.svg.getElementById("p_dps_rtls_prplt");
     p_dps_rtls.prplt_text = device.svg.getElementById("p_dps_rtls_prplt_txt");
 
+    p_dps_rtls.guid = device.svg.getElementById("p_dps_rtls_guid");
+
     p_dps_rtls.vco  = device.svg.getElementById("p_dps_rtls_vco");
     p_dps_rtls.vcoscale_co = device.svg.getElementById("p_dps_rtls_vcoscale_co");
     p_dps_rtls.vcoscale_labelco = device.svg.getElementById("p_dps_rtls_vcoscale_labelco");   
@@ -164,6 +166,8 @@ var PFD_addpage_p_dps_rtls = func(device)
 	p_dps_rtls.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
 
 
+	p_dps_rtls.guid.setText(sprintf("%3.0f", getprop("/fdm/jsbsim/systems/ap/rtls/guid-percent")));
+
 	var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
 	if (control_mode == 13)
@@ -202,7 +206,7 @@ var PFD_addpage_p_dps_rtls = func(device)
 	x = SpaceShuttle.parameter_to_x(velocity1, 10);
 	y = SpaceShuttle.parameter_to_y(altitude, 10);
 
-	p_dps_rtls.pred2   .setTranslation(x,y); 
+	p_dps_rtls.pred2.setTranslation(x,y); 
 
         device.update_common_DPS();
     }

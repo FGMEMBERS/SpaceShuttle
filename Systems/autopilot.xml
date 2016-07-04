@@ -1678,6 +1678,27 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/rtls/guid-percent">
+		<function>
+			<product>
+			<max>
+				<quotient>
+					<difference>
+						<property>propulsion/tank/pct-full</property>
+						<property>systems/ap/rtls/pitcharound-prop-fraction</property>
+					</difference>		
+					<difference>
+						<value>100.0</value>
+						<property>systems/ap/rtls/pitcharound-prop-fraction</property>
+					</difference>
+				</quotient>
+			<value>0.0</value>
+			</max>
+			<value>100.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/ap/rtls/outbound-pitch-deg">
 		<function>
 			<table>
@@ -1741,7 +1762,7 @@
 			<test logic="AND" value="1.0">
 				systems/ap/rtls/flyout-active == 0
 				systems/ap/rtls/roll-deg-abs LT 90.0
-				/orientation/pitch-deg LT 75.0
+				/orientation/pitch-deg LT 65.0
 			</test>
 		</switch>
 		
@@ -1771,7 +1792,7 @@
 		<fcs_function name="systems/ap/rtls/flyback-roll-error">
 		<function>
 			<product>
-				<value>-1.0</value>
+				<value>1</value>
 				<property>/orientation/roll-deg</property>
 			</product>
 		</function>
@@ -1822,10 +1843,10 @@
 
 		<fcs_function name="systems/ap/rtls/flyback-yaw-error">
 		<function>
-			<product>
-				<value>-1</value>
-				<property>aero/beta-deg</property>
-			</product>
+			<difference>
+				<property>/orientation/heading-deg</property>
+				<property>systems/entry_guidance/target-azimuth-deg</property>
+			</difference>
 		</function>
 		</fcs_function>
 
@@ -1859,6 +1880,7 @@
 
 
 		<!-- pitch -->
+		<!-- note that due to the different roll orientation pitch error flips sign in PPA -->
 
 		
 
@@ -1874,22 +1896,58 @@
 		<fcs_function name="systems/ap/rtls/flyback-pitch-error">
 		<function>
 			<difference>
-				<property>/orientation/pitch-deg</property>
 				<value>50.0</value>
+				<property>/orientation/pitch-deg</property>
 			</difference>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/ap/rtls/powered-pitcharound-pitch-error">
+		<function>
+			<sum>
+				<difference>
+					<value>60.0</value>
+					<property>/orientation/pitch-deg</property>
+				</difference>
+				<product>
+				<max>
+				<min>
+					<difference>
+						<property>systems/ap/rtls/roll-deg-abs</property>
+						<value>90.0</value>
+					</difference>
+					<value>1.0</value>
+				</min>
+				<value>0.0</value>
+				</max>
+				<value>-100.0</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+		
 
 		<switch name="systems/ap/rtls/pitch-error">
 			<default value="0.0"/>
 			<test value="systems/ap/rtls/flyout-pitch-error">
 				systems/ap/rtls/flyout-active == 1
 			</test>
-			<test value="-100.0">
+			<test value="systems/ap/rtls/powered-pitcharound-pitch-error">
 				systems/ap/rtls/powered-pitcharound-active == 1
 			</test>
 			<test value="systems/ap/rtls/flyback-pitch-error">
 				systems/ap/rtls/flyback-active == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/rtls/pitch-gain">
+			<default value="0.0"/>
+			<test logic="OR" value="0.2">
+				systems/ap/rtls/flyout-active == 1
+				systems/ap/rtls/flyback-active == 1
+			</test>
+			<test value="0.5">
+				systems/ap/rtls/powered-pitcharound-active == 1
 			</test>
 		</switch>
 
@@ -1901,9 +1959,12 @@
 						<property>systems/ap/rtls/pitch-error</property>
 						<value>-0.1</value>
 					</product>
-					<value>-0.5</value>
+					<product>
+						<property>systems/ap/rtls/pitch-gain</property>
+						<value>-1.0</value>
+					</product>
 				</max>
-				<value>0.5</value>
+				<property>systems/ap/rtls/pitch-gain</property>
 			</min>
 		</function>
 		</fcs_function>
