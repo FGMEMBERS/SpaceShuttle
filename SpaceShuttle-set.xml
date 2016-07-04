@@ -16,6 +16,7 @@
        <arm-ato type="int">0</arm-ato>
        <abort-mode type="int">0</abort-mode>
        <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
+       <engine-fail-time type="double">-1.0</engine-fail-time>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>
@@ -1811,6 +1812,76 @@
 
      </menu>
 
+     <menu n="53">
+      <label>Cue cards</label>
+
+      <item>
+       <label>Ascent ADI nominal</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/ascent_nominal.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>Aborts</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/aborts.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>RTLS Commander</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/rtls_cdr.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>RTLS Pilot</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/rtls_plt.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>ZZA TAL</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/tal_redesignation_zza.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>OMS Part 1</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/oms_part1.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>OMS Part 2</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/oms_part2.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>Entry ADI Nominal</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/entry_nominal.png")</script>
+       </binding>
+      </item>
+
+
+     </menu>
+
     </default>
    </menubar>
 
@@ -2451,7 +2522,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/sound.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/save.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/mission.nas</file>
-   <!--<file>Aircraft/SpaceShuttle/Nasal/orbital_target.nas</file>-->
+   <file>Aircraft/SpaceShuttle/Nasal/cue_cards.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>

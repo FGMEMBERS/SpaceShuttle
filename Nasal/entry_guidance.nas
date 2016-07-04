@@ -202,13 +202,16 @@ else if (mode_string == "RTLS")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
 	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition_auto("p_dps_rtls");
 	}
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
 # initialized at TAEM interface, no target is selected yet, so if distance to site is
 # within TAEM range, we compute it now
 
-if (distance < 100.0) {SpaceShuttle.compute_TAEM_guidance_targets();}
+if ((distance < 100.0) and (mode_string != "RTLS")){SpaceShuttle.compute_TAEM_guidance_targets();}
 
 
 }
