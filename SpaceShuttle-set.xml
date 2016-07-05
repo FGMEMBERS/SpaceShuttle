@@ -251,6 +251,7 @@
      <tal-site-iloaded type="int">7</tal-site-iloaded>
      <rtls-site-iloaded type="int">1</rtls-site-iloaded>
      <vrel-fps type="double">0.0</vrel-fps>
+     <vrel-sign type="int">1</vrel-sign>
      <v-error-fps type="double">0.0</v-error-fps>
     </entry_guidance>
     <failures include="component_condition.xml"/>

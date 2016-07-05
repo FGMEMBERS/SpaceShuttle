@@ -181,8 +181,18 @@ var PFD_addpage_p_dps_rtls = func(device)
     		p_dps_rtls.serc_on.setText("");
 		}
 
-        var velocity = getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps");
-        var altitude = getprop("/position/altitude-ft");
+	        
+	var site_rel_velocity = getprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps");
+	var velocity = getprop("/fdm/jsbsim/systems/entry_guidance/ground-relative-velocity-fps");
+
+	var sign = 1;
+
+	if (getprop("/fdm/jsbsim/systems/ap/rtls/flyback-active") == 1)
+		{sign = -1;}
+
+	if (site_rel_velocity < 0.0) {velocity = -velocity; }
+
+	var altitude = getprop("/position/altitude-ft");
 
 	
 
@@ -192,7 +202,7 @@ var PFD_addpage_p_dps_rtls = func(device)
 	p_dps_rtls.shuttle_marker.setTranslation(x,y);
 
 
-	var velocity1 = SpaceShuttle.ascent_predictors[0][2] + velocity;
+	var velocity1 = SpaceShuttle.ascent_predictors[0][2] * sign + velocity;
 	altitude = SpaceShuttle.ascent_predictors[0][1];
 
 	x = SpaceShuttle.parameter_to_x(velocity1, 10);
@@ -200,7 +210,7 @@ var PFD_addpage_p_dps_rtls = func(device)
 
 	p_dps_rtls.pred1.setTranslation(x,y);
 
-	velocity1 = SpaceShuttle.ascent_predictors[1][2] + velocity;
+	velocity1 = SpaceShuttle.ascent_predictors[1][2] * sign + velocity;
 	altitude = SpaceShuttle.ascent_predictors[1][1];
 
 	x = SpaceShuttle.parameter_to_x(velocity1, 10);

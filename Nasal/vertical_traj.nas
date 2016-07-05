@@ -724,10 +724,10 @@ append(traj_data, point);
 point=[80.9173, 4764.8333];
 append(traj_data, point);
 
-point= [70.5462, 4477.7644];
+point= [70.5462, 4500.7644];
 append(traj_data, point);
 
-point=[60.527, 3942.2923];
+point=[60.527, 4242.2923];
 append(traj_data, point);
 
 
