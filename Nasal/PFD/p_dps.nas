@@ -59,9 +59,12 @@ print("DPS update ",device.designation);
 			}	
     		}
 	    else if (ops == 6)
-			{
-                    device.selectPage(device.p_dps_rtls);
-			}
+		{
+		if (major_mode == 601)
+                    	{device.selectPage(device.p_dps_rtls);}
+		else if (major_mode == 602)
+		 	{device.selectPage(device.p_vert_sit);}
+		}
 	
             else 
     		    device.selectPage(device.p_main);

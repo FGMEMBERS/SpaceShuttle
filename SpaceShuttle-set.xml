@@ -31,7 +31,7 @@
        <automatic-roll-control type="int">0</automatic-roll-control>
        <css-roll-control type="int">1</css-roll-control>
        <automatic-sb-control type="int">1</automatic-sb-control>
-       <automatic-throttle-control type="int">0</automatic-throttle-control>
+       <automatic-throttle-control type="int">1</automatic-throttle-control>
        <orbital-dap-auto type="int">0</orbital-dap-auto>
        <orbital-dap-inertial type="int">0</orbital-dap-inertial>
        <orbital-dap-lvlh type="int">0</orbital-dap-lvlh>
@@ -2523,6 +2523,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/sound.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/save.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/mission.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/rtls.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/cue_cards.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>

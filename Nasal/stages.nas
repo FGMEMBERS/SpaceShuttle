@@ -169,6 +169,8 @@ if ((periapsis > -200.0) and (launch_message_flag ==2))
 	{orbit_warn(); launch_message_flag = 3;}
 
 
+var engine_fail_time = getprop("/fdm/jsbsim/systems/abort/engine-fail-time");
+
 if (thrust_engine1 > 0.0)
 	{
 	setprop("/controls/engines/engine[0]/ignited-hud","x");
@@ -176,6 +178,10 @@ if (thrust_engine1 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[0]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed +20.0);
+		}
 	}
 
 if (thrust_engine2 > 0.0)
@@ -185,6 +191,10 @@ if (thrust_engine2 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[1]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed);
+		}
 	}
 if (thrust_engine3 > 0.0)
 	{
@@ -193,6 +203,10 @@ if (thrust_engine3 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed);
+		}
 	}
 
 var lockup_eng1 = getprop("/fdm/jsbsim/systems/mps/engine/lockup");
@@ -237,6 +251,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
 
 SpaceShuttle.check_limits_ascent();
 
+# automatically switch Earthview on
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
 	{
@@ -290,6 +305,10 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 
 	# make an automatic transtion to MM 102
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 102);	
+
+	# reset engine fail timer to init
+
+	setprop("/fdm/jsbsim/systems/abort/engine-fail-time", -1.0);
 
 	# if we have liftoff, switch autolaunch on if configured
 	
@@ -1229,8 +1248,12 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 		setprop("/sim/messages/copilot", "TAEM interface reached.");
 		setprop("/controls/shuttle/hud-mode",3);
 
-		setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
-		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 304)
+			{
+			setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
+			SpaceShuttle.ops_transition_auto("p_vert_sit");
+			}
+
 		return;
 		}
 

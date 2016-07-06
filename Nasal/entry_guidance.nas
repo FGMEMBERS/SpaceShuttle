@@ -214,6 +214,7 @@ else if (mode_string == "RTLS")
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
 	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+	SpaceShuttle.prtls_loop();
 	}
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is

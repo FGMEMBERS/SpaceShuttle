@@ -410,6 +410,8 @@ else if (mode_string == "RTLS")
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
 	SpaceShuttle.ops_transition_auto("p_dps_rtls");
 	#SpaceShuttle.ops_transition(idp_index, "p_dps_rtls");
+	# start RTLS loop
+	SpaceShuttle.prtls_loop();
 	}
 
 }

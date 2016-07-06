@@ -265,14 +265,10 @@ if (major_function == 1)
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
-#var spec = getprop("/fdm/jsbsim/systems/dps/spec");
-#var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 
 var spec = SpaceShuttle.idp_array[idp_index].get_spec();
 var disp = SpaceShuttle.idp_array[idp_index].get_disp();
 
-#print ("spec: ", spec);
-#print ("disp: ", disp);
 
 if ((disp > 0) and (spec > 0)) 
 	{
@@ -349,6 +345,18 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 			{
 			page_select(idp_index, "p_dps_mnvr");
 			}
+		}
+	else if (ops == 6)
+		{
+		if (major_mode == 601)
+			{
+			page_select(idp_index, "p_dps_rtls");
+			}
+		else if (major_mode == 602)
+			{
+			page_select(idp_index, "p_dps_vert_sit");
+			}
+
 		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
 	SpaceShuttle.idp_array[idp_index].set_spec(0);
