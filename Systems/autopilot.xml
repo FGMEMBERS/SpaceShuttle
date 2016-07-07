@@ -1654,6 +1654,17 @@
 			</test>
 		</switch>
 
+		<switch name="systems/ap/auto-grtls-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 602
+				systems/entry_guidance/guidance-mode == 29
+			
+			</test>
+		</switch>
+
+		
+
 	</channel>
 
 	<channel name="Auto PRTLS management" execute="systems/ap/auto-prtls-active">
@@ -1763,9 +1774,11 @@
 				systems/ap/rtls/flyout-active == 0
 				systems/ap/rtls/roll-deg-abs LT 90.0
 				/orientation/pitch-deg LT 70.0
+				systems/ap/rtls/powered-pitchdown-active == 0
 			</test>
 			<test logic="AND" value="1.0">
 				systems/ap/rtls/flyback-active == 1
+				systems/ap/rtls/powered-pitchdown-active == 0
 			</test>
 		</switch>
 		
@@ -1775,6 +1788,7 @@
 			<test logic="AND" value="1.0">
 				systems/ap/rtls/flyout-active == 0
 				systems/ap/rtls/flyback-active == 0
+				systems/ap/rtls/powered-pitchdown-active == 0
 			</test>
 		</switch>
 		
@@ -1810,8 +1824,9 @@
 			<test value="0.0">
 				systems/ap/rtls/powered-pitcharound-active == 1
 			</test>
-			<test value="systems/ap/rtls/flyback-roll-error">
+			<test logic="OR" value="systems/ap/rtls/flyback-roll-error">
 				systems/ap/rtls/flyback-active == 1
+				systems/ap/rtls/powered-pitchdown-active == 1
 			</test>
 		</switch>
 
@@ -1853,6 +1868,15 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/rtls/powered-pitchdown-yaw-error">
+		<function>
+			<product>
+				<value>-0.4</value>
+				<property>aero/beta-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/ap/rtls/yaw-error">
 			<default value="0.0"/>
 			<test value="systems/ap/rtls/flyout-yaw-error">
@@ -1863,6 +1887,9 @@
 			</test>
 			<test value="systems/ap/rtls/flyback-yaw-error">
 				systems/ap/rtls/flyback-active == 1
+			</test>
+			<test value="systems/ap/rtls/powered-pitchdown-yaw-error">
+				systems/ap/rtls/powered-pitchdown-active == 1
 			</test>
 		</switch>
 
@@ -1896,29 +1923,14 @@
 		</function>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/ap/rtls/flyback-hdot-target-fps">
+		<fcs_function name="systems/ap/rtls/powered-pitchdown-pitch-error">
 		<function>
-			<min>
-			<product>
 			<difference>
-				<property>/position/altitude-ft</property>
-				<value>270000.0</value>
+				<value>-2.0</value>
+				<property>aero/alpha-deg</property>
 			</difference>
-			<value>0.003333</value>
-			</product>
-			<value>900.0</value>
-			</min>
 		</function>
 		</fcs_function>
-
-		<fcs_function name="systems/ap/rtls/flyback-hdot-error">
-		<function>
-			<difference>
-				<property>systems/ap/rtls/flyback-hdot-target-fps</property>
-				<property>velocities/v-down-fps</property>
-			</difference>
-		</function>
-		</fcs_function>-->
 
 
 		<fcs_function name="systems/ap/rtls/flyback-trajectory-deviation">
@@ -1932,13 +1944,13 @@
 				-8000.0		265000.0
 				-7000.0		260000.0
 				-2500.0		270000.0
-				    0.0		360000.0
+				    0.0		330000.0
 				 3400.0		420000.0
         			</tableData>
       				</table>
 			<property>/position/altitude-ft</property>
 			</difference>
-			<value>-20000.0</value>
+			<value>-40000.0</value>
 			</max>
 			<value>40000.0</value>
 			</min>
@@ -1947,6 +1959,8 @@
 
 		<fcs_function name="systems/ap/rtls/flyback-vspead-db-width">
 		<function>
+
+			<product>
 			<table>
         			<independentVar lookup="row">systems/entry_guidance/site-relative-velocity-fps</independentVar>
         			<tableData>
@@ -1956,18 +1970,64 @@
 				 3400.0		700.0
         			</tableData>
       			</table>
+
+			<max>
+			<quotient>
+				<abs>
+					<property>systems/ap/rtls/flyback-trajectory-deviation</property>
+				</abs>				
+				<value>40000.0</value>
+			</quotient>
+			<value>0.3</value>
+			</max>
+			</product>
 			
 		</function>
 		</fcs_function>
 
-  		<deadband name="systems/ap/rtls-vspeed-deadband">
-			<input>velocities/v-down-fps</input>
+		<fcs_function name="systems/ap/rtls/vspeed-biased-fps">
+		<function>
+			<sum>
+				<property>velocities/v-down-fps</property>
+			<table>
+        			<independentVar lookup="row">systems/entry_guidance/site-relative-velocity-fps</independentVar>
+        			<tableData>
+				-7000.0		0.0
+				-4500.0		-150.0
+				-2500.0		-400.0
+				    0.0		-500.0
+				 3400.0		-700.0
+        			</tableData>
+      			</table>
+			</sum>
+		</function>
+		</fcs_function>
+
+  		<deadband name="systems/ap/rtls/vspeed-deadband">
+			<input>systems/ap/rtls/vspeed-biased-fps</input>
 			<width>systems/ap/rtls/flyback-vspead-db-width</width>
   		</deadband>
 		
 
+		<switch name="systems/ap/rtls/flyback-trajectory-damper">
+			<default value="0.0"/>
+			<test logic ="AND" value="-2.0">
+				velocities/v-down-fps LT 150.0
+				systems/entry_guidance/site-relative-velocity-fps GT -3000.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/ap/rtls/flyback-trajectory-deviation GT 0.0
+				systems/ap/rtls/vspeed-biased-fps GT 0.0
+			</test>
+			<test logic="AND" value="-1.0">
+				systems/ap/rtls/flyback-trajectory-deviation LT 0.0
+				systems/ap/rtls/vspeed-biased-fps LT 0.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/ap/rtls/flyback-pitch-target">
 		<function>
+			<min>
 			<sum>
 				<table>
         			<independentVar lookup="row">propulsion/tank/pct-full</independentVar>
@@ -1987,7 +2047,7 @@
 				<max>
 					<product>
 						<difference>
-							<value>265000.0</value>
+							<value>275000.0</value>
 							<property>/position/altitude-ft</property>
 						</difference>
 						<value>0.001</value>
@@ -2003,11 +2063,29 @@
 				</product>
 
 				<product>
-					<property>systems/ap/rtls-vspeed-deadband</property>
-					<value>0.005</value>
+					<property>systems/ap/rtls/vspeed-deadband</property>
+					<value>0.015</value>
+				</product>
+
+				<product>
+					<property>systems/ap/rtls/flyback-trajectory-damper</property>
+					<value>5.0</value>
+				</product>
+
+				<product>
+					<max>
+					<difference>
+						<property>aero/qbar-psf</property>
+						<value>1.0</value>
+					</difference>
+					<value>0.0</value>
+					</max>
+					<value>10.0</value>
 				</product>	
 
 			</sum>
+			<value>80.0</value>
+			</min>
 		</function>
 		</fcs_function>
 
@@ -2016,21 +2094,12 @@
 		<fcs_function name="systems/ap/rtls/flyback-pitch-error">
 		<function>
 			<difference>
-				<property>/fdm/jsbsim/systems/ap/rtls/flyback-pitch-target</property>
+				<property>systems/ap/rtls/flyback-pitch-target</property>
 				<property>/orientation/pitch-deg</property>
 			</difference>
 		</function>
 		</fcs_function>
 
-
-		<!--<fcs_function name="systems/ap/rtls/flyback-pitch-error">
-		<function>
-			<difference>
-				<value>65.0</value>
-				<property>/orientation/pitch-deg</property>
-			</difference>
-		</function>
-		</fcs_function>-->
 
 		<fcs_function name="systems/ap/rtls/powered-pitcharound-pitch-error">
 		<function>
@@ -2068,6 +2137,9 @@
 			<test value="systems/ap/rtls/flyback-pitch-error">
 				systems/ap/rtls/flyback-active == 1
 			</test>
+			<test value="systems/ap/rtls/powered-pitchdown-pitch-error">
+				systems/ap/rtls/powered-pitchdown-active == 1
+			</test>
 		</switch>
 
 		<switch name="systems/ap/rtls/pitch-gain">
@@ -2091,6 +2163,9 @@
 			<test value="0.7">
 				systems/ap/rtls/powered-pitcharound-active == 1
 			</test>
+			<test value="0.6">
+				systems/ap/rtls/powered-pitchdown-active == 1
+			</test>
 
 		</switch>
 
@@ -2112,21 +2187,11 @@
 		</function>
 		</fcs_function>
 
-		<!--<kinematic name="systems/ap/rtls/pitch-cmd">
-			<input>systems/ap/rtls/pitch-cmd-raw</input>
-			<traverse>
-				<setting>
-					<position>-1.0</position>
-					<time>0</time>
-				</setting>
-				<setting>
-					<position>1.0</position>
-					<time>4.0</time>
-				</setting>
-				</traverse>
-		</kinematic>-->
 
-		
+	</channel>
+
+	<channel name="Auto GRTLS management" execute="systems/ap/auto-grtls-active">
+
 
 
 	</channel>

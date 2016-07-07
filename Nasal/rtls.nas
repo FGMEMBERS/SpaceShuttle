@@ -8,6 +8,7 @@ var prtls_loop = func {
 var flyout_active = getprop("/fdm/jsbsim/systems/ap/rtls/flyout-active");
 var powered_pitch_around = getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitcharound-active");
 var flyback_active = getprop("/fdm/jsbsim/systems/ap/rtls/flyback-active");
+var powered_pitchdown_active = getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active");
 
 var auto_throttle = getprop("/fdm/jsbsim/systems/ap/automatic-throttle-control");
 
@@ -43,7 +44,7 @@ if (flyout_active == 1)
 				setprop("/controls/engines/engine[2]/throttle", 0.65);
 				}
 			}
-		else if (alt > 400000.0)
+		else if (alt > 410000.0)
 			{
 			if (auto_throttle == 1)
 				{
@@ -66,7 +67,7 @@ if (powered_pitch_around == 1)
 	}
 
 
-if (flyback_active == 1)
+if (flyback_active == 1)  
 	{
 
 	
@@ -76,12 +77,53 @@ if (flyback_active == 1)
 	var fuel_percent = getprop("/fdm/jsbsim/propulsion/tank/pct-full");
 	var site_rel_speed = getprop("/fdm/jsbsim/systems/entry_guidance/site-relative-velocity-fps");
 
-	if ((fuel_percent < 5.0) and (site_rel_speed < -5400.0))
+
+
+
+	if ((fuel_percent < 10.0) and (site_rel_speed < -7000.0))
 		{
-		setprop("/sim/messages/copilot", "MECO!");
-		rtls_init_meco();
-		return;
+		setprop("/sim/messages/copilot", "Pitchdown!");
+
+		if (auto_throttle == 1)
+			{	
+			setprop("/controls/engines/engine[0]/throttle", 0.67);
+			setprop("/controls/engines/engine[1]/throttle", 0.67);
+			setprop("/controls/engines/engine[2]/throttle", 0.67);
+			}
+		setprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active",1);
 		}
+
+
+	}
+
+if (powered_pitchdown_active == 1)
+	{	
+
+	if (getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active") == 1)
+		{
+
+		var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
+		print(alpha);
+		print(math.abs (-2.0 - alpha));
+
+		if (math.abs (-2.0 - alpha) < 0.5)
+			{
+
+			print("MECO in 2 seconds");
+			settimer( func {
+				setprop("/sim/messages/copilot", "MECO!");
+				rtls_init_meco(); }, 2.0);
+
+			return;
+
+			}
+
+		}
+
+	
+
+	
+
 	}
 
 
