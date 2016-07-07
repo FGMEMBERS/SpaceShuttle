@@ -1474,6 +1474,21 @@
         <chute-arm-plt-cvr type="int">0</chute-arm-plt-cvr>
         <chute-dpy-plt-cvr type="int">0</chute-dpy-plt-cvr>
         <chute-jett-plt-cvr type="int">0</chute-jett-plt-cvr>
+        <gpc-cvr type="int">0</gpc-cvr>
+        <apu-fuel-tk-vlv1-cvr type="int">0</apu-fuel-tk-vlv1-cvr>
+        <apu-fuel-tk-vlv2-cvr type="int">0</apu-fuel-tk-vlv2-cvr>
+        <apu-fuel-tk-vlv3-cvr type="int">0</apu-fuel-tk-vlv3-cvr>
+        <eng-he-xovr-cvr type="int">0</eng-he-xovr-cvr>
+        <eng-he-isol-cvr type="int">0</eng-he-isol-cvr>
+        <isol-a-left-cvr type="int">0</isol-a-left-cvr>
+        <isol-a-cntr-cvr type="int">0</isol-a-cntr-cvr>
+        <isol-a-right-cvr type="int">0</isol-a-right-cvr>
+        <isol-b-left-cvr type="int">0</isol-b-left-cvr>
+        <isol-b-cntr-cvr type="int">0</isol-b-cntr-cvr>
+        <isol-b-right-cvr type="int">0</isol-b-right-cvr>
+        <apu-oper-1-cvr type="int">0</apu-oper-1-cvr>
+        <apu-oper-2-cvr type="int">0</apu-oper-2-cvr>
+        <apu-oper-3-cvr type="int">0</apu-oper-3-cvr>
      </cover>
     </panel>
    </model>
