@@ -149,6 +149,11 @@ else if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-free") == 1)
 setprop("/save/control-mode", control_mode);
 setprop("/save/orbital-dap-sel", orbital_dap_sel);
 
+var css_pitch = getprop("/fdm/jsbsim/systems/ap/css-pitch-control");
+var css_roll = getprop("/fdm/jsbsim/systems/ap/css-roll-control");
+
+setprop("/save/css-pitch", css_pitch);
+setprop("/save/css-roll", css_roll);
 
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -270,7 +275,7 @@ var MET = getprop("/save/MET");
 var delta_MET = MET - elapsed;
 setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
 
-
+SpaceShuttle.gear_up();
 
 var state = getprop("/save/state");
 
@@ -291,6 +296,8 @@ if (state > 3)
 	{
 	SpaceShuttle.ku_antenna_deploy();
 	}
+
+
 
 
 if (getprop("/save/umbilical-state") == 1)
@@ -340,6 +347,34 @@ else if (orbital_dap_sel == 3)
 var control_string = getprop("/save/control-string");
 
 setprop("/controls/shuttle/control-system-string", control_string);
+
+
+var css_pitch = getprop("/save/css-pitch");
+var css_roll = getprop("/save/css-roll");
+
+if (css_pitch == 1)
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+	setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control",0);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 0);
+	setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control",1);
+	}
+
+if (css_roll == 1)
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+	setprop("/fdm/jsbsim/systems/ap/automatic-roll-control",0);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-roll-control", 0);
+	setprop("/fdm/jsbsim/systems/ap/automatic-roll-control",1);
+	}
+
+
 
 var ops = getprop("/save/ops");
 var major_mode = getprop("/save/major-mode");

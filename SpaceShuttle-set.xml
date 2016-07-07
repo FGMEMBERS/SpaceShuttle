@@ -77,6 +77,9 @@
 	  <hac-turn-init type="int">0</hac-turn-init>
 	  <s-turn-init type="int">0</s-turn-init>
      </taem>
+     <rtls>
+	  <powered-pitchdown-active type="int">0</powered-pitchdown-active>
+     </rtls>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
 	  <dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
@@ -2202,6 +2205,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/control-mode</path>
     <path>/save/control-string</path>
     <path>/save/orbital-dap-sel</path>
+    <path>/save/css-pitch</path>
+    <path>/save/css-roll</path>
     <path>/save/ops</path>
     <path>/save/major-mode</path>
     <path>/save/major-mode-sm</path>
