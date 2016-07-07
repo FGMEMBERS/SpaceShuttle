@@ -70,6 +70,15 @@ var distance = pos.distance_to(landing_site);
 
 var v_rel_fps = (distance - distance_last) /0.3048;
 setprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps", v_rel_fps);
+if (v_rel_fps > 0.0)
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/vrel-sign", 1);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/vrel-sign", -1);
+	}
+
 distance_last = distance;
 
 distance = distance/ 1853.0;
@@ -205,6 +214,7 @@ else if (mode_string == "RTLS")
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
 	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+	SpaceShuttle.prtls_loop();
 	}
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
