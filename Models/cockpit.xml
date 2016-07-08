@@ -302,7 +302,14 @@
         <object-name>pl-pri-mn-c</object-name>
         <!--Panel R2 switches -->
         <object-name>prplt-dump-seq-start</object-name>
-        <!--Panel R2 switches -->
+        <object-name>prplt-dump-bkup-lh2-vlv</object-name>
+        <object-name>ctrl-pwr-sys-a-ac2-left</object-name>
+        <object-name>ctrl-pwr-sys-a-ac1-ctr</object-name>
+        <object-name>ctrl-pwr-sys-a-ac3-right</object-name>
+        <object-name>ctrl-pwr-sys-b-ac3-left</object-name>
+        <object-name>ctrl-pwr-sys-b-ac2-ctr</object-name>
+        <object-name>ctrl-pwr-sys-b-ac1-right</object-name>
+        <!--Panel R2 covers -->
         <object-name>gpc-cvr</object-name>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
         <object-name>apu-fuel-tk-vlv2-cvr</object-name>
@@ -318,7 +325,6 @@
         <object-name>apu-oper-1-cvr</object-name>
         <object-name>apu-oper-2-cvr</object-name>
         <object-name>apu-oper-3-cvr</object-name>
-
         <!--Panel L1 switches -->
         <object-name>L1-panel</object-name>
         <object-name>h2o-pump-l1</object-name>
@@ -11661,6 +11667,328 @@
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Stop', 'Start'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Prplt Dump Backup LH2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>prplt-dump-bkup-lh2-vlv</object-name>
+        <property>/fdm/jsbsim/systems/mps/backup-LH2-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2795</x-m>
+            <y-m> 1.0448</y-m>
+            <z-m> -0.8912</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/backup-LH2-valve-status</property>
+        <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>prplt-dump-bkup-lh2-vlv</tooltip-id>
+                <label>Backup LH2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/mps/backup-LH2-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys A AC2 (Left) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-a-ac2-left</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine/controller-A-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2309</x-m>
+            <y-m> 1.0157</y-m>
+            <z-m> -0.9074</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine/controller-A-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-a-ac2-left</tooltip-id>
+                <label>Sys A AC2 (Left): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine/controller-A-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys A  AC1 (Ctr) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-a-ac1-ctr</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[2]/controller-A-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.23</x-m>
+            <y-m> 1.0453</y-m>
+            <z-m> -0.8965</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/controller-A-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-a-ac1-ctr</tooltip-id>
+                <label>Sys A AC1 (Ctr): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/controller-A-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys A  AC3 (Right) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-a-ac3-right</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[1]/controller-A-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.229</x-m>
+            <y-m> 1.0759</y-m>
+            <z-m>-0.8853</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/controller-A-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-a-ac3-right</tooltip-id>
+                <label>Sys A AC3 (Right): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/controller-A-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys B AC3 (Left) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-b-ac3-left</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine/controller-B-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1852</x-m>
+            <y-m> 1.0161</y-m>
+            <z-m>-0.9123</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine/controller-B-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-b-ac3-left</tooltip-id>
+                <label>Sys B AC3 (Left): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine/controller-B-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys B  AC2 (Ctr) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-b-ac2-ctr</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[2]/controller-B-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1843</x-m>
+            <y-m> 1.0457</y-m>
+            <z-m>-0.9014</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/controller-B-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-b-ac2-ctr</tooltip-id>
+                <label>Sys B AC2 (Ctr): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/controller-B-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Engine Controller Power Sys B  AC1 (Right) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ctrl-pwr-sys-b-ac1-right</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[1]/controller-B-power-switch-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1834</x-m>
+            <y-m> 1.0764</y-m>
+            <z-m>-0.8902</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/controller-B-power-switch-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ctrl-pwr-sys-b-ac1-right</tooltip-id>
+                <label>Sys B AC1 (Right): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/controller-B-power-switch-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
                     return modes[arg[0]];
                 </script>
             </binding>
