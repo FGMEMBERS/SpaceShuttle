@@ -631,7 +631,7 @@
 
 		<!-- pitch -->
 
-   		<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
+   		<!--<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
    			<function>
 			<sum>
 				<product>
@@ -647,7 +647,17 @@
 				</product>
 			</sum>
   		 </function>
-   		</fcs_function>
+   		</fcs_function>-->
+
+		<switch name="systems/rcs/elevator-ap-cmd-merge">
+			<default value="systems/fcs/elevator-cmd-norm-sense"/>
+			<test  value="systems/ap/alpha-controller-elevator-cmd-norm">
+				systems/ap/alpha-hold-mode == 1
+			</test>
+			<test value="systems/ap/grtls/pitch-cmd">
+				systems/ap/auto-grtls-rcs-pitch-active == 1
+			</test>
+		</switch>
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
@@ -747,6 +757,14 @@
 		</switch>
 
 		<!-- roll -->
+
+
+		<switch name="systems/rcs/aileron-ap-cmd-merge">
+			<default value="systems/fcs/aileron-cmd-norm-sense"/>
+			<test value="systems/ap/grtls/roll-cmd">
+				systems/ap/auto-grtls-rcs-roll-active == 1
+			</test>
+		</switch>
 	
 		<fcs_function name="systems/rcs/roll-rate-error">
 		<function>
@@ -754,7 +772,8 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>systems/fcs/aileron-cmd-norm-sense</property>
+  					<!--<property>systems/fcs/aileron-cmd-norm-sense</property>-->
+					<property>systems/rcs/aileron-ap-cmd-merge</property>
 					<value>0.017543</value>
 					<property>systems/ap/rot-rate-degps</property>
 					<difference>

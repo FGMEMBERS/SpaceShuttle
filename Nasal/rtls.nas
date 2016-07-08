@@ -103,13 +103,13 @@ if (powered_pitchdown_active == 1)
 		{
 
 		var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
-		print(alpha);
-		print(math.abs (-2.0 - alpha));
+		#print(alpha);
+		#print(math.abs (-2.0 - alpha));
 
-		if (math.abs (-2.0 - alpha) < 0.5)
+		if (math.abs (-2.0 - alpha) < 1.0)
 			{
 
-			print("MECO in 2 seconds");
+			#print("MECO in 2 seconds");
 			settimer( func {
 				setprop("/sim/messages/copilot", "MECO!");
 				rtls_init_meco(); }, 2.0);
@@ -175,8 +175,8 @@ SpaceShuttle.fuel_dump_start();
 
 # hand over to manual controls
 
-setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
-setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
-setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
-setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+#setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
+#setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+#setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+#setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
 }

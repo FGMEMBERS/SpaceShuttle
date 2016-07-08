@@ -1658,10 +1658,33 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/dps/major-mode == 602
-				systems/entry_guidance/guidance-mode == 29
-			
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 29
 			</test>
 		</switch>
+
+		<switch name="systems/ap/auto-grtls-rcs-pitch-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 602
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 29
+				systems/ap/automatic-pitch-control == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/auto-grtls-rcs-roll-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 602
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 29
+				systems/ap/automatic-roll-control == 1
+			</test>
+		</switch>
+
+
+
 
 		
 
@@ -1758,8 +1781,6 @@
 		</switch>
 
 		<!-- phase -->
-
-
 
 		<switch name="systems/ap/rtls/flyout-active">
 			<default value="1.0"/>
@@ -2192,7 +2213,80 @@
 
 	<channel name="Auto GRTLS management" execute="systems/ap/auto-grtls-active">
 
+	<!-- GRTLS has no yaw channel since Aerojet DAP uses yaw to force beta = 0 -->
 
+	
+		<!-- phase -->
+
+		<switch name="systems/ap/grtls/alpha-recovery-active">
+			<default value="1.0"/>
+			<test value="0.0">
+				accelerations/Nz GT 1.6
+			</test>
+		</switch>
+
+		<switch name="systems/ap/grtls/Nz-hold-active">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/ap/grtls/alpha-recovery-active == 0
+			</test>
+		</switch>
+
+
+		<!-- roll -->
+
+		<fcs_function name="systems/ap/grtls/roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>/orientation/roll-deg</property>
+						<value>-0.5</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+
+		<!-- pitch -->
+
+		<fcs_function name="systems/ap/grtls/alpha-recovery-pitch-error">
+		<function>
+			<difference>
+				<value>50.0</value>
+				<property>aero/alpha-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/ap/grtls/pitch-error">
+			<default value="0.0"/>
+			<test value="systems/ap/grtls/alpha-recovery-pitch-error">
+				systems/ap/grtls/alpha-recovery-active == 1
+			</test>
+			<test value="-0.1">
+				systems/ap/grtls/Nz-hold-active == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/grtls/pitch-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/grtls/pitch-error</property>
+						<value>-0.1</value>
+					</product>
+					<value>-0.4</value>
+				</max>
+				<value>0.4</value>
+			</min>
+		</function>
+		</fcs_function>
 
 	</channel>
 
@@ -3133,8 +3227,7 @@
 			</test>
 			<test logic="AND" value="systems/ap/rtls/roll-cmd">
 				systems/entry_guidance/guidance-mode == 3
-			</test>
-			
+			</test>	
 		</switch>
 
 		<switch name="systems/ap/launch/pitch-cmd">

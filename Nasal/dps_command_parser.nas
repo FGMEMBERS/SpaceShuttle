@@ -783,6 +783,13 @@ if ((header == "OPS") and (end =="PRO"))
 		setprop("/controls/shuttle/hud-mode",2);
 		valid_flag = 1;
 		}
+	else if ((major_mode == 602) and (current_ops == 6))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 602);
+		major_mode_transition(idp_index, "p_vert_sit");
+		valid_flag = 1;
+		}
 
 
 
