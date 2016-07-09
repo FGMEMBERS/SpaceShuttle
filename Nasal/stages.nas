@@ -366,7 +366,8 @@ setprop("/sim/messages/copilot", "Prepare for SRB separation!");
 
 var MECO_warn = func {
 
-setprop("/sim/messages/copilot", "Prepare for MECO!");
+if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
+	{setprop("/sim/messages/copilot", "Prepare for MECO!");}
 
 }
 
@@ -1814,7 +1815,7 @@ if (stage == 0)
 	setprop("/position/latitude-deg", getprop("/sim/presets/latitude-deg"));
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
-	#hydraulics_on();
+	hydraulics_on();
 
 	}
 

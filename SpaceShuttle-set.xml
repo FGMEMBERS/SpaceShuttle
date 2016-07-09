@@ -88,6 +88,9 @@
      <grtls>
 	  <pitch-cmd type="double">0.0</pitch-cmd>
 	  <roll-cmd type="double">0.0</roll-cmd>
+	  <Nz-hold-active type="int">0.0</Nz-hold-active>
+	  <alpha-transition-active type="int">0</alpha-transition-active>
+	  <taem-transition-init type="int">0</taem-transition-init>
      </grtls>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>

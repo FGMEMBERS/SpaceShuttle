@@ -2130,10 +2130,11 @@
 		</difference>
 		<value>0.0</value>
 		</max>
-		<value>100.0</value>
+		<value>200.0</value>
 	</quotient>
 	</difference>
 	<value>0.0</value>
+	<property>systems/ap/grtls/Nz-hold-active</property>
 	</max>
   </function>
   </fcs_function>
@@ -2280,6 +2281,7 @@
 		<value>1.0</value>
 		<property>systems/fcs/airfoil-rate-control</property>
 	</difference>
+	<property>systems/ap/grtls/Nz-hold-active</property>
 	</max>
   </function>
   </fcs_function>
@@ -2490,7 +2492,7 @@
 	<test  value="systems/ap/entry/entry-controller-aileron-cmd-norm">
 		systems/ap/auto-entry-active == 1
 	</test>
-	<test  value="systems/ap/grtls/pitch-cmd">
+	<test  value="systems/ap/grtls/roll-cmd">
 		systems/ap/auto-grtls-active == 1
 	</test>
    </switch>

@@ -281,6 +281,7 @@ var state = getprop("/save/state");
 
 if (state > 0)
 	{
+	print("Separating SRBs");
 	SpaceShuttle.SRB_separate_silent();
 	}
 if (state > 1)

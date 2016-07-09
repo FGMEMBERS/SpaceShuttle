@@ -80,7 +80,7 @@ if (flyback_active == 1)
 
 
 
-	if ((fuel_percent < 10.0) and (site_rel_speed < -7000.0))
+	if ((fuel_percent < 10.0) and (site_rel_speed < -6800.0))
 		{
 		setprop("/sim/messages/copilot", "Pitchdown!");
 
@@ -103,8 +103,6 @@ if (powered_pitchdown_active == 1)
 		{
 
 		var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
-		#print(alpha);
-		#print(math.abs (-2.0 - alpha));
 
 		if (math.abs (-2.0 - alpha) < 1.0)
 			{
@@ -173,10 +171,38 @@ setprop("/fdm/jsbsim/systems/propellant/LH2-outboard-status", 1);
 		
 SpaceShuttle.fuel_dump_start();
 
-# hand over to manual controls
+#print("Starting GRTLS loop...");
+grtls_loop();
+}
 
-#setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
-#setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
-#setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
-#setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+var grtls_loop = func {
+
+
+var alpha_transition = getprop("/fdm/jsbsim/systems/ap/grtls/alpha-transition-active");
+var speedbrake_state = getprop("/controls/shuttle/speedbrake");
+
+# open SB to 80% at alpha transition
+
+if (alpha_transition == 1)
+	{
+	#print ("Alpha transition initiated!");
+	if (speedbrake_state < 0.8)
+		{
+		for (var i=0; i<4; i=i+1) 
+			{SpaceShuttle.increase_speedbrake();}
+
+		}
+	}
+
+# exit loop at TAEM init
+
+var taem_init = getprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init");
+
+if (taem_init == 1)
+	{
+	return;
+	}	
+
+
+settimer(grtls_loop, 0.2);
 }
