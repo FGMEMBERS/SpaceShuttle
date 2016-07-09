@@ -309,6 +309,12 @@
         <object-name>ctrl-pwr-sys-b-ac3-left</object-name>
         <object-name>ctrl-pwr-sys-b-ac2-ctr</object-name>
         <object-name>ctrl-pwr-sys-b-ac1-right</object-name>
+        <object-name>he-isol-a-left</object-name>
+        <object-name>he-isol-a-ctr</object-name>
+        <object-name>he-isol-a-right</object-name>
+        <object-name>he-isol-b-left</object-name>
+        <object-name>he-isol-b-ctr</object-name>
+        <object-name>he-isol-b-right</object-name>
         <!--Panel R2 covers -->
         <object-name>gpc-cvr</object-name>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
@@ -316,12 +322,12 @@
         <object-name>apu-fuel-tk-vlv3-cvr</object-name>
         <object-name>eng-he-xovr-cvr</object-name>
         <object-name>eng-he-isol-cvr</object-name>
-        <object-name>isol-a-left-cvr</object-name>
-        <object-name>isol-a-cntr-cvr</object-name>
-        <object-name>isol-a-right-cvr</object-name>
-        <object-name>isol-b-left-cvr</object-name>
-        <object-name>isol-b-cntr-cvr</object-name>
-        <object-name>isol-b-right-cvr</object-name>
+        <object-name>he-isol-a-left-cvr</object-name>
+        <object-name>he-isol-a-cntr-cvr</object-name>
+        <object-name>he-isol-a-right-cvr</object-name>
+        <object-name>he-isol-b-left-cvr</object-name>
+        <object-name>he-isol-b-cntr-cvr</object-name>
+        <object-name>he-isol-b-right-cvr</object-name>
         <object-name>apu-oper-1-cvr</object-name>
         <object-name>apu-oper-2-cvr</object-name>
         <object-name>apu-oper-3-cvr</object-name>
@@ -11995,6 +12001,282 @@
         </hovered>
     </animation>
 
+    <!-- Helium Isolation Valve A (Left) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-a-left</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1308</x-m>
+            <y-m> 1.0164</y-m>
+            <z-m>-0.9182</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-a-left</tooltip-id>
+                <label>He Isolation Valve A (Left): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Helium Isolation Valve A (Center) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-a-ctr</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.1286</x-m>
+            <y-m> 1.0475</y-m>
+            <z-m>-0.9069</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-a-ctr</tooltip-id>
+                <label>He Isolation Valve A (Center): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Helium Isolation Valve A (Right) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-a-right</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.129</x-m>
+            <y-m> 1.0751</y-m>
+            <z-m>-0.8967</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-a-right</tooltip-id>
+                <label>He Isolation Valve A (Right): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Helium Isolation Valve B (Left) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-b-left</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.0868</x-m>
+            <y-m> 1.0168</y-m>
+            <z-m>-0.9229</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-b-left</tooltip-id>
+                <label>He Isolation Valve B (Left): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine/helium-isolation-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Helium Isolation Valve B (Center) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-b-ctr</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.0859</x-m>
+            <y-m> 1.0453</y-m>
+            <z-m>-0.9125</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-b-ctr</tooltip-id>
+                <label>He Isolation Valve B (Center): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/helium-isolation-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Helium Isolation Valve B (Right) "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>he-isol-b-right</object-name>
+        <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.085</x-m>
+            <y-m> 1.0757</y-m>
+            <z-m>-0.9013</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>he-isol-b-right</tooltip-id>
+                <label>He Isolation Valve B (Right): %s</label>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/helium-isolation-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
      <!-- Switch Covers -->
      <animation>
         <type>knob</type>
@@ -12238,8 +12520,8 @@
 
     <animation>
         <type>knob</type>
-        <object-name>isol-a-left-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-a-left-cvr</property>
+        <object-name>he-isol-a-left-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -12255,7 +12537,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-a-left-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12269,23 +12551,23 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-a-left-cvr</tooltip-id>
+                <tooltip-id>he-isol-a-left-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-a-left-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
         <type>knob</type>
-        <object-name>isol-a-cntr-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-a-cntr-cvr</property>
+        <object-name>he-isol-a-cntr-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
-            <x-m>-12.1276</x-m>
-            <y-m>  1.0555</y-m>
-            <z-m> -0.8932</z-m>
+            <x-m>-12.1289</x-m>
+            <y-m>  1.0469</y-m>
+            <z-m> -0.9069</z-m>
         </center>
         <axis>
             <x>-1</x>
@@ -12295,7 +12577,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-a-cntr-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12309,17 +12591,17 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-a-cntr-cvr</tooltip-id>
+                <tooltip-id>he-isol-a-cntr-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-a-cntr-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
         <type>knob</type>
-        <object-name>isol-a-right-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-a-right-cvr</property>
+        <object-name>he-isol-a-right-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -12335,7 +12617,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-a-right-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12349,17 +12631,17 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-a-right-cvr</tooltip-id>
+                <tooltip-id>he-isol-a-right-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-a-right-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
         <type>knob</type>
-        <object-name>isol-b-left-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-b-left-cvr</property>
+        <object-name>he-isol-b-left-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -12375,7 +12657,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-b-left-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12389,17 +12671,17 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-b-left-cvr</tooltip-id>
+                <tooltip-id>he-isol-b-left-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-b-left-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
         <type>knob</type>
-        <object-name>isol-b-cntr-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-b-cntr-cvr</property>
+        <object-name>he-isol-b-cntr-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -12415,7 +12697,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-b-cntr-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12429,17 +12711,17 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-b-cntr-cvr</tooltip-id>
+                <tooltip-id>he-isol-b-cntr-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-b-cntr-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
         <type>knob</type>
-        <object-name>isol-b-right-cvr</object-name>
-        <property>/sim/model/panel/cover/isol-b-right-cvr</property>
+        <object-name>he-isol-b-right-cvr</object-name>
+        <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
         <factor>85</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -12455,7 +12737,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/isol-b-right-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -12469,9 +12751,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>isol-b-right-cvr</tooltip-id>
+                <tooltip-id>he-isol-b-right-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/isol-b-right-cvr</property>
+                <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
             </binding>
         </hovered>
     </animation>
