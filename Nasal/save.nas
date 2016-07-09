@@ -281,7 +281,11 @@ var state = getprop("/save/state");
 
 if (state > 0)
 	{
+	print("Separating SRBs");
 	SpaceShuttle.SRB_separate_silent();
+	setprop("/controls/shuttle/SRB-attach", 0);
+	setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
+	setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
 	}
 if (state > 1)
 	{

@@ -2130,10 +2130,11 @@
 		</difference>
 		<value>0.0</value>
 		</max>
-		<value>100.0</value>
+		<value>200.0</value>
 	</quotient>
 	</difference>
 	<value>0.0</value>
+	<property>systems/ap/grtls/Nz-hold-active</property>
 	</max>
   </function>
   </fcs_function>
@@ -2215,6 +2216,9 @@
 	<test  value="systems/ap/taem/taem-controller-elevator-cmd-norm">
 		systems/ap/auto-taem-active == 1
 	</test>
+	<test  value="systems/ap/grtls/pitch-cmd">
+		systems/ap/auto-grtls-active == 1
+	</test>
    </switch>
 
    <switch name="fcs/ap/auto-pitch-active">
@@ -2225,6 +2229,10 @@
 	</test>
 	<test logic="AND" value="1.0">
 		systems/ap/auto-taem-active == 1
+		systems/ap/automatic-pitch-control == 1
+	</test>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-grtls-active == 1
 		systems/ap/automatic-pitch-control == 1
 	</test>
    </switch>
@@ -2273,6 +2281,7 @@
 		<value>1.0</value>
 		<property>systems/fcs/airfoil-rate-control</property>
 	</difference>
+	<property>systems/ap/grtls/Nz-hold-active</property>
 	</max>
   </function>
   </fcs_function>
@@ -2483,6 +2492,9 @@
 	<test  value="systems/ap/entry/entry-controller-aileron-cmd-norm">
 		systems/ap/auto-entry-active == 1
 	</test>
+	<test  value="systems/ap/grtls/roll-cmd">
+		systems/ap/auto-grtls-active == 1
+	</test>
    </switch>
 
    <switch name="fcs/ap/auto-roll-active">
@@ -2493,6 +2505,10 @@
 	</test>
 	<test logic="AND" value="1.0">
 		systems/ap/auto-entry-active == 1
+		systems/ap/automatic-roll-control == 1
+	</test>
+	<test logic="AND" value="1.0">
+		systems/ap/auto-grtls-active == 1
 		systems/ap/automatic-roll-control == 1
 	</test>
    </switch>

@@ -219,6 +219,10 @@ else
 
 TAEM_guidance_phase = 1;
 
+# tell gliding RTLS AP that we're done with alpha transition
+
+setprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init", 1);
+
 if (TAEM_loop_running == 0)
 	{TAEM_guidance_loop(0, 0.0);}
 }

@@ -26,6 +26,11 @@
        <error-range-select type="int">1</error-range-select>
     </adi>
     <ap>
+       <alpha-hold-mode type="int">0</alpha-hold-mode>
+       <alpha-controller-elevator-cmd-norm type="double">0.0</alpha-controller-elevator-cmd-norm>
+       <auto-grtls-rcs-pitch-active type="int">0</auto-grtls-rcs-pitch-active>
+       <auto-grtls-rcs-roll-active type="int">0</auto-grtls-rcs-roll-active>
+       <alpha-controller-elevator-cmd-norm type="double">0.0</alpha-controller-elevator-cmd-norm>
        <automatic-pitch-control type="int">0</automatic-pitch-control>
        <css-pitch-control type="int">1</css-pitch-control>
        <automatic-roll-control type="int">0</automatic-roll-control>
@@ -80,6 +85,13 @@
      <rtls>
 	  <powered-pitchdown-active type="int">0</powered-pitchdown-active>
      </rtls>
+     <grtls>
+	  <pitch-cmd type="double">0.0</pitch-cmd>
+	  <roll-cmd type="double">0.0</roll-cmd>
+	  <Nz-hold-active type="int">0.0</Nz-hold-active>
+	  <alpha-transition-active type="int">0</alpha-transition-active>
+	  <taem-transition-init type="int">0</taem-transition-init>
+     </grtls>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>
 	  <dap-B-PRI-rot-rate type="double">0.5</dap-B-PRI-rot-rate>
