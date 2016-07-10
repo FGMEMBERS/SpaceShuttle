@@ -381,7 +381,51 @@ var PFD_addpage_p_pfd = func(device)
 	.setRotation(0.0)
 	.setTranslation(0.0, -85.0);
 
-	#p_pfd.bearing_HAC_C.setRotation(120.0 * math.pi/180.0);
+
+
+	# Runway
+
+	p_pfd.bearing_rwy = p_pfd.HSI_dynamic_group.createChild("group");
+
+	var bearing_rwy_symbol = p_pfd.bearing_rwy.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0,1,0)	
+	.setTranslation(0.0,-101.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_runway_pointer_up();
+	pfd_segment_draw(data, bearing_rwy_symbol);
+
+	var bearing_rwy_label = p_pfd.bearing_rwy.createChild("text")
+      	.setText("R")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(0.0)
+	.setTranslation(0.0, -88.0);
+
+	# Runway tail
+
+	p_pfd.bearing_rwy_tail = p_pfd.HSI_dynamic_group.createChild("group");
+
+	var bearing_rwy_tail_symbol = p_pfd.bearing_rwy_tail.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0,1,0)	
+	.setTranslation(0.0,-86.0)
+        .setColor(0,0,0);
+
+	data = SpaceShuttle.draw_rect(10.0, 14.0);
+	pfd_segment_draw(data, bearing_rwy_tail_symbol);
+
+	var bearing_rwy_tail_label = p_pfd.bearing_rwy_tail.createChild("text")
+      	.setText("R")
+        .setColor(0,0,0)
+	.setFontSize(10)
+	.setFont("LiberationFonts/LiberationMono-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setRotation(3.1415926)
+	.setTranslation(0.0, -90.0);
 
 	# HSI course arrow 
 
@@ -1119,6 +1163,7 @@ var PFD_addpage_p_pfd = func(device)
 	# get mission-specific parameters and manage devices #########################################
 
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var mm_appendix = "";
 
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
@@ -1204,8 +1249,10 @@ var PFD_addpage_p_pfd = func(device)
 	var bearing_inertial = 0.0;
 	var bearing_HAC_C = 0.0;
 	var bearing_HAC_H = 0.0;
+	var bearing_rwy = 0.0;
 
 	var hac_c_distance = 0.0;
+	var rwy_distance = 0;
 
 	var v_acc_needle_offset = 0.0;
 
@@ -1222,6 +1269,8 @@ var PFD_addpage_p_pfd = func(device)
 
 		p_pfd.bearing_HAC_H.setVisible(0);
 		p_pfd.bearing_HAC_C.setVisible(0);
+		p_pfd.bearing_rwy.setVisible(0);
+		p_pfd.bearing_rwy_tail.setVisible(0);
 		p_pfd.glideslope.setVisible(0);
 		p_pfd.Daz.setVisible(0);
 		p_pfd.vert_acc.setVisible(0);
@@ -1298,6 +1347,8 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		p_pfd.bearing_inertial.setVisible(0);
 		p_pfd.bearing_earth_relative.setVisible(0);
+		p_pfd.bearing_rwy.setVisible(0);
+		p_pfd.bearing_rwy_tail.setVisible(0);
 		p_pfd.dInc.setVisible(0);
 		p_pfd.xtrk.setVisible(0);
 		p_pfd.dist_to_rwy.setVisible(0);
@@ -1328,6 +1379,8 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		p_pfd.bearing_inertial.setVisible(0);
 		p_pfd.bearing_earth_relative.setVisible(0);
+		p_pfd.bearing_rwy.setVisible(0);
+		p_pfd.bearing_rwy_tail.setVisible(0);
 		p_pfd.dInc.setVisible(0);
 		p_pfd.xtrk.setVisible(0);
 		p_pfd.dist_to_rwy.setVisible(1);
@@ -1360,6 +1413,8 @@ var PFD_addpage_p_pfd = func(device)
 				var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
 				var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
 				if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
+				rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+
 				}
 
 			}
@@ -1406,6 +1461,7 @@ var PFD_addpage_p_pfd = func(device)
 			glideslope_needle_offset = SpaceShuttle.clamp(glideslope_deviation, -5000, 5000)/5000.0 * 50.0;
 
 			delta_az = course_WP1 - yaw;
+			rwy_distance = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
 			}
 		else
 			{
@@ -1413,6 +1469,110 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.bearing_HAC_C.setVisible(1);
 			landing_site_text = "RWY";
 			}
+		}
+
+
+	if ((major_mode == 601) or (major_mode == 602))
+		{
+
+		p_pfd.bearing_inertial.setVisible(0);
+		p_pfd.dInc.setVisible(0);
+		p_pfd.xtrk.setVisible(0);
+		p_pfd.dist_to_rwy.setVisible(1);
+		p_pfd.Daz.setVisible(1);
+
+
+
+		throt_text = "Man";
+
+		mm_appendix = "R";
+
+
+
+
+		if (SpaceShuttle.landing_site.rwy_sel == 0)
+			{landing_site_text = SpaceShuttle.landing_site.rwy_pri;}
+		else	
+			{landing_site_text = SpaceShuttle.landing_site.rwy_sec;}
+
+		var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
+		var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
+		if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
+
+
+		if (major_mode == 601) # PRTLS
+			{
+			p_pfd.vert_acc.setVisible(0);
+			p_pfd.bearing_earth_relative.setVisible(1);
+			p_pfd.dist_to_HAC_C.setVisible(0);
+			p_pfd.cdi_needle.setVisible(0);	
+			p_pfd.glideslope.setVisible(0);
+			p_pfd.course_arrow.setVisible(0);
+			p_pfd.bearing_rwy.setVisible(1);
+			p_pfd.bearing_rwy_tail.setVisible(1);
+			p_pfd.bearing_HAC_H.setVisible(0);
+			p_pfd.bearing_HAC_C.setVisible(0);
+
+			acc_label_text = "Accel";
+			throt_label_text = "Throt:";
+			acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+
+
+			var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+			bearing_earthrel = groundtrack_course_deg;
+			rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+			
+			bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
+
+			}
+		else	# GRTLS
+			{
+			p_pfd.bearing_earth_relative.setVisible(0);
+			acc_label_text = "Nz";
+			acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
+			throt_label_text = "SB:";
+
+			if (getprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init") == 0) # before TAEM
+				{
+				p_pfd.dist_to_HAC_C.setVisible(0);
+				p_pfd.cdi_needle.setVisible(0);
+				p_pfd.glideslope.setVisible(0);	
+				p_pfd.course_arrow.setVisible(0);
+				p_pfd.vert_acc.setVisible(1);
+				p_pfd.bearing_rwy.setVisible(1);
+				p_pfd.bearing_rwy_tail.setVisible(1);
+
+				v_acc_needle_offset = -SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
+				rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+				bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
+				}
+			else # with TAEM gudiance
+				{
+				p_pfd.dist_to_HAC_C.setVisible(1);
+				p_pfd.bearing_rwy.setVisible(0);
+				p_pfd.bearing_rwy_tail.setVisible(0);
+				p_pfd.bearing_HAC_H.setVisible(1);
+				p_pfd.bearing_HAC_C.setVisible(1);
+				p_pfd.cdi_needle.setVisible(1);	
+				p_pfd.glideslope.setVisible(1);
+				p_pfd.course_arrow.setVisible(1);
+				p_pfd.vert_acc.setVisible(0);
+
+				var pos = geo.aircraft_position();
+				var dist = pos.distance_to(SpaceShuttle.TAEM_WP_1) / 1853.0;
+				hac_c_distance = pos.distance_to(SpaceShuttle.TAEM_HAC_center) / 1853.;
+				var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
+				var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
+				var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);	
+
+				bearing_HAC_C = course_HAC_C;
+				bearing_HAC_H = course_WP1;
+				course_arrow = SpaceShuttle.TAEM_threshold.heading;
+				rwy_distance = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+				}
+			}
+
+
 		}
 
 
@@ -1512,6 +1672,8 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.bearing_HAC_C.setRotation(bearing_HAC_C * math.pi/180.0);
 	p_pfd.bearing_HAC_H.setRotation(bearing_HAC_H * math.pi/180.0);
+	p_pfd.bearing_rwy.setRotation(bearing_rwy * math.pi/180.0);
+	p_pfd.bearing_rwy_tail.setRotation((bearing_rwy + 180.0) * math.pi/180.0);
 
 
 	p_pfd.course_arrow.setRotation(course_arrow *  math.pi/180.0);
@@ -1662,7 +1824,9 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.p.setText(sprintf("%d", pitch));
 	p_pfd.y.setText(sprintf("%d", yaw));
 	p_pfd.dInc_display_text.setText(sprintf("%2.2f", Delta_inc));
-	p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm")));
+	#p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm")));
+	p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f",rwy_distance));
+
 	p_pfd.dist_to_HAC_C_display_text.setText(sprintf("%3.1f",hac_c_distance));
 
 	p_pfd.Daz_display_text.setText(sprintf("%2.1f", delta_az));
@@ -1673,7 +1837,7 @@ var PFD_addpage_p_pfd = func(device)
     	p_pfd.throt.setText(throt_text);
 	p_pfd.label_throt.setText(throt_label_text);
 	p_pfd.dist_to_rwy_label.setText(landing_site_text);
-	p_pfd.MM.setText(sprintf("%d", major_mode));
+	p_pfd.MM.setText(sprintf("%d", major_mode)~mm_appendix);
 	p_pfd.att.setText(adi_att_string);
 	p_pfd.acc_label.setText(acc_label_text);
 	
@@ -1908,6 +2072,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	# get mission-specific parameters and manage devices #########################################
 
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
 
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
