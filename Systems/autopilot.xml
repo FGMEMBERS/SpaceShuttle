@@ -2190,6 +2190,11 @@
 				systems/ap/rtls/roll-deg-abs LT 90.0
 				/orientation/pitch-deg LT 80.0
 			</test>
+			<test value="0.3">
+				systems/ap/rtls/powered-pitcharound-active == 1
+				systems/ap/rtls/roll-deg-abs GT 90.0
+				/orientation/pitch-deg LT 65.0
+			</test>
 			<test value="0.7">
 				systems/ap/rtls/powered-pitcharound-active == 1
 			</test>
