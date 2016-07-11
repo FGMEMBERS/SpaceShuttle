@@ -324,6 +324,12 @@
         <object-name>apu-operate-1</object-name>
         <object-name>apu-operate-2</object-name>
         <object-name>apu-operate-3</object-name>
+        <object-name>apu-speed-sel-1</object-name>
+        <object-name>apu-speed-sel-2</object-name>
+        <object-name>apu-speed-sel-3</object-name>
+        <object-name>hyd-main-pump-press-1</object-name>
+        <object-name>hyd-main-pump-press-2</object-name>
+        <object-name>hyd-main-pump-press-3</object-name>
         <!--Panel R2 covers -->
         <object-name>gpc-cvr</object-name>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
@@ -12464,8 +12470,284 @@
         </condition>
     </animation>
 
-     <!-- Switch Covers -->
-     <animation>
+    <!-- APU Speed Select 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-speed-sel-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/apu-speed-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.0368</x-m>
+            <y-m> 1.116</y-m>
+            <z-m>-0.8917</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/apu-speed-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-speed-sel-1</tooltip-id>
+                <label>APU Speed Select 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/apu-speed-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Norm', 'High'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Speed Select 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-speed-sel-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/apu-speed-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.0359</x-m>
+            <y-m> 1.1461</y-m>
+            <z-m>-0.8807</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/apu-speed-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-speed-sel-2</tooltip-id>
+                <label>APU Speed Select 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/apu-speed-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Norm', 'High'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Speed Select 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-speed-sel-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/apu-speed-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.035</x-m>
+            <y-m> 1.1735</y-m>
+            <z-m>-0.8706</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/apu-speed-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-speed-sel-3</tooltip-id>
+                <label>APU Speed Select 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/apu-speed-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Norm', 'High'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Hydrolic Pressure Select 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hyd-main-pump-press-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9879</x-m>
+            <y-m> 1.1244</y-m>
+            <z-m>-0.8958</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hyd-main-pump-press-1</tooltip-id>
+                <label>Hydrolic Pressure Select 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Low', 'Norm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Hydrolic Pressure Select 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hyd-main-pump-press-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9868</x-m>
+            <y-m> 1.1605</y-m>
+            <z-m>-0.8826</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hyd-main-pump-press-2</tooltip-id>
+                <label>Hydrolic Pressure Select 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Low', 'Norm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Hydrolic Pressure Select 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>hyd-main-pump-press-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9858</x-m>
+            <y-m> 1.194</y-m>
+            <z-m>-0.8703</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hyd-main-pump-press-3</tooltip-id>
+                <label>Hydrolic Pressure Select 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Low', 'Norm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Switch Covers -->
+    <animation>
         <type>knob</type>
         <object-name>gpc-cvr</object-name>
         <property>/sim/model/panel/cover/gpc-cvr</property>
