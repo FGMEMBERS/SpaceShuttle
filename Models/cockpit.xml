@@ -315,6 +315,15 @@
         <object-name>he-isol-b-left</object-name>
         <object-name>he-isol-b-ctr</object-name>
         <object-name>he-isol-b-right</object-name>
+        <object-name>apu-fu-tk-vlv-ena-1a</object-name>
+        <object-name>apu-fu-tk-vlv-ena-1b</object-name>
+        <object-name>apu-fu-tk-vlv-ena-2a</object-name>
+        <object-name>apu-fu-tk-vlv-ena-2b</object-name>
+        <object-name>apu-fu-tk-vlv-ena-3a</object-name>
+        <object-name>apu-fu-tk-vlv-ena-3b</object-name>
+        <object-name>apu-operate-1</object-name>
+        <object-name>apu-operate-2</object-name>
+        <object-name>apu-operate-3</object-name>
         <!--Panel R2 covers -->
         <object-name>gpc-cvr</object-name>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
@@ -488,6 +497,10 @@
         <object-name>pri-fc3-on</object-name>
         <object-name>pri-mn-b-on</object-name>
         <object-name>pri-mn-c-on</object-name>
+        <!--Panel R2 talkbacks -->
+        <object-name>apu_left_ready_to_start_talkback</object-name>
+        <object-name>apu_center_ready_to_start_talkback</object-name>
+        <object-name>apu_right_ready_to_start_talkback</object-name>
         <!-- Panel F6 talkbacks -->
         <object-name>landing_gear_left_cmd_talkback</object-name>
         <object-name>landing_gear_right_cmd_talkback</object-name>
@@ -12275,6 +12288,180 @@
                 </script>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- APU Operate Left "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-operate-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+        <factor>-30</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.083</x-m>
+            <y-m> 1.1141</y-m>
+            <z-m>-0.8873</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-operate-1</tooltip-id>
+                <label>APU Operate(Left): %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/apu-operate</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Start/Run', 'Injector Cool'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Operate Center "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-operate-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+        <factor>-30</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.0825</x-m>
+            <y-m> 1.1373</y-m>
+            <z-m>-0.8816</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-operate-2</tooltip-id>
+                <label>APU Operate(Center): %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/apu-operate</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Start/Run', 'Injector Cool'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Operate Right "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-operate-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+        <factor>-30</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.0816</x-m>
+            <y-m> 1.159</y-m>
+            <z-m>-0.8709</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-operate-3</tooltip-id>
+                <label>APU Operate(Right): %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/apu-operate</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Start/Run', 'Injector Cool'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Ready to Start Left "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>apu_left_ready_to_start_talkback</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+    <!-- APU Ready to Start Center "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>apu_center_ready_to_start_talkback</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+    <!-- APU Ready to Start Right "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>apu_right_ready_to_start_talkback</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
     </animation>
 
      <!-- Switch Covers -->
