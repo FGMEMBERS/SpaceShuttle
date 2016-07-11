@@ -454,7 +454,9 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_cdi_center();
 	pfd_segment_draw(data, cdi_center);
 
-	var cdi_dot1 = p_pfd.cdi.createChild("path")
+	p_pfd.cdi_dots = p_pfd.cdi.createChild("group");
+
+	var cdi_dot1 = p_pfd.cdi_dots.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
 	.setTranslation(20.0,0)
@@ -463,21 +465,21 @@ var PFD_addpage_p_pfd = func(device)
 	data = SpaceShuttle.draw_circle(4, 10);
 	pfd_segment_draw(data, cdi_dot1);
 
-	var cdi_dot2 = p_pfd.cdi.createChild("path")
+	var cdi_dot2 = p_pfd.cdi_dots.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
 	.setTranslation(40.0,0)
         .setColor(1,1,1);
 	pfd_segment_draw(data, cdi_dot2);
 
-	var cdi_dot3 = p_pfd.cdi.createChild("path")
+	var cdi_dot3 = p_pfd.cdi_dots.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
 	.setTranslation(-20.0,0)
         .setColor(1,1,1);
 	pfd_segment_draw(data, cdi_dot3);
 
-	var cdi_dot4 = p_pfd.cdi.createChild("path")
+	var cdi_dot4 = p_pfd.cdi_dots.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(1, 1, 1)
 	.setTranslation(-40.0,0)
@@ -1165,6 +1167,8 @@ var PFD_addpage_p_pfd = func(device)
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 	var mm_appendix = "";
 
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+
 	var pitch = getprop("/orientation/pitch-deg");
 	var yaw = getprop("/orientation/heading-deg");
 	var roll = getprop("/orientation/roll-deg");
@@ -1277,6 +1281,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.dist_to_HAC_C.setVisible(0);
 		p_pfd.bearing_inertial.setVisible(1);
 		p_pfd.cdi_needle.setVisible(1);
+		p_pfd.cdi_dots.setVisible(1);
 		p_pfd.course_arrow.setVisible(1);
 		if (altitude < 200000.0)
 			{p_pfd.bearing_earth_relative.setVisible(1);}
@@ -1288,6 +1293,14 @@ var PFD_addpage_p_pfd = func(device)
 
 		throt_label_text = "Throt:";
 		acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+
+		if (abort_mode == 3)
+			{mm_appendix = "ATO";}
+		else if (abort_mode == 2)
+			{mm_appendix = "T";}
+
+
+
 
 		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
 			{
@@ -1357,6 +1370,7 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.vert_acc.setVisible(0);
 		p_pfd.dist_to_HAC_C.setVisible(0);
 		p_pfd.cdi_needle.setVisible(0);	
+		p_pfd.cdi_dots.setVisible(0);
 		p_pfd.course_arrow.setVisible(0);	
 
 	
@@ -1389,11 +1403,19 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.vert_acc.setVisible(1);
 		p_pfd.dist_to_HAC_C.setVisible(1);
 		p_pfd.cdi_needle.setVisible(1);
+		p_pfd.cdi_dots.setVisible(1);
 		p_pfd.course_arrow.setVisible(1);
 
 		throt_label_text = "SB:";
-		throt_text = "Man";
+
+		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+			{throt_text = "Auto";}
+		else	
+			{throt_text = "Man";}
+			
 		acc_label_text = "Nz";
+
+		if (abort_mode == 2) {mm_appendix = "T";}
 
 		acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
 
@@ -1506,6 +1528,7 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.bearing_earth_relative.setVisible(1);
 			p_pfd.dist_to_HAC_C.setVisible(0);
 			p_pfd.cdi_needle.setVisible(0);	
+			p_pfd.cdi_dots.setVisible(0);
 			p_pfd.glideslope.setVisible(0);
 			p_pfd.course_arrow.setVisible(0);
 			p_pfd.bearing_rwy.setVisible(1);
@@ -1517,12 +1540,18 @@ var PFD_addpage_p_pfd = func(device)
 			throt_label_text = "Throt:";
 			acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
 
+			if (getprop("/fdm/jsbsim/systems/ap/automatic-throttle-control") == 1)
+				{throt_text = "Auto";}
+			else	
+				{throt_text = "Man";}
+
 
 			var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
 			bearing_earthrel = groundtrack_course_deg;
 			rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
 			
 			bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
+			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 
 			}
 		else	# GRTLS
@@ -1532,10 +1561,16 @@ var PFD_addpage_p_pfd = func(device)
 			acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
 			throt_label_text = "SB:";
 
+			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+				{throt_text = "Auto";}
+			else	
+				{throt_text = "Man";}
+
 			if (getprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init") == 0) # before TAEM
 				{
 				p_pfd.dist_to_HAC_C.setVisible(0);
 				p_pfd.cdi_needle.setVisible(0);
+				p_pfd.cdi_dots.setVisible(0);
 				p_pfd.glideslope.setVisible(0);	
 				p_pfd.course_arrow.setVisible(0);
 				p_pfd.vert_acc.setVisible(1);
@@ -1545,6 +1580,7 @@ var PFD_addpage_p_pfd = func(device)
 				v_acc_needle_offset = -SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
 				rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
 				bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
+				delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 				}
 			else # with TAEM gudiance
 				{
@@ -1554,6 +1590,7 @@ var PFD_addpage_p_pfd = func(device)
 				p_pfd.bearing_HAC_H.setVisible(1);
 				p_pfd.bearing_HAC_C.setVisible(1);
 				p_pfd.cdi_needle.setVisible(1);	
+				p_pfd.cdi_dots.setVisible(1);
 				p_pfd.glideslope.setVisible(1);
 				p_pfd.course_arrow.setVisible(1);
 				p_pfd.vert_acc.setVisible(0);
@@ -1569,6 +1606,7 @@ var PFD_addpage_p_pfd = func(device)
 				bearing_HAC_H = course_WP1;
 				course_arrow = SpaceShuttle.TAEM_threshold.heading;
 				rwy_distance = getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm");
+				delta_az = course_WP1 - yaw;
 				}
 			}
 
