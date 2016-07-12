@@ -1620,8 +1620,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.adi_inner.removeAllChildren();
 
-	#p_pfd.adi_inner.adi_group0.removeAllChildren();
-
 	# draw
 
 	var adi_sphere_bg = p_pfd.adi_inner.createChild("path")
@@ -1629,7 +1627,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setColorFill(0.15,0.15,0.15)
         .setColor(1,1,1);
 
-	var adi_sphere_bg_bright =p_pfd.adi_inner.createChild("path")
+	var adi_sphere_bg_bright = p_pfd.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.3,0.3,0.3)
         .setColor(1,1,1);
@@ -1653,7 +1651,6 @@ var PFD_addpage_p_pfd = func(device)
 		draw_adi_sphere(adi_sphere, p_vecs);
 		}
 
-	#draw_adi_sphere_staggered(p_pfd.adi_inner, p_vecs, 0);
 
 	draw_sphere_labels(p_pfd.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
