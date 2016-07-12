@@ -757,11 +757,21 @@ shape_data = draw_coord_circle(0.0, 90, p_vecs);
 
 var n = size(shape_data);
 
-if ((n < 2) or (pitch < -47))
+if (pitch < -47.5)
 	{
 	shape_data = draw_circle(0.75 * 95.0, 30);
 	return shape_data;
 	}
+else if (pitch > 47.5)
+	{
+	# object not visible, we return a dummy structure which doesn't draw
+	append(shape_data,[0,0,0]);
+	append(shape_data,[1,0,0]);
+	append(shape_data,[2,0,0]);
+
+	return shape_data;
+	}
+
 
 var x_min = 1000.0;
 var x_max = - 1000.0;

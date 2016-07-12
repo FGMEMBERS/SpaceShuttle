@@ -1528,6 +1528,29 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/taem/elevator-gain">
+		<function>
+			<table>
+        		<independentVar lookup="row">velocities/mach</independentVar>
+        		<tableData>
+          	 		 1.0	0.15
+				 2.0	0.10
+				 3.0	0.07
+				 4.0	0.05
+        		</tableData>
+      			</table>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/taem/neg-elevator-gain">
+		<function>
+			<product>
+				<value>-1.0</value>
+				<property>systems/ap/taem/elevator-gain</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
  		 <pid name="systems/ap/taem/taem-controller-elevator-cmd-norm">
 			<input>systems/ap/taem/vspeed-error</input>
@@ -1535,8 +1558,8 @@
 			<ki> 0.0 </ki>
 			<kd> 1.5</kd>
 			<clipto>
-				<min> -0.15 </min>
-        			<max>  0.15 </max>
+				<min>systems/ap/taem/neg-elevator-gain</min>
+        			<max>systems/ap/taem/elevator-gain</max>
 			</clipto>
   		</pid>
 
@@ -1620,6 +1643,29 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/taem/aileron-gain">
+		<function>
+			<table>
+        		<independentVar lookup="row">velocities/mach</independentVar>
+        		<tableData>
+          	 		 1.0	0.5
+				 2.0	0.4
+				 3.0	0.25
+				 4.0	0.1
+        		</tableData>
+      			</table>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/taem/neg-aileron-gain">
+		<function>
+			<product>
+				<value>-1.0</value>
+				<property>systems/ap/taem/elevator-gain</property>
+			</product>
+		</function>
+		</fcs_function>
+
 
  		 <pid name="systems/ap/taem/taem-controller-aileron-cmd-norm">
 			<input>systems/ap/taem/bank-error</input>
@@ -1627,8 +1673,8 @@
 			<ki> 0.0 </ki>
 			<kd> 1.5</kd>
 			<clipto>
-				<min> -0.5 </min>
-        			<max>  0.5 </max>
+				<min>systems/ap/taem/neg-aileron-gain</min>
+        			<max>systems/ap/taem/aileron-gain</max>
 			</clipto>
   		</pid>
 
@@ -2267,17 +2313,30 @@
 
 		<!-- roll -->
 
+		<switch name="systems/ap/grtls/roll-gain">
+			<default value="1.0"/>	
+			<test value="0.1">
+				systems/ap/grtls/alpha-transition-active == 1
+			</test>
+		</switch>
+
 		<fcs_function name="systems/ap/grtls/roll-cmd">
 		<function>
 			<min>
 				<max>
 					<product>
-						<property>/orientation/roll-deg</property>
-						<value>-0.5</value>
+						<difference>
+							<property>systems/ap/grtls/roll-tgt-deg</property>
+							<property>/orientation/roll-deg</property>
+						</difference>
+						<value>0.5</value>
 					</product>
-					<value>-1.0</value>
+					<product>
+						<value>-1.0</value>
+						<property>systems/ap/grtls/roll-gain</property>
+					</product>
 				</max>
-				<value>1.0</value>
+				<property>systems/ap/grtls/roll-gain</property>
 			</min>
 		</function>
 		</fcs_function>
@@ -2309,9 +2368,28 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/grtls/alpha-transition-vspeed-error">
+		<function>
+			<min>
+			<max>
+			<quotient>
+				<difference>
+					<property>velocities/v-down-fps</property>
+					<value>20000.0</value>
+				</difference>
+				<value>10000.0</value>
+			</quotient>
+			<value>0.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/ap/grtls/alpha-transition-pitch-error">
 		<function>
 			<difference>
+				<sum>
 				<table>
         				<independentVar lookup="row">velocities/mach</independentVar>
          				<tableData>
@@ -2323,6 +2401,11 @@
 					5.0	23.0
          				</tableData>
       				</table>
+				<product>
+					<value>10.0</value>
+					<property>systems/ap/grtls/alpha-transition-vspeed-error</property>
+				</product>
+				</sum>
 				<property>aero/alpha-deg</property>
 			</difference>
 		</function>

@@ -19,12 +19,12 @@ else if (path == "Cuecards/aborts.png")
 	}
 else if (path == "Cuecards/rtls_cdr.png")
 	{
-	size = [450, 351];
+	size = [450, 673];
 	title = "RTLS Commander";
 	}
 else if (path == "Cuecards/rtls_plt.png")
 	{
-	size = [470, 354];
+	size = [470, 727];
 	title = "RTLS Pilot";
 	}
 else if (path == "Cuecards/tal_redesignation_zza.png")

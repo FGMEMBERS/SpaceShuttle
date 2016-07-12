@@ -35,11 +35,20 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.att = device.svg.getElementById("p_pfd_att");
     p_pfd.MM = device.svg.getElementById("p_pfd_MM");
 
+    p_pfd.menu_item = device.svg.getElementById("MI_1"); 
+    p_pfd.menu_item_frame = device.svg.getElementById("MI_1_frame"); 
+
     p_pfd.ondisplay = func
     {
         device.set_DPS_off();
         device.dps_page_flag = 0;
         device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
+
+	# menu items
+
+	p_pfd.menu_item.setColor(1.0, 1.0, 1.0);
+	p_pfd.menu_item_frame.setColor(1.0, 1.0, 1.0);
+	
 
 	# group for dynamically re-drawn inner part
 
@@ -1156,6 +1165,9 @@ var PFD_addpage_p_pfd = func(device)
 	device.ADI.removeAllChildren();
 	p_pfd.adi_inner.flag = -1;
 
+        p_pfd.menu_item.setColor(meds_r, meds_g, meds_b);
+	p_pfd.menu_item_frame.setColor(meds_r, meds_g, meds_b);
+
     }
     
     p_pfd.update = func
@@ -1620,8 +1632,6 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.adi_inner.removeAllChildren();
 
-	#p_pfd.adi_inner.adi_group0.removeAllChildren();
-
 	# draw
 
 	var adi_sphere_bg = p_pfd.adi_inner.createChild("path")
@@ -1629,7 +1639,7 @@ var PFD_addpage_p_pfd = func(device)
 	.setColorFill(0.15,0.15,0.15)
         .setColor(1,1,1);
 
-	var adi_sphere_bg_bright =p_pfd.adi_inner.createChild("path")
+	var adi_sphere_bg_bright = p_pfd.adi_inner.createChild("path")
         .setStrokeLineWidth(1)
 	.setColorFill(0.3,0.3,0.3)
         .setColor(1,1,1);
@@ -1653,7 +1663,6 @@ var PFD_addpage_p_pfd = func(device)
 		draw_adi_sphere(adi_sphere, p_vecs);
 		}
 
-	#draw_adi_sphere_staggered(p_pfd.adi_inner, p_vecs, 0);
 
 	draw_sphere_labels(p_pfd.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
@@ -1903,6 +1912,9 @@ var PFD_addpage_p_pfd_orbit = func(device)
     p_pfd_orbit.r = device.svg.getElementById("p_pfd_orbit_r");
     p_pfd_orbit.p = device.svg.getElementById("p_pfd_orbit_p");
     p_pfd_orbit.y = device.svg.getElementById("p_pfd_orbit_y");
+
+    p_pfd_orbit.menu_item = device.svg.getElementById("MI_2"); 
+    p_pfd_orbit.menu_item_frame = device.svg.getElementById("MI_2_frame"); 
     
 
     p_pfd_orbit.ondisplay = func
@@ -1910,6 +1922,11 @@ var PFD_addpage_p_pfd_orbit = func(device)
         device.set_DPS_off();
         device.dps_page_flag = 0;
         device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
+
+	# menu item
+
+        p_pfd_orbit.menu_item.setColor(1.0, 1.0, 1.0);
+	p_pfd_orbit.menu_item_frame.setColor(1.0, 1.0, 1.0);
 
 
 	# group for dynamically re-drawn inner part
@@ -2100,6 +2117,9 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	device.ADI.removeAllChildren();
 	device.ADI.setScale(1.0);
 	device.ADI.setTranslation (0, 0);
+
+        p_pfd_orbit.menu_item.setColor(meds_r, meds_g, meds_b);
+	p_pfd_orbit.menu_item_frame.setColor(meds_r, meds_g, meds_b);
 
 	
     }
