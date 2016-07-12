@@ -77,10 +77,25 @@ if (flyback_active == 1)
 	var fuel_percent = getprop("/fdm/jsbsim/propulsion/tank/pct-full");
 	var site_rel_speed = getprop("/fdm/jsbsim/systems/entry_guidance/site-relative-velocity-fps");
 
+	var site_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+
+	var meco_speed_bias = 0.0;
+
+	if (site_rel_speed > 5800)
+		{
+		# determine at what distance we should be for a good solution
+
+		var tgt_site_distance = 0.017285 * site_rel_speed + 412.4;
+
+		var dist_error = tgt_site_distance - site_distance;
+
+		meco_speed_bias = dist_error * -20.0;
+		meco_speed_bias = SpaceShuttle.clamp(meco_speed_bias, -300.0, 300.0);
+
+		}
 
 
-
-	if ((fuel_percent < 10.0) and (site_rel_speed < -6800.0))
+	if ((fuel_percent < 10.0) and (site_rel_speed < -6800.0 + meco_speed_bias))
 		{
 		setprop("/sim/messages/copilot", "Pitchdown!");
 
