@@ -6566,7 +6566,7 @@
                         }
                      else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == -1)
                         {
-                            getprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
+                            setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
                         }
@@ -6653,10 +6653,16 @@
         <type>select</type>
         <object-name>indicator_light_abort</object-name>
         <condition>
-            <greater-than>
-                <property>/fdm/jsbsim/systems/abort/abort-mode</property>
-                <value>0</value>
-            </greater-than>
+            <or>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+                    <value>0</value>
+                </greater-than>
+                <equals>
+                    <property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
+                    <value>3</value>
+                </equals>
+            </or>
         </condition>
     </animation>
 
