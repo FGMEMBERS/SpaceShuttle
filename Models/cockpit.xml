@@ -6564,8 +6564,11 @@
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 1);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
                         }
-                     else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") > 0)
+                     else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == -1)
                         {
+                            getprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
+                            setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
+                            setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
                         }
                 </script>
             </binding>
