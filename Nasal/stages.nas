@@ -16,7 +16,7 @@ var deorbit_stage_flag = 0;
 
 
 
-aircraft.HUD.cycle_color();
+#aircraft.HUD.cycle_color();
 
 settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0);}, 30.0);
 

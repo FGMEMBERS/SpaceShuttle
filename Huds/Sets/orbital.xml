@@ -31,6 +31,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -67,6 +73,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -96,6 +108,12 @@
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
 				</equals>
 			</not>
 			</and>
@@ -129,6 +147,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -153,6 +177,12 @@
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
 				</equals>
 			</not>
 			</and>
@@ -182,6 +212,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -206,6 +242,12 @@
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
 				</equals>
 			</not>
 			</and>
@@ -233,7 +275,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -249,12 +297,20 @@
 
  	<label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -270,12 +326,20 @@
 
      <label>
 		<condition>
-		<not>
+			<and>
+			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -291,12 +355,20 @@
 
      <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -314,12 +386,20 @@
     
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -334,12 +414,20 @@
 	 
      <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -378,6 +466,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -414,6 +508,12 @@
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
 				</equals>
 			</not>
 			</and>
@@ -456,7 +556,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -495,7 +601,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -531,7 +643,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -559,7 +677,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -585,7 +709,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -611,7 +741,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -638,7 +774,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -664,7 +806,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -690,7 +838,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -722,7 +876,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -749,7 +909,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -793,7 +959,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -829,6 +1001,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -843,37 +1021,6 @@
 		</input>
      </label>
 
-
-	<!--<label>
-		<condition>
-			<and>
-			<equals>
-				<property>/controls/shuttle/hud-mode</property>
-				<value>2</value>
-			</equals>
-			<not>
-				<equals>
-				<property>/sim/current-view/view-number</property>
-				<value>0</value>
-				</equals>
-			</not>			
-			</and>
-		</condition>
-		<width>2</width>
-		<height>2</height>
-		<x>460</x>
-		<y>-300</y>
-		<format>Current deceleration:%2.2f g</format>
-		<halign>left</halign>
-		<input>
-			<property>accelerations/nlf</property>
-			<factor>-1.0</factor>
-		</input>
-     </label>-->
-
-
-
-
     <label>
 		<condition>
 			<and>
@@ -886,7 +1033,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -912,7 +1065,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -945,6 +1104,12 @@
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
 				</equals>
 			</not>
 			</and>
@@ -981,6 +1146,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1006,7 +1177,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>	
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>		
 			</and>
 		</condition>
 		<width>2</width>
@@ -1036,7 +1213,13 @@
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
-			</not>			
+			</not>		
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>	
 			</and>
 		</condition>
 		<width>2</width>
@@ -1068,6 +1251,12 @@
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1088,12 +1277,20 @@
     
      <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1103,12 +1300,20 @@
     </label>
      <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1120,12 +1325,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1137,12 +1350,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1154,12 +1375,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1171,12 +1400,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1188,12 +1425,20 @@
     </label>
   <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1205,12 +1450,20 @@
     </label>
   <label>
  		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1225,12 +1478,20 @@
 
    <label>
  		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>4</width>
 		<height>4</height>		
@@ -1242,12 +1503,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>4</width>
 		<height>4</height>		
@@ -1259,12 +1528,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>4</width>
 		<height>4</height>		
@@ -1276,12 +1553,20 @@
     </label>
  <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1293,12 +1578,20 @@
     </label>
     <label>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>2</width>
 		<height>2</height>		
@@ -1310,12 +1603,20 @@
     </label>
   <label>
  		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>4</width>
 		<height>4</height>		
@@ -1327,12 +1628,20 @@
     </label>
   <label>
  		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>4</width>
 		<height>4</height>		

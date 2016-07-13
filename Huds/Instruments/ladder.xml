@@ -5,12 +5,20 @@
 		<name>Pitch Ladder</name>
 		<type>pitch</type>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<x>-60</x>
 		<y>-90</y>
