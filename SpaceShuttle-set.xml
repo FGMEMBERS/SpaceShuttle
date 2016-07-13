@@ -17,6 +17,7 @@
        <abort-mode type="int">0</abort-mode>
        <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
        <engine-fail-time type="double">-1.0</engine-fail-time>
+       <abort-mode-switch type="int">0</abort-mode-switch>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>

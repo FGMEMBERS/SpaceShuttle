@@ -420,7 +420,7 @@
         <object-name>nh3-tk-a</object-name>
         <object-name>nh3-tk-b</object-name>
         <!-- Panel F6 knob -->
-        <object-name>abort-mode</object-name>
+        <object-name>abort-mode-switch</object-name>
         <!-- Panel F6 covers -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
@@ -6528,8 +6528,8 @@
     <!--Abort Mode "Knob" -->
     <animation>
         <type>knob</type>
-        <object-name>abort-mode</object-name>
-        <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+        <object-name>abort-mode-switch</object-name>
+        <property>/fdm/jsbsim/systems/abort/abort-mode-switch</property>
         <factor>-30</factor>
         <axis>
             <x>1.0  </x>
@@ -6545,11 +6545,29 @@
             <repeatable>true</repeatable>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+                <property>/fdm/jsbsim/systems/abort/abort-mode-switch</property>
                 <factor>1</factor>
                 <min>-1</min>
                 <max> 2</max>
                 <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == 2)
+                        {
+                            setprop("/fdm/jsbsim/systems/abort/arm-tal", 1);
+                            setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == 1)
+                        {
+                            setprop("/fdm/jsbsim/systems/abort/arm-ato", 1);
+                            setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
+                        }
+                     else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") > 0)
+                        {
+                        }
+                </script>
             </binding>
             <binding>
                 <command>nasal</command>
@@ -6561,7 +6579,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>abort-mode</tooltip-id>
                 <label>Abort Mode: %s</label>
-                <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+                <property>/fdm/jsbsim/systems/abort/abort-mode-switch</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['OFF', 'ATO', 'TAL', 'RTLS'];
@@ -6581,7 +6599,27 @@
             <repeatable>false</repeatable>
             <binding>
                 <command>nasal</command>
-                <script></script>
+                <script>
+                    var status_tal = getprop("/fdm/jsbsim/systems/abort/arm-tal");
+                    var status_ato = getprop("/fdm/jsbsim/systems/abort/arm-ato");
+
+                    if (status_tal == 1)
+                      {
+                      setprop("/fdm/jsbsim/systems/abort/abort-mode", 2);
+                      var tal_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded");
+                      SpaceShuttle.update_site_by_index(tal_site_index);
+                      setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
+                      }
+                    else if (status_ato == 1)
+                      {
+                      setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+                      }
+                    else if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0)
+                      {
+                      setprop("/fdm/jsbsim/systems/abort/abort-mode", 0);
+                      setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+                      }
+                </script>
             </binding>
             <binding>
                 <command>nasal</command>
