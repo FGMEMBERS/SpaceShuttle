@@ -6,10 +6,16 @@
 <tape>
 		<name>Gyrocompass</name>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<x>200</x>
 		<y>60</y>
@@ -44,10 +50,17 @@
 	<label>
 		<name>Latitude</name>
 		<condition>
+			<or>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
+
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</or>
 		</condition>
 		<width>1</width>
 		<height>1</height>
@@ -63,10 +76,16 @@
 	<label>
 		<name>Longitude</name>
 		<condition>
+			<or>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>1</width>
 		<height>1</height>
@@ -82,10 +101,16 @@
 	<label>
 		<name>G Load</name>
 		<condition>
+			<or>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</or>
 		</condition>
 		<x>10</x>
 		<y>-60</y>
@@ -140,10 +165,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -174,10 +205,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -203,10 +240,16 @@
 				<value>1</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -232,10 +275,16 @@
 				<value>1</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -256,10 +305,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -279,10 +334,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -303,10 +364,16 @@
 				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -327,10 +394,16 @@
 				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -346,10 +419,16 @@
 
  	<label>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -365,10 +444,16 @@
 
      <label>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -384,10 +469,16 @@
 
      <label>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -405,10 +496,16 @@
     
     <label>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -423,10 +520,16 @@
 	 
      <label>
 		<condition>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 		</condition>
 		<width>2</width>
 		<height>2</height>
@@ -459,10 +562,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -495,10 +604,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -534,10 +649,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -571,10 +692,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -605,10 +732,16 @@
 				<value>2</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -631,10 +764,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -655,10 +794,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -679,10 +824,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -703,10 +854,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -728,10 +885,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -752,10 +915,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -776,10 +945,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -806,10 +981,16 @@
 				<value>3</value>
 			</equals>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -831,10 +1012,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -873,10 +1060,16 @@
 			</equals>
 			</and>
 			</or>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -906,10 +1099,16 @@
 				<property>/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm</property>
 				<value>0.0</value>
 			</greater-than>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -984,10 +1183,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1016,10 +1221,16 @@
 				<property>/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm</property>
 				<value>0.0</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1048,10 +1259,16 @@
 				<property>/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm</property>
 				<value>0.0</value>
 			</greater-than>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1072,10 +1289,16 @@
 				<property>/controls/shuttle/hud-mode</property>
 				<value>2</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1100,10 +1323,16 @@
 				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
@@ -1129,10 +1358,16 @@
 				<property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
 				<value>3</value>
 			</equals>
+			<or>
 			<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 			</equals>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+			</equals>
+			</or>
 			</and>
 		</condition>
 		<width>2</width>
