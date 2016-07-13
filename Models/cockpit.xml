@@ -615,6 +615,7 @@
         <object-name>mes-left-r</object-name>
         <object-name>mes-right-r</object-name>
         <object-name>mes-ctr-r</object-name>
+        <object-name>indicator_light_abort</object-name>
         <emission>
             <red>1</red>
             <green>0.05</green>
@@ -5665,6 +5666,10 @@
                 <command>property-toggle</command>
                 <property>/controls/shuttle/button_bf_mode</property>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5711,7 +5716,11 @@
             <binding>
                 <command>property-toggle</command>
                 <!--<property>/controls/shuttle/button_sb_mode</property>-->
-		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -5799,6 +5808,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.arm_drag_chute()</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5872,6 +5885,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.deploy_chute()</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -5951,6 +5968,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.jettison_drag_chute()</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -6024,6 +6045,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.arm_drag_chute()</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -6099,6 +6124,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.deploy_chute()</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -6139,6 +6168,10 @@
             <binding>
                 <command>property-toggle</command>
                 <property>/controls/shuttle/button_bf_mode</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -6186,7 +6219,11 @@
             <binding>
                 <command>property-toggle</command>
                 <!--<property>/controls/shuttle/button_sb_mode</property>-->
-		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -6204,7 +6241,7 @@
         <condition>
             <equals>
                 <!--<property>/controls/shuttle/button_sb_mode</property>-->
-		<property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
+                <property>/fdm/jsbsim/systems/ap/automatic-sb-control</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6273,6 +6310,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.jettison_chute()</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -6393,6 +6434,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.arm_gear()</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -6428,6 +6473,10 @@
                 <command>property-assign</command>
                 <property>/controls/gear/gear-down</property>
                 <value>1</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
@@ -6520,6 +6569,48 @@
                 </script>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- Abort Command "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>abort_cmd</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script></script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>abort_cmd</tooltip-id>
+                <label>Abort</label>
+                <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>indicator_light_abort</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/abort/abort-mode</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
@@ -6655,6 +6746,10 @@
                 <command>property-assign</command>
                 <property>/controls/gear/gear-down</property>
                 <value>1</value>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
             </binding>
         </action>
         <hovered>
