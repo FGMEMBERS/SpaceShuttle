@@ -82,6 +82,11 @@ if (getprop("/mission/launch/section-defined"))
 	var tal_site_index = getprop("/mission/launch/tal-site-index");
 	setprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded", tal_site_index);
 
+	# i-load RTLS site
+
+	var rtls_site_index = getprop("/mission/launch/rtls-site-index");
+	SpaceShuttle.update_site_by_index(rtls_site_index);
+
 	}
 
 # configuration

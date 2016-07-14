@@ -51,6 +51,15 @@ else if (auto_launch_stage == 2)
 			setprop("/controls/engines/engine[2]/throttle", 0.65);
 			aux_flag = 1;
 			}
+		# throttle up if we lose an engine
+
+		if (getprop("/fdm/jsbsim/systems/mps/number-engines-operational") < 3.0)
+			{
+			setprop("/controls/engines/engine[0]/throttle", 1.0);
+			setprop("/controls/engines/engine[1]/throttle", 1.0);
+			setprop("/controls/engines/engine[2]/throttle", 1.0);
+			}
+
 		}
 	else if (auto_launch_timer > 42.0)
 		{

@@ -226,16 +226,16 @@ if ((distance < 100.0) and (mode_string != "RTLS")){SpaceShuttle.compute_TAEM_gu
 
 var init_rtls = func {
 
-var site_index = getprop("/fdm/jsbsim/systems/entry_guidance/rtls-site-iloaded");
-SpaceShuttle.update_site_by_index(site_index);
 
-
-setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
-setprop("/controls/shuttle/hud-mode",2);
-setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-setprop("/fdm/jsbsim/systems/dps/ops", 6);
-SpaceShuttle.ops_transition_auto("p_dps_rtls");
-SpaceShuttle.prtls_loop();
+if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+	SpaceShuttle.prtls_loop();
+	}
 
 }
 

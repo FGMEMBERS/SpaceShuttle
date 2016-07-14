@@ -287,8 +287,8 @@ var rwy_pri = "";
 var rwy_sec = "";
 var tacan = "";
 
-setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",0);
-setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
+#setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",0);
+#setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "inactive");
 
 if (site_string == "Kennedy Space Center")
 	{
@@ -404,14 +404,13 @@ else if (mode_string == "TAL")
 	}
 else if (mode_string == "RTLS")
 	{
-	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
-	setprop("/controls/shuttle/hud-mode",2);
-	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-	setprop("/fdm/jsbsim/systems/dps/ops", 6);
-	SpaceShuttle.ops_transition_auto("p_dps_rtls");
-	#SpaceShuttle.ops_transition(idp_index, "p_dps_rtls");
-	# start RTLS loop
-	SpaceShuttle.prtls_loop();
+	#setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
+	#setprop("/controls/shuttle/hud-mode",2);
+	#setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	#setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	#SpaceShuttle.ops_transition_auto("p_dps_rtls");
+	#SpaceShuttle.prtls_loop();
+	SpaceShuttle.init_rtls();
 	}
 
 }

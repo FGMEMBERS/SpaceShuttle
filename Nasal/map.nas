@@ -214,7 +214,7 @@ settimer(map_update, 1.0);
 
 var plot_radius = func  {
 
-
+if (size(SpaceShuttle.radius_set) < 2) {return;}
 
 var plot = radius.createChild("path", "data")
                                    .setStrokeLineWidth(2)

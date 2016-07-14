@@ -359,6 +359,12 @@
 		</function>
 		</fcs_function>
 
+		<summer name="systems/mps/number-engines-operational">
+			<input>systems/mps/engine/engine-operational</input>
+			<input>systems/mps/engine[1]/engine-operational</input>
+			<input>systems/mps/engine[2]/engine-operational</input>
+		</summer>
+
 		<!-- each engine needs the hydraulics system to actuate valves, otherwise it is in lockup -->
 		<!-- SYS 1 actuates center engine, SYS 2 left engine and SYS 3 right engine -->
 		<!-- alternatively it can end up in electrical lockup -->

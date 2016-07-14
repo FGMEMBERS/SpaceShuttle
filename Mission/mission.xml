@@ -16,7 +16,7 @@
   <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">6</tal-site-index>
-  <rtls-site-index type="int">6</rtls-site-index>
+  <rtls-site-index type="int">1</rtls-site-index>
 </launch>
 
 <post-meco>
