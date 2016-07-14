@@ -6575,18 +6575,26 @@
                         {
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 1);
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
+                            setprop("/fdm/jsbsim/systems/abort/arm-rtls", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == 1)
                         {
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 1);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
+                            setprop("/fdm/jsbsim/systems/abort/arm-rtls", 0);
                         }
                      else if (getprop("/fdm/jsbsim/systems/abort/abort-mode-switch") == -1)
                         {
-                            setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
+                            setprop("/fdm/jsbsim/systems/abort/arm-rtls", 1);
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
                         }
+		     else
+			{
+                      	    setprop("/fdm/jsbsim/systems/abort/arm-rtls", 0);
+                            setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
+                            setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
+			}
                 </script>
             </binding>
             <binding>
@@ -6622,6 +6630,7 @@
                 <script>
                     var status_tal = getprop("/fdm/jsbsim/systems/abort/arm-tal");
                     var status_ato = getprop("/fdm/jsbsim/systems/abort/arm-ato");
+		    var status_rtls = getprop("/fdm/jsbsim/systems/abort/arm-rtls");
 
                     if (status_tal == 1)
                       {
@@ -6634,16 +6643,9 @@
                       {
                         setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
                       }
-                    else if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0)
+                    else if (status_rtls == 1)
                       {
-                        setprop("/fdm/jsbsim/systems/abort/abort-mode", 0);
-                        #setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
-                        setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
-                        setprop("/controls/shuttle/hud-mode",2);
-                        setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-                        setprop("/fdm/jsbsim/systems/dps/ops", 6);
-                        SpaceShuttle.ops_transition_auto("p_dps_rtls");
-                        SpaceShuttle.prtls_loop();
+			SpaceShuttle.init_rtls();
                       }
                 </script>
             </binding>

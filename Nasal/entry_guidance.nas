@@ -209,12 +209,7 @@ else if (mode_string == "TAL")
 	}
 else if (mode_string == "RTLS")
 	{
-	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
-	setprop("/controls/shuttle/hud-mode",2);
-	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-	setprop("/fdm/jsbsim/systems/dps/ops", 6);
-	SpaceShuttle.ops_transition_auto("p_dps_rtls");
-	SpaceShuttle.prtls_loop();
+	init_rtls();
 	}
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
@@ -225,3 +220,23 @@ if ((distance < 100.0) and (mode_string != "RTLS")){SpaceShuttle.compute_TAEM_gu
 
 
 }
+
+
+# batch calls for RTLS aborts
+
+var init_rtls = func {
+
+var site_index = getprop("/fdm/jsbsim/systems/entry_guidance/rtls-site-iloaded");
+SpaceShuttle.update_site_by_index(site_index);
+
+
+setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+setprop("/controls/shuttle/hud-mode",2);
+setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+setprop("/fdm/jsbsim/systems/dps/ops", 6);
+SpaceShuttle.ops_transition_auto("p_dps_rtls");
+SpaceShuttle.prtls_loop();
+
+}
+
+

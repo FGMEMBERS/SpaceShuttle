@@ -27,7 +27,8 @@ var PFD_addpage_p_vert_sit = func(device)
         SpaceShuttle.fill_vert_sit1_maxLD_data();
         SpaceShuttle.traj_display_flag = 8;
         device.MEDS_menu_title.setText(sprintf("%s","       DPS MENU"));
-        device.DPS_menu_ops.setText(sprintf("%s","3051/     /"));
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        device.DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
         device.DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
     
         var plot = device.nom_traj_plot.createChild("path", "data")

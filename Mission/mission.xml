@@ -11,11 +11,12 @@
 </configuration>
 
 <launch>
-  <section-defined type="bool">false</section-defined>
+  <section-defined type="bool">true</section-defined>
   <target-inclination type="double">51.5</target-inclination>
   <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">6</tal-site-index>
+  <rtls-site-index type="int">6</rtls-site-index>
 </launch>
 
 <post-meco>
@@ -93,7 +94,7 @@
   <inclination-deg type="double">42.76</inclination-deg>
   <alt-km type="double">280.0</alt-km>
   <node-lon-deg type="double">5.07</node-lon-deg>
-  <anomaly-deg type="double">0.1</anomaly-deg>
+  <anomaly-deg type="double">0.9</anomaly-deg>
 </orbital-targets>
 
 </PropertyList>

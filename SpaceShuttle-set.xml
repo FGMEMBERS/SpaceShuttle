@@ -14,6 +14,8 @@
     <abort>
        <arm-tal type="int">0</arm-tal>
        <arm-ato type="int">0</arm-ato>
+       <arm-rtls type="int">0</arm-rtls>
+       <arm-contingency type="int">0</arm-contingency>
        <abort-mode type="int">0</abort-mode>
        <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
        <engine-fail-time type="double">-1.0</engine-fail-time>
