@@ -1249,6 +1249,9 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 		setprop("/sim/messages/copilot", "TAEM interface reached.");
 		setprop("/controls/shuttle/hud-mode",3);
 
+		# transit to MM 305 if we're not flying RTLS, otherwise the RTLS loop
+		# handles the transition
+
 		if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 304)
 			{
 			setprop("/fdm/jsbsim/systems/dps/major-mode", 305);

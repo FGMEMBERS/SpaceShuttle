@@ -740,6 +740,15 @@ if ((header == "OPS") and (end =="PRO"))
 			}
 		setprop("/fdm/jsbsim/systems/dps/spec", 0);
 		setprop("/fdm/jsbsim/systems/dps/disp", 0);
+
+		# if we have no entry guidance, request it at this point for the i-loaded landing site
+
+		if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 0)
+			{
+			setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+			setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "active");
+			}
+
 		valid_flag = 1;
 		}
 	else if ((major_mode == 302) and (current_ops == 3))
