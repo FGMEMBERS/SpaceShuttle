@@ -51,10 +51,6 @@
         <object-name>hsi-sourcea-plt</object-name>
         <object-name>hsi-sourceb-plt</object-name>
         <object-name>rdr-altm-plt</object-name>
-        <object-name>Fwd_Equipment_Knobs.004</object-name>
-        <object-name>Fwd_Equipment_Knobs.005</object-name>
-        <object-name>Fwd_Equipment_Knobs.006</object-name>
-        <object-name>Fwd_Equipment_Knobs.008</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -335,6 +331,22 @@
         <object-name>apu-ctrl-pwr-1</object-name>
         <object-name>apu-ctrl-pwr-2</object-name>
         <object-name>apu-ctrl-pwr-3</object-name>
+        <object-name>apu-fuel-tk-vlv-1</object-name>
+        <object-name>apu-fuel-tk-vlv-2</object-name>
+        <object-name>apu-fuel-tk-vlv-3</object-name>
+        <object-name>boiler-cntrl-htr-1</object-name>
+        <object-name>boiler-cntrl-htr-2</object-name>
+        <object-name>boiler-cntrl-htr-3</object-name>
+        <object-name>boiler-cntrl-pwr-1</object-name>
+        <object-name>boiler-cntrl-pwr-2</object-name>
+        <object-name>boiler-cntrl-pwr-3</object-name>
+        <object-name>boiler-n2-supply-1</object-name>
+        <object-name>boiler-n2-supply-2</object-name>
+        <object-name>boiler-n2-supply-3</object-name>
+        <!--Panel R2 switches not connected -->
+        <object-name>apu-auto-shutdown-1</object-name>
+        <object-name>apu-auto-shutdown-2</object-name>
+        <object-name>apu-auto-shutdown-3</object-name>
         <!--Panel R2 covers -->
         <object-name>gpc-cvr</object-name>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
@@ -424,6 +436,11 @@
         <!-- Panel F6 covers -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
+        <!-- Panel F8 switches -->
+        <object-name>air-data-plt</object-name>
+        <object-name>adi-rate-plt</object-name>
+        <object-name>adi-error-plt</object-name>
+        <object-name>adi-att-plt</object-name>
         <!-- Panel F8 covers -->
         <object-name>landing-gear-arm-plt-cvr</object-name>
         <object-name>landing-gear-down-plt-cvr</object-name>
@@ -13214,6 +13231,558 @@
                 <tooltip-id>hyd-circ-pump-3</tooltip-id>
                 <label>Hydrolic Circ Pump 3: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Fuel Tank Valve 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-fuel-tk-vlv-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.902</x-m>
+            <y-m> 1.069</y-m>
+            <z-m>-0.9259</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-fuel-tk-vlv-1</tooltip-id>
+                <label>APU Fuel Tank Valve 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Fuel Tank Valve 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-fuel-tk-vlv-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9009</x-m>
+            <y-m> 1.103</y-m>
+            <z-m>-0.9134</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-fuel-tk-vlv-2</tooltip-id>
+                <label>APU Fuel Tank Valve 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Fuel Tank Valve 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>apu-fuel-tk-vlv-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.9</x-m>
+            <y-m> 1.1341</y-m>
+            <z-m>-0.902</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>apu-fuel-tk-vlv-3</tooltip-id>
+                <label>APU Fuel Tank Valve 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Heater 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-htr-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8511</x-m>
+            <y-m> 1.1878</y-m>
+            <z-m>-0.8857</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-htr-1</tooltip-id>
+                <label>APU Boiler Controller Heater 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-heater-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['B', 'A'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Heater 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-htr-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8502</x-m>
+            <y-m> 1.2168</y-m>
+            <z-m>-0.8751</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-htr-2</tooltip-id>
+                <label>APU Boiler Controller Heater 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-heater-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['B', 'A'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Heater 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-htr-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8494</x-m>
+            <y-m> 1.2444</y-m>
+            <z-m>-0.8650</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-htr-3</tooltip-id>
+                <label>APU Boiler Controller Heater 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-heater-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['B', 'A'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Power 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-pwr-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8056</x-m>
+            <y-m> 1.2204</y-m>
+            <z-m>-0.8787</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-pwr-1</tooltip-id>
+                <label>APU Boiler Controller Power 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Power 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-pwr-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8049</x-m>
+            <y-m> 1.2437</y-m>
+            <z-m>-0.8701</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-pwr-2</tooltip-id>
+                <label>APU Boiler Controller Power 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler Controller Power 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-cntrl-pwr-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.8042</x-m>
+            <y-m> 1.2667</y-m>
+            <z-m>-0.8642</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-cntrl-pwr-3</tooltip-id>
+                <label>APU Boiler Controller Power 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler N2 Supply 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-n2-supply-1</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7584</x-m>
+            <y-m> 1.2349</y-m>
+            <z-m>-0.8786</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-n2-supply-1</tooltip-id>
+                <label>APU Boiler N2 Supply 1: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler N2 Supply 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-n2-supply-2</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7577</x-m>
+            <y-m> 1.2582</y-m>
+            <z-m>-0.8700</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-n2-supply-2</tooltip-id>
+                <label>APU Boiler N2 Supply 2: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- APU Boiler N2 Supply 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>boiler-n2-supply-3</object-name>
+        <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.757</x-m>
+            <y-m> 1.2812</y-m>
+            <z-m>-0.8616</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>boiler-n2-supply-3</tooltip-id>
+                <label>APU Boiler N2 Supply 3: %s</label>
+                <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Off', 'On'];
