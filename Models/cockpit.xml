@@ -6589,12 +6589,12 @@
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
                         }
-		     else
-			{
-                      	    setprop("/fdm/jsbsim/systems/abort/arm-rtls", 0);
+                     else
+                        {
+                            setprop("/fdm/jsbsim/systems/abort/arm-rtls", 0);
                             setprop("/fdm/jsbsim/systems/abort/arm-ato", 0);
                             setprop("/fdm/jsbsim/systems/abort/arm-tal", 0);
-			}
+                        }
                 </script>
             </binding>
             <binding>
@@ -6630,7 +6630,7 @@
                 <script>
                     var status_tal = getprop("/fdm/jsbsim/systems/abort/arm-tal");
                     var status_ato = getprop("/fdm/jsbsim/systems/abort/arm-ato");
-		    var status_rtls = getprop("/fdm/jsbsim/systems/abort/arm-rtls");
+                    var status_rtls = getprop("/fdm/jsbsim/systems/abort/arm-rtls");
 
                     if (status_tal == 1)
                       {
@@ -6645,7 +6645,7 @@
                       }
                     else if (status_rtls == 1)
                       {
-			SpaceShuttle.init_rtls();
+                         SpaceShuttle.init_rtls();
                       }
                 </script>
             </binding>
@@ -12659,10 +12659,10 @@
         <type>select</type>
         <object-name>apu_left_ready_to_start_talkback</object-name>
         <condition>
-            <greater-than>
+            <equals>
                 <property>/fdm/jsbsim/systems/apu/apu/apu-ready-to-start</property>
                 <value>0</value>
-            </greater-than>
+            </equals>
         </condition>
     </animation>
 
@@ -12671,10 +12671,10 @@
         <type>select</type>
         <object-name>apu_center_ready_to_start_talkback</object-name>
         <condition>
-            <greater-than>
+            <equals>
                 <property>/fdm/jsbsim/systems/apu/apu[1]/apu-ready-to-start</property>
                 <value>0</value>
-            </greater-than>
+            </equals>
         </condition>
     </animation>
 
@@ -12683,10 +12683,10 @@
         <type>select</type>
         <object-name>apu_right_ready_to_start_talkback</object-name>
         <condition>
-            <greater-than>
+            <equals>
                 <property>/fdm/jsbsim/systems/apu/apu[2]/apu-ready-to-start</property>
                 <value>0</value>
-            </greater-than>
+            </equals>
         </condition>
     </animation>
 
