@@ -6656,7 +6656,7 @@
             <or>
                 <greater-than>
                     <property>/fdm/jsbsim/systems/abort/abort-mode</property>
-                    <value>0</value>
+                    <value>1</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/entry_guidance/guidance-mode</property>
