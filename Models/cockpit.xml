@@ -532,13 +532,25 @@
         <object-name>apu_center_ready_to_start_talkback</object-name>
         <object-name>apu_right_ready_to_start_talkback</object-name>
         <!-- Panel F6 talkbacks -->
-        <object-name>landing_gear_left_cmd_talkback</object-name>
-        <object-name>landing_gear_right_cmd_talkback</object-name>
-        <object-name>landing_gear_middle_cmd_talkback</object-name>
+        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_left_cmd_talkback_up</object-name>
+        <object-name>landing_gear_right_cmd_talkback_up</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
+        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
         <!-- Panel F8 talkbacks -->
-        <object-name>landing_gear_left_plt_talkback</object-name>
-        <object-name>landing_gear_right_plt_talkback</object-name>
-        <object-name>landing_gear_middle_plt_talkback</object-name>
+        <object-name>landing_gear_left_plt_talkback_bp</object-name>
+        <object-name>landing_gear_right_plt_talkback_bp</object-name>
+        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
+        <object-name>landing_gear_left_plt_talkback_up</object-name>
+        <object-name>landing_gear_right_plt_talkback_up</object-name>
+        <object-name>landing_gear_middle_plt_talkback_up</object-name>
+        <object-name>landing_gear_left_plt_talkback_dn</object-name>
+        <object-name>landing_gear_right_plt_talkback_dn</object-name>
+        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
     </effect>
 
     <effect>
@@ -6525,20 +6537,44 @@
     <!-- Landing Gear Down Commander "Talkbacks" -->
     <animation>
         <type>select</type>
-        <object-name>landing_gear_left_cmd_talkback</object-name>
-        <object-name>landing_gear_right_cmd_talkback</object-name>
-        <object-name>landing_gear_middle_cmd_talkback</object-name>
+        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
         <condition>
-            <or>
-                <equals>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
                     <property>/fdm/jsbsim/gear/gear-pos-norm</property>
                     <value>1</value>
-                </equals>
-                <equals>
-                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                    <value>2</value>
-                </equals>
-            </or>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_left_cmd_talkback_up</object-name>
+        <object-name>landing_gear_right_cmd_talkback_up</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
@@ -6853,9 +6889,9 @@
     <!-- Landing Gear Down Pilot "Talkbacks" -->
     <animation>
         <type>select</type>
-        <object-name>landing_gear_left_plt_talkback</object-name>
-        <object-name>landing_gear_right_plt_talkback</object-name>
-        <object-name>landing_gear_middle_plt_talkback</object-name>
+        <object-name>landing_gear_left_plt_talkback_bp</object-name>
+        <object-name>landing_gear_right_plt_talkback_bp</object-name>
+        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
         <condition>
             <or>
                 <equals>
@@ -6867,6 +6903,30 @@
                     <value>2</value>
                 </equals>
             </or>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_left_plt_talkback_up</object-name>
+        <object-name>landing_gear_right_plt_talkback_up</object-name>
+        <object-name>landing_gear_middle_plt_talkback_up</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>landing_gear_left_plt_talkback_dn</object-name>
+        <object-name>landing_gear_right_plt_talkback_dn</object-name>
+        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
