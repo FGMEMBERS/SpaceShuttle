@@ -6893,17 +6893,16 @@
         <object-name>landing_gear_right_plt_talkback_bp</object-name>
         <object-name>landing_gear_middle_plt_talkback_bp</object-name>
         <condition>
-            <or>
-                <equals>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
                     <property>/fdm/jsbsim/gear/gear-pos-norm</property>
                     <value>1</value>
-                </equals>
-                <equals>
-                    <property>/fdm/jsbsim/gear/gear-pos-norm</property>
-                    <value>2</value>
-                </equals>
-            </or>
-        </condition>
+                </less-than>
+            </and>
     </animation>
     <animation>
         <type>select</type>
