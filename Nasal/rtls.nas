@@ -196,6 +196,19 @@ var grtls_loop = func {
 var alpha_transition = getprop("/fdm/jsbsim/systems/ap/grtls/alpha-transition-active");
 var speedbrake_state = getprop("/controls/shuttle/speedbrake");
 
+
+# determine Nz target just before Nz hold when acceleration = 1 g
+
+
+if ((getprop("/fdm/jsbsim/accelerations/Nz") > 1.0) and (getprop("/fdm/jsbsim/systems/ap/grtls/Nz-tgt") == 0))
+	{
+		var hdot = getprop("/fdm/jsbsim/velocities/v-down-fps");
+		var Nz_target = hdot/1000.0 + 0.65;
+		setprop("/fdm/jsbsim/systems/ap/grtls/Nz-tgt", Nz_target);
+
+	}
+
+
 # open SB to 80% at alpha transition
 
 if (alpha_transition == 1)

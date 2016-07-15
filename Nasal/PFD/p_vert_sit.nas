@@ -116,8 +116,35 @@ var PFD_addpage_p_vert_sit = func(device)
 		p_vert_sit.energy.lineTo(set[0], set[1]);
 		}
 
- 
+	var alpha_trajectories = device.symbols.createChild("group");
 
+	data = [[0.0, 0.0], [180.0,-35.0] ]; 
+	p_vert_sit.alpha_nom = device.symbols.createChild("path")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.setTranslation(30, 160)
+	.moveTo(data[0][0], data[0][1])
+	.lineTo(data[1][0], data[1][1]);
+
+	data = [[0.0, 35.0], [30.0, 20.0], [180.0,-5.0] ]; 
+	p_vert_sit.alpha_min = device.symbols.createChild("path")
+        .setStrokeLineWidth(1.0)
+        .setColor(dps_r, dps_g, dps_b)
+	.setTranslation(30, 160)
+	.moveTo(data[0][0], data[0][1])
+	.lineTo(data[1][0], data[1][1])
+	.lineTo(data[2][0], data[2][1]);
+
+	#alpha_trajectories.setTranslation(20, 160);
+	
+	if ((major_mode == 602) or (major_mode == 603))
+		{
+		alpha_trajectories.setVisible(1);
+		}
+	else
+		{
+		alpha_trajectories.setVisible(0);
+		}
 
     
     }
@@ -155,11 +182,23 @@ var PFD_addpage_p_vert_sit = func(device)
 	    var rot = vspeed * 0.005 /mach;
 	    rot = SpaceShuttle.clamp(rot, -1.57, 1.57);
 	    p_vert_sit.shuttle_sym.setRotation(rot);
-    
-
+   
             p_vert_sit.shuttle_sym.setTranslation(x,y);
 
     	}
+	else if (getprop("/fdm/jsbsim/systems/ap/grtls/alpha-transition-active") == 1)
+	{
+	    var alpha = getprop("/fdm/jsbsim/aero/alpha-deg");
+	    var mach = getprop("/velocities/mach");
+	    
+
+	    var x = 30.0 + 180 * (mach - 1.5)/4.5;	
+	    var y = 160 - 35 * (alpha - 9.0)/14.0; 
+	    p_vert_sit.shuttle_sym.setRotation(0.0);
+            p_vert_sit.shuttle_sym.setTranslation(x,y);
+
+
+	}
 
 	    var pitch = getprop("/orientation/pitch-deg");
 	    var yp = 254.0 - (pitch -5.0) * 5.6;
