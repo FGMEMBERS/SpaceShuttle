@@ -13,10 +13,11 @@ var PFD_addpage_p_vert_sit = func(device)
     p_vert_sit.group.setColor(dps_r, dps_g, dps_b);
     
     p_vert_sit.speedbrake = device.svg.getElementById("p_vert_sit_speedbrake");
+    p_vert_sit.speedbrake_cmd = device.svg.getElementById("p_vert_sit_speedbrake_cmd");
+    p_vert_sit.tgt_Nz = device.svg.getElementById("p_vert_sit_tgt_Nz");
+    p_vert_sit.tgt_Nz_label = device.svg.getElementById("p_vert_sit_tgt_Nz_label");
+    p_vert_sit.Nz_label = device.svg.getElementById("p_vert_sit_Nz_label");
 
-
-    
-    
     
     p_vert_sit.ondisplay = func
     {
@@ -30,7 +31,18 @@ var PFD_addpage_p_vert_sit = func(device)
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
         device.DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
         device.DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
-    
+
+	if ((major_mode == 602) or (major_mode == 603))
+		{
+		p_vert_sit.tgt_Nz.setVisible(1);
+		p_vert_sit.tgt_Nz_label.setVisible(1);
+		}    
+	else
+		{
+		p_vert_sit.tgt_Nz.setVisible(0);
+		p_vert_sit.tgt_Nz_label.setVisible(0);
+		}
+
         var plot = device.nom_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(2)
         .setColor(dps_r,dps_g,dps_b)
@@ -161,7 +173,25 @@ var PFD_addpage_p_vert_sit = func(device)
 	    p_vert_sit.energy.setTranslation(467,yde);
     
         p_vert_sit.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
+        p_vert_sit.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/controls/shuttle/speedbrake")));
+
+
+
+	# Nz holding phase
+	if (getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active") == 1)
+		{p_vert_sit.Nz_label.setVisible(1);}
+	else
+		{p_vert_sit.Nz_label.setVisible(0);}
     
+	
+	# Nz predictor
+	
+	if (getprop("/fdm/jsbsim/systems/dps/ops") == 6)
+		{
+		p_vert_sit.tgt_Nz.setText(sprintf("%+1.1f", getprop("/fdm/jsbsim/systems/ap/grtls/Nz-tgt")));
+
+		}
+
     
     };
 
@@ -178,6 +208,13 @@ var PFD_addpage_p_vert_sit2 = func(device)
     p_vert_sit2.speedbrake = device.svg.getElementById("p_vert_sit2_speedbrake");
     p_vert_sit2.group = device.svg.getElementById("p_vert_sit2");
     p_vert_sit2.group.setColor(dps_r, dps_g, dps_b);
+
+    p_vert_sit2.speedbrake_cmd = device.svg.getElementById("p_vert_sit2_speedbrake_cmd");
+    p_vert_sit2.tgt_Nz = device.svg.getElementById("p_vert_sit2_tgt_Nz");
+    p_vert_sit2.tgt_Nz_label = device.svg.getElementById("p_vert_sit2_tgt_Nz_label");
+    p_vert_sit2.al_label = device.svg.getElementById("p_vert_sit2_al_label");
+
+    p_vert_sit2.blink = 0;
     
     
     p_vert_sit2.ondisplay = func
@@ -187,8 +224,22 @@ var PFD_addpage_p_vert_sit2 = func(device)
         SpaceShuttle.fill_vert_sit2_maxLD_data();
         SpaceShuttle.traj_display_flag = 9;
         device.MEDS_menu_title.setText("       DPS MENU");
-        device.DPS_menu_ops.setText("3051/     /");
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        device.DPS_menu_ops.setText(major_mode~"1/     /");
         device.DPS_menu_title.setText("VERT SIT 2");
+
+	if ((major_mode == 602) or (major_mode == 603))
+		{
+		p_vert_sit2.tgt_Nz.setVisible(1);
+		p_vert_sit2.tgt_Nz_label.setVisible(1);
+		}    
+	else
+		{
+		p_vert_sit2.tgt_Nz.setVisible(0);
+		p_vert_sit2.tgt_Nz_label.setVisible(0);
+		}
+
+	p_vert_sit2.tgt_Nz.setText(sprintf("%+1.1f", getprop("/fdm/jsbsim/systems/ap/grtls/Nz-tgt")));
     
     
         var plot = device.nom_traj_plot.createChild("path", "data")
@@ -311,7 +362,26 @@ var PFD_addpage_p_vert_sit2 = func(device)
 	    var yde = 254.0 - dE/10000.0 * 28.;
 	    p_vert_sit2.energy.setTranslation(467,yde);
     
-        p_vert_sit2.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
+            p_vert_sit2.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
+            p_vert_sit2.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/controls/shuttle/speedbrake")));
+
+	    if (getprop("/fdm/jsbsim/systems/ap/taem/al-init") == 1)
+		{
+		if (p_vert_sit2.blink == 0)	
+			{
+			p_vert_sit2.al_label.setVisible(1);
+			p_vert_sit2.blink = 1;
+			}
+		else
+			{
+			p_vert_sit2.al_label.setVisible(0);
+			p_vert_sit2.blink = 0;
+			}
+		}
+	    else
+		{
+		p_vert_sit2.al_label.setVisible(0);
+		}
     
     
     };
