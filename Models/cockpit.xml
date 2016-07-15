@@ -343,6 +343,12 @@
         <object-name>boiler-n2-supply-1</object-name>
         <object-name>boiler-n2-supply-2</object-name>
         <object-name>boiler-n2-supply-3</object-name>
+        <object-name>et-umbilical-door-mode-switch</object-name>
+        <object-name>et-umbilical-door-centerline</object-name>
+        <object-name>et-umbilical-door-left</object-name>
+        <object-name>et-umbilical-latch-left</object-name>
+        <object-name>et-umbilical-door-right</object-name>
+        <object-name>et-umbilical-latch-right</object-name>
         <!--Panel R2 switches not connected -->
         <object-name>apu-auto-shutdown-1</object-name>
         <object-name>apu-auto-shutdown-2</object-name>
@@ -531,6 +537,20 @@
         <object-name>apu_left_ready_to_start_talkback</object-name>
         <object-name>apu_center_ready_to_start_talkback</object-name>
         <object-name>apu_right_ready_to_start_talkback</object-name>
+        <object-name>et_umbilical_centerline_talkback_sto</object-name>
+        <object-name>et_umbilical_centerline_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_op</object-name>
+        <object-name>et_umbilical_door_left_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
+        <object-name>et_umbilical_door_right_talkback_op</object-name>
+        <object-name>et_umbilical_door_right_talkback_bp</object-name>
+        <object-name>et_umbilical_door_right_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_right_talkback_lat</object-name>
         <!-- Panel F6 talkbacks -->
         <object-name>landing_gear_left_cmd_talkback_bp</object-name>
         <object-name>landing_gear_right_cmd_talkback_bp</object-name>
@@ -6903,6 +6923,7 @@
                     <value>1</value>
                 </less-than>
             </and>
+        </condition>
     </animation>
     <animation>
         <type>select</type>
@@ -13853,6 +13874,462 @@
         </hovered>
     </animation>
 
+    <!-- ET Umbilical  Door Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-door-mode-switch</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-umbilical-door-mode</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7648</x-m>
+            <y-m> 1.0261</y-m>
+            <z-m>-0.957</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-umbilical-door-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-door-mode-switch</tooltip-id>
+                <label>ET Umbilical Door Mode: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-umbilical-door-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['GPC/MAN', 'GPC'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Umbilical Door Centerline Latch "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-door-centerline</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7638</x-m>
+            <y-m> 1.0574</y-m>
+            <z-m>-0.9437</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-door-centerline</tooltip-id>
+                <label>ET Umbilical Door Centerline Latch: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['STOW', 'GND'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Umbilical Door Left "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-door-left</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-door-left-cmd</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7626</x-m>
+            <y-m> 1.0961</y-m>
+            <z-m>-0.9295</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-door-left</tooltip-id>
+                <label>ET Umbilical Door Left: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['CL', 'OP'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Umbilical Door Left Latch "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-latch-left</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7617</x-m>
+            <y-m> 1.1255</y-m>
+            <z-m>-0.9187</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-latch-left</tooltip-id>
+                <label>ET Umbilical Door Latch Left: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['LAT', 'REL'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Umbilical Door Right "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-door-right</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-door-right-cmd</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.7608</x-m>
+            <y-m> 1.1552</y-m>
+            <z-m>-0.9078</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-door-right</tooltip-id>
+                <label>ET Umbilical Door Right: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['CL', 'OP'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+  <!-- ET Umbilical Door Right Latch "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>et-umbilical-latch-right</object-name>
+        <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd</property>
+        <factor>-45</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.76</x-m>
+            <y-m> 1.1834</y-m>
+            <z-m>-0.8974</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>.6</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>et-umbilical-latch-right</tooltip-id>
+                <label>ET Umbilical Door Latch Right: %s</label>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-cmd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['LAT', 'REL'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ET Umbilical Door Centerline "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_centerline_talkback_sto</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_centerline_talkback_bp</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-cl-latch-pos</property>
+                    <value>1</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+
+    <!-- ET Umbilical Door Left "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_left_talkback_op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_left_talkback_bp</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+                    <value>1</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_left_talkback_cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-pos</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- ET Umbilical Door Left Latch "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+                    <value>1</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-left-latch-pos</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- ET Umbilical Door Right "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_right_talkback_op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_right_talkback_bp</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+                    <value>1</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_door_right_talkback_cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-pos</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- ET Umbilical Door Right Latch "Talkbacks" -->
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+                    <value>0</value>
+                </greater-than>
+                <less-than>
+                    <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+                    <value>1</value>
+                </less-than>
+            </and>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>et_umbilical_latch_right_talkback_lat</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mechanical/et-door-right-latch-pos</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Switch Covers -->
     <animation>
         <type>knob</type>
@@ -13868,7 +14345,7 @@
         <axis>
             <x>-1</x>
             <y>0</y>
-            <z>.4</z>
+            <z>0</z>
         </axis>
         <action>
             <binding>

@@ -543,6 +543,7 @@
       <hud-dim-plt type="float">1.0</hud-dim-plt>
      </light>
      <mechanical>
+      <et-umbilical-door-mode type="int">0</et-umbilical-door-mode>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
       <et-door-cl-latch-pos type="double">1.0</et-door-cl-latch-pos>
       <et-door-left-latch-cmd type="int">0</et-door-left-latch-cmd>
