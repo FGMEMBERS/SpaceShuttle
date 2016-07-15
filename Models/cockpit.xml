@@ -6903,6 +6903,7 @@
                     <value>1</value>
                 </less-than>
             </and>
+	</condition>
     </animation>
     <animation>
         <type>select</type>
