@@ -84,6 +84,7 @@
 	  <set-bank-target type="double">0.0</set-bank-target>
 	  <hac-turn-init type="int">0</hac-turn-init>
 	  <s-turn-init type="int">0</s-turn-init>
+	  <al-init type="int">0</al-init>
      </taem>
      <rtls>
 	  <powered-pitchdown-active type="int">0</powered-pitchdown-active>
@@ -95,6 +96,7 @@
 	  <Nz-hold-active type="int">0.0</Nz-hold-active>
 	  <alpha-transition-active type="int">0</alpha-transition-active>
 	  <taem-transition-init type="int">0</taem-transition-init>
+	  <Nz-tgt type="double">0.0</Nz-tgt>
      </grtls>
      <spec20>
 	  <dap-A-PRI-rot-rate type="double">2.5</dap-A-PRI-rot-rate>

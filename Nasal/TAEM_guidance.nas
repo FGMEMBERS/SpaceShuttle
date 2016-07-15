@@ -322,6 +322,7 @@ else if (stage == 1) # turn around HAC
 		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 0.0);
 		setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 0);
 		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init", 0);
+		setprop("/fdm/jsbsim/systems/ap/taem/al-init", 1);
 
 		settimer( func {
 		

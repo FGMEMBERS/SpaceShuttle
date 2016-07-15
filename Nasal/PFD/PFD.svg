@@ -9505,6 +9505,30 @@
            sodipodi:role="line">SPD BK</tspan></text>
 	<text
          sodipodi:linespacing="125%"
+         id="p_vert_sit_text8a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="276.28574"
+           id="tspan3112"
+           sodipodi:role="line">   CMD</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit_speedbrake_cmd"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
          id="p_vert_sit_text9"
          y="30.178572"
          x="43.928574"
@@ -9599,6 +9623,42 @@
            x="343.428574"
            id="tspan3112"
            sodipodi:role="line">XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit_Nz_label"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">NZ</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit_tgt_Nz_label"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">TGT NZ</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit_tgt_Nz"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="276.928574"
+           id="tspan3112"
+           sodipodi:role="line">+X.X</tspan></text>
 
 	<path
          sodipodi:nodetypes="cc"
@@ -9651,6 +9711,30 @@
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
            y="226.178572"
+           x="343.428574"
+           id="tspan3112"
+           sodipodi:role="line">XXX</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit2_text8a"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
+           x="276.28574"
+           id="tspan3112"
+           sodipodi:role="line">   CMD</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit2_speedbrake_cmd"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.178572"
            x="343.428574"
            id="tspan3112"
            sodipodi:role="line">XXX</tspan></text>
@@ -9738,6 +9822,42 @@
            x="457.428574"
            id="tspan3112"
            sodipodi:role="line">NOM</tspan></text>
+<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit2_al_label"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.178572"
+           x="352.928574"
+           id="tspan3112"
+           sodipodi:role="line">A/L</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit2_tgt_Nz_label"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="200.928574"
+           id="tspan3112"
+           sodipodi:role="line">TGT NZ</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_vert_sit2_tgt_Nz"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="324.178572"
+           x="276.928574"
+           id="tspan3112"
+           sodipodi:role="line">+X.X</tspan></text>
 	<path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
