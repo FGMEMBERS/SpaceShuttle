@@ -212,7 +212,7 @@ var PFD_addpage_p_vert_sit = func(device)
 	    p_vert_sit.energy.setTranslation(467,yde);
     
         p_vert_sit.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
-        p_vert_sit.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/controls/shuttle/speedbrake")));
+        p_vert_sit.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm")));
 
 
 
@@ -402,7 +402,7 @@ var PFD_addpage_p_vert_sit2 = func(device)
 	    p_vert_sit2.energy.setTranslation(467,yde);
     
             p_vert_sit2.speedbrake.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
-            p_vert_sit2.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/controls/shuttle/speedbrake")));
+            p_vert_sit2.speedbrake_cmd.setText(sprintf("%3.0f", 100.0 * getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm")));
 
 	    if (getprop("/fdm/jsbsim/systems/ap/taem/al-init") == 1)
 		{

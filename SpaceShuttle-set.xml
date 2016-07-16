@@ -319,6 +319,7 @@
       <sense-minus-Z type="int">0</sense-minus-Z>
       <rcs-inactive type="double">1.0</rcs-inactive>
       <rcs-use-pulse type="int">1</rcs-use-pulse>
+      <speedbrake-cmd-norm type="double">0.0</speedbrake-cmd-norm>
 <!-- temporary placeholder for drive rate -->
       <inboard>
        <elevon>

@@ -1357,7 +1357,12 @@ else if (speedbrake_state == 1)
 
 var increase_speedbrake = func {
 
-var speedbrake_state = getprop("/controls/shuttle/speedbrake");
+var speedbrake_state = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+
+speedbrake_state = speedbrake_state+ 0.2;
+if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
+
+setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", speedbrake_state);
 
 if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	{
@@ -1365,8 +1370,7 @@ if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	return;
 	}
 
-speedbrake_state = speedbrake_state+ 0.2;
-if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
+
 
 setprop("/controls/shuttle/speedbrake", speedbrake_state);
 
@@ -1378,16 +1382,20 @@ setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 
 var decrease_speedbrake = func {
 
+var speedbrake_state = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+
+speedbrake_state = speedbrake_state - 0.2;
+if (speedbrake_state < 0.0) {speedbrake_state = 0.0;}
+
+setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", speedbrake_state);
+
 if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	{
 	SpaceShuttle.failure_cmd.speedbrake = 0;
 	return;
 	}
 
-var speedbrake_state = getprop("/controls/shuttle/speedbrake");
 
-speedbrake_state = speedbrake_state - 0.2;
-if (speedbrake_state < 0.0) {speedbrake_state = 0.0;}
 
 setprop("/controls/shuttle/speedbrake", speedbrake_state);
 
