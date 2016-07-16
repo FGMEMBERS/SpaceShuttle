@@ -295,6 +295,11 @@
         <object-name>pl-pri-fc3</object-name>
         <object-name>pl-pri-mn-b</object-name>
         <object-name>pl-pri-mn-c</object-name>
+        <!--Panel R1 fixings -->
+        <object-name>R1-panel</object-name>
+        <object-name>R1-fastners</object-name>
+        <object-name>R1-guards</object-name>
+        <object-name>R1-base</object-name>
         <!--Panel R2 switches -->
         <object-name>prplt-dump-seq-start</object-name>
         <object-name>prplt-dump-bkup-lh2-vlv</object-name>
@@ -369,8 +374,12 @@
         <object-name>apu-oper-1-cvr</object-name>
         <object-name>apu-oper-2-cvr</object-name>
         <object-name>apu-oper-3-cvr</object-name>
+        <!--Panel R2 fixings -->
+        <object-name>R2-fasteners</object-name>
+        <object-name>R2-panel</object-name>
+        <object-name>R2-base</object-name>
+        <object-name>R2-guards</object-name>
         <!--Panel L1 switches -->
-        <object-name>L1-panel</object-name>
         <object-name>h2o-pump-l1</object-name>
         <object-name>h2o-pump-l2</object-name>
         <object-name>freon-pump-l1</object-name>
@@ -437,6 +446,11 @@
         <object-name>man-sb-thrust-housing-plt</object-name>
         <object-name>nh3-tk-a</object-name>
         <object-name>nh3-tk-b</object-name>
+        <!--Panel L1 fixings -->
+        <object-name>L1-panel</object-name>
+        <object-name>L1-fastners</object-name>
+        <object-name>L1-guards</object-name>
+        <object-name>L1-base</object-name>
         <!-- Panel F6 knob -->
         <object-name>abort-mode-switch</object-name>
         <!-- Panel F6 covers -->
