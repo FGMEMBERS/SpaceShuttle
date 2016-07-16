@@ -465,13 +465,13 @@ setsize(limit2_data,0);
 point = [2400.0, 200000.0];
 append(limit2_data, point);
 
-point = [3000.0, 360000.0];
+point = [3000.0, 350000.0];
 append(limit2_data, point);
 
-point = [3400.0, 370000.0];
+point = [3400.0, 360000.0];
 append(limit2_data, point);
 
-point = [0.0, 340000.0];
+point = [0.0, 330000.0];
 append(limit2_data, point);
 
 point = [-2000.0, 300000.0];
