@@ -193,7 +193,7 @@ var PFD_addpage_p_vert_sit = func(device)
 	    
 
 	    var x = 30.0 + 180 * (mach - 1.5)/4.5;	
-	    var y = 160 - 35 * (alpha - 9.0)/14.0; 
+	    var y = 160 - 25 * (alpha - 9.0)/14.0; 
 	    p_vert_sit.shuttle_sym.setRotation(0.0);
             p_vert_sit.shuttle_sym.setTranslation(x,y);
 

@@ -158,11 +158,17 @@ setprop("/save/css-roll", css_roll);
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var major_mode_sm = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+var landing_site = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+var runway = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
 
 setprop("/save/ops", ops);
 setprop("/save/major-mode", major_mode);
 setprop("/save/major-mode-sm", major_mode_sm);
 setprop("/save/control-string", control_string);
+setprop("/save/guidance-mode", guidance_mode);
+setprop("/save/landing-site", landing_site);
+setprop("/save/runway", runway);
 
 
 # thermal distribution
@@ -388,6 +394,17 @@ setprop("/fdm/jsbsim/systems/dps/ops", ops);
 setprop("/fdm/jsbsim/systems/dps/major-mode", major_mode);
 setprop("/fdm/jsbsim/systems/dps/major-mode-sm", major_mode_sm);
 
+var guidance_mode = getprop("/save/guidance-mode");
+var landing_site = getprop("/save/landing-site");
+var runway = getprop("/save/runway");
+
+setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", guidance_mode);
+
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", landing_site);
+SpaceShuttle.update_site();
+
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+SpaceShuttle.update_runway();
 
 if (major_mode == 101)
 		{SpaceShuttle.ops_transition_auto("p_ascent");}
@@ -421,8 +438,28 @@ else if (major_mode == 305)
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.compute_TAEM_guidance_targets();
 		}
-
+else if (major_mode == 601)
+		{
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_dps_rtls");
+		SpaceShuttle.prtls_loop();
+		}
+else if (major_mode == 602)
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.grtls_loop();
+		}
+else if (major_mode == 603)
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.compute_TAEM_guidance_targets();
+		}
 
 # thermal distribution
 

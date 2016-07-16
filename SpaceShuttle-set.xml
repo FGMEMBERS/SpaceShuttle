@@ -2228,6 +2228,9 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/ops</path>
     <path>/save/major-mode</path>
     <path>/save/major-mode-sm</path>
+    <path>/save/guidance-mode</path>
+    <path>/save/landing-site</path>
+    <path>/save/runway</path>
     <path>/save/tank1-level-lbs</path>
     <path>/save/tank2-level-lbs</path>
     <path>/save/tank3-level-lbs</path>
