@@ -208,6 +208,11 @@
         <object-name>main-eng-sd-right-cvr</object-name>
         <object-name>main-eng-sd-ctr-cvr</object-name>
         <object-name>et-sep-cvr</object-name>
+        <!-- Panel C3 fixings -->
+        <object-name>C3-panel</object-name>
+        <object-name>C3-fastners</object-name>
+        <object-name>C3-guards</object-name>
+        <object-name>C3-base</object-name>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
