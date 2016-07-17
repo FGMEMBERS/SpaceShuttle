@@ -1506,7 +1506,7 @@ var PFD_addpage_p_pfd = func(device)
 		}
 
 
-	if ((major_mode == 601) or (major_mode == 602))
+	if ((major_mode == 601) or (major_mode == 602) or (major_mode == 603))
 		{
 
 		p_pfd.bearing_inertial.setVisible(0);
@@ -1613,6 +1613,10 @@ var PFD_addpage_p_pfd = func(device)
 				var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
 				var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
 				var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);	
+
+				var glideslope_deviation = getprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft");
+
+				glideslope_needle_offset = SpaceShuttle.clamp(glideslope_deviation, -5000, 5000)/5000.0 * 50.0;
 
 				bearing_HAC_C = course_HAC_C;
 				bearing_HAC_H = course_WP1;

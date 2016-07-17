@@ -5,6 +5,8 @@
 	<!-- This contains AP routines for the orbital DAP set to 'Auto' -->
  	<!--  for auto-launch, entry and TAEM--> 
 
+	<!-- as well as abort-specific flight rules for TAL, RTLS and contingency aborts -->
+
 	<!-- Orbital DAP largely follows the universal pointing menu -->
 	<!-- the main mode is given by up-mnvr-flag,  modes are -->
 
@@ -1686,8 +1688,6 @@
 
 	<!-- OPS 601 automatic RTLS guidance -->
 
-
-
 	<!-- general mode selection parameters activating the channels -->
 
 	<channel name="Auto RTLS management">
@@ -1698,11 +1698,13 @@
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 10
+				systems/abort/abort-mode == 3
 			</test>
 			<test logic="AND" value="1.0">
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 13
+				systems/abort/abort-mode == 3
 			</test>
 		</switch>
 
@@ -1735,11 +1737,6 @@
 				systems/ap/automatic-roll-control == 1
 			</test>
 		</switch>
-
-
-
-
-		
 
 	</channel>
 
@@ -2450,6 +2447,171 @@
 		</function>
 		</fcs_function>
 
+	</channel>
+
+
+	<!-- OPS 601 automatic contingency guidance -->
+
+	<!-- general mode selection parameters activating the channels -->
+
+	<channel name="Auto Contingency management">
+
+		<switch name="systems/ap/auto-cblue-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 601
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 10
+				systems/abort/abort-mode == 5
+			</test>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 601
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 13
+				systems/abort/abort-mode == 5
+			</test>
+		</switch>
+
+		<switch name="systems/ap/auto-cblue-roll-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/auto-cblue-active == 1
+				systems/ap/automatic-roll-control == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/auto-cblue-pitch-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/ap/auto-cblue-active == 1
+				systems/ap/automatic-pitch-control == 1
+			</test>
+		</switch>
+
+
+		<switch name="systems/ap/auto-cgreen-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 601
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 10
+				systems/abort/abort-mode == 6
+			</test>
+			<test logic="AND" value="1.0">
+				systems/dps/major-mode == 601
+				systems/entry_guidance/guidance-mode == 3
+				systems/fcs/control-mode == 13
+				systems/abort/abort-mode == 6
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Auto BLUE contingency management" execute="systems/ap/auto-cblue-active">
+
+	
+		<!-- roll definitions -->
+
+		<fcs_function name="systems/ap/cblue/roll-deg-abs">
+		<function>
+			<abs>
+				<property>/orientation/roll-deg</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/cblue/roll-deg-alt">
+		<function>
+			<sum>
+				<value>360.0</value>
+				<property>/orientation/roll-deg</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/cblue/abs-roll-deg">
+		<function>
+			<abs>
+				<property>/orientation/roll-deg</property>
+			</abs>
+		</function>
+		</fcs_function>
+
+		
+		<switch name="systems/ap/cblue/roll-deg">
+			<default value="/orientation/roll-deg"/>
+			<test value="systems/ap/cblue/roll-deg-alt">
+				/orientation/roll-deg LT 0.0
+			</test>	
+		</switch>
+
+		<switch name="systems/ap/cblue/orientation-sign">
+			<default value="1"/>
+			<test value="-1">
+				systems/ap/cblue/abs-roll-deg GT 90.0
+			</test>	
+		</switch>
+
+		<!-- roll channel -->
+
+
+
+		<fcs_function name="systems/ap/cblue/roll-error">
+		<function>
+			<difference>
+				<property>systems/ap/cblue/roll-deg</property>
+				<value>180.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/cblue/roll-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/cblue/roll-error</property>
+						<value>-0.5</value>
+					</product>
+					<value>-1.0</value>
+				</max>
+				<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<!-- pitch channel -->
+
+
+		<fcs_function name="systems/ap/cblue/pitch-error">
+		<function>
+			<difference>
+				<value>-5.0</value>
+				<property>/orientation/pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>		
+
+
+		<fcs_function name="systems/ap/cblue/pitch-cmd">
+		<function>
+			<product>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/cblue/pitch-error</property>
+						<value>-0.1</value>
+					</product>
+					<value>-0.3</value>
+				</max>
+				<value>0.3</value>
+			</min>
+			<property>systems/ap/cblue/orientation-sign</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	
 	</channel>
 
 
@@ -3389,7 +3551,12 @@
 			</test>
 			<test logic="AND" value="systems/ap/rtls/roll-cmd">
 				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode == 1
 			</test>	
+			<test logic="AND" value="systems/ap/cblue/roll-cmd">
+				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode == 5
+			</test>
 		</switch>
 
 		<switch name="systems/ap/launch/pitch-cmd">
@@ -3415,6 +3582,11 @@
 			</test>
 			<test logic="AND" value="systems/ap/rtls/pitch-cmd">
 				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode == 1
+			</test>
+			<test logic="AND" value="systems/ap/cblue/pitch-cmd">
+				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode == 5
 			</test>
 		</switch>
 
@@ -3441,6 +3613,7 @@
 			</test>
 			<test logic="AND" value="systems/ap/rtls/yaw-cmd">
 				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode == 1
 			</test>
 		</switch>
 

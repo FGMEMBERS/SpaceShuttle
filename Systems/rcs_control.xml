@@ -764,6 +764,9 @@
 			<test value="systems/ap/grtls/roll-cmd">
 				systems/ap/auto-grtls-rcs-roll-active == 1
 			</test>
+			<test value="systems/ap/cblue/roll-cmd">
+				systems/ap/auto-cblue-roll-active == 1
+			</test>
 		</switch>
 	
 		<fcs_function name="systems/rcs/roll-rate-error">

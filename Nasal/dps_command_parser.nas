@@ -825,6 +825,7 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		else if (item == 4)
 			{
+			SpaceShuttle.contingency_abort_init();
 			valid_flag = 1;
 			}
 		else if (item == 5)

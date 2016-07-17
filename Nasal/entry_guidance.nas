@@ -230,6 +230,7 @@ var init_rtls = func {
 if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
 	setprop("/controls/shuttle/hud-mode",2);
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
