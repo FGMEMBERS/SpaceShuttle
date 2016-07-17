@@ -1205,16 +1205,16 @@ var PFD_addpage_p_pfd = func(device)
 
 	if (major_mode != 305)
 		{
-		if (adi_rate_selection == 0) {adi_rate_range = 1.0;}
-		else if (adi_rate_selection == 1) {adi_rate_range = 5.0;}
+		if (adi_rate_selection == -1) {adi_rate_range = 1.0;}
+		else if (adi_rate_selection == 0) {adi_rate_range = 5.0;}
 		else {adi_rate_range = 10.0;}
 			
 		}
 
 	if ((major_mode != 305) and (major_mode != 304) and (major_mode != 602))
 		{
-		if (adi_error_selection == 0) {adi_error_range = 1.0;}
-		else if (adi_error_selection == 1) {adi_error_range = 5.0;}
+		if (adi_error_selection == -1) {adi_error_range = 1.0;}
+		else if (adi_error_selection == 0) {adi_error_range = 5.0;}
 		else {adi_error_range = 10.0;}	
 		}		
 	
@@ -2166,16 +2166,16 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	if (major_mode != 305)
 		{
-		if (adi_rate_selection == 0) {adi_rate_range = 1.0;}
-		else if (adi_rate_selection == 1) {adi_rate_range = 5.0;}
+		if (adi_rate_selection == -1) {adi_rate_range = 1.0;}
+		else if (adi_rate_selection == 0) {adi_rate_range = 5.0;}
 		else {adi_rate_range = 10.0;}
 			
 		}
 
 	if ((major_mode != 305) and (major_mode != 304) and (major_mode != 602))
 		{
-		if (adi_error_selection == 0) {adi_error_range = 1.0;}
-		else if (adi_error_selection == 1) {adi_error_range = 5.0;}
+		if (adi_error_selection == -1) {adi_error_range = 1.0;}
+		else if (adi_error_selection == 0) {adi_error_range = 5.0;}
 		else {adi_error_range = 10.0;}	
 		}		
 
