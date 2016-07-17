@@ -26,6 +26,15 @@ var PFD_addpage_p_dps_rtls = func(device)
 
     p_dps_rtls.serc = device.svg.getElementById("p_dps_rtls_serc");
     p_dps_rtls.serc_on = device.svg.getElementById("p_dps_rtls_serc_on");
+
+    p_dps_rtls.yaw_steer = device.svg.getElementById("p_dps_rtls_yaw_steer");
+    p_dps_rtls.abort = device.svg.getElementById("p_dps_rtls_abort");
+    p_dps_rtls.arm = device.svg.getElementById("p_dps_rtls_arm");
+
+    p_dps_rtls.abort_region = device.svg.getElementById("p_dps_rtls_2EO_abort_region");
+	
+    p_dps_rtls.engine1_fail_vi = device.svg.getElementById("p_dps_rtls_engine1_fail_vi");
+    p_dps_rtls.engine2_fail_vi = device.svg.getElementById("p_dps_rtls_engine2_fail_vi");
     
     p_dps_rtls.ondisplay = func
     {
@@ -132,6 +141,8 @@ var PFD_addpage_p_dps_rtls = func(device)
         .setTranslation(data[0][0], data[0][1] + 18.0);
 
 
+	p_dps_rtls.engine1_fail_vi.setText("");
+	p_dps_rtls.engine2_fail_vi.setText("");
 
 
         device.DPS_menu_title.setText("RTLS TRAJ 2");
@@ -164,9 +175,34 @@ var PFD_addpage_p_dps_rtls = func(device)
         p_dps_rtls.throttle.setText(sprintf("%3.0f",throttle));
 
 	p_dps_rtls.prplt.setText(sprintf("%3.0f",100.0* getprop("/consumables/fuel/tank/level-norm")));
-
-
 	p_dps_rtls.guid.setText(sprintf("%3.0f", getprop("/fdm/jsbsim/systems/ap/rtls/guid-percent")));
+
+
+	if (getprop("/fdm/jsbsim/systems/abort/enable-yaw-steer") == 1)
+		{p_dps_rtls.yaw_steer.setText("ENA");}
+	else	
+		{p_dps_rtls.yaw_steer.setText("INH");}
+
+	p_dps_rtls.abort_region.setText(getprop("/fdm/jsbsim/systems/abort/contingency-abort-region"));
+	
+	
+	p_dps_rtls.engine1_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine-fail-string"));
+	p_dps_rtls.engine2_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine2-fail-string"));
+	
+
+	if (getprop("/fdm/jsbsim/systems/abort/arm-contingency") == 1)
+		{p_dps_rtls.arm.setText("*");}
+	else
+		{p_dps_rtls.arm.setText("");}
+
+	if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 4)
+		{
+		p_dps_rtls.abort.setText("*");
+		p_dps_rtls.abort_region.setColor(0.8, 0.8, 0.4);
+		}
+	else
+		{p_dps_rtls.abort.setText("");}
+
 
 	var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 

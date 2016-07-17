@@ -226,13 +226,9 @@ if ((n_eng_operational < 2) and (engine2_fail_time < 0.0))
 	setprop("/fdm/jsbsim/systems/abort/engine2-fail-string", "2ND EO VI "~int(vi));
 	}
 
-var hdot = getprop("/fdm/jsbsim/velocities/v-down-fps");
-var abort_region = getprop("/fdm/jsbsim/systems/abort/contingency-abort-region");
 
-if ((abort_region == "BLUE") and (hdot > -1330.0) and (SRB_message_flag == 2))
-	{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "GREEN");}
-else if ((abort_region == "GREEN") and (hdot > - 300.0))
-	{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "");}
+
+
 
 var lockup_eng1 = getprop("/fdm/jsbsim/systems/mps/engine/lockup");
 var lockup_eng2 = getprop("/fdm/jsbsim/systems/mps/engine[1]/lockup");
@@ -290,10 +286,12 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 	}
 	
-settimer(SpaceShuttle.update_ascent_predictors, 0.4);
-
-
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+settimer(SpaceShuttle.update_ascent_predictors, 0.4);
+settimer(SpaceShuttle.contingency_abort_region_2eo, 0.6);
+
+
+
 
 
 

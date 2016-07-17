@@ -962,7 +962,7 @@
            id="tspan3112"
            sodipodi:role="line">XX</tspan></text>
 
-<text
+	<text
          sodipodi:linespacing="125%"
          id="p_ascent_label3"
          y="30.178572"
@@ -1283,7 +1283,7 @@
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
            y="184.178572"
-           x="67.928574"
+           x="10.928574"
            id="tspan3112"
            sodipodi:role="line">6</tspan></text>
 
@@ -1296,7 +1296,7 @@
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
            y="184.178572"
-           x="77.428574"
+           x="20.428574"
            id="tspan3112"
            sodipodi:role="line">X</tspan></text>
 
@@ -1309,7 +1309,7 @@
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
            y="184.178572"
-           x="96.428574"
+           x="39.428574"
            id="tspan3112"
            sodipodi:role="line">SERC</tspan></text>
 
@@ -1322,9 +1322,166 @@
          xml:space="preserve"><tspan
            style="font-size:14px;fill:#ffffff"
            y="184.178572"
-           x="143.928574"
+           x="86.928574"
            id="tspan3112"
            sodipodi:role="line">XX</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label3"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">5</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_yaw_steer"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="39.428574"
+           id="tspan3112"
+           sodipodi:role="line">INH</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label4"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.178572"
+           x="67.928574"
+           id="tspan3112"
+           sodipodi:role="line">YAW STEER</tspan></text>
+
+<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label5"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">4</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_abort"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="20.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label6"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.178572"
+           x="39.428574"
+           id="tspan3112"
+           sodipodi:role="line">ABORT</tspan></text>
+
+<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label7"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="10.928574"
+           id="tspan3112"
+           sodipodi:role="line">2</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_arm"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="20.428574"
+           id="tspan3112"
+           sodipodi:role="line">X</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_label8"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="39.428574"
+           id="tspan3112"
+           sodipodi:role="line">ARM 2EO</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_2EO_abort_region"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.178572"
+           x="115.428574"
+           id="tspan3112"
+           sodipodi:role="line">GREEN</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_engine1_fail_vi"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="352.178572"
+           x="333.928574"
+           id="tspan3112"
+           sodipodi:role="line">1ST EO VI 9650</tspan></text>
+
+ 	<text
+         sodipodi:linespacing="125%"
+         id="p_dps_rtls_engine2_fail_vi"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="366.178572"
+           x="333.928574"
+           id="tspan3112"
+           sodipodi:role="line">2ND EO VI 9650</tspan></text>
+
 
 	 <text
          sodipodi:linespacing="125%"
