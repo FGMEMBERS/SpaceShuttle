@@ -340,11 +340,11 @@ var point = [];
 setsize(traj_data,0);
 
 
-point = [4604.0, 152000.0];
-append(traj_data, point);
+#point = [4604.0, 152000.0];
+#append(traj_data, point);
 
-point = [4866.0, 174000.0];
-append(traj_data, point);
+#point = [4866.0, 174000.0];
+#append(traj_data, point);
 
 point = [5000.0, 206650.0];
 append(traj_data, point);

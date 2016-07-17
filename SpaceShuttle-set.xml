@@ -19,7 +19,13 @@
        <abort-mode type="int">0</abort-mode>
        <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
        <engine-fail-time type="double">-1.0</engine-fail-time>
+       <engine2-fail-time type="double">-1.0</engine2-fail-time>
+       <engine-fail-string type="string"></engine-fail-string>
+       <engine2-fail-string type="string"></engine2-fail-string>
        <abort-mode-switch type="int">0</abort-mode-switch>
+       <contingency-abort-region type="string">BLUE</contingency-abort-region>
+       <enable-serc type="int">0</enable-serc>
+       <enable-yaw-steer type="int">0</enable-yaw-steer>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>

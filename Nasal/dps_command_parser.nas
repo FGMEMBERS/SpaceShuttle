@@ -816,9 +816,23 @@ if ((header == "ITEM") and (end = "EXEC"))
 	#print("Spec: ", spec);
 
 
-	if (((major_mode == 103) or (major_mode == 601)) and (spec == 0))
+	if (((major_mode == 102) or (major_mode == 103) or (major_mode == 601)) and (spec == 0))
 		{
-		if (item == 6)
+		if (item == 2)
+			{
+			toggle_property("/fdm/jsbsim/systems/abort/arm-contingency");
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			toggle_property("/fdm/jsbsim/systems/abort/enable-yaw-steer");
+			valid_flag = 1;
+			}
+		else if (item == 6)
 			{
 			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 		
