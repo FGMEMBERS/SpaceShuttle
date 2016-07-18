@@ -224,7 +224,17 @@ if ((n_eng_operational < 2) and (engine2_fail_time < 0.0))
 	setprop("/fdm/jsbsim/systems/abort/engine2-fail-time", t_elapsed);
 	var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 	setprop("/fdm/jsbsim/systems/abort/engine2-fail-string", "2ND EO VI "~int(vi));
+	
+	# switch SERC on if we have SRBs disconnected
+
+	if (SRB_message_flag == 2)
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",13);
+		setprop("/controls/shuttle/control-system-string", "SERC");
+		}
 	}
+
+
 
 
 
@@ -523,6 +533,16 @@ setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapse
 
 # make an automatic transtion to MM 103
 setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
+
+# switch SERC on if we have just one engine at this point
+
+var n_eng_operational = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+
+if (n_eng_operational < 2)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",13);
+	setprop("/controls/shuttle/control-system-string", "SERC");
+	}
 
 settimer(SRB_separation_motor_off, 1.2);
 

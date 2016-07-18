@@ -764,8 +764,8 @@
 			<test value="systems/ap/grtls/roll-cmd">
 				systems/ap/auto-grtls-rcs-roll-active == 1
 			</test>
-			<test value="systems/ap/cblue/roll-cmd">
-				systems/ap/auto-cblue-roll-active == 1
+			<test value="systems/ap/contingency/roll-cmd">
+				systems/ap/auto-contingency-roll-active == 1
 			</test>
 		</switch>
 	
