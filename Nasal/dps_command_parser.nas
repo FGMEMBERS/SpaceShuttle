@@ -835,12 +835,14 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		else if (item == 6)
 			{
-			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode"); 
 		
-			if (control_mode == 10) {control_mode = 13;}
-			else {control_mode = 10;}
+			var string = "";
+			if (control_mode == 10) {control_mode = 13; string = "SERC";}
+			else {control_mode = 10; string = "Thrust Vectoring";}
 
 			setprop("/fdm/jsbsim/systems/fcs/control-mode", control_mode);
+			setprop("/controls/shuttle/control-system-string", string);
 			valid_flag = 1;
 			}
 

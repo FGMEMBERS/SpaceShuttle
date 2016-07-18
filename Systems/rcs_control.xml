@@ -2646,7 +2646,13 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-down-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2667,7 +2673,13 @@
 			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-up-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2727,7 +2739,13 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-down-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2748,7 +2766,13 @@
 			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-up-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
