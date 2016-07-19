@@ -30,6 +30,7 @@
        <contingency-hdot-fps type="double">1330.0</contingency-hdot-fps>
        <enable-serc type="int">0</enable-serc>
        <enable-yaw-steer type="int">0</enable-yaw-steer>
+       <yaw-steer-target type="double">0.0</yaw-steer-target>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>
@@ -43,6 +44,7 @@
        <alpha-controller-elevator-cmd-norm type="double">0.0</alpha-controller-elevator-cmd-norm>
        <auto-grtls-rcs-pitch-active type="int">0</auto-grtls-rcs-pitch-active>
        <auto-grtls-rcs-roll-active type="int">0</auto-grtls-rcs-roll-active>
+       <auto-contingency-roll-active type="int">0</auto-contingency-roll-active>
        <alpha-controller-elevator-cmd-norm type="double">0.0</alpha-controller-elevator-cmd-norm>
        <automatic-pitch-control type="int">0</automatic-pitch-control>
        <css-pitch-control type="int">1</css-pitch-control>
@@ -62,6 +64,11 @@
        <mnvr-timer-sec type="int">0</mnvr-timer-sec>
        <mnvr-timer-min type="int">0</mnvr-timer-min>
        <mnvr-timer-h type="int">0</mnvr-timer-h>
+       <contingency>
+	  <roll-headsup-active type="double">0.0</roll-headsup-active>
+	  <flyout-active type="double">0.0</flyout-active>
+	  <roll-cmd type="double">0.0</roll-cmd>
+       </contingency>
        <entry>
 	  <vspeed-target-fps type="double">230.0</vspeed-target-fps>
 	  <roll-sign type="int">1</roll-sign>

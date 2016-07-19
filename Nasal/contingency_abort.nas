@@ -4,6 +4,15 @@
 
 var contingency_abort_region_2eo = func {
 
+
+var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+var contingency_arm = getprop("/fdm/jsbsim/systems/abort/arm-contingency");
+
+if ((abort_mode > 4) or (contingency_arm == 1))# we are on a contingency abort, don't update
+	{
+	return;
+	}
+
 var SRB_status = getprop("/controls/shuttle/SRB-static-model");
 var hdot = getprop("/fdm/jsbsim/velocities/v-down-fps");
 var abort_region = getprop("/fdm/jsbsim/systems/abort/contingency-abort-region");
@@ -43,6 +52,8 @@ var abort_region = getprop("/fdm/jsbsim/systems/abort/contingency-abort-region")
 var num_engines = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
 var arm = getprop("/fdm/jsbsim/systems/abort/arm-contingency");
 
+num_engines = 1;
+
 if ((num_engines > 1) or (abort_region == "") or (arm == 0))
 	{
 	print ("No contingency abort situation!");
@@ -57,5 +68,6 @@ if (abort_region == "BLUE")
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
 	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+
 	}
 }

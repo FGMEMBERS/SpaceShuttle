@@ -33,6 +33,8 @@
 			<test logic="OR" value="3.0">
 				systems/fcs/control-mode == 11	
 				systems/fcs/control-mode == 12	
+			</test>
+			<test value="5.0">
 				systems/fcs/control-mode == 13	
 			</test>
 			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-rate">
@@ -1698,13 +1700,13 @@
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 10
-				systems/abort/abort-mode == 3
+				systems/abort/abort-mode == 1
 			</test>
 			<test logic="AND" value="1.0">
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 13
-				systems/abort/abort-mode == 3
+				systems/abort/abort-mode == 1
 			</test>
 		</switch>
 
@@ -2456,7 +2458,7 @@
 
 	<channel name="Auto Contingency management">
 
-		<switch name="systems/ap/auto-cblue-active">
+		<switch name="systems/ap/auto-contingency-active">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/dps/major-mode == 601
@@ -2472,47 +2474,109 @@
 			</test>
 		</switch>
 
-		<switch name="systems/ap/auto-cblue-roll-active">
+		<switch name="systems/ap/auto-contingency-roll-active">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/ap/auto-cblue-active == 1
+				systems/ap/auto-contingency-active == 1
 				systems/ap/automatic-roll-control == 1
 			</test>
 		</switch>
 
-		<switch name="systems/ap/auto-cblue-pitch-active">
+		<!--<switch name="systems/ap/auto-contingency-pitch-active">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/ap/auto-cblue-active == 1
+				systems/ap/auto-contingency-active == 1
 				systems/ap/automatic-pitch-control == 1
 			</test>
-		</switch>
+		</switch>-->
 
 
-		<switch name="systems/ap/auto-cgreen-active">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/dps/major-mode == 601
-				systems/entry_guidance/guidance-mode == 3
-				systems/fcs/control-mode == 10
-				systems/abort/abort-mode == 6
-			</test>
-			<test logic="AND" value="1.0">
-				systems/dps/major-mode == 601
-				systems/entry_guidance/guidance-mode == 3
-				systems/fcs/control-mode == 13
-				systems/abort/abort-mode == 6
-			</test>
-		</switch>
+
 
 	</channel>
 
-	<channel name="Auto BLUE contingency management" execute="systems/ap/auto-cblue-active">
+	<channel name="Auto contingency management" execute="systems/ap/auto-contingency-active">
+
+		<!-- targets -->
+
+		<switch name="systems/ap/contingency/initial-pitch-target">
+			<default value="0.0"/>
+			<test value="10.0"> <!-- BLUE -->
+				systems/abort/abort-mode == 5
+			</test>
+			<test  value="60.0"> <!-- GREEN -->
+				systems/abort/abort-mode == 6
+			</test>
+		</switch>
+
+		<switch name="systems/ap/contingency/yaw-target">
+			<default value="0.0"/>
+			<test logic="AND" value="systems/abort/yaw-steer-target"> 
+				systems/abort/abort-mode == 5
+				systems/abort/enable-yaw-steer == 1
+			</test>
+
+		</switch>
+
+		<!-- phase discriminators -->
+
+		<fcs_function name="systems/ap/contingency/active-pitch-error">
+		<function>
+			<difference>
+				<property>systems/ap/contingency/initial-pitch-target</property>
+				<property>/orientation/pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/contingency/upright-roll-error">
+		<function>
+			<property>/orientation/roll-deg</property>
+		</function>
+		</fcs_function>
+
+
+		<!-- phases -->
+
+
+		<switch name="systems/ap/contingency/initial-attitude-active">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0"> 
+				systems/ap/contingency/roll-headsup-active == 1
+				systems/ap/contingency/flyout-active == 1
+			</test>
+		</switch>
+
+		<switch name="systems/ap/contingency/roll-headsup-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0"> 
+				systems/ap/contingency/flyout-active == 0
+				systems/ap/contingency/active-pitch-error LT 1.0
+				systems/ap/contingency/active-pitch-error GT -1.0
+			</test>
+		</switch>
+
+		<switch name="systems/ap/contingency/flyout-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0"> 
+				systems/ap/contingency/roll-headsup-active == 1
+				systems/ap/contingency/upright-roll-error LT 1.0
+				systems/ap/contingency/upright-roll-error GT -1.0
+			</test>
+			<test  value="1.0"> 
+				systems/ap/contingency/flyout-active == 1
+			</test>
+		</switch>
+
+
+
+
+		
 
 	
 		<!-- roll definitions -->
 
-		<fcs_function name="systems/ap/cblue/roll-deg-abs">
+		<fcs_function name="systems/ap/contingency/roll-deg-abs">
 		<function>
 			<abs>
 				<property>/orientation/roll-deg</property>
@@ -2520,7 +2584,7 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/ap/cblue/roll-deg-alt">
+		<fcs_function name="systems/ap/contingency/roll-deg-alt">
 		<function>
 			<sum>
 				<value>360.0</value>
@@ -2529,7 +2593,7 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/ap/cblue/abs-roll-deg">
+		<fcs_function name="systems/ap/contingency/abs-roll-deg">
 		<function>
 			<abs>
 				<property>/orientation/roll-deg</property>
@@ -2538,17 +2602,17 @@
 		</fcs_function>
 
 		
-		<switch name="systems/ap/cblue/roll-deg">
+		<switch name="systems/ap/contingency/roll-deg">
 			<default value="/orientation/roll-deg"/>
-			<test value="systems/ap/cblue/roll-deg-alt">
+			<test value="systems/ap/contingency/roll-deg-alt">
 				/orientation/roll-deg LT 0.0
 			</test>	
 		</switch>
 
-		<switch name="systems/ap/cblue/orientation-sign">
+		<switch name="systems/ap/contingency/orientation-sign">
 			<default value="1"/>
 			<test value="-1">
-				systems/ap/cblue/abs-roll-deg GT 90.0
+				systems/ap/contingency/abs-roll-deg GT 90.0
 			</test>	
 		</switch>
 
@@ -2556,22 +2620,32 @@
 
 
 
-		<fcs_function name="systems/ap/cblue/roll-error">
+		<fcs_function name="systems/ap/contingency/inverted-roll-error">
 		<function>
 			<difference>
-				<property>systems/ap/cblue/roll-deg</property>
+				<property>systems/ap/contingency/roll-deg</property>
 				<value>180.0</value>
 			</difference>
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/ap/cblue/roll-cmd">
+
+
+		<switch name="systems/ap/contingency/roll-error">
+			<default value="systems/ap/contingency/inverted-roll-error"/>
+			<test logic="OR" value="systems/ap/contingency/upright-roll-error">
+				systems/ap/contingency/roll-headsup-active == 1
+				systems/ap/contingency/flyout-active == 1
+			</test>	
+		</switch>
+
+		<fcs_function name="systems/ap/contingency/roll-cmd">
 		<function>
 			<min>
 				<max>
 					<product>
-						<property>systems/ap/cblue/roll-error</property>
-						<value>-0.5</value>
+						<property>systems/ap/contingency/roll-error</property>
+						<value>-0.04</value>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -2583,33 +2657,44 @@
 		<!-- pitch channel -->
 
 
-		<fcs_function name="systems/ap/cblue/pitch-error">
-		<function>
-			<difference>
-				<value>-5.0</value>
-				<property>/orientation/pitch-deg</property>
-			</difference>
-		</function>
-		</fcs_function>		
+	
+
+		<switch name="systems/ap/contingency/pitch-error">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/contingency/active-pitch-error">
+				systems/ap/contingency/initial-attitude-active == 1
+				systems/ap/contingency/flyout-active == 1
+			</test>	
+		</switch>
 
 
-		<fcs_function name="systems/ap/cblue/pitch-cmd">
+		<fcs_function name="systems/ap/contingency/pitch-cmd">
 		<function>
 			<product>
 			<min>
 				<max>
 					<product>
-						<property>systems/ap/cblue/pitch-error</property>
+						<property>systems/ap/contingency/pitch-error</property>
 						<value>-0.1</value>
 					</product>
-					<value>-0.3</value>
+					<value>-0.25</value>
 				</max>
-				<value>0.3</value>
+				<value>0.25</value>
 			</min>
-			<property>systems/ap/cblue/orientation-sign</property>
+			<property>systems/ap/contingency/orientation-sign</property>
 			</product>
 		</function>
 		</fcs_function>
+
+		<!-- yaw -->
+
+		<fcs_function name="systems/ap/contingency/yaw-cmd">
+		<function>
+			<value>0.0</value>
+		</function>
+		</fcs_function>
+
+
 
 	
 	</channel>
@@ -3553,9 +3638,9 @@
 				systems/entry_guidance/guidance-mode == 3
 				systems/abort/abort-mode == 1
 			</test>	
-			<test logic="AND" value="systems/ap/cblue/roll-cmd">
+			<test logic="AND" value="0.0">
 				systems/entry_guidance/guidance-mode == 3
-				systems/abort/abort-mode == 5
+				systems/abort/abort-mode GE 5
 			</test>
 		</switch>
 
@@ -3584,9 +3669,9 @@
 				systems/entry_guidance/guidance-mode == 3
 				systems/abort/abort-mode == 1
 			</test>
-			<test logic="AND" value="systems/ap/cblue/pitch-cmd">
+			<test logic="AND" value="systems/ap/contingency/pitch-cmd">
 				systems/entry_guidance/guidance-mode == 3
-				systems/abort/abort-mode == 5
+				systems/abort/abort-mode GE 5
 			</test>
 		</switch>
 
@@ -3614,6 +3699,10 @@
 			<test logic="AND" value="systems/ap/rtls/yaw-cmd">
 				systems/entry_guidance/guidance-mode == 3
 				systems/abort/abort-mode == 1
+			</test>
+			<test logic="AND" value="systems/ap/contingency/yaw-cmd">
+				systems/entry_guidance/guidance-mode == 3
+				systems/abort/abort-mode GE 5
 			</test>
 		</switch>
 
