@@ -2699,7 +2699,13 @@
 			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-right-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			</max>
 		</function>
 		<output>systems/rcs/L4L-fire-cmd</output>
@@ -2792,7 +2798,13 @@
 			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-left-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			</max>
 		</function>
 		<output>systems/rcs/R4R-fire-cmd</output>

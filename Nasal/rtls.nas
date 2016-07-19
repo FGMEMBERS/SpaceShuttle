@@ -178,7 +178,7 @@ setprop("/sim/messages/copilot", "Pitch up for alpha recovery!");
 
 SpaceShuttle.et_umbilical_door_close();
 
-# do the fuel dump
+# do the MPS fuel dump
 
 setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 1);
 setprop("/fdm/jsbsim/systems/propellant/LH2-inboard-status", 1);

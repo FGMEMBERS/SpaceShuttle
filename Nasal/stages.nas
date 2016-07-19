@@ -1265,7 +1265,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3))
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (getprop("/fdm/jsbsim/systems/abort/abort-mode") < 5))
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
@@ -1280,12 +1280,16 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 	}
 
 # switch to TAEM guidance 80 miles to site if we're under entry guidance
+# we never do this for a contingency abort
 
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 	{
 	SpaceShuttle.update_entry_guidance();
 
-	if (getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm") < 80.0)
+	var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+
+	if ((d_remain < 80.0) and (abort_mode < 5))
 		{
 		SpaceShuttle.compute_TAEM_guidance_targets();
 		glide_loop();

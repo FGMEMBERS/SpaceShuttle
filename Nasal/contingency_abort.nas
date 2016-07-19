@@ -69,5 +69,51 @@ if (abort_region == "BLUE")
 	setprop("/fdm/jsbsim/systems/dps/ops", 6);
 	SpaceShuttle.ops_transition_auto("p_dps_rtls");
 
+	# initialize OMS/RCS interconnected dump
+
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 0);
+	SpaceShuttle.toggle_oms_fuel_dump();
+
+	contingency_blue_loop();
 	}
 }
+
+var contingency_blue_loop = func {
+
+var vspeed = getprop("/fdm/jsbsim/velocities/v-down-fps");
+
+if (vspeed > 0.0)
+	{
+	setprop("/fdm/jsbsim/systems/ap/contingency/init-etsep-active", 1);
+	}
+
+var alpha_error = math.abs(getprop("/fdm/jsbsim/aero/alpha-deg")+ 3.0);
+
+if ((vspeed > 0.0) and (alpha_error < 2.0))
+	{
+	cblue_init_meco();
+	return;
+	}
+
+
+settimer (contingency_blue_loop, 0.2);
+}
+
+
+
+var cblue_init_meco = func {
+
+setprop("/controls/engines/engine[0]/throttle", 0.0);
+setprop("/controls/engines/engine[1]/throttle", 0.0);
+setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+
+settimer( force_external_tank_separate, 1.0);
+
+settimer( SpaceShuttle.rtls_transit_glide, 8.0);
+}
+
+
