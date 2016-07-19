@@ -11,6 +11,9 @@
     <gravitational-torque type="bool">true</gravitational-torque>
    </simulation>
    <systems>
+    <cws>
+        <testing-placeholder type="int">0</testing-placeholder>
+    </cws>
     <abort>
        <arm-tal type="int">0</arm-tal>
        <arm-ato type="int">0</arm-ato>

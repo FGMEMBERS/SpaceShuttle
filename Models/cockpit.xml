@@ -671,6 +671,29 @@
         <object-name>mes-left-y</object-name>
         <object-name>mes-right-y</object-name>
         <object-name>mes-ctr-y</object-name>
+        <object-name>cw-light-o2press</object-name>
+        <object-name>cw-light-h2press</object-name>
+        <object-name>cw-light-fuel-cell-stack-temp</object-name>
+        <object-name>cw-light-fuel-cell-pump</object-name>
+        <object-name>cw-light-o2heater-temp</object-name>
+        <object-name>cw-light-ac-voltage</object-name>
+        <object-name>cw-light-ac-overload</object-name>
+        <object-name>cw-light-freon-loop</object-name>
+        <object-name>cw-light-av-bay-cabin-air</object-name>
+        <object-name>cw-light-imu</object-name>
+        <object-name>cw-light-fwd-rcs</object-name>
+        <object-name>cw-light-rcs-jet</object-name>
+        <object-name>cw-light-h20-loop</object-name>
+        <object-name>cw-light-rga-accel</object-name>
+        <object-name>cw-light-gpc</object-name>
+        <object-name>cw-light-oms-kit</object-name>
+        <object-name>cw-light-payload-caution</object-name>
+        <object-name>cw-light-primary-cw</object-name>
+        <object-name>cw-light-fcs-channel</object-name>
+        <object-name>cw-light-apu-temp</object-name>
+        <object-name>cw-light-apu-overspeed</object-name>
+        <object-name>cw-light-apu-underspeed</object-name>
+        <object-name>cw-light-hyd-press</object-name>
         <emission>
             <red>1</red>
             <green>1</green>
@@ -686,6 +709,22 @@
         <object-name>mes-right-r</object-name>
         <object-name>mes-ctr-r</object-name>
         <object-name>indicator_light_abort</object-name>
+        <object-name>cw-light-fuel-cell-reac</object-name>
+        <object-name>cw-light-cabin-atm</object-name>
+        <object-name>cw-light-main-bus-undervolt</object-name>
+        <object-name>cw-light-fwd-rcs</object-name>
+        <object-name>cw-light-air-data</object-name>
+        <object-name>cw-light-left-rcs</object-name>
+        <object-name>cw-light-right-rcs</object-name>
+        <object-name>cw-light-left-rhc</object-name>
+        <object-name>cw-light-right-aft-rhc</object-name>
+        <object-name>cw-light-left-oms</object-name>
+        <object-name>cw-light-right-osm</object-name>
+        <object-name>cw-light-payload-warning</object-name>
+        <object-name>cw-light-fcs-saturation</object-name>
+        <object-name>cw-light-osm-tvc</object-name>
+        <object-name>cw-light-mps</object-name>
+        <object-name>cw-light-backup-cw-alarm</object-name>
         <emission>
             <red>1</red>
             <green>0.05</green>
@@ -3834,6 +3873,188 @@
 		 <value>1</value>
 	    </equals>
 	    </and>
+        </condition>
+    </animation>
+
+    <!-- Main Buss Undervolt  "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-main-bus-undervolt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/main-bus-undervolt</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left OMS "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-left-oms</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/left-oms</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right OMS  "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-right-oms</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/right-oms</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- OMS TVC "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-osm-tvc</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/oms-tvc</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Fwd RCS "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-fwd-rcs</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/fwd-rcs</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left RCS "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-left-rcs</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/left-rcs</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-right-rcs</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/right-rcs</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!--FC Reac "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-fuel-cell-reac</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/fuel-cell-reac</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Backup CW Alarm "CW Red Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-backup-cw-alarm</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/backup-cw</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- FC Stack Temp "CW Yellow Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-fuel-cell-stack-temp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/fuel-cell-stack-temp</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- FC Pump "CW Yellow Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-fuel-cell-pump</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/fuel-cell-pump</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- AC Voltage "CW Yellow Light" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-ac-voltage</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/ac-voltage</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Main Buss Undervolt  "Lights" -->
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-o2press</object-name>
+        <object-name>cw-light-h2press</object-name>
+        <object-name>cw-light-o2heater-temp</object-name>
+        <object-name>cw-light-ac-overload</object-name>
+        <object-name>cw-light-freon-loop</object-name>
+        <object-name>cw-light-av-bay-cabin-air</object-name>
+        <object-name>cw-light-imu</object-name>
+        <object-name>cw-light-rcs-jet</object-name>
+        <object-name>cw-light-h20-loop</object-name>
+        <object-name>cw-light-rga-accel</object-name>
+        <object-name>cw-light-gpc</object-name>
+        <object-name>cw-light-oms-kit</object-name>
+        <object-name>cw-light-payload-caution</object-name>
+        <object-name>cw-light-primary-cw</object-name>
+        <object-name>cw-light-fcs-channel</object-name>
+        <object-name>cw-light-apu-temp</object-name>
+        <object-name>cw-light-apu-overspeed</object-name>
+        <object-name>cw-light-apu-underspeed</object-name>
+        <object-name>cw-light-hyd-press</object-name>
+
+        <object-name>cw-light-cabin-atm</object-name>
+        <object-name>cw-light-air-data</object-name>
+        <object-name>cw-light-left-rhc</object-name>
+        <object-name>cw-light-right-aft-rhc</object-name>
+        <object-name>cw-light-payload-warning</object-name>
+        <object-name>cw-light-fcs-saturation</object-name>
+        <object-name>cw-light-mps</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/testing-placeholder</property>
+                <value>1</value>
+            </equals>
         </condition>
     </animation>
 
