@@ -2352,12 +2352,19 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/ap/grtls/Nz-hold-tgt">
+			<default value="2.1"/>	
+			<test value="systems/ap/grtls/Nz-tgt">
+				systems/abort/abort-mode GE 5
+			</test>
+		</switch>
+
 		<fcs_function name="systems/ap/grtls/Nz-hold-pitch-error">
 		<function>
 			<min>
 			<product>
 				<difference>
-					<value>2.1</value>
+					<property>systems/ap/grtls/Nz-hold-tgt</property>
 					<property>accelerations/Nz</property>
 				</difference>
 				<value>2.0</value>
@@ -2482,17 +2489,6 @@
 			</test>
 		</switch>
 
-		<!--<switch name="systems/ap/auto-contingency-pitch-active">
-			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/ap/auto-contingency-active == 1
-				systems/ap/automatic-pitch-control == 1
-			</test>
-		</switch>-->
-
-
-
-
 	</channel>
 
 	<channel name="Auto contingency management" execute="systems/ap/auto-contingency-active">
@@ -2544,6 +2540,7 @@
 			<test logic="OR" value="0.0"> 
 				systems/ap/contingency/roll-headsup-active == 1
 				systems/ap/contingency/flyout-active == 1
+				systems/ap/contingency/init-etsep-active == 1
 			</test>
 		</switch>
 
@@ -2551,6 +2548,7 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0"> 
 				systems/ap/contingency/flyout-active == 0
+				systems/ap/contingency/init-etsep-active == 0
 				systems/ap/contingency/active-pitch-error LT 1.0
 				systems/ap/contingency/active-pitch-error GT -1.0
 			</test>
@@ -2560,11 +2558,13 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0"> 
 				systems/ap/contingency/roll-headsup-active == 1
+				systems/ap/contingency/init-etsep-active == 0
 				systems/ap/contingency/upright-roll-error LT 1.0
 				systems/ap/contingency/upright-roll-error GT -1.0
 			</test>
-			<test  value="1.0"> 
+			<test logic="AND" value="1.0"> 
 				systems/ap/contingency/flyout-active == 1
+				systems/ap/contingency/init-etsep-active == 0
 			</test>
 		</switch>
 
@@ -2636,6 +2636,7 @@
 			<test logic="OR" value="systems/ap/contingency/upright-roll-error">
 				systems/ap/contingency/roll-headsup-active == 1
 				systems/ap/contingency/flyout-active == 1
+				systems/ap/contingency/init-etsep-active == 1
 			</test>	
 		</switch>
 
@@ -2657,6 +2658,14 @@
 		<!-- pitch channel -->
 
 
+		<fcs_function name="systems/ap/contingency/alpha-error">
+		<function>
+			<difference>
+				<value>-2.0</value>
+				<property>aero/alpha-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
 	
 
 		<switch name="systems/ap/contingency/pitch-error">
@@ -2665,6 +2674,9 @@
 				systems/ap/contingency/initial-attitude-active == 1
 				systems/ap/contingency/flyout-active == 1
 			</test>	
+			<test value="systems/ap/contingency/alpha-error">
+				systems/ap/contingency/init-etsep-active == 1
+			</test>
 		</switch>
 
 
@@ -2688,11 +2700,44 @@
 
 		<!-- yaw -->
 
+		<fcs_function name="systems/ap/contingency/powered-pitchdown-yaw-error">
+		<function>
+			<product>
+				<value>-0.4</value>
+				<property>aero/beta-deg</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/contingency/yaw-error">
+			<default value="0.0"/>
+			<test value="systems/ap/contingency/powered-pitchdown-yaw-error">
+				systems/ap/contingency/init-etsep-active == 1
+			</test>
+		</switch>
+
 		<fcs_function name="systems/ap/contingency/yaw-cmd">
+		<function>
+			<min>
+				<max>
+					<product>
+						<property>systems/ap/contingency/yaw-error</property>
+						<value>0.1</value>
+					</product>
+					<value>-0.25</value>
+				</max>
+				<value>0.25</value>
+			</min>
+		</function>
+		</fcs_function>
+
+
+
+		<!--<fcs_function name="systems/ap/contingency/yaw-cmd">
 		<function>
 			<value>0.0</value>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 
 
