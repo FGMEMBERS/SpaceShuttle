@@ -2709,7 +2709,9 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/ap/contingency/yaw-steering-yaw-error">
+		
+
+		<fcs_function name="systems/ap/contingency/yaw-steering-yaw-error-raw">
 		<function>
 			<difference>
 				<property>/orientation/heading-deg</property>
@@ -2720,6 +2722,23 @@
 			</difference>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/ap/contingency/yaw-steering-yaw-error-subtracted">
+		<function>
+			<difference>
+				<property>systems/ap/contingency/yaw-steering-yaw-error-raw</property>
+				<value>360.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/contingency/yaw-steering-yaw-error">
+			<default value="systems/ap/contingency/yaw-steering-yaw-error-raw"/>
+			<test value="systems/ap/contingency/yaw-steering-yaw-error-subtracted">
+				systems/ap/contingency/yaw-steering-yaw-error-raw GT 180.0
+			</test>
+		</switch>
+
 
 		<switch name="systems/ap/contingency/yaw-error">
 			<default value="0.0"/>
