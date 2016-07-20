@@ -78,7 +78,27 @@ if (abort_region == "BLUE")
 
 	contingency_blue_loop();
 	}
+else if (abort_region == "GREEN")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/fdm/jsbsim/systems/abort/abort-mode", 6);
+	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+
+	# initialize OMS/RCS interconnected dump
+
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 0);
+	SpaceShuttle.toggle_oms_fuel_dump();
+
+	contingency_green_loop();
+	}
 }
+
+# contingency BLUE ###################
 
 var contingency_blue_loop = func {
 
@@ -116,4 +136,14 @@ settimer( force_external_tank_separate, 1.0);
 settimer( SpaceShuttle.rtls_transit_glide, 8.0);
 }
 
+# contingency GREEN ###################
 
+var contingency_green_loop = func {
+
+print ("Contingency GREEN");
+
+return;
+
+
+settimer (contingency_blue_loop, 0.2);
+}

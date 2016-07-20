@@ -89,6 +89,26 @@ if (getprop("/mission/launch/section-defined"))
 
 	}
 
+# aborts
+
+if (getprop("/mission/abort/section-defined"))
+	{
+	var yaw_steering = getprop("/mission/abort/enable-yaw-steering");
+	setprop("/fdm/jsbsim/systems/abort/enable-yaw-steer", yaw_steering);
+
+	var yaw_steer_tgt = getprop("/mission/abort/yaw-steering-target");
+	setprop("/fdm/jsbsim/systems/abort/yaw-steer-target", yaw_steer_tgt);
+
+	var ato_vcont = getprop("/mission/abort/ato-v-mssn-cntn");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-mssn-cntn", ato_vcont);
+
+	var ato_vlin = getprop("/mission/abort/ato-v-lin");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-lin", ato_vlin);
+
+	var ato_vzero = getprop("/mission/abort/ato-v-zero");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-zero", ato_vzero);
+	}
+
 # configuration
 
 if (getprop("/mission/configuration/section-defined"))

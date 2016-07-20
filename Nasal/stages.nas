@@ -1265,7 +1265,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (getprop("/fdm/jsbsim/systems/abort/abort-mode") < 5))
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) )
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
@@ -1273,6 +1273,15 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 	if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") > 0)
 		{
 		SpaceShuttle.compute_TAEM_guidance_targets();
+		}
+
+	if (SpaceShuttle.TAEM_guidance_available == 0)
+		{
+		setprop("/sim/messages/copilot", "No TAEM guidance available, take CSS!");
+		setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+		setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
 		}
 
 	glide_loop();

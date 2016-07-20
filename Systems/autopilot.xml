@@ -2471,13 +2471,13 @@
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 10
-				systems/abort/abort-mode == 5
+				systems/abort/abort-mode GE 5
 			</test>
 			<test logic="AND" value="1.0">
 				systems/dps/major-mode == 601
 				systems/entry_guidance/guidance-mode == 3
 				systems/fcs/control-mode == 13
-				systems/abort/abort-mode == 5
+				systems/abort/abort-mode GE 5
 			</test>
 		</switch>
 
@@ -2508,7 +2508,7 @@
 		<switch name="systems/ap/contingency/yaw-target">
 			<default value="0.0"/>
 			<test logic="AND" value="systems/abort/yaw-steer-target"> 
-				systems/abort/abort-mode == 5
+				systems/abort/abort-mode == 6
 				systems/abort/enable-yaw-steer == 1
 			</test>
 
@@ -2709,10 +2709,27 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/contingency/yaw-steering-yaw-error">
+		<function>
+			<difference>
+				<property>/orientation/heading-deg</property>
+				<sum>
+					<property>velocities/course-deg</property>
+					<property>systems/ap/contingency/yaw-target</property>
+				</sum>
+			</difference>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/ap/contingency/yaw-error">
 			<default value="0.0"/>
 			<test value="systems/ap/contingency/powered-pitchdown-yaw-error">
 				systems/ap/contingency/init-etsep-active == 1
+			</test>
+			<test logic="AND" value="systems/ap/contingency/yaw-steering-yaw-error">
+				systems/ap/contingency/init-etsep-active == 0
+				systems/abort/abort-mode == 6
+				systems/ap/contingency/flyout-active == 1
 			</test>
 		</switch>
 

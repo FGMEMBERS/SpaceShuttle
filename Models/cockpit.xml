@@ -7116,7 +7116,7 @@
                       }
                     else if (status_ato == 1)
                       {
-                        setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+			SpaceShuttle.init_ato();
                       }
                     else if (status_rtls == 1)
                       {

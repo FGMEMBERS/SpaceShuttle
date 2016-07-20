@@ -2167,7 +2167,8 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			else if (status_ato == 1)
 				{
-				setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+				#setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+				SpaceShuttle.init_ato();
 				}
 			else if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0)
 				{

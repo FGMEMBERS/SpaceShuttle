@@ -98,15 +98,32 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.ondisplay = func
     {
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-    
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");    
+
         var string1 = "";
     
-        if (major_mode == 104)
-    	{string1 = "OMS 1 ";}
-        else if (major_mode == 105)
-    	{string1 = "OMS 2 ";}
+        if ((major_mode == 104) and (abort_mode < 3))
+    		{string1 = "OMS 1 ";}
+	else if ((major_mode == 104) and (abort_mode == 3))
+		{string1 = "ATO 1 ";}
+	else if ((major_mode == 104) and (abort_mode == 4))
+		{string1 = "AOA 1 ";}		
+        else if ((major_mode == 105) and (abort_mode < 3))
+    		{string1 = "OMS 2 ";}
+ 	else if ((major_mode == 105) and (abort_mode == 3))
+    		{string1 = "ATO 2 ";}
+ 	else if ((major_mode == 105) and (abort_mode == 4))
+    		{string1 = "AOA 2 ";}
+        else if ((major_mode == 106) and (abort_mode < 3))
+    		{string1 = "OMS 2 ";}
+ 	else if ((major_mode == 106) and (abort_mode == 3))
+    		{string1 = "ATO 2 ";}
+ 	else if ((major_mode == 106) and (abort_mode == 4))
+    		{string1 = "AOA 2 ";}
         else if (major_mode == 202)
-    	{string1 = "ORBIT ";}
+    		{string1 = "ORBIT ";}
+        else if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+    		{string1 = "DEORB ";}
     
         var string2 = " EXEC";
     

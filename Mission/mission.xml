@@ -19,6 +19,15 @@
   <rtls-site-index type="int">1</rtls-site-index>
 </launch>
 
+<abort>
+  <section-defined type="bool">true</section-defined>
+  <enable-yaw-steering type="bool">true</enable-yaw-steering>
+  <yaw-steering-target type="double">-45.0</yaw-steering-target>
+  <ato-v-mssn-cntn type="double">12000.0</ato-v-mssn-cntn>
+  <ato-v-lin type="double">11500.0</ato-v-lin>
+  <ato-v-zero type="double">18000.0</ato-v-zero>
+</abort>
+
 <post-meco>
   <section-defined type="bool">false</section-defined>
   <automatic-fuel-dump type="bool">true</automatic-fuel-dump>
