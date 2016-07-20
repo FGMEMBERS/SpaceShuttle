@@ -191,12 +191,30 @@
         <object-name>button_label_main_eng_sd_left</object-name>
         <object-name>button_label_main_eng_sd_center</object-name>
         <object-name>button_label_main_eng_sd_right</object-name>
-        <object-name>button_label_od_control_selecta</object-name>
-        <object-name>button_label_od_control_selectb</object-name>
+        <object-name>button_label_od_select_a</object-name>
+        <object-name>button_label_od_select_b</object-name>
         <object-name>button_label_od_control_auto</object-name>
         <object-name>button_label_od_control_inrtl</object-name>
         <object-name>button_label_od_control_lvlh</object-name>
         <object-name>button_label_od_control_free</object-name>
+        <object-name>button_label_mm_alt</object-name>
+        <object-name>button_label_mm_high</object-name>
+        <object-name>button_label_mm_lowz</object-name>
+        <object-name>button_label_mm_pri</object-name>
+        <object-name>button_label_mm_vern</object-name>
+        <object-name>button_label_mm_xblank</object-name>
+        <object-name>button_label_mm_x_norm</object-name>
+        <object-name>button_label_mm_y_norm</object-name>
+        <object-name>button_label_mm_z_norm</object-name>
+        <object-name>button_label_mm_pitch_dr</object-name>
+        <object-name>button_label_mm_roll_dr</object-name>
+        <object-name>button_label_mm_yaw_dr</object-name>
+        <object-name>button_label_mm_x_pulse</object-name>
+        <object-name>button_label_mm_y_pulse</object-name>
+        <object-name>button_label_mm_z_pulse</object-name>
+        <object-name>button_label_mm_roll_pulse</object-name>
+        <object-name>button_label_mm_pitch_pulse</object-name>
+        <object-name>button_label_mm_yaw_pulse</object-name>
         <object-name>button_main_eng_sd_left</object-name>
         <object-name>button_main_eng_sd_center</object-name>
         <object-name>button_main_eng_sd_right</object-name>
@@ -803,12 +821,33 @@
         <object-name>button_light_main_eng_sd_right</object-name>
         <object-name>button_light_srb_sep</object-name>
         <object-name>button_light_et_sep</object-name>
-        <object-name>button_light_selecta</object-name>
-        <object-name>button_light_selectb</object-name>
+        <object-name>button_light_od_select_a</object-name>
+        <object-name>button_light_od_select_b</object-name>
         <object-name>button_light_od_control_auto</object-name>
         <object-name>button_light_od_control_inrtl</object-name>
         <object-name>button_light_od_control_lvlh</object-name>
         <object-name>button_light_od_control_free</object-name>
+        <object-name>button_light_mm_alt</object-name>
+        <object-name>button_light_mm_high</object-name>
+        <object-name>button_light_mm_lowz</object-name>
+        <object-name>button_light_mm_pri</object-name>
+        <object-name>button_light_mm_vern</object-name>
+        <object-name>button_light_mm_xblank</object-name>
+        <object-name>button_light_mm_x_norm</object-name>
+        <object-name>button_light_mm_y_norm</object-name>
+        <object-name>button_light_mm_z_norm</object-name>
+        <object-name>button_light_mm_pitch_dr</object-name>
+        <object-name>button_light_mm_roll_dr</object-name>
+        <object-name>button_light_mm_yaw_dr</object-name>
+        <object-name>button_light_mm_x_pulse</object-name>
+        <object-name>button_light_mm_y_pulse</object-name>
+        <object-name>button_light_mm_z_pulse</object-name>
+        <object-name>button_light_mm_roll_pulse</object-name>
+        <object-name>button_light_mm_pitch_pulse</object-name>
+        <object-name>button_light_mm_yaw_pulse</object-name>
+        <object-name>button_main_eng_sd_left</object-name>
+        <object-name>button_main_eng_sd_center</object-name>
+        <object-name>button_main_eng_sd_right</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -5048,7 +5087,7 @@
     <!-- Orbital DAP Control Auto "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>button_od_control_auto</object-name>
+        <object-name>button-cmd-od-control-auto</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -5081,9 +5120,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>button_od_control_auto</tooltip-id>
+                <tooltip-id>button-cmd-od-control-auto</tooltip-id>
                 <label>Orbital DAP Control Auto</label>
-                <property>button_od_control_auto</property>
+                <property>button-cmd-od-control-auto</property>
             </binding>
         </hovered>
     </animation>
@@ -5101,7 +5140,7 @@
     <!-- Orbital DAP Control Inertial "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>button_od_control_inrtl</object-name>
+        <object-name>button-cmd-od-control-inrtl</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -5134,9 +5173,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>button_od_control_inrtl</tooltip-id>
+                <tooltip-id>button-cmd-od-control-inrtl</tooltip-id>
                 <label>Orbital DAP Control Inertial</label>
-                <property>button_od_control_inrtl</property>
+                <property>button-cmd-od-control-inrtl</property>
             </binding>
         </hovered>
     </animation>
@@ -5154,7 +5193,7 @@
     <!-- Orbital DAP Control LVLH "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>button_od_control_lvlh</object-name>
+        <object-name>button-cmd-od-control-lvlh</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -5187,9 +5226,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>button_od_control_lvlh</tooltip-id>
+                <tooltip-id>button-cmd-od-control-lvlh</tooltip-id>
                 <label>Orbital DAP Control LVLH</label>
-                <property>button_od_control_lvlh</property>
+                <property>button-cmd-od-control-lvlh</property>
             </binding>
         </hovered>
     </animation>
@@ -5207,7 +5246,7 @@
     <!-- Orbital DAP Control Free "Button" -->
     <animation>
         <type>pick</type>
-        <object-name>button_od_control_free</object-name>
+        <object-name>button-cmd-od-control-free</object-name>
         <visible>true</visible>
         <action>
             <button>0</button>
@@ -5240,9 +5279,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>button_od_control_free</tooltip-id>
+                <tooltip-id>button-cmd-od-control-free</tooltip-id>
                 <label>Orbital DAP Control Free</label>
-                <property>button_od_control_free</property>
+                <property>button-cmd-od-control-free</property>
             </binding>
         </hovered>
     </animation>
