@@ -37,7 +37,7 @@
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>
-       <attitude-select type="int">0</attitude-select>
+       <attitude-select type="int">-1</attitude-select>
        <quality-level type="int">3</quality-level>
        <rate-range-select type="int">1</rate-range-select>
        <error-range-select type="int">1</error-range-select>

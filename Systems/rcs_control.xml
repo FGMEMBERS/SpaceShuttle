@@ -692,13 +692,21 @@
 			<output>systems/rcs/dap-pitch-cmd-orbit</output>
 		</pid>
 
-
+		<fcs_function name="systems/rcs/dap-pitch-entry-PID-trigger">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-entry-mode</property>
+			</difference>
+		</function>
+		</fcs_function>
 
 		<pid name="systems/rcs/dap-pitch-entry">
 			<input>systems/rcs/pitch-rate-error</input>
 			<kp> 40.0 </kp>
 			<ki> 15.0 </ki>
 			<kd> 0.0</kd>
+			<trigger>systems/rcs/dap-pitch-entry-PID-trigger</trigger>
 			<clipto>
 				<min> -1.0 </min>
         			<max>  1.0 </max>

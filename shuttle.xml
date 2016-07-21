@@ -2150,6 +2150,7 @@
 				systems/fcs/control-mode == 0
 				systems/fcs/control-mode == 10
 				systems/fcs/control-mode == 11
+				systems/fcs/control-mode == 13
 				systems/fcs/control-mode == 1
 				systems/fcs/control-mode == 2
 				systems/fcs/control-mode == 3
