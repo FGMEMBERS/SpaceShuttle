@@ -20,7 +20,7 @@
         <object-name>right_braking_system</object-name>
         <object-name>left_bulkhead</object-name>
         <object-name>right_bulkhead</object-name>
-        <object-name>fwd_window_assy</object-name>
+        <object-name>fwd_window_assembly</object-name>
         <!-- Misc -->
         <object-name>Fwd_Equipment_Guards</object-name>
         <object-name>Fwd_Equipment_Covers</object-name>

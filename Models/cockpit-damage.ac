@@ -5,7 +5,7 @@ OBJECT world
 name "Blender_export__cockpit-damage.ac"
 kids 3
 OBJECT poly
-name "spaceshutt_spstob_1D"
+name "fuselageD"
 loc 0.9223590 -2.4169800 -0.0000008
 texture "spstob_1.png"
 texrep 1 1
@@ -1781,7 +1781,7 @@ refs 3
 126 0.453984 0.675956
 kids 0
 OBJECT poly
-name "Fwd_Window_AssyD"
+name "fwd_window_assemblyD"
 loc -12.6004000 -0.5523640 -0.0007452
 texture "spstob_1.png"
 texrep 1 1
@@ -156923,7 +156923,7 @@ refs 4
 21686 0.256402 0.409374
 kids 0
 OBJECT poly
-name "Roof_Assembly.001D"
+name "roof_assemblyD"
 loc -11.5218000 0.0505470 0.0043024
 texture "spstob_1.png"
 texrep 1 1

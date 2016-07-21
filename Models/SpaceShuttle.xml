@@ -1,29 +1,22 @@
 <PropertyList>
 	<path>shuttle_o2.ac</path>
 
-   
    <!-- heat shield glow -->
 
-  <animation>
-    	<type>material</type>
-   	<object-name>heatshield</object-name>
-    	<object-name>GearDoorR</object-name>
-    	<object-name>GearDoorL</object-name>
-	<object-name>NoseDoorR</object-name>
-	<object-name>NoseDoorL</object-name>	
-   	<emission>
-      		<factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
-      		<red>   1.0 </red>
-      		<green> 0.2 </green>
-		<blue>  0.1 </blue>
-    	</emission>
-  </animation>
-
-
-
- 
-
-
+    <animation>
+        <type>material</type>
+        <object-name>heatshield</object-name>
+        <object-name>GearDoorR</object-name>
+        <object-name>GearDoorL</object-name>
+        <object-name>NoseDoorR</object-name>
+        <object-name>NoseDoorL</object-name>
+        <emission>
+            <factor-prop>/fdm/jsbsim/systems/thermal/entry-flame-alpha</factor-prop>
+            <red>   1.0 </red>
+            <green> 0.2 </green>
+            <blue>  0.1 </blue>
+        </emission>
+    </animation>
 
     <!-- ******************************************************************* -->
     <!-- Cockpit                                                             -->
@@ -1100,19 +1093,19 @@
 <!-- cockpit no damage -->
  <animation>
     <type>select</type>
-    <object-name>fwd_window_assy</object-name>
-    <object-name>Roof_Assembly.001</object-name>
-    <object-name>spaceshutt_spstob_1</object-name>
-    <object-name>spaceshutt_spstob</object-name>
-    <object-name>spaceshutt_spstob.001</object-name>
+    <object-name>fwd_window_assembly</object-name>
+    <object-name>roof_assembly</object-name>
+    <object-name>fuselage</object-name>
+    <object-name>payload-bay-door-left</object-name>
+    <object-name>payload-bay-door-right</object-name>
     <object-name>inboard-elevon-left</object-name>
     <object-name>inboard-elevon-right</object-name>
     <object-name>outboard-elevon-left</object-name>
     <object-name>outboard-elevon-right</object-name>
-    <object-name>spaceshutt_spstob_2</object-name>
-    <object-name>spaceshutt_spstob_4</object-name>
     <object-name>spaceshutt_spstob_3</object-name>
     <object-name>spaceshutt_spstob_eal</object-name>
+    <!--object-name>spaceshutt_spstob_2</object-name>
+    <object-name>spaceshutt_spstob_4</object-name-->
     <object-name>SpeedBrakeL</object-name>
     <object-name>SpeedBrakeR</object-name>
     <object-name>BodyFlap</object-name>
@@ -1141,9 +1134,9 @@
 <!-- shuttle destroyed -->
  <animation>
     <type>select</type>
-    <object-name>Fwd_Window_AssyD</object-name>
-    <object-name>Roof_Assembly.001D</object-name>
-    <object-name>spaceshutt_spstob_1D</object-name>
+    <object-name>fwd_window_assemblyD</object-name>
+    <object-name>roof_assemblyD</object-name>
+    <object-name>fuselageD</object-name>
     <condition>
        <equals>
            <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
@@ -1936,7 +1929,7 @@
  
  <animation>
   <type>rotate</type>
-  <object-name>spaceshutt_spstob</object-name>
+  <object-name>payload-bay-door-left</object-name>
   <property>/fdm/jsbsim/systems/mechanical/pb-door-left-animation</property>
   <interpolation>
     <entry>
@@ -1962,7 +1955,7 @@
 
  <animation>
   <type>rotate</type>
-  <object-name>spaceshutt_spstob.001</object-name>
+  <object-name>payload-bay-door-right</object-name>
   <property>/fdm/jsbsim/systems/mechanical/pb-door-right-animation</property>
   <interpolation>
     <entry>
@@ -2217,14 +2210,15 @@
 
 <effect>
  <inherits-from>Effects/space-combined</inherits-from>
+ <object-name>fuselage</object-name>
  <object-name>inboard-elevon-left</object-name>
  <object-name>inboard-elevon-right</object-name>
  <object-name>outboard-elevon-left</object-name>
  <object-name>outboard-elevon-right</object-name>
- <object-name>spaceshutt_spstob_2</object-name>
- <object-name>spaceshutt_spstob_4</object-name>
  <object-name>spaceshutt_spstob_3</object-name>
  <object-name>spaceshutt_spstob_eal</object-name>
+ <!--object-name>spaceshutt_spstob_2</object-name>
+ <object-name>spaceshutt_spstob_4</object-name-->
  <object-name>SpeedBrakeL</object-name>
  <object-name>SpeedBrakeR</object-name>
  <object-name>BodyFlap</object-name>
@@ -2243,17 +2237,17 @@
 
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
- <object-name>spaceshutt_spstob_1</object-name>
+ <object-name>fuselage</object-name>
 </effect>
 
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay-door-left</inherits-from>
- <object-name>spaceshutt_spstob</object-name>
+ <object-name>payload-bay-door-left</object-name>
 </effect>
 
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay-door-right</inherits-from>
- <object-name>spaceshutt_spstob.001</object-name>
+ <object-name>payload-bay-door-right</object-name>
 </effect>
 
  <!--effect>
@@ -2266,9 +2260,9 @@
   <object-name>RMS.Wrist.Pitch</object-name>
   <object-name>RMS.Wrist.Yaw</object-name>
   <object-name>RMS.Wrist.Roll</object-name>
-  <object-name>spaceshutt_spstob_1</object-name>
-  <object-name>spaceshutt_spstob</object-name>
-  <object-name>spaceshutt_spstob.001</object-name>
+  <object-name>fuselage</object-name>
+  <object-name>payload-bay-door-left</object-name>
+  <object-name>payload-bay-door-right</object-name>
  </effect-->
 
 </PropertyList>
