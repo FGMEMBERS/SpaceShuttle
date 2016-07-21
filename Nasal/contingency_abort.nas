@@ -107,6 +107,7 @@ var vspeed = getprop("/fdm/jsbsim/velocities/v-down-fps");
 if (vspeed > 0.0)
 	{
 	setprop("/fdm/jsbsim/systems/ap/contingency/init-etsep-active", 1);
+	setprop("/fdm/jsbsim/systems/ap/contingency/etsep-mode", 4);
 	}
 
 var alpha_error = math.abs(getprop("/fdm/jsbsim/aero/alpha-deg")+ 3.0);
@@ -140,10 +141,52 @@ settimer( SpaceShuttle.rtls_transit_glide, 8.0);
 
 var contingency_green_loop = func {
 
-print ("Contingency GREEN");
+# monitor KEAS for MECO preparation
 
-return;
+var keas = getprop("/velocities/equivalent-kt");
+
+if (keas > 3.0) # end yaw steering
+	{
+	setprop("/fdm/jsbsim/systems/abort/yaw-steer-target", 0.0);
+	}
+
+var meco_flag = 0;
+
+if (keas > 10.0) # command pitch down 
+	{
+	setprop("/fdm/jsbsim/systems/ap/contingency/init-etsep-active", 1);
+	setprop("/fdm/jsbsim/systems/ap/contingency/etsep-mode", 3);
+	meco_flag = 1;
+	}
+
+# command MECO when rate target is met
 
 
-settimer (contingency_blue_loop, 0.2);
+if (meco_flag == 1)
+	{
+	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+
+	if (math.abs(pitch_rate + 3.0) < 1.0)
+		{
+		cgreen_init_meco();
+		return;
+		}
+
+	}
+
+
+settimer (contingency_green_loop, 0.2);
+}
+
+var cgreen_init_meco = func {
+
+setprop("/controls/engines/engine[0]/throttle", 0.0);
+setprop("/controls/engines/engine[1]/throttle", 0.0);
+setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+
+settimer( force_external_tank_separate, 1.0);
+
+settimer( SpaceShuttle.rtls_transit_glide, 8.0);
 }

@@ -1233,9 +1233,13 @@ var PFD_addpage_p_pfd = func(device)
 			adi_att_string = "INRTL";
 			}
 		}
+	else if (adi_att_selection == -1)
+		{
+		adi_att_string = "REF";
+		}
 	else
 		{
-		if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+		if ((major_mode == 102) or (major_mode == 103) or (major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 			{
 			yaw_adi = yaw - course;
 			if (yaw_adi < 0.0) {yaw_adi = yaw_adi + 360.0;}

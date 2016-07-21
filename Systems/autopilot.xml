@@ -26,6 +26,23 @@
 	<!-- 2: -X -->
 	<!-- 3: -Z (from the payload bay upward) -->
 
+
+	<!-- for  aborts, the following encoding for abort-mode is used: -->
+
+	<!-- 1: RTLS -->
+	<!-- 2: TAL -->
+	<!-- 3: ATO -->
+	<!-- 4: AOA -->
+	<!-- 5: Contingency BLUE -->
+	<!-- 6: Contingency GREEN -->
+
+	<!-- all contingency aborts use RTLS software and guidance i.e. guidance-mode = 3 -->
+
+	<!-- the ET separation mode  (for contingency aborts) is controlled by etsep-mode -->
+	
+	<!-- 3: high rate sep, vehicle pitches down at 3-8 degree per second during separation -->
+	<!-- 4: alpha = -2 deg sep --> 
+
 	<channel name="Rates and deadbands config">
 
 		<switch name="systems/ap/rot-rate-degps">
@@ -2676,6 +2693,11 @@
 			</test>	
 			<test value="systems/ap/contingency/alpha-error">
 				systems/ap/contingency/init-etsep-active == 1
+				systems/ap/contingency/etsep-mode == 4
+			</test>
+			<test value ="-2.0">
+				systems/ap/contingency/init-etsep-active == 1
+				systems/ap/contingency/etsep-mode == 3
 			</test>
 		</switch>
 

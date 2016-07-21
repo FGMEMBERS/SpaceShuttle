@@ -403,7 +403,7 @@ setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", guidance_mode);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", landing_site);
 SpaceShuttle.update_site();
 
-setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", runway);
 SpaceShuttle.update_runway();
 
 if (major_mode == 101)

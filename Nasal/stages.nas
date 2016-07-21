@@ -529,7 +529,7 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 
 
 setprop("/sim/messages/copilot", "SRB separation!");
-setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
+#setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
 
 # make an automatic transtion to MM 103
 setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
