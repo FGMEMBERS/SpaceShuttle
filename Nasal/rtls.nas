@@ -214,7 +214,7 @@ if ((getprop("/fdm/jsbsim/accelerations/Nz") > 1.0) and (getprop("/fdm/jsbsim/sy
 if (alpha_transition == 1)
 	{
 	#print ("Alpha transition initiated!");
-	if (speedbrake_state < 0.8)
+	if ((speedbrake_state < 0.8) and (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1))
 		{
 		for (var i=0; i<4; i=i+1) 
 			{SpaceShuttle.increase_speedbrake();}

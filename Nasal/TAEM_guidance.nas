@@ -550,6 +550,21 @@ else if (site_string == "Banjul International Airport")
 		TAEM_threshold.elevation = 102.0;
 		}
 	}
+else if (site_string == "Bermuda")
+	{
+	if (runway_string == "12")
+		{
+		TAEM_threshold.set_latlon(32.3659,-64.6899);
+		TAEM_threshold.heading = 102.0;
+		TAEM_threshold.elevation = 25.0;
+		}
+	else if (runway_string == "30")
+		{
+		TAEM_threshold.set_latlon(32.3619,-64.6667);
+		TAEM_threshold.heading = 282.0;
+		TAEM_threshold.elevation = 25.0;
+		}
+	}
 
 else
 	{

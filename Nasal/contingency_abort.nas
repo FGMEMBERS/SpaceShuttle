@@ -39,7 +39,7 @@ else # we're on TAL or nominal uphill
 	{
 	if ((abort_region == "BLUE") and (hdot > -hdot_limit) and (SRB_status == 0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "GREEN");}
-	else if ((abort_region == "GREEN") and (hdot > - 300.0))
+	else if ((abort_region == "GREEN") and (hdot > 0.0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "");}
 	}
 

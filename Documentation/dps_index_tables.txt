@@ -22,6 +22,10 @@ Index	Name				status
  5 	Zaragoza Airbase 	 	TAL
  6 	RAF Fairford 	 		TAL, currently no TAEM guidance 
  7 	Banjul International Airport 	TAL
+ 8 	Moron Airbase			TAL, currently no TAEM guidance
+ 9	(Le Tube)			(TAL)
+10	(Ben Guerir)			(TAL)
+11	Bermuda				emergency landing site
 
 
 Stars available for COAS

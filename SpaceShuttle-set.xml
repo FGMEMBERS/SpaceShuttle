@@ -2196,6 +2196,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <shuttle>
      <approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
      <thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
+     <place-gantry type="int">1</place-gantry>
      <mdu-update-speed type="int">1</mdu-update-speed>
      <ET-config type="string">super lightweight</ET-config>
      <TC-config type="string">none</TC-config>
