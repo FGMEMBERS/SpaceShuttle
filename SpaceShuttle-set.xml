@@ -2255,6 +2255,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/guidance-mode</path>
     <path>/save/landing-site</path>
     <path>/save/runway</path>
+    <path>/save/auto-launch</path>
+    <path>/save/auto-launch-stage</path>
     <path>/save/tank1-level-lbs</path>
     <path>/save/tank2-level-lbs</path>
     <path>/save/tank3-level-lbs</path>
@@ -2290,6 +2292,9 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/temperature[12]</path>
     <path>/save/temperature[13]</path>
     <path>/save/temperature[14]</path>
+    <path>/save/throttle[0]</path>
+    <path>/save/throttle[1]</path>
+    <path>/save/throttle[2]</path>
   </aircraft-data>
 
 
