@@ -37,9 +37,12 @@ if (guidance_mode == 3) # we're on RTLS
 	}
 else # we're on TAL or nominal uphill
 	{
+
+	var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+
 	if ((abort_region == "BLUE") and (hdot > -hdot_limit) and (SRB_status == 0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "GREEN");}
-	else if ((abort_region == "GREEN") and (hdot > - 300.0))
+	else if ((abort_region == "GREEN") and (vi > 11000.0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "");}
 	}
 
@@ -160,7 +163,8 @@ if (keas > 10.0) # command pitch down
 	}
 
 # command MECO when rate target is met
-
+# but delay for a few moments to give the AP the chance to null beta to avoid transients
+# when Aerojet DAP comes online
 
 if (meco_flag == 1)
 	{
@@ -168,7 +172,7 @@ if (meco_flag == 1)
 
 	if (math.abs(pitch_rate + 3.0) < 1.0)
 		{
-		cgreen_init_meco();
+		settimer(cgreen_init_meco, 3.0);
 		return;
 		}
 

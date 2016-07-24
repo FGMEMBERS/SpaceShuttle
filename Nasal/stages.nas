@@ -1360,6 +1360,13 @@ var glide_loop = func {
 
 SpaceShuttle.update_entry_guidance();
 
+var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+
+if ((d_remain < 90.0) and (SpaceShuttle.TAEM_guidance_available == 0))
+	{
+	SpaceShuttle.compute_TAEM_guidance_targets();
+	}
+
 
 var alt = getprop("/position/altitude-agl-ft");
 

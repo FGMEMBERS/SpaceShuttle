@@ -248,6 +248,11 @@ auto_TAL_loop();
 var auto_TAL_loop = func {
 
 
+var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+
+if (abort_mode > 4) # a contingency abort has been called
+	{return;}
+
 if (auto_launch_stage == 3)
 	{
 

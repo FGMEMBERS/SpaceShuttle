@@ -89,6 +89,15 @@ setprop("/save/tank18-level-lbs", tank18);
 var tank19 = getprop("/consumables/fuel/tank[18]/level-lbs");
 setprop("/save/tank19-level-lbs", tank19);
 
+var throttle0 = getprop("/controls/engines/engine[0]/throttle");
+setprop("/save/throttle[0]", throttle0);
+
+var throttle1 = getprop("/controls/engines/engine[1]/throttle");
+setprop("/save/throttle[1]", throttle1);
+
+var throttle2 = getprop("/controls/engines/engine[2]/throttle");
+setprop("/save/throttle[2]", throttle2);
+
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
@@ -170,6 +179,12 @@ setprop("/save/guidance-mode", guidance_mode);
 setprop("/save/landing-site", landing_site);
 setprop("/save/runway", runway);
 
+
+var auto_launch = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master");
+setprop("/save/auto-launch", auto_launch);
+
+var auto_launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+setprop("/save/auto-launch-stage", auto_launch_stage);
 
 # thermal distribution
 
@@ -274,6 +289,17 @@ setprop("/consumables/fuel/tank[17]/level-lbs", tank18);
 
 var tank19 = getprop("/save/tank19-level-lbs");
 setprop("/consumables/fuel/tank[18]/level-lbs", tank19);
+
+
+var throttle0 = getprop("/save/throttle[0]");
+setprop("/controls/engines/engine[0]/throttle", throttle0);
+
+var throttle1 = getprop("/save/throttle[1]");
+setprop("/controls/engines/engine[1]/throttle", throttle1);
+
+var throttle2 = getprop("/save/throttle[2]");
+setprop("/controls/engines/engine[2]/throttle", throttle2);
+
 
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = getprop("/save/MET");
@@ -393,6 +419,20 @@ var major_mode_sm = getprop("/save/major-mode-sm");
 setprop("/fdm/jsbsim/systems/dps/ops", ops);
 setprop("/fdm/jsbsim/systems/dps/major-mode", major_mode);
 setprop("/fdm/jsbsim/systems/dps/major-mode-sm", major_mode_sm);
+
+var auto_launch = getprop("/save/auto-launch");
+setprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master", auto_launch);
+
+var auto_launch_laststage = getprop("//save/auto-launch-stage");
+setprop("/fdm/jsbsim/systems/ap/launch/stage", auto_launch_laststage);
+
+
+if (auto_launch == 1)
+	{
+	SpaceShuttle.auto_launch_stage = auto_launch_laststage;
+	SpaceShuttle.auto_launch_loop();
+	}
+
 
 var guidance_mode = getprop("/save/guidance-mode");
 var landing_site = getprop("/save/landing-site");

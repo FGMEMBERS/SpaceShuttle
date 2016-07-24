@@ -198,6 +198,11 @@ else if (site_string == "Banjul International Airport")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
 	}
+else if (site_string == "Bermuda")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
+	}
 }
 
 var update_runway = func {
@@ -237,6 +242,11 @@ else if (site_string == "Zaragoza Airport")
 	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
+else if (site_string == "Bermuda")
+	{
+	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
 }
 
 
@@ -269,6 +279,14 @@ else if (index == 6)
 else if (index == 7)
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Banjul International Airport");
+	}
+else if (index == 8)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Moron Air Base");
+	}
+else if (index == 11)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Bermuda");
 	}
 
 update_site();
@@ -366,10 +384,29 @@ else if (site_string == "Banjul International Airport")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "14");
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
-	rwy_pri = "BJL14";
-	rwy_sec = "BJL32";
+	rwy_pri = "BYD14";
+	rwy_sec = "BYD32";
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 7;
+	}
+else if (site_string == "Moron Air Base")
+	{
+	lat = 37.178;
+	lon = -5.614;
+	index = 8;
+	}
+else if (site_string == "Bermuda")
+	{
+	lat = 32.363;
+	lon = -64.67;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "12");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
+	rwy_pri = "BER12";
+	rwy_sec = "BER30";
+	tacan = "86";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 11;
 	}
 
 

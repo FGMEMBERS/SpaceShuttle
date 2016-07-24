@@ -2198,6 +2198,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <shuttle>
      <approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
      <thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
+     <place-gantry type="int">1</place-gantry>
      <mdu-update-speed type="int">1</mdu-update-speed>
      <ET-config type="string">super lightweight</ET-config>
      <TC-config type="string">none</TC-config>
@@ -2256,6 +2257,8 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/guidance-mode</path>
     <path>/save/landing-site</path>
     <path>/save/runway</path>
+    <path>/save/auto-launch</path>
+    <path>/save/auto-launch-stage</path>
     <path>/save/tank1-level-lbs</path>
     <path>/save/tank2-level-lbs</path>
     <path>/save/tank3-level-lbs</path>
@@ -2291,6 +2294,9 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/temperature[12]</path>
     <path>/save/temperature[13]</path>
     <path>/save/temperature[14]</path>
+    <path>/save/throttle[0]</path>
+    <path>/save/throttle[1]</path>
+    <path>/save/throttle[2]</path>
   </aircraft-data>
 
 
