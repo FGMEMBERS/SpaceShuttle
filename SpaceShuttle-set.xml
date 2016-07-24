@@ -1885,13 +1885,6 @@
        </binding>
       </item>
 
-      <item>
-       <label>Aborts</label>
-       <binding>
-        <command>nasal</command>
-        <script>SpaceShuttle.show_cue_card("Cuecards/aborts.png")</script>
-       </binding>
-      </item>
 
       <item>
        <label>RTLS Commander</label>
@@ -1906,6 +1899,22 @@
        <binding>
         <command>nasal</command>
         <script>SpaceShuttle.show_cue_card("Cuecards/rtls_plt.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>Contingency Aborts</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/contingency_abort.png")</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>RTLS Contingency</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.show_cue_card("Cuecards/rtls_contngency.png")</script>
        </binding>
       </item>
 

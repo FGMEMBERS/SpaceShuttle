@@ -12,10 +12,15 @@ if (path == "Cuecards/ascent_nominal.png")
 	title = "Ascent ADI - Nominal";
 	}
 
-else if (path == "Cuecards/aborts.png")
+else if (path == "Cuecards/contingency_abort.png")
 	{
 	size = [659, 650];
-	title = "Aborts";
+	title = "Contingency Aborts";
+	}
+else if (path == "Cuecards/rtls_contingency.png")
+	{
+	size = [692, 666];
+	title = "RTLS Contingency";
 	}
 else if (path == "Cuecards/rtls_cdr.png")
 	{
