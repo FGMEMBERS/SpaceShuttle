@@ -193,10 +193,20 @@ else if (site_string == "Zaragoza Airport")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
 	}
+else if (site_string == "RAF Fairford")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "09");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "27");}
+	}
 else if (site_string == "Banjul International Airport")
 	{
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "14");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "32");}
+	}
+else if (site_string == "Moron Air Base")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "02");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "20");}
 	}
 else if (site_string == "Bermuda")
 	{
@@ -237,9 +247,19 @@ else if (site_string == "Banjul International Airport")
 	if (runway_string == "14"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
+else if (site_string == "Moron Air Base")
+	{
+	if (runway_string == "02"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
 else if (site_string == "Zaragoza Airport")
 	{
 	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "RAF Fairford")
+	{
+	if (runway_string == "09"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
 else if (site_string == "Bermuda")
@@ -375,6 +395,13 @@ else if (site_string == "RAF Fairford")
 	{
 	lat = 51.682;
 	lon = -1.79;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "09");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "09");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "27");
+	rwy_pri = "FFD09";
+	rwy_sec = "FFD27";
+	tacan = "081";
+        gui.dialog_update("entry_guidance", "runway-selection");
 	index = 6;
 	}
 else if (site_string == "Banjul International Airport")
@@ -386,6 +413,7 @@ else if (site_string == "Banjul International Airport")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "32");
 	rwy_pri = "BYD14";
 	rwy_sec = "BYD32";
+	tacan = "076";
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 7;
 	}
@@ -393,6 +421,13 @@ else if (site_string == "Moron Air Base")
 	{
 	lat = 37.178;
 	lon = -5.614;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "02");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "02");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "20");
+	rwy_pri = "MOR02";
+	rwy_sec = "MOR20";
+	tacan = "100";
+        gui.dialog_update("entry_guidance", "runway-selection");
 	index = 8;
 	}
 else if (site_string == "Bermuda")
@@ -404,7 +439,7 @@ else if (site_string == "Bermuda")
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "30");
 	rwy_pri = "BER12";
 	rwy_sec = "BER30";
-	tacan = "86";
+	tacan = "086";
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 11;
 	}

@@ -241,6 +241,7 @@ TAEM_predictor_set.update();
 
 if (TAEM_guidance_available == 0)
 	{
+	TAEM_loop_running = 0;
 	return;
 	} 
 
@@ -535,6 +536,21 @@ else if (site_string == "Zaragoza Airport")
 		TAEM_threshold.elevation = 866.0;
 		}
 	}
+else if (site_string == "RAF Fairford")
+	{
+	if (runway_string == "09")
+		{
+		TAEM_threshold.set_latlon(51.6831,-1.8049);
+		TAEM_threshold.heading = 87.0;
+		TAEM_threshold.elevation = 316.0;
+		}
+	else if (runway_string == "27")
+		{
+		TAEM_threshold.set_latlon(51.6838,-1.7723);
+		TAEM_threshold.heading = 267.0;
+		TAEM_threshold.elevation = 256.0;
+		}
+	}
 else if (site_string == "Banjul International Airport")
 	{
 	if (runway_string == "32")
@@ -548,6 +564,21 @@ else if (site_string == "Banjul International Airport")
 		TAEM_threshold.set_latlon(13.3451,-16.6608);
 		TAEM_threshold.heading = 131.0;
 		TAEM_threshold.elevation = 102.0;
+		}
+	}
+else if (site_string == "Moron Air Base")
+	{
+	if (runway_string == "02")
+		{
+		TAEM_threshold.set_latlon(37.1633,-5.6212);
+		TAEM_threshold.heading = 20.0;
+		TAEM_threshold.elevation = 300.0;
+		}
+	else if (runway_string == "20")
+		{
+		TAEM_threshold.set_latlon(37.1863,-5.6106);
+		TAEM_threshold.heading = 200.0;
+		TAEM_threshold.elevation = 280.0;
 		}
 	}
 else if (site_string == "Bermuda")
