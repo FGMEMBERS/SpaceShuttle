@@ -8,6 +8,90 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
+    <effect>
+      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
+        <!--Panel R1 talkbacks -->
+        <object-name>fc0-reac-h2-op</object-name>
+        <object-name>fc0-reac-o2-op</object-name>
+        <object-name>fc0-rfl</object-name>
+        <object-name>fc0-cp</object-name>
+        <object-name>fc1-reac-h2-op</object-name>
+        <object-name>fc1-reac-o2-op</object-name>
+        <object-name>fc1-rfl</object-name>
+        <object-name>fc1-cp</object-name>
+        <object-name>fc2-reac-h2-op</object-name>
+        <object-name>fc2-reac-o2-op</object-name>
+        <object-name>fc2-rfl</object-name>
+        <object-name>fc2-cp</object-name>
+        <object-name>fc-mb-a-on</object-name>
+        <object-name>inv-ac0-on</object-name>
+        <object-name>inv-pwr0-on</object-name>
+        <object-name>mb-tie-a-on</object-name>
+        <object-name>fc-mb-b-on</object-name>
+        <object-name>inv-ac1-on</object-name>
+        <object-name>inv-pwr1-on</object-name>
+        <object-name>mb-tie-b-on</object-name>
+        <object-name>fc-mb-c-on</object-name>
+        <object-name>inv-ac2-on</object-name>
+        <object-name>inv-pwr2-on</object-name>
+        <object-name>mb-tie-c-on</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>rad-cntrl-l-rad</object-name>
+        <object-name>rad-cntrl-r-rad</object-name>
+        <object-name>rad-cntrl-r-bp</object-name>
+        <object-name>rad-cntrl-l-bp</object-name>
+        <object-name>aft-cp-l-ich</object-name>
+        <object-name>aft-cp-r-ich</object-name>
+        <object-name>aft-cp-r-bp</object-name>
+        <object-name>aft-cp-l-bp</object-name>
+        <!--Panel R1 talkbacks not connected -->
+        <object-name>h2-mv1-op</object-name>
+        <object-name>h2-mv2-op</object-name>
+        <object-name>o2-mv1-op</object-name>
+        <object-name>o2-mv2-op</object-name>
+        <object-name>pri-fc3-on</object-name>
+        <object-name>pri-mn-b-on</object-name>
+        <object-name>pri-mn-c-on</object-name>
+        <!--Panel R2 talkbacks -->
+        <object-name>apu_left_ready_to_start_talkback</object-name>
+        <object-name>apu_center_ready_to_start_talkback</object-name>
+        <object-name>apu_right_ready_to_start_talkback</object-name>
+        <object-name>et_umbilical_centerline_talkback_sto</object-name>
+        <object-name>et_umbilical_centerline_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_op</object-name>
+        <object-name>et_umbilical_door_left_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
+        <object-name>et_umbilical_door_right_talkback_op</object-name>
+        <object-name>et_umbilical_door_right_talkback_bp</object-name>
+        <object-name>et_umbilical_door_right_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_right_talkback_lat</object-name>
+        <!-- Panel F6 talkbacks -->
+        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_left_cmd_talkback_up</object-name>
+        <object-name>landing_gear_right_cmd_talkback_up</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
+        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
+        <!-- Panel F8 talkbacks -->
+        <object-name>landing_gear_left_plt_talkback_bp</object-name>
+        <object-name>landing_gear_right_plt_talkback_bp</object-name>
+        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
+        <object-name>landing_gear_left_plt_talkback_up</object-name>
+        <object-name>landing_gear_right_plt_talkback_up</object-name>
+        <object-name>landing_gear_middle_plt_talkback_up</object-name>
+        <object-name>landing_gear_left_plt_talkback_dn</object-name>
+        <object-name>landing_gear_right_plt_talkback_dn</object-name>
+        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
+    </effect>
+
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
@@ -142,6 +226,11 @@
         <object-name>timer2-set-up</object-name>
         <object-name>timer3-set-up</object-name>
         <object-name>timer4-set-up</object-name>
+        <!-- Panel C2 fixings -->
+        <object-name>C2-panel</object-name>
+        <object-name>C2-fastners</object-name>
+        <object-name>C2-guards</object-name>
+        <object-name>C2-base</object-name>
         <!-- Panel C3 switches -->    
         <object-name>air-data-probe-right</object-name>
         <object-name>air-data-probe-left</object-name>
@@ -4091,7 +4180,7 @@
         <object-name>cw-light-mps</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/cws/testing-placeholder</property>
+                <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
                 <value>1</value>
             </equals>
         </condition>

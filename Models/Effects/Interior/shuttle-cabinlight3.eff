@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>shuttle-cabinlight3</name>
+  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+
+  <parameters>
+	<lightmap-multi type="int">0</lightmap-multi>
+	<lightmap-factor type="float" n="0"><use>/lighting/effects/cabinlight3-intensity</use></lightmap-factor>
+  </parameters>
+
+
+</PropertyList>

@@ -30,5 +30,29 @@
         <light-filter-one type="vec3d">0.5 0.5 0.5</light-filter-one>
         <light-filter-two type="vec3d">0.9 0.2 0.2</light-filter-two>
         <light-radius type="float">15</light-radius>
+        
+        <lightmap-enabled type="int">1</lightmap-enabled>
+        <lightmap-multi type="int">1</lightmap-multi>     
+        <lightmap-factor type="float" n="0"><use>/lighting/effects/cabinlight1-intensity</use></lightmap-factor>
+        <lightmap-color type="vec3d" n="0"> 1.0 1.0 1.0 </lightmap-color>
+        <lightmap-factor type="float" n="1"><use>/lighting/effects/cabinlight2-intensity</use></lightmap-factor>
+        <lightmap-color type="vec3d" n="1"> 1.0 1.0 1.0 </lightmap-color>
+        <lightmap-factor type="float" n="2"><use>/lighting/effects/cabinlight3-intensity</use></lightmap-factor>
+        <lightmap-color type="vec3d" n="2"> 1.0 1.0 1.0 </lightmap-color>
+        <lightmap-factor type="float" n="3"><use>/lighting/effects/cabinlight4-intensity</use></lightmap-factor>
+        <lightmap-color type="vec3d" n="3"> 1.0 1.0 1.0 </lightmap-color>
+        
+        <!--darkmap-enabled type="int">1</darkmap-enabled>
+        <darkmap-factor type="float">0.0</darkmap-factor-->
+        
+        <texture n="3">
+            <image>Aircraft/SpaceShuttle/Models/interior_cabin_lightmap.png</image>
+            <type>2d</type>
+            <filter>linear-mipmap-linear</filter>
+            <wrap-s>clamp</wrap-s>
+            <wrap-t>clamp</wrap-t>
+            <internal-format>normalized</internal-format>
+        </texture>
+        
     </parameters>
 </PropertyList>
