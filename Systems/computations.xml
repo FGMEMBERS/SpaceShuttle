@@ -239,6 +239,39 @@
 		</function>			
 		</fcs_function>
 
+		<fcs_function name="systems/various/strake-density">
+		<function>
+			<product>
+				<min>
+				<max>
+				<product>
+					<difference>
+						<property>aero/alpha-deg</property>
+						<value>6.0</value>
+					</difference>
+					<value>0.05</value>
+				</product>
+				<value>0.0</value>
+				</max>
+				<value>0.2</value>
+				</min>
+				<min>
+				<max>
+				<product>
+					<difference>
+						<property>/velocities/airspeed-kt</property>
+						<value>180.0</value>
+					</difference>
+					<value>0.05</value>
+				</product>
+				<value>0.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+			</product>
+		</function>			
+		</fcs_function>
+
 		<fcs_function name="systems/various/oms-fuel-fraction">
 		<function>
 			<quotient>

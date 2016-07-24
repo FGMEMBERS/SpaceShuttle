@@ -1983,21 +1983,45 @@
 
 <model>
   <name>right-strake-vortex</name>
-  <path>Aircraft/SpaceShuttle/Models/Effects/strake-vortex.xml</path>
+  <path>Aircraft/SpaceShuttle/Models/Effects/strake-vortex-new.xml</path>
   <offsets>
-        <x-m>9.45</x-m>
-	<y-m> 11.0</y-m>
+        <x-m>9.55</x-m>
+	<y-m> 11.7</y-m>
 	<z-m>-4.46</z-m>
   </offsets>
+  <condition>
+   <and>
+    <greater-than>
+     <property>orientation/alpha-deg</property>
+     <value>6.0</value>
+    </greater-than>
+    <greater-than>
+     <property>velocities/airspeed-kt</property>
+     <value>180</value>
+    </greater-than>
+   </and>
+  </condition>-->
  </model>
  <model>
   <name>right-strake-vortex</name>
-  <path>Aircraft/SpaceShuttle/Models/Effects/strake-vortex.xml</path>
+  <path>Aircraft/SpaceShuttle/Models/Effects/strake-vortex-new.xml</path>
   <offsets>
-        <x-m>9.45</x-m>
-	<y-m>-11.0</y-m>
+        <x-m>9.55</x-m>
+	<y-m>-11.7</y-m>
 	<z-m>-4.46</z-m>
   </offsets>
+  <condition>
+   <and>
+    <greater-than>
+     <property>orientation/alpha-deg</property>
+     <value>6.0</value>
+    </greater-than>
+    <greater-than>
+     <property>velocities/airspeed-kt</property>
+     <value>180</value>
+    </greater-than>
+   </and>
+  </condition>
  </model>
 
  <!--and supersonic boom ! -->
