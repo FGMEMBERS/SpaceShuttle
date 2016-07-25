@@ -2058,6 +2058,42 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.update_runway_by_flag(1);
 			valid_flag = 1;
 			}
+		else if (item == 6)
+			{
+			var approach = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
+
+			if (approach == "OVHD")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "STRT");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (approach == "STRT")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "OVHD");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
+			}
+		else if (item == 7)
+			{
+			var entry_pt = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
+
+			if (entry_pt == "NEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "MEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (entry_pt == "MEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "NEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
+			}
 		else if (item == 9)
 			{
 			setprop("/instrumentation/altimeter/setting-inhg", value);
