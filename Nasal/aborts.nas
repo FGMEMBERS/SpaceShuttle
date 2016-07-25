@@ -76,6 +76,27 @@ if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
 	SpaceShuttle.toggle_oms_fuel_dump();
 
 	}
+# ATO selection in OPS 6 activates the bailout AP
+
+else if ((getprop("/fdm/jsbsim/systems/dps/ops") == 6) or (getprop("/fdm/jsbsim/systems/dps/ops") == 3)) 
+	{
+
+	var mode_pitch = getprop("/fdm/jsbsim/systems/ap/css-pitch-control");
+	var mode_roll = getprop("/fdm/jsbsim/systems/ap/css-roll-control");
+	
+	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+	if (((major_mode == 603) or (major_mode == 305)) and (mode_pitch == 1) and (mode_roll == 1))
+		{
+	
+		if (mach < 1.0)
+			{
+			setprop("/fdm/jsbsim/systems/abort/arm-bailout", 1);
+			}
+		}
+
+	}
 
 
 }

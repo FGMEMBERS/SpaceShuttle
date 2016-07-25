@@ -554,8 +554,10 @@ var get_ops_page  = func (major_function, major_mode)
             return page = "p_dps_univ_ptg";
         else if (major_mode == 304)
             return "p_entry";
-        else if (major_mode == 305)
+        else if ((major_mode == 305) or (major_mode == 602) or (major_mode == 603))
             return "p_vert_sit";
+	else if (major_mode == 601)
+	    return "p_dps_rtls";
 	}
     else if (major_function == 2)
 	{
@@ -796,6 +798,13 @@ if ((header == "OPS") and (end =="PRO"))
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 602);
+		major_mode_transition(idp_index, "p_vert_sit");
+		valid_flag = 1;
+		}
+	else if ((major_mode == 603) and (current_ops == 6))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
 		major_mode_transition(idp_index, "p_vert_sit");
 		valid_flag = 1;
 		}

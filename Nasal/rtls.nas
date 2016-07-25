@@ -226,8 +226,10 @@ if (alpha_transition == 1)
 
 var taem_init = getprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init");
 
-if (taem_init == 1)
+if (taem_init == 1) # transition to MM 603
 	{
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
+	SpaceShuttle.ops_transition_auto("p_vert_sit");
 	return;
 	}	
 

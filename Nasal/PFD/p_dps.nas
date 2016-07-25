@@ -33,8 +33,16 @@ print("DPS update ",device.designation);
     
             if (ops == 1)
 		{
-		if ((major_mode == 101) or (major_mode == 102) or (major_mode == 103))
-    		    	{device.selectPage(device.p_ascent);}
+		if ((major_mode == 101) or (major_mode == 102))
+    		    	{
+			SpaceShuttle.traj_display_flag = 1;
+			device.selectPage(device.p_ascent);
+			}
+		else if (major_mode == 103)
+    		    	{
+			SpaceShuttle.traj_display_flag = 2;
+			device.selectPage(device.p_ascent);
+			}
 		else 
 			{device.selectPage(device.p_dps_mnvr);}
 		}
@@ -62,7 +70,7 @@ print("DPS update ",device.designation);
 		{
 		if (major_mode == 601)
                     	{device.selectPage(device.p_dps_rtls);}
-		else if (major_mode == 602)
+		else if ((major_mode == 602) or (major_mode == 603))
 		 	{device.selectPage(device.p_vert_sit);}
 		}
 	

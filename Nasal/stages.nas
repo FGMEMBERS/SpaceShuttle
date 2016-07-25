@@ -1283,6 +1283,14 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 		setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
 		setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
 		}
+	else
+		{
+		if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 602)
+			{
+			setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
+			SpaceShuttle.ops_transition_auto("p_vert_sit");
+			}
+		}
 
 	glide_loop();
 	return;
@@ -1297,8 +1305,9 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 
 	var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
 	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+	var Nz_hold = getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active");
 
-	if ((d_remain < 80.0) and (abort_mode < 5))
+	if ((d_remain < 80.0) and (abort_mode < 5) and (Nz_hold == 0))
 		{
 		SpaceShuttle.compute_TAEM_guidance_targets();
 		glide_loop();
