@@ -213,6 +213,11 @@ else if (site_string == "Bermuda")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "30");}
 	}
+else if (site_string == "Easter Island")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "10");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "28");}
+	}
 }
 
 var update_runway = func {
@@ -267,6 +272,11 @@ else if (site_string == "Bermuda")
 	if (runway_string == "12"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
+else if (site_string == "Easter Island")
+	{
+	if (runway_string == "10"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
 }
 
 
@@ -307,6 +317,10 @@ else if (index == 8)
 else if (index == 11)
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Bermuda");
+	}
+else if (index == 30)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Easter Island");
 	}
 
 update_site();
@@ -443,7 +457,20 @@ else if (site_string == "Bermuda")
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 11;
 	}
+else if (site_string == "Easter Island")
+	{
+	lat = -27.165;
+	lon = -109.415;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "10");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "10");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "28");
+	rwy_pri = "IPC10";
+	rwy_sec = "IPC28";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 30;
+	}
 
+setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "OVHD");
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lat", lat);
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-lon", lon);

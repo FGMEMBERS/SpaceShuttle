@@ -554,8 +554,10 @@ var get_ops_page  = func (major_function, major_mode)
             return page = "p_dps_univ_ptg";
         else if (major_mode == 304)
             return "p_entry";
-        else if (major_mode == 305)
+        else if ((major_mode == 305) or (major_mode == 602) or (major_mode == 603))
             return "p_vert_sit";
+	else if (major_mode == 601)
+	    return "p_dps_rtls";
 	}
     else if (major_function == 2)
 	{
@@ -796,6 +798,13 @@ if ((header == "OPS") and (end =="PRO"))
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		setprop("/fdm/jsbsim/systems/dps/major-mode", 602);
+		major_mode_transition(idp_index, "p_vert_sit");
+		valid_flag = 1;
+		}
+	else if ((major_mode == 603) and (current_ops == 6))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
 		major_mode_transition(idp_index, "p_vert_sit");
 		valid_flag = 1;
 		}
@@ -2048,6 +2057,42 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{
 			SpaceShuttle.update_runway_by_flag(1);
 			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var approach = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
+
+			if (approach == "OVHD")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "STRT");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (approach == "STRT")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "OVHD");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
+			}
+		else if (item == 7)
+			{
+			var entry_pt = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
+
+			if (entry_pt == "NEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "MEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (entry_pt == "MEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "NEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
 			}
 		else if (item == 9)
 			{

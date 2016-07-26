@@ -18,7 +18,11 @@ var PFD_addpage_p_vert_sit = func(device)
     p_vert_sit.tgt_Nz_label = device.svg.getElementById("p_vert_sit_tgt_Nz_label");
     p_vert_sit.Nz_label = device.svg.getElementById("p_vert_sit_Nz_label");
 
-    
+    p_vert_sit.bailout = device.svg.getElementById("p_vert_sit_bailout");    
+    p_vert_sit.ecal = device.svg.getElementById("p_vert_sit_ecal");    
+
+    p_vert_sit.blink = 0;
+
     p_vert_sit.ondisplay = func
     {
 
@@ -32,15 +36,20 @@ var PFD_addpage_p_vert_sit = func(device)
         device.DPS_menu_ops.setText(sprintf("%s", major_mode~"1/     /"));
         device.DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
 
+	p_vert_sit.bailout.setVisible(0);
+
+
 	if ((major_mode == 602) or (major_mode == 603))
 		{
 		p_vert_sit.tgt_Nz.setVisible(1);
 		p_vert_sit.tgt_Nz_label.setVisible(1);
+		p_vert_sit.ecal.setVisible(1);
 		}    
 	else
 		{
 		p_vert_sit.tgt_Nz.setVisible(0);
 		p_vert_sit.tgt_Nz_label.setVisible(0);
+		p_vert_sit.ecal.setVisible(0);
 		}
 
         var plot = device.nom_traj_plot.createChild("path", "data")
@@ -231,6 +240,32 @@ var PFD_addpage_p_vert_sit = func(device)
 
 		}
 
+	# bailout	
+
+	var bailout_arm = getprop("/fdm/jsbsim/systems/abort/arm-bailout");
+	var bailout_active = getprop("/fdm/jsbsim/systems/ap/auto-bailout-active");
+
+	if (bailout_active == 1)
+		{
+		p_vert_sit.bailout.setVisible(1);
+		p_vert_sit.bailout.setColor(0.8, 0.8, 0.4);
+		}
+	else if (bailout_arm == 1)
+		{
+		if (p_vert_sit.blink == 1)
+			{
+			p_vert_sit.bailout.setVisible(1);
+			p_vert_sit.blink = 0;
+			}
+		else
+			{
+			p_vert_sit.bailout.setVisible(0);
+			p_vert_sit.blink = 1;
+			}
+		}
+
+
+
     
     };
 
@@ -253,6 +288,8 @@ var PFD_addpage_p_vert_sit2 = func(device)
     p_vert_sit2.tgt_Nz_label = device.svg.getElementById("p_vert_sit2_tgt_Nz_label");
     p_vert_sit2.al_label = device.svg.getElementById("p_vert_sit2_al_label");
 
+    p_vert_sit2.bailout = device.svg.getElementById("p_vert_sit2_bailout");
+
     p_vert_sit2.blink = 0;
     
     
@@ -266,6 +303,9 @@ var PFD_addpage_p_vert_sit2 = func(device)
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
         device.DPS_menu_ops.setText(major_mode~"1/     /");
         device.DPS_menu_title.setText("VERT SIT 2");
+
+	p_vert_sit2.bailout.setVisible(0);
+	p_vert_sit2.bailout.setColor(0.8, 0.8, 0.4);
 
 	if ((major_mode == 602) or (major_mode == 603))
 		{
@@ -421,6 +461,31 @@ var PFD_addpage_p_vert_sit2 = func(device)
 		{
 		p_vert_sit2.al_label.setVisible(0);
 		}
+
+	# bailout	
+
+	var bailout_arm = getprop("/fdm/jsbsim/systems/abort/arm-bailout");
+	var bailout_active = getprop("/fdm/jsbsim/systems/ap/auto-bailout-active");
+
+	if (bailout_active == 1)
+		{
+		p_vert_sit2.bailout.setVisible(1);
+		p_vert_sit2.bailout.setColor(0.8, 0.8, 0.4);
+		}
+	else if (bailout_arm == 1)
+		{
+		if (p_vert_sit2.blink == 1)
+			{
+			p_vert_sit2.bailout.setVisible(1);
+			p_vert_sit2.blink = 0;
+			}
+		else
+			{
+			p_vert_sit2.bailout.setVisible(0);
+			p_vert_sit2.blink = 1;
+			}
+		}
+		
     
     
     };

@@ -26,6 +26,7 @@ Index	Name				status
  9	(Le Tube)			(TAL)
 10	(Ben Guerir)			(TAL)
 11	Bermuda				emergency landing site
+30 	Easter Island			TAL for Vandenberg launches, never used in reality
 
 
 Stars available for COAS

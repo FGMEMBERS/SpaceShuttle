@@ -101,7 +101,7 @@ TAEM_guidance_available = 1;
 setprop("/fdm/jsbsim/systems/ap/taem/auto-taem-master",1);
 
 
-var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry_point_string");
+var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
 
 var ep_distance = 7.0 * 1853.0;
 var ep_altitude = 12000.0 * 0.3048;
@@ -446,6 +446,12 @@ if (getprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init") == 1)
 	if (sb_max > 0.0) {sb_max = sb_max - 0.2;}
 	}
 
+if (dH_equiv_ft < 0.0) # we're short on energy and never use SB
+	{
+	sb_max = 0.0;
+	}
+
+
 if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)	
 	{
 	var sb_state = getprop("/controls/shuttle/speedbrake");
@@ -594,6 +600,21 @@ else if (site_string == "Bermuda")
 		TAEM_threshold.set_latlon(32.3619,-64.6667);
 		TAEM_threshold.heading = 282.0;
 		TAEM_threshold.elevation = 25.0;
+		}
+	}
+else if (site_string == "Easter Island")
+	{
+	if (runway_string == "10")
+		{
+		TAEM_threshold.set_latlon(-27.1592,-109.4337);
+		TAEM_threshold.heading = 117.0;
+		TAEM_threshold.elevation = 163.0;
+		}
+	else if (runway_string == "28")
+		{
+		TAEM_threshold.set_latlon(-27.1707,-109.4088);
+		TAEM_threshold.heading = 297.0;
+		TAEM_threshold.elevation = 224.0;
 		}
 	}
 
