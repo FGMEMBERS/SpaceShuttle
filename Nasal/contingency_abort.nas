@@ -221,13 +221,15 @@ settimer( SpaceShuttle.rtls_transit_glide, 8.0);
 var contingency_yellow_loop = func {
 
 # monitor KEAS for MECO preparation
+# we don't actually get a KEAS reading from JSBSim at pitch = 100 deg, so we have to use qbar 
 
-var keas = getprop("/velocities/equivalent-kt");
+#var keas = getprop("/velocities/equivalent-kt");
+var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 
 
 var meco_flag = 0;
 
-if (keas > 10.0) # command pitch down 
+if (qbar > 0.30) # command pitch down 
 	{
 	setprop("/fdm/jsbsim/systems/ap/contingency/init-etsep-active", 1);
 	setprop("/fdm/jsbsim/systems/ap/contingency/etsep-mode", 3);
@@ -241,10 +243,11 @@ if (keas > 10.0) # command pitch down
 if (meco_flag == 1)
 	{
 	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+	var pitch = getprop("/orientation/pitch-deg");
 
-	if (math.abs(pitch_rate + 3.0) < 1.0)
+	if ((math.abs(pitch_rate + 3.0) < 1.0) and (pitch < 80.0))
 		{
-		settimer(cyellow_init_meco, 3.0);
+		cyellow_init_meco();
 		return;
 		}
 
@@ -262,7 +265,7 @@ setprop("/controls/engines/engine[2]/throttle", 0.0);
 
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
-settimer( force_external_tank_separate, 1.0);
+settimer( force_external_tank_separate, 0.5);
 
-settimer( SpaceShuttle.rtls_transit_glide, 8.0);
+settimer( SpaceShuttle.rtls_transit_glide, 7.0);
 }

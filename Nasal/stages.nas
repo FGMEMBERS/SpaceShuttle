@@ -1265,7 +1265,14 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) )
+# determine whether we have reached TAEM interface
+# we may reach it under guidance, then it's best driven by distance
+# or during a contingency abort, then by altitude/ speed
+# in general this is a tricky decision
+
+var Nz_hold = getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active");
+
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (Nz_hold == 0) )
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
@@ -1305,7 +1312,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 
 	var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
 	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
-	var Nz_hold = getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active");
+
 
 	if ((d_remain < 80.0) and (abort_mode < 5) and (Nz_hold == 0))
 		{
