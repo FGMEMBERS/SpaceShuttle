@@ -1985,6 +1985,7 @@ if (stage == 3)
 
 	MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_dps_hsit);
 	MEDS_CDR1.PFD.dps_page_flag = 1;
+	settimer(func {SpaceShuttle.idp_array[2].set_spec(50);}, 1.0);
 	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
 	MEDS_CDR2.PFD.dps_page_flag = 1;
 	#MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);

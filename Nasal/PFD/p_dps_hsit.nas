@@ -268,7 +268,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 	var string = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
 	p_dps_hsit.gn_approach.setText(string);
 
-	string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
+	var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
 	p_dps_hsit.entry_point.setText(string);
 
 	string = "";
@@ -458,7 +458,23 @@ var PFD_addpage_p_dps_hsit = func(device)
 	var x = SpaceShuttle.get_hsit_x(dist, rel_angle);
 	var y = SpaceShuttle.get_hsit_y(dist, rel_angle);
 
+	if (entry_point_string == "MEP")
+		{
+		p_dps_hsit.hac
+			.setStrokeLineWidth(7.0/4.0)
+			.setScale(4.0/7.0);
+
+		}
+	else
+		{
+		p_dps_hsit.hac
+			.setStrokeLineWidth(1.0)
+			.setScale(1.0);
+		}
+
 	p_dps_hsit.hac.setTranslation (x,y);
+
+
 
 	dist = pos.distance_to(SpaceShuttle.TAEM_threshold);
 	#rel_angle = math.pi / 180.0 * (pos.course_to(SpaceShuttle.TAEM_threshold) - getprop("/orientation/heading-deg"));

@@ -1517,6 +1517,10 @@
 			<product>
 				<property>systems/ap/taem/hac-turn-init</property>
 				<value>40.0</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/ap/auto-bailout-active</property>
+				</difference>
 			</product>
 			<product>
 				<property>velocities/mach</property>
@@ -1525,6 +1529,14 @@
 			<product>	
 				<value>-0.02</value>			
 				<property>systems/taem-guidance/glideslope-deviation-ft</property>
+				<difference>
+					<value>1.0</value>
+					<property>systems/ap/auto-bailout-active</property>
+				</difference>
+			</product>
+			<product>
+				<property>systems/ap/auto-bailout-active</property>
+				<value>-550</value>
 			</product>
 			<product>
 				<value>-40.0</value>
@@ -1658,11 +1670,16 @@
 
 		<switch name="systems/ap/taem/bank-target">
 			<default value="systems/ap/taem/az-bank-target"/>
-			<test value="systems/ap/taem/hac-bank-target">
+			<test logic="AND" value="systems/ap/taem/hac-bank-target">
 				systems/ap/taem/hac-turn-init == 1
+				systems/ap/auto-bailout-active == 0
 			</test>
-			<test value="systems/ap/taem/set-bank-target">
+			<test logic="AND" value="systems/ap/taem/set-bank-target">
 				systems/ap/taem/s-turn-init == 1
+				systems/ap/auto-bailout-active == 0
+			</test>
+			<test value="0.0">
+				systems/ap/auto-bailout-active == 1
 			</test>
 		</switch>
 

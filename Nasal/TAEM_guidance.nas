@@ -587,6 +587,21 @@ else if (site_string == "Moron Air Base")
 		TAEM_threshold.elevation = 280.0;
 		}
 	}
+else if (site_string == "Le Tube")
+	{
+	if (runway_string == "15")
+		{
+		TAEM_threshold.set_latlon(43.5341, 4.9158);
+		TAEM_threshold.heading = 152.0;
+		TAEM_threshold.elevation = 80.0;
+		}
+	else if (runway_string == "33")
+		{
+		TAEM_threshold.set_latlon(43.5104, 4.9327);
+		TAEM_threshold.heading = 332.0;
+		TAEM_threshold.elevation = 80.0;
+		}
+	}
 else if (site_string == "Bermuda")
 	{
 	if (runway_string == "12")

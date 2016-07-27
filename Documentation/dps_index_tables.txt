@@ -20,11 +20,11 @@ Index	Name				status
  3 	Edwards Air Force Base 	 	regular 
  4 	White Sands Space Harbor 	regular, lakebed landing 
  5 	Zaragoza Airbase 	 	TAL
- 6 	RAF Fairford 	 		TAL, currently no TAEM guidance 
+ 6 	RAF Fairford 	 		TAL
  7 	Banjul International Airport 	TAL
- 8 	Moron Airbase			TAL, currently no TAEM guidance
- 9	(Le Tube)			(TAL)
-10	(Ben Guerir)			(TAL)
+ 8 	Moron Airbase			TAL
+ 9	Le Tube				TAL
+10	(Ben Guerir)			(TAL, does not exist in FG scenery)
 11	Bermuda				emergency landing site
 30 	Easter Island			TAL for Vandenberg launches, never used in reality
 
