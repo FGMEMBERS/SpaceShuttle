@@ -560,6 +560,8 @@
         <object-name>L1-fastners</object-name>
         <object-name>L1-guards</object-name>
         <object-name>L1-base</object-name>
+        <!--Panel L2 fixings -->
+        <object-name>L2-panel</object-name>
         <!-- Panel F6 knob -->
         <object-name>abort-mode-switch</object-name>
         <!-- Panel F6 switches -->
