@@ -99,6 +99,24 @@ else if (abort_region == "GREEN")
 
 	contingency_green_loop();
 	}
+else if (abort_region == "YELLOW")
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/fdm/jsbsim/systems/abort/abort-mode", 7);
+	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+
+	# initialize OMS/RCS interconnected dump
+
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd",1);
+	setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 0);
+	SpaceShuttle.toggle_oms_fuel_dump();
+
+	contingency_yellow_loop();
+	}
 }
 
 # contingency BLUE ###################
@@ -183,6 +201,60 @@ settimer (contingency_green_loop, 0.2);
 }
 
 var cgreen_init_meco = func {
+
+setprop("/controls/engines/engine[0]/throttle", 0.0);
+setprop("/controls/engines/engine[1]/throttle", 0.0);
+setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+
+settimer( force_external_tank_separate, 1.0);
+
+settimer( SpaceShuttle.rtls_transit_glide, 8.0);
+}
+
+
+
+
+# contingency YELLOW ###################
+
+var contingency_yellow_loop = func {
+
+# monitor KEAS for MECO preparation
+
+var keas = getprop("/velocities/equivalent-kt");
+
+
+var meco_flag = 0;
+
+if (keas > 10.0) # command pitch down 
+	{
+	setprop("/fdm/jsbsim/systems/ap/contingency/init-etsep-active", 1);
+	setprop("/fdm/jsbsim/systems/ap/contingency/etsep-mode", 3);
+	meco_flag = 1;
+	}
+
+# command MECO when rate target is met
+# but delay for a few moments to give the AP the chance to null beta to avoid transients
+# when Aerojet DAP comes online
+
+if (meco_flag == 1)
+	{
+	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+
+	if (math.abs(pitch_rate + 3.0) < 1.0)
+		{
+		settimer(cyellow_init_meco, 3.0);
+		return;
+		}
+
+	}
+
+
+settimer (contingency_yellow_loop, 0.2);
+}
+
+var cyellow_init_meco = func {
 
 setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);

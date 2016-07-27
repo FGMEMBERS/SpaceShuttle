@@ -33,8 +33,9 @@
 	<!-- 2: TAL -->
 	<!-- 3: ATO -->
 	<!-- 4: AOA -->
-	<!-- 5: Contingency BLUE -->
-	<!-- 6: Contingency GREEN -->
+	<!-- 5: Contingency BLUE 2EO -->
+	<!-- 6: Contingency GREEN 2EO -->
+	<!-- 7: Contingency YELLOW 2EO -->
 
 	<!-- all contingency aborts use RTLS software and guidance i.e. guidance-mode = 3 -->
 
@@ -2542,6 +2543,7 @@
 
 	<channel name="Auto contingency management" execute="systems/ap/auto-contingency-active">
 
+
 		<!-- targets -->
 
 		<switch name="systems/ap/contingency/initial-pitch-target">
@@ -2551,6 +2553,9 @@
 			</test>
 			<test  value="60.0"> <!-- GREEN -->
 				systems/abort/abort-mode == 6
+			</test>
+			<test  value="100.0"> <!-- YELLOW -->
+				systems/abort/abort-mode == 7
 			</test>
 		</switch>
 
@@ -2565,11 +2570,54 @@
 
 		<!-- phase discriminators -->
 
+		<fcs_function name="systems/ap/contingency/heading-arg">
+		<function>
+			<abs>
+			<difference>
+				<property>/orientation/heading-deg</property>
+				<property>velocities/course-deg</property>
+			</difference>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/contingency/heading-sign">
+			<default value="1"/>
+			<test value="-1">
+				systems/ap/contingency/heading-arg GT 90.0
+			</test>	
+		</switch>
+
+		<fcs_function name="systems/ap/contingency/pitch-extended-raw">
+		<function>
+			<difference>
+				<value>180.0</value>
+				<property>/orientation/pitch-deg</property>
+			</difference>	
+		</function>
+		</fcs_function>
+
+		<switch name="systems/ap/contingency/pitch-extended">
+			<default value="/orientation/pitch-deg"/>
+			<test value="systems/ap/contingency/pitch-extended-raw">
+				systems/ap/contingency/heading-sign == -1
+			</test>	
+		</switch>
+
 		<fcs_function name="systems/ap/contingency/active-pitch-error">
 		<function>
 			<difference>
 				<property>systems/ap/contingency/initial-pitch-target</property>
 				<property>/orientation/pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>	
+
+		<fcs_function name="systems/ap/contingency/extended-pitch-error">
+		<function>
+			<difference>
+				<property>systems/ap/contingency/initial-pitch-target</property>
+				<property>systems/ap/contingency/pitch-extended</property>
 			</difference>
 		</function>
 		</fcs_function>	
@@ -2600,6 +2648,12 @@
 				systems/ap/contingency/init-etsep-active == 0
 				systems/ap/contingency/active-pitch-error LT 1.0
 				systems/ap/contingency/active-pitch-error GT -1.0
+			</test>
+			<test logic="AND" value="1.0"> 
+				systems/ap/contingency/flyout-active == 0
+				systems/ap/contingency/init-etsep-active == 0
+				systems/ap/contingency/extended-pitch-error LT 1.0
+				systems/ap/contingency/extended-pitch-error GT -1.0
 			</test>
 		</switch>
 
@@ -2662,8 +2716,20 @@
 			<default value="1"/>
 			<test value="-1">
 				systems/ap/contingency/abs-roll-deg GT 90.0
+				systems/ap/contingency/heading-sign == 1
+			</test>	
+			<test value="1">
+				systems/ap/contingency/abs-roll-deg GT 90.0
+				systems/ap/contingency/heading-sign == -1
+			</test>	
+			<test value="-1">
+				systems/ap/contingency/abs-roll-deg LT 90.0
+				systems/ap/contingency/heading-sign == -1
 			</test>	
 		</switch>
+
+
+
 
 		<!-- roll channel -->
 
@@ -2682,9 +2748,16 @@
 
 		<switch name="systems/ap/contingency/roll-error">
 			<default value="systems/ap/contingency/inverted-roll-error"/>
-			<test logic="OR" value="systems/ap/contingency/upright-roll-error">
+			<test logic="AND" value="systems/ap/contingency/upright-roll-error">
 				systems/ap/contingency/roll-headsup-active == 1
+				systems/ap/contingency/heading-sign == 1
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/upright-roll-error">
 				systems/ap/contingency/flyout-active == 1
+				systems/ap/contingency/heading-sign == 1
+
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/upright-roll-error">
 				systems/ap/contingency/init-etsep-active == 1
 			</test>	
 		</switch>
@@ -2719,9 +2792,29 @@
 
 		<switch name="systems/ap/contingency/pitch-error">
 			<default value="0.0"/>
-			<test logic="OR" value="systems/ap/contingency/active-pitch-error">
+			<test logic="AND" value="systems/ap/contingency/active-pitch-error">
 				systems/ap/contingency/initial-attitude-active == 1
+				systems/abort/abort-mode == 5
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/active-pitch-error">
 				systems/ap/contingency/flyout-active == 1
+				systems/abort/abort-mode == 5
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/active-pitch-error">
+				systems/ap/contingency/initial-attitude-active == 1
+				systems/abort/abort-mode == 6
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/active-pitch-error">
+				systems/ap/contingency/flyout-active == 1
+				systems/abort/abort-mode == 6
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/extended-pitch-error">
+				systems/ap/contingency/initial-attitude-active == 1
+				systems/abort/abort-mode == 7
+			</test>	
+			<test logic="AND" value="systems/ap/contingency/extended-pitch-error">
+				systems/ap/contingency/flyout-active == 1
+				systems/abort/abort-mode == 7
 			</test>	
 			<test value="systems/ap/contingency/alpha-error">
 				systems/ap/contingency/init-etsep-active == 1
@@ -2734,7 +2827,7 @@
 		</switch>
 
 
-		<fcs_function name="systems/ap/contingency/pitch-cmd">
+		<fcs_function name="systems/ap/contingency/pitch-cmd-raw">
 		<function>
 			<product>
 			<min>
@@ -2751,6 +2844,16 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<!-- freeze pitch error during vertical transit to avoid Euler singularity issues -->
+
+		<switch name="systems/ap/contingency/pitch-cmd">
+			<default value="systems/ap/contingency/pitch-cmd-raw"/>
+			<test logic="OR" value="systems/ap/contingency/pitch-cmd">
+				/orientation/pitch-deg GT  86.0
+				/orientation/pitch-deg LT -86.0
+			</test>
+		</switch>
 
 		<!-- yaw -->
 
@@ -2823,11 +2926,6 @@
 
 
 
-		<!--<fcs_function name="systems/ap/contingency/yaw-cmd">
-		<function>
-			<value>0.0</value>
-		</function>
-		</fcs_function>-->
 
 
 
