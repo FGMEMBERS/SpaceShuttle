@@ -172,7 +172,7 @@ SpaceShuttle.ops_transition_auto("p_vert_sit");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 setprop("/controls/shuttle/control-system-string", "Aerojet");
 
-setprop("/sim/messages/copilot", "Pitch up for alpha recovery!");
+setprop("/sim/messages/copilot", "Pitch to alpha recovery!");
 
 # close umbilical door
 

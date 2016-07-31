@@ -93,6 +93,10 @@ else if ((getprop("/fdm/jsbsim/systems/dps/ops") == 6) or (getprop("/fdm/jsbsim/
 		if (mach < 1.0)
 			{
 			setprop("/fdm/jsbsim/systems/abort/arm-bailout", 1);
+
+			# auto TAEM may be off at this point, so we need to switch it on otherwise the AP won't work
+
+			setprop("/fdm/jsbsim/systems/ap/taem/auto-taem-master", 1);
 			}
 		}
 
