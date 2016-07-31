@@ -1344,6 +1344,22 @@
         <cabinlight2-intensity type="float">0.0</cabinlight2-intensity>
         <cabinlight3-intensity type="float">0.0</cabinlight3-intensity>
         <cabinlight4-intensity type="float">0.0</cabinlight4-intensity>
+
+      <!-- geometry-based lighting effect -->
+ 
+      <geo-red type="double">0.0</geo-red>  
+      <geo-green type="double">0.0</geo-green>          
+      <geo-blue type="double">0.0</geo-blue> 
+      <geo-ambience type="double">0.0</geo-ambience> 
+      <geo-x type="double">0.0</geo-x>
+      <geo-y type="double">0.0</geo-y>
+      <geo-z type="double">0.0</geo-z>
+      <geo-z1 type="double">0.0</geo-z1>
+      <geo-r type="double">0.0</geo-r>
+      <geo-et-x type="double">0.0</geo-et-x>
+      <geo-et-y type="double">0.0</geo-et-y>
+      <geo-et-z type="double">0.0</geo-et-z>
+      <geo-et-z1 type="double">0.0</geo-et-z1>
     </effects>
  </lighting>
 
@@ -1467,19 +1483,14 @@
      </controls>
      <lighting>
       <!-- base RGB for all CRT emissions (normally full brightness is 10x this value)-->
-      <!--<displays-red type="double">0.1000</displays-red>
-      <displays-green type="double">0.0576</displays-green>
-      <displays-blue type="double">0.0161</displays-blue>-->
-      <!--<displays-red type="double">0.02</displays-red>
-      <displays-green type="double">0.1</displays-green>
-      <displays-blue type="double">0.0</displays-blue>-->
+	
       <displays-red type="double">0.1</displays-red>
       <displays-green type="double">0.1</displays-green>
       <displays-blue type="double">0.1</displays-blue>
       <!-- base colors for the CRT-emulated DPS pages -->
       <dps-red type="double">0.2</dps-red>
       <dps-green type="double">1.0</dps-green>
-      <dps-blue type="double">0.2</dps-blue>
+      <dps-blue type="double">0.2</dps-blue>         
      </lighting>
      <sound>
         <click-avionics type="bool">false</click-avionics>
@@ -2208,7 +2219,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <shuttle>
      <approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
      <thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
-     <place-gantry type="int">1</place-gantry>
+     <place-gantry type="int">0</place-gantry>
      <mdu-update-speed type="int">1</mdu-update-speed>
      <ET-config type="string">super lightweight</ET-config>
      <TC-config type="string">none</TC-config>
@@ -2609,6 +2620,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/contingency_abort.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/cue_cards.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/aborts.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/light_manager.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>

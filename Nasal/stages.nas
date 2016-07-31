@@ -235,7 +235,10 @@ if ((n_eng_operational < 2) and (engine2_fail_time < 0.0))
 	}
 
 
-
+if ((thrust_engine1 == 0.0) and (thrust_engine2 == 0.0) and (thrust_engine3 == 0.0))
+	{
+	SpaceShuttle.light_manager.set_theme("CLEAR");
+	}
 
 
 
@@ -297,6 +300,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	}
 	
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+settimer(SpaceShuttle.cloud_illumination, 0.2);
 settimer(SpaceShuttle.update_ascent_predictors, 0.4);
 settimer(SpaceShuttle.contingency_abort_region_2eo, 0.6);
 
@@ -343,6 +347,13 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 
 	setprop("/fdm/jsbsim/systems/abort/engine-fail-time", -1.0);
 	setprop("/fdm/jsbsim/systems/abort/engine-fail-string", "");
+	
+	# set SRB flame light effect
+
+	SpaceShuttle.light_manager.set_theme("SRB");
+	setprop("/environment/lightning/flash", 2);
+	setprop("/local-weather/lightning/model-index", -1);
+
 
 	# if we have liftoff, switch autolaunch on if configured
 	
@@ -530,6 +541,11 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 
 setprop("/sim/messages/copilot", "SRB separation!");
 #setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
+
+# end lighting
+
+SpaceShuttle.light_manager.set_theme("SSME");
+setprop("/environment/lightning/flash", 0);
 
 # make an automatic transtion to MM 103
 setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
@@ -1907,6 +1923,8 @@ if (stage == 0)
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
 	hydraulics_on();
+
+	SpaceShuttle.light_manager.set_theme("PAD");
 
 	}
 

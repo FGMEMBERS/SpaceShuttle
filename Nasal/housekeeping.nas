@@ -1116,28 +1116,7 @@ settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
 
 
 
-#########################################################################################
-# color adjustment for effect palette based on scene light available
-#########################################################################################
 
-
-var adjust_effect_colors = func {
-
-var light_intensity = getprop("/rendering/scene/diffuse/red");
-
-setprop("/lighting/effects/color-1", 0.1 * light_intensity);
-setprop("/lighting/effects/color-2", 0.2 * light_intensity);
-setprop("/lighting/effects/color-3", 0.3 * light_intensity);
-setprop("/lighting/effects/color-4", 0.4 * light_intensity);
-setprop("/lighting/effects/color-5", 0.5 * light_intensity);
-setprop("/lighting/effects/color-6", 0.6 * light_intensity);
-setprop("/lighting/effects/color-7", 0.7 * light_intensity);
-setprop("/lighting/effects/color-8", 0.8 * light_intensity);
-setprop("/lighting/effects/color-9", 0.9 * light_intensity);
-setprop("/lighting/effects/color-10", light_intensity);
-
-
-}
 
 
 #########################################################################################

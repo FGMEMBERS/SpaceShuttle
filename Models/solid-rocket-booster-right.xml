@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--###################################################################################
+    This file is licenced under the terms of the GNU General Public Licence V3 or later
+    ###################################################################################
+-->
+
+<PropertyList>
+  
+	<path>srb.ac</path>
+	<nopreview/>
+		
+<offsets>
+  <heading-deg>-180</heading-deg>
+</offsets>  
+
+<effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/srb-right</inherits-from>
+    <object-name>srb.layer1</object-name>
+ </effect>
+
+
+
+</PropertyList>
+ 

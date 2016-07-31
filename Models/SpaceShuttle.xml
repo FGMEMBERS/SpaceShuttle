@@ -1207,7 +1207,7 @@
 
 
 <model>
-<path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
+<path>Aircraft/SpaceShuttle/Models/solid-rocket-booster-left.xml</path>
 		<offsets>
 			<x-m> -5.2 </x-m>
 			<y-m> -6.35</y-m>
@@ -1223,7 +1223,7 @@
 </model>
 
 <model>
-<path>Aircraft/SpaceShuttle/Models/solid-rocket-booster.xml</path>
+<path>Aircraft/SpaceShuttle/Models/solid-rocket-booster-right.xml</path>
 		<offsets>
 			<x-m> -5.2 </x-m>
 			<y-m>  6.35</y-m>
@@ -1243,17 +1243,6 @@
 
 <!-- SRB exhaust smoke-->
 
-
-<!--  <model>
-    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_smoke.xml</path>
-      <offsets>
-		 <x-m>180.5</x-m>
-		 <y-m>0.0</y-m>
-		 <z-m>-10.4</z-m>
-		 <pitch-deg>0</pitch-deg>
-		 <roll-deg>0</roll-deg>
-	 </offsets>	
-  </model>-->
 
   <model>
     <path>Aircraft/SpaceShuttle/Models/Effects/SRB_launch_smoke.xml</path>
@@ -2233,7 +2222,7 @@
 	</model>
 
 <effect>
- <inherits-from>Effects/space-combined</inherits-from>
+ <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
  <object-name>fuselage</object-name>
  <object-name>inboard-elevon-left</object-name>
  <object-name>inboard-elevon-right</object-name>
