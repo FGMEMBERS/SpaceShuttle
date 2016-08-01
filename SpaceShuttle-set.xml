@@ -1350,12 +1350,16 @@
       <geo-red type="double">0.0</geo-red>  
       <geo-green type="double">0.0</geo-green>          
       <geo-blue type="double">0.0</geo-blue> 
+      <geo-srb-red type="double">0.0</geo-srb-red>  
+      <geo-srb-green type="double">0.0</geo-srb-green>          
+      <geo-srb-blue type="double">0.0</geo-srb-blue>
       <geo-ambience type="double">0.0</geo-ambience> 
       <geo-x type="double">0.0</geo-x>
       <geo-y type="double">0.0</geo-y>
       <geo-z type="double">0.0</geo-z>
       <geo-z1 type="double">0.0</geo-z1>
       <geo-r type="double">0.0</geo-r>
+      <geo-srb-r type="double">0.0</geo-srb-r>
       <geo-et-x type="double">0.0</geo-et-x>
       <geo-et-y type="double">0.0</geo-et-y>
       <geo-et-z type="double">0.0</geo-et-z>
