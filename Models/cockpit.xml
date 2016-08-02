@@ -4198,7 +4198,7 @@
         <factor>-50</factor>
         <offset-deg>10</offset-deg>
         <center>
-            <x-m>-12.232 </x-m>
+            <x-m>-12.2684</x-m>
             <y-m> -0.0454</y-m>
             <z-m> -0.8813</z-m>
         </center>
@@ -4247,9 +4247,9 @@
         <factor>-35</factor>
         <offset-deg>90</offset-deg>
         <center>
-            <x-m>-12.2320</x-m>
-            <y-m> -0.0208</y-m>
-            <z-m> -0.8813</z-m>
+            <x-m>-12.2692</x-m>
+            <y-m> -0.0209</y-m>
+            <z-m> -0.8829</z-m>
         </center>
         <axis>
             <x>0</x>
@@ -4294,7 +4294,7 @@
         <factor>-50</factor>
         <offset-deg>10</offset-deg>
         <center>
-            <x-m>-12.232 </x-m>
+            <x-m>-12.2684 </x-m>
             <y-m>  0.0936</y-m>
             <z-m> -0.8813</z-m>
         </center>
@@ -4343,8 +4343,8 @@
         <factor>-35</factor>
         <offset-deg>90</offset-deg>
         <center>
-            <x-m>-12.232</x-m>
-            <y-m> 0.0493</y-m>
+            <x-m>-12.2684</x-m>
+            <y-m> 0.1182</y-m>
             <z-m> -0.8813</z-m>
         </center>
         <axis>
@@ -4390,7 +4390,7 @@
         <factor>-50</factor>
         <offset-deg>10</offset-deg>
         <center>
-            <x-m>-12.232 </x-m>
+            <x-m>-12.2684 </x-m>
             <y-m>  0.0246</y-m>
             <z-m> -0.8813</z-m>
         </center>
@@ -4439,8 +4439,8 @@
         <factor>-35</factor>
         <offset-deg>90</offset-deg>
         <center>
-            <x-m>-12.232</x-m>
-            <y-m>  0.1182</y-m>
+            <x-m>-12.2684</x-m>
+            <y-m>  0.0493</y-m>
             <z-m> -0.8813</z-m>
         </center>
         <axis>
@@ -4486,7 +4486,7 @@
         <factor>-70</factor>
         <offset-deg>45</offset-deg>
         <center>
-            <x-m>-12.2101</x-m>
+            <x-m>-12.2465</x-m>
             <y-m> -0.0441</y-m>
             <z-m> -0.9204</z-m>
         </center>
@@ -4552,7 +4552,7 @@
         <factor>-70</factor>
         <offset-deg>45</offset-deg>
         <center>
-            <x-m>-12.2101</x-m>
+            <x-m>-12.2465</x-m>
             <y-m> 0.1191</y-m>
             <z-m> -0.9204</z-m>
         </center>
