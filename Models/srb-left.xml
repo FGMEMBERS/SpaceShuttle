@@ -16,7 +16,7 @@
 </offsets>  
 
 <effect>
-    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/et-main</inherits-from>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/srb-left</inherits-from>
     <object-name>srb.layer1</object-name>
  </effect>
 
