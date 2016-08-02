@@ -3,6 +3,7 @@
 
 var light_manager = {
 
+	current_theme: "CLEAR",
 	red: 0.0,
 	green: 0.0,
 	blue: 0.0,
@@ -38,6 +39,7 @@ var light_manager = {
 
 	var dim = 1.0 - light_intensity;
 	#print ("Current dim: ",dim);
+	me.current_theme = theme;
 
 	if (theme == "PAD")
 		{
@@ -83,10 +85,23 @@ var light_manager = {
 		me.y_tgt = 0.0;
 		me.z_tgt = -4.0;
 		me.radius_tgt = 10.0;
+		me.radius = 40.0;
 		me.ambience_tgt = 0.2;
 		setprop("/lighting/effects/geo-srb-r", 50.0);	
 		me.flicker_stop();
 		me.srb_sep_transition(3.5, 0.0);
+		}
+	else if (theme == "OMS")
+		{
+		me.red = 0.72 * dim;
+		me.green = 0.72 * dim;
+		me.blue= 0.558 * dim;
+		me.x = 18.5;
+		me.y = 0.0;
+		me.z = 2.0;
+		me.radius = 10.0;
+		me.ambience = 0.2;
+		me.apply();
 		}
 	else if (theme = "CLEAR")
 		{
@@ -223,6 +238,27 @@ var light_manager = {
 };
 
 
+var oms_light_check = func {
+
+
+if ((light_manager.current_theme != "CLEAR") and (light_manager.current_theme != "OMS"))	
+	{return;} 
+
+
+
+var thrust_OMS1 = getprop("/engines/engine[5]/thrust_lb");
+var thrust_OMS2 = getprop("/engines/engine[6]/thrust_lb");
+
+if (((thrust_OMS1 > 0.0) or (thrust_OMS2 > 0.0)) and (light_manager.current_theme == "CLEAR"))
+	{
+	light_manager.set_theme("OMS");
+	}
+else if ((thrust_OMS1 == 0.0) and (thrust_OMS2 == 0.0) and (light_manager.current_theme == "OMS"))
+	{
+	light_manager.set_theme("CLEAR");
+	}
+}
+
 
 #########################################################################################
 # color adjustment for effect palette based on scene light available
@@ -275,3 +311,9 @@ setprop("/environment/lightning/lightning-range", radius);
 
 
 }
+
+
+setlistener("/engines/engine[5]/thrust_lb", func {oms_light_check();},0,0);
+setlistener("/engines/engine[6]/thrust_lb", func {oms_light_check();},0,0);
+
+
