@@ -762,10 +762,12 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
-        <!-- Panel R1 talkbacks base-->       
+        <!-- Panel R1 talkbacks base-->
         <object-name>R1-talkback-base</object-name>
         <!-- Panel R1 talkbacks base-->
         <object-name>R2-talkback-base</object-name>
+        <!-- Panel C3 talkbacks base-->
+        <object-name>C3-buttons-base</object-name>
     </effect>
 
     <!-- Yellow lights -->
