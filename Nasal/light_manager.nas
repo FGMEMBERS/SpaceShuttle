@@ -83,10 +83,23 @@ var light_manager = {
 		me.y_tgt = 0.0;
 		me.z_tgt = -4.0;
 		me.radius_tgt = 10.0;
+		me.radius = 40.0;
 		me.ambience_tgt = 0.2;
 		setprop("/lighting/effects/geo-srb-r", 50.0);	
 		me.flicker_stop();
 		me.srb_sep_transition(3.5, 0.0);
+		}
+	else if (theme == "OMS")
+		{
+		me.red = 0.3 * dim;
+		me.green = 0.3 * dim;
+		me.blue= 0.3 * dim;
+		me.x = 10.0;
+		me.y = 0.0;
+		me.z = -4.0;
+		me.radius = 10.0;
+		me.ambience = 0.0;
+		me.apply();
 		}
 	else if (theme = "CLEAR")
 		{
