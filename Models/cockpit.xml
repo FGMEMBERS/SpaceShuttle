@@ -115,7 +115,6 @@
         <object-name>Fwd_PanelsX</object-name>
         <object-name>Fwd_PanelsY</object-name>
         <object-name>Fwd_PanelsY.002</object-name>
-        <object-name>Fwd_PanelsZ</object-name>
         <object-name>Fwd_PanelsZ.001</object-name>
         <object-name>Fwd_Base_Set.001</object-name>
         <object-name>Fwd_Base_Set.003</object-name>
@@ -763,17 +762,10 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
-        <!-- Panel R1 talkbacks -->       
-        <object-name>rad-cntrl-base</object-name>
-        <object-name>aft-cp-base</object-name>
-        <!--Panel R1 talkbacks not connected -->
-        <object-name>h2-mv-1-base</object-name>
-        <object-name>h2-mv-2-base</object-name>
-        <object-name>o2-mv-1-base</object-name>
-        <object-name>o2-mv-2-base</object-name>
-        <object-name>pri-fc3-base</object-name>
-        <object-name>pri-mn-b-base</object-name>
-        <object-name>pri-mn-c-base</object-name>
+        <!-- Panel R1 talkbacks base-->       
+        <object-name>R1-talkback-base</object-name>
+        <!-- Panel R1 talkbacks base-->
+        <object-name>R2-talkback-base</object-name>
     </effect>
 
     <!-- Yellow lights -->
