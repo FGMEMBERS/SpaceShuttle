@@ -97,7 +97,7 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
         <!-- cabin -->
         <object-name>backwall</object-name>
-        <object-name>spaceshutt_spstob_3</object-name>
+        <object-name>ceiling</object-name>
         <object-name>cabin_floor</object-name>
         <object-name>cabin_panel_framing</object-name>
         <object-name>left_braking_system</object-name>        
@@ -107,17 +107,15 @@
         <object-name>fwd_window_assembly</object-name>
         <!-- Misc -->
         <object-name>Fwd_Equipment_Guards</object-name>
-        <object-name>Fwd_Equipment_Covers</object-name>
         <object-name>Fwd_Equipment_PullSwi</object-name>
         <object-name>Fwd_Equipment_Velcro</object-name>
         <object-name>Fwd_Equipment_Knobs</object-name>
         <object-name>Fwd_Fixings</object-name>
         <object-name>Fwd_PanelsX</object-name>
-        <object-name>Fwd_PanelsY</object-name>
         <object-name>Fwd_PanelsY.002</object-name>
         <object-name>Fwd_PanelsZ.001</object-name>
         <object-name>Fwd_Base_Set.001</object-name>
-        <object-name>Fwd_Base_Set.003</object-name>
+        <object-name>forward-bar</object-name>
         <object-name>F6SW-1-4</object-name>
         <object-name>F6SW-1-5</object-name>
         <object-name>F6SW-1-6</object-name>
@@ -275,7 +273,7 @@
         <object-name>fuel-cell-reac-vlv3-brk</object-name>
         <object-name>master-mads-pwr</object-name>
         <object-name>uplink</object-name>
-        <object-name>Fwd_Equipment_Knobs.011</object-name>
+        <object-name>c3-sw1</object-name>
         <object-name>button_label_main_eng_sd_left</object-name>
         <object-name>button_label_main_eng_sd_center</object-name>
         <object-name>button_label_main_eng_sd_right</object-name>
@@ -583,6 +581,14 @@
         <!-- Panel F8 covers -->
         <object-name>landing-gear-arm-plt-cvr</object-name>
         <object-name>landing-gear-down-plt-cvr</object-name>
+        <!-- Panel F1 switches -->
+        <object-name>f1-sw1</object-name>
+        <object-name>f1-sw2</object-name>
+        <!--Panel F1 fixings -->
+        <object-name>F1-panel</object-name>
+        <object-name>F1-fastners</object-name>
+        <object-name>F1-guards</object-name>
+        <object-name>F1-base</object-name>
         <!-- Panel F2 covers -->
         <object-name>chute-arm-cmd-cvr</object-name>
         <object-name>chute-dpy-cmd-cvr</object-name>
