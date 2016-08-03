@@ -19,6 +19,7 @@ var light_manager = {
 
 	flicker: 0,
 	flicker_strength: 0.025,
+	runway: 0,
 
 	red_tgt: 0.0,
 	green_tgt: 0.0,
@@ -32,6 +33,10 @@ var light_manager = {
 	z_tgt: 0.0,	
 	radius_tgt: 0.0,
 	ambience_tgt: 0.0,
+
+	lat_to_m: 110952.0,
+	lon_to_m: 0.0,
+	rpos: {},
 
 	set_theme:  func (theme) {
 
@@ -102,6 +107,22 @@ var light_manager = {
 		me.radius = 10.0;
 		me.ambience = 0.2;
 		me.apply();
+		}
+	else if (theme = "RUNWAY")
+		{
+		me.red = 0.0;
+		me.green = 0.0;
+		me.blue= 0.0;
+		me.srb_red = 0.0;
+		me.srb_green = 0.0;
+		me.srb_blue= 0.0;
+		me.x = 0.0;
+		me.etx = 0.0;
+		me.y = 0.0;
+		me.z = 0.0;
+		me.radius = 0.0;
+		me.ambience = 0.0;
+		me.rwy_loop_start();
 		}
 	else if (theme = "CLEAR")
 		{
@@ -234,6 +255,86 @@ var light_manager = {
 
 	},
 	
+	rwy_loop_start: func {
+
+		if (SpaceShuttle.TAEM_guidance_available == 0) {return;}
+
+		setprop("/sim/rendering/als-secondary-lights/lightspot/size", 40.0);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/stretch", 30.0);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/dir", SpaceShuttle.TAEM_threshold.heading * math.pi/180.0);
+		setprop("/sim/rendering/als-secondary-lights/num-lightspots", 1);
+
+		setprop("/sim/rendering/als-secondary-lights/lightspot/lightspot-r", 0.6);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/lightspot-g", 0.6);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/lightspot-b", 0.6);
+
+
+		setprop("/lighting/effects/geo-red", 1.5);
+		setprop("/lighting/effects/geo-green", 1.5);
+		setprop("/lighting/effects/geo-blue", 1.5);
+
+		setprop("/lighting/effects/geo-r", 80.0);
+		setprop("/lighting/effects/geo-x", 80.0);
+		setprop("/lighting/effects/geo-y", 0.0);
+		setprop("/lighting/effects/geo-z", 5.0);
+		setprop("/lighting/effects/geo-z1", -5.0);
+		setprop("/lighting/effects/geo-ambience", 0.5);
+
+		me.rpos = geo.Coord.new();
+		me.rpos.set_latlon(SpaceShuttle.TAEM_threshold.lat(), SpaceShuttle.TAEM_threshold.lon(), SpaceShuttle.TAEM_threshold.elevation);
+
+
+		var lat = SpaceShuttle.TAEM_threshold.lat();
+		var lon = SpaceShuttle.TAEM_threshold.lon();
+
+		me.lon_to_m = math.cos(lat*math.pi/180.0) * me.lat_to_m;
+
+		var heading = SpaceShuttle.TAEM_threshold.heading * math.pi/180.0;
+
+		me.rpos.set_lat(lat + (330.0 * math.cos(heading)) / me.lat_to_m);
+		me.rpos.set_lon(lon + (330.0 * math.sin(heading)) / me.lon_to_m);
+
+
+		me.runway = 1;
+		me.runway_loop();
+
+	},
+
+	runway_loop: func {
+
+		if (me.runway == 0) {return;}
+
+		var vpos = geo.viewer_position();
+
+		var delta_x = (me.rpos.lat() - vpos.lat()) * me.lat_to_m;
+		var delta_y = -(me.rpos.lon() - vpos.lon()) * me.lon_to_m;
+
+		var delta_z = me.rpos.alt() - vpos.alt();
+
+		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-x-m", delta_x);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-y-m", delta_y);
+		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-z-m", delta_z);
+
+
+		var apos = geo.aircraft_position();
+		var dist = apos.distance_to(SpaceShuttle.TAEM_threshold);
+
+		var light_fact = 1.0 - SpaceShuttle.smoothstep(250.0, 900.0, dist);
+		light_fact = light_fact * (1.0 - SpaceShuttle.smoothstep(0.0, 150.0, getprop("/position/altitude-agl-ft")));
+		
+		setprop("/lighting/effects/geo-x", 90.0 - 25.0 * light_fact);
+
+
+
+		settimer(func me.runway_loop(), 0.0);
+	},
+
+		
+	rwy_loop_stop: func {
+	
+		me.runway = 0;
+	
+	},
 
 };
 
@@ -285,6 +386,8 @@ setprop("/lighting/effects/color-10", light_intensity);
 
 #########################################################################################
 # cloud illumination
+# this uses Advanced Weather lightning position info - don't use this elsewhere
+# unless you exactly know what you're doing
 #########################################################################################
 
 var cloud_illumination = func {

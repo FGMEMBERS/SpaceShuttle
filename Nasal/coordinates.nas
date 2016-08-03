@@ -20,6 +20,13 @@ else {return x;}
 
 }
 
+var smoothstep = func (a,b,x) {
+
+x = clamp((x - a)/(b - a), 0.0, 1.0); 
+
+return x*x*(3.0 - 2.0*x);
+}
+
 ##################################################
 # general helper functions for vector computations
 ##################################################
