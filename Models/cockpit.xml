@@ -105,21 +105,9 @@
         <object-name>left_bulkhead</object-name>
         <object-name>right_bulkhead</object-name>
         <object-name>fwd_window_assembly</object-name>
-        <!-- Misc -->
-        <object-name>Fwd_Equipment_Guards</object-name>
-        <object-name>Fwd_Equipment_PullSwi</object-name>
-        <object-name>Fwd_Equipment_Velcro</object-name>
-        <object-name>Fwd_Equipment_Knobs</object-name>
-        <object-name>Fwd_Fixings</object-name>
-        <object-name>Fwd_PanelsX</object-name>
-        <object-name>Fwd_PanelsY.002</object-name>
-        <object-name>Fwd_PanelsZ.001</object-name>
-        <object-name>Fwd_Base_Set.001</object-name>
+        <object-name>velcro</object-name>
         <object-name>forward-bar</object-name>
-        <object-name>F6SW-1-4</object-name>
-        <object-name>F6SW-1-5</object-name>
-        <object-name>F6SW-1-6</object-name>
-        <object-name>F6SW-2-3</object-name>
+        <!-- Misc -->
         <object-name>trim-panel-cmd</object-name>
         <object-name>trim-panel-plt</object-name>
         <object-name>trim-rhc-pnl-cmd</object-name>
@@ -225,7 +213,7 @@
         <object-name>timer4-set-up</object-name>
         <!-- Panel C2 fixings -->
         <object-name>C2-panel</object-name>
-        <object-name>C2-fastners</object-name>
+        <object-name>C2-fasteners</object-name>
         <object-name>C2-guards</object-name>
         <object-name>C2-base</object-name>
         <!-- Panel C3 switches -->    
@@ -314,9 +302,23 @@
         <object-name>et-sep-cvr</object-name>
         <!-- Panel C3 fixings -->
         <object-name>C3-panel</object-name>
-        <object-name>C3-fastners</object-name>
+        <object-name>C3-fasteners</object-name>
         <object-name>C3-guards</object-name>
         <object-name>C3-base</object-name>
+        <!-- Panel C4 fixings -->
+        <object-name>C4-panel</object-name>
+        <object-name>C4-latch</object-name>
+        <!-- Panel C5 fixings -->
+        <object-name>C5-panel</object-name>
+        <object-name>C5-latch</object-name>
+        <!-- Panel C6 fixings -->
+        <object-name>C6-panel</object-name>
+        <object-name>C6-fasteners</object-name>
+        <object-name>C6-base</object-name>
+        <!-- Panel C7 fixings -->
+        <object-name>C7-panel</object-name>
+        <object-name>C7-fasteners</object-name>
+        <object-name>C7-base</object-name>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
@@ -403,7 +405,7 @@
         <object-name>pl-pri-mn-c</object-name>
         <!--Panel R1 fixings -->
         <object-name>R1-panel</object-name>
-        <object-name>R1-fastners</object-name>
+        <object-name>R1-fasteners</object-name>
         <object-name>R1-guards</object-name>
         <object-name>R1-base</object-name>
         <!--Panel R2 switches -->
@@ -554,15 +556,53 @@
         <object-name>nh3-tk-b</object-name>
         <!--Panel L1 fixings -->
         <object-name>L1-panel</object-name>
-        <object-name>L1-fastners</object-name>
+        <object-name>L1-fasteners</object-name>
         <object-name>L1-guards</object-name>
         <object-name>L1-base</object-name>
         <!--Panel L2 fixings -->
         <object-name>L2-panel</object-name>
-        <object-name>L2-fastners</object-name>
+        <object-name>L2-fasteners</object-name>
         <object-name>L2-misc</object-name>
         <object-name>L2-guards</object-name>
         <object-name>L2-velcro</object-name>
+        <!-- Panel L4 -->
+        <object-name>L4-breakers</object-name>
+        <object-name>L4-fasteners</object-name>
+        <object-name>L4-panel</object-name>
+        <!-- Panel F1 switches -->
+        <object-name>f1-sw1</object-name>
+        <object-name>f1-sw2</object-name>
+        <!--Panel F1 fixings -->
+        <object-name>F1-panel</object-name>
+        <object-name>F1-fasteners</object-name>
+        <object-name>F1-guards</object-name>
+        <object-name>F1-base</object-name>
+        <!-- Panel F2 covers -->
+        <object-name>chute-arm-cmd-cvr</object-name>
+        <object-name>chute-dpy-cmd-cvr</object-name>
+        <!--Panel F2 fixings -->
+        <object-name>F2-panel</object-name>
+        <object-name>F2-fasteners</object-name>
+        <object-name>F2-base</object-name>
+        <!-- Panel F3 covers -->
+        <object-name>chute-arm-plt-cvr</object-name>
+        <object-name>chute-dpy-plt-cvr</object-name>
+        <object-name>chute-jett-cmd-cvr</object-name>
+        <!--Panel F3 fixings -->
+        <object-name>F3-panel</object-name>
+        <object-name>F3-fasteners</object-name>
+        <object-name>F3-guards</object-name>
+        <object-name>F3-base</object-name>
+        <!-- Panel F4 covers -->
+        <object-name>chute-jett-plt-cvr</object-name>
+        <!--Panel F4 fixings -->
+        <object-name>F4-panel</object-name>
+        <object-name>F4-fasteners</object-name>
+        <object-name>F4-base</object-name>
+        <!--Panel F5 fixings -->
+        <object-name>F5-panel</object-name>
+        <object-name>F5-fasteners</object-name>
+        <object-name>F5-thc</object-name>
         <!-- Panel F6 knob -->
         <object-name>abort-mode-switch</object-name>
         <!-- Panel F6 switches -->
@@ -570,62 +610,76 @@
         <object-name>adi-rate-cmd</object-name>
         <object-name>adi-error-cmd</object-name>
         <object-name>adi-att-cmd</object-name>
+        <object-name>bfc-engage</object-name>
+        <object-name>flt-ctrl-pwr-cmd</object-name>
+        <object-name>F6SW-1-4</object-name>
+        <object-name>F6SW-1-5</object-name>
+        <object-name>F6SW-1-6</object-name>
+        <object-name>F6SW-2-3</object-name>
+        <!--Panel F6 fixings -->
+        <object-name>F6-panel</object-name>
+        <object-name>F6-fasteners</object-name>
+        <object-name>F6-guards</object-name>
+        <object-name>F6-base</object-name>
         <!-- Panel F6 covers -->
         <object-name>landing-gear-arm-cmd-cvr</object-name>
         <object-name>landing-gear-down-cmd-cvr</object-name>
+        <object-name>bfc-engage-cvr</object-name>
+        <!-- Panel F6 hud -->
+        <object-name>hud-cmd-dim-knob</object-name>
+        <object-name>hud-bright-cmd-switch</object-name>
+        <object-name>hud-mode-cmd-switch</object-name>
+        <object-name>hud-pwr-cmd-switch</object-name>
+        <object-name>hud-data-bus-cmd</object-name>
+        <!--Panel F7 fixings -->
+        <object-name>F7-panel</object-name>
+        <object-name>F7-fasteners</object-name>
+        <object-name>F7-guards</object-name>
         <!-- Panel F8 switches -->
         <object-name>air-data-plt</object-name>
         <object-name>adi-rate-plt</object-name>
         <object-name>adi-error-plt</object-name>
         <object-name>adi-att-plt</object-name>
+        <object-name>flt-ctrl-pwr-plt</object-name>
+        <!--Panel F8 fixings -->
+        <object-name>F8-panel</object-name>
+        <object-name>F8-fasteners</object-name>
+        <object-name>F8-guards</object-name>
+        <object-name>F8-base</object-name>
         <!-- Panel F8 covers -->
         <object-name>landing-gear-arm-plt-cvr</object-name>
         <object-name>landing-gear-down-plt-cvr</object-name>
-        <!-- Panel F1 switches -->
-        <object-name>f1-sw1</object-name>
-        <object-name>f1-sw2</object-name>
-        <!--Panel F1 fixings -->
-        <object-name>F1-panel</object-name>
-        <object-name>F1-fastners</object-name>
-        <object-name>F1-guards</object-name>
-        <object-name>F1-base</object-name>
-        <!-- Panel F2 covers -->
-        <object-name>chute-arm-cmd-cvr</object-name>
-        <object-name>chute-dpy-cmd-cvr</object-name>
-        <!-- Panel F3 covers -->
-        <object-name>chute-arm-plt-cvr</object-name>
-        <object-name>chute-dpy-plt-cvr</object-name>
-        <object-name>chute-jett-cmd-cvr</object-name>
-        <!-- Panel F4 covers -->
-        <object-name>chute-jett-plt-cvr</object-name>
-        <!-- Panel L4 -->
-        <object-name>Fwd_Equipment_PullSwi_L4</object-name>
-        <object-name>Fwd_Fixings_L4</object-name>
-        <object-name>Fwd_Panels_L4</object-name>
-        <!-- Panel R4 -->
-        <object-name>Fwd_Equipment_Guards_R4</object-name>
-        <object-name>Fwd_Equipment_Knobs_R4</object-name>
-        <object-name>Fwd_Equipment_PullSwi_R4</object-name>
-        <object-name>Fwd_Fixings_R4</object-name>
-        <object-name>Fwd_Panels_R4</object-name>
-        <!-- Panel R7 -->
-        <object-name>Rear_Equipment_Guards_R7</object-name>
-        <object-name>Rear_Equipment_Knobs_R7</object-name>
-        <object-name>Rear_Equipment_PullSwi_R7</object-name>
-        <object-name>Rear_Fixings_R7</object-name>
-        <object-name>Rear_PanelsX_R7</object-name>
-        <object-name>Rear_Panels_R7</object-name>
-        <!-- hud -->
-        <object-name>hud-cmd-dim-knob</object-name>
+        <!-- Panel F8 hud -->
         <object-name>hud-plt-dim-knob</object-name>
-        <object-name>hud-mode-cmd-switch</object-name>
-        <object-name>hud-mode-plt-switch</object-name>
-        <object-name>hud-pwr-cmd-switch</object-name>
-        <object-name>hud-pwr-plt-switch</object-name>
-        <object-name>hud-bright-cmd-switch</object-name>
         <object-name>hud-bright-plt-switch</object-name>
-        <object-name>hud-data-bus-cmd</object-name>
+        <object-name>hud-mode-plt-switch</object-name>
+        <object-name>hud-pwr-plt-switch</object-name>
         <object-name>hud-data-bus-plt</object-name>
+        <!--Panel F9 switches -->
+        <object-name>ac2-dial</object-name>
+        <object-name>main-volts-dial</object-name>
+        <!--Panel F9 fixings -->
+        <object-name>F9-panel</object-name>
+        <object-name>F9-fasteners</object-name>
+        <object-name>F9-electrical-needles</object-name>
+        <!-- Panel R4 -->
+        <object-name>R4-switches</object-name>
+        <object-name>R4-talkbacks</object-name>
+        <!--Panel R4 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
+        <!-- Panel R7 -->
+        <object-name>R7-breakers</object-name>
+        <object-name>R7-covers</object-name>
+        <object-name>R7-dial</object-name>
+        <object-name>R7-toggles</object-name>
+        <!--Panel R7 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
     </effect>
 
     <effect>
