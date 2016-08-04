@@ -36,6 +36,7 @@ var light_manager = {
 
 	lat_to_m: 110952.0,
 	lon_to_m: 0.0,
+	coord_factor: 0.0,
 	rpos: {},
 
 	set_theme:  func (theme) {
@@ -259,6 +260,10 @@ var light_manager = {
 
 		if (SpaceShuttle.TAEM_guidance_available == 0) {return;}
 
+		var light_intensity = getprop("/rendering/scene/diffuse/red");
+
+		if (light_intensity > 0.2) {return;}
+
 		setprop("/sim/rendering/als-secondary-lights/lightspot/size", 40.0);
 		setprop("/sim/rendering/als-secondary-lights/lightspot/stretch", 30.0);
 		setprop("/sim/rendering/als-secondary-lights/lightspot/dir", SpaceShuttle.TAEM_threshold.heading * math.pi/180.0);
@@ -281,7 +286,7 @@ var light_manager = {
 		setprop("/lighting/effects/geo-ambience", 0.5);
 
 		me.rpos = geo.Coord.new();
-		me.rpos.set_latlon(SpaceShuttle.TAEM_threshold.lat(), SpaceShuttle.TAEM_threshold.lon(), SpaceShuttle.TAEM_threshold.elevation);
+		me.rpos.set_latlon(SpaceShuttle.TAEM_threshold.lat(), SpaceShuttle.TAEM_threshold.lon(), SpaceShuttle.TAEM_threshold.elevation * 0.3048);
 
 
 		var lat = SpaceShuttle.TAEM_threshold.lat();
@@ -294,6 +299,14 @@ var light_manager = {
 		me.rpos.set_lat(lat + (330.0 * math.cos(heading)) / me.lat_to_m);
 		me.rpos.set_lon(lon + (330.0 * math.sin(heading)) / me.lon_to_m);
 
+		var site_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+		var runway_string = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
+
+		me.coord_factor = me.coord_compensation(site_string, runway_string);
+		#print("Compensation factor: ", me.coord_factor);
+
+		# don't start the loop again if it is already running
+		if (me.runway == 1) {return;}
 
 		me.runway = 1;
 		me.runway_loop();
@@ -305,21 +318,25 @@ var light_manager = {
 		if (me.runway == 0) {return;}
 
 		var vpos = geo.viewer_position();
+		var apos = geo.aircraft_position();
+		var dist = apos.distance_to(SpaceShuttle.TAEM_threshold);
+
+		var coord_comp = math.abs(me.rpos.lat() - vpos.lat()) * me.coord_factor;
+		var coord_comp_v = (dist * dist) / (2.0 * 6371000.0); 
 
 		var delta_x = (me.rpos.lat() - vpos.lat()) * me.lat_to_m;
-		var delta_y = -(me.rpos.lon() - vpos.lon()) * me.lon_to_m;
+		var delta_y = -(me.rpos.lon() - vpos.lon()) * me.lon_to_m + coord_comp;
 
-		var delta_z = me.rpos.alt() - vpos.alt();
+		var delta_z = me.rpos.alt() - vpos.alt() + coord_comp_v;
 
 		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-x-m", delta_x);
 		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-y-m", delta_y);
 		setprop("/sim/rendering/als-secondary-lights/lightspot/eyerel-z-m", delta_z);
 
 
-		var apos = geo.aircraft_position();
-		var dist = apos.distance_to(SpaceShuttle.TAEM_threshold);
 
-		var light_fact = 1.0 - SpaceShuttle.smoothstep(250.0, 900.0, dist);
+
+		var light_fact = 1.0 - SpaceShuttle.smoothstep(250.0, 1200.0, dist);
 		light_fact = light_fact * (1.0 - SpaceShuttle.smoothstep(0.0, 150.0, getprop("/position/altitude-agl-ft")));
 		
 		setprop("/lighting/effects/geo-x", 90.0 - 25.0 * light_fact);
@@ -334,6 +351,22 @@ var light_manager = {
 	
 		me.runway = 0;
 	
+	},
+
+	coord_compensation: func (site_string, runway_string) {
+
+	if (site_string == "Kennedy Space Center")
+		{
+		if (runway_string == "15") { return -200.0;}
+		else {return 400.0;}		
+		}
+	else if (site_string == "Vandenberg Air Force Base")
+		{
+		if (runway_string == "12") {return -150.0;}
+		else {return 450.0;}
+		}
+	return 0.0;
+
 	},
 
 };

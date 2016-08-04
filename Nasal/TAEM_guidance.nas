@@ -223,6 +223,11 @@ TAEM_guidance_phase = 1;
 
 setprop("/fdm/jsbsim/systems/ap/grtls/taem-transition-init", 1);
 
+# tell light manager to switch runway lights on
+
+SpaceShuttle.light_manager.set_theme("RUNWAY");
+
+
 if (TAEM_loop_running == 0)
 	{TAEM_guidance_loop(0, 0.0);}
 }
@@ -488,13 +493,13 @@ else if (site_string == "Vandenberg Air Force Base")
 		{
 		TAEM_threshold.set_latlon(34.7502,-120.5991);
 		TAEM_threshold.heading = 136.5;
-		TAEM_threshold.elevation = 240.0;
+		TAEM_threshold.elevation = 362.0;
 		}
 	else if (runway_string == "30")
 		{
 		TAEM_threshold.set_latlon(34.7242,-120.5692);
 		TAEM_threshold.heading = 316.5;
-		TAEM_threshold.elevation = 240.0;
+		TAEM_threshold.elevation = 362.0;
 		}
 	}
 else if (site_string == "Edwards Air Force Base")
