@@ -566,9 +566,9 @@
         <object-name>L2-guards</object-name>
         <object-name>L2-velcro</object-name>
         <!-- Panel L4 -->
-        <object-name>Fwd_Equipment_PullSwi_L4</object-name>
-        <object-name>Fwd_Fixings_L4</object-name>
-        <object-name>Fwd_Panels_L4</object-name>
+        <object-name>L4-breakers</object-name>
+        <object-name>L4-fasteners</object-name>
+        <object-name>L4-panel</object-name>
         <!-- Panel F1 switches -->
         <object-name>f1-sw1</object-name>
         <object-name>f1-sw2</object-name>
@@ -663,18 +663,23 @@
         <object-name>F9-fasteners</object-name>
         <object-name>F9-electrical-needles</object-name>
         <!-- Panel R4 -->
-        <object-name>Fwd_Equipment_Guards_R4</object-name>
-        <object-name>Fwd_Equipment_Knobs_R4</object-name>
-        <object-name>Fwd_Equipment_PullSwi_R4</object-name>
-        <object-name>Fwd_Fixings_R4</object-name>
-        <object-name>Fwd_Panels_R4</object-name>
+        <object-name>R4-switches</object-name>
+        <object-name>R4-talkbacks</object-name>
+        <!--Panel R4 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
         <!-- Panel R7 -->
-        <object-name>Rear_Equipment_Guards_R7</object-name>
-        <object-name>Rear_Equipment_Knobs_R7</object-name>
-        <object-name>Rear_Equipment_PullSwi_R7</object-name>
-        <object-name>Rear_Fixings_R7</object-name>
-        <object-name>Rear_PanelsX_R7</object-name>
-        <object-name>Rear_Panels_R7</object-name>
+        <object-name>R7-breakers</object-name>
+        <object-name>R7-covers</object-name>
+        <object-name>R7-dial</object-name>
+        <object-name>R7-toggles</object-name>
+        <!--Panel R7 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
     </effect>
 
     <effect>
