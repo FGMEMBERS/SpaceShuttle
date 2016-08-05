@@ -100,6 +100,7 @@
         <object-name>ceiling</object-name>
         <object-name>cabin_floor</object-name>
         <object-name>cabin_panel_framing</object-name>
+        <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
         <object-name>left_bulkhead</object-name>
