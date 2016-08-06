@@ -100,6 +100,7 @@
         <object-name>ceiling</object-name>
         <object-name>cabin_floor</object-name>
         <object-name>cabin_panel_framing</object-name>
+        <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
         <object-name>left_bulkhead</object-name>
@@ -562,9 +563,9 @@
         <!--Panel L2 fixings -->
         <object-name>L2-panel</object-name>
         <object-name>L2-fasteners</object-name>
-        <object-name>L2-misc</object-name>
+        <object-name>L2-base</object-name>
         <object-name>L2-guards</object-name>
-        <object-name>L2-velcro</object-name>
+        <object-name>L2-switches</object-name>
         <!-- Panel L4 -->
         <object-name>L4-breakers</object-name>
         <object-name>L4-fasteners</object-name>
@@ -718,6 +719,8 @@
         <object-name>aft-cp-r-ich</object-name>
         <object-name>aft-cp-r-bp</object-name>
         <object-name>aft-cp-l-bp</object-name>
+        <!-- Panel L2 talkbacks -->
+        <object-name>L2-talkbacks</object-name>
         <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-op</object-name>
         <object-name>h2-mv2-op</object-name>
