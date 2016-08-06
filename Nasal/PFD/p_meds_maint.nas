@@ -14,6 +14,7 @@ var PFD_addpage_p_meds_maint = func(device)
     p_meds_maint.menu_item = device.svg.getElementById("MI_2"); 
     p_meds_maint.menu_item_frame = device.svg.getElementById("MI_2_frame");
 
+    p_meds_maint.rect1 = device.svg.getElementById("p_meds_maint_rect7");
 
     p_meds_maint.ondisplay = func
     {
@@ -24,7 +25,7 @@ var PFD_addpage_p_meds_maint = func(device)
 	p_meds_maint.menu_item_frame.setColor(1.0, 1.0, 1.0);
 
 
-
+	#p_meds_maint.rect1.setColorFill (0.2, 0.2, 0.6);
     }
     
     p_meds_maint.update = func
