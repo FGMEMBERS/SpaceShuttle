@@ -11,6 +11,9 @@
     <gravitational-torque type="bool">true</gravitational-torque>
    </simulation>
    <systems>
+    <thermal>
+	<nose-temperature-K type="double">0.0</nose-temperature-K>
+    </thermal>
     <abort>
        <arm-tal type="int">0</arm-tal>
        <arm-ato type="int">0</arm-ato>
