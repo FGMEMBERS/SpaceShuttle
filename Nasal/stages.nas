@@ -1939,6 +1939,7 @@ if (stage == 1)
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
 	setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
 
+	SpaceShuttle.fill_traj2_data();
 
 	# test de-orbit parameters
 	#setprop("/position/altitude-ft", 850000.0);

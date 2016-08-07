@@ -43,6 +43,7 @@
 # * p_meds_oms_mps (MEDS OMS/MPS)
 # * p_meds_apu	(MEDS APU/HYD)
 # * p_meds_spi	(MEDS SPI)
+# * p_meds_maint (MEDS MAINT)
 
 # color definitions
 
@@ -106,6 +107,7 @@ io.include("p_dps_pdrs_control.nas");
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
 io.include("p_meds_spi.nas");
+io.include("p_meds_maint.nas");
 
 io.include("MFD_Generic.nas");
 
@@ -278,6 +280,7 @@ var MDU_Device =
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
         me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
+        me.PFD.p_meds_maint = PFD_addpage_p_meds_maint(me.PFD);
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -408,7 +411,7 @@ var MDU_Device =
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
-        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_dps_pdrs_control);
+        me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_meds_maint);
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
@@ -535,6 +538,13 @@ var MDU_Device =
         me.PFD.p_meds_spi.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
         me.PFD.p_meds_spi.addMenuItem(4, "PORT SEL", me.PFD.p_meds_spi);
         me.PFD.p_meds_spi.addMenuItem(5, "MSG ACK", me.PFD.p_meds_spi);
+
+       	me.PFD.p_meds_maint.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_meds_maint.addMenuItem(1, "FAULT", me.PFD.p_meds_maint);
+        me.PFD.p_meds_maint.addMenuItem(2, "CONFIG", me.PFD.p_meds_maint);
+        me.PFD.p_meds_maint.addMenuItem(3, "CST", me.PFD.p_meds_maint);
+        me.PFD.p_meds_maint.addMenuItem(4, "MEMORY", me.PFD.p_meds_maint);
+
 
       
     },
