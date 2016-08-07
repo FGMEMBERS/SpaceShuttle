@@ -109,6 +109,8 @@ io.include("p_meds_apu.nas");
 io.include("p_meds_spi.nas");
 io.include("p_meds_maint.nas");
 
+#io.include("a_port_sel.nas");
+
 io.include("MFD_Generic.nas");
 
 var MDU_Device =
@@ -149,10 +151,22 @@ var MDU_Device =
         obj.PFD.primary = primary_port;
         obj.PFD.secondary = secondary_port;
         obj.PFD.port_selected = selected_port;
+	obj.PFD.reconf_mode = "MAN";
         obj.PFD.dps_page_flag = 0;
         obj.PFD.designation = designation;
         obj.mdu_device_status = 1;
         obj.model_index = model_index; # numeric index (1 to 9, left to right) used to connect the buttons in the cockpit to the display
+
+	obj.PFD.manageActions = func (action) 
+	{
+
+	if (action == "select_port")
+		{
+		obj.switchPorts();
+		}
+
+	};
+
         obj.PFD.set_DPS_off = func
         {
             me.DPS_menu_time.setText("");
@@ -419,7 +433,8 @@ var MDU_Device =
         me.PFD.p_subsys.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_subsys.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_subsys.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
-        me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
+        #me.PFD.p_subsys.addMenuItem(4, "PORT SEL", me.PFD.p_subsys);
+	me.PFD.p_subsys.addMenuAction(4, "PORT SEL", "select_port");
         me.PFD.p_subsys.addMenuItem(5, "MSG ACK", me.PFD.p_subsys);
     
         me.PFD.p_dps_fault.addMenuItem(0, "UP", me.PFD.p_main);
@@ -522,21 +537,24 @@ var MDU_Device =
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_meds_oms_mps.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
-        me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
+	me.PFD.p_meds_oms_mps.addMenuAction(4, "PORT SEL", "select_port");
+        #me.PFD.p_meds_oms_mps.addMenuItem(4, "PORT SEL", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(5, "MSG ACK", me.PFD.p_meds_oms_mps);
 
        	me.PFD.p_meds_apu.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_apu.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_apu.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_meds_apu.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
-        me.PFD.p_meds_apu.addMenuItem(4, "PORT SEL", me.PFD.p_meds_apu);
+	me.PFD.p_meds_apu.addMenuAction(4, "PORT SEL", "select_port");
+        #me.PFD.p_meds_apu.addMenuItem(4, "PORT SEL", me.PFD.p_meds_apu);
         me.PFD.p_meds_apu.addMenuItem(5, "MSG ACK", me.PFD.p_meds_apu);
 
        	me.PFD.p_meds_spi.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_spi.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_spi.addMenuItem(2, "APU", me.PFD.p_meds_apu);
         me.PFD.p_meds_spi.addMenuItem(3, "SPI", me.PFD.p_meds_spi);
-        me.PFD.p_meds_spi.addMenuItem(4, "PORT SEL", me.PFD.p_meds_spi);
+	me.PFD.p_meds_spi.addMenuAction(4, "PORT SEL", "select_port");
+        #me.PFD.p_meds_spi.addMenuItem(4, "PORT SEL", me.PFD.p_meds_spi);
         me.PFD.p_meds_spi.addMenuItem(5, "MSG ACK", me.PFD.p_meds_spi);
 
        	me.PFD.p_meds_maint.addMenuItem(0, "UP", me.PFD.p_main);
@@ -561,6 +579,7 @@ var MDU_Device =
             me.PFD.port_selected = me.PFD.secondary;
         else
             me.PFD.port_selected = me.PFD.primary;
+	print (me.designation, ": New selected port is now: ", me.PFD.port_selected);
     },
 };
 
