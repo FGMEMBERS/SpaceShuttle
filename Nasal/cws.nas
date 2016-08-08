@@ -9,6 +9,7 @@ var meds_message_array = [];
 var cws_message_array_long = ["","","","","","","","","","","","","","",""];
 
 var cws_last_message_acknowledge = 0;
+var meds_last_message_acknowledge = 0;
 
 # the message hash stores the information what faults have already been announced
 
@@ -975,6 +976,8 @@ cws_last_message_acknowledge = 1;
 var create_meds_message = func (text, origin) {
 
 var time_string = getprop("/sim/time/gmt-string");
+
+meds_last_message_acknowledge = 1;
 
 return (text~" "~origin~"      "~time_string);
 

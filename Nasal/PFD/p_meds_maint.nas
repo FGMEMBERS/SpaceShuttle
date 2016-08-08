@@ -88,7 +88,7 @@ var PFD_addpage_p_meds_maint = func(device)
 			}
 		else
 			{
-			p_meds_maint.mdu_rect[i].setColorFill (0.0, 0.0, 0.0);
+			p_meds_maint.mdu_rect[i].setColorFill (0.08, 0.08, 0.08);
 			}
 		}
 
@@ -114,7 +114,7 @@ var PFD_addpage_p_meds_maint = func(device)
 			}
 		else
 			{		
-			p_meds_maint.idp_rect[i].setColorFill (0.07, 0.07, 0.07);
+			p_meds_maint.idp_rect[i].setColorFill (0.08, 0.08, 0.08);
 			}
 
 		}
