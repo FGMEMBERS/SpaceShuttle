@@ -207,6 +207,7 @@ var idp = {
 	i.major_function_string = "GNC";
 	i.spec = 0;
 	i.disp = 0;
+	i.current_fault_string = "";
 	return i;
 	},
 	# power switch

@@ -26,19 +26,13 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect6"));
     append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect7"));
 
-    #p_meds_maint.rect1 = device.svg.getElementById("p_meds_maint_rect1");
-    #p_meds_maint.rect2 = device.svg.getElementById("p_meds_maint_rect2");
-    #p_meds_maint.rect3 = device.svg.getElementById("p_meds_maint_rect3");
-    #p_meds_maint.rect4 = device.svg.getElementById("p_meds_maint_rect4");
-    #p_meds_maint.rect5 = device.svg.getElementById("p_meds_maint_rect5");
-    #p_meds_maint.rect6 = device.svg.getElementById("p_meds_maint_rect6");
-    #p_meds_maint.rect7 = device.svg.getElementById("p_meds_maint_rect7");
-    #p_meds_maint.rect8 = device.svg.getElementById("p_meds_maint_rect8");
-    #p_meds_maint.rect9 = device.svg.getElementById("p_meds_maint_rect9");
-    p_meds_maint.rect10 = device.svg.getElementById("p_meds_maint_rect10");
-    p_meds_maint.rect11 = device.svg.getElementById("p_meds_maint_rect11");
-    p_meds_maint.rect12 = device.svg.getElementById("p_meds_maint_rect12");
-    p_meds_maint.rect13 = device.svg.getElementById("p_meds_maint_rect13");
+    p_meds_maint.idp_rect = [];
+
+    append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect10"));
+    append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect11"));
+    append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect12"));
+    append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect13"));
+ 
     p_meds_maint.rect14 = device.svg.getElementById("p_meds_maint_rect14");
     p_meds_maint.rect15 = device.svg.getElementById("p_meds_maint_rect15");
     p_meds_maint.rect16 = device.svg.getElementById("p_meds_maint_rect16");
@@ -50,11 +44,39 @@ var PFD_addpage_p_meds_maint = func(device)
     {
     
         device.set_DPS_off();
-        device.MEDS_menu_title.setText("      MAINTENANCE MENU");
-	p_meds_maint.menu_item.setColor(1.0, 1.0, 1.0);
-	p_meds_maint.menu_item_frame.setColor(1.0, 1.0, 1.0);
+	if (me.layer_id == "p_meds_maint")
+		{
+        	device.MEDS_menu_title.setText("      MAINTENANCE MENU");
+		}
+	else 
+		{
+        	device.MEDS_menu_title.setText("    MDU CONFIGURATION MENU");
+		}
+
 
 	var port = device.port_selected;
+
+	if (port == 1)
+		{
+		p_meds_maint.idp_rect[0].setColorFill (0.2, 0.2, 0.6);
+		p_meds_maint.idp_rect[1].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[2].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[3].setColorFill (0.0, 0.0, 0.0);
+		}
+	else if (port == 2)
+		{
+		p_meds_maint.idp_rect[0].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[1].setColorFill (0.2, 0.2, 0.6);
+		p_meds_maint.idp_rect[2].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[3].setColorFill (0.0, 0.0, 0.0);
+		}
+	else if (port == 3)
+		{
+		p_meds_maint.idp_rect[0].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[1].setColorFill (0.0, 0.0, 0.0);
+		p_meds_maint.idp_rect[2].setColorFill (0.2, 0.2, 0.6);
+		p_meds_maint.idp_rect[3].setColorFill (0.0, 0.0, 0.0);
+		}
 
 	for (var i=0; i< size(MDU_array); i=i+1)  
 		{
@@ -75,33 +97,35 @@ var PFD_addpage_p_meds_maint = func(device)
     
     p_meds_maint.update = func
     {
-	var port = device.port_selected;
+	var idp_index = device.port_selected - 1;
 
-	if (port == 1)
+	for (var i=0; i< size(SpaceShuttle.idp_array); i=i+1)
 		{
-		p_meds_maint.rect10.setColorFill (0.2, 0.2, 0.6);
-		p_meds_maint.rect11.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect12.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect13.setColorFill (0.0, 0.0, 0.0);
-		}
-	else if (port == 2)
-		{
-		p_meds_maint.rect10.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect11.setColorFill (0.2, 0.2, 0.6);
-		p_meds_maint.rect12.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect13.setColorFill (0.0, 0.0, 0.0);
-		}
-	else if (port == 3)
-		{
-		p_meds_maint.rect10.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect11.setColorFill (0.0, 0.0, 0.0);
-		p_meds_maint.rect12.setColorFill (0.2, 0.2, 0.6);
-		p_meds_maint.rect13.setColorFill (0.0, 0.0, 0.0);
+		var condition = SpaceShuttle.idp_array[i].condition;
+		var operational = SpaceShuttle.idp_array[i].operational;
+
+		if (operational == 0)
+			{
+			p_meds_maint.idp_rect[i].setColorFill (1.0, 0.3, 0.3);
+			}
+		else if (i == idp_index)
+			{
+			p_meds_maint.idp_rect[i].setColorFill (0.2, 0.2, 0.6);
+			}
+		else
+			{		
+			p_meds_maint.idp_rect[i].setColorFill (0.07, 0.07, 0.07);
+			}
+
 		}
 	
 
+	var condition = SpaceShuttle.idp_array[idp_index].condition;
+	var operational = SpaceShuttle.idp_array[idp_index].operational;
 
-		
+
+
+	
 
     }
 

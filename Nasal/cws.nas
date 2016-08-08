@@ -4,6 +4,8 @@
 var inspection_group  = 0;
 
 var cws_message_array = [];
+var meds_message_array = [];
+
 var cws_message_array_long = ["","","","","","","","","","","","","","",""];
 
 var cws_last_message_acknowledge = 0;
@@ -19,6 +21,11 @@ omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0, omslpc : 0, omsrpc : 0, omsltkp:
 acvolt : 0,
 };
 
+
+var meds_msg_hash = {
+io : [0,0,0,0,0,0,0,0,0],
+port_change: [0,0,0,0,0,0,0,0,0],
+};
 
 var cws_inspect = func {
 
@@ -37,6 +44,9 @@ if (inspection_group == 3)
 
 if (inspection_group == 4)
 	{cws_inspect_fc_electric();}
+
+if (inspection_group == 5)
+	{meds_inspect();}
 
 
 inspection_group = inspection_group + 1;
@@ -904,6 +914,31 @@ if (((voltage_ac1 < 115.0) or (voltage_ac2 < 115.0) or (voltage_ac3 < 115.0)) an
 }
 
 
+#################################################
+# MEDS inspection
+#################################################
+
+var meds_inspect = func {
+
+for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
+	{
+	var mdu = SpaceShuttle.MDU_array[i];
+
+	if ((mdu.operational == 0) and (meds_msg_hash.io[i] == 0))
+		{
+		meds_msg_hash.io[i] = 1;
+		var message = create_meds_message("I/O ERROR", mdu.designation);
+
+		var idp_index = mdu.PFD.port_selected - 1;
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+		print (message);	
+
+		}
+
+	}
+
+}
+
 var insert_fault_message_long = func (message) {
 
 # shift all messages in the array such that zero becomes available
@@ -933,5 +968,14 @@ append(cws_message_array, msg_string);
 
 setprop("/fdm/jsbsim/systems/dps/error-string", msg_string);
 cws_last_message_acknowledge = 1;
+
+}
+
+
+var create_meds_message = func (text, origin) {
+
+var time_string = getprop("/sim/time/gmt-string");
+
+return (text~" "~origin~"      "~time_string);
 
 }

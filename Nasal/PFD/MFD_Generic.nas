@@ -291,6 +291,11 @@ var PFD_Device =
         }
         p.setVisible(1);
         me.current_page = p;
+
+	# update common MEDS layer with every page
+
+	me.update_common_MEDS();
+	
     },
 };
 

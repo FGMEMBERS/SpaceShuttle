@@ -152,9 +152,11 @@ var MDU_Device =
         obj.PFD.secondary = secondary_port;
         obj.PFD.port_selected = selected_port;
 	obj.PFD.reconf_mode = "MAN";
+	obj.PFD.fc_bus = 3;
         obj.PFD.dps_page_flag = 0;
         obj.PFD.designation = designation;
         obj.mdu_device_status = 1;
+	obj.operational = 1;
         obj.model_index = model_index; # numeric index (1 to 9, left to right) used to connect the buttons in the cockpit to the display
 
 	obj.PFD.manageActions = func (action) 
@@ -164,6 +166,11 @@ var MDU_Device =
 		{
 		obj.switchPorts();
 		}
+	else if (action == "switch_aut_man")
+		{
+		obj.switchReconf();
+		}
+
 
 	};
 
@@ -184,8 +191,35 @@ var MDU_Device =
 	    me.DPS_menu_line_cdr.setVisible(0);
 	    me.DPS_menu_line_plt.setVisible(0);
 
-#setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 0);
         };
+
+
+	obj.PFD.update_common_MEDS = func
+	{
+	
+	    var sym = "";
+	    if (me.primary == me.port_selected) {sym = "*";}
+	    me.MEDS_primary_port.setText("P"~me.primary~sym);
+
+	    if (me.primary == me.secondary)
+		{
+		me.MEDS_secondary_port.setText("");
+		}
+	    else
+		{
+	    	sym = "";
+	    	if (me.secondary == me.port_selected) {sym = "*";}
+	    	me.MEDS_secondary_port.setText("S"~me.secondary~sym);
+		}
+
+	    me.MEDS_flight_critical.setText("FC"~me.fc_bus);
+
+	    var text = "MAN";
+	    if (me.reconf_mode == "AUTO") {text = "AUT";}
+
+	    me.MEDS_reconfig.setText(text);	
+
+	};
 
         obj.PFD.update_common_DPS = func
         {
@@ -248,6 +282,9 @@ var MDU_Device =
             if (me.DPS_menu_blink == 1) {me.DPS_menu_blink = 0;}
             else {me.DPS_menu_blink = 1;}
 
+	    me.MEDS_fault_message.setText(SpaceShuttle.idp_array[idp_index].current_fault_string);
+
+
 #setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
         };
         obj.addPages();
@@ -295,6 +332,12 @@ var MDU_Device =
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
         me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
         me.PFD.p_meds_maint = PFD_addpage_p_meds_maint(me.PFD);
+
+	# duplicate page handles for pages where only menu changes
+	# need to change layer ID
+
+	me.PFD.p_meds_maint_cfg = PFD_addpage_p_meds_maint(me.PFD);
+	me.PFD.p_meds_maint_cfg.layer_id = "p_meds_maint_cfg";
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -357,6 +400,12 @@ var MDU_Device =
         me.PFD.DPS_menu_line_plt = me.PFD.svg.getElementById("dps_menu_line_plt");
         me.PFD.DPS_menu_blink = 1;
 
+	me.PFD.MEDS_primary_port = me.PFD.svg.getElementById("meds_menu_primary_port");
+	me.PFD.MEDS_secondary_port = me.PFD.svg.getElementById("meds_menu_secondary_port");
+	me.PFD.MEDS_flight_critical = me.PFD.svg.getElementById("meds_menu_flight_critical");
+	me.PFD.MEDS_reconfig = me.PFD.svg.getElementById("meds_menu_reconfig");
+	me.PFD.MEDS_fault_message = me.PFD.svg.getElementById("meds_fault_message");
+
         me.PFD.nom_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit1_traj_plot = me.PFD._canvas.createGroup();
         me.PFD.limit2_traj_plot = me.PFD._canvas.createGroup();
@@ -376,6 +425,7 @@ var MDU_Device =
 
 	me.PFD.DPS_menu.setColor(dps_r, dps_g, dps_b);
 	me.PFD.MEDS_menu.setColor(meds_r, meds_g, meds_b);
+	me.PFD.MEDS_fault_message.setColor(1, 1, 1);
 	me.PFD.DPS_menu_line_plt.setColor(1,1,0.3);
 	me.PFD.DPS_menu_line_cdr.setColor(1,0.3,0.3);
 	me.PFD.DPS_menu_fault_line.setColor(1,0.3,0.3);
@@ -559,10 +609,14 @@ var MDU_Device =
 
        	me.PFD.p_meds_maint.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_maint.addMenuItem(1, "FAULT", me.PFD.p_meds_maint);
-        me.PFD.p_meds_maint.addMenuItem(2, "CONFIG", me.PFD.p_meds_maint);
+        me.PFD.p_meds_maint.addMenuItem(2, "CONFIG", me.PFD.p_meds_maint_cfg);
         me.PFD.p_meds_maint.addMenuItem(3, "CST", me.PFD.p_meds_maint);
         me.PFD.p_meds_maint.addMenuItem(4, "MEMORY", me.PFD.p_meds_maint);
 
+       	me.PFD.p_meds_maint_cfg.addMenuItem(0, "UP", me.PFD.p_meds_maint);
+	me.PFD.p_meds_maint_cfg.addMenuAction(1, "PORT", "select_port");
+	me.PFD.p_meds_maint_cfg.addMenuAction(2, "AUT/MAN", "switch_aut_man");
+        me.PFD.p_meds_maint_cfg.addMenuItem(5, "MSG ACK", me.PFD.p_meds_maint_cfg);
 
       
     },
@@ -580,7 +634,30 @@ var MDU_Device =
         else
             me.PFD.port_selected = me.PFD.primary;
 	print (me.designation, ": New selected port is now: ", me.PFD.port_selected);
+
+	# update MEDS layer to show change
+	me.PFD.update_common_MEDS();	
+
     },
+
+    switchReconf : func
+    {
+
+	if (me.PFD.reconf_mode == "MAN")
+		{
+		me.PFD.reconf_mode = "AUTO";
+		}
+	else
+		{
+		me.PFD.reconf_mode = "MAN";
+		}
+
+	print (me.designation, ": Switching reconfig mode to: ", me.PFD.reconf_mode);
+
+	# update MEDS layer to show change
+	me.PFD.update_common_MEDS();
+
+    }
 };
 
 # the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
