@@ -170,6 +170,15 @@ var MDU_Device =
 		{
 		obj.switchReconf();
 		}
+	else if (action == "meds_fault_ack")
+		{
+		SpaceShuttle.meds_last_message_acknowledge = 0;
+		}
+	else if (action == "meds_fault_clear")
+		{
+		var idp_index = obj.PFD.port_selected - 1;
+		SpaceShuttle.idp_array[idp_index].current_fault_string = "";
+		}
 
 
 	};
@@ -282,7 +291,15 @@ var MDU_Device =
             if (me.DPS_menu_blink == 1) {me.DPS_menu_blink = 0;}
             else {me.DPS_menu_blink = 1;}
 
-	    me.MEDS_fault_message.setText(SpaceShuttle.idp_array[idp_index].current_fault_string);
+
+	    fault_string = SpaceShuttle.idp_array[idp_index].current_fault_string;
+
+	    if (SpaceShuttle.meds_last_message_acknowledge == 1)
+	    {
+		if (me.DPS_menu_blink == 0) {fault_string = "";}
+	    }
+
+	    me.MEDS_fault_message.setText(fault_string);
 
 
 #setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
@@ -438,44 +455,46 @@ var MDU_Device =
     setupMenus : func
     {
         me.PFD.p_ascent.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_ascent.addMenuItem(4, "MSG RST", me.PFD.p_ascent);
-        me.PFD.p_ascent.addMenuItem(5, "MSG ACK", me.PFD.p_ascent);
+	me.PFD.p_ascent.addMenuAction(4, "MSG RST", "meds_fault_clear");
+	me.PFD.p_ascent.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+     
 
         me.PFD.p_dps_rtls.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_dps_rtls.addMenuItem(4, "MSG RST", me.PFD.p_dps_rtls);
-        me.PFD.p_dps_rtls.addMenuItem(5, "MSG ACK", me.PFD.p_dps_rtls);
+        me.PFD.p_dps_rtls.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_rtls.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
         me.PFD.p_entry.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_entry.addMenuItem(4, "MSG RST", me.PFD.p_entry);
-        me.PFD.p_entry.addMenuItem(5, "MSG ACK", me.PFD.p_entry);
+        me.PFD.p_entry.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_entry.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
     
         me.PFD.p_vert_sit.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_vert_sit.addMenuItem(4, "MSG RST", me.PFD.p_vert_sit);
-        me.PFD.p_vert_sit.addMenuItem(5, "MSG ACK", me.PFD.p_vert_sit);
+        me.PFD.p_vert_sit.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_vert_sit.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
        	me.PFD.p_vert_sit2.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_vert_sit2.addMenuItem(4, "MSG RST", me.PFD.p_vert_sit2);
-        me.PFD.p_vert_sit2.addMenuItem(5, "MSG ACK", me.PFD.p_vert_sit2);
+        me.PFD.p_vert_sit2.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_vert_sit2.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
         me.PFD.p_pfd.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd.addMenuItem(1, "A/E", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
         me.PFD.p_pfd.addMenuItem(3, "DATA", me.PFD.p_pfd);
-        me.PFD.p_pfd.addMenuItem(4, "MSG RST", me.PFD.p_pfd);
-        me.PFD.p_pfd.addMenuItem(5, "MSG ACK", me.PFD.p_pfd);
+	me.PFD.p_pfd.addMenuAction(4, "MSG RST", "meds_fault_clear");
+	me.PFD.p_pfd.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
         me.PFD.p_pfd_orbit.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd_orbit.addMenuItem(1, "A/E", me.PFD.p_pfd);
         me.PFD.p_pfd_orbit.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
         me.PFD.p_pfd_orbit.addMenuItem(3, "DATA", me.PFD.p_pfd_orbit);
-        me.PFD.p_pfd_orbit.addMenuItem(4, "MSG RST", me.PFD.p_pfd_orbit);
-        me.PFD.p_pfd_orbit.addMenuItem(5, "MSG ACK", me.PFD.p_pfd_orbit);
+        me.PFD.p_pfd_orbit.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_pfd_orbit.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
         me.PFD.p_main.addMenuItem(3, "DPS", me.PFD.p_dps);
         me.PFD.p_main.addMenuItem(4, "MAINT", me.PFD.p_meds_maint);
+
         #me.PFD.p_main.addMenuItem(4, "MSG RST", me.PFD.p_main);
         #me.PFD.p_main.addMenuItem(5, "MSG ACK", me.PFD.p_main);
 
@@ -616,7 +635,8 @@ var MDU_Device =
        	me.PFD.p_meds_maint_cfg.addMenuItem(0, "UP", me.PFD.p_meds_maint);
 	me.PFD.p_meds_maint_cfg.addMenuAction(1, "PORT", "select_port");
 	me.PFD.p_meds_maint_cfg.addMenuAction(2, "AUT/MAN", "switch_aut_man");
-        me.PFD.p_meds_maint_cfg.addMenuItem(5, "MSG ACK", me.PFD.p_meds_maint_cfg);
+	me.PFD.p_meds_maint_cfg.addMenuAction(5, "AUT/MAN", "meds_fault_ack");
+        #me.PFD.p_meds_maint_cfg.addMenuItem(5, "MSG ACK", me.PFD.p_meds_maint_cfg);
 
       
     },
