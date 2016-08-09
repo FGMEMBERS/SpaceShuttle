@@ -44,6 +44,10 @@ var PFD_addpage_p_pfd = func(device)
         device.dps_page_flag = 0;
         device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
 
+	# FC bus selection
+
+	device.fc_bus_displayed = "FC"~device.fc_bus;
+
 	# menu items
 
 	p_pfd.menu_item.setColor(1.0, 1.0, 1.0);
@@ -1168,6 +1172,8 @@ var PFD_addpage_p_pfd = func(device)
         p_pfd.menu_item.setColor(meds_r, meds_g, meds_b);
 	p_pfd.menu_item_frame.setColor(meds_r, meds_g, meds_b);
 
+	device.fc_bus_displayed = "";
+
     }
     
     p_pfd.update = func
@@ -1936,6 +1942,10 @@ var PFD_addpage_p_pfd_orbit = func(device)
         p_pfd_orbit.menu_item.setColor(1.0, 1.0, 1.0);
 	p_pfd_orbit.menu_item_frame.setColor(1.0, 1.0, 1.0);
 
+	# FC bus selection
+
+	device.fc_bus_displayed = "FC"~device.fc_bus;
+
 
 	# group for dynamically re-drawn inner part
 
@@ -2128,6 +2138,8 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
         p_pfd_orbit.menu_item.setColor(meds_r, meds_g, meds_b);
 	p_pfd_orbit.menu_item_frame.setColor(meds_r, meds_g, meds_b);
+
+	device.fc_bus_displayed = "";
 
 	
     }
