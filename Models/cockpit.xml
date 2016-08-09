@@ -1605,6 +1605,15 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+                <script>
+			if (SpaceShuttle.MDU_array[4].operational == 1)
+				{SpaceShuttle.MDU_array[4].operational = 0;}
+			else
+				{SpaceShuttle.MDU_array[4].operational = 1;}
+		</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>

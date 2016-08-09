@@ -78,6 +78,20 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect12"));
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect13"));
  
+    p_meds_maint.idp_bite = [];
+   
+    append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite10"));
+    append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite11"));
+    append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite12"));
+    append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite13"));
+
+    p_meds_maint.idp_cst = [];
+
+    append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst10"));
+    append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst11"));
+    append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst12"));
+    append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst13"));
+
     p_meds_maint.rect14 = device.svg.getElementById("p_meds_maint_rect14");
     p_meds_maint.rect15 = device.svg.getElementById("p_meds_maint_rect15");
     p_meds_maint.rect16 = device.svg.getElementById("p_meds_maint_rect16");
@@ -153,14 +167,20 @@ var PFD_addpage_p_meds_maint = func(device)
 		if (operational == 0)
 			{
 			p_meds_maint.idp_rect[i].setColorFill (1.0, 0.3, 0.3);
+			p_meds_maint.idp_bite[i].setText("");
+			p_meds_maint.idp_cst[i].setText("");
 			}
 		else if (i == idp_index)
 			{
 			p_meds_maint.idp_rect[i].setColorFill (0.2, 0.2, 0.6);
+			p_meds_maint.idp_bite[i].setText("  0000");
+			p_meds_maint.idp_cst[i].setText(" NO-CST");
 			}
 		else
 			{		
 			p_meds_maint.idp_rect[i].set("fill", "none");
+			p_meds_maint.idp_bite[i].setText("");
+			p_meds_maint.idp_cst[i].setText("");
 			}
 
 		}

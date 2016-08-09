@@ -42,16 +42,31 @@ var PFD_addpage_p_pfd = func(device)
     {
         device.set_DPS_off();
         device.dps_page_flag = 0;
-        device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
+
 
 	# FC bus selection
 
 	device.fc_bus_displayed = "FC"~device.fc_bus;
 
-	# menu items
+	if (me.layer_id == "p_pfd")
+		{
+        	device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
 
-	p_pfd.menu_item.setColor(1.0, 1.0, 1.0);
-	p_pfd.menu_item_frame.setColor(1.0, 1.0, 1.0);
+		# menu items
+
+		p_pfd.menu_item.setColor(1.0, 1.0, 1.0);
+		p_pfd.menu_item_frame.setColor(1.0, 1.0, 1.0);
+
+		}
+	else 
+		{
+        	device.MEDS_menu_title.setText("DATA BUS SELECT MENU");
+		}
+
+
+
+
+
 	
 
 	# group for dynamically re-drawn inner part
@@ -1935,16 +1950,25 @@ var PFD_addpage_p_pfd_orbit = func(device)
     {
         device.set_DPS_off();
         device.dps_page_flag = 0;
-        device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
-
-	# menu item
-
-        p_pfd_orbit.menu_item.setColor(1.0, 1.0, 1.0);
-	p_pfd_orbit.menu_item_frame.setColor(1.0, 1.0, 1.0);
 
 	# FC bus selection
 
 	device.fc_bus_displayed = "FC"~device.fc_bus;
+
+	if (me.layer_id == "p_pfd_orbit")
+		{
+        	device.MEDS_menu_title.setText("FLIGHT INSTRUMENT MENU");
+
+		# menu items
+
+		p_pfd_orbit.menu_item.setColor(1.0, 1.0, 1.0);
+		p_pfd_orbit.menu_item_frame.setColor(1.0, 1.0, 1.0);
+
+		}
+	else 
+		{
+        	device.MEDS_menu_title.setText("DATA BUS SELECT MENU");
+		}
 
 
 	# group for dynamically re-drawn inner part

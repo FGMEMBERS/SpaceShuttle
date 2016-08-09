@@ -180,6 +180,22 @@ var MDU_Device =
 		var idp_index = obj.PFD.port_selected - 1;
 		SpaceShuttle.idp_array[idp_index].current_fault_string = "";
 		}
+	else if (action == "select_fc1")
+		{
+		obj.selectFC(1);
+		}
+	else if (action == "select_fc2")
+		{
+		obj.selectFC(2);
+		}
+	else if (action == "select_fc3")
+		{
+		obj.selectFC(3);
+		}
+	else if (action == "select_fc4")
+		{
+		obj.selectFC(4);
+		}
 
 
 	};
@@ -357,6 +373,12 @@ var MDU_Device =
 	me.PFD.p_meds_maint_cfg = PFD_addpage_p_meds_maint(me.PFD);
 	me.PFD.p_meds_maint_cfg.layer_id = "p_meds_maint_cfg";
 
+	me.PFD.p_pfd_databus = PFD_addpage_p_pfd(me.PFD);
+	me.PFD.p_pfd_databus.layer_id = "p_pfd_databus";
+
+	me.PFD.p_pfd_orbit_databus = PFD_addpage_p_pfd_orbit(me.PFD);
+	me.PFD.p_pfd_orbit_databus.layer_id = "p_pfd_orbit_databus";
+
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
                     {
@@ -480,16 +502,29 @@ var MDU_Device =
         me.PFD.p_pfd.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd.addMenuItem(1, "A/E", me.PFD.p_pfd);
         me.PFD.p_pfd.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
-        me.PFD.p_pfd.addMenuItem(3, "DATA", me.PFD.p_pfd);
+        me.PFD.p_pfd.addMenuItem(3, "DATA", me.PFD.p_pfd_databus);
 	me.PFD.p_pfd.addMenuAction(4, "MSG RST", "meds_fault_clear");
 	me.PFD.p_pfd.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+  	me.PFD.p_pfd_databus.addMenuItem(0, "UP", me.PFD.p_pfd);
+	me.PFD.p_pfd_databus.addMenuAction(1, "FC 1", "select_fc1");
+	me.PFD.p_pfd_databus.addMenuAction(2, "FC 2", "select_fc2");
+	me.PFD.p_pfd_databus.addMenuAction(3, "FC 3", "select_fc3");
+	me.PFD.p_pfd_databus.addMenuAction(4, "FC 4", "select_fc4");
+
 
         me.PFD.p_pfd_orbit.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_pfd_orbit.addMenuItem(1, "A/E", me.PFD.p_pfd);
         me.PFD.p_pfd_orbit.addMenuItem(2, "ORBIT", me.PFD.p_pfd_orbit);
-        me.PFD.p_pfd_orbit.addMenuItem(3, "DATA", me.PFD.p_pfd_orbit);
+        me.PFD.p_pfd_orbit.addMenuItem(3, "DATA", me.PFD.p_pfd_orbit_databus);
         me.PFD.p_pfd_orbit.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_pfd_orbit.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+ 	me.PFD.p_pfd_orbit_databus.addMenuItem(0, "UP", me.PFD.p_pfd_orbit);
+	me.PFD.p_pfd_orbit_databus.addMenuAction(1, "FC 1", "select_fc1");
+	me.PFD.p_pfd_orbit_databus.addMenuAction(2, "FC 2", "select_fc2");
+	me.PFD.p_pfd_orbit_databus.addMenuAction(3, "FC 3", "select_fc3");
+	me.PFD.p_pfd_orbit_databus.addMenuAction(4, "FC 4", "select_fc4");
     
         me.PFD.p_main.addMenuItem(1, "FLT", me.PFD.p_pfd);
         me.PFD.p_main.addMenuItem(2, "SUBSYS", me.PFD.p_subsys);
@@ -670,7 +705,19 @@ var MDU_Device =
 	# update MEDS layer to show change
 	me.PFD.update_common_MEDS();
 
-    }
+    },
+
+	
+    selectFC : func (bus)
+    {
+	me.PFD.fc_bus = bus;
+
+	print (me.designation, ": Switching flight-critical bus to: ", bus);
+
+	# update MEDS layer to show change
+	me.PFD.update_common_MEDS();
+
+    },
 };
 
 # the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
