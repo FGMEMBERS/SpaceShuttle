@@ -44,6 +44,7 @@
 # * p_meds_apu	(MEDS APU/HYD)
 # * p_meds_spi	(MEDS SPI)
 # * p_meds_maint (MEDS MAINT)
+# * p_meds_fault (MEDS IDP FAULT SUMMARY)
 
 # color definitions
 
@@ -108,6 +109,7 @@ io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
 io.include("p_meds_spi.nas");
 io.include("p_meds_maint.nas");
+io.include("p_meds_fault.nas");
 
 #io.include("a_port_sel.nas");
 
@@ -179,6 +181,21 @@ var MDU_Device =
 		{
 		var idp_index = obj.PFD.port_selected - 1;
 		SpaceShuttle.idp_array[idp_index].current_fault_string = "";
+		}
+	else if (action == "meds_fault_clear_all")
+		{
+		var idp_index = obj.PFD.port_selected - 1;
+		SpaceShuttle.idp_array[idp_index].current_fault_string = "";
+	
+		for (var i=0; i< 15; i=i+1)
+			{
+			SpaceShuttle.idp_array[idp_index].fault_array[i] = "";
+			}
+		# clear out the msg hash, assuming problems have been dealt with
+		SpaceShuttle.meds_msg_hash = {
+			io : [0,0,0,0,0,0,0,0,0],
+			port_change: [0,0,0,0,0,0,0,0,0],
+			};
 		}
 	else if (action == "select_fc1")
 		{
@@ -366,6 +383,7 @@ var MDU_Device =
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
         me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
         me.PFD.p_meds_maint = PFD_addpage_p_meds_maint(me.PFD);
+        me.PFD.p_meds_fault = PFD_addpage_p_meds_fault(me.PFD);
 
 	# duplicate page handles for pages where only menu changes
 	# need to change layer ID
@@ -656,7 +674,7 @@ var MDU_Device =
         me.PFD.p_meds_spi.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
        	me.PFD.p_meds_maint.addMenuItem(0, "UP", me.PFD.p_main);
-        me.PFD.p_meds_maint.addMenuItem(1, "FAULT", me.PFD.p_meds_maint);
+        me.PFD.p_meds_maint.addMenuItem(1, "FAULT", me.PFD.p_meds_fault);
         me.PFD.p_meds_maint.addMenuItem(2, "CONFIG", me.PFD.p_meds_maint_cfg);
         me.PFD.p_meds_maint.addMenuItem(3, "CST", me.PFD.p_meds_maint);
         me.PFD.p_meds_maint.addMenuItem(4, "MEMORY", me.PFD.p_meds_maint);
@@ -665,6 +683,11 @@ var MDU_Device =
 	me.PFD.p_meds_maint_cfg.addMenuAction(1, "PORT", "select_port");
 	me.PFD.p_meds_maint_cfg.addMenuAction(2, "AUT/MAN", "switch_aut_man");
 	me.PFD.p_meds_maint_cfg.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+        me.PFD.p_meds_fault.addMenuItem(0, "UP", me.PFD.p_meds_maint);
+        me.PFD.p_meds_fault.addMenuAction(3, "CLEAR", "meds_fault_clear_all");
+        me.PFD.p_meds_fault.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_meds_fault.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
       
     },

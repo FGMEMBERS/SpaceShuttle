@@ -42184,7 +42184,7 @@
            sodipodi:role="line">  0000</tspan></text>
 	<text
          sodipodi:linespacing="125%"
-         id="p_meds_maint_bite16"
+         id="p_meds_maint_cst16"
          y="30.178572"
          x="43.928574"
          style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -42193,7 +42193,7 @@
            y="331.0"
            x="140.0"
            id="tspan3112"
-           sodipodi:role="line">  0000</tspan></text>
+           sodipodi:role="line"> NO-CST</tspan></text>
 
 	<text
          sodipodi:linespacing="125%"
@@ -42281,6 +42281,239 @@
            x="395.0"
            id="tspan3112"
            sodipodi:role="line"> 4   2</tspan></text>
+
+   </g>
+  </g>
+
+  <g
+     inkscape:groupmode="layer"
+     id="g3407"
+     inkscape:label="p_meds_fault"
+     style="display:inline">
+    <g
+       id="p_meds_fault"
+       inkscape:label="#g4491">
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_text1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.0"
+           x="100.0"
+           id="tspan3112"
+           sodipodi:role="line">FAULT</tspan></text>
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_text2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="86.0"
+           x="380.0"
+           id="tspan3112"
+           sodipodi:role="line">TIME</tspan></text>
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_meds_fault_line1"
+         d="m 50.0,95.0 260.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+	<path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="p_meds_fault_line2"
+         d="m 340.0,95.0 100.0, 0.0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message1"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="114.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message2"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="128.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message3"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="142.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message4"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="156.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message5"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="170.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message6"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="184.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message7"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="198.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message8"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="212.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message9"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="226.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message10"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="240.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message11"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="254.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message12"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="268.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message13"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="282.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message14"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="296.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
+	<text
+         sodipodi:linespacing="125%"
+         id="p_meds_fault_message15"
+         y="30.178572"
+         x="43.928574"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:14px;fill:#ffffff"
+           y="310.0"
+           x="50.0"
+           id="tspan3112"
+           sodipodi:role="line">CDR1 I/O ERROR                     001/12:44:30</tspan></text>
 
    </g>
   </g>

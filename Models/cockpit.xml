@@ -1076,7 +1076,7 @@
             <z-m> -0.64136</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
@@ -1203,7 +1203,7 @@
             <z-m> -0.64136</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
@@ -1334,7 +1334,7 @@
             <z-m> -0.56678</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
@@ -1461,7 +1461,7 @@
             <z-m> -0.77758</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
@@ -1592,7 +1592,7 @@
             <z-m> -0.67353</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>

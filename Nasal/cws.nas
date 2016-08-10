@@ -4,7 +4,6 @@
 var inspection_group  = 0;
 
 var cws_message_array = [];
-var meds_message_array = [];
 
 var cws_message_array_long = ["","","","","","","","","","","","","","",""];
 
@@ -928,17 +927,22 @@ for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
 	if ((mdu.operational == 0) and (meds_msg_hash.io[i] == 0))
 		{
 		meds_msg_hash.io[i] = 1;
-		var message = create_meds_message("I/O ERROR", mdu.designation);
+		var message = create_meds_message("I/O ERROR           ", mdu.designation);
 
 		var idp_index = mdu.PFD.port_selected - 1;
 		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
 		print (message);	
 
+		insert_meds_message(message, idp_index);
 		}
 
 	}
 
 }
+
+
+
+
 
 var insert_fault_message_long = func (message) {
 
@@ -953,6 +957,17 @@ cws_message_array_long[0] = message;
 
 }
 
+
+var insert_meds_message = func (message, idp_index) {
+
+
+for (var i = 0; i<14; i=i+1)
+	{
+	SpaceShuttle.idp_array[idp_index].fault_array[14-i] = SpaceShuttle.idp_array[idp_index].fault_array[13-i];
+	}
+SpaceShuttle.idp_array[idp_index].fault_array[0] = message;
+
+}
 
 var create_fault_message = func (sys_string, gpc_id, class) {
 
@@ -979,6 +994,6 @@ var time_string = getprop("/sim/time/gmt-string");
 
 meds_last_message_acknowledge = 1;
 
-return (text~" "~origin~"      "~time_string);
+return (origin~" "~text~"          "~time_string);
 
 }
