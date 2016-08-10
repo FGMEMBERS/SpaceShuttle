@@ -72,31 +72,45 @@ var PFD_addpage_p_meds_maint = func(device)
     
 
     p_meds_maint.idp_rect = [];
-
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect10"));
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect11"));
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect12"));
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect13"));
  
     p_meds_maint.idp_bite = [];
-   
     append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite10"));
     append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite11"));
     append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite12"));
     append(p_meds_maint.idp_bite, device.svg.getElementById("p_meds_maint_bite13"));
 
     p_meds_maint.idp_cst = [];
-
     append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst10"));
     append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst11"));
     append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst12"));
     append(p_meds_maint.idp_cst, device.svg.getElementById("p_meds_maint_cst13"));
 
-    p_meds_maint.rect14 = device.svg.getElementById("p_meds_maint_rect14");
-    p_meds_maint.rect15 = device.svg.getElementById("p_meds_maint_rect15");
-    p_meds_maint.rect16 = device.svg.getElementById("p_meds_maint_rect16");
-    p_meds_maint.rect17 = device.svg.getElementById("p_meds_maint_rect17");
+    p_meds_maint.adc_rect = [];
+    append(p_meds_maint.adc_rect, device.svg.getElementById("p_meds_maint_rect14"));
+    append(p_meds_maint.adc_rect, device.svg.getElementById("p_meds_maint_rect16"));
+    append(p_meds_maint.adc_rect, device.svg.getElementById("p_meds_maint_rect15"));
+    append(p_meds_maint.adc_rect, device.svg.getElementById("p_meds_maint_rect17"));
+
+    p_meds_maint.adc_bite = [];
+    append(p_meds_maint.adc_bite, device.svg.getElementById("p_meds_maint_bite14"));
+    append(p_meds_maint.adc_bite, device.svg.getElementById("p_meds_maint_bite16"));
+    append(p_meds_maint.adc_bite, device.svg.getElementById("p_meds_maint_bite15"));
+    append(p_meds_maint.adc_bite, device.svg.getElementById("p_meds_maint_bite17"));
+
+    p_meds_maint.adc_cst = [];
+    append(p_meds_maint.adc_cst, device.svg.getElementById("p_meds_maint_cst14"));
+    append(p_meds_maint.adc_cst, device.svg.getElementById("p_meds_maint_cst16"));
+    append(p_meds_maint.adc_cst, device.svg.getElementById("p_meds_maint_cst15"));
+    append(p_meds_maint.adc_cst, device.svg.getElementById("p_meds_maint_cst17"));
+   
+
     p_meds_maint.rect18 = device.svg.getElementById("p_meds_maint_rect18");
+
+
 
 
     p_meds_maint.ondisplay = func
@@ -159,6 +173,8 @@ var PFD_addpage_p_meds_maint = func(device)
 	var commanding_idp = device.port_selected;
 	var idp_index = commanding_idp - 1;
 
+	# IDP information
+
 	for (var i=0; i< size(SpaceShuttle.idp_array); i=i+1)
 		{
 		var condition = SpaceShuttle.idp_array[i].condition;
@@ -184,11 +200,10 @@ var PFD_addpage_p_meds_maint = func(device)
 			}
 
 		}
+	# MDU information
 
 	for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
 		{
-
-
 		var mdu = SpaceShuttle.MDU_array[i];
 
 		if (mdu.operational == 0)
@@ -226,9 +241,29 @@ var PFD_addpage_p_meds_maint = func(device)
 
 		}
 	
+	# ADC information
 
+		for (var i=0; i< 4; i=i+1)
+			{
+			var group = "A";
+			if (i> 1) {group = "B";}
 
+			if (((commanding_idp < 3) and (group == "A")) or ((commanding_idp > 2) and (group == "B")))
+				{
+				p_meds_maint.adc_rect[i].setColorFill  (0.2, 0.2, 0.6);
+				p_meds_maint.adc_bite[i].setText("  0000");
+				p_meds_maint.adc_cst[i].setText(" NO-CST");
+				}
+			else
+				{
 
+				p_meds_maint.adc_rect[i].set("fill", "none");
+				p_meds_maint.adc_bite[i].setText("");
+				p_meds_maint.adc_cst[i].setText("");
+				}
+
+			}
+			
 
 
 	
