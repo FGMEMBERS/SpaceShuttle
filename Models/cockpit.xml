@@ -1048,9 +1048,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[2]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
@@ -1089,15 +1093,6 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-	    <binding>
-		<command>nasal</command>
-                <script>
-			if (SpaceShuttle.MDU_array[0].operational == 1)
-				{SpaceShuttle.MDU_array[0].operational = 0;}
-			else
-				{SpaceShuttle.MDU_array[0].operational = 1;}
-		</script>
- 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1175,9 +1170,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[1]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
@@ -1216,15 +1215,6 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-	    <binding>
-		<command>nasal</command>
-                <script>
-			if (SpaceShuttle.MDU_array[1].operational == 1)
-				{SpaceShuttle.MDU_array[1].operational = 0;}
-			else
-				{SpaceShuttle.MDU_array[1].operational = 1;}
-		</script>
- 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1302,9 +1292,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
@@ -1347,15 +1341,6 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-	    <binding>
-		<command>nasal</command>
-                <script>
-			if (SpaceShuttle.MDU_array[2].operational == 1)
-				{SpaceShuttle.MDU_array[2].operational = 0;}
-			else
-				{SpaceShuttle.MDU_array[2].operational = 1;}
-		</script>
- 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1433,9 +1418,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[1]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
@@ -1474,15 +1463,6 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-	    <binding>
-		<command>nasal</command>
-                <script>
-			if (SpaceShuttle.MDU_array[3].operational == 1)
-				{SpaceShuttle.MDU_array[3].operational = 0;}
-			else
-				{SpaceShuttle.MDU_array[3].operational = 1;}
-		</script>
- 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1560,9 +1540,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[2]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
@@ -1691,9 +1675,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[1]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C4-pwr-switch</property>
@@ -1813,9 +1801,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/C5-pwr-switch</property>
@@ -1931,9 +1923,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/R1-pwr-switch</property>
@@ -2049,9 +2045,13 @@
         <type>select</type>
         <condition>
             <and>
-                <greater-than>
+                <!--<greater-than>
                     <property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
                     <value>0</value>
+                </greater-than>-->
+		<greater-than>
+                    <property>/fdm/jsbsim/systems/electrical/bus[2]/voltage</property>
+                    <value>24</value>
                 </greater-than>
                 <equals>
                     <property>/fdm/jsbsim/systems/electrical/display/R2-pwr-switch</property>
@@ -3990,6 +3990,8 @@
     <!-- ******************************************************************* -->
     <!-- Panel F7                                                           -->
     <!-- ******************************************************************* -->
+
+
 
     <!-- Main Engine Status  "Lights" -->
     <animation>

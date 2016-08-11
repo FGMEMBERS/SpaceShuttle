@@ -36,19 +36,23 @@
 
 		<switch name="systems/electrical/fc/fc-ready-for-load">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test logic="OR" value="1.0">
 				systems/electrical/fc/fc-ready-for-load-transit == 1
+				systems/electrical/init-electrical-on GT 0.0
 			</test>
 		</switch>
 
 		<fcs_function name="systems/electrical/fc/fc-max-power-output-kW">
 		<function>	
+			<max>
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc/fc-ready-for-load</property>
 				<property>systems//failures/fc1-condition</property>
 				<property>systems/electrical/fc/fc-efficiency</property>
 			</product>
+			<property>systems/electrical/init-electrical-on</property>
+			</max>
 		</function>
 		</fcs_function>
 
@@ -188,19 +192,23 @@
 
 		<switch name="systems/electrical/fc[1]/fc-ready-for-load">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test logic="OR"  value="1.0">
 				systems/electrical/fc[1]/fc-ready-for-load-transit == 1
+				systems/electrical/init-electrical-on GT 0.0
 			</test>
 		</switch>
 
 		<fcs_function name="systems/electrical/fc[1]/fc-max-power-output-kW">
 		<function>	
+			<max>
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[1]/fc-ready-for-load</property>
 				<property>systems/failures/fc2-condition</property>
 				<property>systems/electrical/fc[1]/fc-efficiency</property>
 			</product>
+			<property>systems/electrical/init-electrical-on</property>
+			</max>
 		</function>
 		</fcs_function>
 
@@ -337,19 +345,23 @@
 
 		<switch name="systems/electrical/fc[2]/fc-ready-for-load">
 			<default value="0.0"/>
-			<test  value="1.0">
+			<test logic="OR"  value="1.0">
 				systems/electrical/fc[2]/fc-ready-for-load-transit == 1
+				systems/electrical/init-electrical-on GT 0.0
 			</test>
 		</switch>
 
 		<fcs_function name="systems/electrical/fc[2]/fc-max-power-output-kW">
 		<function>	
+			<max>
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[2]/fc-ready-for-load</property>
 				<property>systems/failures/fc3-condition</property>
 				<property>systems/electrical/fc[2]/fc-efficiency</property>
 			</product>
+			<property>systems/electrical/init-electrical-on</property>
+			</max>
 		</function>
 		</fcs_function>
 
@@ -721,12 +733,11 @@
       			<input>systems/electrical/bus/max-power-output-kW</input>
      			<input>systems/electrical/bus[1]/max-power-output-kW</input>
       			<input>systems/electrical/bus[2]/max-power-output-kW</input>
-			<input>systems/electrical/init-electrical-on</input>
    		</summer>
 
 		<fcs_function name="systems/electrical/generic-power-demand-kW">
 		<function>
-			<value>8.0</value>
+			<value>7.7</value>
 		</function>
 		</fcs_function>
 
@@ -810,6 +821,9 @@
 			<input>systems/electrical/ac/power-demand-kW</input>
 			<input>systems/apu/apu/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
+			<input>systems/electrical/display/CRT1-power-demand-kW</input>
+			<input>systems/electrical/display/MFD2-power-demand-kW</input>
+			<input>systems/electrical/display/PLT1-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[1]/power-demand-kW-nominal">
@@ -817,12 +831,18 @@
 			<input>systems/electrical/ac[1]/power-demand-kW</input>
 			<input>systems/apu/apu[1]/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
+			<input>systems/electrical/display/CRT2-power-demand-kW</input>
+			<input>systems/electrical/display/CDR2-power-demand-kW</input>
+			<input>systems/electrical/display/MFD1-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[2]/power-demand-kW-nominal">
 			<input>systems/electrical/ac[2]/power-demand-kW</input>
 			<input>systems/apu/apu[2]/hyd-circ-pump-power-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
+			<input>systems/electrical/display/CRT3-power-demand-kW</input>
+			<input>systems/electrical/display/CDR1-power-demand-kW</input>
+			<input>systems/electrical/display/PLT2-power-demand-kW</input>
 		</summer>
 
 		<fcs_function name="systems/electrical/total-power-demand-kW">

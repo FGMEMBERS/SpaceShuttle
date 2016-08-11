@@ -2573,6 +2573,13 @@ if ((header == "SPEC") and (end =="PRO"))
 		SpaceShuttle.idp_array[idp_index].set_spec(2);
 		valid_flag = 1;
 		}
+	if (spec_num == 6) 
+		{
+		page_select(idp_index, "p_dps_gpc");
+		setprop("/fdm/jsbsim/systems/dps/disp", 6);
+		SpaceShuttle.idp_array[idp_index].set_disp(6);
+		valid_flag = 1;
+		}
 	if (spec_num == 18)
 		{
 		page_select(idp_index, "p_dps_sys_summ");
