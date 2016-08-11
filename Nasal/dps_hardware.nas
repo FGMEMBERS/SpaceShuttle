@@ -208,6 +208,7 @@ var idp = {
 	i.spec = 0;
 	i.disp = 0;
 	i.current_fault_string = "";
+	i.fault_array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 	return i;
 	},
 	# power switch

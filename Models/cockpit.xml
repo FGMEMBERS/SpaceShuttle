@@ -1076,7 +1076,7 @@
             <z-m> -0.64136</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/L1-pwr-switch</property>
@@ -1203,7 +1203,7 @@
             <z-m> -0.64136</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/L2-pwr-switch</property>
@@ -1216,6 +1216,15 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+                <script>
+			if (SpaceShuttle.MDU_array[1].operational == 1)
+				{SpaceShuttle.MDU_array[1].operational = 0;}
+			else
+				{SpaceShuttle.MDU_array[1].operational = 1;}
+		</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1325,7 +1334,7 @@
             <z-m> -0.56678</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C1-pwr-switch</property>
@@ -1338,6 +1347,15 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+                <script>
+			if (SpaceShuttle.MDU_array[2].operational == 1)
+				{SpaceShuttle.MDU_array[2].operational = 0;}
+			else
+				{SpaceShuttle.MDU_array[2].operational = 1;}
+		</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1443,7 +1461,7 @@
             <z-m> -0.77758</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C2-pwr-switch</property>
@@ -1456,6 +1474,15 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+                <script>
+			if (SpaceShuttle.MDU_array[3].operational == 1)
+				{SpaceShuttle.MDU_array[3].operational = 0;}
+			else
+				{SpaceShuttle.MDU_array[3].operational = 1;}
+		</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -1565,7 +1592,7 @@
             <z-m> -0.67353</z-m>
         </center>
         <action>
-            <repeatable>true</repeatable>
+            <repeatable>false</repeatable>
             <binding>
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/electrical/display/C3-pwr-switch</property>
@@ -1578,6 +1605,15 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+                <script>
+			if (SpaceShuttle.MDU_array[4].operational == 1)
+				{SpaceShuttle.MDU_array[4].operational = 0;}
+			else
+				{SpaceShuttle.MDU_array[4].operational = 1;}
+		</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>

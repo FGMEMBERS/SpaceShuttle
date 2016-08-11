@@ -1115,7 +1115,46 @@ settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
 }
 
 
+#########################################################################################
+# canvas for in-cockpit timers
+#########################################################################################
 
+
+var ev_timer =
+{
+
+    new : func(designation, model_element)
+    {
+        var obj = {parents : [ev_timer] };
+        obj.designation = designation;
+        obj.model_element = model_element;
+        var dev_canvas= canvas.new({
+                "name": designation,
+                    "size": [400,132], 
+                    "view": [400,132],                       
+                    "mipmapping": 1     
+                    });
+	dev_canvas.addPlacement({"node": model_element});
+	dev_canvas.setColorBackground(0,0,0,0);
+
+	var root = dev_canvas.createGroup();
+
+	obj.time_string = root.createChild("text")
+      	.setText("00:00")
+        .setColor(1,1,1)
+	.setFontSize(14)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Regular.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(50, 15);
+
+
+    	return obj;
+    } 
+
+
+};
+
+#var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time");
 
 
 
