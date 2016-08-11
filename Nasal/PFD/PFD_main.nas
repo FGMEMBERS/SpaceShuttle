@@ -17,6 +17,7 @@
 # * p_dps_antenna (SM OPS 202)
 # * p_dps_rtls (OPS 601)
 # * p_dps_time (SPEC 2)
+# * p_dps_gpc (DISP 6)
 # * p_dps_dap (SPEC 20)
 # * p_dps_strk (SPEC 22)
 # * p_dps_rcs (SPEC 23)
@@ -104,6 +105,7 @@ io.include("p_dps_rm_orbit.nas");
 io.include("p_dps_rcs.nas");
 io.include("p_dps_orbit_tgt.nas");
 io.include("p_dps_pdrs_control.nas");
+io.include("p_dps_gpc.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -158,7 +160,7 @@ var MDU_Device =
 	obj.PFD.fc_bus_displayed = "";
         obj.PFD.dps_page_flag = 0;
         obj.PFD.designation = designation;
-        obj.mdu_device_status = 1;
+        obj.mdu_device_status = 10;
 	obj.operational = 1;
         obj.model_index = model_index; # numeric index (1 to 9, left to right) used to connect the buttons in the cockpit to the display
 
@@ -378,6 +380,7 @@ var MDU_Device =
         me.PFD.p_dps_rcs = PFD_addpage_p_dps_rcs(me.PFD);
         me.PFD.p_dps_orbit_tgt = PFD_addpage_p_dps_orbit_tgt(me.PFD);
         me.PFD.p_dps_pdrs_control = PFD_addpage_p_dps_pdrs_control(me.PFD);
+        me.PFD.p_dps_gpc = PFD_addpage_p_dps_gpc(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -429,6 +432,8 @@ var MDU_Device =
                                 me.PFDsvg.setVisible(1);
                         }
                     });
+
+
 
         me.PFD.pfd_button_pushed = 0;
 
@@ -652,6 +657,10 @@ var MDU_Device =
         me.PFD.p_dps_pdrs_control.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_pdrs_control.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
+      	me.PFD.p_dps_gpc.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_gpc.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_gpc.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
@@ -694,6 +703,9 @@ var MDU_Device =
 
     update : func
     {
+
+	# determine whether device is operational, if so register power consumption
+
         if(me.mdu_device_status)
             me.PFD.update();
     },

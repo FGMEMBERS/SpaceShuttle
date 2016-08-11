@@ -513,7 +513,7 @@
 	<demand-tie-AC-kW type="double">0.0</demand-tie-AC-kW>
 	<demand-tie-BC-kW type="double">0.0</demand-tie-BC-kW>
       </ties>
-      <init-electrical-on type="double">14.0</init-electrical-on>
+      <init-electrical-on type="double">12.0</init-electrical-on>
       <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
       <purge-heater-switch type="int">0</purge-heater-switch>
@@ -532,6 +532,15 @@
         <C5-pwr-switch type="int">1</C5-pwr-switch>
         <R1-pwr-switch type="int">1</R1-pwr-switch>
         <R2-pwr-switch type="int">1</R2-pwr-switch>
+	<CDR1-power-demand-kW type="double">0.035</CDR1-power-demand-kW>
+	<CDR2-power-demand-kW type="double">0.035</CDR2-power-demand-kW>
+	<CRT1-power-demand-kW type="double">0.035</CRT1-power-demand-kW>
+	<CRT2-power-demand-kW type="double">0.035</CRT2-power-demand-kW>
+	<CRT3-power-demand-kW type="double">0.035</CRT3-power-demand-kW>
+	<PLT1-power-demand-kW type="double">0.035</PLT1-power-demand-kW>
+	<PLT2-power-demand-kW type="double">0.035</PLT2-power-demand-kW>
+	<MFD1-power-demand-kW type="double">0.035</MFD1-power-demand-kW>
+	<MFD2-power-demand-kW type="double">0.035</MFD2-power-demand-kW>
       </display>
      </electrical>
      <landing>

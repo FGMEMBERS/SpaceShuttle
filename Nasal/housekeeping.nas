@@ -1130,8 +1130,8 @@ var ev_timer =
         obj.model_element = model_element;
         var dev_canvas= canvas.new({
                 "name": designation,
-                    "size": [400,132], 
-                    "view": [400,132],                       
+                    "size": [1758,1884], 
+                    "view": [512,512],                        
                     "mipmapping": 1     
                     });
 	dev_canvas.addPlacement({"node": model_element});
@@ -1141,11 +1141,11 @@ var ev_timer =
 
 	obj.time_string = root.createChild("text")
       	.setText("00:00")
-        .setColor(1,1,1)
-	.setFontSize(14)
-	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Regular.ttf")
+        .setColor(1,0.5,0.1)
+	.setFontSize(20)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(50, 15);
+	.setTranslation(50, 50);
 
 
     	return obj;
@@ -1154,7 +1154,8 @@ var ev_timer =
 
 };
 
-#var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time");
+
+var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time-glass");
 
 
 
@@ -1187,4 +1188,64 @@ setlistener("/fdm/jsbsim/systems/cws/jet-fail-f3", func (n) {auto_manifold_shutd
 setlistener("/fdm/jsbsim/systems/cws/jet-fail-f4", func (n) {auto_manifold_shutdown("F4", n.getValue());}, 0,0);
 setlistener("/fdm/jsbsim/systems/cws/jet-fail-f5", func (n) {auto_manifold_shutdown("F5", n.getValue());}, 0,0);
 
+#########################################################################################
+# listeners and code to model MDU power consumption
+#########################################################################################
 
+# base LCD screen power consumption is assumed 35 kW, out of which 10 kW are for fully dimmed unit
+
+var set_MDU_power = func (desig)
+{
+var MDU_index = -1;
+
+if (desig == "L1") {MDU_index = 0;}
+else if (desig == "L2") {MDU_index = 1;}
+else if (desig == "C1") {MDU_index = 2;}
+else if (desig == "C2") {MDU_index = 3;}
+else if (desig == "C3") {MDU_index = 4;}
+else if (desig == "C4") {MDU_index = 5;}
+else if (desig == "C5") {MDU_index = 6;}
+else if (desig == "R1") {MDU_index = 7;}
+else if (desig == "R2") {MDU_index = 8;}
+
+var power_switch_state = getprop("/fdm/jsbsim/systems/electrical/display/"~desig~"-pwr-switch");
+var mdu = SpaceShuttle.MDU_array[MDU_index];
+var dim_switch_state = mdu.mdu_device_status;
+
+if (power_switch_state == 1) {mdu.operational = 1;}
+else {mdu.operational = 0;}
+
+var mdu_power_consumption = (10.0 + 2.5 * (dim_switch_state+1) ) * mdu.operational;
+
+print (mdu.designation, ": Power consumption is now: ", mdu_power_consumption, " W");
+
+setprop("/fdm/jsbsim/systems/electrical/display/"~mdu.designation~"-power-demand-kW", (mdu_power_consumption/1000.0));
+
+}
+
+setlistener("/fdm/jsbsim/systems/electrical/display/L1-pwr-switch", func {set_MDU_power("L1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode1", func {set_MDU_power("L1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/L2-pwr-switch", func {set_MDU_power("L2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode2", func {set_MDU_power("L2");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C1-pwr-switch", func {set_MDU_power("C1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode3", func {set_MDU_power("C1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C2-pwr-switch", func {set_MDU_power("C2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode4", func {set_MDU_power("C2");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C3-pwr-switch", func {set_MDU_power("C3");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode5", func {set_MDU_power("C3");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C4-pwr-switch", func {set_MDU_power("C4");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode6", func {set_MDU_power("C4");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C1-pwr-switch", func {set_MDU_power("C5");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode7", func {set_MDU_power("C5");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/R1-pwr-switch", func {set_MDU_power("R1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode8", func {set_MDU_power("R1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/R2-pwr-switch", func {set_MDU_power("R2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode9", func {set_MDU_power("R2");}, 0,0);
