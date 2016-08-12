@@ -12,7 +12,19 @@ var PFD_addpage_p_dps_gpc = func(device)
     p_dps_gpc.group = device.svg.getElementById("p_dps_gpc");
     p_dps_gpc.group.setColor(dps_r, dps_g, dps_b);
     
-    
+    p_dps_gpc.mode = [];
+    append(p_dps_gpc.mode, device.svg.getElementById("p_dps_gpc_mode1"));
+    append(p_dps_gpc.mode, device.svg.getElementById("p_dps_gpc_mode2"));
+    append(p_dps_gpc.mode, device.svg.getElementById("p_dps_gpc_mode3"));
+    append(p_dps_gpc.mode, device.svg.getElementById("p_dps_gpc_mode4"));
+    append(p_dps_gpc.mode, device.svg.getElementById("p_dps_gpc_mode5"));
+
+    p_dps_gpc.ops = [];
+    append(p_dps_gpc.ops, device.svg.getElementById("p_dps_gpc_ops1"));
+    append(p_dps_gpc.ops, device.svg.getElementById("p_dps_gpc_ops2"));
+    append(p_dps_gpc.ops, device.svg.getElementById("p_dps_gpc_ops3"));
+    append(p_dps_gpc.ops, device.svg.getElementById("p_dps_gpc_ops4"));
+    append(p_dps_gpc.ops, device.svg.getElementById("p_dps_gpc_ops5"));
     
     p_dps_gpc.ondisplay = func
     {
@@ -28,7 +40,14 @@ var PFD_addpage_p_dps_gpc = func(device)
     p_dps_gpc.update = func
     {
     
-     
+     	for (var i=0; i< size(SpaceShuttle.gpc_array); i=i+1)
+		{
+		var gpc = SpaceShuttle.gpc_array[i];
+
+		p_dps_gpc.mode[i].setText(gpc.mode_string);
+		p_dps_gpc.ops[i].setText(gpc.mcc_string);
+
+		}
     
         device.update_common_DPS();
     }

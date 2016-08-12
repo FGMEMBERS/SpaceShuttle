@@ -1128,10 +1128,12 @@ var ev_timer =
         var obj = {parents : [ev_timer] };
         obj.designation = designation;
         obj.model_element = model_element;
+	obj.time = 0;
+	obj.count_flag = 0;
         var dev_canvas= canvas.new({
                 "name": designation,
-                    "size": [1758,1884], 
-                    "view": [512,512],                        
+                    "size": [256,256], 
+                    "view": [256,256],                        
                     "mipmapping": 1     
                     });
 	dev_canvas.addPlacement({"node": model_element});
@@ -1142,14 +1144,50 @@ var ev_timer =
 	obj.time_string = root.createChild("text")
       	.setText("00:00")
         .setColor(1,0.5,0.1)
-	.setFontSize(20)
+	.setFontSize(24)
+	.setScale(2.5,6)
 	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
 	.setAlignment("center-bottom")
-	.setTranslation(50, 50);
-
+	.setTranslation(130, 210);
 
     	return obj;
-    } 
+    },
+
+    set: func (sec)
+    {
+	me.time = sec;
+
+	var string =  SpaceShuttle.seconds_to_stringMS(me.time);
+	if (me.time < 600) {string = "0"~string;}
+
+	me.time_string.setText(string);
+    },
+
+    start: func
+    {
+	me.count_flag = 1;
+	me.update();
+    },
+
+    update: func 
+    {
+	if (me.count_flag == 0) {return;}
+
+	me.time = me.time - 1;
+	if (me.time < 0) {me.time =0; return;}
+
+	var string =  SpaceShuttle.seconds_to_stringMS(me.time);
+	if (me.time < 600) {string = "0"~string;}
+
+	me.time_string.setText(string);
+
+	settimer (func me.update(), 1.0);
+    },
+
+    stop: func
+    {
+	me.count_flag = 0;
+    },
 
 
 };
