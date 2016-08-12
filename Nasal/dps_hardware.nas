@@ -25,6 +25,18 @@ var gpc = {
 	g.mcc_string = "SYSTEM";
 	g.major_function = "";
 	g.ops = 0;
+	g.string1 = "";
+	g.string2 = "";
+	g.string3 = "";
+	g.string4 = "";
+	g.pl1 = "";
+	g.pl2 = "";
+	g.launch1 = "";
+	g.launch2 = "";
+	g.crt1 = "";
+	g.crt2 = "";
+	g.crt3 = "";
+	g.crt4 = "";
 	return g;
 	},
 	# implementing the function of the mode switch
@@ -185,6 +197,96 @@ return flag;
 }
 
 
+###############################################################################
+# NBAT (nominal bus assignment table)
+###############################################################################
+
+var nbat = {
+
+	string1: 1,
+	string2: 2,
+	string3: 3,
+	string4: 1,
+
+	launch1: 0,
+	launch2: 0,
+	pl1: 0,
+	pl2: 0,
+
+	crt1: 1,
+	crt2: 2,
+	crt3: 3,
+	crt4: 0,
+
+	apply: func {
+
+	for (var i=0; i< size(gpc_array); i=i+1)
+		{
+
+		var gpc = gpc_array[i];
+
+		if ((me.string1 - 1) == i)
+			{gpc.string1 = "*";}
+		else
+			{gpc.string1 = "";}
+
+		if ((me.string2 - 1) == i)
+			{gpc.string2 = "*";}
+		else
+			{gpc.string2 = "";}
+
+		if ((me.string3 - 1) == i)
+			{gpc.string3 = "*";}
+		else
+			{gpc.string3 = "";}
+
+		if ((me.string4 - 1) == i)
+			{gpc.string4 = "*";}
+		else
+			{gpc.string4 = "";}
+
+		if ((me.pl1 - 1) == i)
+			{gpc.pl1 = "*";}
+		else
+			{gpc.pl1 = "";}
+		if ((me.pl2 - 1) == i)
+			{gpc.pl2 = "*";}
+		else
+			{gpc.pl2 = "";}
+
+		if ((me.launch1 - 1) == i)
+			{gpc.launch1 = "*";}
+		else
+			{gpc.launch1 = "";}
+		if ((me.launch2 - 1) == i)
+			{gpc.launch2 = "*";}
+		else
+			{gpc.launch2 = "";}
+
+		if ((me.crt1 - 1) == i)
+			{gpc.crt1 = "*";}
+		else
+			{gpc.crt1 = "";}
+		if ((me.crt2 - 1) == i)
+			{gpc.crt2 = "*";}
+		else
+			{gpc.crt2 = "";}
+		if ((me.crt3 - 1) == i)
+			{gpc.crt3 = "*";}
+		else
+			{gpc.crt3 = "";}
+		if ((me.crt4 - 1) == i)
+			{gpc.crt4 = "*";}
+		else
+			{gpc.crt4 = "";}
+
+
+
+		}
+
+	},
+
+};
 
 
 ###############################################################################
