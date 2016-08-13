@@ -1116,7 +1116,7 @@ settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
 
 
 #########################################################################################
-# canvas for in-cockpit timers
+# canvas in-cockpit timers
 #########################################################################################
 
 
@@ -1130,6 +1130,9 @@ var ev_timer =
         obj.model_element = model_element;
 	obj.time = 0;
 	obj.count_flag = 0;
+	obj.count_mode = "DOWN";
+	obj.set_time = 0;
+
         var dev_canvas= canvas.new({
                 "name": designation,
                     "size": [256,256], 
@@ -1153,14 +1156,28 @@ var ev_timer =
     	return obj;
     },
 
-    set: func (sec)
+    display : func 
     {
-	me.time = sec;
 
-	var string =  SpaceShuttle.seconds_to_stringMS(me.time);
+	var display_time = me.time;
+	if ((me.count_mode = "UP") and (me.count_flag == 1))
+		{
+		display_time = me.set_time - me.time;
+		}
+
+	var string =  SpaceShuttle.seconds_to_stringMS(display_time);
 	if (me.time < 600) {string = "0"~string;}
 
 	me.time_string.setText(string);
+    },
+
+    set: func (sec)
+    {
+	me.count_flag = 0;
+	me.time = sec;
+	me.set_time = sec;
+	me.display();
+	
     },
 
     start: func
@@ -1176,10 +1193,7 @@ var ev_timer =
 	me.time = me.time - 1;
 	if (me.time < 0) {me.time =0; return;}
 
-	var string =  SpaceShuttle.seconds_to_stringMS(me.time);
-	if (me.time < 600) {string = "0"~string;}
-
-	me.time_string.setText(string);
+	me.display();
 
 	settimer (func me.update(), 1.0);
     },
@@ -1187,6 +1201,19 @@ var ev_timer =
     stop: func
     {
 	me.count_flag = 0;
+    },
+
+    set_mode: func (mode)
+    {
+    
+	if (mode == "UP") {me.count_mode = "UP";}
+	else if (mode == "DOWN") {me.count_mode = "DOWN";}
+
+    },
+
+    change_timer: func (inc)
+    {
+	me.time = me.time + inc;
     },
 
 
