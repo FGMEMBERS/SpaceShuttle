@@ -81,7 +81,7 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index
 append(last_command, symbol);
 current_string = current_string~symbol;
 
-if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
+if ((header == "OPS") or (header == "SPEC") or (header == "ITEM") or (header == "CRT"))
 	{
 	if (b_v_flag == 0)
 		{body = body~symbol; length_body = length_body+1;}
@@ -413,6 +413,26 @@ setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 
 
 command_parse(idp_index);
+}
+
+# GPC/CRT key #####################################################
+
+var key_gpc_crt = func (kb_id) {
+
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
+
+if (current_string == "")
+	{header = "CRT";}
+else {header = "FAIL";}
+
+var element = "GPC/CRT ";
+append(last_command, element);
+current_string = current_string~element;
+
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
+
 }
 
 
@@ -813,7 +833,42 @@ if ((header == "OPS") and (end =="PRO"))
 
 	}
 
-if ((header == "ITEM") and (end = "EXEC"))
+if ((header == "CRT") and (end == "EXEC"))
+	{
+
+	var code = int(body);
+	print (code);
+	var gpc_number = int(code/10.0);
+	var idp_number = code -10 * gpc_number;
+
+	print(gpc_number, " ", idp_number);
+
+	if ((idp_number < 1) or (idp_number > 4)) {valid_flag = 0;}
+	else if ((gpc_number < 0) or (gpc_number > 5)) {valid_flag = 0;}
+	else if (gpc_number == 0)
+		{
+		SpaceShuttle.nbat.crt[idp_number-1] = gpc_number;
+		SpaceShuttle.nbat.apply_crt();
+		valid_flag = 1;
+		}
+	else
+		{
+		var mf = SpaceShuttle.gpc_array[gpc_number-1].major_function;
+
+		if (mf == "GNC")
+			{
+			SpaceShuttle.nbat.crt[idp_number-1] = gpc_number;
+			SpaceShuttle.nbat.apply_crt();
+			valid_flag = 1;
+			}
+		else {valid_flag = 0;}
+			
+		}
+
+	}
+
+
+if ((header == "ITEM") and (end == "EXEC"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 	#var spec = getprop("/fdm/jsbsim/systems/dps/spec");

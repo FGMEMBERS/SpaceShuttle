@@ -2123,6 +2123,8 @@ SpaceShuttle.init_gpcs(stage);
 SpaceShuttle.init_idps();
 SpaceShuttle.init_keyboards();
 
+SpaceShuttle.nbat.apply();
+
 
 }
 

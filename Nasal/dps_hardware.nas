@@ -208,15 +208,61 @@ var nbat = {
 	string3: 3,
 	string4: 1,
 
-	launch1: 0,
-	launch2: 0,
-	pl1: 0,
-	pl2: 0,
+	launch1: 1,
+	launch2: 2,
+	pl1: 4,
+	pl2: 4,
 
-	crt1: 1,
-	crt2: 2,
-	crt3: 3,
-	crt4: 0,
+	crt: [1,2,3,0],
+
+	config_modified: 0,
+
+	
+	select_ops: func (ops) {
+
+	if (me.config_modified == 1)
+		{return;}
+
+	if ((ops == 1) or (ops == 6))
+		{
+		me.string1 = 1;
+		me.string2 = 2;
+		me.string3 = 3;
+		me.string4 = 4;
+		me.launch1 = 1;
+		me.launch2 = 2;
+		me.pl1 = 0;
+		me.pl2 = 0;
+		me.crt = [1,2,3,0];
+		}
+	else if (ops == 2)
+		{
+		me.string1 = 1;
+		me.string2 = 2;
+		me.string3 = 3;
+		me.string4 = 1;
+		me.launch1 = 0;
+		me.launch2 = 0;
+		me.pl1 = 2;
+		me.pl2 = 2;
+		me.crt = [1,2,3,0];
+		}
+	else if (ops == 3)
+		{
+		me.string1 = 1;
+		me.string2 = 2;
+		me.string3 = 3;
+		me.string4 = 4;
+		me.launch1 = 0;
+		me.launch2 = 0;
+		me.pl1 = 1;
+		me.pl2 = 1;
+		me.crt = [1,2,3,0];
+		}
+
+
+	},
+
 
 	apply: func {
 
@@ -263,19 +309,50 @@ var nbat = {
 		else
 			{gpc.launch2 = "";}
 
-		if ((me.crt1 - 1) == i)
+		if ((me.crt[0] - 1) == i)
 			{gpc.crt1 = "*";}
 		else
 			{gpc.crt1 = "";}
-		if ((me.crt2 - 1) == i)
+		if ((me.crt[1] - 1) == i)
 			{gpc.crt2 = "*";}
 		else
 			{gpc.crt2 = "";}
-		if ((me.crt3 - 1) == i)
+		if ((me.crt[2] - 1) == i)
 			{gpc.crt3 = "*";}
 		else
 			{gpc.crt3 = "";}
-		if ((me.crt4 - 1) == i)
+		if ((me.crt[3] - 1) == i)
+			{gpc.crt4 = "*";}
+		else
+			{gpc.crt4 = "";}
+
+
+
+		}
+
+	},
+
+	apply_crt: func {
+
+	for (var i=0; i< size(gpc_array); i=i+1)
+		{
+
+		var gpc = gpc_array[i];
+
+		
+		if ((me.crt[0] - 1) == i)
+			{gpc.crt1 = "*";}
+		else
+			{gpc.crt1 = "";}
+		if ((me.crt[1] - 1) == i)
+			{gpc.crt2 = "*";}
+		else
+			{gpc.crt2 = "";}
+		if ((me.crt[2] - 1) == i)
+			{gpc.crt3 = "*";}
+		else
+			{gpc.crt3 = "";}
+		if ((me.crt[3] - 1) == i)
 			{gpc.crt4 = "*";}
 		else
 			{gpc.crt4 = "";}

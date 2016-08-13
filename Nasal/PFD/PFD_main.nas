@@ -288,7 +288,11 @@ var MDU_Device =
             me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
 
 	    if (SpaceShuttle.idp_array[idp_index].get_major_function() == 1)
-            	{me.DPS_menu_gpc_driver.setText("1");}
+            	{
+		var gpc_driver = SpaceShuttle.nbat.crt[idp_index];
+		me.DPS_menu_gpc_driver.setText(sprintf("%d",gpc_driver));
+
+		}
 	    else
 		{me.DPS_menu_gpc_driver.setText("4");}
 
