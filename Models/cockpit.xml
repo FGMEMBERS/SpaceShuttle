@@ -1008,7 +1008,7 @@
         </emission>
     </animation>
 
-    <effect>
+    <!--effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
         <object-name>DisplaysC1</object-name>
         <object-name>DisplaysC2</object-name>
@@ -1026,7 +1026,7 @@
         <object-name>HudRight</object-name>
         <object-name>roof_assembly</object-name>
         <object-name>Fwd_Base_Set</object-name>
-    </effect>
+    </effect-->
 
     <animation>
         <object-name>DisplayL1</object-name>
