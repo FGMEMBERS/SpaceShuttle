@@ -160,6 +160,7 @@ var MDU_Device =
 	obj.PFD.fc_bus_displayed = "";
         obj.PFD.dps_page_flag = 0;
         obj.PFD.designation = designation;
+	obj.PFD.polling_status = 1;
         obj.mdu_device_status = 10;
 	obj.operational = 1;
         obj.model_index = model_index; # numeric index (1 to 9, left to right) used to connect the buttons in the cockpit to the display
@@ -235,6 +236,9 @@ var MDU_Device =
 	    me.DPS_menu_line4.setVisible(0);
 	    me.DPS_menu_line_cdr.setVisible(0);
 	    me.DPS_menu_line_plt.setVisible(0);
+	    me.DPS_menu_cross1.setVisible(0);
+	    me.DPS_menu_cross2.setVisible(0);
+	    me.dps_page_flag = 0;
 
         };
 
@@ -270,6 +274,35 @@ var MDU_Device =
         {
             var time_string = "";
 
+	    me.dps_page_flag = 1;
+
+            if (me.DPS_menu_blink == 1) {me.DPS_menu_blink = 0;}
+            else {me.DPS_menu_blink = 1;}
+
+            var port = me.port_selected;
+            var idp_index = port - 1;
+
+	    if (me.polling_status == 0)
+		{
+	    	me.DPS_menu_cross1.setVisible(1);
+	    	me.DPS_menu_cross2.setVisible(1);
+
+		var fault_string = SpaceShuttle.idp_array[idp_index].current_fault_string;
+
+	    	if (SpaceShuttle.meds_last_message_acknowledge == 1)
+	    	{if (me.DPS_menu_blink == 0) {fault_string = "";}}
+
+	    	me.MEDS_fault_message.setText(fault_string);
+
+		return;
+		}
+	    else
+		{
+	    	me.DPS_menu_cross1.setVisible(0);
+	    	me.DPS_menu_cross2.setVisible(0);
+		}
+
+
             if (getprop("/fdm/jsbsim/systems/timer/time-display-flag") == 0)
             {
                 time_string = "000/"~getprop("/sim/time/gmt-string");
@@ -280,8 +313,7 @@ var MDU_Device =
             }
 
 
-            var port = me.port_selected;
-            var idp_index = port - 1;
+
 
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
@@ -328,8 +360,7 @@ var MDU_Device =
             }
             me.DPS_menu_fault_line.setText(fault_string);
 
-            if (me.DPS_menu_blink == 1) {me.DPS_menu_blink = 0;}
-            else {me.DPS_menu_blink = 1;}
+
 
 
 	    fault_string = SpaceShuttle.idp_array[idp_index].current_fault_string;
@@ -465,6 +496,8 @@ var MDU_Device =
         me.PFD.DPS_menu_line4 = me.PFD.svg.getElementById("dps_menu_line4");
         me.PFD.DPS_menu_line_cdr = me.PFD.svg.getElementById("dps_menu_line_cdr");
         me.PFD.DPS_menu_line_plt = me.PFD.svg.getElementById("dps_menu_line_plt");
+        me.PFD.DPS_menu_cross1 = me.PFD.svg.getElementById("dps_menu_cross1");
+        me.PFD.DPS_menu_cross2 = me.PFD.svg.getElementById("dps_menu_cross2");
         me.PFD.DPS_menu_blink = 1;
 
 	me.PFD.MEDS_primary_port = me.PFD.svg.getElementById("meds_menu_primary_port");
@@ -708,7 +741,31 @@ var MDU_Device =
     update : func
     {
 
-	# determine whether device is operational, if so register power consumption
+	# determine whether device is operational 
+
+	if (me.PFD.dps_page_flag == 1) # check whether there's a GPC with the required major function
+		{
+
+		if (size(SpaceShuttle.idp_array) == 0) {return;}
+		
+		var idp_index = me.PFD.port_selected -1;
+		var major_function = SpaceShuttle.idp_array[idp_index].major_function_string;
+
+		var is_available = SpaceShuttle.gpc_check_available(major_function);
+
+		if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0))
+			{
+			me.PFD.polling_status = 0;
+			me.PFD.update_common_DPS();
+			return;
+			}
+		else
+			{
+			me.PFD.polling_status = 1;
+			}
+
+		}
+	
 
         if(me.mdu_device_status)
             me.PFD.update();

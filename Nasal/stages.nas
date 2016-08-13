@@ -303,6 +303,7 @@ settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 settimer(SpaceShuttle.cloud_illumination, 0.2);
 settimer(SpaceShuttle.update_ascent_predictors, 0.4);
 settimer(SpaceShuttle.contingency_abort_region_2eo, 0.6);
+settimer(SpaceShuttle.cws_inspect, 0.8);
 
 
 

@@ -360,6 +360,8 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
 	SpaceShuttle.idp_array[idp_index].set_spec(0);
+	setprop("/fdm/jsbsim/systems/dps/disp", 0);
+	SpaceShuttle.idp_array[idp_index].set_disp(0);
 	}
 }
 else if (major_function == 2)
@@ -521,6 +523,8 @@ var major_mode_transition = func (idp_index, page_id) {
 	var current_spec = SpaceShuttle.idp_array[index].get_spec();
 	var current_disp = SpaceShuttle.idp_array[index].get_disp();
 
+	print(index, " ", current_major_function, " ", current_disp, " ", M.PFD.dps_page_flag);
+
         if ((current_major_function == major_function) and (M.PFD.dps_page_flag == 1) and (current_spec == 0) and (current_disp == 0))
 		{
             M.PFD.selectPage(M.PFD.page_index[page_id]);
@@ -677,6 +681,16 @@ var command_parse_gnc = func (idp_index) {
 
 
 var valid_flag = 0;
+
+# check if we have a valid GPC before executing a command
+
+var is_available = SpaceShuttle.gpc_check_available("GNC");
+if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0)) 
+	{
+	print("Polling error - command not passed to GPC.");
+	return;
+	}
+
 
 print(header, " ", body, " ", value);
 
@@ -837,11 +851,8 @@ if ((header == "CRT") and (end == "EXEC"))
 	{
 
 	var code = int(body);
-	print (code);
 	var gpc_number = int(code/10.0);
 	var idp_number = code -10 * gpc_number;
-
-	print(gpc_number, " ", idp_number);
 
 	if ((idp_number < 1) or (idp_number > 4)) {valid_flag = 0;}
 	else if ((gpc_number < 0) or (gpc_number > 5)) {valid_flag = 0;}
@@ -2776,6 +2787,13 @@ var command_parse_sm = func (idp_index) {
 
 
 var valid_flag = 0;
+
+var is_available = SpaceShuttle.gpc_check_available("SM");
+if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0)) 
+	{
+	print("Polling error - command not passed to GPC.");
+	return;
+	}
 
 print(header, " ", body, " ", value);
 
