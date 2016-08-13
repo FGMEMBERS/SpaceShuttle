@@ -25,6 +25,7 @@ acvolt : 0,
 var meds_msg_hash = {
 io : [0,0,0,0,0,0,0,0,0],
 port_change: [0,0,0,0,0,0,0,0,0],
+poll: [0,0,0,0],
 };
 
 var cws_inspect = func {
@@ -924,16 +925,29 @@ for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
 	{
 	var mdu = SpaceShuttle.MDU_array[i];
 
+	var idp_index = mdu.PFD.port_selected - 1;
+
 	if ((mdu.operational == 0) and (meds_msg_hash.io[i] == 0))
 		{
 		meds_msg_hash.io[i] = 1;
 		var message = create_meds_message("I/O ERROR           ", mdu.designation);
 
-		var idp_index = mdu.PFD.port_selected - 1;
 		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
-		print (message);	
+		#print (message);	
 
 		insert_meds_message(message, idp_index);
+		}
+
+	if ((mdu.PFD.polling_status == 0) and (meds_msg_hash.poll[idp_index] == 0))
+		{
+		meds_msg_hash.poll[idp_index] = 1;
+
+		var message = create_meds_message("POLL FAIL           ", "IDP"~(idp_index+1));
+
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+
+		insert_meds_message(message, idp_index);
+
 		}
 
 	}
