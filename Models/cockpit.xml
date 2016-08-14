@@ -15702,14 +15702,60 @@
  <!-- ******************************************************************* -->
  <!--  Commander RHC                                                             -->
  <!-- ******************************************************************* -->
- <model>
+ <!--model>
   <path>RHC-cmdr.xml</path>
   <offset>
    <x-m> 0 </x-m>
    <y-m> 0 </y-m>
    <z-m> 0 </z-m>
   </offset>
- </model>
+ </model-->
+
+  <animation>
+    <type>rotate</type>
+    <object-name>joystick</object-name>
+    <property>controls/flight/elevator</property>
+    <factor>4</factor> <!--  19 to 20 degrees -->
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+    <axis>
+      <y>-1</y>
+    </axis>
+   
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>joystick</object-name>
+    <property>controls/flight/aileron</property>
+    <factor>4</factor>
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>joystick</object-name>
+    <property>controls/flight/rudder</property>
+    <factor>2</factor>
+    <center>
+      <x-m>-12.24572</x-m>
+      <y-m>-0.64122</y-m>
+      <z-m>-1.05351</z-m>
+    </center>
+    <axis>
+      <z>-1</z>
+    </axis>
+  </animation>
 
 <!-- Left Commander Keypad -->
 
