@@ -112,6 +112,7 @@ io.include("p_meds_apu.nas");
 io.include("p_meds_spi.nas");
 io.include("p_meds_maint.nas");
 io.include("p_meds_fault.nas");
+io.include("p_meds_autonomous.nas");
 
 #io.include("a_port_sel.nas");
 
@@ -156,11 +157,14 @@ var MDU_Device =
         obj.PFD.secondary = secondary_port;
         obj.PFD.port_selected = selected_port;
 	obj.PFD.reconf_mode = "MAN";
+	obj.PFD.auto_reconf_flag = 0;
 	obj.PFD.fc_bus = 3;
 	obj.PFD.fc_bus_displayed = "";
         obj.PFD.dps_page_flag = 0;
         obj.PFD.designation = designation;
 	obj.PFD.polling_status = 1;
+	obj.PFD.autonomous = 0;
+	obj.PFD.last_page = nil;
         obj.mdu_device_status = 10;
 	obj.operational = 1;
         obj.model_index = model_index; # numeric index (1 to 9, left to right) used to connect the buttons in the cockpit to the display
@@ -171,6 +175,14 @@ var MDU_Device =
 	if (action == "select_port")
 		{
 		obj.switchPorts();
+		}
+	else if (action == "select_primary_port")
+		{
+		obj.selectPort(1);
+		}
+	else if (action == "select_secondary_port")
+		{
+		obj.selectPort(2);
 		}
 	else if (action == "switch_aut_man")
 		{
@@ -422,6 +434,7 @@ var MDU_Device =
         me.PFD.p_meds_spi = PFD_addpage_p_meds_spi(me.PFD);
         me.PFD.p_meds_maint = PFD_addpage_p_meds_maint(me.PFD);
         me.PFD.p_meds_fault = PFD_addpage_p_meds_fault(me.PFD);
+        me.PFD.p_meds_autonomous = PFD_addpage_p_meds_autonomous(me.PFD);
 
 	# duplicate page handles for pages where only menu changes
 	# need to change layer ID
@@ -434,6 +447,9 @@ var MDU_Device =
 
 	me.PFD.p_pfd_orbit_databus = PFD_addpage_p_pfd_orbit(me.PFD);
 	me.PFD.p_pfd_orbit_databus.layer_id = "p_pfd_orbit_databus";
+
+
+
 
         setlistener("sim/model/shuttle/controls/PFD/button-pressed"~me.model_index, 
                     func(v)
@@ -735,18 +751,45 @@ var MDU_Device =
         me.PFD.p_meds_fault.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_meds_fault.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
+        me.PFD.p_meds_autonomous.addMenuAction(0, "AUT/MAN", "switch_aut_man");
+        me.PFD.p_meds_autonomous.addMenuAction(1, "PRI", "select_primary_port");
+        me.PFD.p_meds_autonomous.addMenuAction(2, "SEC", "select_secondary_port");
+
       
     },
 
     update : func
     {
 
-	# determine whether device is operational 
+	# exit if we don't have an IDP array
+	if (size(SpaceShuttle.idp_array) == 0) {return;}
+
+
+	# determine whether device connects to IDP 
+
+	if ((SpaceShuttle.idp_array[me.PFD.port_selected-1].operational == 0) and (me.PFD.autonomous == 0))
+		{
+	
+		me.PFD.last_lage = me.PFD.current_page;
+		me.PFD.selectPage(me.PFD.p_meds_autonomous);
+		me.PFD.autonomous = 1;
+
+		if (me.PFD.reconf_mode == "AUTO")
+			{
+			me.switchPorts();
+			me.PFD.auto_reconf_flag = 1;
+			}
+		}
+	else if ((SpaceShuttle.idp_array[me.PFD.port_selected-1].operational == 1) and (me.PFD.autonomous == 1))
+		{
+		me.PFD.selectPage(me.PFD.last_lage);
+		me.PFD.autonomous = 0;
+		}
+
+	# determine whether device connects to GCP
 
 	if (me.PFD.dps_page_flag == 1) # check whether there's a GPC with the required major function
 		{
-
-		if (size(SpaceShuttle.idp_array) == 0) {return;}
 		
 		var idp_index = me.PFD.port_selected -1;
 		var major_function = SpaceShuttle.idp_array[idp_index].major_function_string;
@@ -783,6 +826,22 @@ var MDU_Device =
 	me.PFD.update_common_MEDS();	
 
     },
+
+    selectPort : func (port) 
+    {
+	if (port == 1)
+		{me.PFD.port_selected = me.PFD.primary;}
+	else if (port == 2)
+		{me.PFD.port_selected = me.PFD.secondary;}
+
+	print (me.designation, ": New selected port is now: ", me.PFD.port_selected);
+
+	# update MEDS layer to show change
+	me.PFD.update_common_MEDS();	
+
+    },
+
+
 
     switchReconf : func
     {
