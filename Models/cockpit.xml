@@ -118,6 +118,9 @@
         <object-name>hsi-sourcea-plt</object-name>
         <object-name>hsi-sourceb-plt</object-name>
         <object-name>rdr-altm-plt</object-name>
+        <!-- RHC -->
+        <object-name>joystick</object-name>
+        <object-name>joystick-base</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
