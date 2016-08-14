@@ -950,6 +950,21 @@ for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
 
 		}
 
+
+	if ((mdu.PFD.auto_reconf_flag == 1) and (meds_msg_hash.port_change[i] == 0))
+		{
+		meds_msg_hash.port_change[i] = 1;
+		var message = create_meds_message("PORT CHANGE         ", mdu.designation);
+
+		mdu.PFD.auto_reconf_flag = 0;
+
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+
+		insert_meds_message(message, idp_index);
+
+		}
+		
+
 	}
 
 }
