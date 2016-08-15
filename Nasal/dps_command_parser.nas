@@ -487,11 +487,17 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 # the same way
 # moreover OPS transitions will affect the GPC memory content and apply to all screens
 
-# during a MM transition,SPEC and DISP are retained
+
 
 var ops_transition = func (idp_index, page_id) {
 
-    var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+# get the relevant config from the NBAT
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+SpaceShuttle.nbat.select_ops(ops);
+SpaceShuttle.nbat.apply();
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
 # we now switch over all screens on IDPs showing the same major function which are in dps mode
 
@@ -507,6 +513,7 @@ var ops_transition = func (idp_index, page_id) {
 	}
 }
 
+# during a MM transition,SPEC and DISP are retained
 
 var major_mode_transition = func (idp_index, page_id) {
 

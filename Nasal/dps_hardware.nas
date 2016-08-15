@@ -206,7 +206,7 @@ var nbat = {
 	string1: 1,
 	string2: 2,
 	string3: 3,
-	string4: 1,
+	string4: 4,
 
 	launch1: 1,
 	launch2: 2,
@@ -214,6 +214,8 @@ var nbat = {
 	pl2: 4,
 
 	crt: [1,2,3,0],
+
+	gpc: [1,1,1,1,10],
 
 	config_modified: 0,
 
@@ -234,6 +236,7 @@ var nbat = {
 		me.pl1 = 0;
 		me.pl2 = 0;
 		me.crt = [1,2,3,0];
+		me.gpc = [1,1,1,1,10];
 		}
 	else if (ops == 2)
 		{
@@ -246,6 +249,7 @@ var nbat = {
 		me.pl1 = 2;
 		me.pl2 = 2;
 		me.crt = [1,2,3,0];
+		me.gpc = [2,2,2,4,10];
 		}
 	else if (ops == 3)
 		{
@@ -258,6 +262,7 @@ var nbat = {
 		me.pl1 = 1;
 		me.pl2 = 1;
 		me.crt = [1,2,3,0];
+		me.gpc = [3,3,3,3,10];
 		}
 
 
@@ -326,7 +331,8 @@ var nbat = {
 		else
 			{gpc.crt4 = "";}
 
-
+		
+		gpc.set_memory(me.gpc[i]);
 
 		}
 
