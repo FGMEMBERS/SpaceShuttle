@@ -46,7 +46,13 @@
         <darkmap-factor type="float">0.0</darkmap-factor-->
         
         <texture n="3">
-            <image>Aircraft/SpaceShuttle/Models/interior_cabin_lightmap.png</image>
+            <image>Aircraft/SpaceShuttle/Models/lm-L1-M1-M2-R1.png</image>
+            <!--
+            <image>Aircraft/SpaceShuttle/Models/lm-F1-F2-F3-F4.png</image>
+            <image>Aircraft/SpaceShuttle/Models/lm-L1-M1-M2-R1.png</image>
+            <image>Aircraft/SpaceShuttle/Models/lm-F1-F2-L1-M1.png</image>
+            <image>Aircraft/SpaceShuttle/Models/lm-F3-F4-M2-R1.png</image>
+            -->
             <type>2d</type>
             <filter>linear-mipmap-linear</filter>
             <wrap-s>clamp</wrap-s>

@@ -5719,6 +5719,74 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 0)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 1)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 1);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 2)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", 1);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 3)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 1);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 4)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", 1);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 5)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", .7);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", .7);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 6)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", .7);
+                            setprop("/lighting/effects/cabinlight3-intensity", .7);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 7)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", .7);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", .7);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                        }
+                    else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 8)
+                        {
+                            setprop("/lighting/effects/cabinlight1-intensity", .6);
+                            setprop("/lighting/effects/cabinlight2-intensity", .6);
+                            setprop("/lighting/effects/cabinlight3-intensity", .6);
+                            setprop("/lighting/effects/cabinlight4-intensity", .6);
+                        }
+                </script>
+            </binding>
         </action>
         <hovered>
             <binding>
