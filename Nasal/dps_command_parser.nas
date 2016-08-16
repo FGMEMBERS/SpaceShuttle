@@ -307,7 +307,7 @@ if ((disp > 0) and (spec > 0))
 	setprop("/fdm/jsbsim/systems/dps/disp", 0);
 	SpaceShuttle.idp_array[idp_index].set_disp(0);
 	}
-else if ((spec > 0) or ((spec == 0) and (disp > 0)) or (spec == 0))
+else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 	{
 	if (ops == 1)	
 		{
@@ -2642,8 +2642,10 @@ if ((header == "SPEC") and (end =="PRO"))
 	if (spec_num == 0) 
 		{
 		page_select(idp_index, "p_dps_memory");
-		setprop("/fdm/jsbsim/systems/dps/spec", 0);
-		SpaceShuttle.idp_array[idp_index].set_spec(0);
+		# this is a hack - since we've used spec 0 to indicate that
+		# no spec is open, we assign it 3 which isn't used by the avionics 
+		setprop("/fdm/jsbsim/systems/dps/spec", 3);
+		SpaceShuttle.idp_array[idp_index].set_spec(3);
 		valid_flag = 1;
 		}
 	if ((spec_num == 2) and (test_spec_ops_validity(spec2, major_mode) == 1))
