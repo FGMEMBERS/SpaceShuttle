@@ -307,7 +307,7 @@ if ((disp > 0) and (spec > 0))
 	setprop("/fdm/jsbsim/systems/dps/disp", 0);
 	SpaceShuttle.idp_array[idp_index].set_disp(0);
 	}
-else if ((spec > 0) or ((spec == 0) and (disp > 0)))
+else if ((spec > 0) or ((spec == 0) and (disp > 0)) or (spec == 0))
 	{
 	if (ops == 1)	
 		{
@@ -487,11 +487,17 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 # the same way
 # moreover OPS transitions will affect the GPC memory content and apply to all screens
 
-# during a MM transition,SPEC and DISP are retained
+
 
 var ops_transition = func (idp_index, page_id) {
 
-    var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+# get the relevant config from the NBAT
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+SpaceShuttle.nbat.select_ops(ops);
+SpaceShuttle.nbat.apply();
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
 # we now switch over all screens on IDPs showing the same major function which are in dps mode
 
@@ -507,6 +513,7 @@ var ops_transition = func (idp_index, page_id) {
 	}
 }
 
+# during a MM transition,SPEC and DISP are retained
 
 var major_mode_transition = func (idp_index, page_id) {
 
@@ -523,7 +530,7 @@ var major_mode_transition = func (idp_index, page_id) {
 	var current_spec = SpaceShuttle.idp_array[index].get_spec();
 	var current_disp = SpaceShuttle.idp_array[index].get_disp();
 
-	print(index, " ", current_major_function, " ", current_disp, " ", M.PFD.dps_page_flag);
+	#print(index, " ", current_major_function, " ", current_disp, " ", M.PFD.dps_page_flag);
 
         if ((current_major_function == major_function) and (M.PFD.dps_page_flag == 1) and (current_spec == 0) and (current_disp == 0))
 		{
@@ -2632,6 +2639,13 @@ if ((header == "SPEC") and (end =="PRO"))
 	var spec_num = int(body);
 	#print ("Switching to SPEC ", spec_num);
 
+	if (spec_num == 0) 
+		{
+		page_select(idp_index, "p_dps_memory");
+		setprop("/fdm/jsbsim/systems/dps/spec", 0);
+		SpaceShuttle.idp_array[idp_index].set_spec(0);
+		valid_flag = 1;
+		}
 	if ((spec_num == 2) and (test_spec_ops_validity(spec2, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_time");
