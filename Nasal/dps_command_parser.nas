@@ -1374,6 +1374,71 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		}
 
+	if (spec == 3) # this is a hack for SPEC 0 memory management
+		{
+		if (item == 1)
+			{
+			SpaceShuttle.nbat.edited_mcc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string3 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string3 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string3 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string4 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string4 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string4 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 45)
+			{
+			SpaceShuttle.nbat.direct_edit_config = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 46)
+			{
+			SpaceShuttle.nbat.direct_edit_gpc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 47)
+			{
+			var gpc_number = SpaceShuttle.nbat.direct_edit_gpc - 1;
+			SpaceShuttle.gpc_array[gpc_number].set_memory(SpaceShuttle.nbat.direct_edit_config);
+			valid_flag = 1;
+			}
+		}
+
 
 	if (spec == 20)
 		{

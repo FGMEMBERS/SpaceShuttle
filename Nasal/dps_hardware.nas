@@ -212,6 +212,12 @@ var nbat = {
 	launch2: 2,
 	pl1: 4,
 	pl2: 4,
+	mm1: 1,
+	mm2: 2,
+
+	mm_area_pl: 1,
+	mm_area_sm: 1,
+	mm_area_gnc: 1,
 
 	crt: [1,2,3,0],
 
@@ -219,6 +225,48 @@ var nbat = {
 
 	config_modified: 0,
 
+	g1_string1: 1,
+	g1_string2: 2,
+	g1_string3: 3,
+	g1_string4: 4,
+	g1_launch1: 1,
+	g1_launch2: 2,
+	g1_pl1: 0,
+	g1_pl2: 0,
+	g1_mm1: 1,
+	g1_mm2: 2,
+	g1_crt: [1,2,3,0],
+	g1_gpc: [1,1,1,1,10],
+
+	g2_string1: 1,
+	g2_string2: 2,
+	g2_string3: 3,
+	g2_string4: 1,
+	g2_launch1: 0,
+	g2_launch2: 0,
+	g2_pl1: 2,
+	g2_pl2: 2,
+	g2_mm1: 1,
+	g2_mm2: 2,
+	g2_crt: [1,2,3,0],
+	g2_gpc: [2,2,2,4,10],
+
+	g3_string1: 1,
+	g3_string2: 2,
+	g3_string3: 3,
+	g3_string4: 4,
+	g3_launch1: 0,
+	g3_launch2: 0,
+	g3_pl1: 0,
+	g3_pl2: 0,
+	g3_mm1: 1,
+	g3_mm2: 2,
+	g3_crt: [1,2,3,0],
+	g3_gpc: [3,3,3,3,10],
+
+	edited_mcc: 0,
+	direct_edit_gpc: 0,
+	direct_edit_config: 0,
 	
 	select_ops: func (ops) {
 
@@ -227,42 +275,48 @@ var nbat = {
 
 	if ((ops == 1) or (ops == 6))
 		{
-		me.string1 = 1;
-		me.string2 = 2;
-		me.string3 = 3;
-		me.string4 = 4;
-		me.launch1 = 1;
-		me.launch2 = 2;
-		me.pl1 = 0;
-		me.pl2 = 0;
-		me.crt = [1,2,3,0];
-		me.gpc = [1,1,1,1,10];
+		me.string1 = me.g1_string1;
+		me.string2 = me.g1_string2;
+		me.string3 = me.g1_string3;
+		me.string4 = me.g1_string4;
+		me.launch1 = me.g1_launch1;
+		me.launch2 = me.g1_string2;
+		me.pl1 = me.g1_pl1;
+		me.pl2 = me.g1_pl2;
+		me.crt = me.g1_crt;
+		me.gpc = me.g1_gpc;
+		me.mm1 = me.g1_mm1;
+		me.mm2 = me.g1_mm2;
 		}
 	else if (ops == 2)
 		{
-		me.string1 = 1;
-		me.string2 = 2;
-		me.string3 = 3;
-		me.string4 = 1;
-		me.launch1 = 0;
-		me.launch2 = 0;
-		me.pl1 = 2;
-		me.pl2 = 2;
-		me.crt = [1,2,3,0];
-		me.gpc = [2,2,2,4,10];
+		me.string1 = me.g2_string1;
+		me.string2 = me.g2_string2;
+		me.string3 = me.g2_string3;
+		me.string4 = me.g2_string4;
+		me.launch1 = me.g2_launch1;
+		me.launch2 = me.g2_string2;
+		me.pl1 = me.g2_pl1;
+		me.pl2 = me.g2_pl2;
+		me.crt = me.g2_crt;
+		me.gpc = me.g2_gpc;
+		me.mm1 = me.g2_mm1;
+		me.mm2 = me.g2_mm2;
 		}
 	else if (ops == 3)
 		{
-		me.string1 = 1;
-		me.string2 = 2;
-		me.string3 = 3;
-		me.string4 = 4;
-		me.launch1 = 0;
-		me.launch2 = 0;
-		me.pl1 = 1;
-		me.pl2 = 1;
-		me.crt = [1,2,3,0];
-		me.gpc = [3,3,3,3,10];
+		me.string1 = me.g3_string1;
+		me.string2 = me.g3_string2;
+		me.string3 = me.g3_string3;
+		me.string4 = me.g3_string4;
+		me.launch1 = me.g3_launch1;
+		me.launch2 = me.g3_string2;
+		me.pl1 = me.g3_pl1;
+		me.pl2 = me.g3_pl2;
+		me.crt = me.g3_crt;
+		me.gpc = me.g3_gpc;
+		me.mm1 = me.g3_mm1;
+		me.mm2 = me.g3_mm2;
 		}
 
 
