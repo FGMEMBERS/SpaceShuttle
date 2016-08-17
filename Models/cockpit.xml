@@ -5728,6 +5728,10 @@
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
                             setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 1)
                         {
@@ -5735,6 +5739,10 @@
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
                             setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 2)
                         {
@@ -5742,6 +5750,10 @@
                             setprop("/lighting/effects/cabinlight2-intensity", 1);
                             setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 3)
                         {
@@ -5749,6 +5761,10 @@
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
                             setprop("/lighting/effects/cabinlight3-intensity", 1);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 4)
                         {
@@ -5756,34 +5772,54 @@
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
                             setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 1);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 5)
                         {
-                            setprop("/lighting/effects/cabinlight1-intensity", .7);
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
                             setprop("/lighting/effects/cabinlight3-intensity", 0);
-                            setprop("/lighting/effects/cabinlight4-intensity", .7);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 1);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 6)
                         {
                             setprop("/lighting/effects/cabinlight1-intensity", 0);
-                            setprop("/lighting/effects/cabinlight2-intensity", .7);
-                            setprop("/lighting/effects/cabinlight3-intensity", .7);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 1);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 7)
                         {
-                            setprop("/lighting/effects/cabinlight1-intensity", .7);
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
                             setprop("/lighting/effects/cabinlight2-intensity", 0);
-                            setprop("/lighting/effects/cabinlight3-intensity", .7);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
                             setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 1);
+                            setprop("/lighting/effects/cabinlight8-intensity", 0);
                         }
                     else if (getprop("/fdm/jsbsim/systems/dummy/switch/sband-pm") == 8)
                         {
-                            setprop("/lighting/effects/cabinlight1-intensity", .5);
-                            setprop("/lighting/effects/cabinlight2-intensity", .5);
-                            setprop("/lighting/effects/cabinlight3-intensity", .5);
-                            setprop("/lighting/effects/cabinlight4-intensity", .5);
+                            setprop("/lighting/effects/cabinlight1-intensity", 0);
+                            setprop("/lighting/effects/cabinlight2-intensity", 0);
+                            setprop("/lighting/effects/cabinlight3-intensity", 0);
+                            setprop("/lighting/effects/cabinlight4-intensity", 0);
+                            setprop("/lighting/effects/cabinlight5-intensity", 0);
+                            setprop("/lighting/effects/cabinlight6-intensity", 0);
+                            setprop("/lighting/effects/cabinlight7-intensity", 0);
+                            setprop("/lighting/effects/cabinlight8-intensity", 1);
                         }
                 </script>
             </binding>
