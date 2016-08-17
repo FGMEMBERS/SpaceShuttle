@@ -1356,6 +1356,10 @@
         <cabinlight2-intensity type="float">0.0</cabinlight2-intensity>
         <cabinlight3-intensity type="float">0.0</cabinlight3-intensity>
         <cabinlight4-intensity type="float">0.0</cabinlight4-intensity>
+        <cabinlight5-intensity type="float">0.0</cabinlight5-intensity>
+        <cabinlight6-intensity type="float">0.0</cabinlight6-intensity>
+        <cabinlight7-intensity type="float">0.0</cabinlight7-intensity>
+        <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
 
       <!-- geometry-based lighting effect -->
  
