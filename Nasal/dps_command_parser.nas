@@ -1374,6 +1374,303 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		}
 
+	if (spec == 3) # this is a hack for SPEC 0 memory management
+		{
+		if (item == 1)
+			{
+			SpaceShuttle.nbat.edited_mcc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+			
+			if (mcc == 1)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g1_gpc[0] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[0] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g2_gpc[0] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[0] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g3_gpc[0] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[0] = 4;}
+				}
+
+			
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g1_gpc[1] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[1] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g2_gpc[1] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[1] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g3_gpc[1] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[1] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+		
+			if (mcc == 1)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g1_gpc[2] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[2] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g2_gpc[2] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[2] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g3_gpc[2] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[2] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g1_gpc[3] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[3] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g2_gpc[3] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[3] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g3_gpc[3] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[3] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g1_gpc[4] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[4] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g2_gpc[4] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[4] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g3_gpc[4] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[4] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string3 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string3 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string3 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string4 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string4 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string4 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) 
+				{
+				SpaceShuttle.nbat.g1_pl1 = int(value);
+				SpaceShuttle.nbat.g1_pl2 = int(value);
+				}
+			else if (mcc == 2) 
+				{
+				SpaceShuttle.nbat.g2_pl1 = int(value);
+				SpaceShuttle.nbat.g2_pl2 = int(value);
+				}
+			else if (mcc == 3) 
+				{
+				SpaceShuttle.nbat.g3_pl1 = int(value);
+				SpaceShuttle.nbat.g3_pl2 = int(value);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[0] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[0] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[0] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[1] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[1] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[1] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[2] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[2] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[2] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[3] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[3] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[3] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_launch1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_launch1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_launch1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_launch2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_launch2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_launch2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_mm1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_mm1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_mm1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_mm2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_mm2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_mm2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 45)
+			{
+			SpaceShuttle.nbat.direct_edit_config = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 46)
+			{
+			SpaceShuttle.nbat.direct_edit_gpc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 47)
+			{
+			var gpc_number = SpaceShuttle.nbat.direct_edit_gpc - 1;
+			SpaceShuttle.gpc_array[gpc_number].set_memory(SpaceShuttle.nbat.direct_edit_config);
+			valid_flag = 1;
+			}
+		else if (item == 52)
+			{
+			SpaceShuttle.nbat.mm_area_pl = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 53)
+			{
+			SpaceShuttle.nbat.mm_area_gnc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 54)
+			{
+			SpaceShuttle.nbat.mm_area_sm = int(value);
+			valid_flag = 1;
+			}
+		}
+
 
 	if (spec == 20)
 		{

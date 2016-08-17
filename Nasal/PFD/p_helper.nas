@@ -158,4 +158,22 @@ return filter_quality_v;
 
 }
 
+var mcc_to_string = func (mcc) {
 
+if (mcc == 1) {return "1(G1)";}
+else if (mcc == 2) {return "2(G2)";}
+else if (mcc == 3) {return "3(G3)";}
+else if (mcc == 4) {return "4(S2)";}
+else {return "";}
+
+}
+
+var mcc_to_short_string = func (mcc) {
+
+if (mcc == 1) {return "G1";}
+else if (mcc == 2) {return "G2";}
+else if (mcc == 3) {return "G3";}
+else if (mcc == 4) {return "S2";}
+else {return "";}
+
+}
