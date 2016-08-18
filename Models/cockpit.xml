@@ -493,6 +493,7 @@
         <object-name>R2-panel</object-name>
         <object-name>R2-base</object-name>
         <object-name>R2-guards</object-name>
+        <object-name>R2-talkback-base</object-name>
         <!--Panel L1 switches -->
         <object-name>h2o-pump-l1</object-name>
         <object-name>h2o-pump-l2</object-name>
