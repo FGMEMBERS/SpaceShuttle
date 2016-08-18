@@ -309,6 +309,7 @@
         <object-name>C3-fasteners</object-name>
         <object-name>C3-guards</object-name>
         <object-name>C3-base</object-name>
+        <object-name>C3-buttons-base</object-name>
         <!-- Panel C4 fixings -->
         <object-name>C4-panel</object-name>
         <object-name>C4-latch</object-name>
@@ -412,6 +413,7 @@
         <object-name>R1-fasteners</object-name>
         <object-name>R1-guards</object-name>
         <object-name>R1-base</object-name>
+        <object-name>R1-talkback-base</object-name>
         <!--Panel R2 switches -->
         <object-name>prplt-dump-seq-start</object-name>
         <object-name>prplt-dump-bkup-lh2-vlv</object-name>
