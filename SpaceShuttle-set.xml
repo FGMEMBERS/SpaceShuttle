@@ -577,6 +577,14 @@
       <hud-bright-plt type="int">1</hud-bright-plt>
       <hud-dim-cmd type="float">1.0</hud-dim-cmd>
       <hud-dim-plt type="float">1.0</hud-dim-plt>
+      <cabinlight1-intensity type="float">0.0</cabinlight1-intensity>
+      <cabinlight2-intensity type="float">0.0</cabinlight2-intensity>
+      <cabinlight3-intensity type="float">0.0</cabinlight3-intensity>
+      <cabinlight4-intensity type="float">0.0</cabinlight4-intensity>
+      <cabinlight5-intensity type="float">0.0</cabinlight5-intensity>
+      <cabinlight6-intensity type="float">0.0</cabinlight6-intensity>
+      <cabinlight7-intensity type="float">0.0</cabinlight7-intensity>
+      <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
      </light>
      <mechanical>
       <et-umbilical-door-mode type="int">0</et-umbilical-door-mode>
@@ -1352,14 +1360,6 @@
         <color-8 type="float">0.8</color-8>
         <color-9 type="float">0.9</color-9>
         <color-10 type="float">1.0</color-10>
-        <cabinlight1-intensity type="float">0.0</cabinlight1-intensity>
-        <cabinlight2-intensity type="float">0.0</cabinlight2-intensity>
-        <cabinlight3-intensity type="float">0.0</cabinlight3-intensity>
-        <cabinlight4-intensity type="float">0.0</cabinlight4-intensity>
-        <cabinlight5-intensity type="float">0.0</cabinlight5-intensity>
-        <cabinlight6-intensity type="float">0.0</cabinlight6-intensity>
-        <cabinlight7-intensity type="float">0.0</cabinlight7-intensity>
-        <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
 
       <!-- geometry-based lighting effect -->
  
