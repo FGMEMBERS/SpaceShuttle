@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>cab-lighting</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Cabin lights</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+
+    <text>
+      <label>Forward Panels</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>light-switch-f1</name>
+        <row>1</row>
+        <col>1</col>
+        <label>F1</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight1-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-f1</object-name>
+        </binding>
+    </checkbox>
+    <checkbox>
+        <name>light-switch-f2</name>
+        <row>1</row>
+        <col>2</col>
+        <label>F2</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-f2</object-name>
+        </binding>
+    </checkbox>
+    <checkbox>
+        <name>light-switch-f3</name>
+        <row>1</row>
+        <col>3</col>
+        <label>F3</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight3-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-f3</object-name>
+        </binding>
+    </checkbox>
+    <checkbox>
+        <name>light-switch-f4</name>
+        <row>1</row>
+        <col>4</col>
+        <label>F4</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight4-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-f4</object-name>
+        </binding>
+    </checkbox>
+
+    <text>
+      <label>Overheads</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+     <checkbox>
+        <name>light-switch-l1</name>
+        <row>3</row>
+        <col>1</col>
+        <label>L1</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight5-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-l1</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-l1</name>
+        <row>4</row>
+        <col>1</col>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight5-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-l1</object-name>
+        </binding>
+    </slider>
+    
+    <checkbox>
+        <name>light-switch-m1</name>
+        <row>3</row>
+        <col>2</col>
+        <label>M1</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-m1</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-m1</name>
+        <row>4</row>
+        <col>2</col>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-m1</object-name>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-m2</name>
+        <row>3</row>
+        <col>3</col>
+        <label>M2</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-m2</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-m2</name>
+        <row>4</row>
+        <col>3</col>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-m2</object-name>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-r1</name>
+        <row>3</row>
+        <col>4</col>
+        <label>R1</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-r1</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-r1</name>
+        <row>4</row>
+        <col>4</col>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-r1</object-name>
+        </binding>
+    </slider>
+
+  </group>
+
+
+       <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

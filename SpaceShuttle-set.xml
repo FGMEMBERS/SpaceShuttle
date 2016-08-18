@@ -1805,17 +1805,10 @@
        </binding>
       </item>
       <item>
-       <label>Replicate CDR1 MDU</label>
+       <label>Cabin Lighting</label>
        <binding>
         <command>nasal</command>
-        <script>SpaceShuttle.create_MDU_clone(0)</script>
-       </binding>
-      </item>
-      <item>
-       <label>Replicate CDR2 MDU</label>
-       <binding>
-        <command>nasal</command>
-        <script>SpaceShuttle.create_MDU_clone(1)</script>
+        <script>SpaceShuttle.cab_lighting_dlg.open()</script>
        </binding>
       </item>
 
@@ -1904,6 +1897,20 @@
        </binding>
       </item>
 
+      <item>
+       <label>Replicate CDR1 MDU</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.create_MDU_clone(0)</script>
+       </binding>
+      </item>
+      <item>
+       <label>Replicate CDR2 MDU</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.create_MDU_clone(1)</script>
+       </binding>
+      </item>
      </menu>
 
      <menu n="53">
