@@ -107,9 +107,10 @@ var light_manager = {
 		me.z = 2.0;
 		me.radius = 10.0;
 		me.ambience = 0.2;
+		me.flicker_stop();
 		me.apply();
 		}
-	else if (theme = "RUNWAY")
+	else if (theme == "RUNWAY")
 		{
 		me.red = 0.0;
 		me.green = 0.0;
@@ -123,9 +124,10 @@ var light_manager = {
 		me.z = 0.0;
 		me.radius = 0.0;
 		me.ambience = 0.0;
+		me.flicker_stop();
 		me.rwy_loop_start();
 		}
-	else if (theme = "CLEAR")
+	else if (theme == "CLEAR")
 		{
 		me.red = 0.0;
 		me.green = 0.0;
@@ -215,6 +217,8 @@ var light_manager = {
 
 
 	apply: func {
+
+		print ("Applying theme: ", me.current_theme);
 
 		setprop("/lighting/effects/geo-red", me.red);
 		setprop("/lighting/effects/geo-green", me.green);
@@ -374,10 +378,10 @@ var light_manager = {
 
 var oms_light_check = func {
 
+#print("OMS light check!");
 
 if ((light_manager.current_theme != "CLEAR") and (light_manager.current_theme != "OMS"))	
 	{return;} 
-
 
 
 var thrust_OMS1 = getprop("/engines/engine[5]/thrust_lb");

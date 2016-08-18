@@ -2223,7 +2223,7 @@
 
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
- <object-name>fuselage</object-name>
+ <!--<object-name>fuselage</object-name>-->
  <object-name>inboard-elevon-left</object-name>
  <object-name>inboard-elevon-right</object-name>
  <object-name>outboard-elevon-left</object-name>
