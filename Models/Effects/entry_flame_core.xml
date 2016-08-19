@@ -17,7 +17,7 @@
     <and>
     <greater-than>
      <property>/fdm/jsbsim/systems/thermal/nose-temperature-F</property>
-     <value>2000.0</value>
+     <value>2200.0</value>
     </greater-than>
      <not>
 	<property>/sim/current-view/internal</property>

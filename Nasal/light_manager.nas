@@ -20,6 +20,7 @@ var light_manager = {
 	flicker: 0,
 	flicker_strength: 0.025,
 	runway: 0,
+	entry: 0,
 
 	red_tgt: 0.0,
 	green_tgt: 0.0,
@@ -109,6 +110,24 @@ var light_manager = {
 		me.ambience = 0.2;
 		me.flicker_stop();
 		me.apply();
+		}
+	else if (theme == "ENTRY")
+		{
+		me.red = 0.0;
+		me.green = 0.0;
+		me.blue= 0.0;
+		me.srb_red = 0.0;
+		me.srb_green = 0.0;
+		me.srb_blue= 0.0;
+		me.x = 0.0;
+		me.etx = 0.0;
+		me.y = 0.0;
+		me.z = 0.0;
+		me.radius = 25.0;
+		me.ambience = 0.0;
+		me.flicker_strength = 0.15;
+		me.flicker_start();
+		me.entry_loop_start();
 		}
 	else if (theme == "RUNWAY")
 		{
@@ -356,6 +375,65 @@ var light_manager = {
 		me.runway = 0;
 	
 	},
+
+
+	entry_loop_start: func {
+
+		if (me.entry == 0) 
+			{
+			me.entry = 1;
+			me.entry_loop();
+			}
+		else
+			{
+			return;
+			}
+
+
+
+		setprop("/lighting/effects/geo-blue", 0.0);
+
+		setprop("/lighting/effects/geo-r", 25.0);
+		setprop("/lighting/effects/geo-x", -5.0);
+		setprop("/lighting/effects/geo-y", 0.0);
+		setprop("/lighting/effects/geo-z", -15.0);
+		setprop("/lighting/effects/geo-z1", 15.0);
+		setprop("/lighting/effects/geo-ambience", 0.3);
+
+	},
+
+	entry_loop: func {
+
+		if (me.entry == 0) {return;}
+
+		var temperature = getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F");
+
+		if ( temperature < 2000.0) 
+			{
+			me.entry = 0;
+			me.set_theme("CLEAR");
+			return;
+			}
+
+		var color_r_low = 0.2;
+		var color_g_low = 0.1;
+
+		var color_r_high = 0.8;
+		var color_g_high = 0.3;
+
+		var t_factor = (temperature - 2000.0)/1000.0;
+		t_factor = SpaceShuttle.clamp(t_factor, 0.0, 1.0);
+
+		var color_r = (1.0 - t_factor) * color_r_low + t_factor * color_r_high; 
+		var color_g = (1.0 - t_factor) * color_g_low + t_factor * color_g_high; 
+
+		setprop("/lighting/effects/geo-red", color_r);
+		setprop("/lighting/effects/geo-green", color_g);
+
+		settimer(func me.entry_loop(), 0.0);
+	},
+
+
 
 	coord_compensation: func (site_string, runway_string) {
 
