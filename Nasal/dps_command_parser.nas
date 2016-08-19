@@ -5,6 +5,55 @@
 var command_string = "";
 var last_command = [];
 
+var command_buffer = {
+	header: "",
+	body: [],
+	value: [],
+	end: "",
+	n_entries: 0,
+	current_entry: 0,
+	idp_index: 0,
+
+	clear : func {
+
+		me.header = "";
+		setsize(me.body,0);
+		setsize(me.value,0);
+		me.end = "";
+		me.n_entries = 0;	
+		me.current_entry = 0;
+		me.idp_index = 0;
+
+	},
+
+	process : func {
+
+	print ("Current: ", me.current_entry, " total: ", me.n_entries);
+
+	if ((me.current_entry == me.n_entries) or (me.n_entries == 0))
+		{
+		me.clear();
+		return;
+		}
+	else
+		{
+		header = me.header;
+		body = me.body[me.current_entry];
+		value = me.value[me.current_entry];
+		end = me.end;
+
+		me.current_entry = me.current_entry + 1;
+		print (header, " ", body, " ", value, " ", end);
+		command_parse(me.idp_index);
+
+
+		#me.process();
+		}
+
+	},
+
+};
+
 var header = "";
 var body = "";
 var value = "";
@@ -108,6 +157,17 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 		{
 		b_v_flag = 1;
 		value = value~symbol; length_value = length_value+1;
+		}
+	else # we're entering multiple items
+		{
+		command_buffer.header = header;
+		append(command_buffer.body, int(body) + command_buffer.n_entries);
+		append(command_buffer.value, value);
+		print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
+		command_buffer.n_entries = command_buffer.n_entries + 1;
+		value = ""~symbol;
+		length_value = 1;
+		
 		}
 	}
 setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
@@ -276,6 +336,10 @@ if ((disp > 0) and (spec > 0))
 		{
 		page_select(idp_index, "p_dps_time");
 		}
+	else if (spec == 3)
+		{
+		page_select(idp_index, "p_dps_memory");
+		}
 	else if (spec == 20)
 		{
 		page_select(idp_index, "p_dps_dap");
@@ -410,6 +474,18 @@ append(last_command, element);
 current_string = current_string~element;
 
 end = "EXEC";
+
+if (command_buffer.n_entries > 0)
+	{
+	append(command_buffer.body, int(body) + command_buffer.n_entries);
+	append(command_buffer.value, value);
+	print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
+	command_buffer.n_entries = command_buffer.n_entries +1;
+	value = command_buffer.value[0];
+	command_buffer.end = "EXEC";
+	command_buffer.current_entry = 1;
+	command_buffer.idp_index = idp_index;
+	}
 
 setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 
@@ -3093,6 +3169,8 @@ else
 	setsize(last_command,0);
 	}
 
+command_buffer.process();
+
 }
 
 
@@ -3568,7 +3646,8 @@ body = "";
 value = "";
 end = "";
 setsize(last_command,0);
-	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
+	
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
 
 if (valid_flag == 0)
 	{
@@ -3579,6 +3658,7 @@ else
 	setsize(last_command,0);
 	}
 
+command_buffer.process();
 
 }
 
