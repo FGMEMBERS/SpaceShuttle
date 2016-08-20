@@ -9,8 +9,10 @@ var command_buffer = {
 	header: "",
 	body: [],
 	value: [],
+	length_value: [],
 	end: "",
 	n_entries: 0,
+	n_skipped: 0,
 	current_entry: 0,
 	idp_index: 0,
 
@@ -19,10 +21,22 @@ var command_buffer = {
 		me.header = "";
 		setsize(me.body,0);
 		setsize(me.value,0);
+		setsize(me.length_value,0);
 		me.end = "";
 		me.n_entries = 0;	
 		me.current_entry = 0;
+		me.n_skipped = 0;
 		me.idp_index = 0;
+
+	},
+
+	list: func {
+
+	print ("n_entries: ", me.n_entries, " array length: ", size(me.value));
+	for (var i =0; i< size(me.value); i=i+1)
+		{
+		print ("Body: ", me.body[i], " value: ", me.value[i], " length: ", me.length_value[i]);
+		}
 
 	},
 
@@ -43,11 +57,9 @@ var command_buffer = {
 		end = me.end;
 
 		me.current_entry = me.current_entry + 1;
-		print (header, " ", body, " ", value, " ", end);
+		#print (header, " ", body, " ", value, " ", end);
 		command_parse(me.idp_index);
 
-
-		#me.process();
 		}
 
 	},
@@ -147,9 +159,7 @@ var key_delimiter = func (kb_id, symbol) {
 
 var idp_index = get_IDP_id(kb_id) - 1;
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
-append(last_command, " "~symbol);
-current_string = current_string~" "~symbol;
+var item_string = "";
 
 if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 	{
@@ -158,18 +168,48 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 		b_v_flag = 1;
 		value = value~symbol; length_value = length_value+1;
 		}
+	else if ((value == "+") or (value == "-")) # we're entering multiple items and skip one
+		{
+		command_buffer.n_skipped = command_buffer.n_skipped + 1;
+
+		# chop the last entry off the command string and replace it		
+		var n = size(last_command);
+		setsize(last_command, n-1);
+	
+		var current_string = "";
+		for (var i = 0; i < (n-1); i=i+1)
+			{
+			current_string = current_string~last_command[i];
+			}
+		setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
+
+		item_string = " ("~(int(body) + command_buffer.n_entries + command_buffer.n_skipped)~")";
+	
+		}
+
 	else # we're entering multiple items
 		{
+
 		command_buffer.header = header;
-		append(command_buffer.body, int(body) + command_buffer.n_entries);
+		append(command_buffer.body, int(body) + command_buffer.n_entries + command_buffer.n_skipped);
 		append(command_buffer.value, value);
+		append(command_buffer.length_value, length_value);
 		print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
 		command_buffer.n_entries = command_buffer.n_entries + 1;
+
+		var next_item = int(body) + command_buffer.n_entries + command_buffer.n_skipped;
 		value = ""~symbol;
 		length_value = 1;
+
+		item_string = " ("~next_item~")";
 		
 		}
 	}
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
+append(last_command, item_string~" "~symbol);
+current_string = current_string~item_string~" "~symbol;
+
 setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
@@ -206,9 +246,25 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 			}
 		else
 			{
-			b_v_flag = 0;
-			value = "";
-			length_value = 0;
+			if (command_buffer.n_entries == 0)
+				{
+				b_v_flag = 0;
+				value = "";
+				length_value = 0;
+				}
+			else # there's a buffered command
+				{
+				# remove the last entry from the buffer and make it 
+				# the actively edited value
+				command_buffer.n_entries = command_buffer.n_entries -1;
+
+				setsize(command_buffer.body, command_buffer.n_entries);
+				setsize(command_buffer.value, command_buffer.n_entries);
+				setsize(command_buffer.length_value, command_buffer.n_entries);
+
+				value = command_buffer.value[command_buffer.n_entries-1];
+				length_value = command_buffer.length_value[command_buffer.n_entries-1];
+				}
 			}			
 		}
 	else # we've been entering body
@@ -477,7 +533,7 @@ end = "EXEC";
 
 if (command_buffer.n_entries > 0)
 	{
-	append(command_buffer.body, int(body) + command_buffer.n_entries);
+	append(command_buffer.body, int(body) + command_buffer.n_entries + command_buffer.n_skipped);
 	append(command_buffer.value, value);
 	print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
 	command_buffer.n_entries = command_buffer.n_entries +1;
