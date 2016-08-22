@@ -145,6 +145,7 @@
 
 		<fcs_function name="systems/thermal/entry-flame-alpha">
 		<function>
+			<max>
 			<product>
 			<difference>
 			<product>
@@ -155,6 +156,8 @@
 			</difference>
 			<value>0.1</value>
 			</product>
+			<value>0.01</value>
+			</max>
 		</function>
 		</fcs_function>
 

@@ -839,6 +839,11 @@
         <object-name>C3-buttons-base</object-name>
     </effect>
 
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Effects/plasma</inherits-from>
+   	<object-name>plasma_screen</object-name>
+    </effect>
+
     <!-- Yellow lights -->
     <animation>
         <type>material</type>
@@ -17568,15 +17573,15 @@
 	 </condition>
  </animation>
 
- <!-- do not show this till special shader is done --> 
+ <!-- single-sided surface isn't perfect, so remove for external views --> 
  <animation>
    <type>select</type>
    <object-name>plasma_screen</object-name>
    <condition>
-			<equals>
-				<value>1</value>
-				<value>0</value>
-			</equals>
+		<equals>
+			<property>/sim/current-view/internal</property>
+			<value>1</value>
+		</equals>
 	</condition>
  </animation>
 

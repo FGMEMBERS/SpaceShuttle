@@ -25,7 +25,7 @@ void main()
     vec3 plasma_color = mix(plasma_color_low, plasma_color_high, mix_factor);
     plasma_color = mix (plasma_color, white, 0.3 * noise_05m + 0.1 * noise_01m);
 
-    gl_FragColor = vec4 (plasma_color, 0.75 * mix_factor);
+    gl_FragColor = vec4 (plasma_color, 0.55 * mix_factor);
     
 
 }

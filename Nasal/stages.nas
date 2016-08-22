@@ -1275,6 +1275,14 @@ if ((getprop("/fdm/jsbsim/velocities/mach") < 3.5) and (deorbit_stage_flag == 2)
 	deorbit_stage_flag = 3;
 	}
 
+# if temperature > 2000 F, switch light manager on - it will just ignore command if already on and
+# exit once T < 2000 F by itself
+
+if (getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F") > 2000.0)
+	{
+	SpaceShuttle.light_manager.set_theme("ENTRY");
+	}
+
 # open vent doors as soon as vrel < 2400 fps is sensed
 
 if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
