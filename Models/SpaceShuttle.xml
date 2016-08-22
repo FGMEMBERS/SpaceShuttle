@@ -1125,10 +1125,16 @@
     <object-name>Gimbal.Alpha</object-name>
     <object-name>Gimbal.Beta</object-name>
     <condition>
-       <equals>
-           <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
-           <value>0</value>
-       </equals>
+        <and>
+           <equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>0</value>
+           </equals>
+           <equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>0</value>
+           </equals>
+        </and>
     </condition>
  </animation>
 
@@ -1137,10 +1143,23 @@
     <type>select</type>
     <object-name>fwd_window_assemblyD</object-name>
     <object-name>roof_assemblyD</object-name>
-    <object-name>fuselageD</object-name>
+    <object-name>backwallD</object-name>
     <condition>
        <equals>
            <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+           <value>1</value>
+       </equals>
+    </condition>
+ </animation>
+
+ <!-- shuttle damaged -->
+ <animation>
+    <type>select</type>
+    <object-name>heatshieldD</object-name>
+    <object-name>fuselageD</object-name>
+    <condition>
+       <equals>
+           <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
            <value>1</value>
        </equals>
     </condition>

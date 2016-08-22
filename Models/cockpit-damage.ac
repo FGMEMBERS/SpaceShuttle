@@ -5,7 +5,7 @@ OBJECT world
 name "Blender_export__cockpit-damage.ac"
 kids 3
 OBJECT poly
-name "fuselageD"
+name "backwallD"
 loc 0.9223590 -2.4169800 -0.0000008
 texture "spstob_1.png"
 texrep 1 1

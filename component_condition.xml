@@ -137,5 +137,6 @@
 	<star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
 </sensors>
 <shuttle-destroyed type="bool">false</shuttle-destroyed>
+<shuttle-damaged type="bool">false</shuttle-damaged>
 
 </PropertyList>

@@ -47,6 +47,11 @@
         <type>float</type>
         <property type="string">/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
     </signal>
+    
+    <signal>
+        <type>float</type>
+        <property type="string">/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+    </signal>
 
 	<signal>
         <type>float</type>
