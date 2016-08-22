@@ -1089,20 +1089,43 @@
 <model>
     <path>Aircraft/SpaceShuttle/Models/cockpit-damage.xml</path>
 </model>
+<!-- shuttle damage-->
+<model>
+    <path>Aircraft/SpaceShuttle/Models/shuttle_o2-damage.xml</path>
+</model>
 
-<!-- cockpit no damage -->
+<!-- cockpit not destroyed and not damaged -->
+ <animation>
+    <type>select</type>
+    <object-name>fuselage</object-name>
+    <object-name>heatshield</object-name>
+    <object-name>inboard-elevon-right</object-name>
+    <object-name>outboard-elevon-right</object-name>
+    <object-name>GearDoorR</object-name>
+    <condition>
+        <and>
+           <equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>0</value>
+           </equals>
+           <equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>0</value>
+           </equals>
+       </and>
+    </condition>
+ </animation>
+
+<!-- cockpit not destroyed , damaged or not damaged -->
  <animation>
     <type>select</type>
     <object-name>fwd_window_assembly</object-name>
     <object-name>roof_assembly</object-name>
-    <object-name>fuselage</object-name>
     <object-name>backwall</object-name>
     <object-name>payload-bay-door-left</object-name>
     <object-name>payload-bay-door-right</object-name>
     <object-name>inboard-elevon-left</object-name>
-    <object-name>inboard-elevon-right</object-name>
     <object-name>outboard-elevon-left</object-name>
-    <object-name>outboard-elevon-right</object-name>
     <object-name>spaceshutt_spstob_3</object-name>
     <object-name>spaceshutt_spstob_eal</object-name>
     <!--object-name>spaceshutt_spstob_2</object-name>
@@ -1110,8 +1133,6 @@
     <object-name>SpeedBrakeL</object-name>
     <object-name>SpeedBrakeR</object-name>
     <object-name>BodyFlap</object-name>
-    <object-name>heatshield</object-name>
-    <object-name>GearDoorR</object-name>
     <object-name>GearDoorL</object-name>
     <object-name>NoseDoorR</object-name>
     <object-name>NoseDoorL</object-name>
@@ -1130,11 +1151,17 @@
                <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
                <value>0</value>
            </equals>
-           <equals>
-               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
-               <value>0</value>
-           </equals>
-        </and>
+           <or>
+               <equals>
+                   <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+                   <value>0</value>
+               </equals>
+               <equals>
+                   <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+                   <value>1</value>
+               </equals>
+           </or>
+       </and>
     </condition>
  </animation>
 
@@ -1158,10 +1185,16 @@
     <object-name>heatshieldD</object-name>
     <object-name>fuselageD</object-name>
     <condition>
-       <equals>
-           <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
-           <value>1</value>
-       </equals>
+       <and>
+           <equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>1</value>
+           </equals>
+           <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>1</value>
+           </not-equals>
+       </and>
     </condition>
  </animation>
 
