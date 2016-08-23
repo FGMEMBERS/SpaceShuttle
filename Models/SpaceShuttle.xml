@@ -2298,7 +2298,6 @@
  <object-name>GearDoorL</object-name>
  <object-name>NoseDoorR</object-name>
  <object-name>NoseDoorL</object-name>
- <object-name>heatshieldD</object-name>
 </effect>
 
 <effect>
@@ -2310,7 +2309,6 @@
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
  <object-name>fuselage</object-name>
- <object-name>fuselageD</object-name>
 </effect>
 
 <effect>
