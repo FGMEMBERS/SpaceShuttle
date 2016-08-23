@@ -40,6 +40,20 @@ var failure_pre = {new: func (node, time, probability, value) {
 
 var mission_init = func {
 
+
+# load the mission file
+
+var filename = getprop("/mission/filename");
+
+var target = props.globals.getNode("/mission");
+var success = io.read_properties("Aircraft/SpaceShuttle/Mission/"~filename, target);
+
+if (success == nil) 
+	{
+	print("Cannot open mission file ", filename, ", using defaults.");
+	io.read_properties("Aircraft/SpaceShuttle/Mission/mission.xml", target);
+	}
+
 # launch targets
 
 
