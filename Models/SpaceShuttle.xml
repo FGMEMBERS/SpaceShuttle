@@ -2021,7 +2021,7 @@
   </axis>
  </animation>
 
-<!--more smoke ! -->
+<!-- wingtip vortices -->
 
 <model>
   <name>right-strake-vortex</name>
@@ -2041,11 +2041,16 @@
      <property>velocities/airspeed-kt</property>
      <value>180</value>
     </greater-than>
+    <equals>
+     <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+     <value>0</value>
+    </equals>
    </and>
-  </condition>-->
+  </condition>
+
  </model>
  <model>
-  <name>right-strake-vortex</name>
+  <name>left-strake-vortex</name>
   <path>Aircraft/SpaceShuttle/Models/Effects/strake-vortex-new.xml</path>
   <offsets>
         <x-m>9.55</x-m>

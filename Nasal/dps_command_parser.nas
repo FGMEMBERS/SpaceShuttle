@@ -32,7 +32,7 @@ var command_buffer = {
 
 	list: func {
 
-	print ("n_entries: ", me.n_entries, " array length: ", size(me.value));
+	print ("n_entries: ", me.n_entries, " array length: ", size(me.value), " n_skipped: ",me.n_skipped);
 	for (var i =0; i< size(me.value); i=i+1)
 		{
 		print ("Body: ", me.body[i], " value: ", me.value[i], " length: ", me.length_value[i]);

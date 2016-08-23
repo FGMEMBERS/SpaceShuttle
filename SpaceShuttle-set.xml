@@ -2,6 +2,8 @@
 
 <PropertyList>
 
+
+
  <fdm>
   <jsbsim>
    <accelerations>
@@ -1244,6 +1246,10 @@
     </systems>
    </jsbsim>
   </fdm>
+
+ <mission>
+   <filename type="string">mission.xml</filename>
+ </mission>
 
   <controls>
    <shuttle>
@@ -2680,7 +2686,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
 		</gear>
 	</gear>
 
-  <mission include="Mission/mission.xml"/>
+  <!--<mission include="Mission/mission.xml"/>-->
 
 </PropertyList>
 
