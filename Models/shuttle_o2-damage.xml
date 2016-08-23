@@ -2,6 +2,17 @@
 
 
 <PropertyList>
+
+<effect>
+ <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
+    <object-name>fuselageD</object-name>
+</effect>
+
+<effect>
+ <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
+    <object-name>heatshieldD</object-name>
+</effect>
+
     <path>Aircraft/SpaceShuttle/Models/shuttle_o2-damage.ac</path>
 	<nopreview/>
 </PropertyList>
