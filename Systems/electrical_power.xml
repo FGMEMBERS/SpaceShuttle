@@ -802,6 +802,9 @@
 			<input>systems/dps/gpc3-power-demand-kW</input>
 			<input>systems/dps/gpc4-power-demand-kW</input>
 			<input>systems/dps/gpc5-power-demand-kW</input>
+			<input>systems/apu/apu/controller-power-demand-kW</input>
+			<input>systems/apu/apu[1]/controller-power-demand-kW</input>
+			<input>systems/apu/apu[2]/controller-power-demand-kW</input>
 		</summer>
 
 		<fcs_function name="systems/electrical/individual-power-demand-kW">
