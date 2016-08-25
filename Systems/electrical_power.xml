@@ -1296,7 +1296,109 @@
 	</channel>
 
 
+	<channel name="Voltage and curent gauges">
 
+
+		<switch name="systems/electrical/gauges/ac-voltage-displayed">
+			<default  value="0.0"/>
+			<test logic="OR" value="systems/electrical/ac/voltage">
+				systems/electrical/gauges/ac-selector-knob == 0
+				systems/electrical/gauges/ac-selector-knob == 3
+				systems/electrical/gauges/ac-selector-knob == 6
+			</test>
+			<test logic="OR" value="systems/electrical/ac[1]/voltage">
+				systems/electrical/gauges/ac-selector-knob == 1
+				systems/electrical/gauges/ac-selector-knob == 4
+				systems/electrical/gauges/ac-selector-knob == 7
+			</test>
+			<test logic="OR" value="systems/electrical/ac[2]/voltage">
+				systems/electrical/gauges/ac-selector-knob == 2
+				systems/electrical/gauges/ac-selector-knob == 5
+				systems/electrical/gauges/ac-selector-knob == 8
+			</test>
+		</switch>
+
+		<switch name="systems/electrical/gauges/dc-voltage-displayed">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/electrical/essential-bus/voltage">
+				systems/electrical/gauges/dc-selector-knob == 0
+				systems/electrical/gauges/dc-selector-knob == 1
+				systems/electrical/gauges/dc-selector-knob == 2
+			</test>
+			<test  value="systems/electrical/bus/voltage">
+				systems/electrical/gauges/dc-selector-knob == 3
+			</test>
+			<test  value="systems/electrical/bus[1]/voltage">
+				systems/electrical/gauges/dc-selector-knob == 4
+			</test>
+			<test  value="systems/electrical/bus[2]/voltage">
+				systems/electrical/gauges/dc-selector-knob == 5
+			</test>
+			<test  value="systems/electrical/fc/voltage">
+				systems/electrical/gauges/dc-selector-knob == 6
+			</test>
+			<test  value="systems/electrical/fc[1]/voltage">
+				systems/electrical/gauges/dc-selector-knob == 7
+			</test>
+			<test  value="systems/electrical/fc[2]/voltage">
+				systems/electrical/gauges/dc-selector-knob == 8
+			</test>
+		</switch>
+
+		<fcs_function name="systems/electrical/gauges/amps-fc1">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/electrical/bus/power-demand-kW</property>
+					<property>systems/electrical/fc/bus-connector-status</property>
+					<value>1000.0</value>
+				</product>
+				<property>systems/electrical/fc/voltage</property>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/gauges/amps-fc2">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/electrical/bus[1]/power-demand-kW</property>
+					<property>systems/electrical/fc[1]/bus-connector-status</property>
+					<value>1000.0</value>
+				</product>
+				<property>systems/electrical/fc[1]/voltage</property>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/gauges/amps-fc3">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/electrical/bus[2]/power-demand-kW</property>
+					<property>systems/electrical/fc[2]/bus-connector-status</property>
+					<value>1000.0</value>
+				</product>
+				<property>systems/electrical/fc[2]/voltage</property>
+			</quotient>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/electrical/gauges/dc-amps-displayed">
+			<default value="0.0"/>
+			<test  value="systems/electrical/gauges/amps-fc1">
+				systems/electrical/gauges/dc-selector-knob == 6
+			</test>
+			<test  value="systems/electrical/gauges/amps-fc2">
+				systems/electrical/gauges/dc-selector-knob == 7
+			</test>
+			<test  value="systems/electrical/gauges/amps-fc3">
+				systems/electrical/gauges/dc-selector-knob == 8
+			</test>
+		</switch>
+
+	</channel>
 
 
 </system>
