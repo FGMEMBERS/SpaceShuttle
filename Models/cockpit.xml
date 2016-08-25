@@ -663,12 +663,15 @@
         <object-name>hud-pwr-plt-switch</object-name>
         <object-name>hud-data-bus-plt</object-name>
         <!--Panel F9 switches -->
-        <object-name>ac2-dial</object-name>
-        <object-name>main-volts-dial</object-name>
+        <object-name>ac-dial</object-name>
+        <object-name>dc-dial</object-name>
+        <!--Panel F9 needles -->
+        <object-name>dc-amps</object-name>
+        <object-name>ac-volts</object-name>
+        <object-name>dc-amps</object-name>
         <!--Panel F9 fixings -->
         <object-name>F9-panel</object-name>
         <object-name>F9-fasteners</object-name>
-        <object-name>F9-electrical-needles</object-name>
         <!-- Panel R4 -->
         <object-name>R4-switches</object-name>
         <object-name>R4-talkbacks</object-name>
@@ -7831,6 +7834,158 @@
                 <value>1</value>
             </equals>
         </condition>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel F9                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- AC Dial "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>ac-dial</object-name>
+        <property>/fdm/jsbsim/systems/electrical/gauges/ac-selector-knob</property>
+        <factor>-31</factor>
+        <offset-deg>124</offset-deg>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.4176</x-m>
+            <y-m>  1.0425</y-m>
+            <z-m> -0.6683</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                  <property>/fdm/jsbsim/systems/electrical/gauges/ac-selector-knob</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>8</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>ac-dial</tooltip-id>
+                <label>AC Selector: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/gauges/ac-selector-knob</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['AC1-A', 'AC1-B', 'AC1-C', 'AC2-A', 'AC2-B', 'AC2-C', 'AC3-A', 'AC3-B', 'AC3-C'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AC-Volts "Needle"-->
+        <animation>
+        <type>rotate</type>
+        <object-name>ac-volts</object-name>
+        <property>/fdm/jsbsim/systems/electrical/gauges/ac-voltage-displayed</property>
+        <factor>1</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.4218</x-m>
+            <y-m>  1.1276</y-m>
+            <z-m> -0.6508</z-m>
+        </center>
+    </animation>
+
+    <!-- DC Dial "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>dc-dial</object-name>
+        <property>/fdm/jsbsim/systems/electrical/gauges/dc-selector-knob</property>
+        <factor>-31</factor>
+        <offset-deg>124</offset-deg>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3711</x-m>
+            <y-m>  1.0517</y-m>
+            <z-m> -0.8298</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                  <property>/fdm/jsbsim/systems/electrical/gauges/dc-selector-knob</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>8</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>dc-dial</tooltip-id>
+                <label>DC Selector: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/gauges/dc-selector-knob</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['ESS-V-1BC', 'ESS-V-2CA', 'ESS-V-3AB', 'Main-V-A', 'Main-V-B', 'Main-V-C', 'Fuel-Cell-V/A-1', 'Fuel-Cell-V/A-2', 'Fuel-Cell-V/A-3'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- DC-Volts "Needle"-->
+        <animation>
+        <type>rotate</type>
+        <object-name>dc-volts</object-name>
+        <property>/fdm/jsbsim/systems/electrical/gauges/dc-voltage-displayed</property>
+        <factor>1</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3963</x-m>
+            <y-m>  1.0367</y-m>
+            <z-m> -0.7392</z-m>
+        </center>
+    </animation>
+
+    <!-- DC-Amps "Needle"-->
+    <animation>
+        <type>rotate</type>
+        <object-name>dc-amps</object-name>
+        <property>/fdm/jsbsim/systems/electrical/gauges/dc-amps-displayed</property>
+        <factor>1</factor>
+        <axis>
+            <x>1.0  </x>
+            <y>0.0  </y>
+            <z>0.266</z>
+        </axis>
+        <center>
+            <x-m>-12.3963</x-m>
+            <y-m>  1.1009</y-m>
+            <z-m> -0.7392</z-m>
+        </center>
     </animation>
 
     <!-- ******************************************************************* -->
