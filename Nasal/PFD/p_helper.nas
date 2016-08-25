@@ -177,3 +177,13 @@ else if (mcc == 4) {return "S2";}
 else {return "";}
 
 }
+
+var assemble_spec_string = func (spec) {
+
+if (spec == 0) {return "   ";}
+else if (spec == 3) {return "000";}
+else if (spec < 10) {return "00"~spec;}
+else if (spec < 100) {return "0"~spec;}
+
+}
+

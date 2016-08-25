@@ -143,8 +143,10 @@ var PFD_addpage_p_dps_sys_summ2 = func(device)
     p_dps_sys_summ2.ondisplay = func
     {
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-    
-        var ops_string = major_mode~"1/   /019";
+	var spec = SpaceShuttle.idp_array[device.port_selected-1].get_spec();    
+	var spec_string = assemble_spec_string(spec);    
+
+        var ops_string = major_mode~"1/"~spec_string~"/019";
     
     
         device.DPS_menu_title.setText("GNC SYS SUMM 2");
