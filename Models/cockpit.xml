@@ -994,7 +994,7 @@
         <object-name>button_light_od_control_lvlh</object-name>
         <object-name>button_light_od_control_free</object-name>
         <object-name>button_light_mm_alt</object-name>
-        <object-name>button_light_mm_high</object-name>
+        <object-name>button_light_mm_highz</object-name>
         <object-name>button_light_mm_lowz</object-name>
         <object-name>button_light_mm_pri</object-name>
         <object-name>button_light_mm_vern</object-name>
@@ -5516,6 +5516,819 @@
         <condition>
             <equals>
                 <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Orbital DAP Select A "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-od-control-select-a</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/od/select-a") == 0)
+                        setprop("/fdm/jsbsim/systems/od/select-a", 1);
+                    else setprop("/fdm/jsbsim/systems/od/select-a", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/od/select-b</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-od-control-select-a</tooltip-id>
+                <label>Orbital DAP Select A</label>
+                <property>button-cmd-od-control-select-a</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_select_a</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/od/select-a</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Orbital DAP Select B "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-od-control-select-b</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/od/select-b") == 0)
+                        setprop("/fdm/jsbsim/systems/od/select-b", 1);
+                    else setprop("/fdm/jsbsim/systems/od/select-b", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/od/select-a</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-od-control-select-b</tooltip-id>
+                <label>Orbital DAP Select B</label>
+                <property>button-cmd-od-control-select-b</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_od_select_b</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/od/select-b</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Low Z "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-lowz</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/lowz") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/lowz", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/lowz", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/highz</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-lowz</tooltip-id>
+                <label>Manual Mode Low Z</label>
+                <property>button-cmd-mm-lowz</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_lowz</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/lowz</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode High Z "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-highz</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/highz") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/highz", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/highz", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/lowz</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-highz</tooltip-id>
+                <label>Manual Mode High Z</label>
+                <property>button-cmd-mm-highz</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_highz</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/highz</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation X Norm "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-x-norm</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/x-norm") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/x-norm", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/x-norm", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/x-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-x-norm</tooltip-id>
+                <label>Translation X Norm</label>
+                <property>button-cmd-mm-x-norm</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_x_norm</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/x-norm</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation X Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-x-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/x-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/x-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/x-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/x-norm</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-x-pulse</tooltip-id>
+                <label>Translation X Pulse</label>
+                <property>button-cmd-mm-x-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_x_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/x-pulse</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation Y Norm "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-y-norm</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/y-norm") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/y-norm", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/y-norm", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/y-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-y-norm</tooltip-id>
+                <label>Translation Y Norm</label>
+                <property>button-cmd-mm-y-norm</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_y_norm</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/y-norm</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation Y Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-y-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/y-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/y-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/y-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/y-norm</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-y-pulse</tooltip-id>
+                <label>Translation Y Pulse</label>
+                <property>button-cmd-mm-y-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_y_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/y-pulse</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation Z Norm "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-z-norm</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/z-norm") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/z-norm", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/z-norm", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/z-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-z-norm</tooltip-id>
+                <label>Translation Z Norm</label>
+                <property>button-cmd-mm-z-norm</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_z_norm</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/z-norm</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Translation Z Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-z-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/z-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/z-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/z-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/z-norm</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-z-pulse</tooltip-id>
+                <label>Translation Z Pulse</label>
+                <property>button-cmd-mm-z-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_z_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/z-pulse</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Primary "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-pri</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/pri") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/pri", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/pri", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/alt</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/vern</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-pri</tooltip-id>
+                <label>Rotation Primary</label>
+                <property>button-cmd-mm-pri</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_pri</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/pri</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Alternate "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-alt</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/alt") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/alt", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/alt", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/pri</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/vern</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-alt</tooltip-id>
+                <label>Rotation Alternate</label>
+                <property>button-cmd-mm-alt</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_alt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/alt</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Vernier "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-vern</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/vern") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/vern", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/vern", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/pri</property>
+                <value>0</value>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/alt</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-vern</tooltip-id>
+                <label>Rotation Vernier</label>
+                <property>button-cmd-mm-vern</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_vern</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/vern</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Roll Disc Rate "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-roll-dr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/roll-dr") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/roll-dr", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/roll-dr", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/roll-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-roll-dr</tooltip-id>
+                <label>Rotation Roll Disc Rate</label>
+                <property>button-cmd-mm-roll-dr</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_roll_dr</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/roll-dr</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Roll Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-roll-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/roll-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/roll-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/roll-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/roll-dr</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-roll-pulse</tooltip-id>
+                <label>Rotation Roll Pulse</label>
+                <property>button-cmd-mm-roll-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_roll_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/roll-pulse</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Pitch Disc Rate "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-pitch-dr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/pitch-dr") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/pitch-dr", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/pitch-dr", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/pitch-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-pitch-dr</tooltip-id>
+                <label>Rotation Pitch Disc Rate</label>
+                <property>button-cmd-mm-pitch-dr</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_pitch_dr</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/pitch-dr</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Pitch Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-pitch-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/pitch-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/pitch-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/pitch-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/pitch-dr</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-pitch-pulse</tooltip-id>
+                <label>Rotation Pitch Pulse</label>
+                <property>button-cmd-mm-pitch-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_pitch_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/pitch-pulse</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Yaw Disc Rate "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-yaw-dr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/yaw-dr") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/yaw-dr", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/yaw-dr", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/yaw-pulse</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-yaw-dr</tooltip-id>
+                <label> Rotation Yaw Disc Rate</label>
+                <property>button-cmd-mm-yaw-dr</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_yaw_dr</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/yaw-dr</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Manual Mode Rotation Yaw Pulse "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-yaw-pulse</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/fdm/jsbsim/systems/mm/yaw-pulse") == 0)
+                        setprop("/fdm/jsbsim/systems/mm/yaw-pulse", 1);
+                    else setprop("/fdm/jsbsim/systems/mm/yaw-pulse", 0);
+                </script>
+            </binding>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/mm/yaw-dr</property>
+                <value>0</value>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-yaw-pulse</tooltip-id>
+                <label> Rotation Yaw Pulse</label>
+                <property>button-cmd-mm-yaw-pulse</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>button_light_mm_yaw_pulse</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/mm/yaw-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
