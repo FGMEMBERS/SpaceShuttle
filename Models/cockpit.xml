@@ -8704,8 +8704,9 @@
         <animation>
         <type>rotate</type>
         <object-name>ac-volts</object-name>
-        <property>/fdm/jsbsim/systems/electrical/gauges/ac-voltage-displayed</property>
+        <property>/fdm/jsbsim/systems/electrical/gauges/ac-volts-needle-deg</property>
         <factor>1</factor>
+	<offset-deg>15.0</offset-deg>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>
@@ -8769,7 +8770,7 @@
         <animation>
         <type>rotate</type>
         <object-name>dc-volts</object-name>
-        <property>/fdm/jsbsim/systems/electrical/gauges/dc-voltage-displayed</property>
+        <property>/fdm/jsbsim/systems/electrical/gauges/dc-volts-needle-deg</property>
         <factor>1</factor>
         <axis>
             <x>1.0  </x>
@@ -8788,7 +8789,8 @@
         <type>rotate</type>
         <object-name>dc-amps</object-name>
         <property>/fdm/jsbsim/systems/electrical/gauges/dc-amps-displayed</property>
-        <factor>1</factor>
+        <factor>-0.428</factor>
+	<offset-deg>8</offset-deg>
         <axis>
             <x>1.0  </x>
             <y>0.0  </y>

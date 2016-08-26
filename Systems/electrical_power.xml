@@ -1318,6 +1318,21 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/electrical/gauges/ac-volts-needle-deg">
+		<function>
+			<product>
+			<max>
+				<difference>
+					<property>systems/electrical/gauges/ac-voltage-displayed</property>
+					<value>90.0</value>
+				</difference>
+				<value>0.0</value>
+			</max>
+			<value>-5.926</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/electrical/gauges/dc-voltage-displayed">
 			<default value="0.0"/>
 			<test logic="OR" value="systems/electrical/essential-bus/voltage">
@@ -1344,6 +1359,21 @@
 				systems/electrical/gauges/dc-selector-knob == 8
 			</test>
 		</switch>
+
+		<fcs_function name="systems/electrical/gauges/dc-volts-needle-deg">
+		<function>
+			<product>
+			<max>
+				<difference>
+					<property>systems/electrical/gauges/dc-voltage-displayed</property>
+					<value>20.0</value>
+				</difference>
+				<value>0.0</value>
+			</max>
+			<value>-9.8522</value>
+			</product>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/electrical/gauges/amps-fc1">
 		<function>
@@ -1397,6 +1427,7 @@
 				systems/electrical/gauges/dc-selector-knob == 8
 			</test>
 		</switch>
+
 
 	</channel>
 
