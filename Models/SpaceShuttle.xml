@@ -223,6 +223,23 @@
 	<path>Aircraft/SpaceShuttle/Models/gear-damage.xml</path>
 </model>
 
+    <nasal>
+        <load>
+
+            <![CDATA[
+                var livery_update = aircraft.livery_update.new("Aircraft/SpaceShuttle/Models/Liveries");
+            ]]>
+
+        </load>
+
+        <unload>
+            <![CDATA[
+                livery_update.stop();
+            ]]>
+        </unload>
+
+    </nasal>
+
  <!-- front gear undamaged -->
  <animation>
    <type>select</type>
@@ -2279,6 +2296,14 @@
 		</offsets>
 	</model>
 
+    <animation>
+        <type>material</type>
+        <object-name>et_all.lay_et</object-name>
+        <property-base>sim/model/livery/</property-base>
+        <texture-prop>texture</texture-prop>
+        <texture>etall.png</texture>
+    </animation>
+    
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
  <!--<object-name>fuselage</object-name>-->

@@ -1488,6 +1488,9 @@
 
    <model>
     <path>Aircraft/SpaceShuttle/Models/SpaceShuttle.xml</path>
+    <livery>
+      <name type="string">Orange Foam ET</name>
+    </livery>
     <shuttle>
      <controls>
       <PFD>
@@ -1697,8 +1700,9 @@
    <menubar>
     <default>
      <menu n="50">
+        
       <label>Space Shuttle</label>
-
+            
       <item>
        <label>--- Systems ---</label>
        <enabled>false</enabled>
@@ -1842,6 +1846,15 @@
         <script>SpaceShuttle.limits_dlg.open()</script>
        </binding>
       </item>
+      
+      <item>
+        <label>ET Foam Type</label>
+        <binding>
+            <command>nasal</command>
+            <script>aircraft.livery.dialog.toggle()</script>
+        </binding>
+      </item>
+      
      </menu>
 
      <menu n="51">
@@ -2658,6 +2671,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/cue_cards.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/aborts.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/light_manager.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/liveries.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>
