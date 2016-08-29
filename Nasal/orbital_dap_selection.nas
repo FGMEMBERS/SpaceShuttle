@@ -8,6 +8,7 @@ var orbital_dap_manager = {
 	major_mode: 0,
 	attitude_mode : "INRTL",
 	selected_dap: "",
+	selected_jets: "PRI",
 
 
 	dap_select: func (dap) {
@@ -26,7 +27,6 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(21);
 			}
-
 		else if ((me.fcs_control_mode == 21) and (dap == "A"))
 			{
 			me.set_fcs_control_mode(20);
@@ -50,6 +50,60 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select", 1);
 			}
+
+
+	},
+
+
+	jet_select : func (sys) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202))
+			{
+			print("Jet system selection is only supported in OPS 2");
+			return;
+			}
+
+		me.selected_jets = sys;
+
+		if ((me.fcs_control_mode == 20) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(25);
+			}
+		else if ((me.fcs_control_mode == 21) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(30);
+			}
+		else if ((me.fcs_control_mode == 25) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(20);
+			}
+		else if ((me.fcs_control_mode == 30) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(21);
+			}
+
+		if (sys == "PRI")
+			{			
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select", 0);
+			}
+		else if (sys == "ALT")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select", 0);
+			}
+		else if (sys == "VRN")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select", 1);
+			}
+
+		
 
 
 	},
@@ -86,6 +140,10 @@ var orbital_dap_manager = {
 		if (me.attitude_mode == "AUTO")
 			{
 			control_mode_string = control_mode_string~" AUTO";
+			}
+		else if (me.attitude_mode == "LVLH")
+			{
+			control_mode_string = control_mode_string~" LVLH";
 			}
 
 		setprop("/controls/shuttle/control-system-string", control_mode_string);
