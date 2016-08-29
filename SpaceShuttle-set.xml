@@ -76,6 +76,9 @@
 	  <pri-select type="int">0</pri-select>
 	  <alt-select type="int">0</alt-select>
 	  <vrn-select type="int">0</vrn-select>
+	  <znorm-select type="int">0</znorm-select>
+	  <zlow-select type="int">0</zlow-select>
+	  <zhigh-select type="int">0</zhigh-select>
        </orbital-dap-buttons>
        <contingency>
 	  <roll-headsup-active type="double">0.0</roll-headsup-active>

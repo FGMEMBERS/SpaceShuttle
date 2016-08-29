@@ -9,6 +9,7 @@ var orbital_dap_manager = {
 	attitude_mode : "INRTL",
 	selected_dap: "",
 	selected_jets: "PRI",
+	selected_z_mode: "NORM",
 
 
 	dap_select: func (dap) {
@@ -103,8 +104,59 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select", 1);
 			}
 
+	},
+
+	z_mode_select : func (mode) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202))
+			{
+			print("Z-mode selection is only supported in OPS 2");
+			return;
+			}
+
+		me.selected_z_mode = mode;
+
+		if ((me.fcs_control_mode == 2) and (mode == "LOW"))
+			{
+			me.set_fcs_control_mode(27);
+			}
+		else if 
+			((me.fcs_control_mode == 26) and (mode == "LOW"))
+			{
+			me.set_fcs_control_mode(28);
+			}
+		else if ((me.fcs_control_mode == 27) and (mode == "HIGH"))
+			{
+			me.set_fcs_control_mode(2);
+			}
+		else if ((me.fcs_control_mode == 28) and (mode == "HIGH"))
+			{
+			me.set_fcs_control_mode(26);
+			}
+
+		if (mode == "NORM")
+			{			
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/znorm-select", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select", 0);
+			}
+		else if (mode == "LOW")
+			{			
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/znorm-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select", 0);
+			}
+		else if (mode == "HIGH")
+			{			
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/znorm-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select", 1);
+			}
 		
 
+		
 
 	},
 
@@ -132,9 +184,13 @@ var orbital_dap_manager = {
 
 		var control_mode_string = "";
 
-		if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
+		if (mode == 2) {control_mode_string = "RCS translation";}
+		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
 		else if (mode == 25) {control_mode_string = "RCS DAP-A VERNIER";}
+		else if (mode == 26) {control_mode_string = "RCS TRANS ATT HLD";}
+		else if (mode == 27) {control_mode_string = "RCS TRANS LOW-Z";}
+		else if (mode == 28) {control_mode_string = "RCS TRANS LOW-Z ATT HLD";}
 		else if (mode == 30) {control_mode_string = "RCS DAP-B VERNIER";}
 
 		if (me.attitude_mode == "AUTO")

@@ -5994,15 +5994,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/lowz") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/lowz", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/lowz", 0);
+                   SpaceShuttle.orbital_dap_manager.z_mode_select("LOW");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/highz</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6019,7 +6012,7 @@
         <object-name>button_light_mm_lowz</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/lowz</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6036,15 +6029,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/highz") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/highz", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/highz", 0);
+                   SpaceShuttle.orbital_dap_manager.z_mode_select("HIGH");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/lowz</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6061,7 +6047,7 @@
         <object-name>button_light_mm_highz</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/highz</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select</property>
                 <value>1</value>
             </equals>
         </condition>
