@@ -5983,6 +5983,41 @@
         </condition>
     </animation>
 
+    <!-- Manual Mode Blank X "Button" -->
+    <animation>
+        <type>pick</type>
+        <object-name>button-cmd-mm-xblank</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                # needs xblank logic
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>button-cmd-mm-xblank</tooltip-id>
+                <label>Manual Mode Blank X</label>
+                <property>button-cmd-mm-xblank</property>
+            </binding>
+        </hovered>
+    </animation>
+    <!--animation>
+        <type>select</type>
+        <object-name>button-light-mm-xblank</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/xblank-select</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation-->
+
     <!-- Manual Mode Low Z "Button" -->
     <animation>
         <type>pick</type>
