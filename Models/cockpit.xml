@@ -4746,6 +4746,398 @@
         </hovered>
     </animation>
 
+    <!-- Timer 1 Up "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer1-set-up</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer1-up</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer1-up</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer1-set-up</tooltip-id>
+                <label>Timer 1 Up: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer1-up</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer1-set-up</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer1-up</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2367</x-m>
+            <y-m>  0.0177</y-m>
+            <z-m> -0.943 </z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 1 Dn "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer1-set-dn</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer1-set-dn</tooltip-id>
+                <label>Timer 1 Down: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer1-set-dn</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2243</x-m>
+            <y-m>  0.0177</y-m>
+            <z-m> -0.9651</z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 2 Up "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer2-set-up</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer2-up</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer2-up</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer2-set-up</tooltip-id>
+                <label>Timer 2 Up: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer2-up</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer2-set-up</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer2-up</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2367</x-m>
+            <y-m>  0.0413</y-m>
+            <z-m> -0.943 </z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 2 Dn "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer2-set-dn</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer2-dn</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer2-dn</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer2-set-dn</tooltip-id>
+                <label>Timer 2 Down: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer2-dn</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer2-set-dn</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer2-dn</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2243</x-m>
+            <y-m>  0.0413</y-m>
+            <z-m> -0.9651</z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 3 Up "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer3-set-up</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer3-up</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer3-up</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer3-set-up</tooltip-id>
+                <label>Timer 3 Up: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer3-up</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer3-set-up</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer3-up</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2367</x-m>
+            <y-m>  0.0594</y-m>
+            <z-m> -0.943 </z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 3 Dn "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer3-set-dn</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer3-dn</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer3-dn</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer3-set-dn</tooltip-id>
+                <label>Timer 3 Down: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer3-dn</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer3-set-dn</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer3-dn</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2243</x-m>
+            <y-m>  0.0594</y-m>
+            <z-m> -0.9651</z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 4 Up "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer4-set-up</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer4-up</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer4-up</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer4-set-up</tooltip-id>
+                <label>Timer 4 Up: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer4-up</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer4-set-up</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer4-up</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2367</x-m>
+            <y-m>  0.0831</y-m>
+            <z-m> -0.943 </z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
+    <!-- Timer 4 Dn "Switch" -->
+    <animation>
+        <type>pick</type>
+        <object-name>timer4-set-dn</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/timer/timer4-dn</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+            <mod-up>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/fdm/jsbsim/systems/timer/timer4-dn</property>
+                </binding>
+            </mod-up>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>timer4-set-dn</tooltip-id>
+                <label>Timer 4 Down: %s</label>
+                <property>/fdm/jsbsim/systems/timer/timer4-dn</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>timer4-set-dn</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer4-dn</property>
+        <factor>20</factor>
+        <center>
+            <x-m>-12.2243</x-m>
+            <y-m>  0.0831</y-m>
+            <z-m> -0.9651</z-m>
+        </center>
+        <axis>
+            <x>  0 </x>
+            <y> -1 </y>
+            <z>  1 </z>
+        </axis>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Panel C3                                                             -->
     <!-- ******************************************************************* -->
