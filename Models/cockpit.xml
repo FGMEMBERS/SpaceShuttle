@@ -5924,15 +5924,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/od/select-a") == 0)
-                        setprop("/fdm/jsbsim/systems/od/select-a", 1);
-                    else setprop("/fdm/jsbsim/systems/od/select-a", 0);
+                   SpaceShuttle.orbital_dap_manager.dap_select("A");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/od/select-b</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -5949,7 +5942,7 @@
         <object-name>button_light_od_select_a</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/od/select-a</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -5966,15 +5959,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/od/select-b") == 0)
-                        setprop("/fdm/jsbsim/systems/od/select-b", 1);
-                    else setprop("/fdm/jsbsim/systems/od/select-b", 0);
+                   SpaceShuttle.orbital_dap_manager.dap_select("B");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/od/select-a</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -5991,7 +5977,7 @@
         <object-name>button_light_od_select_b</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/od/select-b</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select</property>
                 <value>1</value>
             </equals>
         </condition>

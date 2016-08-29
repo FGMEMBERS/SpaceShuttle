@@ -338,7 +338,6 @@
 		<fcs_function name="systems/fcs/neg-elevator-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/elevator-cmd-norm</property>-->
 				<property>systems/fcs/elevator-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -348,7 +347,6 @@
 		<fcs_function name="systems/fcs/neg-rudder-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/rudder-cmd-norm</property>-->
 				<property>systems/fcs/rudder-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -358,7 +356,6 @@
 		<fcs_function name="systems/fcs/neg-aileron-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/aileron-cmd-norm</property>-->
 				<property>systems/fcs/aileron-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -631,23 +628,6 @@
 
 		<!-- pitch -->
 
-   		<!--<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
-   			<function>
-			<sum>
-				<product>
-					<difference>
-						<value>1</value>
-						<property>systems/ap/alpha-hold-mode</property>
-					</difference>
-					<property>systems/fcs/elevator-cmd-norm-sense</property>
-				</product>
-				<product>
-					<property>systems/ap/alpha-hold-mode</property>
-					<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
-				</product>
-			</sum>
-  		 </function>
-   		</fcs_function>-->
 
 		<switch name="systems/rcs/elevator-ap-cmd-merge">
 			<default value="systems/fcs/elevator-cmd-norm-sense"/>
@@ -941,23 +921,6 @@
 		</function>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/rcs/dap-yaw-cmd-entry">
-		<function>
-			<product>
-				<property>systems/rcs/dap-yaw-cmd-entry-raw</property>
-				<min>
-				<max>
-				<quotient>
-					<property>aero/qbar-psf</property>
-					<value>20.0</value>
-				</quotient>
-				<value>0.1</value>
-				</max>
-				<value>1.0</value>
-				</min>
-			</product>
-		</function>
-		</fcs_function>-->
 
 		<fcs_function name="systems/rcs/dap-yaw-cmd">
 		<function>
@@ -1177,10 +1140,6 @@
 					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
-				<!--<product>
-					<property>systems/fcs/rcs-trans-att-hold</property>
-					<property>systems/rcs/dap-pitch-cmd-deadband</property>
-				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -1211,10 +1170,6 @@
 					<property>systems/fcs/rate-control-master</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
-				<!--<product>
-					<property>systems/fcs/rcs-trans-att-hold</property>
-					<property>systems/rcs/dap-yaw-cmd-deadband</property>
-				</product>-->
 				</sum>
 			</function>
 		</fcs_function>

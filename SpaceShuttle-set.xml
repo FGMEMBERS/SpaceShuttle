@@ -70,6 +70,10 @@
        <mnvr-timer-sec type="int">0</mnvr-timer-sec>
        <mnvr-timer-min type="int">0</mnvr-timer-min>
        <mnvr-timer-h type="int">0</mnvr-timer-h>
+       <orbital-dap-buttons>
+	  <dap-a-select type="int">0</dap-a-select>
+	  <dap-b-select type="int">0</dap-b-select>
+       </orbital-dap-buttons>
        <contingency>
 	  <roll-headsup-active type="double">0.0</roll-headsup-active>
 	  <flyout-active type="double">0.0</flyout-active>
@@ -2671,6 +2675,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
    <file>Aircraft/SpaceShuttle/Nasal/cue_cards.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/aborts.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/light_manager.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/orbital_dap_selection.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/liveries.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
