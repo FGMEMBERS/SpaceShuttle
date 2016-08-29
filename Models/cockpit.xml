@@ -5924,15 +5924,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/od/select-a") == 0)
-                        setprop("/fdm/jsbsim/systems/od/select-a", 1);
-                    else setprop("/fdm/jsbsim/systems/od/select-a", 0);
+                   SpaceShuttle.orbital_dap_manager.dap_select("A");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/od/select-b</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -5949,7 +5942,7 @@
         <object-name>button_light_od_select_a</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/od/select-a</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -5966,15 +5959,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/od/select-b") == 0)
-                        setprop("/fdm/jsbsim/systems/od/select-b", 1);
-                    else setprop("/fdm/jsbsim/systems/od/select-b", 0);
+                   SpaceShuttle.orbital_dap_manager.dap_select("B");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/od/select-a</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -5991,7 +5977,7 @@
         <object-name>button_light_od_select_b</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/od/select-b</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6008,15 +5994,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/lowz") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/lowz", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/lowz", 0);
+                   SpaceShuttle.orbital_dap_manager.z_mode_select("LOW");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/highz</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6033,7 +6012,7 @@
         <object-name>button_light_mm_lowz</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/lowz</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6050,15 +6029,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/highz") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/highz", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/highz", 0);
+                   SpaceShuttle.orbital_dap_manager.z_mode_select("HIGH");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/lowz</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6075,7 +6047,7 @@
         <object-name>button_light_mm_highz</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/highz</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6344,20 +6316,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/pri") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/pri", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/pri", 0);
+                   SpaceShuttle.orbital_dap_manager.jet_select("PRI");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/alt</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/vern</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6374,7 +6334,7 @@
         <object-name>button_light_mm_pri</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/pri</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6391,20 +6351,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/alt") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/alt", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/alt", 0);
+                   SpaceShuttle.orbital_dap_manager.jet_select("ALT");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/pri</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/vern</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6421,7 +6369,7 @@
         <object-name>button_light_mm_alt</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/alt</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6438,20 +6386,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/vern") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/vern", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/vern", 0);
+                   SpaceShuttle.orbital_dap_manager.jet_select("VRN");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/pri</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/alt</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6468,7 +6404,7 @@
         <object-name>button_light_mm_vern</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/vern</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select</property>
                 <value>1</value>
             </equals>
         </condition>
