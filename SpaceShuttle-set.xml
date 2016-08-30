@@ -1250,6 +1250,7 @@
       <up-mnvr-time-seconds type="int">0</up-mnvr-time-seconds>
       <up-mnvr-time type="int">0</up-mnvr-time>
       <up-mnvr-time-string type="string">000/00:00:00</up-mnvr-time-string>
+      <timer-set-sec type="int">0</timer-set-sec>
      </timer>
      <various>
       <debris-separation-target type="double">0.0</debris-separation-target>

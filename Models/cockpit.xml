@@ -205,7 +205,7 @@
         <object-name>crt3-maj-func</object-name>
         <object-name>event-tmr-mode</object-name>
         <object-name>event-tmr-cntrl</object-name>
-        <object-name>event-timer</object-name>
+        <object-name>event-tmr-set</object-name>
         <!-- Panel C2 buttons -->
         <object-name>timer1-set-dn</object-name>
         <object-name>timer2-set-dn</object-name>
@@ -4746,6 +4746,172 @@
         </hovered>
     </animation>
 
+    <!-- Event Timer Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>event-tmr-mode</object-name>
+        <property>/fdm/jsbsim/systems/timer/event-tmr-mode</property>
+        <factor>-30</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.2207</x-m>
+            <y-m> -0.0454</y-m>
+            <z-m> -0.9664</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/fdm/jsbsim/systems/timer/event-tmr-mode")==2)
+                        SpaceShuttle.ev_timer_F7.set_mode("UP");
+                    else if(getprop("/fdm/jsbsim/systems/timer/event-tmr-mode")==1)
+                        SpaceShuttle.ev_timer_F7.set_mode("DOWN");
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>event-tmr-mode</tooltip-id>
+                <label>Event Timer Mode: %s</label>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Test', 'Down', 'Up'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Event Timer Control "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>event-tmr-cntrl</object-name>
+        <property>/fdm/jsbsim/systems/timer/event-tmr-cntrl</property>
+        <factor>-50</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.2207</x-m>
+            <y-m> -0.0207</y-m>
+            <z-m> -0.9664</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-cntrl</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if(getprop("/fdm/jsbsim/systems/timer/event-tmr-cntrl")==1)
+                        SpaceShuttle.ev_timer_F7.start();
+                    else if(getprop("/fdm/jsbsim/systems/timer/event-tmr-cntrl")==0)
+                        SpaceShuttle.ev_timer_F7.stop();
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>event-tmr-cntrl</tooltip-id>
+                <label>Event Timer Control: %s</label>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-cntrl</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Stop', 'Start'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Event Timer Set/Reset "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>event-tmr-set</object-name>
+        <property>/fdm/jsbsim/systems/timer/event-tmr-set</property>
+        <factor>-50</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.2208</x-m>
+            <y-m>  0.1195</y-m>
+            <z-m> -0.9662</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-set</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    if(getprop("/fdm/jsbsim/systems/timer/event-tmr-set")==1)
+                        SpaceShuttle.ev_timer_F7.set(timer_set_time);
+                    else if(getprop("/fdm/jsbsim/systems/timer/event-tmr-set")==0)
+                        SpaceShuttle.ev_timer_F7.set(0);
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>event-tmr-set</tooltip-id>
+                <label>Event Timer Set/Reset: %s</label>
+                <property>/fdm/jsbsim/systems/timer/event-tmr-set</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Reset', 'Set'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
     <!-- Timer 1 Up "Switch" -->
     <animation>
         <type>pick</type>
@@ -4757,6 +4923,14 @@
             <binding>
                 <command>property-toggle</command>
                 <property>/fdm/jsbsim/systems/timer/timer1-up</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time + 600;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
             </binding>
             <binding>
                 <command>nasal</command>
@@ -4779,19 +4953,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer1-set-up</object-name>
         <property>/fdm/jsbsim/systems/timer/timer1-up</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2367</x-m>
             <y-m>  0.0177</y-m>
             <z-m> -0.943 </z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -4806,6 +4980,14 @@
             <binding>
                 <command>property-toggle</command>
                 <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time - 600;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
             </binding>
             <binding>
                 <command>nasal</command>
@@ -4828,19 +5010,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer1-set-dn</object-name>
         <property>/fdm/jsbsim/systems/timer/timer1-dn</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2243</x-m>
             <y-m>  0.0177</y-m>
             <z-m> -0.9651</z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -4860,6 +5042,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time + 60;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -4877,19 +5067,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer2-set-up</object-name>
         <property>/fdm/jsbsim/systems/timer/timer2-up</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2367</x-m>
             <y-m>  0.0413</y-m>
             <z-m> -0.943 </z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -4909,6 +5099,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time - 60;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -4926,19 +5124,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer2-set-dn</object-name>
         <property>/fdm/jsbsim/systems/timer/timer2-dn</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2243</x-m>
             <y-m>  0.0413</y-m>
             <z-m> -0.9651</z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -4958,6 +5156,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time + 10;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -4975,19 +5181,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer3-set-up</object-name>
         <property>/fdm/jsbsim/systems/timer/timer3-up</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2367</x-m>
             <y-m>  0.0594</y-m>
             <z-m> -0.943 </z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -5007,6 +5213,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time - 10;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -5024,19 +5238,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer3-set-dn</object-name>
         <property>/fdm/jsbsim/systems/timer/timer3-dn</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2243</x-m>
             <y-m>  0.0594</y-m>
             <z-m> -0.9651</z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -5056,6 +5270,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time + 1;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -5073,19 +5295,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer4-set-up</object-name>
         <property>/fdm/jsbsim/systems/timer/timer4-up</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2367</x-m>
             <y-m>  0.0831</y-m>
             <z-m> -0.943 </z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
@@ -5105,6 +5327,14 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    timer_set_time = timer_set_time - 1;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
+                </script>
+            </binding>
             <mod-up>
                 <binding>
                     <command>property-toggle</command>
@@ -5122,19 +5352,19 @@
         </hovered>
     </animation>
     <animation>
-        <type>rotate</type>
+        <type>translate</type>
         <object-name>timer4-set-dn</object-name>
         <property>/fdm/jsbsim/systems/timer/timer4-dn</property>
-        <factor>20</factor>
+        <factor>.0015</factor>
         <center>
             <x-m>-12.2243</x-m>
             <y-m>  0.0831</y-m>
             <z-m> -0.9651</z-m>
         </center>
         <axis>
-            <x>  0 </x>
-            <y> -1 </y>
-            <z>  1 </z>
+            <x>  -10 </x>
+            <y>   -2 </y>
+            <z>   -2 </z>
         </axis>
     </animation>
 
