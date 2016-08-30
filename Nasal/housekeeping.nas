@@ -1160,7 +1160,8 @@ var ev_timer =
     {
 
 	var display_time = me.time;
-	if ((me.count_mode = "UP") and (me.count_flag == 1))
+
+	if ((me.count_mode == "UP") and (me.count_flag == 1))
 		{
 		display_time = me.set_time - me.time;
 		}
@@ -1173,6 +1174,8 @@ var ev_timer =
 
     set: func (sec)
     {
+
+	sec = SpaceShuttle.clamp(sec, 0, 3600);
 	me.count_flag = 0;
 	me.time = sec;
 	me.set_time = sec;
@@ -1182,6 +1185,7 @@ var ev_timer =
 
     start: func
     {
+	if (me.count_flag == 1) {return;}
 	me.count_flag = 1;
 	me.update();
     },
@@ -1214,6 +1218,7 @@ var ev_timer =
     change_timer: func (inc)
     {
 	me.time = me.time + inc;
+	me.time = SpaceShuttle.clamp(me.time, 0, 3600);
     },
 
 
