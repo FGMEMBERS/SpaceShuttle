@@ -5939,30 +5939,10 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
-                <value>1</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.switch_orbital_dap(1)</script>
-            </binding>
+	    <binding>
+	        <command>nasal</command>
+                <script>SpaceShuttle.orbital_dap_manager.control_select("AUTO")</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -5992,30 +5972,10 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
-                <value>1</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.switch_orbital_dap(2)</script>
-            </binding>
+	    <binding>
+	        <command>nasal</command>
+                <script>SpaceShuttle.orbital_dap_manager.control_select("INRTL")</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -6045,30 +6005,10 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
-                <value>1</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.switch_orbital_dap(3)</script>
-            </binding>
+	    <binding>
+	        <command>nasal</command>
+                <script>SpaceShuttle.orbital_dap_manager.control_select("LVLH")</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>
@@ -6098,30 +6038,10 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-auto</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-inertial</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-lvlh</property>
-                <value>0</value>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/ap/orbital-dap-free</property>
-                <value>1</value>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.switch_orbital_dap(4)</script>
-            </binding>
+	    <binding>
+	        <command>nasal</command>
+                <script>SpaceShuttle.orbital_dap_manager.control_select("FREE")</script>
+ 	    </binding>
         </action>
         <hovered>
             <binding>

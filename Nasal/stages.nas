@@ -1184,55 +1184,6 @@ if (orbital_dap_free == 1)
 
 
 
-var switch_orbital_dap = func (mode)  {
-
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-
-# AUTO always needs to switch OMS TVC off
-
-if ((current_mode == 11) and (mode == 1))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-	return;
-	}
-
-
-# make sure we don't switch the DAP accidentially when not in orbit
-
-if ((current_mode == 0) or (current_mode == 10) or (current_mode == 11) or (current_mode == 29) or (current_mode == 3) or (current_mode == 4))
-	{
-	return;
-	}
-
-if (mode == 1) # AUTO
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-	}
-else if (mode == 2) # INTRL
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");	
-	}
-else if (mode == 3) # LVLH
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-	}
-else if (mode == 4) # FREE
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-	if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-	}
-}
 
 ###########################################################################
 # the deorbit loop primarily checks when to transfer control authority from

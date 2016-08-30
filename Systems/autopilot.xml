@@ -1143,7 +1143,6 @@
 						<property>systems/ap/lvlh/pitch-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1160,7 +1159,6 @@
 						<property>systems/ap/lvlh/yaw-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1178,7 +1176,6 @@
 						<property>systems/ap/lvlh/roll-error</property>
 						<value>-0.1</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
