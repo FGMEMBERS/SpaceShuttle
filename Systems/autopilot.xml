@@ -904,6 +904,7 @@
 			<test logic="AND" value="1">
 				systems/ap/orbital-dap-lvlh == 1
 				systems/ap/lvlh/rotational-control-input == 0
+				systems/ap/lvlh/engage-flag == 0
 			</test>
 		</switch>
 

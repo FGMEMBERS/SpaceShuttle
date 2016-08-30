@@ -166,9 +166,16 @@ var orbital_dap_manager = {
 			return;
 			}
 
-		if ((mode == "AUTO") or (mode == "LVLH") or (mode == "INRTL"))
+		if ((mode == "AUTO") or (mode == "INRTL"))
 			{
 			me.set_fcs_control_mode(20);
+			}
+		else if (mode == "LVLH")
+			{
+			me.set_fcs_control_mode(20);
+			# give LVLH logic time to clear the last attitude fix
+			setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 1);
+			settimer( func {setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 0);}, 0);
 			}
 		else if (mode == "FREE")
 			{
