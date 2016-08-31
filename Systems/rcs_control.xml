@@ -73,6 +73,8 @@
 
 	<channel name="Control Input pulse generation">
 
+		<!-- modes with pulse in all channels -->
+
 		<switch name="systems/fcs/rcs-pulse">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -88,6 +90,91 @@
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 		</switch>
+	
+		<!-- modes with pulse per channel -->
+
+		<switch name="systems/fcs/rcs-pulse-pitch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-pulse-yaw">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-pulse-roll">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-r-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+		</switch>
+
+
 
 		<!-- adjust pulse durations to match SPEC 20 defined DAP properties -->
 
@@ -168,7 +255,7 @@
 		</switch>
 
 		<switch name="systems/fcs/elevator-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-pitch"/>
 			<test logic="OR" value="0.0">
 				fcs/elevator-cmd-norm GT 0.5
 				fcs/elevator-cmd-norm LT -0.5
@@ -235,7 +322,7 @@
 		</switch>
 
 		<switch name="systems/fcs/rudder-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-yaw"/>
 			<test logic="OR" value="0.0">
 				fcs/rudder-cmd-norm GT 0.5
 				fcs/rudder-cmd-norm LT -0.5
@@ -303,7 +390,7 @@
 
 
 		<switch name="systems/fcs/aileron-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-roll"/>
 			<test logic="OR" value="0.0">
 				fcs/aileron-cmd-norm GT 0.5
 				fcs/aileron-cmd-norm LT -0.5
@@ -522,12 +609,41 @@
 			</test>
 		</switch>
 
-		<!--<switch name="systems/fcs/rate-control-pitch">
+		<switch name="systems/fcs/rate-control-pitch">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
 			</test>	
-		</switch>-->
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-p-pulse NE 1
+			</test>	
+		</switch>
+
+		<switch name="systems/fcs/rate-control-yaw">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>	
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-y-pulse NE 1
+			</test>	
+		</switch>
+
+		<switch name="systems/fcs/rate-control-roll">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>	
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-r-pulse NE 1
+			</test>	
+		</switch>
 
 
 		<!-- the problem to solve is that thrusters shouldn't run forever to minimize errors -->
@@ -1116,7 +1232,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-roll</property>
 					</difference>
 					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				<abs>
@@ -1124,7 +1240,7 @@
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-roll</property>
 					<property>systems/rcs/dap-roll-cmd-deadband</property>
 				</product>
 				</sum>
@@ -1146,7 +1262,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-pitch</property>
 					</difference>
 					<property>systems/fcs/elevator-cmd-norm-sense</property>
 					<abs>
@@ -1154,7 +1270,7 @@
 					</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-pitch</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
 				</sum>
@@ -1176,7 +1292,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-yaw</property>
 					</difference>
 					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				<abs>
@@ -1184,7 +1300,7 @@
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-yaw</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
 				</sum>

@@ -6606,15 +6606,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/roll-dr") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/roll-dr", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/roll-dr", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "ROLL");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/roll-pulse</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6631,7 +6624,7 @@
         <object-name>button_light_mm_roll_dr</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/roll-dr</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6648,15 +6641,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/roll-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/roll-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/roll-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "ROLL");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/roll-dr</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6673,7 +6659,7 @@
         <object-name>button_light_mm_roll_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/roll-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6690,15 +6676,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/pitch-dr") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/pitch-dr", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/pitch-dr", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "PITCH");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/pitch-pulse</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6715,7 +6694,7 @@
         <object-name>button_light_mm_pitch_dr</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/pitch-dr</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6732,15 +6711,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/pitch-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/pitch-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/pitch-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "PITCH");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/pitch-dr</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6757,7 +6729,7 @@
         <object-name>button_light_mm_pitch_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/pitch-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6774,15 +6746,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/yaw-dr") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/yaw-dr", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/yaw-dr", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "YAW");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/yaw-pulse</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6799,7 +6764,7 @@
         <object-name>button_light_mm_yaw_dr</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/yaw-dr</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6816,15 +6781,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/yaw-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/yaw-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/yaw-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "YAW");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/yaw-dr</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6841,7 +6799,7 @@
         <object-name>button_light_mm_yaw_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/yaw-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse</property>
                 <value>1</value>
             </equals>
         </condition>

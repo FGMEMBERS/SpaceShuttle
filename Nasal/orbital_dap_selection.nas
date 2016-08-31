@@ -181,8 +181,57 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(1);
 			}
-			
 
+	},
+
+
+	rot_rate_select: func (mode, axis) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202) and ((mode == "LVLH") or (mode == "FREE")))
+			{
+			print("Axis rate selection is only supported in OPS 2");
+			return;
+			}
+
+
+		if (mode == "DISC")
+			{
+			if (axis == "PITCH")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse", 0);
+				}
+			else if (axis == "YAW")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse", 0);
+				}
+			else if (axis == "ROLL")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse", 0);
+				}
+			}
+		else if (mode == "PULSE")
+			{
+			if (axis == "PITCH")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse", 1);
+				}
+			else if (axis == "YAW")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse", 1);
+				}
+			else if (axis == "ROLL")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse", 1);
+				}
+			}
 
 
 	},
@@ -236,9 +285,6 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zhigh-select", 1);
 			}
-		
-
-		
 
 	},
 

@@ -262,7 +262,7 @@
       <live>true</live>
       <binding>
 	 <command>nasal</command>
-         <script>SpaceShuttle.orbital_dap_manager.control_select("LVLH")</script>
+         <script>SpaceShuttle.orbital_dap_manager.control_select("LVLH");</script>
       </binding>
     </radio>
 

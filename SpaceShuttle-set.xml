@@ -82,6 +82,12 @@
 	  <znorm-select type="int">0</znorm-select>
 	  <zlow-select type="int">0</zlow-select>
 	  <zhigh-select type="int">0</zhigh-select>
+	  <rot-r-disc type="int">0</rot-r-disc>
+	  <rot-r-pulse type="int">0</rot-r-pulse>
+	  <rot-p-disc type="int">0</rot-p-disc>
+	  <rot-p-pulse type="int">0</rot-p-pulse>
+	  <rot-y-disc type="int">0</rot-y-disc>
+	  <rot-y-pulse type="int">0</rot-y-pulse>
        </orbital-dap-buttons>
        <contingency>
 	  <roll-headsup-active type="double">0.0</roll-headsup-active>

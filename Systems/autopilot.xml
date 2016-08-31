@@ -144,8 +144,18 @@
 
 		<switch name="systems/ap/rot-pls-degps">
 			<default value="0.0"/>
-			<test  value="systems/ap/spec20/dap-A-PRI-rot-pls">
-				systems/fcs/control-mode == 1				
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-rot-pls">
+				systems/fcs/control-mode == 1	
+				systems/fcs/control-mode == 20			
+			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-rot-pls">
+				systems/fcs/control-mode == 21			
+			</test>
+			<test value="systems/ap/spec20/dap-A-VRN-rot-pls">
+				systems/fcs/control-mode == 25			
+			</test>
+			<test value="systems/ap/spec20/dap-B-VRN-rot-pls">
+				systems/fcs/control-mode == 30			
 			</test>
 		</switch>
 
