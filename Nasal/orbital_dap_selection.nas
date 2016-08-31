@@ -106,6 +106,88 @@ var orbital_dap_manager = {
 
 	},
 
+
+	control_select: func (mode) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202) and ((mode == "LVLH") or (mode == "FREE")))
+			{
+			print("Control mode ", mode ," is only supported in OPS 2");
+			return;
+			}
+
+
+		me.attitude_mode = mode;
+
+		if (mode == "INRTL")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			}
+		else if (mode == "AUTO")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			}
+		else if (mode == "LVLH")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			}
+		else if (mode == "FREE")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
+			}
+
+		# make sure we don't switch the DAP accidentially when not in orbit
+
+		if ((me.fcs_control_mode == 0) or (me.fcs_control_mode == 10) or (me.fcs_control_mode == 11) or (me.fcs_control_mode == 12) or (me.fcs_control_mode == 13) or (me.fcs_control_mode == 29) or (me.fcs_control_mode == 3) or (me.fcs_control_mode == 4))
+			{
+			return;
+			}
+		
+		# otherwise we have a valid DAP selection
+
+		# AUTO always needs to switch OMS TVC off
+
+		if ((me.fcs_control_mode == 11) and (mode == "AUTO"))
+			{
+			me.set_fcs_control_mode(20);
+			return;
+			}
+
+		if ((mode == "AUTO") or (mode == "INRTL"))
+			{
+			me.set_fcs_control_mode(20);
+			}
+		else if (mode == "LVLH")
+			{
+			me.set_fcs_control_mode(20);
+			# give LVLH logic time to clear the last attitude fix
+			setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 1);
+			settimer( func {setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 0);}, 0);
+			}
+		else if (mode == "FREE")
+			{
+			me.set_fcs_control_mode(1);
+			}
+			
+
+
+
+	},
+	
+
 	z_mode_select : func (mode) {
 
 		me.get_state();
@@ -184,7 +266,8 @@ var orbital_dap_manager = {
 
 		var control_mode_string = "";
 
-		if (mode == 2) {control_mode_string = "RCS translation";}
+		if (mode == 1) {control_mode_string = "RCS ROT PLS";}
+		else if (mode == 2) {control_mode_string = "RCS translation";}
 		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
 		else if (mode == 25) {control_mode_string = "RCS DAP-A VERNIER";}

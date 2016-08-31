@@ -904,6 +904,7 @@
 			<test logic="AND" value="1">
 				systems/ap/orbital-dap-lvlh == 1
 				systems/ap/lvlh/rotational-control-input == 0
+				systems/ap/lvlh/engage-flag == 0
 			</test>
 		</switch>
 
@@ -1143,7 +1144,6 @@
 						<property>systems/ap/lvlh/pitch-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1160,7 +1160,6 @@
 						<property>systems/ap/lvlh/yaw-error</property>
 						<value>10.0</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>
@@ -1178,7 +1177,6 @@
 						<property>systems/ap/lvlh/roll-error</property>
 						<value>-0.1</value>
 						<property>systems/fcs/rcs-vernier-gain</property>
-						<property>systems/ap/orbital-dap-lvlh</property>
 					</product>
 					<value>-1.0</value>
 				</max>

@@ -70,6 +70,9 @@
        <mnvr-timer-sec type="int">0</mnvr-timer-sec>
        <mnvr-timer-min type="int">0</mnvr-timer-min>
        <mnvr-timer-h type="int">0</mnvr-timer-h>
+       <lvlh>
+	  <engage-flag type="int">0</engage-flag>
+       </lvlh>
        <orbital-dap-buttons>
 	  <dap-a-select type="int">0</dap-a-select>
 	  <dap-b-select type="int">0</dap-b-select>

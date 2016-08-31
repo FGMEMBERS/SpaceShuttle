@@ -522,6 +522,14 @@
 			</test>
 		</switch>
 
+		<!--<switch name="systems/fcs/rate-control-pitch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+			</test>	
+		</switch>-->
+
+
 		<!-- the problem to solve is that thrusters shouldn't run forever to minimize errors -->
 		<!-- so we stop them at a deadband - but then they take forever to correct in minute -->
 		<!-- bursts, so before they reach the deadband, they get a burst enhancement factor -->
@@ -709,7 +717,10 @@
 					<property>systems/rcs/dap-pitch-cmd-orbit</property>
 					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
-				<property>systems/ap/lvlh/pitch-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/pitch-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
@@ -796,7 +807,10 @@
 		<function>
 			<sum>
 				<property>systems/rcs/dap-roll</property>
-				<property>systems/ap/lvlh/roll-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/roll-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
@@ -937,7 +951,10 @@
 					<property>systems/rcs/dap-yaw-cmd-orbit</property>
 					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
-				<property>systems/ap/lvlh/yaw-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/yaw-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
