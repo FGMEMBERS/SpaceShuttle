@@ -8,90 +8,6 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
-    <effect>
-      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
-        <!--Panel R1 talkbacks -->
-        <object-name>fc0-reac-h2-op</object-name>
-        <object-name>fc0-reac-o2-op</object-name>
-        <object-name>fc0-rfl</object-name>
-        <object-name>fc0-cp</object-name>
-        <object-name>fc1-reac-h2-op</object-name>
-        <object-name>fc1-reac-o2-op</object-name>
-        <object-name>fc1-rfl</object-name>
-        <object-name>fc1-cp</object-name>
-        <object-name>fc2-reac-h2-op</object-name>
-        <object-name>fc2-reac-o2-op</object-name>
-        <object-name>fc2-rfl</object-name>
-        <object-name>fc2-cp</object-name>
-        <object-name>fc-mb-a-on</object-name>
-        <object-name>inv-ac0-on</object-name>
-        <object-name>inv-pwr0-on</object-name>
-        <object-name>mb-tie-a-on</object-name>
-        <object-name>fc-mb-b-on</object-name>
-        <object-name>inv-ac1-on</object-name>
-        <object-name>inv-pwr1-on</object-name>
-        <object-name>mb-tie-b-on</object-name>
-        <object-name>fc-mb-c-on</object-name>
-        <object-name>inv-ac2-on</object-name>
-        <object-name>inv-pwr2-on</object-name>
-        <object-name>mb-tie-c-on</object-name>
-        <!-- Panel L1 talkbacks -->
-        <object-name>rad-cntrl-l-rad</object-name>
-        <object-name>rad-cntrl-r-rad</object-name>
-        <object-name>rad-cntrl-r-bp</object-name>
-        <object-name>rad-cntrl-l-bp</object-name>
-        <object-name>aft-cp-l-ich</object-name>
-        <object-name>aft-cp-r-ich</object-name>
-        <object-name>aft-cp-r-bp</object-name>
-        <object-name>aft-cp-l-bp</object-name>
-        <!--Panel R1 talkbacks not connected -->
-        <object-name>h2-mv1-op</object-name>
-        <object-name>h2-mv2-op</object-name>
-        <object-name>o2-mv1-op</object-name>
-        <object-name>o2-mv2-op</object-name>
-        <object-name>pri-fc3-on</object-name>
-        <object-name>pri-mn-b-on</object-name>
-        <object-name>pri-mn-c-on</object-name>
-        <!--Panel R2 talkbacks -->
-        <object-name>apu_left_ready_to_start_talkback</object-name>
-        <object-name>apu_center_ready_to_start_talkback</object-name>
-        <object-name>apu_right_ready_to_start_talkback</object-name>
-        <object-name>et_umbilical_centerline_talkback_sto</object-name>
-        <object-name>et_umbilical_centerline_talkback_bp</object-name>
-        <object-name>et_umbilical_door_left_talkback_op</object-name>
-        <object-name>et_umbilical_door_left_talkback_bp</object-name>
-        <object-name>et_umbilical_door_left_talkback_cl</object-name>
-        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
-        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
-        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
-        <object-name>et_umbilical_door_right_talkback_op</object-name>
-        <object-name>et_umbilical_door_right_talkback_bp</object-name>
-        <object-name>et_umbilical_door_right_talkback_cl</object-name>
-        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
-        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
-        <object-name>et_umbilical_latch_right_talkback_lat</object-name>
-        <!-- Panel F6 talkbacks -->
-        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_left_cmd_talkback_up</object-name>
-        <object-name>landing_gear_right_cmd_talkback_up</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
-        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
-        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
-        <!-- Panel F8 talkbacks -->
-        <object-name>landing_gear_left_plt_talkback_bp</object-name>
-        <object-name>landing_gear_right_plt_talkback_bp</object-name>
-        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
-        <object-name>landing_gear_left_plt_talkback_up</object-name>
-        <object-name>landing_gear_right_plt_talkback_up</object-name>
-        <object-name>landing_gear_middle_plt_talkback_up</object-name>
-        <object-name>landing_gear_left_plt_talkback_dn</object-name>
-        <object-name>landing_gear_right_plt_talkback_dn</object-name>
-        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
-    </effect>
-
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
@@ -776,6 +692,39 @@
         <object-name>landing_gear_left_plt_talkback_dn</object-name>
         <object-name>landing_gear_right_plt_talkback_dn</object-name>
         <object-name>landing_gear_middle_plt_talkback_dn</object-name>
+        <!-- Panel C2 talkbacks -->
+        <object-name>timer-set-pos1</object-name>
+        <object-name>timer-set-pos2</object-name>
+        <object-name>timer-set-pos3</object-name>
+        <object-name>timer-set-pos4</object-name>
+    </effect>
+
+    <effect>
+      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
+        <!-- Panel L1 talkbacks -->
+        <object-name>fc0-reac-base</object-name>
+        <object-name>fc1-reac-base</object-name>
+        <object-name>fc2-reac-base</object-name>
+        <object-name>fc0-rfl-base</object-name>
+        <object-name>fc-cp-base</object-name>
+        <object-name>fc-mb-a-base</object-name>
+        <object-name>mb-tie-a-base</object-name>
+        <object-name>inv-pwr0-base</object-name>
+        <object-name>inv-ac0-base</object-name>
+        <object-name>fc-mb-b-base</object-name>
+        <object-name>mb-tie-b-base</object-name>
+        <object-name>inv-pwr1-base</object-name>
+        <object-name>inv-ac1-base</object-name>
+        <object-name>fc-mb-c-base</object-name>
+        <object-name>mb-tie-c-base</object-name>
+        <object-name>inv-pwr2-base</object-name>
+        <object-name>inv-ac2-base</object-name>
+        <!-- Panel R1 talkbacks base-->
+        <object-name>R1-talkback-base</object-name>
+        <!-- Panel R1 talkbacks base-->
+        <object-name>R2-talkback-base</object-name>
+        <!-- Panel C3 talkbacks base-->
+        <object-name>C3-buttons-base</object-name>
     </effect>
 
     <effect>
@@ -815,36 +764,8 @@
     </effect>
 
     <effect>
-      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
-        <!-- Panel L1 talkbacks -->
-        <object-name>fc0-reac-base</object-name>
-        <object-name>fc1-reac-base</object-name>
-        <object-name>fc2-reac-base</object-name>
-        <object-name>fc0-rfl-base</object-name>
-        <object-name>fc-cp-base</object-name>
-        <object-name>fc-mb-a-base</object-name>
-        <object-name>mb-tie-a-base</object-name>
-        <object-name>inv-pwr0-base</object-name>
-        <object-name>inv-ac0-base</object-name>
-        <object-name>fc-mb-b-base</object-name>
-        <object-name>mb-tie-b-base</object-name>
-        <object-name>inv-pwr1-base</object-name>
-        <object-name>inv-ac1-base</object-name>
-        <object-name>fc-mb-c-base</object-name>
-        <object-name>mb-tie-c-base</object-name>
-        <object-name>inv-pwr2-base</object-name>
-        <object-name>inv-ac2-base</object-name>
-        <!-- Panel R1 talkbacks base-->
-        <object-name>R1-talkback-base</object-name>
-        <!-- Panel R1 talkbacks base-->
-        <object-name>R2-talkback-base</object-name>
-        <!-- Panel C3 talkbacks base-->
-        <object-name>C3-buttons-base</object-name>
-    </effect>
-
-    <effect>
         <inherits-from>Aircraft/SpaceShuttle/Effects/plasma</inherits-from>
-   	<object-name>plasma_screen</object-name>
+        <object-name>plasma_screen</object-name>
     </effect>
 
     <!-- Yellow lights -->
@@ -4927,8 +4848,21 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time + 600;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                    timer_set_time = timer_set_time + 1;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_set_time);
+                    if (timer_set_time >= 6)
+                        {
+                            timer_set_time = 6;
+                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_set_time);
+                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", 0);
+                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", 0);
+                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos4", 0);
+                        }
+                    timer_set_time = timer_set_time * 600 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -4968,6 +4902,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos1</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos1</property>
+        <bias>0.0</bias>
+        <factor>0.00805</factor>
+        <step>1</step>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 1 Dn "Switch" -->
     <animation>
@@ -4984,8 +4930,14 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time - 600;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                    timer_set_time = timer_set_time - 1;
+                    if (0 > timer_set_time) timer_set_time = 0;
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_set_time);
+                    timer_set_time = timer_set_time * 600 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10 +
+                    getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5025,6 +4977,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos1</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos1</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 2 Up "Switch" -->
     <animation>
@@ -5045,8 +5009,21 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time + 60;
+                    if (getprop("/fdm/jsbsim/systems/timer/timer-set-sec") > 3599) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                    timer_set_time = timer_set_time + 1;
+                    if (timer_set_time > 9)
+                        {
+                            timer_set_time = 0;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                            if (6 > timer_inc)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc + 1);
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_set_time);
+                    timer_set_time = timer_set_time * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5082,6 +5059,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos2</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos2</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 2 Dn "Switch" -->
     <animation>
@@ -5102,8 +5091,21 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time - 60;
+                    if (1 > getprop("/fdm/jsbsim/systems/timer/timer-set-sec")) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                    timer_set_time = timer_set_time - 1;
+                    if (0 > timer_set_time)
+                        {
+                            timer_set_time = 9;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                            if (timer_inc > 0)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc - 1);
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_set_time);
+                    timer_set_time = timer_set_time * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5139,6 +5141,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos2</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos2</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 3 Up "Switch" -->
     <animation>
@@ -5159,8 +5173,29 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time + 10;
+                    if (getprop("/fdm/jsbsim/systems/timer/timer-set-sec") > 3599) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos3");
+                    timer_set_time = timer_set_time + 1;
+                    if (timer_set_time > 5)
+                        {
+                            timer_set_time = 0;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                            if (9 > timer_inc)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc + 1);
+                            else
+                                {
+                                    timer_inc = 0;
+                                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc);
+                                    timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                                    if (6 > timer_inc)
+                                        setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc + 1);
+                                }
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_set_time);
+                    timer_set_time = timer_set_time * 10 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5196,6 +5231,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos3</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos3</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 3 Dn "Switch" -->
     <animation>
@@ -5216,8 +5263,29 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
-                    timer_set_time = timer_set_time - 10;
+                    if (1 > getprop("/fdm/jsbsim/systems/timer/timer-set-sec")) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos3");
+                    timer_set_time = timer_set_time - 1;
+                    if (0 > timer_set_time)
+                        {
+                            timer_set_time = 5;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                            if (timer_inc > 1)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc - 1);
+                            else
+                                {
+                                    timer_inc = 9;
+                                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc);
+                                    timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                                    if (timer_inc > 0)
+                                        setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc - 1);
+                                }
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_set_time);
+                    timer_set_time = timer_set_time * 10 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5253,6 +5321,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos3</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos3</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 4 Up "Switch" -->
     <animation>
@@ -5273,8 +5353,37 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    if (getprop("/fdm/jsbsim/systems/timer/timer-set-sec") > 3599) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     timer_set_time = timer_set_time + 1;
+                    if (timer_set_time > 9)
+                        {
+                            timer_set_time = 0;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos3");
+                            if (5 > timer_inc)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_inc + 1);
+                            else
+                                {
+                                    timer_inc = 0;
+                                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_inc);
+                                    timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                                    if (9 > timer_inc)
+                                        setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc + 1);
+                                    else
+                                        {
+                                            timer_inc = 0;
+                                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc);
+                                            timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                                            if (6 > timer_inc)
+                                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc + 1);
+                                        }
+                                }
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos4", timer_set_time);
+                    timer_set_time = timer_set_time +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10;
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5310,6 +5419,18 @@
             <z>   -2 </z>
         </axis>
     </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos4</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos4</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>-1</x>
+            <y>0</y>
+        </axis>
+    </animation>
 
     <!-- Timer 4 Dn "Switch" -->
     <animation>
@@ -5330,8 +5451,37 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-sec");
+                    if (1 > getprop("/fdm/jsbsim/systems/timer/timer-set-sec")) return;
+                    var timer_set_time = getprop("/fdm/jsbsim/systems/timer/timer-set-pos4");
                     timer_set_time = timer_set_time - 1;
+                    if (0 > timer_set_time)
+                        {
+                            timer_set_time = 9;
+                            var timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos3");
+                            if (timer_inc > 1)
+                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_inc - 1);
+                            else
+                                {
+                                    timer_inc = 5;
+                                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos3", timer_inc);
+                                    timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos2");
+                                    if (timer_inc > 1)
+                                        setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc - 1);
+                                    else
+                                        {
+                                            timer_inc = 9;
+                                            setprop("/fdm/jsbsim/systems/timer/timer-set-pos2", timer_inc);
+                                            timer_inc = getprop("/fdm/jsbsim/systems/timer/timer-set-pos1");
+                                            if (timer_inc > 0)
+                                                setprop("/fdm/jsbsim/systems/timer/timer-set-pos1", timer_inc - 1);
+                                        }
+                                }
+                        }
+                    setprop("/fdm/jsbsim/systems/timer/timer-set-pos4", timer_set_time);
+                    timer_set_time = timer_set_time +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos1") * 600 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos2") * 60 +
+                        getprop("/fdm/jsbsim/systems/timer/timer-set-pos3") * 10;
                     setprop("/fdm/jsbsim/systems/timer/timer-set-sec", timer_set_time);
                 </script>
             </binding>
@@ -5365,6 +5515,18 @@
             <x>  -10 </x>
             <y>   -2 </y>
             <z>   -2 </z>
+        </axis>
+    </animation>
+    <animation>
+        <type>textranslate</type>
+        <object-name>timer-set-pos4</object-name>
+        <property>/fdm/jsbsim/systems/timer/timer-set-pos4</property>
+        <bias>0.0</bias>
+        <factor>0.0081</factor>
+        <step>1</step>
+        <axis>
+            <x>1</x>
+            <y>0</y>
         </axis>
     </animation>
 
