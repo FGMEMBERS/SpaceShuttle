@@ -1260,6 +1260,10 @@
       <up-mnvr-time type="int">0</up-mnvr-time>
       <up-mnvr-time-string type="string">000/00:00:00</up-mnvr-time-string>
       <timer-set-sec type="int">0</timer-set-sec>
+      <timer-set-pos1 type="int">0</timer-set-pos1>
+      <timer-set-pos2 type="int">0</timer-set-pos2>
+      <timer-set-pos3 type="int">0</timer-set-pos3>
+      <timer-set-pos4 type="int">0</timer-set-pos4>
      </timer>
      <various>
       <debris-separation-target type="double">0.0</debris-separation-target>
