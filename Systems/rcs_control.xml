@@ -85,10 +85,6 @@
 				systems/fcs/control-mode == 2
 				systems/fcs/rcs-use-pulse == 1
 			</test>
-			<test logic="AND" value="1.0">
-				systems/fcs/control-mode == 27
-				systems/fcs/rcs-use-pulse == 1
-			</test>
 		</switch>
 	
 		<!-- modes with pulse per channel -->
@@ -174,6 +170,30 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/vernier-pulse-factor-pitch">
+			<default value="1.0"/>
+			<test logic="OR" value="239.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-yaw">
+			<default value="1.0"/>
+			<test logic="OR" value="358.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-roll">
+			<default value="1.0"/>
+			<test logic="OR" value="266.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+			</test>
+		</switch>
+
 
 
 		<!-- adjust pulse durations to match SPEC 20 defined DAP properties -->
@@ -186,6 +206,7 @@
 					<value>0.21</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-pitch</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -198,6 +219,7 @@
 					<value>0.19</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-yaw</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -210,6 +232,7 @@
 					<value>0.10</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-roll</property>
 			</product>
 		</function>
 		</fcs_function>
