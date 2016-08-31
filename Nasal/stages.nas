@@ -962,54 +962,12 @@ else if ((current_mode == 4) or (current_mode == 29))
 var switch_control_mode = func {
 
 
-var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
-var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
-var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
-var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
+
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
 
-if ((current_mode == 1)  or (current_mode == 22) or (current_mode == 23))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
-	setprop("/controls/shuttle/control-system-string", "RCS translation");
-	}
-else if ((current_mode == 20) or (current_mode == 21)  or (current_mode ==25) or (current_mode == 30))
-	{
-	if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS ATT HLD");
-		}	
-	}
-else if ((current_mode ==2) or (current_mode == 26) or (current_mode == 27) or (current_mode ==28))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",11);
-	setprop("/controls/shuttle/control-system-string", "OMS TVC");
-	}
-else if (current_mode == 11)
-	{
-	if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-		}
-	else 
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-		}
-
-	}
-else if (current_mode ==0)
+if (current_mode ==0)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",10);
 	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring");	
@@ -1056,134 +1014,15 @@ else if (current_mode == 51)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",50);
 	setprop("/sim/messages/copilot", "MMU translation");
 	}
+else
+	{
+	SpaceShuttle.orbital_dap_manager.toggle_input_device();
+	}
 
 	
 }
 
 
-var switch_detailed_control_mode = func {
-
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-
-
-var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
-var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
-var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
-var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
-
-
-# sort the modes according to which orbital DAP we're in
-
-if (orbital_dap_auto == 1) # labels are different
-	{
-	if (current_mode == 20) # DAP A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",21);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-B AUTO");
-		}
-	if (current_mode == 21) # DAP B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER AUTO");
-		}
-	else if (current_mode == 25) # Vernier A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER AUTO");
-		}
-	else if (current_mode == 30) # Vernier B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-		}
-
-	}
-
-if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-	{
-	# rotational mode assignment
-
-	if (current_mode == 20) # DAP A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",21);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-B");
-		}
-	if (current_mode == 21) # DAP B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER");
-		}
-	else if (current_mode == 25) # Vernier A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER");
-		}
-	else if (current_mode == 30) # Vernier B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-		}
-
-	# translational mode assignment
-
-	if (current_mode == 26) # TRANS ATT HOLD
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS LOW-Z ATT HLD");
-		}
-	else if (current_mode == 28) # low Z
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS ATT HLD");
-		}
-	
-
-	}
-
-if (orbital_dap_free == 1)
-	{
-	# rotational mode assignment
-
-	if (current_mode == 1) # ROT
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",22);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT TAIL ONLY");
-		}
-	else if (current_mode == 22) # TAIL ONLY
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",23);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT NOSE ONLY");
-		}
-	else if (current_mode == 23)
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-		}
-
-		# translational mode assignment
-
-	if (current_mode == 2) # translation
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",27);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS LOW-Z");
-		}
-	else if (current_mode == 27) # low Z
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
-		setprop("/controls/shuttle/control-system-string", "RCS translation");
-		}
-		
-
-	}
-
-}
 
 
 

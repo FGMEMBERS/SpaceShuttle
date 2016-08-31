@@ -2098,10 +2098,10 @@
      <name>m</name>
      <desc>switch FCS modes</desc>
     </key>
-    <key>
+    <!--<key>
      <name>M</name>
      <desc>switch RCS DAP modes</desc>
-    </key>
+    </key>-->
     <key>
      <name>Ctrl-m</name>
      <desc>override FCS mode selection</desc>
@@ -2553,7 +2553,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     </binding>
    </key>
 
-   <key n="77">
+   <!--<key n="77">
     <name>M</name>
     <desc>RCS detailed mode</desc>
     <repeatable type="bool">false</repeatable>
@@ -2561,7 +2561,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
      <command>nasal</command>
      <script>SpaceShuttle.switch_detailed_control_mode()</script>
     </binding>
-   </key>
+   </key>-->
 
    <key n="83">
     <name>S</name>

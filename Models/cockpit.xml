@@ -6306,7 +6306,7 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                # needs xblank logic
+                   SpaceShuttle.orbital_dap_manager.z_mode_select("NORM");
                 </script>
             </binding>
         </action>

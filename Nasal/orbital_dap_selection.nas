@@ -10,6 +10,7 @@ var orbital_dap_manager = {
 	selected_dap: "",
 	selected_jets: "PRI",
 	selected_z_mode: "NORM",
+	selected_device: "RHC",
 
 
 	dap_select: func (dap) {
@@ -155,6 +156,28 @@ var orbital_dap_manager = {
 			{
 			return;
 			}
+
+		# don't actually change rotational DAP when we're using THC
+
+		if (me.selected_device == "THC") 
+			{
+			var target_mode =  me.find_control_mode ("THC", me.selected_dap, mode, me.selected_jets, me.selected_z_mode);
+			if (target_mode != -1)
+				{
+				me.set_fcs_control_mode(target_mode);
+
+				if (mode == "LVLH")
+					{
+					# give LVLH logic time to clear the last attitude fix
+					setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 1);
+					settimer( func {setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 0);}, 0);
+					}
+				}
+			
+			return;
+
+			}
+
 		
 		# otherwise we have a valid DAP selection
 
@@ -166,21 +189,19 @@ var orbital_dap_manager = {
 			return;
 			}
 
-		if ((mode == "AUTO") or (mode == "INRTL"))
+		var target_mode =  me.find_control_mode ("RHC", me.selected_dap, mode, me.selected_jets, me.selected_z_mode);
+
+		if (target_mode == -1) {target_mode = 20;}
+
+		me.set_fcs_control_mode(target_mode);
+
+		if (mode == "LVLH")
 			{
-			me.set_fcs_control_mode(20);
-			}
-		else if (mode == "LVLH")
-			{
-			me.set_fcs_control_mode(20);
 			# give LVLH logic time to clear the last attitude fix
 			setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 1);
 			settimer( func {setprop("/fdm/jsbsim/systems/ap/lvlh/engage-flag", 0);}, 0);
 			}
-		else if (mode == "FREE")
-			{
-			me.set_fcs_control_mode(1);
-			}
+
 
 	},
 
@@ -288,6 +309,103 @@ var orbital_dap_manager = {
 
 	},
 
+	toggle_input_device: func {
+
+
+		if (me.selected_device == "RHC")
+			{
+			me.input_device_select("THC");
+			}
+		else
+			{
+			me.input_device_select("RHC");
+			}
+
+	},
+
+	input_device_select: func (device) {
+
+		me.get_state();
+
+		# do not allow to select THC when not in a suitable DAP
+		
+		if ((me.fcs_control_mode == 0) or (me.fcs_control_mode == 10) or (me.fcs_control_mode == 11) or (me.fcs_control_mode == 12) or (me.fcs_control_mode == 13) or (me.fcs_control_mode == 24) or (me.fcs_control_mode == 29))
+			{
+			if (device == "THC")
+				{
+				print ("THC has no function in the current major mode");
+				return;
+				}
+			}
+
+		var target_mode = me.find_control_mode (device, me.selected_dap, me.attitude_mode, me.selected_jets, me.selected_z_mode);
+
+		if (target_mode != -1)
+			{
+			me.set_fcs_control_mode (target_mode);
+			me.selected_device = device;
+			setprop("/sim/messages/copilot", device~" active");
+			}
+
+	},
+
+
+	find_control_mode: func (device, dap, control, jets, z_mode) {
+
+		print(device, " ", dap, " ", control, " ", jets, " ", z_mode);
+
+		if (device == "THC")
+			{
+			if ((z_mode == "NORM") or (z_mode == "HIGH"))
+				{
+				if ((control == "INRTL") or (control=="LVLH"))
+					{return 26;}
+				else if (control == "FREE")
+					{return 2;}
+				}
+			else if (z_mode == "LOW")
+				{
+				if ((control == "INRTL") or (control=="LVLH"))
+					{return 28;	}
+				else if (control == "FREE")
+					{return 27;}
+				}
+			}
+		else if (device == "RHC")
+			{
+			if ((jets == "PRI") or (jets == "ALT"))
+				{
+				if ((control == "INRTL") or (control == "AUTO") or (control == "LVLH"))
+					{
+					if (dap == "A")
+						{return 20;}
+					else if (dap == "B")
+						{return 21;}
+					}
+				else if (control == "FREE")	
+					{
+					return 1;
+					}
+				
+				}
+			else if (jets = "VRN")
+				{
+				if ((control == "INRTL") or (control == "AUTO") or (control == "LVLH"))
+					{
+					if (dap == "A")
+						{return 25;}
+					else if (dap == "B")
+						{return 30;}
+					}
+
+				}
+			}
+
+		setprop("/sim/messages/copilot", "Requested DAP is not implemented, check pushbuttons." );
+		return -1;
+
+
+	},
 
 	get_state: func {
 
@@ -303,6 +421,19 @@ var orbital_dap_manager = {
 		else if (orbital_dap_free == 1) {me.attitude_mode = "FREE";}
 		else if (orbital_dap_lvlh == 1) {me.attitude_mode = "LVLH";}
 		else if (orbital_dap_auto == 1) {me.attitude_mode = "AUTO";}
+
+		var dap_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select");
+		if (dap_selection == 1) {me.selected_dap = "B";}
+		else {me.selected_dap = "A";}
+
+		var jet_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select");
+		if (jet_selection == 1) {me.selected_jets = "VRN";}
+		else {me.selected_jets = "PRI";}
+
+		var z_mode = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select");
+		if (z_mode == 1) {me.selected_z_mode = "LOW";}
+		else {me.selected_z_mode = "NORM";}
+
 	},
 
 
@@ -370,6 +501,36 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
 
 			me.set_fcs_control_mode(20);
+			}
+		else if (dap == "NONE")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+
+			me.attitude_mode = "";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select",0);
+
+			me.selected_dap = "";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select",0);
+
+			me.selected_jets = "";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
 			}
 
 
