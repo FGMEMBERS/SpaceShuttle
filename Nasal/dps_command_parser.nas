@@ -629,6 +629,16 @@ var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 SpaceShuttle.nbat.select_ops(ops);
 SpaceShuttle.nbat.apply();
 
+# load the relevant DAPs
+# in OPS 1 and 6 transition DAP comes active at ETsep
+
+if (ops == 2)
+	{SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");}
+else if (ops == 3)
+	{SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");}
+
+
+
 var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
 # we now switch over all screens on IDPs showing the same major function which are in dps mode

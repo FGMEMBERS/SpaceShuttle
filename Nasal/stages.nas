@@ -796,19 +796,22 @@ var control_to_rcs = func {
 
 var stage = getprop("/sim/presets/stage");
 
-if ((stage == 3) or (stage ==4)){return;}
+if ((stage == 3) or (stage ==4) or (stage == 5)){return;}
 
 # transfer controls to RCS
 
-setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+if (stage == 6)
+	{
+	SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");
+	}
+else
+	{
+	SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");
+	}
 setprop("/sim/messages/copilot", "Control switched to RCS.");
-setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
 
-# transfer thrust control to OMS
+
+# transfer thrust control to OMS - this is not realistic but kept for testing purposes
 
 setprop("/sim/input/selected/engine[0]",0);
 setprop("/sim/input/selected/engine[1]",0);

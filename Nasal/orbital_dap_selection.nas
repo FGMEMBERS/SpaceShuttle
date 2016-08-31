@@ -304,6 +304,77 @@ var orbital_dap_manager = {
 		else if (orbital_dap_lvlh == 1) {me.attitude_mode = "LVLH";}
 		else if (orbital_dap_auto == 1) {me.attitude_mode = "AUTO";}
 	},
+
+
+	load_dap: func (dap) {
+
+
+		if (dap == "TRANSITION")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+
+			me.attitude_mode = "INRTL";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select",0);
+
+			me.selected_dap = "A";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select",0);
+
+			me.selected_jets = "PRI";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
+			me.set_fcs_control_mode(20);
+			}
+		else if (dap == "ORBIT")
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+
+			me.attitude_mode = "INRTL";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select",0);
+
+			me.selected_dap = "A";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select",0);
+
+			me.selected_jets = "PRI";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
+			me.set_fcs_control_mode(20);
+			}
+
+
+	},
+	
 	
 	set_fcs_control_mode: func (mode) {
 
