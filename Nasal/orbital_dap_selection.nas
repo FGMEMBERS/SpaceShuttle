@@ -447,6 +447,10 @@ var orbital_dap_manager = {
 					else if (dap == "B")
 						{return 30;}
 					}
+				else if (control == "FREE")
+					{
+					return 31;
+					}
 
 				}
 			}
@@ -630,6 +634,7 @@ var orbital_dap_manager = {
 		else if (mode == 27) {control_mode_string = "RCS TRANS LOW-Z";}
 		else if (mode == 28) {control_mode_string = "RCS TRANS LOW-Z ATT HLD";}
 		else if (mode == 30) {control_mode_string = "RCS DAP-B VERNIER";}
+		else if (mode == 31) {control_mode_string = "RCS ROT PLS VERNIER";}
 
 		if (me.attitude_mode == "AUTO")
 			{

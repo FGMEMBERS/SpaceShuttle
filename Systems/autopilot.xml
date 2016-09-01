@@ -151,8 +151,9 @@
 			<test value="systems/ap/spec20/dap-B-PRI-rot-pls">
 				systems/fcs/control-mode == 21			
 			</test>
-			<test value="systems/ap/spec20/dap-A-VRN-rot-pls">
-				systems/fcs/control-mode == 25			
+			<test logic="OR" value="systems/ap/spec20/dap-A-VRN-rot-pls">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 31						
 			</test>
 			<test value="systems/ap/spec20/dap-B-VRN-rot-pls">
 				systems/fcs/control-mode == 30			

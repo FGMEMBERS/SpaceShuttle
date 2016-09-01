@@ -20,6 +20,7 @@
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 	<!-- 30: RCS DAP-B Vernier -->
+	<!-- 31: RCS rotation Vernier -->
 
 
 	<channel name="RCS usage">
@@ -44,6 +45,7 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -79,6 +81,10 @@
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/fcs/control-mode == 1
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 31
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 		</switch>
@@ -237,12 +243,20 @@
 				systems/fcs/control-mode == 30
 				fcs/elevator-cmd-norm GT 0.0
 			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 25
 				fcs/elevator-cmd-norm LT 0.0
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 30
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 31
 				fcs/elevator-cmd-norm LT 0.0
 			</test>
 		</switch>
@@ -252,6 +266,7 @@
 			<test logic="OR" value="358.0">
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
 			</test>
 		</switch>
 
@@ -260,6 +275,7 @@
 			<test logic="OR" value="266.0">
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
 			</test>
 		</switch>
 
@@ -833,6 +849,7 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
 			</test>
 		</switch>
 
@@ -1254,6 +1271,7 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
 			</test>
 		</switch>
 
