@@ -148,14 +148,27 @@
 				systems/fcs/control-mode == 1	
 				systems/fcs/control-mode == 20			
 			</test>
-			<test value="systems/ap/spec20/dap-B-PRI-rot-pls">
-				systems/fcs/control-mode == 21			
+			<test logic="OR" value="systems/ap/spec20/dap-B-PRI-rot-pls">
+				systems/fcs/control-mode == 21	
+				systems/fcs/control-mode == 32		
 			</test>
-			<test value="systems/ap/spec20/dap-A-VRN-rot-pls">
-				systems/fcs/control-mode == 25			
+			<test logic="OR" value="systems/ap/spec20/dap-A-VRN-rot-pls">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 31						
 			</test>
-			<test value="systems/ap/spec20/dap-B-VRN-rot-pls">
-				systems/fcs/control-mode == 30			
+			<test logic="OR" value="systems/ap/spec20/dap-B-VRN-rot-pls">
+				systems/fcs/control-mode == 30	
+				systems/fcs/control-mode == 33					
+			</test>
+		</switch>
+
+		<switch name="systems/ap/trans-pls-fps">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-tran-pls">
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28						
 			</test>
 		</switch>
 

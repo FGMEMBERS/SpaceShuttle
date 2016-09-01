@@ -4,7 +4,7 @@
 
 	<!-- the following modes are implemented: -->
 
-	<!-- 1:  RCS rotation - stick controls thrust -->
+	<!-- 1:  RCS rotation DAP A- stick controls thrust -->
 	<!-- 2:  RCS translation - stick controls thrust -->
 	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
 	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
@@ -20,7 +20,9 @@
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 	<!-- 30: RCS DAP-B Vernier -->
-
+	<!-- 31: RCS rotation DAP-A Vernier -->
+	<!-- 32: RCS rotation DAP B -->
+	<!-- 33: RCS rotation DAP-B Vernier -->
 
 	<channel name="RCS usage">
 
@@ -44,6 +46,9 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -82,11 +87,15 @@
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 			<test logic="AND" value="1.0">
-				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 31
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 			<test logic="AND" value="1.0">
-				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 32
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 33
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 		</switch>
@@ -118,6 +127,27 @@
 				systems/fcs/control-mode == 30
 				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+
 		</switch>
 
 		<switch name="systems/fcs/rcs-pulse-yaw">
@@ -144,6 +174,26 @@
 				systems/fcs/rcs-use-pulse == 1
 				systems/fcs/control-mode == 30
 				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
 			</test>
 		</switch>
 
@@ -172,7 +222,85 @@
 				systems/fcs/control-mode == 30
 				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
 		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-pitch">
+			<default value="1.0"/>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 25
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 30
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 33
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 25
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 30
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 33
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-yaw">
+			<default value="1.0"/>
+			<test logic="OR" value="358.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-roll">
+			<default value="1.0"/>
+			<test logic="OR" value="266.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
+			</test>
+		</switch>
+
+		
 
 
 
@@ -180,37 +308,73 @@
 
 		<fcs_function name="systems/fcs/elevator-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.21</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-pitch</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>			
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/rudder-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.19</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-yaw</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>	
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/aileron-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.10</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-roll</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>	
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
@@ -706,6 +870,8 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 
@@ -1127,6 +1293,9 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 

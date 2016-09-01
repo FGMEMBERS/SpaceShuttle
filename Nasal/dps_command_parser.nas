@@ -1852,6 +1852,11 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt", state);
 			valid_flag =1;
 			}
+		else if (item == 17)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-tran-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 23)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
@@ -1865,6 +1870,11 @@ if ((header == "ITEM") and (end == "EXEC"))
 		else if (item == 25)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 26)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-pls", value);
 			valid_flag =1;
 			}
 		else if (item == 30)
@@ -1903,6 +1913,11 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt", state);
 			valid_flag =1;
 			}
+		else if (item == 37)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-tran-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 43)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
@@ -1916,6 +1931,11 @@ if ((header == "ITEM") and (end == "EXEC"))
 		else if (item == 45)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 46)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pls", value);
 			valid_flag =1;
 			}
 

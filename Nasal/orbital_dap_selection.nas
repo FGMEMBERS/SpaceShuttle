@@ -41,6 +41,22 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(25);
 			}
+		else if ((me.fcs_control_mode == 1) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(32);
+			}
+		else if ((me.fcs_control_mode == 32) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(1);
+			}
+		else if ((me.fcs_control_mode == 31) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(33);
+			}
+		else if ((me.fcs_control_mode == 33) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(31);
+			}
 
 		if (dap == "A")
 			{			
@@ -85,6 +101,23 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(21);
 			}
+		else if ((me.fcs_control_mode == 1) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(31);
+			}
+		else if ((me.fcs_control_mode == 31) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(1);
+			}
+		else if ((me.fcs_control_mode == 32) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(33);
+			}
+		else if ((me.fcs_control_mode == 33) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(32);
+			}
+
 
 		if (sys == "PRI")
 			{			
@@ -210,7 +243,7 @@ var orbital_dap_manager = {
 
 		me.get_state();
 
-		if ((me.major_mode != 201) and (me.major_mode != 202) and ((mode == "LVLH") or (mode == "FREE")))
+		if ((me.major_mode != 201) and (me.major_mode != 202))
 			{
 			print("Axis rate selection is only supported in OPS 2");
 			return;
@@ -257,6 +290,56 @@ var orbital_dap_manager = {
 
 	},
 	
+
+	translation_mode_select : func (mode, axis) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202))
+			{
+			print("Translation mode selection is only supported in OPS 2");
+			return;
+			}
+
+		if (mode == "NORM")
+			{
+			if (axis == "X")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+				}
+			else if (axis == "Y")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+				}
+			else if (axis == "Z")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+				}
+			}
+		else if (mode == "PULSE")
+					{
+			if (axis == "X")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 1);
+				}
+			else if (axis == "Y")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 1);
+				}
+			else if (axis == "Z")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 1);
+				}
+			}
+
+	},
+
 
 	z_mode_select : func (mode) {
 
@@ -384,7 +467,10 @@ var orbital_dap_manager = {
 					}
 				else if (control == "FREE")	
 					{
-					return 1;
+					if (dap == "A")
+						{return 1;}
+					else if (dap == "B")
+						{return 32;}
 					}
 				
 				}
@@ -396,6 +482,13 @@ var orbital_dap_manager = {
 						{return 25;}
 					else if (dap == "B")
 						{return 30;}
+					}
+				else if (control == "FREE")
+					{
+					if (dap == "A")
+						{return 31;}
+					else if (dap == "B")
+						{return 33;}
 					}
 
 				}
@@ -469,6 +562,15 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
 
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
 			me.set_fcs_control_mode(20);
 			}
 		else if (dap == "ORBIT")
@@ -499,6 +601,15 @@ var orbital_dap_manager = {
 
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",1);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
 
 			me.set_fcs_control_mode(20);
 			}
@@ -531,6 +642,15 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
 
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
 			}
 
 
@@ -544,7 +664,7 @@ var orbital_dap_manager = {
 
 		var control_mode_string = "";
 
-		if (mode == 1) {control_mode_string = "RCS ROT PLS";}
+		if (mode == 1) {control_mode_string = "RCS ROT DAP-A PLS";}
 		else if (mode == 2) {control_mode_string = "RCS translation";}
 		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
@@ -553,6 +673,9 @@ var orbital_dap_manager = {
 		else if (mode == 27) {control_mode_string = "RCS TRANS LOW-Z";}
 		else if (mode == 28) {control_mode_string = "RCS TRANS LOW-Z ATT HLD";}
 		else if (mode == 30) {control_mode_string = "RCS DAP-B VERNIER";}
+		else if (mode == 31) {control_mode_string = "RCS ROT DAP-A PLS VERNIER";}
+		else if (mode == 32) {control_mode_string = "RCS ROT DAP-B PLS";}
+		else if (mode == 33) {control_mode_string = "RCS ROT DAP-B PLS VERNIER";}
 
 		if (me.attitude_mode == "AUTO")
 			{
