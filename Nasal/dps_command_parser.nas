@@ -1933,7 +1933,7 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", value);
 			valid_flag =1;
 			}
-		else if (item == 66)
+		else if (item == 46)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pls", value);
 			valid_flag =1;

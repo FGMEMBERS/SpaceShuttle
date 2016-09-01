@@ -4,7 +4,7 @@
 
 	<!-- the following modes are implemented: -->
 
-	<!-- 1:  RCS rotation - stick controls thrust -->
+	<!-- 1:  RCS rotation DAP A- stick controls thrust -->
 	<!-- 2:  RCS translation - stick controls thrust -->
 	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
 	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
@@ -20,8 +20,9 @@
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 	<!-- 30: RCS DAP-B Vernier -->
-	<!-- 31: RCS rotation Vernier -->
-
+	<!-- 31: RCS rotation DAP-A Vernier -->
+	<!-- 32: RCS rotation DAP B -->
+	<!-- 33: RCS rotation DAP-B Vernier -->
 
 	<channel name="RCS usage">
 
@@ -46,6 +47,8 @@
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -85,6 +88,14 @@
 			</test>
 			<test logic="AND" value="1.0">
 				systems/fcs/control-mode == 31
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 32
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 33
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 		</switch>
@@ -247,6 +258,10 @@
 				systems/fcs/control-mode == 31
 				fcs/elevator-cmd-norm GT 0.0
 			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 33
+				fcs/elevator-cmd-norm GT 0.0
+			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 25
 				fcs/elevator-cmd-norm LT 0.0
@@ -257,6 +272,10 @@
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 33
 				fcs/elevator-cmd-norm LT 0.0
 			</test>
 		</switch>
@@ -267,6 +286,7 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 
@@ -276,6 +296,7 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 
@@ -850,6 +871,7 @@
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 
@@ -1272,6 +1294,8 @@
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 

@@ -41,6 +41,22 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(25);
 			}
+		else if ((me.fcs_control_mode == 1) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(32);
+			}
+		else if ((me.fcs_control_mode == 32) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(1);
+			}
+		else if ((me.fcs_control_mode == 31) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(33);
+			}
+		else if ((me.fcs_control_mode == 33) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(31);
+			}
 
 		if (dap == "A")
 			{			
@@ -85,6 +101,23 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(21);
 			}
+		else if ((me.fcs_control_mode == 1) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(31);
+			}
+		else if ((me.fcs_control_mode == 31) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(1);
+			}
+		else if ((me.fcs_control_mode == 32) and (sys == "VRN"))
+			{
+			me.set_fcs_control_mode(33);
+			}
+		else if ((me.fcs_control_mode == 33) and ((sys == "PRI") or (sys == "ALT")))
+			{
+			me.set_fcs_control_mode(32);
+			}
+
 
 		if (sys == "PRI")
 			{			
@@ -434,7 +467,10 @@ var orbital_dap_manager = {
 					}
 				else if (control == "FREE")	
 					{
-					return 1;
+					if (dap == "A")
+						{return 1;}
+					else if (dap == "B")
+						{return 32;}
 					}
 				
 				}
@@ -449,7 +485,10 @@ var orbital_dap_manager = {
 					}
 				else if (control == "FREE")
 					{
-					return 31;
+					if (dap == "A")
+						{return 31;}
+					else if (dap == "B")
+						{return 33;}
 					}
 
 				}
@@ -625,7 +664,7 @@ var orbital_dap_manager = {
 
 		var control_mode_string = "";
 
-		if (mode == 1) {control_mode_string = "RCS ROT PLS";}
+		if (mode == 1) {control_mode_string = "RCS ROT DAP-A PLS";}
 		else if (mode == 2) {control_mode_string = "RCS translation";}
 		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
@@ -634,7 +673,9 @@ var orbital_dap_manager = {
 		else if (mode == 27) {control_mode_string = "RCS TRANS LOW-Z";}
 		else if (mode == 28) {control_mode_string = "RCS TRANS LOW-Z ATT HLD";}
 		else if (mode == 30) {control_mode_string = "RCS DAP-B VERNIER";}
-		else if (mode == 31) {control_mode_string = "RCS ROT PLS VERNIER";}
+		else if (mode == 31) {control_mode_string = "RCS ROT DAP-A PLS VERNIER";}
+		else if (mode == 32) {control_mode_string = "RCS ROT DAP-B PLS";}
+		else if (mode == 33) {control_mode_string = "RCS ROT DAP-B PLS VERNIER";}
 
 		if (me.attitude_mode == "AUTO")
 			{
