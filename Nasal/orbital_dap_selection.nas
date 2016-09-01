@@ -210,7 +210,7 @@ var orbital_dap_manager = {
 
 		me.get_state();
 
-		if ((me.major_mode != 201) and (me.major_mode != 202) and ((mode == "LVLH") or (mode == "FREE")))
+		if ((me.major_mode != 201) and (me.major_mode != 202))
 			{
 			print("Axis rate selection is only supported in OPS 2");
 			return;
@@ -257,6 +257,56 @@ var orbital_dap_manager = {
 
 	},
 	
+
+	translation_mode_select : func (mode, axis) {
+
+		me.get_state();
+
+		if ((me.major_mode != 201) and (me.major_mode != 202))
+			{
+			print("Translation mode selection is only supported in OPS 2");
+			return;
+			}
+
+		if (mode == "NORM")
+			{
+			if (axis == "X")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+				}
+			else if (axis == "Y")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+				}
+			else if (axis == "Z")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+				}
+			}
+		else if (mode == "PULSE")
+					{
+			if (axis == "X")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 1);
+				}
+			else if (axis == "Y")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 1);
+				}
+			else if (axis == "Z")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 1);
+				}
+			}
+
+	},
+
 
 	z_mode_select : func (mode) {
 
@@ -469,6 +519,15 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
 
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
 			me.set_fcs_control_mode(20);
 			}
 		else if (dap == "ORBIT")
@@ -500,6 +559,15 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",1);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
 
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
 			me.set_fcs_control_mode(20);
 			}
 		else if (dap == "NONE")
@@ -530,6 +598,15 @@ var orbital_dap_manager = {
 
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
 
 			}
 

@@ -159,6 +159,16 @@
 			</test>
 		</switch>
 
+		<switch name="systems/ap/trans-pls-fps">
+			<default value="0.0"/>
+			<test logic="OR" value="systems/ap/spec20/dap-A-PRI-tran-pls">
+				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 26
+				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 28						
+			</test>
+		</switch>
+
 	</channel>	
 
 
