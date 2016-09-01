@@ -10,14 +10,6 @@
 
     <!-- implicit lighting -->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-framing</inherits-from>
-        <!-- cabin panel framing-->
-        <object-name>cabin_panel_framing</object-name>
-        <object-name>fwd_window_assembly</object-name>
-    </effect>
-
-    <!-- implicit lighting -->
-    <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
         <!-- cabin -->
         <object-name>backwall</object-name>
@@ -31,25 +23,8 @@
         <object-name>right_bulkhead</object-name>
         <object-name>velcro</object-name>
         <object-name>forward-bar</object-name>
+        <object-name>fwd_window_assembly</object-name>
         <object-name>roof_assembly</object-name>
-        <object-name>DisplaysC1</object-name>
-        <object-name>DisplaysC2</object-name>
-        <object-name>DisplaysC3</object-name>
-        <object-name>DisplaysC4</object-name>
-        <object-name>DisplaysC5</object-name>
-        <object-name>DisplaysL1</object-name>
-        <object-name>DisplaysL2</object-name>
-        <object-name>DisplaysR1</object-name>
-        <object-name>DisplaysR2</object-name>
-        <object-name>DisplaysC1bg</object-name>
-        <object-name>DisplaysC2bg</object-name>
-        <object-name>DisplaysC3bg</object-name>
-        <object-name>DisplaysC4bg</object-name>
-        <object-name>DisplaysC5bg</object-name>
-        <object-name>DisplaysL1bg</object-name>
-        <object-name>DisplaysL2bg</object-name>
-        <object-name>DisplaysR1bg</object-name>
-        <object-name>DisplaysR2bg</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
@@ -796,6 +771,19 @@
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Effects/plasma</inherits-from>
         <object-name>plasma_screen</object-name>
+    </effect>
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Effects/flashlight</inherits-from>
+        <object-name>DisplaysC1</object-name>
+        <object-name>DisplaysC2</object-name>
+        <object-name>DisplaysC3</object-name>
+        <object-name>DisplaysC4</object-name>
+        <object-name>DisplaysC5</object-name>
+        <object-name>DisplaysL1</object-name>
+        <object-name>DisplaysL2</object-name>
+        <object-name>DisplaysR1</object-name>
+        <object-name>DisplaysR2</object-name>
     </effect>
 
     <!-- Yellow lights -->
