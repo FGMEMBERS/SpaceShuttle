@@ -65,8 +65,9 @@
 			<test value="systems/ap/spec20/dap-A-VRN-rot-rate">
 				systems/fcs/control-mode == 25
 			</test>
-			<test value="systems/ap/spec20/dap-B-PRI-rot-rate">
+			<test logic="OR" value="systems/ap/spec20/dap-B-PRI-rot-rate">
 				systems/fcs/control-mode == 21	
+				systems/fcs/control-mode == 35	
 			</test>
 			<test value="systems/ap/spec20/dap-B-VRN-rot-rate">
 				systems/fcs/control-mode == 30	
@@ -93,8 +94,9 @@
 			<test value="systems/ap/spec20/dap-A-VRN-att-db">
 				systems/fcs/control-mode == 25
 			</test>
-			<test value="systems/ap/spec20/dap-B-PRI-att-db">
+			<test logic="OR" value="systems/ap/spec20/dap-B-PRI-att-db">
 				systems/fcs/control-mode == 21	
+				systems/fcs/control-mode == 35	
 			</test>
 			<test value="systems/ap/spec20/dap-B-VRN-att-db">
 				systems/fcs/control-mode == 30	
@@ -130,8 +132,9 @@
 			<test value="systems/ap/spec20/dap-A-VRN-rate-db">
 				systems/fcs/control-mode == 25
 			</test>
-			<test value="systems/ap/spec20/dap-B-PRI-rate-db">
-				systems/fcs/control-mode == 21	
+			<test logic="OR" value="systems/ap/spec20/dap-B-PRI-rate-db">
+				systems/fcs/control-mode == 21
+				systems/fcs/control-mode == 35		
 			</test>
 			<test value="systems/ap/spec20/dap-B-VRN-rate-db">
 				systems/fcs/control-mode == 30	
@@ -170,8 +173,9 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28						
 			</test>
-			<test value="systems/ap/spec20/dap-B-PRI-tran-pls">
-				systems/fcs/control-mode == 34						
+			<test logic="OR" value="systems/ap/spec20/dap-B-PRI-tran-pls">
+				systems/fcs/control-mode == 34	
+				systems/fcs/control-mode == 35					
 			</test>
 		</switch>
 

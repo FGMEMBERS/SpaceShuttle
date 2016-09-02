@@ -6496,15 +6496,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/x-norm") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/x-norm", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/x-norm", 0);
-                </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/x-pulse</property>
-                <value>0</value>
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "X");
+		</script>
             </binding>
         </action>
         <hovered>
@@ -6521,7 +6514,7 @@
         <object-name>button_light_mm_x_norm</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/x-norm</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6538,15 +6531,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/x-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/x-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/x-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "X");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/x-norm</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6563,7 +6549,7 @@
         <object-name>button_light_mm_x_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/x-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6580,15 +6566,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/y-norm") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/y-norm", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/y-norm", 0);
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "Y");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/y-pulse</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6605,7 +6584,7 @@
         <object-name>button_light_mm_y_norm</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/y-norm</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6622,15 +6601,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/y-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/y-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/y-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "Y");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/y-norm</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6647,7 +6619,7 @@
         <object-name>button_light_mm_y_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/y-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6664,15 +6636,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/z-norm") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/z-norm", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/z-norm", 0);
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "Z");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/z-pulse</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6689,7 +6654,7 @@
         <object-name>button_light_mm_z_norm</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/z-norm</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -6706,15 +6671,8 @@
             <binding>
                 <command>nasal</command>
                 <script>
-                    if (getprop("/fdm/jsbsim/systems/mm/z-pulse") == 0)
-                        setprop("/fdm/jsbsim/systems/mm/z-pulse", 1);
-                    else setprop("/fdm/jsbsim/systems/mm/z-pulse", 0);
+                   SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "Z");
                 </script>
-            </binding>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/mm/z-norm</property>
-                <value>0</value>
             </binding>
         </action>
         <hovered>
@@ -6731,7 +6689,7 @@
         <object-name>button_light_mm_z_pulse</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/mm/z-pulse</property>
+                <property>/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse</property>
                 <value>1</value>
             </equals>
         </condition>
