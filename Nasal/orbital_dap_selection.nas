@@ -65,6 +65,14 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(2);
 			}
+		else if ((me.fcs_control_mode == 26) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(35);
+			}
+		else if ((me.fcs_control_mode == 35) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(26);
+			}
 
 		if (dap == "A")
 			{			
@@ -237,7 +245,7 @@ var orbital_dap_manager = {
 			}
 
 		
-		# otherwise we have a valid DAP selection
+		# otherwise we have a valid rotational DAP selection
 
 
 
@@ -390,7 +398,10 @@ var orbital_dap_manager = {
 			}
 		else if ((me.fcs_control_mode == 28) and ((mode == "HIGH") or (mode == "NORM")))
 			{
-			me.set_fcs_control_mode(26);
+			if (me.selected_dap == "A")
+				{me.set_fcs_control_mode(26);}
+			else if (me.selected_dap == "B")
+				{me.set_fcs_control_mode(35);}
 			}
 
 		if (mode == "NORM")
@@ -464,7 +475,13 @@ var orbital_dap_manager = {
 			if ((z_mode == "NORM") or (z_mode == "HIGH"))
 				{
 				if ((control == "INRTL") or (control=="LVLH"))
-					{return 26;}
+					{
+					if (dap == "A")					
+						{return 26;}
+					else if (dap == "B")
+						{return 35;}
+
+					}
 				else if (control == "FREE")
 					{
 					if (dap == "A")
@@ -696,7 +713,7 @@ var orbital_dap_manager = {
 		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
 		else if (mode == 25) {control_mode_string = "RCS DAP-A VERNIER";}
-		else if (mode == 26) {control_mode_string = "RCS TRANS ATT HLD";}
+		else if (mode == 26) {control_mode_string = "RCS TRANS DAP-A ATT HLD";}
 		else if (mode == 27) {control_mode_string = "RCS TRANS LOW-Z";}
 		else if (mode == 28) {control_mode_string = "RCS TRANS LOW-Z ATT HLD";}
 		else if (mode == 30) {control_mode_string = "RCS DAP-B VERNIER";}
@@ -704,6 +721,7 @@ var orbital_dap_manager = {
 		else if (mode == 32) {control_mode_string = "RCS ROT DAP-B PLS";}
 		else if (mode == 33) {control_mode_string = "RCS ROT DAP-B PLS VERNIER";}
 		else if (mode == 34) {control_mode_string = "RCS TRANS DAP-B";}
+		else if (mode == 35) {control_mode_string = "RCS TRANS DAP-B ATT HLD";}
 
 		if (me.attitude_mode == "AUTO")
 			{
