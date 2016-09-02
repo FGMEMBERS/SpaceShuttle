@@ -29,6 +29,24 @@
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
         <object-name>HudRight</object-name>
+        <object-name>DisplaysC1</object-name>
+        <object-name>DisplaysC2</object-name>
+        <object-name>DisplaysC3</object-name>
+        <object-name>DisplaysC4</object-name>
+        <object-name>DisplaysC5</object-name>
+        <object-name>DisplaysL1</object-name>
+        <object-name>DisplaysL2</object-name>
+        <object-name>DisplaysR1</object-name>
+        <object-name>DisplaysR2</object-name>
+        <object-name>DisplaysC1bg</object-name>
+        <object-name>DisplaysC2bg</object-name>
+        <object-name>DisplaysC3bg</object-name>
+        <object-name>DisplaysC4bg</object-name>
+        <object-name>DisplaysC5bg</object-name>
+        <object-name>DisplaysL1bg</object-name>
+        <object-name>DisplaysL2bg</object-name>
+        <object-name>DisplaysR1bg</object-name>
+        <object-name>DisplaysR2bg</object-name>
         <!-- Misc -->
         <object-name>trim-panel-cmd</object-name>
         <object-name>trim-panel-plt</object-name>
@@ -771,19 +789,6 @@
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Effects/plasma</inherits-from>
         <object-name>plasma_screen</object-name>
-    </effect>
-
-    <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Effects/flashlight</inherits-from>
-        <object-name>DisplaysC1</object-name>
-        <object-name>DisplaysC2</object-name>
-        <object-name>DisplaysC3</object-name>
-        <object-name>DisplaysC4</object-name>
-        <object-name>DisplaysC5</object-name>
-        <object-name>DisplaysL1</object-name>
-        <object-name>DisplaysL2</object-name>
-        <object-name>DisplaysR1</object-name>
-        <object-name>DisplaysR2</object-name>
     </effect>
 
     <!-- Yellow lights -->
