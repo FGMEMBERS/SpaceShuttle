@@ -170,6 +170,9 @@
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28						
 			</test>
+			<test value="systems/ap/spec20/dap-B-PRI-tran-pls">
+				systems/fcs/control-mode == 34						
+			</test>
 		</switch>
 
 	</channel>	

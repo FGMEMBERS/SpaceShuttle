@@ -57,6 +57,14 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(31);
 			}
+		else if ((me.fcs_control_mode == 2) and (dap == "B"))
+			{
+			me.set_fcs_control_mode(34);
+			}
+		else if ((me.fcs_control_mode == 34) and (dap == "A"))
+			{
+			me.set_fcs_control_mode(2);
+			}
 
 		if (dap == "A")
 			{			
@@ -183,12 +191,29 @@ var orbital_dap_manager = {
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
 			}
 
+
 		# make sure we don't switch the DAP accidentially when not in orbit
+		# or while OMS TVC is active
 
 		if ((me.fcs_control_mode == 0) or (me.fcs_control_mode == 10) or (me.fcs_control_mode == 11) or (me.fcs_control_mode == 12) or (me.fcs_control_mode == 13) or (me.fcs_control_mode == 29) or (me.fcs_control_mode == 3) or (me.fcs_control_mode == 4))
 			{
 			return;
 			}
+
+
+		# AUTO unconditionally selects either DAP-A or B rotational
+		# other pushbutton settings do not matter
+		# also disengages THC
+
+		if (mode == "AUTO")
+			{
+			if (me.selected_dap == "A")
+				{me.set_fcs_control_mode(20);}
+			else if (me.selected_dap == "B")
+				{me.set_fcs_control_mode(21);}
+			return;
+			}
+
 
 		# don't actually change rotational DAP when we're using THC
 
@@ -214,13 +239,7 @@ var orbital_dap_manager = {
 		
 		# otherwise we have a valid DAP selection
 
-		# AUTO always needs to switch OMS TVC off
 
-		if ((me.fcs_control_mode == 11) and (mode == "AUTO"))
-			{
-			me.set_fcs_control_mode(20);
-			return;
-			}
 
 		var target_mode =  me.find_control_mode ("RHC", me.selected_dap, mode, me.selected_jets, me.selected_z_mode);
 
@@ -362,11 +381,14 @@ var orbital_dap_manager = {
 			{
 			me.set_fcs_control_mode(28);
 			}
-		else if ((me.fcs_control_mode == 27) and (mode == "HIGH"))
+		else if ((me.fcs_control_mode == 27) and ((mode == "HIGH") or (mode == "NORM")))
 			{
-			me.set_fcs_control_mode(2);
+			if (me.selected_dap == "A")
+				{me.set_fcs_control_mode(2);}
+			else if (me.selected_dap == "B")
+				{me.set_fcs_control_mode(34);}
 			}
-		else if ((me.fcs_control_mode == 28) and (mode == "HIGH"))
+		else if ((me.fcs_control_mode == 28) and ((mode == "HIGH") or (mode == "NORM")))
 			{
 			me.set_fcs_control_mode(26);
 			}
@@ -444,7 +466,12 @@ var orbital_dap_manager = {
 				if ((control == "INRTL") or (control=="LVLH"))
 					{return 26;}
 				else if (control == "FREE")
-					{return 2;}
+					{
+					if (dap == "A")
+						{return 2;}
+					else
+						{return 34;}
+					}
 				}
 			else if (z_mode == "LOW")
 				{
@@ -665,7 +692,7 @@ var orbital_dap_manager = {
 		var control_mode_string = "";
 
 		if (mode == 1) {control_mode_string = "RCS ROT DAP-A PLS";}
-		else if (mode == 2) {control_mode_string = "RCS translation";}
+		else if (mode == 2) {control_mode_string = "RCS TRANS DAP-A";}
 		else if (mode == 20) {control_mode_string = "RCS ROT DAP-A";}
 		else if (mode == 21) {control_mode_string = "RCS ROT DAP-B";}
 		else if (mode == 25) {control_mode_string = "RCS DAP-A VERNIER";}
@@ -676,6 +703,7 @@ var orbital_dap_manager = {
 		else if (mode == 31) {control_mode_string = "RCS ROT DAP-A PLS VERNIER";}
 		else if (mode == 32) {control_mode_string = "RCS ROT DAP-B PLS";}
 		else if (mode == 33) {control_mode_string = "RCS ROT DAP-B PLS VERNIER";}
+		else if (mode == 34) {control_mode_string = "RCS TRANS DAP-B";}
 
 		if (me.attitude_mode == "AUTO")
 			{

@@ -4,8 +4,8 @@
 
 	<!-- the following modes are implemented: -->
 
-	<!-- 1:  RCS rotation DAP A- stick controls thrust -->
-	<!-- 2:  RCS translation - stick controls thrust -->
+	<!-- 1:  RCS rotation DAP-A- stick controls thrust -->
+	<!-- 2:  RCS translation DAP-A - stick controls thrust -->
 	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
 	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
 	<!-- 13: Single engine SSME TVC with rate control and roll control via RCS -->
@@ -23,6 +23,7 @@
 	<!-- 31: RCS rotation DAP-A Vernier -->
 	<!-- 32: RCS rotation DAP B -->
 	<!-- 33: RCS rotation DAP-B Vernier -->
+	<!-- 34: RCS TRANS DAP-B -->
 
 	<channel name="RCS usage">
 
@@ -49,6 +50,7 @@
 				systems/fcs/control-mode == 31
 				systems/fcs/control-mode == 32
 				systems/fcs/control-mode == 33
+				systems/fcs/control-mode == 34
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -69,6 +71,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 34
 			</test>
 		</switch>
 
@@ -147,6 +150,11 @@
 				systems/fcs/control-mode == 28
 				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
 
 		</switch>
 
@@ -195,6 +203,11 @@
 				systems/fcs/control-mode == 28
 				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
 		</switch>
 
 		<switch name="systems/fcs/rcs-pulse-roll">
@@ -240,6 +253,11 @@
 			<test logic="AND" value="1.0">
 				systems/fcs/rcs-use-pulse == 1
 				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
 				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
 			</test>
 		</switch>
@@ -1306,6 +1324,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 34
 			</test>
 		</switch>
 
