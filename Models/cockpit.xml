@@ -29,24 +29,24 @@
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
         <object-name>HudRight</object-name>
-        <object-name>DisplaysC1</object-name>
-        <object-name>DisplaysC2</object-name>
-        <object-name>DisplaysC3</object-name>
-        <object-name>DisplaysC4</object-name>
-        <object-name>DisplaysC5</object-name>
-        <object-name>DisplaysL1</object-name>
-        <object-name>DisplaysL2</object-name>
-        <object-name>DisplaysR1</object-name>
-        <object-name>DisplaysR2</object-name>
-        <object-name>DisplaysC1bg</object-name>
-        <object-name>DisplaysC2bg</object-name>
-        <object-name>DisplaysC3bg</object-name>
-        <object-name>DisplaysC4bg</object-name>
-        <object-name>DisplaysC5bg</object-name>
-        <object-name>DisplaysL1bg</object-name>
-        <object-name>DisplaysL2bg</object-name>
-        <object-name>DisplaysR1bg</object-name>
-        <object-name>DisplaysR2bg</object-name>
+        <object-name>DisplayC1</object-name>
+        <object-name>DisplayC2</object-name>
+        <object-name>DisplayC3</object-name>
+        <object-name>DisplayC4</object-name>
+        <object-name>DisplayC5</object-name>
+        <object-name>DisplayL1</object-name>
+        <object-name>DisplayL2</object-name>
+        <object-name>DisplayR1</object-name>
+        <object-name>DisplayR2</object-name>
+        <object-name>DisplayC1bg</object-name>
+        <object-name>DisplayC2bg</object-name>
+        <object-name>DisplayC3bg</object-name>
+        <object-name>DisplayC4bg</object-name>
+        <object-name>DisplayC5bg</object-name>
+        <object-name>DisplayL1bg</object-name>
+        <object-name>DisplayL2bg</object-name>
+        <object-name>DisplayR1bg</object-name>
+        <object-name>DisplayR2bg</object-name>
         <!-- Misc -->
         <object-name>trim-panel-cmd</object-name>
         <object-name>trim-panel-plt</object-name>
