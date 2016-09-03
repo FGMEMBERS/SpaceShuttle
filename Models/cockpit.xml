@@ -48,10 +48,6 @@
         <object-name>DisplayR1bg</object-name>
         <object-name>DisplayR2bg</object-name>
         <!-- Misc -->
-        <object-name>trim-panel-cmd</object-name>
-        <object-name>trim-panel-plt</object-name>
-        <object-name>trim-rhc-pnl-cmd</object-name>
-        <object-name>trim-rhc-pnl-cmd</object-name>
         <object-name>air-data</object-name>
         <object-name>hsi-mode-plt</object-name>
         <object-name>hsi-sourcea-plt</object-name>
@@ -145,6 +141,11 @@
         <object-name>event-tmr-mode</object-name>
         <object-name>event-tmr-cntrl</object-name>
         <object-name>event-tmr-set</object-name>
+        <!-- Panel C2 display -->
+        <object-name>timer-set-pos1</object-name>
+        <object-name>timer-set-pos2</object-name>
+        <object-name>timer-set-pos3</object-name>
+        <object-name>timer-set-pos4</object-name>
         <!-- Panel C2 buttons -->
         <object-name>timer1-set-dn</object-name>
         <object-name>timer2-set-dn</object-name>
@@ -300,7 +301,7 @@
         <object-name>o2-tk3-heat-a-cvr</object-name>
         <object-name>o2-tk3-heat-b-cvr</object-name>
         <!--Panel R1 switches not connected -->
-        <object-name>ac-bus-snsr</object-name>
+        <object-name>ac-bus-snsr1</object-name>
         <object-name>ac-bus-snsr2</object-name>
         <object-name>ac-bus-snsr3</object-name>
         <object-name>ac-cont-1a</object-name>
@@ -473,8 +474,8 @@
         <object-name>h2o-loop1-bypass-man</object-name>
         <object-name>h2o-loop1-bypass-mode</object-name>
         <object-name>h2o-loop2-bypass-man</object-name>
-        <object-name>h2o-loop1-bypass-mode</object-name>
-        <object-name>h2o-pump-loop1-ac1</object-name>
+        <object-name>h2o-loop2-bypass-mode</object-name>
+        <object-name>h2o-pump-l1-ac1</object-name>
         <object-name>hi-load-evap</object-name>
         <object-name>humidity-sep-a</object-name>
         <object-name>humidity-sep-b</object-name>
@@ -500,6 +501,10 @@
         <object-name>man-sb-thrust-housing-plt</object-name>
         <object-name>nh3-tk-a</object-name>
         <object-name>nh3-tk-b</object-name>
+        <object-name>sd-sensor-reset</object-name>
+        <object-name>sd-circuit-test</object-name>
+        <object-name>flow-prop-vlv-loop2</object-name>
+        <object-name>flow-prop-vlv-loop1</object-name>
         <!--Panel L1 fixings -->
         <object-name>L1-panel</object-name>
         <object-name>L1-fasteners</object-name>
@@ -511,6 +516,7 @@
         <object-name>L2-base</object-name>
         <object-name>L2-guards</object-name>
         <object-name>L2-switches</object-name>
+        <object-name>L2-talkbacks</object-name>
         <!-- Panel L4 -->
         <object-name>L4-breakers</object-name>
         <object-name>L4-fasteners</object-name>
@@ -534,6 +540,12 @@
         <object-name>chute-arm-plt-cvr</object-name>
         <object-name>chute-dpy-plt-cvr</object-name>
         <object-name>chute-jett-cmd-cvr</object-name>
+        <object-name>trim-panel-cmd</object-name>
+        <object-name>trim-panel-plt</object-name>
+        <object-name>trim-rhc-pnl-cmd</object-name>
+        <object-name>trim-rhc-pnl-plt</object-name>
+        <object-name>hud-pwr-cmd-switch</object-name>
+        <object-name>hud-pwr-plt-switch</object-name>
         <!--Panel F3 fixings -->
         <object-name>F3-panel</object-name>
         <object-name>F3-fasteners</object-name>
@@ -575,12 +587,13 @@
         <object-name>hud-cmd-dim-knob</object-name>
         <object-name>hud-bright-cmd-switch</object-name>
         <object-name>hud-mode-cmd-switch</object-name>
-        <object-name>hud-pwr-cmd-switch</object-name>
         <object-name>hud-data-bus-cmd</object-name>
         <!--Panel F7 fixings -->
         <object-name>F7-panel</object-name>
         <object-name>F7-fasteners</object-name>
         <object-name>F7-guards</object-name>
+        <object-name>event-time-glass</object-name>
+        <object-name>event-time-glass-bg</object-name>
         <!-- Panel F8 switches -->
         <object-name>air-data-plt</object-name>
         <object-name>adi-rate-plt</object-name>
@@ -599,7 +612,6 @@
         <object-name>hud-plt-dim-knob</object-name>
         <object-name>hud-bright-plt-switch</object-name>
         <object-name>hud-mode-plt-switch</object-name>
-        <object-name>hud-pwr-plt-switch</object-name>
         <object-name>hud-data-bus-plt</object-name>
         <!--Panel F9 switches -->
         <object-name>ac-dial</object-name>
@@ -612,8 +624,12 @@
         <object-name>F9-panel</object-name>
         <object-name>F9-fasteners</object-name>
         <!-- Panel R4 -->
+        <object-name>R4-panel</object-name>
         <object-name>R4-switches</object-name>
+        <object-name>R4-fasteners</object-name>
+        <object-name>R4-guards</object-name>
         <object-name>R4-talkbacks</object-name>
+        <object-name>R4-base</object-name>
         <!--Panel R4 fixings -->
         <object-name>R7-panel</object-name>
         <object-name>R7-fasteners</object-name>
@@ -667,8 +683,6 @@
         <object-name>aft-cp-r-ich</object-name>
         <object-name>aft-cp-r-bp</object-name>
         <object-name>aft-cp-l-bp</object-name>
-        <!-- Panel L2 talkbacks -->
-        <object-name>L2-talkbacks</object-name>
         <!--Panel R1 talkbacks not connected -->
         <object-name>h2-mv1-op</object-name>
         <object-name>h2-mv2-op</object-name>
@@ -742,6 +756,10 @@
         <object-name>mb-tie-c-base</object-name>
         <object-name>inv-pwr2-base</object-name>
         <object-name>inv-ac2-base</object-name>
+        <object-name>rad-cntrl-r-base</object-name>
+        <object-name>rad-cntrl-l-base</object-name>
+        <object-name>aft-cp-r-base</object-name>
+        <object-name>aft-cp-l-base</object-name>
         <!-- Panel R1 talkbacks base-->
         <object-name>R1-talkback-base</object-name>
         <!-- Panel R1 talkbacks base-->
