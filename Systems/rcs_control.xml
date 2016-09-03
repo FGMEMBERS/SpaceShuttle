@@ -2,7 +2,7 @@
 
 <system>
 
-	<!-- the following modes are implemented: -->
+	<!-- the following modes which use RCS are implemented: -->
 
 	<!-- 1:  RCS rotation DAP-A- stick controls thrust -->
 	<!-- 2:  RCS TRANS DAP-A - stick controls thrust -->
@@ -16,7 +16,7 @@
 	<!-- 24: RCS ROT ENTRY - nose thrusters are off, stick controls rate -->
 	<!-- 25: RCS DAP-A Vernier - precision attitude hold using verniers, stick controls rate -->
 	<!-- 26: RCS TRANS DAP-A ATT-HLD - translational mode commanding attitude hold -->
-	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
+	<!-- 27: RCS TRANS LOW-Z DAP-A - translational mode minimizing plume impingement for +Z -->
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 	<!-- 30: RCS DAP-B Vernier -->
@@ -25,6 +25,8 @@
 	<!-- 33: RCS rotation DAP-B Vernier -->
 	<!-- 34: RCS TRANS DAP-B -->
 	<!-- 35: RCS TRANS DAP-B ATT-HLD -->
+	<!-- 36: RCS TRANS LOW-Z DAP-B -->
+	<!-- 37: RCS TRANS LOW-Z ATT HLD DAP-B -->
 
 	<channel name="RCS usage">
 
@@ -53,6 +55,8 @@
 				systems/fcs/control-mode == 33
 				systems/fcs/control-mode == 34
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -75,6 +79,8 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 34
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -163,6 +169,16 @@
 				systems/fcs/control-mode == 35
 				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
 
 		</switch>
 
@@ -221,6 +237,16 @@
 				systems/fcs/control-mode == 35
 				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
 			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
 		</switch>
 
 		<switch name="systems/fcs/rcs-pulse-roll">
@@ -276,6 +302,16 @@
 			<test logic="AND" value="1.0">
 				systems/fcs/rcs-use-pulse == 1
 				systems/fcs/control-mode == 35
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
 				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
 			</test>
 		</switch>
@@ -891,6 +927,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -925,6 +962,8 @@
 			<test logic = "OR" value="0.0">
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -951,6 +990,7 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 30
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -1335,6 +1375,7 @@
 				systems/fcs/control-mode == 32
 				systems/fcs/control-mode == 33
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -1347,6 +1388,8 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 34
 				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
