@@ -9,6 +9,13 @@
    <accelerations>
     <hdotdot-ft_s2 type="double">0.0</hdotdot-ft_s2>
    </accelerations>
+   <fcs>
+    <controller-power-plt type="int">1</controller-power-plt>
+    <controller-power-cdr type="int">1</controller-power-cdr>
+    <elevator-cmd-norm-css type="double">0</elevator-cmd-norm-css>
+    <rudder-cmd-norm-css type="double">0</rudder-cmd-norm-css>
+    <aileron-cmd-norm-css type="double">0</aileron-cmd-norm-css>
+   </fcs>
    <simulation>
     <gravitational-torque type="bool">true</gravitational-torque>
    </simulation>

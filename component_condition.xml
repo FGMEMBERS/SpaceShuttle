@@ -22,6 +22,8 @@
 <gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
 <gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
 <tps-condition type="double">1.0</tps-condition>
+<rhc-cdr-condition type="double">1.0</rhc-cdr-condition>
+<rhc-plt-condition type="double">1.0</rhc-plt-condition>
 <mps>
 	<ssme1-condition type="double">1.0</ssme1-condition>
 	<ssme2-condition type="double">1.0</ssme2-condition>

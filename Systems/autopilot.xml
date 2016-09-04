@@ -927,9 +927,9 @@
 		<switch name="systems/ap/lvlh/rotational-control-input">
 			<default value="1"/>
 			<test logic="AND" value="0">
-				fcs/elevator-cmd-norm == 0
-				fcs/rudder-cmd-norm == 0
-				fcs/aileron-cmd-norm == 0
+				fcs/elevator-cmd-norm-css == 0
+				fcs/rudder-cmd-norm-css == 0
+				fcs/aileron-cmd-norm-css == 0
 			</test>
 			<test  value="0">
 				systems/fcs/rcs-translation == 1

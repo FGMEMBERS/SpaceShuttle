@@ -9060,7 +9060,7 @@
     <animation>
         <type>knob</type>
         <object-name>flt-ctrl-pwr-cmd</object-name>
-        <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+        <property>/fdm/jsbsim/fcs/controller-power-cdr</property>
         <factor>-45</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -9076,7 +9076,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+                <property>/fdm/jsbsim/fcs/controller-power-cdr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -9092,7 +9092,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>flt-ctrl-pwr-cmd</tooltip-id>
                 <label>Flight Controller Power: %s</label>
-                <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+                <property>/fdm/jsbsim/fcs/controller-power-cdr</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Off', 'On'];
@@ -9513,7 +9513,7 @@
     <animation>
         <type>knob</type>
         <object-name>flt-ctrl-pwr-plt</object-name>
-        <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+        <property>/fdm/jsbsim/fcs/controller-power-plt</property>
         <factor>-45</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -9529,7 +9529,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+                <property>/fdm/jsbsim/fcs/controller-power-plt</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -9545,7 +9545,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>flt-ctrl-pwr-plt</tooltip-id>
                 <label>Flight Controller Power: %s</label>
-                <property>/fdm/jsbsim/systems/navigation/flight-cntrl-pwr</property>
+                <property>/fdm/jsbsim/fcs/controller-power-plt</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Off', 'On'];
