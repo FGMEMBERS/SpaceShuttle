@@ -2,11 +2,9 @@
 <PropertyList>
     <name>velcro</name>
     <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
-    <grain-texture-enabled type="int">1</grain-texture-enabled>
-    <grain-magnification type="float">10</grain-magnification>
       <parameters>
         <grain-texture-enabled type="int">1</grain-texture-enabled>
-        <grain-magnification type="float">55</grain-magnification>
+        <grain-magnification type="float"><use>/fdm/jsbsim/systems/grain/grain-velcro</use></grain-magnification>
         <texture n="7">
             <image>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro_texture.png</image>
             <type>2d</type>

@@ -13,23 +13,45 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro</inherits-from>
         <object-name>velcro</object-name>
     </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/framing</inherits-from>
+        <object-name>cabin_panel_framing</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/ceiling</inherits-from>
+        <object-name>ceiling</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/roof</inherits-from>
+        <object-name>roof_assembly</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/backwall</inherits-from>
+        <object-name>backwall</object-name>
+    </effect>
+        <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/wall</inherits-from>
+        <object-name>left_bulkhead</object-name>
+        <object-name>right_bulkhead</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/floor</inherits-from>
+        <object-name>cabin_floor</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/window</inherits-from>
+        <object-name>fwd_window_assembly</object-name>
+    </effect>
 
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
         <!-- cabin -->
-        <object-name>backwall</object-name>
-        <object-name>ceiling</object-name>
-        <object-name>cabin_floor</object-name>
-        <object-name>cabin_panel_framing</object-name>
+        <object-name>fwd_window_assembly_seal</object-name>
+        <object-name>forward-bar</object-name>
         <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
-        <object-name>left_bulkhead</object-name>
-        <object-name>right_bulkhead</object-name>
-        <object-name>forward-bar</object-name>
-        <object-name>fwd_window_assembly</object-name>
-        <object-name>roof_assembly</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
