@@ -195,7 +195,7 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 		{
 		mpm_status_string = "0 0 0 0 1 1";
 		}
-	else if ((mpm_ready_latch_status == 0) and (latch_status == 1))	
+	else if ((mpm_ready_latch_status == 0) and (mpm_latch_status == 1))	
 		{
 		mpm_status_string = "0 0 1 1 0 0";
 		}

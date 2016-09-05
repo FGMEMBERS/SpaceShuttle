@@ -722,6 +722,7 @@ if (drive_string == "SINGLE") {par = 1;}
 else if (drive_string == "DIRECT") {par = 1;}
 else if (drive_string == "ORB UNL X/Y/Z") {par = 2;}
 else if (drive_string == "ORB UNL P/Y/R") {par = 3;}
+else if (drive_string == "AUTO OPR CMD") {par = 4;}
 
 
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);

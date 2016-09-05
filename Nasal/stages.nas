@@ -1724,7 +1724,7 @@ if (stage == 0)
 	setprop("/position/latitude-deg", getprop("/sim/presets/latitude-deg"));
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
-	hydraulics_on();
+	#hydraulics_on();
 
 	SpaceShuttle.light_manager.set_theme("PAD");
 
@@ -2129,7 +2129,7 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
 	# transfer controls to RCS
-	control_to_rcs();
+	settimer(control_to_rcs, 1.0);
 
 	# open PBD
 	pb_door_open();
