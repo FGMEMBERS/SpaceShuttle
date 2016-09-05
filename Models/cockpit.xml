@@ -8,6 +8,12 @@
     <path>cockpit.ac</path>
     <nopreview/>
 
+    <!-- grain -->
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro</inherits-from>
+        <object-name>velcro</object-name>
+    </effect>
+
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
@@ -21,7 +27,6 @@
         <object-name>right_braking_system</object-name>
         <object-name>left_bulkhead</object-name>
         <object-name>right_bulkhead</object-name>
-        <object-name>velcro</object-name>
         <object-name>forward-bar</object-name>
         <object-name>fwd_window_assembly</object-name>
         <object-name>roof_assembly</object-name>
