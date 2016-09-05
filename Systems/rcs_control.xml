@@ -320,35 +320,35 @@
 			<default value="1.0"/>
 			<test logic="AND" value="239.0">
 				systems/fcs/control-mode == 25
-				fcs/elevator-cmd-norm GT 0.0
+				fcs/elevator-cmd-norm-css GT 0.0
 			</test>
 			<test logic="AND" value="239.0">
 				systems/fcs/control-mode == 30
-				fcs/elevator-cmd-norm GT 0.0
+				fcs/elevator-cmd-norm-css GT 0.0
 			</test>
 			<test logic="AND" value="239.0">
 				systems/fcs/control-mode == 31
-				fcs/elevator-cmd-norm GT 0.0
+				fcs/elevator-cmd-norm-css GT 0.0
 			</test>
 			<test logic="AND" value="239.0">
 				systems/fcs/control-mode == 33
-				fcs/elevator-cmd-norm GT 0.0
+				fcs/elevator-cmd-norm-css GT 0.0
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 25
-				fcs/elevator-cmd-norm LT 0.0
+				fcs/elevator-cmd-norm-css LT 0.0
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 30
-				fcs/elevator-cmd-norm LT 0.0
+				fcs/elevator-cmd-norm-css LT 0.0
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 31
-				fcs/elevator-cmd-norm LT 0.0
+				fcs/elevator-cmd-norm-css LT 0.0
 			</test>
 			<test logic="AND" value="108.0">
 				systems/fcs/control-mode == 33
-				fcs/elevator-cmd-norm LT 0.0
+				fcs/elevator-cmd-norm-css LT 0.0
 			</test>
 		</switch>
 
@@ -454,22 +454,22 @@
 		<!-- pulse generation for elevator input -->
 
 		<switch name="systems/fcs/elevator-cmd-norm-pulse-init">
-			<default value="fcs/elevator-cmd-norm"/>
+			<default value="fcs/elevator-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/elevator-cmd-norm GT 0.0
-				fcs/elevator-cmd-norm LT 0.5
+				fcs/elevator-cmd-norm-css GT 0.0
+				fcs/elevator-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/elevator-cmd-norm LT 0.0
-				fcs/elevator-cmd-norm GT -0.5
+				fcs/elevator-cmd-norm-css LT 0.0
+				fcs/elevator-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/elevator-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/elevator-pulse-timer-sample-hold">
-				fcs/elevator-cmd-norm GT 0.04
-				fcs/elevator-cmd-norm LT -0.04
+				fcs/elevator-cmd-norm-css GT 0.04
+				fcs/elevator-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -493,8 +493,8 @@
 		<switch name="systems/fcs/elevator-pulse">
 			<default value="systems/fcs/rcs-pulse-pitch"/>
 			<test logic="OR" value="0.0">
-				fcs/elevator-cmd-norm GT 0.5
-				fcs/elevator-cmd-norm LT -0.5
+				fcs/elevator-cmd-norm-css GT 0.5
+				fcs/elevator-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 	
@@ -512,7 +512,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/elevator-pulse</property>
 			</difference>
-			<property>fcs/elevator-cmd-norm</property>
+			<property>fcs/elevator-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
@@ -521,22 +521,22 @@
 		<!--  pulse generation for rudder input -->
 
 		<switch name="systems/fcs/rudder-cmd-norm-pulse-init">
-			<default value="fcs/rudder-cmd-norm"/>
+			<default value="fcs/rudder-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/rudder-cmd-norm GT 0.0
-				fcs/rudder-cmd-norm LT 0.5
+				fcs/rudder-cmd-norm-css GT 0.0
+				fcs/rudder-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/rudder-cmd-norm LT 0.0
-				fcs/rudder-cmd-norm GT -0.5
+				fcs/rudder-cmd-norm-css LT 0.0
+				fcs/rudder-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rudder-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/rudder-pulse-timer-sample-hold">
-				fcs/rudder-cmd-norm GT 0.04
-				fcs/rudder-cmd-norm LT -0.04
+				fcs/rudder-cmd-norm-css GT 0.04
+				fcs/rudder-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -560,8 +560,8 @@
 		<switch name="systems/fcs/rudder-pulse">
 			<default value="systems/fcs/rcs-pulse-yaw"/>
 			<test logic="OR" value="0.0">
-				fcs/rudder-cmd-norm GT 0.5
-				fcs/rudder-cmd-norm LT -0.5
+				fcs/rudder-cmd-norm-css GT 0.5
+				fcs/rudder-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 	
@@ -578,7 +578,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/rudder-pulse</property>
 			</difference>
-			<property>fcs/rudder-cmd-norm</property>
+			<property>fcs/rudder-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
@@ -588,22 +588,22 @@
 
 
 		<switch name="systems/fcs/aileron-cmd-norm-pulse-init">
-			<default value="fcs/aileron-cmd-norm"/>
+			<default value="fcs/aileron-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/aileron-cmd-norm GT 0.0
-				fcs/aileron-cmd-norm LT 0.5
+				fcs/aileron-cmd-norm-css GT 0.0
+				fcs/aileron-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/aileron-cmd-norm LT 0.0
-				fcs/aileron-cmd-norm GT -0.5
+				fcs/aileron-cmd-norm-css LT 0.0
+				fcs/aileron-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/aileron-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/aileron-pulse-timer-sample-hold">
-				fcs/aileron-cmd-norm GT 0.04
-				fcs/aileron-cmd-norm LT -0.04
+				fcs/aileron-cmd-norm-css GT 0.04
+				fcs/aileron-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -628,8 +628,8 @@
 		<switch name="systems/fcs/aileron-pulse">
 			<default value="systems/fcs/rcs-pulse-roll"/>
 			<test logic="OR" value="0.0">
-				fcs/aileron-cmd-norm GT 0.5
-				fcs/aileron-cmd-norm LT -0.5
+				fcs/aileron-cmd-norm-css GT 0.5
+				fcs/aileron-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 
@@ -646,7 +646,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/aileron-pulse</property>
 			</difference>
-			<property>fcs/aileron-cmd-norm</property>
+			<property>fcs/aileron-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
