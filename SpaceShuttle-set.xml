@@ -624,6 +624,16 @@
       <cabinlight7-intensity type="float">0.0</cabinlight7-intensity>
       <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
      </light>
+     <grain>
+        <grain-velcro type="int">60</grain-velcro>
+        <grain-framing type="int">300</grain-framing>
+        <grain-floor type="int">150</grain-floor>
+        <grain-ceiling type="int">300</grain-ceiling>
+        <grain-roof type="int">1400</grain-roof>
+        <grain-backwall type="int">300</grain-backwall>
+        <grain-wall type="int">600</grain-wall>
+        <grain-window type="int">400</grain-window>
+     </grain>
      <mechanical>
       <et-umbilical-door-mode type="int">0</et-umbilical-door-mode>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
