@@ -378,6 +378,99 @@
 
 	<channel name="RMS automatic driving to a specified position" execute="systems/rms/rms-active">
 
+
+		<fcs_function name="systems/rms/software/auto-pitch-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-p</property>
+					<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+				</difference>
+			<value>0.5</value>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-yaw-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-y</property>
+					<property>systems/rms/sum-wrist-yaw-deg</property>
+				</difference>
+			<value>0.5</value>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-roll-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-r</property>
+					<property>systems/rms/ang-wrist-roll-deg</property>
+				</difference>
+			<value>0.5</value>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/effector-att-error">
+		<function>
+			<sum>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-p</property>
+						<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-y</property>
+						<property>systems/rms/sum-wrist-yaw-deg</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-r</property>
+						<property>systems/rms/ang-wrist-roll-deg</property>
+					</difference>
+				</abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/software/effector-att-reached-flag">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/software/effector-att-reached-flag == 0
+				systems/rms/software/effector-att-error LT 0.01
+			</test>
+			<test logic="AND" value="1.0">
+				systems/rms/software/effector-att-reached-flag == 1
+				systems/rms/software/effector-att-error LT 5.0
+			</test>
+		</switch>		
+
+
 		<fcs_function name="systems/rms/software/auto-x-cmd">
 		<function>
 			<min>
@@ -388,6 +481,7 @@
 					<property>systems/rms/effector-x</property>
 				</difference>
 			<value>2.0</value>
+			<property>systems/rms/software/effector-att-reached-flag</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -406,6 +500,7 @@
 					<property>systems/rms/effector-y</property>
 				</difference>
 			<value>2.0</value>
+			<property>systems/rms/software/effector-att-reached-flag</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -424,6 +519,7 @@
 					<property>systems/rms/effector-z</property>
 				</difference>
 			<value>2.0</value>
+			<property>systems/rms/software/effector-att-reached-flag</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -431,6 +527,43 @@
 			</min>
 		</function>
 		</fcs_function>
+
+		<!--<fcs_function name="systems/rms/software/effector-pos-error">
+		<function>
+			<sum>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-x</property>
+						<property>systems/rms/effector-x</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-y</property>
+						<property>systems/rms/effector-y</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-z</property>
+						<property>systems/rms/effector-z</property>
+					</difference>
+				</abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/software/effector-pos-reached-flag">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/software/effector-pos-reached-flag == 0
+				systems/rms/software/effector-pos-error LT 0.01
+			</test>
+			<test logic="AND" value="1.0">
+				systems/rms/software/effector-pos-reached-flag == 1
+				systems/rms/software/effector-pos-error LT 0.5
+			</test>
+		</switch>-->
 
 
 	</channel>
@@ -522,6 +655,11 @@
 				systems/rms/drive-selection-mode == 3
 				systems/rms/soft-stop == 0
 			</test>
+			<test logic="AND" value="systems/rms/software/auto-yaw-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/soft-stop == 0
+			</test>
 		</switch>
 
 		<pid name="systems/rms/ma/drive-yaw">
@@ -539,6 +677,11 @@
 				systems/rms/drive-selection-mode == 3
 				systems/rms/soft-stop == 0
 			</test>
+			<test logic="AND" value="systems/rms/software/auto-pitch-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/soft-stop == 0
+			</test>
 		</switch>
 
 		<pid name="systems/rms/ma/drive-pitch">
@@ -554,6 +697,11 @@
 			<test logic="AND" value="fcs/aileron-cmd-norm">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-roll-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -931,10 +1079,16 @@
 			<test logic="AND" value="systems/rms/ma/ref-point-xyz-x">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/ref-point-ypr-x">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-x">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -947,10 +1101,16 @@
 			<test logic="AND" value="systems/rms/ma/ref-point-xyz-y">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/ref-point-ypr-y">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-y">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -964,10 +1124,16 @@
 			<test logic="AND" value="systems/rms/ma/ref-point-xyz-z">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/ref-point-ypr-z">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-z">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1001,10 +1167,16 @@
 				<value>2.0</value>
 				<value>57.297</value>
 				<asin>
+					<max>
+					<min>
 					<quotient>
 						<property>systems/rms/ma/reference-point-L</property>
 						<value>12.5</value>
 					</quotient>
+					<value>1.0</value>
+					</min>
+					<value>-1.0</value>
+					</max>
 				</asin>
 			</product>
 			</difference>
@@ -1016,6 +1188,8 @@
 			<sum>
 				<product>
 				<asin>
+					<max>
+					<min>
 					<quotient>
 						<product>
 						<property>systems/rms/ma/reference-point-z</property>
@@ -1023,6 +1197,10 @@
 						</product>
 						<property>systems/rms/ma/reference-point-L</property>
 					</quotient>
+					<value>1.0</value>
+					</min>
+					<value>-1.0</value>
+					</max>
 				</asin>
 				<value>57.297</value>
 				</product>
@@ -1055,10 +1233,16 @@
 			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+ 				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1071,10 +1255,16 @@
 			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1087,10 +1277,16 @@
 			<test logic="AND" value="systems/rms/ma/target-roll-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/target-roll-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-roll-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1220,7 +1416,7 @@
 			</test>
 		</switch>
 
-		<switch name="systems/rms/rms-drivable">
+		<switch name="systems/rms/rms-drivable1">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rms/rms-active == 1
@@ -1255,10 +1451,17 @@
 			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
+
 			</test>
 		</switch>
 
@@ -1294,10 +1497,16 @@
 			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1333,10 +1542,16 @@
 			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1372,10 +1587,16 @@
 			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1411,10 +1632,16 @@
 			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
 			</test>
 			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 0
 			</test>
 		</switch>
 
@@ -1445,6 +1672,12 @@
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
 			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-roll-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+				systems/rms/software/effector-att-reached-flag == 1
+			</test>
+
 		</switch>
 
 		<pid name="systems/rms/wrist-roll-angle-direct">
@@ -1827,6 +2060,8 @@
 		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-rad">
 		<function>
 			<asin>
+				<max>
+				<min>
 				<product>
 					<cos>	
 						<property>systems/rms/ang-wrist-yaw-rad</property>
@@ -1835,6 +2070,10 @@
 						<property>systems/rms/sum-wrist-pitch-rad</property>
 					</sin>
 				</product>
+				<value>1.0</value>
+				</min>
+				<value>-1.0</value>
+				</max>
 			</asin>
 		</function>
 		</fcs_function>
