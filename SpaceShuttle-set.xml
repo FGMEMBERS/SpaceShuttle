@@ -628,8 +628,7 @@
         <grain-velcro type="int">60</grain-velcro>
         <grain-framing type="int">300</grain-framing>
         <grain-floor type="int">150</grain-floor>
-        <grain-ceiling type="int">300</grain-ceiling>
-        <grain-roof type="int">1400</grain-roof>
+        <grain-roof type="int">1100</grain-roof>
         <grain-backwall type="int">300</grain-backwall>
         <grain-wall type="int">600</grain-wall>
         <grain-window type="int">400</grain-window>

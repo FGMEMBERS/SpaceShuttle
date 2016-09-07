@@ -18,7 +18,13 @@
         <object-name>cabin_panel_framing</object-name>
     </effect>
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/ceiling</inherits-from>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/window</inherits-from>
+        <object-name>fwd_window_assembly</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/wall</inherits-from>
+        <object-name>left_bulkhead</object-name>
+        <object-name>right_bulkhead</object-name>
         <object-name>ceiling</object-name>
     </effect>
     <effect>
@@ -29,18 +35,9 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/backwall</inherits-from>
         <object-name>backwall</object-name>
     </effect>
-        <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/wall</inherits-from>
-        <object-name>left_bulkhead</object-name>
-        <object-name>right_bulkhead</object-name>
-    </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/floor</inherits-from>
         <object-name>cabin_floor</object-name>
-    </effect>
-    <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/window</inherits-from>
-        <object-name>fwd_window_assembly</object-name>
     </effect>
 
     <!-- implicit lighting -->

@@ -6,7 +6,7 @@
         <grain-texture-enabled type="int">1</grain-texture-enabled>
         <grain-magnification type="float"><use>/fdm/jsbsim/systems/grain/grain-backwall</use></grain-magnification>
         <texture n="7">
-            <image>Aircraft/SpaceShuttle/Models/Effects/Interior/roof_texture.png</image>
+            <image>Aircraft/SpaceShuttle/Models/Effects/Interior/wall_texture.png</image>
             <type>2d</type>
             <filter>linear-mipmap-linear</filter>
             <wrap-s>repeat</wrap-s>
