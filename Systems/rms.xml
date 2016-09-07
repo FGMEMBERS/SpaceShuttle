@@ -823,6 +823,34 @@
 			<difference>
 				<property>systems/rms/ma/effector-z-sample-hold</property>
 				<product>
+					<value>-1</value>
+					<pow>
+						<sum>
+							<value>2.756</value> <!-- (0.69+0.73)**2+0.86**2) -->
+							<product>
+								<value>2.4424</value> <!-- 2.0 *(0.69+0.73)*0.86 -->
+								<cos>
+								<difference>
+								<property>systems/rms/ma/effector-yaw-rad</property>
+								<property>systems/rms/ang-shoulder-yaw-rad</property>
+								</difference>
+								</cos>
+							</product>
+						</sum>
+						<value>0.5</value>
+					</pow>
+					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-z-sample-hold</property>
+				<product>
 					<value>-0.69</value>
 					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
 				</product>
@@ -836,7 +864,7 @@
 				</product>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
 		<function>
@@ -1305,7 +1333,7 @@
 
 		<pure_gain name="systems/rms/ma/shoulder-yaw-rate-xyz">
 		<input>systems/rms/ma/shoulder-yaw-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
 			<min>-1.0</min>
 			<max>1.0</max>
@@ -1323,7 +1351,7 @@
 
 		<pure_gain name="systems/rms/ma/shoulder-pitch-rate-xyz">
 		<input>systems/rms/ma/shoulder-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
 			<min>-0.5</min>
 			<max>0.5</max>
@@ -1341,7 +1369,7 @@
 
 		<pure_gain name="systems/rms/ma/ellbow-pitch-rate-xyz">
 		<input>systems/rms/ma/ellbow-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
 			<min>-1.0</min>
 			<max>1.0</max>
@@ -1359,7 +1387,7 @@
 
 		<pure_gain name="systems/rms/ma/wrist-pitch-rate-xyz">
 		<input>systems/rms/ma/wrist-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
 			<min>-0.5</min>
 			<max>0.5</max>
@@ -1377,7 +1405,7 @@
 
 		<pure_gain name="systems/rms/ma/wrist-yaw-rate-xyz">
 		<input>systems/rms/ma/wrist-yaw-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
 			<min>-1.0</min>
 			<max>1.0</max>
@@ -1395,7 +1423,7 @@
 
 		<pure_gain name="systems/rms/ma/wrist-roll-rate-xyz">
 		<input>systems/rms/ma/wrist-roll-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
 			<min>-1.0</min>
 			<max>1.0</max>
