@@ -191,6 +191,7 @@
 		 <value>DIRECT</value>
 		 <value>ORB UNL X/Y/Z</value>
 		 <value>ORB UNL P/Y/R</value>
+		 <value>AUTO OPR CMD</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>drive</object-name>
