@@ -4334,18 +4334,44 @@
         </condition>
     </animation>
 
-    <!-- Main Buss Undervolt  "Lights" -->
+    <!-- H2O loop "CW Yellow Light -->
+
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-h20-loop</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/h2o-loop</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- freon loop "CW Red Light -->
+
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-freon-loop</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/freon-loop</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Main Bus Undervolt  "Lights" -->
     <animation>
         <type>select</type>
         <object-name>cw-light-o2press</object-name>
         <object-name>cw-light-h2press</object-name>
         <object-name>cw-light-o2heater-temp</object-name>
         <object-name>cw-light-ac-overload</object-name>
-        <object-name>cw-light-freon-loop</object-name>
+        <!--<object-name>cw-light-freon-loop</object-name>-->
         <object-name>cw-light-av-bay-cabin-air</object-name>
         <object-name>cw-light-imu</object-name>
         <object-name>cw-light-rcs-jet</object-name>
-        <object-name>cw-light-h20-loop</object-name>
+        <!--<object-name>cw-light-h20-loop</object-name>-->
         <object-name>cw-light-rga-accel</object-name>
         <object-name>cw-light-gpc</object-name>
         <object-name>cw-light-oms-kit</object-name>
@@ -4356,7 +4382,6 @@
         <object-name>cw-light-apu-overspeed</object-name>
         <object-name>cw-light-apu-underspeed</object-name>
         <object-name>cw-light-hyd-press</object-name>
-
         <object-name>cw-light-cabin-atm</object-name>
         <object-name>cw-light-air-data</object-name>
         <object-name>cw-light-left-rhc</object-name>
