@@ -156,8 +156,25 @@ var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsb
 
 R = (R + 6370.0) * 1000.0;
 
-compute_interface(x,v, R);
+var ang = compute_interface(x,v, R);
 
+}
+
+
+var time_to_interface = func {
+
+var x = [getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048, getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048];
+
+var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048, getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048];
+
+R = 400000.0 * 0.3048 + 6370.0 * 1000;
+
+var ang_to_go = compute_interface(x,v, R);
+
+var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+var time = ang_to_go/(2.0 * math.pi) * orbital_period;
+
+return time;
 }
 
 var compute_interface = func (x, v, R) {
@@ -192,13 +209,45 @@ var true_anomaly = 2.0 * math.pi - elements[5];
 
 var ang_to_go = true_anomaly - ang;
 
-var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
-var time = ang_to_go/(2.0 * math.pi) * orbital_period;
+return ang_to_go;
 
-print ("TAn: ", elements[5] * 180.0/math.pi, " Ang: ", ang * 180.0/math.pi, " To go: ", ang_to_go);
-print ("Time: ", time);
+
+#print ("TAn: ", elements[5] * 180.0/math.pi, " Ang: ", ang * 180.0/math.pi, " To go: ", ang_to_go);
+#print ("Time: ", time);
 
 #return [semimajor, epsilon, inc, Omega, parg, true_anomaly];
+
+}
+
+############################################################
+# prediction of REI (range entry interface-landing site)
+############################################################
+
+var get_rei = func (x, v){
+
+var mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+
+if ((mode != 1) and (mode != 2)) # we have no entry guidance available and hence no landing site
+	{return 0;}
+
+var R = 400000.0 * 0.3048 + 6370.0 * 1000;
+
+var ang_to_go =  compute_interface (x, v, R);
+
+var dist_to_go = 6370.0 * 1000.0 * ang_to_go;
+
+# from Shuttle pos at ground, extrapolate current course for the angle to go
+
+var shuttle_pos = geo.aircraft_position();
+shuttle_pos.set_alt(0);
+
+var course = getprop("/fdm/jsbsim/velocities/course-deg");
+
+shuttle_pos.apply_course_distance(course, dist_to_go);
+
+var rei = shuttle_pos.distance_to(landing_site) * 0.539956803456;
+
+return rei;
 
 }
 
