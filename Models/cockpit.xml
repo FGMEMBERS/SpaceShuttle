@@ -27,14 +27,14 @@
         <object-name>right_bulkhead</object-name>
         <object-name>ceiling</object-name>
     </effect>
-    <effect>
+    <!--effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/roof</inherits-from>
         <object-name>roof_assembly</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/backwall</inherits-from>
         <object-name>backwall</object-name>
-    </effect>
+    </effect-->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/floor</inherits-from>
         <object-name>cabin_floor</object-name>
@@ -49,6 +49,8 @@
         <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
+        <object-name>aft_base_set</object-name>
+        <object-name>aft_equipment_group</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
