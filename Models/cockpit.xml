@@ -16,7 +16,6 @@
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/framing</inherits-from>
         <object-name>cabin_panel_framing</object-name>
-        <object-name>aft_base_set</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/window</inherits-from>
@@ -42,6 +41,7 @@
         <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
+        <object-name>aft_base_set</object-name>
         <object-name>aft_equipment_group</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
