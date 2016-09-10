@@ -338,15 +338,57 @@ var PFD_addpage_p_dps_mnvr = func(device)
     
         p_dps_mnvr.exec.setText(exec_string);
     
-        var tta = SpaceShuttle.time_to_apsis();
+        var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+	var apoapsis_miles = getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") * 0.539956803456;
+	var periapsis_miles = getprop("/fdm/jsbsim/systems/orbital/periapsis-km") * 0.539956803456;
+
+	if ((ops == 1) or (ops == 2) or (ops == 6))
+        	{
+		var tta = SpaceShuttle.time_to_apsis();
+
+        	var tta_string = "TTP";
+        	if (tta[0] == 2) {tta_string = "TTA";}
+
+		var tta_time = "";
+
+		if ((apoapsis_miles - periapsis_miles) < 5.0)	
+			{tta_string = "TTC";}
+		else
+			{tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);}
+
+
+        	p_dps_mnvr.ttapsis_text.setText(tta_string);
+        	p_dps_mnvr.ttapsis.setText(tta_time);
+
+		}
+
+	else if (ops == 3)
+		{
+        	var tff_string = "TFF";
+		
+		var tff_time = "";
+
+		if (periapsis_miles < 65.83)
+			{
+			var tff = SpaceShuttle.time_to_interface();
+			if (tff > 0.0) 
+				{tff_time = SpaceShuttle.seconds_to_stringMS(tff);}
+			else
+				{tff_time = "";}
+			}
+		
+		p_dps_mnvr.ttapsis_text.setText(tff_string);
+        	p_dps_mnvr.ttapsis.setText(tff_time);		
+
+		}
+	
     
-        var tta_string = "TTP";
-        if (tta[0] == 2) {tta_string = "TTA";}
+
     
-        var tta_time = SpaceShuttle.seconds_to_stringMS(tta[1]);
+
     
-        p_dps_mnvr.ttapsis_text.setText(tta_string);
-        p_dps_mnvr.ttapsis.setText(tta_time);
+
     
         p_dps_mnvr.vgo_x.setText(sprintf("%4.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-x")));
         p_dps_mnvr.vgo_y.setText(sprintf("%3.1f",getprop("fdm/jsbsim/systems/ap/oms-plan/vgo-y")));

@@ -124,3 +124,23 @@ else if (payload_string == "SPARTAN-201")
 	}
 
 }
+
+# checks the reach limit of the RMS arm for an operator-specified command - very simplistic still
+
+var check_rms_reach_limit = func {
+
+	var tgt_x = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x");
+	var tgt_y = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y");
+	var tgt_z = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z");
+
+	var length = math.sqrt(tgt_x * tgt_x + tgt_y * tgt_y + tgt_z * tgt_z);
+
+	if ((length < 0.5) or (length > 14.5)) 
+		{
+		setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "FAIL");
+		}
+	else
+		{
+		setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "GOOD");
+		}
+}

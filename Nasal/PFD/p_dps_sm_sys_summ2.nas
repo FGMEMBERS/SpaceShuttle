@@ -104,6 +104,14 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
     p_dps_sm_sys_summ2.avbay1_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay1_fan");
     p_dps_sm_sys_summ2.avbay2_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay2_fan");
 
+    p_dps_sm_sys_summ2.tc1_h2o_p = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_h2o_p");
+    p_dps_sm_sys_summ2.tc2_h2o_p = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_h2o_p");
+
+    p_dps_sm_sys_summ2.tc1_freon = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_freon");
+    p_dps_sm_sys_summ2.tc2_freon = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_freon");
+
+    p_dps_sm_sys_summ2.tc1_evap_t = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_evap_t");
+    p_dps_sm_sys_summ2.tc2_evap_t = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_evap_t");
 
 
     p_dps_sm_sys_summ2.ondisplay = func
@@ -215,9 +223,23 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.avbay2_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")))); 
         p_dps_sm_sys_summ2.avbay3_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")+1.0))); 
     
+	var water_pressure1 = 20 + getprop("/fdm/jsbsim/systems/atcs/water-pump-1-active") * 43;
+	var water_pressure2 = 23 + getprop("/fdm/jsbsim/systems/atcs/water-pump-2-active") * 41;
+
+	p_dps_sm_sys_summ2.tc1_h2o_p.setText(sprintf("%2.0f", water_pressure1));
+	p_dps_sm_sys_summ2.tc2_h2o_p.setText(sprintf("%2.0f", water_pressure2));
     
+	var freon_flow1 = getprop("/fdm/jsbsim/systems/atcs/freon-pump-1-active") * 2246.0;
+	var freon_flow2 = getprop("/fdm/jsbsim/systems/atcs/freon-pump-2-active") * 2258.0;
+
+        p_dps_sm_sys_summ2.tc1_freon.setText(sprintf("%4.0f", freon_flow1));
+    	p_dps_sm_sys_summ2.tc2_freon.setText(sprintf("%4.0f", freon_flow2));
     
-    
+	var evap_t1 = K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K"));
+
+	p_dps_sm_sys_summ2.tc1_evap_t.setText(sprintf("%4.0f", evap_t1));
+    	p_dps_sm_sys_summ2.tc2_evap_t.setText(sprintf("%4.0f", evap_t1));
+
         device.update_common_DPS();
     
     

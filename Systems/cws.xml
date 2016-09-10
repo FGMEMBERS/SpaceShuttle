@@ -119,6 +119,35 @@
 			</test>
 		</switch>
 
+		<switch name="systems/cws/h2o-loop">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/atcs/water-pump-1-active == 1
+				systems/failures/water-pump-1-condition LT 0.4
+			</test>
+			<test logic="AND" value="1.0">
+				systems/atcs/water-pump-2-active == 1
+				systems/failures/water-pump-2-condition LT 0.4
+			</test>
+		</switch>
+
+		<switch name="systems/cws/freon-loop">
+			<default value="0.0"/>
+			<!--<test logic="AND" value="1.0">
+				systems/dps/ops == 2
+				systems/thermal-distribution/freon-out-temperature-K LT 273.26
+			</test>-->
+			<test logic="AND" value="1.0">
+				systems/dps/ops == 2
+				systems/thermal-distribution/freon-out-temperature-K GT 291.37
+			</test>
+			<test logic="AND" value="1.0">
+				systems/dps/ops == 1
+				systems/thermal-distribution/freon-out-temperature-K GT 319.0
+			</test>
+
+		</switch>
+
 		<switch name="systems/cws/backup-cw">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">

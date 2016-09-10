@@ -1166,6 +1166,7 @@
 	<io-enable type="int">0</io-enable>
 	<soft-stop-enable type="int">1</soft-stop-enable>
 	<autobrake-enable type="int">1</autobrake-enable>
+	<autobrake-check type="int">0</autobrake-check>
 	<pohs-cntl-enable type="int">1</pohs-cntl-enable>
 	<pos-enc-ck-enable type="int">1</pos-enc-ck-enable>
 	<tgt-pos-x type="double">0.0</tgt-pos-x>
@@ -1176,6 +1177,7 @@
 	<tgt-att-r type="double">0.0</tgt-att-r>
 	<pl-id type="int">0</pl-id>
 	<pl-init-id type="int">0</pl-init-id>
+	<reach-limit-string type="string"> </reach-limit-string>
       </software>
      </rms>
      <taem-guidance>

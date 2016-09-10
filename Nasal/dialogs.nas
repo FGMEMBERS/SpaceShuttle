@@ -716,7 +716,6 @@ var update_rms_drive_selection = func {
 var drive_string = getprop("/fdm/jsbsim/systems/rms/drive-selection-string");
 
 var par = 0;
-#var fcs = 1;
 
 if (drive_string == "SINGLE") {par = 1;}
 else if (drive_string == "DIRECT") {par = 1;}
@@ -724,12 +723,10 @@ else if (drive_string == "ORB UNL X/Y/Z") {par = 2;}
 else if (drive_string == "ORB UNL P/Y/R") {par = 3;}
 else if (drive_string == "AUTO OPR CMD") {par = 4;}
 
+#print ("Drive selection is now: ", par);
 
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
-# setprop("/fdm/jsbsim/systems/fcs/control-mode", fcs);
-#var string = "RCS rotation";
-#if (fcs==60) {string = "RMS ORB UNL X/Y/Z";}
-#setprop("/controls/shuttle/control-system-string", string);	
+	
 
 }
 

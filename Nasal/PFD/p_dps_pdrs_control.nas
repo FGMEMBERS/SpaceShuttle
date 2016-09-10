@@ -61,6 +61,16 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 
     p_dps_pdrs_control.mpm_discretes = device.svg.getElementById("p_dps_pdrs_control_mpm_discretes");
 
+    p_dps_pdrs_control.cmd_ck = device.svg.getElementById("p_dps_pdrs_control_cmd_ck");
+
+    p_dps_pdrs_control.cmd_ref_norm = device.svg.getElementById("p_dps_pdrs_control_cmd_ref_norm");
+    p_dps_pdrs_control.cmd_ref_camr = device.svg.getElementById("p_dps_pdrs_control_cmd_ref_camr");
+    p_dps_pdrs_control.cmd_ref_pl = device.svg.getElementById("p_dps_pdrs_control_cmd_ref_pl");
+
+    p_dps_pdrs_control.wr_range = device.svg.getElementById("p_dps_pdrs_control_wr_range");
+    p_dps_pdrs_control.auto_brake_ck = device.svg.getElementById("p_dps_pdrs_control_auto_brake_ck");
+    p_dps_pdrs_control.por_display = device.svg.getElementById("p_dps_pdrs_control_por_display");
+
 
 
     p_dps_pdrs_control.ondisplay = func
@@ -79,7 +89,13 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	p_dps_pdrs_control.last_pt.setText("");
 	p_dps_pdrs_control.start_pt.setText("");
 	p_dps_pdrs_control.rms_sn.setText("201");
+	p_dps_pdrs_control.wr_range.setText("4");
 	p_dps_pdrs_control.mpm_sto_dply.setText("PORT");
+	p_dps_pdrs_control.por_display.setText("ORB");
+
+    	p_dps_pdrs_control.cmd_ref_norm.setText("*");
+    	p_dps_pdrs_control.cmd_ref_camr.setText("");
+    	p_dps_pdrs_control.cmd_ref_pl.setText("");
 
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
     
@@ -157,6 +173,15 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 		p_dps_pdrs_control.pohs_cntl_ena.setText("*");
 		p_dps_pdrs_control.pohs_cntl_inh.setText("");
 		}
+
+	if (getprop("/fdm/jsbsim/systems/rms/software/autobrake-check") == 1)
+		{
+		p_dps_pdrs_control.auto_brake_ck.setText("*");
+		}
+	else
+		{
+		p_dps_pdrs_control.auto_brake_ck.setText("");
+		}
 	
 	p_dps_pdrs_control.endpos_x.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x")));
 	p_dps_pdrs_control.endpos_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y")));
@@ -204,7 +229,7 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	p_dps_pdrs_control.latches_mid.setText(mpm_status_string);
 	p_dps_pdrs_control.latches_fwd.setText(mpm_status_string);
 
-
+	p_dps_pdrs_control.cmd_ck.setText(getprop("/fdm/jsbsim/systems/rms/software/reach-limit-string"));
 
 
         device.update_common_DPS();

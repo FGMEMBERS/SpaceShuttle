@@ -379,60 +379,6 @@
 	<channel name="RMS automatic driving to a specified position" execute="systems/rms/rms-active">
 
 
-		<fcs_function name="systems/rms/software/auto-pitch-cmd">
-		<function>
-			<min>
-			<max>
-			<product>
-				<difference>
-					<property>systems/rms/software/tgt-att-p</property>
-					<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
-				</difference>
-			<value>0.5</value>
-			</product>
-			<value>-1.0</value>
-			</max>
-			<value>1.0</value>
-			</min>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rms/software/auto-yaw-cmd">
-		<function>
-			<min>
-			<max>
-			<product>
-				<difference>
-					<property>systems/rms/software/tgt-att-y</property>
-					<property>systems/rms/sum-wrist-yaw-deg</property>
-				</difference>
-			<value>0.5</value>
-			</product>
-			<value>-1.0</value>
-			</max>
-			<value>1.0</value>
-			</min>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/rms/software/auto-roll-cmd">
-		<function>
-			<min>
-			<max>
-			<product>
-				<difference>
-					<property>systems/rms/software/tgt-att-r</property>
-					<property>systems/rms/ang-wrist-roll-deg</property>
-				</difference>
-			<value>0.5</value>
-			</product>
-			<value>-1.0</value>
-			</max>
-			<value>1.0</value>
-			</min>
-		</function>
-		</fcs_function>
-
 		<fcs_function name="systems/rms/software/effector-att-error">
 		<function>
 			<sum>
@@ -468,7 +414,76 @@
 				systems/rms/software/effector-att-reached-flag == 1
 				systems/rms/software/effector-att-error LT 5.0
 			</test>
-		</switch>		
+		</switch>
+
+
+		<fcs_function name="systems/rms/software/auto-pitch-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-p</property>
+					<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+				</difference>
+				<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>
+				<value>0.2</value>
+			</product>
+			<value>-0.4</value>
+			</max>
+			<value>0.4</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-yaw-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-y</property>
+					<property>systems/rms/sum-wrist-yaw-deg</property>
+				</difference>
+				<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>
+			<value>0.2</value>
+			</product>
+			<value>-0.4</value>
+			</max>
+			<value>0.4</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-roll-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-r</property>
+					<property>systems/rms/ang-wrist-roll-deg</property>
+				</difference>
+				<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>
+			<value>0.2</value>
+			</product>
+			<value>-0.4</value>
+			</max>
+			<value>0.4</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		
 
 
 		<fcs_function name="systems/rms/software/auto-x-cmd">
@@ -1453,6 +1468,7 @@
 				systems/rms/rms-veto == 1
 				accelerations/a-pilot-ft_sec2 LT 10.0
 				systems/rms/rms-brake-switch == 0
+				systems/rms/software/autobrake-check == 0
 				systems/rms/rms-save-switch == 0
 				systems/mechanical/pb-door-indicator == 1
 			</test>

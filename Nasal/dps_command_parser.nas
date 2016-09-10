@@ -3674,36 +3674,52 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 18)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 19)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 20)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 21)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-p", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 22)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-y", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 23)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-att-r", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
 			valid_flag = 1;
 			}
 		else if (item == 24)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/pl-init-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 25)
+			{
+			SpaceShuttle.check_rms_reach_limit();
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			SpaceShuttle.toggle_property("/fdm/jsbsim/systems/rms/software/autobrake-check");
 			valid_flag = 1;
 			}
 		else if (item == 28)
