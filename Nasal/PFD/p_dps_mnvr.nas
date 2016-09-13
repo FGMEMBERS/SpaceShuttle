@@ -379,7 +379,18 @@ var PFD_addpage_p_dps_mnvr = func(device)
 			}
 		
 		p_dps_mnvr.ttapsis_text.setText(tff_string);
-        	p_dps_mnvr.ttapsis.setText(tff_time);		
+        	p_dps_mnvr.ttapsis.setText(tff_time);	
+
+		var rei = getprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm");
+		
+		if (rei > 0.0)
+			{
+			p_dps_mnvr.rei.setText(sprintf("%4.0f", rei));
+			}
+		else
+			{
+			p_dps_mnvr.rei.setText("");
+			}
 
 		}
 	

@@ -179,7 +179,6 @@ return time;
 
 var compute_interface = func (x, v, R) {
 
-
 var elements = get_orbital_elements(x, v);
 
 var f = elements[0] * elements[1]; # distance of focal point from center
@@ -230,7 +229,15 @@ var mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
 if ((mode != 1) and (mode != 2)) # we have no entry guidance available and hence no landing site
 	{return 0;}
 
+# convert to metric units, the OMS planning is done in ft but elements are metric
+
+x = SpaceShuttle.scalar_product(0.3048, x);
+v = SpaceShuttle.scalar_product(0.3048, v);
+
 var R = 400000.0 * 0.3048 + 6370.0 * 1000;
+
+#print ("x: ", x[0], " ", x[1], " ", x[2]);
+#print ("v: ", v[0], " ", v[1], " ", v[2]);
 
 var ang_to_go =  compute_interface (x, v, R);
 
@@ -245,7 +252,9 @@ var course = getprop("/fdm/jsbsim/velocities/course-deg");
 
 shuttle_pos.apply_course_distance(course, dist_to_go);
 
-var rei = shuttle_pos.distance_to(landing_site) * 0.539956803456;
+var rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
+
+#print ("REI is ", rei, " miles");
 
 return rei;
 
