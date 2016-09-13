@@ -13,14 +13,14 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro</inherits-from>
     </effect-->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/framing</inherits-from>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/framing-detailed</inherits-from>
         <object-name>aft_base_set</object-name>
         <object-name>roof_assembly</object-name>
     </effect>
 
     <!-- implicit lighting -->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-detailed</inherits-from>
         <!-- cabin -->
         <object-name>aft_equipment_group</object-name>
          <!-- Panels -->
