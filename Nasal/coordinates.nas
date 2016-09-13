@@ -447,7 +447,7 @@ if (target_id == 4) # we track the Sun, omicron zero point is the celestial nort
 # OMS burn preparation computations
 ######################################
 
-var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0};
+var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0, rei: 0.0};
 
 var create_oms_burn_vector = func {
 
@@ -636,6 +636,13 @@ print("TA: ", apoapsis_nm, "TP: ", periapsis_nm);
 oms_burn_target.apoapsis = apoapsis_nm;
 oms_burn_target.periapsis = periapsis_nm;
 
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+if (major_mode == 3)
+	{
+	var rei = SpaceShuttle.get_rei(r,v);
+	oms_burn_target.rei = rei;
+	}
 
 # start the tracking loop to maneuver into burn attitude
 
@@ -894,6 +901,14 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
 		var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
 
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+		if (ops == 3)
+			{
+			var rei = SpaceShuttle.get_rei(r,v);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei);
+			}
+
 		
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", apoapsis_nm);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", periapsis_nm);
@@ -902,6 +917,13 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		{
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", oms_burn_target.apoapsis);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", oms_burn_target.periapsis);
+
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+		if (ops == 3)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", oms_burn_target.rei);
+			}
 		}
 	}
 

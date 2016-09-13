@@ -1249,7 +1249,7 @@ var PFD_addpage_p_pfd = func(device)
 		else
 			{
 			pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
-			yaw_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+			yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
 			roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
 			adi_att_string = "INRTL";
 			}
@@ -2190,7 +2190,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 		{
 
 		pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
-		yaw_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+		yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
 		roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
 
 			
