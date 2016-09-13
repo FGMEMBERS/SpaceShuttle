@@ -30,6 +30,21 @@
         </offsets>
     </model>
 
+    <model>
+        <path>cockpit-detailed.xml</path>
+        <offsets>
+            <x-m> 0 </x-m>
+            <y-m> 0 </y-m>
+            <z-m> 0 </z-m>
+        </offsets>
+        <condition>
+            <equals>
+                <property>/sim/config/shuttle/detailed-flightdeck</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </model>
+
   <!-- SSME Motors Placements -->
 
   <model>

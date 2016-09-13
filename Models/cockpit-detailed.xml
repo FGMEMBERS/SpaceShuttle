@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- STS (Space Shuttle) Cockpit model based on Chris Kuhn's excellent mesh : ref KuhnIndustries  http://www.blendswap.com/blends/view/74692 
+     under licence Creative Commons. http://creativecommons.org/licenses/by/3.0/
+     Flightgear version by Richard Harrison; rjh@zaretto.com 2015-04-06 -->
+
+<PropertyList>
+    <path>cockpit-detailed.ac</path>
+    <nopreview/>
+
+    <!-- grain -->
+    <!--effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro</inherits-from>
+    </effect-->
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/framing</inherits-from>
+        <object-name>aft_base_set</object-name>
+        <object-name>roof_assembly</object-name>
+    </effect>
+
+    <!-- implicit lighting -->
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
+        <!-- cabin -->
+        <object-name>aft_equipment_group</object-name>
+         <!-- Panels -->
+        <object-name>O1-panel</object-name>
+        <object-name>O2-panel</object-name>
+        <object-name>O3-panel</object-name>
+        <!-- misc -->
+        <object-name>egress-system</object-name>
+    </effect>
+
+</PropertyList>

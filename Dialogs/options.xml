@@ -172,6 +172,40 @@
      	 	<col>3</col>
     	</text>
 
+    <text>
+        <label>Cockpit detail</label>
+        <halign>left</halign>
+        <row>5</row>
+        <col>0</col>
+    </text>
+    <text>
+        <label>default</label>
+        <halign>center</halign>
+        <row>5</row>
+        <col>1</col>
+    </text>
+
+    <slider>
+        <name>cockpit-detail-switch</name>
+        <row>5</row>
+        <col>2</col>
+        <min>0</min>
+        <max>1</max>
+        <step>1</step>
+        <live>true</live>
+        <property>/sim/config/shuttle/detailed-flightdeck</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>cockpit-detail-switch</object-name>
+        </binding>
+    </slider>
+
+    <text>
+        <label>heavy</label>
+        <halign>center</halign>
+        <row>5</row>
+        <col>3</col>
+    </text>
 
   </group>
 	

@@ -2323,6 +2323,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
      <TC-config type="string">none</TC-config>
      <PL-selection type="string">none</PL-selection>
      <PL-selection-flag type="int">0</PL-selection-flag>
+     <detailed-flightdeck type="int">0</detailed-flightdeck>
      <rendering>
       <use-earthview type="int" userarchive="y">0</use-earthview>
       <earthview-transition-alt-ft type="double">85000.0</earthview-transition-alt-ft>

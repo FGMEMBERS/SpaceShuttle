@@ -6,7 +6,6 @@
 
 <PropertyList>
     <path>cockpit.ac</path>
-    <!--path>cockpit-heavy.ac</path-->
     <nopreview/>
 
     <!-- grain -->
@@ -42,8 +41,6 @@
         <object-name>framing-fasteners</object-name>
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
-        <object-name>aft_base_set</object-name>
-        <object-name>aft_equipment_group</object-name>
         <object-name>aft_shell</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
@@ -152,6 +149,9 @@
          <!-- Panel O4 -->
         <object-name>O4-panel</object-name>
         <object-name>O4-light-knob</object-name>
+        <!-- Panel O10 -->
+        <object-name>O10-panel</object-name>
+        <object-name>O10-light-knob</object-name>
         <!-- Panel C2 switches -->
         <object-name>crt1-pwr</object-name>
         <object-name>crt2-pwr</object-name>
@@ -1012,12 +1012,22 @@
     <!-- White panel lights -->
     <animation>
         <type>material</type>
-        <object-name>O1-panel-light</object-name>
+        <object-name>O4-panel-light</object-name>
         <emission>
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
             <factor-prop>/fdm/jsbsim/systems/light/cabinlight5-intensity</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>O10-panel-light</object-name>
+        <emission>
+            <red>  1.0</red>
+            <green>1.0</green>
+            <blue> 1.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight8-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
@@ -4443,6 +4453,48 @@
                 <tooltip-id>O4-light-knob</tooltip-id>
                 <label>Light Brightness: %3d%%</label>
                 <property>/fdm/jsbsim/systems/light/cabinlight5-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O10                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- O10 Light Knob "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O10-light-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+        <factor>-110</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-12.0948</x-m>
+            <y-m> 1.0731 </y-m>
+            <z-m> -0.039 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O10-light-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
                 <mapping>percent</mapping>
             </binding>
         </hovered>
