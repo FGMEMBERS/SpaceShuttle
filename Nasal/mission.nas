@@ -56,8 +56,9 @@ if (success == nil)
 
 # launch targets
 
+var stage = getprop("/sim/presets/stage");
 
-if (getprop("/mission/launch/section-defined"))
+if (getprop("/mission/launch/section-defined") and (stage == 0))
 	{
 	var tgt_inclination = getprop("/mission/launch/target-inclination");
 	var tgt_apoapsis = getprop("/mission/launch/target-apoapsis-miles");
