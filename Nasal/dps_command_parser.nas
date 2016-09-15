@@ -3341,6 +3341,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/spec-sm", 94);
 		valid_flag = 1;
 		}
+	if (spec_num == 95) 
+		{
+		page_select(idp_index, "p_dps_pdrs_override");
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 95);
+		valid_flag = 1;
+		}
 	if (spec_num == 97) 
 		{
 		page_select(idp_index, "p_dps_pl_ret");

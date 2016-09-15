@@ -260,9 +260,26 @@ var z = math.sin(el_rad);
 return [x,y,z];
 }
 
+
+######################################
+# geoid function - returns latitude
+# dependent Earth radius
+######################################
+
+var geoid_radius = func (lat) {
+
+var a =  6378.1370; # equatorial radius
+var b =  6356.7523; # polar radius
+
+var cl = math.cos(lat * math.pi/180.0); 
+var sl = math.sin(lat * math.pi/180.0); 
+
+return 1000.0 * math.sqrt((math.pow(a*a*cl,2.0) + math.pow(b*b*sl,2.0) )/(math.pow(a *cl,2.0) + math.pow(b*sl,2.0) ));
+}
+
 ######################################
 # pointing vector coordinate 
-# transformationn
+# transformation
 ######################################
 
 var vtransform_body_inertial = func (vec) {
