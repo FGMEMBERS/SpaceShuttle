@@ -641,7 +641,11 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 if (major_mode == 3)
 	{
 	var rei = SpaceShuttle.get_rei(r,v);
-	oms_burn_target.rei = rei;
+
+	# correct REI for finite burn duration
+	var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
+
+	oms_burn_target.rei = rei - rei_correction;
 	}
 
 # start the tracking loop to maneuver into burn attitude
@@ -906,7 +910,10 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		if (ops == 3)
 			{
 			var rei = SpaceShuttle.get_rei(r,v);
-			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei);
+			# correct REI for finite burn duration
+			var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
+
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei - rei_correction);
 			}
 
 		

@@ -107,7 +107,7 @@ if (payload_string == "none")
 else if (payload_string == "TDRS demo")
 	{
 	setprop("/sim/config/shuttle/PL-selection-flag", 1);
-	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 12.75);
+	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-x", 11.50);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-y", 2.0);
 	setprop("/fdm/jsbsim/systems/rms/payload/payload-attach-z", -1.8);
 	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", 20000.0);

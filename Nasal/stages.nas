@@ -888,11 +888,17 @@ else
 
 var alt = getprop("/position/altitude-ft");
 
+#print ("Alt is now: ", alt);
+
 if (alt < 400000.0)
 	{
 
+
+
 	var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-indicated-km");
 	
+	#print ("Checking EI - periapsis is now:", periapsis);	
+
 	if (periapsis < 100.0)
 		{
 		setprop("/sim/messages/copilot", "Entry Interface reached.");
@@ -1925,6 +1931,9 @@ SpaceShuttle.init_gpcs(stage);
 SpaceShuttle.init_idps();
 SpaceShuttle.init_keyboards();
 
+
+
+SpaceShuttle.nbat.select_ops(getprop("/fdm/jsbsim/systems/dps/ops"));
 SpaceShuttle.nbat.apply();
 
 
