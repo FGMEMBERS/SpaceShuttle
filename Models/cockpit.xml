@@ -42,6 +42,7 @@
         <object-name>left_braking_system</object-name>        
         <object-name>right_braking_system</object-name>
         <object-name>aft_shell</object-name>
+        <object-name>aft-light</object-name>
         <object-name>HUDImage1</object-name>
         <object-name>HUDImage2</object-name>
         <object-name>HudLeft</object-name>
