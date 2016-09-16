@@ -254,6 +254,32 @@ shuttle_pos.apply_course_distance(course, dist_to_go);
 
 var rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
 
+#print ("REI spherical: ", rei);
+
+# we computed for a spherical Earth, now we know latitude, so we can do an iteration
+# for a better intersection point
+
+R = geoid_radius(shuttle_pos.lat());
+ang_to_go =  compute_interface (x, v, R);
+var dist_to_go = 6370.0 * 1000.0 * ang_to_go;
+
+shuttle_pos = geo.aircraft_position();
+shuttle_pos.set_alt(0);
+shuttle_pos.apply_course_distance(course, dist_to_go);
+
+# correct for Earth's rotation during coast to interface
+# note that sign is flipped with respect to co-orbiting objects
+# because the landing site gets rotated towards the Shuttle
+
+var time_to_go = dist_to_go / 0.3048 / 25000.0;
+#print ("time_to_go: ", time_to_go);
+var delta_lon = SpaceShuttle.earth_rotation_deg_s * time_to_go;
+shuttle_pos.set_lon(shuttle_pos.lon() + delta_lon);
+
+rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
+
+#print ("REI geoid: ", rei);
+
 #print ("REI is ", rei, " miles");
 
 return rei;
