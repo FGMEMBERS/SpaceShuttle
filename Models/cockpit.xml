@@ -1136,16 +1136,6 @@
         </emission>
     </animation>
     <animation>
-        <type>select</type>
-        <object-name>aft-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight4-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
-    </animation>
-    <animation>
         <type>material</type>
         <object-name>aft-left-panel-light</object-name>
         <emission>
@@ -1156,16 +1146,6 @@
         </emission>
     </animation>
     <animation>
-        <type>select</type>
-        <object-name>aft-left-panel-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight4-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
-    </animation>
-    <animation>
         <type>material</type>
         <object-name>aft-right-panel-light</object-name>
         <emission>
@@ -1174,16 +1154,6 @@
             <blue> 1.0</blue>
             <factor-prop>/fdm/jsbsim/systems/light/cabinlight4-intensity</factor-prop>
         </emission>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>aft-right-panel-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight4-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
     </animation>
     <animation>
         <type>material</type>
@@ -1196,16 +1166,6 @@
         </emission>
     </animation>
     <animation>
-        <type>select</type>
-        <object-name>O6-panel-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
-    </animation>
-    <animation>
         <type>material</type>
         <object-name>O8-panel-light</object-name>
         <emission>
@@ -1214,16 +1174,6 @@
             <blue> 1.0</blue>
             <factor-prop>/fdm/jsbsim/systems/light/cabinlight7-intensity</factor-prop>
         </emission>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>O8-panel-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
     </animation>
 
     <animation>
