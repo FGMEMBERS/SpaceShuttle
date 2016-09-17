@@ -4566,6 +4566,174 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel O6                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- O6 Light Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+        <factor>-50</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.8605</x-m>
+            <y-m> -0.5276</y-m>
+            <z-m> 0.3192</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-switch</tooltip-id>
+                <label>O6 Light Power: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Light Knob "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+        <factor>-110</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8634</x-m>
+            <y-m> -0.4732 </y-m>
+            <z-m>  0.3181 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O8                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- O8 Light Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+        <factor>-50</factor>
+        <offset-deg>30</offset-deg>
+        <center>
+            <x-m>-11.8571</x-m>
+            <y-m> 0.4664</y-m>
+            <z-m> 0.32</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-switch</tooltip-id>
+                <label>O8 Light Power: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Light Knob "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+        <factor>-110</factor>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8621</x-m>
+            <y-m>  0.522 </y-m>
+            <z-m>  0.3184</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+ 
+    <!-- ******************************************************************* -->
     <!-- Panel C2                                                             -->
     <!-- ******************************************************************* -->
 
