@@ -1179,6 +1179,10 @@
 	<pl-id type="int">0</pl-id>
 	<pl-init-id type="int">0</pl-init-id>
 	<reach-limit-string type="string"> </reach-limit-string>
+	<joint-sw-override type="int">0</joint-sw-override>
+	<mode-sw-override type="int">0</mode-sw-override>
+	<rate-sw-override type="int">0</rate-sw-override>
+	<auto-sw-override type="int">0</auto-sw-override>
       </software>
      </rms>
      <taem-guidance>
