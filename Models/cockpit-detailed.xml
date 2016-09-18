@@ -27,6 +27,17 @@
         <object-name>O1-panel</object-name>
         <object-name>O2-panel</object-name>
         <object-name>O3-panel</object-name>
+        <object-name>O5-panel</object-name>
+        <object-name>O6-panel</object-name>
+        <object-name>O7-panel</object-name>
+        <object-name>O7-fasteners</object-name>
+        <object-name>O8-panel</object-name>
+        <object-name>O9-panel</object-name>
+        <object-name>O13-panel</object-name>
+        <object-name>O14-panel</object-name>
+        <object-name>O15-panel</object-name>
+        <object-name>O16-panel</object-name>
+        <object-name>O17-panel</object-name>
         <!-- misc -->
         <object-name>egress-system</object-name>
     </effect>
