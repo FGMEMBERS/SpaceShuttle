@@ -376,6 +376,19 @@
 	</channel>
 
 
+	<channel name="RMS drive rate factor">
+
+		<switch name="systems/rms/rate-factor">
+			<default value="1.0"/>
+			<test value="0.25">
+				systems/rms/vernier-switch == 1
+			</test>
+		</switch>
+
+
+	</channel>
+
+
 	<channel name="RMS automatic driving to a specified position" execute="systems/rms/rms-active">
 
 
@@ -431,6 +444,7 @@
 					<property>systems/rms/software/effector-att-reached-flag</property>
 				</difference>
 				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-0.4</value>
 			</max>
@@ -452,7 +466,8 @@
 					<value>1</value>
 					<property>systems/rms/software/effector-att-reached-flag</property>
 				</difference>
-			<value>0.2</value>
+				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-0.4</value>
 			</max>
@@ -474,7 +489,8 @@
 					<value>1</value>
 					<property>systems/rms/software/effector-att-reached-flag</property>
 				</difference>
-			<value>0.2</value>
+				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-0.4</value>
 			</max>
@@ -495,8 +511,9 @@
 					<property>systems/rms/software/tgt-pos-x</property>
 					<property>systems/rms/effector-x</property>
 				</difference>
-			<value>2.0</value>
-			<property>systems/rms/software/effector-att-reached-flag</property>
+				<value>2.0</value>
+				<property>systems/rms/software/effector-att-reached-flag</property>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -514,8 +531,9 @@
 					<property>systems/rms/software/tgt-pos-y</property>
 					<property>systems/rms/effector-y</property>
 				</difference>
-			<value>2.0</value>
-			<property>systems/rms/software/effector-att-reached-flag</property>
+				<value>2.0</value>
+				<property>systems/rms/software/effector-att-reached-flag</property>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -533,8 +551,9 @@
 					<property>systems/rms/software/tgt-pos-z</property>
 					<property>systems/rms/effector-z</property>
 				</difference>
-			<value>2.0</value>
-			<property>systems/rms/software/effector-att-reached-flag</property>
+				<value>2.0</value>
+				<property>systems/rms/software/effector-att-reached-flag</property>
+				<property>systems/rms/rate-factor</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -543,7 +562,7 @@
 		</function>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/rms/software/effector-pos-error">
+		<fcs_function name="systems/rms/software/effector-pos-error">
 		<function>
 			<sum>
 				<abs>
@@ -570,15 +589,10 @@
 
 		<switch name="systems/rms/software/effector-pos-reached-flag">
 			<default value="0.0"/>
-			<test logic="AND" value="1.0">
-				systems/rms/software/effector-pos-reached-flag == 0
+			<test value="1.0">
 				systems/rms/software/effector-pos-error LT 0.01
 			</test>
-			<test logic="AND" value="1.0">
-				systems/rms/software/effector-pos-reached-flag == 1
-				systems/rms/software/effector-pos-error LT 0.5
-			</test>
-		</switch>-->
+		</switch>
 
 
 	</channel>
@@ -663,9 +677,19 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/rms/ma/manual-yaw-cmd">
+		<function>
+			<product>
+				<property>fcs/rudder-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+		
+
 		<switch name="systems/rms/ma/yaw-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/rudder-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-yaw-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
 				systems/rms/soft-stop == 0
@@ -685,9 +709,18 @@
 		<output>systems/rms/ma/yaw-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-pitch-cmd">
+		<function>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/pitch-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/elevator-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-pitch-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
 				systems/rms/soft-stop == 0
@@ -707,9 +740,18 @@
 		<output>systems/rms/ma/pitch-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-roll-cmd">
+		<function>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/roll-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/aileron-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-roll-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
 				systems/rms/soft-stop == 0
@@ -984,9 +1026,18 @@
 			</test>
 		</switch>
 
+		<fcs_function name="systems/rms/ma/manual-x-cmd">
+		<function>
+			<product>
+				<property>fcs/rudder-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/x-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="-fcs/rudder-cmd-norm">
+			<test logic="AND" value="-systems/rms/ma/manual-x-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 				systems/rms/soft-stop == 0
@@ -1006,9 +1057,18 @@
 		<output>systems/rms/ma/x-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-y-cmd">
+		<function>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/y-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="-fcs/aileron-cmd-norm">
+			<test logic="AND" value="-systems/rms/ma/manual-y-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 				systems/rms/soft-stop == 0
@@ -1028,9 +1088,18 @@
 		<output>systems/rms/ma/y-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-z-cmd">
+		<function>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/z-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/elevator-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-z-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 				systems/rms/soft-stop == 0
