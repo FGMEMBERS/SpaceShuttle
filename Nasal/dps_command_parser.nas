@@ -3740,6 +3740,45 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
+	if (spec == 95)
+		{
+		if (item == 1)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/mode-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/joint-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 26)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/rate-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/rate-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/vernier-switch", 1);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/rate-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/vernier-switch", 0);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/auto-sw-override");
+			valid_flag = 1;
+			}
+		}
 	
 
 

@@ -30,6 +30,10 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
     p_dps_pdrs_override.abe_ovrd_b = device.svg.getElementById("p_dps_pdrs_override_abe_ovrd_b");
     p_dps_pdrs_override.abe_ovrd_c = device.svg.getElementById("p_dps_pdrs_override_abe_ovrd_c");
 
+    p_dps_pdrs_override.vernier = device.svg.getElementById("p_dps_pdrs_override_vernier");
+    p_dps_pdrs_override.coarse = device.svg.getElementById("p_dps_pdrs_override_coarse");
+
+
 
     p_dps_pdrs_override.ondisplay = func
     {
@@ -96,6 +100,21 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 	else if (joint_sel == 4) {p_dps_pdrs_override.wr_pitch_sel.setText("*");}
 	else if (joint_sel == 5) {p_dps_pdrs_override.wr_yaw_sel.setText("*");}
 	else if (joint_sel == 6) {p_dps_pdrs_override.wr_roll_sel.setText("*");}
+
+
+	# rate switch override
+
+	if (getprop("/fdm/jsbsim/systems/rms/vernier-switch") == 0)
+		{
+ 		p_dps_pdrs_override.vernier.setText("");
+    		p_dps_pdrs_override.coarse.setText("*");
+		}
+	else
+		{
+ 		p_dps_pdrs_override.vernier.setText("*");
+    		p_dps_pdrs_override.coarse.setText("");
+		}
+
 
 
 
