@@ -23,14 +23,58 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-detailed</inherits-from>
         <!-- cabin -->
         <object-name>aft_equipment_group</object-name>
-         <!-- Panels -->
+        <!-- Panels -->
         <object-name>O1-panel</object-name>
         <object-name>O2-panel</object-name>
         <object-name>O3-panel</object-name>
         <object-name>O5-panel</object-name>
         <object-name>O6-panel</object-name>
+        <!-- Panels O7-->
         <object-name>O7-panel</object-name>
         <object-name>O7-fasteners</object-name>
+        <object-name>O7-guards</object-name>
+        <object-name>gps1-preampl</object-name>
+        <object-name>gps2-preampl</object-name>
+        <object-name>gps3-preampl</object-name>
+        <object-name>gps1-encrypt</object-name>
+        <object-name>gps2-encrypt</object-name>
+        <object-name>gps3-encryptpp</object-name>
+        <object-name>aft-left-rcs-man-isol-1</object-name>
+        <object-name>aft-left-rcs-man-isol-2</object-name>
+        <object-name>aft-left-rcs-man-isol-3</object-name>
+        <object-name>aft-left-rcs-man-isol-4</object-name>
+        <object-name>aft-left-rcs-man-isol-5</object-name>
+        <object-name>aft-right-rcs-man-isol-1</object-name>
+        <object-name>aft-right-rcs-man-isol-2</object-name>
+        <object-name>aft-right-rcs-man-isol-3</object-name>
+        <object-name>aft-right-rcs-man-isol-4</object-name>
+        <object-name>aft-right-rcs-man-isol-5</object-name>
+        <object-name>left-rcs-cf-12</object-name>
+        <object-name>left-rcs-cf-345</object-name>
+        <object-name>right-rcs-cf-12</object-name>
+        <object-name>right-rcs-cf-345</object-name>
+        <object-name>master-rcs-cf</object-name>
+        <object-name>left-rcs-tank-isol-12</object-name>
+        <object-name>left-rcs-tank-isol-a345</object-name>
+        <object-name>left-rcs-tank-isol-b345</object-name>
+        <object-name>right-rcs-tank-isol-12</object-name>
+        <object-name>right-rcs-tank-isol-a345</object-name>
+        <object-name>right-rcs-tank-isol-b345</object-name>
+        <object-name>left-rcs-he-oxid</object-name>
+        <object-name>left-rcs-he-fuel</object-name>
+        <object-name>right-rcs-he-oxid</object-name>
+        <object-name>right-rcs-he-fuel</object-name>
+        <object-name>aft-left-rcs-he-fuel-cvr</object-name>
+        <object-name>aft-left-rcs-he-oxid-cvr</object-name>
+        <object-name>aft-right-rcs-he-fuel-cvr</object-name>
+        <object-name>aft-right-rcs-he-oxid-cvr</object-name>
+        <object-name>left-man-isol-cvr</object-name>
+        <object-name>left-tank-isol-fuel-cvr</object-name>
+        <object-name>left-tank-isol-oxid-cvr</object-name>
+        <object-name>right-man-isol-cvr</object-name>
+        <object-name>right-tank-isol-fuel-cvr</object-name>
+        <object-name>right-tank-isol-oxid-cvr</object-name>
+        <!-- Panels O8-->
         <object-name>O8-panel</object-name>
         <object-name>O9-panel</object-name>
         <object-name>O13-panel</object-name>
