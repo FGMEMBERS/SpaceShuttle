@@ -33,6 +33,38 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
     p_dps_pdrs_override.vernier = device.svg.getElementById("p_dps_pdrs_override_vernier");
     p_dps_pdrs_override.coarse = device.svg.getElementById("p_dps_pdrs_override_coarse");
 
+    p_dps_pdrs_override.orb_unl_sel = device.svg.getElementById("p_dps_pdrs_override_orb_unl_sel");
+    p_dps_pdrs_override.orb_unl_ind = device.svg.getElementById("p_dps_pdrs_override_orb_unl_ind");
+
+    p_dps_pdrs_override.orb_ld_sel = device.svg.getElementById("p_dps_pdrs_override_orb_ld_sel");
+    p_dps_pdrs_override.orb_ld_ind = device.svg.getElementById("p_dps_pdrs_override_orb_ld_ind");
+
+    p_dps_pdrs_override.single_sel = device.svg.getElementById("p_dps_pdrs_override_single_sel");
+    p_dps_pdrs_override.single_ind = device.svg.getElementById("p_dps_pdrs_override_single_ind");
+
+    p_dps_pdrs_override.end_eff_sel = device.svg.getElementById("p_dps_pdrs_override_end_eff_sel");
+    p_dps_pdrs_override.end_eff_ind = device.svg.getElementById("p_dps_pdrs_override_end_eff_ind");
+
+    p_dps_pdrs_override.pl_sel = device.svg.getElementById("p_dps_pdrs_override_pl_sel");
+    p_dps_pdrs_override.pl_ind = device.svg.getElementById("p_dps_pdrs_override_pl_ind");
+
+    p_dps_pdrs_override.opr_cmd_sel = device.svg.getElementById("p_dps_pdrs_override_opr_cmd_sel");
+    p_dps_pdrs_override.opr_cmd_ind = device.svg.getElementById("p_dps_pdrs_override_opr_cmd_ind");
+
+    p_dps_pdrs_override.auto1_sel = device.svg.getElementById("p_dps_pdrs_override_auto1_sel");
+    p_dps_pdrs_override.auto1_ind = device.svg.getElementById("p_dps_pdrs_override_auto1_ind");
+
+    p_dps_pdrs_override.auto2_sel = device.svg.getElementById("p_dps_pdrs_override_auto2_sel");
+    p_dps_pdrs_override.auto2_ind = device.svg.getElementById("p_dps_pdrs_override_auto2_ind");
+
+    p_dps_pdrs_override.auto3_sel = device.svg.getElementById("p_dps_pdrs_override_auto3_sel");
+    p_dps_pdrs_override.auto3_ind = device.svg.getElementById("p_dps_pdrs_override_auto3_ind");
+
+    p_dps_pdrs_override.auto4_sel = device.svg.getElementById("p_dps_pdrs_override_auto4_sel");
+    p_dps_pdrs_override.auto4_ind = device.svg.getElementById("p_dps_pdrs_override_auto4_ind");
+
+    p_dps_pdrs_override.test_sel = device.svg.getElementById("p_dps_pdrs_override_test_sel");
+
 
 
     p_dps_pdrs_override.ondisplay = func
@@ -69,8 +101,8 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 	p_dps_pdrs_override.jnt_sw_ovrd.setText(symbol);
 
 	symbol = "";
-	if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
-		{symbol = "*";}
+	var mode_switch_override = getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override");
+	if (mode_switch_override == 1) {symbol = "*";}
 	p_dps_pdrs_override.mode_sw_ovrd.setText(symbol);
 
 	symbol = "";
@@ -116,10 +148,66 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 		}
 
 
+	# drive mode overrides
+
+	p_dps_pdrs_override.orb_unl_sel.setText("");
+    	p_dps_pdrs_override.orb_unl_ind.setText("");
+
+    	p_dps_pdrs_override.single_sel.setText("");
+    	p_dps_pdrs_override.single_ind.setText("");
+
+    	p_dps_pdrs_override.end_eff_sel.setText("");
+    	p_dps_pdrs_override.end_eff_ind.setText("");
+
+    	p_dps_pdrs_override.pl_sel.setText("");
+    	p_dps_pdrs_override.pl_ind.setText("");
+		
+    	p_dps_pdrs_override.opr_cmd_sel.setText("");
+    	p_dps_pdrs_override.opr_cmd_ind.setText("");
+
+    	p_dps_pdrs_override.auto1_sel.setText("");
+    	p_dps_pdrs_override.auto1_ind.setText("");
+
+    	p_dps_pdrs_override.auto2_sel.setText("");
+    	p_dps_pdrs_override.auto2_ind.setText("");
+
+    	p_dps_pdrs_override.auto3_sel.setText("");
+    	p_dps_pdrs_override.auto3_ind.setText("");
+
+    	p_dps_pdrs_override.auto4_sel.setText("");
+    	p_dps_pdrs_override.auto4_ind.setText("");
+
+    	p_dps_pdrs_override.orb_ld_sel.setText("");
+    	p_dps_pdrs_override.orb_ld_ind.setText("");
+
+    	p_dps_pdrs_override.test_sel.setText("");
+
+	var current_mode = getprop("/fdm/jsbsim/systems/rms/drive-selection-mode"); 
+	var selected_mode = 0;
+
+	if (mode_switch_override == 0)
+		{selected_mode = current_mode;}
+	else
+		{
+		selected_mode = getprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select");
+		if (selected_mode == 0) {selected_mode = 1;}
+		}
 
 
 
-	
+	if (current_mode == 1)
+		{p_dps_pdrs_override.single_ind.setText("*");}
+	else if ((current_mode == 2) or (current_mode == 3))
+		{p_dps_pdrs_override.orb_unl_ind.setText("*");}
+	else if (current_mode == 4)
+		{p_dps_pdrs_override.opr_cmd_ind.setText("*");}
+
+	if (selected_mode == 1)
+		{p_dps_pdrs_override.single_sel.setText("*");}
+	else if ((selected_mode == 2) or (selected_mode == 3))
+		{p_dps_pdrs_override.orb_unl_sel.setText("*");}
+	else if (selected_mode == 4)
+		{p_dps_pdrs_override.opr_cmd_sel.setText("*");}
 
 
         device.update_common_DPS();

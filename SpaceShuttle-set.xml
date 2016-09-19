@@ -1184,6 +1184,7 @@
 	<mode-sw-override type="int">0</mode-sw-override>
 	<rate-sw-override type="int">0</rate-sw-override>
 	<auto-sw-override type="int">0</auto-sw-override>
+	<sw-drive-mode-select type="int">0</sw-drive-mode-select>
       </software>
      </rms>
      <taem-guidance>

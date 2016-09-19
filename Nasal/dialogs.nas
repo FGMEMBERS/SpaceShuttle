@@ -726,9 +726,28 @@ else if (drive_string == "AUTO OPR CMD") {par = 4;}
 #print ("Drive selection is now: ", par);
 
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
-	
 
 }
+
+
+var update_rms_drive_selection_by_par = func (par) {
+
+# par encodes both actual selections on dial and the fact that we have THC and RHC
+
+var drive_string = "";
+var drive_mode = 0;
+
+if (par == 0) {drive_string = "SINGLE"; drive_mode = 1;}
+else if (par == 1) {drive_string = "DIRECT"; drive_mode = 1;}
+else if (par == 2) {drive_string = "ORB UNL X/Y/Z";  drive_mode = 2;}
+else if (par == 3) {drive_string = "ORB UNL P/Y/R"; drive_mode = 3;}
+else if (par == 4) {drive_string = "AUTO OPR CMD"; drive_mode = 4;}
+
+setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", drive_mode);
+setprop("/fdm/jsbsim/systems/rms/drive-selection-string", drive_string);
+
+}
+
 
 var update_entry_guidance_target = func {
 
