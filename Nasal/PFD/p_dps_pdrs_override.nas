@@ -65,6 +65,16 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 
     p_dps_pdrs_override.test_sel = device.svg.getElementById("p_dps_pdrs_override_test_sel");
 
+    p_dps_pdrs_override.thc = device.svg.getElementById("p_dps_pdrs_override_thc");
+    p_dps_pdrs_override.rhc = device.svg.getElementById("p_dps_pdrs_override_rhc");
+    p_dps_pdrs_override.hc_axis_ch = device.svg.getElementById("p_dps_pdrs_override_hc_axis_ch");
+
+    p_dps_pdrs_override.loaded_rate = device.svg.getElementById("p_dps_pdrs_override_loaded_rate");
+    p_dps_pdrs_override.stowed_ops = device.svg.getElementById("p_dps_pdrs_override_stowed_ops");
+    p_dps_pdrs_override.reassign = device.svg.getElementById("p_dps_pdrs_override_reassign");
+
+    p_dps_pdrs_override.ee_temp_sel = device.svg.getElementById("p_dps_pdrs_override_ee_temp_sel");
+    p_dps_pdrs_override.crit_temp_sel = device.svg.getElementById("p_dps_pdrs_override_crti_temp_sel");
 
 
     p_dps_pdrs_override.ondisplay = func
@@ -85,6 +95,14 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
     	p_dps_pdrs_override.abe_ovrd_a.setText("");
     	p_dps_pdrs_override.abe_ovrd_b.setText("");
     	p_dps_pdrs_override.abe_ovrd_c.setText("");
+    	p_dps_pdrs_override.thc.setText("");
+    	p_dps_pdrs_override.rhc.setText("");
+ 	p_dps_pdrs_override.hc_axis_ch.setText("");
+    	p_dps_pdrs_override.loaded_rate.setText("");
+    	p_dps_pdrs_override.stowed_ops.setText("");
+   	p_dps_pdrs_override.reassign.setText("");
+	p_dps_pdrs_override.ee_temp_sel.setText("");
+    	p_dps_pdrs_override.crit_temp_sel.setText("");
 
 
 

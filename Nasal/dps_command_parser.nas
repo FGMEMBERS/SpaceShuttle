@@ -3811,6 +3811,22 @@ if ((header == "ITEM") and (end = "EXEC"))
 			toggle_property("/fdm/jsbsim/systems/rms/software/auto-sw-override");
 			valid_flag = 1;
 			}
+		else if (item == 30)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 1);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 0);
+				}
+			valid_flag = 1;
+			}
 		}
 	
 
