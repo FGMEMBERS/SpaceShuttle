@@ -70,7 +70,7 @@ var temperature_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/temperature/
 
 var propellant_fd_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant_fd/dialog","Aircraft/SpaceShuttle/Dialogs/propellant_fill_drain.xml");
 
-var cab_lighting_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/cab-lighting/dialog","Aircraft/SpaceShuttle/Dialogs/cab_lighting.xml");
+var cabin_lighting_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/cabin-lighting/dialog","Aircraft/SpaceShuttle/Dialogs/cabin_lighting.xml");
 
 var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");

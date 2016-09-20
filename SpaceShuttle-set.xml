@@ -604,6 +604,11 @@
       <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
       <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
       <console-eff-norm type="float">0.7</console-eff-norm>
+      <console-eff-norm-panel-left type="float">1</console-eff-norm-panel-left>
+      <console-eff-norm-panel-right type="float">1</console-eff-norm-panel-right>
+      <console-eff-norm-panel-center type="float">1</console-eff-norm-panel-center>
+      <console-eff-norm-overhead-left type="float">1</console-eff-norm-overhead-left>
+      <console-eff-norm-overhead-right type="float">1</console-eff-norm-overhead-right>
       <text-legend-light-norm type="float">1.0</text-legend-light-norm>
       <talkback-light-norm type="float">1.0</talkback-light-norm>
       <green-talkback-light-norm type="float">1.0</green-talkback-light-norm>
@@ -617,16 +622,27 @@
       <hud-dim-cmd type="float">1.0</hud-dim-cmd>
       <hud-dim-plt type="float">1.0</hud-dim-plt>
       <cabinlight1-intensity type="float">0.0</cabinlight1-intensity>
+      <cabinlight1a-intensity type="float">0.0</cabinlight1a-intensity>
       <cabinlight2-intensity type="float">0.0</cabinlight2-intensity>
+      <cabinlight2a-intensity type="float">0.0</cabinlight2a-intensity>
       <cabinlight3-intensity type="float">0.0</cabinlight3-intensity>
       <cabinlight4-intensity type="float">0.0</cabinlight4-intensity>
       <cabinlight5-intensity type="float">0.0</cabinlight5-intensity>
       <cabinlight6-intensity type="float">0.0</cabinlight6-intensity>
+      <cabinlight6a-intensity type="float">0.0</cabinlight6a-intensity>
+      <cabinlight6b-intensity type="float">0.0</cabinlight6b-intensity>
       <cabinlight7-intensity type="float">0.0</cabinlight7-intensity>
+      <cabinlight7a-intensity type="float">0.0</cabinlight7a-intensity>
+      <cabinlight7b-intensity type="float">0.0</cabinlight7b-intensity>
       <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
+      <cabinlight9-intensity type="float">0.0</cabinlight9-intensity>
+      <cabinlight1-mode type="int">0</cabinlight1-mode>
+      <cabinlight2-mode type="int">0</cabinlight2-mode>
+      <cabinlight6-mode type="int">1</cabinlight6-mode>
+      <cabinlight7-mode type="int">1</cabinlight7-mode>
      </light>
      <grain>
-        <grain-velcro type="int">60</grain-velcro>
+        <grain-velcro type="int">180</grain-velcro>
         <grain-framing type="int">300</grain-framing>
         <grain-floor type="int">150</grain-floor>
         <grain-roof type="int">1100</grain-roof>
@@ -1876,7 +1892,7 @@
        <label>Cabin Lighting</label>
        <binding>
         <command>nasal</command>
-        <script>SpaceShuttle.cab_lighting_dlg.open()</script>
+        <script>SpaceShuttle.cabin_lighting_dlg.open()</script>
        </binding>
       </item>
 
@@ -2317,6 +2333,9 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     </property-rule>
     <property-rule n="101">
      <path>Systems/ground-effects-filters.xml</path>
+    </property-rule>
+    <property-rule n="102">
+     <path>Systems/cabin-lighting-filters.xml</path>
     </property-rule>
    </systems>
    <config>

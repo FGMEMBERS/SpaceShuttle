@@ -162,4 +162,116 @@
 		</fcs_function>
 
 	</channel>
+
+
+    <channel name="Cabin lighting">
+
+        <fcs_function name="systems/light/cabinlight1a-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight1a-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight2a-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight2a-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight3-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight3-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight4-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight4-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight5-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight5-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight6a-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight6a-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight7a-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight7a-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight8-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight8-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/console-eff-panel-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-panel-left-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-left</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-panel-center-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-center</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-overhead-left-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-overhead-left</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-overhead-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-overhead-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+
+	</channel>
+
 </system>

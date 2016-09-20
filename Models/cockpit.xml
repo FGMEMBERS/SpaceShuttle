@@ -34,121 +34,7 @@
 
     <!-- implicit lighting -->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
-        <!-- cabin -->
-        <object-name>fwd_window_assembly_seal</object-name>
-        <object-name>forward-bar</object-name>
-        <object-name>framing-fasteners</object-name>
-        <object-name>left_braking_system</object-name>        
-        <object-name>right_braking_system</object-name>
-        <object-name>aft_shell</object-name>
-        <object-name>aft-light-fixture</object-name>
-        <object-name>aft-left-light-fixture</object-name>
-        <object-name>aft-right-light-fixture</object-name>
-        <object-name>HUDImage1</object-name>
-        <object-name>HUDImage2</object-name>
-        <object-name>HudLeft</object-name>
-        <object-name>HudRight</object-name>
-        <object-name>DisplayC1</object-name>
-        <object-name>DisplayC2</object-name>
-        <object-name>DisplayC3</object-name>
-        <object-name>DisplayC4</object-name>
-        <object-name>DisplayC5</object-name>
-        <object-name>DisplayL1</object-name>
-        <object-name>DisplayL2</object-name>
-        <object-name>DisplayR1</object-name>
-        <object-name>DisplayR2</object-name>
-        <object-name>DisplayC1bg</object-name>
-        <object-name>DisplayC2bg</object-name>
-        <object-name>DisplayC3bg</object-name>
-        <object-name>DisplayC4bg</object-name>
-        <object-name>DisplayC5bg</object-name>
-        <object-name>DisplayL1bg</object-name>
-        <object-name>DisplayL2bg</object-name>
-        <object-name>DisplayR1bg</object-name>
-        <object-name>DisplayR2bg</object-name>
-        <!-- Misc -->
-        <object-name>air-data</object-name>
-        <object-name>hsi-mode-plt</object-name>
-        <object-name>hsi-sourcea-plt</object-name>
-        <object-name>hsi-sourceb-plt</object-name>
-        <object-name>rdr-altm-plt</object-name>
-        <!-- RHC -->
-        <object-name>joystick</object-name>
-        <object-name>joystick-base</object-name>
-        <!-- MFD's -->
-        <object-name>MFD1_B1</object-name>
-        <object-name>MFD1_B2</object-name>
-        <object-name>MFD1_B3</object-name>
-        <object-name>MFD1_B4</object-name>
-        <object-name>MFD1_B5</object-name>
-        <object-name>MFD1_B6</object-name>
-        <object-name>MFD2_B1</object-name>
-        <object-name>MFD2_B2</object-name>
-        <object-name>MFD2_B3</object-name>
-        <object-name>MFD2_B4</object-name>
-        <object-name>MFD2_B5</object-name>
-        <object-name>MFD2_B6</object-name>
-        <object-name>MFDC1_B1</object-name>
-        <object-name>MFDC1_B2</object-name>
-        <object-name>MFDC1_B3</object-name>
-        <object-name>MFDC1_B4</object-name>
-        <object-name>MFDC1_B5</object-name>
-        <object-name>MFDC1_B6</object-name>
-        <object-name>MFDC2_B1</object-name>
-        <object-name>MFDC2_B2</object-name>
-        <object-name>MFDC2_B3</object-name>
-        <object-name>MFDC2_B4</object-name>
-        <object-name>MFDC2_B5</object-name>
-        <object-name>MFDC2_B6</object-name>
-        <object-name>MFDC3_B1</object-name>
-        <object-name>MFDC3_B2</object-name>
-        <object-name>MFDC3_B3</object-name>
-        <object-name>MFDC3_B4</object-name>
-        <object-name>MFDC3_B5</object-name>
-        <object-name>MFDC3_B6</object-name>
-        <object-name>MFDC4_B1</object-name>
-        <object-name>MFDC4_B2</object-name>
-        <object-name>MFDC4_B3</object-name>
-        <object-name>MFDC4_B4</object-name>
-        <object-name>MFDC4_B5</object-name>
-        <object-name>MFDC4_B6</object-name>
-        <object-name>MFDC5_B1</object-name>
-        <object-name>MFDC5_B2</object-name>
-        <object-name>MFDC5_B3</object-name>
-        <object-name>MFDC5_B4</object-name>
-        <object-name>MFDC5_B5</object-name>
-        <object-name>MFDC5_B6</object-name>
-        <object-name>MFDR1_B1</object-name>
-        <object-name>MFDR1_B2</object-name>
-        <object-name>MFDR1_B3</object-name>
-        <object-name>MFDR1_B4</object-name>
-        <object-name>MFDR1_B5</object-name>
-        <object-name>MFDR1_B6</object-name>
-        <object-name>MFDR2_B1</object-name>
-        <object-name>MFDR2_B2</object-name>
-        <object-name>MFDR2_B3</object-name>
-        <object-name>MFDR2_B4</object-name>
-        <object-name>MFDR2_B5</object-name>
-        <object-name>MFDR2_B6</object-name>
-        <object-name>C1-disp-pwr</object-name>
-        <object-name>C1-disp-dim</object-name>
-        <object-name>C2-disp-pwr</object-name>
-        <object-name>C2-disp-dim</object-name>
-        <object-name>C3-disp-pwr</object-name>
-        <object-name>C3-disp-dim</object-name>
-        <object-name>C4-disp-pwr</object-name>
-        <object-name>C4-disp-dim</object-name>
-        <object-name>C5-disp-pwr</object-name>
-        <object-name>C5-disp-dim</object-name>
-        <object-name>L1-disp-pwr</object-name>
-        <object-name>L1-disp-dim</object-name>
-        <object-name>L2-disp-pwr</object-name>
-        <object-name>L2-disp-dim</object-name>
-        <object-name>R1-disp-pwr</object-name>
-        <object-name>R1-disp-dim</object-name>
-        <object-name>R2-disp-pwr</object-name>
-        <object-name>R2-disp-dim</object-name>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-overhead-left</inherits-from>
         <!-- Panel O4 -->
         <object-name>O4-panel</object-name>
         <object-name>O4-light-knob</object-name>
@@ -158,150 +44,161 @@
         <object-name>O6-light-knob</object-name>
         <object-name>O6-light-switch</object-name>
         <object-name>O6-light-panel</object-name>
+        <object-name>O6-light-glare-knob</object-name>
+        <object-name>O6-light-glare-switch</object-name>
+        <object-name>O6-light-panel-lc-knob</object-name>
+        <object-name>O6-light-panel-ov-knob</object-name>
+        <object-name>O6-light-instr-lc-knob</object-name>
+        <object-name>O6-light-instr-ov-knob</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-overhead-right</inherits-from>
         <!-- Panel O8 -->
         <object-name>O8-light-fasteners</object-name>
         <object-name>O8-light-guards</object-name>
         <object-name>O8-light-knob</object-name>
         <object-name>O8-light-switch</object-name>
         <object-name>O8-light-panel</object-name>
+        <object-name>O8-light-glare-knob</object-name>
+        <object-name>O8-light-glare-switch</object-name>
+        <object-name>O8-light-panel-lc-knob</object-name>
+        <object-name>O8-light-panel-ov-knob</object-name>
+        <object-name>O8-light-instr-lc-knob</object-name>
+        <object-name>O8-light-instr-ov-knob</object-name>
         <!-- Panel O10 -->
         <object-name>O10-panel</object-name>
         <object-name>O10-light-knob</object-name>
-        <!-- Panel C2 switches -->
-        <object-name>crt1-pwr</object-name>
-        <object-name>crt2-pwr</object-name>
-        <object-name>crt3-pwr</object-name>
-        <object-name>crtl-sel</object-name>
-        <object-name>crtr-sel</object-name>
-        <object-name>crt1-maj-func</object-name>
-        <object-name>crt2-maj-func</object-name>
-        <object-name>crt3-maj-func</object-name>
-        <object-name>event-tmr-mode</object-name>
-        <object-name>event-tmr-cntrl</object-name>
-        <object-name>event-tmr-set</object-name>
-        <!-- Panel C2 display -->
-        <object-name>timer-set-pos1</object-name>
-        <object-name>timer-set-pos2</object-name>
-        <object-name>timer-set-pos3</object-name>
-        <object-name>timer-set-pos4</object-name>
-        <!-- Panel C2 buttons -->
-        <object-name>timer1-set-dn</object-name>
-        <object-name>timer2-set-dn</object-name>
-        <object-name>timer3-set-dn</object-name>
-        <object-name>timer4-set-dn</object-name>
-        <object-name>timer1-set-up</object-name>
-        <object-name>timer2-set-up</object-name>
-        <object-name>timer3-set-up</object-name>
-        <object-name>timer4-set-up</object-name>
-        <!-- Panel C2 fixings -->
-        <object-name>C2-panel</object-name>
-        <object-name>C2-fasteners</object-name>
-        <object-name>C2-guards</object-name>
-        <object-name>C2-base</object-name>
-        <!-- Panel C3 switches -->    
-        <object-name>air-data-probe-right</object-name>
-        <object-name>air-data-probe-left</object-name>
-        <object-name>srb-sep</object-name>
-        <object-name>button_label_srb_sep</object-name>
-        <object-name>button_srb_sep</object-name>
-        <object-name>sband-control</object-name>
-        <object-name>sband-pm</object-name>
-        <object-name>roll-trim</object-name>
-        <object-name>pitch-trim</object-name>
-        <object-name>payload-safing1</object-name>
-        <object-name>payload-safing2</object-name>
-        <object-name>payload-safing3</object-name>
-        <object-name>payload-safing4</object-name>
-        <object-name>payload-safing5</object-name>
-        <object-name>osm-eng-right</object-name>
-        <object-name>osm-eng-left</object-name>
-        <object-name>oi-pcmmu-pwr</object-name>
-        <object-name>oi-pcmmu-format</object-name>
-        <object-name>main-eng-limit-shut-dn</object-name>
-        <object-name>fuel-cell-reac-vlv1</object-name>
-        <object-name>fuel-cell-reac-vlv2</object-name>
-        <object-name>fuel-cell-reac-vlv3</object-name>
-        <object-name>emergency-lighting</object-name>
-        <object-name>caution-warning-mode</object-name>
-        <object-name>caution-warning-memory</object-name>
-        <object-name>bfc-crt-select</object-name>
-        <object-name>bfc-crt-display</object-name>
-        <object-name>air-data-prob-stow-right</object-name>
-        <object-name>air-data-prob-stow-left</object-name>
-        <object-name>audio-center</object-name>
-        <object-name>bodyflap</object-name>
-        <object-name>et-sep</object-name>
-        <object-name>yaw-trim</object-name>
-        <object-name>button_label_et_sep</object-name>
-        <object-name>button_et_sep</object-name>
-        <object-name>fcs-channel1</object-name>
-        <object-name>fcs-channel2</object-name>
-        <object-name>fcs-channel3</object-name>
-        <object-name>fcs-channel4</object-name>
-        <object-name>fuel-cell-reac-vlv1-brk</object-name>
-        <object-name>fuel-cell-reac-vlv2-brk</object-name>
-        <object-name>fuel-cell-reac-vlv3-brk</object-name>
-        <object-name>master-mads-pwr</object-name>
-        <object-name>uplink</object-name>
-        <object-name>c3-sw1</object-name>
-        <object-name>button_label_main_eng_sd_left</object-name>
-        <object-name>button_label_main_eng_sd_center</object-name>
-        <object-name>button_label_main_eng_sd_right</object-name>
-        <object-name>button_label_od_select_a</object-name>
-        <object-name>button_label_od_select_b</object-name>
-        <object-name>button_label_od_control_auto</object-name>
-        <object-name>button_label_od_control_inrtl</object-name>
-        <object-name>button_label_od_control_lvlh</object-name>
-        <object-name>button_label_od_control_free</object-name>
-        <object-name>button_label_mm_alt</object-name>
-        <object-name>button_label_mm_high</object-name>
-        <object-name>button_label_mm_lowz</object-name>
-        <object-name>button_label_mm_pri</object-name>
-        <object-name>button_label_mm_vern</object-name>
-        <object-name>button_label_mm_xblank</object-name>
-        <object-name>button_label_mm_x_norm</object-name>
-        <object-name>button_label_mm_y_norm</object-name>
-        <object-name>button_label_mm_z_norm</object-name>
-        <object-name>button_label_mm_pitch_dr</object-name>
-        <object-name>button_label_mm_roll_dr</object-name>
-        <object-name>button_label_mm_yaw_dr</object-name>
-        <object-name>button_label_mm_x_pulse</object-name>
-        <object-name>button_label_mm_y_pulse</object-name>
-        <object-name>button_label_mm_z_pulse</object-name>
-        <object-name>button_label_mm_roll_pulse</object-name>
-        <object-name>button_label_mm_pitch_pulse</object-name>
-        <object-name>button_label_mm_yaw_pulse</object-name>
-        <object-name>button_main_eng_sd_left</object-name>
-        <object-name>button_main_eng_sd_center</object-name>
-        <object-name>button_main_eng_sd_right</object-name>
-        <!-- Panel C3 covers -->
-        <object-name>osm-arm-cvr</object-name>
-        <object-name>air-data-probe-cvr</object-name>
-        <object-name>srb-sep-cvr</object-name>
-        <object-name>main-eng-sd-left-cvr</object-name>
-        <object-name>main-eng-sd-right-cvr</object-name>
-        <object-name>main-eng-sd-ctr-cvr</object-name>
-        <object-name>et-sep-cvr</object-name>
-        <!-- Panel C3 fixings -->
-        <object-name>C3-panel</object-name>
-        <object-name>C3-fasteners</object-name>
-        <object-name>C3-guards</object-name>
-        <object-name>C3-base</object-name>
-        <object-name>C3-buttons-base</object-name>
-        <!-- Panel C4 fixings -->
-        <object-name>C4-panel</object-name>
-        <object-name>C4-latch</object-name>
-        <!-- Panel C5 fixings -->
-        <object-name>C5-panel</object-name>
-        <object-name>C5-latch</object-name>
-        <!-- Panel C6 fixings -->
-        <object-name>C6-panel</object-name>
-        <object-name>C6-fasteners</object-name>
-        <object-name>C6-base</object-name>
-        <!-- Panel C7 fixings -->
-        <object-name>C7-panel</object-name>
-        <object-name>C7-fasteners</object-name>
-        <object-name>C7-base</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-left</inherits-from>
+        <!--Panel L1 switches -->
+        <object-name>h2o-pump-l1</object-name>
+        <object-name>h2o-pump-l2</object-name>
+        <object-name>freon-pump-l1</object-name>
+        <object-name>freon-pump-l2</object-name>
+        <object-name>rad-cont-loop1</object-name>
+        <object-name>rad-cont-loop2</object-name>
+        <object-name>rad-flow-bypass1</object-name>
+        <object-name>rad-flow-bypass2</object-name>
+        <object-name>rad-out-temp</object-name>
+        <object-name>flash-evap-cntrl-pria</object-name>
+        <object-name>flash-evap-cntrl-prib</object-name>
+        <object-name>flash-evap-cntrl-sec</object-name>
+        <object-name>hi-load-evap-enable</object-name>
+        <object-name>top-evap-heat-noz-l</object-name>
+        <object-name>top-evap-heat-noz-r</object-name>
+        <!-- Panel L1 covers -->
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name>
+        <object-name>fs-bay1-safe-cvr</object-name>
+        <object-name>fs-bay2-safe-cvr</object-name>
+        <object-name>fs-bay3-safe-cvr</object-name>
+        <!--Panel L1 switches not connected -->
+        <object-name>av-bay-1-fan-a</object-name>
+        <object-name>av-bay-1-fan-b</object-name>
+        <object-name>av-bay-2-fan-a</object-name>
+        <object-name>av-bay-2-fan-b</object-name>
+        <object-name>av-bay-3-fan-a</object-name>
+        <object-name>av-bay-3-fan-b</object-name>
+        <object-name>cabin-fan-a</object-name>
+        <object-name>cabin-fan-b</object-name>
+        <object-name>cabin-fan-temp</object-name>
+        <object-name>cabin-fan-temp-cntrl</object-name>
+        <object-name>flash-evap-cntrl-sply</object-name>
+        <object-name>h2o-alt-press</object-name>
+        <object-name>h2o-loop1-bypass-man</object-name>
+        <object-name>h2o-loop1-bypass-mode</object-name>
+        <object-name>h2o-loop2-bypass-man</object-name>
+        <object-name>h2o-loop2-bypass-mode</object-name>
+        <object-name>h2o-pump-l1-ac1</object-name>
+        <object-name>hi-load-evap</object-name>
+        <object-name>humidity-sep-a</object-name>
+        <object-name>humidity-sep-b</object-name>
+        <object-name>imu-fan-a</object-name>
+        <object-name>imu-fan-b</object-name>
+        <object-name>imu-fan-c</object-name>
+        <object-name>flow prop-vlv-loop1</object-name>
+        <object-name>flow prop-vlv-loop2</object-name>
+        <object-name>rad-bypass-vlv-mode1</object-name>
+        <object-name>rad-bypass-vlv-mode2</object-name>
+        <object-name>smoke-detector-circut-test</object-name>
+        <object-name>smoke-detector-sensor</object-name>
+        <object-name>top-evap-heat</object-name>
+        <object-name>fire-sup-av-bay1</object-name>
+        <object-name>fire-sup-av-bay2</object-name>
+        <object-name>fire-sup-av-bay3</object-name>
+        <object-name>fs-bays-safe-bg</object-name>
+        <object-name>man-sb-thrust-sel-cmd</object-name>
+        <object-name>man-sb-thrust-sel-plt</object-name>
+        <object-name>man-sb-thrust-cmd</object-name>
+        <object-name>man-sb-thrust-plt</object-name>
+        <object-name>man-sb-thrust-housing-cmd</object-name>
+        <object-name>man-sb-thrust-housing-plt</object-name>
+        <object-name>nh3-tk-a</object-name>
+        <object-name>nh3-tk-b</object-name>
+        <object-name>sd-sensor-reset</object-name>
+        <object-name>sd-circuit-test</object-name>
+        <object-name>flow-prop-vlv-loop2</object-name>
+        <object-name>flow-prop-vlv-loop1</object-name>
+        <!--Panel L1 fixings -->
+        <object-name>L1-panel</object-name>
+        <object-name>L1-fasteners</object-name>
+        <object-name>L1-guards</object-name>
+        <object-name>L1-base</object-name>
+        <!--Panel L2 fixings -->
+        <object-name>L2-panel</object-name>
+        <object-name>L2-fasteners</object-name>
+        <object-name>L2-base</object-name>
+        <object-name>L2-guards</object-name>
+        <object-name>L2-switches</object-name>
+        <object-name>L2-talkbacks</object-name>
+        <!-- Panel L4 -->
+        <object-name>L4-breakers</object-name>
+        <object-name>L4-fasteners</object-name>
+        <object-name>L4-panel</object-name>
+        <!-- Panel F2 covers -->
+        <object-name>chute-arm-cmd-cvr</object-name>
+        <object-name>chute-dpy-cmd-cvr</object-name>
+        <!--Panel F2 fixings -->
+        <object-name>F2-panel</object-name>
+        <object-name>F2-fasteners</object-name>
+        <object-name>F2-base</object-name>
+        <!--Panel F5 fixings -->
+        <object-name>F5-panel</object-name>
+        <object-name>F5-fasteners</object-name>
+        <object-name>F5-thc</object-name>
+        <!-- Panel F6 knob -->
+        <object-name>abort-mode-switch</object-name>
+        <!-- Panel F6 switches -->
+        <object-name>air-data-cmd</object-name>
+        <object-name>adi-rate-cmd</object-name>
+        <object-name>adi-error-cmd</object-name>
+        <object-name>adi-att-cmd</object-name>
+        <object-name>bfc-engage</object-name>
+        <object-name>flt-ctrl-pwr-cmd</object-name>
+        <object-name>rdr-altm-cmd</object-name>
+        <object-name>F6SW-1-4</object-name>
+        <object-name>F6SW-1-5</object-name>
+        <object-name>F6SW-1-6</object-name>
+        <!--Panel F6 fixings -->
+        <object-name>F6-panel</object-name>
+        <object-name>F6-fasteners</object-name>
+        <object-name>F6-guards</object-name>
+        <object-name>F6-base</object-name>
+        <!-- Panel F6 covers -->
+        <object-name>landing-gear-arm-cmd-cvr</object-name>
+        <object-name>landing-gear-down-cmd-cvr</object-name>
+        <object-name>bfc-engage-cvr</object-name>
+        <!-- Panel F6 hud -->
+        <object-name>hud-cmd-dim-knob</object-name>
+        <object-name>hud-bright-cmd-switch</object-name>
+        <object-name>hud-mode-cmd-switch</object-name>
+        <object-name>hud-data-bus-cmd</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-right</inherits-from>
         <!--Panel R1 switches-->
         <object-name>R1-panel</object-name>
         <object-name>fc0-connector</object-name>
@@ -474,166 +371,34 @@
         <object-name>R2-base</object-name>
         <object-name>R2-guards</object-name>
         <object-name>R2-talkback-base</object-name>
-        <!--Panel L1 switches -->
-        <object-name>h2o-pump-l1</object-name>
-        <object-name>h2o-pump-l2</object-name>
-        <object-name>freon-pump-l1</object-name>
-        <object-name>freon-pump-l2</object-name>
-        <object-name>rad-cont-loop1</object-name>
-        <object-name>rad-cont-loop2</object-name>
-        <object-name>rad-flow-bypass1</object-name>
-        <object-name>rad-flow-bypass2</object-name>
-        <object-name>rad-out-temp</object-name>
-        <object-name>flash-evap-cntrl-pria</object-name>
-        <object-name>flash-evap-cntrl-prib</object-name>
-        <object-name>flash-evap-cntrl-sec</object-name>
-        <object-name>hi-load-evap-enable</object-name>
-        <object-name>top-evap-heat-noz-l</object-name>
-        <object-name>top-evap-heat-noz-r</object-name>
-        <!-- Panel L1 covers -->
-        <object-name>flash-evap-cntrl-pri-cvr</object-name>
-        <object-name>flash-evap-cntrl-sec-cvr</object-name>
-        <object-name>nh3-cntrl-tka-cvr</object-name>
-        <object-name>nh3-cntrl-tkb-cvr</object-name>
-        <object-name>fs-bay1-safe-cvr</object-name>
-        <object-name>fs-bay2-safe-cvr</object-name>
-        <object-name>fs-bay3-safe-cvr</object-name>
-        <!--Panel L1 switches not connected -->
-        <object-name>av-bay-1-fan-a</object-name>
-        <object-name>av-bay-1-fan-b</object-name>
-        <object-name>av-bay-2-fan-a</object-name>
-        <object-name>av-bay-2-fan-b</object-name>
-        <object-name>av-bay-3-fan-a</object-name>
-        <object-name>av-bay-3-fan-b</object-name>
-        <object-name>cabin-fan-a</object-name>
-        <object-name>cabin-fan-b</object-name>
-        <object-name>cabin-fan-temp</object-name>
-        <object-name>cabin-fan-temp-cntrl</object-name>
-        <object-name>flash-evap-cntrl-sply</object-name>
-        <object-name>h2o-alt-press</object-name>
-        <object-name>h2o-loop1-bypass-man</object-name>
-        <object-name>h2o-loop1-bypass-mode</object-name>
-        <object-name>h2o-loop2-bypass-man</object-name>
-        <object-name>h2o-loop2-bypass-mode</object-name>
-        <object-name>h2o-pump-l1-ac1</object-name>
-        <object-name>hi-load-evap</object-name>
-        <object-name>humidity-sep-a</object-name>
-        <object-name>humidity-sep-b</object-name>
-        <object-name>imu-fan-a</object-name>
-        <object-name>imu-fan-b</object-name>
-        <object-name>imu-fan-c</object-name>
-        <object-name>flow prop-vlv-loop1</object-name>
-        <object-name>flow prop-vlv-loop2</object-name>
-        <object-name>rad-bypass-vlv-mode1</object-name>
-        <object-name>rad-bypass-vlv-mode2</object-name>
-        <object-name>smoke-detector-circut-test</object-name>
-        <object-name>smoke-detector-sensor</object-name>
-        <object-name>top-evap-heat</object-name>
-        <object-name>fire-sup-av-bay1</object-name>
-        <object-name>fire-sup-av-bay2</object-name>
-        <object-name>fire-sup-av-bay3</object-name>
-        <object-name>fs-bays-safe-bg</object-name>
-        <object-name>man-sb-thrust-sel-cmd</object-name>
-        <object-name>man-sb-thrust-sel-plt</object-name>
-        <object-name>man-sb-thrust-cmd</object-name>
-        <object-name>man-sb-thrust-plt</object-name>
-        <object-name>man-sb-thrust-housing-cmd</object-name>
-        <object-name>man-sb-thrust-housing-plt</object-name>
-        <object-name>nh3-tk-a</object-name>
-        <object-name>nh3-tk-b</object-name>
-        <object-name>sd-sensor-reset</object-name>
-        <object-name>sd-circuit-test</object-name>
-        <object-name>flow-prop-vlv-loop2</object-name>
-        <object-name>flow-prop-vlv-loop1</object-name>
-        <!--Panel L1 fixings -->
-        <object-name>L1-panel</object-name>
-        <object-name>L1-fasteners</object-name>
-        <object-name>L1-guards</object-name>
-        <object-name>L1-base</object-name>
-        <!--Panel L2 fixings -->
-        <object-name>L2-panel</object-name>
-        <object-name>L2-fasteners</object-name>
-        <object-name>L2-base</object-name>
-        <object-name>L2-guards</object-name>
-        <object-name>L2-switches</object-name>
-        <object-name>L2-talkbacks</object-name>
-        <!-- Panel L4 -->
-        <object-name>L4-breakers</object-name>
-        <object-name>L4-fasteners</object-name>
-        <object-name>L4-panel</object-name>
-        <!-- Panel F1 switches -->
-        <object-name>f1-sw1</object-name>
-        <object-name>f1-sw2</object-name>
-        <!--Panel F1 fixings -->
-        <object-name>F1-panel</object-name>
-        <object-name>F1-fasteners</object-name>
-        <object-name>F1-guards</object-name>
-        <object-name>F1-base</object-name>
-        <!-- Panel F2 covers -->
-        <object-name>chute-arm-cmd-cvr</object-name>
-        <object-name>chute-dpy-cmd-cvr</object-name>
-        <!--Panel F2 fixings -->
-        <object-name>F2-panel</object-name>
-        <object-name>F2-fasteners</object-name>
-        <object-name>F2-base</object-name>
-        <!-- Panel F3 covers -->
-        <object-name>chute-arm-plt-cvr</object-name>
-        <object-name>chute-dpy-plt-cvr</object-name>
-        <object-name>chute-jett-cmd-cvr</object-name>
-        <object-name>trim-panel-cmd</object-name>
-        <object-name>trim-panel-plt</object-name>
-        <object-name>trim-rhc-pnl-cmd</object-name>
-        <object-name>trim-rhc-pnl-plt</object-name>
-        <object-name>hud-pwr-cmd-switch</object-name>
-        <object-name>hud-pwr-plt-switch</object-name>
-        <!--Panel F3 fixings -->
-        <object-name>F3-panel</object-name>
-        <object-name>F3-fasteners</object-name>
-        <object-name>F3-guards</object-name>
-        <object-name>F3-base</object-name>
+        <!-- Panel R4 -->
+        <object-name>R4-panel</object-name>
+        <object-name>R4-switches</object-name>
+        <object-name>R4-fasteners</object-name>
+        <object-name>R4-guards</object-name>
+        <object-name>R4-talkbacks</object-name>
+        <object-name>R4-base</object-name>
+        <!--Panel R4 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
+        <!-- Panel R7 -->
+        <object-name>R7-breakers</object-name>
+        <object-name>R7-covers</object-name>
+        <object-name>R7-dial</object-name>
+        <object-name>R7-toggles</object-name>
+        <!--Panel R7 fixings -->
+        <object-name>R7-panel</object-name>
+        <object-name>R7-fasteners</object-name>
+        <object-name>R7-guards</object-name>
+        <object-name>R7-base</object-name>
         <!-- Panel F4 covers -->
         <object-name>chute-jett-plt-cvr</object-name>
         <!--Panel F4 fixings -->
         <object-name>F4-panel</object-name>
         <object-name>F4-fasteners</object-name>
         <object-name>F4-base</object-name>
-        <!--Panel F5 fixings -->
-        <object-name>F5-panel</object-name>
-        <object-name>F5-fasteners</object-name>
-        <object-name>F5-thc</object-name>
-        <!-- Panel F6 knob -->
-        <object-name>abort-mode-switch</object-name>
-        <!-- Panel F6 switches -->
-        <object-name>air-data-cmd</object-name>
-        <object-name>adi-rate-cmd</object-name>
-        <object-name>adi-error-cmd</object-name>
-        <object-name>adi-att-cmd</object-name>
-        <object-name>bfc-engage</object-name>
-        <object-name>flt-ctrl-pwr-cmd</object-name>
-        <object-name>rdr-altm-cmd</object-name>
-        <object-name>F6SW-1-4</object-name>
-        <object-name>F6SW-1-5</object-name>
-        <object-name>F6SW-1-6</object-name>
-        <!--Panel F6 fixings -->
-        <object-name>F6-panel</object-name>
-        <object-name>F6-fasteners</object-name>
-        <object-name>F6-guards</object-name>
-        <object-name>F6-base</object-name>
-        <!-- Panel F6 covers -->
-        <object-name>landing-gear-arm-cmd-cvr</object-name>
-        <object-name>landing-gear-down-cmd-cvr</object-name>
-        <object-name>bfc-engage-cvr</object-name>
-        <!-- Panel F6 hud -->
-        <object-name>hud-cmd-dim-knob</object-name>
-        <object-name>hud-bright-cmd-switch</object-name>
-        <object-name>hud-mode-cmd-switch</object-name>
-        <object-name>hud-data-bus-cmd</object-name>
-        <!--Panel F7 fixings -->
-        <object-name>F7-panel</object-name>
-        <object-name>F7-fasteners</object-name>
-        <object-name>F7-guards</object-name>
-        <object-name>event-time-glass</object-name>
-        <object-name>event-time-glass-bg</object-name>
         <!-- Panel F8 switches -->
         <object-name>air-data-plt</object-name>
         <object-name>adi-rate-plt</object-name>
@@ -663,28 +428,287 @@
         <!--Panel F9 fixings -->
         <object-name>F9-panel</object-name>
         <object-name>F9-fasteners</object-name>
-        <!-- Panel R4 -->
-        <object-name>R4-panel</object-name>
-        <object-name>R4-switches</object-name>
-        <object-name>R4-fasteners</object-name>
-        <object-name>R4-guards</object-name>
-        <object-name>R4-talkbacks</object-name>
-        <object-name>R4-base</object-name>
-        <!--Panel R4 fixings -->
-        <object-name>R7-panel</object-name>
-        <object-name>R7-fasteners</object-name>
-        <object-name>R7-guards</object-name>
-        <object-name>R7-base</object-name>
-        <!-- Panel R7 -->
-        <object-name>R7-breakers</object-name>
-        <object-name>R7-covers</object-name>
-        <object-name>R7-dial</object-name>
-        <object-name>R7-toggles</object-name>
-        <!--Panel R7 fixings -->
-        <object-name>R7-panel</object-name>
-        <object-name>R7-fasteners</object-name>
-        <object-name>R7-guards</object-name>
-        <object-name>R7-base</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-center</inherits-from>
+        <!-- cabin -->
+        <object-name>fwd_window_assembly_seal</object-name>
+        <object-name>forward-bar</object-name>
+        <object-name>framing-fasteners</object-name>
+        <object-name>left_braking_system</object-name>
+        <object-name>right_braking_system</object-name>
+        <object-name>aft_shell</object-name>
+        <object-name>aft-light-fixture</object-name>
+        <object-name>aft-left-light-fixture</object-name>
+        <object-name>aft-right-light-fixture</object-name>
+        <object-name>HUDImage1</object-name>
+        <object-name>HUDImage2</object-name>
+        <object-name>HudLeft</object-name>
+        <object-name>HudRight</object-name>
+        <object-name>DisplayC1</object-name>
+        <object-name>DisplayC2</object-name>
+        <object-name>DisplayC3</object-name>
+        <object-name>DisplayC4</object-name>
+        <object-name>DisplayC5</object-name>
+        <object-name>DisplayL1</object-name>
+        <object-name>DisplayL2</object-name>
+        <object-name>DisplayR1</object-name>
+        <object-name>DisplayR2</object-name>
+        <object-name>DisplayC1bg</object-name>
+        <object-name>DisplayC2bg</object-name>
+        <object-name>DisplayC3bg</object-name>
+        <object-name>DisplayC4bg</object-name>
+        <object-name>DisplayC5bg</object-name>
+        <object-name>DisplayL1bg</object-name>
+        <object-name>DisplayL2bg</object-name>
+        <object-name>DisplayR1bg</object-name>
+        <object-name>DisplayR2bg</object-name>
+        <!-- Misc -->
+        <object-name>air-data</object-name>
+        <object-name>hsi-mode-plt</object-name>
+        <object-name>hsi-sourcea-plt</object-name>
+        <object-name>hsi-sourceb-plt</object-name>
+        <object-name>rdr-altm-plt</object-name>
+        <!-- RHC -->
+        <object-name>joystick</object-name>
+        <object-name>joystick-base</object-name>
+        <!-- MFD's -->
+        <object-name>MFD1_B1</object-name>
+        <object-name>MFD1_B2</object-name>
+        <object-name>MFD1_B3</object-name>
+        <object-name>MFD1_B4</object-name>
+        <object-name>MFD1_B5</object-name>
+        <object-name>MFD1_B6</object-name>
+        <object-name>MFD2_B1</object-name>
+        <object-name>MFD2_B2</object-name>
+        <object-name>MFD2_B3</object-name>
+        <object-name>MFD2_B4</object-name>
+        <object-name>MFD2_B5</object-name>
+        <object-name>MFD2_B6</object-name>
+        <object-name>MFDC1_B1</object-name>
+        <object-name>MFDC1_B2</object-name>
+        <object-name>MFDC1_B3</object-name>
+        <object-name>MFDC1_B4</object-name>
+        <object-name>MFDC1_B5</object-name>
+        <object-name>MFDC1_B6</object-name>
+        <object-name>MFDC2_B1</object-name>
+        <object-name>MFDC2_B2</object-name>
+        <object-name>MFDC2_B3</object-name>
+        <object-name>MFDC2_B4</object-name>
+        <object-name>MFDC2_B5</object-name>
+        <object-name>MFDC2_B6</object-name>
+        <object-name>MFDC3_B1</object-name>
+        <object-name>MFDC3_B2</object-name>
+        <object-name>MFDC3_B3</object-name>
+        <object-name>MFDC3_B4</object-name>
+        <object-name>MFDC3_B5</object-name>
+        <object-name>MFDC3_B6</object-name>
+        <object-name>MFDC4_B1</object-name>
+        <object-name>MFDC4_B2</object-name>
+        <object-name>MFDC4_B3</object-name>
+        <object-name>MFDC4_B4</object-name>
+        <object-name>MFDC4_B5</object-name>
+        <object-name>MFDC4_B6</object-name>
+        <object-name>MFDC5_B1</object-name>
+        <object-name>MFDC5_B2</object-name>
+        <object-name>MFDC5_B3</object-name>
+        <object-name>MFDC5_B4</object-name>
+        <object-name>MFDC5_B5</object-name>
+        <object-name>MFDC5_B6</object-name>
+        <object-name>MFDR1_B1</object-name>
+        <object-name>MFDR1_B2</object-name>
+        <object-name>MFDR1_B3</object-name>
+        <object-name>MFDR1_B4</object-name>
+        <object-name>MFDR1_B5</object-name>
+        <object-name>MFDR1_B6</object-name>
+        <object-name>MFDR2_B1</object-name>
+        <object-name>MFDR2_B2</object-name>
+        <object-name>MFDR2_B3</object-name>
+        <object-name>MFDR2_B4</object-name>
+        <object-name>MFDR2_B5</object-name>
+        <object-name>MFDR2_B6</object-name>
+        <object-name>C1-disp-pwr</object-name>
+        <object-name>C1-disp-dim</object-name>
+        <object-name>C2-disp-pwr</object-name>
+        <object-name>C2-disp-dim</object-name>
+        <object-name>C3-disp-pwr</object-name>
+        <object-name>C3-disp-dim</object-name>
+        <object-name>C4-disp-pwr</object-name>
+        <object-name>C4-disp-dim</object-name>
+        <object-name>C5-disp-pwr</object-name>
+        <object-name>C5-disp-dim</object-name>
+        <object-name>L1-disp-pwr</object-name>
+        <object-name>L1-disp-dim</object-name>
+        <object-name>L2-disp-pwr</object-name>
+        <object-name>L2-disp-dim</object-name>
+        <object-name>R1-disp-pwr</object-name>
+        <object-name>R1-disp-dim</object-name>
+        <object-name>R2-disp-pwr</object-name>
+        <object-name>R2-disp-dim</object-name>
+        <!-- Panel C2 switches -->
+        <object-name>crt1-pwr</object-name>
+        <object-name>crt2-pwr</object-name>
+        <object-name>crt3-pwr</object-name>
+        <object-name>crtl-sel</object-name>
+        <object-name>crtr-sel</object-name>
+        <object-name>crt1-maj-func</object-name>
+        <object-name>crt2-maj-func</object-name>
+        <object-name>crt3-maj-func</object-name>
+        <object-name>event-tmr-mode</object-name>
+        <object-name>event-tmr-cntrl</object-name>
+        <object-name>event-tmr-set</object-name>
+        <!-- Panel C2 display -->
+        <object-name>timer-set-pos1</object-name>
+        <object-name>timer-set-pos2</object-name>
+        <object-name>timer-set-pos3</object-name>
+        <object-name>timer-set-pos4</object-name>
+        <!-- Panel C2 buttons -->
+        <object-name>timer1-set-dn</object-name>
+        <object-name>timer2-set-dn</object-name>
+        <object-name>timer3-set-dn</object-name>
+        <object-name>timer4-set-dn</object-name>
+        <object-name>timer1-set-up</object-name>
+        <object-name>timer2-set-up</object-name>
+        <object-name>timer3-set-up</object-name>
+        <object-name>timer4-set-up</object-name>
+        <!-- Panel C2 fixings -->
+        <object-name>C2-panel</object-name>
+        <object-name>C2-fasteners</object-name>
+        <object-name>C2-guards</object-name>
+        <object-name>C2-base</object-name>
+        <!-- Panel C3 switches -->
+        <object-name>air-data-probe-right</object-name>
+        <object-name>air-data-probe-left</object-name>
+        <object-name>srb-sep</object-name>
+        <object-name>button_label_srb_sep</object-name>
+        <object-name>button_srb_sep</object-name>
+        <object-name>sband-control</object-name>
+        <object-name>sband-pm</object-name>
+        <object-name>roll-trim</object-name>
+        <object-name>pitch-trim</object-name>
+        <object-name>payload-safing1</object-name>
+        <object-name>payload-safing2</object-name>
+        <object-name>payload-safing3</object-name>
+        <object-name>payload-safing4</object-name>
+        <object-name>payload-safing5</object-name>
+        <object-name>osm-eng-right</object-name>
+        <object-name>osm-eng-left</object-name>
+        <object-name>oi-pcmmu-pwr</object-name>
+        <object-name>oi-pcmmu-format</object-name>
+        <object-name>main-eng-limit-shut-dn</object-name>
+        <object-name>fuel-cell-reac-vlv1</object-name>
+        <object-name>fuel-cell-reac-vlv2</object-name>
+        <object-name>fuel-cell-reac-vlv3</object-name>
+        <object-name>emergency-lighting</object-name>
+        <object-name>caution-warning-mode</object-name>
+        <object-name>caution-warning-memory</object-name>
+        <object-name>bfc-crt-select</object-name>
+        <object-name>bfc-crt-display</object-name>
+        <object-name>air-data-prob-stow-right</object-name>
+        <object-name>air-data-prob-stow-left</object-name>
+        <object-name>audio-center</object-name>
+        <object-name>bodyflap</object-name>
+        <object-name>et-sep</object-name>
+        <object-name>yaw-trim</object-name>
+        <object-name>button_label_et_sep</object-name>
+        <object-name>button_et_sep</object-name>
+        <object-name>fcs-channel1</object-name>
+        <object-name>fcs-channel2</object-name>
+        <object-name>fcs-channel3</object-name>
+        <object-name>fcs-channel4</object-name>
+        <object-name>fuel-cell-reac-vlv1-brk</object-name>
+        <object-name>fuel-cell-reac-vlv2-brk</object-name>
+        <object-name>fuel-cell-reac-vlv3-brk</object-name>
+        <object-name>master-mads-pwr</object-name>
+        <object-name>uplink</object-name>
+        <object-name>c3-sw1</object-name>
+        <object-name>button_label_main_eng_sd_left</object-name>
+        <object-name>button_label_main_eng_sd_center</object-name>
+        <object-name>button_label_main_eng_sd_right</object-name>
+        <object-name>button_label_od_select_a</object-name>
+        <object-name>button_label_od_select_b</object-name>
+        <object-name>button_label_od_control_auto</object-name>
+        <object-name>button_label_od_control_inrtl</object-name>
+        <object-name>button_label_od_control_lvlh</object-name>
+        <object-name>button_label_od_control_free</object-name>
+        <object-name>button_label_mm_alt</object-name>
+        <object-name>button_label_mm_high</object-name>
+        <object-name>button_label_mm_lowz</object-name>
+        <object-name>button_label_mm_pri</object-name>
+        <object-name>button_label_mm_vern</object-name>
+        <object-name>button_label_mm_xblank</object-name>
+        <object-name>button_label_mm_x_norm</object-name>
+        <object-name>button_label_mm_y_norm</object-name>
+        <object-name>button_label_mm_z_norm</object-name>
+        <object-name>button_label_mm_pitch_dr</object-name>
+        <object-name>button_label_mm_roll_dr</object-name>
+        <object-name>button_label_mm_yaw_dr</object-name>
+        <object-name>button_label_mm_x_pulse</object-name>
+        <object-name>button_label_mm_y_pulse</object-name>
+        <object-name>button_label_mm_z_pulse</object-name>
+        <object-name>button_label_mm_roll_pulse</object-name>
+        <object-name>button_label_mm_pitch_pulse</object-name>
+        <object-name>button_label_mm_yaw_pulse</object-name>
+        <object-name>button_main_eng_sd_left</object-name>
+        <object-name>button_main_eng_sd_center</object-name>
+        <object-name>button_main_eng_sd_right</object-name>
+        <!-- Panel C3 covers -->
+        <object-name>osm-arm-cvr</object-name>
+        <object-name>air-data-probe-cvr</object-name>
+        <object-name>srb-sep-cvr</object-name>
+        <object-name>main-eng-sd-left-cvr</object-name>
+        <object-name>main-eng-sd-right-cvr</object-name>
+        <object-name>main-eng-sd-ctr-cvr</object-name>
+        <object-name>et-sep-cvr</object-name>
+        <!-- Panel C3 fixings -->
+        <object-name>C3-panel</object-name>
+        <object-name>C3-fasteners</object-name>
+        <object-name>C3-guards</object-name>
+        <object-name>C3-base</object-name>
+        <object-name>C3-buttons-base</object-name>
+        <!-- Panel C4 fixings -->
+        <object-name>C4-panel</object-name>
+        <object-name>C4-latch</object-name>
+        <!-- Panel C5 fixings -->
+        <object-name>C5-panel</object-name>
+        <object-name>C5-latch</object-name>
+        <!-- Panel C6 fixings -->
+        <object-name>C6-panel</object-name>
+        <object-name>C6-fasteners</object-name>
+        <object-name>C6-base</object-name>
+        <!-- Panel C7 fixings -->
+        <object-name>C7-panel</object-name>
+        <object-name>C7-fasteners</object-name>
+        <object-name>C7-base</object-name>
+        <!-- Panel F1 switches -->
+        <object-name>f1-sw1</object-name>
+        <object-name>f1-sw2</object-name>
+        <!--Panel F1 fixings -->
+        <object-name>F1-panel</object-name>
+        <object-name>F1-fasteners</object-name>
+        <object-name>F1-guards</object-name>
+        <object-name>F1-base</object-name>
+        <!-- Panel F3 covers -->
+        <object-name>chute-arm-plt-cvr</object-name>
+        <object-name>chute-dpy-plt-cvr</object-name>
+        <object-name>chute-jett-cmd-cvr</object-name>
+        <object-name>trim-panel-cmd</object-name>
+        <object-name>trim-panel-plt</object-name>
+        <object-name>trim-rhc-pnl-cmd</object-name>
+        <object-name>trim-rhc-pnl-plt</object-name>
+        <object-name>hud-pwr-cmd-switch</object-name>
+        <object-name>hud-pwr-plt-switch</object-name>
+        <!--Panel F3 fixings -->
+        <object-name>F3-panel</object-name>
+        <object-name>F3-fasteners</object-name>
+        <object-name>F3-guards</object-name>
+        <object-name>F3-base</object-name>
+        <!--Panel F7 fixings -->
+        <object-name>F7-panel</object-name>
+        <object-name>F7-fasteners</object-name>
+        <object-name>F7-guards</object-name>
+        <object-name>event-time-glass</object-name>
+        <object-name>event-time-glass-bg</object-name>
     </effect>
 
     <effect>
@@ -1072,12 +1096,32 @@
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight2-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight1-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
         <type>select</type>
         <object-name>F2-panel-light</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/light/cabinlight1-intensity</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>F3-panel-light</object-name>
+        <emission>
+            <red>  1.0</red>
+            <green>1.0</green>
+            <blue> 1.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight2-intensity</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>F3-panel-light</object-name>
         <condition>
             <equals>
                 <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
@@ -1087,32 +1131,12 @@
     </animation>
     <animation>
         <type>material</type>
-        <object-name>F3-panel-light</object-name>
-        <emission>
-            <red>  1.0</red>
-            <green>1.0</green>
-            <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight3-intensity</factor-prop>
-        </emission>
-    </animation>
-    <animation>
-        <type>select</type>
-        <object-name>F3-panel-light</object-name>
-        <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight3-intensity</property>
-                <value>1</value>
-            </equals>
-        </condition>
-    </animation>
-    <animation>
-        <type>material</type>
         <object-name>F4-panel-light</object-name>
         <emission>
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight4-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight2-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
@@ -1120,7 +1144,7 @@
         <object-name>F4-panel-light</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/light/cabinlight4-intensity</property>
+                <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -1132,7 +1156,7 @@
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight4-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight9-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
@@ -1142,7 +1166,7 @@
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight4-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight3-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
@@ -1157,22 +1181,42 @@
     </animation>
     <animation>
         <type>material</type>
-        <object-name>O6-panel-light</object-name>
+        <object-name>O6-panel-light-seat</object-name>
         <emission>
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight6-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight6a-intensity</factor-prop>
         </emission>
     </animation>
     <animation>
         <type>material</type>
-        <object-name>O8-panel-light</object-name>
+        <object-name>O8-panel-light-seat</object-name>
         <emission>
             <red>  1.0</red>
             <green>1.0</green>
             <blue> 1.0</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/cabinlight7-intensity</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight7a-intensity</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>O6-panel-light-cnsl</object-name>
+        <emission>
+            <red>  1.0</red>
+            <green>1.0</green>
+            <blue> 1.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight6b-intensity</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>O8-panel-light-cnsl</object-name>
+        <emission>
+            <red>  1.0</red>
+            <green>1.0</green>
+            <blue> 1.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/cabinlight7b-intensity</factor-prop>
         </emission>
     </animation>
 
@@ -4485,7 +4529,7 @@
     <!-- Panel O4                                                             -->
     <!-- ******************************************************************* -->
 
-    <!-- O4 Light Knob "Switch" -->
+    <!-- O4 Light  "Knob" -->
     <animation>
         <type>knob</type>
         <object-name>O4-light-knob</object-name>
@@ -4524,10 +4568,696 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel O6                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- O6 Light Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-mode</property>
+        <factor>-45</factor>
+        <offset-deg>90</offset-deg>
+        <center>
+            <x-m>-11.8605</x-m>
+            <y-m> -0.5276</y-m>
+            <z-m> 0.3192</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight6-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity", 0);
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight6-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity", 0);
+                    }
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-switch</tooltip-id>
+                <label>O6 Light Mode: %s</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Ctr Cnsl', 'Off', 'Seat'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Light  "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+        <offset-deg>-190</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8634</x-m>
+            <y-m> -0.4732 </y-m>
+            <z-m>  0.3181 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight6-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity", 0);
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6b-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight6-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6a-intensity", 0);
+                    }
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Light Glareshield Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-glare-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight1-mode</property>
+        <factor>-45</factor>
+        <offset-deg>90</offset-deg>
+        <center>
+            <x-m>-11.8605</x-m>
+            <y-m> -0.6785</y-m>
+            <z-m>  0.3192</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight1-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight1-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight1-intensity"));
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity", 1);
+                    }
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-glare-switch</tooltip-id>
+                <label>Left Glareshield Mode: %s</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight1-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Var', 'Bright'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Light Glareshield "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-glare-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight1-intensity</property>
+        <offset-deg>-190</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8634</x-m>
+            <y-m> -0.6147 </y-m>
+            <z-m>  0.3181 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight1-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight1-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight1-intensity"));
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight1a-intensity", 1);
+                    }
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-glare-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight1-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Cabin Panel Left/Center Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-panel-lc-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-left</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.6895</x-m>
+            <y-m> -0.68 </y-m>
+            <z-m>  0.36 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-left</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-center",
+                        getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-left"));
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-panel-lc-knob</tooltip-id>
+                <label>Panel Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-left</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Cabin Left Overhead Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-panel-ov-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-left</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.6895</x-m>
+            <y-m> -0.6147</y-m>
+            <z-m>  0.36  </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-left</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-panel-ov-knob</tooltip-id>
+                <label>Panel Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-left</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O8                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- O8 Light Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-mode</property>
+        <factor>-45</factor>
+        <offset-deg>90</offset-deg>
+        <center>
+            <x-m>-11.8571</x-m>
+            <y-m> 0.4664</y-m>
+            <z-m> 0.32</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight8-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight8-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight7-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity", 0);
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight7-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity", 0);
+                    }
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-switch</tooltip-id>
+                <label>O8 Light Mode: %s</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight8-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Ctr Cnsl', 'Off', 'Seat'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Light "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+        <offset-deg>-190</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8621</x-m>
+            <y-m>  0.522 </y-m>
+            <z-m>  0.3184</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight7-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity", 0);
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7b-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight7-intensity"));
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7a-intensity", 0);
+                    }
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Light Glareshield Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-glare-switch</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight2-mode</property>
+        <factor>-45</factor>
+        <offset-deg>90</offset-deg>
+        <center>
+            <x-m>-11.8574</x-m>
+            <y-m> 0.6151 </y-m>
+            <z-m> 0.3199</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight2-mode</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight2-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight2-intensity"));
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity", 1);
+                    }
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-glare-switch</tooltip-id>
+                <label>Right Glareshield Mode: %s</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight2-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Var', 'Bright'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Light Glareshield "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-glare-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
+        <offset-deg>-190</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.8621</x-m>
+            <y-m> 0.6788 </y-m>
+            <z-m> 0.3184 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    var selection = getprop("/fdm/jsbsim/systems/light/cabinlight2-mode");
+                    if (selection == 0)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity", 0);
+                    }
+                    else if (selection == 1)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity",
+                            getprop("/fdm/jsbsim/systems/light/cabinlight2-intensity"));
+                    }
+                    else if (selection == 2)
+                    {
+                        setprop("/fdm/jsbsim/systems/light/cabinlight2a-intensity", 1);
+                    }
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-glare-knob</tooltip-id>
+                <label>Light Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/cabinlight2-intensity</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Cabin Panel Right/Center Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-panel-lc-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.6882</x-m>
+            <y-m>  0.6135</y-m>
+            <z-m>  0.3604 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    setprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-center",
+                        getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-right"));
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-panel-lc-knob</tooltip-id>
+                <label>Panel Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Cabin Right Overhead Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-panel-ov-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-right</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.6882</x-m>
+            <y-m>  0.6788</y-m>
+            <z-m>  0.3604 </z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-right</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-panel-ov-knob</tooltip-id>
+                <label>Panel Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-right</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel O10                                                             -->
     <!-- ******************************************************************* -->
 
-    <!-- O10 Light Knob "Switch" -->
+    <!-- O10 Light  "Knob" -->
     <animation>
         <type>knob</type>
         <object-name>O10-light-knob</object-name>
@@ -4565,174 +5295,6 @@
         </hovered>
     </animation>
 
-    <!-- ******************************************************************* -->
-    <!-- Panel O6                                                             -->
-    <!-- ******************************************************************* -->
-
-    <!-- O6 Light Power "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>O6-light-switch</object-name>
-        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-        <factor>-50</factor>
-        <offset-deg>30</offset-deg>
-        <center>
-            <x-m>-11.8605</x-m>
-            <y-m> -0.5276</y-m>
-            <z-m> 0.3192</z-m>
-        </center>
-        <axis>
-            <x>0</x>
-            <y>1</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-          <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>O6-light-switch</tooltip-id>
-                <label>O6 Light Power: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!-- O6 Light Knob "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>O6-light-knob</object-name>
-        <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-        <factor>-110</factor>
-        <axis>
-            <x>0</x>
-            <y>0</y>
-            <z>1</z>
-        </axis>
-        <center>
-            <x-m>-11.8634</x-m>
-            <y-m> -0.4732 </y-m>
-            <z-m>  0.3181 </z-m>
-        </center>
-        <action>
-            <repeatable>true</repeatable>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-                <factor>0.1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>0</wrap>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>O6-light-knob</tooltip-id>
-                <label>Light Brightness: %3d%%</label>
-                <property>/fdm/jsbsim/systems/light/cabinlight6-intensity</property>
-                <mapping>percent</mapping>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- ******************************************************************* -->
-    <!-- Panel O8                                                             -->
-    <!-- ******************************************************************* -->
-
-    <!-- O8 Light Power "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>O8-light-switch</object-name>
-        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-        <factor>-50</factor>
-        <offset-deg>30</offset-deg>
-        <center>
-            <x-m>-11.8571</x-m>
-            <y-m> 0.4664</y-m>
-            <z-m> 0.32</z-m>
-        </center>
-        <axis>
-            <x>0</x>
-            <y>1</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-          <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>O8-light-switch</tooltip-id>
-                <label>O8 Light Power: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-          </binding>
-        </hovered>
-    </animation>
-
-    <!-- O8 Light Knob "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>O8-light-knob</object-name>
-        <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-        <factor>-110</factor>
-        <axis>
-            <x>0</x>
-            <y>0</y>
-            <z>1</z>
-        </axis>
-        <center>
-            <x-m>-11.8621</x-m>
-            <y-m>  0.522 </y-m>
-            <z-m>  0.3184</z-m>
-        </center>
-        <action>
-            <repeatable>true</repeatable>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-                <factor>0.1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>0</wrap>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>O8-light-knob</tooltip-id>
-                <label>Light Brightness: %3d%%</label>
-                <property>/fdm/jsbsim/systems/light/cabinlight7-intensity</property>
-                <mapping>percent</mapping>
-            </binding>
-        </hovered>
-    </animation>
- 
     <!-- ******************************************************************* -->
     <!-- Panel C2                                                             -->
     <!-- ******************************************************************* -->
