@@ -3747,6 +3747,39 @@ if ((header == "ITEM") and (end = "EXEC"))
 			toggle_property("/fdm/jsbsim/systems/rms/software/mode-sw-override");
 			valid_flag = 1;
 			}
+		else if (item == 2)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 3);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 0);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 4);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				var sw_drive_mode = getprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select");
+				SpaceShuttle.update_rms_drive_selection_by_par(sw_drive_mode);
+				}
+			valid_flag = 1;
+			}
 		else if (item == 17)
 			{
 			toggle_property("/fdm/jsbsim/systems/rms/software/joint-sw-override");
@@ -3776,6 +3809,22 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 29)
 			{
 			toggle_property("/fdm/jsbsim/systems/rms/software/auto-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 30)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 1);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 0);
+				}
 			valid_flag = 1;
 			}
 		}
