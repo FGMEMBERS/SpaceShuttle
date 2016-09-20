@@ -659,7 +659,7 @@
     </slider>
 
     <text>
-      <label>Right / Center</label>
+      <label>Right</label>
       <row>13</row>
       <col>1</col>
       <halign>left</halign>
@@ -676,13 +676,6 @@
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-rc</object-name>
-        </binding>
-        <binding>
-            <command>nasal</command>
-            <script>
-                setprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-center",
-                    getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-right"));
-            </script>
         </binding>
     </slider>
 

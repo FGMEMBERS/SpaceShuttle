@@ -5168,7 +5168,7 @@
         </hovered>
     </animation>
 
-    <!-- O8 Cabin Panel Right/Center Brightness "Knob" -->
+    <!-- O8 Cabin Panel Right Brightness "Knob" -->
     <animation>
         <type>knob</type>
         <object-name>O8-light-panel-lc-knob</object-name>
@@ -5194,13 +5194,6 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>
-                    setprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-center",
-                        getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-right"));
-                </script>
             </binding>
         </action>
         <hovered>
