@@ -95,4 +95,25 @@
    <output>/fdm/jsbsim/systems/light/console-eff-overhead-right-norm</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-r-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-r</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-gb-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-g</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-gb-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-b</output>
+ </filter>
+
  </PropertyList>

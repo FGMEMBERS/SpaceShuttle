@@ -272,6 +272,39 @@
             </function>
 		</fcs_function>
 
+        <fcs_function name="systems/light/cockpit-ambience-rgb-tied">
+            <function>
+                    <quotient>
+                        <sum>
+                            <property>systems/light/console-eff-panel-left-norm-tied</property>
+                            <property>systems/light/console-eff-panel-center-norm-tied</property>
+                            <property>systems/light/console-eff-panel-right-norm-tied</property>
+                            <property>systems/light/console-eff-overhead-left-norm-tied</property>
+                            <property>systems/light/console-eff-overhead-right-norm-tied</property>
+                        </sum>
+                        <value>3.5</value>
+                    </quotient>
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-r-tied">
+            <function>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.05</value>
+                </product>
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-gb-tied">
+            <function>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.025</value>
+                </product>                
+            </function>
+		</fcs_function>
+        
 	</channel>
 
 </system>
