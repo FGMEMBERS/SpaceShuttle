@@ -196,6 +196,52 @@
         <object-name>hud-bright-cmd-switch</object-name>
         <object-name>hud-mode-cmd-switch</object-name>
         <object-name>hud-data-bus-cmd</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>rad-cntrl-l-rad</object-name>
+        <object-name>rad-cntrl-r-rad</object-name>
+        <object-name>rad-cntrl-r-bp</object-name>
+        <object-name>rad-cntrl-l-bp</object-name>
+        <object-name>aft-cp-l-ich</object-name>
+        <object-name>aft-cp-r-ich</object-name>
+        <object-name>aft-cp-r-bp</object-name>
+        <object-name>aft-cp-l-bp</object-name>
+        <!-- Panel F6 talkbacks -->
+        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
+        <object-name>landing_gear_left_cmd_talkback_up</object-name>
+        <object-name>landing_gear_right_cmd_talkback_up</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
+        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
+        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>fc0-reac-base</object-name>
+        <object-name>fc1-reac-base</object-name>
+        <object-name>fc2-reac-base</object-name>
+        <object-name>fc0-rfl-base</object-name>
+        <object-name>fc-cp-base</object-name>
+        <object-name>fc-mb-a-base</object-name>
+        <object-name>mb-tie-a-base</object-name>
+        <object-name>inv-pwr0-base</object-name>
+        <object-name>inv-ac0-base</object-name>
+        <object-name>fc-mb-b-base</object-name>
+        <object-name>mb-tie-b-base</object-name>
+        <object-name>inv-pwr1-base</object-name>
+        <object-name>inv-ac1-base</object-name>
+        <object-name>fc-mb-c-base</object-name>
+        <object-name>mb-tie-c-base</object-name>
+        <object-name>inv-pwr2-base</object-name>
+        <object-name>inv-ac2-base</object-name>
+        <object-name>rad-cntrl-r-base</object-name>
+        <object-name>rad-cntrl-l-base</object-name>
+        <object-name>aft-cp-r-base</object-name>
+        <object-name>aft-cp-l-base</object-name>
+         <!-- Panel L1 talkbacks -->
+        <object-name>rad-cntrl-l-byp</object-name>
+        <object-name>rad-cntrl-r-byp</object-name>
+        <object-name>aft-cp-l-pld</object-name>
+        <object-name>aft-cp-r-pld</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-right</inherits-from>
@@ -428,6 +474,98 @@
         <!--Panel F9 fixings -->
         <object-name>F9-panel</object-name>
         <object-name>F9-fasteners</object-name>
+        <!--Panel R1 talkbacks -->
+        <object-name>fc0-reac-h2-op</object-name>
+        <object-name>fc0-reac-o2-op</object-name>
+        <object-name>fc0-rfl</object-name>
+        <object-name>fc0-cp</object-name>
+        <object-name>fc1-reac-h2-op</object-name>
+        <object-name>fc1-reac-o2-op</object-name>
+        <object-name>fc1-rfl</object-name>
+        <object-name>fc1-cp</object-name>
+        <object-name>fc2-reac-h2-op</object-name>
+        <object-name>fc2-reac-o2-op</object-name>
+        <object-name>fc2-rfl</object-name>
+        <object-name>fc2-cp</object-name>
+        <object-name>fc-mb-a-on</object-name>
+        <object-name>inv-ac0-on</object-name>
+        <object-name>inv-pwr0-on</object-name>
+        <object-name>mb-tie-a-on</object-name>
+        <object-name>fc-mb-b-on</object-name>
+        <object-name>inv-ac1-on</object-name>
+        <object-name>inv-pwr1-on</object-name>
+        <object-name>mb-tie-b-on</object-name>
+        <object-name>fc-mb-c-on</object-name>
+        <object-name>inv-ac2-on</object-name>
+        <object-name>inv-pwr2-on</object-name>
+        <object-name>mb-tie-c-on</object-name>
+        <!--Panel R1 talkbacks not connected -->
+        <object-name>h2-mv1-op</object-name>
+        <object-name>h2-mv2-op</object-name>
+        <object-name>o2-mv1-op</object-name>
+        <object-name>o2-mv2-op</object-name>
+        <object-name>pri-fc3-on</object-name>
+        <object-name>pri-mn-b-on</object-name>
+        <object-name>pri-mn-c-on</object-name>
+        <!--Panel R2 talkbacks -->
+        <object-name>apu_left_ready_to_start_talkback</object-name>
+        <object-name>apu_center_ready_to_start_talkback</object-name>
+        <object-name>apu_right_ready_to_start_talkback</object-name>
+        <object-name>et_umbilical_centerline_talkback_sto</object-name>
+        <object-name>et_umbilical_centerline_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_op</object-name>
+        <object-name>et_umbilical_door_left_talkback_bp</object-name>
+        <object-name>et_umbilical_door_left_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
+        <object-name>et_umbilical_door_right_talkback_op</object-name>
+        <object-name>et_umbilical_door_right_talkback_bp</object-name>
+        <object-name>et_umbilical_door_right_talkback_cl</object-name>
+        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
+        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
+        <object-name>et_umbilical_latch_right_talkback_lat</object-name>       
+        <!-- Panel F8 talkbacks -->
+        <object-name>landing_gear_left_plt_talkback_bp</object-name>
+        <object-name>landing_gear_right_plt_talkback_bp</object-name>
+        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
+        <object-name>landing_gear_left_plt_talkback_up</object-name>
+        <object-name>landing_gear_right_plt_talkback_up</object-name>
+        <object-name>landing_gear_middle_plt_talkback_up</object-name>
+        <object-name>landing_gear_left_plt_talkback_dn</object-name>
+        <object-name>landing_gear_right_plt_talkback_dn</object-name>
+        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
+        <!-- Panel R1 talkbacks base-->
+        <object-name>R1-talkback-base</object-name>
+        <!-- Panel R2 talkbacks base-->
+        <object-name>R2-talkback-base</object-name>
+        <!--Panel R1 talkbacks -->
+        <object-name>fc0-reac-h2-cl</object-name>
+        <object-name>fc0-reac-o2-cl</object-name>
+        <object-name>fc1-reac-h2-cl</object-name>
+        <object-name>fc1-reac-o2-cl</object-name>
+        <object-name>fc2-reac-h2-cl</object-name>
+        <object-name>fc2-reac-o2-cl</object-name>
+        <object-name>fc-mb-a-off</object-name>
+        <object-name>inv-ac0-off</object-name>
+        <object-name>inv-pwr0-off</object-name>
+        <object-name>mb-tie-a-off</object-name>
+        <object-name>fc-mb-b-off</object-name>
+        <object-name>inv-ac1-off</object-name>
+        <object-name>inv-pwr1-off</object-name>
+        <object-name>mb-tie-b-off</object-name>
+        <object-name>fc-mb-c-off</object-name>
+        <object-name>inv-ac2-off</object-name>
+        <object-name>inv-pwr2-off</object-name>
+        <object-name>mb-tie-c-off</object-name>       
+        <!--Panel R1 talkbacks not connected -->
+        <object-name>h2-mv1-cl</object-name>
+        <object-name>h2-mv2-cl</object-name>
+        <object-name>o2-mv1-cl</object-name>
+        <object-name>o2-mv2-cl</object-name>
+        <object-name>pri-fc3-off</object-name>
+        <object-name>pri-mn-b-off</object-name>
+        <object-name>pri-mn-c-off</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-center</inherits-from>
@@ -709,163 +847,13 @@
         <object-name>F7-guards</object-name>
         <object-name>event-time-glass</object-name>
         <object-name>event-time-glass-bg</object-name>
-    </effect>
-
-    <effect>
-      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback</inherits-from>
-        <!--Panel R1 talkbacks -->
-        <object-name>fc0-reac-h2-op</object-name>
-        <object-name>fc0-reac-o2-op</object-name>
-        <object-name>fc0-rfl</object-name>
-        <object-name>fc0-cp</object-name>
-        <object-name>fc1-reac-h2-op</object-name>
-        <object-name>fc1-reac-o2-op</object-name>
-        <object-name>fc1-rfl</object-name>
-        <object-name>fc1-cp</object-name>
-        <object-name>fc2-reac-h2-op</object-name>
-        <object-name>fc2-reac-o2-op</object-name>
-        <object-name>fc2-rfl</object-name>
-        <object-name>fc2-cp</object-name>
-        <object-name>fc-mb-a-on</object-name>
-        <object-name>inv-ac0-on</object-name>
-        <object-name>inv-pwr0-on</object-name>
-        <object-name>mb-tie-a-on</object-name>
-        <object-name>fc-mb-b-on</object-name>
-        <object-name>inv-ac1-on</object-name>
-        <object-name>inv-pwr1-on</object-name>
-        <object-name>mb-tie-b-on</object-name>
-        <object-name>fc-mb-c-on</object-name>
-        <object-name>inv-ac2-on</object-name>
-        <object-name>inv-pwr2-on</object-name>
-        <object-name>mb-tie-c-on</object-name>
-        <!-- Panel L1 talkbacks -->
-        <object-name>rad-cntrl-l-rad</object-name>
-        <object-name>rad-cntrl-r-rad</object-name>
-        <object-name>rad-cntrl-r-bp</object-name>
-        <object-name>rad-cntrl-l-bp</object-name>
-        <object-name>aft-cp-l-ich</object-name>
-        <object-name>aft-cp-r-ich</object-name>
-        <object-name>aft-cp-r-bp</object-name>
-        <object-name>aft-cp-l-bp</object-name>
-        <!--Panel R1 talkbacks not connected -->
-        <object-name>h2-mv1-op</object-name>
-        <object-name>h2-mv2-op</object-name>
-        <object-name>o2-mv1-op</object-name>
-        <object-name>o2-mv2-op</object-name>
-        <object-name>pri-fc3-on</object-name>
-        <object-name>pri-mn-b-on</object-name>
-        <object-name>pri-mn-c-on</object-name>
-        <!--Panel R2 talkbacks -->
-        <object-name>apu_left_ready_to_start_talkback</object-name>
-        <object-name>apu_center_ready_to_start_talkback</object-name>
-        <object-name>apu_right_ready_to_start_talkback</object-name>
-        <object-name>et_umbilical_centerline_talkback_sto</object-name>
-        <object-name>et_umbilical_centerline_talkback_bp</object-name>
-        <object-name>et_umbilical_door_left_talkback_op</object-name>
-        <object-name>et_umbilical_door_left_talkback_bp</object-name>
-        <object-name>et_umbilical_door_left_talkback_cl</object-name>
-        <object-name>et_umbilical_latch_left_talkback_rel</object-name>
-        <object-name>et_umbilical_latch_left_talkback_bp</object-name>
-        <object-name>et_umbilical_latch_left_talkback_lat</object-name>
-        <object-name>et_umbilical_door_right_talkback_op</object-name>
-        <object-name>et_umbilical_door_right_talkback_bp</object-name>
-        <object-name>et_umbilical_door_right_talkback_cl</object-name>
-        <object-name>et_umbilical_latch_right_talkback_rel</object-name>
-        <object-name>et_umbilical_latch_right_talkback_bp</object-name>
-        <object-name>et_umbilical_latch_right_talkback_lat</object-name>
-        <!-- Panel F6 talkbacks -->
-        <object-name>landing_gear_left_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_right_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_bp</object-name>
-        <object-name>landing_gear_left_cmd_talkback_up</object-name>
-        <object-name>landing_gear_right_cmd_talkback_up</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_up</object-name>
-        <object-name>landing_gear_left_cmd_talkback_dn</object-name>
-        <object-name>landing_gear_right_cmd_talkback_dn</object-name>
-        <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
-        <!-- Panel F8 talkbacks -->
-        <object-name>landing_gear_left_plt_talkback_bp</object-name>
-        <object-name>landing_gear_right_plt_talkback_bp</object-name>
-        <object-name>landing_gear_middle_plt_talkback_bp</object-name>
-        <object-name>landing_gear_left_plt_talkback_up</object-name>
-        <object-name>landing_gear_right_plt_talkback_up</object-name>
-        <object-name>landing_gear_middle_plt_talkback_up</object-name>
-        <object-name>landing_gear_left_plt_talkback_dn</object-name>
-        <object-name>landing_gear_right_plt_talkback_dn</object-name>
-        <object-name>landing_gear_middle_plt_talkback_dn</object-name>
         <!-- Panel C2 talkbacks -->
         <object-name>timer-set-pos1</object-name>
         <object-name>timer-set-pos2</object-name>
         <object-name>timer-set-pos3</object-name>
         <object-name>timer-set-pos4</object-name>
-    </effect>
-
-    <effect>
-      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-base</inherits-from>
-        <!-- Panel L1 talkbacks -->
-        <object-name>fc0-reac-base</object-name>
-        <object-name>fc1-reac-base</object-name>
-        <object-name>fc2-reac-base</object-name>
-        <object-name>fc0-rfl-base</object-name>
-        <object-name>fc-cp-base</object-name>
-        <object-name>fc-mb-a-base</object-name>
-        <object-name>mb-tie-a-base</object-name>
-        <object-name>inv-pwr0-base</object-name>
-        <object-name>inv-ac0-base</object-name>
-        <object-name>fc-mb-b-base</object-name>
-        <object-name>mb-tie-b-base</object-name>
-        <object-name>inv-pwr1-base</object-name>
-        <object-name>inv-ac1-base</object-name>
-        <object-name>fc-mb-c-base</object-name>
-        <object-name>mb-tie-c-base</object-name>
-        <object-name>inv-pwr2-base</object-name>
-        <object-name>inv-ac2-base</object-name>
-        <object-name>rad-cntrl-r-base</object-name>
-        <object-name>rad-cntrl-l-base</object-name>
-        <object-name>aft-cp-r-base</object-name>
-        <object-name>aft-cp-l-base</object-name>
-        <!-- Panel R1 talkbacks base-->
-        <object-name>R1-talkback-base</object-name>
-        <!-- Panel R1 talkbacks base-->
-        <object-name>R2-talkback-base</object-name>
         <!-- Panel C3 talkbacks base-->
         <object-name>C3-buttons-base</object-name>
-    </effect>
-
-    <effect>
-      <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/talkback-reverse</inherits-from>
-        <!--Panel R1 talkbacks -->
-        <object-name>fc0-reac-h2-cl</object-name>
-        <object-name>fc0-reac-o2-cl</object-name>
-        <object-name>fc1-reac-h2-cl</object-name>
-        <object-name>fc1-reac-o2-cl</object-name>
-        <object-name>fc2-reac-h2-cl</object-name>
-        <object-name>fc2-reac-o2-cl</object-name>
-        <object-name>fc-mb-a-off</object-name>
-        <object-name>inv-ac0-off</object-name>
-        <object-name>inv-pwr0-off</object-name>
-        <object-name>mb-tie-a-off</object-name>
-        <object-name>fc-mb-b-off</object-name>
-        <object-name>inv-ac1-off</object-name>
-        <object-name>inv-pwr1-off</object-name>
-        <object-name>mb-tie-b-off</object-name>
-        <object-name>fc-mb-c-off</object-name>
-        <object-name>inv-ac2-off</object-name>
-        <object-name>inv-pwr2-off</object-name>
-        <object-name>mb-tie-c-off</object-name>
-        <!-- Panel L1 talkbacks -->
-        <object-name>rad-cntrl-l-byp</object-name>
-        <object-name>rad-cntrl-r-byp</object-name>
-        <object-name>aft-cp-l-pld</object-name>
-        <object-name>aft-cp-r-pld</object-name>       
-        <!--Panel R1 talkbacks not connected -->
-        <object-name>h2-mv1-cl</object-name>
-        <object-name>h2-mv2-cl</object-name>
-        <object-name>o2-mv1-cl</object-name>
-        <object-name>o2-mv2-cl</object-name>
-        <object-name>pri-fc3-off</object-name>
-        <object-name>pri-mn-b-off</object-name>
-        <object-name>pri-mn-c-off</object-name>
     </effect>
 
     <effect>
