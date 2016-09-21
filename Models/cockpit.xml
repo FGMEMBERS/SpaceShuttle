@@ -61,10 +61,10 @@
         <object-name>O8-light-panel</object-name>
         <object-name>O8-light-glare-knob</object-name>
         <object-name>O8-light-glare-switch</object-name>
-        <object-name>O8-light-panel-lc-knob</object-name>
+        <object-name>O8-light-panel-r-knob</object-name>
         <object-name>O8-light-panel-ov-knob</object-name>
-        <object-name>O8-light-instr-lc-knob</object-name>
-        <object-name>O8-light-instr-ov-knob</object-name>
+        <object-name>O8-light-instr-r-knob</object-name>
+        <object-name>O8-light-instr-num-knob</object-name>
         <!-- Panel O10 -->
         <object-name>O10-panel</object-name>
         <object-name>O10-light-knob</object-name>
@@ -4898,6 +4898,83 @@
         </hovered>
     </animation>
 
+    <!-- O6 Cabin Left Instrument Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-instr-lc-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-left</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.7783</x-m>
+            <y-m> -0.68  </y-m>
+            <z-m>  0.3388</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-left</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-instr-lc-knob</tooltip-id>
+                <label>Panel Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-left</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O6 Cabin Overhead Instrument Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O6-light-instr-ov-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-ov</property>
+        <offset-deg>-80</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.7783</x-m>
+            <y-m> -0.6147</y-m>
+            <z-m>  0.3385</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-ov</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O6-light-instr-ov-knob</tooltip-id>
+                <label>Instrument Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-ov</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
     <!-- ******************************************************************* -->
     <!-- Panel O8                                                             -->
     <!-- ******************************************************************* -->
@@ -5159,7 +5236,7 @@
     <!-- O8 Cabin Panel Right Brightness "Knob" -->
     <animation>
         <type>knob</type>
-        <object-name>O8-light-panel-lc-knob</object-name>
+        <object-name>O8-light-panel-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
         <offset-deg>-110</offset-deg>
         <factor>290</factor>
@@ -5187,7 +5264,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>O8-light-panel-lc-knob</tooltip-id>
+                <tooltip-id>O8-light-panel-r-knob</tooltip-id>
                 <label>Panel Brightness: %3d%%</label>
                 <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
                 <mapping>percent</mapping>
@@ -5229,6 +5306,84 @@
                 <tooltip-id>O8-light-panel-ov-knob</tooltip-id>
                 <label>Panel Brightness: %3d%%</label>
                 <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-right</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Cabin Right Instrument Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-instr-r-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+        <offset-deg>-110</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.777</x-m>
+            <y-m> 0.6135 </y-m>
+            <z-m> 0.3392</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-instr-r-knob</tooltip-id>
+                <label>Instrument Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+                <mapping>percent</mapping>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O8 Cabin Number Instrument Brightness "Knob" -->
+    <animation>
+        <type>knob</type>
+        <object-name>O8-light-instr-num-knob</object-name>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-num</property>
+        <offset-deg>-80</offset-deg>
+        <factor>290</factor>
+        <axis>
+            <x>-.2</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+        <center>
+            <x-m>-11.777</x-m>
+            <y-m> 0.6788 </y-m>
+            <z-m> 0.3388</z-m>
+        </center>
+        <action>
+            <repeatable>true</repeatable>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-num</property>
+                <factor>0.1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>O8-light-instr-num-knob</tooltip-id>
+                <label>Instrument Brightness: %3d%%</label>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-num</property>
                 <mapping>percent</mapping>
             </binding>
         </hovered>
