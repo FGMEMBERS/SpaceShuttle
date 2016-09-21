@@ -271,6 +271,17 @@
                 </product>
             </function>
 		</fcs_function>
+        <fcs_function name="systems/light/event-time-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/event-time-intensity</property>
+                    <quotient>
+                        <property>systems/light/console-eff-norm</property>
+                        <value>0.7</value>
+                    </quotient>
+                </product>
+            </function>
+		</fcs_function>
 
         <fcs_function name="systems/light/cockpit-ambience-rgb-tied">
             <function>

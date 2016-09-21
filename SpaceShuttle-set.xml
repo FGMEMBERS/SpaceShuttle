@@ -604,6 +604,7 @@
       <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
       <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
       <console-eff-norm type="float">0.7</console-eff-norm>
+      <event-time-intensity type="float">1</event-time-intensity>
       <console-eff-norm-panel-left type="float">1</console-eff-norm-panel-left>
       <console-eff-norm-panel-right type="float">1</console-eff-norm-panel-right>
       <console-eff-norm-panel-center type="float">1</console-eff-norm-panel-center>

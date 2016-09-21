@@ -116,4 +116,11 @@
    <output>/fdm/jsbsim/systems/light/cockpit-ambience-b</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/event-time-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/event-time-norm</output>
+ </filter>
+
  </PropertyList>
