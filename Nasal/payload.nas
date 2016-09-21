@@ -144,3 +144,64 @@ var check_rms_reach_limit = func {
 		setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "GOOD");
 		}
 }
+
+
+# PDRS AUTO sequences ###########################################
+
+# sequence point hash
+
+var pdrs_auto_seq_point = {
+	new: func (x, y, z, pitch, yaw, roll, delay) {
+ 		var p = { parents: [pdrs_auto_seq_point] };
+		p.x = x;
+		p.y = y;
+		p.z = z;
+		p.pitch = pitch;
+		p.yaw = yaw;
+		p.roll = roll;
+		p.delay = delay;	
+		return p;
+	},
+};
+
+var pdrs_auto_seq_manager = {
+
+	n_auto_sequences: 0,
+	auto_sequence_array: [],
+	sequence_slot_array: [0, 0, 0, 0],
+
+	current_index: -1,
+
+	assign_slot: func (slot, index) {
+
+	me.sequence_slot_array[slot] = index;
+
+	},
+
+	append_sequence_array: func (array) {
+
+	append(me.auto_sequence_array, array);
+
+	},
+
+
+};
+
+
+var add_test_seq = func {
+
+
+var a = [];
+var p = pdrs_auto_seq_point.new(12.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+append(a, p);
+
+p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+append(a, p);
+
+p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 30.0, 0.0, 0.0, 0.0);
+append(a, p);
+
+pdrs_auto_seq_manager.append_sequence_array(a);
+}
+
+add_test_seq();
