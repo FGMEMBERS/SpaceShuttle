@@ -3677,6 +3677,26 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 0);
 			valid_flag = 1;
 			}
+		else if (item == 13)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(0,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(1,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(2,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(3,int(value));
+			valid_flag = 1;
+			}
 		else if (item == 18)
 			{
 			setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", value);

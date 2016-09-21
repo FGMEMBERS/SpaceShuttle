@@ -81,10 +81,6 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	# defaults for items not yet implemented
     	p_dps_pdrs_control.port.setText("*");
     	p_dps_pdrs_control.stbd.setText("");
-	p_dps_pdrs_control.auto_1.setText("");
-	p_dps_pdrs_control.auto_2.setText("");
-	p_dps_pdrs_control.auto_3.setText("");
-	p_dps_pdrs_control.auto_4.setText("");
 	p_dps_pdrs_control.end_eff.setText("1");
 	p_dps_pdrs_control.last_pt.setText("");
 	p_dps_pdrs_control.start_pt.setText("");
@@ -230,6 +226,27 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	p_dps_pdrs_control.latches_fwd.setText(mpm_status_string);
 
 	p_dps_pdrs_control.cmd_ck.setText(getprop("/fdm/jsbsim/systems/rms/software/reach-limit-string"));
+
+	if (SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[0] > 0)
+		{p_dps_pdrs_control.auto_1.setText(sprintf("%d", SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[0]));}
+	else
+		{p_dps_pdrs_control.auto_1.setText("");}
+
+	if (SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[1] > 0)
+		{p_dps_pdrs_control.auto_2.setText(sprintf("%d", SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[1]));}
+	else
+		{p_dps_pdrs_control.auto_2.setText("");}
+
+	if (SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[2] > 0)
+		{p_dps_pdrs_control.auto_3.setText(sprintf("%d", SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[2]));}
+	else
+		{p_dps_pdrs_control.auto_3.setText("");}
+
+	if (SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[3] > 0)
+		{p_dps_pdrs_control.auto_4.setText(sprintf("%d", SpaceShuttle.pdrs_auto_seq_manager.sequence_slot_array[3]));}
+	else
+		{p_dps_pdrs_control.auto_4.setText("");}
+
 
 
         device.update_common_DPS();
