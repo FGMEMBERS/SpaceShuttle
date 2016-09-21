@@ -4168,7 +4168,6 @@
     <!-- ******************************************************************* -->
 
     <!-- event timer display -->
-
     <animation>
         <object-name>event-time-glass</object-name>
         <type>material</type>
@@ -4180,7 +4179,7 @@
         <emission>
             <red>1.0</red>
             <green>1.0</green>
-	    <blue>1.0</blue>
+            <blue>1.0</blue>
         </emission>
     </animation>
 
@@ -4903,7 +4902,7 @@
         <type>knob</type>
         <object-name>O6-light-instr-lc-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-left</property>
-        <offset-deg>-110</offset-deg>
+        <offset-deg>-85</offset-deg>
         <factor>290</factor>
         <axis>
             <x>-.2</x>
@@ -4942,7 +4941,7 @@
         <type>knob</type>
         <object-name>O6-light-instr-ov-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-ov</property>
-        <offset-deg>-80</offset-deg>
+        <offset-deg>-145</offset-deg>
         <factor>290</factor>
         <axis>
             <x>-.2</x>
@@ -5316,7 +5315,7 @@
         <type>knob</type>
         <object-name>O8-light-instr-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
-        <offset-deg>-110</offset-deg>
+        <offset-deg>-85</offset-deg>
         <factor>290</factor>
         <axis>
             <x>-.2</x>
@@ -5355,7 +5354,7 @@
         <type>knob</type>
         <object-name>O8-light-instr-num-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-num</property>
-        <offset-deg>-80</offset-deg>
+        <offset-deg>-145</offset-deg>
         <factor>290</factor>
         <axis>
             <x>-.2</x>
