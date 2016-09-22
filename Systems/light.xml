@@ -282,6 +282,17 @@
                 </product>
             </function>
 		</fcs_function>
+        <fcs_function name="systems/light/button-light-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/button-light-intensity</property>
+                    <quotient>
+                        <property>systems/light/console-eff-norm</property>
+                        <value>0.7</value>
+                    </quotient>
+                </product>
+            </function>
+		</fcs_function>
 
         <fcs_function name="systems/light/cockpit-ambience-rgb-tied">
             <function>
@@ -313,6 +324,15 @@
                     <property>systems/light/cockpit-ambience-rgb-tied</property>
                     <value>.025</value>
                 </product>                
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/console-eff-instrument-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-instrument-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
             </function>
 		</fcs_function>
         

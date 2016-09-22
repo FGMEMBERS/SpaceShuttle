@@ -700,6 +700,96 @@
         </binding>
     </slider>
 
+    <text>
+      <label>Instrunents</label>
+      <row>15</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>Left / Center</label>
+      <row>16</row>
+      <col>1</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-lcin</name>
+        <row>17</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-left</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-lcin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Overhead</label>
+      <row>16</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-ovin</name>
+        <row>17</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-overhead</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-ovin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Right</label>
+      <row>18</row>
+      <col>1</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rin</name>
+        <row>19</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-right</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Numeric</label>
+      <row>18</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-num</name>
+        <row>19</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/event-time-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-num</object-name>
+        </binding>
+    </slider>
+
   </group>
 
     <empty>

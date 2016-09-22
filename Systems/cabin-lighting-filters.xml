@@ -123,4 +123,18 @@
    <output>/fdm/jsbsim/systems/light/event-time-norm</output>
  </filter>
 
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/button-light-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/button-light-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm</output>
+ </filter>
+
  </PropertyList>

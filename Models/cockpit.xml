@@ -467,10 +467,6 @@
         <!--Panel F9 switches -->
         <object-name>ac-dial</object-name>
         <object-name>dc-dial</object-name>
-        <!--Panel F9 needles -->
-        <object-name>dc-amps</object-name>
-        <object-name>ac-volts</object-name>
-        <object-name>dc-amps</object-name>
         <!--Panel F9 fixings -->
         <object-name>F9-panel</object-name>
         <object-name>F9-fasteners</object-name>
@@ -857,6 +853,15 @@
     </effect>
 
     <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-instrument-right</inherits-from>    
+        <!--Panel F9 needles -->
+        <object-name>dc-amps</object-name>
+        <object-name>ac-volts</object-name>
+        <object-name>dc-amps</object-name>
+        <object-name>F9-guages</object-name>
+    </effect>
+
+    <effect>
         <inherits-from>Aircraft/SpaceShuttle/Effects/plasma</inherits-from>
         <object-name>plasma_screen</object-name>
     </effect>
@@ -963,7 +968,7 @@
             <red>1.0</red>
             <green>0.576</green>
             <blue>0.161</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/talkback-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
         </emission>
     </animation>
 
@@ -5315,7 +5320,7 @@
     <animation>
         <type>knob</type>
         <object-name>O8-light-instr-r-knob</object-name>
-        <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-right</property>
         <offset-deg>-85</offset-deg>
         <factor>290</factor>
         <axis>
@@ -5332,7 +5337,7 @@
             <repeatable>true</repeatable>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-right</property>
                 <factor>0.1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -5344,13 +5349,13 @@
                 <command>set-tooltip</command>
                 <tooltip-id>O8-light-instr-r-knob</tooltip-id>
                 <label>Instrument Brightness: %3d%%</label>
-                <property>/fdm/jsbsim/systems/light/console-eff-norm-inst-right</property>
+                <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-right</property>
                 <mapping>percent</mapping>
             </binding>
         </hovered>
     </animation>
 
-    <!-- O8 Cabin Number Instrument Brightness "Knob" -->
+    <!-- O8 Cabin Number Brightness "Knob" -->
     <animation>
         <type>knob</type>
         <object-name>O8-light-instr-num-knob</object-name>
