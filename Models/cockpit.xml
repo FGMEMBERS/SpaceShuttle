@@ -869,8 +869,29 @@
     <!-- Yellow lights -->
     <animation>
         <type>material</type>
+        <!-- Panel F6 -->
         <object-name>button_light_landing_gear_arm_cmd</object-name>
+        <emission>
+            <red>1</red>
+            <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>>
+        <!-- Panel F8 -->
         <object-name>button_light_landing_gear_arm_plt</object-name>
+        <emission>
+            <red>1</red>
+            <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <!-- Panel F7 -->
         <object-name>mes-left-y</object-name>
         <object-name>mes-right-y</object-name>
         <object-name>mes-ctr-y</object-name>
@@ -901,13 +922,14 @@
             <red>1</red>
             <green>1</green>
             <blue>0.05</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
         </emission>
     </animation>
 
     <!-- Red lights -->
     <animation>
         <type>material</type>
+        <!-- Panel F7 -->
         <object-name>mes-left-r</object-name>
         <object-name>mes-right-r</object-name>
         <object-name>mes-ctr-r</object-name>
@@ -932,32 +954,75 @@
             <red>1</red>
             <green>0.05</green>
             <blue>0.05</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
         </emission>
     </animation>
 
     <!-- Green lights -->
     <animation>
         <type>material</type>
+        <!-- Panel F6 -->
         <object-name>button_light_landing_gear_down_cmd</object-name>
+        <emission>
+            <red>0.05</red>
+            <green>1</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <!-- Panel F8 -->
         <object-name>button_light_landing_gear_down_plt</object-name>
         <emission>
             <red>0.05</red>
             <green>1</green>
             <blue>0.05</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</factor-prop>
         </emission>
     </animation>
 
-    <!-- White talkback lights -->
+    <!-- White button lights -->
     <animation>
         <type>material</type>
+        <!-- Panel F2 -->
+        <object-name>button_light_roll-yaw_auto_cmd</object-name>
+        <object-name>button_light_roll-yaw_css_cmd</object-name>
+        <object-name>button_light_pitch_auto_cmd</object-name>
+        <object-name>button_light_pitch_css_cmd</object-name>
+        <object-name>button_light_chute_arm_cmd</object-name>
+        <object-name>button_light_chute_dpy_cmd</object-name>
+        <object-name>button_light_bf_auto_cmd</object-name>
+        <object-name>button_light_bf_man_cmd</object-name>
+        <object-name>button_light_sb_auto_cmd</object-name>
+        <object-name>button_light_sb_man_cmd</object-name>
+        <!-- Panel F2 talkback lights-->
         <object-name>indicator_light_rcs_roll_l_cmd</object-name>
         <object-name>indicator_light_rcs_roll_r_cmd</object-name>
         <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
         <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
         <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
         <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
+        <emission>
+            <red>1.0</red>
+            <green>0.576</green>
+            <blue>0.161</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <!-- Panel F4 -->
+        <object-name>button_light_roll-yaw_auto_plt</object-name>
+        <object-name>button_light_roll-yaw_css_plt</object-name>
+        <object-name>button_light_pitch_auto_plt</object-name>
+        <object-name>button_light_pitch_css_plt</object-name>
+        <object-name>button_light_chute_jett_plt</object-name>
+        <object-name>button_light_bf_auto_plt</object-name>
+        <object-name>button_light_bf_man_plt</object-name>
+        <object-name>button_light_sb_auto_plt</object-name>
+        <object-name>button_light_sb_man_plt</object-name>
+        <!-- Panel F4 talkback lights -->
         <object-name>indicator_light_rcs_roll_l_plt</object-name>
         <object-name>indicator_light_rcs_roll_r_plt</object-name>
         <object-name>indicator_light_rcs_pitch_u_plt</object-name>
@@ -968,38 +1033,15 @@
             <red>1.0</red>
             <green>0.576</green>
             <blue>0.161</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</factor-prop>
         </emission>
     </animation>
-
-    <!-- White button lights -->
     <animation>
         <type>material</type>
-        <object-name>button_light_roll-yaw_auto_cmd</object-name>
-        <object-name>button_light_roll-yaw_css_cmd</object-name>
-        <object-name>button_light_pitch_auto_cmd</object-name>
-        <object-name>button_light_pitch_css_cmd</object-name>
-        <object-name>button_light_roll-yaw_auto_plt</object-name>
-        <object-name>button_light_roll-yaw_css_plt</object-name>
-        <object-name>button_light_pitch_auto_plt</object-name>
-        <object-name>button_light_pitch_css_plt</object-name>
-        <!-- Panel F2 -->
-        <object-name>button_light_chute_arm_cmd</object-name>
-        <object-name>button_light_chute_dpy_cmd</object-name>
-        <object-name>button_light_bf_auto_cmd</object-name>
-        <object-name>button_light_bf_man_cmd</object-name>
-        <object-name>button_light_sb_auto_cmd</object-name>
-        <object-name>button_light_sb_man_cmd</object-name>
         <!-- Panel F3 -->
         <object-name>button_light_chute_arm_plt</object-name>
         <object-name>button_light_chute_dpy_plt</object-name>
         <object-name>button_light_chute_jett_cmd</object-name>
-        <!-- Panel F4 -->
-        <object-name>button_light_chute_jett_plt</object-name>
-        <object-name>button_light_bf_auto_plt</object-name>
-        <object-name>button_light_bf_man_plt</object-name>
-        <object-name>button_light_sb_auto_plt</object-name>
-        <object-name>button_light_sb_man_plt</object-name>
         <!-- Panel C3 -->
         <object-name>button_light_main_eng_sd_left</object-name>
         <object-name>button_light_main_eng_sd_center</object-name>
@@ -1037,7 +1079,7 @@
             <red>1.0</red>
             <green>0.576</green>
             <blue>0.161</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/button-light-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
         </emission>
     </animation>
 
