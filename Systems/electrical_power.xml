@@ -827,6 +827,7 @@
 			<input>systems/electrical/display/CRT1-power-demand-kW</input>
 			<input>systems/electrical/display/MFD2-power-demand-kW</input>
 			<input>systems/electrical/display/PLT1-power-demand-kW</input>
+			<input>systems/rms/thermal/heater-A-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[1]/power-demand-kW-nominal">
@@ -837,6 +838,7 @@
 			<input>systems/electrical/display/CRT2-power-demand-kW</input>
 			<input>systems/electrical/display/CDR2-power-demand-kW</input>
 			<input>systems/electrical/display/MFD1-power-demand-kW</input>
+			<input>systems/rms/thermal/heater-B-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[2]/power-demand-kW-nominal">
