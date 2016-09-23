@@ -1117,8 +1117,6 @@
 	</target>
      </rendezvous>
      <rms>
-      <port-heater-A-switch type="int">0</port-heater-A-switch>
-      <port-heater-B-switch type="int">0</port-heater-B-switch>
       <shoulder-brace-release-switch type="int">0</shoulder-brace-release-switch>
       <shoulder-brace-pos type="double">1.0</shoulder-brace-pos>
       <mpm-deploy-switch type="int">0</mpm-deploy-switch>
@@ -1203,6 +1201,13 @@
 	<auto-sw-override type="int">0</auto-sw-override>
 	<sw-drive-mode-select type="int">0</sw-drive-mode-select>
       </software>
+      <thermal>
+        <port-heater-A-switch type="int">0</port-heater-A-switch>
+        <port-heater-B-switch type="int">0</port-heater-B-switch>
+	<heater-A-power-demand-kW type="double">0.0</heater-A-power-demand-kW>
+	<heater-B-power-demand-kW type="double">0.0</heater-B-power-demand-kW>
+	<joint-temp-K type="double">270.0</joint-temp-K>
+      </thermal>
      </rms>
      <taem-guidance>
       <approach-mode-string type="string">OVHD</approach-mode-string>

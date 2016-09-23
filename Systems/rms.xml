@@ -449,9 +449,9 @@
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
 			</product>
-			<value>-0.4</value>
+			<value>-1.0</value>
 			</max>
-			<value>0.4</value>
+			<value>1.0</value>
 			</min>
 		</function>
 		</fcs_function>
@@ -472,9 +472,9 @@
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
 			</product>
-			<value>-0.4</value>
+			<value>-1.0</value>
 			</max>
-			<value>0.4</value>
+			<value>1.0</value>
 			</min>
 		</function>
 		</fcs_function>
@@ -495,9 +495,9 @@
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
 			</product>
-			<value>-0.4</value>
+			<value>-1.0</value>
 			</max>
-			<value>0.4</value>
+			<value>1.0</value>
 			</min>
 		</function>
 		</fcs_function>
@@ -2127,14 +2127,14 @@
 				<sin>
 					<property>systems/rms/ang-wrist-yaw-rad</property>
 				</sin>
-			<product>
-				<cos>
-					<property>systems/rms/ang-wrist-yaw-rad</property>
-				</cos>
-				<cos>
-					<property>systems/rms/sum-wrist-pitch-rad</property>
-				</cos>
-			</product>
+				<product>
+					<cos>
+						<property>systems/rms/ang-wrist-yaw-rad</property>
+					</cos>
+					<cos>
+						<property>systems/rms/sum-wrist-pitch-rad</property>
+					</cos>
+				</product>
 			</atan2>
 				<property>systems/rms/ang-shoulder-yaw-rad</property>
 			</sum>
@@ -2487,6 +2487,142 @@
 				systems/rms/effector-attached == 0
 			</test>
 		</switch>
+
+	</channel>
+
+	<channel name="RMS Thermal protection">
+
+		<switch name="systems/rms/thermal/heater-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/thermal/port-heater-A-switch == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/thermal/heater-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/thermal/port-heater-B-switch == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/thermal/heaters-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/thermal/heater-A-operational == 1
+				systems/rms/thermal/heater-B-operational == 1
+			</test>
+		</switch>
+
+		<summer name="systems/rms/thermal/number-heaters-operational">
+			<input>systems/rms/thermal/heater-A-operational</input>
+			<input>systems/rms/thermal/heater-B-operational</input>
+		</summer>
+
+		
+
+		<fcs_function name="systems/rms/thermal/heating-power-consumption-kW">
+		<function>
+		<table>
+        		<independentVar lookup="row">systems/thermal-distribution/payload-bay-temperature-K</independentVar>
+        		<tableData>
+          	 		230.0	0.525
+				250.0	0.400
+				270.0	0.100
+				277.0	0.000
+        		</tableData>
+      		</table>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/heater-A-power-demand-kW">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/rms/thermal/heater-A-operational</property>
+					<property>systems/rms/thermal/heating-power-consumption-kW</property>
+				</product>
+				<max>
+					<property>systems/rms/thermal/number-heaters-operational</property>
+					<value>1.0</value>
+				</max>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/heater-B-power-demand-kW">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/rms/thermal/heater-B-operational</property>
+					<property>systems/rms/thermal/heating-power-consumption-kW</property>
+				</product>
+				<max>
+					<property>systems/rms/thermal/number-heaters-operational</property>
+					<value>1.0</value>
+				</max>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/rms/thermal/heater-transit">
+			<input>systems/rms/thermal/heaters-operational</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>120.0</time>
+				</setting>
+			</traverse>
+		</kinematic> 
+
+		<fcs_function name="systems/rms/thermal/effector-temp-K">		
+		<function>
+			<sum>
+				<product>
+					<property>systems/rms/thermal/heater-transit</property>
+					<max>
+						<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+						<value>277.0</value>
+					</max>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/rms/thermal/heater-transit</property>
+					</difference>
+					<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/joint-temp-K">		
+		<function>
+			<sum>
+				<product>
+					<property>systems/rms/thermal/heater-transit</property>
+					<max>
+						<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+						<value>269.0</value>
+					</max>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/rms/thermal/heater-transit</property>
+					</difference>
+					<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 

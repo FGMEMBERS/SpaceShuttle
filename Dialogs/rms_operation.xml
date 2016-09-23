@@ -216,6 +216,7 @@
 
        <checkbox>
         <name>rms-brake</name>
+	<align>left</align>
  	<row>6</row>
         <col>1</col>
         <label>BRAKES</label>
@@ -229,6 +230,7 @@
 
        <checkbox>
         <name>rms-save</name>
+	<align>left</align>
  	<row>6</row>
         <col>2</col>
         <label>SAFING</label>
@@ -239,6 +241,40 @@
               <object-name>rms-save</object-name>
           </binding>
         </checkbox>
+
+   <text>
+      <label>Thermal protection</label>
+      <row>7</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>rms-thermal-A</name>
+	<align>left</align>
+ 	<row>7</row>
+        <col>1</col>
+        <label>HEATER A</label>
+          <property>/fdm/jsbsim/systems/rms/thermal/port-heater-A-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-thermal-A</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>rms-thermal-B</name>
+	<align>left</align>
+ 	<row>7</row>
+        <col>2</col>
+        <label>HEATER B</label>
+          <property>/fdm/jsbsim/systems/rms/thermal/port-heater-B-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-thermal-B</object-name>
+          </binding>
+    </checkbox>
 
 
 
