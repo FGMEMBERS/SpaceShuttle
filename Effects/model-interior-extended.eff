@@ -32,6 +32,14 @@
 			<wrap-t>clamp</wrap-t>
 			<internal-format>normalized</internal-format>
 	</texture>
+    <texture n="6">
+			<image>Aircraft/Generic/Effects/greymap.png</image>
+			<type>2d</type>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>clamp</wrap-s>
+			<wrap-t>clamp</wrap-t>
+			<internal-format>normalized</internal-format>
+	</texture>
 	<texture n="7">
 			<image>Textures/Terrain/void.png</image>
 			<type>2d</type>
@@ -71,6 +79,14 @@
 	<lightmap-color type="vec3d" n="6"> 1.0 1.0 1.0 </lightmap-color>
 	<lightmap-factor type="float" n="7">1.0</lightmap-factor>
 	<lightmap-color type="vec3d" n="7"> 1.0 1.0 1.0 </lightmap-color>
+    <lightmap-factor type="float" n="8">1.0</lightmap-factor>
+	<lightmap-color type="vec3d" n="8"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="9">1.0</lightmap-factor>
+	<lightmap-color type="vec3d" n="9"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="10">1.0</lightmap-factor>
+	<lightmap-color type="vec3d" n="10"> 1.0 1.0 1.0 </lightmap-color>
+	<lightmap-factor type="float" n="11">1.0</lightmap-factor>
+	<lightmap-color type="vec3d" n="11"> 1.0 1.0 1.0 </lightmap-color>
 	<grain-texture-enabled type="int">0</grain-texture-enabled>
 	<grain-magnification type="float">10.0</grain-magnification>
 	<irradiance-map-type type="int">0</irradiance-map-type>
@@ -151,6 +167,14 @@
         <filter><use>texture[5]/filter</use></filter>
         <wrap-s><use>texture[5]/wrap-s</use></wrap-s>
         <wrap-t><use>texture[5]/wrap-t</use></wrap-t>
+      </texture-unit>
+      <texture-unit>
+        <unit>6</unit>
+        <type><use>texture[6]/type</use></type>
+        <image><use>texture[6]/image</use></image>
+        <filter><use>texture[6]/filter</use></filter>
+        <wrap-s><use>texture[6]/wrap-s</use></wrap-s>
+        <wrap-t><use>texture[6]/wrap-t</use></wrap-t>
       </texture-unit>
       <texture-unit>
         <unit>7</unit>
@@ -390,11 +414,51 @@
 	<type>float-vec3</type>
 	<value><use>lightmap-color[7]</use></value>
      </uniform>
+    <uniform>
+	<name>lightmap3_r_factor</name>
+	<type>float</type>
+	<value><use>lightmap-factor[8]</use></value>
+     </uniform>
+     <uniform>
+	<name>lightmap3_r_color</name>
+	<type>float-vec3</type>
+	<value><use>lightmap-color[8]</use></value>
+     </uniform>
+    <uniform>
+	<name>lightmap3_g_factor</name>
+	<type>float</type>
+	<value><use>lightmap-factor[9]</use></value>
+     </uniform>
+     <uniform>
+	<name>lightmap3_g_color</name>
+	<type>float-vec3</type>
+	<value><use>lightmap-color[9]</use></value>
+     </uniform>
+    <uniform>
+	<name>lightmap3_b_factor</name>
+	<type>float</type>
+	<value><use>lightmap-factor[10]</use></value>
+     </uniform>
+     <uniform>
+	<name>lightmap3_b_color</name>
+	<type>float-vec3</type>
+	<value><use>lightmap-color[10]</use></value>
+     </uniform>
+    <uniform>
+	<name>lightmap3_a_factor</name>
+	<type>float</type>
+	<value><use>lightmap-factor[11]</use></value>
+     </uniform>
+     <uniform>
+	<name>lightmap3_a_color</name>
+	<type>float-vec3</type>
+	<value><use>lightmap-color[11]</use></value>
+     </uniform>
      <uniform>
 	<name>grain_magnification</name>
 	<type>float</type>
 	<value><use>grain-magnification</use></value>
-     </uniform>	 
+     </uniform>
      <uniform>
 	<name>irradiance_map_strength</name>
 	<type>float</type>
@@ -465,6 +529,11 @@
         <name>lightmap2_texture</name>
         <type>sampler-2d</type>
         <value type="int">5</value>
+      </uniform>
+      <uniform>
+        <name>lightmap3_texture</name>
+        <type>sampler-2d</type>
+        <value type="int">6</value>
       </uniform>
       <uniform>
 	<name>cube_texture</name>

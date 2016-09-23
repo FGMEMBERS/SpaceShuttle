@@ -633,6 +633,9 @@
       <cabinlight7b-intensity type="float">0.0</cabinlight7b-intensity>
       <cabinlight8-intensity type="float">0.0</cabinlight8-intensity>
       <cabinlight9-intensity type="float">0.0</cabinlight9-intensity>
+      <cabinlight10-intensity type="float">0.0</cabinlight10-intensity>
+      <cabinlight11-intensity type="float">0.0</cabinlight11-intensity>
+      <cabinlight12-intensity type="float">0.0</cabinlight12-intensity>
       <cabinlight1-mode type="int">0</cabinlight1-mode>
       <cabinlight2-mode type="int">0</cabinlight2-mode>
       <cabinlight6-mode type="int">1</cabinlight6-mode>

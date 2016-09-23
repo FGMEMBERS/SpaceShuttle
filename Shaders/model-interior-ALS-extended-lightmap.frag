@@ -11,6 +11,7 @@ varying vec3 relPos;
 uniform sampler2D texture;
 uniform sampler2D lightmap_texture;
 uniform sampler2D lightmap2_texture;
+uniform sampler2D lightmap3_texture;
 uniform sampler2D grain_texture;
 uniform samplerCube cube_texture;
 
@@ -41,6 +42,10 @@ uniform float lightmap2_r_factor;
 uniform float lightmap2_g_factor;
 uniform float lightmap2_b_factor;
 uniform float lightmap2_a_factor;
+uniform float lightmap3_r_factor;
+uniform float lightmap3_g_factor;
+uniform float lightmap3_b_factor;
+uniform float lightmap3_a_factor;
 uniform float grain_magnification;
 
 uniform vec3 offset_vec;
@@ -57,6 +62,10 @@ uniform vec3 lightmap2_r_color;
 uniform vec3 lightmap2_g_color;
 uniform vec3 lightmap2_b_color;
 uniform vec3 lightmap2_a_color;
+uniform vec3 lightmap3_r_color;
+uniform vec3 lightmap3_g_color;
+uniform vec3 lightmap3_b_color;
+uniform vec3 lightmap3_a_color;
 
 uniform int quality_level;
 uniform int tquality_level;
@@ -215,12 +224,16 @@ void main()
     if (lightmap_enabled == 1)
 	{
         vec4 lightmapTexel = texture2D(lightmap_texture, gl_TexCoord[0].st);
-	vec4 lightmapFactor = vec4(lightmap_r_factor, lightmap_g_factor, lightmap_b_factor, lightmap_a_factor);
+        vec4 lightmapFactor = vec4(lightmap_r_factor, lightmap_g_factor, lightmap_b_factor, lightmap_a_factor);
         lightmapFactor = lightmapFactor * lightmapTexel;
 
         vec4 lightmap2Texel = texture2D(lightmap2_texture, gl_TexCoord[0].st);
-	vec4 lightmap2Factor = vec4(lightmap2_r_factor, lightmap2_g_factor, lightmap2_b_factor, lightmap2_a_factor);
+        vec4 lightmap2Factor = vec4(lightmap2_r_factor, lightmap2_g_factor, lightmap2_b_factor, lightmap2_a_factor);
         lightmap2Factor = lightmap2Factor * lightmap2Texel;
+
+        vec4 lightmap3Texel = texture2D(lightmap3_texture, gl_TexCoord[0].st);
+        vec4 lightmap3Factor = vec4(lightmap3_r_factor, lightmap3_g_factor, lightmap3_b_factor, lightmap3_a_factor);
+        lightmap3Factor = lightmap3Factor * lightmap3Texel;
 
         if (lightmap_multi > 0 )
 		{
@@ -235,6 +248,11 @@ void main()
 		lightmapcolor = addLights(lightmapcolor, lightmap2_g_color * lightmap2Factor.g);
 		lightmapcolor = addLights(lightmapcolor, lightmap2_b_color * lightmap2Factor.b);
 		lightmapcolor = addLights(lightmapcolor, lightmap2_a_color * lightmap2Factor.a);
+
+        lightmapcolor = addLights(lightmapcolor, lightmap3_r_color * lightmap3Factor.r);
+		lightmapcolor = addLights(lightmapcolor, lightmap3_g_color * lightmap3Factor.g);
+		lightmapcolor = addLights(lightmapcolor, lightmap3_b_color * lightmap3Factor.b);
+		lightmapcolor = addLights(lightmapcolor, lightmap3_a_color * lightmap3Factor.a);
             	}
 	 else 
 		{
