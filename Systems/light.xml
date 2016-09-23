@@ -112,6 +112,19 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/light/payload-bay-power-demand-kW">
+		<function>
+			<product>
+			<sum>
+				<property>systems/light/payload-bay-fwd</property>
+				<property>systems/light/payload-bay-mid</property>
+				<property>systems/light/payload-bay-aft</property>
+			</sum>
+			<value>0.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/light/payload-bay-flood-intensity">
 		<function>
 			<product>
@@ -335,6 +348,41 @@
                 </product>
             </function>
 		</fcs_function>
+
+
+		<fcs_function name="systems/light/cabin-light-power-demand-kW">
+		<function>
+			<sum>
+				<product>
+					<sum>
+						<property>systems/light/cabinlight1-intensity</property>
+						<property>systems/light/cabinlight2-intensity</property>
+					</sum>
+					<value>0.25</value>
+				</product>
+				<product>
+					<sum>
+						<property>systems/light/cabinlight3-intensity</property>
+						<property>systems/light/cabinlight4-intensity</property>
+						<property>systems/light/cabinlight5-intensity</property>
+						<property>systems/light/cabinlight8-intensity</property>
+					</sum>
+					<value>0.15</value>
+				</product>
+				<product>
+					<sum>
+				                <property>systems/light/console-eff-panel-left-norm-tied</property>
+                            			<property>systems/light/console-eff-panel-center-norm-tied</property>
+                            			<property>systems/light/console-eff-panel-right-norm-tied</property>
+                           			<property>systems/light/console-eff-overhead-left-norm-tied</property>
+                            			<property>systems/light/console-eff-overhead-right-norm-tied</property>
+					</sum>
+					<value>0.05</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
         
 	</channel>
 

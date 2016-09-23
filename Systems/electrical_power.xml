@@ -781,6 +781,8 @@
 			<input>systems/electrical/h2o-line-heater-power-kW</input>
 			<input>systems/electrical/h2o-relief-heater-power-kW</input>
 			<input>systems/electrical/purge-heater-power-kW</input>
+			<input>systems/light/payload-bay-power-demand-kW</input>
+			<input>systems/light/cabin-light-power-demand-kW</input>
 		</summer>
 
 		<fcs_function name="systems/electrical/individual-AB-power-demand-kW">
