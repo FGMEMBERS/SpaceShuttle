@@ -30,6 +30,7 @@
 # * p_dps_pl_bay (SM OPS 202, SPEC 63)
 # * p_dps_sys_summ (DISP 18)
 # * p_dps_sys_summ2 (DISP 19)
+# * p_dps_env (DISP 66)
 # * p_dps_electric (DISP 67)
 # * p_dps_cryo (DISP 68)
 # * p_dps_fc (DISP 69)
@@ -110,6 +111,7 @@ io.include("p_dps_pdrs_control.nas");
 io.include("p_dps_pdrs_override.nas");
 io.include("p_dps_gpc.nas");
 io.include("p_dps_memory.nas");
+io.include("p_dps_env.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -434,6 +436,7 @@ var MDU_Device =
         me.PFD.p_dps_pdrs_override = PFD_addpage_p_dps_pdrs_override(me.PFD);
         me.PFD.p_dps_gpc = PFD_addpage_p_dps_gpc(me.PFD);
         me.PFD.p_dps_memory = PFD_addpage_p_dps_memory(me.PFD);
+        me.PFD.p_dps_env = PFD_addpage_p_dps_env(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -727,6 +730,10 @@ var MDU_Device =
       	me.PFD.p_dps_memory.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_memory.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_memory.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+      	me.PFD.p_dps_env.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_env.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_env.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);

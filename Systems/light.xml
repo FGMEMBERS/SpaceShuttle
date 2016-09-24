@@ -324,19 +324,37 @@
 
         <fcs_function name="systems/light/cockpit-ambience-r-tied">
             <function>
+		<sum>
                 <product>
                     <property>systems/light/cockpit-ambience-rgb-tied</property>
                     <value>.05</value>
                 </product>
+		<property>systems/thermal/plasma-ambience-red</property>
+		</sum>
             </function>
 		</fcs_function>
 
-        <fcs_function name="systems/light/cockpit-ambience-gb-tied">
+        <fcs_function name="systems/light/cockpit-ambience-g-tied">
             <function>
+		<sum>
                 <product>
                     <property>systems/light/cockpit-ambience-rgb-tied</property>
                     <value>.025</value>
-                </product>                
+                </product>  
+		<property>systems/thermal/plasma-ambience-green</property>
+		</sum>              
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-b-tied">
+            <function>
+		<sum>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.025</value>
+                </product>  
+		<property>systems/thermal/plasma-ambience-blue</property>
+		</sum>              
             </function>
 		</fcs_function>
 
