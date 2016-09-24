@@ -3299,6 +3299,12 @@ if ((header == "SPEC") and (end =="PRO"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
 	var spec_num = int(body);
+	if (spec_num == 66) 
+		{
+		page_select(idp_index, "p_dps_env");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 66);
+		valid_flag = 1;
+		}
 	if (spec_num == 67) 
 		{
 		page_select(idp_index, "p_dps_electric");
