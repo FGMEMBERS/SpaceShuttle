@@ -100,6 +100,8 @@
 		</function>
 		</fcs_function>
 
+
+
 		<fcs_function name="systems/thermal/nose-temperature-F">
 		<function>
 			<sum>
@@ -142,6 +144,87 @@
 			</product>
 		</function>
 		</fcs_function>
+
+
+		<fcs_function name="systems/thermal/plasma-T-factor">
+		<function>
+			<min>
+			<max>
+			<quotient>
+				<difference>
+					<property>systems/thermal/nose-temperature-F</property>
+					<value>2000.0</value>
+				</difference>
+				<value>1000.0</value>
+			</quotient>
+			<value>0.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-red">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/thermal/plasma-T-factor</property>
+					<value>1.0</value>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/thermal/plasma-T-factor</property>
+					</difference>
+					<value>0.8</value>
+				</product>
+			</sum>
+			<value>0.15</value>
+			<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-green">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/thermal/plasma-T-factor</property>
+					<value>0.5</value>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/thermal/plasma-T-factor</property>
+					</difference>
+					<value>0.4</value>
+				</product>
+			</sum>
+			<value>0.15</value>
+			<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-blue">
+		<function>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/thermal/plasma-T-factor</property>
+				</difference>
+				<value>0.4</value>
+				<value>0.15</value>
+				<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		
+
 
 		<fcs_function name="systems/thermal/entry-flame-alpha">
 		<function>

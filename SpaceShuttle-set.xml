@@ -22,6 +22,9 @@
    <systems>
     <thermal>
 	<nose-temperature-K type="double">0.0</nose-temperature-K>
+	<plasma-ambience-red type="double">0.0</plasma-ambience-red>
+	<plasma-ambience-green type="double">0.0</plasma-ambience-green>
+	<plasma-ambience-blue type="double">0.0</plasma-ambience-blue>
     </thermal>
     <abort>
        <arm-tal type="int">0</arm-tal>

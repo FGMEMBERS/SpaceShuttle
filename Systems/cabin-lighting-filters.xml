@@ -105,14 +105,14 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cockpit-ambience-gb-tied</input>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-g-tied</input>
    <output>/fdm/jsbsim/systems/light/cockpit-ambience-g</output>
  </filter>
 
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cockpit-ambience-gb-tied</input>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-b-tied</input>
    <output>/fdm/jsbsim/systems/light/cockpit-ambience-b</output>
  </filter>
 
