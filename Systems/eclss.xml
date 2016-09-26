@@ -22,4 +22,183 @@
 
 	</channel>
 
+
+	<channel name="Avionics bay fans">
+
+		<switch name="systems/eclss/avbay/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/fan-A-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/fan-B-switch == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay/fan-A-operational == 1
+				systems/eclss/avbay/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay1-fan-A-condition</property>
+					<property>systems/eclss/avbay/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay1-fan-B-condition</property>
+					<property>systems/eclss/avbay/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay/fan-cooling-effect">
+			<input>systems/eclss/avbay/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+
+		<switch name="systems/eclss/avbay[1]/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[1]/fan-A-switch == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[1]/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[1]/fan-B-switch == 1
+				systems/electrical/ac[2]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[1]/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay[1]/fan-A-operational == 1
+				systems/eclss/avbay[1]/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay[1]/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay[1]/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay2-fan-A-condition</property>
+					<property>systems/eclss/avbay[1]/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay2-fan-B-condition</property>
+					<property>systems/eclss/avbay[1]/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[1]/fan-cooling-effect">
+			<input>systems/eclss/avbay[1]/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+
+		<switch name="systems/eclss/avbay[2]/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[2]/fan-A-switch == 1
+				systems/electrical/ac[2]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[2]/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[2]/fan-B-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[2]/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay[2]/fan-A-operational == 1
+				systems/eclss/avbay[2]/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay[2]/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay[2]/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay3-fan-A-condition</property>
+					<property>systems/eclss/avbay[2]/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay3-fan-B-condition</property>
+					<property>systems/eclss/avbay[2]/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[2]/fan-cooling-effect">
+			<input>systems/eclss/avbay[2]/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+
+	</channel>
+
 </system>

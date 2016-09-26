@@ -24,6 +24,14 @@
 <tps-condition type="double">1.0</tps-condition>
 <rhc-cdr-condition type="double">1.0</rhc-cdr-condition>
 <rhc-plt-condition type="double">1.0</rhc-plt-condition>
+<eclss>
+	<avbay1-fan-A-condition type="double">1.0</avbay1-fan-A-condition>
+	<avbay1-fan-B-condition type="double">1.0</avbay1-fan-B-condition>
+	<avbay2-fan-A-condition type="double">1.0</avbay2-fan-A-condition>
+	<avbay2-fan-B-condition type="double">1.0</avbay2-fan-B-condition>
+	<avbay3-fan-A-condition type="double">1.0</avbay3-fan-A-condition>
+	<avbay3-fan-B-condition type="double">1.0</avbay3-fan-B-condition>
+</eclss>
 <mps>
 	<ssme1-condition type="double">1.0</ssme1-condition>
 	<ssme2-condition type="double">1.0</ssme2-condition>

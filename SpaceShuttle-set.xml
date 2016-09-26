@@ -326,6 +326,23 @@
     	<crtl-sel type="int">0</crtl-sel>
     	<crtr-sel type="int">1</crtr-sel>
     </dps>
+    <eclss>
+     <avbay>
+	<fan-A-switch type="int">1</fan-A-switch>
+	<fan-B-switch type="int">0</fan-B-switch>
+	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
+     </avbay>
+     <avbay n="1">
+	<fan-A-switch type="int">0</fan-A-switch>
+	<fan-B-switch type="int">1</fan-B-switch>
+	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
+     </avbay>
+     <avbay n="2">
+	<fan-A-switch type="int">0</fan-A-switch>
+	<fan-B-switch type="int">1</fan-B-switch>
+	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
+     </avbay>
+    </eclss>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>
      <target-azimuth-deg type="double">0.0</target-azimuth-deg>
