@@ -7,15 +7,15 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cabinlight1a-norm-tied</input>
-   <output>/fdm/jsbsim/systems/light/cabinlight1a-norm</output>
+   <input>/fdm/jsbsim/systems/light/cabinlight1-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight1-norm</output>
  </filter>
 
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cabinlight2a-norm-tied</input>
-   <output>/fdm/jsbsim/systems/light/cabinlight2a-norm</output>
+   <input>/fdm/jsbsim/systems/light/cabinlight2-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight2-norm</output>
  </filter>
 
  <filter>
@@ -42,15 +42,15 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cabinlight6a-norm-tied</input>
-   <output>/fdm/jsbsim/systems/light/cabinlight6a-norm</output>
+   <input>/fdm/jsbsim/systems/light/cabinlight6-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight6-norm</output>
  </filter>
 
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/cabinlight7a-norm-tied</input>
-   <output>/fdm/jsbsim/systems/light/cabinlight7a-norm</output>
+   <input>/fdm/jsbsim/systems/light/cabinlight7-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight7-norm</output>
  </filter>
 
  <filter>
@@ -58,6 +58,27 @@
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/cabinlight8-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/cabinlight8-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight9-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight9-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight10-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight10-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight11-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight11-norm</output>
  </filter>
 
  <filter>
@@ -93,6 +114,20 @@
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/console-eff-overhead-right-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/console-eff-overhead-right-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-aft-panel-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-right-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</output>
  </filter>
 
  <filter>
