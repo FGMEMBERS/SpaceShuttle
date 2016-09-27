@@ -348,6 +348,14 @@
       	<sys1-o2-xovr-valve-status type="int">1</sys1-o2-xovr-valve-status>
      	<sys2-o2-xovr-valve-status type="int">0</sys2-o2-xovr-valve-status>
      </oxygen>
+     <nitrogen>
+      	<sys1-n2-supply-valve-status type="int">1</sys1-n2-supply-valve-status>
+     	<sys2-n2-supply-valve-status type="int">0</sys2-n2-supply-valve-status>
+      	<sys1-n2-reg-inlet-valve-status type="int">1</sys1-n2-reg-inlet-valve-status>
+     	<sys2-n2-reg-inlet-valve-status type="int">0</sys2-n2-reg-inlet-valve-status>
+	<sys1-o2-n2-cntrl-valve-status type="int">0</sys1-o2-n2-cntrl-valve-status>
+	<sys2-o2-n2-cntrl-valve-status type="int">0</sys2-o2-n2-cntrl-valve-status>
+     </nitrogen>
     </eclss>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>

@@ -31,6 +31,11 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.o2_regp1 = device.svg.getElementById("p_dps_env_o2_regp1");
     p_dps_env.o2_regp2 = device.svg.getElementById("p_dps_env_o2_regp2");
 
+    p_dps_env.n2_flow1 = device.svg.getElementById("p_dps_env_n2_flow1");
+    p_dps_env.n2_flow2 = device.svg.getElementById("p_dps_env_n2_flow2");
+
+    p_dps_env.n2_regp1 = device.svg.getElementById("p_dps_env_n2_reg_p1");
+    p_dps_env.n2_regp2 = device.svg.getElementById("p_dps_env_n2_reg_p2");
 
     p_dps_env.ondisplay = func
     {
@@ -63,6 +68,8 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.avbay_fan_dp2.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay[1]/fan-cooling-effect") * 3.77)); 
     	p_dps_env.avbay_fan_dp3.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay[2]/fan-cooling-effect") * 3.92));  
 
+	# oxygen system
+
 	var o2_valve1 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status");
 	var o2_valve2 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status");
 
@@ -75,6 +82,25 @@ var PFD_addpage_p_dps_env = func(device)
 
     	p_dps_env.o2_regp1.setText(sprintf("%3.0f", 101.0 * o2_valve1));
     	p_dps_env.o2_regp2.setText(sprintf("%3.0f", 100.0 * o2_valve2));
+
+	# nitrogen system
+	
+	var n2_sys1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-pressurized");
+	var n2_sys2 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys2-pressurized");
+
+    	p_dps_env.n2_regp1.setText(sprintf("%3.0f", 203.0 * n2_sys1));
+    	p_dps_env.n2_regp2.setText(sprintf("%3.0f", 198.0 * n2_sys2));
+
+
+	var nitrogen_flow = 0.25 * getprop("/fdm/jsbsim/systems/eclss/nitrogen/cabin-nitrogen-available");
+
+	if ((n2_sys1 == 1) and (n2_sys2 == 1)) {nitrogen_flow = 0.5 * nitrogen_flow;}
+
+    	p_dps_env.n2_flow1.setText(sprintf("%2.1f", nitrogen_flow * n2_sys1));
+    	p_dps_env.n2_flow2.setText(sprintf("%2.1f", nitrogen_flow * n2_sys2));
+
+    
+
 
         device.update_common_DPS();
     }

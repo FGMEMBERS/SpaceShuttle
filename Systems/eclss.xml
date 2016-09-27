@@ -217,12 +217,68 @@
 
 		<switch name="systems/eclss/oxygen/cabin-oxygen-available">
 			<default value="0.0"/>
-			<test logic="OR" value="1.0">
+			<test logic="AND" value="1.0">
 				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GE 0
+			</test>
+			<test logic="AND" value="1.0">
 				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GE 0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GE 0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GE 0 
 			</test>
 		</switch>
 
+	</channel>
+
+	<channel name="Nitrogen system">
+
+		<switch name="systems/eclss/nitrogen/sys1-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/sys2-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/cabin-nitrogen-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-pressurized == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GE 0 
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-pressurized == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GE 0 
+			</test>
+
+		</switch>
 
 	</channel>
 
