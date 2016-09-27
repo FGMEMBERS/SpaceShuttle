@@ -201,4 +201,29 @@
 
 	</channel>
 
+	<channel name="Oxygen system">
+
+		<switch name="systems/eclss/oxygen/direct-oxygen-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/oxygen/cabin-oxygen-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+			</test>
+		</switch>
+
+
+	</channel>
+
 </system>

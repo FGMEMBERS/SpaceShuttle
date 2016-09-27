@@ -342,6 +342,12 @@
 	<fan-B-switch type="int">1</fan-B-switch>
 	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
      </avbay>
+     <oxygen>
+      	<sys1-o2-supply-valve-status type="int">1</sys1-o2-supply-valve-status>
+     	<sys2-o2-supply-valve-status type="int">0</sys2-o2-supply-valve-status>
+      	<sys1-o2-xovr-valve-status type="int">1</sys1-o2-xovr-valve-status>
+     	<sys2-o2-xovr-valve-status type="int">0</sys2-o2-xovr-valve-status>
+     </oxygen>
     </eclss>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>
