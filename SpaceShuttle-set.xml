@@ -342,6 +342,29 @@
 	<fan-B-switch type="int">1</fan-B-switch>
 	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
      </avbay>
+     <oxygen>
+      	<sys1-o2-supply-valve-status type="int">1</sys1-o2-supply-valve-status>
+     	<sys2-o2-supply-valve-status type="int">0</sys2-o2-supply-valve-status>
+      	<sys1-o2-xovr-valve-status type="int">1</sys1-o2-xovr-valve-status>
+     	<sys2-o2-xovr-valve-status type="int">0</sys2-o2-xovr-valve-status>
+     </oxygen>
+     <nitrogen>
+      	<sys1-n2-supply-valve-status type="int">1</sys1-n2-supply-valve-status>
+     	<sys2-n2-supply-valve-status type="int">0</sys2-n2-supply-valve-status>
+      	<sys1-n2-reg-inlet-valve-status type="int">1</sys1-n2-reg-inlet-valve-status>
+     	<sys2-n2-reg-inlet-valve-status type="int">0</sys2-n2-reg-inlet-valve-status>
+	<sys1-o2-n2-cntrl-valve-status type="int">0</sys1-o2-n2-cntrl-valve-status>
+	<sys2-o2-n2-cntrl-valve-status type="int">0</sys2-o2-n2-cntrl-valve-status>
+     </nitrogen>
+     <cabin>
+	<fan-A-switch type="int">1</fan-A-switch>
+	<fan-B-switch type="int">0</fan-B-switch>
+	<vent-isolation-valve type="int">0</vent-isolation-valve>
+	<vent-valve type="int">0</vent-valve>
+	<loss-rate-lb_h type="double">0.85</loss-rate-lb_h>
+	<leakage-rate-lb_h type="double">0.0</leakage-rate-lb_h>
+	<air-pressure-psi type="double">14.7</air-pressure-psi>
+     </cabin>
     </eclss>
     <entry_guidance>
      <guidance-mode type="int">0</guidance-mode>

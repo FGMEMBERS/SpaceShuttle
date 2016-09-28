@@ -179,9 +179,6 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 
  	p_dps_sm_sys_summ1.hx_out_T.setText("46");
 
- 	p_dps_sm_sys_summ1.o2flow_1.setText("0.0"); 	
-	p_dps_sm_sys_summ1.o2flow_2.setText("0.0");
-
  	p_dps_sm_sys_summ1.n2flow_1.setText("0.0"); 	
 	p_dps_sm_sys_summ1.n2flow_2.setText("0.0");
 
@@ -356,6 +353,30 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 
 	p_dps_sm_sys_summ1.kW.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/electrical/total-power-demand-kW"))); 	
 	p_dps_sm_sys_summ1.total_amps.setText(sprintf("%3.0f", fc_amps1 + fc_amps2 + fc_amps3));
+
+	# oxygen system
+
+	var o2_valve1 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status");
+	var o2_valve2 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status");
+
+	var oxygen_flow = 0.582 * getprop("/fdm/jsbsim/systems/eclss/oxygen/cabin-oxygen-available");
+	
+	if ((o2_valve1 == 1) and (o2_valve2 == 1)) {oxygen_flow = 0.5 * oxygen_flow;}
+
+ 	p_dps_sm_sys_summ1.o2flow_1.setText(sprintf("%2.1f", oxygen_flow * o2_valve1)); 	
+	p_dps_sm_sys_summ1.o2flow_2.setText(sprintf("%2.1f", oxygen_flow * o2_valve2)); 
+
+	# nitrogen system
+
+	var n2_valve1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-pressurized");
+	var n2_valve2 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys2-pressurized");
+
+	var nitrogen_flow = 0.25 * getprop("/fdm/jsbsim/systems/eclss/nitrogen/cabin-nitrogen-available");
+
+	if ((n2_valve1 == 1) and (n2_valve2 == 1)) {nitrogen_flow = 0.5 * nitrogen_flow;}
+
+    	p_dps_sm_sys_summ1.n2flow_1.setText(sprintf("%2.1f", nitrogen_flow * n2_valve1));
+    	p_dps_sm_sys_summ1.n2flow_2.setText(sprintf("%2.1f", nitrogen_flow * n2_valve2));
 
         device.update_common_DPS();
     }
