@@ -1739,7 +1739,20 @@
     </config>
    </view>
 
-   <view n="101">
+    <view n="101">
+    <name>Mission specialist station</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+     <from-model type="bool">true</from-model>
+     <x-offset-m archive="y" type="double"> 0.4 </x-offset-m>
+     <y-offset-m archive="y" type="double"> 0.2</y-offset-m>
+     <z-offset-m archive="y" type="double">-10.9 </z-offset-m>
+     <heading-offset-deg archive="y" type="double">180.0</heading-offset-deg>
+    </config>
+   </view>
+
+   <view n="102">
     <name>Payload specialist station</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
@@ -1752,7 +1765,7 @@
     </config>
    </view>
 
-   <view n="102">
+   <view n="103">
     <name>HUD only</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
@@ -1764,7 +1777,7 @@
     </config>
    </view>
 
-   <view n="103">
+   <view n="104">
     <name>Forward Panels Left</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
@@ -1778,7 +1791,7 @@
     </config>
    </view>
 
-   <view n="104">
+   <view n="105">
     <name>Forward Panels Right</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
@@ -1792,7 +1805,7 @@
     </config>
    </view>
 
-   <view n="105">
+   <view n="106">
     <name>Pilot</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>

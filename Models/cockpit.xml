@@ -4571,8 +4571,8 @@
         <type>knob</type>
         <object-name>A6-light-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight10-mode</property>
-         <factor>-20</factor>
-        <offset-deg>45</offset-deg>
+         <factor>60</factor>
+        <offset-deg>-20</offset-deg>
         <center>
             <x-m>-10.4152</x-m>
             <y-m>  0.392 </y-m>
@@ -4596,12 +4596,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight10-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight10r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity", 0);
                     }
@@ -4632,18 +4632,16 @@
         <type>knob</type>
         <object-name>A6-light-flood-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight10r-intensity</property>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-290</offset-deg>
         <factor>290</factor>
         <axis>
-            <x>1</x>
-            <y>.04</y>
-            <z>.06</z>
+            <x1-m>-10.42582</x1-m>
+            <y1-m>  0.34512</y1-m>
+            <z1-m> -0.04225</z1-m>
+            <x2-m>-10.41582</x2-m>
+            <y2-m>  0.34512</y2-m>
+            <z2-m> -0.05225</z2-m>
         </axis>
-        <center>
-            <x-m>-10.4158</x-m>
-            <y-m>  0.3451</y-m>
-            <z-m> -0.0522</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -4658,12 +4656,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight10-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight10r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity", 0);
                     }
@@ -4686,18 +4684,16 @@
         <type>knob</type>
         <object-name>A6-light-panel-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-panel-center</property>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-290</offset-deg>
         <factor>290</factor>
         <axis>
-            <x>1</x>
-            <y>.04</y>
-            <z>.06</z>
+            <x1-m>-10.42599</x1-m>
+            <y1-m>  0.29197</y1-m>
+            <z1-m> -0.0425 </z1-m>
+            <x2-m>-10.41599</x2-m>
+            <y2-m>  0.29197</y2-m>
+            <z2-m> -0.0525 </z2-m>
         </axis>
-        <center>
-            <x-m>-10.416</x-m>
-            <y-m>  0.292</y-m>
-            <z-m> -0.0525</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -4725,18 +4721,16 @@
         <type>knob</type>
         <object-name>A6-light-instr-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-instrument-center</property>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-290</offset-deg>
         <factor>290</factor>
         <axis>
-            <x>1</x>
-            <y>.04</y>
-            <z>.06</z>
+            <x1-m>-10.44409</x1-m>
+            <y1-m>  0.36902</y1-m>
+            <z1-m> -0.09527</z1-m>
+            <x2-m>-10.43409</x2-m>
+            <y2-m>  0.36902</y2-m>
+            <z2-m> -0.10527</z2-m>
         </axis>
-        <center>
-            <x-m>-10.4341</x-m>
-            <y-m>  0.369 </y-m>
-            <z-m> -0.1053</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -4764,18 +4758,16 @@
         <type>knob</type>
         <object-name>A6-light-numeric-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-numeric-center</property>
-        <offset-deg>0</offset-deg>
+        <offset-deg>-290</offset-deg>
         <factor>290</factor>
         <axis>
-            <x>1</x>
-            <y>.04</y>
-            <z>.06</z>
+            <x1-m>-10.44409</x1-m>
+            <y1-m>  0.31635</y1-m>
+            <z1-m> -0.09479</z1-m>
+            <x2-m>-10.43409</x2-m>
+            <y2-m>  0.31635</y2-m>
+            <z2-m> -0.10478</z2-m>
         </axis>
-        <center>
-            <x-m>-10.4341</x-m>
-            <y-m>  0.3164</y-m>
-            <z-m> -0.1048</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -4807,16 +4799,16 @@
         <type>knob</type>
         <object-name>L9-light-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight9-mode</property>
-         <factor>-20</factor>
-        <offset-deg>45</offset-deg>
+         <factor>60</factor>
+        <offset-deg>-20</offset-deg>
         <center>
             <x-m>-10.4602 </x-m>
             <y-m> -1.4588 </y-m>
             <z-m> -0.3397 </z-m>
         </center>
         <axis>
-            <x>0</x>
-            <y>1</y>
+            <x>1</x>
+            <y>0</y>
             <z>0</z>
         </axis>
         <action>
@@ -4832,12 +4824,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight9-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight9r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity", 0);
                     }
@@ -4871,15 +4863,13 @@
         <offset-deg>0</offset-deg>
         <factor>-290</factor>
         <axis>
-            <x> .07</x>
-            <y> .1</y>
-            <z>1  </z>
+            <x1-m>-10.5009 </x1-m>
+            <y1-m> -1.44955</y1-m>
+            <z1-m> -0.32867</z1-m>
+            <x2-m>-10.5009 </x2-m>
+            <y2-m> -1.4596 </y2-m>
+            <z2-m> -0.3387 </z2-m>
         </axis>
-        <center>
-            <x-m>-10.5009</x-m>
-            <y-m> -1.4596</y-m>
-            <z-m> -0.3387</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -4894,12 +4884,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight9-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight9r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity", 0);
                     }
@@ -4926,7 +4916,7 @@
         <type>knob</type>
         <object-name>R10-light-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight11-mode</property>
-         <factor>-45</factor>
+         <factor>-65</factor>
         <offset-deg>20</offset-deg>
         <center>
             <x-m>-10.4461 </x-m>
@@ -4951,12 +4941,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight11-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight11r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity", 0);
                     }
@@ -4990,15 +4980,13 @@
         <offset-deg>0</offset-deg>
         <factor>-290</factor>
         <axis>
-            <x>-.07</x>
-            <y>-.1 </y>
-            <z>1   </z>
+            <x1-m>-10.4896</x1-m>
+            <y1-m>  1.45733</y1-m>
+            <z1-m> -0.32363</z1-m>
+            <x2-m>-10.4896</x2-m>
+            <y2-m>  1.4673</y2-m>
+            <z2-m> -0.3336</z2-m>
         </axis>
-        <center>
-            <x-m>-10.4896</x-m>
-            <y-m>  1.4673</y-m>
-            <z-m> -0.3336</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
@@ -5013,12 +5001,12 @@
                 <command>nasal</command>
                 <script>
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight11-mode");
-                    if (selection == 0)
+                    if (selection == 1)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight11r-intensity"));
                     }
-                    else if (selection == 1)
+                    else if (selection == 0)
                     {
                         setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity", 0);
                     }
@@ -5044,15 +5032,13 @@
         <offset-deg>0</offset-deg>
         <factor>290</factor>
         <axis>
-            <x>-.07</x>
-            <y>-.1 </y>
-            <z>1   </z>
+            <x1-m>-10.3996 </x1-m>
+            <y1-m>  1.45684</y1-m>
+            <z1-m> -0.32363</z1-m>
+            <x2-m>-10.3996 </x2-m>
+            <y2-m>  1.4668 </y2-m>
+            <z2-m> -0.3336 </z2-m>
         </axis>
-        <center>
-            <x-m>-10.3996</x-m>
-            <y-m>  1.4668</y-m>
-            <z-m> -0.3336</z-m>
-        </center>
         <action>
             <repeatable>true</repeatable>
             <binding>
