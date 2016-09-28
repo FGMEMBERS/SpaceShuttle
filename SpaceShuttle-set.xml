@@ -364,6 +364,7 @@
 	<loss-rate-lb_h type="double">0.85</loss-rate-lb_h>
 	<leakage-rate-lb_h type="double">0.0</leakage-rate-lb_h>
 	<air-pressure-psi type="double">14.7</air-pressure-psi>
+	<oxygen-fraction type="double">0.235</oxygen-fraction>
      </cabin>
     </eclss>
     <entry_guidance>

@@ -37,6 +37,13 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.n2_regp1 = device.svg.getElementById("p_dps_env_n2_reg_p1");
     p_dps_env.n2_regp2 = device.svg.getElementById("p_dps_env_n2_reg_p2");
 
+    p_dps_env.ppo2a = device.svg.getElementById("p_dps_env_ppo2a");
+    p_dps_env.ppo2b = device.svg.getElementById("p_dps_env_ppo2b");
+    p_dps_env.ppo2c = device.svg.getElementById("p_dps_env_ppo2c");
+
+    p_dps_env.cabin_press = device.svg.getElementById("p_dps_env_cabin_press");
+
+
     p_dps_env.ondisplay = func
     {
         device.DPS_menu_title.setText("ENVIRONMENT");
@@ -70,10 +77,12 @@ var PFD_addpage_p_dps_env = func(device)
 
 	# oxygen system
 
+	var airflow_in = getprop("/fdm/jsbsim/systems/eclss/cabin/air-gain-rate-lb_h");
+
 	var o2_valve1 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status");
 	var o2_valve2 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status");
 
-	var oxygen_flow = 0.582 * getprop("/fdm/jsbsim/systems/eclss/oxygen/cabin-oxygen-available");
+	var oxygen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/oxygen-in-fraction-av") * airflow_in;
 	
 	if ((o2_valve1 == 1) and (o2_valve2 == 1)) {oxygen_flow = 0.5 * oxygen_flow;}
 
@@ -91,16 +100,20 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.n2_regp1.setText(sprintf("%3.0f", 203.0 * n2_sys1));
     	p_dps_env.n2_regp2.setText(sprintf("%3.0f", 198.0 * n2_sys2));
 
-
-	var nitrogen_flow = 0.25 * getprop("/fdm/jsbsim/systems/eclss/nitrogen/cabin-nitrogen-available");
+	var nitrogen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av") * airflow_in;
 
 	if ((n2_sys1 == 1) and (n2_sys2 == 1)) {nitrogen_flow = 0.5 * nitrogen_flow;}
 
     	p_dps_env.n2_flow1.setText(sprintf("%2.1f", nitrogen_flow * n2_sys1));
     	p_dps_env.n2_flow2.setText(sprintf("%2.1f", nitrogen_flow * n2_sys2));
 
-    
+    	# pressures
 
+    	p_dps_env.ppo2a.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
+    	p_dps_env.ppo2b.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")+0.1));
+    	p_dps_env.ppo2c.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
+
+	p_dps_env.cabin_press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
 
         device.update_common_DPS();
     }

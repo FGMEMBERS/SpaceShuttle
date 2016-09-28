@@ -4525,6 +4525,19 @@
         </condition>
     </animation>
 
+    <!-- cabin atmosphere "CW Red Light -->
+
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-cabin-atm</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/cabin-atm</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Main Bus Undervolt  "Lights" -->
     <animation>
         <type>select</type>
@@ -4547,7 +4560,7 @@
         <object-name>cw-light-apu-overspeed</object-name>
         <object-name>cw-light-apu-underspeed</object-name>
         <object-name>cw-light-hyd-press</object-name>
-        <object-name>cw-light-cabin-atm</object-name>
+        <!--<object-name>cw-light-cabin-atm</object-name>-->
         <object-name>cw-light-air-data</object-name>
         <object-name>cw-light-left-rhc</object-name>
         <object-name>cw-light-right-aft-rhc</object-name>
