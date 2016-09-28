@@ -4632,12 +4632,12 @@
         <type>knob</type>
         <object-name>A6-light-flood-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight10r-intensity</property>
-        <offset-deg>-290</offset-deg>
+        <offset-deg>0</offset-deg>
         <factor>290</factor>
         <axis>
-            <x1-m>-10.42582</x1-m>
+            <x1-m>-10.42234</x1-m>
             <y1-m>  0.34512</y1-m>
-            <z1-m> -0.04225</z1-m>
+            <z1-m> -0.05019</z1-m>
             <x2-m>-10.41582</x2-m>
             <y2-m>  0.34512</y2-m>
             <z2-m> -0.05225</z2-m>
@@ -4684,12 +4684,12 @@
         <type>knob</type>
         <object-name>A6-light-panel-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-panel-center</property>
-        <offset-deg>-290</offset-deg>
+        <offset-deg>0</offset-deg>
         <factor>290</factor>
         <axis>
-            <x1-m>-10.42599</x1-m>
+            <x1-m>-10.4286 </x1-m>
             <y1-m>  0.29197</y1-m>
-            <z1-m> -0.0425 </z1-m>
+            <z1-m> -0.04872</z1-m>
             <x2-m>-10.41599</x2-m>
             <y2-m>  0.29197</y2-m>
             <z2-m> -0.0525 </z2-m>
@@ -4721,12 +4721,12 @@
         <type>knob</type>
         <object-name>A6-light-instr-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-instrument-center</property>
-        <offset-deg>-290</offset-deg>
+        <offset-deg>0</offset-deg>
         <factor>290</factor>
         <axis>
-            <x1-m>-10.44409</x1-m>
+            <x1-m>-10.44051</x1-m>
             <y1-m>  0.36902</y1-m>
-            <z1-m> -0.09527</z1-m>
+            <z1-m> -0.10302</z1-m>
             <x2-m>-10.43409</x2-m>
             <y2-m>  0.36902</y2-m>
             <z2-m> -0.10527</z2-m>
@@ -4758,15 +4758,15 @@
         <type>knob</type>
         <object-name>A6-light-numeric-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-numeric-center</property>
-        <offset-deg>-290</offset-deg>
+        <offset-deg>0</offset-deg>
         <factor>290</factor>
         <axis>
-            <x1-m>-10.44409</x1-m>
+            <x1-m>-10.44057</x1-m>
             <y1-m>  0.31635</y1-m>
-            <z1-m> -0.09479</z1-m>
+            <z1-m> -0.10265</z1-m>
             <x2-m>-10.43409</x2-m>
             <y2-m>  0.31635</y2-m>
-            <z2-m> -0.10478</z2-m>
+            <z2-m> -0.10479</z2-m>
         </axis>
         <action>
             <repeatable>true</repeatable>
@@ -4861,11 +4861,11 @@
         <object-name>L9-light-flood-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight9r-intensity</property>
         <offset-deg>0</offset-deg>
-        <factor>-290</factor>
+        <factor>290</factor>
         <axis>
             <x1-m>-10.5009 </x1-m>
-            <y1-m> -1.44955</y1-m>
-            <z1-m> -0.32867</z1-m>
+            <y1-m> -1.45341</y1-m>
+            <z1-m> -0.32909</z1-m>
             <x2-m>-10.5009 </x2-m>
             <y2-m> -1.4596 </y2-m>
             <z2-m> -0.3387 </z2-m>
@@ -4978,11 +4978,11 @@
         <object-name>R10-light-flood-r-knob</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight11r-intensity</property>
         <offset-deg>0</offset-deg>
-        <factor>-290</factor>
+        <factor>290</factor>
         <axis>
             <x1-m>-10.4896</x1-m>
-            <y1-m>  1.45733</y1-m>
-            <z1-m> -0.32363</z1-m>
+            <y1-m>  1.46207</y1-m>
+            <z1-m> -0.32826</z1-m>
             <x2-m>-10.4896</x2-m>
             <y2-m>  1.4673</y2-m>
             <z2-m> -0.3336</z2-m>
@@ -5033,8 +5033,8 @@
         <factor>290</factor>
         <axis>
             <x1-m>-10.3996 </x1-m>
-            <y1-m>  1.45684</y1-m>
-            <z1-m> -0.32363</z1-m>
+            <y1-m>  1.45889</y1-m>
+            <z1-m> -0.32448</z1-m>
             <x2-m>-10.3996 </x2-m>
             <y2-m>  1.4668 </y2-m>
             <z2-m> -0.3336 </z2-m>
