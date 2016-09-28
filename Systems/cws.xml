@@ -148,6 +148,16 @@
 
 		</switch>
 
+		<switch name="systems/cws/cabin-atm">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/cabin/air-pressure-psi LT 13.74
+				systems/eclss/cabin/air-pressure-psi GT 15.53
+				systems/eclss/cabin/ppo2-psi LT 2.7
+				systems/eclss/cabin/ppo2-psi GT 3.6
+			</test>
+		</switch>
+
 		<switch name="systems/cws/backup-cw">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">

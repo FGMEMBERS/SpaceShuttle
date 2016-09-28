@@ -2076,18 +2076,32 @@
      <priority>2</priority>
    </tank>
 
-<!-- virtual fuel tank modeling cabin air pressure -->
+<!-- virtual fuel tank modeling for cabin air pressure -->
 
+  <!-- oxygen content -->
   <tank type="FUEL" number="23">
      <location unit="M">
        <x> 0.00 </x>
        <y> 0.00 </y>
        <z> -3.60 </z>
      </location>
-     <capacity unit="LBS"> 185.00 </capacity>
-     <contents unit="LBS"> 170.00 </contents>
+     <capacity unit="LBS"> 45.00 </capacity>
+     <contents unit="LBS"> 40.00 </contents>
      <priority>2</priority>
    </tank>
+
+  <!-- nitrogen content -->
+  <tank type="FUEL" number="24">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 147.00 </capacity>
+     <contents unit="LBS"> 130.00 </contents>
+     <priority>2</priority>
+   </tank>
+
 
  </propulsion>
 

@@ -109,5 +109,18 @@
    <output>/controls/shuttle/ku-antenna-beta-deg</output>
  </filter>
 
+<filter>
+  <type>moving-average</type>
+  <samples>120</samples>
+  <input>/fdm/jsbsim/systems/eclss/cabin/oxygen-in-fraction</input>
+  <output>/fdm/jsbsim/systems/eclss/cabin/oxygen-in-fraction-av</output>
+</filter>
+
+<filter>
+  <type>moving-average</type>
+  <samples>120</samples>
+  <input>/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction</input>
+  <output>/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av</output>
+</filter>
 
  </PropertyList>
