@@ -38,11 +38,17 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.n2_flow1 = device.svg.getElementById("p_dps_env_n2_flow1");
     p_dps_env.n2_flow2 = device.svg.getElementById("p_dps_env_n2_flow2");
 
+    p_dps_env.n2_qty1 = device.svg.getElementById("p_dps_env_n2_qty1");
+    p_dps_env.n2_qty2 = device.svg.getElementById("p_dps_env_n2_qty2");
+
     p_dps_env.n2_regp1 = device.svg.getElementById("p_dps_env_n2_reg_p1");
     p_dps_env.n2_regp2 = device.svg.getElementById("p_dps_env_n2_reg_p2");
 
     p_dps_env.h2o_tk_n2_1 = device.svg.getElementById("p_dps_env_h2o_tk_n2_1");
     p_dps_env.h2o_tk_n2_2 = device.svg.getElementById("p_dps_env_h2o_tk_n2_2");
+
+    p_dps_env.o2n2_cntl_vlv1 = device.svg.getElementById("p_dps_env_o2n2_cntl_vlv1");
+    p_dps_env.o2n2_cntl_vlv2 = device.svg.getElementById("p_dps_env_o2n2_cntl_vlv2");
 
     p_dps_env.ppo2a = device.svg.getElementById("p_dps_env_ppo2a");
     p_dps_env.ppo2b = device.svg.getElementById("p_dps_env_ppo2b");
@@ -52,7 +58,15 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.cabin_t = device.svg.getElementById("p_dps_env_cabin_t");
     p_dps_env.cabin_hx_out_t = device.svg.getElementById("p_dps_env_cabin_hx_out_t");
 
+    p_dps_env.supply_h2o_qty_a = device.svg.getElementById("p_dps_env_supply_h2o_qty_a");
+    p_dps_env.supply_h2o_qty_b = device.svg.getElementById("p_dps_env_supply_h2o_qty_b");
+    p_dps_env.supply_h2o_qty_c = device.svg.getElementById("p_dps_env_supply_h2o_qty_c");
+    p_dps_env.supply_h2o_qty_d = device.svg.getElementById("p_dps_env_supply_h2o_qty_d");
 
+    p_dps_env.supply_h2o_press = device.svg.getElementById("p_dps_env_supply_h2o_press");
+    p_dps_env.supply_dmp_ln_t = device.svg.getElementById("p_dps_env_supply_h2o_dmp_ln_t");
+    p_dps_env.supply_h2o_noz_t_a = device.svg.getElementById("p_dps_env_supply_h2o_noz_t_a");
+    p_dps_env.supply_h2o_noz_t_b = device.svg.getElementById("p_dps_env_supply_h2o_noz_t_b");
 
     p_dps_env.co2_cntlr_1 = device.svg.getElementById("p_dps_env_co2_cntlr_1");
     p_dps_env.co2_cntlr_2 = device.svg.getElementById("p_dps_env_co2_cntlr_2");
@@ -148,6 +162,11 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.h2o_tk_n2_1.setText(sprintf("%3.0f", 15.8 * n2_sys1));
     	p_dps_env.h2o_tk_n2_2.setText(sprintf("%3.0f", 16.4 * n2_sys2));
 
+	if ((n2_sys1 > 0.0) or (n2_sys2 > 0.0))
+		{p_dps_env.supply_h2o_press.setText("15.7");}
+	else
+		{p_dps_env.supply_h2o_press.setText("0.0L");}
+
 	var nitrogen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av") * airflow_in;
 
 	if ((n2_sys1 == 1) and (n2_sys2 == 1)) {nitrogen_flow = 0.5 * nitrogen_flow;}
@@ -178,11 +197,72 @@ var PFD_addpage_p_dps_env = func(device)
 	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
 	p_dps_env.imu_fan_C.setText(sym);
 
+	var mix_valve1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-oxygen-in-fraction");
+	var mix_valve2 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-oxygen-in-fraction");
+
+	if (mix_valve1 == 0){p_dps_env.o2n2_cntl_vlv1.setText("N2");}
+	else {p_dps_env.o2n2_cntl_vlv1.setText("O2");}
+
+	if (mix_valve2 == 0){p_dps_env.o2n2_cntl_vlv2.setText("N2");}
+	else {p_dps_env.o2n2_cntl_vlv2.setText("O2");}
+
 	# cabin temperature
 
 	var cabin_T =  K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K"));
     	p_dps_env.cabin_t.setText(sprintf("%3.0f", cabin_T));
 
+	# N2 quantity - this is just guesstimated
+
+	var mission_time = getprop("/fdm/jsbsim/systems/timer/delta-MET") + getprop("/sim/time/elapsed-sec");
+	var qty = (1.0 - (mission_time/(86400.0 * 12.0)));
+	if (qty < 0.0) {qty = 0.0;}
+
+    	p_dps_env.n2_qty1.setText(sprintf("%3.0f", 460.0 * qty));
+    	p_dps_env.n2_qty2.setText(sprintf("%3.0f", 457.0 * qty));
+
+	# supply water
+	# we don't have tanks separated, so assume they fill from A to D
+
+	var supply_water_fraction = getprop("/fdm/jsbsim/propulsion/tank[19]/contents-lbs") / 165.0;
+
+	if (supply_water_fraction > 1.0) 
+		{	
+		p_dps_env.supply_h2o_qty_a.setText("100");
+		supply_water_fraction = supply_water_fraction -1.0; 
+		}
+	else
+		{
+		p_dps_env.supply_h2o_qty_a.setText(sprintf("%3.0f", supply_water_fraction * 100.0));
+		supply_water_fraction = 0.0; 
+		}
+
+	if (supply_water_fraction > 1.0) 
+		{	
+		p_dps_env.supply_h2o_qty_b.setText("100");
+		supply_water_fraction = supply_water_fraction -1.0; 
+		}
+	else
+		{
+		p_dps_env.supply_h2o_qty_b.setText(sprintf("%3.0f", supply_water_fraction * 100.0));
+		supply_water_fraction = 0.0; 
+		}
+	if (supply_water_fraction > 1.0) 
+		{	
+		p_dps_env.supply_h2o_qty_c.setText("100");
+		supply_water_fraction = supply_water_fraction -1.0; 
+		}
+	else
+		{
+		p_dps_env.supply_h2o_qty_c.setText(sprintf("%3.0f", supply_water_fraction * 100.0));
+		supply_water_fraction = 0.0; 
+		}
+	
+	p_dps_env.supply_h2o_qty_d.setText(sprintf("%3.0f", supply_water_fraction * 100.0));
+
+	var left_temp = K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/left-temperature-K"));
+    	p_dps_env.supply_dmp_ln_t.setText(sprintf("%3.0f", left_temp + 3.0));
+    	p_dps_env.supply_h2o_noz_t_a.setText(sprintf("%3.0f", left_temp + 5.0));
+   	p_dps_env.supply_h2o_noz_t_b.setText(sprintf("%3.0f", left_temp - 2.0));
 
 
         device.update_common_DPS();
