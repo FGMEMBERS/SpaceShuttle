@@ -389,6 +389,8 @@
 	</channel>
 
 
+
+
 	<channel name="RMS automatic driving to a specified position" execute="systems/rms/rms-active">
 
 
@@ -599,6 +601,48 @@
 
 
 	</channel>
+
+	<!-- we need the reference point vector from effector to wrist for the automatic drive modes -->
+	<!-- we use the values from step n-1 as proxy for step n here instead of predicting it -->
+
+
+
+	<channel name="Reference point vector" execute="systems/rms/rms-active">
+
+		<!-- current vector between effector and wrist -->
+
+		<fcs_function name="systems/rms/ma/current-offset-x">
+		<function>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/wrist-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/current-offset-y">
+		<function>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/wrist-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/current-offset-z">
+		<function>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/wrist-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+		
+		<!-- targets then need to be computed based on desired effector pos -->
+
+
+	</channel>
+
 
 	<channel name="RMS manual augmented ypr driving" execute="systems/rms/rms-active">
 
@@ -832,7 +876,7 @@
 		<!-- knowing the angles of the wrist, we can go back and determine position -->
 		<!-- of the reference point keeping the effector at rest -->
 
-		<fcs_function name="systems/rms/ma/ref-point-ypr-x">
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-x1">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-x-sample-hold</property>
@@ -853,9 +897,37 @@
 				</product>
 			</difference>
 		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-x">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-x-sample-hold</property>
+				<property>systems/rms/ma/current-offset-x</property>
+			</difference>
+		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/rms/ma/ref-point-ypr-y">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-y-sample-hold</property>
+				<property>systems/rms/ma/current-offset-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-z-sample-hold</property>
+				<property>systems/rms/ma/current-offset-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+		
+
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-y1">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-y-sample-hold</property>
@@ -876,9 +948,9 @@
 				</product>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
-		<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-z1">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-z-sample-hold</property>
@@ -886,9 +958,9 @@
 					<value>-1</value>
 					<pow>
 						<sum>
-							<value>2.756</value> <!-- (0.69+0.73)**2+0.86**2) -->
+							<value>2.756</value>
 							<product>
-								<value>2.4424</value> <!-- 2.0 *(0.69+0.73)*0.86 -->
+								<value>2.4424</value> 
 								<cos>
 								<difference>
 								<property>systems/rms/ma/effector-yaw-rad</property>
@@ -903,7 +975,7 @@
 				</product>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 
 		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-z">
@@ -926,6 +998,72 @@
 		</function>
 		</fcs_function>-->
 
+		<!-- effector pitch and yaw degree are targets -->
+		<!-- the actual joint angle targets depend on the 'orbit' we're in -->
+		<!-- need to compute joint targets as local deltas -->
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-ta-rad">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+			<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-ta-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/ypr-orbit-ta-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-inc-rad">
+		<function>
+			<product>
+				<sin>
+					<property>systems/rms/ma/ypr-orbit-ta-rad</property>
+				</sin>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-inc-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-pitch-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+				<property>systems/rms/ma/effector-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-yaw-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/sum-wrist-yaw-deg</property>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<!-- drive angles - need to be fixed for real geometry -->
+
+
 		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
 		<function>
 			<difference>
@@ -943,6 +1081,92 @@
 			</difference>
 		</function>
 		</fcs_function>
+
+		<!--<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg1">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+				<product>
+					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</cos>
+				</product>
+				<product>
+					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</sin>
+				</product>
+				
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-yaw-wrist-ypr-deg1">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+				<product>
+					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
+		<function>
+			<difference>
+				<sum>
+					<product>
+					<property>systems/rms/ma/effector-pitch-deg</property>
+					<cos>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/effector-yaw-deg</property>
+					<sin>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</sin>
+					</product>
+				</sum>
+				<property>systems/rms/sum-ellbow-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+	        <fcs_function name="systems/rms/ma/target-yaw-wrist-ypr-deg">
+		<function>
+			<difference>
+				<sum>
+					<product>
+					<property>systems/rms/ma/effector-yaw-deg</property>
+					<cos>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/effector-pitch-deg</property>
+					<sin>
+						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+					</sin>
+					</product>
+				</sum>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function> -->
 
 	        <fcs_function name="systems/rms/ma/target-roll-wrist-ypr-deg">
 		<function>
@@ -1148,6 +1372,10 @@
 			</sum>
 		</function>
 		</fcs_function>
+
+		
+
+		
 
 		<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
 		<function>
