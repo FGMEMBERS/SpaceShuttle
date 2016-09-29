@@ -331,6 +331,9 @@
 	<fan-A-switch type="int">1</fan-A-switch>
 	<fan-B-switch type="int">0</fan-B-switch>
 	<fan-cooling-transit type="double">1.0</fan-cooling-transit>
+	<imu-fan-A-switch type="int">0</imu-fan-A-switch>
+	<imu-fan-B-switch type="int">1</imu-fan-B-switch>
+	<imu-fan-C-switch type="int">0</imu-fan-C-switch>
      </avbay>
      <avbay n="1">
 	<fan-A-switch type="int">0</fan-A-switch>

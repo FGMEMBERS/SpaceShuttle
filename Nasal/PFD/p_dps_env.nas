@@ -31,17 +31,42 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.o2_regp1 = device.svg.getElementById("p_dps_env_o2_regp1");
     p_dps_env.o2_regp2 = device.svg.getElementById("p_dps_env_o2_regp2");
 
+    p_dps_env.emer_o2_reg_p = device.svg.getElementById("p_dps_env_emer_o2_reg_p");
+    p_dps_env.emer_ppco2 = device.svg.getElementById("p_dps_env_ppco2");
+
+
     p_dps_env.n2_flow1 = device.svg.getElementById("p_dps_env_n2_flow1");
     p_dps_env.n2_flow2 = device.svg.getElementById("p_dps_env_n2_flow2");
 
     p_dps_env.n2_regp1 = device.svg.getElementById("p_dps_env_n2_reg_p1");
     p_dps_env.n2_regp2 = device.svg.getElementById("p_dps_env_n2_reg_p2");
 
+    p_dps_env.h2o_tk_n2_1 = device.svg.getElementById("p_dps_env_h2o_tk_n2_1");
+    p_dps_env.h2o_tk_n2_2 = device.svg.getElementById("p_dps_env_h2o_tk_n2_2");
+
     p_dps_env.ppo2a = device.svg.getElementById("p_dps_env_ppo2a");
     p_dps_env.ppo2b = device.svg.getElementById("p_dps_env_ppo2b");
     p_dps_env.ppo2c = device.svg.getElementById("p_dps_env_ppo2c");
 
     p_dps_env.cabin_press = device.svg.getElementById("p_dps_env_cabin_press");
+    p_dps_env.cabin_t = device.svg.getElementById("p_dps_env_cabin_t");
+    p_dps_env.cabin_hx_out_t = device.svg.getElementById("p_dps_env_cabin_hx_out_t");
+
+
+
+    p_dps_env.co2_cntlr_1 = device.svg.getElementById("p_dps_env_co2_cntlr_1");
+    p_dps_env.co2_cntlr_2 = device.svg.getElementById("p_dps_env_co2_cntlr_2");
+    p_dps_env.co2_filter_dp = device.svg.getElementById("p_dps_env_co2_filter_dp");
+    p_dps_env.co2_ppco2 = device.svg.getElementById("p_dps_env_co2_ppco2");
+    p_dps_env.co2_temp = device.svg.getElementById("p_dps_env_co2_temp");
+    p_dps_env.co2_bedA_press_1 = device.svg.getElementById("p_dps_env_co2_bedA_press_1");
+    p_dps_env.co2_bedA_press_2 = device.svg.getElementById("p_dps_env_co2_bedA_press_2");
+    p_dps_env.co2_bedB_press_1 = device.svg.getElementById("p_dps_env_co2_bedB_press_1");
+    p_dps_env.co2_bedB_press_2 = device.svg.getElementById("p_dps_env_co2_bedB_press_2");
+    p_dps_env.co2_bed_dp_1 = device.svg.getElementById("p_dps_env_co2_bed_dp_1");
+    p_dps_env.co2_bed_dp_2 = device.svg.getElementById("p_dps_env_co2_bed_dp_2");
+    p_dps_env.vac_press = device.svg.getElementById("p_dps_env_vac_press");
+
 
 
     p_dps_env.ondisplay = func
@@ -59,6 +84,21 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.imu_fan_A.setText("");
     	p_dps_env.imu_fan_B.setText("*");
     	p_dps_env.imu_fan_C.setText("");
+
+	# RCRS is not flown on Atlantis
+
+    	p_dps_env.co2_cntlr_1.setText(""); 
+    	p_dps_env.co2_cntlr_2.setText(""); 
+    	p_dps_env.co2_filter_dp.setText("0.00L"); 
+    	p_dps_env.co2_ppco2.setText("0.0L"); 
+    	p_dps_env.co2_temp.setText("32.0L"); 
+    	p_dps_env.co2_bedA_press_1.setText("0.0L"); 
+    	p_dps_env.co2_bedA_press_2.setText("0.0L"); 
+    	p_dps_env.co2_bedB_press_1.setText("0.0L"); 
+    	p_dps_env.co2_bedB_press_2.setText("0.0L"); 
+    	p_dps_env.co2_bed_dp_1.setText("0.00L"); 
+    	p_dps_env.co2_bed_dp_2.setText("0.00L"); 
+    	p_dps_env.vac_press.setText("0.0L"); 
 
 
     }
@@ -92,6 +132,11 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.o2_regp1.setText(sprintf("%3.0f", 101.0 * o2_valve1));
     	p_dps_env.o2_regp2.setText(sprintf("%3.0f", 100.0 * o2_valve2));
 
+	var regp = 103.0;
+	if ((o2_valve1 == 0) and (o2_valve2 == 0)) {regp = 0.0;}
+
+	p_dps_env.emer_o2_reg_p.setText(sprintf("%3.0f", regp) );
+
 	# nitrogen system
 	
 	var n2_sys1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-pressurized");
@@ -99,6 +144,9 @@ var PFD_addpage_p_dps_env = func(device)
 
     	p_dps_env.n2_regp1.setText(sprintf("%3.0f", 203.0 * n2_sys1));
     	p_dps_env.n2_regp2.setText(sprintf("%3.0f", 198.0 * n2_sys2));
+
+    	p_dps_env.h2o_tk_n2_1.setText(sprintf("%3.0f", 15.8 * n2_sys1));
+    	p_dps_env.h2o_tk_n2_2.setText(sprintf("%3.0f", 16.4 * n2_sys2));
 
 	var nitrogen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av") * airflow_in;
 
@@ -114,6 +162,28 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.ppo2c.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
 
 	p_dps_env.cabin_press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
+
+	var co2_pp = getprop("/fdm/jsbsim/systems/eclss/cabin/co2-accumulation") * 15.0 + 0.3;
+	p_dps_env.emer_ppco2.setText(sprintf("%3.1f",co2_pp));
+
+	var sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch") == 0){sym = "";}
+	p_dps_env.imu_fan_A.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch") == 0){sym = "";}
+	p_dps_env.imu_fan_B.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
+	p_dps_env.imu_fan_C.setText(sym);
+
+	# cabin temperature
+
+	var cabin_T =  K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K"));
+    	p_dps_env.cabin_t.setText(sprintf("%3.0f", cabin_T));
+
+
 
         device.update_common_DPS();
     }

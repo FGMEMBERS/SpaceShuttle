@@ -489,6 +489,32 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/eclss/cabin/co2-accumulation-target">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/eclss/cabin/fan-A-operational == 1
+				systems/eclss/cabin/fan-B-operational == 1
+			</test>
+		</switch>
+
+		
+
+ 		<!-- air gets stale within 10 minutes not operating the fan -->
+
+		<kinematic name="systems/eclss/cabin/co2-accumulation">
+			<input>systems/eclss/cabin/co2-accumulation-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>600.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
 
 		<switch name="systems/eclss/cabin/vent-open">
 			<default value="0.0"/>
@@ -683,7 +709,7 @@
 		</function>
 		</fcs_function>
 
- 
+
 
 
 

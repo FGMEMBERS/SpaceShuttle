@@ -177,9 +177,7 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
  	p_dps_sm_sys_summ1.n2flow_1.setText("0.0"); 	
 	p_dps_sm_sys_summ1.n2flow_2.setText("0.0");
 
-	p_dps_sm_sys_summ1.imu_A.setText("");
-	p_dps_sm_sys_summ1.imu_B.setText("");
-	p_dps_sm_sys_summ1.imu_C.setText("");
+
     }
     
     p_dps_sm_sys_summ1.update = func
@@ -383,6 +381,22 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 	p_dps_sm_sys_summ1.o2_conc.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/oxygen-fraction") * 100.0));
 
 	p_dps_sm_sys_summ1.press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
+
+	# IMU fans
+
+	var sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_A.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_B.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_C.setText(sym);
+
+
 
         device.update_common_DPS();
     }
