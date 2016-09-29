@@ -158,6 +158,16 @@
 			</test>
 		</switch>
 
+		<switch name="systems/cws/avbay-cabin-air">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/cabin/co2-accumulation-target == 1
+				systems/eclss/avbay/temperature-K GT 328
+				systems/eclss/avbay[1]/temperature-K GT 328
+				systems/eclss/avbay[2]/temperature-K GT 328
+			</test>
+		</switch>
+
 		<switch name="systems/cws/backup-cw">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">

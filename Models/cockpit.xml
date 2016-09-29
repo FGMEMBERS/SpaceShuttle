@@ -4538,6 +4538,19 @@
         </condition>
     </animation>
 
+    <!-- av bay cabin air "CW Yellow Light -->
+
+    <animation>
+        <type>select</type>
+        <object-name>cw-light-av-bay-cabin-air</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/cws/avbay-cabin-air</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Main Bus Undervolt  "Lights" -->
     <animation>
         <type>select</type>
@@ -4546,7 +4559,7 @@
         <object-name>cw-light-o2heater-temp</object-name>
         <object-name>cw-light-ac-overload</object-name>
         <!--<object-name>cw-light-freon-loop</object-name>-->
-        <object-name>cw-light-av-bay-cabin-air</object-name>
+        <!--<object-name>cw-light-av-bay-cabin-air</object-name>-->
         <object-name>cw-light-imu</object-name>
         <object-name>cw-light-rcs-jet</object-name>
         <!--<object-name>cw-light-h20-loop</object-name>-->
