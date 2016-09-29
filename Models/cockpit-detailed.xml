@@ -20,15 +20,10 @@
 
     <!-- implicit lighting -->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-detailed</inherits-from>
-        <!-- cabin -->
-        <object-name>aft_equipment_group</object-name>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-panel-center</inherits-from>
         <!-- Panels -->
-        <object-name>O1-panel</object-name>
         <object-name>O2-panel</object-name>
-        <object-name>O3-panel</object-name>
-        <object-name>O5-panel</object-name>
-        <object-name>O6-panel</object-name>
+        <object-name>O15-panel</object-name>
         <!-- Panels O7-->
         <object-name>O7-panel</object-name>
         <object-name>O7-fasteners</object-name>
@@ -74,14 +69,29 @@
         <object-name>right-man-isol-cvr</object-name>
         <object-name>right-tank-isol-fuel-cvr</object-name>
         <object-name>right-tank-isol-oxid-cvr</object-name>
-        <!-- Panels O8-->
-        <object-name>O8-panel</object-name>
-        <object-name>O9-panel</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-left</inherits-from>
+        <!-- Panels -->
+        <object-name>O1-panel</object-name>
+        <object-name>O5-panel</object-name>
+        <object-name>O6-panel</object-name>
         <object-name>O13-panel</object-name>
         <object-name>O14-panel</object-name>
-        <object-name>O15-panel</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-right</inherits-from>
+        <!-- Panels -->
+        <object-name>O3-panel</object-name>
+        <object-name>O8-panel</object-name>
+        <object-name>O9-panel</object-name>
         <object-name>O16-panel</object-name>
         <object-name>O17-panel</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-aft-panel-center</inherits-from>
+        <!-- cabin -->
+        <object-name>aft_equipment_group</object-name>
         <!-- misc -->
         <object-name>egress-system</object-name>
     </effect>
