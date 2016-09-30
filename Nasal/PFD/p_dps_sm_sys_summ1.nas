@@ -167,15 +167,6 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
     	p_dps_sm_sys_summ1.avbay3_2.setText("0.0");
 
 	p_dps_sm_sys_summ1.eq.setText("+.00");
- 	p_dps_sm_sys_summ1.dPdt.setText("+.000");
-
-
-	p_dps_sm_sys_summ1.fan_dp.setText("5.0");
-
- 	p_dps_sm_sys_summ1.hx_out_T.setText("46");
-
- 	p_dps_sm_sys_summ1.n2flow_1.setText("0.0"); 	
-	p_dps_sm_sys_summ1.n2flow_2.setText("0.0");
 
 
     }
@@ -382,6 +373,11 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 
 	p_dps_sm_sys_summ1.press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
 
+	# pressure change
+
+ 	p_dps_sm_sys_summ1.dPdt.setText(sprintf("%+4.3f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-change-psi_s") * 60.0));
+
+
 	# IMU fans
 
 	var sym = "*";
@@ -395,6 +391,24 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 	sym = "*";
 	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
 	p_dps_sm_sys_summ1.imu_C.setText(sym);
+
+	# cabin fan dp
+
+	var fan_A = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-A-operational");
+	var fan_B = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-B-operational");
+
+	var cabin_dp = fan_A + fan_B;
+	
+	if (cabin_dp > 1.0) {cabin_dp =6.61;}
+	else if (cabin_dp > 0.0) {cabin_dp = 5.54;}
+	else {cabin_dp = 0.0;}
+	
+	p_dps_sm_sys_summ1.fan_dp.setText(sprintf("%3.2f", cabin_dp));
+
+	# heat exchanger T
+	
+	var cabin_T =  K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K"));
+	p_dps_sm_sys_summ1.hx_out_T.setText(sprintf("%3.0f", cabin_T + 30.0));
 
 
 
