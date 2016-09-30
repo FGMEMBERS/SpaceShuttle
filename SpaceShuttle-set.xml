@@ -362,6 +362,8 @@
      <cabin>
 	<fan-A-switch type="int">1</fan-A-switch>
 	<fan-B-switch type="int">0</fan-B-switch>
+	<humidity-sep-A-switch type="int">1</humidity-sep-A-switch>
+	<humidity-sep-B-switch type="int">0</humidity-sep-B-switch>
 	<vent-isolation-valve type="int">0</vent-isolation-valve>
 	<vent-valve type="int">0</vent-valve>
 	<loss-rate-lb_h type="double">0.85</loss-rate-lb_h>

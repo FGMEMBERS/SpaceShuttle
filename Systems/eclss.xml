@@ -710,7 +710,13 @@
 		</fcs_function>
 
 
-
+		<pid name="systems/eclss/cabin/air-pressure-change">
+			<input>systems/eclss/cabin/air-pressure-psi</input>
+			<kp> 0.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.0</kd>
+			<output>systems/eclss/cabin/air-pressure-change-psi_s</output>
+  		</pid>
 
 
 	</channel>

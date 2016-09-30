@@ -25,6 +25,10 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.imu_fan_B = device.svg.getElementById("p_dps_env_imu_fan_B");
     p_dps_env.imu_fan_C = device.svg.getElementById("p_dps_env_imu_fan_C");
 
+    p_dps_env.imu_fan_dP = device.svg.getElementById("p_dps_env_imu_fan_dP");
+    p_dps_env.cabin_fan_dp = device.svg.getElementById("p_dps_env_cabin_fan_dp");
+
+
     p_dps_env.o2_flow1 = device.svg.getElementById("p_dps_env_o2_flow1");
     p_dps_env.o2_flow2 = device.svg.getElementById("p_dps_env_o2_flow2");
 
@@ -55,6 +59,10 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.ppo2c = device.svg.getElementById("p_dps_env_ppo2c");
 
     p_dps_env.cabin_press = device.svg.getElementById("p_dps_env_cabin_press");
+    p_dps_env.cabin_airlk_p = device.svg.getElementById("p_dps_env_cabin_airlk_p");
+    p_dps_env.cabin_dpdT = device.svg.getElementById("p_dps_env_cabin_dpdT");
+
+
     p_dps_env.cabin_t = device.svg.getElementById("p_dps_env_cabin_t");
     p_dps_env.cabin_hx_out_t = device.svg.getElementById("p_dps_env_cabin_hx_out_t");
 
@@ -67,6 +75,16 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.supply_dmp_ln_t = device.svg.getElementById("p_dps_env_supply_h2o_dmp_ln_t");
     p_dps_env.supply_h2o_noz_t_a = device.svg.getElementById("p_dps_env_supply_h2o_noz_t_a");
     p_dps_env.supply_h2o_noz_t_b = device.svg.getElementById("p_dps_env_supply_h2o_noz_t_b");
+
+    p_dps_env.waste_h2o_qty = device.svg.getElementById("p_dps_env_waste_h2o_qty");
+    p_dps_env.waste_h2o_press = device.svg.getElementById("p_dps_env_waste_h2o_press");
+    p_dps_env.waste_h2o_dmp_ln_t = device.svg.getElementById("p_dps_env_waste_h2o_dmp_ln_t");
+    p_dps_env.waste_h2o_noz_t_A = device.svg.getElementById("p_dps_env_waste_h2o_noz_t_A");
+    p_dps_env.waste_h2o_noz_t_B = device.svg.getElementById("p_dps_env_waste_h2o_noz_t_B");
+    p_dps_env.waste_h2o_vac_vt_noz_t = device.svg.getElementById("p_dps_env_waste_h2o_vac_vt_noz_t");
+
+    p_dps_env.humid_sep_A = device.svg.getElementById("p_dps_env_humid_sep_A");
+    p_dps_env.humid_sep_B = device.svg.getElementById("p_dps_env_humid_sep_B");
 
     p_dps_env.co2_cntlr_1 = device.svg.getElementById("p_dps_env_co2_cntlr_1");
     p_dps_env.co2_cntlr_2 = device.svg.getElementById("p_dps_env_co2_cntlr_2");
@@ -95,9 +113,8 @@ var PFD_addpage_p_dps_env = func(device)
 
 	# defaults for items that aren't yet implemented
 
-    	p_dps_env.imu_fan_A.setText("");
-    	p_dps_env.imu_fan_B.setText("*");
-    	p_dps_env.imu_fan_C.setText("");
+	p_dps_env.waste_h2o_qty.setText("15");
+
 
 	# RCRS is not flown on Atlantis
 
@@ -120,9 +137,9 @@ var PFD_addpage_p_dps_env = func(device)
     p_dps_env.update = func
     {
     
-       	p_dps_env.avbay_temp1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")-2.0))); 
-    	p_dps_env.avbay_temp2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")))); 
-    	p_dps_env.avbay_temp3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")+1.0))); 
+       	p_dps_env.avbay_temp1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/eclss/avbay/temperature-K")-2.0))); 
+    	p_dps_env.avbay_temp2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/eclss/avbay[1]/temperature-K")))); 
+    	p_dps_env.avbay_temp3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/eclss/avbay[2]/temperature-K")+1.0))); 
     
 
     	p_dps_env.avbay_fan_dp1.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay/fan-cooling-effect") * 3.80)); 
@@ -163,9 +180,15 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.h2o_tk_n2_2.setText(sprintf("%3.0f", 16.4 * n2_sys2));
 
 	if ((n2_sys1 > 0.0) or (n2_sys2 > 0.0))
-		{p_dps_env.supply_h2o_press.setText("15.7");}
+		{
+		p_dps_env.supply_h2o_press.setText("15.7");
+		p_dps_env.waste_h2o_press.setText("15.6");
+		}
 	else
-		{p_dps_env.supply_h2o_press.setText("0.0L");}
+		{
+		p_dps_env.supply_h2o_press.setText("0.0L");
+		p_dps_env.waste_h2o_press.setText("0.0L");
+		}
 
 	var nitrogen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av") * airflow_in;
 
@@ -180,22 +203,50 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.ppo2b.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")+0.1));
     	p_dps_env.ppo2c.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
 
-	p_dps_env.cabin_press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
+	var cabin_p = getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi");
+
+	p_dps_env.cabin_press.setText(sprintf("%2.1f", cabin_p));
+	p_dps_env.cabin_airlk_p.setText(sprintf("%2.1f", cabin_p));
+
+	var fan_A = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-A-operational");
+	var fan_B = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-B-operational");
+
+	var cabin_dp = fan_A + fan_B;
+	
+	if (cabin_dp > 1.0) {cabin_dp =6.61;}
+	else if (cabin_dp > 0.0) {cabin_dp = 5.54;}
+	else {cabin_dp = 0.0;}
+	
+	p_dps_env.cabin_fan_dp.setText(sprintf("%3.2f", cabin_dp));
 
 	var co2_pp = getprop("/fdm/jsbsim/systems/eclss/cabin/co2-accumulation") * 15.0 + 0.3;
 	p_dps_env.emer_ppco2.setText(sprintf("%3.1f",co2_pp));
 
+	# IMU fans
+
+	var imu_A = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch");
 	var sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch") == 0){sym = "";}
+	if (imu_A == 0){sym = "";}
 	p_dps_env.imu_fan_A.setText(sym);
 
+	var imu_B = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch");
 	sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch") == 0){sym = "";}
+	if (imu_B == 0){sym = "";}
 	p_dps_env.imu_fan_B.setText(sym);
 
+	var imu_C = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch");
 	sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
+	if (imu_C == 0){sym = "";}
 	p_dps_env.imu_fan_C.setText(sym);
+
+	var imu_dp = imu_A + imu_B + imu_C;
+
+	if (imu_dp > 2.0) {imu_dp = 6.5;}
+	else if (imu_dp > 1.0) {imu_dp = 5.3;}
+	else if (imu_dp >0.0) {imu_dp = 4.5;}
+	else imu_dp = 0;
+
+	p_dps_env.imu_fan_dP.setText(sprintf("%2.1f", imu_dp));
 
 	var mix_valve1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-oxygen-in-fraction");
 	var mix_valve2 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-oxygen-in-fraction");
@@ -206,10 +257,15 @@ var PFD_addpage_p_dps_env = func(device)
 	if (mix_valve2 == 0){p_dps_env.o2n2_cntl_vlv2.setText("N2");}
 	else {p_dps_env.o2n2_cntl_vlv2.setText("O2");}
 
+	# pressure change
+
+	p_dps_env.cabin_dpdT.setText(sprintf("%+4.3f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-change-psi_s") * 60.0));
+
 	# cabin temperature
 
 	var cabin_T =  K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K"));
     	p_dps_env.cabin_t.setText(sprintf("%3.0f", cabin_T));
+	p_dps_env.cabin_hx_out_t.setText(sprintf("%3.0f", cabin_T + 30.0));
 
 	# N2 quantity - this is just guesstimated
 
@@ -263,6 +319,22 @@ var PFD_addpage_p_dps_env = func(device)
     	p_dps_env.supply_dmp_ln_t.setText(sprintf("%3.0f", left_temp + 3.0));
     	p_dps_env.supply_h2o_noz_t_a.setText(sprintf("%3.0f", left_temp + 5.0));
    	p_dps_env.supply_h2o_noz_t_b.setText(sprintf("%3.0f", left_temp - 2.0));
+
+
+    	p_dps_env.waste_h2o_dmp_ln_t.setText(sprintf("%3.0f", left_temp + 2.0));
+    	p_dps_env.waste_h2o_noz_t_A.setText(sprintf("%3.0f", left_temp - 3.0));
+    	p_dps_env.waste_h2o_noz_t_B.setText(sprintf("%3.0f", left_temp + 1.0)); 
+    	p_dps_env.waste_h2o_vac_vt_noz_t.setText(sprintf("%3.0f", left_temp + 4.0));
+	
+	if (getprop("/fdm/jsbsim/systems/eclss/cabin/humidity-sep-A-switch") == 0)
+    		{p_dps_env.humid_sep_A.setText("");}
+	else
+		{p_dps_env.humid_sep_A.setText("*");}
+
+	if (getprop("/fdm/jsbsim/systems/eclss/cabin/humidity-sep-B-switch") == 0)
+    		{p_dps_env.humid_sep_B.setText("");}
+	else
+		{p_dps_env.humid_sep_B.setText("*");}
 
 
         device.update_common_DPS();
