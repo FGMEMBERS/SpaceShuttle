@@ -640,6 +640,52 @@
 		
 		<!-- targets then need to be computed based on desired effector pos -->
 
+		<!-- for this we need to make the 'orbit' of the wrist yaw joint available -->
+
+
+		<fcs_function name="systems/rms/ma/orbit-ta-rad">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+			<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-ta-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/orbit-ta-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-inc-rad">
+		<function>
+			<product>
+				<sin>
+					<property>systems/rms/ma/orbit-ta-rad</property>
+				</sin>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-inc-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/orbit-inc-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
 
 	</channel>
 
@@ -652,7 +698,7 @@
 		<fcs_function name="systems/rms/ma/ref-pitch-subtracted">
 		<function>
 			<difference>
-				<property>systems/rms/sum-wrist-pitch-deg</property>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
 				<property>systems/rms/ma/drive-pitch</property>
 			</difference>
 		</function>
@@ -1002,7 +1048,7 @@
 		<!-- the actual joint angle targets depend on the 'orbit' we're in -->
 		<!-- need to compute joint targets as local deltas -->
 
-		<fcs_function name="systems/rms/ma/ypr-orbit-ta-rad">
+		<!--<fcs_function name="systems/rms/ma/ypr-orbit-ta-rad">
 		<function>	
 			<product>
 			<difference>
@@ -1041,7 +1087,7 @@
 			<value>57.29</value>
 			</product>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 		<fcs_function name="systems/rms/ma/ypr-pitch-delta-deg">
 		<function>
@@ -1050,7 +1096,7 @@
 				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 		<fcs_function name="systems/rms/ma/ypr-yaw-delta-deg">
 		<function>
@@ -1069,13 +1115,13 @@
 				<product>
 					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
 					<cos>
-						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+						<property>systems/rms/ma/orbit-inc-rad</property>
 					</cos>
 				</product>
 				<product>
 					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
 					<sin>
-						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+						<property>systems/rms/ma/orbit-inc-rad</property>
 					</sin>
 				</product>
 				
@@ -1090,13 +1136,13 @@
 				<product>
 					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
 					<cos>
-						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+						<property>systems/rms/ma/orbit-inc-rad</property>
 					</cos>
 					</product>
 					<product>
 					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
 					<sin>
-						<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+						<property>systems/rms/ma/orbit-inc-rad</property>
 					</sin>
 				</product>
 			</sum>
@@ -1150,6 +1196,33 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rms/ma/ref-eff-x-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/ma/drive-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-eff-y-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/ma/drive-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-eff-z-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/ma/drive-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/reference-point-x-sample-hold">
 			<default value="systems/rms/ma/ref-x-subtracted"/>
 			<test logic="OR" value="systems/rms/ma/reference-point-x-sample-hold">
@@ -1174,9 +1247,33 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rms/ma/reference-eff-x-sample-hold">
+			<default value="systems/rms/ma/ref-eff-x-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-x-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-eff-y-sample-hold">
+			<default value="systems/rms/ma/ref-eff-y-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-y-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-eff-z-sample-hold">
+			<default value="systems/rms/ma/ref-eff-z-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-z-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
 
 		<switch name="systems/rms/ma/effector-pitch-target-sample-hold">
-			<default value="systems/rms/sum-wrist-pitch-deg"/>
+			<default value="systems/rms/sum-wrist-yaw-pitch-deg"/>
 			<test logic="OR" value="systems/rms/ma/effector-pitch-target-sample-hold">
 				systems/rms/drive-selection-mode == 2
 				systems/rms/drive-selection-mode == 4
@@ -1284,10 +1381,57 @@
 		<output>systems/rms/ma/z-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/eff-delta-x">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-x-sample-hold</property>
+					<property>systems/rms/ma/drive-x</property>
+				</sum>
+				<property>systems/rms/effector-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/eff-delta-y">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-y-sample-hold</property>
+					<property>systems/rms/ma/drive-y</property>
+				</sum>
+				<property>systems/rms/effector-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/eff-delta-z">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-z-sample-hold</property>
+					<property>systems/rms/ma/drive-z</property>
+				</sum>
+				<property>systems/rms/effector-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/aa-diagnostics-eff-tgt-x">
+		<function>
+				<sum>
+					<property>systems/rms/ma/reference-eff-x-sample-hold</property>
+					<property>systems/rms/ma/drive-x</property>
+				</sum>
+		</function>
+		</fcs_function>
+
+
 		<fcs_function name="systems/rms/ma/ref-point-xyz-x">
 		<function>
 			<sum>
 				<property>systems/rms/ma/drive-x</property>
+				<property>systems/rms/ma/eff-delta-x</property>
 				<property>systems/rms/ma/reference-point-x-sample-hold</property>
 			</sum>
 		</function>
@@ -1297,6 +1441,7 @@
 		<function>
 			<sum>
 				<property>systems/rms/ma/drive-y</property>
+				<property>systems/rms/ma/eff-delta-y</property>
 				<property>systems/rms/ma/reference-point-y-sample-hold</property>
 			</sum>
 		</function>
@@ -1306,16 +1451,75 @@
 		<function>
 			<sum>
 				<property>systems/rms/ma/reference-point-z-sample-hold</property>
+				<property>systems/rms/ma/eff-delta-z</property>
 				<property>systems/rms/ma/drive-z</property>
 			</sum>
 		</function>
 		</fcs_function>
 
-		
+	
 
-		
+
+		<fcs_function name="systems/rms/ma/xyz-pitch-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-pitch-target-sample-hold</property>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/xyz-yaw-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-target-sample-hold</property>
+				<property>systems/rms/sum-wrist-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
 
 		<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+				<product>
+					<property>systems/rms/ma/xyz-pitch-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+				</product>
+				<product>
+					<property>systems/rms/ma/xyz-yaw-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+				
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-yaw-wrist-xyz-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+				<product>
+					<property>systems/rms/ma/xyz-yaw-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/xyz-pitch-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-pitch-target-sample-hold</property>
@@ -1334,7 +1538,7 @@
 				<property>systems/rms/ma/target-yaw-shoulder-deg</property>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 	        <fcs_function name="systems/rms/ma/target-roll-wrist-xyz-deg">
 		<function>

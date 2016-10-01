@@ -1217,6 +1217,7 @@
       <payload-ready-to-latch type="double">1.0</payload-ready-to-latch>
       <sum-wrist-pitch-deg type="double">0.0</sum-wrist-pitch-deg>
       <sum-wrist-yaw-deg type="double">0.0</sum-wrist-yaw-deg>
+      <sum-wrist-yaw-pitch-deg type="double">0.0</sum-wrist-yaw-pitch-deg>
       <rms-drivable type="double">1.0</rms-drivable>
       <wrist-x type="double">0.0</wrist-x>
       <wrist-y type="double">0.0</wrist-y>
