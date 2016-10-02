@@ -264,9 +264,14 @@ var pdrs_auto_seq_manager = {
 
 	start_sequence: func (slot) {
 
-		me.current_sequence_index = me.sequence_slot_array[slot];
+		me.current_sequence_index = me.sequence_slot_array[slot]-1;
 
-		if (me.current_sequence_index == -1) {return;}
+		if (me.current_sequence_index < 0) {return;}
+		if (me.current_sequence_index > size(me.auto_sequence_array)-1)
+			{
+			print ("PDRS: No i-loaded auto sequence of that number available");
+			return;
+			}
 		
 
 		me.current_sequence = me.auto_sequence_array[me.current_sequence_index];
@@ -287,6 +292,9 @@ var pdrs_auto_seq_manager = {
 		# init management loop
 
 		me.auto_seq_loop_flag = 1;
+		setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 5);
+		settimer(func me.auto_sequence_loop(), 0.2);
+
 		
 	},
 
@@ -334,9 +342,11 @@ var pdrs_auto_seq_manager = {
 			print("PDRS: Commanded point reached");	
 
 			me.current_index = me.current_index + 1;
+			#print("Index is now: ",me.current_index, " size: ", me.current_sequence_size);
 
-			if (me.current_index < me.current_sequence_size -1)
+			if (me.current_index < me.current_sequence_size)
 				{
+				print ("PDRS: Pushing target point ", me.current_index);
 				var point = me.current_sequence[me.current_index];
 				me.sequence_target_point(point);
 				}
@@ -384,7 +394,20 @@ p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 30.0, 0.0, 0.0, 0.0);
 append(a, p);
 
 pdrs_auto_seq_manager.append_sequence_array(a);
-pdrs_auto_seq_manager.assign_slot(0,0);
+
+var b = [];
+p = pdrs_auto_seq_point.new(13.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+append(b, p);
+
+p = pdrs_auto_seq_point.new(12.0, 1.5, 1.0, 30.0, 0.0, 0.0, 0.0);
+append(b, p);
+
+p = pdrs_auto_seq_point.new(12.0, 2.0, 1.0, 30.0, 0.0, 0.0, 0.0);
+append(b, p);
+
+pdrs_auto_seq_manager.append_sequence_array(b);
+
+#pdrs_auto_seq_manager.assign_slot(0,0);
 }
 
 add_test_seq();

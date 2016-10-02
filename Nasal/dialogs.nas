@@ -716,12 +716,18 @@ var update_rms_drive_selection = func {
 var drive_string = getprop("/fdm/jsbsim/systems/rms/drive-selection-string");
 
 var par = 0;
+var seq_slot = 0;
 
 if (drive_string == "SINGLE") {par = 1;}
 else if (drive_string == "DIRECT") {par = 1;}
 else if (drive_string == "ORB UNL X/Y/Z") {par = 2;}
 else if (drive_string == "ORB UNL P/Y/R") {par = 3;}
 else if (drive_string == "AUTO OPR CMD") {par = 4;}
+else if (drive_string == "AUTO 1") {par = 5; seq_slot = 0;}
+else if (drive_string == "AUTO 2") {par = 5; seq_slot = 1;}
+else if (drive_string == "AUTO 3") {par = 5; seq_slot = 2;}
+else if (drive_string == "AUTO 4") {par = 5; seq_slot = 3;}
+
 
 #print ("Drive selection is now: ", par);
 
@@ -732,6 +738,12 @@ if (par == 4)
 	SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_goto_point();
 	return;
 	}
+else if (par == 5)
+	{
+	SpaceShuttle.pdrs_auto_seq_manager.start_sequence(seq_slot);
+	return;
+	}
+
 
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
 
@@ -744,12 +756,29 @@ var update_rms_drive_selection_by_par = func (par) {
 
 var drive_string = "";
 var drive_mode = 0;
+var seq_slot = 0;
 
 if (par == 0) {drive_string = "SINGLE"; drive_mode = 1;}
 else if (par == 1) {drive_string = "DIRECT"; drive_mode = 1;}
 else if (par == 2) {drive_string = "ORB UNL X/Y/Z";  drive_mode = 2;}
 else if (par == 3) {drive_string = "ORB UNL P/Y/R"; drive_mode = 3;}
 else if (par == 4) {drive_string = "AUTO OPR CMD"; drive_mode = 4;}
+else if (par == 5) {drive_string = "AUTO 1"; drive_mode = 5;  seq_slot = 0;}
+else if (par == 6) {drive_string = "AUTO 2"; drive_mode = 5;  seq_slot = 1;}
+else if (par == 7) {drive_string = "AUTO 3"; drive_mode = 5;  seq_slot = 2;}
+else if (par == 8) {drive_string = "AUTO 4"; drive_mode = 5;  seq_slot = 3;}
+
+
+if (drive_mode == 4)
+	{
+	SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_goto_point();
+	return;
+	}
+else if (drive_mode == 5)
+	{
+	SpaceShuttle.pdrs_auto_seq_manager.start_sequence(seq_slot);
+	return;
+	}
 
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", drive_mode);
 setprop("/fdm/jsbsim/systems/rms/drive-selection-string", drive_string);

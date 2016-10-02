@@ -3803,6 +3803,38 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			valid_flag = 1;
 			}
+		else if (item == 8)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 5);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 6);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 7);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 8);
+				}
+			valid_flag = 1;
+			}
 		else if (item == 13)
 			{
 			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
