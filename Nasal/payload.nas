@@ -129,9 +129,14 @@ else if (payload_string == "SPARTAN-201")
 
 var check_rms_reach_limit = func {
 
-	var tgt_x = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x");
-	var tgt_y = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y");
-	var tgt_z = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z");
+
+	#var tgt_x = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x");
+	#var tgt_y = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y");
+	#var tgt_z = getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z");
+
+	var tgt_x = pdrs_auto_seq_manager.opr_cmd_tgt[0];
+	var tgt_y = pdrs_auto_seq_manager.opr_cmd_tgt[1];
+	var tgt_z = pdrs_auto_seq_manager.opr_cmd_tgt[2];
 
 	var length = math.sqrt(tgt_x * tgt_x + tgt_y * tgt_y + tgt_z * tgt_z);
 
@@ -168,7 +173,12 @@ var pdrs_auto_seq_manager = {
 
 	n_auto_sequences: 0,
 	auto_sequence_array: [],
-	sequence_slot_array: [0, 0, 0, 0],
+	sequence_slot_array: [-1, -1, -1, -1],
+
+	opr_cmd_loop_flag: 0,
+	opr_cmd_tgt: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+
+	auto_seq_loop_flag: 0,
 
 	current_index: -1,
 
@@ -184,6 +194,178 @@ var pdrs_auto_seq_manager = {
 
 	},
 
+	# operator commanded routine to go to the target point defined on SPEC 94
+
+	opr_cmd_goto_point: func {
+
+		# set target
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", me.opr_cmd_tgt[0]);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y", me.opr_cmd_tgt[1]);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z", me.opr_cmd_tgt[2]);
+
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-p", me.opr_cmd_tgt[3]);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-y", me.opr_cmd_tgt[4]);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-r", me.opr_cmd_tgt[5]);
+
+		# first adjust angle
+
+		setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 5);
+		
+		# init management loop
+
+		me.opr_cmd_loop_flag = 1;
+		settimer(func me.opr_cmd_loop(), 0.2);
+	},
+
+
+	opr_cmd_loop : func {
+	
+		if (me.opr_cmd_loop_flag == 0) {return;}
+
+		var att_reached = getprop("/fdm/jsbsim/systems/rms/software/effector-att-reached-flag");
+		var pos_reached = getprop("/fdm/jsbsim/systems/rms/software/effector-pos-reached-flag");
+
+		# acquire position once attitude is done
+
+		if ((att_reached == 1) and (pos_reached == 0)) 
+			{	
+
+			if (getprop("/fdm/jsbsim/systems/rms/drive-selection-mode") == 5)
+				{
+				print("PDRS: Attitude acquired, moving into position");	
+				setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 4);
+				}
+			}
+
+		# correct attitude drift if we are in position
+
+		if ((att_reached == 0) and (pos_reached == 1)) 
+			{	
+			if (getprop("/fdm/jsbsim/systems/rms/drive-selection-mode") == 4)
+				{
+				print("PDRS: Position acquired, correcting attitude");		
+				setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 5);
+				}
+			}
+
+		if ((att_reached == 1) and (pos_reached == 1))
+			{
+			print("PDRS: Operator commanded point reached");	
+			me.opr_cmd_loop_flag = 0;
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 0);
+			return;
+			}
+
+		settimer( func me.opr_cmd_loop (), 1.0);
+	},
+
+
+	# auto sequence of multiple points
+
+	start_sequence: func (slot) {
+
+		me.current_sequence_index = me.sequence_slot_array[slot];
+
+		if (me.current_sequence_index == -1) {return;}
+		
+
+		me.current_sequence = me.auto_sequence_array[me.current_sequence_index];
+		me.current_sequence_size = size(me.current_sequence);
+
+		if (me.current_sequence_size == 0) {return;}
+
+		me.current_index = 0;
+
+		print("PDRS: Auto sequence ", me.current_sequence_index, " with ", me.current_sequence_size, " points loaded.");
+
+		# push first point
+
+		var point = me.current_sequence[me.current_index];
+		me.sequence_target_point(point);	
+
+
+		# init management loop
+
+		me.auto_seq_loop_flag = 1;
+		
+	},
+
+	auto_sequence_loop: func {
+
+		if (me.auto_seq_loop_flag == 0) {return;}
+
+
+		if (me.current_index > me.current_sequence_size - 1) 
+			{
+			me.auto_seq_loop_flag = 0;
+			print ("PDRS: Auto sequence finished");
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 0);
+			return;
+			} 
+
+		var att_reached = getprop("/fdm/jsbsim/systems/rms/software/effector-att-reached-flag");
+		var pos_reached = getprop("/fdm/jsbsim/systems/rms/software/effector-pos-reached-flag");
+
+		# acquire position once attitude is done
+
+		if ((att_reached == 1) and (pos_reached == 0)) 
+			{	
+
+			if (getprop("/fdm/jsbsim/systems/rms/drive-selection-mode") == 5)
+				{
+				print("PDRS: Attitude acquired, moving into position");	
+				setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 4);
+				}
+			}
+
+		# correct attitude drift if we are in position
+
+		if ((att_reached == 0) and (pos_reached == 1)) 
+			{	
+			if (getprop("/fdm/jsbsim/systems/rms/drive-selection-mode") == 4)
+				{
+				print("PDRS: Position acquired, correcting attitude");		
+				setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 5);
+				}
+			}
+
+		if ((att_reached == 1) and (pos_reached == 1))
+			{
+			print("PDRS: Commanded point reached");	
+
+			me.current_index = me.current_index + 1;
+
+			if (me.current_index < me.current_sequence_size -1)
+				{
+				var point = me.current_sequence[me.current_index];
+				me.sequence_target_point(point);
+				}
+			
+			}
+
+
+		settimer( func me.auto_sequence_loop (), 1.0);
+	},
+
+	
+	sequence_target_point: func (point) {
+
+		# set target
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", point.x);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y", point.y);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z", point.z);
+
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-p", point.pitch);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-y", point.yaw);
+		setprop("/fdm/jsbsim/systems/rms/software/tgt-att-r", point.roll);
+
+		# first adjust angle
+
+		setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 5);
+		
+
+
+	},
 
 };
 
@@ -202,6 +384,7 @@ p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 30.0, 0.0, 0.0, 0.0);
 append(a, p);
 
 pdrs_auto_seq_manager.append_sequence_array(a);
+pdrs_auto_seq_manager.assign_slot(0,0);
 }
 
 add_test_seq();

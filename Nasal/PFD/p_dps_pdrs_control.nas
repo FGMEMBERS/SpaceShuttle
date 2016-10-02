@@ -178,14 +178,23 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 		{
 		p_dps_pdrs_control.auto_brake_ck.setText("");
 		}
-	
-	p_dps_pdrs_control.endpos_x.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x")));
-	p_dps_pdrs_control.endpos_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y")));
-	p_dps_pdrs_control.endpos_z.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z")));
 
-	p_dps_pdrs_control.endatt_p.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-p")));
-	p_dps_pdrs_control.endatt_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-y")));
-	p_dps_pdrs_control.endatt_r.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-r")));
+
+	#p_dps_pdrs_control.endpos_x.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x")));
+	#p_dps_pdrs_control.endpos_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y")));
+	#p_dps_pdrs_control.endpos_z.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z")));
+
+	#p_dps_pdrs_control.endatt_p.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-p")));
+	#p_dps_pdrs_control.endatt_y.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-y")));
+	#p_dps_pdrs_control.endatt_r.setText(sprintf("%3.2f",getprop("/fdm/jsbsim/systems/rms/software/tgt-att-r")));
+
+	p_dps_pdrs_control.endpos_x.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[0]));
+	p_dps_pdrs_control.endpos_y.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[1]));
+	p_dps_pdrs_control.endpos_z.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[2]));
+
+	p_dps_pdrs_control.endatt_p.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[3]));
+	p_dps_pdrs_control.endatt_y.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[4]));
+	p_dps_pdrs_control.endatt_r.setText(sprintf("%3.2f",SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[5]));
 
 	p_dps_pdrs_control.pl_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-id")));
 	p_dps_pdrs_control.pl_init_id.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rms/software/pl-init-id")));

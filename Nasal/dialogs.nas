@@ -725,6 +725,14 @@ else if (drive_string == "AUTO OPR CMD") {par = 4;}
 
 #print ("Drive selection is now: ", par);
 
+# switch over to the auto mode manager when needed
+
+if (par == 4)
+	{
+	SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_goto_point();
+	return;
+	}
+
 setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", par);
 
 }
