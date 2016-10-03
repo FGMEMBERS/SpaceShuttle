@@ -771,11 +771,13 @@ else if (par == 8) {drive_string = "AUTO 4"; drive_mode = 5;  seq_slot = 3;}
 
 if (drive_mode == 4)
 	{
+	setprop("/fdm/jsbsim/systems/rms/drive-selection-string", drive_string);
 	SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_goto_point();
 	return;
 	}
 else if (drive_mode == 5)
 	{
+	setprop("/fdm/jsbsim/systems/rms/drive-selection-string", drive_string);
 	SpaceShuttle.pdrs_auto_seq_manager.start_sequence(seq_slot);
 	return;
 	}

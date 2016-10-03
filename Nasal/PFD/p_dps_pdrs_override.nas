@@ -203,6 +203,18 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 	var current_mode = getprop("/fdm/jsbsim/systems/rms/drive-selection-mode"); 
 	var selected_mode = 0;
 
+	if ((current_mode == 4) or (current_mode == 5)) # we need to look up the string
+		{
+		var drive_string = getprop("/fdm/jsbsim/systems/rms/drive-selection-string");
+
+		if (drive_string == "AUTO OPR CMD") {current_mode = 4;}
+		else if (drive_string == "AUTO 1") {current_mode = 5;}
+		else if (drive_string == "AUTO 2") {current_mode = 6;}
+		else if (drive_string == "AUTO 3") {current_mode = 7;}
+		else if (drive_string == "AUTO 4") {current_mode = 8;}
+		}
+
+
 	if (mode_switch_override == 0)
 		{selected_mode = current_mode;}
 	else
@@ -219,6 +231,14 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 		{p_dps_pdrs_override.orb_unl_ind.setText("*");}
 	else if (current_mode == 4)
 		{p_dps_pdrs_override.opr_cmd_ind.setText("*");}
+	else if (current_mode == 5)
+		{p_dps_pdrs_override.auto1_ind.setText("*");}
+	else if (current_mode == 6)
+		{p_dps_pdrs_override.auto1_ind.setText("*");}
+	else if (current_mode == 7)
+		{p_dps_pdrs_override.auto1_ind.setText("*");}
+	else if (current_mode == 8)
+		{p_dps_pdrs_override.auto1_ind.setText("*");}
 
 	if (selected_mode == 1)
 		{p_dps_pdrs_override.single_sel.setText("*");}
@@ -226,6 +246,14 @@ var PFD_addpage_p_dps_pdrs_override = func(device)
 		{p_dps_pdrs_override.orb_unl_sel.setText("*");}
 	else if (selected_mode == 4)
 		{p_dps_pdrs_override.opr_cmd_sel.setText("*");}
+	else if (selected_mode == 5)
+		{p_dps_pdrs_override.auto1_sel.setText("*");}
+	else if (selected_mode == 6)
+		{p_dps_pdrs_override.auto1_sel.setText("*");}
+	else if (selected_mode == 7)
+		{p_dps_pdrs_override.auto1_sel.setText("*");}
+	else if (selected_mode == 8)
+		{p_dps_pdrs_override.auto1_sel.setText("*");}
 
 
         device.update_common_DPS();

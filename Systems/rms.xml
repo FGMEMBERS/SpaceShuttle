@@ -450,6 +450,7 @@
 				</difference>-->
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -473,6 +474,7 @@
 				</difference>-->
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -496,6 +498,7 @@
 				</difference>-->
 				<value>0.2</value>
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -519,6 +522,7 @@
 				<value>2.0</value>
 				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -539,6 +543,7 @@
 				<value>2.0</value>
 				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -559,6 +564,7 @@
 				<value>2.0</value>
 				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
 				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
 			</product>
 			<value>-1.0</value>
 			</max>
@@ -1889,7 +1895,7 @@
 			</test>
 		</switch>
 
-		<switch name="systems/rms/rms-drivable1">
+		<switch name="systems/rms/rms-drivable">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rms/rms-active == 1
@@ -2290,6 +2296,9 @@
 
 		<switch name="systems/rms/soft-stop">
 			<default value="0.0"/>
+			<test value="0.0">
+				systems/rms/software/soft-stop-enable EQ 0.0
+			</test>
 			<test logic="OR" value="1.0">
 				systems/rms/ang-shoulder-yaw-deg GT  177.4
 				systems/rms/ang-shoulder-yaw-deg LT -177.4
@@ -2303,9 +2312,6 @@
 				systems/rms/ang-wrist-yaw-deg LT -116.6
 				systems/rms/ang-wrist-roll-deg GT 442.0
 				systems/rms/ang-wrist-roll-deg LT -442.0		
-			</test>
-			<test value="0.0">
-				systems/rms/software/soft-stop-enable EQ 0.0
 			</test>
 		</switch>
 
