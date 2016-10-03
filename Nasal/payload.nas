@@ -181,6 +181,7 @@ var pdrs_auto_seq_manager = {
 	auto_seq_loop_flag: 0,
 
 	current_index: -1,
+	start_index: 0,
 
 	assign_slot: func (slot, index) {
 
@@ -262,6 +263,13 @@ var pdrs_auto_seq_manager = {
 
 	# auto sequence of multiple points
 
+	set_start_index: func (num) {
+
+		me.start_index = num;
+
+	},
+
+
 	start_sequence: func (slot) {
 
 		me.current_sequence_index = me.sequence_slot_array[slot]-1;
@@ -279,7 +287,13 @@ var pdrs_auto_seq_manager = {
 
 		if (me.current_sequence_size == 0) {return;}
 
-		me.current_index = 0;
+		me.current_index = me.start_index;
+
+		if (me.current_index > me.current_sequence_size-1)
+			{
+			print ("PDRS: Point number exceeds points in sequence");
+			return;
+			}
 
 		print("PDRS: Auto sequence ", me.current_sequence_index, " with ", me.current_sequence_size, " points loaded.");
 
@@ -307,6 +321,7 @@ var pdrs_auto_seq_manager = {
 			{
 			me.auto_seq_loop_flag = 0;
 			print ("PDRS: Auto sequence finished");
+			me.current_index = me.current_index -1; # show last point on SPEC 94
 			setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 0);
 			return;
 			} 
@@ -391,6 +406,9 @@ p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 append(a, p);
 
 p = pdrs_auto_seq_point.new(10.0, 2.0, 0.0, 30.0, 0.0, 0.0, 0.0);
+append(a, p);
+
+p = pdrs_auto_seq_point.new(13.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 append(a, p);
 
 pdrs_auto_seq_manager.append_sequence_array(a);

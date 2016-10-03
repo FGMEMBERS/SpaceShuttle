@@ -3703,6 +3703,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(3,int(value));
 			valid_flag = 1;
 			}
+		else if (item == 17)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.set_start_index(int(value)-1);
+			valid_flag = 1;
+			}
 		else if (item == 18)
 			{
 			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[0] = value;

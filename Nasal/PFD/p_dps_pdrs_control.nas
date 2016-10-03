@@ -82,8 +82,6 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
     	p_dps_pdrs_control.port.setText("*");
     	p_dps_pdrs_control.stbd.setText("");
 	p_dps_pdrs_control.end_eff.setText("1");
-	p_dps_pdrs_control.last_pt.setText("");
-	p_dps_pdrs_control.start_pt.setText("");
 	p_dps_pdrs_control.rms_sn.setText("201");
 	p_dps_pdrs_control.wr_range.setText("4");
 	p_dps_pdrs_control.mpm_sto_dply.setText("PORT");
@@ -256,6 +254,19 @@ var PFD_addpage_p_dps_pdrs_control = func(device)
 	else
 		{p_dps_pdrs_control.auto_4.setText("");}
 
+
+	var current_point = SpaceShuttle.pdrs_auto_seq_manager.current_index +1;
+	
+	if (current_point > 0)
+		{
+		p_dps_pdrs_control.last_pt.setText(sprintf("%d", current_point ));
+		}
+	else
+		{
+		p_dps_pdrs_control.last_pt.setText("");
+		}
+
+	p_dps_pdrs_control.start_pt.setText(sprintf("%d", SpaceShuttle.pdrs_auto_seq_manager.start_index +1 ));
 
 
         device.update_common_DPS();
