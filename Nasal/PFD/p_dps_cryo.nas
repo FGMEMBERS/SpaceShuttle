@@ -107,8 +107,11 @@ var PFD_addpage_p_dps_cryo = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /068";
+        var ops_string = major_mode~"1/"~spec_string~"/068";  
+    
         device.DPS_menu_ops.setText(ops_string);
 
 

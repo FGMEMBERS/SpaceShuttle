@@ -487,12 +487,34 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 else if (major_function == 2)
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec = getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var disp = getprop("/fdm/jsbsim/systems/dps/disp-sm");
 
-	SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+	if (((spec > 0) and (disp == 0)) or ((spec ==0) and (disp > 0)) or ((spec == 0) and (disp == 0)) )
+		{
+		SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 0);
+		}
+	else if ((spec > 0) and (disp > 0))
+		{
+		if (spec == 94)
+			{
+			page_select(idp_index, "p_dps_pdrs_control");
+			}
+		else if (spec == 95)
+			{
+			page_select(idp_index, "p_dps_pdrs_override");
+			}
+
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
+
+		}
 
 
-	setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
-	setprop("/fdm/jsbsim/systems/dps/spec-sm", 0);
+
 	}
 
 }
@@ -3357,6 +3379,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		{
 		page_select(idp_index, "p_dps_pl_ret");
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 97);
+		valid_flag = 1;
+		}
+	if (spec_num == 169) 
+		{
+		page_select(idp_index, "p_dps_pdrs_status");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 169);
 		valid_flag = 1;
 		}
 	}

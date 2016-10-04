@@ -121,8 +121,11 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /079";
+        var ops_string = major_mode~"1/"~spec_string~"/079";  
+    
         device.DPS_menu_ops.setText(ops_string);
     
     # set a few values not modeled explicitly to reasonable values
