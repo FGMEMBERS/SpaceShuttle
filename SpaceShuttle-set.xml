@@ -1199,6 +1199,8 @@
       <null type="double">0.0</null>
       <ready-to-latch type="double">1.0</ready-to-latch>
       <effector-attached type="double">0.0</effector-attached>
+      <effector-closed type="double">0.0</effector-closed>
+      <effector-rigid type="double">0.0</effector-rigid>
       <retention-power-1-switch type="int">0</retention-power-1-switch>
       <retention-power-2-switch type="int">0</retention-power-2-switch>
       <retention-selector-mode type="int">1</retention-selector-mode>

@@ -48,6 +48,8 @@ else
 	setprop("/fdm/jsbsim/systems/rms/effector-attached", 1);
 	}
 
+setprop("/fdm/jsbsim/systems/rms/effector-closed", 1);
+setprop("/fdm/jsbsim/systems/rms/effector-rigid", 1);
 
 }
 
@@ -77,6 +79,10 @@ var rms_release_payload = func {
 		setprop("/fdm/jsbsim/systems/rms/effector-attached", 2);
 		SpaceShuttle.init_payload();
 		}
+
+setprop("/fdm/jsbsim/systems/rms/effector-closed", 0);
+setprop("/fdm/jsbsim/systems/rms/effector-rigid", 0);
+
 }
 
 
