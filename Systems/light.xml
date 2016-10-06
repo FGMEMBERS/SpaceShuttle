@@ -138,6 +138,25 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/light/airlock-flood-intensity">
+		<function>
+			<sum>
+				<product>
+					<property>systems/light/payload-bay-fwd-intensity</property>
+					<value>0.85</value>
+				</product>
+				<product>
+					<property>systems/light/payload-bay-mid-intensity</property>
+					<value>0.13</value>
+				</product>
+				<product>
+					<property>systems/light/payload-bay-aft-intensity</property>
+					<value>0.02</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/light/payload-bay-door-left-intensity">
 		<function>
 			<product>

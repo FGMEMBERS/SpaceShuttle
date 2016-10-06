@@ -15,6 +15,14 @@
        <z-m> -1.80 </z-m>
     </offsets>
 
+ <animation>
+  <type>scale</type>
+  <object-name>Pallet</object-name>
+  <x-offset>1.0</x-offset>
+  <y-offset>1.1</y-offset>
+  <z-offset>1.0</z-offset>
+ </animation>
+
     <animation>
         <type>material</type>
         <object-name>Pallet</object-name>
