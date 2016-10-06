@@ -1529,6 +1529,14 @@
       <geo-et-y type="double">0.0</geo-et-y>
       <geo-et-z type="double">0.0</geo-et-z>
       <geo-et-z1 type="double">0.0</geo-et-z1>
+      <!--<payload-red type="double">0.0</payload-red>
+      <payload-green type="double">0.0</payload-green>
+      <payload-blue type="double">0.0</payload-blue>-->
+      <payload-x type="double">0.0</payload-x>
+      <payload-y type="double">0.0</payload-y>
+      <payload-z type="double">0.0</payload-z>
+      <payload-r type="double">0.0</payload-r>
+      <payload-ambience type="double">0.0</payload-ambience>
     </effects>
  </lighting>
 

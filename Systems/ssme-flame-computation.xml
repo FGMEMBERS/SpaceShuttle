@@ -48,6 +48,13 @@
 
  <filter>
    <type>gain</type>
+   <gain>0.7</gain>
+   <input>/fdm/jsbsim/systems/light/payload-bay-flood-intensity</input>
+   <output>/lighting/effects/payload-ambience</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/payload-bay-fwd-intensity</input>
    <output>/sim/systems/various/payload-bay-fwd-intensity</output>

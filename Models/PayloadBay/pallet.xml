@@ -15,4 +15,15 @@
        <z-m> -1.80 </z-m>
     </offsets>
 
+    <animation>
+        <type>material</type>
+        <object-name>Pallet</object-name>
+        <emission>
+            <factor-prop>/fdm/jsbsim/systems/light/payload-bay-flood-intensity</factor-prop>
+            <red>   0.3 </red>
+            <green> 0.3 </green>
+            <blue>  0.3 </blue>
+        </emission>
+    </animation>
+
 </PropertyList>
