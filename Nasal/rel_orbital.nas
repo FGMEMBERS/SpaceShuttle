@@ -96,7 +96,7 @@ var stateVector = {
 		me.pitch = me.pitch + me.pitch_rate * dt * croll + me.yaw_rate * dt * sroll;
 		me.roll = me.roll + me.roll_rate * dt - me.yaw_rate * dt * spitch * croll + me.pitch_rate * dt * spitch * sroll ;
 
-		print(me.pitch, " ", me.yaw, " ", me.roll);
+		#print(me.pitch, " ", me.yaw, " ", me.roll);
 
 		#print(a_yaw, " ", me.yaw_rate, " ", me.yaw);
 	},
