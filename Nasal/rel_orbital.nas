@@ -83,15 +83,21 @@ var stateVector = {
 		me.vy = me.vy + ay * dt;
 		me.vz = me.vz + az * dt;
 	
-		
+		var croll = math.cos(me.roll * math.pi/180.0);
+		var sroll = math.sin(me.roll * math.pi/180.0);
+		var cpitch = math.cos(me.pitch * math.pi/180.0);
+		var spitch = math.sin(me.pitch * math.pi/180.0);
 
 		me.yaw_rate = me.yaw_rate + a_yaw * dt;
 		me.pitch_rate = me.pitch_rate + a_pitch * dt;
 		me.roll_rate = me.roll_rate + a_roll * dt;
 
-		me.yaw = me.yaw + me.yaw_rate * dt;
-		me.pitch = me.pitch + me.pitch_rate * dt;
-		me.roll = me.roll + me.roll_rate * dt;
+		me.yaw = me.yaw + me.yaw_rate * dt * croll - me.pitch_rate * dt *  sroll;
+		me.pitch = me.pitch + me.pitch_rate * dt * croll + me.yaw_rate * dt * sroll;
+		me.roll = me.roll + me.roll_rate * dt - me.yaw_rate * dt * spitch * croll + me.pitch_rate * dt * spitch * sroll ;
+
+		print(me.pitch, " ", me.yaw, " ", me.roll);
+
 		#print(a_yaw, " ", me.yaw_rate, " ", me.yaw);
 	},
 	
