@@ -218,7 +218,8 @@ adapted and extended by Thorsten Renk 2015-16
 	<booster>
 		<name>booster</name>
 		<mode>looped</mode>
-		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>
+		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>-->
+		<path>Aircraft/SpaceShuttle/Sounds/real_launch.wav</path>
 		<condition>
 			<and>
 			<property>/sim/current-view/internal</property>
@@ -244,7 +245,8 @@ adapted and extended by Thorsten Renk 2015-16
 	<booster-external>
 		<name>booster-external</name>
 		<mode>looped</mode>
-		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>
+		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>-->
+		<path>Aircraft/SpaceShuttle/Sounds/real_launch.wav</path>
 		<condition>
 			<and>
 			<not>

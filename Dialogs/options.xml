@@ -201,11 +201,25 @@
     </slider>
 
     <text>
-        <label>heavy</label>
+        <label>high</label>
         <halign>center</halign>
         <row>5</row>
         <col>3</col>
     </text>
+
+
+    <checkbox>
+        <name>srb-shake</name>
+ 	<row>6</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/srb-shake</property>
+          <label>SRBs shake view</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>srb-shake</object-name>
+          </binding>
+        </checkbox>
 
   </group>
 	

@@ -363,6 +363,13 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 		SpaceShuttle.auto_launch_loop();
 		}
 
+	# if we have shaking, start script
+
+	if (getprop("/sim/config/shuttle/srb-shake") == 1)
+		{
+		srb_view_shake_loop();
+		}
+
 	}
 else
 	{
@@ -378,6 +385,32 @@ else
 
 }
 
+
+var srb_view_shake_loop = func {
+
+var view = getprop("/sim/current-view/name");
+
+if (SRB_message_flag == 2) 
+	{
+	return;
+	}
+
+if (view == "Cockpit View")
+	{
+	setprop("/sim/current-view/x-offset-m", -0.6 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.6 + 0.006 * (rand() - 0.5));
+	}
+else if (view == "Pilot")
+	{
+	setprop("/sim/current-view/x-offset-m", 0.62 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.7 + 0.006 * (rand() - 0.5));
+	}
+
+settimer(srb_view_shake_loop, 0.0);
+
+}
 
 var gear_up = func {
 
