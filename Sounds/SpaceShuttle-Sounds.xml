@@ -7,7 +7,7 @@
 
 <!--
 Author: Slavutinsky Victor  from Vostok-1 modified by HerbyW for SpaceShuttle
-adapted by Thorsten Renk 2015
+adapted and extended by Thorsten Renk 2015-16
 -->
 
 <PropertyList>
@@ -56,8 +56,6 @@ adapted by Thorsten Renk 2015
 	<qbar>
 		<name>qbar</name>
 		<mode>looped</mode>
-		<!--<path>Sounds/wind.wav</path>-->
-		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Deorbit-Burning.wav</path>-->
 		<path>Sounds/rumble-rough.wav</path>
 		<condition>
 			<greater-than>
@@ -83,8 +81,6 @@ adapted by Thorsten Renk 2015
 		<name>qbar_alt</name>
 		<mode>looped</mode>
 		<path>Sounds/wind.wav</path>
-		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Deorbit-Burning.wav</path>-->
-		<!--<path>Sounds/rumble-rough.wav</path>-->
 		<condition>
 			<greater-than>
 				<property>/fdm/jsbsim/aero/qbar-psf</property>
@@ -114,19 +110,107 @@ adapted by Thorsten Renk 2015
 		<condition>
 			<and>
 			<property>/sim/current-view/internal</property>
-			<greater-than>
-				<property>/fdm/jsbsim/systems/electrical/total-available-power-kW</property>
-				<value>0.0</value>
-			</greater-than>
+			<or>			
+				<equals>
+				<property>/fdm/jsbsim/systems/eclss/cabin/fan-A-operational</property>
+				<value>1.0</value>
+				</equals>
+					<equals>
+				<property>/fdm/jsbsim/systems/eclss/cabin/fan-B-operational</property>
+				<value>1.0</value>
+				</equals>
+			</or>
+			<not-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</not-equals>
 			</and>
+		</condition>
+		<volume>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.1</factor>
+			<offset>0.0</offset>
+			<min>0.0</min>
+			<max>0.1</max>
+		</volume>
+	</fan>
+
+	<!-- hiss of air streaming in and out of the cabin -->
+
+	<atmosphere>
+		<name>atmosphere</name>
+		<mode>looped</mode>
+		<path>Sounds/wind-8khz.wav</path>
+		<condition>
+			<and>
+			<property>/sim/current-view/internal</property>
+			<or>			
+				<greater-than>
+					<property>/fdm/jsbsim/systems/eclss/cabin/air-loss-rate-lb_h</property>
+					<value>5.0</value>
+				</greater-than>
+				<greater-than>
+					<property>/fdm/jsbsim/systems/eclss/cabin/air-gain-rate-lb_h</property>
+					<value>5.0</value>
+				</greater-than>
+			</or>
+			<not-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</not-equals>
+			</and>
+		</condition>
+		<volume>
+			<property>/fdm/jsbsim/systems/various/cabin-airflow-volume</property>
+			<factor>0.3</factor>
+			<offset>0.0</offset>
+		</volume>
+		<pitch>
+			<min>5.0</min>
+			<max>5.0</max>
+		</pitch>
+	</atmosphere>
+
+	<!-- MMU thrusters -->
+
+	<mmu>
+		<name>mmu</name>
+		<mode>looped</mode>
+		<path>Sounds/wind-8khz.wav</path>
+		<condition>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</equals>
+		</condition>
+		<volume>
+			<property>/fdm/jsbsim/systems/various/MMU-thruster-volume</property>
+			<factor>1.0</factor>
+			<offset>0.0</offset>
+		</volume>
+		<pitch>
+			<min>5.0</min>
+			<max>5.0</max>
+		</pitch>
+	</mmu>
+
+	<!-- breathing in EVA view -->
+
+	<breathing>
+		<name>breathing</name>
+		<mode>looped</mode>
+		<path>Sounds/breathing.wav</path>
+		<condition>
+			<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</equals>
 		</condition>
 		<volume>
 			<factor>1.0</factor>
 			<offset>0.0</offset>
-			<min>0.1</min>
-			<max>0.1</max>
 		</volume>
-	</fan>
+	</breathing>
 
 	
 	<!-- Booster  -->
@@ -318,69 +402,75 @@ adapted by Thorsten Renk 2015
 		<path>Aircraft/SpaceShuttle/Sounds/rumble.wav</path>		
 		  <condition>
 		    <and>
+			<not-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</not-equals>
 			<or>
 		    <greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[7]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[9]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[10]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[11]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[12]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[13]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[14]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[15]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[16]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[17]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[18]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[19]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[20]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			</or>
 			<property>/sim/current-view/internal</property>
 			</and>
 		  </condition>
 		  <volume>
-			<min>0.6</min>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.6</factor>
+			<min>0.0</min>
 			<max>0.6</max>
 		</volume>
 		<pitch>
@@ -394,69 +484,75 @@ adapted by Thorsten Renk 2015
 		<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-TDU-Engine-Once.wav</path>		
 		  <condition>
 		    <and>
+			<not-equals>
+				<property>/sim/current-view/view-number</property>
+				<value>8</value>
+			</not-equals>
 			<or>
 		    <greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[7]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[8]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[9]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[10]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[11]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[12]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[13]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[14]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[15]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[16]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[17]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[18]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[19]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			<greater-than>
 			<property>/fdm/jsbsim/propulsion/engine[20]/thrust-lbs</property>
-			<value>0</value>
+			<value>10</value>
 		    </greater-than>
 			</or>
 			<property>/sim/current-view/internal</property>
 			</and>
 		  </condition>
 		  <volume>
-			<min>0.2</min>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.2</factor>
+			<min>0.0</min>
 			<max>0.2</max>
 		</volume>
 		<pitch>

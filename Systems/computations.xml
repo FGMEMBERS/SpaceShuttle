@@ -442,6 +442,36 @@
 		</fcs_function>
 		
 		<!-- sounds -->
+
+		<fcs_function name="systems/various/cabin-sound-transmission">
+		<function>
+			<quotient>
+				<property>systems/eclss/cabin/air-pressure-psi</property>	
+				<value>14.7</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/various/cabin-airflow-volume">		
+		<function>
+			<product>
+			<min>
+			<product>
+			<sum>
+				<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+				<product>
+					<value>-1</value>
+					<property>systems/eclss/cabin/air-loss-rate-lb_h</property>
+				</product>
+			</sum>
+			<value>0.0015</value>
+			</product>
+			<value>1.0</value>
+			</min>
+			<property>systems/various/cabin-sound-transmission</property>
+			</product>
+		</function>
+		</fcs_function>
 		
 		<fcs_function name="systems/various/SRB-external-volume">
 		<function>
@@ -518,6 +548,33 @@
 				<value>1.0</value>
 				</min>
 			</function>
+		</fcs_function>
+
+		<!-- MMU -->
+
+		<switch name="systems/various/MMU-sound-factor">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 50
+				systems/fcs/control-mode == 51
+			</test>
+		</switch>	
+	
+
+		<fcs_function name="systems/various/MMU-thruster-volume">
+		<function>
+			<min>
+			<product>
+				<property>systems/various/MMU-sound-factor</property>
+				<sum>
+					<abs><property>fcs/rudder-cmd-norm</property></abs>
+					<abs><property>fcs/aileron-cmd-norm</property></abs>
+					<abs><property>fcs/elevator-cmd-norm</property></abs>
+				</sum>
+			</product>
+			<value>0.4</value>
+			</min>
+		</function>
 		</fcs_function>
 
 
