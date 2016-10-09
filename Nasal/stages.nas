@@ -327,7 +327,9 @@ var thrust1 = getprop("/engines/engine[0]/thrust_lb");
 var thrust2 = getprop("/engines/engine[1]/thrust_lb");
 var thrust3 = getprop("/engines/engine[2]/thrust_lb");
 
-if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we're go
+var hyd_pressurized = getprop("/fdm/jsbsim/systems/apu/number-systems-pressurized");
+
+if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (hyd_pressurized == 3)) # we're go
 	{
 	setprop("/sim/messages/copilot", "SRB ignition!");
 	setprop("/controls/engines/engine[3]/throttle", 1.0);
