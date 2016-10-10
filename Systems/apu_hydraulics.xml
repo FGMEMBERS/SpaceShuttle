@@ -83,7 +83,6 @@
 					</product>
 				</sum>
 				<property>systems/apu/apu/apu-fuel-available</property>
-				<property>systems/failures/apu1-condition</property>
 				<property>systems/apu/apu/apu-power-available</property>
 				<property>systems/failures/apu1-condition</property>
 			</product>
@@ -309,7 +308,6 @@
 					</product>
 				</sum>
 				<property>systems/apu/apu[1]/apu-fuel-available</property>
-				<property>systems/failures/apu2-condition</property>
 				<property>systems/apu/apu[1]/apu-power-available</property>
 				<property>systems/failures/apu2-condition</property>
 			</product>
@@ -534,8 +532,7 @@
 					</product>
 				</sum>
 				<property>systems/apu/apu[2]/apu-fuel-available</property>
-				<property>systems/failures/apu3-condition</property>
-				<property>systems/apu/apu[2]/apu-power-available</property>				
+				<property>systems/apu/apu[2]/apu-power-available</property>		
 				<property>systems/failures/apu3-condition</property>
 			</product>
 			<value>1.3</value>

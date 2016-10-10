@@ -168,6 +168,56 @@
 			</test>
 		</switch>
 
+		<switch name="systems/cws/hyd-press">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/apu/apu/hyd-pressure-psia LT 2400
+				systems/apu/apu[1]/hyd-pressure-psia LT 2400
+				systems/apu/apu[2]/hyd-pressure-psia LT 2400
+			</test>
+		</switch>
+
+		<switch name="systems/cws/apu-overspeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/apu-operate == 1
+				systems/apu/apu/apu-rpm GT 92880.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/apu-operate == 1
+				systems/apu/apu[1]/apu-rpm GT 92880.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/apu-operate == 1
+				systems/apu/apu[2]/apu-rpm GT 92880.0
+			</test>
+		</switch>
+
+		<switch name="systems/cws/apu-underspeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/apu-operate == 1
+				systems/apu/apu/apu-rpm LT 57600.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/apu-operate == 1
+				systems/apu/apu[1]/apu-rpm LT 57600.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/apu-operate == 1
+				systems/apu/apu[2]/apu-rpm LT 57600.0
+			</test>
+		</switch>
+
+		<switch name="systems/cws/apu-temp">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/thermal-distribution/apu1-temperature-K GT 416.5
+				systems/thermal-distribution/apu2-temperature-K GT 416.5
+				systems/thermal-distribution/apu3-temperature-K GT 416.5
+			</test>
+		</switch>
+
 		<switch name="systems/cws/backup-cw">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
