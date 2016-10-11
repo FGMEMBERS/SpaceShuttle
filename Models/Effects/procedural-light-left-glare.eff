@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+
+    <name>procedural-light-left-glare</name>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/procedural-light-incandescent</inherits-from>
+
+    <parameters>
+        <intensity_scale type="float"><use>/fdm/jsbsim/systems/light/cabinlight1-norm</use></intensity_scale>
+    </parameters>
+
+</PropertyList>

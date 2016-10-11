@@ -21201,4 +21201,24 @@
 	</condition>
  </animation>
 
+  <!-- lights for improved cabin visuals -->
+
+    <model>
+        <path>Effects/procedural_light_left_glare.xml</path>
+        <offsets>
+            <x-m>  -12.41 </x-m>
+            <y-m>  -0.995 </y-m>
+            <z-m>  -0.495 </z-m>
+        </offsets>
+    </model>
+
+    <model>
+        <path>Effects/procedural_light_right_glare.xml</path>
+        <offsets>
+            <x-m>  -12.4 </x-m>
+            <y-m>   1.02 </y-m>
+            <z-m>  -0.455 </z-m>
+        </offsets>
+    </model>
+
 </PropertyList>
