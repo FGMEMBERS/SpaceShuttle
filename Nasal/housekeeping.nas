@@ -1,6 +1,6 @@
 
 # housekeeping tasks for the Space Shuttle
-# Thorsten Renk 2015
+# Thorsten Renk 2015 - 2016
 
 #########################################################################################
 # Fuel dump is done after MECO to remove leftover LO2 and LH2 from the feed lines
@@ -1226,6 +1226,207 @@ var ev_timer =
 
 
 var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time-glass");
+
+
+#########################################################################################
+# condition manager to check long-term deterioration of fuel cells, hydraulics,...
+# if maintenance isn't done properly
+#########################################################################################
+
+var condition_manager = {
+
+	run_flag: 0,
+	dt: 10.0,
+	
+	
+	# rate at which the equipment condition reduces per second
+
+	fuel_cell_deterioration_rate:  0.00001, # some 12 hours half life
+	hyd_pressure_loss_rate: 0.0005555, # 30 minutes
+	hyd_pressure_gain_rate: 0.016666, # 1 minute
+	hyd_temp_eq_rate: 0.00277, # 6 minutes
+
+	# internal copies for logging
+
+	fc1_efficiency: 1.0,
+	fc2_efficiency: 1.0,
+	fc3_efficiency: 1.0,
+
+	hyd1_pressure: 1.0,
+	hyd2_pressure: 1.0,
+	hyd3_pressure: 1.0,
+
+	hyd1_T_eq: 1.0,
+	hyd2_T_eq: 1.0,
+	hyd3_T_eq: 1.0,
+
+	pump1_status: 0,
+	pump2_status: 0,
+	pump3_status: 0,
+
+	start: func {
+
+		if (me.run_flag == 1) {return;}
+		else {me.run_flag = 1; me.update();}
+
+	},
+
+	stop: func {
+		
+		if (me.run_flag == 1) {me.run_flag = 0;}
+
+	},
+
+	update: func {
+
+		# fuel cell efficiency
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc/fc-running") == 1.0)
+			{
+			me.fc1_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc/fc-efficiency");
+			me.fc1_efficiency = me.fc1_efficiency - me.fc1_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc/fc-efficiency", me.fc1_efficiency);
+			}
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-running") == 1.0)
+			{
+			me.fc2_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-efficiency");
+			me.fc2_efficiency = me.fc2_efficiency - me.fc2_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-efficiency", me.fc2_efficiency);
+			}
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-running") == 1.0)
+			{
+			me.fc3_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-efficiency");
+			me.fc3_efficiency = me.fc3_efficiency - me.fc3_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-efficiency", me.fc3_efficiency);
+			}
+
+		# hydraulic systems
+
+		var n_pumps_active = 0;
+
+		# system 1
+
+		me.hyd1_pressure = getprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor");
+
+		if ((me.hyd1_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd") == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-gpc", 1);
+			n_pumps_active = n_pumps_active + 1;
+			me.pump1_status = 1;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-gpc", 0);
+			me.pump1_status = 0;
+			}
+
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump") == 1)
+			{
+			me.hyd1_pressure = me.hyd1_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd1_pressure > 1.0) {me.hyd1_pressure = 1.0;}
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-1-pressurized") == 1)
+			{
+			me.hyd1_pressure = 1.2;
+			}
+		else
+			{
+			me.hyd1_pressure = me.hyd1_pressure - me.hyd1_pressure * me.dt * me.hyd_pressure_loss_rate;
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor", me.hyd1_pressure);
+
+		# system 2
+
+		me.hyd2_pressure = getprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor");
+
+		if ((me.hyd2_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-gpc", 1);
+			n_pumps_active = n_pumps_active + 1;
+			me.pump2_status = 1;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-gpc", 0);
+			me.pump2_status = 0;
+			}
+
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump") == 1)
+			{
+			me.hyd2_pressure = me.hyd2_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd2_pressure > 1.0) {me.hyd2_pressure = 1.0;}
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-2-pressurized") == 1)
+			{
+			me.hyd2_pressure = 1.2;
+			}
+		else
+			{
+			me.hyd2_pressure = me.hyd2_pressure - me.hyd2_pressure * me.dt * me.hyd_pressure_loss_rate;
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor", me.hyd2_pressure);
+
+		# system 3
+
+		me.hyd3_pressure = getprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor");
+
+		if ((me.hyd3_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 1);
+			me.pump3_status = 1;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 0);
+			me.pump3_status = 0;
+			}
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump") == 1)
+			{
+			me.hyd3_pressure = me.hyd3_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd3_pressure > 1.0) {me.hyd3_pressure = 1.0;}
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-3-pressurized") == 1)
+			{
+			me.hyd3_pressure = 1.2;
+			}
+		else
+			{
+			me.hyd3_pressure = me.hyd3_pressure - me.hyd3_pressure * me.dt * me.hyd_pressure_loss_rate;
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor", me.hyd3_pressure);
+
+
+
+
+		#me.list();
+
+		settimer (func me.update(), me.dt);
+	},
+
+	list: func {
+
+
+		print("Long term system status simulation:");
+		print("===============================");
+		print("Fuel cell status:");
+		print("FC1:  ", me.fc1_efficiency, " FC2:  ", me.fc2_efficiency, " FC3:  ", me.fc3_efficiency);
+		print("Hydraulic pressure:");
+		print("HYD1: ", me.hyd1_pressure, " HYD2: ", me.hyd2_pressure, " HYD3: ", me.hyd3_pressure);
+		print("PMP1: ", me.pump1_status, "PMP2: ", me.pump2_status, " PMP3: ", me.pump3_status);
+
+	},
+
+
+
+};
 
 
 

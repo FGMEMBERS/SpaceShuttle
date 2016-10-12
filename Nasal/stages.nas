@@ -736,6 +736,7 @@ launch_message_flag = 5;
 # make sure the vertical trajectory display switches to entry
 SpaceShuttle.traj_display_flag = 3;
 
+# start main orbital loop
 settimer(orbital_loop,2.0);
 
 
@@ -824,6 +825,9 @@ launch_message_flag = 5;
 SpaceShuttle.traj_display_flag = 3;
 
 #settimer(control_to_rcs, 2.0);
+
+
+# start main orbital loop
 settimer(orbital_loop,2.0);
 }
 
@@ -1810,6 +1814,7 @@ if (stage == 2)
 	setprop("/velocities/wBody-fps", 300.0);
 	setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
+
 	hydraulics_on();
 	et_umbilical_door_close();
 	SpaceShuttle.traj_display_flag = 3;
@@ -1958,6 +1963,9 @@ if (stage == 6)
 	setprop("/position/altitude-ft", 1050000.0);
 	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 175.0);
+
+
+
 	}
 
 # initialize the DPS hardware
@@ -1966,6 +1974,8 @@ SpaceShuttle.init_gpcs(stage);
 SpaceShuttle.init_idps();
 SpaceShuttle.init_keyboards();
 
+# switch long term component simulation on
+SpaceShuttle.condition_manager.start();
 
 
 SpaceShuttle.nbat.select_ops(getprop("/fdm/jsbsim/systems/dps/ops"));

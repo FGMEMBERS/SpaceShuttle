@@ -447,7 +447,9 @@
        <apu-rpm-target type="double">1.0</apu-rpm-target>
        <apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
        <hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
-       <hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
+       <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
@@ -455,6 +457,8 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
+       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
       <apu n="1">
        <apu-controller-power type="int">0</apu-controller-power>
@@ -467,7 +471,9 @@
        <apu-rpm-target type="double">1.0</apu-rpm-target>
        <apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
        <hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
-       <hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
+       <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
@@ -475,6 +481,8 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
+       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
       <apu n="2">
        <apu-controller-power type="int">0</apu-controller-power>
@@ -487,7 +495,9 @@
        <apu-rpm-target type="double">1.0</apu-rpm-target>
        <apu-auto-shutdown-select type="int">1</apu-auto-shutdown-select>
        <hyd-pump-pressure-select type="int">0</hyd-pump-pressure-select>
-       <hyd-circ-pump-cmd type="int">0</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
+       <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
+       <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
@@ -495,6 +505,8 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
+       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
      </apu>
      <atcs>
