@@ -17407,7 +17407,7 @@
         </hovered>
     </animation>
 
-    <!-- Hydrolic Pressure Select 1 "Switch" -->
+    <!-- Hydraulic Pressure Select 1 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-main-pump-press-1</object-name>
@@ -17442,7 +17442,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-main-pump-press-1</tooltip-id>
-                <label>Hydrolic Pressure Select 1: %s</label>
+                <label>Hydraulic Pressure Select 1: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu/hyd-pump-pressure-select</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -17453,7 +17453,7 @@
         </hovered>
     </animation>
 
-    <!-- Hydrolic Pressure Select 2 "Switch" -->
+    <!-- Hydraulic Pressure Select 2 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-main-pump-press-2</object-name>
@@ -17488,7 +17488,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-main-pump-press-2</tooltip-id>
-                <label>Hydrolic Pressure Select 2: %s</label>
+                <label>Hydraulic Pressure Select 2: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-pump-pressure-select</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -17499,7 +17499,7 @@
         </hovered>
     </animation>
 
-    <!-- Hydrolic Pressure Select 3 "Switch" -->
+    <!-- Hydraulic Pressure Select 3 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-main-pump-press-3</object-name>
@@ -17534,7 +17534,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-main-pump-press-3</tooltip-id>
-                <label>Hydrolic Pressure Select 3: %s</label>
+                <label>Hydraulic Pressure Select 3: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-pump-pressure-select</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -17683,13 +17683,13 @@
         </hovered>
     </animation>
 
-    <!-- Hydrolic Circulation Pump 1 "Switch" -->
+    <!-- Hydraulic Circulation Pump 1 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-circ-pump-1</object-name>
         <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
-        <factor>-45</factor>
-        <offset-deg>20</offset-deg>
+        <factor>-30</factor>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-11.946</x-m>
             <y-m> 1.0838</y-m>
@@ -17705,37 +17705,43 @@
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
                 <factor>1</factor>
-                <min>0</min>
+                <min>-1</min>
                 <max>1</max>
                 <wrap>false</wrap>
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>
+			SpaceShuttle.click("avionics");
+			var cmd = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd");
+			if (cmd == 1)
+				{setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);}
+			else {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 0);}
+		</script>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-circ-pump-1</tooltip-id>
-                <label>Hydrolic Circ Pump 1: %s</label>
+                <label>Hydraulic Circ Pump 1: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['Off', 'On'];
-                    return modes[arg[0]];
+                    var modes = ['Off', 'GPC', 'On'];
+                    return modes[arg[0]+1];
                 </script>
             </binding>
         </hovered>
     </animation>
 
-    <!-- Hydrolic Circulation Pump 2 "Switch" -->
+    <!-- Hydraulic Circulation Pump 2 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-circ-pump-2</object-name>
         <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
-        <factor>-45</factor>
-        <offset-deg>20</offset-deg>
+        <factor>-30</factor>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-11.9451</x-m>
             <y-m> 1.1109</y-m>
@@ -17751,37 +17757,43 @@
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
                 <factor>1</factor>
-                <min>0</min>
+                <min>-1</min>
                 <max>1</max>
                 <wrap>false</wrap>
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>
+			SpaceShuttle.click("avionics");
+			var cmd = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd");
+			if (cmd == 1)
+				{setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);}
+			else {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 0);}
+		</script>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-circ-pump-2</tooltip-id>
-                <label>Hydrolic Circ Pump 2: %s</label>
+                <label>Hydraulic Circ Pump 2: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['Off', 'On'];
-                    return modes[arg[0]];
+                    var modes = ['Off', 'GPC', 'On'];
+                    return modes[arg[0]+1];
                 </script>
             </binding>
         </hovered>
     </animation>
 
-    <!-- Hydrolic Circulation Pump 3 "Switch" -->
+    <!-- Hydraulic Circulation Pump 3 "Switch" -->
     <animation>
         <type>knob</type>
         <object-name>hyd-circ-pump-3</object-name>
         <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
-        <factor>-45</factor>
-        <offset-deg>20</offset-deg>
+        <factor>-30</factor>
+        <offset-deg>-10</offset-deg>
         <center>
             <x-m>-11.9443</x-m>
             <y-m> 1.1382</y-m>
@@ -17797,25 +17809,31 @@
                 <command>property-adjust</command>
                 <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
                 <factor>1</factor>
-                <min>0</min>
+                <min>-1</min>
                 <max>1</max>
                 <wrap>false</wrap>
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>
+			SpaceShuttle.click("avionics");
+			var cmd = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd");
+			if (cmd == 1)
+				{setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);}
+			else {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 0);}
+		</script>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>hyd-circ-pump-3</tooltip-id>
-                <label>Hydrolic Circ Pump 3: %s</label>
+                <label>Hydraulic Circ Pump 3: %s</label>
                 <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['Off', 'On'];
-                    return modes[arg[0]];
+                    var modes = ['Off', 'GPC', 'On'];
+                    return modes[arg[0]+1];
                 </script>
             </binding>
         </hovered>
@@ -21219,6 +21237,38 @@
             <y-m>   1.02 </y-m>
             <z-m>  -0.455 </z-m>
         </offsets>
+    </model>
+
+    <!-- to minimize clipping artifacts, the light pos has to be slightly different dependent on view -->
+
+    <model>
+        <path>Effects/procedural_light_left_seat.xml</path>
+        <offsets>
+            <x-m> -11.7 </x-m>
+            <y-m>  -0.5 </y-m>
+            <z-m>   0.38 </z-m>
+        </offsets>
+        <condition>
+            <not-equals>
+		<property>/sim/current-view/view-number</property>
+		<value>0</value>
+            </not-equals>
+        </condition>
+    </model>
+
+    <model>
+        <path>Effects/procedural_light_left_seat.xml</path>
+        <offsets>
+            <x-m> -11.7 </x-m>
+            <y-m>  -0.5 </y-m>
+            <z-m>   0.30 </z-m>
+        </offsets>
+        <condition>
+            <equals>
+		<property>/sim/current-view/view-number</property>
+		<value>0</value>
+            </equals>
+        </condition>
     </model>
 
 </PropertyList>

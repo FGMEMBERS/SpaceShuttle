@@ -27,6 +27,13 @@
 
  <filter>
    <type>gain</type>
+   <gain>1.2</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight3-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight3-proc</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/cabinlight4-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/cabinlight4-norm</output>
