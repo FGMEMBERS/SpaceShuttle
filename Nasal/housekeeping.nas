@@ -1242,9 +1242,10 @@ var condition_manager = {
 	# rate at which the equipment condition reduces per second
 
 	fuel_cell_deterioration_rate:  0.00001, # some 12 hours half life
-	hyd_pressure_loss_rate: 0.0005555, # 30 minutes
-	hyd_pressure_gain_rate: 0.016666, # 1 minute
-	hyd_temp_eq_rate: 0.00277, # 6 minutes
+	hyd_pressure_loss_rate: 0.0001, 
+	hyd_pressure_gain_rate: 0.005, 
+	hyd_temp_cooling_rate: 0.0001,
+	hyd_temp_eq_rate: 0.001, 
 
 	# internal copies for logging
 
@@ -1309,6 +1310,7 @@ var condition_manager = {
 		# system 1
 
 		me.hyd1_pressure = getprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor");
+ 		me.hyd1_T_eq= getprop("/fdm/jsbsim/systems/apu/apu/temp-equalization-factor");
 
 		if ((me.hyd1_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd") == 0))
 			{
@@ -1327,6 +1329,9 @@ var condition_manager = {
 			{
 			me.hyd1_pressure = me.hyd1_pressure + me.dt * me.hyd_pressure_gain_rate;
 			if (me.hyd1_pressure > 1.0) {me.hyd1_pressure = 1.0;}
+			me.hyd1_T_eq = me.hyd1_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd1_T_eq > 1) {me.hyd1_T_eq = 1;}
+
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-1-pressurized") == 1)
 			{
@@ -1335,13 +1340,18 @@ var condition_manager = {
 		else
 			{
 			me.hyd1_pressure = me.hyd1_pressure - me.hyd1_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd1_T_eq = me.hyd1_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd1_T_eq < 0.0) {me.hyd1_T_eq = 0.0;}
 			}
 
 		setprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor", me.hyd1_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu/temp-equalization-factor", me.hyd1_T_eq);
+
 
 		# system 2
 
 		me.hyd2_pressure = getprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor");
+ 		me.hyd2_T_eq= getprop("/fdm/jsbsim/systems/apu/apu[1]/temp-equalization-factor");
 
 		if ((me.hyd2_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
 			{
@@ -1360,6 +1370,8 @@ var condition_manager = {
 			{
 			me.hyd2_pressure = me.hyd2_pressure + me.dt * me.hyd_pressure_gain_rate;
 			if (me.hyd2_pressure > 1.0) {me.hyd2_pressure = 1.0;}
+			me.hyd2_T_eq = me.hyd2_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd2_T_eq > 1) {me.hyd2_T_eq = 1;}
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-2-pressurized") == 1)
 			{
@@ -1368,13 +1380,17 @@ var condition_manager = {
 		else
 			{
 			me.hyd2_pressure = me.hyd2_pressure - me.hyd2_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd2_T_eq = me.hyd2_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd2_T_eq < 0.0) {me.hyd2_T_eq = 0.0;}
 			}
 
 		setprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor", me.hyd2_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu[1]/temp-equalization-factor", me.hyd2_T_eq);
 
 		# system 3
 
 		me.hyd3_pressure = getprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor");
+ 		me.hyd3_T_eq= getprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor");
 
 		if ((me.hyd3_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
 			{
@@ -1391,6 +1407,8 @@ var condition_manager = {
 			{
 			me.hyd3_pressure = me.hyd3_pressure + me.dt * me.hyd_pressure_gain_rate;
 			if (me.hyd3_pressure > 1.0) {me.hyd3_pressure = 1.0;}
+			me.hyd3_T_eq = me.hyd3_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd3_T_eq > 1) {me.hyd3_T_eq = 1;}
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-3-pressurized") == 1)
 			{
@@ -1399,28 +1417,42 @@ var condition_manager = {
 		else
 			{
 			me.hyd3_pressure = me.hyd3_pressure - me.hyd3_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd3_T_eq = me.hyd3_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd3_T_eq < 0.0) {me.hyd3_T_eq = 0.0;}
 			}
 
 		setprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor", me.hyd3_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor", me.hyd3_T_eq);
 
 
 
-
-		#me.list();
+		me.list();
 
 		settimer (func me.update(), me.dt);
 	},
 
 	list: func {
 
+		var string1 = "OFF";
+		if (me.pump1_status == 1) {string1 = "ON";}
 
+		var string2 = "OFF";
+		if (me.pump2_status == 1) {string2 = "ON";}
+
+		var string3 = "OFF";
+		if (me.pump3_status == 1) {string3 = "ON";}
+
+
+		print();
 		print("Long term system status simulation:");
 		print("===============================");
 		print("Fuel cell status:");
 		print("FC1:  ", me.fc1_efficiency, " FC2:  ", me.fc2_efficiency, " FC3:  ", me.fc3_efficiency);
 		print("Hydraulic pressure:");
-		print("HYD1: ", me.hyd1_pressure, " HYD2: ", me.hyd2_pressure, " HYD3: ", me.hyd3_pressure);
-		print("PMP1: ", me.pump1_status, "PMP2: ", me.pump2_status, " PMP3: ", me.pump3_status);
+		print("HYD1: ", me.hyd1_pressure * 2600.0, " HYD2: ", me.hyd2_pressure * 2600.0, " HYD3: ", me.hyd3_pressure * 2600.0);
+		print("PUMP1: ", string1, " PUMP2: ", string2, " PUMP3: ", string3);
+		print("Temperature equilibration:");
+		print("SYS1: ", me.hyd1_T_eq, " SYS2: ", me.hyd2_T_eq, " SYS3: ", me.hyd3_T_eq);
 
 	},
 

@@ -191,11 +191,13 @@
 			<test value="1.0">
 				systems/apu/apu/hyd-circ-pump-cmd == 1
 				systems/apu/apu/hyd-pump-rpm == 0.0
+				systems/electrical/bus/voltage GT 24.0
 			</test>
 			<test value="1.0">
 				systems/apu/apu/hyd-circ-pump-cmd == 0
 				systems/apu/apu/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu/hyd-pump-rpm == 0.0
+				systems/electrical/bus/voltage GT 24.0
 			</test>
 		</switch>
 
@@ -421,11 +423,13 @@
 			<test value="1.0">
 				systems/apu/apu[1]/hyd-circ-pump-cmd == 1
 				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[1]/voltage GT 24.0
 			</test>
 			<test value="1.0">
 				systems/apu/apu[1]/hyd-circ-pump-cmd == 0
 				systems/apu/apu[1]/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[1]/voltage GT 24.0
 			</test>
 		</switch>
 
@@ -650,11 +654,13 @@
 			<test value="1.0">
 				systems/apu/apu[2]/hyd-circ-pump-cmd == 1
 				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[2]/voltage GT 24.0
 			</test>
 			<test value="1.0">
 				systems/apu/apu[2]/hyd-circ-pump-cmd == 0
 				systems/apu/apu[2]/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[2]/voltage GT 24.0
 			</test>
 		</switch>
 

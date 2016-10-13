@@ -41,6 +41,12 @@ var K_to_F = func (T)
     return T * 9.0/5.0 - 459.67;
 }
 
+var mix_T_to_F = func (T1, T2, mix) 
+{
+	return int(K_to_F (mix * T1 + (1.0 - mix) * T2));
+} 
+
+
 var wsb_ctrl_to_string = func (status)
 {
     if (status == 1) {return "A/B";}
