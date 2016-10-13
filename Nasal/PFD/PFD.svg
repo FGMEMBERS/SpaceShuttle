@@ -44620,7 +44620,7 @@
            y="142.178572"
            x="10.928574"
            id="tspan3112"
-           sodipodi:role="line">HX IN    P</tspan></text>
+           sodipodi:role="line">HX IN    T</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_hyd_thermal_hx_in_t1"
@@ -44716,7 +44716,7 @@
            y="156.178572"
            x="10.928574"
            id="tspan3112"
-           sodipodi:role="line">   OUT   P</tspan></text>
+           sodipodi:role="line">   OUT   T</tspan></text>
 	<text
          sodipodi:linespacing="125%"
          id="p_dps_hyd_thermal_hx_out_t1"

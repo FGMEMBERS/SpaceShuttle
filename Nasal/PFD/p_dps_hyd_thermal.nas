@@ -83,6 +83,41 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
     p_dps_hyd_thermal.mg_r_uplk = device.svg.getElementById("p_dps_hyd_thermal_mg_r_uplk");
     p_dps_hyd_thermal.mg_r_fus = device.svg.getElementById("p_dps_hyd_thermal_mg_r_fus");
 
+    p_dps_hyd_thermal.elev_l_ob_pr = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ob_pr");
+    p_dps_hyd_thermal.elev_l_ob_s1 = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ob_s1");
+    p_dps_hyd_thermal.elev_l_ob_s2 = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ob_s2");
+
+    p_dps_hyd_thermal.elev_l_ib_pr = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ib_pr");
+    p_dps_hyd_thermal.elev_l_ib_s1 = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ib_s1");
+    p_dps_hyd_thermal.elev_l_ib_s2 = device.svg.getElementById("p_dps_hyd_thermal_elev_l_ib_s2");
+
+    p_dps_hyd_thermal.elev_r_ib_pr = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ib_pr");
+    p_dps_hyd_thermal.elev_r_ib_s1 = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ib_s1");
+    p_dps_hyd_thermal.elev_r_ib_s2 = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ib_s2");
+
+    p_dps_hyd_thermal.elev_r_ob_pr = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ob_pr");
+    p_dps_hyd_thermal.elev_r_ob_s1 = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ob_s1");
+    p_dps_hyd_thermal.elev_r_ob_s2 = device.svg.getElementById("p_dps_hyd_thermal_elev_r_ob_s2");
+
+    p_dps_hyd_thermal.hx_in_t1 = device.svg.getElementById("p_dps_hyd_thermal_hx_in_t1");
+    p_dps_hyd_thermal.hx_in_t2 = device.svg.getElementById("p_dps_hyd_thermal_hx_in_t2");
+    p_dps_hyd_thermal.hx_in_t3 = device.svg.getElementById("p_dps_hyd_thermal_hx_in_t3");
+
+    p_dps_hyd_thermal.hx_out_t1 = device.svg.getElementById("p_dps_hyd_thermal_hx_out_t1");
+    p_dps_hyd_thermal.hx_out_t2 = device.svg.getElementById("p_dps_hyd_thermal_hx_out_t2");
+    p_dps_hyd_thermal.hx_out_t3 = device.svg.getElementById("p_dps_hyd_thermal_hx_out_t3");
+
+    p_dps_hyd_thermal.rud_pr = device.svg.getElementById("p_dps_hyd_thermal_rud_pr");
+    p_dps_hyd_thermal.rud_s1 = device.svg.getElementById("p_dps_hyd_thermal_rud_s1");
+    p_dps_hyd_thermal.rud_s2 = device.svg.getElementById("p_dps_hyd_thermal_rud_s2");
+
+    p_dps_hyd_thermal.rsvr_t1 = device.svg.getElementById("p_dps_hyd_thermal_rsvr_t1");
+    p_dps_hyd_thermal.rsvr_t2 = device.svg.getElementById("p_dps_hyd_thermal_rsvr_t2");
+    p_dps_hyd_thermal.rsvr_t3 = device.svg.getElementById("p_dps_hyd_thermal_rsvr_t3");
+
+    p_dps_hyd_thermal.pmp_bdy_t1 = device.svg.getElementById("p_dps_hyd_thermal_pmp_bdy_t1");
+    p_dps_hyd_thermal.pmp_bdy_t2 = device.svg.getElementById("p_dps_hyd_thermal_pmp_bdy_t2");
+    p_dps_hyd_thermal.pmp_bdy_t3 = device.svg.getElementById("p_dps_hyd_thermal_pmp_bdy_t3");
 
     p_dps_hyd_thermal.ondisplay = func
     {
@@ -95,6 +130,29 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
     
         var ops_string = major_mode~"1/"~spec_string~"/087";
         device.DPS_menu_ops.setText(ops_string);
+
+	# defaults for functions which are not yet implemented
+
+    	p_dps_hyd_thermal.elev_l_ob_pr.setText("3*");
+    	p_dps_hyd_thermal.elev_l_ob_s1.setText("1");
+    	p_dps_hyd_thermal.elev_l_ob_s2.setText("2");
+
+    	p_dps_hyd_thermal.elev_l_ib_pr.setText("2*");
+    	p_dps_hyd_thermal.elev_l_ib_s1.setText("1");
+    	p_dps_hyd_thermal.elev_l_ib_s2.setText("3");
+
+    	p_dps_hyd_thermal.elev_r_ib_pr.setText("3*");
+    	p_dps_hyd_thermal.elev_r_ib_s1.setText("1");
+    	p_dps_hyd_thermal.elev_r_ib_s2.setText("2");
+
+   	p_dps_hyd_thermal.elev_r_ob_pr.setText("2*");
+    	p_dps_hyd_thermal.elev_r_ob_s1.setText("1");
+    	p_dps_hyd_thermal.elev_r_ob_s2.setText("3");
+
+    	p_dps_hyd_thermal.rud_pr.setText("1*");
+    	p_dps_hyd_thermal.rud_s1.setText("2");
+    	p_dps_hyd_thermal.rud_s2.setText("3");
+
     }
     
     p_dps_hyd_thermal.update = func
@@ -132,8 +190,10 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
 	var T_right = getprop("/fdm/jsbsim/systems/thermal-distribution/right-temperature-K");
 	var T_low = getprop("/fdm/jsbsim/systems/thermal-distribution/tps-temperature-K");
 	var T_aft = getprop("/fdm/jsbsim/systems/thermal-distribution/aft-temperature-K");
+	var T_freon = getprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K");
 
-	var T_av = (T_nose + T_left + T_right + T_low + T_aft)/5.0;
+	var T_av_in = (T_nose + T_left + T_right + T_low + T_aft)/5.0;
+	var T_av = (T_nose + T_left + T_right + T_low + T_aft + T_freon)/6.0;
 	var T_lwing = (T_left + T_low)/2.0;
 	var T_rwing = (T_right + T_low)/2.0;
 
@@ -141,7 +201,21 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
 	var mix2 = getprop("/fdm/jsbsim/systems/apu/apu[1]/temp-equalization-factor");
 	var mix3 = getprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor");
 
+    	p_dps_hyd_thermal.hx_in_t1.setText(sprintf("%+d", K_to_F(T_freon) + 1));
+    	p_dps_hyd_thermal.hx_in_t2.setText(sprintf("%+d", K_to_F(T_freon) ));
+    	p_dps_hyd_thermal.hx_in_t3.setText(sprintf("%+d", K_to_F(T_freon) + 2));
 
+    	p_dps_hyd_thermal.hx_out_t1.setText(sprintf("%+d", K_to_F(T_av_in) - 1));
+    	p_dps_hyd_thermal.hx_out_t2.setText(sprintf("%+d", K_to_F(T_av_in) -1));
+    	p_dps_hyd_thermal.hx_out_t3.setText(sprintf("%+d", K_to_F(T_av_in) + 2));
+
+    	p_dps_hyd_thermal.rsvr_t1.setText(sprintf("%+d", K_to_F(T_av) - 1)); 
+    	p_dps_hyd_thermal.rsvr_t2.setText(sprintf("%+d", K_to_F(T_av)));
+    	p_dps_hyd_thermal.rsvr_t3.setText(sprintf("%+d", K_to_F(T_av)));
+
+    	p_dps_hyd_thermal.pmp_bdy_t1.setText(sprintf("%+d", K_to_F(T_av) + pump1 * 12));  
+    	p_dps_hyd_thermal.pmp_bdy_t2.setText(sprintf("%+d", K_to_F(T_av) + pump2 * 13 -2)); 
+    	p_dps_hyd_thermal.pmp_bdy_t3.setText(sprintf("%+d", K_to_F(T_av) + pump3 * 11 +1)); 
 
     	p_dps_hyd_thermal.bdyflp_pdu1.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix1)+1));
     	p_dps_hyd_thermal.bdyflp_pdu2.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix2)-2));
