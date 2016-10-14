@@ -272,24 +272,27 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
 
 	# tire pressures
 
-	var tire_nose_condition = getprop("/fdm/jsbsim/systems/failures/tire-nose-condition");
-	var tire_left_condition = getprop("/fdm/jsbsim/systems/failures/tire-left-condition");
-	var tire_right_condition = getprop("/fdm/jsbsim/systems/failures/tire-right-condition");
+	var tire_nose_left_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition");
+	var tire_nose_right_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition");
+	var tire_left_ib_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition");
+	var tire_left_ob_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition");
+	var tire_right_ib_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition");
+	var tire_right_ob_condition = getprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition");
 
-    	p_dps_hyd_thermal.mg_ib_right1.setText(sprintf("%d", int(tire_right_condition * 378.0)));
-    	p_dps_hyd_thermal.mg_ib_right2.setText(sprintf("%d", int(tire_right_condition * 378.0)));
-    	p_dps_hyd_thermal.mg_ob_right1.setText(sprintf("%d", int(tire_right_condition * 376.0)));
-    	p_dps_hyd_thermal.mg_ob_right2.setText(sprintf("%d", int(tire_right_condition * 376.0)));
+    	p_dps_hyd_thermal.mg_ib_right1.setText(sprintf("%d", int(tire_right_ib_condition * 378.0)));
+    	p_dps_hyd_thermal.mg_ib_right2.setText(sprintf("%d", int(tire_right_ib_condition * 378.0)));
+    	p_dps_hyd_thermal.mg_ob_right1.setText(sprintf("%d", int(tire_right_ob_condition * 376.0)));
+    	p_dps_hyd_thermal.mg_ob_right2.setText(sprintf("%d", int(tire_right_ob_condition * 376.0)));
 
-    	p_dps_hyd_thermal.mg_ib_left1.setText(sprintf("%d", int(tire_left_condition * 377.0)));
-    	p_dps_hyd_thermal.mg_ib_left2.setText(sprintf("%d", int(tire_left_condition * 377.0)));
-    	p_dps_hyd_thermal.mg_ob_left1.setText(sprintf("%d", int(tire_left_condition * 374.0)));
-    	p_dps_hyd_thermal.mg_ob_left2.setText(sprintf("%d", int(tire_left_condition * 374.0)));
+    	p_dps_hyd_thermal.mg_ib_left1.setText(sprintf("%d", int(tire_left_ib_condition * 377.0)));
+    	p_dps_hyd_thermal.mg_ib_left2.setText(sprintf("%d", int(tire_left_ib_condition * 377.0)));
+    	p_dps_hyd_thermal.mg_ob_left1.setText(sprintf("%d", int(tire_left_ob_condition * 374.0)));
+    	p_dps_hyd_thermal.mg_ob_left2.setText(sprintf("%d", int(tire_left_ob_condition * 374.0)));
 
-    	p_dps_hyd_thermal.ng_left1.setText(sprintf("%d", int(tire_nose_condition * 368.0)));
-    	p_dps_hyd_thermal.ng_left2.setText(sprintf("%d", int(tire_nose_condition * 368.0)));
-    	p_dps_hyd_thermal.ng_right1.setText(sprintf("%d", int(tire_nose_condition * 369.0)));
-    	p_dps_hyd_thermal.ng_right2.setText(sprintf("%d", int(tire_nose_condition * 369.0)));
+    	p_dps_hyd_thermal.ng_left1.setText(sprintf("%d", int(tire_nose_left_condition * 368.0)));
+    	p_dps_hyd_thermal.ng_left2.setText(sprintf("%d", int(tire_nose_left_condition * 368.0)));
+    	p_dps_hyd_thermal.ng_right1.setText(sprintf("%d", int(tire_nose_right_condition * 369.0)));
+    	p_dps_hyd_thermal.ng_right2.setText(sprintf("%d", int(tire_nose_right_condition * 369.0)));
 
         device.update_common_DPS();
     }

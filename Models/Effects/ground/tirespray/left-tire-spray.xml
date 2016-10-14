@@ -31,7 +31,7 @@
                 <value>0.0</value>
             </greater-than>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
 				<value>1</value>
 			</equals>
 		</condition>

@@ -175,12 +175,14 @@ if (getprop("/gear/gear[0]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-nose-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);
 		}
 	}
 
@@ -188,12 +190,14 @@ if (getprop("/gear/gear[1]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-left-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);
 		}
 	}
 
@@ -201,12 +205,14 @@ if (getprop("/gear/gear[2]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-right-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);
 		}
 	}
 }
@@ -259,7 +265,20 @@ else if (scenario_ID == 31)
 	}
 else if (scenario_ID == 32)
 	{
-	setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+	var rn = rand();
+	if (rn < 0.166)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);}
+	else if (rn < 0.33)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);}
+	else if (rn < 0.5)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);}
+	else if (rn < 0.66)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);}
+	else if (rn < 0.83)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);}
+	else 
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);}
+
 	}
 else if (scenario_ID == 33)
 	{

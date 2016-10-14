@@ -15,12 +15,7 @@
 <speedbrake-control type="int">1</speedbrake-control>
 <drag-chute-condition type="double">1.0</drag-chute-condition>
 <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
-<tire-nose-condition type="double">1.0</tire-nose-condition>
-<tire-left-condition type="double">1.0</tire-left-condition>
-<tire-right-condition type="double">1.0</tire-right-condition>
-<gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
-<gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
-<gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
+
 <tps-condition type="double">1.0</tps-condition>
 <rhc-cdr-condition type="double">1.0</rhc-cdr-condition>
 <rhc-plt-condition type="double">1.0</rhc-plt-condition>
@@ -32,6 +27,17 @@
 	<avbay3-fan-A-condition type="double">1.0</avbay3-fan-A-condition>
 	<avbay3-fan-B-condition type="double">1.0</avbay3-fan-B-condition>
 </eclss>
+<gear>
+	<tire-nose-left-condition type="double">1.0</tire-nose-left-condition>
+	<tire-nose-right-condition type="double">1.0</tire-nose-right-condition>
+	<tire-left-ib-condition type="double">1.0</tire-left-ib-condition>
+	<tire-left-ob-condition type="double">1.0</tire-left-ob-condition>
+	<tire-right-ib-condition type="double">1.0</tire-right-ib-condition>
+	<tire-right-ob-condition type="double">1.0</tire-right-ob-condition>
+	<gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
+	<gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
+	<gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
+</gear>
 <mps>
 	<ssme1-condition type="double">1.0</ssme1-condition>
 	<ssme2-condition type="double">1.0</ssme2-condition>

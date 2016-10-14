@@ -274,7 +274,7 @@
 				<value>0.0</value>
 			</greater-than>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition</property>
 				<value>1</value>
 			</equals>
 		</and>
@@ -300,7 +300,7 @@
 				<value>0</value>
 			</equals>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-nose-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition</property>
 				<value>0</value>
 			</equals>
 		</and>
@@ -339,7 +339,7 @@
 				<value>0.0</value>
 			</greater-than>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
 				<value>1</value>
 			</equals>
 		</and>
@@ -353,7 +353,7 @@
    <condition>
 		<and>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
 				<value>1</value>
 			</equals>
 		</and>
@@ -392,7 +392,7 @@
 				<value>0.0</value>
 			</greater-than>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>1</value>
 			</equals>
 		</and>
@@ -406,7 +406,7 @@
    <condition>
 		<and>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>1</value>
 			</equals>
 		</and>
@@ -439,7 +439,7 @@
 				<value>0</value>
 			</equals>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
 				<value>0</value>
 			</equals>
 		</and>
@@ -457,7 +457,7 @@
 				<value>0</value>
 			</equals>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-left-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
 				<value>0</value>
 			</equals>
 		</and>
@@ -490,7 +490,7 @@
 				<value>0</value>
 			</equals>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>0</value>
 			</equals>
 		</and>
@@ -508,7 +508,7 @@
 				<value>0</value>
 			</equals>
 			<equals>
-				<property>/fdm/jsbsim/systems/failures/gearstrut-right-condition</property>
+				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>0</value>
 			</equals>
 		</and>
