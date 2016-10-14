@@ -21271,4 +21271,34 @@
         </condition>
     </model>
 
+    <model>
+        <path>Effects/procedural_light_right_seat.xml</path>
+        <offsets>
+            <x-m> -11.7 </x-m>
+            <y-m>  0.5 </y-m>
+            <z-m>   0.38 </z-m>
+        </offsets>
+        <condition>
+            <not-equals>
+		<property>/sim/current-view/view-number</property>
+		<value>14</value>
+            </not-equals>
+        </condition>
+    </model>
+
+    <model>
+        <path>Effects/procedural_light_right_seat.xml</path>
+        <offsets>
+            <x-m> -11.7 </x-m>
+            <y-m>  0.5 </y-m>
+            <z-m>   0.3 </z-m>
+        </offsets>
+        <condition>
+            <equals>
+		<property>/sim/current-view/view-number</property>
+		<value>14</value>
+            </equals>
+        </condition>
+    </model>
+
 </PropertyList>
