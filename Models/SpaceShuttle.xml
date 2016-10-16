@@ -2114,7 +2114,44 @@
 			<pitch-deg>0</pitch-deg>
 		</offsets>
 	</model>
+
+
+  <!-- visuals of LO2 drain -->
+
+  <model>
+ 	<name>lo2-drain</name>
+  	<path>Aircraft/SpaceShuttle/Models/Effects/o2_drain.xml</path>
+  	<offsets>
+        	<x-m>12.0</x-m>
+		<y-m>3.5</y-m>
+		<z-m>-2.0</z-m>
+           <pitch-deg>-90</pitch-deg>
+  	</offsets>
+	 <condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/propellant/LO2-drain-open</property>
+			<value>1.0</value>
+		</equals>
+	 </condition>
+  </model>
 	
+  <model>
+ 	<name>lh2-drain</name>
+  	<path>Aircraft/SpaceShuttle/Models/Effects/h2_drain.xml</path>
+  	<offsets>
+        	<x-m>12.0</x-m>
+		<y-m>-3.5</y-m>
+		<z-m>-2.0</z-m>
+           <pitch-deg>-90</pitch-deg>
+  	</offsets>
+	 <condition>
+		<equals>
+			<property>/fdm/jsbsim/systems/propellant/LH2-drain-open</property>
+			<value>1.0</value>
+		</equals>
+	 </condition>
+  </model>
+
     <!--Parachutes -->
     <model>
         <path>Aircraft/SpaceShuttle/Models/Parachutes/Brake-Parachute.xml</path>

@@ -1770,8 +1770,8 @@ if (stage == 0)
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
 	#hydraulics_on();
-
-	SpaceShuttle.light_manager.set_theme("PAD");
+	
+	settimer( func SpaceShuttle.light_manager.set_theme("PAD"), 5.0);
 
 	}
 
