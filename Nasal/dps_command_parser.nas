@@ -3369,6 +3369,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 87);
 		valid_flag = 1;
 		}
+	if (spec_num == 89) 
+		{
+		page_select(idp_index, "p_dps_prplt_thermal");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 89);
+		valid_flag = 1;
+		}
 	if (spec_num == 94) 
 		{
 		page_select(idp_index, "p_dps_pdrs_control");
