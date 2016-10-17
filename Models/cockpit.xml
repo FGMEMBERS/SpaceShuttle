@@ -17714,7 +17714,7 @@
                 <script>
 			SpaceShuttle.click("avionics");
 			var cmd = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd");
-			if (cmd == 1)
+			if (cmd == 0)
 				{setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);}
 			else {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 0);}
 		</script>
@@ -17766,7 +17766,7 @@
                 <script>
 			SpaceShuttle.click("avionics");
 			var cmd = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd");
-			if (cmd == 1)
+			if (cmd == 0)
 				{setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);}
 			else {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 0);}
 		</script>
@@ -17818,7 +17818,7 @@
                 <script>
 			SpaceShuttle.click("avionics");
 			var cmd = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd");
-			if (cmd == 1)
+			if (cmd == 0)
 				{setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);}
 			else {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 0);}
 		</script>

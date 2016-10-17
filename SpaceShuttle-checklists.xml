@@ -544,23 +544,23 @@
     </item>
 
    <item>
-      <name>One hydraulic circulation pump</name>
-      <value>ON</value>
+      <name>All hydraulic circulation pumps</name>
+      <value>GPC</value>
     <condition>
-	<or>
+	<and>
         <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
     	<equals>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
     	<equals>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
-	</or>
+	</and>
       </condition>  
   </item>
 

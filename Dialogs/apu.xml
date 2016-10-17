@@ -488,7 +488,7 @@
 		<command>nasal</command>
 		<script>
 			var selection = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg");
-			var cmd = 1;			
+			var cmd = 0;			
 			if (selection == 0) {cmd = -1;}
 			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",cmd);
  		</script>
@@ -509,7 +509,7 @@
 		<command>nasal</command>
 		<script>
 			var selection = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg");
-			var cmd = 1;			
+			var cmd = 0;			
 			if (selection == 0) {cmd = -1;}
 			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",cmd);
  		</script>
@@ -530,7 +530,7 @@
 		<command>nasal</command>
 		<script>
 			var selection = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg");
-			var cmd = 1;			
+			var cmd = 0;			
 			if (selection == 0) {cmd = -1;}
 			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",cmd);
  		</script>
