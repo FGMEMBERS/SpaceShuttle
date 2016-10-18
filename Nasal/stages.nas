@@ -23,12 +23,18 @@ settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0)
 
 var ignition = func{
     launch_loop_flag = 0;
+
+    setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 1);
+    setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 1);
+    setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 1);
+
     setprop("/controls/engines/engine[0]/throttle", 1.0);
     setprop("/controls/engines/engine[1]/throttle", 1.0);
     setprop("/controls/engines/engine[2]/throttle", 1.0);
-    setprop("/engines/engine[0]/thrust_lb", 400000.0);
-    setprop("/engines/engine[1]/thrust_lb", 400000.0);
-    setprop("/engines/engine[2]/thrust_lb", 400000.0);
+
+    #setprop("/engines/engine[0]/thrust_lb", 400000.0);
+    #setprop("/engines/engine[1]/thrust_lb", 400000.0);
+    #setprop("/engines/engine[2]/thrust_lb", 400000.0);
     launch_loop_start();
 }
 
@@ -379,6 +385,9 @@ else
 	setprop("/controls/engines/engine[0]/throttle", 0.0);
 	setprop("/controls/engines/engine[1]/throttle", 0.0);
 	setprop("/controls/engines/engine[2]/throttle", 0.0);
+   	setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+   	setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+    	setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 	setprop("/controls/engines/engine[0]/ignited-hud"," ");
 	setprop("/controls/engines/engine[1]/ignited-hud"," ");
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");

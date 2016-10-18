@@ -786,7 +786,7 @@
       <engine>
        <controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
        <controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
-       <run-cmd type="int">1</run-cmd>
+       <run-cmd type="int">0</run-cmd>
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
        <helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
@@ -795,7 +795,7 @@
       <engine n="1">
        <controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
        <controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
-       <run-cmd type="int">1</run-cmd>
+       <run-cmd type="int">0</run-cmd>
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
        <helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
@@ -805,7 +805,7 @@
        <controller-A-power-switch-status type="int">1</controller-A-power-switch-status>
        <controller-B-power-switch-status type="int">1</controller-B-power-switch-status>
        <engine-operational type="int">1</engine-operational>
-       <run-cmd type="int">1</run-cmd>
+       <run-cmd type="int">0</run-cmd>
        <electric-lockup type="int">0</electric-lockup>
        <helium-isolation-valve-A-status type="int">1</helium-isolation-valve-A-status>
        <helium-isolation-valve-B-status type="int">1</helium-isolation-valve-B-status>
