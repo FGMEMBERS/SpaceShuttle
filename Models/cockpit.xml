@@ -87,6 +87,48 @@
         <object-name>hi-load-evap-enable</object-name>
         <object-name>top-evap-heat-noz-l</object-name>
         <object-name>top-evap-heat-noz-r</object-name>
+        <object-name>av-bay-1-fan-a</object-name>
+        <object-name>av-bay-1-fan-b</object-name>
+        <object-name>av-bay-2-fan-a</object-name>
+        <object-name>av-bay-2-fan-b</object-name>
+        <object-name>av-bay-3-fan-a</object-name>
+        <object-name>av-bay-3-fan-b</object-name>
+        <object-name>cabin-fan-a</object-name>
+        <object-name>cabin-fan-b</object-name>
+        <!-- Panel L1 talkbacks -->
+        <object-name>fc0-reac-base</object-name>
+        <object-name>fc1-reac-base</object-name>
+        <object-name>fc2-reac-base</object-name>
+        <object-name>fc0-rfl-base</object-name>
+        <object-name>fc-cp-base</object-name>
+        <object-name>fc-mb-a-base</object-name>
+        <object-name>mb-tie-a-base</object-name>
+        <object-name>inv-pwr0-base</object-name>
+        <object-name>inv-ac0-base</object-name>
+        <object-name>fc-mb-b-base</object-name>
+        <object-name>mb-tie-b-base</object-name>
+        <object-name>inv-pwr1-base</object-name>
+        <object-name>inv-ac1-base</object-name>
+        <object-name>fc-mb-c-base</object-name>
+        <object-name>mb-tie-c-base</object-name>
+        <object-name>inv-pwr2-base</object-name>
+        <object-name>inv-ac2-base</object-name>
+        <object-name>rad-cntrl-r-base</object-name>
+        <object-name>rad-cntrl-l-base</object-name>
+        <object-name>aft-cp-r-base</object-name>
+        <object-name>aft-cp-l-base</object-name>
+        <object-name>rad-cntrl-l-rad</object-name>
+        <object-name>rad-cntrl-r-rad</object-name>
+        <object-name>rad-cntrl-r-bp</object-name>
+        <object-name>rad-cntrl-l-bp</object-name>
+        <object-name>rad-cntrl-l-byp</object-name>
+        <object-name>rad-cntrl-r-byp</object-name>
+        <object-name>aft-cp-l-ich</object-name>
+        <object-name>aft-cp-r-ich</object-name>
+        <object-name>aft-cp-r-bp</object-name>
+        <object-name>aft-cp-l-bp</object-name>
+        <object-name>aft-cp-l-pld</object-name>
+        <object-name>aft-cp-r-pld</object-name>
         <!-- Panel L1 covers -->
         <object-name>flash-evap-cntrl-pri-cvr</object-name>
         <object-name>flash-evap-cntrl-sec-cvr</object-name>
@@ -147,13 +189,43 @@
         <object-name>L1-fasteners</object-name>
         <object-name>L1-guards</object-name>
         <object-name>L1-base</object-name>
+        <!-- Panel L2 switches -->
+        <object-name>cabin-vent-valve</object-name>
+        <object-name>cabin-vent-isol-valve</object-name>
+        <object-name>o2-supply-sys1-valve</object-name>
+        <object-name>o2-supply-sys2-valve</object-name>
+        <object-name>o2-xovr-sys1-valve</object-name>
+        <object-name>o2-xovr-sys2-valve</object-name>
+        <object-name>n2-supply-sys1-valve</object-name>
+        <object-name>n2-supply-sys2-valve</object-name>
+        <object-name>n2-reg-inlet-sys1-valve</object-name>
+        <object-name>n2-reg-inlet-sys2-valve</object-name>
+        <object-name>o2-n2-control-sys1-valve</object-name>
+        <object-name>o2-n2-control-sys2-valve</object-name>
+        <!-- Panel L2 talkbacks -->
+        <object-name>cabin-vent-isol-valve-cl</object-name>
+        <object-name>cabin-vent-isol-valve-op</object-name>
+        <object-name>cabin-vent-valve-cl</object-name>
+        <object-name>cabin-vent-valve-op</object-name>
+        <object-name>o2-supply-sys1-valve-op</object-name>
+        <object-name>o2-supply-sys1-valve-cl</object-name>
+        <object-name>o2-supply-sys2-valve-op</object-name>
+        <object-name>o2-supply-sys2-valve-cl</object-name>
+        <object-name>n2-supply-sys1-valve-op</object-name>
+        <object-name>n2-supply-sys1-valve-cl</object-name>
+        <object-name>n2-supply-sys2-valve-op</object-name>
+        <object-name>n2-supply-sys2-valve-cl</object-name>
+        <object-name>n2-reg-inlet-sys1-valve-op</object-name>
+        <object-name>n2-reg-inlet-sys1-valve-cl</object-name>
+        <object-name>n2-reg-inlet-sys2-valve-op</object-name>
+        <object-name>n2-reg-inlet-sys2-valve-cl</object-name>
         <!--Panel L2 fixings -->
         <object-name>L2-panel</object-name>
         <object-name>L2-fasteners</object-name>
         <object-name>L2-base</object-name>
         <object-name>L2-guards</object-name>
-        <object-name>L2-switches</object-name>
-        <object-name>L2-talkbacks</object-name>
+        <object-name>L2-switches-base</object-name>
+        <object-name>L2-talkbacks-base</object-name>
         <!-- Panel L4 -->
         <object-name>L4-breakers</object-name>
         <object-name>L4-fasteners</object-name>
@@ -196,15 +268,6 @@
         <object-name>hud-bright-cmd-switch</object-name>
         <object-name>hud-mode-cmd-switch</object-name>
         <object-name>hud-data-bus-cmd</object-name>
-        <!-- Panel L1 talkbacks -->
-        <object-name>rad-cntrl-l-rad</object-name>
-        <object-name>rad-cntrl-r-rad</object-name>
-        <object-name>rad-cntrl-r-bp</object-name>
-        <object-name>rad-cntrl-l-bp</object-name>
-        <object-name>aft-cp-l-ich</object-name>
-        <object-name>aft-cp-r-ich</object-name>
-        <object-name>aft-cp-r-bp</object-name>
-        <object-name>aft-cp-l-bp</object-name>
         <!-- Panel F6 talkbacks -->
         <object-name>landing_gear_left_cmd_talkback_bp</object-name>
         <object-name>landing_gear_right_cmd_talkback_bp</object-name>
@@ -215,33 +278,6 @@
         <object-name>landing_gear_left_cmd_talkback_dn</object-name>
         <object-name>landing_gear_right_cmd_talkback_dn</object-name>
         <object-name>landing_gear_middle_cmd_talkback_dn</object-name>
-        <!-- Panel L1 talkbacks -->
-        <object-name>fc0-reac-base</object-name>
-        <object-name>fc1-reac-base</object-name>
-        <object-name>fc2-reac-base</object-name>
-        <object-name>fc0-rfl-base</object-name>
-        <object-name>fc-cp-base</object-name>
-        <object-name>fc-mb-a-base</object-name>
-        <object-name>mb-tie-a-base</object-name>
-        <object-name>inv-pwr0-base</object-name>
-        <object-name>inv-ac0-base</object-name>
-        <object-name>fc-mb-b-base</object-name>
-        <object-name>mb-tie-b-base</object-name>
-        <object-name>inv-pwr1-base</object-name>
-        <object-name>inv-ac1-base</object-name>
-        <object-name>fc-mb-c-base</object-name>
-        <object-name>mb-tie-c-base</object-name>
-        <object-name>inv-pwr2-base</object-name>
-        <object-name>inv-ac2-base</object-name>
-        <object-name>rad-cntrl-r-base</object-name>
-        <object-name>rad-cntrl-l-base</object-name>
-        <object-name>aft-cp-r-base</object-name>
-        <object-name>aft-cp-l-base</object-name>
-         <!-- Panel L1 talkbacks -->
-        <object-name>rad-cntrl-l-byp</object-name>
-        <object-name>rad-cntrl-r-byp</object-name>
-        <object-name>aft-cp-l-pld</object-name>
-        <object-name>aft-cp-r-pld</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-panel-right</inherits-from>
@@ -12139,6 +12175,374 @@
         </hovered>
     </animation>
 
+    <!-- AV Bay 1 Fan A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-1-fan-a</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-A-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.9115</x-m>
+            <y-m> -1.2249</y-m>
+            <z-m> -0.7673</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-A-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-1-fan-a</tooltip-id>
+                <label>AV Bay 1 Fan A: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-A-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AV Bay 1 Fan B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-1-fan-b</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-B-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.941 </x-m>
+            <y-m> -1.2152</y-m>
+            <z-m> -0.7674</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-B-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-1-fan-b</tooltip-id>
+                <label>AV Bay 1 Fan B: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[0]/fan-B-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AV Bay 2 Fan A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-2-fan-a</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-A-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.9085</x-m>
+            <y-m> -1.2161</y-m>
+            <z-m> -0.8043</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-A-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-2-fan-a</tooltip-id>
+                <label>AV 2 Bay Fan A: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-A-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AV Bay 2 Fan B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-2-fan-b</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-B-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.938 </x-m>
+            <y-m> -1.2064</y-m>
+            <z-m> -0.8044</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-B-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-2-fan-b</tooltip-id>
+                <label>AV Bay 2 Fan B: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[1]/fan-B-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AV Bay 3 Fan A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-3-fan-a</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-A-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.8347</x-m>
+            <y-m> -1.2404</y-m>
+            <z-m> -0.8038</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-A-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-3-fan-a</tooltip-id>
+                <label>AV 3 Bay Fan A: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-A-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- AV Bay 3 Fan B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>av-bay-3-fan-b</object-name>
+        <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-B-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.8648 </x-m>
+            <y-m> -1.2305</y-m>
+            <z-m> -0.8039</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-B-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>av-bay-3-fan-b</tooltip-id>
+                <label>AV Bay 3 Fan B: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/avbay[2]/fan-B-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Cabin Fan A "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>cabin-fan-a</object-name>
+        <property>/fdm/jsbsim/systems/eclss/cabin/fan-A-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.7444</x-m>
+            <y-m> -1.2707</y-m>
+            <z-m> -0.8014</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/cabin/fan-A-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cabin-fan-a</tooltip-id>
+                <label>Cabin Fan A: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/cabin/fan-A-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Cabin Fan B "Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>cabin-fan-b</object-name>
+        <property>/fdm/jsbsim/systems/eclss/cabin/fan-B-switch</property>
+        <factor>45</factor>
+        <offset-deg>-30</offset-deg>
+        <center>
+            <x-m>-11.774 </x-m>
+            <y-m> -1.2609</y-m>
+            <z-m> -0.8016</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/cabin/fan-B-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cabin-fan-b</tooltip-id>
+                <label>Cabin Fan B: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/cabin/fan-B-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['OFF', 'ON'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Panel L1                                                             -->
     <!-- Un-coded switches and talkbacks                                                             -->
@@ -12534,6 +12938,738 @@
                 <property>/fdm/jsbsim/systems/dummy/switch/sd-circuit-test</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel L2                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- Cabin Vent Valve"Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>cabin-vent-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/cabin/vent-valve</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.1877</x-m>
+            <y-m> -0.9761</y-m>
+            <z-m> -0.903</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-valve</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cabin-vent-valve</tooltip-id>
+                <label>Cabin Vent Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-valve</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Cabin Vent ISOL Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>cabin-vent-isol-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/cabin/vent-isolation-valve</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-12.1864</x-m>
+            <y-m> -1.0001</y-m>
+            <z-m> -0.8939</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-isolation-valve</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cabin-vent-isol-valve</tooltip-id>
+                <label>Cabin Vent ISOL Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-isolation-valve</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Supply Sys1 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-supply-sys1-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8994</x-m>
+            <y-m> -1.1614</y-m>
+            <z-m> -0.8648</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-supply-sys1-valve</tooltip-id>
+                <label>O2 Supply Sys1 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 Supply Sys2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-supply-sys2-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.7686</x-m>
+            <y-m> -1.1581</y-m>
+            <z-m> -0.8811</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-supply-sys2-valve</tooltip-id>
+                <label>O2 Supply Sys2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 XOVR Sys1 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-xovr-sys1-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-xovr-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8572</x-m>
+            <y-m> -1.1111</y-m>
+            <z-m> -0.889</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-xovr-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-xovr-sys1-valve</tooltip-id>
+                <label>O2 XOVR Sys1 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-xovr-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 XOVR Sys2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-xovr-sys2-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-xovr-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8141</x-m>
+            <y-m> -1.1109</y-m>
+            <z-m> -0.894</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-xovr-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-xovr-sys2-valve</tooltip-id>
+                <label>O2 XOVR Sys2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-xovr-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!--N2 Supply Sys1 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>n2-supply-sys1-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-supply-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.9041</x-m>
+            <y-m> -1.0733</y-m>
+            <z-m> -0.8982</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-supply-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>n2-supply-sys1-valve</tooltip-id>
+                <label>N2 Supply Sys1 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-supply-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- N2 Supply Sys2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>n2-supply-sys2-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-supply-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.7701</x-m>
+            <y-m> -1.0722</y-m>
+            <z-m> -0.914</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-supply-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>n2-supply-sys2-valve</tooltip-id>
+                <label>N2 Supply Sys2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-supply-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!--N2 Reg Inlet Sys1 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>n2-reg-inlet-sys1-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.9054</x-m>
+            <y-m> -1.0493</y-m>
+            <z-m> -0.9073</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>n2-reg-inlet-sys1-valve</tooltip-id>
+                <label>N2 Reg Inlet Sys1 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- N2 Reg Inlet Sys2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>n2-reg-inlet-sys2-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.7714</x-m>
+            <y-m> -1.0479</y-m>
+            <z-m> -0.9232</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>n2-reg-inlet-sys2-valve</tooltip-id>
+                <label>N2 Reg Inlet Sys2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 N2 Control Sys1 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-n2-control-sys1-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8636</x-m>
+            <y-m> -0.9925</y-m>
+            <z-m> -0.9339</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-n2-control-sys1-valve</tooltip-id>
+                <label>O2 N2 Control Sys1 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- O2 N2 Control Sys2 Valve "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>o2-n2-control-sys2-valve</object-name>
+        <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status</property>
+        <factor>-45</factor>
+        <offset-deg>45</offset-deg>
+        <center>
+            <x-m>-11.8179</x-m>
+            <y-m> -0.9931</y-m>
+            <z-m> -0.939</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>-.4</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>o2-n2-control-sys2-valve</tooltip-id>
+                <label>O2 N2 Control Sys2 Valve: %s</label>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Cabin Vent Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>cabin-vent-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-valve</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>cabin-vent-valve-cl</object-name>
+        <condition>
+                <equals>
+                    <property>/fdm/jsbsim/systems/eclss/cabin/vent-valve</property>
+                    <value>0</value>
+                </equals>
+        </condition>
+    </animation>
+
+    <!-- Cabin Vent ISOL Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>cabin-vent-isol-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-isolation-valve</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>cabin-vent-isol-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/cabin/vent-isolation-valve</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- O2 Supply Sys1 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>o2-supply-sys1-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>o2-supply-sys1-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- O2 Supply Sys2 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>o2-supply-sys2-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>o2-supply-sys2-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- N2 Supply Sys1 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>n2-supply-sys1-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-supply-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>n2-supply-sys1-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-supply-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!--N2 Supply Sys2 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>n2-supply-sys2-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-supply-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>n2-supply-sys2-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-supply-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- N2 Reg Inlet Sys1 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>n2-reg-inlet-sys1-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>n2-reg-inlet-sys1-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!--N2 Reg Inlet Sys2 Valve "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>n2-reg-inlet-sys2-valve-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>n2-reg-inlet-sys2-valve-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
