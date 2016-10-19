@@ -713,6 +713,18 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/oms-hardware/heater-left-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-left-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-left-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/oms-hardware/heater-right-power-kW">
 		<function>
 			<product>
@@ -725,6 +737,18 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/oms-hardware/heater-right-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-right-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-right-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
 		<fcs_function name="systems/oms-hardware/heater-crossfeed-power-kW">
 		<function>
 			<product>
@@ -736,6 +760,18 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<switch name="systems/oms-hardware/heater-crossfeed-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-crossfeed-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/heater-crossfeed-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
 
 	</channel>
 
