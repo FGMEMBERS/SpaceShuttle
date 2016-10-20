@@ -58,6 +58,8 @@
 	<oms2-n2-condition type="double">1.0</oms2-n2-condition>
 	<oms-he-left-condition type="double">1.0</oms-he-left-condition>
 	<oms-he-right-condition type="double">1.0</oms-he-right-condition>
+	<oms-left-fuel-line-condition type="double">1.0</oms-left-fuel-line-condition>
+	<oms-right-fuel-line-condition type="double">1.0</oms-right-fuel-line-condition>
 </oms>
 <rcs>
 	<rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
@@ -110,6 +112,9 @@
 	<rcs-he-right-2-condition type="double">1.0</rcs-he-right-2-condition>
 	<rcs-he-fwd-1-condition type="double">1.0</rcs-he-fwd-1-condition>
 	<rcs-he-fwd-2-condition type="double">1.0</rcs-he-fwd-2-condition>
+	<rcs-fwd-fuel-line-condition type="double">1.0</rcs-fwd-fuel-line-condition>
+	<rcs-left-fuel-line-condition type="double">1.0</rcs-left-fuel-line-condition>
+	<rcs-right-fuel-line-condition type="double">1.0</rcs-right-fuel-line-condition>
 </rcs>
 <apu1-condition type="double">1.0</apu1-condition>
 <apu2-condition type="double">1.0</apu2-condition>
