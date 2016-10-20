@@ -585,6 +585,7 @@
 					<property>systems/oms-hardware/right-oms-fuel-available</property>
 					</product>
 				</max>
+				<property>systems/failures/oms/oms-left-fuel-line-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[5]</output>
@@ -604,6 +605,7 @@
 					<property>systems/oms-hardware/left-oms-fuel-available</property>
 					</product>
 				</max>
+				<property>systems/failures/oms/oms-right-fuel-line-condition</property>
 			</product>
 		</function>
 		<output>fcs/throttle-pos-norm[6]</output>

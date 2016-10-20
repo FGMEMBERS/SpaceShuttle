@@ -651,7 +651,7 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1A-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_x2.setText(symbol);
 
-		p_dps_rcs.jdes_x1.setText("");
+		p_dps_rcs.jdes_x3.setText("");
 
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5L-sel") == 0) {symbol = "*";}

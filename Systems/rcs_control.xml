@@ -3428,6 +3428,259 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3A-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1A-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L5L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L5L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L5L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L5D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L5D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L5D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1A-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3A-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R5R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R5R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R5R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R5D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R5D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R5D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 </system>
