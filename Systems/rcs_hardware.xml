@@ -2002,6 +2002,132 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rcs-hardware/R4R-fire-cmd-final">
+			<default value="systems/rcs/R4R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R4R-fire-cmd-final">
+				systems/rcs-hardware/R4R-fire GT 0.0
+				systems/failures/rcs/rcs-R4R-condition GT 1.0
+				systems/rcs/R4R-fire-cmd-inh LT systems/rcs-hardware/R4R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R2R-fire-cmd-final">
+			<default value="systems/rcs/R2R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R2R-fire-cmd-final">
+				systems/rcs-hardware/R2R-fire GT 0.0
+				systems/failures/rcs/rcs-R2R-condition GT 1.0
+				systems/rcs/R2R-fire-cmd-inh LT systems/rcs-hardware/R2R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R3R-fire-cmd-final">
+			<default value="systems/rcs/R3R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R3R-fire-cmd-final">
+				systems/rcs-hardware/R3R-fire GT 0.0
+				systems/failures/rcs/rcs-R3R-condition GT 1.0
+				systems/rcs/R3R-fire-cmd-inh LT systems/rcs-hardware/R3R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R1R-fire-cmd-final">
+			<default value="systems/rcs/R1R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R1R-fire-cmd-final">
+				systems/rcs-hardware/R1R-fire GT 0.0
+				systems/failures/rcs/rcs-R1R-condition GT 1.0
+				systems/rcs/R1R-fire-cmd-inh LT systems/rcs-hardware/R1R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R4U-fire-cmd-final">
+			<default value="systems/rcs/R4U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R4U-fire-cmd-final">
+				systems/rcs-hardware/R4U-fire GT 0.0
+				systems/failures/rcs/rcs-R4U-condition GT 1.0
+				systems/rcs/R4U-fire-cmd-inh LT systems/rcs-hardware/R4U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R2U-fire-cmd-final">
+			<default value="systems/rcs/R2U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R2U-fire-cmd-final">
+				systems/rcs-hardware/R2U-fire GT 0.0
+				systems/failures/rcs/rcs-R2U-condition GT 1.0
+				systems/rcs/R2U-fire-cmd-inh LT systems/rcs-hardware/R2U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R1U-fire-cmd-final">
+			<default value="systems/rcs/R1U-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R1U-fire-cmd-final">
+				systems/rcs-hardware/R1U-fire GT 0.0
+				systems/failures/rcs/rcs-R1U-condition GT 1.0
+				systems/rcs/R1U-fire-cmd-inh LT systems/rcs-hardware/R1U-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R4D-fire-cmd-final">
+			<default value="systems/rcs/R4D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R4D-fire-cmd-final">
+				systems/rcs-hardware/R4D-fire GT 0.0
+				systems/failures/rcs/rcs-R4D-condition GT 1.0
+				systems/rcs/R4D-fire-cmd-inh LT systems/rcs-hardware/R4D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R2D-fire-cmd-final">
+			<default value="systems/rcs/R2D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R2D-fire-cmd-final">
+				systems/rcs-hardware/R2D-fire GT 0.0
+				systems/failures/rcs/rcs-R2D-condition GT 1.0
+				systems/rcs/R2D-fire-cmd-inh LT systems/rcs-hardware/R2D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R3D-fire-cmd-final">
+			<default value="systems/rcs/R3D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R4D-fire-cmd-final">
+				systems/rcs-hardware/R3D-fire GT 0.0
+				systems/failures/rcs/rcs-R3D-condition GT 1.0
+				systems/rcs/R3D-fire-cmd-inh LT systems/rcs-hardware/R3D-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R1A-fire-cmd-final">
+			<default value="systems/rcs/R1A-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R1A-fire-cmd-final">
+				systems/rcs-hardware/R1A-fire GT 0.0
+				systems/failures/rcs/rcs-R1A-condition GT 1.0
+				systems/rcs/R1A-fire-cmd-inh LT systems/rcs-hardware/R1A-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R3A-fire-cmd-final">
+			<default value="systems/rcs/R3A-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R3A-fire-cmd-final">
+				systems/rcs-hardware/R3A-fire GT 0.0
+				systems/failures/rcs/rcs-R3A-condition GT 1.0
+				systems/rcs/R3A-fire-cmd-inh LT systems/rcs-hardware/R3A-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R5R-fire-cmd-final">
+			<default value="systems/rcs/R5R-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R5R-fire-cmd-final">
+				systems/rcs-hardware/R5R-fire GT 0.0
+				systems/failures/rcs/rcs-R5R-condition GT 1.0
+				systems/rcs/R5R-fire-cmd-inh LT systems/rcs-hardware/R5R-fire
+			</test>
+		</switch>
+
+		<switch name="systems/rcs-hardware/R5D-fire-cmd-final">
+			<default value="systems/rcs/R5D-fire-cmd-inh"/>
+			<test logic="AND" value="systems/rcs-hardware/R5D-fire-cmd-final">
+				systems/rcs-hardware/R5D-fire GT 0.0
+				systems/failures/rcs/rcs-R5D-condition GT 1.0
+				systems/rcs/R5D-fire-cmd-inh LT systems/rcs-hardware/R5D-fire
+			</test>
+		</switch>
+
 	</channel>
 
 	<channel name="RCS hardware thruster firing simulation">
@@ -2205,7 +2331,7 @@
 		<fcs_function name="systems/rcs-hardware/R3A-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R3A-fire-cmd</property>
+				<property>systems/rcs-hardware/R3A-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R3A-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2222,7 +2348,7 @@
 		<fcs_function name="systems/rcs-hardware/R1A-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R1A-fire-cmd</property>
+				<property>systems/rcs-hardware/R1A-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R1A-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2341,7 +2467,7 @@
 		<fcs_function name="systems/rcs-hardware/R4R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R4R-fire-cmd</property>
+				<property>systems/rcs-hardware/R4R-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R4R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2358,7 +2484,7 @@
 		<fcs_function name="systems/rcs-hardware/R2R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R2R-fire-cmd</property>
+				<property>systems/rcs-hardware/R2R-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R2R-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2375,7 +2501,7 @@
 		<fcs_function name="systems/rcs-hardware/R3R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R3R-fire-cmd</property>
+				<property>systems/rcs-hardware/R3R-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R3R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2392,7 +2518,7 @@
 		<fcs_function name="systems/rcs-hardware/R1R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R1R-fire-cmd</property>
+				<property>systems/rcs-hardware/R1R-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R1R-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2460,7 +2586,7 @@
 		<fcs_function name="systems/rcs-hardware/R4U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R4U-fire-cmd</property>
+				<property>systems/rcs-hardware/R4U-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R4U-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2477,7 +2603,7 @@
 		<fcs_function name="systems/rcs-hardware/R2U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R2U-fire-cmd</property>
+				<property>systems/rcs-hardware/R2U-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R2U-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2494,7 +2620,7 @@
 		<fcs_function name="systems/rcs-hardware/R1U-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R1U-fire-cmd</property>
+				<property>systems/rcs-hardware/R1U-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R1U-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2562,7 +2688,7 @@
 		<fcs_function name="systems/rcs-hardware/R4D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R4D-fire-cmd</property>
+				<property>systems/rcs-hardware/R4D-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R4D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2579,7 +2705,7 @@
 		<fcs_function name="systems/rcs-hardware/R2D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R2D-fire-cmd</property>
+				<property>systems/rcs-hardware/R2D-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R2D-fuel-available</property>
 					<property>systems/rcs-hardware/right-12-crossfeed-fuel-available</property>
@@ -2596,7 +2722,7 @@
 		<fcs_function name="systems/rcs-hardware/R3D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R3D-fire-cmd</property>
+				<property>systems/rcs-hardware/R3D-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R3D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2660,7 +2786,7 @@
 		<fcs_function name="systems/rcs-hardware/R5D-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R5D-fire-cmd</property>
+				<property>systems/rcs-hardware/R5D-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R5D-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
@@ -2694,7 +2820,7 @@
 		<fcs_function name="systems/rcs-hardware/R5R-fire">
 		<function>
 			<product>
-				<property>systems/rcs/R5R-fire-cmd</property>
+				<property>systems/rcs-hardware/R5R-fire-cmd-final</property>
 				<max>
 					<property>systems/rcs-hardware/R5R-fuel-available</property>
 					<property>systems/rcs-hardware/right-345-crossfeed-fuel-available</property>
