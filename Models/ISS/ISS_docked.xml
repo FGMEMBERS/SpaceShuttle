@@ -13,7 +13,8 @@
 
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>
-	     <object-name>ISS</object-name>
+	     <object-name>ISS_modules</object-name>
+	     <object-name>ISS_panels</object-name>
 	 </effect>
 
 
