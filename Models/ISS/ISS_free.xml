@@ -8,7 +8,15 @@
 	 <effect>
 	    <inherits-from>Effects/space</inherits-from>
 	     <object-name>ISS_modules</object-name>
+	     <object-name>ISS_module1</object-name>
+	     <object-name>ISS_module2</object-name>
+	     <object-name>ISS_module3</object-name>
+	     <object-name>ISS_module4</object-name>
+	     <object-name>ISS_module5</object-name>
 	     <object-name>ISS_panels</object-name>
+	     <object-name>ISS_minor_panels</object-name>
+	     <object-name>ISS_minor_panels1</object-name>
+	     <object-name>ISS_docking</object-name>
 	 </effect>
 
 
