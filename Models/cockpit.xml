@@ -5253,9 +5253,9 @@
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
                     if (selection == 0)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
                     }
                     else if (selection == 1)
                     {
@@ -5264,9 +5264,9 @@
                     }
                     else if (selection == 2)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
                     }
                 </script>
             </binding>
@@ -5323,9 +5323,9 @@
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
                     if (selection == 0)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
                     }
                     else if (selection == 1)
                     {
@@ -5334,9 +5334,9 @@
                     }
                     else if (selection == 2)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
                     }
                 </script>
             </binding>
@@ -5673,9 +5673,9 @@
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight8-mode");
                     if (selection == 0)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
                     }
                     else if (selection == 1)
                     {
@@ -5684,9 +5684,9 @@
                     }
                     else if (selection == 2)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
                     }
                 </script>
             </binding>
@@ -5743,9 +5743,9 @@
                     var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
                     if (selection == 0)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
                     }
                     else if (selection == 1)
                     {
@@ -5754,9 +5754,9 @@
                     }
                     else if (selection == 2)
                     {
-                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
                             getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
-                        setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                        setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
                     }
                 </script>
             </binding>
