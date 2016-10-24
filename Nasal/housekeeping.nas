@@ -1265,6 +1265,9 @@ var condition_manager = {
 	pump2_status: 0,
 	pump3_status: 0,
 
+	oms_left_line_condition : 1.0,
+	oms_right_line_condition: 1.0,
+
 	start: func {
 
 		if (me.run_flag == 1) {return;}
@@ -1424,7 +1427,33 @@ var condition_manager = {
 		setprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor", me.hyd3_pressure);
 		setprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor", me.hyd3_T_eq);
 
+		# OMS fuel lines
+	
+		me.oms_left_line_condition = getprop("/fdm/jsbsim/systems/failures/oms/oms-left-fuel-line-condition");
 
+		if (SpaceShuttle.system_temperatures.OMS_left < 275.0)
+			{
+			me.oms_left_line_condition = me.oms_left_line_condition * 0.99;
+			}
+		else if (SpaceShuttle.system_temperatures.OMS_left > 288.0)
+			{
+			me.oms_left_line_condition = me.oms_left_line_condition * 1.02;
+			if (me.oms_left_line_condition > 1) {me.oms_left_line_condition = 1;}
+			}
+		setprop("/fdm/jsbsim/systems/failures/oms/oms-left-fuel-line-condition", me.oms_left_line_condition);
+
+		me.oms_right_line_condition = getprop("/fdm/jsbsim/systems/failures/oms/oms-right-fuel-line-condition");
+
+		if (SpaceShuttle.system_temperatures.OMS_right < 275.0)
+			{
+			me.oms_right_line_condition = me.oms_right_line_condition * 0.99;
+			}
+		else if (SpaceShuttle.system_temperatures.OMS_right > 288.0)
+			{
+			me.oms_right_line_condition = me.oms_right_line_condition * 1.02;
+			if (me.oms_right_line_condition > 1) {me.oms_right_line_condition = 1;}
+			}
+		setprop("/fdm/jsbsim/systems/failures/oms/oms-right-fuel-line-condition", me.oms_right_line_condition);
 
 		me.list();
 
@@ -1447,12 +1476,14 @@ var condition_manager = {
 		print("Long term system status simulation:");
 		print("===============================");
 		print("Fuel cell status:");
-		print("FC1:  ", me.fc1_efficiency, " FC2:  ", me.fc2_efficiency, " FC3:  ", me.fc3_efficiency);
+		print("FC1:  ", sprintf("%1.3f",me.fc1_efficiency), " FC2:  ", sprintf("%1.3f",me.fc2_efficiency), " FC3:  ", sprintf("%1.3f",me.fc3_efficiency));
 		print("Hydraulic pressure:");
-		print("HYD1: ", me.hyd1_pressure * 2600.0, " HYD2: ", me.hyd2_pressure * 2600.0, " HYD3: ", me.hyd3_pressure * 2600.0);
+		print("HYD1: ", sprintf("%4.1f",me.hyd1_pressure * 2600.0), " HYD2: ", sprintf("%4.1f",me.hyd2_pressure * 2600.0), " HYD3: ", sprintf("%4.1f",me.hyd3_pressure * 2600.0));
 		print("PUMP1: ", string1, " PUMP2: ", string2, " PUMP3: ", string3);
 		print("Temperature equilibration:");
-		print("SYS1: ", me.hyd1_T_eq, " SYS2: ", me.hyd2_T_eq, " SYS3: ", me.hyd3_T_eq);
+		print("SYS1: ", sprintf("%1.2f", me.hyd1_T_eq), " SYS2: ", sprintf("%1.2f", me.hyd2_T_eq), " SYS3: ", sprintf("%1.2f",me.hyd3_T_eq));
+		print("Fuel line status:");
+		print("OMS L: ", sprintf("%1.2f",me.oms_left_line_condition), " OMS R: ", sprintf("%1.2f",me.oms_right_line_condition));
 
 	},
 
