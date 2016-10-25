@@ -264,7 +264,7 @@ append(thermal_array, pressure_vessel);
 
 var coupling_array11 = [];
 
-var freon = thermal_mass.new (200.0, 1000.0, 310.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
+var freon = thermal_mass.new (200.0, 1000.0, 290.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
 append(thermal_array, freon);
 
 
