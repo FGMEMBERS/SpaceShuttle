@@ -201,8 +201,8 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.hyd2_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia")));
         p_dps_sm_sys_summ2.hyd3_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia")));
     
-        p_dps_sm_sys_summ2.hyd1_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-3.0))); 
-        p_dps_sm_sys_summ2.hyd2_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+1.0))); 
+        p_dps_sm_sys_summ2.hyd1_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-1.0))); 
+        p_dps_sm_sys_summ2.hyd2_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")))); 
         p_dps_sm_sys_summ2.hyd3_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")))); 
     
     

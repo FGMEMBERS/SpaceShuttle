@@ -1380,6 +1380,7 @@
       <aft-temperature-K type="double">310</aft-temperature-K>
       <avionics-temperature-K type="double">310</avionics-temperature-K>
       <interior-temperature-K type="double">310</interior-temperature-K>
+      <hyd-reservoir-temperature-K type="double">310</hyd-reservoir-temperature-K>
       <apu1-temperature-K type="double">310</apu1-temperature-K>
       <apu2-temperature-K type="double">310</apu2-temperature-K>
       <apu3-temperature-K type="double">310</apu3-temperature-K>

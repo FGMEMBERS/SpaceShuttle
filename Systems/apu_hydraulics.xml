@@ -955,7 +955,7 @@
 	</function>
 	</fcs_function>
 
-	<fcs_function name="systems/apu/apu/hyd-acc-pressure-psia">
+	<!--<fcs_function name="systems/apu/apu/hyd-acc-pressure-psia">
 	<function>
 		<max>
 			<value>2497</value>
@@ -980,12 +980,12 @@
 			<property>systems/apu/apu[2]/hyd-pressure-psia</property>
 		</max>
 	</function>
-	</fcs_function>
+	</fcs_function>-->
 
 	<fcs_function name="systems/apu/apu/hyd-rsvr-T-K">
 	<function>
 		<max>
-			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<property>systems/thermal-distribution/hyd-reservoir-temperature-K</property>
 			<difference>
 				<property>systems/apu/apu/oil-in-T-K</property>
 				<value>15.0</value>
@@ -997,7 +997,7 @@
 	<fcs_function name="systems/apu/apu[1]/hyd-rsvr-T-K">
 	<function>
 		<max>
-			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<property>systems/thermal-distribution/hyd-reservoir-temperature-K</property>
 			<difference>
 				<property>systems/apu/apu[1]/oil-in-T-K</property>
 				<value>15.0</value>
@@ -1009,7 +1009,7 @@
 	<fcs_function name="systems/apu/apu[2]/hyd-rsvr-T-K">
 	<function>
 		<max>
-			<property>systems/thermal-distribution/aft-temperature-K</property>
+			<property>systems/thermal-distribution/hyd-reservoir-temperature-K</property>
 			<difference>
 				<property>systems/apu/apu[2]/oil-in-T-K</property>
 				<value>15.0</value>

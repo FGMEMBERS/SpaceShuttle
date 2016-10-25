@@ -192,8 +192,28 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
 	var T_aft = getprop("/fdm/jsbsim/systems/thermal-distribution/aft-temperature-K");
 	var T_freon = getprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K");
 
-	var T_av_in = (T_nose + T_left + T_right + T_low + T_aft)/5.0;
-	var T_av = (T_nose + T_left + T_right + T_low + T_aft + T_freon)/6.0;
+	# if APUs are running, the hydraulic fluid gets hotter
+
+	var T_hot1 = getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K");
+	var T_hot2 = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K");
+	var T_hot3 = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K");
+
+	var T_av_in1 = (T_nose + T_left + T_right + T_low + T_aft)/5.0;
+	var T_av_in2 = T_av_in1;
+	var T_av_in3 = T_av_in1;
+
+	T_av1 = getprop("/fdm/jsbsim/systems/thermal-distribution/hyd-reservoir-temperature-K");
+	T_av2 = T_av1;
+	T_av3 = T_av1;
+
+	if (T_hot1 > T_av1) {T_av1 = T_hot1;}
+	if (T_hot2 > T_av2) {T_av2 = T_hot2;}
+	if (T_hot3 > T_av3) {T_av3 = T_hot3;}
+
+	if (T_hot1 > T_av_in1) {T_av_in1 = T_hot1;}
+	if (T_hot2 > T_av_in2) {T_av_in2 = T_hot2;}
+	if (T_hot3 > T_av_in3) {T_av_in3 = T_hot3;}
+
 	var T_lwing = (T_left + T_low)/2.0;
 	var T_rwing = (T_right + T_low)/2.0;
 
@@ -205,70 +225,70 @@ var PFD_addpage_p_dps_hyd_thermal = func(device)
     	p_dps_hyd_thermal.hx_in_t2.setText(sprintf("%+d", K_to_F(T_freon) ));
     	p_dps_hyd_thermal.hx_in_t3.setText(sprintf("%+d", K_to_F(T_freon) + 2));
 
-    	p_dps_hyd_thermal.hx_out_t1.setText(sprintf("%+d", K_to_F(T_av_in) - 1));
-    	p_dps_hyd_thermal.hx_out_t2.setText(sprintf("%+d", K_to_F(T_av_in) -1));
-    	p_dps_hyd_thermal.hx_out_t3.setText(sprintf("%+d", K_to_F(T_av_in) + 2));
+    	p_dps_hyd_thermal.hx_out_t1.setText(sprintf("%+d", K_to_F(T_av_in1) - 1));
+    	p_dps_hyd_thermal.hx_out_t2.setText(sprintf("%+d", K_to_F(T_av_in2) -1));
+    	p_dps_hyd_thermal.hx_out_t3.setText(sprintf("%+d", K_to_F(T_av_in3) + 2));
 
-    	p_dps_hyd_thermal.rsvr_t1.setText(sprintf("%+d", K_to_F(T_av) - 1)); 
-    	p_dps_hyd_thermal.rsvr_t2.setText(sprintf("%+d", K_to_F(T_av)));
-    	p_dps_hyd_thermal.rsvr_t3.setText(sprintf("%+d", K_to_F(T_av)));
+    	p_dps_hyd_thermal.rsvr_t1.setText(sprintf("%+d", K_to_F(T_av1) - 1)); 
+    	p_dps_hyd_thermal.rsvr_t2.setText(sprintf("%+d", K_to_F(T_av2)));
+    	p_dps_hyd_thermal.rsvr_t3.setText(sprintf("%+d", K_to_F(T_av3)));
 
-    	p_dps_hyd_thermal.pmp_bdy_t1.setText(sprintf("%+d", K_to_F(T_av) + pump1 * 12));  
-    	p_dps_hyd_thermal.pmp_bdy_t2.setText(sprintf("%+d", K_to_F(T_av) + pump2 * 13 -2)); 
-    	p_dps_hyd_thermal.pmp_bdy_t3.setText(sprintf("%+d", K_to_F(T_av) + pump3 * 11 +1)); 
+    	p_dps_hyd_thermal.pmp_bdy_t1.setText(sprintf("%+d", K_to_F(T_av1) + pump1 * 12));  
+    	p_dps_hyd_thermal.pmp_bdy_t2.setText(sprintf("%+d", K_to_F(T_av2) + pump2 * 13 -2)); 
+    	p_dps_hyd_thermal.pmp_bdy_t3.setText(sprintf("%+d", K_to_F(T_av3) + pump3 * 11 +1)); 
 
-    	p_dps_hyd_thermal.bdyflp_pdu1.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix1)+1));
-    	p_dps_hyd_thermal.bdyflp_pdu2.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix2)-2));
-    	p_dps_hyd_thermal.bdyflp_pdu3.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix3)));
+    	p_dps_hyd_thermal.bdyflp_pdu1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_aft, mix1)+1));
+    	p_dps_hyd_thermal.bdyflp_pdu2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_aft, mix2)-2));
+    	p_dps_hyd_thermal.bdyflp_pdu3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_aft, mix3)));
 
-    	p_dps_hyd_thermal._bdyflp_fus1.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix1)-3)); 
-    	p_dps_hyd_thermal._bdyflp_fus2.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix2)));
-    	p_dps_hyd_thermal._bdyflp_fus3.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix3)+1));
+    	p_dps_hyd_thermal._bdyflp_fus1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_aft, mix1)-3)); 
+    	p_dps_hyd_thermal._bdyflp_fus2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_aft, mix2)));
+    	p_dps_hyd_thermal._bdyflp_fus3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_aft, mix3)+1));
 
-    	p_dps_hyd_thermal.rdsb_pdu1.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix1)+2));
-    	p_dps_hyd_thermal.rdsb_pdu2.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix2)+1)); 
-    	p_dps_hyd_thermal.rdsb_pdu3.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix3)-1));
+    	p_dps_hyd_thermal.rdsb_pdu1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_aft, mix1)+2));
+    	p_dps_hyd_thermal.rdsb_pdu2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_aft, mix2)+1)); 
+    	p_dps_hyd_thermal.rdsb_pdu3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_aft, mix3)-1));
     
-	p_dps_hyd_thermal.rdsb_fus1.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix1)-1));
-    	p_dps_hyd_thermal.rdsb_fus2.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix2))); 
-    	p_dps_hyd_thermal.rdsb_fus3.setText(sprintf("%+d", mix_T_to_F(T_av, T_aft, mix3)-2));
+	p_dps_hyd_thermal.rdsb_fus1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_aft, mix1)-1));
+    	p_dps_hyd_thermal.rdsb_fus2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_aft, mix2))); 
+    	p_dps_hyd_thermal.rdsb_fus3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_aft, mix3)-2));
 
-    	p_dps_hyd_thermal.elv_lob1.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix1)-1)); 
-    	p_dps_hyd_thermal.elv_lob2.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix2))); 
-    	p_dps_hyd_thermal.elv_lob3.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix3)-1));  
+    	p_dps_hyd_thermal.elv_lob1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_lwing, mix1)-1)); 
+    	p_dps_hyd_thermal.elv_lob2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_lwing, mix2))); 
+    	p_dps_hyd_thermal.elv_lob3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_lwing, mix3)-1));  
     
-	p_dps_hyd_thermal.elv_lib1.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix1)+3));  
-    	p_dps_hyd_thermal.elv_lib2.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix2)+1)); 
-    	p_dps_hyd_thermal.elv_lib3.setText(sprintf("%+d", mix_T_to_F(T_av, T_lwing, mix3)-1));  
+	p_dps_hyd_thermal.elv_lib1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_lwing, mix1)+3));  
+    	p_dps_hyd_thermal.elv_lib2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_lwing, mix2)+1)); 
+    	p_dps_hyd_thermal.elv_lib3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_lwing, mix3)-1));  
 
-    	p_dps_hyd_thermal.elv_rob1.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix1))); 
-    	p_dps_hyd_thermal.elv_rob2.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix2)+2)); 
-    	p_dps_hyd_thermal.elv_rob3.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix3))); 
+    	p_dps_hyd_thermal.elv_rob1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_rwing, mix1))); 
+    	p_dps_hyd_thermal.elv_rob2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_rwing, mix2)+2)); 
+    	p_dps_hyd_thermal.elv_rob3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_rwing, mix3))); 
     
-	p_dps_hyd_thermal.elv_rib1.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix1)+1));  
-    	p_dps_hyd_thermal.elv_rib2.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix2)+3)); 
-    	p_dps_hyd_thermal.elv_rib3.setText(sprintf("%+d", mix_T_to_F(T_av, T_rwing, mix3)+1));  
+	p_dps_hyd_thermal.elv_rib1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_rwing, mix1)+1));  
+    	p_dps_hyd_thermal.elv_rib2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_rwing, mix2)+3)); 
+    	p_dps_hyd_thermal.elv_rib3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_rwing, mix3)+1));  
 
-    	p_dps_hyd_thermal.lbw2.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix2)+3)); 
-    	p_dps_hyd_thermal.lbw3.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix3)+2)); 
-    	p_dps_hyd_thermal.lbf2.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix2)-1)); 
-    	p_dps_hyd_thermal.lbf3.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix3)-1));  
+    	p_dps_hyd_thermal.lbw2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_low, mix2)+3)); 
+    	p_dps_hyd_thermal.lbw3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_low, mix3)+2)); 
+    	p_dps_hyd_thermal.lbf2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_low, mix2)-1)); 
+    	p_dps_hyd_thermal.lbf3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_low, mix3)-1));  
 
-    	p_dps_hyd_thermal.rbw1.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1)+3));  
-    	p_dps_hyd_thermal.rbw2.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix2)));  
-    	p_dps_hyd_thermal.rbw3.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix3)));   
+    	p_dps_hyd_thermal.rbw1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1)+3));  
+    	p_dps_hyd_thermal.rbw2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_low, mix2)));  
+    	p_dps_hyd_thermal.rbw3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_low, mix3)));   
     
-	p_dps_hyd_thermal.rbf1.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1)-3));   
-    	p_dps_hyd_thermal.rbf2.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix2)+2));   
-    	p_dps_hyd_thermal.rbf3.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix3)+2));  
+	p_dps_hyd_thermal.rbf1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1)-3));   
+    	p_dps_hyd_thermal.rbf2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_low, mix2)+2));   
+    	p_dps_hyd_thermal.rbf3.setText(sprintf("%+d", mix_T_to_F(T_av3, T_low, mix3)+2));  
 
-   	p_dps_hyd_thermal.ng_uplk.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1))); 
-    	p_dps_hyd_thermal.mfus1.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1)-1)); 
-    	p_dps_hyd_thermal.mfus2.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1))); 
+   	p_dps_hyd_thermal.ng_uplk.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1))); 
+    	p_dps_hyd_thermal.mfus1.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1)-1)); 
+    	p_dps_hyd_thermal.mfus2.setText(sprintf("%+d", mix_T_to_F(T_av2, T_low, mix1))); 
 
-    	p_dps_hyd_thermal.mg_l_uplk.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1)+1)); 
-    	p_dps_hyd_thermal.mg_r_uplk.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1))); 
-    	p_dps_hyd_thermal.mg_r_fus.setText(sprintf("%+d", mix_T_to_F(T_av, T_low, mix1)+1)); 
+    	p_dps_hyd_thermal.mg_l_uplk.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1)+1)); 
+    	p_dps_hyd_thermal.mg_r_uplk.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1))); 
+    	p_dps_hyd_thermal.mg_r_fus.setText(sprintf("%+d", mix_T_to_F(T_av1, T_low, mix1)+1)); 
 
 	# tire pressures
 

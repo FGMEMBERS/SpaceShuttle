@@ -325,6 +325,11 @@ if (thermal_array[11].temperature > freon_in_temp) {freon_in_temp = thermal_arra
 
 setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", freon_in_temp);
 
+# hydraulic reservior temp is the average of all regions connected by hydraulics
+
+var hydraulic_reservoir_temp = (thermal_array[0].temperature + thermal_array[2].temperature + thermal_array[4].temperature + thermal_array[5].temperature + thermal_array[7].temperature + freon_in_temp) / 6.0;
+
+setprop("/fdm/jsbsim/systems/thermal-distribution/hyd-reservoir-temperature-K", hydraulic_reservoir_temp);
 
 }
 
