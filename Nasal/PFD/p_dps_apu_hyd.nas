@@ -194,9 +194,6 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.n2_t_2.setText(sprintf("  61")); 
         p_dps_apu_hyd.n2_t_3.setText(sprintf("  61")); 
     
-        p_dps_apu_hyd.rsvr_qty_1.setText(sprintf("  87")); 
-        p_dps_apu_hyd.rsvr_qty_2.setText(sprintf("  86")); 
-        p_dps_apu_hyd.rsvr_qty_3.setText(sprintf("  87")); 
     
         p_dps_apu_hyd.rsvr_p_1.setText(sprintf("  54")); 
         p_dps_apu_hyd.rsvr_p_2.setText(sprintf("  56")); 
@@ -313,6 +310,16 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.brg_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+4.0)));
         p_dps_apu_hyd.brg_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")+1.0)));
     
+	var mission_time = getprop("/fdm/jsbsim/systems/timer/delta-MET") + getprop("/sim/time/elapsed-sec");
+	var qty = (1.0 - 0.4 * (mission_time/(86400.0 * 12.0))) * 100.0;
+	if (qty < 3.0) {qty = 3.0;}
+
+
+        p_dps_apu_hyd.rsvr_qty_1.setText(sprintf("%d", int(qty)-1));  
+        p_dps_apu_hyd.rsvr_qty_2.setText(sprintf("%d", int(qty))); 
+        p_dps_apu_hyd.rsvr_qty_3.setText(sprintf("%d", int(qty)-3)); 
+
+
         device.update_common_DPS();
     
     
