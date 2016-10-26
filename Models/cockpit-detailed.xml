@@ -96,414 +96,53 @@
         <object-name>egress-system</object-name>
     </effect>
 
-    <!--Aft Left RCS HE Oxid "Cover" -->
+    <!--Remove Covers -->
     <animation>
-        <type>knob</type>
+        <type>pick</type>
         <object-name>aft-left-rcs-he-oxid-cvr</object-name>
-        <property>/sim/model/panel/cover/aft-left-rcs-he-oxid-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.8864</x-m>
-            <y-m> -0.1084</y-m>
-            <z-m>  0.3235</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/aft-left-rcs-he-oxid-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>aft-left-rcs-he-oxid-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/aft-left-rcs-he-oxid-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Left RCS HE Fuel "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>aft-left-rcs-he-fuel-cvr</object-name>
-        <property>/sim/model/panel/cover/aft-left-rcs-he-fuel-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.8864</x-m>
-            <y-m> -0.0463</y-m>
-            <z-m>  0.3235</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/aft-left-rcs-he-fuel-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>aft-left-rcs-he-fuel-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/aft-left-rcs-he-fuel-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Right RCS HE Oxid "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>aft-right-rcs-he-oxid-cvr</object-name>
-        <property>/sim/model/panel/cover/aft-right-rcs-he-oxid-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.887</x-m>
-            <y-m>  0.0783</y-m>
-            <z-m>  0.3233</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/aft-right-rcs-he-oxid-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>aft-right-rcs-he-oxid-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/aft-right-rcs-he-oxid-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Right RCS HE Fuel "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>aft-right-rcs-he-fuel-cvr</object-name>
-        <property>/sim/model/panel/cover/aft-right-rcs-he-fuel-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.887</x-m>
-            <y-m>  0.1408</y-m>
-            <z-m>  0.3233</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/aft-right-rcs-he-fuel-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>aft-right-rcs-he-fuel-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/aft-right-rcs-he-fuel-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Left Tank Isol Oxid "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>left-tank-isol-oxid-cvr</object-name>
-        <property>/sim/model/panel/cover/left-tank-isol-oxid-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0102</x-m>
-            <y-m> -0.1092</y-m>
-            <z-m>  0.2936</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/left-tank-isol-oxid-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>left-tank-isol-oxid-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/left-tank-isol-oxid-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Left Tank Isol Fuel "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>left-tank-isol-fuel-cvr</object-name>
-        <property>/sim/model/panel/cover/left-tank-isol-fuel-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0098</x-m>
-            <y-m> -0.0125</y-m>
-            <z-m>  0.2937</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/left-tank-isol-fuel-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>left-tank-isol-fuel-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/left-tank-isol-fuel-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Right Tank Isol Oxid "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>right-tank-isol-oxid-cvr</object-name>
-        <property>/sim/model/panel/cover/right-tank-isol-oxid-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0102</x-m>
-            <y-m>  0.0768</y-m>
-            <z-m>  0.2936</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/right-tank-isol-oxid-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>right-tank-isol-oxid-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/right-tank-isol-oxid-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Right Tank Isol Fuel "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>right-tank-isol-fuel-cvr</object-name>
-        <property>/sim/model/panel/cover/right-tank-isol-fuel-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0098</x-m>
-            <y-m>  0.1731</y-m>
-            <z-m>  0.2937</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/right-tank-isol-fuel-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>right-tank-isol-fuel-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/right-tank-isol-fuel-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Aft Left Manifold Isol "Cover" -->
-    <animation>
-        <type>knob</type>
         <object-name>left-man-isol-cvr</object-name>
-        <property>/sim/model/panel/cover/left-man-isol-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.108 </x-m>
-            <y-m>  0.0006</y-m>
-            <z-m>  0.2701</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
+        <object-name>right-man-isol-cvr</object-name>
+        <property>/sim/model/panel/cover/O7-covers-visible</property>
         <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
             <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/left-man-isol-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/O7-covers-visible</property>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>left-man-isol-cvr</tooltip-id>
+                <tooltip-id>remove-covers</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/left-man-isol-cvr</property>
+                <property>/sim/model/panel/cover/O7-covers-visible</property>
             </binding>
         </hovered>
     </animation>
 
-    <!--Aft Right Manifold Isol "Cover" -->
     <animation>
-        <type>knob</type>
+        <type>select</type>
+        <object-name>aft-left-rcs-he-oxid-cvr</object-name>
+        <object-name>aft-left-rcs-he-fuel-cvr</object-name>
+        <object-name>aft-right-rcs-he-oxid-cvr</object-name>
+        <object-name>aft-right-rcs-he-fuel-cvr</object-name>
+        <object-name>left-tank-isol-oxid-cvr</object-name>
+        <object-name>left-tank-isol-fuel-cvr</object-name>
+        <object-name>right-tank-isol-oxid-cvr</object-name>
+        <object-name>right-tank-isol-fuel-cvr</object-name>
+        <object-name>left-man-isol-cvr</object-name>
         <object-name>right-man-isol-cvr</object-name>
-        <property>/sim/model/panel/cover/right-man-isol-cvr</property>
-        <factor>75</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.108 </x-m>
-            <y-m>  0.1881</y-m>
-            <z-m>  0.2701</z-m>
-        </center>
-        <axis>
-            <x> 1   </x>
-            <y> -.13</y>
-            <z>  .13</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/right-man-isol-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>right-man-isol-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/right-man-isol-cvr</property>
-            </binding>
-        </hovered>
+        <condition>
+            <property>/sim/model/panel/cover/O7-covers-visible</property>
+        </condition>
     </animation>
 
 </PropertyList>

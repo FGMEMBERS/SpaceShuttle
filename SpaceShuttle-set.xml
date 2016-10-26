@@ -1795,6 +1795,8 @@
         <apu-oper-1-cvr type="int">0</apu-oper-1-cvr>
         <apu-oper-2-cvr type="int">0</apu-oper-2-cvr>
         <apu-oper-3-cvr type="int">0</apu-oper-3-cvr>
+        <covers-visible type="bool">true</covers-visible>
+        <O7-covers-visible type="bool">true</O7-covers-visible>
      </cover>
     </panel>
    </model>
@@ -2073,7 +2075,15 @@
         <script>SpaceShuttle.limits_dlg.open()</script>
        </binding>
       </item>
-      
+
+      <item>
+        <label>Switch Covers</label>
+        <binding>
+            <command>nasal</command>
+            <script>SpaceShuttle.switch_covers_dlg.open()</script>
+        </binding>
+      </item>
+
       <item>
         <label>ET Foam Type</label>
         <binding>
