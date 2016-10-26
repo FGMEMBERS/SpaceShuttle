@@ -2175,7 +2175,6 @@
        </binding>
       </item>
 
-
       <item>
        <label>RTLS Commander</label>
        <binding>
@@ -2242,6 +2241,19 @@
 
 
      </menu>
+
+     <menu n="54">
+      <label>Save/Resume</label>
+
+      <item>
+       <label>Save/Resume</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.save_dlg.open()</script>
+       </binding>
+      </item>
+     </menu>
+
 
     </default>
    </menubar>
@@ -2531,6 +2543,9 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
 	  	<select-north type="int">1</select-north>
 	  	<select-south type="int">0</select-south>
 	   </auto_launch>
+	   <save>
+		<filename type="string">save1.xml</filename>
+	  </save>
 	</SpaceShuttle>
     </dialogs>
   </gui>
