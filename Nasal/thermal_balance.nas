@@ -264,7 +264,7 @@ append(thermal_array, pressure_vessel);
 
 var coupling_array11 = [];
 
-var freon = thermal_mass.new (200.0, 1000.0, 310.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
+var freon = thermal_mass.new (200.0, 1000.0, 290.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
 append(thermal_array, freon);
 
 
@@ -325,6 +325,11 @@ if (thermal_array[11].temperature > freon_in_temp) {freon_in_temp = thermal_arra
 
 setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", freon_in_temp);
 
+# hydraulic reservior temp is the average of all regions connected by hydraulics
+
+var hydraulic_reservoir_temp = (thermal_array[0].temperature + thermal_array[2].temperature + thermal_array[4].temperature + thermal_array[5].temperature + thermal_array[7].temperature + freon_in_temp) / 6.0;
+
+setprop("/fdm/jsbsim/systems/thermal-distribution/hyd-reservoir-temperature-K", hydraulic_reservoir_temp);
 
 }
 

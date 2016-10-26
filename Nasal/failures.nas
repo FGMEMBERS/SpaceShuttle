@@ -253,6 +253,10 @@ else if (scenario_ID == 20)
 	{
 	init_alignment_error();
 	}
+else if (scenario_ID == 21)
+	{
+	init_rcs_failure();
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;
@@ -314,7 +318,47 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 
 
 }
 
+var init_rcs_failure = func {
 
+#print ("Failing jet");
+
+var rn_loc = rand();
+var rn_type = rand();
+var rn_thruster = rand();
+
+var fail_arg = 0;
+if (rn_type > 0.5) {fail_arg = 2;} 
+
+if (rn_loc > 0.66)
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2F-condition", fail_arg);}	
+	}
+else if (rn_loc > 0.36)
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1A-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1U-condition", fail_arg);}	
+	}
+else 
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1U-condition", fail_arg);}	
+	}
+
+
+}
 
 
 

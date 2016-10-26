@@ -1751,6 +1751,40 @@ setprop("/fdm/jsbsim/systems/atcs/fes-hi-load-status", 0);
 }
 
 
+var hydraulic_circulation_on = func {
+
+# hydraulic circulation pumps to GPC
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd", 0);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd", 0);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd", 0);
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);
+
+}
+
+
+var thermal_control_on = func {
+
+# OMS heaters on
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status", 1);
+
+# RCS heaters
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status", 1);
+
+# Crossfeed heaters
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", 1);
+
+}
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -1826,6 +1860,7 @@ if (stage == 2)
 
 	hydraulics_on();
 	et_umbilical_door_close();
+	thermal_control_on();
 	SpaceShuttle.traj_display_flag = 3;
 	SpaceShuttle.fill_entry1_data();
 	settimer( func {
@@ -1973,7 +2008,9 @@ if (stage == 6)
 	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 175.0);
 
-
+	hydraulic_circulation_on();
+	radiator_activate();
+	thermal_control_on();
 
 	}
 

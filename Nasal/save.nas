@@ -197,11 +197,51 @@ for (var i =0; i< n; i=i+1 )
 	
 	}
 
+# the scenario description
 
-print("Current state written to buffer!");
+var timestring = getprop("/sim/time/real/year");
+timestring = timestring~ "-"~getprop("/sim/time/real/month");
+timestring = timestring~ "-"~getprop("/sim/time/real/day");
+timestring = timestring~ "-"~getprop("/sim/time/real/hour");
+
+var minute = getprop("/sim/time/real/minute");
+if (minute < 10) {minute = "0"~minute;}
+timestring = timestring~ ":"~minute;
+
+var description = getprop("/sim/gui/dialogs/SpaceShuttle/save/description");
+
+setprop("/save/description", description);
+setprop("/save/timestring", timestring);
+
+
+
+# now try to save it to a specified file
+
+#var filename = "save1.xml";
+
+
+
+var filename = getprop("/sim/gui/dialogs/SpaceShuttle/save/filename");
+var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
+
+var nodeSave = props.globals.getNode("/save", 0);
+io.write_properties(path, nodeSave); 
+
+print("Current state written to ", filename, " !");
 
 }
 
+
+var read_state_from_file = func (filename) {
+
+var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
+var readNode = props.globals.getNode("/save", 0);
+
+io.read_properties(path, readNode);
+
+
+
+}
 
 var resume_state = func {
 

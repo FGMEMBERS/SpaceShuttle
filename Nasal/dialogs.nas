@@ -16,6 +16,8 @@ var scenario_string_single_engine_lockup = "During ascent, a condition occurs wh
 
 var scenario_string_attitude = "The Shuttle GNC function has drifted off attitude to a degree that the star trackers no longer function - pitch, yaw and roll will all be off. Use a COAS procedure to fix inertial attitude and re-activate the star tracker.";
 
+var scenario_string_rcs = "A thruster of the RCS system has failed. Use the RCS jet table management function to diagnose the fault and deselect the failed thruster and its counterpart to restore proper RCS functionality.";
+
 var scenario_string_stuck_speedbrake = "During the final aerodynamical glide phase, the speedbrake gets stuck. Dependent on when and in what position this happens, TAEM needs to be modified and the aim point for the final approach changed. Deploy gear early to make use of its high drag.";
 
 var scenario_string_hydraulic_failure = "Two of the three hydraulics systems are damaged and priority rate limiting is used to best allocate the remaining hydraulic force to the airfoils. Expect the orbiter to react more sluggish in agressive maneuvers.";
@@ -73,6 +75,8 @@ var propellant_fd_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant
 var cabin_lighting_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/cabin-lighting/dialog","Aircraft/SpaceShuttle/Dialogs/cabin_lighting.xml");
 
 var switch_covers_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/switch-covers/dialog","Aircraft/SpaceShuttle/Dialogs/switch_covers.xml");
+
+var save_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/save/dialog","Aircraft/SpaceShuttle/Dialogs/save.xml");
 
 var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
@@ -148,6 +152,11 @@ else if (scenario_string == "off attitude")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_attitude);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 20);
+	}
+else if (scenario_string = "RCS failure")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_rcs);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 21);
 	}
 else if (scenario_string == "stuck speedbrake")
 	{
