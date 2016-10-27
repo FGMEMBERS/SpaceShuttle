@@ -1752,25 +1752,6 @@
     </effects>
     <panel>
      <cover>
-        <ess-bus-src-fc1-cvr type="int">0</ess-bus-src-fc1-cvr>
-        <ess-bus-src-fc2-cvr type="int">0</ess-bus-src-fc2-cvr>
-        <ess-bus-src-fc3-cvr type="int">0</ess-bus-src-fc3-cvr>
-        <h2-tk1-heat-a-cvr type="int">0</h2-tk1-heat-a-cvr>
-        <h2-tk1-heat-b-cvr type="int">0</h2-tk1-heat-b-cvr>
-        <h2-tk2-heat-a-cvr type="int">0</h2-tk2-heat-a-cvr>
-        <h2-tk2-heat-b-cvr type="int">0</h2-tk2-heat-b-cvr>
-        <h2-tk3-heat-a-cvr type="int">0</h2-tk3-heat-a-cvr>
-        <h2-tk3-heat-b-cvr type="int">0</h2-tk3-heat-b-cvr>
-        <o2-tk1-heat-a-cvr type="int">0</o2-tk1-heat-a-cvr>
-        <o2-tk1-heat-b-cvr type="int">0</o2-tk1-heat-b-cvr>
-        <o2-tk2-heat-a-cvr type="int">0</o2-tk2-heat-a-cvr>
-        <o2-tk2-heat-b-cvr type="int">0</o2-tk2-heat-b-cvr>
-        <o2-tk3-heat-a-cvr type="int">0</o2-tk3-heat-a-cvr>
-        <o2-tk3-heat-b-cvr type="int">0</o2-tk3-heat-b-cvr>
-        <flash-evap-cntrl-pri-cvr type="int">0</flash-evap-cntrl-pri-cvr>
-        <flash-evap-cntrl-sec-cvr type="int">0</flash-evap-cntrl-sec-cvr>
-        <nh3-cntrl-tka-cvr type="int">0</nh3-cntrl-tka-cvr>
-        <nh3-cntrl-tkb-cvr type="int">0</nh3-cntrl-tkb-cvr>
         <landing-gear-arm-cmd-cvr type="int">0</landing-gear-arm-cmd-cvr>
         <landing-gear-down-cmd-cvr type="int">0</landing-gear-down-cmd-cvr>
         <landing-gear-arm-plt-cvr type="int">0</landing-gear-arm-plt-cvr>
@@ -1781,22 +1762,10 @@
         <chute-arm-plt-cvr type="int">0</chute-arm-plt-cvr>
         <chute-dpy-plt-cvr type="int">0</chute-dpy-plt-cvr>
         <chute-jett-plt-cvr type="int">0</chute-jett-plt-cvr>
-        <gpc-cvr type="int">0</gpc-cvr>
-        <apu-fuel-tk-vlv1-cvr type="int">0</apu-fuel-tk-vlv1-cvr>
-        <apu-fuel-tk-vlv2-cvr type="int">0</apu-fuel-tk-vlv2-cvr>
-        <apu-fuel-tk-vlv3-cvr type="int">0</apu-fuel-tk-vlv3-cvr>
-        <he-xovr-cvr type="int">0</he-xovr-cvr>
-        <he-isol-cvr type="int">0</he-isol-cvr>
-        <he-isol-a-left-cvr type="int">0</he-isol-a-left-cvr>
-        <he-isol-a-cntr-cvr type="int">0</he-isol-a-cntr-cvr>
-        <he-isol-a-right-cvr type="int">0</he-isol-a-right-cvr>
-        <he-isol-b-left-cvr type="int">0</he-isol-b-left-cvr>
-        <he-isol-b-cntr-cvr type="int">0</he-isol-b-cntr-cvr>
-        <he-isol-b-right-cvr type="int">0</he-isol-b-right-cvr>
-        <apu-oper-1-cvr type="int">0</apu-oper-1-cvr>
-        <apu-oper-2-cvr type="int">0</apu-oper-2-cvr>
-        <apu-oper-3-cvr type="int">0</apu-oper-3-cvr>
-        <covers-visible type="bool">true</covers-visible>
+        <C3-covers-visible type="bool">true</C3-covers-visible>
+        <L1-covers-visible type="bool">true</L1-covers-visible>
+        <R1-covers-visible type="bool">true</R1-covers-visible>
+        <R2-covers-visible type="bool">true</R2-covers-visible>
         <O7-covers-visible type="bool">true</O7-covers-visible>
      </cover>
     </panel>
@@ -2563,6 +2532,12 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
   <aircraft-data>
     <path>/sim/config/shuttle/rendering/use-earthview</path>
     <path>/sim/config/shuttle/rendering/earthview-transition-alt-ft</path>
+    <path>/sim/config/shuttle/detailed-flightdeck</path>
+    <path>/sim/model/panel/cover/C3-covers-visible</path>
+    <path>/sim/model/panel/cover/L1-covers-visible</path>
+    <path>/sim/model/panel/cover/R1-covers-visible</path>
+    <path>/sim/model/panel/cover/R2-covers-visible</path>
+    <path>/sim/model/panel/cover/O7-covers-visible</path>
     <path>/save/latitude-deg</path>
     <path>/save/longitude-deg</path>
     <path>/save/altitude-ft</path>

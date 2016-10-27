@@ -9328,6 +9328,16 @@
         </hovered>
     </animation>
 
+    <!-- C3 Remove Covers (GUI Only) -->
+    <animation>
+        <type>select</type>
+        <object-name>osm-arm-cvr</object-name>
+        <object-name>air-data-probe-cvr</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/C3-covers-visible</property>
+        </condition>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Thrust Controllers                                                             -->
     <!-- ******************************************************************* -->
@@ -12938,6 +12948,43 @@
                 <property>/fdm/jsbsim/systems/dummy/switch/sd-circuit-test</property>
             </binding>
         </hovered>
+    </animation>
+
+    <!-- L1 Remove Covers -->
+    <animation>
+        <type>pick</type>
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name>
+        <property>/sim/model/panel/cover/L1-covers-visible</property>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/L1-covers-visible</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-covers</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/L1-covers-visible</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>flash-evap-cntrl-pri-cvr</object-name>
+        <object-name>flash-evap-cntrl-sec-cvr</object-name>
+        <object-name>nh3-cntrl-tka-cvr</object-name>
+        <object-name>nh3-cntrl-tkb-cvr</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/L1-covers-visible</property>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
@@ -16887,611 +16934,64 @@
         </condition>
     </animation>
 
-    <!-- Switch Covers -->
+    <!-- R1 Remove Covers -->
     <animation>
-        <type>knob</type>
+        <type>pick</type>
         <object-name>ess-bus-src-fc1-cvr</object-name>
-        <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
-        <factor>70</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.27926</x-m>
-            <y-m> 1.2069</y-m>
-            <z-m> -0.6517</z-m>
-        </center>
-        <axis>
-            <x>.2</x>
-            <y>-.16666</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>ess-bus-src-fc1-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/ess-bus-src-fc1-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>ess-bus-src-fc2-cvr</object-name>
-        <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
-        <factor>70</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.2756</x-m>
-            <y-m> 1.1967</y-m>
-            <z-m>-0.6943</z-m>
-        </center>
-        <axis>
-            <x>.2</x>
-            <y>-.16666</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>ess-bus-src-fc2-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/ess-bus-src-fc2-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>ess-bus-src-fc3-cvr</object-name>
-        <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
-        <factor>70</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.2721</x-m>
-            <y-m>  1.1865</y-m>
-            <z-m> -0.7364</z-m>
-        </center>
-        <axis>
-            <x>.2</x>
-            <y>-.16666</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>ess-bus-src-fc3-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/ess-bus-src-fc3-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-  
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk1-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk1-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7884</x-m>
-            <y-m>  1.3473</y-m>
-            <z-m> -0.7243</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk1-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk1-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk1-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk2-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk2-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7863</x-m>
-            <y-m>  1.335 </y-m>
-            <z-m> -0.7671</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk2-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk2-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk1-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk3-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk3-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7816</x-m>
-            <y-m>  1.3265</y-m>
-            <z-m> -0.8094</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk3-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk3-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk3-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk1-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk1-heat-b-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7351</x-m>
-            <y-m>  1.3647</y-m>
-            <z-m> -0.7243</z-m>
-        </center>
-        <axis>
-            <x>.05</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk1-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk1-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk1-heat-b-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk2-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk2-heat-b-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.733 </x-m>
-            <y-m>  1.3525</y-m>
-            <z-m> -0.7671</z-m>
-        </center>
-        <axis>
-            <x>.15</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk2-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk2-heat-b-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk1-heat-b-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>h2-tk3-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/h2-tk3-heat-b-cvr</property>
-        <factor>40</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7283</x-m>
-            <y-m>  1.3439</y-m>
-            <z-m> -0.8094</z-m>
-        </center>
-        <axis>
-            <x>.05</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/h2-tk3-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>h2-tk3-heat-b-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/h2-tk3-heat-b-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>o2-tk1-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk1-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9599</x-m>
-            <y-m>  1.291 </y-m>
-            <z-m> -0.7252</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk1-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>o2-tk1-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk1-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>o2-tk2-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk2-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9566</x-m>
-            <y-m>  1.2807</y-m>
-            <z-m> -0.7674</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk2-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>o2-tk2-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk1-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>o2-tk3-heat-a-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk3-heat-a-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9531</x-m>
-            <y-m>  1.2702</y-m>
-            <z-m> -0.8103</z-m>
-        </center>
-        <axis>
-            <x>.16666</x>
-            <y>-.15</y>
-            <z>-1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk3-heat-a-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>o2-tk3-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk3-heat-a-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>o2-tk1-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk1-heat-b-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9076</x-m>
-            <y-m>  1.3081</y-m>
-            <z-m> -0.7252</z-m>
-        </center>
-        <axis>
-            <x>.05</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk1-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>o2-tk1-heat-a-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk1-heat-b-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>o2-tk2-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk2-heat-b-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9042</x-m>
-            <y-m>  1.2978</y-m>
-            <z-m> -0.7674</z-m>
-        </center>
-        <axis>
-            <x>.05</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
+        <object-name>o2-tk3-heat-b-cvr</object-name>
+        <property>/sim/model/panel/cover/R1-covers-visible</property>
         <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
             <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk2-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/R1-covers-visible</property>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>o2-tk2-heat-b-cvr</tooltip-id>
+                <tooltip-id>remove-covers</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk1-heat-b-cvr</property>
+                <property>/sim/model/panel/cover/R1-covers-visible</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
-        <type>knob</type>
+        <type>select</type>
+        <object-name>ess-bus-src-fc1-cvr</object-name>
+        <object-name>ess-bus-src-fc2-cvr</object-name>
+        <object-name>ess-bus-src-fc3-cvr</object-name>
+        <object-name>h2-tk1-heat-a-cvr</object-name>
+        <object-name>h2-tk2-heat-a-cvr</object-name>
+        <object-name>h2-tk3-heat-a-cvr</object-name>
+        <object-name>h2-tk1-heat-b-cvr</object-name>
+        <object-name>h2-tk2-heat-b-cvr</object-name>
+        <object-name>h2-tk3-heat-b-cvr</object-name>
+        <object-name>o2-tk1-heat-a-cvr</object-name>
+        <object-name>o2-tk2-heat-a-cvr</object-name>
+        <object-name>o2-tk3-heat-a-cvr</object-name>
+        <object-name>o2-tk1-heat-b-cvr</object-name>
+        <object-name>o2-tk2-heat-b-cvr</object-name>
         <object-name>o2-tk3-heat-b-cvr</object-name>
-        <property>/sim/model/panel/cover/o2-tk3-heat-b-cvr</property>
-        <factor>60</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.9008</x-m>
-            <y-m>  1.2874</y-m>
-            <z-m> -0.8102</z-m>
-        </center>
-        <axis>
-            <x>.05</x>
-            <y>.21666</y>
-            <z>1</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/o2-tk3-heat-b-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>o2-tk3-heat-b-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/o2-tk3-heat-b-cvr</property>
-            </binding>
-        </hovered>
+        <condition>
+            <property>/sim/model/panel/cover/R1-covers-visible</property>
+        </condition>
     </animation>
-    
-    <!--object-name>flash-evap-cntrl-pri-cvr</object-name>
-        <object-name>flash-evap-cntrl-sec-cvr</object-name>
-        <object-name>nh3-cntrl-tka-cvr</object-name>
-        <object-name>nh3-cntrl-tkb-cvr</object-name-->
 
  <!-- ******************************************************************* -->
  <!--  Panel - R2                                                             -->
@@ -19983,605 +19483,63 @@
         </condition>
     </animation>
 
-    <!-- Switch Covers -->
+    <!-- R2 Remove Covers -->
     <animation>
-        <type>knob</type>
+        <type>pick</type>
         <object-name>gpc-cvr</object-name>
-        <property>/sim/model/panel/cover/gpc-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7614</x-m>
-            <y-m>  1.034</y-m>
-            <z-m> -0.9354</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/gpc-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>gpc-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/gpc-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>apu-fuel-tk-vlv1-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-fuel-tk-vlv1-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.8999</x-m>
-            <y-m>  1.075</y-m>
-            <z-m> -0.9049</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv1-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>apu-fuel-tk-vlv1-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv1-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>apu-fuel-tk-vlv2-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-fuel-tk-vlv2-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.8989</x-m>
-            <y-m>  1.1091</y-m>
-            <z-m> -0.8923</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv2-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>apu-fuel-tk-vlv2-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv2-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>apu-fuel-tk-vlv3-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-fuel-tk-vlv3-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.8979</x-m>
-            <y-m>  1.1401</y-m>
-            <z-m> -0.881</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv3-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>apu-fuel-tk-vlv3-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-fuel-tk-vlv3-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-xovr-cvr</object-name>
-        <property>/sim/model/panel/cover/he-xovr-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0383</x-m>
-            <y-m>  1.0243</y-m>
-            <z-m> -0.9147</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-xovr-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-xovr-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-xovr-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0373</x-m>
-            <y-m>  1.0616</y-m>
-            <z-m> -0.902</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-a-left-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.1284</x-m>
-            <y-m>  1.0272</y-m>
-            <z-m> -0.9036</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-a-left-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-a-left-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-a-cntr-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.1289</x-m>
-            <y-m>  1.0469</y-m>
-            <z-m> -0.9069</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-a-cntr-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-a-cntr-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-a-right-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.1267</x-m>
-            <y-m>  1.0855</y-m>
-            <z-m> -0.8832</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-a-right-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-a-right-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-b-left-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.084</x-m>
-            <y-m>  1.0279</y-m>
-            <z-m> -0.9093</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-b-left-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-b-left-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-b-cntr-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.083</x-m>
-            <y-m>  1.0559</y-m>
-            <z-m> -0.898</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-b-cntr-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-b-cntr-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>he-isol-b-right-cvr</object-name>
-        <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0822</x-m>
-            <y-m>  1.0859</y-m>
-            <z-m> -0.888</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>he-isol-b-right-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/he-isol-b-right-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>apu-oper-1-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-oper-1-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0809</x-m>
-            <y-m>  1.1246</y-m>
-            <z-m> -0.8728</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-oper-1-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>apu-oper-1-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-oper-1-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <animation>
-        <type>knob</type>
         <object-name>apu-oper-2-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-oper-2-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0803</x-m>
-            <y-m>  1.1446</y-m>
-            <z-m> -0.8655</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
+        <object-name>apu-oper-3-cvr</object-name>
+        <property>/sim/model/panel/cover/R2-covers-visible</property>
         <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
             <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-oper-2-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/R2-covers-visible</property>
             </binding>
         </action>
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>apu-oper-2-cvr</tooltip-id>
+                <tooltip-id>remove-covers</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-oper-2-cvr</property>
+                <property>/sim/model/panel/cover/R2-covers-visible</property>
             </binding>
         </hovered>
     </animation>
 
     <animation>
-        <type>knob</type>
+        <type>select</type>
+        <object-name>gpc-cvr</object-name>
+        <object-name>apu-fuel-tk-vlv1-cvr</object-name>
+        <object-name>apu-fuel-tk-vlv2-cvr</object-name>
+        <object-name>apu-fuel-tk-vlv3-cvr</object-name>
+        <object-name>he-xovr-cvr</object-name>
+        <object-name>he-isol-cvr</object-name>
+        <object-name>he-isol-a-left-cvr</object-name>
+        <object-name>he-isol-a-cntr-cvr</object-name>
+        <object-name>he-isol-a-right-cvr</object-name>
+        <object-name>he-isol-b-left-cvr</object-name>
+        <object-name>he-isol-b-cntr-cvr</object-name>
+        <object-name>he-isol-b-right-cvr</object-name>
+        <object-name>apu-oper-1-cvr</object-name>
+        <object-name>apu-oper-2-cvr</object-name>
         <object-name>apu-oper-3-cvr</object-name>
-        <property>/sim/model/panel/cover/apu-oper-3-cvr</property>
-        <factor>85</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.0796</x-m>
-            <y-m>  1.17</y-m>
-            <z-m> -0.8571</z-m>
-        </center>
-        <axis>
-            <x>-1</x>
-            <y>0</y>
-            <z>.4</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/apu-oper-3-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>apu-oper-3-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/apu-oper-3-cvr</property>
-            </binding>
-        </hovered>
+        <condition>
+            <property>/sim/model/panel/cover/R2-covers-visible</property>
+        </condition>
     </animation>
 
  <!-- ******************************************************************* -->

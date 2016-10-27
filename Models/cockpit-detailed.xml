@@ -96,7 +96,9 @@
         <object-name>egress-system</object-name>
     </effect>
 
-    <!--Remove Covers -->
+    <!-- Panel O7 "Switches" -->
+
+    <!-- O7 Remove Covers -->
     <animation>
         <type>pick</type>
         <object-name>aft-left-rcs-he-oxid-cvr</object-name>
