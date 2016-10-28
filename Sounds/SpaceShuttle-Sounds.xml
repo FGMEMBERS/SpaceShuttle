@@ -814,13 +814,63 @@ adapted and extended by Thorsten Renk 2015-16
 	</explosion>
 
     <!-- Switch click sound -->
-
     <switch>
         <name>click-avionics-switch</name>
         <mode>once</mode>
         <path>Sounds/click3.wav</path>
         <condition>
             <property>/sim/model/shuttle/sound/click-avionics</property>
+        </condition>
+        <position>
+            <x>-11.8375</x>
+            <y>  1.353 </y>
+            <z> -0.6376</z>
+        </position>
+        <reference-dist>0.2</reference-dist>
+        <max-dist>5.0</max-dist>
+    </switch>
+
+    <!-- Button click sound -->
+    <switch>
+        <name>click-button-switch</name>
+        <mode>once</mode>
+        <path>Sounds/button_press2.wav</path>
+        <condition>
+            <property>/sim/model/shuttle/sound/click-button</property>
+        </condition>
+        <position>
+            <x>-11.8375</x>
+            <y>  1.353 </y>
+            <z> -0.6376</z>
+        </position>
+        <reference-dist>0.2</reference-dist>
+        <max-dist>5.0</max-dist>
+    </switch>
+
+    <!-- Lift cover sound -->
+    <switch>
+        <name>click-cover-switch</name>
+        <mode>once</mode>
+        <path>Sounds/lift_cover.wav</path>
+        <condition>
+            <property>/sim/model/shuttle/sound/click-cover</property>
+        </condition>
+        <position>
+            <x>-11.8375</x>
+            <y>  1.353 </y>
+            <z> -0.6376</z>
+        </position>
+        <reference-dist>0.2</reference-dist>
+        <max-dist>5.0</max-dist>
+    </switch>
+
+    <!-- Turn knob sound -->
+    <switch>
+        <name>click-knob-switch</name>
+        <mode>once</mode>
+        <path>Sounds/turn_knob.wav</path>
+        <condition>
+            <property>/sim/model/shuttle/sound/click-knob</property>
         </condition>
         <position>
             <x>-11.8375</x>

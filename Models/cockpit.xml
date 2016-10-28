@@ -2546,6 +2546,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.hud_bright_mode("dim-cmd")</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -2725,6 +2729,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.hud_bright_mode("dim-plt")</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -4781,6 +4789,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -4817,6 +4829,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -4855,6 +4871,10 @@
                 <max>1</max>
                 <wrap>0</wrap>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -4891,6 +4911,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5009,6 +5033,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5126,6 +5154,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5162,6 +5194,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5204,6 +5240,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5340,6 +5380,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5463,6 +5507,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5509,6 +5557,10 @@
                         getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-left"));
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5547,6 +5599,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5587,6 +5643,10 @@
                 <max>1</max>
                 <wrap>0</wrap>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5625,6 +5685,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5760,6 +5824,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5883,6 +5951,10 @@
                     }
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -5921,6 +5993,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -5961,6 +6037,10 @@
                 <max>1</max>
                 <wrap>0</wrap>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -6000,6 +6080,10 @@
                 <max>1</max>
                 <wrap>0</wrap>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -6038,6 +6122,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -6080,6 +6168,10 @@
                 <min>0</min>
                 <max>1</max>
                 <wrap>0</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -7854,6 +7946,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.ssme_cutoff(1)</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -7887,6 +7983,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.ssme_cutoff(0)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -7922,6 +8022,10 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.ssme_cutoff(2)</script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -7951,10 +8055,14 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-	    <binding>
-	        <command>nasal</command>
-                <script>SpaceShuttle.orbital_dap_manager.control_select("AUTO")</script>
- 	    </binding>
+            <binding>
+                <command>nasal</command>
+                    <script>SpaceShuttle.orbital_dap_manager.control_select("AUTO")</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -7984,10 +8092,14 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-	    <binding>
-	        <command>nasal</command>
+            <binding>
+                <command>nasal</command>
                 <script>SpaceShuttle.orbital_dap_manager.control_select("INRTL")</script>
- 	    </binding>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8017,10 +8129,14 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-	    <binding>
-	        <command>nasal</command>
+            <binding>
+                <command>nasal</command>
                 <script>SpaceShuttle.orbital_dap_manager.control_select("LVLH")</script>
- 	    </binding>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8050,10 +8166,14 @@
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
-	    <binding>
-	        <command>nasal</command>
+            <binding>
+                <command>nasal</command>
                 <script>SpaceShuttle.orbital_dap_manager.control_select("FREE")</script>
- 	    </binding>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8088,6 +8208,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.dap_select("A");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8124,6 +8248,10 @@
                    SpaceShuttle.orbital_dap_manager.dap_select("B");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8158,6 +8286,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.z_mode_select("NORM");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8194,6 +8326,10 @@
                    SpaceShuttle.orbital_dap_manager.z_mode_select("LOW");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8229,6 +8365,10 @@
                    SpaceShuttle.orbital_dap_manager.z_mode_select("HIGH");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8262,7 +8402,11 @@
                 <command>nasal</command>
                 <script>
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "X");
-		</script>
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8299,6 +8443,10 @@
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "X");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8333,6 +8481,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "Y");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8369,6 +8521,10 @@
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "Y");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8403,6 +8559,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("NORM", "Z");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8439,6 +8599,10 @@
                    SpaceShuttle.orbital_dap_manager.translation_mode_select("PULSE", "Z");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8473,6 +8637,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.jet_select("PRI");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8509,6 +8677,10 @@
                    SpaceShuttle.orbital_dap_manager.jet_select("ALT");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8543,6 +8715,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.jet_select("VRN");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8579,6 +8755,10 @@
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "ROLL");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8613,6 +8793,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "ROLL");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8649,6 +8833,10 @@
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "PITCH");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8683,6 +8871,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "PITCH");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8719,6 +8911,10 @@
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("DISC", "YAW");
                 </script>
             </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
+            </binding>
         </action>
         <hovered>
             <binding>
@@ -8753,6 +8949,10 @@
                 <script>
                    SpaceShuttle.orbital_dap_manager.rot_rate_select("PULSE", "YAW");
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8836,6 +9036,10 @@
                     if (getprop("/controls/shuttle/srb-separation-mode") == 1)
                     setprop("/controls/shuttle/srb-separation", 1);
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -8925,6 +9129,10 @@
                     if ((getprop("/controls/shuttle/et-separation-mode") == 1) and (getprop("/controls/shuttle/et-separation") == 0))
                     SpaceShuttle.force_external_tank_separate();
                 </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9041,88 +9249,6 @@
         </hovered>
     </animation>
 
-    <!-- OSM Arm "Cover" -->
-    <animation>
-        <type>knob</type>
-        <object-name>osm-arm-cvr</object-name>
-        <property>/sim/model/panel/cover/osm-arm-cvr</property>
-        <factor>-70</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.1139</x-m>
-            <y-m> -0.1164</y-m>
-            <z-m> -1.0202</z-m>
-        </center>
-        <axis>
-            <x> 1</x>
-            <y> 0</y>
-            <z> 0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>osm-arm-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- Air Data Probe "Cover" -->
-    <animation>
-        <type>knob</type>
-        <object-name>air-data-probe-cvr</object-name>
-        <property>/sim/model/panel/cover/air-data-probe-cvr</property>
-        <factor>-70</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-11.7698</x-m>
-            <y-m> -0.0939</y-m>
-            <z-m> -1.0216</z-m>
-        </center>
-        <axis>
-            <x> 1</x>
-            <y> 0</y>
-            <z> 0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>air-data-probe-cvr</tooltip-id>
-                <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
-            </binding>
-        </hovered>
-    </animation>
-
     <!-- Main Engine Shutdown Left "Cover" -->
     <animation>
         <type>knob</type>
@@ -9151,7 +9277,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9192,7 +9318,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9233,7 +9359,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9274,7 +9400,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9315,7 +9441,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9327,6 +9453,162 @@
             </binding>
         </hovered>
     </animation>
+
+    <!-- Air Data Probe "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>air-data-probe-cvr</object-name>
+        <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+        <factor>-70</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.7698</x-m>
+            <y-m> -0.0939</y-m>
+            <z-m> -1.0216</z-m>
+        </center>
+        <axis>
+            <x> 1</x>
+            <y> 0</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("cover")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>air-data-probe-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/air-data-probe-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- OSM Arm "Cover" -->
+    <animation>
+        <type>pick</type>
+        <object-name>osm-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("cover")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-covers</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+        <type>rotate</type>
+        <object-name>osm-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <factor>13</factor>
+        <center>
+            <x-m>-12.1139</x-m>
+            <y-m> -0.1164</y-m>
+            <z-m> -1.0202</z-m>
+        </center>
+        <axis>
+            <x> 0 </x>
+            <y> 0 </y>
+            <z> 1 </z>
+        </axis>
+    </animation>
+    <animation>
+      <type>translate</type>
+      <object-name>osm-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <factor>0.0345</factor>
+      <axis>
+       <x> 1 </x>
+       <y> 0 </y>
+       <z> 0 </z>
+      </axis>
+    </animation>
+    <animation>
+      <type>translate</type>
+      <object-name>osm-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <factor>0.03588</factor>
+      <axis>
+       <x> 0 </x>
+       <y> 1 </y>
+       <z> 0 </z>
+      </axis>
+    </animation>
+    <animation>
+      <type>translate</type>
+      <object-name>osm-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <factor>0.00262</factor>
+      <axis>
+       <x> 0 </x>
+       <y> 0 </y>
+       <z> 1 </z>
+      </axis>
+    </animation>
+    <!--animation>
+        <type>knob</type>
+        <object-name>osm-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <factor>1</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.1139</x-m>
+            <y-m> -0.1164</y-m>
+            <z-m> -1.0202</z-m>
+        </center>
+        <axis>
+            <x> 1</x>
+            <y> 0</y>
+            <z> 0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>osm-arm-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+            </binding>
+        </hovered>
+    </animation-->
 
     <!-- C3 Remove Covers (GUI Only) -->
     <animation>
@@ -9367,7 +9649,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -9410,7 +9692,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -9449,7 +9731,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -9492,7 +9774,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("knob")</script>
             </binding>
         </action>
         <hovered>
@@ -9528,7 +9810,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9580,7 +9862,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9643,7 +9925,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9670,7 +9952,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9721,7 +10003,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9748,7 +10030,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9803,7 +10085,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9830,7 +10112,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9881,7 +10163,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9908,7 +10190,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -9959,7 +10241,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -9986,7 +10268,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10031,7 +10313,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10083,7 +10365,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10146,7 +10428,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -10173,7 +10455,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10366,7 +10648,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -10407,7 +10689,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -10434,7 +10716,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10474,7 +10756,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10656,7 +10938,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -10966,7 +11248,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -11007,7 +11289,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("cover")</script>
             </binding>
         </action>
         <hovered>
@@ -11031,6 +11313,10 @@
             <binding>
                 <command>nasal</command>
                 <script>SpaceShuttle.arm_gear()</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -11070,7 +11356,7 @@
             </binding>
             <binding>
                 <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
+                <script>SpaceShuttle.click("button")</script>
             </binding>
         </action>
         <hovered>
@@ -15129,7 +15415,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15207,7 +15493,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15246,7 +15532,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15285,7 +15571,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15324,7 +15610,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15363,7 +15649,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15402,7 +15688,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -15441,7 +15727,7 @@
           </binding>
           <binding>
             <command>nasal</command>
-            <script>SpaceShuttle.click("avionics")</script>
+            <script>SpaceShuttle.click("button")</script>
           </binding>
         </action>
         <hovered>
@@ -20906,6 +21192,10 @@
     <property>/fdm/jsbsim/systems/ap/automatic-pitch-control</property>
     <value>0</value>
    </binding>
+   <binding>
+    <command>nasal</command>
+    <script>SpaceShuttle.click("button")</script>
+   </binding>
   </action>
   <hovered>
    <binding>
@@ -20947,6 +21237,10 @@
     <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-pitch-control</property>
     <value>0</value>
+   </binding>
+   <binding>
+    <command>nasal</command>
+    <script>SpaceShuttle.click("button")</script>
    </binding>
   </action>
   <hovered>
@@ -20997,6 +21291,10 @@
     <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
     <value>0</value>
    </binding>
+   <binding>
+    <command>nasal</command>
+    <script>SpaceShuttle.click("button")</script>
+   </binding>
   </action>
   <hovered>
    <binding>
@@ -21038,6 +21336,10 @@
     <command>property-assign</command>
     <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
     <value>0</value>
+   </binding>
+   <binding>
+    <command>nasal</command>
+    <script>SpaceShuttle.click("button")</script>
    </binding>
   </action>
   <hovered>
