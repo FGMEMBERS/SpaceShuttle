@@ -2538,7 +2538,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/sim/model/panel/cover/R1-covers-visible</path>
     <path>/sim/model/panel/cover/R2-covers-visible</path>
     <path>/sim/model/panel/cover/O7-covers-visible</path>
-    <path>/save/latitude-deg</path>
+    <!--<path>/save/latitude-deg</path>
     <path>/save/longitude-deg</path>
     <path>/save/altitude-ft</path>
     <path>/save/pitch-deg</path>
@@ -2600,7 +2600,7 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/save/temperature[14]</path>
     <path>/save/throttle[0]</path>
     <path>/save/throttle[1]</path>
-    <path>/save/throttle[2]</path>
+    <path>/save/throttle[2]</path>-->
   </aircraft-data>
 
 

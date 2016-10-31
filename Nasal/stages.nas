@@ -2027,6 +2027,20 @@ SpaceShuttle.condition_manager.start();
 SpaceShuttle.nbat.select_ops(getprop("/fdm/jsbsim/systems/dps/ops"));
 SpaceShuttle.nbat.apply();
 
+# automatically switch Earthview on if the user has this selected
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt > SpaceShuttle.earthview_transition_alt)
+		{
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.clear_all();}
+		earthview.start();
+		}
+
+	}
+
 
 }
 

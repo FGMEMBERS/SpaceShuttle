@@ -553,6 +553,23 @@ for (var i =0; i< n; i=i+1 )
 	SpaceShuttle.thermal_array[i].thermal_energy = T * C_heat;
 	}
 
+# automatically switch Earthview on if the user has this selected
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt > SpaceShuttle.earthview_transition_alt)
+		{
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.clear_all();}
+		earthview.start();
+		}
+
+	}
+
+# remove any light manager info 
+
+SpaceShuttle.light_manager.set_theme("CLEAR");
 
 print("State resumed!");
 }
