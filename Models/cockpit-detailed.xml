@@ -59,6 +59,26 @@
         <object-name>left-rcs-he-fuel</object-name>
         <object-name>right-rcs-he-oxid</object-name>
         <object-name>right-rcs-he-fuel</object-name>
+        <object-name>left-rcs-he-oxid-cl</object-name>
+        <object-name>left-rcs-he-fuel-cl</object-name>
+        <object-name>left-rcs-he-oxid-op</object-name>
+        <object-name>left-rcs-he-fuel-op</object-name>
+        <object-name>right-rcs-he-oxid-cl</object-name>
+        <object-name>right-rcs-he-fuel-cl</object-name>
+        <object-name>right-rcs-he-oxid-op</object-name>
+        <object-name>right-rcs-he-fuel-op</object-name>
+        <object-name>left-rcs-tank-12-oxid-cl</object-name>
+        <object-name>left-rcs-tank-12-oxid-op</object-name>
+        <object-name>left-rcs-tank-345-a-fuel-cl</object-name>
+        <object-name>left-rcs-tank-345-a-fuel-op</object-name>
+        <object-name>left-rcs-tank-345-b-fuel-cl</object-name>
+        <object-name>left-rcs-tank-345-b-fuel-op</object-name>
+        <object-name>right-rcs-tank-12-oxid-cl</object-name>
+        <object-name>right-rcs-tank-12-oxid-op</object-name>
+        <object-name>right-rcs-tank-345-a-fuel-cl</object-name>
+        <object-name>right-rcs-tank-345-a-fuel-op</object-name>
+        <object-name>right-rcs-tank-345-b-fuel-cl</object-name>
+        <object-name>right-rcs-tank-345-b-fuel-op</object-name>
         <object-name>aft-left-rcs-he-fuel-cvr</object-name>
         <object-name>aft-left-rcs-he-oxid-cvr</object-name>
         <object-name>aft-right-rcs-he-fuel-cvr</object-name>
@@ -96,7 +116,706 @@
         <object-name>egress-system</object-name>
     </effect>
 
-    <!-- Panel O7 "Switches" -->
+    <!-- ******************************************************************* -->
+    <!-- Panel O7                                                             -->
+    <!-- ******************************************************************* -->
+
+    <!-- Left RCS HE Oxid "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>left-rcs-he-oxid</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.8837</x-m>
+            <y-m> -0.1255</y-m>
+            <z-m>  0.3135</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>left-rcs-he-oxid</tooltip-id>
+                <label>Left RCS HE Oxid: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Left RCS HE Oxid "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-he-oxid-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-he-oxid-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-A-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left RCS HE Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>left-rcs-he-fuel</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.8837</x-m>
+            <y-m> -0.0622</y-m>
+            <z-m>  0.3135</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>left-rcs-he-fuel</tooltip-id>
+                <label>Left RCS HE Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Left RCS HE Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-he-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-he-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-rcs-valve-B-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS HE Oxid "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>right-rcs-he-oxid</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.8837</x-m>
+            <y-m>  0.0604</y-m>
+            <z-m>  0.3135</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>right-rcs-he-oxid</tooltip-id>
+                <label>Right RCS HE Oxid: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Right RCS HE Oxid "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-he-oxid-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-he-oxid-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-A-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS HE Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>right-rcs-he-fuel</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.8837</x-m>
+            <y-m>  0.1236</y-m>
+            <z-m>  0.3135</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>right-rcs-he-fuel</tooltip-id>
+                <label>Right RCS HE Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Right RCS HE Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-he-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-he-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-rcs-valve-B-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left RCS Tank Iso 1/2 Oxid "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>left-rcs-tank-isol-12</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m> -0.1258</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>left-rcs-tank-isol-12</tooltip-id>
+                <label>Left RCS Tank Iso 1/2 Oxid: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Left RCSTank Iso 1/2 Oxid "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-12-oxid-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-12-oxid-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-12-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left RCS Tank Iso 3/4/5 A Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>left-rcs-tank-isol-a-345</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345a-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m> -0.0649</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345a-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>left-rcs-tank-isol-a-345</tooltip-id>
+                <label>Left RCS Tank Iso 3/4/5 A Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345a-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Left RCSTank Iso 3/4/5 A Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-345-a-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345a-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-345-a-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345a-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left RCS Tank Iso 3/4/5 B Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>left-rcs-tank-isol-b-345</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345b-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m> -0.0297</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345b-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>left-rcs-tank-isol-b-345</tooltip-id>
+                <label>Left RCS Tank Iso 3/4/5 B Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345b-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Left RCSTank Iso 3/4/5 B Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-345-b-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345b-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-rcs-tank-345-b-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-rcs-valve-345b-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS Tank Iso 1/2 Oxid "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>right-rcs-tank-isol-12</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m>  0.0595</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>right-rcs-tank-isol-12</tooltip-id>
+                <label>Right RCS Tank Iso 1/2 Oxid: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Right RCSTank Iso 1/2 Oxid "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-12-oxid-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-12-oxid-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-12-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS Tank Iso 3/4/5 A Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>right-rcs-tank-isol-a-345</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345a-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m>  0.0595</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345a-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>right-rcs-tank-isol-a-345</tooltip-id>
+                <label>Right RCS Tank Iso 3/4/5 A Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345a-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Right RCSTank Iso 3/4/5 A Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-345-a-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345a-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-345-a-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345a-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Right RCS Tank Iso 3/4/5 B Fuel "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>right-rcs-tank-isol-b-345</object-name>
+        <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345b-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.0068</x-m>
+            <y-m>  0.1555</y-m>
+            <z-m>  0.2839</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345b-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>right-rcs-tank-isol-b-345</tooltip-id>
+                <label>Right RCS Tank Iso 3/4/5 B Fuel: %s</label>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345b-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Right RCSTank Iso 3/4/5 B Fuel "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-345-b-fuel-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345b-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>right-rcs-tank-345-b-fuel-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-rcs-valve-345b-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
 
     <!-- O7 Remove Covers -->
     <animation>
