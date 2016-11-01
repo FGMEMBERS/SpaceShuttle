@@ -1273,6 +1273,23 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 
 SpaceShuttle.check_limits_glide();
 
+# check whether we need to end Earthview
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt < SpaceShuttle.earthview_transition_alt)
+		{
+		earthview.stop();
+
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.set_tile();}
+		}
+
+	}
+
+
+
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
 
