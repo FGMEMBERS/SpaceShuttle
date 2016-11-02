@@ -106,7 +106,7 @@ if (getprop("/mission/launch/section-defined") and (stage == 0))
 
 # aborts
 
-if (getprop("/mission/abort/section-defined"))
+if (getprop("/mission/abort/section-defined") and (stage == 0))
 	{
 	var yaw_steering = getprop("/mission/abort/enable-yaw-steering");
 	setprop("/fdm/jsbsim/systems/abort/enable-yaw-steer", yaw_steering);
@@ -334,10 +334,7 @@ if (getprop("/mission/post-meco/section-defined"))
 
 		# wait for fuel dump to finish before we start the OMS maneuver
 		settimer(func {
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			SpaceShuttle.orbital_dap_manager.control_select("AUTO");
 			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
 			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
 			if (flag == 0) {flag = 1;} else {flag =0;}
@@ -346,6 +343,15 @@ if (getprop("/mission/post-meco/section-defined"))
 		}
 
 	}
+
+	# i-load landing site, we have to do it post-MECO to not interfere with RTLS
+
+if (getprop("/mission/entry/section-defined"))
+	{ 
+	var landing_site_index = getprop("/mission/entry/landing-site-index");
+	SpaceShuttle.update_site_by_index(landing_site_index);
+	}
+
 }
 
 
