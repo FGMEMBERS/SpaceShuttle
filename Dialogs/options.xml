@@ -351,6 +351,10 @@
               <command>dialog-apply</command>
               <object-name>use-earthview</object-name>
           </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");</script>
+	  </binding>
         </checkbox>
 
 	<text>
@@ -377,6 +381,10 @@
       <binding>
         <command>dialog-apply</command>
         <object-name>earthview-transition</object-name>
+      </binding>
+      <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");</script>
       </binding>
     </slider>
 
