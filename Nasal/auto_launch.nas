@@ -388,6 +388,10 @@ else if (auto_launch_stage == 4)
 		setprop("/controls/engines/engine[1]/throttle", 0.0);
 		setprop("/controls/engines/engine[2]/throttle", 0.0);
 
+	    	setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+    		setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+    		setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
 		print ("MECO - auto-TAL guidance signing off!");
 		print ("Have a good entry and remember to close umbilical doors!");
 		return;

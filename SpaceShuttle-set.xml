@@ -2538,69 +2538,6 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/sim/model/panel/cover/R1-covers-visible</path>
     <path>/sim/model/panel/cover/R2-covers-visible</path>
     <path>/sim/model/panel/cover/O7-covers-visible</path>
-    <!--<path>/save/latitude-deg</path>
-    <path>/save/longitude-deg</path>
-    <path>/save/altitude-ft</path>
-    <path>/save/pitch-deg</path>
-    <path>/save/heading-deg</path>
-    <path>/save/roll-deg</path>
-    <path>/save/uBody-fps</path>
-    <path>/save/vBody-fps</path>
-    <path>/save/wBody-fps</path>
-    <path>/save/state</path>
-    <path>/save/radiator-state</path>
-    <path>/save/umbilical-state</path>
-    <path>/save/control-mode</path>
-    <path>/save/control-string</path>
-    <path>/save/orbital-dap-sel</path>
-    <path>/save/css-pitch</path>
-    <path>/save/css-roll</path>
-    <path>/save/ops</path>
-    <path>/save/major-mode</path>
-    <path>/save/major-mode-sm</path>
-    <path>/save/guidance-mode</path>
-    <path>/save/landing-site</path>
-    <path>/save/runway</path>
-    <path>/save/auto-launch</path>
-    <path>/save/auto-launch-stage</path>
-    <path>/save/tank1-level-lbs</path>
-    <path>/save/tank2-level-lbs</path>
-    <path>/save/tank3-level-lbs</path>
-    <path>/save/tank4-level-lbs</path>
-    <path>/save/tank5-level-lbs</path>
-    <path>/save/tank6-level-lbs</path>
-    <path>/save/tank7-level-lbs</path>
-    <path>/save/tank8-level-lbs</path>
-    <path>/save/tank9-level-lbs</path>
-    <path>/save/tank10-level-lbs</path>
-    <path>/save/tank11-level-lbs</path>
-    <path>/save/tank12-level-lbs</path>
-    <path>/save/tank13-level-lbs</path>
-    <path>/save/tank14-level-lbs</path>
-    <path>/save/tank15-level-lbs</path>
-    <path>/save/tank16-level-lbs</path>
-    <path>/save/tank17-level-lbs</path>
-    <path>/save/tank18-level-lbs</path>
-    <path>/save/tank19-level-lbs</path>
-    <path>/save/MET</path>
-    <path>/save/temperature[0]</path>
-    <path>/save/temperature[1]</path>
-    <path>/save/temperature[2]</path>
-    <path>/save/temperature[3]</path>
-    <path>/save/temperature[4]</path>
-    <path>/save/temperature[5]</path>
-    <path>/save/temperature[6]</path>
-    <path>/save/temperature[7]</path>
-    <path>/save/temperature[8]</path>
-    <path>/save/temperature[9]</path>
-    <path>/save/temperature[10]</path>
-    <path>/save/temperature[11]</path>
-    <path>/save/temperature[12]</path>
-    <path>/save/temperature[13]</path>
-    <path>/save/temperature[14]</path>
-    <path>/save/throttle[0]</path>
-    <path>/save/throttle[1]</path>
-    <path>/save/throttle[2]</path>-->
   </aircraft-data>
 
 

@@ -39,18 +39,18 @@ if (flyout_active == 1)
 			{
 			if (auto_throttle == 1)
 				{			
-				setprop("/controls/engines/engine[0]/throttle", 0.65);
-				setprop("/controls/engines/engine[1]/throttle", 0.65);
-				setprop("/controls/engines/engine[2]/throttle", 0.65);
+				setprop("/controls/engines/engine[0]/throttle", 0.0);
+				setprop("/controls/engines/engine[1]/throttle", 0.0);
+				setprop("/controls/engines/engine[2]/throttle", 0.0);
 				}
 			}
 		else if (alt > 410000.0)
 			{
 			if (auto_throttle == 1)
 				{
-				setprop("/controls/engines/engine[0]/throttle", 0.75);
-				setprop("/controls/engines/engine[1]/throttle", 0.75);
-				setprop("/controls/engines/engine[2]/throttle", 0.75);
+				setprop("/controls/engines/engine[0]/throttle", 0.4);
+				setprop("/controls/engines/engine[1]/throttle", 0.4);
+				setprop("/controls/engines/engine[2]/throttle", 0.4);
 				}
 			}
 		}
@@ -101,9 +101,9 @@ if (flyback_active == 1)
 
 		if (auto_throttle == 1)
 			{	
-			setprop("/controls/engines/engine[0]/throttle", 0.67);
-			setprop("/controls/engines/engine[1]/throttle", 0.67);
-			setprop("/controls/engines/engine[2]/throttle", 0.67);
+			setprop("/controls/engines/engine[0]/throttle", 0.0);
+			setprop("/controls/engines/engine[1]/throttle", 0.0);
+			setprop("/controls/engines/engine[2]/throttle", 0.0);
 			}
 		setprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active",1);
 		}
@@ -149,6 +149,10 @@ var rtls_init_meco = func {
 setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
 
 
