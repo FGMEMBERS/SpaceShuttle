@@ -169,6 +169,10 @@ setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
 
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
 settimer( force_external_tank_separate, 1.0);
@@ -223,6 +227,10 @@ var cgreen_init_meco = func {
 setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
@@ -280,6 +288,10 @@ setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
 
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
 settimer( force_external_tank_separate, 0.5);
@@ -334,6 +346,10 @@ var corange_init_meco = func {
 setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
+
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 

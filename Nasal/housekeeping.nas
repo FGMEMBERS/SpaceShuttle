@@ -1455,7 +1455,7 @@ var condition_manager = {
 			}
 		setprop("/fdm/jsbsim/systems/failures/oms/oms-right-fuel-line-condition", me.oms_right_line_condition);
 
-		me.list();
+		#me.list();
 
 		settimer (func me.update(), me.dt);
 	},

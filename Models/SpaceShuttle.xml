@@ -2128,10 +2128,16 @@
            <pitch-deg>-90</pitch-deg>
   	</offsets>
 	 <condition>
+		<and>
 		<equals>
 			<property>/fdm/jsbsim/systems/propellant/LO2-drain-open</property>
 			<value>1.0</value>
 		</equals>
+		<greater-than>
+			<property>/consumables/fuel/tank[0]/level-norm</property>
+			<value>0.0</value>
+		</greater-than>
+		</and>
 	 </condition>
   </model>
 	
@@ -2145,10 +2151,16 @@
            <pitch-deg>-90</pitch-deg>
   	</offsets>
 	 <condition>
+		<and>
 		<equals>
 			<property>/fdm/jsbsim/systems/propellant/LH2-drain-open</property>
 			<value>1.0</value>
 		</equals>
+		<greater-than>
+			<property>/consumables/fuel/tank[0]/level-norm</property>
+			<value>0.0</value>
+		</greater-than>
+		</and>
 	 </condition>
   </model>
 
