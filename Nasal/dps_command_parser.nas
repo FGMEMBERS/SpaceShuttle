@@ -989,14 +989,6 @@ if ((header == "OPS") and (end =="PRO"))
 		}
 	else if ((major_mode == 601) and (current_ops == 1))
 		{
-		#SpaceShuttle.traj_display_flag = 10;
-		#setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-		#setprop("/fdm/jsbsim/systems/dps/ops", 6);
-		#ops_transition(idp_index, "p_dps_rtls");
-		#var landing_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/rtls-site-iloaded");
-		#SpaceShuttle.update_site_by_index(landing_site_index);
-		#setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
-		#setprop("/controls/shuttle/hud-mode",2);
 		SpaceShuttle.init_rtls();
 		valid_flag = 1;
 		}

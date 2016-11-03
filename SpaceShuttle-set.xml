@@ -2291,8 +2291,12 @@
      <desc>arm landing gear</desc>
     </key>
     <key>
+     <name>I</name>
+     <desc>main engine ignition command</desc>
+    </key>
+    <key>
      <name>m</name>
-     <desc>switch FCS modes</desc>
+     <desc>toggle FCS from RHC to THC</desc>
     </key>
     <!--<key>
      <name>M</name>
@@ -2540,6 +2544,10 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/sim/model/panel/cover/R2-covers-visible</path>
     <path>/sim/model/panel/cover/O7-covers-visible</path>
     <path>/sim/model/panel/cover/O8-covers-visible</path>
+    <path>/sim/config/shuttle/mdu-update-speed</path>
+    <path>/fdm/jsbsim/systems/adi/quality-level</path>
+    <path>/sim/config/shuttle/detailed-flightdeck</path>
+    <path>/sim/config/shuttle/srb-shake</path>
   </aircraft-data>
 
 
