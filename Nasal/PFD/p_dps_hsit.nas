@@ -269,7 +269,7 @@ var PFD_addpage_p_dps_hsit = func(device)
 	p_dps_hsit.gn_approach.setText(string);
 
 	var entry_point_string = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
-	p_dps_hsit.entry_point.setText(string);
+	p_dps_hsit.entry_point.setText(entry_point_string);
 
 	string = "";
 	var rwy_sel = "";

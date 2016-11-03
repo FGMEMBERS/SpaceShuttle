@@ -74,6 +74,7 @@
 </dap>
 
 <entry>
+  <section-defined type="bool">true</section-defined>
   <landing-site-index type="int">1</landing-site-index>
 </entry>
 
