@@ -98,6 +98,23 @@
         </binding>
     </checkbox>
 
+    <checkbox>
+        <name>panel-O8</name>
+        <row>6</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel O8</label>
+        <property>/sim/model/panel/cover/O8-covers-visible</property>
+        <live>true</live>
+        <enable>
+            <property>/sim/config/shuttle/detailed-flightdeck</property>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-O8</object-name>
+        </binding>
+    </checkbox>
+
   </group>
 
     <empty>
