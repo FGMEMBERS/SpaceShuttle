@@ -201,17 +201,24 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/apu/apu/hyd-pressure-psia">
+		<fcs_function name="systems/apu/apu/hyd-main-pressure-psia">
 		<function>
-			<max>
 			<product>
 				<quotient>
 					<property>systems/apu/apu/hyd-pump-rpm</property>
 					<value>3900.0</value>
 				</quotient>
-				<value>3000.0</value>
+				<value>3003.0</value>
 				<property>systems/apu/apu/hyd-pressure-factor</property>
 			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/apu/apu/hyd-pressure-psia">
+		<function>
+			<max>
+			<property>systems/apu/apu/hyd-main-pressure-psia</property>
 			<product>
 				<property>systems/apu/apu/circ-pressure-factor</property>
 				<value>2600.0</value>
@@ -433,17 +440,23 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/apu/apu[1]/hyd-pressure-psia">
+		<fcs_function name="systems/apu/apu[1]/hyd-main-pressure-psia">
 		<function>
-			<max>
 			<product>
 				<quotient>
 					<property>systems/apu/apu[1]/hyd-pump-rpm</property>
 					<value>3900.0</value>
 				</quotient>
-				<value>3000.0</value>
+				<value>3006.0</value>
 				<property>systems/apu/apu[1]/hyd-pressure-factor</property>
 			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[1]/hyd-pressure-psia">
+		<function>
+			<max>
+			<property>systems/apu/apu[1]/hyd-main-pressure-psia</property>
 			<product>
 				<property>systems/apu/apu[1]/circ-pressure-factor</property>
 				<value>2600.0</value>
@@ -664,17 +677,23 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/apu/apu[2]/hyd-pressure-psia">
+		<fcs_function name="systems/apu/apu[2]/hyd-main-pressure-psia">
 		<function>
-			<max>
 			<product>
 				<quotient>
 					<property>systems/apu/apu[2]/hyd-pump-rpm</property>
 					<value>3900.0</value>
 				</quotient>
-				<value>3000.0</value>
+				<value>3002.0</value>
 				<property>systems/apu/apu[2]/hyd-pressure-factor</property>
 			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/apu/apu[2]/hyd-pressure-psia">
+		<function>
+			<max>
+			<property>systems/apu/apu[2]/hyd-main-pressure-psia</property>
 			<product>
 				<property>systems/apu/apu[2]/circ-pressure-factor</property>
 				<value>2600.0</value>

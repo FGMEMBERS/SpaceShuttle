@@ -1338,7 +1338,7 @@ var condition_manager = {
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-1-pressurized") == 1)
 			{
-			me.hyd1_pressure = 1.2;
+			me.hyd1_pressure = getprop("/fdm/jsbsim/systems/apu/apu/hyd-main-pressure-psia")/3003.0;
 			}
 		else
 			{
@@ -1378,7 +1378,7 @@ var condition_manager = {
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-2-pressurized") == 1)
 			{
-			me.hyd2_pressure = 1.2;
+			me.hyd2_pressure = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-main-pressure-psia")/3006.0;
 			}
 		else
 			{
@@ -1398,7 +1398,7 @@ var condition_manager = {
 		if ((me.hyd3_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
 			{
 			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 1);
-			me.pump3_status = 1;
+			me.pump3_status = 1.16;
 			}
 		else 
 			{
@@ -1415,7 +1415,7 @@ var condition_manager = {
 			}
 		else if (getprop("/fdm/jsbsim/systems/apu/hyd-3-pressurized") == 1)
 			{
-			me.hyd3_pressure = 1.2;
+			me.hyd3_pressure = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-main-pressure-psia")/3002.0;
 			}
 		else
 			{

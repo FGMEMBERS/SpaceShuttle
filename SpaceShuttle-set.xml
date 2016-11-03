@@ -457,7 +457,7 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
-       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
       <apu n="1">
@@ -481,7 +481,7 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
-       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
       <apu n="2">
@@ -505,7 +505,7 @@
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
-       <circ-pressure-factor type="double">1.0</circ-pressure-factor>
+       <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
       </apu>
      </apu>
@@ -2291,8 +2291,12 @@
      <desc>arm landing gear</desc>
     </key>
     <key>
+     <name>I</name>
+     <desc>main engine ignition command</desc>
+    </key>
+    <key>
      <name>m</name>
-     <desc>switch FCS modes</desc>
+     <desc>toggle FCS from RHC to THC</desc>
     </key>
     <!--<key>
      <name>M</name>
@@ -2540,6 +2544,11 @@ After main gear touchdown, prior to derotation, deploy drag chute using 'shift+c
     <path>/sim/model/panel/cover/R2-covers-visible</path>
     <path>/sim/model/panel/cover/O7-covers-visible</path>
     <path>/sim/model/panel/cover/O8-covers-visible</path>
+    <path>/sim/config/shuttle/mdu-update-speed</path>
+    <path>/fdm/jsbsim/systems/adi/quality-level</path>
+    <path>/sim/config/shuttle/detailed-flightdeck</path>
+    <path>/sim/config/shuttle/srb-shake</path>
+    <path>/sim/config/shuttle/place-gantry</path>
   </aircraft-data>
 
 

@@ -194,8 +194,56 @@ for (var i =0; i< n; i=i+1 )
 	{
 	var T = SpaceShuttle.thermal_array[i].temperature;
 	setprop("/save/temperature["~i~"]",T);
-	
 	}
+
+# hydraulic circulation pumps
+
+var circ_pump1 = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd");
+var circ_pump2 = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd");
+var circ_pump3 = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd");
+
+setprop("/save/hyd-circ-pump1", circ_pump1);
+setprop("/save/hyd-circ-pump2", circ_pump2);
+setprop("/save/hyd-circ-pump3", circ_pump3);
+
+
+# RCS and OMS heaters
+
+var heater_fwd_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status");
+var heater_fwd_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status");
+
+setprop("/save/heater-fwd-A", heater_fwd_A);
+setprop("/save/heater-fwd-B", heater_fwd_B);
+
+var heater_left_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status");
+var heater_left_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status");
+
+setprop("/save/heater-left-A", heater_left_A);
+setprop("/save/heater-left-B", heater_left_B);
+
+var heater_right_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status");
+var heater_right_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status");
+
+setprop("/save/heater-right-A", heater_right_A);
+setprop("/save/heater-right-B", heater_right_B);
+
+var heater_oms_left_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status");
+var heater_oms_left_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-B-status");
+
+setprop("/save/heater-oms-left-A", heater_oms_left_A);
+setprop("/save/heater-oms-left-B", heater_oms_left_B);
+
+var heater_oms_right_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status");
+var heater_oms_right_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-B-status");
+
+setprop("/save/heater-oms-right-A", heater_oms_right_A);
+setprop("/save/heater-oms-right-B", heater_oms_right_B);
+
+var heater_xfeed_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status");
+var heater_xfeed_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status");
+
+setprop("/save/heater-oms-xfeed-A", heater_oms_left_A);
+setprop("/save/heater-oms-xfeed-B", heater_oms_left_B);
 
 # the scenario description
 
@@ -552,6 +600,65 @@ for (var i =0; i< n; i=i+1 )
 	var C_heat = SpaceShuttle.thermal_array[i].mass * SpaceShuttle.thermal_array[i].heat_capacity;
 	SpaceShuttle.thermal_array[i].thermal_energy = T * C_heat;
 	}
+
+
+# hydraulic circulation pumps
+
+var circ_pump1 = getprop("/save/hyd-circ-pump1");
+var circ_pump2 = getprop("/save/hyd-circ-pump2");
+var circ_pump3 = getprop("/save/hyd-circ-pump3");
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd", circ_pump1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd", circ_pump2);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd", circ_pump3);
+
+if (circ_pump1 == 0) {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 0);}
+
+if (circ_pump2 == 0) {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 0);}
+
+if (circ_pump3 == 0) {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 0);}
+
+
+# RCS and OMS heaters
+
+var heater_fwd_A = getprop("/save/heater-fwd-A");
+var heater_fwd_B = getprop("/save/heater-fwd-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status", heater_fwd_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status", heater_fwd_B);
+
+var heater_left_A = getprop("/save/heater-left-A");
+var heater_left_B = getprop("/save/heater-left-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status", heater_left_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", heater_left_B);
+
+var heater_right_A = getprop("/save/heater-right-A");
+var heater_right_B = getprop("/save/heater-right-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status", heater_right_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", heater_right_B);
+
+var heater_oms_left_A = getprop("/save/heater-oms-left-A");
+var heater_oms_left_B = getprop("/save/heater-oms-left-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status", heater_oms_left_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-B-status", heater_oms_left_B);
+
+var heater_oms_right_A = getprop("/save/heater-oms-right-A");
+var heater_oms_right_B = getprop("/save/heater-oms-right-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status", heater_oms_right_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-B-status", heater_oms_right_B);
+
+var heater_xfeed_A = getprop("/save/heater-oms-xfeed-A");
+var heater_xfeed_B = getprop("/save/heater-oms-xfeed-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", heater_xfeed_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status", heater_xfeed_B);
 
 # automatically switch Earthview on if the user has this selected
 

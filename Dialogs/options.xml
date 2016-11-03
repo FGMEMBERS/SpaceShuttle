@@ -209,9 +209,22 @@
 
 
     <checkbox>
-        <name>srb-shake</name>
+        <name>place-gantry</name>
  	<row>6</row>
         <col>0</col>
+          <property>/sim/config/shuttle/place-gantry</property>
+          <label>Show launch gantry</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>place-gantry</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>srb-shake</name>
+ 	<row>6</row>
+        <col>1</col>
           <property>/sim/config/shuttle/srb-shake</property>
           <label>SRBs shake view</label>
           <live>true</live>
