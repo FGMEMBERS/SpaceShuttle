@@ -29,7 +29,7 @@
 </abort>
 
 <post-meco>
-  <section-defined type="bool">true</section-defined>
+  <section-defined type="bool">false</section-defined>
   <automatic-fuel-dump type="bool">true</automatic-fuel-dump>
   <auto-oms1-burn type="bool">true</auto-oms1-burn>
   <oms1-dvx type="double">80.0</oms1-dvx>
