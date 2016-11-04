@@ -18497,6 +18497,13 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+		<script>
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg",0);
+ 		</script>
+	    </binding>
         </action>
         <hovered>
             <binding>
@@ -18543,6 +18550,13 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+		<script>
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg",0);
+ 		</script>
+	    </binding>
         </action>
         <hovered>
             <binding>
@@ -18589,6 +18603,13 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
+	    <binding>
+		<command>nasal</command>
+		<script>
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg",0);
+ 		</script>
+	    </binding>
         </action>
         <hovered>
             <binding>
