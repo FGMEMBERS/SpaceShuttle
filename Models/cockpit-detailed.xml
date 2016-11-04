@@ -134,6 +134,9 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-right</inherits-from>
         <!-- Panels -->
         <object-name>O3-panel</object-name>
+        <object-name>O9-panel</object-name>
+        <object-name>O16-panel</object-name>
+        <object-name>O17-panel</object-name>
         <!-- Panel O8 "Fixings" -->
         <object-name>O8-panel</object-name>
         <object-name>O8-covers</object-name>
@@ -169,9 +172,6 @@
         <object-name>right-oms-cf-a-cl</object-name>
         <object-name>right-oms-cf-b-op</object-name>
         <object-name>right-oms-cf-b-cl</object-name>
-        <object-name>O9-panel</object-name>
-        <object-name>O16-panel</object-name>
-        <object-name>O17-panel</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-aft-panel-center</inherits-from>
@@ -1919,7 +1919,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-he-pv-isol-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -1935,7 +1935,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -1952,7 +1952,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-he-pv-isol-a</tooltip-id>
                 <label>Left OMS He Valve A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -1967,7 +1967,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-he-pv-isol-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -1983,7 +1983,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2000,7 +2000,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-he-pv-isol-b</tooltip-id>
                 <label>Left OMS He Valve B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2015,7 +2015,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-he-pv-isol-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2031,7 +2031,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2048,7 +2048,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-he-pv-isol-a</tooltip-id>
                 <label>Right OMS He Valve A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2063,7 +2063,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-he-pv-isol-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2079,7 +2079,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2096,7 +2096,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-he-pv-isol-b</tooltip-id>
                 <label>Right OMS He Valve B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/helium-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2111,7 +2111,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-tank-isol-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2127,7 +2127,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2144,7 +2144,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-tank-isol-a</tooltip-id>
                 <label>Left OMS Tank Iso A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2159,7 +2159,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-tank-isol-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2175,7 +2175,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2192,7 +2192,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-tank-isol-b</tooltip-id>
                 <label>Left OMS Tank Iso B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2207,7 +2207,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-tank-isol-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2223,7 +2223,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2240,7 +2240,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-tank-isol-a</tooltip-id>
                 <label>Right OMS Tank Iso A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2255,7 +2255,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-tank-isol-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2271,7 +2271,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2288,7 +2288,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-tank-isol-b</tooltip-id>
                 <label>Right OMS Tank Iso B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2303,7 +2303,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-cf-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2319,7 +2319,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2336,7 +2336,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-cf-a</tooltip-id>
                 <label>Left OMS Crossfeed A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2351,7 +2351,7 @@
     <animation>
         <type>knob</type>
         <object-name>left-oms-cf-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2367,7 +2367,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2384,7 +2384,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>left-oms-cf-b</tooltip-id>
                 <label>Left OMS Crossfeed B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2399,7 +2399,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-cf-a</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-A-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2415,7 +2415,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2432,7 +2432,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-cf-a</tooltip-id>
                 <label>Right OMS Crossfeed A: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2447,7 +2447,7 @@
     <animation>
         <type>knob</type>
         <object-name>right-oms-cf-b</object-name>
-        <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-B-status</property>
+        <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
         <factor>-75</factor>
         <offset-deg>50</offset-deg>
         <center>
@@ -2463,7 +2463,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
                 <factor>1</factor>
                 <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
                 <min>0</min>
@@ -2480,7 +2480,7 @@
                 <command>set-tooltip</command>
                 <tooltip-id>right-oms-cf-b</tooltip-id>
                 <label>Right OMS Crossfeed B: %s</label>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Close', 'Open'];
@@ -2497,7 +2497,7 @@
         <object-name>left-oms-tank-isol-a-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2507,7 +2507,7 @@
         <object-name>left-oms-tank-isol-a-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2519,7 +2519,7 @@
         <object-name>left-oms-tank-isol-b-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2529,7 +2529,7 @@
         <object-name>left-oms-tank-isol-b-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2541,7 +2541,7 @@
         <object-name>right-oms-tank-isol-a-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2551,7 +2551,7 @@
         <object-name>right-oms-tank-isol-a-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2563,7 +2563,7 @@
         <object-name>right-oms-tank-isol-b-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2573,7 +2573,7 @@
         <object-name>right-oms-tank-isol-b-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/tank-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2585,7 +2585,7 @@
         <object-name>left-oms-cf-a-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2595,7 +2595,7 @@
         <object-name>left-oms-cf-a-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2607,7 +2607,7 @@
         <object-name>left-oms-cf-b-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2617,7 +2617,7 @@
         <object-name>left-oms-cf-b-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-left-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2629,7 +2629,7 @@
         <object-name>right-oms-cf-a-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2639,7 +2639,7 @@
         <object-name>right-oms-cf-a-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-A-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status</property>
                 <value>1</value>
             </equals>
         </condition>
@@ -2651,7 +2651,7 @@
         <object-name>right-oms-cf-b-cl</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
                 <value>0</value>
             </equals>
         </condition>
@@ -2661,7 +2661,7 @@
         <object-name>right-oms-cf-b-op</object-name>
         <condition>
             <equals>
-                <property>/fdm/jsbsim/systems/rcs-hardware/crossfeed-right-oms-valve-B-status</property>
+                <property>/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status</property>
                 <value>1</value>
             </equals>
         </condition>
