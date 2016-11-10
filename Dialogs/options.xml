@@ -193,6 +193,7 @@
         <max>1</max>
         <step>1</step>
         <live>true</live>
+	<enabled>false</enabled>
         <property>/sim/config/shuttle/detailed-flightdeck</property>
         <binding>
             <command>dialog-apply</command>

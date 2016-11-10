@@ -2356,11 +2356,15 @@
     </key>
     <text>
 
-A short in-sim help text can not explain how to operate a machine as complex as the Space Shuttle. The ultimate resource is the NASA 'Space Shuttle Crew Operations Manual' (SCOM, USA007587) which is in public domain. A copy of this is in the Shuttle's Documentation/ folder. 
+A short in-sim help text can not explain how to operate a machine as complex as the Space Shuttle. The ultimate resource is the NASA 'Space Shuttle Crew Operations Manual' (SCOM, USA007587) which is in public domain. A copy of this is in the Shuttle's Documentation/ folder and browsing through the SCOM is highly recommended if you want to get most out of the Shuttle experience.
 
-Specifically for the avionics and the meaning of all displayed parameters, the original NASA DPS Dictionary is also available in the Documentation/ folder as a reference. Since the SCOM and the DPS Dictionary are the primary documents which have been used to model the Shuttle's systems, they're fairly accurate for the simulated version as well. The same holds for other NASA resources which can be obtained from the NASA document server, for instance mission-specific cue card sets (as long as your mission design adheres to the original).
+Specifically for the avionics and the meaning of all displayed parameters, the original NASA DPS Dictionary is also available in the Documentation/ folder as reference. Since the SCOM and the DPS Dictionary are the primary documents which have been used to model the Shuttle's systems, they're fairly accurate for the simulated version as well. The same holds for other NASA resources which can be obtained from the NASA document server, for instance mission-specific cue card sets (as long as your mission design adheres to the original).
 
-You will find a FlightGear focused overview on the FG Wiki
+A dedicated 'Flightgear Space Shuttle Flight Manual' containing detailed systems descriptions, tutorial series and simulation reference material can be obtained via
+
+http://www.science-and-fiction.org/bookstore.html
+
+free of charge for Flightgear users. You will also find a FlightGear focused overview on the FG Wiki
 
 http://wiki.flightgear.org/Space_Shuttle
 

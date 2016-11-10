@@ -30,7 +30,7 @@
         </offsets>
     </model>
 
-    <model>
+    <!--<model>
         <path>cockpit-detailed.xml</path>
         <offsets>
             <x-m> 0 </x-m>
@@ -43,7 +43,7 @@
                 <value>1</value>
             </equals>
         </condition>
-    </model>
+    </model>-->
 
   <!-- SSME Motors Placements -->
 
