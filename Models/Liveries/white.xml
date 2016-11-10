@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+    <sim>
+        <model>
+
+            <livery>
+                <name type="string">White Foam ET</name>
+                <index type="int">2</index>
+                <texture>Liveries/etallw.png</texture>
+            </livery>
+
+        </model>
+    </sim>
+</PropertyList>
