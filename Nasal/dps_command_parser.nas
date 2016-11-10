@@ -5,6 +5,67 @@
 var command_string = "";
 var last_command = [];
 
+var command_buffer = {
+	header: "",
+	body: [],
+	value: [],
+	length_value: [],
+	end: "",
+	n_entries: 0,
+	n_skipped: 0,
+	current_entry: 0,
+	idp_index: 0,
+
+	clear : func {
+
+		me.header = "";
+		setsize(me.body,0);
+		setsize(me.value,0);
+		setsize(me.length_value,0);
+		me.end = "";
+		me.n_entries = 0;	
+		me.current_entry = 0;
+		me.n_skipped = 0;
+		me.idp_index = 0;
+
+	},
+
+	list: func {
+
+	print ("n_entries: ", me.n_entries, " array length: ", size(me.value), " n_skipped: ",me.n_skipped);
+	for (var i =0; i< size(me.value); i=i+1)
+		{
+		print ("Body: ", me.body[i], " value: ", me.value[i], " length: ", me.length_value[i]);
+		}
+
+	},
+
+	process : func {
+
+	print ("Current: ", me.current_entry, " total: ", me.n_entries);
+
+	if ((me.current_entry == me.n_entries) or (me.n_entries == 0))
+		{
+		me.clear();
+		return;
+		}
+	else
+		{
+		header = me.header;
+		body = me.body[me.current_entry];
+		value = me.value[me.current_entry];
+		end = me.end;
+
+		me.current_entry = me.current_entry + 1;
+		#print (header, " ", body, " ", value, " ", end);
+		command_parse(me.idp_index);
+
+		}
+
+	},
+
+};
+
 var header = "";
 var body = "";
 var value = "";
@@ -81,7 +142,7 @@ var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index
 append(last_command, symbol);
 current_string = current_string~symbol;
 
-if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
+if ((header == "OPS") or (header == "SPEC") or (header == "ITEM") or (header == "CRT"))
 	{
 	if (b_v_flag == 0)
 		{body = body~symbol; length_body = length_body+1;}
@@ -98,9 +159,7 @@ var key_delimiter = func (kb_id, symbol) {
 
 var idp_index = get_IDP_id(kb_id) - 1;
 
-var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
-append(last_command, " "~symbol);
-current_string = current_string~" "~symbol;
+var item_string = "";
 
 if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 	{
@@ -109,7 +168,48 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 		b_v_flag = 1;
 		value = value~symbol; length_value = length_value+1;
 		}
+	else if ((value == "+") or (value == "-")) # we're entering multiple items and skip one
+		{
+		command_buffer.n_skipped = command_buffer.n_skipped + 1;
+
+		# chop the last entry off the command string and replace it		
+		var n = size(last_command);
+		setsize(last_command, n-1);
+	
+		var current_string = "";
+		for (var i = 0; i < (n-1); i=i+1)
+			{
+			current_string = current_string~last_command[i];
+			}
+		setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
+
+		item_string = " ("~(int(body) + command_buffer.n_entries + command_buffer.n_skipped)~")";
+	
+		}
+
+	else # we're entering multiple items
+		{
+
+		command_buffer.header = header;
+		append(command_buffer.body, int(body) + command_buffer.n_entries + command_buffer.n_skipped);
+		append(command_buffer.value, value);
+		append(command_buffer.length_value, length_value);
+		print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
+		command_buffer.n_entries = command_buffer.n_entries + 1;
+
+		var next_item = int(body) + command_buffer.n_entries + command_buffer.n_skipped;
+		value = ""~symbol;
+		length_value = 1;
+
+		item_string = " ("~next_item~")";
+		
+		}
 	}
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
+append(last_command, item_string~" "~symbol);
+current_string = current_string~item_string~" "~symbol;
+
 setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 }
 
@@ -146,9 +246,25 @@ if ((header == "OPS") or (header == "SPEC") or (header == "ITEM"))
 			}
 		else
 			{
-			b_v_flag = 0;
-			value = "";
-			length_value = 0;
+			if (command_buffer.n_entries == 0)
+				{
+				b_v_flag = 0;
+				value = "";
+				length_value = 0;
+				}
+			else # there's a buffered command
+				{
+				# remove the last entry from the buffer and make it 
+				# the actively edited value
+				command_buffer.n_entries = command_buffer.n_entries -1;
+
+				setsize(command_buffer.body, command_buffer.n_entries);
+				setsize(command_buffer.value, command_buffer.n_entries);
+				setsize(command_buffer.length_value, command_buffer.n_entries);
+
+				value = command_buffer.value[command_buffer.n_entries-1];
+				length_value = command_buffer.length_value[command_buffer.n_entries-1];
+				}
 			}			
 		}
 	else # we've been entering body
@@ -265,20 +381,20 @@ if (major_function == 1)
 {
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
-#var spec = getprop("/fdm/jsbsim/systems/dps/spec");
-#var disp = getprop("/fdm/jsbsim/systems/dps/disp");
 
 var spec = SpaceShuttle.idp_array[idp_index].get_spec();
 var disp = SpaceShuttle.idp_array[idp_index].get_disp();
 
-#print ("spec: ", spec);
-#print ("disp: ", disp);
 
 if ((disp > 0) and (spec > 0)) 
 	{
 	if (spec == 2)
 		{
 		page_select(idp_index, "p_dps_time");
+		}
+	else if (spec == 3)
+		{
+		page_select(idp_index, "p_dps_memory");
 		}
 	else if (spec == 20)
 		{
@@ -350,19 +466,55 @@ else if ((spec > 0) or ((spec == 0) and (disp > 0)))
 			page_select(idp_index, "p_dps_mnvr");
 			}
 		}
+	else if (ops == 6)
+		{
+		if (major_mode == 601)
+			{
+			page_select(idp_index, "p_dps_rtls");
+			}
+		else if (major_mode == 602)
+			{
+			page_select(idp_index, "p_dps_vert_sit");
+			}
+
+		}
 	setprop("/fdm/jsbsim/systems/dps/spec", 0);
 	SpaceShuttle.idp_array[idp_index].set_spec(0);
+	setprop("/fdm/jsbsim/systems/dps/disp", 0);
+	SpaceShuttle.idp_array[idp_index].set_disp(0);
 	}
 }
 else if (major_function == 2)
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec = getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var disp = getprop("/fdm/jsbsim/systems/dps/disp-sm");
 
-	SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+	if (((spec > 0) and (disp == 0)) or ((spec ==0) and (disp > 0)) or ((spec == 0) and (disp == 0)) )
+		{
+		SpaceShuttle.page_select(idp_index, SpaceShuttle.get_ops_page(major_function, major_mode));
+
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 0);
+		}
+	else if ((spec > 0) and (disp > 0))
+		{
+		if (spec == 94)
+			{
+			page_select(idp_index, "p_dps_pdrs_control");
+			}
+		else if (spec == 95)
+			{
+			page_select(idp_index, "p_dps_pdrs_override");
+			}
+
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
+
+		}
 
 
-	setprop("/fdm/jsbsim/systems/dps/disp-sm", 0);
-	setprop("/fdm/jsbsim/systems/dps/spec-sm", 0);
+
 	}
 
 }
@@ -401,10 +553,42 @@ current_string = current_string~element;
 
 end = "EXEC";
 
+if (command_buffer.n_entries > 0)
+	{
+	append(command_buffer.body, int(body) + command_buffer.n_entries + command_buffer.n_skipped);
+	append(command_buffer.value, value);
+	print("Appended body: ", int(body) + command_buffer.n_entries, " value: ", value);
+	command_buffer.n_entries = command_buffer.n_entries +1;
+	value = command_buffer.value[0];
+	command_buffer.end = "EXEC";
+	command_buffer.current_entry = 1;
+	command_buffer.idp_index = idp_index;
+	}
+
 setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
 
 
 command_parse(idp_index);
+}
+
+# GPC/CRT key #####################################################
+
+var key_gpc_crt = func (kb_id) {
+
+var idp_index = get_IDP_id(kb_id) - 1;
+
+var current_string = getprop("/fdm/jsbsim/systems/dps/command-string", idp_index);
+
+if (current_string == "")
+	{header = "CRT";}
+else {header = "FAIL";}
+
+var element = "GPC/CRT ";
+append(last_command, element);
+current_string = current_string~element;
+
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, current_string);
+
 }
 
 
@@ -415,9 +599,10 @@ command_parse(idp_index);
 var spec2 = [104, 105, 201, 202, 301, 302, 303];
 var spec20 = [201, 202];
 var spec22 = [201, 202, 301];
-var spec23 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
+var spec23 = [101, 102, 103, 104, 105, 106, 201, 202, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec25 = [201, 202];
 var spec33 = [201, 202];
+var spec34 = [201, 202];
 var spec50 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec51 = [101, 102, 103, 104, 105, 106, 301, 302, 303, 304, 305, 601, 602, 603];
 var spec63 = [201, 202];
@@ -456,11 +641,27 @@ return SpaceShuttle.kb_array[kb_id - 1].get_idp();
 # the same way
 # moreover OPS transitions will affect the GPC memory content and apply to all screens
 
-# during a MM transition,SPEC and DISP are retained
+
 
 var ops_transition = func (idp_index, page_id) {
 
-    var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+# get the relevant config from the NBAT
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+SpaceShuttle.nbat.select_ops(ops);
+SpaceShuttle.nbat.apply();
+
+# load the relevant DAPs
+# in OPS 1 and 6 transition DAP comes active at ETsep
+
+if (ops == 2)
+	{SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");}
+else if (ops == 3)
+	{SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");}
+
+
+
+var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
 # we now switch over all screens on IDPs showing the same major function which are in dps mode
 
@@ -476,6 +677,7 @@ var ops_transition = func (idp_index, page_id) {
 	}
 }
 
+# during a MM transition,SPEC and DISP are retained
 
 var major_mode_transition = func (idp_index, page_id) {
 
@@ -491,6 +693,8 @@ var major_mode_transition = func (idp_index, page_id) {
 
 	var current_spec = SpaceShuttle.idp_array[index].get_spec();
 	var current_disp = SpaceShuttle.idp_array[index].get_disp();
+
+	#print(index, " ", current_major_function, " ", current_disp, " ", M.PFD.dps_page_flag);
 
         if ((current_major_function == major_function) and (M.PFD.dps_page_flag == 1) and (current_spec == 0) and (current_disp == 0))
 		{
@@ -545,8 +749,10 @@ var get_ops_page  = func (major_function, major_mode)
             return page = "p_dps_univ_ptg";
         else if (major_mode == 304)
             return "p_entry";
-        else if (major_mode == 305)
+        else if ((major_mode == 305) or (major_mode == 602) or (major_mode == 603))
             return "p_vert_sit";
+	else if (major_mode == 601)
+	    return "p_dps_rtls";
 	}
     else if (major_function == 2)
 	{
@@ -647,6 +853,16 @@ var command_parse_gnc = func (idp_index) {
 
 var valid_flag = 0;
 
+# check if we have a valid GPC before executing a command
+
+var is_available = SpaceShuttle.gpc_check_available("GNC");
+if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0)) 
+	{
+	print("Polling error - command not passed to GPC.");
+	return;
+	}
+
+
 print(header, " ", body, " ", value);
 
 if ((header == "OPS") and (end =="PRO"))
@@ -731,6 +947,15 @@ if ((header == "OPS") and (end =="PRO"))
 			}
 		setprop("/fdm/jsbsim/systems/dps/spec", 0);
 		setprop("/fdm/jsbsim/systems/dps/disp", 0);
+
+		# if we have no entry guidance, request it at this point for the i-loaded landing site
+
+		if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 0)
+			{
+			setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+			setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site-string", "active");
+			}
+
 		valid_flag = 1;
 		}
 	else if ((major_mode == 302) and (current_ops == 3))
@@ -764,14 +989,21 @@ if ((header == "OPS") and (end =="PRO"))
 		}
 	else if ((major_mode == 601) and (current_ops == 1))
 		{
-		#SpaceShuttle.traj_display_flag = 10;
-		setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-		setprop("/fdm/jsbsim/systems/dps/ops", 6);
-		ops_transition(idp_index, "p_dps_rtls");
-		var landing_site_index = getprop("/fdm/jsbsim/systems/entry_guidance/rtls-site-iloaded");
-		SpaceShuttle.update_site_by_index(landing_site_index);
-		setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 3);
-		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.init_rtls();
+		valid_flag = 1;
+		}
+	else if ((major_mode == 602) and (current_ops == 6))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 602);
+		major_mode_transition(idp_index, "p_vert_sit");
+		valid_flag = 1;
+		}
+	else if ((major_mode == 603) and (current_ops == 6))
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
+		major_mode_transition(idp_index, "p_vert_sit");
 		valid_flag = 1;
 		}
 
@@ -779,7 +1011,39 @@ if ((header == "OPS") and (end =="PRO"))
 
 	}
 
-if ((header == "ITEM") and (end = "EXEC"))
+if ((header == "CRT") and (end == "EXEC"))
+	{
+
+	var code = int(body);
+	var gpc_number = int(code/10.0);
+	var idp_number = code -10 * gpc_number;
+
+	if ((idp_number < 1) or (idp_number > 4)) {valid_flag = 0;}
+	else if ((gpc_number < 0) or (gpc_number > 5)) {valid_flag = 0;}
+	else if (gpc_number == 0)
+		{
+		SpaceShuttle.nbat.crt[idp_number-1] = gpc_number;
+		SpaceShuttle.nbat.apply_crt();
+		valid_flag = 1;
+		}
+	else
+		{
+		var mf = SpaceShuttle.gpc_array[gpc_number-1].major_function;
+
+		if (mf == "GNC")
+			{
+			SpaceShuttle.nbat.crt[idp_number-1] = gpc_number;
+			SpaceShuttle.nbat.apply_crt();
+			valid_flag = 1;
+			}
+		else {valid_flag = 0;}
+			
+		}
+
+	}
+
+
+if ((header == "ITEM") and (end == "EXEC"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 	#var spec = getprop("/fdm/jsbsim/systems/dps/spec");
@@ -791,16 +1055,33 @@ if ((header == "ITEM") and (end = "EXEC"))
 	#print("Spec: ", spec);
 
 
-	if (((major_mode == 103) or (major_mode == 601)) and (spec == 0))
+	if (((major_mode == 102) or (major_mode == 103) or (major_mode == 601)) and (spec == 0))
 		{
-		if (item == 6)
+		if (item == 2)
 			{
-			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+			toggle_property("/fdm/jsbsim/systems/abort/arm-contingency");
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			SpaceShuttle.contingency_abort_init();
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			toggle_property("/fdm/jsbsim/systems/abort/enable-yaw-steer");
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode"); 
 		
-			if (control_mode == 10) {control_mode = 13;}
-			else {control_mode = 10;}
+			var string = "";
+			if (control_mode == 10) {control_mode = 13; string = "SERC";}
+			else {control_mode = 10; string = "Thrust Vectoring";}
 
 			setprop("/fdm/jsbsim/systems/fcs/control-mode", control_mode);
+			setprop("/controls/shuttle/control-system-string", string);
 			valid_flag = 1;
 			}
 
@@ -1033,6 +1314,16 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 
 		}
+
+	if ((major_mode == 304) and (spec == 0))
+		{
+		if (item == 3)
+			{
+			toggle_property("/fdm/jsbsim/systems/ap/entry/low-energy-logic");
+			valid_flag = 1;
+			}
+		}
+
 	if (spec == 2)
 		{
 		if (item == 1)
@@ -1240,6 +1531,303 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 3) # this is a hack for SPEC 0 memory management
+		{
+		if (item == 1)
+			{
+			SpaceShuttle.nbat.edited_mcc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+			
+			if (mcc == 1)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g1_gpc[0] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[0] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g2_gpc[0] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[0] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==1) {SpaceShuttle.nbat.g3_gpc[0] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[0] = 4;}
+				}
+
+			
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g1_gpc[1] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[1] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g2_gpc[1] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[1] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==2) {SpaceShuttle.nbat.g3_gpc[1] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[1] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+		
+			if (mcc == 1)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g1_gpc[2] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[2] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g2_gpc[2] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[2] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==3) {SpaceShuttle.nbat.g3_gpc[2] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[2] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g1_gpc[3] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[3] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g2_gpc[3] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[3] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==4) {SpaceShuttle.nbat.g3_gpc[3] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[3] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var gpc = int(value);
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g1_gpc[4] = 1;}
+				else if (gpc==0) {SpaceShuttle.nbat.g1_gpc[4] = 4;}
+				}
+			else if (mcc == 2)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g2_gpc[4] = 2;}
+				else if (gpc==0) {SpaceShuttle.nbat.g2_gpc[4] = 4;}
+				}
+			else if (mcc == 3)
+				{
+				if (gpc==5) {SpaceShuttle.nbat.g3_gpc[4] = 3;}
+				else if (gpc==0) {SpaceShuttle.nbat.g3_gpc[4] = 4;}
+				}
+			
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string3 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string3 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string3 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_string4 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_string4 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_string4 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) 
+				{
+				SpaceShuttle.nbat.g1_pl1 = int(value);
+				SpaceShuttle.nbat.g1_pl2 = int(value);
+				}
+			else if (mcc == 2) 
+				{
+				SpaceShuttle.nbat.g2_pl1 = int(value);
+				SpaceShuttle.nbat.g2_pl2 = int(value);
+				}
+			else if (mcc == 3) 
+				{
+				SpaceShuttle.nbat.g3_pl1 = int(value);
+				SpaceShuttle.nbat.g3_pl2 = int(value);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[0] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[0] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[0] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[1] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[1] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[1] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[2] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[2] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[2] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_crt[3] = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_crt[3] = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_crt[3] = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_launch1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_launch1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_launch1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_launch2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_launch2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_launch2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_mm1 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_mm1 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_mm1 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			var mcc = SpaceShuttle.nbat.edited_mcc;
+
+			if (mcc == 1) {SpaceShuttle.nbat.g1_mm2 = int(value);}
+			else if (mcc == 2) {SpaceShuttle.nbat.g2_mm2 = int(value);}
+			else if (mcc == 3) {SpaceShuttle.nbat.g3_mm2 = int(value);}
+
+			valid_flag = 1;
+			}
+		else if (item == 45)
+			{
+			SpaceShuttle.nbat.direct_edit_config = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 46)
+			{
+			SpaceShuttle.nbat.direct_edit_gpc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 47)
+			{
+			var gpc_number = SpaceShuttle.nbat.direct_edit_gpc - 1;
+			SpaceShuttle.gpc_array[gpc_number].set_memory(SpaceShuttle.nbat.direct_edit_config);
+			valid_flag = 1;
+			}
+		else if (item == 52)
+			{
+			SpaceShuttle.nbat.mm_area_pl = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 53)
+			{
+			SpaceShuttle.nbat.mm_area_gnc = int(value);
+			valid_flag = 1;
+			}
+		else if (item == 54)
+			{
+			SpaceShuttle.nbat.mm_area_sm = int(value);
+			valid_flag = 1;
+			}
+		}
+
 
 	if (spec == 20)
 		{
@@ -1279,6 +1867,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-y-opt", state);
 			valid_flag =1;
 			}
+		else if (item == 17)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-tran-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 23)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-rate", value);
@@ -1292,6 +1885,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 25)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 26)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-pls", value);
 			valid_flag =1;
 			}
 		else if (item == 30)
@@ -1330,6 +1928,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-y-opt", state);
 			valid_flag =1;
 			}
+		else if (item == 37)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-PRI-tran-pls", value);
+			valid_flag =1;
+			}
 		else if (item == 43)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-rate", value);
@@ -1343,6 +1946,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 		else if (item == 45)
 			{
 			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rate-db", value);
+			valid_flag =1;
+			}
+		else if (item == 46)
+			{
+			setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pls", value);
 			valid_flag =1;
 			}
 
@@ -1840,6 +2448,11 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			valid_flag = 1;				
 			}
+		else if (item == 51)
+			{
+			toggle_property("/fdm/jsbsim/systems/rcs/auto-manf-close");
+			valid_flag = 1;
+			}
 		}
 
 	if (spec == 33)
@@ -1961,6 +2574,25 @@ if ((header == "ITEM") and (end = "EXEC"))
 			}
 		}
 
+	if (spec == 34)
+		{
+		if (item == 1)
+			{
+			setprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 25)
+			{
+			SpaceShuttle.copy_t2_to_t1();
+			valid_flag = 1;
+			}	
+		else if (item == 28)
+			{
+			SpaceShuttle.orbital_tgt_compute_t1();
+			valid_flag =1;
+			}
+		}
+
 	if (spec == 50)
 		{
 		if (item == 3)
@@ -1972,6 +2604,42 @@ if ((header == "ITEM") and (end = "EXEC"))
 			{
 			SpaceShuttle.update_runway_by_flag(1);
 			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			var approach = getprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string");
+
+			if (approach == "OVHD")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "STRT");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (approach == "STRT")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "OVHD");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
+			}
+		else if (item == 7)
+			{
+			var entry_pt = getprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string");
+
+			if (entry_pt == "NEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "MEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+			else if (entry_pt == "MEP")
+				{
+				setprop("/fdm/jsbsim/systems/taem-guidance/entry-point-string", "NEP");
+				SpaceShuttle.compute_TAEM_guidance_targets();
+				valid_flag = 1;
+				}
+
 			}
 		else if (item == 9)
 			{
@@ -2091,7 +2759,8 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			else if (status_ato == 1)
 				{
-				setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+				#setprop("/fdm/jsbsim/systems/abort/abort-mode", 3);
+				SpaceShuttle.init_ato();
 				}
 			else if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 0)
 				{
@@ -2444,11 +3113,27 @@ if ((header == "SPEC") and (end =="PRO"))
 	var spec_num = int(body);
 	#print ("Switching to SPEC ", spec_num);
 
+	if (spec_num == 0) 
+		{
+		page_select(idp_index, "p_dps_memory");
+		# this is a hack - since we've used spec 0 to indicate that
+		# no spec is open, we assign it 3 which isn't used by the avionics 
+		setprop("/fdm/jsbsim/systems/dps/spec", 3);
+		SpaceShuttle.idp_array[idp_index].set_spec(3);
+		valid_flag = 1;
+		}
 	if ((spec_num == 2) and (test_spec_ops_validity(spec2, major_mode) == 1))
 		{
 		page_select(idp_index, "p_dps_time");
 		setprop("/fdm/jsbsim/systems/dps/spec", 2);
 		SpaceShuttle.idp_array[idp_index].set_spec(2);
+		valid_flag = 1;
+		}
+	if (spec_num == 6) 
+		{
+		page_select(idp_index, "p_dps_gpc");
+		setprop("/fdm/jsbsim/systems/dps/disp", 6);
+		SpaceShuttle.idp_array[idp_index].set_disp(6);
 		valid_flag = 1;
 		}
 	if (spec_num == 18)
@@ -2498,6 +3183,13 @@ if ((header == "SPEC") and (end =="PRO"))
 		page_select(idp_index, "p_dps_rel_nav");
 		setprop("/fdm/jsbsim/systems/dps/spec", 33);
 		SpaceShuttle.idp_array[idp_index].set_spec(33);
+		valid_flag = 1;
+		}
+	if ((spec_num == 34) and (test_spec_ops_validity(spec34, major_mode) == 1))
+		{
+		page_select(idp_index, "p_dps_orbit_tgt");
+		setprop("/fdm/jsbsim/systems/dps/spec", 34);
+		SpaceShuttle.idp_array[idp_index].set_spec(34);
 		valid_flag = 1;
 		}
 	if ((spec_num == 50) and (test_spec_ops_validity(spec50, major_mode) == 1))
@@ -2578,6 +3270,8 @@ else
 	setsize(last_command,0);
 	}
 
+command_buffer.process();
+
 }
 
 
@@ -2585,6 +3279,13 @@ var command_parse_sm = func (idp_index) {
 
 
 var valid_flag = 0;
+
+var is_available = SpaceShuttle.gpc_check_available("SM");
+if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0)) 
+	{
+	print("Polling error - command not passed to GPC.");
+	return;
+	}
 
 print(header, " ", body, " ", value);
 
@@ -2613,6 +3314,12 @@ if ((header == "SPEC") and (end =="PRO"))
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
 	var spec_num = int(body);
+	if (spec_num == 66) 
+		{
+		page_select(idp_index, "p_dps_env");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 66);
+		valid_flag = 1;
+		}
 	if (spec_num == 67) 
 		{
 		page_select(idp_index, "p_dps_electric");
@@ -2649,10 +3356,40 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 86);
 		valid_flag = 1;
 		}
+	if (spec_num == 87) 
+		{
+		page_select(idp_index, "p_dps_hyd_thermal");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 87);
+		valid_flag = 1;
+		}
+	if (spec_num == 89) 
+		{
+		page_select(idp_index, "p_dps_prplt_thermal");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 89);
+		valid_flag = 1;
+		}
+	if (spec_num == 94) 
+		{
+		page_select(idp_index, "p_dps_pdrs_control");
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 94);
+		valid_flag = 1;
+		}
+	if (spec_num == 95) 
+		{
+		page_select(idp_index, "p_dps_pdrs_override");
+		setprop("/fdm/jsbsim/systems/dps/spec-sm", 95);
+		valid_flag = 1;
+		}
 	if (spec_num == 97) 
 		{
 		page_select(idp_index, "p_dps_pl_ret");
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 97);
+		valid_flag = 1;
+		}
+	if (spec_num == 169) 
+		{
+		page_select(idp_index, "p_dps_pdrs_status");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 169);
 		valid_flag = 1;
 		}
 	}
@@ -2932,7 +3669,267 @@ if ((header == "ITEM") and (end = "EXEC"))
 				}
 			}
 		}
+	if (spec == 94)
+		{
+		if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pl-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/io-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 6)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/io-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/soft-stop-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/autobrake-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 12)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pos-enc-ck-enable", 0);
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(0,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(1,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(2,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.assign_slot(3,int(value));
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.set_start_index(int(value)-1);
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[0] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-x", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[1] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-y", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 20)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[2] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-pos-z", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[3] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-att-p", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 22)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[4] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-att-y", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			SpaceShuttle.pdrs_auto_seq_manager.opr_cmd_tgt[5] = value;
+			#setprop("/fdm/jsbsim/systems/rms/software/tgt-att-r", value);
+			setprop("/fdm/jsbsim/systems/rms/software/reach-limit-string", "");
+			valid_flag = 1;
+			}
+		else if (item == 24)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pl-init-id", int(value));
+			valid_flag = 1;
+			}
+		else if (item == 25)
+			{
+			SpaceShuttle.check_rms_reach_limit();
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			SpaceShuttle.toggle_property("/fdm/jsbsim/systems/rms/software/autobrake-check");
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pohs-cntl-enable", 1);
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			setprop("/fdm/jsbsim/systems/rms/software/pohs-cntl-enable", 0);
+			valid_flag = 1;
+			}
 
+		}
+	if (spec == 95)
+		{
+		if (item == 1)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/mode-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 2)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 3);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 0);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 7)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 4);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 8)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 5);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 9)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 6);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 10)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 7);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 11)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select", 8);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/mode-sw-override") == 1)
+				{
+				var sw_drive_mode = getprop("/fdm/jsbsim/systems/rms/software/sw-drive-mode-select");
+				SpaceShuttle.update_rms_drive_selection_by_par(sw_drive_mode);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/joint-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 26)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/rate-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 27)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/rate-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/vernier-switch", 1);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 28)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/rate-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/vernier-switch", 0);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 29)
+			{
+			toggle_property("/fdm/jsbsim/systems/rms/software/auto-sw-override");
+			valid_flag = 1;
+			}
+		else if (item == 30)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 1);
+				}
+			valid_flag = 1;
+			}
+		else if (item == 31)
+			{
+			if (getprop("/fdm/jsbsim/systems/rms/software/auto-sw-override") == 1)
+				{
+				setprop("/fdm/jsbsim/systems/rms/auto-switch", 0);
+				}
+			valid_flag = 1;
+			}
+		}
 	
 
 
@@ -2947,7 +3944,8 @@ body = "";
 value = "";
 end = "";
 setsize(last_command,0);
-	setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
+	
+setprop("/fdm/jsbsim/systems/dps/command-string", idp_index, "");
 
 if (valid_flag == 0)
 	{
@@ -2958,6 +3956,7 @@ else
 	setsize(last_command,0);
 	}
 
+command_buffer.process();
 
 }
 

@@ -1,6 +1,6 @@
 
 # housekeeping tasks for the Space Shuttle
-# Thorsten Renk 2015
+# Thorsten Renk 2015 - 2016
 
 #########################################################################################
 # Fuel dump is done after MECO to remove leftover LO2 and LH2 from the feed lines
@@ -1115,26 +1115,471 @@ settimer( func{ up_future_mnvr_loop(item, delta_t - 1);}, 1.0);
 }
 
 
+#########################################################################################
+# canvas in-cockpit timers
+#########################################################################################
+
+
+var ev_timer =
+{
+
+    new : func(designation, model_element)
+    {
+        var obj = {parents : [ev_timer] };
+        obj.designation = designation;
+        obj.model_element = model_element;
+	obj.time = 0;
+	obj.count_flag = 0;
+	obj.count_mode = "DOWN";
+	obj.set_time = 0;
+
+        var dev_canvas= canvas.new({
+                "name": designation,
+                    "size": [256,256], 
+                    "view": [256,256],                        
+                    "mipmapping": 1     
+                    });
+	dev_canvas.addPlacement({"node": model_element});
+	dev_canvas.setColorBackground(0,0,0,0);
+
+	var root = dev_canvas.createGroup();
+
+	obj.time_string = root.createChild("text")
+      	.setText("00:00")
+        .setColor(1,0.5,0.1)
+	.setFontSize(24)
+	.setScale(2.5,6)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(130, 210);
+
+    	return obj;
+    },
+
+    display : func 
+    {
+
+	var display_time = me.time;
+
+	if ((me.count_mode == "UP") and (me.count_flag == 1))
+		{
+		display_time = me.set_time - me.time;
+		}
+
+	var string =  SpaceShuttle.seconds_to_stringMS(display_time);
+	if (me.time < 600) {string = "0"~string;}
+
+	me.time_string.setText(string);
+    },
+
+    set: func (sec)
+    {
+
+	sec = SpaceShuttle.clamp(sec, 0, 3600);
+	me.count_flag = 0;
+	me.time = sec;
+	me.set_time = sec;
+	me.display();
+	
+    },
+
+    start: func
+    {
+	if (me.count_flag == 1) {return;}
+	me.count_flag = 1;
+	me.update();
+    },
+
+    update: func 
+    {
+	if (me.count_flag == 0) {return;}
+
+	me.time = me.time - 1;
+	if (me.time < 0) {me.time =0; return;}
+
+	me.display();
+
+	settimer (func me.update(), 1.0);
+    },
+
+    stop: func
+    {
+	me.count_flag = 0;
+    },
+
+    set_mode: func (mode)
+    {
+    
+	if (mode == "UP") {me.count_mode = "UP";}
+	else if (mode == "DOWN") {me.count_mode = "DOWN";}
+
+    },
+
+    change_timer: func (inc)
+    {
+	me.time = me.time + inc;
+	me.time = SpaceShuttle.clamp(me.time, 0, 3600);
+    },
+
+
+};
+
+
+var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time-glass");
+
 
 #########################################################################################
-# color adjustment for effect palette based on scene light available
+# condition manager to check long-term deterioration of fuel cells, hydraulics,...
+# if maintenance isn't done properly
 #########################################################################################
 
+var condition_manager = {
 
-var adjust_effect_colors = func {
+	run_flag: 0,
+	dt: 10.0,
+	
+	
+	# rate at which the equipment condition reduces per second
 
-var light_intensity = getprop("/rendering/scene/diffuse/red");
+	fuel_cell_deterioration_rate:  0.00001, # some 12 hours half life
+	hyd_pressure_loss_rate: 0.0001, 
+	hyd_pressure_gain_rate: 0.005, 
+	hyd_temp_cooling_rate: 0.0001,
+	hyd_temp_eq_rate: 0.001, 
 
-setprop("/lighting/effects/color-1", 0.1 * light_intensity);
-setprop("/lighting/effects/color-2", 0.2 * light_intensity);
-setprop("/lighting/effects/color-3", 0.3 * light_intensity);
-setprop("/lighting/effects/color-4", 0.4 * light_intensity);
-setprop("/lighting/effects/color-5", 0.5 * light_intensity);
-setprop("/lighting/effects/color-6", 0.6 * light_intensity);
-setprop("/lighting/effects/color-7", 0.7 * light_intensity);
-setprop("/lighting/effects/color-8", 0.8 * light_intensity);
-setprop("/lighting/effects/color-9", 0.9 * light_intensity);
-setprop("/lighting/effects/color-10", light_intensity);
+	# internal copies for logging
 
+	fc1_efficiency: 1.0,
+	fc2_efficiency: 1.0,
+	fc3_efficiency: 1.0,
+
+	hyd1_pressure: 1.0,
+	hyd2_pressure: 1.0,
+	hyd3_pressure: 1.0,
+
+	hyd1_T_eq: 1.0,
+	hyd2_T_eq: 1.0,
+	hyd3_T_eq: 1.0,
+
+	pump1_status: 0,
+	pump2_status: 0,
+	pump3_status: 0,
+
+	oms_left_line_condition : 1.0,
+	oms_right_line_condition: 1.0,
+
+	start: func {
+
+		if (me.run_flag == 1) {return;}
+		else {me.run_flag = 1; me.update();}
+
+	},
+
+	stop: func {
+		
+		if (me.run_flag == 1) {me.run_flag = 0;}
+
+	},
+
+	update: func {
+
+		# fuel cell efficiency
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc/fc-running") == 1.0)
+			{
+			me.fc1_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc/fc-efficiency");
+			me.fc1_efficiency = me.fc1_efficiency - me.fc1_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc/fc-efficiency", me.fc1_efficiency);
+			}
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-running") == 1.0)
+			{
+			me.fc2_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-efficiency");
+			me.fc2_efficiency = me.fc2_efficiency - me.fc2_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc[1]/fc-efficiency", me.fc2_efficiency);
+			}
+
+		if (getprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-running") == 1.0)
+			{
+			me.fc3_efficiency = getprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-efficiency");
+			me.fc3_efficiency = me.fc3_efficiency - me.fc3_efficiency * me.fuel_cell_deterioration_rate * me.dt;
+			setprop("/fdm/jsbsim/systems/electrical/fc[2]/fc-efficiency", me.fc3_efficiency);
+			}
+
+		# hydraulic systems
+
+		var n_pumps_active = 0;
+
+		# system 1
+
+		me.hyd1_pressure = getprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor");
+ 		me.hyd1_T_eq= getprop("/fdm/jsbsim/systems/apu/apu/temp-equalization-factor");
+
+		if ((me.hyd1_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd") == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-gpc", 1);
+			n_pumps_active = n_pumps_active + 1;
+			me.pump1_status = 1;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-gpc", 0);
+			me.pump1_status = 0;
+			}
+
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump") == 1)
+			{
+			me.hyd1_pressure = me.hyd1_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd1_pressure > 1.0) {me.hyd1_pressure = 1.0;}
+			me.hyd1_T_eq = me.hyd1_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd1_T_eq > 1) {me.hyd1_T_eq = 1;}
+
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-1-pressurized") == 1)
+			{
+			me.hyd1_pressure = getprop("/fdm/jsbsim/systems/apu/apu/hyd-main-pressure-psia")/3003.0;
+			}
+		else
+			{
+			me.hyd1_pressure = me.hyd1_pressure - me.hyd1_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd1_T_eq = me.hyd1_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd1_T_eq < 0.0) {me.hyd1_T_eq = 0.0;}
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu/circ-pressure-factor", me.hyd1_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu/temp-equalization-factor", me.hyd1_T_eq);
+
+
+		# system 2
+
+		me.hyd2_pressure = getprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor");
+ 		me.hyd2_T_eq= getprop("/fdm/jsbsim/systems/apu/apu[1]/temp-equalization-factor");
+
+		if ((me.hyd2_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-gpc", 1);
+			n_pumps_active = n_pumps_active + 1;
+			me.pump2_status = 1;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-gpc", 0);
+			me.pump2_status = 0;
+			}
+
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump") == 1)
+			{
+			me.hyd2_pressure = me.hyd2_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd2_pressure > 1.0) {me.hyd2_pressure = 1.0;}
+			me.hyd2_T_eq = me.hyd2_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd2_T_eq > 1) {me.hyd2_T_eq = 1;}
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-2-pressurized") == 1)
+			{
+			me.hyd2_pressure = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-main-pressure-psia")/3006.0;
+			}
+		else
+			{
+			me.hyd2_pressure = me.hyd2_pressure - me.hyd2_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd2_T_eq = me.hyd2_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd2_T_eq < 0.0) {me.hyd2_T_eq = 0.0;}
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu[1]/circ-pressure-factor", me.hyd2_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu[1]/temp-equalization-factor", me.hyd2_T_eq);
+
+		# system 3
+
+		me.hyd3_pressure = getprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor");
+ 		me.hyd3_T_eq= getprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor");
+
+		if ((me.hyd3_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 1);
+			me.pump3_status = 1.16;
+			}
+		else 
+			{
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 0);
+			me.pump3_status = 0;
+			}
+
+		if (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump") == 1)
+			{
+			me.hyd3_pressure = me.hyd3_pressure + me.dt * me.hyd_pressure_gain_rate;
+			if (me.hyd3_pressure > 1.0) {me.hyd3_pressure = 1.0;}
+			me.hyd3_T_eq = me.hyd3_T_eq + me.dt * me.hyd_temp_eq_rate;
+			if (me.hyd3_T_eq > 1) {me.hyd3_T_eq = 1;}
+			}
+		else if (getprop("/fdm/jsbsim/systems/apu/hyd-3-pressurized") == 1)
+			{
+			me.hyd3_pressure = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-main-pressure-psia")/3002.0;
+			}
+		else
+			{
+			me.hyd3_pressure = me.hyd3_pressure - me.hyd3_pressure * me.dt * me.hyd_pressure_loss_rate;
+			me.hyd3_T_eq = me.hyd3_T_eq - me.dt * me.hyd_temp_cooling_rate;
+			if (me.hyd3_T_eq < 0.0) {me.hyd3_T_eq = 0.0;}
+			}
+
+		setprop("/fdm/jsbsim/systems/apu/apu[2]/circ-pressure-factor", me.hyd3_pressure);
+		setprop("/fdm/jsbsim/systems/apu/apu[2]/temp-equalization-factor", me.hyd3_T_eq);
+
+		# OMS fuel lines
+	
+		me.oms_left_line_condition = getprop("/fdm/jsbsim/systems/failures/oms/oms-left-fuel-line-condition");
+
+		if (SpaceShuttle.system_temperatures.OMS_left < 275.0)
+			{
+			me.oms_left_line_condition = me.oms_left_line_condition * 0.99;
+			}
+		else if (SpaceShuttle.system_temperatures.OMS_left > 288.0)
+			{
+			me.oms_left_line_condition = me.oms_left_line_condition * 1.02;
+			if (me.oms_left_line_condition > 1) {me.oms_left_line_condition = 1;}
+			}
+		setprop("/fdm/jsbsim/systems/failures/oms/oms-left-fuel-line-condition", me.oms_left_line_condition);
+
+		me.oms_right_line_condition = getprop("/fdm/jsbsim/systems/failures/oms/oms-right-fuel-line-condition");
+
+		if (SpaceShuttle.system_temperatures.OMS_right < 275.0)
+			{
+			me.oms_right_line_condition = me.oms_right_line_condition * 0.99;
+			}
+		else if (SpaceShuttle.system_temperatures.OMS_right > 288.0)
+			{
+			me.oms_right_line_condition = me.oms_right_line_condition * 1.02;
+			if (me.oms_right_line_condition > 1) {me.oms_right_line_condition = 1;}
+			}
+		setprop("/fdm/jsbsim/systems/failures/oms/oms-right-fuel-line-condition", me.oms_right_line_condition);
+
+		#me.list();
+
+		settimer (func me.update(), me.dt);
+	},
+
+	list: func {
+
+		var string1 = "OFF";
+		if (me.pump1_status == 1) {string1 = "ON";}
+
+		var string2 = "OFF";
+		if (me.pump2_status == 1) {string2 = "ON";}
+
+		var string3 = "OFF";
+		if (me.pump3_status == 1) {string3 = "ON";}
+
+
+		print();
+		print("Long term system status simulation:");
+		print("===============================");
+		print("Fuel cell status:");
+		print("FC1:  ", sprintf("%1.3f",me.fc1_efficiency), " FC2:  ", sprintf("%1.3f",me.fc2_efficiency), " FC3:  ", sprintf("%1.3f",me.fc3_efficiency));
+		print("Hydraulic pressure:");
+		print("HYD1: ", sprintf("%4.1f",me.hyd1_pressure * 2600.0), " HYD2: ", sprintf("%4.1f",me.hyd2_pressure * 2600.0), " HYD3: ", sprintf("%4.1f",me.hyd3_pressure * 2600.0));
+		print("PUMP1: ", string1, " PUMP2: ", string2, " PUMP3: ", string3);
+		print("Temperature equilibration:");
+		print("SYS1: ", sprintf("%1.2f", me.hyd1_T_eq), " SYS2: ", sprintf("%1.2f", me.hyd2_T_eq), " SYS3: ", sprintf("%1.2f",me.hyd3_T_eq));
+		print("Fuel line status:");
+		print("OMS L: ", sprintf("%1.2f",me.oms_left_line_condition), " OMS R: ", sprintf("%1.2f",me.oms_right_line_condition));
+
+	},
+
+
+
+};
+
+
+
+#########################################################################################
+# listeners and code to automatically shut down a manifold for a fail-on condition
+#########################################################################################
+
+var auto_manifold_shutdown = func(manifold, state) {
+
+if ((state < 1.0) or (state == 1.0)) {return;}
+
+if (getprop("/fdm/jsbsim/systems/rcs/auto-manf-close") == 0) {return;}
+
+if (manifold == "F1")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-1-status", 0);}
+else if (manifold == "F2")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-2-status", 0);}
+else if (manifold == "F3")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status", 0);}
+else if (manifold == "F4")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status", 0);}
+else if (manifold == "F5")
+	{setprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status", 0);}
 
 }
+
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f1", func (n) {auto_manifold_shutdown("F1", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f2", func (n) {auto_manifold_shutdown("F2", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f3", func (n) {auto_manifold_shutdown("F3", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f4", func (n) {auto_manifold_shutdown("F4", n.getValue());}, 0,0);
+setlistener("/fdm/jsbsim/systems/cws/jet-fail-f5", func (n) {auto_manifold_shutdown("F5", n.getValue());}, 0,0);
+
+#########################################################################################
+# listeners and code to model MDU power consumption
+#########################################################################################
+
+# base LCD screen power consumption is assumed 35 kW, out of which 10 kW are for fully dimmed unit
+
+var set_MDU_power = func (desig)
+{
+var MDU_index = -1;
+
+if (desig == "L1") {MDU_index = 0;}
+else if (desig == "L2") {MDU_index = 1;}
+else if (desig == "C1") {MDU_index = 2;}
+else if (desig == "C2") {MDU_index = 3;}
+else if (desig == "C3") {MDU_index = 4;}
+else if (desig == "C4") {MDU_index = 5;}
+else if (desig == "C5") {MDU_index = 6;}
+else if (desig == "R1") {MDU_index = 7;}
+else if (desig == "R2") {MDU_index = 8;}
+
+var power_switch_state = getprop("/fdm/jsbsim/systems/electrical/display/"~desig~"-pwr-switch");
+var mdu = SpaceShuttle.MDU_array[MDU_index];
+var dim_switch_state = mdu.mdu_device_status;
+
+if (power_switch_state == 1) {mdu.operational = 1;}
+else {mdu.operational = 0;}
+
+var mdu_power_consumption = (10.0 + 2.5 * (dim_switch_state+1) ) * mdu.operational;
+
+print (mdu.designation, ": Power consumption is now: ", mdu_power_consumption, " W");
+
+setprop("/fdm/jsbsim/systems/electrical/display/"~mdu.designation~"-power-demand-kW", (mdu_power_consumption/1000.0));
+
+}
+
+setlistener("/fdm/jsbsim/systems/electrical/display/L1-pwr-switch", func {set_MDU_power("L1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode1", func {set_MDU_power("L1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/L2-pwr-switch", func {set_MDU_power("L2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode2", func {set_MDU_power("L2");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C1-pwr-switch", func {set_MDU_power("C1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode3", func {set_MDU_power("C1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C2-pwr-switch", func {set_MDU_power("C2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode4", func {set_MDU_power("C2");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C3-pwr-switch", func {set_MDU_power("C3");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode5", func {set_MDU_power("C3");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C4-pwr-switch", func {set_MDU_power("C4");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode6", func {set_MDU_power("C4");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/C1-pwr-switch", func {set_MDU_power("C5");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode7", func {set_MDU_power("C5");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/R1-pwr-switch", func {set_MDU_power("R1");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode8", func {set_MDU_power("R1");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/R2-pwr-switch", func {set_MDU_power("R2");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode9", func {set_MDU_power("R2");}, 0,0);

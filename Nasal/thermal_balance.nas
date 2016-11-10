@@ -4,6 +4,17 @@
 
 var thermal_array = [];
 
+var system_temperatures = {
+		OMS_left: 290.0,
+		OMS_right: 290.0,
+		RCS_left: 290.0,
+		RCS_right: 290.0,
+		Xfeed_left: 290.0,
+		Xfeed_right: 290.0,
+		Xfeed_center: 290.0,
+		hydraulics_lowest: 290.0,
+};
+
 var loop_timestep = 1.0;
 var rad_timestep = 10.0;
 var sigma = 5.67e-8; 
@@ -253,7 +264,7 @@ append(thermal_array, pressure_vessel);
 
 var coupling_array11 = [];
 
-var freon = thermal_mass.new (200.0, 1000.0, 310.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
+var freon = thermal_mass.new (200.0, 1000.0, 290.0, 0.9, [0.0, 0.0, 1.0], 41.5, coupling_array11);
 append(thermal_array, freon);
 
 
@@ -314,6 +325,11 @@ if (thermal_array[11].temperature > freon_in_temp) {freon_in_temp = thermal_arra
 
 setprop("/fdm/jsbsim/systems/thermal-distribution/freon-in-temperature-K", freon_in_temp);
 
+# hydraulic reservior temp is the average of all regions connected by hydraulics
+
+var hydraulic_reservoir_temp = (thermal_array[0].temperature + thermal_array[2].temperature + thermal_array[4].temperature + thermal_array[5].temperature + thermal_array[7].temperature + freon_in_temp) / 6.0;
+
+setprop("/fdm/jsbsim/systems/thermal-distribution/hyd-reservoir-temperature-K", hydraulic_reservoir_temp);
 
 }
 
@@ -403,6 +419,51 @@ for (var i = 0; i< size(thermal_array); i=i+1)
 }
 
 
+var compute_sys_temperatures = func {
+
+var heater_OMS_left = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-operational");
+var heater_OMS_right = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-operational");
+var heater_RCS_left = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-operational");
+var heater_RCS_right = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-operational");
+var heater_Xfeed = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-operational");
+
+T_left = thermal_array[6].temperature;
+T_right = thermal_array[8].temperature;
+T_aft = thermal_array[7].temperature;
+
+system_temperatures.OMS_left = T_left;
+system_temperatures.OMS_right = T_right;
+system_temperatures.RCS_left = T_left;
+system_temperatures.RCS_right = T_right;
+system_temperatures.Xfeed_left = (T_left + T_aft)/2.0;
+system_temperatures.Xfeed_right = (T_right + T_aft)/2.0;
+system_temperatures.Xfeed_center = T_aft;
+
+if ((system_temperatures.OMS_left < 287.0) and (heater_OMS_left == 1))
+	{system_temperatures.OMS_left = 291.0;}
+
+if ((system_temperatures.OMS_right < 287.0) and (heater_OMS_right == 1))
+	{system_temperatures.OMS_right = 291.0;}
+
+if ((system_temperatures.RCS_left < 287.0) and (heater_RCS_left == 1))
+	{system_temperatures.RCS_left = 291.0;}
+
+if ((system_temperatures.RCS_right < 287.0) and (heater_RCS_right == 1))
+	{system_temperatures.RCS_right = 291.0;}
+
+if ((system_temperatures.Xfeed_left < 287.0) and (heater_Xfeed == 1))
+	{system_temperatures.Xfeed_left = 291.0;}
+
+if ((system_temperatures.Xfeed_right < 287.0) and (heater_Xfeed == 1))
+	{system_temperatures.Xfeed_right = 291.0;}
+
+if ((system_temperatures.Xfeed_center < 287.0) and (heater_Xfeed == 1))
+	{system_temperatures.Xfeed_center = 291.0;}
+
+
+}
+
+
 var adjust_water = func {
 
 var capacity = getprop("/fdm/jsbsim/systems/atcs/water-loop-heat-transfer");
@@ -486,6 +547,8 @@ compute_transfers();
 adjust_water();
 adjust_freon();
 adjust_spray_boilers();
+
+compute_sys_temperatures();
 
 write_temperatures();
 

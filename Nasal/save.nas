@@ -89,6 +89,15 @@ setprop("/save/tank18-level-lbs", tank18);
 var tank19 = getprop("/consumables/fuel/tank[18]/level-lbs");
 setprop("/save/tank19-level-lbs", tank19);
 
+var throttle0 = getprop("/controls/engines/engine[0]/throttle");
+setprop("/save/throttle[0]", throttle0);
+
+var throttle1 = getprop("/controls/engines/engine[1]/throttle");
+setprop("/save/throttle[1]", throttle1);
+
+var throttle2 = getprop("/controls/engines/engine[2]/throttle");
+setprop("/save/throttle[2]", throttle2);
+
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
@@ -149,16 +158,33 @@ else if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-free") == 1)
 setprop("/save/control-mode", control_mode);
 setprop("/save/orbital-dap-sel", orbital_dap_sel);
 
+var css_pitch = getprop("/fdm/jsbsim/systems/ap/css-pitch-control");
+var css_roll = getprop("/fdm/jsbsim/systems/ap/css-roll-control");
+
+setprop("/save/css-pitch", css_pitch);
+setprop("/save/css-roll", css_roll);
 
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var major_mode_sm = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+var landing_site = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
+var runway = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
 
 setprop("/save/ops", ops);
 setprop("/save/major-mode", major_mode);
 setprop("/save/major-mode-sm", major_mode_sm);
 setprop("/save/control-string", control_string);
+setprop("/save/guidance-mode", guidance_mode);
+setprop("/save/landing-site", landing_site);
+setprop("/save/runway", runway);
 
+
+var auto_launch = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master");
+setprop("/save/auto-launch", auto_launch);
+
+var auto_launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+setprop("/save/auto-launch-stage", auto_launch_stage);
 
 # thermal distribution
 
@@ -168,14 +194,102 @@ for (var i =0; i< n; i=i+1 )
 	{
 	var T = SpaceShuttle.thermal_array[i].temperature;
 	setprop("/save/temperature["~i~"]",T);
-	
 	}
 
+# hydraulic circulation pumps
 
-print("Current state written to buffer!");
+var circ_pump1 = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd");
+var circ_pump2 = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd");
+var circ_pump3 = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd");
+
+setprop("/save/hyd-circ-pump1", circ_pump1);
+setprop("/save/hyd-circ-pump2", circ_pump2);
+setprop("/save/hyd-circ-pump3", circ_pump3);
+
+
+# RCS and OMS heaters
+
+var heater_fwd_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status");
+var heater_fwd_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status");
+
+setprop("/save/heater-fwd-A", heater_fwd_A);
+setprop("/save/heater-fwd-B", heater_fwd_B);
+
+var heater_left_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status");
+var heater_left_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status");
+
+setprop("/save/heater-left-A", heater_left_A);
+setprop("/save/heater-left-B", heater_left_B);
+
+var heater_right_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status");
+var heater_right_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status");
+
+setprop("/save/heater-right-A", heater_right_A);
+setprop("/save/heater-right-B", heater_right_B);
+
+var heater_oms_left_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status");
+var heater_oms_left_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-B-status");
+
+setprop("/save/heater-oms-left-A", heater_oms_left_A);
+setprop("/save/heater-oms-left-B", heater_oms_left_B);
+
+var heater_oms_right_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status");
+var heater_oms_right_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-B-status");
+
+setprop("/save/heater-oms-right-A", heater_oms_right_A);
+setprop("/save/heater-oms-right-B", heater_oms_right_B);
+
+var heater_xfeed_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status");
+var heater_xfeed_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status");
+
+setprop("/save/heater-oms-xfeed-A", heater_oms_left_A);
+setprop("/save/heater-oms-xfeed-B", heater_oms_left_B);
+
+# the scenario description
+
+var timestring = getprop("/sim/time/real/year");
+timestring = timestring~ "-"~getprop("/sim/time/real/month");
+timestring = timestring~ "-"~getprop("/sim/time/real/day");
+timestring = timestring~ "-"~getprop("/sim/time/real/hour");
+
+var minute = getprop("/sim/time/real/minute");
+if (minute < 10) {minute = "0"~minute;}
+timestring = timestring~ ":"~minute;
+
+var description = getprop("/sim/gui/dialogs/SpaceShuttle/save/description");
+
+setprop("/save/description", description);
+setprop("/save/timestring", timestring);
+
+
+
+# now try to save it to a specified file
+
+#var filename = "save1.xml";
+
+
+
+var filename = getprop("/sim/gui/dialogs/SpaceShuttle/save/filename");
+var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
+
+var nodeSave = props.globals.getNode("/save", 0);
+io.write_properties(path, nodeSave); 
+
+print("Current state written to ", filename, " !");
 
 }
 
+
+var read_state_from_file = func (filename) {
+
+var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
+var readNode = props.globals.getNode("/save", 0);
+
+io.read_properties(path, readNode);
+
+
+
+}
 
 var resume_state = func {
 
@@ -264,19 +378,34 @@ setprop("/consumables/fuel/tank[17]/level-lbs", tank18);
 var tank19 = getprop("/save/tank19-level-lbs");
 setprop("/consumables/fuel/tank[18]/level-lbs", tank19);
 
+
+var throttle0 = getprop("/save/throttle[0]");
+setprop("/controls/engines/engine[0]/throttle", throttle0);
+
+var throttle1 = getprop("/save/throttle[1]");
+setprop("/controls/engines/engine[1]/throttle", throttle1);
+
+var throttle2 = getprop("/save/throttle[2]");
+setprop("/controls/engines/engine[2]/throttle", throttle2);
+
+
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = getprop("/save/MET");
 
 var delta_MET = MET - elapsed;
 setprop("/fdm/jsbsim/systems/timer/delta-MET", delta_MET);
 
-
+SpaceShuttle.gear_up();
 
 var state = getprop("/save/state");
 
 if (state > 0)
 	{
+	print("Separating SRBs");
 	SpaceShuttle.SRB_separate_silent();
+	setprop("/controls/shuttle/SRB-attach", 0);
+	setprop("/ai/models/ballistic[0]/controls/slave-to-ac",0);
+	setprop("/ai/models/ballistic[1]/controls/slave-to-ac",0);
 	}
 if (state > 1)
 	{
@@ -291,6 +420,8 @@ if (state > 3)
 	{
 	SpaceShuttle.ku_antenna_deploy();
 	}
+
+
 
 
 if (getprop("/save/umbilical-state") == 1)
@@ -341,6 +472,34 @@ var control_string = getprop("/save/control-string");
 
 setprop("/controls/shuttle/control-system-string", control_string);
 
+
+var css_pitch = getprop("/save/css-pitch");
+var css_roll = getprop("/save/css-roll");
+
+if (css_pitch == 1)
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+	setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control",0);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 0);
+	setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control",1);
+	}
+
+if (css_roll == 1)
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+	setprop("/fdm/jsbsim/systems/ap/automatic-roll-control",0);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/ap/css-roll-control", 0);
+	setprop("/fdm/jsbsim/systems/ap/automatic-roll-control",1);
+	}
+
+
+
 var ops = getprop("/save/ops");
 var major_mode = getprop("/save/major-mode");
 var major_mode_sm = getprop("/save/major-mode-sm");
@@ -349,6 +508,31 @@ setprop("/fdm/jsbsim/systems/dps/ops", ops);
 setprop("/fdm/jsbsim/systems/dps/major-mode", major_mode);
 setprop("/fdm/jsbsim/systems/dps/major-mode-sm", major_mode_sm);
 
+var auto_launch = getprop("/save/auto-launch");
+setprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master", auto_launch);
+
+var auto_launch_laststage = getprop("//save/auto-launch-stage");
+setprop("/fdm/jsbsim/systems/ap/launch/stage", auto_launch_laststage);
+
+
+if (auto_launch == 1)
+	{
+	SpaceShuttle.auto_launch_stage = auto_launch_laststage;
+	SpaceShuttle.auto_launch_loop();
+	}
+
+
+var guidance_mode = getprop("/save/guidance-mode");
+var landing_site = getprop("/save/landing-site");
+var runway = getprop("/save/runway");
+
+setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", guidance_mode);
+
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", landing_site);
+SpaceShuttle.update_site();
+
+setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", runway);
+SpaceShuttle.update_runway();
 
 if (major_mode == 101)
 		{SpaceShuttle.ops_transition_auto("p_ascent");}
@@ -382,8 +566,28 @@ else if (major_mode == 305)
 		{
 		SpaceShuttle.traj_display_flag = 8;
 		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.compute_TAEM_guidance_targets();
 		}
-
+else if (major_mode == 601)
+		{
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_dps_rtls");
+		SpaceShuttle.prtls_loop();
+		}
+else if (major_mode == 602)
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.grtls_loop();
+		}
+else if (major_mode == 603)
+		{
+		SpaceShuttle.traj_display_flag = 8;
+		setprop("/controls/shuttle/hud-mode",2);
+		SpaceShuttle.ops_transition_auto("p_vert_sit");
+		SpaceShuttle.compute_TAEM_guidance_targets();
+		}
 
 # thermal distribution
 
@@ -397,6 +601,82 @@ for (var i =0; i< n; i=i+1 )
 	SpaceShuttle.thermal_array[i].thermal_energy = T * C_heat;
 	}
 
+
+# hydraulic circulation pumps
+
+var circ_pump1 = getprop("/save/hyd-circ-pump1");
+var circ_pump2 = getprop("/save/hyd-circ-pump2");
+var circ_pump3 = getprop("/save/hyd-circ-pump3");
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd", circ_pump1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd", circ_pump2);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd", circ_pump3);
+
+if (circ_pump1 == 0) {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 0);}
+
+if (circ_pump2 == 0) {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 0);}
+
+if (circ_pump3 == 0) {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);}
+else {setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 0);}
+
+
+# RCS and OMS heaters
+
+var heater_fwd_A = getprop("/save/heater-fwd-A");
+var heater_fwd_B = getprop("/save/heater-fwd-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status", heater_fwd_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status", heater_fwd_B);
+
+var heater_left_A = getprop("/save/heater-left-A");
+var heater_left_B = getprop("/save/heater-left-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status", heater_left_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", heater_left_B);
+
+var heater_right_A = getprop("/save/heater-right-A");
+var heater_right_B = getprop("/save/heater-right-B");
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status", heater_right_A);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", heater_right_B);
+
+var heater_oms_left_A = getprop("/save/heater-oms-left-A");
+var heater_oms_left_B = getprop("/save/heater-oms-left-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status", heater_oms_left_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-B-status", heater_oms_left_B);
+
+var heater_oms_right_A = getprop("/save/heater-oms-right-A");
+var heater_oms_right_B = getprop("/save/heater-oms-right-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status", heater_oms_right_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-B-status", heater_oms_right_B);
+
+var heater_xfeed_A = getprop("/save/heater-oms-xfeed-A");
+var heater_xfeed_B = getprop("/save/heater-oms-xfeed-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", heater_xfeed_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status", heater_xfeed_B);
+
+# automatically switch Earthview on if the user has this selected
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt > SpaceShuttle.earthview_transition_alt)
+		{
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.clear_all();}
+		earthview.start();
+		}
+
+	}
+
+# remove any light manager info 
+
+SpaceShuttle.light_manager.set_theme("CLEAR");
 
 print("State resumed!");
 }

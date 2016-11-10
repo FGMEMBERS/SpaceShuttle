@@ -152,9 +152,12 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         device.DPS_menu_title.setText("APU/HYD");
         device.MEDS_menu_title.setText("       DPS MENU");
     
-        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /086";
+        var ops_string = major_mode~"1/"~spec_string~"/086";  
+    
         device.DPS_menu_ops.setText(ops_string);
     
     # set a few things we don't model explicitly to reasonable values
@@ -191,9 +194,6 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.n2_t_2.setText(sprintf("  61")); 
         p_dps_apu_hyd.n2_t_3.setText(sprintf("  61")); 
     
-        p_dps_apu_hyd.rsvr_qty_1.setText(sprintf("  87")); 
-        p_dps_apu_hyd.rsvr_qty_2.setText(sprintf("  86")); 
-        p_dps_apu_hyd.rsvr_qty_3.setText(sprintf("  87")); 
     
         p_dps_apu_hyd.rsvr_p_1.setText(sprintf("  54")); 
         p_dps_apu_hyd.rsvr_p_2.setText(sprintf("  56")); 
@@ -257,12 +257,12 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.egt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/egt-K")-1.0)));
         p_dps_apu_hyd.egt_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/egt-K"))));
     
-        p_dps_apu_hyd.accum_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/hyd-acc-pressure-psia")));
-        p_dps_apu_hyd.accum_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-acc-pressure-psia")));
-        p_dps_apu_hyd.accum_p_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-acc-pressure-psia")));
+        p_dps_apu_hyd.accum_p_1.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu/hyd-pressure-psia")));
+        p_dps_apu_hyd.accum_p_2.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia")));
+        p_dps_apu_hyd.accum_p_3.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia")));
     
-        p_dps_apu_hyd.rsvr_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-3.0))); 
-        p_dps_apu_hyd.rsvr_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+1.0))); 
+        p_dps_apu_hyd.rsvr_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-1.0))); 
+        p_dps_apu_hyd.rsvr_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")))); 
         p_dps_apu_hyd.rsvr_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")))); 
     
         var ggbed_T1 = getprop("/fdm/jsbsim/systems/apu/apu/gg-bed-T-K");
@@ -310,6 +310,16 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.brg_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+4.0)));
         p_dps_apu_hyd.brg_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")+1.0)));
     
+	var mission_time = getprop("/fdm/jsbsim/systems/timer/delta-MET") + getprop("/sim/time/elapsed-sec");
+	var qty = (1.0 - 0.4 * (mission_time/(86400.0 * 12.0))) * 100.0;
+	if (qty < 3.0) {qty = 3.0;}
+
+
+        p_dps_apu_hyd.rsvr_qty_1.setText(sprintf("%d", int(qty)-1));  
+        p_dps_apu_hyd.rsvr_qty_2.setText(sprintf("%d", int(qty))); 
+        p_dps_apu_hyd.rsvr_qty_3.setText(sprintf("%d", int(qty)-3)); 
+
+
         device.update_common_DPS();
     
     

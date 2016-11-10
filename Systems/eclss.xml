@@ -22,4 +22,703 @@
 
 	</channel>
 
+
+	<channel name="Avionics bay fans">
+
+		<switch name="systems/eclss/avbay/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/fan-A-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/fan-B-switch == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay/fan-A-operational == 1
+				systems/eclss/avbay/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay1-fan-A-condition</property>
+					<property>systems/eclss/avbay/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay1-fan-B-condition</property>
+					<property>systems/eclss/avbay/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay/fan-cooling-effect">
+			<input>systems/eclss/avbay/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay/temp-factor">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/eclss/avbay/fan-cooling-effect</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay/avionics-excess-temperature">
+			<input>systems/eclss/avbay/temp-factor</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>60.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay/temperature-K">
+		<function>
+			<sum>
+				<property>systems/thermal-distribution/avionics-temperature-K</property>
+				<product>
+					<property>systems/eclss/avbay/avionics-excess-temperature</property>
+					<value>30.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/eclss/avbay[1]/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[1]/fan-A-switch == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[1]/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[1]/fan-B-switch == 1
+				systems/electrical/ac[2]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[1]/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay[1]/fan-A-operational == 1
+				systems/eclss/avbay[1]/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay[1]/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay[1]/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay2-fan-A-condition</property>
+					<property>systems/eclss/avbay[1]/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay2-fan-B-condition</property>
+					<property>systems/eclss/avbay[1]/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[1]/fan-cooling-effect">
+			<input>systems/eclss/avbay[1]/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay[1]/temp-factor">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/eclss/avbay[1]/fan-cooling-effect</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[1]/avionics-excess-temperature">
+			<input>systems/eclss/avbay[1]/temp-factor</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>60.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay[1]/temperature-K">
+		<function>
+			<sum>
+				<property>systems/thermal-distribution/avionics-temperature-K</property>
+				<product>
+					<property>systems/eclss/avbay[1]/avionics-excess-temperature</property>
+					<value>30.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+		<switch name="systems/eclss/avbay[2]/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[2]/fan-A-switch == 1
+				systems/electrical/ac[2]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[2]/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay[2]/fan-B-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay[2]/fan-cooling-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/eclss/avbay[2]/fan-A-operational == 1
+				systems/eclss/avbay[2]/fan-B-operational == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/avbay[2]/fan-cooling-target">
+		<function>
+			<product>
+				<property>systems/eclss/avbay[2]/fan-cooling-operational</property>
+				<max>
+				<product>
+					<property>systems/failures/eclss/avbay3-fan-A-condition</property>
+					<property>systems/eclss/avbay[2]/fan-A-operational</property>
+				</product>
+				<product>
+					<property>systems/failures/eclss/avbay3-fan-B-condition</property>
+					<property>systems/eclss/avbay[2]/fan-B-operational</property>
+				</product>
+				</max>
+			</product>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[2]/fan-cooling-effect">
+			<input>systems/eclss/avbay[2]/fan-cooling-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>10.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay[2]/temp-factor">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/eclss/avbay[2]/fan-cooling-effect</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/eclss/avbay[2]/avionics-excess-temperature">
+			<input>systems/eclss/avbay[2]/temp-factor</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>60.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/eclss/avbay[2]/temperature-K">
+		<function>
+			<sum>
+				<property>systems/thermal-distribution/avionics-temperature-K</property>
+				<product>
+					<property>systems/eclss/avbay[2]/avionics-excess-temperature</property>
+					<value>30.0</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+
+	</channel>
+
+	<channel name="Oxygen system">
+
+		<switch name="systems/eclss/oxygen/direct-oxygen-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/oxygen/sys1-oxygen-available">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/oxygen/sys2-oxygen-available">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys1-o2-xovr-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-xovr-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/oxygen/cabin-oxygen-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys1-oxygen-available == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status LE 0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/oxygen/sys2-oxygen-available == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status LE 0
+			</test>
+		</switch>
+
+	</channel>
+
+	<channel name="Nitrogen system">
+
+		<switch name="systems/eclss/nitrogen/sys1-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys1-n2-reg-inlet-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/sys2-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-n2-reg-inlet-valve-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/cabin-nitrogen-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-pressurized == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GE 0 
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-pressurized == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GE 0 
+			</test>
+
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/sys1-oxygen-in-fraction">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status == -1
+				systems/eclss/oxygen/sys1-oxygen-available == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status == 0
+				systems/eclss/oxygen/sys1-oxygen-available == 1
+				systems/eclss/cabin/oxygen-fraction LT 0.235
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status == 0
+				systems/eclss/oxygen/sys1-oxygen-available == 1
+				systems/eclss/nitrogen/sys1-pressurized == 0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/nitrogen/sys2-oxygen-in-fraction">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status == -1
+				systems/eclss/oxygen/sys2-oxygen-available == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status == 0
+				systems/eclss/oxygen/sys2-oxygen-available == 1
+				systems/eclss/cabin/oxygen-fraction LT 0.235
+			</test>
+			<test logic="AND" value="1.0">
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status == 0
+				systems/eclss/oxygen/sys2-oxygen-available == 1
+				systems/eclss/nitrogen/sys2-pressurized == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/eclss/nitrogen/num-system-factor">
+			<default value="1.0"/>
+			<test logic="AND" value="0.5">
+				systems/eclss/oxygen/sys1-oxygen-available == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GT 0
+				systems/eclss/oxygen/sys2-oxygen-available == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GT 0
+			</test>
+			<test logic="AND" value="0.5">
+				systems/eclss/nitrogen/sys1-pressurized == 1
+				systems/eclss/nitrogen/sys1-o2-n2-cntrl-valve-status GT -1
+				systems/eclss/nitrogen/sys2-pressurized == 1
+				systems/eclss/nitrogen/sys2-o2-n2-cntrl-valve-status GT -1
+			</test>
+		</switch>
+
+
+	</channel>
+
+	<channel name="Cabin air circulation pressure and temperature">
+
+
+		<switch name="systems/eclss/cabin/fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/cabin/fan-A-switch == 1
+				systems/electrical/ac[2]/voltage GT 115.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/cabin/fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/cabin/fan-B-switch == 1
+				systems/electrical/ac[1]/voltage GT 115.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/cabin/fan-A-power-demand-kW">
+		<function>
+			<product>
+				<property>systems/eclss/cabin/fan-A-switch</property>
+				<value>0.495</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/fan-B-power-demand-kW">
+		<function>
+			<product>
+				<property>systems/eclss/cabin/fan-B-switch</property>
+				<value>0.495</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/eclss/cabin/co2-accumulation-target">
+			<default value="1.0"/>
+			<test logic="OR" value="0.0">
+				systems/eclss/cabin/fan-A-operational == 1
+				systems/eclss/cabin/fan-B-operational == 1
+			</test>
+		</switch>
+
+		
+
+ 		<!-- air gets stale within 10 minutes not operating the fan -->
+
+		<kinematic name="systems/eclss/cabin/co2-accumulation">
+			<input>systems/eclss/cabin/co2-accumulation-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>600.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<switch name="systems/eclss/cabin/vent-open">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/cabin/vent-isolation-valve == 1
+				systems/eclss/cabin/vent-valve == 1
+			</test>	
+		</switch>
+
+
+		<fcs_function name="systems/eclss/cabin/air-pressure-psi">
+		<function>
+			<max>
+				<product>
+				<quotient>
+					<sum>
+					<property>propulsion/tank[23]/contents-lbs</property>
+					<property>propulsion/tank[24]/contents-lbs</property>
+					</sum>
+					<value>170.0</value>
+				</quotient>
+				<value>14.7</value>
+				</product>
+				<product>
+					<property>/environment/pressure-inhg</property>
+					<value>0.491154</value>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/oxygen-fraction">
+		<function>
+			<quotient>
+				<property>propulsion/tank[23]/contents-lbs</property>
+				<sum>
+					<property>propulsion/tank[23]/contents-lbs</property>
+					<property>propulsion/tank[24]/contents-lbs</property>
+					<value>0.1</value>
+				</sum>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/oxygen-in-fraction">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/eclss/nitrogen/sys1-oxygen-in-fraction</property>
+					<property>systems/eclss/oxygen/sys1-oxygen-available</property>
+				</product>
+				<product>
+					<property>systems/eclss/nitrogen/sys2-oxygen-in-fraction</property>
+					<property>systems/eclss/oxygen/sys2-oxygen-available</property>
+				</product>
+			</sum>
+			<property>systems/eclss/nitrogen/num-system-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/nitrogen-in-fraction">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/eclss/nitrogen/sys1-oxygen-in-fraction</property>
+					</difference>
+					<property>systems/eclss/nitrogen/sys1-pressurized</property>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/eclss/nitrogen/sys2-oxygen-in-fraction</property>
+					</difference>
+					<property>systems/eclss/nitrogen/sys2-pressurized</property>
+				</product>
+			</sum>
+			<property>systems/eclss/nitrogen/num-system-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/air-loss-rate-lb_h">
+		<function>
+			<product>
+			<sum>
+				<property>systems/eclss/cabin/loss-rate-lb_h</property>
+				<property>systems/eclss/cabin/leakage-rate-lb_h</property>
+				<product>
+					<property>systems/eclss/cabin/vent-open</property>
+					<value>1080.0</value>
+				</product>
+			</sum>
+			<value>-1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/air-gain-rate-lb_h">
+		<function>
+			<sum>
+				<max>
+				<min>
+				<product>
+				<difference>
+					<property>systems/eclss/cabin/air-pressure-psi</property>
+					<value>14.7</value>
+				</difference>
+				<value>-250.0</value>
+				</product>
+				<value>75.0</value>
+				</min>
+				<value>0.0</value>
+				</max>
+				<max>
+				<min>
+				<product>
+				<difference>
+					<property>systems/eclss/cabin/air-pressure-psi</property>
+					<value>8.0</value>
+				</difference>
+				<value>-250.0</value>
+				</product>
+				<value>75.0</value>
+				</min>
+				<value>0.0</value>
+				</max>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/eclss/cabin/oxygen-change-rate-lb_s">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/eclss/cabin/air-loss-rate-lb_h</property>
+					<property>systems/eclss/cabin/oxygen-fraction</property>
+				</product>
+				<product>
+					<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+					<property>systems/eclss/cabin/oxygen-in-fraction</property>
+				</product>
+			</sum>
+			<value>0.000277777</value>
+			</product>
+		</function>
+		<output>propulsion/tank[23]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/nitrogen-change-rate-lb_s">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/eclss/cabin/air-loss-rate-lb_h</property>
+					<difference>
+						<value>1.0</value>
+						<property>systems/eclss/cabin/oxygen-fraction</property>
+					</difference>
+				</product>
+				<product>
+					<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+					<property>systems/eclss/cabin/nitrogen-in-fraction</property>
+				</product>
+			</sum>
+			<value>0.000277777</value>
+			</product>
+		</function>
+		<output>propulsion/tank[24]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/ppo2-psi">
+		<function>	
+			<product>
+				<property>systems/eclss/cabin/air-pressure-psi</property>
+				<property>systems/eclss/cabin/oxygen-fraction</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/cabin/ppn2-psi">
+		<function>	
+			<difference>
+				<property>systems/eclss/cabin/air-pressure-psi</property>
+				<property>systems/eclss/cabin/ppo2-psi</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<pid name="systems/eclss/cabin/air-pressure-change">
+			<input>systems/eclss/cabin/air-pressure-psi</input>
+			<kp> 0.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.0</kd>
+			<output>systems/eclss/cabin/air-pressure-change-psi_s</output>
+  		</pid>
+
+
+	</channel>
 </system>

@@ -66,6 +66,14 @@
           <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
           <value>1</value>
         </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
 	</and>
       </condition>     
     </item>
@@ -256,8 +264,8 @@
     </item>
     
    <item>
-      <name>T-0:07 main engine ignition sequence</name>
-      <value>START</value>
+      <name>T-0:07 main engine ignition sequence (shift+i)</name>
+      <value>START </value>
    <condition>
 	<and>
         <greater-than>
@@ -544,23 +552,65 @@
     </item>
 
    <item>
-      <name>One hydraulic circulation pump</name>
-      <value>ON</value>
-    <condition>
-	<or>
+      <name>water spray boiler controller power </name>
+      <value>OFF</value>
+      <condition>
+	<and>
         <equals>
-          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-power-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-power-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-power-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+  <item>
+      <name>water spray boiler N2 flow </name>
+      <value>CLOSED</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/boiler-N2-valve-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/boiler-N2-valve-status</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/boiler-N2-valve-status</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition> 
+   </item>
+
+   <item>
+      <name>All hydraulic circulation pumps</name>
+      <value>GPC</value>
+    <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
     	<equals>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
     	<equals>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump</property>
-          <value>1</value>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
+          <value>0</value>
         </equals>
-	</or>
+	</and>
       </condition>  
   </item>
 
@@ -926,6 +976,22 @@
     <item>
       <name>payload bay floodlights</name>
       <value>ON</value>
+      <condition>
+	<and>
+	<equals>
+	  <property>/fdm/jsbsim/systems/light/pb-flood-star-aft-switch</property>
+	  <value>1</value>
+	</equals>
+	<equals>
+	  <property>/fdm/jsbsim/systems/light/pb-flood-star-mid-switch</property>
+	  <value>1</value>
+	</equals>
+	<equals>
+	  <property>/fdm/jsbsim/systems/light/pb-flood-star-fwd-switch</property>
+	  <value>1</value>
+	</equals>
+ 	</and>
+      </condition>
     </item>
 
     <item>
@@ -1620,6 +1686,14 @@
           <property>/fdm/jsbsim/systems/apu/apu/fuel-valve-status</property>
           <value>1</value>
         </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status</property>
+          <value>1</value>
+        </equals>
 	</and>
       </condition>     
     </item>
@@ -1821,8 +1895,8 @@
     </item>
 
    <item>
-      <name>DAP selection</name>
-      <value>ENTRY</value>
+      <name>DAP selection (transit to MM 304)</name>
+      <value>AEROJET</value>
       <condition>
 	<or>
         <equals>

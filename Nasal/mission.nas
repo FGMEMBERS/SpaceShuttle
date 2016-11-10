@@ -2,6 +2,8 @@
 # Thorsten Renk 2016
 
 var predefined_failures = [];
+var oTgt = {};
+var n_orbital_targets = 0;
 
 var failure_pre = {new: func (node, time, probability, value) {
  	var f = { parents: [failure_pre] };
@@ -38,10 +40,25 @@ var failure_pre = {new: func (node, time, probability, value) {
 
 var mission_init = func {
 
+
+# load the mission file
+
+var filename = getprop("/mission/filename");
+
+var target = props.globals.getNode("/mission");
+var success = io.read_properties("Aircraft/SpaceShuttle/Mission/"~filename, target);
+
+if (success == nil) 
+	{
+	print("Cannot open mission file ", filename, ", using defaults.");
+	io.read_properties("Aircraft/SpaceShuttle/Mission/mission.xml", target);
+	}
+
 # launch targets
 
+var stage = getprop("/sim/presets/stage");
 
-if (getprop("/mission/launch/section-defined"))
+if (getprop("/mission/launch/section-defined") and (stage == 0))
 	{
 	var tgt_inclination = getprop("/mission/launch/target-inclination");
 	var tgt_apoapsis = getprop("/mission/launch/target-apoapsis-miles");
@@ -80,6 +97,31 @@ if (getprop("/mission/launch/section-defined"))
 	var tal_site_index = getprop("/mission/launch/tal-site-index");
 	setprop("/fdm/jsbsim/systems/entry_guidance/tal-site-iloaded", tal_site_index);
 
+	# i-load RTLS site
+
+	var rtls_site_index = getprop("/mission/launch/rtls-site-index");
+	SpaceShuttle.update_site_by_index(rtls_site_index);
+
+	}
+
+# aborts
+
+if (getprop("/mission/abort/section-defined") and (stage == 0))
+	{
+	var yaw_steering = getprop("/mission/abort/enable-yaw-steering");
+	setprop("/fdm/jsbsim/systems/abort/enable-yaw-steer", yaw_steering);
+
+	var yaw_steer_tgt = getprop("/mission/abort/yaw-steering-target");
+	setprop("/fdm/jsbsim/systems/abort/yaw-steer-target", yaw_steer_tgt);
+
+	var ato_vcont = getprop("/mission/abort/ato-v-mssn-cntn");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-mssn-cntn", ato_vcont);
+
+	var ato_vlin = getprop("/mission/abort/ato-v-lin");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-lin", ato_vlin);
+
+	var ato_vzero = getprop("/mission/abort/ato-v-zero");
+	setprop("/fdm/jsbsim/systems/abort/ato-v-zero", ato_vzero);
 	}
 
 # configuration
@@ -224,6 +266,28 @@ if (getprop("/mission/failures/section-defined"))
 
 	}
 
+# orbiting objects
+
+if (getprop("/mission/orbital-targets/section-defined"))
+	{
+
+	var tgt_label = getprop("/mission/orbital-targets/object-label");
+	var tgt_alt = getprop("/mission/orbital-targets/alt-km") * 1000.0;
+	var tgt_inc = getprop("/mission/orbital-targets/inclination-deg");
+	var tgt_node_lon = getprop("/mission/orbital-targets/node-lon-deg");
+	var tgt_anomaly = getprop("/mission/orbital-targets/anomaly-deg");
+
+	oTgt = orbital_target.orbitalTarget.new(tgt_alt, tgt_inc, tgt_node_lon, tgt_anomaly);
+	oTgt.label = tgt_label;	
+	oTgt.start();
+	print("Adding ", tgt_label);
+
+	SpaceShuttle.tgt_history_init();
+	n_orbital_targets = 1;
+	setprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id", 1);
+
+	}
+
 }
 
 
@@ -270,10 +334,7 @@ if (getprop("/mission/post-meco/section-defined"))
 
 		# wait for fuel dump to finish before we start the OMS maneuver
 		settimer(func {
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+			SpaceShuttle.orbital_dap_manager.control_select("AUTO");
 			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
 			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
 			if (flag == 0) {flag = 1;} else {flag =0;}
@@ -282,6 +343,15 @@ if (getprop("/mission/post-meco/section-defined"))
 		}
 
 	}
+
+	# i-load landing site, we have to do it post-MECO to not interfere with RTLS
+
+if (getprop("/mission/entry/section-defined"))
+	{ 
+	var landing_site_index = getprop("/mission/entry/landing-site-index");
+	SpaceShuttle.update_site_by_index(landing_site_index);
+	}
+
 }
 
 

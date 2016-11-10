@@ -191,20 +191,31 @@
 		 <value>DIRECT</value>
 		 <value>ORB UNL X/Y/Z</value>
 		 <value>ORB UNL P/Y/R</value>
+		 <value>AUTO OPR CMD</value>
+		 <value>AUTO 1</value>
+		 <value>AUTO 2</value>
+		 <value>AUTO 3</value>
+		 <value>AUTO 4</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>drive</object-name>
         	 </binding>
-		<binding>
-			<command>nasal</command>
-                    	<script>SpaceShuttle.update_rms_drive_selection()</script>
-		</binding>
       	</combo>
+
+   <button>
+    <row>5</row>
+    <col>2</col>
+	<legend>Enter</legend>
+	<binding>
+	     <command>nasal</command>
+             <script>SpaceShuttle.update_rms_drive_selection()</script>
+	</binding>
+   </button>
 
     <text>
       <label>Software stop</label>
       <row>5</row>
-      <col>2</col>
+      <col>3</col>
       <visible>
 	<equals>
 	  <property>/fdm/jsbsim/systems/rms/soft-stop</property>
@@ -215,6 +226,7 @@
 
        <checkbox>
         <name>rms-brake</name>
+	<align>left</align>
  	<row>6</row>
         <col>1</col>
         <label>BRAKES</label>
@@ -228,6 +240,7 @@
 
        <checkbox>
         <name>rms-save</name>
+	<align>left</align>
  	<row>6</row>
         <col>2</col>
         <label>SAFING</label>
@@ -238,6 +251,40 @@
               <object-name>rms-save</object-name>
           </binding>
         </checkbox>
+
+   <text>
+      <label>Thermal protection</label>
+      <row>7</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>rms-thermal-A</name>
+	<align>left</align>
+ 	<row>7</row>
+        <col>1</col>
+        <label>HEATER A</label>
+          <property>/fdm/jsbsim/systems/rms/thermal/port-heater-A-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-thermal-A</object-name>
+          </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>rms-thermal-B</name>
+	<align>left</align>
+ 	<row>7</row>
+        <col>2</col>
+        <label>HEATER B</label>
+          <property>/fdm/jsbsim/systems/rms/thermal/port-heater-B-switch</property>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>rms-thermal-B</object-name>
+          </binding>
+    </checkbox>
 
 
 

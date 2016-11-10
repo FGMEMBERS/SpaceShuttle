@@ -218,7 +218,7 @@
 
 
 		<aerosurface_scale name= "Pitch thrust command SSME 1">
-		   <input>fcs/elevator-cmd-norm</input>
+		   <input>fcs/elevator-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -232,7 +232,7 @@
 		 </aerosurface_scale>
 
 		  <aerosurface_scale name= "Pitch thrust command SSME 2">
- 		  <input>fcs/elevator-cmd-norm</input>
+ 		  <input>fcs/elevator-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -246,7 +246,7 @@
  		</aerosurface_scale>
 
  		 <aerosurface_scale name= "Pitch thrust command SSME 3">
-  		 <input>fcs/elevator-cmd-norm</input>
+  		 <input>fcs/elevator-cmd-norm-css</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -260,7 +260,7 @@
 		 </aerosurface_scale>
 
  		 <aerosurface_scale name= "Pitch thrust command SRB 1">
-  		 <input>fcs/elevator-cmd-norm</input>
+  		 <input>fcs/elevator-cmd-norm-css</input>
    		<zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -274,7 +274,7 @@
  		</aerosurface_scale> 
 
  		 <aerosurface_scale name= "Pitch thrust command SRB 2">
- 		  <input>fcs/elevator-cmd-norm</input>
+ 		  <input>fcs/elevator-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
  		       <min> -1.0 </min>
@@ -288,7 +288,7 @@
  		</aerosurface_scale> 
 
 		<aerosurface_scale name= "Roll thrust command SSME 1">
- 		  <input>fcs/aileron-cmd-norm</input>
+ 		  <input>fcs/aileron-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
  		      <min> -1.0 </min>
@@ -302,7 +302,7 @@
 		 </aerosurface_scale>
 
   		<aerosurface_scale name= "Roll thrust command SSME 2">
-  		 <input>fcs/aileron-cmd-norm</input>
+  		 <input>fcs/aileron-cmd-norm-css</input>
    		<zero_centered>false</zero_centered>
   		 <domain>
     		    <min> -1.0 </min>
@@ -405,7 +405,7 @@
  		</fcs_function>
 
  		 <aerosurface_scale name= "Roll thrust command SRB 1">
-  		<input>fcs/aileron-cmd-norm</input>
+  		<input>fcs/aileron-cmd-norm-css</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
   		      <min> -1.0 </min>
@@ -419,7 +419,7 @@
  		</aerosurface_scale>
 
  		 <aerosurface_scale name= "Roll thrust command SRB 2">
- 		  <input>fcs/aileron-cmd-norm</input>
+ 		  <input>fcs/aileron-cmd-norm-css</input>
   		 <zero_centered>false</zero_centered>
   		 <domain>
    		     <min> -1.0 </min>
@@ -455,7 +455,7 @@
  		  </summer>
 
 		<aerosurface_scale name= "Yaw thrust command SRB 1">
- 		  <input>fcs/rudder-cmd-norm</input>
+ 		  <input>fcs/rudder-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
   		 <domain>
   		      <min> -1.0 </min>
@@ -469,7 +469,7 @@
  		</aerosurface_scale> 
 
 		 <aerosurface_scale name= "Yaw thrust command SRB 2">
- 		  <input>fcs/rudder-cmd-norm</input>
+ 		  <input>fcs/rudder-cmd-norm-css</input>
   		 <zero_centered>false</zero_centered>
    		<domain>
    		     <min> -1.0 </min>
@@ -485,7 +485,7 @@
  
 
 		 <aerosurface_scale name= "Yaw thrust command SSME 1">
- 		  <input>fcs/rudder-cmd-norm</input>
+ 		  <input>fcs/rudder-cmd-norm-css</input>
   		 <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -516,7 +516,7 @@
 
 
  		<aerosurface_scale name= "Yaw thrust command SSME 2">
- 		  <input>fcs/rudder-cmd-norm</input>
+ 		  <input>fcs/rudder-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
   		      <min> -1.0 </min>
@@ -545,7 +545,7 @@
 
 
 		 <aerosurface_scale name= "Yaw thrust command SSME 3">
- 		  <input>fcs/rudder-cmd-norm</input>
+ 		  <input>fcs/rudder-cmd-norm-css</input>
  		  <zero_centered>false</zero_centered>
  		  <domain>
    		     <min> -1.0 </min>
@@ -592,10 +592,9 @@
 			<difference>
 				<property>velocities/q-rad_sec</property>
 				<product>
-  					<!--<property>fcs/elevator-cmd-norm</property>-->
 					<sum>
 						<product>
-  						<property>fcs/elevator-cmd-norm</property>
+  						<property>fcs/elevator-cmd-norm-css</property>
 						<difference>
 							<value>1.0</value>
 							<property>systems/ap/launch/autolaunch-pitch-channel</property>
@@ -643,7 +642,7 @@
 				<product>
 					<sum>
 						<product>
-  						<property>fcs/aileron-cmd-norm</property>
+  						<property>fcs/aileron-cmd-norm-css</property>
 						<difference>
 							<value>1.0</value>
 							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
@@ -732,10 +731,9 @@
 			<difference>
 				<property>velocities/r-rad_sec</property>
 				<product>
-  					<!--<property>fcs/rudder-cmd-norm</property>-->
 					<sum>
 						<product>
-  						<property>fcs/rudder-cmd-norm</property>
+  						<property>fcs/rudder-cmd-norm-css</property>
 						<difference>
 							<value>1.0</value>
 							<property>systems/ap/launch/autolaunch-roll-yaw-channel</property>
@@ -1264,7 +1262,7 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-  				<property>fcs/elevator-cmd-norm</property>
+  				<property>fcs/elevator-cmd-norm-css</property>
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
@@ -1282,7 +1280,7 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-  				<property>fcs/aileron-cmd-norm</property>
+  				<property>fcs/aileron-cmd-norm-css</property>
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
@@ -1300,7 +1298,7 @@
 					<value>1</value>
 					<property>systems/ap/auto-rotation-mode</property>
 				</difference>
-  				<property>fcs/rudder-cmd-norm</property>
+  				<property>fcs/rudder-cmd-norm-css</property>
 			</product>
 			<product>
 				<property>systems/ap/auto-rotation-mode</property>
@@ -1476,11 +1474,11 @@
 			<max>
 				<product>
 					<property>systems/oms-hardware/gimbal-left-pri-selected</property>
-					<property>systems/failures/oms-left-pri-gimbal-condition</property>
+					<property>systems/failures/oms/oms-left-pri-gimbal-condition</property>
 				</product>
 				<product>
 					<property>systems/oms-hardware/gimbal-left-sec-selected</property>
-					<property>systems/failures/oms-left-sec-gimbal-condition</property>
+					<property>systems/failures/oms/oms-left-sec-gimbal-condition</property>
 				</product>
 			</max>
 		</function>
@@ -1491,11 +1489,11 @@
 			<max>
 				<product>
 					<property>systems/oms-hardware/gimbal-right-pri-selected</property>
-					<property>systems/failures/oms-right-pri-gimbal-condition</property>
+					<property>systems/failures/oms/oms-right-pri-gimbal-condition</property>
 				</product>
 				<product>
 					<property>systems/oms-hardware/gimbal-right-sec-selected</property>
-					<property>systems/failures/oms-right-sec-gimbal-condition</property>
+					<property>systems/failures/oms/oms-right-sec-gimbal-condition</property>
 				</product>
 			</max>
 		</function>

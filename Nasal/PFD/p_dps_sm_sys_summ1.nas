@@ -146,8 +146,11 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /078";
+        var ops_string = major_mode~"1/"~spec_string~"/078";  
+    
         device.DPS_menu_ops.setText(ops_string);
 
 	# set defaults for values not yet implemented
@@ -166,28 +169,9 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
     	p_dps_sm_sys_summ1.avbay3_1.setText("0.0");
     	p_dps_sm_sys_summ1.avbay3_2.setText("0.0");
 
-	p_dps_sm_sys_summ1.press.setText("14.0");
 	p_dps_sm_sys_summ1.eq.setText("+.00");
- 	p_dps_sm_sys_summ1.dPdt.setText("+.000");
 
-	p_dps_sm_sys_summ1.ppo2_1.setText("3.00");
-	p_dps_sm_sys_summ1.ppo2_2.setText("3.00");
 
-	p_dps_sm_sys_summ1.o2_conc.setText("21.4");
-
-	p_dps_sm_sys_summ1.fan_dp.setText("5.0");
-
- 	p_dps_sm_sys_summ1.hx_out_T.setText("46");
-
- 	p_dps_sm_sys_summ1.o2flow_1.setText("0.0"); 	
-	p_dps_sm_sys_summ1.o2flow_2.setText("0.0");
-
- 	p_dps_sm_sys_summ1.n2flow_1.setText("0.0"); 	
-	p_dps_sm_sys_summ1.n2flow_2.setText("0.0");
-
-	p_dps_sm_sys_summ1.imu_A.setText("");
-	p_dps_sm_sys_summ1.imu_B.setText("");
-	p_dps_sm_sys_summ1.imu_C.setText("");
     }
     
     p_dps_sm_sys_summ1.update = func
@@ -356,6 +340,80 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 
 	p_dps_sm_sys_summ1.kW.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/electrical/total-power-demand-kW"))); 	
 	p_dps_sm_sys_summ1.total_amps.setText(sprintf("%3.0f", fc_amps1 + fc_amps2 + fc_amps3));
+
+	# oxygen system
+
+	var airflow_in = getprop("/fdm/jsbsim/systems/eclss/cabin/air-gain-rate-lb_h");
+
+	var o2_valve1 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys1-o2-supply-valve-status");
+	var o2_valve2 = getprop("/fdm/jsbsim/systems/eclss/oxygen/sys2-o2-supply-valve-status");
+
+	var oxygen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/oxygen-in-fraction-av") * airflow_in;
+	
+	if ((o2_valve1 == 1) and (o2_valve2 == 1)) {oxygen_flow = 0.5 * oxygen_flow;}
+
+ 	p_dps_sm_sys_summ1.o2flow_1.setText(sprintf("%2.1f", oxygen_flow * o2_valve1)); 	
+	p_dps_sm_sys_summ1.o2flow_2.setText(sprintf("%2.1f", oxygen_flow * o2_valve2)); 
+
+	# nitrogen system
+
+	var n2_valve1 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys1-pressurized");
+	var n2_valve2 = getprop("/fdm/jsbsim/systems/eclss/nitrogen/sys2-pressurized");
+
+	var nitrogen_flow = getprop("/fdm/jsbsim/systems/eclss/cabin/nitrogen-in-fraction-av") * airflow_in;
+
+	if ((n2_valve1 == 1) and (n2_valve2 == 1)) {nitrogen_flow = 0.5 * nitrogen_flow;}
+
+    	p_dps_sm_sys_summ1.n2flow_1.setText(sprintf("%2.1f", nitrogen_flow * n2_valve1));
+    	p_dps_sm_sys_summ1.n2flow_2.setText(sprintf("%2.1f", nitrogen_flow * n2_valve2));
+
+	# pressures
+
+	p_dps_sm_sys_summ1.ppo2_1.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
+	p_dps_sm_sys_summ1.ppo2_2.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/ppo2-psi")));
+
+	p_dps_sm_sys_summ1.o2_conc.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/oxygen-fraction") * 100.0));
+
+	p_dps_sm_sys_summ1.press.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-psi")));
+
+	# pressure change
+
+ 	p_dps_sm_sys_summ1.dPdt.setText(sprintf("%+4.3f", getprop("/fdm/jsbsim/systems/eclss/cabin/air-pressure-change-psi_s") * 60.0));
+
+
+	# IMU fans
+
+	var sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_A.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_B.setText(sym);
+
+	sym = "*";
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
+	p_dps_sm_sys_summ1.imu_C.setText(sym);
+
+	# cabin fan dp
+
+	var fan_A = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-A-operational");
+	var fan_B = getprop("/fdm/jsbsim/systems/eclss/cabin/fan-B-operational");
+
+	var cabin_dp = fan_A + fan_B;
+	
+	if (cabin_dp > 1.0) {cabin_dp =6.61;}
+	else if (cabin_dp > 0.0) {cabin_dp = 5.54;}
+	else {cabin_dp = 0.0;}
+	
+	p_dps_sm_sys_summ1.fan_dp.setText(sprintf("%3.2f", cabin_dp));
+
+	# heat exchanger T
+	
+	var cabin_T =  K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/interior-temperature-K"));
+	p_dps_sm_sys_summ1.hx_out_T.setText(sprintf("%3.0f", cabin_T + 30.0));
+
+
 
         device.update_common_DPS();
     }

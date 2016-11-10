@@ -9,6 +9,9 @@ var traj_data = [];
 var limit1_data = [];
 var limit2_data = [];
 
+var TAEM_nominal_trajectory = [];
+var entry_nominal_trajectory = [];
+
 var sym_shuttle_asc = {};
 var trajectory = {};
 
@@ -124,7 +127,7 @@ if (traj_display_flag == 4)
 
 if (traj_display_flag == 5)
 	{
-	if (velocity < 12000.0)
+	if (velocity < 10000.0)
 		{
 		fill_entry4_data();
 		traj_display_flag = 6;
@@ -337,11 +340,11 @@ var point = [];
 setsize(traj_data,0);
 
 
-point = [4604.0, 152000.0];
-append(traj_data, point);
+#point = [4604.0, 152000.0];
+#append(traj_data, point);
 
-point = [4866.0, 174000.0];
-append(traj_data, point);
+#point = [4866.0, 174000.0];
+#append(traj_data, point);
 
 point = [5000.0, 206650.0];
 append(traj_data, point);
@@ -462,13 +465,13 @@ setsize(limit2_data,0);
 point = [2400.0, 200000.0];
 append(limit2_data, point);
 
-point = [3000.0, 360000.0];
+point = [3000.0, 350000.0];
 append(limit2_data, point);
 
-point = [3400.0, 370000.0];
+point = [3400.0, 360000.0];
 append(limit2_data, point);
 
-point = [0.0, 340000.0];
+point = [0.0, 330000.0];
 append(limit2_data, point);
 
 point = [-2000.0, 300000.0];
@@ -712,20 +715,21 @@ var point = [];
 setsize(traj_data,0);
 
 
-point = [95.6635, 5513.766];
+point = [95.6635, 5213.766];
 append(traj_data, point);
 
-point= [90.8323, 5406.4754];
+point= [90.8323, 5106.4754];
 append(traj_data, point);
 
-point=[80.9173, 5164.8333];
+point=[80.9173, 4764.8333];
 append(traj_data, point);
 
-point= [70.5462, 4777.7644];
+point= [70.5462, 4500.7644];
 append(traj_data, point);
 
-point=[60.527, 4342.2923];
+point=[60.527, 4242.2923];
 append(traj_data, point);
+
 
 for (i=0; i< size(traj_data); i=i+1)
 	{
@@ -922,3 +926,198 @@ var plot = trajectory.createChild("path", "data")
 			}
 
 }
+
+
+var fill_entry_nom_data = func {
+
+var point = [];
+
+point = [2500.5817, 25537.67];
+append(entry_nominal_trajectory, point);
+
+point= [2300.0462, 25513.095];
+append(entry_nominal_trajectory, point);
+
+point= [2001.9825, 25373.167];
+append(entry_nominal_trajectory, point);
+
+point= [1802.8649, 25177.418];
+append(entry_nominal_trajectory, point);
+
+point= [1600.1037, 24887.478];
+append(entry_nominal_trajectory, point);
+
+point= [1500.904, 24667.815];
+append(entry_nominal_trajectory, point);
+
+point= [1202.5228, 23447.14];
+append(entry_nominal_trajectory, point);
+
+point= [1000.2354, 21936.996];
+append(entry_nominal_trajectory, point);
+
+point= [900.1702, 20971.771];
+append(entry_nominal_trajectory, point);
+
+point= [802.0128, 19833.938];
+append(entry_nominal_trajectory, point);
+
+point = [715.8945, 18647.557];
+append(entry_nominal_trajectory, point);
+
+
+point= [616.4637, 17006.038];
+append(entry_nominal_trajectory, point);
+
+point = [572.1183, 16200.074];
+append(entry_nominal_trajectory, point);
+
+point = [530.5237, 15403.162];
+append(entry_nominal_trajectory, point);
+
+
+point = [480.4199, 14380.543];
+append(entry_nominal_trajectory, point);
+
+point = [440.6204, 13496.858];
+append(entry_nominal_trajectory, point);
+
+point = [400.4949, 12546.256];
+append(entry_nominal_trajectory, point);
+
+point = [356.1252, 11569.916];
+append(entry_nominal_trajectory, point);
+
+point = [301.0546, 10389.273];
+append(entry_nominal_trajectory, point);
+
+point = [283.0393, 10007.103];
+append(entry_nominal_trajectory, point);
+
+point = [241.1797, 9113.4238];
+append(entry_nominal_trajectory, point);
+
+point = [201.2034, 8108.7248];
+append(entry_nominal_trajectory, point);
+
+point = [160.3208, 7207.121];
+append(entry_nominal_trajectory, point);
+
+point = [120.4003, 5853.7832];
+append(entry_nominal_trajectory, point);
+
+point = [95.6635, 5213.766];
+append(entry_nominal_trajectory, point);
+
+point=[60.527, 3942.2923];
+append(entry_nominal_trajectory, point);
+
+}
+
+
+var get_entry_drag_deviation = func (v, distance) {
+
+# bias the distance to get better match to TAEM
+distance = distance - 20.0;
+
+var t = entry_nominal_trajectory;
+
+var n = size(t);
+
+if (n==0) {return 0.0;}
+
+var i_ref = 0;
+
+for (var i=0; i<n; i=i+1)
+	{
+	if (distance > t[i][0]) {i_ref = i;  break;}
+	}
+
+i = i_ref;
+
+if (i==n) {i=n-1;}
+var tgt_v = 0.0;
+
+if ((i==0) or (i == (n-1))) {return 0.0;}
+else
+	{
+	tgt_v = t[i][1] + (t[i-1][1] - t[i][1]) * ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+	}
+
+#var interpolation_factor =  ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+
+return tgt_v - v;
+
+}
+
+
+var fill_TAEM_nom_data = func {
+
+var point = [];
+
+point = [95.0, 86200.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [71.0, 72600.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [51.0, 59000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [41.0, 49000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [31.0, 39000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [21.0, 30000.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [15.0, 21400.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [10.0, 14400.0];
+append(TAEM_nominal_trajectory, point);
+
+point = [5.0, 8000.0];
+append(TAEM_nominal_trajectory, point);
+
+}
+
+
+var get_glideslope_deviation = func (alt, distance) {
+
+var t = TAEM_nominal_trajectory;
+
+var n = size(t);
+
+if (n==0) {return 0.0;}
+
+var i_ref = 0;
+
+for (var i=0; i<n; i=i+1)
+	{
+	if (distance > t[i][0]) {i_ref = i;  break;}
+	}
+
+i = i_ref;
+
+if (i==n) {i=n-1;}
+var tgt_alt = 0.0;
+
+if ((i==0) or (i == (n-1))) {return 0.0;}
+else
+	{
+	tgt_alt = t[i][1] + (t[i-1][1] - t[i][1]) * ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+	}
+
+#var interpolation_factor =  ((distance - t[i][0]) / (t[i-1][0] - t[i][0]));
+
+return tgt_alt - alt;
+
+}
+
+# initialize the entry and TAEM nominal trajectories for guidance upon startup
+
+fill_TAEM_nom_data ();
+fill_entry_nom_data ();

@@ -7,7 +7,8 @@
 	<!-- 1: single/direct joint driving -->
 	<!-- 2: manual augmented ORB UL x/y/z driving -->
 	<!-- 3: manual augmented ORB UL yaw/pitch/roll driving -->
-
+	<!-- 4: operator commanded via target on PDRS CONTROL, driving position -->
+	<!-- 5: operator commanded via target on PDRS CONTROL, driving attitude -->
 
 	<channel name="RMS usage">
 
@@ -374,41 +375,336 @@
 
 	</channel>
 
-	<channel name="RMS manual augmented ypr driving" execute="systems/rms/rms-active">
 
-		<!--<fcs_function name="systems/rms/ma/offset-vec-x">
+	<channel name="RMS drive rate factor">
+
+		<switch name="systems/rms/rate-factor">
+			<default value="1.0"/>
+			<test value="0.25">
+				systems/rms/vernier-switch == 1
+			</test>
+		</switch>
+
+
+	</channel>
+
+
+
+
+	<channel name="RMS automatic driving to a specified position" execute="systems/rms/rms-active">
+
+
+		<fcs_function name="systems/rms/software/effector-att-error">
+		<function>
+			<sum>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-p</property>
+						<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-y</property>
+						<property>systems/rms/sum-wrist-yaw-deg</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-att-r</property>
+						<property>systems/rms/ang-wrist-roll-deg</property>
+					</difference>
+				</abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/software/effector-att-reached-flag">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/rms/software/effector-att-error LT 0.01
+			</test>
+			<!--<test logic="AND" value="1.0">
+				systems/rms/software/effector-att-reached-flag == 0
+				systems/rms/software/effector-att-error LT 0.01
+			</test>
+			<test logic="AND" value="1.0">
+				systems/rms/software/effector-att-reached-flag == 1
+				systems/rms/software/effector-att-error LT 50.0
+			</test>-->
+		</switch>
+
+
+		<fcs_function name="systems/rms/software/auto-pitch-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-p</property>
+					<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+				</difference>
+				<!--<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>-->
+				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-yaw-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-y</property>
+					<property>systems/rms/sum-wrist-yaw-deg</property>
+				</difference>
+				<!--<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>-->
+				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-roll-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-att-r</property>
+					<property>systems/rms/ang-wrist-roll-deg</property>
+				</difference>
+				<!--<difference>
+					<value>1</value>
+					<property>systems/rms/software/effector-att-reached-flag</property>
+				</difference>-->
+				<value>0.2</value>
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		
+
+
+		<fcs_function name="systems/rms/software/auto-x-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-pos-x</property>
+					<property>systems/rms/effector-x</property>
+				</difference>
+				<value>2.0</value>
+				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-y-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-pos-y</property>
+					<property>systems/rms/effector-y</property>
+				</difference>
+				<value>2.0</value>
+				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/auto-z-cmd">
+		<function>
+			<min>
+			<max>
+			<product>
+				<difference>
+					<property>systems/rms/software/tgt-pos-z</property>
+					<property>systems/rms/effector-z</property>
+				</difference>
+				<value>2.0</value>
+				<!--<property>systems/rms/software/effector-att-reached-flag</property>-->
+				<property>systems/rms/rate-factor</property>
+				<property>systems/rms/auto-switch</property>
+			</product>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/software/effector-pos-error">
+		<function>
+			<sum>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-x</property>
+						<property>systems/rms/effector-x</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-y</property>
+						<property>systems/rms/effector-y</property>
+					</difference>
+				</abs>
+				<abs>
+					<difference>
+						<property>systems/rms/software/tgt-pos-z</property>
+						<property>systems/rms/effector-z</property>
+					</difference>
+				</abs>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/rms/software/effector-pos-reached-flag">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/rms/software/effector-pos-error LT 0.01
+			</test>
+		</switch>
+
+
+	</channel>
+
+	<!-- we need the reference point vector from effector to wrist for the automatic drive modes -->
+	<!-- we use the values from step n-1 as proxy for step n here instead of predicting it -->
+
+
+
+	<channel name="Reference point vector" execute="systems/rms/rms-active">
+
+		<!-- current vector between effector and wrist -->
+
+		<fcs_function name="systems/rms/ma/current-offset-x">
 		<function>
 			<difference>
 				<property>systems/rms/effector-x</property>
 				<property>systems/rms/wrist-x</property>
 			</difference>
 		</function>
-		</fcs_function>	
+		</fcs_function>
 
-		<fcs_function name="systems/rms/ma/offset-vec-y">
+		<fcs_function name="systems/rms/ma/current-offset-y">
 		<function>
 			<difference>
 				<property>systems/rms/effector-y</property>
 				<property>systems/rms/wrist-y</property>
 			</difference>
 		</function>
-		</fcs_function>	
+		</fcs_function>
 
-		<fcs_function name="systems/rms/ma/offset-vec-z">
+		<fcs_function name="systems/rms/ma/current-offset-z">
 		<function>
 			<difference>
 				<property>systems/rms/effector-z</property>
 				<property>systems/rms/wrist-z</property>
 			</difference>
 		</function>
-		</fcs_function>	-->
+		</fcs_function>
+		
+		<!-- targets then need to be computed based on desired effector pos -->
+
+		<!-- for this we need to make the 'orbit' of the wrist yaw joint available -->
+
+
+		<fcs_function name="systems/rms/ma/orbit-ta-rad">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<property>systems/rms/ang-shoulder-yaw-deg</property>
+			</difference>
+			<value>0.017452</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-ta-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/orbit-ta-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-inc-rad">
+		<function>
+			<product>
+				<sin>
+					<property>systems/rms/ma/orbit-ta-rad</property>
+				</sin>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/orbit-inc-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/orbit-inc-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+
+
+	</channel>
+
+
+	<channel name="RMS manual augmented ypr driving" execute="systems/rms/rms-active">
+
 
 		<!-- first determine the effector angle drive targets based on control inputs -->
 
 		<fcs_function name="systems/rms/ma/ref-pitch-subtracted">
 		<function>
 			<difference>
-				<property>systems/rms/sum-wrist-pitch-deg</property>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
 				<property>systems/rms/ma/drive-pitch</property>
 			</difference>
 		</function>
@@ -434,51 +730,72 @@
 
 		<switch name="systems/rms/ma/ref-pitch-sample-hold">
 			<default value="systems/rms/ma/ref-pitch-subtracted"/>
-			<test value="systems/rms/ma/ref-pitch-sample-hold">
+			<test logic="OR" value="systems/rms/ma/ref-pitch-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/ref-yaw-sample-hold">
 			<default value="systems/rms/ma/ref-yaw-subtracted"/>
-			<test value="systems/rms/ma/ref-yaw-sample-hold">
+			<test logic="OR" value="systems/rms/ma/ref-yaw-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/ref-roll-sample-hold">
 			<default value="systems/rms/ma/ref-roll-subtracted"/>
-			<test value="systems/rms/ma/ref-roll-sample-hold">
+			<test logic="OR" value="systems/rms/ma/ref-roll-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/effector-x-sample-hold">
 			<default value="systems/rms/effector-x"/>
-			<test value="systems/rms/ma/effector-x-sample-hold">
+			<test logic="OR" value="systems/rms/ma/effector-x-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/effector-y-sample-hold">
 			<default value="systems/rms/effector-y"/>
-			<test value="systems/rms/ma/effector-y-sample-hold">
+			<test logic="OR" value="systems/rms/ma/effector-y-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/effector-z-sample-hold">
 			<default value="systems/rms/effector-z"/>
-			<test value="systems/rms/ma/effector-z-sample-hold">
+			<test logic="OR" value="systems/rms/ma/effector-z-sample-hold">
 				systems/rms/drive-selection-mode == 3
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
+		<fcs_function name="systems/rms/ma/manual-yaw-cmd">
+		<function>
+			<product>
+				<property>fcs/rudder-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+		
+
 		<switch name="systems/rms/ma/yaw-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/rudder-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-yaw-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-yaw-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -491,11 +808,25 @@
 		<output>systems/rms/ma/yaw-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-pitch-cmd">
+		<function>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/pitch-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/elevator-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-pitch-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-pitch-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -508,11 +839,25 @@
 		<output>systems/rms/ma/pitch-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-roll-cmd">
+		<function>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/roll-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/aileron-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-roll-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-roll-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -583,7 +928,7 @@
 		<!-- knowing the angles of the wrist, we can go back and determine position -->
 		<!-- of the reference point keeping the effector at rest -->
 
-		<fcs_function name="systems/rms/ma/ref-point-ypr-x">
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-x1">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-x-sample-hold</property>
@@ -604,9 +949,37 @@
 				</product>
 			</difference>
 		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-x">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-x-sample-hold</property>
+				<property>systems/rms/ma/current-offset-x</property>
+			</difference>
+		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/rms/ma/ref-point-ypr-y">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-y-sample-hold</property>
+				<property>systems/rms/ma/current-offset-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-z-sample-hold</property>
+				<property>systems/rms/ma/current-offset-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+		
+
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-y1">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-y-sample-hold</property>
@@ -627,9 +1000,37 @@
 				</product>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
-		<fcs_function name="systems/rms/ma/ref-point-ypr-z">
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-z1">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-z-sample-hold</property>
+				<product>
+					<value>-1</value>
+					<pow>
+						<sum>
+							<value>2.756</value>
+							<product>
+								<value>2.4424</value> 
+								<cos>
+								<difference>
+								<property>systems/rms/ma/effector-yaw-rad</property>
+								<property>systems/rms/ang-shoulder-yaw-rad</property>
+								</difference>
+								</cos>
+							</product>
+						</sum>
+						<value>0.5</value>
+					</pow>
+					<sin><property>systems/rms/ma/effector-pitch-rad</property></sin>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>-->
+
+
+		<!--<fcs_function name="systems/rms/ma/ref-point-ypr-z">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-z-sample-hold</property>
@@ -647,25 +1048,115 @@
 				</product>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
-		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
-		<function>
-			<difference>
-				<property>systems/rms/ma/effector-pitch-deg</property>
-				<property>systems/rms/sum-ellbow-pitch-deg</property>
-			</difference>
-		</function>
-		</fcs_function>
+		<!-- effector pitch and yaw degree are targets -->
+		<!-- the actual joint angle targets depend on the 'orbit' we're in -->
+		<!-- need to compute joint targets as local deltas -->
 
-	        <fcs_function name="systems/rms/ma/target-yaw-wrist-ypr-deg">
-		<function>
+		<!--<fcs_function name="systems/rms/ma/ypr-orbit-ta-rad">
+		<function>	
+			<product>
 			<difference>
 				<property>systems/rms/ma/effector-yaw-deg</property>
 				<property>systems/rms/ang-shoulder-yaw-deg</property>
 			</difference>
+			<value>0.017452</value>
+			</product>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-ta-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/ypr-orbit-ta-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-inc-rad">
+		<function>
+			<product>
+				<sin>
+					<property>systems/rms/ma/ypr-orbit-ta-rad</property>
+				</sin>
+				<property>systems/rms/sum-wrist-pitch-rad</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ypr-orbit-inc-deg">
+		<function>	
+			<product>
+			<property>systems/rms/ma/ypr-orbit-inc-rad</property>
+			<value>57.29</value>
+			</product>
+		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/ma/ypr-pitch-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-pitch-deg</property>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>-->
+
+		<fcs_function name="systems/rms/ma/ypr-yaw-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-deg</property>
+				<property>systems/rms/sum-wrist-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/rms/ma/target-pitch-wrist-ypr-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+				<product>
+					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+				</product>
+				<product>
+					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+				
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-yaw-wrist-ypr-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+				<product>
+					<property>systems/rms/ma/ypr-yaw-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/ypr-pitch-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+
+		
 
 	        <fcs_function name="systems/rms/ma/target-roll-wrist-ypr-deg">
 		<function>
@@ -711,47 +1202,117 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/rms/ma/ref-eff-x-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-x</property>
+				<property>systems/rms/ma/drive-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-eff-y-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-y</property>
+				<property>systems/rms/ma/drive-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/ref-eff-z-subtracted">
+		<function>
+			<difference>
+				<property>systems/rms/effector-z</property>
+				<property>systems/rms/ma/drive-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/reference-point-x-sample-hold">
 			<default value="systems/rms/ma/ref-x-subtracted"/>
-			<test value="systems/rms/ma/reference-point-x-sample-hold">
+			<test logic="OR" value="systems/rms/ma/reference-point-x-sample-hold">
 				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/reference-point-y-sample-hold">
 			<default value="systems/rms/ma/ref-y-subtracted"/>
-			<test value="systems/rms/ma/reference-point-y-sample-hold">
+			<test logic="OR" value="systems/rms/ma/reference-point-y-sample-hold">
 				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/reference-point-z-sample-hold">
 			<default value="systems/rms/ma/ref-z-subtracted"/>
-			<test value="systems/rms/ma/reference-point-z-sample-hold">
+			<test logic="OR" value="systems/rms/ma/reference-point-z-sample-hold">
 				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-eff-x-sample-hold">
+			<default value="systems/rms/ma/ref-eff-x-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-x-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-eff-y-sample-hold">
+			<default value="systems/rms/ma/ref-eff-y-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-y-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
+			</test>
+		</switch>
+
+		<switch name="systems/rms/ma/reference-eff-z-sample-hold">
+			<default value="systems/rms/ma/ref-eff-z-subtracted"/>
+			<test logic="OR" value="systems/rms/ma/reference-eff-z-sample-hold">
+				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
 			</test>
 		</switch>
 
 
 		<switch name="systems/rms/ma/effector-pitch-target-sample-hold">
-			<default value="systems/rms/sum-wrist-pitch-deg"/>
-			<test value="systems/rms/ma/effector-pitch-target-sample-hold">
+			<default value="systems/rms/sum-wrist-yaw-pitch-deg"/>
+			<test logic="OR" value="systems/rms/ma/effector-pitch-target-sample-hold">
 				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/effector-yaw-target-sample-hold">
 			<default value="systems/rms/sum-wrist-yaw-deg"/>
-			<test value="systems/rms/ma/effector-yaw-target-sample-hold">
+			<test logic="OR" value="systems/rms/ma/effector-yaw-target-sample-hold">
 				systems/rms/drive-selection-mode == 2
+				systems/rms/drive-selection-mode == 4
 			</test>
 		</switch>
 
+		<fcs_function name="systems/rms/ma/manual-x-cmd">
+		<function>
+			<product>
+				<property>fcs/rudder-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/x-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="-fcs/rudder-cmd-norm">
+			<test logic="AND" value="-systems/rms/ma/manual-x-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-x-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -764,11 +1325,25 @@
 		<output>systems/rms/ma/x-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-y-cmd">
+		<function>
+			<product>
+				<property>fcs/aileron-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/y-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="-fcs/aileron-cmd-norm">
+			<test logic="AND" value="-systems/rms/ma/manual-y-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-y-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -781,11 +1356,25 @@
 		<output>systems/rms/ma/y-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/manual-z-cmd">
+		<function>
+			<product>
+				<property>fcs/elevator-cmd-norm</property>
+				<property>systems/rms/rate-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/rms/ma/z-rate">
 			<default value="0.0"/>
-			<test logic="AND" value="fcs/elevator-cmd-norm">
+			<test logic="AND" value="systems/rms/ma/manual-z-cmd">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
+				systems/rms/soft-stop == 0
+			</test>
+			<test logic="AND" value="systems/rms/software/auto-z-cmd">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
 				systems/rms/soft-stop == 0
 			</test>
 		</switch>
@@ -798,10 +1387,57 @@
 		<output>systems/rms/ma/z-test</output>
 		</pid>
 
+		<fcs_function name="systems/rms/ma/eff-delta-x">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-x-sample-hold</property>
+					<property>systems/rms/ma/drive-x</property>
+				</sum>
+				<property>systems/rms/effector-x</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/eff-delta-y">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-y-sample-hold</property>
+					<property>systems/rms/ma/drive-y</property>
+				</sum>
+				<property>systems/rms/effector-y</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/eff-delta-z">
+		<function>
+			<difference>
+				<sum>
+					<property>systems/rms/ma/reference-eff-z-sample-hold</property>
+					<property>systems/rms/ma/drive-z</property>
+				</sum>
+				<property>systems/rms/effector-z</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/aa-diagnostics-eff-tgt-x">
+		<function>
+				<sum>
+					<property>systems/rms/ma/reference-eff-x-sample-hold</property>
+					<property>systems/rms/ma/drive-x</property>
+				</sum>
+		</function>
+		</fcs_function>
+
+
 		<fcs_function name="systems/rms/ma/ref-point-xyz-x">
 		<function>
 			<sum>
 				<property>systems/rms/ma/drive-x</property>
+				<property>systems/rms/ma/eff-delta-x</property>
 				<property>systems/rms/ma/reference-point-x-sample-hold</property>
 			</sum>
 		</function>
@@ -811,6 +1447,7 @@
 		<function>
 			<sum>
 				<property>systems/rms/ma/drive-y</property>
+				<property>systems/rms/ma/eff-delta-y</property>
 				<property>systems/rms/ma/reference-point-y-sample-hold</property>
 			</sum>
 		</function>
@@ -820,12 +1457,75 @@
 		<function>
 			<sum>
 				<property>systems/rms/ma/reference-point-z-sample-hold</property>
+				<property>systems/rms/ma/eff-delta-z</property>
 				<property>systems/rms/ma/drive-z</property>
 			</sum>
 		</function>
 		</fcs_function>
 
+	
+
+
+		<fcs_function name="systems/rms/ma/xyz-pitch-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-pitch-target-sample-hold</property>
+				<property>systems/rms/sum-wrist-yaw-pitch-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/xyz-yaw-delta-deg">
+		<function>
+			<difference>
+				<property>systems/rms/ma/effector-yaw-target-sample-hold</property>
+				<property>systems/rms/sum-wrist-yaw-deg</property>
+			</difference>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-pitch-deg</property>
+				<product>
+					<property>systems/rms/ma/xyz-pitch-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+				</product>
+				<product>
+					<property>systems/rms/ma/xyz-yaw-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+				
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/ma/target-yaw-wrist-xyz-deg">
+		<function>
+			<sum>
+				<property>systems/rms/ang-wrist-yaw-deg</property>
+				<product>
+					<property>systems/rms/ma/xyz-yaw-delta-deg</property>
+					<cos>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</cos>
+					</product>
+					<product>
+					<property>systems/rms/ma/xyz-pitch-delta-deg</property>
+					<sin>
+						<property>systems/rms/ma/orbit-inc-rad</property>
+					</sin>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<!--<fcs_function name="systems/rms/ma/target-pitch-wrist-xyz-deg">
 		<function>
 			<difference>
 				<property>systems/rms/ma/effector-pitch-target-sample-hold</property>
@@ -844,7 +1544,7 @@
 				<property>systems/rms/ma/target-yaw-shoulder-deg</property>
 			</difference>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 	        <fcs_function name="systems/rms/ma/target-roll-wrist-xyz-deg">
 		<function>
@@ -863,38 +1563,62 @@
 
 		<switch name="systems/rms/ma/reference-point-x">
 			<default value="systems/rms/wrist-x"/>
-			<test value="systems/rms/ma/ref-point-xyz-x">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-x">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/ref-point-ypr-x">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-x">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-x">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-x">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/reference-point-y">
 			<default value="systems/rms/wrist-y"/>
-			<test value="systems/rms/ma/ref-point-xyz-y">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-y">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/ref-point-ypr-y">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-y">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-y">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-y">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 
 		<switch name="systems/rms/ma/reference-point-z">
 			<default value="systems/rms/wrist-z"/>
-			<test value="systems/rms/ma/ref-point-xyz-z">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-z">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/ref-point-ypr-z">
+			<test logic="AND" value="systems/rms/ma/ref-point-xyz-z">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-z">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ref-point-ypr-z">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -928,10 +1652,16 @@
 				<value>2.0</value>
 				<value>57.297</value>
 				<asin>
+					<max>
+					<min>
 					<quotient>
 						<property>systems/rms/ma/reference-point-L</property>
 						<value>12.5</value>
 					</quotient>
+					<value>1.0</value>
+					</min>
+					<value>-1.0</value>
+					</max>
 				</asin>
 			</product>
 			</difference>
@@ -943,6 +1673,8 @@
 			<sum>
 				<product>
 				<asin>
+					<max>
+					<min>
 					<quotient>
 						<product>
 						<property>systems/rms/ma/reference-point-z</property>
@@ -950,6 +1682,10 @@
 						</product>
 						<property>systems/rms/ma/reference-point-L</property>
 					</quotient>
+					<value>1.0</value>
+					</min>
+					<value>-1.0</value>
+					</max>
 				</asin>
 				<value>57.297</value>
 				</product>
@@ -975,37 +1711,61 @@
 
 		<switch name="systems/rms/ma/target-yaw-wrist-deg">
 			<default value="systems/rms/ang-wrist-yaw-deg"/>
-			<test value="systems/rms/ma/target-yaw-wrist-xyz-deg">
+			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/target-yaw-wrist-ypr-deg">
+			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-yaw-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/target-pitch-wrist-deg">
 			<default value="systems/rms/ang-wrist-pitch-deg"/>
-			<test value="systems/rms/ma/target-pitch-wrist-xyz-deg">
+			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/target-pitch-wrist-ypr-deg">
+			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-pitch-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
 		<switch name="systems/rms/ma/target-roll-wrist-deg">
 			<default value="systems/rms/ang-wrist-roll-deg"/>
-			<test value="systems/rms/ma/target-roll-wrist-xyz-deg">
+			<test logic="AND" value="systems/rms/ma/target-roll-wrist-xyz-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 2
 			</test>
-			<test value="systems/rms/ma/target-roll-wrist-ypr-deg">
+			<test logic="AND" value="systems/rms/ma/target-roll-wrist-xyz-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-roll-wrist-ypr-deg">
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/target-roll-wrist-ypr-deg">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -1024,10 +1784,10 @@
 
 		<pure_gain name="systems/rms/ma/shoulder-yaw-rate-xyz">
 		<input>systems/rms/ma/shoulder-yaw-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
-			<min>-1.0</min>
-			<max>1.0</max>
+			<min>-10.0</min>
+			<max>10.0</max>
 		</clipto>
 		</pure_gain>
 
@@ -1042,10 +1802,10 @@
 
 		<pure_gain name="systems/rms/ma/shoulder-pitch-rate-xyz">
 		<input>systems/rms/ma/shoulder-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
-			<min>-0.5</min>
-			<max>0.5</max>
+			<min>-5.0</min>
+			<max>5.0</max>
 		</clipto>
 		</pure_gain>
 
@@ -1060,10 +1820,10 @@
 
 		<pure_gain name="systems/rms/ma/ellbow-pitch-rate-xyz">
 		<input>systems/rms/ma/ellbow-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
-			<min>-1.0</min>
-			<max>1.0</max>
+			<min>-10.0</min>
+			<max>10.0</max>
 		</clipto>
 		</pure_gain>
 
@@ -1078,10 +1838,10 @@
 
 		<pure_gain name="systems/rms/ma/wrist-pitch-rate-xyz">
 		<input>systems/rms/ma/wrist-pitch-error</input>
-		<gain>-2.0</gain>
+		<gain>-20.0</gain>
 		<clipto>
-			<min>-0.5</min>
-			<max>0.5</max>
+			<min>-5.0</min>
+			<max>5.0</max>
 		</clipto>
 		</pure_gain>
 
@@ -1096,10 +1856,10 @@
 
 		<pure_gain name="systems/rms/ma/wrist-yaw-rate-xyz">
 		<input>systems/rms/ma/wrist-yaw-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
-			<min>-1.0</min>
-			<max>1.0</max>
+			<min>-10.0</min>
+			<max>10.0</max>
 		</clipto>
 		</pure_gain>
 
@@ -1114,7 +1874,7 @@
 
 		<pure_gain name="systems/rms/ma/wrist-roll-rate-xyz">
 		<input>systems/rms/ma/wrist-roll-error</input>
-		<gain>1.0</gain>
+		<gain>10.0</gain>
 		<clipto>
 			<min>-1.0</min>
 			<max>1.0</max>
@@ -1144,6 +1904,7 @@
 				systems/rms/rms-veto == 1
 				accelerations/a-pilot-ft_sec2 LT 10.0
 				systems/rms/rms-brake-switch == 0
+				systems/rms/software/autobrake-check == 0
 				systems/rms/rms-save-switch == 0
 				systems/mechanical/pb-door-indicator == 1
 			</test>
@@ -1169,7 +1930,16 @@
 			</test>
 			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
+
 			</test>
 		</switch>
 
@@ -1204,7 +1974,15 @@
 			</test>
 			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/shoulder-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -1239,7 +2017,15 @@
 			</test>
 			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/ellbow-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -1274,7 +2060,15 @@
 			</test>
 			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
 				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-pitch-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -1309,7 +2103,15 @@
 			</test>
 			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
 				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 4
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
+			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-yaw-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
 			</test>
 		</switch>
 
@@ -1340,6 +2142,11 @@
 				systems/rms/rms-drivable == 1
 				systems/rms/drive-selection-mode == 3
 			</test>
+			<test logic="AND" value="systems/rms/ma/wrist-roll-rate-xyz">
+				systems/rms/rms-drivable == 1
+				systems/rms/drive-selection-mode == 5
+			</test>
+
 		</switch>
 
 		<pid name="systems/rms/wrist-roll-angle-direct">
@@ -1489,6 +2296,9 @@
 
 		<switch name="systems/rms/soft-stop">
 			<default value="0.0"/>
+			<test value="0.0">
+				systems/rms/software/soft-stop-enable EQ 0.0
+			</test>
 			<test logic="OR" value="1.0">
 				systems/rms/ang-shoulder-yaw-deg GT  177.4
 				systems/rms/ang-shoulder-yaw-deg LT -177.4
@@ -1693,14 +2503,14 @@
 				<sin>
 					<property>systems/rms/ang-wrist-yaw-rad</property>
 				</sin>
-			<product>
-				<cos>
-					<property>systems/rms/ang-wrist-yaw-rad</property>
-				</cos>
-				<cos>
-					<property>systems/rms/sum-wrist-pitch-rad</property>
-				</cos>
-			</product>
+				<product>
+					<cos>
+						<property>systems/rms/ang-wrist-yaw-rad</property>
+					</cos>
+					<cos>
+						<property>systems/rms/sum-wrist-pitch-rad</property>
+					</cos>
+				</product>
 			</atan2>
 				<property>systems/rms/ang-shoulder-yaw-rad</property>
 			</sum>
@@ -1719,6 +2529,8 @@
 		<fcs_function name="systems/rms/sum-wrist-yaw-pitch-rad">
 		<function>
 			<asin>
+				<max>
+				<min>
 				<product>
 					<cos>	
 						<property>systems/rms/ang-wrist-yaw-rad</property>
@@ -1727,6 +2539,10 @@
 						<property>systems/rms/sum-wrist-pitch-rad</property>
 					</sin>
 				</product>
+				<value>1.0</value>
+				</min>
+				<value>-1.0</value>
+				</max>
 			</asin>
 		</function>
 		</fcs_function>
@@ -2047,6 +2863,142 @@
 				systems/rms/effector-attached == 0
 			</test>
 		</switch>
+
+	</channel>
+
+	<channel name="RMS Thermal protection">
+
+		<switch name="systems/rms/thermal/heater-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/thermal/port-heater-A-switch == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/thermal/heater-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/rms/thermal/port-heater-B-switch == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
+		<switch name="systems/rms/thermal/heaters-operational">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/rms/thermal/heater-A-operational == 1
+				systems/rms/thermal/heater-B-operational == 1
+			</test>
+		</switch>
+
+		<summer name="systems/rms/thermal/number-heaters-operational">
+			<input>systems/rms/thermal/heater-A-operational</input>
+			<input>systems/rms/thermal/heater-B-operational</input>
+		</summer>
+
+		
+
+		<fcs_function name="systems/rms/thermal/heating-power-consumption-kW">
+		<function>
+		<table>
+        		<independentVar lookup="row">systems/thermal-distribution/payload-bay-temperature-K</independentVar>
+        		<tableData>
+          	 		230.0	0.525
+				250.0	0.400
+				270.0	0.100
+				277.0	0.000
+        		</tableData>
+      		</table>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/heater-A-power-demand-kW">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/rms/thermal/heater-A-operational</property>
+					<property>systems/rms/thermal/heating-power-consumption-kW</property>
+				</product>
+				<max>
+					<property>systems/rms/thermal/number-heaters-operational</property>
+					<value>1.0</value>
+				</max>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/heater-B-power-demand-kW">
+		<function>
+			<quotient>
+				<product>
+					<property>systems/rms/thermal/heater-B-operational</property>
+					<property>systems/rms/thermal/heating-power-consumption-kW</property>
+				</product>
+				<max>
+					<property>systems/rms/thermal/number-heaters-operational</property>
+					<value>1.0</value>
+				</max>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/rms/thermal/heater-transit">
+			<input>systems/rms/thermal/heaters-operational</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>120.0</time>
+				</setting>
+			</traverse>
+		</kinematic> 
+
+		<fcs_function name="systems/rms/thermal/effector-temp-K">		
+		<function>
+			<sum>
+				<product>
+					<property>systems/rms/thermal/heater-transit</property>
+					<max>
+						<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+						<value>277.0</value>
+					</max>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/rms/thermal/heater-transit</property>
+					</difference>
+					<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rms/thermal/joint-temp-K">		
+		<function>
+			<sum>
+				<product>
+					<property>systems/rms/thermal/heater-transit</property>
+					<max>
+						<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+						<value>269.0</value>
+					</max>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/rms/thermal/heater-transit</property>
+					</difference>
+					<property>systems/thermal-distribution/payload-bay-temperature-K</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
 
 	</channel>
 

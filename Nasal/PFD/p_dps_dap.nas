@@ -21,6 +21,9 @@ var PFD_addpage_p_dps_dap = func(device)
     
     p_dps_dap.dap_a_desig_bright = device.svg.getElementById("p_dps_dap_dap_a_desig_bright");
     p_dps_dap.dap_b_desig_bright = device.svg.getElementById("p_dps_dap_dap_b_desig_bright");
+
+    p_dps_dap.dap_a_desig = device.svg.getElementById("p_dps_dap_dap_a_desig");
+    p_dps_dap.dap_b_desig = device.svg.getElementById("p_dps_dap_dap_b_desig");
     
     p_dps_dap.a_rot_rate = device.svg.getElementById("p_dps_dap_a_rot_rate");
     p_dps_dap.b_rot_rate = device.svg.getElementById("p_dps_dap_b_rot_rate");
@@ -232,35 +235,50 @@ var PFD_addpage_p_dps_dap = func(device)
         p_dps_dap.a_n_jets.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/spec20/dap-A-ALT-n-jets")));
         p_dps_dap.b_n_jets.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/ap/spec20/dap-B-ALT-n-jets")));
     
-        var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-    
-        if ((control_mode == 20) or (control_mode == 21))
+        #var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+	var selected_dap = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select");
+	var selected_jets = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select");
+
+        if (selected_jets == 0)
     	{
-            p_dps_dap.label1a.setText(sprintf("PRI" )); 
-            p_dps_dap.label2a.setText(sprintf("" )); 
-            p_dps_dap.label3a.setText(sprintf("" ));
+	 
+	   p_dps_dap.label1.setColor(0.8, 0.8, 0.4);
+	   p_dps_dap.label2.setColor(dps_r, dps_g, dps_b);
+	   p_dps_dap.label3.setColor(dps_r, dps_g, dps_b);
+           # p_dps_dap.label1a.setText(sprintf("PRI" )); 
+           # p_dps_dap.label2a.setText(sprintf("" )); 
+           # p_dps_dap.label3a.setText(sprintf("" ));
     	}
         else
     	{
-            p_dps_dap.label1a.setText(sprintf("" )); 
-            p_dps_dap.label2a.setText(sprintf("" )); 
-            p_dps_dap.label3a.setText(sprintf("VERN" ));
+	   p_dps_dap.label1.setColor(dps_r, dps_g, dps_b);
+	   p_dps_dap.label2.setColor(dps_r, dps_g, dps_b);
+	   p_dps_dap.label3.setColor(0.8, 0.8, 0.4);
+           # p_dps_dap.label1a.setText(sprintf("" )); 
+           # p_dps_dap.label2a.setText(sprintf("" )); 
+           # p_dps_dap.label3a.setText(sprintf("VERN" ));
     	} 
     
-        if ((control_mode == 20) or (control_mode == 25))
+        if (selected_dap == 0)
     	{
-            p_dps_dap.dap_a_desig_bright.setText(sprintf("DAP A01" )); 
-            p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
+	    p_dps_dap.dap_a_desig.setColor(0.8, 0.8, 0.4);
+	    p_dps_dap.dap_b_desig.setColor(dps_r, dps_g, dps_b);
+           # p_dps_dap.dap_a_desig_bright.setText(sprintf("DAP A01" )); 
+           # p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
     	}
-        else if ((control_mode == 21) or (control_mode == 30))
+        else if (selected_dap == 1)
     	{
-            p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
-            p_dps_dap.dap_b_desig_bright.setText(sprintf("DAP B01" )); 
+	    p_dps_dap.dap_a_desig.setColor(dps_r, dps_g, dps_b);
+	    p_dps_dap.dap_b_desig.setColor(0.8, 0.8, 0.4);
+           # p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
+           # p_dps_dap.dap_b_desig_bright.setText(sprintf("DAP B01" )); 
     	}
         else
     	{
-            p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
-            p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
+	    p_dps_dap.dap_a_desig.setColor(dps_r, dps_g, dps_b);
+	    p_dps_dap.dap_b_desig.setColor(dps_r, dps_g, dps_b);
+            #p_dps_dap.dap_a_desig_bright.setText(sprintf("" )); 
+            #p_dps_dap.dap_b_desig_bright.setText(sprintf("" )); 
     	}
     
         device.update_common_DPS();

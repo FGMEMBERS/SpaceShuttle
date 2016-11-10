@@ -15,6 +15,11 @@
   <roll-deg>-90</roll-deg>
 </offsets>  
 
+<effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/srb-left</inherits-from>
+    <object-name>srb.layer1</object-name>
+ </effect>
+
 <animation>
 <type>select</type>
 <object-name>srb</object-name>
@@ -35,6 +40,23 @@
 		 <pitch-deg>180</pitch-deg>
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
+  </model>
+
+<model>
+   <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame_near.xml</path>
+    <offsets>
+		 <x-m>-22.5</x-m>
+		 <y-m>0</y-m>
+		 <z-m>0</z-m>
+		 <pitch-deg>180</pitch-deg>
+		 <roll-deg>0</roll-deg>
+	 </offsets>
+	<condition>
+  	<greater-than>
+		<property>/fdm/jsbsim/systems/various/srb-flame-alpha</property>
+		<value>0.0</value>
+   	</greater-than>
+	</condition>	
   </model>
 
  <model>
