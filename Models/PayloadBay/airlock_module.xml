@@ -8,17 +8,17 @@
   <animation>
     	<type>material</type>
    	<emission>
-      		<factor-prop>/sim/systems/various/payload-bay-flood-intensity</factor-prop>
-      		<red>   0.2 </red>
-      		<green> 0.2 </green>
-		<blue>  0.2 </blue>
+      		<factor-prop>/fdm/jsbsim/systems/light/airlock-flood-intensity</factor-prop>
+      		<red>   0.45 </red>
+      		<green> 0.45 </green>
+		<blue>  0.45 </blue>
     	</emission>
   </animation>
 
  
    <effect>
 	    <inherits-from>Effects/space</inherits-from>
-	    <object-name>rspaceshutt_spstob_eal</object-name>
+	    <object-name>spaceshutt_spstob_eal</object-name>
   </effect>
 
 </PropertyList>

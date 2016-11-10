@@ -153,7 +153,10 @@
           </binding>
 	  <binding>
 		<command>nasal</command>
-		<script>setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",0);</script>
+		<script>
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg",0);
+ 		</script>
 	  </binding>
         </checkbox>
 
@@ -169,7 +172,10 @@
           </binding>
 	  <binding>
 		<command>nasal</command>
-		<script>setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",0);</script>
+		<script>	
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg",0);
+		</script>
 	  </binding>
         </checkbox>
 
@@ -185,7 +191,10 @@
           </binding>
 	  <binding>
 		<command>nasal</command>
-		<script>setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",0);</script>
+		<script>
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",-1);
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg",0);
+		</script>
 	  </binding>
         </checkbox>
 
@@ -478,36 +487,63 @@
         <name>hyd1-circ</name>
  	<row>12</row>
         <col>1</col>
-          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd</property>
+          <property>/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg</property>
           <live>true</live>
  	  <binding>
               <command>dialog-apply</command>
               <object-name>hyd1-circ</object-name>
           </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>
+			var selection = getprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg");
+			var cmd = 0;			
+			if (selection == 0) {cmd = -1;}
+			setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd",cmd);
+ 		</script>
+	  </binding>
         </checkbox>
 
     <checkbox>
         <name>hyd2-circ</name>
  	<row>12</row>
         <col>2</col>
-          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd</property>
+          <property>/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg</property>
           <live>true</live>
  	  <binding>
               <command>dialog-apply</command>
               <object-name>hyd2-circ</object-name>
           </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>
+			var selection = getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg");
+			var cmd = 0;			
+			if (selection == 0) {cmd = -1;}
+			setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd",cmd);
+ 		</script>
+	  </binding>
         </checkbox>
 
     <checkbox>
         <name>hyd3-circ</name>
  	<row>12</row>
         <col>3</col>
-          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd</property>
+          <property>/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg</property>
           <live>true</live>
  	  <binding>
               <command>dialog-apply</command>
               <object-name>hyd3-circ</object-name>
           </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>
+			var selection = getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg");
+			var cmd = 0;			
+			if (selection == 0) {cmd = -1;}
+			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd",cmd);
+ 		</script>
+	  </binding>
         </checkbox>
 
 

@@ -94,6 +94,7 @@
 		 <value>ascent single engine failure</value>
 		 <value>ascent single engine lockup</value>
 		 <value>off attitude</value>
+		 <value>RCS failure</value>
 		 <value>hydraulic failure</value>
 		 <value>stuck speedbrake</value>
 		 <value>burst tire</value>
@@ -139,7 +140,7 @@
 	</empty>
 
 	<button>
-		<legend>Close</legend>
+		<legend>Okay</legend>
 		<default>true</default>
 		<key>Esc</key>
 		<binding>

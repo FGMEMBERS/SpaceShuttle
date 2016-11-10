@@ -3,6 +3,10 @@
   
    <path>SSME.ac</path>
       
+ <effect>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
+	<object-name>SSME</object-name>
+ </effect>
 
 
 <offsets>

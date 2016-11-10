@@ -4,9 +4,11 @@
 var inspection_group  = 0;
 
 var cws_message_array = [];
+
 var cws_message_array_long = ["","","","","","","","","","","","","","",""];
 
 var cws_last_message_acknowledge = 0;
+var meds_last_message_acknowledge = 0;
 
 # the message hash stores the information what faults have already been announced
 
@@ -20,6 +22,12 @@ acvolt : 0,
 };
 
 
+var meds_msg_hash = {
+io : [0,0,0,0,0,0,0,0,0],
+port_change: [0,0,0,0,0,0,0,0,0],
+poll: [0,0,0,0],
+};
+
 var cws_inspect = func {
 
 if (inspection_group == 0) 
@@ -29,7 +37,7 @@ if (inspection_group == 0)
 if (inspection_group == 1) 
 	{cws_inspect_left_rcs_thrusters();}
 
-if (inspection_group == 1) 
+if (inspection_group == 2) 
 	{cws_inspect_right_rcs_thrusters();}
 
 if (inspection_group == 3)
@@ -37,6 +45,9 @@ if (inspection_group == 3)
 
 if (inspection_group == 4)
 	{cws_inspect_fc_electric();}
+
+if (inspection_group == 5)
+	{meds_inspect();}
 
 
 inspection_group = inspection_group + 1;
@@ -63,22 +74,22 @@ if (f1f + f1l + f1u + f1d < 4.0) # we have a manifold 1 fail off condition
 
 	if ((f1f < 1.0) and (cws_msg_hash.f1f == 0))
 		{
-		create_fault_message("    F RCS F JET", 1, 2);
+		create_fault_message("G23 F RCS F JET", 1, 2);
 		cws_msg_hash.f1f = 1;
 		}
 	if ((f1l < 1.0) and (cws_msg_hash.f1l == 0))
 		{
-		create_fault_message("    F RCS L JET", 1, 2);
+		create_fault_message("G23 F RCS L JET", 1, 2);
 		cws_msg_hash.f1l = 1;
 		}
 	if ((f1u < 1.0) and (cws_msg_hash.f1u == 0))
 		{
-		create_fault_message("    F RCS U JET", 1, 2);
+		create_fault_message("G23 F RCS U JET", 1, 2);
 		cws_msg_hash.f1u = 1;
 		}
 	if ((f1d < 1.0) and (cws_msg_hash.f1d == 0))
 		{
-		create_fault_message("    F RCS D JET", 1, 2);
+		create_fault_message("G23 F RCS D JET", 1, 2);
 		cws_msg_hash.f1d = 1;
 		}
 	}
@@ -88,22 +99,22 @@ else if (f1f + f1l + f1u + f1d > 4.0) # we have a manifold 1 fail on condition
 
 	if ((f1f > 1.0) and (cws_msg_hash.f1f == 0))
 		{
-		create_fault_message("    F RCS F JET", 1, 2);
+		create_fault_message("G23 F RCS F JET", 1, 2);
 		cws_msg_hash.f1f = 1;
 		}
 	if ((f1l > 1.0) and (cws_msg_hash.f1l == 0))
 		{
-		create_fault_message("    F RCS L JET", 1, 2);
+		create_fault_message("G23 F RCS L JET", 1, 2);
 		cws_msg_hash.f1l = 1;
 		}
 	if ((f1u > 1.0) and (cws_msg_hash.f1u == 0))
 		{
-		create_fault_message("    F RCS U JET", 1, 2);
+		create_fault_message("G23 F RCS U JET", 1, 2);
 		cws_msg_hash.f1u = 1;
 		}
 	if ((f1d > 1.0) and (cws_msg_hash.f1d == 0))
 		{
-		create_fault_message("    F RCS D JET", 1, 2);
+		create_fault_message("G23 F RCS D JET", 1, 2);
 		cws_msg_hash.f1d = 1;
 		}
 
@@ -123,22 +134,47 @@ if (f2f + f2r + f2u + f2d < 4.0) # we have a manifold 2 fail off condition
 
 	if ((f2f < 1.0) and (cws_msg_hash.f2f == 0))
 		{
-		create_fault_message("    F RCS F JET", 1, 2);
+		create_fault_message("G23 F RCS F JET", 1, 2);
 		cws_msg_hash.f2f = 1;
 		}
 	if ((f2r < 1.0) and (cws_msg_hash.f2r == 0))
 		{
-		create_fault_message("    F RCS R JET", 1, 2);
+		create_fault_message("G23 F RCS R JET", 1, 2);
 		cws_msg_hash.f2r = 1;
 		}
 	if ((f2u < 1.0) and (cws_msg_hash.f2u == 0))
 		{
-		create_fault_message("    F RCS U JET", 1, 2);
+		create_fault_message("G23 F RCS U JET", 1, 2);
 		cws_msg_hash.f2u = 1;
 		}
 	if ((f2d < 1.0) and (cws_msg_hash.f2d == 0))
 		{
-		create_fault_message("    F RCS D JET", 1, 2);
+		create_fault_message("G23 F RCS D JET", 1, 2);
+		cws_msg_hash.f2d = 1;
+		}
+	}
+else if (f2f + f2r + f2u + f2d > 4.0) # we have a manifold 2 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f2", 2);
+
+	if ((f2f > 1.0) and (cws_msg_hash.f2f == 0))
+		{
+		create_fault_message("G23 F RCS F JET", 1, 2);
+		cws_msg_hash.f2f = 1;
+		}
+	if ((f2r > 1.0) and (cws_msg_hash.f2r == 0))
+		{
+		create_fault_message("G23 F RCS R JET", 1, 2);
+		cws_msg_hash.f2r = 1;
+		}
+	if ((f2u > 1.0) and (cws_msg_hash.f2u == 0))
+		{
+		create_fault_message("G23 F RCS U JET", 1, 2);
+		cws_msg_hash.f2u = 1;
+		}
+	if ((f2d > 1.0) and (cws_msg_hash.f2d == 0))
+		{
+		create_fault_message("G23 F RCS D JET", 1, 2);
 		cws_msg_hash.f2d = 1;
 		}
 	}
@@ -156,22 +192,47 @@ if (f3f + f3l + f3u + f3d < 4.0) # we have a manifold 3 fail off condition
 
 	if ((f3f < 1.0) and (cws_msg_hash.f3f == 0))
 		{
-		create_fault_message("    F RCS F JET", 1, 2);
+		create_fault_message("G23 F RCS F JET", 1, 2);
 		cws_msg_hash.f3f = 1;
 		}
 	if ((f3l < 1.0) and (cws_msg_hash.f3l == 0))
 		{
-		create_fault_message("    F RCS L JET", 1, 2);
+		create_fault_message("G23 F RCS L JET", 1, 2);
 		cws_msg_hash.f3l = 1;
 		}
 	if ((f3u < 1.0) and (cws_msg_hash.f3u == 0))
 		{
-		create_fault_message("    F RCS U JET", 1, 2);
+		create_fault_message("G23 F RCS U JET", 1, 2);
 		cws_msg_hash.f3u = 1;
 		}
 	if ((f3d < 1.0) and (cws_msg_hash.f3d == 0))
 		{
-		create_fault_message("    F RCS D JET", 1, 2);
+		create_fault_message("G23 F RCS D JET", 1, 2);
+		cws_msg_hash.f3d = 1;
+		}
+	}
+else if (f3f + f3l + f3u + f3d > 4.0) # we have a manifold 3 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f3", 2);
+
+	if ((f3f > 1.0) and (cws_msg_hash.f3f == 0))
+		{
+		create_fault_message("G23 F RCS F JET", 1, 2);
+		cws_msg_hash.f3f = 1;
+		}
+	if ((f3l > 1.0) and (cws_msg_hash.f3l == 0))
+		{
+		create_fault_message("G23 F RCS L JET", 1, 2);
+		cws_msg_hash.f3l = 1;
+		}
+	if ((f3u > 1.0) and (cws_msg_hash.f3u == 0))
+		{
+		create_fault_message("G23 F RCS U JET", 1, 2);
+		cws_msg_hash.f3u = 1;
+		}
+	if ((f3d > 1.0) and (cws_msg_hash.f3d == 0))
+		{
+		create_fault_message("G23 F RCS D JET", 1, 2);
 		cws_msg_hash.f3d = 1;
 		}
 	}
@@ -188,12 +249,27 @@ if (f4r + f4d < 2.0) # we have a manifold 4 fail off condition
 
 	if ((f4r < 1.0) and (cws_msg_hash.f4r == 0))
 		{
-		create_fault_message("    F RCS R JET", 1, 2);
+		create_fault_message("G23 F RCS R JET", 1, 2);
 		cws_msg_hash.f4r = 1;
 		}
 	if ((f4d < 1.0) and (cws_msg_hash.f4d == 0))
 		{
-		create_fault_message("    F RCS D JET", 1, 2);
+		create_fault_message("G23 F RCS D JET", 1, 2);
+		cws_msg_hash.f4d = 1;
+		}
+	}
+else if (f4r + f4d > 2.0) # we have a manifold 4 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f4", 2);
+
+	if ((f4r > 1.0) and (cws_msg_hash.f4r == 0))
+		{
+		create_fault_message("G23 F RCS R JET", 1, 2);
+		cws_msg_hash.f4r = 1;
+		}
+	if ((f4d > 1.0) and (cws_msg_hash.f4d == 0))
+		{
+		create_fault_message("G23 F RCS D JET", 1, 2);
 		cws_msg_hash.f4d = 1;
 		}
 	}
@@ -210,12 +286,27 @@ if (f5r + f5l < 2.0) # we have a manifold 5 fail off condition
 
 	if ((f5r < 1.0) and (cws_msg_hash.f5r == 0))
 		{
-		create_fault_message("    F RCS R JET", 1, 2);
+		create_fault_message("G23 F RCS R JET", 1, 2);
 		cws_msg_hash.f5r = 1;
 		}
 	if ((f5l < 1.0) and (cws_msg_hash.f5l == 0))
 		{
-		create_fault_message("    F RCS L JET", 1, 2);
+		create_fault_message("G23 F RCS L JET", 1, 2);
+		cws_msg_hash.f5l = 1;
+		}
+	}
+else if (f5r + f5l > 2.0) # we have a manifold 5 fail on condition
+	{
+	setprop("/fdm/jsbsim/systems/cws/jet-fail-f5", 2);
+
+	if ((f5r > 1.0) and (cws_msg_hash.f5r == 0))
+		{
+		create_fault_message("G23 F RCS R JET", 1, 2);
+		cws_msg_hash.f5r = 1;
+		}
+	if ((f5l > 1.0) and (cws_msg_hash.f5l == 0))
+		{
+		create_fault_message("G23 F RCS L JET", 1, 2);
 		cws_msg_hash.f5l = 1;
 		}
 	}
@@ -288,17 +379,17 @@ if (l1a + l1l + l1u < 3.0) # we have a manifold 1 fail off condition
 
 	if ((l1a < 1.0) and (cws_msg_hash.l1a == 0))
 		{
-		create_fault_message("    L RCS A JET", 1, 2);
+		create_fault_message("G23 L RCS A JET", 1, 2);
 		cws_msg_hash.l1a = 1;
 		}
 	if ((l1l < 1.0) and (cws_msg_hash.l1l == 0))
 		{
-		create_fault_message("    L RCS L JET", 1, 2);
+		create_fault_message("G23 L RCS L JET", 1, 2);
 		cws_msg_hash.l1l = 1;
 		}
 	if ((l1u < 1.0) and (cws_msg_hash.l1u == 0))
 		{
-		create_fault_message("    L RCS U JET", 1, 2);
+		create_fault_message("G23 L RCS U JET", 1, 2);
 		cws_msg_hash.l1u = 1;
 		}
 	}
@@ -316,17 +407,17 @@ if (l2u + l2l + l2d < 3.0) # we have a manifold 2 fail off condition
 
 	if ((l2u < 1.0) and (cws_msg_hash.l2u == 0))
 		{
-		create_fault_message("    L RCS U JET", 1, 2);
+		create_fault_message("G23 L RCS U JET", 1, 2);
 		cws_msg_hash.l2u = 1;
 		}
 	if ((l2l < 1.0) and (cws_msg_hash.l2l == 0))
 		{
-		create_fault_message("    L RCS L JET", 1, 2);
+		create_fault_message("G23 L RCS L JET", 1, 2);
 		cws_msg_hash.l2l = 1;
 		}
 	if ((l2d < 1.0) and (cws_msg_hash.l2d == 0))
 		{
-		create_fault_message("    L RCS D JET", 1, 2);
+		create_fault_message("G23 L RCS D JET", 1, 2);
 		cws_msg_hash.l2d = 1;
 		}
 	}
@@ -344,17 +435,17 @@ if (l3l + l3a + l3d < 3.0) # we have a manifold 3 fail off condition
 
 	if ((l3l < 1.0) and (cws_msg_hash.l3l == 0))
 		{
-		create_fault_message("    L RCS L JET", 1, 2);
+		create_fault_message("G23 L RCS L JET", 1, 2);
 		cws_msg_hash.l3l = 1;
 		}
 	if ((l3a < 1.0) and (cws_msg_hash.l3a == 0))
 		{
-		create_fault_message("    L RCS A JET", 1, 2);
+		create_fault_message("G23 L RCS A JET", 1, 2);
 		cws_msg_hash.l3a = 1;
 		}
 	if ((l3d < 1.0) and (cws_msg_hash.l3d == 0))
 		{
-		create_fault_message("    L RCS D JET", 1, 2);
+		create_fault_message("G23 L RCS D JET", 1, 2);
 		cws_msg_hash.l3d = 1;
 		}
 	}
@@ -372,17 +463,17 @@ if (l4u + l4l + l4d < 3.0) # we have a manifold 4 fail off condition
 
 	if ((l4u < 1.0) and (cws_msg_hash.l4u == 0))
 		{
-		create_fault_message("    L RCS U JET", 1, 2);
+		create_fault_message("G23 L RCS U JET", 1, 2);
 		cws_msg_hash.l4u = 1;
 		}
 	if ((l4l < 1.0) and (cws_msg_hash.l4l == 0))
 		{
-		create_fault_message("    L RCS L JET", 1, 2);
+		create_fault_message("G23 L RCS L JET", 1, 2);
 		cws_msg_hash.l4l = 1;
 		}
 	if ((l4d < 1.0) and (cws_msg_hash.l4d == 0))
 		{
-		create_fault_message("    L RCS D JET", 1, 2);
+		create_fault_message("G23 L RCS D JET", 1, 2);
 		cws_msg_hash.l4d = 1;
 		}
 	}
@@ -400,12 +491,12 @@ if (l5d + l5l < 2.0) # we have a manifold 5 fail off condition
 
 	if ((l5d < 1.0) and (cws_msg_hash.l5d == 0))
 		{
-		create_fault_message("    L RCS D JET", 1, 2);
+		create_fault_message("G23 L RCS D JET", 1, 2);
 		cws_msg_hash.l5d = 1;
 		}
 	if ((l5l < 1.0) and (cws_msg_hash.l5l == 0))
 		{
-		create_fault_message("    L RCS L JET", 1, 2);
+		create_fault_message("G23 L RCS L JET", 1, 2);
 		cws_msg_hash.l5l = 1;
 		}
 	}
@@ -482,17 +573,17 @@ if (r1a + r1r + r1u < 3.0) # we have a manifold 1 fail off condition
 
 	if ((r1a < 1.0) and (cws_msg_hash.r1a == 0))
 		{
-		create_fault_message("    R RCS A JET", 1, 2);
+		create_fault_message("G23 R RCS A JET", 1, 2);
 		cws_msg_hash.r1a = 1;
 		}
 	if ((r1r < 1.0) and (cws_msg_hash.r1r == 0))
 		{
-		create_fault_message("    R RCS R JET", 1, 2);
+		create_fault_message("G23 R RCS R JET", 1, 2);
 		cws_msg_hash.r1r = 1;
 		}
 	if ((r1u < 1.0) and (cws_msg_hash.r1u == 0))
 		{
-		create_fault_message("    R RCS U JET", 1, 2);
+		create_fault_message("G23 R RCS U JET", 1, 2);
 		cws_msg_hash.r1u = 1;
 		}
 	}
@@ -510,17 +601,17 @@ if (r2u + r2r + r2d < 3.0) # we have a manifold 2 fail off condition
 
 	if ((r2u < 1.0) and (cws_msg_hash.r2u == 0))
 		{
-		create_fault_message("    R RCS U JET", 1, 2);
+		create_fault_message("G23 R RCS U JET", 1, 2);
 		cws_msg_hash.r2u = 1;
 		}
 	if ((r2r < 1.0) and (cws_msg_hash.r2r == 0))
 		{
-		create_fault_message("    R RCS R JET", 1, 2);
+		create_fault_message("G23 R RCS R JET", 1, 2);
 		cws_msg_hash.r2r = 1;
 		}
 	if ((r2d < 1.0) and (cws_msg_hash.r2d == 0))
 		{
-		create_fault_message("    R RCS D JET", 1, 2);
+		create_fault_message("G23 R RCS D JET", 1, 2);
 		cws_msg_hash.r2d = 1;
 		}
 	}
@@ -538,17 +629,17 @@ if (r3r + r3a + r3d < 3.0) # we have a manifold 3 fail off condition
 
 	if ((r3r < 1.0) and (cws_msg_hash.r3r == 0))
 		{
-		create_fault_message("    R RCS R JET", 1, 2);
+		create_fault_message("G23 R RCS R JET", 1, 2);
 		cws_msg_hash.r3r = 1;
 		}
 	if ((r3a < 1.0) and (cws_msg_hash.r3a == 0))
 		{
-		create_fault_message("    R RCS A JET", 1, 2);
+		create_fault_message("G23 R RCS A JET", 1, 2);
 		cws_msg_hash.r3a = 1;
 		}
 	if ((r3d < 1.0) and (cws_msg_hash.r3d == 0))
 		{
-		create_fault_message("    R RCS D JET", 1, 2);
+		create_fault_message("G23 R RCS D JET", 1, 2);
 		cws_msg_hash.r3d = 1;
 		}
 	}
@@ -566,17 +657,17 @@ if (r4u + r4r + r4d < 3.0) # we have a manifold 4 fail off condition
 
 	if ((r4u < 1.0) and (cws_msg_hash.r4u == 0))
 		{
-		create_fault_message("    R RCS U JET", 1, 2);
+		create_fault_message("G23 R RCS U JET", 1, 2);
 		cws_msg_hash.r4u = 1;
 		}
 	if ((r4r < 1.0) and (cws_msg_hash.r4r == 0))
 		{
-		create_fault_message("    R RCS R JET", 1, 2);
+		create_fault_message("G23 R RCS R JET", 1, 2);
 		cws_msg_hash.r4r = 1;
 		}
 	if ((r4d < 1.0) and (cws_msg_hash.r4d == 0))
 		{
-		create_fault_message("    R RCS D JET", 1, 2);
+		create_fault_message("G23 R RCS D JET", 1, 2);
 		cws_msg_hash.r4d = 1;
 		}
 	}
@@ -594,12 +685,12 @@ if (r5d + r5r < 2.0) # we have a manifold 5 fail off condition
 
 	if ((r5d < 1.0) and (cws_msg_hash.r5d == 0))
 		{
-		create_fault_message("    R RCS D JET", 1, 2);
+		create_fault_message("G23 R RCS D JET", 1, 2);
 		cws_msg_hash.r5d = 1;
 		}
 	if ((r5r < 1.0) and (cws_msg_hash.r5r == 0))
 		{
-		create_fault_message("    R RCS R JET", 1, 2);
+		create_fault_message("G23 R RCS R JET", 1, 2);
 		cws_msg_hash.r5r = 1;
 		}
 	}
@@ -684,14 +775,14 @@ var gimbal_check = getprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd");
 #gimbal-left-pri-selected
 
 if (gimbal_left_pri == 1)
-	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms-left-pri-gimbal-condition");}
+	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms/oms-left-pri-gimbal-condition");}
 else
-	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms-left-sec-gimbal-condition");}
+	{var omslg = getprop("/fdm/jsbsim/systems/failures/oms/oms-left-sec-gimbal-condition");}
 
 if (gimbal_right_pri == 1)
-	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms-right-pri-gimbal-condition");}
+	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms/oms-right-pri-gimbal-condition");}
 else
-	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms-right-sec-gimbal-condition");}
+	{var omsrg = getprop("/fdm/jsbsim/systems/failures/oms/oms-right-sec-gimbal-condition");}
 
 if ((omslg < 0.8) and ((left_engine_on == 1) or (gimbal_check == 1)))
 	{
@@ -824,6 +915,64 @@ if (((voltage_ac1 < 115.0) or (voltage_ac2 < 115.0) or (voltage_ac3 < 115.0)) an
 }
 
 
+#################################################
+# MEDS inspection
+#################################################
+
+var meds_inspect = func {
+
+for (var i=0; i< size(SpaceShuttle.MDU_array); i=i+1)
+	{
+	var mdu = SpaceShuttle.MDU_array[i];
+
+	var idp_index = mdu.PFD.port_selected - 1;
+
+	if ((mdu.operational == 0) and (meds_msg_hash.io[i] == 0))
+		{
+		meds_msg_hash.io[i] = 1;
+		var message = create_meds_message("I/O ERROR           ", mdu.designation);
+
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+		#print (message);	
+
+		insert_meds_message(message, idp_index);
+		}
+
+	if ((mdu.PFD.polling_status == 0) and (meds_msg_hash.poll[idp_index] == 0))
+		{
+		meds_msg_hash.poll[idp_index] = 1;
+
+		var message = create_meds_message("POLL FAIL           ", "IDP"~(idp_index+1));
+
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+
+		insert_meds_message(message, idp_index);
+
+		}
+
+
+	if ((mdu.PFD.auto_reconf_flag == 1) and (meds_msg_hash.port_change[i] == 0))
+		{
+		meds_msg_hash.port_change[i] = 1;
+		var message = create_meds_message("PORT CHANGE         ", mdu.designation);
+
+		mdu.PFD.auto_reconf_flag = 0;
+
+		SpaceShuttle.idp_array[idp_index].current_fault_string = message;
+
+		insert_meds_message(message, idp_index);
+
+		}
+		
+
+	}
+
+}
+
+
+
+
+
 var insert_fault_message_long = func (message) {
 
 # shift all messages in the array such that zero becomes available
@@ -837,6 +986,17 @@ cws_message_array_long[0] = message;
 
 }
 
+
+var insert_meds_message = func (message, idp_index) {
+
+
+for (var i = 0; i<14; i=i+1)
+	{
+	SpaceShuttle.idp_array[idp_index].fault_array[14-i] = SpaceShuttle.idp_array[idp_index].fault_array[13-i];
+	}
+SpaceShuttle.idp_array[idp_index].fault_array[0] = message;
+
+}
 
 var create_fault_message = func (sys_string, gpc_id, class) {
 
@@ -853,5 +1013,16 @@ append(cws_message_array, msg_string);
 
 setprop("/fdm/jsbsim/systems/dps/error-string", msg_string);
 cws_last_message_acknowledge = 1;
+
+}
+
+
+var create_meds_message = func (text, origin) {
+
+var time_string = getprop("/sim/time/gmt-string");
+
+meds_last_message_acknowledge = 1;
+
+return (origin~" "~text~"          "~time_string);
 
 }

@@ -41,6 +41,12 @@ var K_to_F = func (T)
     return T * 9.0/5.0 - 459.67;
 }
 
+var mix_T_to_F = func (T1, T2, mix) 
+{
+	return int(K_to_F (mix * T1 + (1.0 - mix) * T2));
+} 
+
+
 var wsb_ctrl_to_string = func (status)
 {
     if (status == 1) {return "A/B";}
@@ -158,4 +164,32 @@ return filter_quality_v;
 
 }
 
+var mcc_to_string = func (mcc) {
+
+if (mcc == 1) {return "1(G1)";}
+else if (mcc == 2) {return "2(G2)";}
+else if (mcc == 3) {return "3(G3)";}
+else if (mcc == 4) {return "4(S2)";}
+else {return "";}
+
+}
+
+var mcc_to_short_string = func (mcc) {
+
+if (mcc == 1) {return "G1";}
+else if (mcc == 2) {return "G2";}
+else if (mcc == 3) {return "G3";}
+else if (mcc == 4) {return "S2";}
+else {return "";}
+
+}
+
+var assemble_spec_string = func (spec) {
+
+if (spec == 0) {return "   ";}
+else if (spec == 3) {return "000";}
+else if (spec < 10) {return "00"~spec;}
+else if (spec < 100) {return "0"~spec;}
+
+}
 

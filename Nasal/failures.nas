@@ -114,6 +114,42 @@ setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
 }
 
 
+
+#### airframe breakage for overstressed wing
+
+var orbiter_wing_fail = func {
+
+
+# destroy aerodynamics
+
+setprop("/fdm/jsbsim/systems/failures/airfoils-pitch-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/airfoils-roll-condition", 0.0);
+
+# destroy RCS
+
+setprop("/fdm/jsbsim/systems/fcs/rcs-roll-mode", 0);
+setprop("/fdm/jsbsim/systems/fcs/pitch-roll-mode", 0);
+setprop("/fdm/jsbsim/systems/fcs/yaw-roll-mode", 0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-left-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-right-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-up-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-up-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/rcs-pod1-down-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/rcs-pod2-down-condition", 0.0);
+
+setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.2);
+
+setprop("/fdm/jsbsim/systems/failures/shuttle-damaged", 1);
+
+}
+
+
+
+
+
 #### drag chute pin breaks during deceleration
 
 var fail_chute_pin = func {
@@ -139,12 +175,14 @@ if (getprop("/gear/gear[0]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-nose-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-nose-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);
 		}
 	}
 
@@ -152,12 +190,14 @@ if (getprop("/gear/gear[1]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-left-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-left-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);
 		}
 	}
 
@@ -165,12 +205,14 @@ if (getprop("/gear/gear[2]/wow") == 1)
 	{
 	if (rand() < strut_breakage_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/gearstrut-right-condition", 0.0);
-		setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);
 		}
 	if (rand() < tire_blow_probability)
 		{
-		setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);
 		}
 	}
 }
@@ -211,6 +253,10 @@ else if (scenario_ID == 20)
 	{
 	init_alignment_error();
 	}
+else if (scenario_ID == 21)
+	{
+	init_rcs_failure();
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;
@@ -223,7 +269,20 @@ else if (scenario_ID == 31)
 	}
 else if (scenario_ID == 32)
 	{
-	setprop("/fdm/jsbsim/systems/failures/tire-right-condition", 0.0);
+	var rn = rand();
+	if (rn < 0.166)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-left-condition", 0.0);}
+	else if (rn < 0.33)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-nose-right-condition", 0.0);}
+	else if (rn < 0.5)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ib-condition", 0.0);}
+	else if (rn < 0.66)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-right-ob-condition", 0.0);}
+	else if (rn < 0.83)
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ib-condition", 0.0);}
+	else 
+		{setprop("/fdm/jsbsim/systems/failures/gear/tire-left-ob-condition", 0.0);}
+
 	}
 else if (scenario_ID == 33)
 	{
@@ -259,7 +318,47 @@ setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 
 
 }
 
+var init_rcs_failure = func {
 
+#print ("Failing jet");
+
+var rn_loc = rand();
+var rn_type = rand();
+var rn_thruster = rand();
+
+var fail_arg = 0;
+if (rn_type > 0.5) {fail_arg = 2;} 
+
+if (rn_loc > 0.66)
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2F-condition", fail_arg);}	
+	}
+else if (rn_loc > 0.36)
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1A-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1U-condition", fail_arg);}	
+	}
+else 
+	{
+	if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition", fail_arg);}	
+	else if (rn_loc > 0.3)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition", fail_arg);}	
+	else 	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1U-condition", fail_arg);}	
+	}
+
+
+}
 
 
 

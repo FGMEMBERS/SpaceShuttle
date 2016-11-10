@@ -29,5 +29,9 @@ var delta_lon = 0.0 * m_to_lon;
 
 geo.put_model("Aircraft/SpaceShuttle/Models/Launchpad/launchpad.xml", lat + delta_lat, lon + delta_lon, nil, heading);
 
+if (getprop("/sim/config/shuttle/place-gantry") == 1)
+	{
+	settimer( func {geo.put_model("Aircraft/SpaceShuttle/Models/Launchpad/gantry.xml", lat + delta_lat, lon + delta_lon, nil, heading);}, 8.0);
+	}
 
 }

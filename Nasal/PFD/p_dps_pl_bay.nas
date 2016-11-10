@@ -88,9 +88,9 @@ var PFD_addpage_p_dps_pl_bay = func(device)
         device.DPS_menu_title.setText("PL BAY DOORS");
         device.MEDS_menu_title.setText("       DPS MENU");
     
-        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
     
-        var ops_string = major_mode~"202/   /";
+        var ops_string = major_mode~"1/   /";
         device.DPS_menu_ops.setText(ops_string);
     
     # blank autosequence failures as they're not yet supported

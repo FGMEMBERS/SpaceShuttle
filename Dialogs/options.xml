@@ -102,6 +102,138 @@
      	 	<col>3</col>
     	</text>
 
+	<text>
+      		<label>MDU update speed</label>
+      		<halign>left</halign>
+      		<row>3</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>slow</label>
+      		<halign>center</halign>
+      		<row>3</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>mdu-update-speed-switch</name>
+      		<row>3</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>3</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/mdu-update-speed</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>mdu-update-speed-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>fast</label>
+      		<halign>center</halign>
+      		<row>3</row>
+     	 	<col>3</col>
+    	</text>
+
+	<text>
+      		<label>ADI ball detail</label>
+      		<halign>left</halign>
+      		<row>4</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>low</label>
+      		<halign>center</halign>
+      		<row>4</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>adi-quality-switch</name>
+      		<row>4</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>4</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/fdm/jsbsim/systems/adi/quality-level</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>adi-quality-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>high</label>
+      		<halign>center</halign>
+      		<row>4</row>
+     	 	<col>3</col>
+    	</text>
+
+    <text>
+        <label>Cockpit detail</label>
+        <halign>left</halign>
+        <row>5</row>
+        <col>0</col>
+    </text>
+    <text>
+        <label>default</label>
+        <halign>center</halign>
+        <row>5</row>
+        <col>1</col>
+    </text>
+
+    <slider>
+        <name>cockpit-detail-switch</name>
+        <row>5</row>
+        <col>2</col>
+        <min>0</min>
+        <max>1</max>
+        <step>1</step>
+        <live>true</live>
+        <property>/sim/config/shuttle/detailed-flightdeck</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>cockpit-detail-switch</object-name>
+        </binding>
+    </slider>
+
+    <text>
+        <label>high</label>
+        <halign>center</halign>
+        <row>5</row>
+        <col>3</col>
+    </text>
+
+
+    <checkbox>
+        <name>place-gantry</name>
+ 	<row>6</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/place-gantry</property>
+          <label>Show launch gantry</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>place-gantry</object-name>
+          </binding>
+        </checkbox>
+
+    <checkbox>
+        <name>srb-shake</name>
+ 	<row>6</row>
+        <col>1</col>
+          <property>/sim/config/shuttle/srb-shake</property>
+          <label>SRBs shake view</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>srb-shake</object-name>
+          </binding>
+        </checkbox>
+
   </group>
 	
         <empty>
@@ -232,6 +364,10 @@
               <command>dialog-apply</command>
               <object-name>use-earthview</object-name>
           </binding>
+	  <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");</script>
+	  </binding>
         </checkbox>
 
 	<text>
@@ -258,6 +394,10 @@
       <binding>
         <command>dialog-apply</command>
         <object-name>earthview-transition</object-name>
+      </binding>
+      <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");</script>
       </binding>
     </slider>
 

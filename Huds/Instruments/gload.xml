@@ -4,12 +4,20 @@
 	<label>
 		<name>G Load</name>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<width>28</width>
 		<height>12</height>

@@ -61,7 +61,7 @@
 						<value>3300.0</value>
 					</product>
 				</sum>
-				<property>systems/failures/mps-he-left-condition</property>
+				<property>systems/failures/mps/mps-he-left-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -77,7 +77,7 @@
 						<value>3300.0</value>
 					</product>
 				</sum>
-				<property>systems/failures/mps-he-right-condition</property>
+				<property>systems/failures/mps/mps-he-right-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -92,7 +92,7 @@
 						<value>3300.0</value>
 					</product>
 				</sum>
-				<property>systems/failures/mps-he-center-condition</property>
+				<property>systems/failures/mps/mps-he-center-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -107,7 +107,7 @@
 						<value>800.0</value>
 					</product>
 				</sum>
-				<property>systems/failures/mps-he-pneu-condition</property>
+				<property>systems/failures/mps/mps-he-pneu-condition</property>
 			</product>
 		</function>
 		</fcs_function>
@@ -358,6 +358,12 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<summer name="systems/mps/number-engines-operational">
+			<input>systems/mps/engine/engine-operational</input>
+			<input>systems/mps/engine[1]/engine-operational</input>
+			<input>systems/mps/engine[2]/engine-operational</input>
+		</summer>
 
 		<!-- each engine needs the hydraulics system to actuate valves, otherwise it is in lockup -->
 		<!-- SYS 1 actuates center engine, SYS 2 left engine and SYS 3 right engine -->

@@ -2,10 +2,10 @@
 
 <system>
 
-	<!-- the following modes are implemented: -->
+	<!-- the following modes which use RCS are implemented: -->
 
-	<!-- 1:  RCS rotation - stick controls thrust -->
-	<!-- 2:  RCS translation - stick controls thrust -->
+	<!-- 1:  RCS rotation DAP-A- stick controls thrust -->
+	<!-- 2:  RCS TRANS DAP-A - stick controls thrust -->
 	<!-- 3:  RCS rotation and aero surfaces - should be tail only-->
 	<!-- 12: Single engine OMS TVC with rate control and roll control via RCS -->
 	<!-- 13: Single engine SSME TVC with rate control and roll control via RCS -->
@@ -15,12 +15,18 @@
 	<!-- 23: RCS ROT NOSE ONLY - tail pod thrusters are off, stick controls thrust -->
 	<!-- 24: RCS ROT ENTRY - nose thrusters are off, stick controls rate -->
 	<!-- 25: RCS DAP-A Vernier - precision attitude hold using verniers, stick controls rate -->
-	<!-- 26: RCS TRANS ATT-HLD - translational mode commanding attitude hold -->
-	<!-- 27: RCS TRANS LOW-Z - translational mode minimizing plume impingement for +Z -->
+	<!-- 26: RCS TRANS DAP-A ATT-HLD - translational mode commanding attitude hold -->
+	<!-- 27: RCS TRANS LOW-Z DAP-A - translational mode minimizing plume impingement for +Z -->
 	<!-- 28: RCS TRANS LOW-Z ATT-HLD - translational mode minimizing plume impingement for +Z -->
 	<!-- 29: RCS AEROJET - realistic entry mode with attitude hold commanded also for aero surfaces -->
 	<!-- 30: RCS DAP-B Vernier -->
-
+	<!-- 31: RCS rotation DAP-A Vernier -->
+	<!-- 32: RCS rotation DAP B -->
+	<!-- 33: RCS rotation DAP-B Vernier -->
+	<!-- 34: RCS TRANS DAP-B -->
+	<!-- 35: RCS TRANS DAP-B ATT-HLD -->
+	<!-- 36: RCS TRANS LOW-Z DAP-B -->
+	<!-- 37: RCS TRANS LOW-Z ATT HLD DAP-B -->
 
 	<channel name="RCS usage">
 
@@ -44,6 +50,13 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
+				systems/fcs/control-mode == 34
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 				systems/oms/oms-rcs-dump-cmd == 1
 				systems/rcs/fwd-dump-cmd == 1
 				systems/rcs/aft-dump-cmd == 1
@@ -64,6 +77,10 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 34
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -73,6 +90,8 @@
 
 	<channel name="Control Input pulse generation">
 
+		<!-- modes with pulse in all channels -->
+
 		<switch name="systems/fcs/rcs-pulse">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -80,50 +99,354 @@
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 			<test logic="AND" value="1.0">
-				systems/fcs/control-mode == 2
+				systems/fcs/control-mode == 31
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 			<test logic="AND" value="1.0">
-				systems/fcs/control-mode == 27
+				systems/fcs/control-mode == 32
+				systems/fcs/rcs-use-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/control-mode == 33
 				systems/fcs/rcs-use-pulse == 1
 			</test>
 		</switch>
+	
+		<!-- modes with pulse per channel -->
+
+		<switch name="systems/fcs/rcs-pulse-pitch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-p-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 35
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
+				systems/ap/orbital-dap-buttons/trans-z-pulse == 1
+			</test>
+
+		</switch>
+
+		<switch name="systems/fcs/rcs-pulse-yaw">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 35
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
+				systems/ap/orbital-dap-buttons/trans-x-pulse == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/rcs-pulse-roll">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 20
+				systems/ap/orbital-dap-buttons/rot-r-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 21
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 25
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 30
+				systems/ap/orbital-dap-buttons/rot-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 2
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 26
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 27
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 28
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 34
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 35
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 36
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/fcs/rcs-use-pulse == 1
+				systems/fcs/control-mode == 37
+				systems/ap/orbital-dap-buttons/trans-y-pulse == 1
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-pitch">
+			<default value="1.0"/>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 25
+				fcs/elevator-cmd-norm-css GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 30
+				fcs/elevator-cmd-norm-css GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm-css GT 0.0
+			</test>
+			<test logic="AND" value="239.0">
+				systems/fcs/control-mode == 33
+				fcs/elevator-cmd-norm-css GT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 25
+				fcs/elevator-cmd-norm-css LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 30
+				fcs/elevator-cmd-norm-css LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 31
+				fcs/elevator-cmd-norm-css LT 0.0
+			</test>
+			<test logic="AND" value="108.0">
+				systems/fcs/control-mode == 33
+				fcs/elevator-cmd-norm-css LT 0.0
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-yaw">
+			<default value="1.0"/>
+			<test logic="OR" value="358.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
+			</test>
+		</switch>
+
+		<switch name="systems/fcs/vernier-pulse-factor-roll">
+			<default value="1.0"/>
+			<test logic="OR" value="266.0">
+				systems/fcs/control-mode == 25
+				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
+			</test>
+		</switch>
+
+		
+
+
 
 		<!-- adjust pulse durations to match SPEC 20 defined DAP properties -->
 
 		<fcs_function name="systems/fcs/elevator-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.21</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-pitch</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>			
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/rudder-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.19</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-yaw</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>	
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/fcs/aileron-pulse-duration">
 		<function>
+			<sum>
 			<product>
 				<quotient>
 					<property>systems/ap/rot-pls-degps</property>
 					<value>0.10</value>
 				</quotient>
 			<value>0.1</value>
+			<property>systems/fcs/vernier-pulse-factor-roll</property>
+			<difference>
+				<value>1</value>
+				<property>systems/fcs/rcs-translation</property>
+			</difference>	
 			</product>
+			<product>
+				<value>3.703</value>
+				<property>systems/fcs/rcs-translation</property>
+				<property>systems/ap/trans-pls-fps</property>
+			</product>
+			</sum>
 		</function>
 		</fcs_function>
 
@@ -131,22 +454,22 @@
 		<!-- pulse generation for elevator input -->
 
 		<switch name="systems/fcs/elevator-cmd-norm-pulse-init">
-			<default value="fcs/elevator-cmd-norm"/>
+			<default value="fcs/elevator-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/elevator-cmd-norm GT 0.0
-				fcs/elevator-cmd-norm LT 0.5
+				fcs/elevator-cmd-norm-css GT 0.0
+				fcs/elevator-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/elevator-cmd-norm LT 0.0
-				fcs/elevator-cmd-norm GT -0.5
+				fcs/elevator-cmd-norm-css LT 0.0
+				fcs/elevator-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/elevator-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/elevator-pulse-timer-sample-hold">
-				fcs/elevator-cmd-norm GT 0.04
-				fcs/elevator-cmd-norm LT -0.04
+				fcs/elevator-cmd-norm-css GT 0.04
+				fcs/elevator-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -168,10 +491,10 @@
 		</switch>
 
 		<switch name="systems/fcs/elevator-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-pitch"/>
 			<test logic="OR" value="0.0">
-				fcs/elevator-cmd-norm GT 0.5
-				fcs/elevator-cmd-norm LT -0.5
+				fcs/elevator-cmd-norm-css GT 0.5
+				fcs/elevator-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 	
@@ -189,7 +512,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/elevator-pulse</property>
 			</difference>
-			<property>fcs/elevator-cmd-norm</property>
+			<property>fcs/elevator-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
@@ -198,22 +521,22 @@
 		<!--  pulse generation for rudder input -->
 
 		<switch name="systems/fcs/rudder-cmd-norm-pulse-init">
-			<default value="fcs/rudder-cmd-norm"/>
+			<default value="fcs/rudder-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/rudder-cmd-norm GT 0.0
-				fcs/rudder-cmd-norm LT 0.5
+				fcs/rudder-cmd-norm-css GT 0.0
+				fcs/rudder-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/rudder-cmd-norm LT 0.0
-				fcs/rudder-cmd-norm GT -0.5
+				fcs/rudder-cmd-norm-css LT 0.0
+				fcs/rudder-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/rudder-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/rudder-pulse-timer-sample-hold">
-				fcs/rudder-cmd-norm GT 0.04
-				fcs/rudder-cmd-norm LT -0.04
+				fcs/rudder-cmd-norm-css GT 0.04
+				fcs/rudder-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -235,10 +558,10 @@
 		</switch>
 
 		<switch name="systems/fcs/rudder-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-yaw"/>
 			<test logic="OR" value="0.0">
-				fcs/rudder-cmd-norm GT 0.5
-				fcs/rudder-cmd-norm LT -0.5
+				fcs/rudder-cmd-norm-css GT 0.5
+				fcs/rudder-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 	
@@ -255,7 +578,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/rudder-pulse</property>
 			</difference>
-			<property>fcs/rudder-cmd-norm</property>
+			<property>fcs/rudder-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
@@ -265,22 +588,22 @@
 
 
 		<switch name="systems/fcs/aileron-cmd-norm-pulse-init">
-			<default value="fcs/aileron-cmd-norm"/>
+			<default value="fcs/aileron-cmd-norm-css"/>
 			<test logic="AND" value="1.0">
-				fcs/aileron-cmd-norm GT 0.0
-				fcs/aileron-cmd-norm LT 0.5
+				fcs/aileron-cmd-norm-css GT 0.0
+				fcs/aileron-cmd-norm-css LT 0.5
 			</test>
 			<test logic="AND" value="-1.0">
-				fcs/aileron-cmd-norm LT 0.0
-				fcs/aileron-cmd-norm GT -0.5
+				fcs/aileron-cmd-norm-css LT 0.0
+				fcs/aileron-cmd-norm-css GT -0.5
 			</test>
 		</switch>
 
 		<switch name="systems/fcs/aileron-pulse-timer-sample-hold">
 			<default value="simulation/sim-time-sec"/>
 			<test logic="OR" value="systems/fcs/aileron-pulse-timer-sample-hold">
-				fcs/aileron-cmd-norm GT 0.04
-				fcs/aileron-cmd-norm LT -0.04
+				fcs/aileron-cmd-norm-css GT 0.04
+				fcs/aileron-cmd-norm-css LT -0.04
 			</test>
 		</switch>
 
@@ -303,10 +626,10 @@
 
 
 		<switch name="systems/fcs/aileron-pulse">
-			<default value="systems/fcs/rcs-pulse"/>
+			<default value="systems/fcs/rcs-pulse-roll"/>
 			<test logic="OR" value="0.0">
-				fcs/aileron-cmd-norm GT 0.5
-				fcs/aileron-cmd-norm LT -0.5
+				fcs/aileron-cmd-norm-css GT 0.5
+				fcs/aileron-cmd-norm-css LT -0.5
 			</test>
 		</switch>
 
@@ -323,7 +646,7 @@
 				<value>1.0</value>
 				<property>systems/fcs/aileron-pulse</property>
 			</difference>
-			<property>fcs/aileron-cmd-norm</property>
+			<property>fcs/aileron-cmd-norm-css</property>
 			</product>
 			</sum>
 		</function>
@@ -338,7 +661,6 @@
 		<fcs_function name="systems/fcs/neg-elevator-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/elevator-cmd-norm</property>-->
 				<property>systems/fcs/elevator-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -348,7 +670,6 @@
 		<fcs_function name="systems/fcs/neg-rudder-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/rudder-cmd-norm</property>-->
 				<property>systems/fcs/rudder-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -358,7 +679,6 @@
 		<fcs_function name="systems/fcs/neg-aileron-cmd-norm">
 		<function>
 			<product>
-				<!--<property>fcs/aileron-cmd-norm</property>-->
 				<property>systems/fcs/aileron-cmd-norm-pulse</property>
 				<value>-1</value>
 			</product>
@@ -525,6 +845,43 @@
 			</test>
 		</switch>
 
+		<switch name="systems/fcs/rate-control-pitch">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>	
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-p-pulse NE 1
+			</test>	
+		</switch>
+
+		<switch name="systems/fcs/rate-control-yaw">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>	
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-y-pulse NE 1
+			</test>	
+		</switch>
+
+		<switch name="systems/fcs/rate-control-roll">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-auto == 1
+			</test>	
+			<test logic="AND" value="1.0">
+				systems/fcs/rate-control-master == 1
+				systems/ap/orbital-dap-buttons/rot-r-pulse NE 1
+			</test>	
+		</switch>
+
+
 		<!-- the problem to solve is that thrusters shouldn't run forever to minimize errors -->
 		<!-- so we stop them at a deadband - but then they take forever to correct in minute -->
 		<!-- bursts, so before they reach the deadband, they get a burst enhancement factor -->
@@ -569,6 +926,8 @@
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -585,6 +944,8 @@
 			<test logic="OR" value="0.0">
 				systems/fcs/control-mode == 25
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 33
 			</test>
 		</switch>
 
@@ -601,6 +962,8 @@
 			<test logic = "OR" value="0.0">
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -626,28 +989,23 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
 		<!-- pitch -->
 
-   		<fcs_function name="systems/rcs/elevator-ap-cmd-merge">
-   			<function>
-			<sum>
-				<product>
-					<difference>
-						<value>1</value>
-						<property>systems/ap/alpha-hold-mode</property>
-					</difference>
-					<property>systems/fcs/elevator-cmd-norm-sense</property>
-				</product>
-				<product>
-					<property>systems/ap/alpha-hold-mode</property>
-					<property>systems/ap/alpha-controller-elevator-cmd-norm</property>
-				</product>
-			</sum>
-  		 </function>
-   		</fcs_function>
+
+		<switch name="systems/rcs/elevator-ap-cmd-merge">
+			<default value="systems/fcs/elevator-cmd-norm-sense"/>
+			<test  value="systems/ap/alpha-controller-elevator-cmd-norm">
+				systems/ap/alpha-hold-mode == 1
+			</test>
+			<test value="systems/ap/grtls/pitch-cmd">
+				systems/ap/auto-grtls-rcs-pitch-active == 1
+			</test>
+		</switch>
 
 		<fcs_function name="systems/rcs/pitch-rate-error">
 		<function>
@@ -682,13 +1040,21 @@
 			<output>systems/rcs/dap-pitch-cmd-orbit</output>
 		</pid>
 
-
+		<fcs_function name="systems/rcs/dap-pitch-entry-PID-trigger">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<property>systems/fcs/rcs-entry-mode</property>
+			</difference>
+		</function>
+		</fcs_function>
 
 		<pid name="systems/rcs/dap-pitch-entry">
 			<input>systems/rcs/pitch-rate-error</input>
 			<kp> 40.0 </kp>
 			<ki> 15.0 </ki>
 			<kd> 0.0</kd>
+			<trigger>systems/rcs/dap-pitch-entry-PID-trigger</trigger>
 			<clipto>
 				<min> -1.0 </min>
         			<max>  1.0 </max>
@@ -711,7 +1077,10 @@
 					<property>systems/rcs/dap-pitch-cmd-orbit</property>
 					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
-				<property>systems/ap/lvlh/pitch-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/pitch-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
@@ -747,6 +1116,17 @@
 		</switch>
 
 		<!-- roll -->
+
+
+		<switch name="systems/rcs/aileron-ap-cmd-merge">
+			<default value="systems/fcs/aileron-cmd-norm-sense"/>
+			<test value="systems/ap/grtls/roll-cmd">
+				systems/ap/auto-grtls-rcs-roll-active == 1
+			</test>
+			<test value="systems/ap/contingency/roll-cmd">
+				systems/ap/auto-contingency-roll-active == 1
+			</test>
+		</switch>
 	
 		<fcs_function name="systems/rcs/roll-rate-error">
 		<function>
@@ -754,7 +1134,8 @@
 			<difference>
 				<property>velocities/p-rad_sec</property>
 				<product>
-  					<property>systems/fcs/aileron-cmd-norm-sense</property>
+  					<!--<property>systems/fcs/aileron-cmd-norm-sense</property>-->
+					<property>systems/rcs/aileron-ap-cmd-merge</property>
 					<value>0.017543</value>
 					<property>systems/ap/rot-rate-degps</property>
 					<difference>
@@ -786,7 +1167,10 @@
 		<function>
 			<sum>
 				<property>systems/rcs/dap-roll</property>
-				<property>systems/ap/lvlh/roll-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/roll-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
@@ -911,23 +1295,6 @@
 		</function>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/rcs/dap-yaw-cmd-entry">
-		<function>
-			<product>
-				<property>systems/rcs/dap-yaw-cmd-entry-raw</property>
-				<min>
-				<max>
-				<quotient>
-					<property>aero/qbar-psf</property>
-					<value>20.0</value>
-				</quotient>
-				<value>0.1</value>
-				</max>
-				<value>1.0</value>
-				</min>
-			</product>
-		</function>
-		</fcs_function>-->
 
 		<fcs_function name="systems/rcs/dap-yaw-cmd">
 		<function>
@@ -944,7 +1311,10 @@
 					<property>systems/rcs/dap-yaw-cmd-orbit</property>
 					<property>systems/fcs/roll-wraparound-veto</property>
 				</product>
-				<property>systems/ap/lvlh/yaw-rate-cmd</property>
+				<product>
+					<property>systems/ap/lvlh/yaw-rate-cmd</property>
+					<property>systems/ap/orbital-dap-lvlh</property>
+				</product>
 			</sum>
 		</function>
 		</fcs_function>
@@ -1001,6 +1371,11 @@
 				systems/fcs/control-mode == 28
 				systems/fcs/control-mode == 29
 				systems/fcs/control-mode == 30
+				systems/fcs/control-mode == 31
+				systems/fcs/control-mode == 32
+				systems/fcs/control-mode == 33
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -1011,6 +1386,10 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/fcs/control-mode == 34
+				systems/fcs/control-mode == 35
+				systems/fcs/control-mode == 36
+				systems/fcs/control-mode == 37
 			</test>
 		</switch>
 
@@ -1106,7 +1485,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-roll</property>
 					</difference>
 					<property>systems/fcs/aileron-cmd-norm-sense</property>
 				<abs>
@@ -1114,7 +1493,7 @@
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-roll</property>
 					<property>systems/rcs/dap-roll-cmd-deadband</property>
 				</product>
 				</sum>
@@ -1136,7 +1515,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-pitch</property>
 					</difference>
 					<property>systems/fcs/elevator-cmd-norm-sense</property>
 					<abs>
@@ -1144,13 +1523,9 @@
 					</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-pitch</property>
 					<property>systems/rcs/dap-pitch-cmd-deadband</property>
 				</product>
-				<!--<product>
-					<property>systems/fcs/rcs-trans-att-hold</property>
-					<property>systems/rcs/dap-pitch-cmd-deadband</property>
-				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -1170,7 +1545,7 @@
 				<product>
 					<difference>
 						<value>1.0</value>
-						<property>systems/fcs/rate-control-master</property>
+						<property>systems/fcs/rate-control-yaw</property>
 					</difference>
 					<property>systems/fcs/rudder-cmd-norm-sense</property>
 				<abs>
@@ -1178,13 +1553,9 @@
 				</abs>
 				</product>
 				<product>
-					<property>systems/fcs/rate-control-master</property>
+					<property>systems/fcs/rate-control-yaw</property>
 					<property>systems/rcs/dap-yaw-cmd-deadband</property>
 				</product>
-				<!--<product>
-					<property>systems/fcs/rcs-trans-att-hold</property>
-					<property>systems/rcs/dap-yaw-cmd-deadband</property>
-				</product>-->
 				</sum>
 			</function>
 		</fcs_function>
@@ -2624,7 +2995,13 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-down-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2645,7 +3022,13 @@
 			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-up-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2665,7 +3048,13 @@
 			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-right-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			</max>
 		</function>
 		<output>systems/rcs/L4L-fire-cmd</output>
@@ -2705,7 +3094,13 @@
 			<property>systems/fcs/rcs-default-thrusters</property>
 			<property>systems/fcs/rcs-low-z</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-down-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2726,7 +3121,13 @@
 			<property>systems/fcs/rcs-tail-active-pitch</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod2-up-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			<property>systems/rcs/aft-dump-cmd</property>
 			</max>
 		</function>
@@ -2746,7 +3147,13 @@
 			<property>systems/fcs/rcs-tail-active-yaw</property>
 			<property>systems/fcs/rcs-default-thrusters</property>
 			</product>
-			<property>systems/oms/oms-rcs-dump-cmd</property>
+			<difference>
+				<property>systems/oms/oms-rcs-dump-cmd</property>
+				<quotient>
+					<property>systems/rcs/pod1-left-subtracted</property>
+					<property>systems/rcs/thrust-normalizer</property>
+				</quotient>
+			</difference>
 			</max>
 		</function>
 		<output>systems/rcs/R4R-fire-cmd</output>
@@ -3021,6 +3428,259 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L3A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L3A-fire-cmd</property>
+				<property>systems/rcs/jet-table/L3A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L1A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L1A-fire-cmd</property>
+				<property>systems/rcs/jet-table/L1A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L5L-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L5L-fire-cmd</property>
+				<property>systems/rcs/jet-table/L5L-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/L5D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/L5D-fire-cmd</property>
+				<property>systems/rcs/jet-table/L5D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1U-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1U-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1U-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R4D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R4D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R4D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R2D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R2D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R2D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R1A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R1A-fire-cmd</property>
+				<property>systems/rcs/jet-table/R1A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R3A-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R3A-fire-cmd</property>
+				<property>systems/rcs/jet-table/R3A-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R5R-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R5R-fire-cmd</property>
+				<property>systems/rcs/jet-table/R5R-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs/R5D-fire-cmd-inh">
+		<function>
+			<product>
+				<property>systems/rcs/R5D-fire-cmd</property>
+				<property>systems/rcs/jet-table/R5D-sel</property>
+			</product>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 </system>

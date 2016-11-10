@@ -103,7 +103,16 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
 
     p_dps_sm_sys_summ2.avbay1_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay1_fan");
     p_dps_sm_sys_summ2.avbay2_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay2_fan");
+    p_dps_sm_sys_summ2.avbay3_fan = device.svg.getElementById("p_dps_sm_sys_summ2_avbay3_fan");
 
+    p_dps_sm_sys_summ2.tc1_h2o_p = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_h2o_p");
+    p_dps_sm_sys_summ2.tc2_h2o_p = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_h2o_p");
+
+    p_dps_sm_sys_summ2.tc1_freon = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_freon");
+    p_dps_sm_sys_summ2.tc2_freon = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_freon");
+
+    p_dps_sm_sys_summ2.tc1_evap_t = device.svg.getElementById("p_dps_sm_sys_summ2_tc1_evap_t");
+    p_dps_sm_sys_summ2.tc2_evap_t = device.svg.getElementById("p_dps_sm_sys_summ2_tc2_evap_t");
 
 
     p_dps_sm_sys_summ2.ondisplay = func
@@ -112,15 +121,16 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /079";
+        var ops_string = major_mode~"1/"~spec_string~"/079";  
+    
         device.DPS_menu_ops.setText(ops_string);
     
     # set a few values not modeled explicitly to reasonable values
     
-        p_dps_sm_sys_summ2.hyd1_rsvr_qty.setText(sprintf("  87")); 
-        p_dps_sm_sys_summ2.hyd2_rsvr_qty.setText(sprintf("  86")); 
-        p_dps_sm_sys_summ2.hyd3_rsvr_qty.setText(sprintf("  87")); 
+
     
         p_dps_sm_sys_summ2.hyd1_rsvr_p.setText(sprintf("  54")); 
         p_dps_sm_sys_summ2.hyd2_rsvr_p.setText(sprintf("  56")); 
@@ -156,8 +166,7 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
    	p_dps_sm_sys_summ2.tk4_htrt2.setText(sprintf("-248")); 
    	p_dps_sm_sys_summ2.tk5_htrt2.setText(sprintf("-248")); 
 
-	p_dps_sm_sys_summ2.avbay1_fan.setText("27.4"); 
-	p_dps_sm_sys_summ2.avbay2_fan.setText("27.4"); 
+
 
     }
     
@@ -192,8 +201,8 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.hyd2_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-pressure-psia")));
         p_dps_sm_sys_summ2.hyd3_p.setText(sprintf("%4.0f", getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-pressure-psia")));
     
-        p_dps_sm_sys_summ2.hyd1_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-3.0))); 
-        p_dps_sm_sys_summ2.hyd2_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")+1.0))); 
+        p_dps_sm_sys_summ2.hyd1_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/hyd-rsvr-T-K")-1.0))); 
+        p_dps_sm_sys_summ2.hyd2_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-rsvr-T-K")))); 
         p_dps_sm_sys_summ2.hyd3_rsvr_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-rsvr-T-K")))); 
     
     
@@ -215,9 +224,38 @@ var PFD_addpage_p_dps_sm_sys_summ2 = func(device)
         p_dps_sm_sys_summ2.avbay2_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")))); 
         p_dps_sm_sys_summ2.avbay3_t.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K")+1.0))); 
     
+
+	p_dps_sm_sys_summ2.avbay1_fan.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay/fan-cooling-effect") * 3.80)); 
+	p_dps_sm_sys_summ2.avbay2_fan.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay[1]/fan-cooling-effect") * 3.77)); 
+	p_dps_sm_sys_summ2.avbay3_fan.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/eclss/avbay[2]/fan-cooling-effect") * 3.92));  
+
+	var water_pressure1 = 20 + getprop("/fdm/jsbsim/systems/atcs/water-pump-1-active") * 43;
+	var water_pressure2 = 23 + getprop("/fdm/jsbsim/systems/atcs/water-pump-2-active") * 41;
+
+	p_dps_sm_sys_summ2.tc1_h2o_p.setText(sprintf("%2.0f", water_pressure1));
+	p_dps_sm_sys_summ2.tc2_h2o_p.setText(sprintf("%2.0f", water_pressure2));
     
+	var freon_flow1 = getprop("/fdm/jsbsim/systems/atcs/freon-pump-1-active") * 2246.0;
+	var freon_flow2 = getprop("/fdm/jsbsim/systems/atcs/freon-pump-2-active") * 2258.0;
+
+        p_dps_sm_sys_summ2.tc1_freon.setText(sprintf("%4.0f", freon_flow1));
+    	p_dps_sm_sys_summ2.tc2_freon.setText(sprintf("%4.0f", freon_flow2));
     
-    
+	var evap_t1 = K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/freon-out-temperature-K"));
+
+	p_dps_sm_sys_summ2.tc1_evap_t.setText(sprintf("%4.0f", evap_t1));
+    	p_dps_sm_sys_summ2.tc2_evap_t.setText(sprintf("%4.0f", evap_t1));
+
+	var mission_time = getprop("/fdm/jsbsim/systems/timer/delta-MET") + getprop("/sim/time/elapsed-sec");
+	var qty = (1.0 - 0.4 * (mission_time/(86400.0 * 12.0))) * 100.0;
+	if (qty < 3.0) {qty = 3.0;}
+
+
+        p_dps_sm_sys_summ2.hyd1_rsvr_qty.setText(sprintf("%d", int(qty)-1)); 
+        p_dps_sm_sys_summ2.hyd2_rsvr_qty.setText(sprintf("%d", int(qty))); 
+        p_dps_sm_sys_summ2.hyd3_rsvr_qty.setText(sprintf("%d", int(qty)-3)); 
+
+
         device.update_common_DPS();
     
     

@@ -39,6 +39,18 @@ var PFD_addpage_p_ascent = func(device)
     p_ascent.serc = device.svg.getElementById("p_ascent_serc");
     p_ascent.serc_on = device.svg.getElementById("p_ascent_serc_on");
 
+    p_ascent.yaw_steer = device.svg.getElementById("p_ascent_yaw_steer");
+    p_ascent.abort = device.svg.getElementById("p_ascent_abort");
+    p_ascent.arm = device.svg.getElementById("p_ascent_arm");
+
+    p_ascent.abort_region = device.svg.getElementById("p_ascent_2EO_abort_region");
+	
+    p_ascent.engine1_fail_vi = device.svg.getElementById("p_ascent_engine1_fail_vi");
+    p_ascent.engine2_fail_vi = device.svg.getElementById("p_ascent_engine2_fail_vi");
+
+
+
+
     p_ascent.ondisplay = func
     {
         # called once whenever this page goes on display/
@@ -108,6 +120,9 @@ var PFD_addpage_p_ascent = func(device)
 	p_ascent.vco.setVisible(0);
 	p_ascent.vco_marker.setVisible(0);
 
+	p_ascent.engine1_fail_vi.setText("");
+	p_ascent.engine2_fail_vi.setText("");
+
     }
     
     p_ascent.offdisplay = func
@@ -141,6 +156,31 @@ var PFD_addpage_p_ascent = func(device)
             p_ascent.throttle_text.setText(sprintf(""));
     	}
     
+	if (getprop("/fdm/jsbsim/systems/abort/enable-yaw-steer") == 1)
+		{p_ascent.yaw_steer.setText("ENA");}
+	else	
+		{p_ascent.yaw_steer.setText("INH");}
+
+	p_ascent.abort_region.setText(getprop("/fdm/jsbsim/systems/abort/contingency-abort-region"));
+	
+	if ((major_mode == 102) or (major_mode == 103))
+		{	
+		p_ascent.engine1_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine-fail-string"));
+		p_ascent.engine2_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine2-fail-string"));
+		}
+
+	if (getprop("/fdm/jsbsim/systems/abort/arm-contingency") == 1)
+		{p_ascent.arm.setText("*");}
+	else
+		{p_ascent.arm.setText("");}
+
+	if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 4)
+		{
+		p_ascent.abort.setText("*");
+		p_ascent.abort_region.setColor(0.8, 0.8, 0.4);
+		}
+	else
+		{p_ascent.abort.setText("");}
 
 	var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
@@ -204,10 +244,13 @@ var PFD_addpage_p_ascent = func(device)
     	}
     
     
+	var downshift = 0.0;
+	if (major_mode == 103) {downshift = 80.0;}
     
         var plot = device.nom_traj_plot.createChild("path", "data")
         .setStrokeLineWidth(2)
         .setColor(dps_r,dps_g,dps_b)
+	.setTranslation(0,downshift)
         .moveTo(traj_data[0][0],traj_data[0][1]); 
     
         for (var i = 1; i< (size(traj_data)-1); i=i+1)
@@ -227,7 +270,7 @@ var PFD_addpage_p_ascent = func(device)
         var x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
         var y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
     	
-	p_ascent.shuttle_marker.setTranslation(x,y);
+	p_ascent.shuttle_marker.setTranslation(x,y + downshift);
 
 	velocity = SpaceShuttle.ascent_predictors[0][0];
 	altitude = SpaceShuttle.ascent_predictors[0][1];
@@ -235,7 +278,7 @@ var PFD_addpage_p_ascent = func(device)
 	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 
-	p_ascent.pred1.setTranslation(x,y);
+	p_ascent.pred1.setTranslation(x,y + downshift);
 
 	velocity = SpaceShuttle.ascent_predictors[1][0];
 	altitude = SpaceShuttle.ascent_predictors[1][1];
@@ -243,8 +286,8 @@ var PFD_addpage_p_ascent = func(device)
 	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 
-	p_ascent.pred2.setTranslation(x,y);
-        #device.p_ascent_shuttle_sym.setTranslation(x,y);
+	p_ascent.pred2.setTranslation(x,y + downshift);
+
     
     
     };

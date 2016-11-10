@@ -112,6 +112,19 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/light/payload-bay-power-demand-kW">
+		<function>
+			<product>
+			<sum>
+				<property>systems/light/payload-bay-fwd</property>
+				<property>systems/light/payload-bay-mid</property>
+				<property>systems/light/payload-bay-aft</property>
+			</sum>
+			<value>0.4</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/light/payload-bay-flood-intensity">
 		<function>
 			<product>
@@ -122,6 +135,25 @@
 				<property>systems/light/payload-bay-aft-intensity</property>
 			</sum>
 			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/airlock-flood-intensity">
+		<function>
+			<sum>
+				<product>
+					<property>systems/light/payload-bay-fwd-intensity</property>
+					<value>0.85</value>
+				</product>
+				<product>
+					<property>systems/light/payload-bay-mid-intensity</property>
+					<value>0.13</value>
+				</product>
+				<product>
+					<property>systems/light/payload-bay-aft-intensity</property>
+					<value>0.02</value>
+				</product>
+			</sum>
 		</function>
 		</fcs_function>
 
@@ -162,4 +194,292 @@
 		</fcs_function>
 
 	</channel>
+
+
+    <channel name="Cabin lighting">
+
+        <fcs_function name="systems/light/cabinlight1-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight1-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight2-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight2-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight3-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight3-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight4-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight4-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight5-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight5-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight6-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight6-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight7-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight7-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight8-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight8-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight9-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight9-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight10-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight10-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/cabinlight11-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/cabinlight11-intensity</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/console-eff-panel-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-panel-left-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-left</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-panel-center-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-panel-center</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-overhead-left-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-overhead-left</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-overhead-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-overhead-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/event-time-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/event-time-intensity</property>
+                    <quotient>
+                        <property>systems/light/console-eff-norm</property>
+                        <value>0.7</value>
+                    </quotient>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/button-light-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/button-light-intensity</property>
+                    <quotient>
+                        <property>systems/light/console-eff-norm</property>
+                        <value>0.7</value>
+                    </quotient>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-aft-panel-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-aft-panel-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+        <fcs_function name="systems/light/console-eff-aft-panel-center-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-aft-panel-center</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-rgb-tied">
+            <function>
+                    <quotient>
+                        <sum>
+                            <property>systems/light/console-eff-panel-left-norm-tied</property>
+                            <property>systems/light/console-eff-panel-center-norm-tied</property>
+                            <property>systems/light/console-eff-panel-right-norm-tied</property>
+                            <property>systems/light/console-eff-overhead-left-norm-tied</property>
+                            <property>systems/light/console-eff-overhead-right-norm-tied</property>
+                        </sum>
+                        <value>3.5</value>
+                    </quotient>
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-r-tied">
+            <function>
+		<sum>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.05</value>
+                </product>
+		<property>systems/thermal/plasma-ambience-red</property>
+		</sum>
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-g-tied">
+            <function>
+		<sum>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.025</value>
+                </product>  
+		<property>systems/thermal/plasma-ambience-green</property>
+		</sum>              
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/cockpit-ambience-b-tied">
+            <function>
+		<sum>
+                <product>
+                    <property>systems/light/cockpit-ambience-rgb-tied</property>
+                    <value>.025</value>
+                </product>  
+		<property>systems/thermal/plasma-ambience-blue</property>
+		</sum>              
+            </function>
+		</fcs_function>
+
+        <fcs_function name="systems/light/console-eff-instrument-right-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-instrument-right</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/light/cabin-light-power-demand-kW">
+		<function>
+			<sum>
+				<product>
+					<sum>
+                        <!-- area -->
+						<property>systems/light/cabinlight1-intensity</property>
+						<property>systems/light/cabinlight2-intensity</property>
+                        <property>systems/light/cabinlight3-intensity</property>
+						<property>systems/light/cabinlight4-intensity</property>
+					</sum>
+					<value>0.25</value>
+				</product>
+                <product>
+					<sum>
+                        <!-- spot -->
+						<property>systems/light/cabinlight6-intensity</property>
+						<property>systems/light/cabinlight7-intensity</property>
+					</sum>
+					<value>0.2</value>
+				</product>
+				<product>
+					<sum>
+                        <!-- fluorescent 1 bulb -->
+						<property>systems/light/cabinlight5-intensity</property>
+						<property>systems/light/cabinlight8-intensity</property>
+                        <property>systems/light/cabinlight10-intensity</property>
+					</sum>
+					<value>0.15</value>
+				</product>
+                <product>
+					<sum>
+                        <!-- fluorescent 2 bulb-->
+						<property>systems/light/cabinlight9-intensity</property>
+						<property>systems/light/cabinlight11-intensity</property>
+					</sum>
+					<value>0.3</value>
+				</product>
+				<product>
+					<sum>
+                        <property>systems/light/console-eff-panel-left-norm-tied</property>
+                        <property>systems/light/console-eff-panel-center-norm-tied</property>
+                        <property>systems/light/console-eff-panel-right-norm-tied</property>
+                        <property>systems/light/console-eff-overhead-left-norm-tied</property>
+                        <property>systems/light/console-eff-overhead-right-norm-tied</property>
+					</sum>
+					<value>0.05</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+        
+	</channel>
+
 </system>

@@ -5,9 +5,9 @@
 <PropertyList>
   <!--
         Visual feedback of the flightdeck controls
-      -->
+
   <model>
-    <!--
+
           Objects in this model (Commander Joystick specific):
             + Joystick.Base
               + Joystick
@@ -20,7 +20,7 @@
           
           Individual pivot points need to be found in the mesh.
           
-        -->
+
     <path>Aircraft/SpaceShuttle/Models/RHC-Commander.ac</path>
     <offsets>
       <x-m> 0.0 </x-m>
@@ -29,7 +29,7 @@
       <heading-deg>0.0</heading-deg>
     </offsets>
   </model>
-
+        -->
   <animation>
     
     <type>rotate</type>
