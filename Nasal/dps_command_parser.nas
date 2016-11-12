@@ -3362,6 +3362,12 @@ if ((header == "SPEC") and (end =="PRO"))
 		setprop("/fdm/jsbsim/systems/dps/disp-sm", 87);
 		valid_flag = 1;
 		}
+	if (spec_num == 88) 
+		{
+		page_select(idp_index, "p_dps_apu_thermal");
+		setprop("/fdm/jsbsim/systems/dps/disp-sm", 88);
+		valid_flag = 1;
+		}
 	if (spec_num == 89) 
 		{
 		page_select(idp_index, "p_dps_prplt_thermal");
