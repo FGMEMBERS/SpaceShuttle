@@ -4290,7 +4290,7 @@
                     <value>0</value>
                 </equals>
                 <equals>
-                  <property>/controls/engines/engine/throttle</property>
+                  <property>/fdm/jsbsim/systems/mps/engine[0]/run-cmd</property>
                   <value>0.0</value>
                 </equals>
             </or>
@@ -4313,7 +4313,7 @@
                     <value>0</value>
                 </equals>
                 <equals>
-                  <property>/controls/engines/engine[2]/throttle</property>
+                  <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
                   <value>0.0</value>
                 </equals>
             </or>
@@ -4336,7 +4336,7 @@
                     <value>0</value>
                 </equals>
                 <equals>
-                  <property>/controls/engines/engine[1]/throttle</property>
+                  <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
                   <value>0.0</value>
                 </equals>
             </or>
