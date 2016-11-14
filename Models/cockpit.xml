@@ -6,6 +6,7 @@
 
 <PropertyList>
     <path>cockpit.ac</path>
+    <!--path>cockpit.osgb</path-->
     <nopreview/>
 
     <!-- grain -->

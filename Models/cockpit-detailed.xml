@@ -5,7 +5,8 @@
      Flightgear version by Richard Harrison; rjh@zaretto.com 2015-04-06 -->
 
 <PropertyList>
-    <path>cockpit-detailed.ac</path>
+    <path>cockpit-detailedNew.ac</path>
+    <!--path>cockpit-detailed.osgb</path-->
     <nopreview/>
 
     <!-- grain -->
