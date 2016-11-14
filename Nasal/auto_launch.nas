@@ -48,9 +48,12 @@ else if (auto_launch_stage == 2)
 			{
 			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
 				{
-				setprop("/controls/engines/engine[0]/throttle", 0.0);
-				setprop("/controls/engines/engine[1]/throttle", 0.0);
-				setprop("/controls/engines/engine[2]/throttle", 0.0);
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)
+					{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", 0.0);}
 				}
 			aux_flag = 1;
 			}
@@ -60,9 +63,12 @@ else if (auto_launch_stage == 2)
 			{
 			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
 				{
-				setprop("/controls/engines/engine[0]/throttle", 1.0);
-				setprop("/controls/engines/engine[1]/throttle", 1.0);
-				setprop("/controls/engines/engine[2]/throttle", 1.0);
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)
+					{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", 1.0);}
 				}
 			}
 
@@ -73,10 +79,13 @@ else if (auto_launch_stage == 2)
 			{
 		
 			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
-				{			
-				setprop("/controls/engines/engine[0]/throttle", 1.0);
-				setprop("/controls/engines/engine[1]/throttle", 1.0);
-				setprop("/controls/engines/engine[2]/throttle", 1.0);
+				{
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)			
+					{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)			
+					{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)			
+					{setprop("/controls/engines/engine[2]/throttle", 1.0);}
 				}
 			aux_flag = 2;
 			}
@@ -160,16 +169,31 @@ else if (auto_launch_stage == 4)
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
 		{
-		var current_throttle = getprop("/controls/engines/engine[0]/throttle");
+
+		# an engine can be in electric lockup, so we may need to look at more engines
+		# to determine current throttle value
+
+		var current_throttle = 1; 
+
+		if (SpaceShuttle.failure_cmd.ssme1 == 1)
+			{current_throttle = getprop("/controls/engines/engine[0]/throttle");}
+		else if (SpaceShuttle.failure_cmd.ssme2 == 1)
+			{current_throttle = getprop("/controls/engines/engine[1]/throttle");}
+		else
+			{current_throttle = getprop("/controls/engines/engine[2]/throttle");}
+
 		var new_throttle = current_throttle * 0.99;
 
 		#if (new_throttle < 0.61) {new_throttle = 0.61;}
 
 		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
-			{			
-			setprop("/controls/engines/engine[0]/throttle", new_throttle);
-			setprop("/controls/engines/engine[1]/throttle", new_throttle);
-			setprop("/controls/engines/engine[2]/throttle", new_throttle);
+			{
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", new_throttle);}
 			}
 
 		}
@@ -207,10 +231,13 @@ else if (auto_launch_stage == 4)
 		{
 
 		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
-			{				
-			setprop("/controls/engines/engine[0]/throttle", 0.0);
-			setprop("/controls/engines/engine[1]/throttle", 0.0);
-			setprop("/controls/engines/engine[2]/throttle", 0.0);
+			{	
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", 0.0);}
 
 	    		setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
     			setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
@@ -330,14 +357,33 @@ else if (auto_launch_stage == 4)
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
 		{
-		var current_throttle = getprop("/controls/engines/engine[0]/throttle");
+
+
+		# an engine can be in electric lockup, so we may need to look at more engines
+		# to determine current throttle value
+
+		var current_throttle = 1; 
+
+		if (SpaceShuttle.failure_cmd.ssme1 == 1)
+			{current_throttle = getprop("/controls/engines/engine[0]/throttle");}
+		else if (SpaceShuttle.failure_cmd.ssme2 == 1)
+			{current_throttle = getprop("/controls/engines/engine[1]/throttle");}
+		else
+			{current_throttle = getprop("/controls/engines/engine[2]/throttle");}
+
 		var new_throttle = current_throttle * 0.99;
 
-		if (new_throttle < 0.61) {new_throttle = 0.61;}
+		#if (new_throttle < 0.61) {new_throttle = 0.61;}
 
-		setprop("/controls/engines/engine[0]/throttle", new_throttle);
-		setprop("/controls/engines/engine[1]/throttle", new_throttle);
-		setprop("/controls/engines/engine[2]/throttle", new_throttle);
+		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+			{
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", new_throttle);}
+			}
 
 		}
 
@@ -384,13 +430,22 @@ else if (auto_launch_stage == 4)
 	if (dist_ballistic >  (dist - 700000.0))
 		{
 
-		setprop("/controls/engines/engine[0]/throttle", 0.0);
-		setprop("/controls/engines/engine[1]/throttle", 0.0);
-		setprop("/controls/engines/engine[2]/throttle", 0.0);
 
-	    	setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
-    		setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
-    		setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+			{	
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", 0.0);}
+
+	    		setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+    			setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+    			setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
+			}
+
 
 		print ("MECO - auto-TAL guidance signing off!");
 		print ("Have a good entry and remember to close umbilical doors!");

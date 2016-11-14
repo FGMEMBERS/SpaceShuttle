@@ -38,6 +38,7 @@
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
 # * p_dps_hyd_thermal (DISP 87)
+# * p_dps_apu_thermal (DISP 88)
 # * p_dps_prplt_thermal (DISP 89)
 # * p_dps_pdrs_control (SPEC 94)
 # * p_dps_pdrs_override (SPEC 95)
@@ -94,6 +95,7 @@ io.include("p_dps_mnvr.nas");
 io.include("p_dps_univ_ptg.nas");
 io.include("p_dps_apu_hyd.nas");
 io.include("p_dps_hyd_thermal.nas");
+io.include("p_dps_apu_thermal.nas");
 io.include("p_dps_prplt_thermal.nas");
 io.include("p_dps_pl_bay.nas");
 io.include("p_dps_rel_nav.nas");
@@ -422,6 +424,7 @@ var MDU_Device =
         me.PFD.p_dps_univ_ptg = PFD_addpage_p_dps_univ_ptg(me.PFD);
         me.PFD.p_dps_apu_hyd = PFD_addpage_p_dps_apu_hyd(me.PFD);
         me.PFD.p_dps_hyd_thermal = PFD_addpage_p_dps_hyd_thermal(me.PFD);
+        me.PFD.p_dps_apu_thermal = PFD_addpage_p_dps_apu_thermal(me.PFD);
         me.PFD.p_dps_prplt_thermal = PFD_addpage_p_dps_prplt_thermal(me.PFD);
         me.PFD.p_dps_pl_bay = PFD_addpage_p_dps_pl_bay(me.PFD);
         me.PFD.p_dps_override = PFD_addpage_p_dps_override(me.PFD);
@@ -660,6 +663,10 @@ var MDU_Device =
         me.PFD.p_dps_hyd_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_hyd_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
+        me.PFD.p_dps_apu_thermal.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_apu_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_apu_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
         me.PFD.p_dps_prplt_thermal.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_prplt_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_prplt_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
