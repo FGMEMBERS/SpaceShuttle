@@ -1612,7 +1612,7 @@
    <description>NASA Space Shuttle Atlantis</description>
    <flight-model>jsb</flight-model>
    <aero>shuttle</aero>
-   <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), Chris Kuhn (cockpit), NASA, japreja and HerbyW (3D)</author>
+   <author>Thorsten Renk (flight dynamics), Richard Harrison (cockpit and avionics), Gijs de Rooy (avionics), Chris Kuhn (cockpit), NASA, Jorge Pareja, Wayne Bragg and Herbert Wagner (3D)</author>
    <status>beta</status>
    <rating>
     <FDM type="int">4</FDM>
