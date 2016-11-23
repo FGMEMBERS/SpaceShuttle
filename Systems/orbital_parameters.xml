@@ -223,36 +223,6 @@
 		</function>
 		</fcs_function>
 
-		<!--<fcs_function name="systems/orbital/eccentricity">
-		<description>
-			This equation calculates eccentricity. e = sqrt (1 - [ r v cos(gamma) ]^2 / {a * mu})
-		</description>
-		<function>
-			<pow>
-				<difference>
-					<value> 1.0 </value>
-					<quotient>
-						<pow>
-							<product>
-								<property> position/radius-to-vehicle-ft </property>
-								<property> velocities/eci-velocity-mag-fps </property>
-								<cos>
-									<property> flight-path/gamma-rad </property>
-								</cos>
-							</product>
-							<value> 2.0 </value>
-						</pow>
-						<product>
-							<property> systems/orbital/semimajor-axis-length-ft </property>
-							<property> systems/orbital/gm </property>
-						</product>
-					</quotient>
-				</difference>
-				<value> 0.5 </value>
-			</pow>
-		</function>
-		</fcs_function>-->
-
 		<fcs_function name="systems/orbital/apoapsis-ft">
 		<function>
 			<difference>
@@ -509,6 +479,24 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/orbital/norm-n">
+		<function>
+			<pow>
+				<sum>
+					<pow>
+						<property>systems/orbital/plane-x</property>
+						<value>2.0</value>
+					</pow>
+					<pow>
+						<property>systems/orbital/plane-y</property>
+						<value>2.0</value>
+					</pow>	
+				</sum>
+				<value>0.5</value>			
+			</pow>
+		</function>
+		</fcs_function>
+
 		
 
 		<fcs_function name="systems/orbital/ascending-node-lon-rad">
@@ -519,7 +507,8 @@
 					<property>systems/orbital/plane-y</property>
 					<value>-1.0</value>
 				</product>
-				<pow>
+				<property>systems/orbital/norm-n</property>
+				<!--<pow>
 				<sum>
 				<pow>
 					<property>systems/orbital/plane-x</property>
@@ -531,7 +520,7 @@
 				</pow>	
 				</sum>
 				<value>0.5</value>			
-				</pow>
+				</pow>-->
 				</quotient>
 			</acos>
 		</function>
@@ -549,7 +538,7 @@
 		<switch name="systems/orbital/ascending-node-lon-deg-corr">
 			<default value="1.0"/>
 			<test value="0.0">
-				systems/orbital/plane-x GT 0.0
+				systems/orbital/plane-x LT 0.0
 			</test>
 		</switch>
 
@@ -573,6 +562,137 @@
 			</sum>
 		</function>
 		</fcs_function>
+
+		<!-- argument of the periapsis (angle from periapsis to ascending node) -->
+
+		<fcs_function name="systems/orbital/periapsis-arg-rad-raw">
+		<function>
+			<acos>
+				<quotient>
+					<sum>
+						<product>
+							<value>-1.0</value>
+							<property>systems/orbital/plane-y</property>
+							<property>systems/orbital/epsilon-x</property>
+						</product>
+						<product>
+							<property>systems/orbital/plane-x</property>
+							<property>systems/orbital/epsilon-y</property>
+						</product>
+					</sum>
+					<product>
+						<property>systems/orbital/epsilon</property>
+						<property>systems/orbital/norm-n</property>
+					</product>
+				</quotient>
+			</acos>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/periapsis-arg-rad-corr">
+		<function>
+			<difference>
+				<value>6.283185307</value>
+				<property>systems/orbital/periapsis-arg-rad-raw</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/orbital/periapsis-arg-rad">
+			<default value="systems/orbital/periapsis-arg-rad-raw"/>
+			<test value="systems/orbital/periapsis-arg-rad-corr">
+				systems/orbital/epsilon-z LT 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/orbital/periapsis-arg-deg">
+		<function>
+			<product>
+				<property>systems/orbital/periapsis-arg-rad</property>
+				<value>57.29578</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<!-- true anomaly -->
+
+		<fcs_function name="systems/orbital/true-anomaly-rad-raw">
+		<function>
+			<acos>
+				<quotient>
+					<sum>
+						<product>
+							<property>position/eci-x-ft</property>
+							<property>systems/orbital/epsilon-x</property>
+						</product>
+						<product>
+							<property>position/eci-y-ft</property>
+							<property>systems/orbital/epsilon-y</property>
+						</product>
+						<product>
+							<property>position/eci-z-ft</property>
+							<property>systems/orbital/epsilon-z</property>
+						</product>
+					</sum>
+					<product>
+						<property>position/radius-to-vehicle-ft</property>
+						<property>systems/orbital/epsilon</property>
+					</product>
+				</quotient>
+			</acos>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/true-anomaly-rad-corr">
+		<function>
+			<difference>
+				<value>6.283185307</value>
+				<property>systems/orbital/true-anomaly-rad-raw</property>
+			</difference>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/orbital/true-anomaly-rad">
+			<default value="systems/orbital/true-anomaly-rad-raw"/>
+			<test value="systems/orbital/true-anomaly-rad-corr">
+				 systems/orbital/r-dot-v LT 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/orbital/true-anomaly-deg">
+		<function>
+			<product>
+				<property>systems/orbital/true-anomaly-rad</property>
+				<value>57.29578</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/argument-of-latitude-deg-raw">
+		<function>
+			<sum>
+				<property>systems/orbital/true-anomaly-deg</property>
+				<property>systems/orbital/periapsis-arg-deg</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/orbital/argument-of-latitude-deg-corr">
+		<function>
+			<difference>
+				<property>systems/orbital/argument-of-latitude-deg-raw</property>
+				<value>360.0</value>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/orbital/argument-of-latitude-deg">
+			<default value="systems/orbital/argument-of-latitude-deg-raw"/>
+			<test value="systems/orbital/argument-of-latitude-deg-corr">
+				 systems/orbital/argument-of-latitude-deg-raw GT 360.0
+			</test>
+		</switch>
 
 	</channel>
 

@@ -20,6 +20,13 @@ else {return x;}
 
 }
 
+var smoothstep = func (a,b,x) {
+
+x = clamp((x - a)/(b - a), 0.0, 1.0); 
+
+return x*x*(3.0 - 2.0*x);
+}
+
 ##################################################
 # general helper functions for vector computations
 ##################################################
@@ -110,6 +117,14 @@ outvec = scalar_product(1.0/norm(outvec) , outvec);
 
 
 return outvec;
+}
+
+var distance_between = func (v1, v2) {
+
+var v3 = subtract_vector(v1, v2);
+
+return norm(v3);
+
 }
 
 
@@ -245,9 +260,26 @@ var z = math.sin(el_rad);
 return [x,y,z];
 }
 
+
+######################################
+# geoid function - returns latitude
+# dependent Earth radius
+######################################
+
+var geoid_radius = func (lat) {
+
+var a =  6378.1370; # equatorial radius
+var b =  6356.7523; # polar radius
+
+var cl = math.cos(lat * math.pi/180.0); 
+var sl = math.sin(lat * math.pi/180.0); 
+
+return 1000.0 * math.sqrt((math.pow(a*a*cl,2.0) + math.pow(b*b*sl,2.0) )/(math.pow(a *cl,2.0) + math.pow(b*sl,2.0) ));
+}
+
 ######################################
 # pointing vector coordinate 
-# transformationn
+# transformation
 ######################################
 
 var vtransform_body_inertial = func (vec) {
@@ -432,7 +464,7 @@ if (target_id == 4) # we track the Sun, omicron zero point is the celestial nort
 # OMS burn preparation computations
 ######################################
 
-var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0};
+var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0, rei: 0.0};
 
 var create_oms_burn_vector = func {
 
@@ -536,7 +568,7 @@ var oms_future_burn_hold = func {
 
 var flag = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag");
 
-print("Holding...");
+print("Computing trajectory prediction...");
 
 if (flag == 1)
 	{
@@ -565,25 +597,15 @@ var v = [vx, vy, vz];
 
 # construct prograde/radial/normal coordinate system for this state vector
 
-# prograde and radial don't really form an ON system for eccentric orbits, so we correct that
-# we need exact prograde orientation so we tilt the radial base vector for pointing
 
-var norm_x = math.sqrt(x*x + y*y + z*z);
-var norm_v = math.sqrt(vx*vx + vy*vy + vz*vz);
+var prograde = [vx, vy, vz];
+var radial = [x, y, z];
 
-var prograde = [vx/norm_v, vy/norm_v, vz/norm_v];
-var radial = [x/norm_x, y/norm_x, z/norm_x];
+prograde = normalize(prograde);
+radial = normalize(radial);
+radial = orthonormalize(prograde, radial);
 
-var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
 
-radial[0] = radial[0] - prograde[0] * corr_angle;
-radial[1] = radial[1] - prograde[1] * corr_angle;
-radial[2] = radial[2] - prograde[2] * corr_angle;
-
-var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
-radial[0] = radial[0]/radial_norm;
-radial[1] = radial[1]/radial_norm;
-radial[2] = radial[2]/radial_norm;
 
 # now correct for the about 11.5 deg offset of the OMS thrust axis
 
@@ -602,9 +624,14 @@ var normal = cross_product(prograde, radial);
 
 # now get the inertial velocity change components for the burn taget
 
+
+
 var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
 var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];
 var tgt2 = oms_burn_target.tx * prograde[2] + oms_burn_target.ty * normal[2] + oms_burn_target.tz * radial[2];
+
+#print("Target:");
+#print(tgt0, " ", tgt1, " ", tgt2);
 
 # add the burn target velocity components to the state vector
 
@@ -621,10 +648,22 @@ var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
 var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
 var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
 
+print("TA: ", apoapsis_nm, "TP: ", periapsis_nm); 
 
 oms_burn_target.apoapsis = apoapsis_nm;
 oms_burn_target.periapsis = periapsis_nm;
 
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+if (major_mode == 3)
+	{
+	var rei = SpaceShuttle.get_rei(r,v);
+
+	# correct REI for finite burn duration
+	var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
+
+	oms_burn_target.rei = rei - rei_correction;
+	}
 
 # start the tracking loop to maneuver into burn attitude
 
@@ -883,6 +922,17 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
 		var apoapsis_nm = (apses[1] - sea_level_radius_ft)/ 6076.11548556;
 
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+		if (ops == 3)
+			{
+			var rei = SpaceShuttle.get_rei(r,v);
+			# correct REI for finite burn duration
+			var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
+
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei - rei_correction);
+			}
+
 		
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", apoapsis_nm);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", periapsis_nm);
@@ -891,6 +941,13 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		{
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", oms_burn_target.apoapsis);
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", oms_burn_target.periapsis);
+
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+		if (ops == 3)
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", oms_burn_target.rei);
+			}
 		}
 	}
 
@@ -903,6 +960,14 @@ var oms_burn_start = func (time) {
 
 var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 var tig = oms_burn_target.tig; 
+
+# some log output
+
+var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+#print (MET, " ", x, " ", y, " ", z);
 
 
 if (tig - MET < 0.0) # if we're at or past ignition time, we go
@@ -1102,7 +1167,7 @@ if (tgt_id == 1)
 
 	}
 
-else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
+else if (tgt_id == 3)
 	{
 
         var tta = SpaceShuttle.time_to_apsis();
@@ -1113,19 +1178,81 @@ else if ((tgt_id == 3) or (tgt_id == 4) or (tgt_id == 5))
 		{
 
 		# set TIG to 2 minutes prior to apsis
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tta[1]-120.0);
+		var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", MET + tta[1]-120.0);
 		SpaceShuttle.set_oms_mnvr_timer();
 
 		var periapsis_tgt = 105.0;
-		if (tgt_id == 4) {periapsis_tgt = 30.0;}
-		else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
 
 		var delta_alt = periapsis_tgt - periapsis_miles;
 
 		delta_v = 1.5 * delta_alt;
 		}
 	}
+else if ((tgt_id == 4) or (tgt_id == 5)) # we need to do the de-orbit burn opposite to site
+	{
 
+	var lon = getprop("/position/longitude-deg");
+	var tgt_lon = landing_site.lon() - 160.0;
+	var delta_lon = tgt_lon - lon;
+	if (lon < 0.0) {lon = lon + 360;}
+	if (tgt_lon < 0.0) {tgt_lon = tgt_lon + 360.0;}
+
+	print("Current lon: ", lon, " target lon: ", tgt_lon);
+	print("Delta_lon_before: ", delta_lon);
+	if (delta_lon < 0.0) {delta_lon = delta_lon + 360.0;} 
+	if (delta_lon > 360.0) {delta_lon = delta_lon - 360.0;}
+
+	print("Delta_lon: ", delta_lon);
+
+	var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+	var ttb = delta_lon/360.0 * orbital_period;
+
+	# set TIG to 2 minutes prior to 180 degree point
+	var MET = getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", MET + ttb-120.0);
+	SpaceShuttle.set_oms_mnvr_timer();
+
+	if (tgt_id == 4) {periapsis_tgt = 25.0;}
+	else if (tgt_id == 5) {periapsis_tgt = 50.0;}
+
+	var delta_alt_corr = 0.0;
+        var tta = SpaceShuttle.time_to_apsis();
+	if (tta[0] == 2) # to apoapsis
+		{
+		if (ttb < tta[1]) # we burn before reaching apoapsis
+			{
+			var fraction = ttb/(0.5 * orbital_period);
+			delta_alt_corr = (1.0 - fraction) * (apoapsis_miles - periapsis_miles);
+			}
+		else # we burn on the way to periapsis
+			{
+			var fraction = (ttb - tta[1])/(0.5 * orbital_period);
+			delta_alt_corr = fraction * (apoapsis_miles - periapsis_miles);
+			}
+		}
+	else
+		{
+		if (ttb < tta[1]) # we burn before reaching periapsis
+			{
+			var fraction = ttb/(0.5 * orbital_period);
+			delta_alt_corr = fraction * (apoapsis_miles - periapsis_miles);
+			}
+		else # we burn on the way to apoapsis
+			{
+			var fraction = (ttb - tta[1])/(0.5 * orbital_period);
+			delta_alt_corr = (1.0 - fraction) * (apoapsis_miles - periapsis_miles);
+			}
+		}
+	print ("Fraction: ", fraction);
+	print ("Delta alt correction: ", delta_alt_corr);
+
+	var delta_alt = periapsis_tgt - periapsis_miles - delta_alt_corr;
+	delta_v = 1.5 * delta_alt;
+
+	}
+	
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",delta_v);
 }

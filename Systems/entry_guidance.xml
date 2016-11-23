@@ -57,6 +57,15 @@
 		</function>
 	</fcs_function>
 
+	<fcs_function name="systems/entry_guidance/site-relative-velocity-fps">
+		<function>
+			<product>
+				<property>systems/entry_guidance/vrel-sign</property>
+				<property>systems/entry_guidance/ground-relative-velocity-fps</property>
+			</product>
+		</function>
+	</fcs_function>
+
 	<fcs_function name="systems/entry_guidance/groundtrack-course-deg-raw">
 		<function>
 		<product>
@@ -86,7 +95,7 @@
 	</fcs_function>
 
 
-	<fcs_function name="systems/entry_guidance/target-deceleration-g">
+	<!--<fcs_function name="systems/entry_guidance/target-deceleration-g">
 		<function>
 		<product>
 			<quotient>
@@ -136,7 +145,7 @@
 			<property>systems/entry_guidance/guidance-active</property>
 		</product>
 		</function>
-	</fcs_function>
+	</fcs_function>-->
 
 	<fcs_function name="systems/entry_guidance/delta-azimuth-deg">
 		<function>

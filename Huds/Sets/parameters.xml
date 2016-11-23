@@ -11,12 +11,20 @@
 	<tape>
 		<name>KIAS</name>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<x>-280</x>
 		<y>-100</y>
@@ -49,12 +57,20 @@
 	<tape>
 		<name>AMSL</name>
 		<condition>
+			<and>
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
 				<value>0</value>
 				</equals>
 			</not>
+			<not>
+				<equals>
+				<property>/sim/current-view/view-number</property>
+				<value>13</value>
+				</equals>
+			</not>
+			</and>
 		</condition>
 		<x>245</x>
 		<y>-100</y>

@@ -16,8 +16,8 @@
 
 
  <effect>
-    <inherits-from>Effects/space</inherits-from>
-    <object-name>et_all.lay_et all</object-name>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/et-main</inherits-from>
+    <object-name>et_all.lay_et</object-name>
     <object-name>et_all.lay_et_att</object-name>
     <object-name>et_all.lay_et_att.001</object-name>
     <object-name>et_all.lay_et_att.002</object-name>

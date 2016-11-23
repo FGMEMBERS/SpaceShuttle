@@ -177,7 +177,7 @@ var PFD_addpage_p_dps_rcs = func(device)
 
 	# defaults for functions which are not yet implemented
 
-	p_dps_rcs.aut_manf_cl.setText("INH");
+
 	p_dps_rcs.press.setText("ENA");
 	
     	p_dps_rcs.oms_rcs_qty_l.setText("0.00");
@@ -651,7 +651,7 @@ var PFD_addpage_p_dps_rcs = func(device)
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L1A-sel") == 0) {symbol = "*";}
 		p_dps_rcs.jdes_x2.setText(symbol);
 
-		p_dps_rcs.jdes_x1.setText("");
+		p_dps_rcs.jdes_x3.setText("");
 
 		symbol = "";
 		if (getprop("/fdm/jsbsim/systems/rcs/jet-table/L5L-sel") == 0) {symbol = "*";}
@@ -995,6 +995,11 @@ var PFD_addpage_p_dps_rcs = func(device)
 	p_dps_rcs.off.setText(symbol);
 
     
+	if (getprop("/fdm/jsbsim/systems/rcs/auto-manf-close") == 0)
+		{p_dps_rcs.aut_manf_cl.setText("INH");}
+	else
+		{p_dps_rcs.aut_manf_cl.setText("ENA");}
+
         device.update_common_DPS();
     }
     

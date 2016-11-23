@@ -166,7 +166,6 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     	p_dps_rel_nav.gps_aut.setText("");
 	p_dps_rel_nav.hazx_acpt.setText("");
     	p_dps_rel_nav.hazx_rej.setText("");
-	p_dps_rel_nav.node.setText("00:00:00");
    	p_dps_rel_nav.gps1_resid.setText("");
     	p_dps_rel_nav.gps2_resid.setText("");
     	p_dps_rel_nav.gps1_ratio.setText("");
@@ -433,6 +432,18 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		p_dps_rel_nav.stat2.setText("");
 		p_dps_rel_nav.stat1.setText("");
 		}
+
+	if (getprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id") > 0)
+		{
+		var node_time = SpaceShuttle.time_to_node(oTgt.l_vec);
+		p_dps_rel_nav.node.setText(SpaceShuttle.seconds_to_stringHMS(node_time));
+		}
+	else
+		{
+		p_dps_rel_nav.node.setText("00:00:00");
+		}
+
+
 
         device.update_common_DPS();
     }

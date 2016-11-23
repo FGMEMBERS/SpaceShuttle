@@ -8,8 +8,6 @@ landing_site.tacan = "";
 landing_site.rwy_sel = 0;
 
 var entry_interface = geo.Coord.new();
-var v_aero_last = 0.0;
-var v_aero = 0.0;
 var distance_last = 0.0;
 
 var radius_set = [];
@@ -64,30 +62,95 @@ landing_site.set_latlon(34.722, -120.567);
 var update_entry_guidance =  func {
 
 var pos = geo.aircraft_position();
+var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 var course = pos.course_to(landing_site);
+var v_eci = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 var distance = pos.distance_to(landing_site);
 
 var v_rel_fps = (distance - distance_last) /0.3048;
 setprop("/fdm/jsbsim/systems/entry_guidance/vrel-fps", v_rel_fps);
+if (v_rel_fps > 0.0)
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/vrel-sign", 1);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/vrel-sign", -1);
+	}
+
 distance_last = distance;
 
 distance = distance/ 1853.0;
+
 
 setprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg", course);
 setprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", distance);
 
 
+if (mm == 304)
+	{
+	var v_error = SpaceShuttle.get_entry_drag_deviation(v_eci, distance);
+	setprop("/fdm/jsbsim/systems/entry_guidance/v-error-fps", v_error);
 
-trailer_set.update(distance);
+	trailer_set.update(distance);
+	roll_reversal_management();
 
-v_aero = getprop("/fdm/jsbsim/systems/entry_guidance/ground-relative-velocity-fps");
+	# cease banking and alpha management in the transition to TAEM
 
-var a_aero = (v_aero_last - v_aero) * 0.3048 / 9.81;
+	if (distance < 95.0)
+		{
+		if (getprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init") ==0)
+			{
+			print("Preparing transition to TAEM guidance!");
+			setprop("/fdm/jsbsim/systems/ap/entry/taem-transit-init",1);
+			}
+		}
+	}
+}
 
-setprop("/fdm/jsbsim/systems/entry_guidance/current-deceleration-g", a_aero);
 
-v_aero_last = v_aero;
+# manage roll reversals #################################################
+
+var roll_reversal_management = func {
+
+var current_bank = getprop("/orientation/roll-deg");
+var roll_direction = getprop("/fdm/jsbsim/systems/ap/entry/roll-sign");
+
+# if a roll reversal is on, we need to check whether to end it
+
+if (getprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init") == 1)
+	{
+	var commanded_bank = getprop("/fdm/jsbsim/systems/ap/entry/reversal-bank-angle-target-deg");
+
+	if (math.abs(current_bank - commanded_bank) < 5.0)
+		{
+
+		roll_direction = - roll_direction;
+		setprop("/fdm/jsbsim/systems/ap/entry/roll-sign", roll_direction);
+		setprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init", 0);
+		print("Ending roll reversal!");
+		return;
+		}
+
+	}
+
+
+var delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
+if (math.abs(delta_az) < 10.0) {return;}
+
+var drag_bank = getprop("/fdm/jsbsim/systems/ap/entry/drag-bank-angle-target-deg");
+
+if (getprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init") == 0)
+{
+if (((delta_az > 10.0) and (roll_direction == 1)) or ((delta_az < -10.0) and (roll_direction == -1)))
+	{
+	setprop("/fdm/jsbsim/systems/ap/entry/reversal-bank-angle-target-deg", -current_bank);
+	print("Initiating roll reversal!");
+	setprop("/fdm/jsbsim/systems/ap/entry/roll-reversal-init", 1);
+	}
+}
+
 
 }
 
@@ -146,15 +209,17 @@ else if (mode_string == "TAL")
 	}
 else if (mode_string == "RTLS")
 	{
-	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
-	setprop("/controls/shuttle/hud-mode",2);
+	SpaceShuttle.init_rtls();
 	}
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
 # initialized at TAEM interface, no target is selected yet, so if distance to site is
 # within TAEM range, we compute it now
 
-if (distance < 100.0) {SpaceShuttle.compute_TAEM_guidance_targets();}
+if ((distance < 100.0) and (mode_string != "RTLS")){SpaceShuttle.compute_TAEM_guidance_targets();}
 
 
 }
+
+
+

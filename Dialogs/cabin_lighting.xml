@@ -1,0 +1,870 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>cabin-lighting</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+    <nasal>
+        <open>
+            # left seat/off/ctr consol
+            var p = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+            setprop("sim/model/shuttle/left-light_flag_0", 0);
+            setprop("sim/model/shuttle/left-light_flag_1", 0);
+            setprop("sim/model/shuttle/left-light_flag_2", 0);
+            setprop("sim/model/shuttle/left-light_flag_" ~ p, 1);
+            # right seat/off/ctr consol
+            var p = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+            setprop("sim/model/shuttle/right-light_flag_0", 0);
+            setprop("sim/model/shuttle/right-light_flag_1", 0);
+            setprop("sim/model/shuttle/right-light_flag_2", 0);
+            setprop("sim/model/shuttle/right-light_flag_" ~ p, 1);
+        </open>
+    </nasal>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Cabin lighting</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+
+    <text>
+      <label>Glareshields</label>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <checkbox>
+        <name>light-switch-glare-left</name>
+        <row>1</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Left Glare</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight1-mode</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-glare-left</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight1-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight1r-intensity"));
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity", 1);
+                }
+            </script>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-glare-left</name>
+        <row>2</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight1r-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-glare-left</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight1-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight1r-intensity"));
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight1-intensity", 1);
+                }
+            </script>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-glare-right</name>
+        <row>1</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>Right Glare</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight2-mode</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-glare-right</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight2-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight2r-intensity"));
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity", 1);
+                }
+            </script>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-glare-right</name>
+        <row>2</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight2r-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-glare-right</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight2-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight2r-intensity"));
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight2-intensity", 1);
+                }
+            </script>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Overheads</label>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+    <radio>
+        <row>4</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>Seat</label>
+        <property>sim/model/shuttle/left-light_flag_0</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight6-mode",0);
+                setprop("sim/model/shuttle/left-light_flag_0", 1);
+                setprop("sim/model/shuttle/left-light_flag_1", 0);
+                setprop("sim/model/shuttle/left-light_flag_2", 0);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <radio>
+        <row>5</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>Off</label>
+        <property>sim/model/shuttle/left-light_flag_1</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight6-mode",1);
+                setprop("sim/model/shuttle/left-light_flag_0", 0);
+                setprop("sim/model/shuttle/left-light_flag_1", 1);
+                setprop("sim/model/shuttle/left-light_flag_2", 0);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <radio>
+        <row>6</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>Ctr Consl</label>
+        <property>sim/model/shuttle/left-light_flag_2</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight6-mode",2);
+                setprop("sim/model/shuttle/left-light_flag_0", 0);
+                setprop("sim/model/shuttle/left-light_flag_1", 0);
+                setprop("sim/model/shuttle/left-light_flag_2", 1);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <slider>
+        <name>brightness-m1</name>
+        <row>7</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight36r-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-m1</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight6-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight6-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight36r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight3-intensity", 0);
+                }
+            </script>
+        </binding>
+    </slider>
+
+    <radio>
+        <row>4</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>Seat</label>
+        <property>sim/model/shuttle/right-light_flag_0</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight7-mode",0);
+                setprop("sim/model/shuttle/right-light_flag_0", 1);
+                setprop("sim/model/shuttle/right-light_flag_1", 0);
+                setprop("sim/model/shuttle/right-light_flag_2", 0);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <radio>
+        <row>5</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>Off</label>
+        <property>sim/model/shuttle/right-light_flag_1</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight7-mode",1);
+                setprop("sim/model/shuttle/right-light_flag_0", 0);
+                setprop("sim/model/shuttle/right-light_flag_1", 1);
+                setprop("sim/model/shuttle/right-light_flag_2", 0);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <radio>
+        <row>6</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>Ctr Consl</label>
+        <property>sim/model/shuttle/right-light_flag_2</property>
+        <live>true</live>
+        <enable>
+            <not>
+                <property>/sim/freeze/replay-state</property>
+            </not>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/cabinlight7-mode",2);
+                setprop("sim/model/shuttle/right-light_flag_0", 0);
+                setprop("sim/model/shuttle/right-light_flag_1", 0);
+                setprop("sim/model/shuttle/right-light_flag_2", 1);
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                }
+            </script>
+        </binding>
+    </radio>
+    <slider>
+        <name>brightness-m2</name>
+        <row>7</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight47r-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-m2</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight7-mode");
+                if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity", 0);
+                }
+                else if (selection == 2)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight7-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight47r-intensity"));
+                    setprop("/fdm/jsbsim/systems/light/cabinlight4-intensity", 0);
+                }
+            </script>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-l1</name>
+        <row>4</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Left Consl</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight5-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-l1</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-l1</name>
+        <row>5</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight5-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-l1</object-name>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-r1</name>
+        <row>6</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Right Consl</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-r1</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-r1</name>
+        <row>7</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight8-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-r1</object-name>
+        </binding>
+    </slider>
+
+    <checkbox>
+        <name>light-switch-al</name>
+        <row>8</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Payload</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight9-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-al</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-al</name>
+        <row>9</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight9-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-al</object-name>
+        </binding>
+    </slider>
+    <checkbox>
+        <name>light-switch-ac</name>
+        <row>8</row>
+        <col>2</col>
+        <halign>left</halign>
+        <label>Orbit</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight10-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-ac</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-ac</name>
+        <row>9</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight10-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-ac</object-name>
+        </binding>
+    </slider>
+    <checkbox>
+        <name>light-switch-ar</name>
+        <row>8</row>
+        <col>3</col>
+        <halign>left</halign>
+        <label>Mission</label>
+        <property>/fdm/jsbsim/systems/light/cabinlight11-intensity</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>light-switch-ar</object-name>
+        </binding>
+    </checkbox>
+    <slider>
+        <name>brightness-ar</name>
+        <row>9</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/cabinlight11-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-ar</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Panels</label>
+      <row>10</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>Left / Center</label>
+      <row>11</row>
+      <col>1</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-lc</name>
+        <row>12</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-left</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-lc</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                setprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-center",
+                    getprop("/fdm/jsbsim/systems/light/console-eff-norm-panel-left"));
+            </script>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Left Overhead</label>
+      <row>11</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-lov</name>
+        <row>12</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-left</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-lov</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Right</label>
+      <row>11</row>
+      <col>4</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rc</name>
+        <row>12</row>
+        <col>4</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-panel-right</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rc</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Right Overhead</label>
+      <row>11</row>
+      <col>3</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rov</name>
+        <row>12</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-overhead-right</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rov</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Instruments</label>
+      <row>13</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>Left / Center</label>
+      <row>14</row>
+      <col>1</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-lcin</name>
+        <row>15</row>
+        <col>1</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-left</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-lcin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Overhead</label>
+      <row>14</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-ovin</name>
+        <row>15</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-overhead</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-ovin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Right</label>
+      <row>14</row>
+      <col>4</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rin</name>
+        <row>15</row>
+        <col>4</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-instrument-right</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rin</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Numeric</label>
+      <row>14</row>
+      <col>3</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-num</name>
+        <row>15</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/event-time-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-num</object-name>
+        </binding>
+    </slider>
+
+  </group>
+
+    <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

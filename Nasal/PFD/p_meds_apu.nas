@@ -74,16 +74,7 @@ var PFD_addpage_p_meds_apu = func(device)
 	p_meds_apu.menu_item.setColor(1.0, 1.0, 1.0);
 	p_meds_apu.menu_item_frame.setColor(1.0, 1.0, 1.0);
 
-	# parameters which we do not yet simulate explicitly
 
-	p_meds_apu.hyd_qty1.setText("75");
-	p_meds_apu.hyd_qty2.setText("71");
-	p_meds_apu.hyd_qty3.setText("73");
-
-	set_tape(p_meds_apu.tape_hyd_qty1, 0.75, 60.7 + 295.8);
-	set_tape(p_meds_apu.tape_hyd_qty2, 0.71, 60.7 + 295.8);
-	set_tape(p_meds_apu.tape_hyd_qty3, 0.73, 60.7 + 295.8);
-    
 
     }
     
@@ -208,6 +199,21 @@ var PFD_addpage_p_meds_apu = func(device)
 	if ((oil_in_T3 < 45.0) or (oil_in_T3 > 290.0))
 		{p_meds_apu.tape_oilT3.setColorFill(1.0, 0.0, 0.0);}
 	else {p_meds_apu.tape_oilT3.setColorFill(0.0, 1.0, 0.0);}
+
+	# hydraulic fluid decreases with MET
+
+	var mission_time = getprop("/fdm/jsbsim/systems/timer/delta-MET") + getprop("/sim/time/elapsed-sec");
+	var qty = (1.0 - 0.4 * (mission_time/(86400.0 * 12.0))) * 100.0;
+	if (qty < 3.0) {qty = 3.0;}
+
+	p_meds_apu.hyd_qty1.setText(sprintf("%d", int(qty)-1));
+	p_meds_apu.hyd_qty2.setText(sprintf("%d", int(qty)));
+	p_meds_apu.hyd_qty3.setText(sprintf("%d", int(qty)-3 ));
+
+	set_tape(p_meds_apu.tape_hyd_qty1, qty/100.0, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_qty2, qty/100.0, 60.7 + 295.8);
+	set_tape(p_meds_apu.tape_hyd_qty3, qty/100.0, 60.7 + 295.8);
+
 
     }
 

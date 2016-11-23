@@ -13,21 +13,28 @@ var WONG_message_flag =0;
 var lockup_message_flag = 0;
 var SRB_burn_timer = 0.0;
 var deorbit_stage_flag = 0;
+var abort_region_flag = 0;
 
 
 
-aircraft.HUD.cycle_color();
+#aircraft.HUD.cycle_color();
 
 settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0);}, 30.0);
 
 var ignition = func{
     launch_loop_flag = 0;
+
+    setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 1);
+    setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 1);
+    setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 1);
+
     setprop("/controls/engines/engine[0]/throttle", 1.0);
     setprop("/controls/engines/engine[1]/throttle", 1.0);
     setprop("/controls/engines/engine[2]/throttle", 1.0);
-    setprop("/engines/engine[0]/thrust_lb", 400000.0);
-    setprop("/engines/engine[1]/thrust_lb", 400000.0);
-    setprop("/engines/engine[2]/thrust_lb", 400000.0);
+
+    #setprop("/engines/engine[0]/thrust_lb", 400000.0);
+    #setprop("/engines/engine[1]/thrust_lb", 400000.0);
+    #setprop("/engines/engine[2]/thrust_lb", 400000.0);
     launch_loop_start();
 }
 
@@ -169,6 +176,8 @@ if ((periapsis > -200.0) and (launch_message_flag ==2))
 	{orbit_warn(); launch_message_flag = 3;}
 
 
+var engine_fail_time = getprop("/fdm/jsbsim/systems/abort/engine-fail-time");
+
 if (thrust_engine1 > 0.0)
 	{
 	setprop("/controls/engines/engine[0]/ignited-hud","x");
@@ -176,6 +185,12 @@ if (thrust_engine1 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[0]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed);
+		var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-string", "1ST EO VI "~int(vi));
+		}
 	}
 
 if (thrust_engine2 > 0.0)
@@ -185,6 +200,12 @@ if (thrust_engine2 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[1]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed);
+		var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-string", "1ST EO VI "~int(vi));
+		}
 	}
 if (thrust_engine3 > 0.0)
 	{
@@ -193,7 +214,40 @@ if (thrust_engine3 > 0.0)
 else
 	{
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");
+	if (engine_fail_time < 0.0)
+		{
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-time", t_elapsed);
+		var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+		setprop("/fdm/jsbsim/systems/abort/engine-fail-string", "1ST EO VI "~int(vi));
+		}
 	}
+
+var n_eng_operational = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+var engine2_fail_time = getprop("/fdm/jsbsim/systems/abort/engine2-fail-time");
+
+if ((n_eng_operational < 2) and (engine2_fail_time < 0.0))
+	{
+	setprop("/fdm/jsbsim/systems/abort/engine2-fail-time", t_elapsed);
+	var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+	setprop("/fdm/jsbsim/systems/abort/engine2-fail-string", "2ND EO VI "~int(vi));
+	
+	# switch SERC on if we have SRBs disconnected
+
+	if (SRB_message_flag == 2)
+		{
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",13);
+		setprop("/controls/shuttle/control-system-string", "SERC");
+		}
+	}
+
+
+if ((thrust_engine1 == 0.0) and (thrust_engine2 == 0.0) and (thrust_engine3 == 0.0))
+	{
+	SpaceShuttle.light_manager.set_theme("CLEAR");
+	}
+
+
+
 
 var lockup_eng1 = getprop("/fdm/jsbsim/systems/mps/engine/lockup");
 var lockup_eng2 = getprop("/fdm/jsbsim/systems/mps/engine[1]/lockup");
@@ -237,6 +291,7 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") ==3)
 
 SpaceShuttle.check_limits_ascent();
 
+# automatically switch Earthview on
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
 	{
@@ -250,10 +305,14 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 	}
 	
-settimer(SpaceShuttle.update_ascent_predictors, 0.4);
-
-
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+settimer(SpaceShuttle.cloud_illumination, 0.2);
+settimer(SpaceShuttle.update_ascent_predictors, 0.4);
+settimer(SpaceShuttle.contingency_abort_region_2eo, 0.6);
+settimer(SpaceShuttle.cws_inspect, 0.8);
+
+
+
 
 
 
@@ -274,7 +333,9 @@ var thrust1 = getprop("/engines/engine[0]/thrust_lb");
 var thrust2 = getprop("/engines/engine[1]/thrust_lb");
 var thrust3 = getprop("/engines/engine[2]/thrust_lb");
 
-if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we're go
+var hyd_pressurized = getprop("/fdm/jsbsim/systems/apu/number-systems-pressurized");
+
+if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (hyd_pressurized == 3)) # we're go
 	{
 	setprop("/sim/messages/copilot", "SRB ignition!");
 	setprop("/controls/engines/engine[3]/throttle", 1.0);
@@ -291,11 +352,30 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0)) # we
 	# make an automatic transtion to MM 102
 	setprop("/fdm/jsbsim/systems/dps/major-mode", 102);	
 
+	# reset engine fail timer to init
+
+	setprop("/fdm/jsbsim/systems/abort/engine-fail-time", -1.0);
+	setprop("/fdm/jsbsim/systems/abort/engine-fail-string", "");
+	
+	# set SRB flame light effect
+
+	SpaceShuttle.light_manager.set_theme("SRB");
+	setprop("/environment/lightning/flash", 2);
+	setprop("/local-weather/lightning/model-index", -1);
+
+
 	# if we have liftoff, switch autolaunch on if configured
 	
 	if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
 		{
 		SpaceShuttle.auto_launch_loop();
+		}
+
+	# if we have shaking, start script
+
+	if (getprop("/sim/config/shuttle/srb-shake") == 1)
+		{
+		srb_view_shake_loop();
 		}
 
 	}
@@ -305,6 +385,9 @@ else
 	setprop("/controls/engines/engine[0]/throttle", 0.0);
 	setprop("/controls/engines/engine[1]/throttle", 0.0);
 	setprop("/controls/engines/engine[2]/throttle", 0.0);
+   	setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+   	setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+    	setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 	setprop("/controls/engines/engine[0]/ignited-hud"," ");
 	setprop("/controls/engines/engine[1]/ignited-hud"," ");
 	setprop("/controls/engines/engine[2]/ignited-hud"," ");
@@ -313,6 +396,32 @@ else
 
 }
 
+
+var srb_view_shake_loop = func {
+
+var view = getprop("/sim/current-view/name");
+
+if (SRB_message_flag == 2) 
+	{
+	return;
+	}
+
+if (view == "Cockpit View")
+	{
+	setprop("/sim/current-view/x-offset-m", -0.6 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.6 + 0.006 * (rand() - 0.5));
+	}
+else if (view == "Pilot")
+	{
+	setprop("/sim/current-view/x-offset-m", 0.62 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.7 + 0.006 * (rand() - 0.5));
+	}
+
+settimer(srb_view_shake_loop, 0.0);
+
+}
 
 var gear_up = func {
 
@@ -347,7 +456,8 @@ setprop("/sim/messages/copilot", "Prepare for SRB separation!");
 
 var MECO_warn = func {
 
-setprop("/sim/messages/copilot", "Prepare for MECO!");
+if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
+	{setprop("/sim/messages/copilot", "Prepare for MECO!");}
 
 }
 
@@ -475,10 +585,25 @@ setprop("/controls/engines/engine[4]/ignited-hud", " ");
 
 
 setprop("/sim/messages/copilot", "SRB separation!");
-setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
+#setprop("/sim/messages/copilot", "Burn time was "~(int(getprop("/sim/time/elapsed-sec") - SRB_burn_timer))~" seconds.");
+
+# end lighting
+
+SpaceShuttle.light_manager.set_theme("SSME");
+setprop("/environment/lightning/flash", 0);
 
 # make an automatic transtion to MM 103
 setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
+
+# switch SERC on if we have just one engine at this point
+
+var n_eng_operational = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+
+if (n_eng_operational < 2)
+	{
+	setprop("/fdm/jsbsim/systems/fcs/control-mode",13);
+	setprop("/controls/shuttle/control-system-string", "SERC");
+	}
 
 settimer(SRB_separation_motor_off, 1.2);
 
@@ -620,6 +745,7 @@ launch_message_flag = 5;
 # make sure the vertical trajectory display switches to entry
 SpaceShuttle.traj_display_flag = 3;
 
+# start main orbital loop
 settimer(orbital_loop,2.0);
 
 
@@ -708,6 +834,9 @@ launch_message_flag = 5;
 SpaceShuttle.traj_display_flag = 3;
 
 #settimer(control_to_rcs, 2.0);
+
+
+# start main orbital loop
 settimer(orbital_loop,2.0);
 }
 
@@ -715,19 +844,22 @@ var control_to_rcs = func {
 
 var stage = getprop("/sim/presets/stage");
 
-if ((stage == 3) or (stage ==4)){return;}
+if ((stage == 3) or (stage ==4) or (stage == 5)){return;}
 
 # transfer controls to RCS
 
-setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
+if (stage == 6)
+	{
+	SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");
+	}
+else
+	{
+	SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");
+	}
 setprop("/sim/messages/copilot", "Control switched to RCS.");
-setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
 
-# transfer thrust control to OMS
+
+# transfer thrust control to OMS - this is not realistic but kept for testing purposes
 
 setprop("/sim/input/selected/engine[0]",0);
 setprop("/sim/input/selected/engine[1]",0);
@@ -804,11 +936,17 @@ else
 
 var alt = getprop("/position/altitude-ft");
 
+#print ("Alt is now: ", alt);
+
 if (alt < 400000.0)
 	{
 
+
+
 	var periapsis = getprop("/fdm/jsbsim/systems/orbital/periapsis-indicated-km");
 	
+	#print ("Checking EI - periapsis is now:", periapsis);	
+
 	if (periapsis < 100.0)
 		{
 		setprop("/sim/messages/copilot", "Entry Interface reached.");
@@ -878,54 +1016,12 @@ else if ((current_mode == 4) or (current_mode == 29))
 var switch_control_mode = func {
 
 
-var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
-var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
-var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
-var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
+
 
 var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
 
-if ((current_mode == 1)  or (current_mode == 22) or (current_mode == 23))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
-	setprop("/controls/shuttle/control-system-string", "RCS translation");
-	}
-else if ((current_mode == 20) or (current_mode == 21)  or (current_mode ==25) or (current_mode == 30))
-	{
-	if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS ATT HLD");
-		}	
-	}
-else if ((current_mode ==2) or (current_mode == 26) or (current_mode == 27) or (current_mode ==28))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",11);
-	setprop("/controls/shuttle/control-system-string", "OMS TVC");
-	}
-else if (current_mode == 11)
-	{
-	if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-		}
-	else 
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-		}
-
-	}
-else if (current_mode ==0)
+if (current_mode ==0)
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",10);
 	setprop("/controls/shuttle/control-system-string", "Thrust Vectoring");	
@@ -972,186 +1068,18 @@ else if (current_mode == 51)
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",50);
 	setprop("/sim/messages/copilot", "MMU translation");
 	}
+else
+	{
+	SpaceShuttle.orbital_dap_manager.toggle_input_device();
+	}
 
 	
 }
 
 
-var switch_detailed_control_mode = func {
-
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-
-
-var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
-var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
-var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
-var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
-
-
-# sort the modes according to which orbital DAP we're in
-
-if (orbital_dap_auto == 1) # labels are different
-	{
-	if (current_mode == 20) # DAP A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",21);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-B AUTO");
-		}
-	if (current_mode == 21) # DAP B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER AUTO");
-		}
-	else if (current_mode == 25) # Vernier A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER AUTO");
-		}
-	else if (current_mode == 30) # Vernier B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-		}
-
-	}
-
-if ((orbital_dap_inertial == 1) or (orbital_dap_lvlh == 1))
-	{
-	# rotational mode assignment
-
-	if (current_mode == 20) # DAP A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",21);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-B");
-		}
-	if (current_mode == 21) # DAP B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",25);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-A VERNIER");
-		}
-	else if (current_mode == 25) # Vernier A
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",30);
-		setprop("/controls/shuttle/control-system-string", "RCS DAP-B VERNIER");
-		}
-	else if (current_mode == 30) # Vernier B
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-		}
-
-	# translational mode assignment
-
-	if (current_mode == 26) # TRANS ATT HOLD
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS LOW-Z ATT HLD");
-		}
-	else if (current_mode == 28) # low Z
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS ATT HLD");
-		}
-	
-
-	}
-
-if (orbital_dap_free == 1)
-	{
-	# rotational mode assignment
-
-	if (current_mode == 1) # ROT
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",22);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT TAIL ONLY");
-		}
-	else if (current_mode == 22) # TAIL ONLY
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",23);
-		setprop("/controls/shuttle/control-system-string", "RCS ROT NOSE ONLY");
-		}
-	else if (current_mode == 23)
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-		if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-		}
-
-		# translational mode assignment
-
-	if (current_mode == 2) # translation
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",27);
-		setprop("/controls/shuttle/control-system-string", "RCS TRANS LOW-Z");
-		}
-	else if (current_mode == 27) # low Z
-		{
-		setprop("/fdm/jsbsim/systems/fcs/control-mode",2);
-		setprop("/controls/shuttle/control-system-string", "RCS translation");
-		}
-		
-
-	}
-
-}
 
 
 
-var switch_orbital_dap = func (mode)  {
-
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-
-# AUTO always needs to switch OMS TVC off
-
-if ((current_mode == 11) and (mode == 1))
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-	return;
-	}
-
-
-# make sure we don't switch the DAP accidentially when not in orbit
-
-if ((current_mode == 0) or (current_mode == 10) or (current_mode == 11) or (current_mode == 29) or (current_mode == 3) or (current_mode == 4))
-	{
-	return;
-	}
-
-if (mode == 1) # AUTO
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A AUTO");
-	}
-else if (mode == 2) # INTRL
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");	
-	}
-else if (mode == 3) # LVLH
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
-	setprop("/controls/shuttle/control-system-string", "RCS ROT DAP-A");
-	}
-else if (mode == 4) # FREE
-	{
-	setprop("/fdm/jsbsim/systems/fcs/control-mode",1);
-	if (getprop("/fdm/jsbsim/systems/fcs/rcs-use-pulse") == 0)
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS rotation");
-		}
-	else
-		{
-		setprop("/controls/shuttle/control-system-string", "RCS ROT PLS");
-		}
-	}
-}
 
 ###########################################################################
 # the deorbit loop primarily checks when to transfer control authority from
@@ -1194,6 +1122,14 @@ if ((getprop("/fdm/jsbsim/velocities/mach") < 3.5) and (deorbit_stage_flag == 2)
 	deorbit_stage_flag = 3;
 	}
 
+# if temperature > 2000 F, switch light manager on - it will just ignore command if already on and
+# exit once T < 2000 F by itself
+
+if (getprop("/fdm/jsbsim/systems/thermal/nose-temperature-F") > 2000.0)
+	{
+	SpaceShuttle.light_manager.set_theme("ENTRY");
+	}
+
 # open vent doors as soon as vrel < 2400 fps is sensed
 
 if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
@@ -1201,7 +1137,14 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
 
-if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3))
+# determine whether we have reached TAEM interface
+# we may reach it under guidance, then it's best driven by distance
+# or during a contingency abort, then by altitude/ speed
+# in general this is a tricky decision
+
+var Nz_hold = getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active");
+
+if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (Nz_hold == 0) )
 	{
 	setprop("/sim/messages/copilot", "TAEM interface reached.");
 	setprop("/controls/shuttle/hud-mode",3);
@@ -1211,13 +1154,61 @@ if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/veloc
 		SpaceShuttle.compute_TAEM_guidance_targets();
 		}
 
+	if (SpaceShuttle.TAEM_guidance_available == 0)
+		{
+		setprop("/sim/messages/copilot", "No TAEM guidance available, take CSS!");
+		setprop("/fdm/jsbsim/systems/ap/automatic-pitch-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-pitch-control", 1);
+		setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+		setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+		}
+	else
+		{
+		if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 602)
+			{
+			setprop("/fdm/jsbsim/systems/dps/major-mode", 603);
+			SpaceShuttle.ops_transition_auto("p_vert_sit");
+			}
+		}
+
 	glide_loop();
 	return;
 	}
 
+# switch to TAEM guidance 80 miles to site if we're under entry guidance
+# we never do this for a contingency abort
 
 if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
-	{SpaceShuttle.update_entry_guidance();}
+	{
+	SpaceShuttle.update_entry_guidance();
+
+	var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+
+
+	if ((d_remain < 80.0) and (abort_mode < 5) and (Nz_hold == 0))
+		{
+		SpaceShuttle.compute_TAEM_guidance_targets();
+		glide_loop();
+
+		setprop("/sim/messages/copilot", "TAEM interface reached.");
+		setprop("/controls/shuttle/hud-mode",3);
+
+		# transit to MM 305 if we're not flying RTLS, otherwise the RTLS loop
+		# handles the transition
+
+		if (getprop("/fdm/jsbsim/systems/dps/major-mode") == 304)
+			{
+			setprop("/fdm/jsbsim/systems/dps/major-mode", 305);
+			SpaceShuttle.ops_transition_auto("p_vert_sit");
+			}
+
+		return;
+		}
+
+
+
+	}
 
 SpaceShuttle.check_limits_entry();
 
@@ -1257,6 +1248,13 @@ var glide_loop = func {
 
 SpaceShuttle.update_entry_guidance();
 
+var d_remain = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+
+if ((d_remain < 90.0) and (SpaceShuttle.TAEM_guidance_available == 0))
+	{
+	SpaceShuttle.compute_TAEM_guidance_targets();
+	}
+
 
 var alt = getprop("/position/altitude-agl-ft");
 
@@ -1274,6 +1272,23 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	}
 
 SpaceShuttle.check_limits_glide();
+
+# check whether we need to end Earthview
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt < SpaceShuttle.earthview_transition_alt)
+		{
+		earthview.stop();
+
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.set_tile();}
+		}
+
+	}
+
+
 
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
@@ -1311,7 +1326,12 @@ else if (speedbrake_state == 1)
 
 var increase_speedbrake = func {
 
-var speedbrake_state = getprop("/controls/shuttle/speedbrake");
+var speedbrake_state = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+
+speedbrake_state = speedbrake_state+ 0.2;
+if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
+
+setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", speedbrake_state);
 
 if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	{
@@ -1319,8 +1339,7 @@ if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	return;
 	}
 
-speedbrake_state = speedbrake_state+ 0.2;
-if (speedbrake_state > 1.0) {speedbrake_state = 1.0;}
+
 
 setprop("/controls/shuttle/speedbrake", speedbrake_state);
 
@@ -1332,16 +1351,20 @@ setprop("/controls/shuttle/speedbrake-string", speedbrake_string);
 
 var decrease_speedbrake = func {
 
+var speedbrake_state = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+
+speedbrake_state = speedbrake_state - 0.2;
+if (speedbrake_state < 0.0) {speedbrake_state = 0.0;}
+
+setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", speedbrake_state);
+
 if (rand() > SpaceShuttle.failure_cmd.speedbrake)
 	{
 	SpaceShuttle.failure_cmd.speedbrake = 0;
 	return;
 	}
 
-var speedbrake_state = getprop("/controls/shuttle/speedbrake");
 
-speedbrake_state = speedbrake_state - 0.2;
-if (speedbrake_state < 0.0) {speedbrake_state = 0.0;}
 
 setprop("/controls/shuttle/speedbrake", speedbrake_state);
 
@@ -1745,6 +1768,40 @@ setprop("/fdm/jsbsim/systems/atcs/fes-hi-load-status", 0);
 }
 
 
+var hydraulic_circulation_on = func {
+
+# hydraulic circulation pumps to GPC
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd", 0);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd", 0);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd", 0);
+
+setprop("/fdm/jsbsim/systems/apu/apu/hyd-circ-pump-cmd-dlg", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[1]/hyd-circ-pump-cmd-dlg", 1);
+setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-dlg", 1);
+
+}
+
+
+var thermal_control_on = func {
+
+# OMS heaters on
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status", 1);
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-right-A-status", 1);
+
+# RCS heaters
+
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", 1);
+setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status", 1);
+
+# Crossfeed heaters
+
+setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", 1);
+
+}
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -1773,6 +1830,8 @@ if (stage == 0)
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
 	#hydraulics_on();
+	
+	settimer( func SpaceShuttle.light_manager.set_theme("PAD"), 5.0);
 
 	}
 
@@ -1787,6 +1846,7 @@ if (stage == 1)
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
 	setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
 
+	SpaceShuttle.fill_traj2_data();
 
 	# test de-orbit parameters
 	#setprop("/position/altitude-ft", 850000.0);
@@ -1814,8 +1874,10 @@ if (stage == 2)
 	setprop("/velocities/wBody-fps", 300.0);
 	setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
+
 	hydraulics_on();
 	et_umbilical_door_close();
+	thermal_control_on();
 	SpaceShuttle.traj_display_flag = 3;
 	SpaceShuttle.fill_entry1_data();
 	settimer( func {
@@ -1858,22 +1920,23 @@ if (stage == 3)
 
 	MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_dps_hsit);
 	MEDS_CDR1.PFD.dps_page_flag = 1;
+	settimer(func {SpaceShuttle.idp_array[2].set_spec(50);}, 1.0);
 	MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_dps);
 	MEDS_CDR2.PFD.dps_page_flag = 1;
-	MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);
-	MEDS_CRT1.PFD.dps_page_flag = 0;
-	MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
-	MEDS_MFD1.PFD.dps_page_flag = 0;
-	MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
-	MEDS_CRT3.PFD.dps_page_flag = 1;
-	MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_meds_spi);
-	MEDS_CRT2.PFD.dps_page_flag = 0;
-	MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
-	MEDS_MFD2.PFD.dps_page_flag = 0;
-	MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_dps);
-	MEDS_PLT1.PFD.dps_page_flag = 1;
-	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
-	MEDS_PLT2.dps_page_flag = 1;
+	#MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_meds_apu);
+	#MEDS_CRT1.PFD.dps_page_flag = 0;
+	#MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
+	#MEDS_MFD1.PFD.dps_page_flag = 0;
+	#MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
+	#MEDS_CRT3.PFD.dps_page_flag = 1;
+	#MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_meds_spi);
+	#MEDS_CRT2.PFD.dps_page_flag = 0;
+	#MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
+	#MEDS_MFD2.PFD.dps_page_flag = 0;
+	#MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_dps);
+	#MEDS_PLT1.PFD.dps_page_flag = 1;
+	#MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
+	#MEDS_PLT2.dps_page_flag = 1;
 
 	#setprop("/fdm/jsbsim/systems/dps/spec", 50);
 	}
@@ -1961,6 +2024,11 @@ if (stage == 6)
 	setprop("/position/altitude-ft", 1050000.0);
 	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 175.0);
+
+	hydraulic_circulation_on();
+	radiator_activate();
+	thermal_control_on();
+
 	}
 
 # initialize the DPS hardware
@@ -1968,6 +2036,27 @@ if (stage == 6)
 SpaceShuttle.init_gpcs(stage);
 SpaceShuttle.init_idps();
 SpaceShuttle.init_keyboards();
+
+# switch long term component simulation on
+SpaceShuttle.condition_manager.start();
+
+
+SpaceShuttle.nbat.select_ops(getprop("/fdm/jsbsim/systems/dps/ops"));
+SpaceShuttle.nbat.apply();
+
+# automatically switch Earthview on if the user has this selected
+
+if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
+	{
+	var alt = getprop("/position/altitude-ft");
+	if (alt > SpaceShuttle.earthview_transition_alt)
+		{
+		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
+			{local_weather.clear_all();}
+		earthview.start();
+		}
+
+	}
 
 
 }
@@ -2171,7 +2260,7 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
 	# transfer controls to RCS
-	control_to_rcs();
+	settimer(control_to_rcs, 1.0);
 
 	# open PBD
 	pb_door_open();

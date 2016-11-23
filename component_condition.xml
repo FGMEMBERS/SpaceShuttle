@@ -3,22 +3,9 @@
 <PropertyList>
 
 <limit-simulation-mode type="int">1</limit-simulation-mode>
-<mps-he-left-condition type="double">1.0</mps-he-left-condition>
-<mps-he-right-condition type="double">1.0</mps-he-right-condition>
-<mps-he-center-condition type="double">1.0</mps-he-center-condition>
-<mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
+
 <srb1-condition type="double">1.0</srb1-condition>
 <srb2-condition type="double">1.0</srb2-condition>
-<oms1-condition type="double">1.0</oms1-condition>
-<oms2-condition type="double">1.0</oms2-condition>
-<oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
-<oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
-<oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
-<oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
-<oms1-n2-condition type="double">1.0</oms1-n2-condition>
-<oms2-n2-condition type="double">1.0</oms2-n2-condition>
-<oms-he-left-condition type="double">1.0</oms-he-left-condition>
-<oms-he-right-condition type="double">1.0</oms-he-right-condition>
 <airfoils-pitch-condition type="double">1.0</airfoils-pitch-condition>
 <airfoils-yaw-condition type="double">1.0</airfoils-yaw-condition>
 <airfoils-roll-condition type="double">1.0</airfoils-roll-condition>
@@ -28,18 +15,52 @@
 <speedbrake-control type="int">1</speedbrake-control>
 <drag-chute-condition type="double">1.0</drag-chute-condition>
 <gear-hydraulics-condition type="double">1.0</gear-hydraulics-condition>
-<tire-nose-condition type="double">1.0</tire-nose-condition>
-<tire-left-condition type="double">1.0</tire-left-condition>
-<tire-right-condition type="double">1.0</tire-right-condition>
-<gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
-<gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
-<gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
+
 <tps-condition type="double">1.0</tps-condition>
+<rhc-cdr-condition type="double">1.0</rhc-cdr-condition>
+<rhc-plt-condition type="double">1.0</rhc-plt-condition>
+<eclss>
+	<avbay1-fan-A-condition type="double">1.0</avbay1-fan-A-condition>
+	<avbay1-fan-B-condition type="double">1.0</avbay1-fan-B-condition>
+	<avbay2-fan-A-condition type="double">1.0</avbay2-fan-A-condition>
+	<avbay2-fan-B-condition type="double">1.0</avbay2-fan-B-condition>
+	<avbay3-fan-A-condition type="double">1.0</avbay3-fan-A-condition>
+	<avbay3-fan-B-condition type="double">1.0</avbay3-fan-B-condition>
+</eclss>
+<gear>
+	<tire-nose-left-condition type="double">1.0</tire-nose-left-condition>
+	<tire-nose-right-condition type="double">1.0</tire-nose-right-condition>
+	<tire-left-ib-condition type="double">1.0</tire-left-ib-condition>
+	<tire-left-ob-condition type="double">1.0</tire-left-ob-condition>
+	<tire-right-ib-condition type="double">1.0</tire-right-ib-condition>
+	<tire-right-ob-condition type="double">1.0</tire-right-ob-condition>
+	<gearstrut-nose-condition type="double">1.0</gearstrut-nose-condition>
+	<gearstrut-left-condition type="double">1.0</gearstrut-left-condition>
+	<gearstrut-right-condition type="double">1.0</gearstrut-right-condition>
+</gear>
 <mps>
 	<ssme1-condition type="double">1.0</ssme1-condition>
 	<ssme2-condition type="double">1.0</ssme2-condition>
 	<ssme3-condition type="double">1.0</ssme3-condition>
+	<mps-he-left-condition type="double">1.0</mps-he-left-condition>
+	<mps-he-right-condition type="double">1.0</mps-he-right-condition>
+	<mps-he-center-condition type="double">1.0</mps-he-center-condition>
+	<mps-he-pneu-condition type="double">1.0</mps-he-pneu-condition>
 </mps>
+<oms>
+	<oms1-condition type="double">1.0</oms1-condition>
+	<oms2-condition type="double">1.0</oms2-condition>
+	<oms-left-pri-gimbal-condition type="double">1.0</oms-left-pri-gimbal-condition>
+	<oms-left-sec-gimbal-condition type="double">1.0</oms-left-sec-gimbal-condition>
+	<oms-right-pri-gimbal-condition type="double">1.0</oms-right-pri-gimbal-condition>
+	<oms-right-sec-gimbal-condition type="double">1.0</oms-right-sec-gimbal-condition>
+	<oms1-n2-condition type="double">1.0</oms1-n2-condition>
+	<oms2-n2-condition type="double">1.0</oms2-n2-condition>
+	<oms-he-left-condition type="double">1.0</oms-he-left-condition>
+	<oms-he-right-condition type="double">1.0</oms-he-right-condition>
+	<oms-left-fuel-line-condition type="double">1.0</oms-left-fuel-line-condition>
+	<oms-right-fuel-line-condition type="double">1.0</oms-right-fuel-line-condition>
+</oms>
 <rcs>
 	<rcs-F2F-condition type="double">1.0</rcs-F2F-condition>
 	<rcs-F3F-condition type="double">1.0</rcs-F3F-condition>
@@ -91,6 +112,9 @@
 	<rcs-he-right-2-condition type="double">1.0</rcs-he-right-2-condition>
 	<rcs-he-fwd-1-condition type="double">1.0</rcs-he-fwd-1-condition>
 	<rcs-he-fwd-2-condition type="double">1.0</rcs-he-fwd-2-condition>
+	<rcs-fwd-fuel-line-condition type="double">1.0</rcs-fwd-fuel-line-condition>
+	<rcs-left-fuel-line-condition type="double">1.0</rcs-left-fuel-line-condition>
+	<rcs-right-fuel-line-condition type="double">1.0</rcs-right-fuel-line-condition>
 </rcs>
 <apu1-condition type="double">1.0</apu1-condition>
 <apu2-condition type="double">1.0</apu2-condition>
@@ -129,11 +153,11 @@
 <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
 <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition> 
-<shuttle-destroyed type="bool">false</shuttle-destroyed>
 <sensors>
 	<star-tracker-Y-condition type="double">1.0</star-tracker-Y-condition>
 	<star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
 </sensors>
-
+<shuttle-destroyed type="bool">false</shuttle-destroyed>
+<shuttle-damaged type="bool">false</shuttle-damaged>
 
 </PropertyList>

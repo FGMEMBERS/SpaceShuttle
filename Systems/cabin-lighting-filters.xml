@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <PropertyList>
+
+<!-- this is really annoying - we compute all the properties in JSBSim, but they end up being tied -->
+<!-- and can't be fed to the effects system directly, so we copy them via property rule -->
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight1-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight1-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight2-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight2-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight3-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight3-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.2</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight3-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight3-proc</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight4-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight4-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.2</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight4-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight4-proc</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight5-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight5-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight6-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight6-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight7-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight7-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight8-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight8-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight9-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight9-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight10-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight10-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight11-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight11-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-panel-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-panel-left-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-panel-center-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-overhead-left-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-overhead-left-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-overhead-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-overhead-right-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-aft-panel-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-right-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-r-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-r</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-g-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-g</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cockpit-ambience-b-tied</input>
+   <output>/fdm/jsbsim/systems/light/cockpit-ambience-b</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/event-time-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/event-time-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/button-light-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/button-light-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm</output>
+ </filter>
+
+ </PropertyList>

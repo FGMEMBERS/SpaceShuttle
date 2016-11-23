@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>switch-covers</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>200</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Show Switch Covers</label>
+	</text>
+
+	<empty>`
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+
+  <group>
+    <layout>table</layout>
+
+    <checkbox>
+        <name>panel-C3</name>
+        <row>1</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel C3</label>
+        <property>/sim/model/panel/cover/C3-covers-visible</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-C3</object-name>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>panel-L1</name>
+        <row>2</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel L1</label>
+        <property>/sim/model/panel/cover/L1-covers-visible</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-L1</object-name>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>panel-R1</name>
+        <row>3</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel R1</label>
+        <property>/sim/model/panel/cover/R1-covers-visible</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-R1</object-name>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>panel-R2</name>
+        <row>4</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel R2</label>
+        <property>/sim/model/panel/cover/R2-covers-visible</property>
+        <live>true</live>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-R2</object-name>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>panel-O7</name>
+        <row>5</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel O7</label>
+        <property>/sim/model/panel/cover/O7-covers-visible</property>
+        <live>true</live>
+        <enable>
+            <property>/sim/config/shuttle/detailed-flightdeck</property>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-O7</object-name>
+        </binding>
+    </checkbox>
+
+    <checkbox>
+        <name>panel-O8</name>
+        <row>6</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel O8</label>
+        <property>/sim/model/panel/cover/O8-covers-visible</property>
+        <live>true</live>
+        <enable>
+            <property>/sim/config/shuttle/detailed-flightdeck</property>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-O8</object-name>
+        </binding>
+    </checkbox>
+
+  </group>
+
+    <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

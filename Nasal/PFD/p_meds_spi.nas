@@ -49,7 +49,7 @@ var PFD_addpage_p_meds_spi = func(device)
 	var scale_factor_h = 100./63.;
 
 	var sb_pos_norm = getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm");
-	var sb_cmd_norm = getprop("/controls/shuttle/speedbrake");
+	var sb_cmd_norm = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
 
 	p_meds_spi.sb_cmd.setText(sprintf("%3.0f", sb_cmd_norm * 100.0));
  	p_meds_spi.sb_act.setText(sprintf("%3.0f", sb_pos_norm * 100.0));

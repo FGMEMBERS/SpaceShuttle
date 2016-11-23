@@ -34,8 +34,10 @@ var PFD_addpage_p_dps_fault = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	var spec = SpaceShuttle.idp_array[device.port_selected-1].get_spec();    
+	var spec_string = assemble_spec_string(spec);
     
-        var ops_string = major_mode~"1/   /099";
+        var ops_string = major_mode~"1/"~spec_string~"/099";
         device.DPS_menu_ops.setText(ops_string);
     }
     

@@ -33,6 +33,22 @@ var PFD_MenuItem = {
     },
 };
 
+# Menu Action - doesn't call up a new page, rather executes a function when the button 
+# is pressed
+
+
+var PFD_MenuAction = {
+    new : func (menu_id, title, action)
+    {
+		var obj = {parents : [PFD_MenuAction] };
+        obj.action = action;
+        obj.menu_id = menu_id;
+	obj.title = title;
+#       printf("New MenuAction %s,%s",menu_id, action);
+        return obj;
+    },
+};
+
 #
 #
 # Create a new PFD Page
@@ -49,6 +65,7 @@ var PFD_Page = {
         obj.device = device;
         obj.layer_id = layer_id;
         obj.menus = [];
+	obj.menu_actions = [];
 #        print("Load page ",title);
         obj.svg = svg.getElementById(layer_id);
         if(obj.svg == nil)
@@ -94,6 +111,14 @@ var PFD_Page = {
                      break;
                  }
              }
+	     foreach(var mi; me.menu_actions)
+	     {
+		if (mi.menu_id == button_id)
+		{
+		me.device.manageActions(mi.action);
+		#print("Page: found button ", button_id, ", Action ", mi.action, " called!");
+		}
+	     }
     },
 
 # 
@@ -116,6 +141,23 @@ var PFD_Page = {
         #            }
         return nm;
     },
+
+# Add an action to a menu
+# the action is a string that is used by the action handler when the button is pressed
+
+    addMenuAction : func(menu_id, title, action)
+    {
+        var na = PFD_MenuAction.new(menu_id, title, action);
+        #printf("New menu action %s %s on page ", menu_id, title, me.layer_id);
+        append(me.menu_actions, na);
+#        printf("Page %s: add menu %s [%s]",me.layer_id, menu_id, title);
+#            foreach(mi ; me.menus)
+        #            {
+#                printf("--menu %s",mi.title);
+        #            }
+        return na;
+    },
+
 # base method for update; this can be overriden per page instance to provide update of the
 # elements on display (e.g. to display updated properties)
     update : func
@@ -204,6 +246,7 @@ var PFD_Device =
         np.setVisible(0);
         return np;
     },
+
 #
 # manage the update of the currently selected page
     update : func
@@ -234,9 +277,25 @@ var PFD_Device =
                 else
                     printf("PFD_device: Menu for button not found. Menu ID '%s'",mi.menu_id);
             }
+            foreach(var ma ; p.menu_actions)
+            {
+                if (me.buttons[ma.menu_id] != nil)
+                {
+                    me.buttons[ma.menu_id].setText(ma.title);
+                    me.buttons[ma.menu_id].setVisible(1);
+		    #print ("Assigning action label ", ma.title, " to ", ma.menu_id);
+                }
+                else
+                    printf("PFD_device: Action for button not found. Menu ID '%s'",ma.menu_id);
+            }
         }
         p.setVisible(1);
         me.current_page = p;
+
+	# update common MEDS layer with every page
+
+	me.update_common_MEDS();
+	
     },
 };
 

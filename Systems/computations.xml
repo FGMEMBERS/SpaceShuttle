@@ -100,6 +100,8 @@
 		</function>
 		</fcs_function>
 
+
+
 		<fcs_function name="systems/thermal/nose-temperature-F">
 		<function>
 			<sum>
@@ -143,8 +145,90 @@
 		</function>
 		</fcs_function>
 
+
+		<fcs_function name="systems/thermal/plasma-T-factor">
+		<function>
+			<min>
+			<max>
+			<quotient>
+				<difference>
+					<property>systems/thermal/nose-temperature-F</property>
+					<value>2000.0</value>
+				</difference>
+				<value>1000.0</value>
+			</quotient>
+			<value>0.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-red">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/thermal/plasma-T-factor</property>
+					<value>1.0</value>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/thermal/plasma-T-factor</property>
+					</difference>
+					<value>0.8</value>
+				</product>
+			</sum>
+			<value>0.15</value>
+			<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-green">
+		<function>
+			<product>
+			<sum>
+				<product>
+					<property>systems/thermal/plasma-T-factor</property>
+					<value>0.5</value>
+				</product>
+				<product>
+					<difference>
+						<value>1.0</value>
+						<property>systems/thermal/plasma-T-factor</property>
+					</difference>
+					<value>0.4</value>
+				</product>
+			</sum>
+			<value>0.15</value>
+			<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/thermal/plasma-ambience-blue">
+		<function>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/thermal/plasma-T-factor</property>
+				</difference>
+				<value>0.4</value>
+				<value>0.15</value>
+				<property>systems/thermal/plasma-T-factor</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		
+
+
 		<fcs_function name="systems/thermal/entry-flame-alpha">
 		<function>
+			<max>
 			<product>
 			<difference>
 			<product>
@@ -155,6 +239,8 @@
 			</difference>
 			<value>0.1</value>
 			</product>
+			<value>0.01</value>
+			</max>
 		</function>
 		</fcs_function>
 
@@ -239,6 +325,39 @@
 		</function>			
 		</fcs_function>
 
+		<fcs_function name="systems/various/strake-density">
+		<function>
+			<product>
+				<min>
+				<max>
+				<product>
+					<difference>
+						<property>aero/alpha-deg</property>
+						<value>6.0</value>
+					</difference>
+					<value>0.05</value>
+				</product>
+				<value>0.0</value>
+				</max>
+				<value>0.2</value>
+				</min>
+				<min>
+				<max>
+				<product>
+					<difference>
+						<property>/velocities/airspeed-kt</property>
+						<value>180.0</value>
+					</difference>
+					<value>0.05</value>
+				</product>
+				<value>0.0</value>
+				</max>
+				<value>1.0</value>
+				</min>
+			</product>
+		</function>			
+		</fcs_function>
+
 		<fcs_function name="systems/various/oms-fuel-fraction">
 		<function>
 			<quotient>
@@ -311,8 +430,8 @@
 				<tableData>
 					0.0	375.0
 					2.5	375.0
-					4.0	275.0
-					10.0	200.0
+					4.0	375.0
+					10.0	270.0
 					14.0	150.0
 					22.0	100.0
 					24.0	40.0
@@ -323,6 +442,36 @@
 		</fcs_function>
 		
 		<!-- sounds -->
+
+		<fcs_function name="systems/various/cabin-sound-transmission">
+		<function>
+			<quotient>
+				<property>systems/eclss/cabin/air-pressure-psi</property>	
+				<value>14.7</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/various/cabin-airflow-volume">		
+		<function>
+			<product>
+			<min>
+			<product>
+			<sum>
+				<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+				<product>
+					<value>-1</value>
+					<property>systems/eclss/cabin/air-loss-rate-lb_h</property>
+				</product>
+			</sum>
+			<value>0.0015</value>
+			</product>
+			<value>1.0</value>
+			</min>
+			<property>systems/various/cabin-sound-transmission</property>
+			</product>
+		</function>
+		</fcs_function>
 		
 		<fcs_function name="systems/various/SRB-external-volume">
 		<function>
@@ -401,40 +550,41 @@
 			</function>
 		</fcs_function>
 
+		<!-- MMU -->
 
-		<!--<fcs_function name="systems/various/spacecraft-entry-internal-volume">
-			<function>
-				<product>
-					<quotient>
-						<property>aero/qbar-psf</property>
-						<value>2116</value>
-					</quotient>
-					<quotient>
-						<property>systems/thermal/nose-temperature-F</property>
-						<value>3000</value>
-					</quotient>
-				</product>
-			</function>		
+		<switch name="systems/various/MMU-sound-factor">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/fcs/control-mode == 50
+				systems/fcs/control-mode == 51
+			</test>
+		</switch>	
+	
+
+		<fcs_function name="systems/various/MMU-thruster-volume">
+		<function>
+			<min>
+			<product>
+				<property>systems/various/MMU-sound-factor</property>
+				<sum>
+					<abs><property>fcs/rudder-cmd-norm</property></abs>
+					<abs><property>fcs/aileron-cmd-norm</property></abs>
+					<abs><property>fcs/elevator-cmd-norm</property></abs>
+				</sum>
+			</product>
+			<value>0.4</value>
+			</min>
+		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/various/spacecraft-entry-external-volume">
-			<function>
-				<product>
-					<quotient>
-						<property>aero/qbar-psf</property>
-						<value>2116</value>
-					</quotient>
-					<quotient>
-						<property>systems/thermal/nose-temperature-F</property>
-						<value>3000</value>
-					</quotient>
-					<quotient>
-						<property>/environment/pressure-inhg</property>
-						<property>/environment/pressure-sea-level-inhg</property>
-					</quotient>
-				</product>
-			</function>
-		</fcs_function>-->
+
+		<pid name="systems/various/hdotdot-ft_s2">
+			<input>velocities/v-down-fps</input>
+			<kp> 0.0 </kp>
+			<ki> 0.0 </ki>
+			<kd> 1.0</kd>
+			<output>accelerations/hdotdot-ft_s2</output>
+  		</pid>
 		
 	</channel>
 </system>

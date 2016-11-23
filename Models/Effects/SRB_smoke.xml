@@ -9,7 +9,7 @@
 
 <particlesystem>
 	 <!-- <type>trail</type>-->
-	 <name>gear_smoke_right</name>
+	 <name>srb_smoke_right</name>
 	 <texture>smoke.png</texture>
 	 <emissive>false</emissive>
 	 <lighting>true</lighting>

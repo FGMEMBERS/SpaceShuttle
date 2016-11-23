@@ -4,6 +4,8 @@
 
 	<channel name="Throttle mapping">
 
+		<!-- main engine throttle is mapped from 65% to (up to) 109% of rated power -->
+
 		<switch name="systems/throttle/throttle-factor">
 			<default value="1.0"/>
 			<test value="1.06">
@@ -20,7 +22,13 @@
 		<fcs_function name="systems/throttle/ssme1-throttle-norm">
 		<function>
 			<product>
-				<property>fcs/throttle-pos-norm[0]</property>
+				<sum>
+					<value>0.65</value>
+					<product>
+						<property>fcs/throttle-pos-norm[0]</property>
+						<value>0.35</value>
+					</product>
+				</sum>				
 				<property>systems/throttle/throttle-factor</property>
 			</product>
 		</function>
@@ -30,7 +38,13 @@
 		<fcs_function name="systems/throttle/ssme2-throttle-norm">
 		<function>
 			<product>
-				<property>fcs/throttle-pos-norm[1]</property>
+				<sum>
+					<value>0.65</value>
+					<product>
+						<property>fcs/throttle-pos-norm[1]</property>
+						<value>0.35</value>
+					</product>
+				</sum>	
 				<property>systems/throttle/throttle-factor</property>
 			</product>
 		</function>
@@ -40,7 +54,13 @@
 		<fcs_function name="systems/throttle/ssme3-throttle-norm">
 		<function>
 			<product>
-				<property>fcs/throttle-pos-norm[2]</property>
+				<sum>
+					<value>0.65</value>
+					<product>
+						<property>fcs/throttle-pos-norm[2]</property>
+						<value>0.35</value>
+					</product>
+				</sum>	
 				<property>systems/throttle/throttle-factor</property>
 			</product>
 		</function>

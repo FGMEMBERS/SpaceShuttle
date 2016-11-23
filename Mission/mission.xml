@@ -11,12 +11,22 @@
 </configuration>
 
 <launch>
-  <section-defined type="bool">false</section-defined>
-  <target-inclination type="double">51.5</target-inclination>
+  <section-defined type="bool">true</section-defined>
+  <target-inclination type="double">32.5</target-inclination>
   <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
-  <tal-site-index type="int">6</tal-site-index>
+  <tal-site-index type="int">7</tal-site-index>
+  <rtls-site-index type="int">1</rtls-site-index>
 </launch>
+
+<abort>
+  <section-defined type="bool">true</section-defined>
+  <enable-yaw-steering type="bool">true</enable-yaw-steering>
+  <yaw-steering-target type="double">45.0</yaw-steering-target>
+  <ato-v-mssn-cntn type="double">12000.0</ato-v-mssn-cntn>
+  <ato-v-lin type="double">11500.0</ato-v-lin>
+  <ato-v-zero type="double">18000.0</ato-v-zero>
+</abort>
 
 <post-meco>
   <section-defined type="bool">false</section-defined>
@@ -64,6 +74,7 @@
 </dap>
 
 <entry>
+  <section-defined type="bool">true</section-defined>
   <landing-site-index type="int">1</landing-site-index>
 </entry>
 
@@ -73,7 +84,7 @@
 
   <mode n="0">
   <node  type="string">/fdm/jsbsim/systems/failures/mps/ssme1-condition</node>
-  <occurs-met-s  type="double">120.0</occurs-met-s>
+  <occurs-met-s  type="double">135.0</occurs-met-s>
   <probability  type="double">1.0</probability>
   <value  type="double">0.0</value>
   </mode>
@@ -81,8 +92,19 @@
   <mode n="1">
   <node  type="string">/fdm/jsbsim/systems/failures/mps/ssme2-condition</node>
   <occurs-met-s  type="double">130.0</occurs-met-s>
-  <probability  type="double">1.0</probability>
+  <probability  type="double">0.0</probability>
   <value  type="double">0.0</value>
   </mode>
 </failures>
+
+<orbital-targets>
+  <section-defined type="bool">true</section-defined>
+
+  <object-label type="string">ISS</object-label>
+  <inclination-deg type="double">42.76</inclination-deg>
+  <alt-km type="double">280.0</alt-km>
+  <node-lon-deg type="double">5.07</node-lon-deg>
+  <anomaly-deg type="double">0.9</anomaly-deg>
+</orbital-targets>
+
 </PropertyList>

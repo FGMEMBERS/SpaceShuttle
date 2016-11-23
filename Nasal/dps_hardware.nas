@@ -25,6 +25,18 @@ var gpc = {
 	g.mcc_string = "SYSTEM";
 	g.major_function = "";
 	g.ops = 0;
+	g.string1 = "";
+	g.string2 = "";
+	g.string3 = "";
+	g.string4 = "";
+	g.pl1 = "";
+	g.pl2 = "";
+	g.launch1 = "";
+	g.launch2 = "";
+	g.crt1 = "";
+	g.crt2 = "";
+	g.crt3 = "";
+	g.crt4 = "";
 	return g;
 	},
 	# implementing the function of the mode switch
@@ -185,6 +197,233 @@ return flag;
 }
 
 
+###############################################################################
+# NBAT (nominal bus assignment table)
+###############################################################################
+
+var nbat = {
+
+	string1: 1,
+	string2: 2,
+	string3: 3,
+	string4: 4,
+
+	launch1: 1,
+	launch2: 2,
+	pl1: 4,
+	pl2: 4,
+	mm1: 1,
+	mm2: 2,
+
+	mm_area_pl: 1,
+	mm_area_sm: 1,
+	mm_area_gnc: 1,
+
+	crt: [1,2,3,0],
+
+	gpc: [1,1,1,1,10],
+
+	config_modified: 0,
+
+	g1_string1: 1,
+	g1_string2: 2,
+	g1_string3: 3,
+	g1_string4: 4,
+	g1_launch1: 1,
+	g1_launch2: 2,
+	g1_pl1: 0,
+	g1_pl2: 0,
+	g1_mm1: 1,
+	g1_mm2: 2,
+	g1_crt: [1,2,3,0],
+	g1_gpc: [1,1,1,1,10],
+
+	g2_string1: 1,
+	g2_string2: 2,
+	g2_string3: 3,
+	g2_string4: 1,
+	g2_launch1: 0,
+	g2_launch2: 0,
+	g2_pl1: 2,
+	g2_pl2: 2,
+	g2_mm1: 1,
+	g2_mm2: 2,
+	g2_crt: [1,2,3,0],
+	g2_gpc: [2,2,2,4,10],
+
+	g3_string1: 1,
+	g3_string2: 2,
+	g3_string3: 3,
+	g3_string4: 4,
+	g3_launch1: 0,
+	g3_launch2: 0,
+	g3_pl1: 0,
+	g3_pl2: 0,
+	g3_mm1: 1,
+	g3_mm2: 2,
+	g3_crt: [1,2,3,0],
+	g3_gpc: [3,3,3,3,10],
+
+	edited_mcc: 0,
+	direct_edit_gpc: 0,
+	direct_edit_config: 0,
+	
+	select_ops: func (ops) {
+
+	if (me.config_modified == 1)
+		{return;}
+
+	if ((ops == 1) or (ops == 6))
+		{
+		me.string1 = me.g1_string1;
+		me.string2 = me.g1_string2;
+		me.string3 = me.g1_string3;
+		me.string4 = me.g1_string4;
+		me.launch1 = me.g1_launch1;
+		me.launch2 = me.g1_string2;
+		me.pl1 = me.g1_pl1;
+		me.pl2 = me.g1_pl2;
+		me.crt = me.g1_crt;
+		me.gpc = me.g1_gpc;
+		me.mm1 = me.g1_mm1;
+		me.mm2 = me.g1_mm2;
+		}
+	else if (ops == 2)
+		{
+		me.string1 = me.g2_string1;
+		me.string2 = me.g2_string2;
+		me.string3 = me.g2_string3;
+		me.string4 = me.g2_string4;
+		me.launch1 = me.g2_launch1;
+		me.launch2 = me.g2_string2;
+		me.pl1 = me.g2_pl1;
+		me.pl2 = me.g2_pl2;
+		me.crt = me.g2_crt;
+		me.gpc = me.g2_gpc;
+		me.mm1 = me.g2_mm1;
+		me.mm2 = me.g2_mm2;
+		}
+	else if (ops == 3)
+		{
+		me.string1 = me.g3_string1;
+		me.string2 = me.g3_string2;
+		me.string3 = me.g3_string3;
+		me.string4 = me.g3_string4;
+		me.launch1 = me.g3_launch1;
+		me.launch2 = me.g3_string2;
+		me.pl1 = me.g3_pl1;
+		me.pl2 = me.g3_pl2;
+		me.crt = me.g3_crt;
+		me.gpc = me.g3_gpc;
+		me.mm1 = me.g3_mm1;
+		me.mm2 = me.g3_mm2;
+		}
+
+
+	},
+
+
+	apply: func {
+
+	for (var i=0; i< size(gpc_array); i=i+1)
+		{
+
+		var gpc = gpc_array[i];
+
+		if ((me.string1 - 1) == i)
+			{gpc.string1 = "*";}
+		else
+			{gpc.string1 = "";}
+
+		if ((me.string2 - 1) == i)
+			{gpc.string2 = "*";}
+		else
+			{gpc.string2 = "";}
+
+		if ((me.string3 - 1) == i)
+			{gpc.string3 = "*";}
+		else
+			{gpc.string3 = "";}
+
+		if ((me.string4 - 1) == i)
+			{gpc.string4 = "*";}
+		else
+			{gpc.string4 = "";}
+
+		if ((me.pl1 - 1) == i)
+			{gpc.pl1 = "*";}
+		else
+			{gpc.pl1 = "";}
+		if ((me.pl2 - 1) == i)
+			{gpc.pl2 = "*";}
+		else
+			{gpc.pl2 = "";}
+
+		if ((me.launch1 - 1) == i)
+			{gpc.launch1 = "*";}
+		else
+			{gpc.launch1 = "";}
+		if ((me.launch2 - 1) == i)
+			{gpc.launch2 = "*";}
+		else
+			{gpc.launch2 = "";}
+
+		if ((me.crt[0] - 1) == i)
+			{gpc.crt1 = "*";}
+		else
+			{gpc.crt1 = "";}
+		if ((me.crt[1] - 1) == i)
+			{gpc.crt2 = "*";}
+		else
+			{gpc.crt2 = "";}
+		if ((me.crt[2] - 1) == i)
+			{gpc.crt3 = "*";}
+		else
+			{gpc.crt3 = "";}
+		if ((me.crt[3] - 1) == i)
+			{gpc.crt4 = "*";}
+		else
+			{gpc.crt4 = "";}
+
+		
+		gpc.set_memory(me.gpc[i]);
+
+		}
+
+	},
+
+	apply_crt: func {
+
+	for (var i=0; i< size(gpc_array); i=i+1)
+		{
+
+		var gpc = gpc_array[i];
+
+		
+		if ((me.crt[0] - 1) == i)
+			{gpc.crt1 = "*";}
+		else
+			{gpc.crt1 = "";}
+		if ((me.crt[1] - 1) == i)
+			{gpc.crt2 = "*";}
+		else
+			{gpc.crt2 = "";}
+		if ((me.crt[2] - 1) == i)
+			{gpc.crt3 = "*";}
+		else
+			{gpc.crt3 = "";}
+		if ((me.crt[3] - 1) == i)
+			{gpc.crt4 = "*";}
+		else
+			{gpc.crt4 = "";}
+
+
+
+		}
+
+	},
+
+};
 
 
 ###############################################################################
@@ -207,6 +446,8 @@ var idp = {
 	i.major_function_string = "GNC";
 	i.spec = 0;
 	i.disp = 0;
+	i.current_fault_string = "";
+	i.fault_array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 	return i;
 	},
 	# power switch
