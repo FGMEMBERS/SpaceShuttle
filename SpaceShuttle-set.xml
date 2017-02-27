@@ -1620,6 +1620,19 @@
     <cockpit type="int">4</cockpit>
     <model type="int">4</model>
    </rating>
+   <tags>
+     <tag>spaceship</tag>
+     <tag>glider</tag>
+     <tag>1980s</tag>
+     <tag>1990s</tag>
+     <tag>2000s</tag>
+     <tag>delta</tag>
+     <tag>supersonic</tag>
+     <tag>glass-cockpit</tag>
+     <tag>pressurized</tag>
+     <tag>rocket</tag>
+     <tag>3-engine</tag>
+   </tags>
 
    <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
    <input>
