@@ -2,10 +2,10 @@
 
 <!-- this puts the Shuttle at 36.000 ft 20 miles from the airport, simulating a free-fly test -->
 
-<PropertyList include="SpaceShuttle-set.xml">
+<PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in a free-fly test</description>
-  <variant-of>SpaceShuttle</variant-of>
+  <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>36000.0</altitude-ft>
 	<pitch-deg>-10.0</pitch-deg>	

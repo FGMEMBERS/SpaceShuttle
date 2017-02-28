@@ -2,10 +2,10 @@
 
 <!-- this puts the Shuttle into a high orbit -->
 
-<PropertyList include="SpaceShuttle-set.xml">
+<PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis approaching ISS</description>
-  <variant-of>SpaceShuttle</variant-of>
+  <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>1500000.0</altitude-ft>
 	<stage type="int">6</stage>

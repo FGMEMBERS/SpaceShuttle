@@ -2,10 +2,10 @@
 
 <!-- this puts the Shuttle onto a gliding path -->
 
-<PropertyList include="SpaceShuttle-set.xml">
+<PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on TAEM</description>
-  <variant-of>SpaceShuttle</variant-of>
+  <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>83000.0</altitude-ft>
 	<pitch-deg>3.0</pitch-deg>	

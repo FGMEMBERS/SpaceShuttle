@@ -2,10 +2,10 @@
 
 <!-- this puts the Shuttle into the entry interface -->
 
-<PropertyList include="SpaceShuttle-set.xml">
+<PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis (re-entry)</description>
-  <variant-of>SpaceShuttle</variant-of>
+  <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>400000.0</altitude-ft>
 	<stage type="int">2</stage>
