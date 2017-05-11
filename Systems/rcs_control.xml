@@ -699,7 +699,7 @@
 				systems/fcs/sense-minus-X == 1
 				systems/fcs/rcs-translation == 1
 			</test>
-			<test logic="AND" value="systems/fcs/rudder-cmd-norm-pulse">
+			<test logic="AND" value="systems/fcs/neg-rudder-cmd-norm">
 				systems/fcs/sense-minus-Z == 1
 				systems/fcs/rcs-translation == 1
 			</test>
@@ -1120,6 +1120,10 @@
 
 		<switch name="systems/rcs/aileron-ap-cmd-merge">
 			<default value="systems/fcs/aileron-cmd-norm-sense"/>
+			<test logic="AND" value="systems/ap/entry/entry-controller-aileron-cmd-norm">
+				systems/ap/auto-entry-active == 1
+				systems/ap/automatic-roll-control == 1
+			</test>
 			<test value="systems/ap/grtls/roll-cmd">
 				systems/ap/auto-grtls-rcs-roll-active == 1
 			</test>
@@ -1127,6 +1131,8 @@
 				systems/ap/auto-contingency-roll-active == 1
 			</test>
 		</switch>
+
+
 	
 		<fcs_function name="systems/rcs/roll-rate-error">
 		<function>

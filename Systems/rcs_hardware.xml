@@ -2891,7 +2891,7 @@
 
 	</channel>
 
-	<channel name="RCS thermal control">
+	<channel name="RCS thermal control" execrate="4">
 
 		<fcs_function name="systems/rcs-hardware/heater-fwd-power-kW">
 		<function>

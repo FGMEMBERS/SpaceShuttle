@@ -162,8 +162,9 @@ var PFD_addpage_p_dps_electric = func(device)
         p_dps_electric.volt_fc3.setText(sprintf("%2.1f", voltage_fc3));    
 
 
-	
-	var voltage_essential = getprop("/fdm/jsbsim/systems/electrical/essential-bus/voltage");
+	var voltage_essential1 = getprop("/fdm/jsbsim/systems/electrical/ess/voltage");
+	var voltage_essential2 = getprop("/fdm/jsbsim/systems/electrical/ess[1]/voltage");
+	var voltage_essential3 = getprop("/fdm/jsbsim/systems/electrical/ess[2]/voltage");
 
         p_dps_electric.volt_mn1.setText(sprintf("%2.1f", voltage_mainA));
         p_dps_electric.volt_mn2.setText(sprintf("%2.1f", voltage_mainB));
@@ -177,21 +178,21 @@ var PFD_addpage_p_dps_electric = func(device)
         p_dps_electric.volt_pcaa2.setText(sprintf("%2.1f", voltage_mainB * 0.993));
         p_dps_electric.volt_pcaa3.setText(sprintf("%2.1f", voltage_mainC * 0.993)); 
 
-        p_dps_electric.volt_ess1.setText(sprintf("%2.1f", voltage_essential));
-        p_dps_electric.volt_ess2.setText(sprintf("%2.1f", voltage_essential));
-        p_dps_electric.volt_ess3.setText(sprintf("%2.1f", voltage_essential));    
+        p_dps_electric.volt_ess1.setText(sprintf("%2.1f", voltage_essential1));
+        p_dps_electric.volt_ess2.setText(sprintf("%2.1f", voltage_essential2));
+        p_dps_electric.volt_ess3.setText(sprintf("%2.1f", voltage_essential3));    
 
-	p_dps_electric.volt_cntl1_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl1_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl1_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_electric.volt_cntl1_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_electric.volt_cntl1_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_electric.volt_cntl1_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
-	p_dps_electric.volt_cntl2_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl2_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl2_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_electric.volt_cntl2_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_electric.volt_cntl2_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_electric.volt_cntl2_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
-	p_dps_electric.volt_cntl3_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl3_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_electric.volt_cntl3_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_electric.volt_cntl3_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_electric.volt_cntl3_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_electric.volt_cntl3_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
    	p_dps_electric.amps_fc_1.setText(sprintf("%3.0f", amps_fc1));
    	p_dps_electric.amps_fc_2.setText(sprintf("%3.0f", amps_fc2));

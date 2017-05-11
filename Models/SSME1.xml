@@ -51,19 +51,42 @@
 
 
 <model>
-<path>Aircraft/SpaceShuttle/Models/Effects/engine-fire-alt.xml</path>
+<path>Aircraft/SpaceShuttle/Models/Effects/engine-fire-alt1.xml</path>
      <offsets>
-       <x-m> 16.0 </x-m>
+       <x-m> 15.8 </x-m>
        <y-m> 0.0</y-m>
        <z-m> -0.65 </z-m>
        <pitch-deg>-8.0</pitch-deg>
      </offsets>
    <condition>
+	<or>
  	<greater-than>
 	<property>/fdm/jsbsim/propulsion/engine[2]/thrust-lbs</property>
  	<value>0</value>
  	</greater-than>
+	<equals>
+		<property>/sim/config/shuttle/prelaunch-flag</property>
+		<value>1</value>
+  	</equals>
+	</or>
      </condition>
 </model>
+
+    <model>
+ 	<name>cryo-vent-ssme1</name>
+  	<path>Aircraft/SpaceShuttle/Models/Effects/cryo_vent_ssme.xml</path>
+  	<offsets>
+        	<x-m>15.8</x-m>
+		<y-m>0.0</y-m>
+		<z-m>-1.9</z-m>
+           <pitch-deg>-90</pitch-deg>
+  	</offsets>
+	 <condition>
+		<equals>
+			<property>/sim/config/shuttle/prelaunch-flag</property>
+			<value>1</value>
+		</equals>
+	 </condition>
+  </model>
 
 </PropertyList>

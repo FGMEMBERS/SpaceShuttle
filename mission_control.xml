@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+
+ <status>
+    <comlink type="int">0</comlink>
+    <telemetry type="int">0</telemetry>
+    <uplink-data-rate-kbps type="double">0.0</uplink-data-rate-kbps>
+    <downlink-data-rate-mbps type="double">0.0</downlink-data-rate-mbps>
+ </status>
+ <comm>
+    <request-string type="string">Delta state update</request-string>
+ </comm>
+
+</PropertyList>

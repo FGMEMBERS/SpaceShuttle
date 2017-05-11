@@ -546,6 +546,7 @@
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-l1</object-name>
+            <object-name>O4-light-knob</object-name>
         </binding>
     </slider>
 
@@ -574,6 +575,7 @@
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-r1</object-name>
+            <object-name>O8-light-knob</object-name>
         </binding>
     </slider>
 
@@ -583,11 +585,26 @@
         <col>1</col>
         <halign>left</halign>
         <label>Payload</label>
-        <property>/fdm/jsbsim/systems/light/cabinlight9-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight9-mode</property>
         <live>true</live>
         <binding>
             <command>dialog-apply</command>
             <object-name>light-switch-al</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight9-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight9r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity", 0);
+                }
+            </script>
         </binding>
     </checkbox>
     <slider>
@@ -598,10 +615,25 @@
         <min>0.0</min>
         <max>1.0</max>
         <live>true</live>
-        <property>/fdm/jsbsim/systems/light/cabinlight9-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight9r-intensity</property>
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-al</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight9-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight9r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight9-intensity", 0);
+                }
+            </script>
         </binding>
     </slider>
     <checkbox>
@@ -610,11 +642,26 @@
         <col>2</col>
         <halign>left</halign>
         <label>Orbit</label>
-        <property>/fdm/jsbsim/systems/light/cabinlight10-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight10-mode</property>
         <live>true</live>
         <binding>
             <command>dialog-apply</command>
             <object-name>light-switch-ac</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight10-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight10r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity", 0);
+                }
+            </script>
         </binding>
     </checkbox>
     <slider>
@@ -625,10 +672,25 @@
         <min>0.0</min>
         <max>1.0</max>
         <live>true</live>
-        <property>/fdm/jsbsim/systems/light/cabinlight10-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight10r-intensity</property>
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-ac</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight10-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight10r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight10-intensity", 0);
+                }
+            </script>
         </binding>
     </slider>
     <checkbox>
@@ -637,11 +699,26 @@
         <col>3</col>
         <halign>left</halign>
         <label>Mission</label>
-        <property>/fdm/jsbsim/systems/light/cabinlight11-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight11-mode</property>
         <live>true</live>
         <binding>
             <command>dialog-apply</command>
             <object-name>light-switch-ar</object-name>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight11-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight11r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity", 0);
+                }
+            </script>
         </binding>
     </checkbox>
     <slider>
@@ -652,7 +729,22 @@
         <min>0.0</min>
         <max>1.0</max>
         <live>true</live>
-        <property>/fdm/jsbsim/systems/light/cabinlight11-intensity</property>
+        <property>/fdm/jsbsim/systems/light/cabinlight11r-intensity</property>
+        <binding>
+            <command>nasal</command>
+            <script>
+                var selection = getprop("/fdm/jsbsim/systems/light/cabinlight11-mode");
+                if (selection == 1)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity",
+                        getprop("/fdm/jsbsim/systems/light/cabinlight11r-intensity"));
+                }
+                else if (selection == 0)
+                {
+                    setprop("/fdm/jsbsim/systems/light/cabinlight11-intensity", 0);
+                }
+            </script>
+        </binding>
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-ar</object-name>
@@ -717,13 +809,13 @@
     <text>
       <label>Right</label>
       <row>11</row>
-      <col>4</col>
+      <col>3</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-rc</name>
         <row>12</row>
-        <col>4</col>
+        <col>3</col>
         <halign>left</halign>
         <min>0.0</min>
         <max>1.0</max>
@@ -737,14 +829,14 @@
 
     <text>
       <label>Right Overhead</label>
-      <row>11</row>
-      <col>3</col>
+      <row>13</row>
+      <col>1</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-rov</name>
-        <row>12</row>
-        <col>3</col>
+        <row>14</row>
+        <col>1</col>
         <halign>left</halign>
         <min>0.0</min>
         <max>1.0</max>
@@ -757,20 +849,62 @@
     </slider>
 
     <text>
-      <label>Instruments</label>
+      <label>Aft Left / Center</label>
       <row>13</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rov</name>
+        <row>14</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-panel-center</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rov</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Aft Right</label>
+      <row>13</row>
+      <col>3</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-rov</name>
+        <row>14</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-norm-aft-panel-right</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-rov</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Instruments</label>
+      <row>15</row>
       <col>0</col>
     </text>
 
     <text>
       <label>Left / Center</label>
-      <row>14</row>
+      <row>16</row>
       <col>1</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-lcin</name>
-        <row>15</row>
+        <row>17</row>
         <col>1</col>
         <halign>left</halign>
         <min>0.0</min>
@@ -785,13 +919,13 @@
 
     <text>
       <label>Overhead</label>
-      <row>14</row>
+      <row>16</row>
       <col>2</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-ovin</name>
-        <row>15</row>
+        <row>17</row>
         <col>2</col>
         <halign>left</halign>
         <min>0.0</min>
@@ -806,14 +940,14 @@
 
     <text>
       <label>Right</label>
-      <row>14</row>
-      <col>4</col>
+      <row>16</row>
+      <col>3</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-rin</name>
-        <row>15</row>
-        <col>4</col>
+        <row>17</row>
+        <col>3</col>
         <halign>left</halign>
         <min>0.0</min>
         <max>1.0</max>
@@ -827,19 +961,40 @@
 
     <text>
       <label>Numeric</label>
-      <row>14</row>
-      <col>3</col>
+      <row>18</row>
+      <col>1</col>
       <halign>left</halign>
     </text>
     <slider>
         <name>brightness-num</name>
-        <row>15</row>
-        <col>3</col>
+        <row>19</row>
+        <col>1</col>
         <halign>left</halign>
         <min>0.0</min>
         <max>1.0</max>
         <live>true</live>
-        <property>/fdm/jsbsim/systems/light/event-time-intensity</property>
+        <property>/fdm/jsbsim/systems/light/console-eff-numeric-intensity</property>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>brightness-num</object-name>
+        </binding>
+    </slider>
+
+    <text>
+      <label>Aft Numeric</label>
+      <row>18</row>
+      <col>2</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-num</name>
+        <row>19</row>
+        <col>2</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>1.0</max>
+        <live>true</live>
+        <property>/fdm/jsbsim/systems/light/console-eff-aft-numeric-intensity</property>
         <binding>
             <command>dialog-apply</command>
             <object-name>brightness-num</object-name>

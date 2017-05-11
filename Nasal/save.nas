@@ -528,6 +528,8 @@ var runway = getprop("/save/runway");
 
 setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", guidance_mode);
 
+if (guidance_mode > 0) {SpaceShuttle.entry_guidance_available = 1;}
+
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", landing_site);
 SpaceShuttle.update_site();
 

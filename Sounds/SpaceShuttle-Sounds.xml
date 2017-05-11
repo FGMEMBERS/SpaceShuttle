@@ -281,7 +281,7 @@ adapted and extended by Thorsten Renk 2015-16
 			<property>/sim/current-view/internal</property>
 		</condition>
 		<volume>
-			<property>/engines/engine[0]/thrust_lb</property>
+			<property>/fdm/jsbsim/systems/various/SSME-base-volume</property>
 			<factor>0.01</factor>
 			<offset>0.0</offset>
 			<min>0.0</min>

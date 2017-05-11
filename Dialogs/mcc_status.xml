@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>mcc-status</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>400</width>
+
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Mission Control status</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+  <group>
+    <layout>table</layout>
+
+
+    <text>
+      <label>Mission elapsed time</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>0</row>
+      <col>1</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <live>true</live>
+      <format>%s</format>
+      <property>/fdm/jsbsim/systems/timer/MET-string</property>
+    </text> 
+
+    <text>
+      <label>Communication</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>established</label>    
+      <halign>left</halign>  
+      <visible>
+	<equals>
+      	  <property>/mission-control/status/comlink</property>
+	  <value>1</value>
+	</equals>
+      </visible>
+      <row>1</row>
+      <col>1</col>
+      <color>
+	<red>0.2</red>
+	<green>1.0</green>
+	<blue>0.2</blue>
+      </color>
+    </text>
+
+    <text>
+      <label>lost</label>
+      <halign>left</halign>      
+      <visible>
+	<equals>
+      	  <property>/mission-control/status/comlink</property>
+	  <value>0</value>
+	</equals>
+      </visible>
+      <row>1</row>
+      <col>1</col>
+      <color>
+	<red>1.0</red>
+	<green>0.2</green>
+	<blue>0.2</blue>
+      </color>
+    </text>
+   
+
+    <text>
+      <label>Telemetry</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>established</label>   
+      <halign>left</halign>   
+      <visible>
+	<greater-than>
+      	  <property>/mission-control/status/downlink-data-rate-mbps</property>
+	  <value>1.0</value>
+	</greater-than>
+      </visible>
+      <row>2</row>
+      <col>1</col>
+      <color>
+	<red>0.2</red>
+	<green>1.0</green>
+	<blue>0.2</blue>
+      </color>
+    </text>
+
+    <text>
+      <label>poor</label>  
+      <halign>left</halign>    
+      <visible>
+	<and>
+	<less-than>
+      	  <property>/mission-control/status/downlink-data-rate-mbps</property>
+	  <value>1.0</value>
+	</less-than>
+	<equals>
+      	  <property>/mission-control/status/telemetry</property>
+	  <value>1</value>
+	</equals>
+	</and>
+      </visible>
+      <row>2</row>
+      <col>1</col>
+      <color>
+	<red>1.0</red>
+	<green>1.0</green>
+	<blue>0.2</blue>
+      </color>
+    </text>
+
+    <text>
+      <label>lost</label>  
+      <halign>left</halign>    
+      <visible>
+	<equals>
+      	  <property>/mission-control/status/telemetry</property>
+	  <value>0</value>
+	</equals>
+      </visible>
+      <row>2</row>
+      <col>1</col>
+      <color>
+	<red>1.0</red>
+	<green>0.2</green>
+	<blue>0.2</blue>
+      </color>
+    </text>
+
+    <text>
+      <label>Uplink rate</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>3</row>
+      <col>1</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <live>true</live>
+      <format>%3.0f kbps</format>
+      <property>/mission-control/status/uplink-data-rate-kbps</property>
+    </text> 
+
+    <text>
+      <label>Downlink rate</label>
+      <halign>left</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>4</row>
+      <col>1</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <live>true</live>
+      <format>%3.0f Mbps</format>
+      <property>/mission-control/status/downlink-data-rate-mbps</property>
+    </text> 
+
+
+  </group>
+
+    <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

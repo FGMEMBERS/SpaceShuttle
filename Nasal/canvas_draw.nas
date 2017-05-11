@@ -118,6 +118,45 @@ return shape_data;
 }
 
 
+var draw_tmarker_down_alt = func {
+
+var shape_data = [];
+
+var point = [0, 0,0];
+append(shape_data, point);
+
+point = [-6.9, -8.0,1];
+append(shape_data, point);
+
+point = [6.9, -8.0,1];
+append(shape_data, point);
+
+point = [0, 0 ,1];
+append(shape_data, point);
+
+return shape_data;
+}
+
+var draw_tmarker_up_alt = func {
+
+var shape_data = [];
+
+var point = [0, 0,0];
+append(shape_data, point);
+
+point = [-6.9, 8.0,1];
+append(shape_data, point);
+
+point = [6.9, 8.0,1];
+append(shape_data, point);
+
+point = [0, 0 ,1];
+append(shape_data, point);
+
+return shape_data;
+}
+
+
 var draw_bearing_pointer_up = func {
 
 var shape_data = [];
@@ -586,9 +625,11 @@ return shape_data;
 var draw_ladder = func (length, n_major, major_size, n_minor, minor_size, primary_direction, secondary_direction, style) {
 
 # primary direction 0: horizontal 1: vertical
-
+# secondary direction: 
+# style 0: only rungs 1: line connecting rungs 2: dashed line
 
 # draw ladder body
+
 
 var shape_data = [];
 
@@ -642,7 +683,12 @@ for (var i=0; i< n_total; i=i+1)
 	if (minor_count ==0) {size = major_size;}
 	if (secondary_direction ==1) {size = -size;}
 
-	y = length * size;
+
+
+	if (style < 2)
+		{y = length * size;}
+	else
+		{x = x + length * size;}
 
 	if (primary_direction == 0)
 		{append(shape_data, [x,y,1]);}
@@ -688,7 +734,7 @@ projected_point[1] = SpaceShuttle.dot_product(point_coords, y_proj);
 
 var hemisphere = SpaceShuttle.dot_product(point_coords, view_vec);
 
-if (hemisphere < -0.2)
+if (hemisphere < -0.0)
 	{projected_point[2] = -1;}
 else if (hemisphere < 0.0)
 	{projected_point[2] = 0;}
@@ -707,7 +753,7 @@ if (length > 1.2 * radius)
 	{
 	projected_point[2] = -1;
 	}
-else if (length > radius)
+else if (length > 1.0 * radius)
 	{
 	projected_point[2] = 0;
 	}
@@ -727,21 +773,32 @@ return projected_point;
 }
 
 
-var center_resolution_culling = func (array, radius) {
+var center_resolution_culling = func (array, radius, cull_level) {
 
 var out_array = [];
 var counter = 0;
+
+
+
+#print ("In: ", size(array));
 
 for (var i=0; i< size(array); i=i+1)
 	{
 	var point = array[i];
 	var length = math.sqrt(point[0] * point[0] + point[1] * point[1]);
 
-	if ((length > 0.95 * radius) or (counter == 0))
+	if ((length > 0.7 * radius) or (counter == 0))
 		{
-		append(out_array, point);
+		if (length < 0.85 * radius)
+			{append(out_array, point);}
 		}
+
+	counter = counter + 1;
+	if (counter == cull_level) {counter = 0;}
+
 	}
+
+#print ("Out: ", size(out_array));
 return out_array;
 
 }
@@ -879,7 +936,10 @@ for (var i = 0; i < npoints; i=i+1)
 		{append(shape_data, projected_point);}
 	}
 
-shape_data = center_resolution_culling(shape_data, 95.0);
+var cull_level = getprop("/sim/config/shuttle/center-cull-level");
+
+if (cull_level > 1.0)
+	{shape_data = center_resolution_culling(shape_data, 95.0, cull_level);}
 
 return shape_data;
 
@@ -925,7 +985,7 @@ for (var i = 0; i < npoints; i=i+1)
 	z = math.sin(lat_rad);	
 
 	projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
-	projected_point = circle_clipping_hard(projected_point, 0.75);
+	projected_point = circle_clipping_hard(projected_point, 0.65);
 
 	projected_point[0] *=95.0;
 	projected_point[1] *=95.0;
@@ -983,7 +1043,7 @@ for (var i = 0; i < npoints; i=i+1)
 	z = math.sin(lat_rad + dlat);	
 
 	projected_point = projection ([x,y,z], p_vecs[0], p_vecs[1], p_vecs[2]);
-	projected_point = circle_clipping(projected_point, 0.75);
+	projected_point = circle_clipping_hard(projected_point, 0.65);
 
 	projected_point[0] *=95.0;
 	projected_point[1] *=95.0;
@@ -1030,7 +1090,10 @@ for (var i = 0; i < npoints; i=i+1)
 
 	}
 
-shape_data = center_resolution_culling(shape_data, 95.0);
+var cull_level = getprop("/sim/config/shuttle/center-cull-level");
+
+if (cull_level > 1)
+	{shape_data = center_resolution_culling(shape_data, 95.0, cull_level);}
 
 return shape_data;
 

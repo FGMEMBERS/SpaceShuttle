@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="ET umbilical door">
+	<channel name="ET umbilical door" execrate="4">
 
 
 		<switch name="systems/mechanical/et-door-cl-latch-vetoed-cmd">
@@ -129,7 +129,7 @@
 	</channel>
 
 
-	<channel name="Payload bay door">
+	<channel name="Payload bay door" execrate="4">
 
 		<!-- JSBSim init quirk - to initialize the right way, it seems best -->
 		<!-- to define closed door and latch positions as 0 -->
@@ -440,6 +440,22 @@
 			</test>
 		</switch>
 
+		<switch name="systems/mechanical/pb-door-indicator">
+			<default value="0.5"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-door-left-pos == 1
+				systems/mechanical/pb-door-right-pos == 1
+			</test>	
+			<test logic="AND" value="0.0">
+				systems/mechanical/pb-door-cl1-4-latch-pos == 0
+				systems/mechanical/pb-door-cl5-8-latch-pos == 0
+				systems/mechanical/pb-door-cl9-12-latch-pos == 0
+				systems/mechanical/pb-door-cl13-16-latch-pos == 0
+			</test>		
+		</switch>
+
+
+
 		<switch name="systems/mechanical/pb-door-sys1-power-demand-kW">
 			<default value="0.0"/>
 			<test logic="AND" value="0.5">
@@ -636,7 +652,7 @@
 
 	</channel>
 
-	<channel name="Ku band antenna">
+	<channel name="Ku band antenna" execrate="4">
 
 		<switch name="systems/mechanical/ku-antenna-ready">
 			<default value="0.0"/>
@@ -703,6 +719,15 @@
 			</traverse>
 		</kinematic>
 
+		<switch name="systems/mechanical/ku-antenna-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/ku-antenna-pos == 1
+				systems/mechanical/ku-antenna-ready == 1
+				systems/mechanical/ku-antenna-attached == 1
+			</test>
+		</switch>
+
 		<switch name="systems/mechanical/ku-antenna-jettison-power">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
@@ -732,7 +757,7 @@
 	</channel>
 
 
-	<channel name="Star tracker">
+	<channel name="Star tracker" execrate="4">
 
 		<switch name="systems/mechanical/star-tracker-y-power">
 			<default value="0.0"/>
@@ -821,7 +846,7 @@
 
 	</channel>
 
-	<channel name="Vent doors">
+	<channel name="Vent doors" execrate="4">
 
 		<switch name="systems/mechanical/vdoor-target">
 			<default value="systems/mechanical/vdoor-pos"/>

@@ -7,6 +7,8 @@ landing_site.rwy_sec = "";
 landing_site.tacan = "";
 landing_site.rwy_sel = 0;
 
+var entry_guidance_available = 0;
+
 var entry_interface = geo.Coord.new();
 var distance_last = 0.0;
 
@@ -211,6 +213,8 @@ else if (mode_string == "RTLS")
 	{
 	SpaceShuttle.init_rtls();
 	}
+
+entry_guidance_available = 1;
 
 # usually we would compute a TAEM guidance target at TAEM interface, but if the Shuttle is
 # initialized at TAEM interface, no target is selected yet, so if distance to site is

@@ -2,7 +2,7 @@
 
 <PropertyList>
   <name>srb-left</name>
-  <inherits-from>Effects/space</inherits-from>
+  <inherits-from>Effects/space-combined</inherits-from>
 
   <parameters>
 	<use_geo_light type="int">1</use_geo_light>

@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="Water management">
+	<channel name="Water management" execrate="4">
 
 	<!-- water is continuously produced by the fuel cells and drained by the flash evaporators -->
 
@@ -23,7 +23,7 @@
 	</channel>
 
 
-	<channel name="Avionics bay fans">
+	<channel name="Avionics bay fans" execrate="4">
 
 		<switch name="systems/eclss/avbay/fan-A-operational">
 			<default value="0.0"/>
@@ -305,7 +305,7 @@
 
 	</channel>
 
-	<channel name="Oxygen system">
+	<channel name="Oxygen system" execrate="4">
 
 		<switch name="systems/eclss/oxygen/direct-oxygen-available">
 			<default value="0.0"/>
@@ -357,7 +357,7 @@
 
 	</channel>
 
-	<channel name="Nitrogen system">
+	<channel name="Nitrogen system" execrate="4">
 
 		<switch name="systems/eclss/nitrogen/sys1-pressurized">
 			<default value="0.0"/>
@@ -452,7 +452,7 @@
 
 	</channel>
 
-	<channel name="Cabin air circulation pressure and temperature">
+	<channel name="Cabin air circulation pressure and temperature" execrate="4">
 
 
 		<switch name="systems/eclss/cabin/fan-A-operational">
@@ -718,6 +718,275 @@
 			<kd> 1.0</kd>
 			<output>systems/eclss/cabin/air-pressure-change-psi_s</output>
   		</pid>
+
+
+	</channel>
+
+	<channel name="Cockpit gauges ECLSS" execrate="8">
+
+		<switch name="systems/eclss/gauges/air-temp-display-K">
+			<default value="0.0"/>
+			<test value="systems/eclss/avbay/temperature-K">
+				systems/eclss/gauges/air-temp-switch == 0
+			</test>
+			<test value="systems/eclss/avbay[1]/temperature-K">
+				systems/eclss/gauges/air-temp-switch == 1
+			</test>
+			<test value="systems/eclss/avbay[2]/temperature-K">
+				systems/eclss/gauges/air-temp-switch == 2
+			</test>
+			<test value="systems/thermal-distribution/interior-temperature-K">
+				systems/eclss/gauges/air-temp-switch == 3
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/gauges/h2o-pump1-pressure">
+		<function>
+			<sum>
+				<product>
+					<value>43.0</value>
+					<property>systems/atcs/water-pump-1-active</property>
+				</product>
+				<value>20.0</value>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/gauges/h2o-pump2-pressure">
+		<function>
+			<sum>
+				<product>
+					<value>41.0</value>
+					<property>systems/atcs/water-pump-2-active</property>
+				</product>
+				<value>23.0</value>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/eclss/gauges/h2o-press-out-display">
+			<default value="0.0"/>
+			<test value="systems/eclss/gauges/h2o-pump1-pressure">
+				systems/eclss/gauges/h2o-loop-switch == 0
+			</test>
+			<test value="systems/eclss/gauges/h2o-pump2-pressure">
+				systems/eclss/gauges/h2o-loop-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/gauges/evap-out-T-display-K">
+			<default value="0.0"/>
+			<test value="systems/thermal-distribution/freon-out-temperature-K">
+				systems/eclss/gauges/freon-loop-switch == 0
+			</test>
+			<test value="systems/thermal-distribution/freon-out-temperature-K">
+				systems/eclss/gauges/freon-loop-switch == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/gauges/freon-loop1-flow">
+		<function>
+			<product>
+				<property>systems/atcs/freon-pump-1-active</property>
+				<value>2246.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/gauges/freon-loop2-flow">
+		<function>
+			<product>
+				<property>systems/atcs/freon-pump-2-active</property>
+				<value>2258.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/eclss/gauges/freon-flow-display">
+			<default value="0.0"/>
+			<test value="systems/eclss/gauges/freon-loop1-flow">
+				systems/eclss/gauges/freon-loop-switch == 0
+			</test>
+			<test value="systems/eclss/gauges/freon-loop2-flow">
+				systems/eclss/gauges/freon-loop-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/gauges/oxygen-factor">
+			<default value="1.0"/>
+			<test logic="AND" value="0.5">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 1
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/eclss/oxygen/sys1-o2-supply-valve-status == 0
+				systems/eclss/gauges/flow-meter-switch == 0
+			</test>
+			<test logic="AND" value="0.0">
+				systems/eclss/oxygen/sys2-o2-supply-valve-status == 0
+				systems/eclss/gauges/flow-meter-switch == 2
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/gauges/nitrogen-factor">
+			<default value="1.0"/>
+			<test logic="AND" value="0.5">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 1
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/eclss/nitrogen/sys1-n2-supply-valve-status == 0
+				systems/eclss/gauges/flow-meter-switch == 1
+			</test>
+			<test logic="AND" value="0.0">
+				systems/eclss/nitrogen/sys2-n2-supply-valve-status == 0
+				systems/eclss/gauges/flow-meter-switch == 3
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/gauges/nitrogen-flow-pph">
+		<function>
+			<product>
+				<property>systems/eclss/gauges/nitrogen-factor</property>
+				<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+				<property>systems/eclss/cabin/nitrogen-in-fraction-av</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/eclss/gauges/oxygen-flow-pph">
+		<function>
+			<product>
+				<property>systems/eclss/gauges/oxygen-factor</property>
+				<property>systems/eclss/cabin/air-gain-rate-lb_h</property>
+				<property>systems/eclss/cabin/oxygen-in-fraction-av</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/eclss/gauges/gas-flow-display">
+			<default value="0.0"/>
+			<test value="systems/eclss/gauges/oxygen-flow-pph">
+				systems/eclss/gauges/flow-meter-switch == 0
+			</test>
+			<test value="systems/eclss/gauges/nitrogen-flow-pph">
+				systems/eclss/gauges/flow-meter-switch == 1
+			</test>
+			<test value="systems/eclss/gauges/oxygen-flow-pph">
+				systems/eclss/gauges/flow-meter-switch == 2
+			</test>
+			<test value="systems/eclss/gauges/nitrogen-flow-pph">
+				systems/eclss/gauges/flow-meter-switch == 3
+			</test>
+		</switch>
+
+
+		<!-- this needs some research, just a placeholder yet... -->
+
+
+
+		<switch name="systems/eclss/gauges/cryo-o2-htr-assy-display">
+			<default value="0.0"/>
+		</switch>
+		
+
+		<switch name="systems/eclss/gauges/cryo-o2-press-display">
+			<default value="0.0"/>
+			<test value="8.16">
+				systems/eclss/gauges/cryo-tank-switch == 0
+			</test>
+			<test value="8.13">
+				systems/eclss/gauges/cryo-tank-switch == 1
+			</test>
+			<test value="8.16">
+				systems/eclss/gauges/cryo-tank-switch == 2
+			</test>
+			<test value="8.14">
+				systems/eclss/gauges/cryo-tank-switch == 3
+			</test>
+			<test value="8.14">
+				systems/eclss/gauges/cryo-tank-switch == 4
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/gauges/cryo-h2-press-display">
+			<default value="0.0"/>
+			<test value="2.08">
+				systems/eclss/gauges/cryo-tank-switch == 0
+			</test>
+			<test value="2.08">
+				systems/eclss/gauges/cryo-tank-switch == 1
+			</test>
+			<test value="2.06">
+				systems/eclss/gauges/cryo-tank-switch == 2
+			</test>
+			<test value="2.06">
+				systems/eclss/gauges/cryo-tank-switch == 3
+			</test>
+			<test value="2.06">
+				systems/eclss/gauges/cryo-tank-switch == 4
+			</test>
+		</switch>
+
+		<fcs_function name="systems/eclss/gauges/cryo-qty">
+		<function>
+			<max>
+			<product>
+			<difference>	
+			<value>1.0</value>
+				<quotient>
+				<sum>
+					<property>systems/timer/delta-MET</property>
+					<property>/sim/time/elapsed-sec</property>
+				</sum>
+				<value>1036800</value>
+				</quotient>
+			</difference>
+			<value>10</value>
+			</product>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/eclss/gauges/cryo-o2-qty-display">
+			<default value="0.0"/>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 0
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 1
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 2
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 3
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 4
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/gauges/cryo-h2-qty-display">
+			<default value="0.0"/>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 0
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 1
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 2
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 3
+			</test>
+			<test value="systems/eclss/gauges/cryo-qty">
+				systems/eclss/gauges/cryo-tank-switch == 4
+			</test>
+		</switch>
 
 
 	</channel>

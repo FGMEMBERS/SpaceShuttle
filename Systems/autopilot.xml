@@ -190,6 +190,17 @@
 	</channel>	
 
 
+	<channel name="Active control channels">
+		<switch name="systems/ap/track/auto-rotation-active">
+			<default value="0"/>
+			<test logic="OR" value="1">
+				systems/ap/up-mnvr-flag GT 0.0	
+				systems/ap/oms-mnvr-flag GT 0.0					
+			</test>
+		</switch>
+	</channel>
+
+
 	<channel name="Inertial vector tracking">
 
 		<fcs_function name="systems/ap/track/body-minus-x[0]">
@@ -515,6 +526,8 @@
 			</product>
 			<product>
 			<acos>
+			<min>
+			<max>
 			<sum>
 				<product>
 					<property>systems/ap/track/body-pitch[0]</property>
@@ -529,6 +542,10 @@
 					<property>systems/ap/track/target-sec[2]</property>
 				</product>
 			</sum>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
 			</acos>
 			<property>systems/ap/track/roll-angle-sign</property>
 			</product>
@@ -1403,6 +1420,9 @@
 
 		<switch name="systems/ap/entry/roll-gain">
 			<default value="0.1"/>
+			<test value="1.0">
+				systems/fcs/rcs-roll-mode == 1
+			</test>
 			<test value="0.2">
 				systems/ap/entry/roll-reversal-init == 1
 			</test>
@@ -2390,6 +2410,11 @@
 			<test logic="AND" value="1.0">
 				systems/ap/grtls/Nz-hold-active == 1
 				velocities/v-down-fps LT -320.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/ap/grtls/Nz-hold-active == 1
+				velocities/v-down-fps LT 0.0
+				aero/alpha-deg GT 30.0
 			</test>
 			<test value="1.0">
 				systems/ap/grtls/alpha-transition-active == 1

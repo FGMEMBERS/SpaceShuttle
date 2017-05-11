@@ -57,9 +57,9 @@ setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
 # disconnect power
 
-setprop("/fdm/jsbsim/systems/failures/fc1-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/fc2-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc3-condition", 0.0);
 
 # destroy shuttle, cockpit only
 
@@ -80,7 +80,9 @@ settimer(func{setprop("/sim/model/effects/explosion-smoke",0);}, 2.0);
 
 var orbiter_tps_fail = func {
 
-
+setprop("/sim/model/effects/entry-debris", 1);
+setprop("/fdm/jsbsim/systems/various/debris-separation-target", 1);
+setprop("/fdm/jsbsim/systems/failures/shuttle-destroyed", 1);
 
 # destroy aerodynamics
 
@@ -107,9 +109,9 @@ setprop("/fdm/jsbsim/systems/failures/aero-structure-condition", 0.05);
 
 # disconnect power
 
-setprop("/fdm/jsbsim/systems/failures/fc1-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/fc2-condition", 0.0);
-setprop("/fdm/jsbsim/systems/failures/fc3-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc1-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc2-condition", 0.0);
+setprop("/fdm/jsbsim/systems/failures/electrical/fc3-condition", 0.0);
 
 }
 
@@ -236,6 +238,8 @@ var apply_failure_scenario = func{
 
 var scenario_ID = getprop("/fdm/jsbsim/systems/failures/failure-scenario-ID");
 
+#print("Applying failure scenario");
+
 if (scenario_ID == 0)
 	{
 	failure_time_ssme = [10000.0, 10000.0, 10000.0];
@@ -256,6 +260,10 @@ else if (scenario_ID == 20)
 else if (scenario_ID == 21)
 	{
 	init_rcs_failure();
+	}
+else if (scenario_ID == 22)
+	{
+	init_electrical_failure();
 	}
 else if (scenario_ID == 31)
 	{
@@ -289,6 +297,65 @@ else if (scenario_ID == 33)
 	setprop("/fdm/jsbsim/systems/failures/apu1-condition", 0.0);
 	setprop("/fdm/jsbsim/systems/failures/hyd2-pump-condition", 0.0);
 	}
+else if (scenario_ID == 34)
+	{
+	init_position_error(2500.0);
+	}
+else if (scenario_ID == 35)
+	{
+	init_position_error(5000.0);
+	
+	setprop("/fdm/jsbsim/systems/failures/navigation/gps-condition", 0);
+
+	var rn = rand();
+
+	if (rn < 0.2)
+		{
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 1.0 + 5.0 * rand());
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-3-condition", 0.8);
+		}
+	else if (rn < 0.4)
+		{
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-2-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 4.0 + rand() * 4.0);
+		}
+	else if (rn < 0.6)
+		{
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-1-condition", 0.8);
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-3-condition", 0.9);
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-4-condition", 0.7 + rand() * 0.3);
+		}
+	else if (rn < 0.8)
+		{
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-2-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-1-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/adta-3-condition", 0.0);
+		}
+	else 
+		{
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 4.0 + rand() * 4.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-2-condition", 2.0 + rand() * 6.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 1.0 + rand() * 8.0);
+
+		if (rand() > 0.5)	
+			{
+			setprop("/fdm/jsbsim/systems/failures/navigation/air-data-probe-left-condition", 0.8);
+			}
+		else
+			{
+			setprop("/fdm/jsbsim/systems/failures/navigation/air-data-pressure-right-condition", 0.8);
+			}		
+		}
+	}
+
+setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario", "none");
+SpaceShuttle.update_scenario();
+
+
 
 }
 
@@ -315,6 +382,16 @@ var init_alignment_error = func {
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", 10.0 * (rand() - 0.5));
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", 10.0 * (rand() - 0.5));
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 * (rand() - 0.5));
+
+}
+
+var init_position_error = func (scale) {
+
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/x-m", scale * (rand() - 0.5));
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/y-m", scale * (rand() - 0.5));
+setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/z-m", scale * (rand() - 0.5));
+
+
 
 }
 
@@ -360,5 +437,45 @@ else
 
 }
 
+var init_electrical_failure = func {
 
+var rn_loc = rand();
+var rn_unit = rand();
+var rn_severity = rand();
+
+if (rn_severity < 0.5) {rn_severity = 0.0;} else {rn_severity = 2.0 * (rn_severity - 0.5);}
+
+var unit = 0;
+if (rn_unit > 0.66) {unit = 2;}
+else if (rn_unit > 0.33) {unit = 1;}
+
+if (rn_loc > 0.66) # fuel cell
+	{
+	if (unit == 0)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/fc1-condition", rn_severity);}
+	else if (unit == 1)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/fc2-condition", rn_severity);}
+	else
+		{setprop("/fdm/jsbsim/systems/failures/electrical/fc3-condition", rn_severity);}
+	}
+else if (rn_loc > 0.33) # main bus
+	{
+	if (unit == 0)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/main-A-condition", rn_severity);}
+	else if (unit == 1)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/main-B-condition", rn_severity);}
+	else
+		{setprop("/fdm/jsbsim/systems/failures/electrical/main-C-condition", rn_severity);}
+	}
+else # AC bus
+	{
+	if (unit == 0)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/ac1-condition", rn_severity);}
+	else if (unit == 1)
+		{setprop("/fdm/jsbsim/systems/failures/electrical/ac2-condition", rn_severity);}
+	else
+		{setprop("/fdm/jsbsim/systems/failures/electrical/ac3-condition", rn_severity);}
+	}
+
+}
 

@@ -431,10 +431,6 @@
 		<default>true</default>
 		<key>Esc</key>
 		<binding>
-			<command>nasal</command>
-                    	<script>SpaceShuttle.apply_failure_scenario()</script>
-		</binding>
-		<binding>
 			<command>dialog-close</command>
 		</binding>
 	</button>

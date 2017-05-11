@@ -89,6 +89,7 @@
         	 <halign>left</halign>
         	 <stretch>true</stretch>
         	 <pref-width>200</pref-width>
+          	 <live>true</live>
         	 <property>/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario</property>
 		 <value>none</value>
 		 <value>ascent single engine failure</value>
@@ -96,12 +97,21 @@
 		 <value>off attitude</value>
 		 <value>RCS failure</value>
 		 <value>hydraulic failure</value>
+		 <value>electric failure</value>		
+		 <value>bad state vector at TAEM</value>
+		 <value>navigation problems</value>
 		 <value>stuck speedbrake</value>
 		 <value>burst tire</value>
         	 <binding>
              	 	<command>dialog-apply</command>
           	 	<object-name>failure-scenario</object-name>
         	 </binding>
+		 <binding>
+		<command>nasal</command>
+			<script>
+				SpaceShuttle.update_scenario();
+			</script>
+		 </binding>
       	</combo>
 
 </group>

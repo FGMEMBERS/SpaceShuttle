@@ -1,8 +1,8 @@
 #---------------------------------------
 # SpaceShuttle PFD Page include:
 #        Page: p_pfd, p_pfd_orbit
-# Description: PFD page
-#      Author: Thorsten Renk, 2015 - 2016
+# Description: MEDS PFD for launch/entry and orbit
+#      Author: Thorsten Renk, 2015 - 2017
 #---------------------------------------
 
 
@@ -21,19 +21,33 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.group.setColor(1, 1, 1);
 
     p_pfd.keas = device.svg.getElementById("p_pfd_keas");
+    p_pfd.keas.enableUpdate();
+
     p_pfd.beta = device.svg.getElementById("p_pfd_beta");
+    p_pfd.beta.enableUpdate();
 
     p_pfd.r = device.svg.getElementById("p_pfd_r");
     p_pfd.p = device.svg.getElementById("p_pfd_p");
     p_pfd.y = device.svg.getElementById("p_pfd_y");
+
+    p_pfd.r.enableFast();
+    p_pfd.p.enableFast();
+    p_pfd.y.enableFast();
     
     p_pfd.dap = device.svg.getElementById("p_pfd_dap");
+    p_pfd.dap.enableUpdate();
+
     p_pfd.throt = device.svg.getElementById("p_pfd_throt");
+    p_pfd.throt.enableUpdate();
 
     p_pfd.label_throt = device.svg.getElementById("p_pfd_label_throt");
+    p_pfd.label_throt.enableUpdate();
 
     p_pfd.att = device.svg.getElementById("p_pfd_att");
+    p_pfd.att.enableUpdate();
+
     p_pfd.MM = device.svg.getElementById("p_pfd_MM");
+    p_pfd.MM.enableUpdate();
 
     p_pfd.menu_item = device.svg.getElementById("MI_1"); 
     p_pfd.menu_item_frame = device.svg.getElementById("MI_1_frame"); 
@@ -67,22 +81,45 @@ var PFD_addpage_p_pfd = func(device)
 
 
 
-	
 
-	# group for dynamically re-drawn inner part
-
-	p_pfd.adi_inner = device.ADI.createChild("group");
-	p_pfd.adi_inner.flag = 0;
-
-	p_pfd.adi_inner.adi_group0 = p_pfd.adi_inner.createChild("group");
-	p_pfd.adi_inner.adi_group1 = p_pfd.adi_inner.createChild("group");
-	p_pfd.adi_inner.adi_group2 = p_pfd.adi_inner.createChild("group");
-	p_pfd.adi_inner.adi_group3 = p_pfd.adi_inner.createChild("group");
-	p_pfd.adi_inner.adi_group4 = p_pfd.adi_inner.createChild("group");
 
 	# draw the fixed elements
 
 	# ADI ################################################
+
+	# ADI sphere grid	
+
+	p_pfd.adi_sphere_bg = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.15,0.15,0.15)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
+	p_pfd.adi_sphere_bg.max_pts = 0;
+
+	p_pfd.adi_sphere_bg_bright = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.3,0.3,0.3)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
+	p_pfd.adi_sphere_bg_bright.max_pts = 0;
+
+	p_pfd.adi_sphere = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
+	p_pfd.adi_sphere.max_pts = 0;
+
+
+	# group for dynamically re-drawn labels
+
+	p_pfd.adi_inner = device.ADI.createChild("group");
+	p_pfd.adi_inner.setTranslation (255, 175);
+	p_pfd.adi_inner.flag = 0;
+
+
 
 	# upper compass rose
 
@@ -163,6 +200,12 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.adi_error_label_p_u = write_small_label(device.ADI, "5", [348, 139,1], [0.9,0.1,0.85]);
 	p_pfd.adi_error_label_p_l = write_small_label(device.ADI, "5", [348, 222,1], [0.9,0.1,0.85]);
 
+	p_pfd.adi_error_label_p_u.enableUpdate();
+	p_pfd.adi_error_label_p_l.enableUpdate();
+
+	#p_pfd.adi_error_label_p_u.enableUpdate();
+	#p_pfd.adi_error_label_p_l.enableUpdate();
+
 	# needles
 
 	p_pfd.att_error_needles = adi_errors.createChild("group");
@@ -189,7 +232,6 @@ var PFD_addpage_p_pfd = func(device)
 	pfd_segment_draw(data, p_pfd.att_error_roll);
 	
 
-	#p_pfd.att_error_needles.setTranslation (255, 175);
 
 	
 	 adi_errors.setTranslation (255, 175);
@@ -229,6 +271,15 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.rate_label_p_u = write_small_label(device.ADI, "5", [355, 109,1], [1,1,1]);
 	p_pfd.rate_label_p_l = write_small_label(device.ADI, "5", [355, 252,1], [1,1,1]);
+
+	p_pfd.rate_label_r_l.enableUpdate();
+	p_pfd.rate_label_r_r.enableUpdate();
+
+	p_pfd.rate_label_y_l.enableUpdate();
+	p_pfd.rate_label_y_r.enableUpdate();
+
+	p_pfd.rate_label_p_u.enableUpdate();
+	p_pfd.rate_label_p_l.enableUpdate();
 
 	# ADI rate needles
 
@@ -581,6 +632,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(70,205)
 	.setRotation(0.0);
 
+	p_pfd.keas_display_text.enableFast();
+
 
 
 
@@ -656,6 +709,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setAlignment("center-bottom")
 	.setTranslation(120,205)
 	.setRotation(0.0);
+
+	p_pfd.alpha_display_text.enableFast();
 
 
 
@@ -755,6 +810,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(400,205)
 	.setRotation(0.0);
 
+	p_pfd.H_display_text.enableFast();
+
 
 
 
@@ -829,6 +886,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(450,205)
 	.setRotation(0.0);
 
+	p_pfd.Hdot_display_text.enableFast();
+
 
 	device.HSI.setTranslation (255, 425);
 
@@ -867,6 +926,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setTranslation(118,384)
 	.setRotation(0.0);
 
+	p_pfd.acc_display_text.enableFast();
+
 	p_pfd.acc_label = device.symbols.createChild("text")
 	.setText("Accel")
         .setColor(1,1,1)
@@ -875,6 +936,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setAlignment("center-bottom")
 	.setTranslation(118,400)
 	.setRotation(0.0);
+
+	p_pfd.acc_label.enableUpdate();
 
 	# marker arrow
 
@@ -1111,6 +1174,8 @@ var PFD_addpage_p_pfd = func(device)
 	.setAlignment("center-bottom")
 	.setTranslation(380,377)
 	.setRotation(0.0);
+	
+	p_pfd.dist_to_rwy_label.enableUpdate();
 
 	# dist to HAC-C
 
@@ -1371,6 +1436,8 @@ var PFD_addpage_p_pfd = func(device)
 
 		hsi_course = Delta_inc;
 
+		p_pfd.xtrk_display_text.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/ap/launch/cross-track")));
+
 		if (launch_stage == 1)
 			{
 			roll_error = -math.asin(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) * 180.0/math.pi;
@@ -1417,11 +1484,18 @@ var PFD_addpage_p_pfd = func(device)
 			{dap_text = "INRTL";}
 	
 
-		if ((getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag") > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+		var up_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+
+		if ((up_mnvr_flag > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
 			{
 			yaw_error = -getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
 			pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
-			roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+
+			
+			if (up_mnvr_flag < 3)
+				{roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");}
+			else
+				{roll_error = 0.0;}
 			}
 		}
 	
@@ -1489,12 +1563,40 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.bearing_HAC_H.setVisible(1);
 			p_pfd.bearing_HAC_C.setVisible(1);
 	
-			var pos = geo.aircraft_position();
+			var hsi_source = getprop("/fdm/jsbsim/systems/adi/hsi-source-select");
+			
+			var pos = {};
+
+			if (hsi_source == 0) # NAV
+				{
+				pos = SpaceShuttle.state_vector_position();
+				}
+			else if (hsi_source == 1) # TACAN
+				{
+				pos = geo.aircraft_position();
+				}
+			else # MLS
+				{
+				pos = geo.aircraft_position();
+				}
+
+			
 			var dist = pos.distance_to(SpaceShuttle.TAEM_WP_1) / 1853.0;
 			hac_c_distance = pos.distance_to(SpaceShuttle.TAEM_HAC_center) / 1853.;
 			var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
 			var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
 			var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);	
+
+			if (hsi_source == 1) # query individual receiver filter
+				{
+				var hsi_unit = getprop("/fdm/jsbsim/systems/adi/hsi-unit-select");
+
+				dist = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_range(dist);
+				hac_c_distance = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_range(hac_c_distance);
+				course_WP1 = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_WP1);
+				course_HAC_C = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_HAC_C);
+				course_threshold = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_threshold);
+				}
 
 			hsi_course = -yaw;
 			bearing_HAC_C = course_HAC_C;
@@ -1632,12 +1734,38 @@ var PFD_addpage_p_pfd = func(device)
 				p_pfd.course_arrow.setVisible(1);
 				p_pfd.vert_acc.setVisible(0);
 
-				var pos = geo.aircraft_position();
+				var hsi_source = getprop("/fdm/jsbsim/systems/adi/hsi-source-select");
+				var pos = {};
+
+				if (hsi_source == 0) # NAV
+					{
+					pos = SpaceShuttle.state_vector_position();
+					}
+				else if (hsi_source == 1) # TACAN
+					{
+					pos = geo.aircraft_position();
+					}
+				else # MLS
+					{
+					pos = geo.aircraft_position();
+					}
+
 				var dist = pos.distance_to(SpaceShuttle.TAEM_WP_1) / 1853.0;
 				hac_c_distance = pos.distance_to(SpaceShuttle.TAEM_HAC_center) / 1853.;
 				var course_WP1 = pos.course_to (SpaceShuttle.TAEM_WP_1);
 				var course_HAC_C = pos.course_to (SpaceShuttle.TAEM_HAC_center);
-				var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);	
+				var course_threshold = 	pos.course_to(SpaceShuttle.TAEM_threshold);
+
+				if (hsi_source == 1) # query individual receiver filter
+					{
+					var hsi_unit = getprop("/fdm/jsbsim/systems/adi/hsi-unit-select");
+
+					dist = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_range(dist);
+					hac_c_distance = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_range(hac_c_distance);
+					course_WP1 = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_WP1);
+					course_HAC_C = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_HAC_C);
+					course_threshold = SpaceShuttle.tacan_system.receiver[hsi_unit-1].indicated_azimuth(course_threshold);
+					}	
 
 				var glideslope_deviation = getprop("/fdm/jsbsim/systems/taem-guidance/glideslope-deviation-ft");
 
@@ -1663,33 +1791,28 @@ var PFD_addpage_p_pfd = func(device)
 
 	# draw
 
-	var adi_sphere_bg = p_pfd.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-	.setColorFill(0.15,0.15,0.15)
-        .setColor(1,1,1);
-
-	var adi_sphere_bg_bright = p_pfd.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-	.setColorFill(0.3,0.3,0.3)
-        .setColor(1,1,1);
-
-	var adi_sphere = p_pfd.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-        .setColor(1,1,1);
-
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch_adi, yaw_adi, -roll_adi);
 
 	# ADI sphere
 	var data = SpaceShuttle.draw_circle(0.75*95, 30);
-	pfd_segment_draw(data,adi_sphere_bg);
+	update_plot_data (p_pfd.adi_sphere_bg, data);
+	#pfd_segment_draw(data,adi_sphere_bg);
+	
 
 	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
-	pfd_segment_draw(data,adi_sphere_bg_bright);
+	#pfd_segment_draw(data,adi_sphere_bg_bright);
+	update_plot_data (p_pfd.adi_sphere_bg_bright, data);
 
 	if (getprop("/fdm/jsbsim/systems/adi/quality-level") > 0)
 		{
-		draw_adi_sphere(adi_sphere, p_vecs);
+		#draw_adi_sphere(adi_sphere, p_vecs);
+		update_adi_sphere(p_pfd.adi_sphere, p_vecs);
+		p_pfd.adi_sphere.setVisible(1);
+		}
+	else
+		{
+		p_pfd.adi_sphere.setVisible(0);
 		}
 
 
@@ -1713,17 +1836,22 @@ var PFD_addpage_p_pfd = func(device)
 	p_pfd.att_error_roll.setScale(1.0,math.sqrt(9025. - roll_error_ntrans*roll_error_ntrans)/95.0);
 	
 
-	p_pfd.adi_error_label_p_u.setText(sprintf("%d", adi_error_range));
-	p_pfd.adi_error_label_p_l.setText(sprintf("%d", adi_error_range));
+	p_pfd.adi_error_label_p_u.updateText(sprintf("%d", adi_error_range));
+	p_pfd.adi_error_label_p_l.updateText(sprintf("%d", adi_error_range));
+
+
 
 	# ADI rate needles
 
-	p_pfd.rate_label_r_l.setText(sprintf("%d", adi_rate_range));
-	p_pfd.rate_label_r_r.setText(sprintf("%d", adi_rate_range));
-	p_pfd.rate_label_y_l.setText(sprintf("%d", adi_rate_range));
-	p_pfd.rate_label_y_r.setText(sprintf("%d", adi_rate_range));
-	p_pfd.rate_label_p_u.setText(sprintf("%d", adi_rate_range));
-	p_pfd.rate_label_p_l.setText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_r_l.updateText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_r_r.updateText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_y_l.updateText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_y_r.updateText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_p_u.updateText(sprintf("%d", adi_rate_range));
+	p_pfd.rate_label_p_l.updateText(sprintf("%d", adi_rate_range));
+
+	var s_adi_rate_range = sprintf("%d", adi_rate_range);
+
 
 	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
 	roll_rate = SpaceShuttle.clamp(roll_rate, -adi_rate_range, adi_rate_range);
@@ -1737,7 +1865,6 @@ var PFD_addpage_p_pfd = func(device)
 	yaw_rate = SpaceShuttle.clamp(yaw_rate, -adi_rate_range, adi_rate_range);
 	p_pfd.adi_yaw_rate_needle.setTranslation(255 -13.0 * yaw_rate * 5.0/adi_rate_range, 280.0);
 
-	p_pfd.adi_inner.setTranslation (255, 175);
 
 	# HSI
 
@@ -1761,12 +1888,12 @@ var PFD_addpage_p_pfd = func(device)
 
 	var mach = getprop("/fdm/jsbsim/velocities/mach");
 	p_pfd.keas_tape.setTranslation (70, 200 - 5400 + 381.0 * mach);       
-	p_pfd.keas_display_text.setText(sprintf("%2.1f",mach));
+	p_pfd.keas_display_text.setTextFast(sprintf("%2.1f",mach));
 
 	# alpha tape
 	
 
-	p_pfd.alpha_display_text.setText(sprintf("%2.1f",alpha_deg));
+	p_pfd.alpha_display_text.setTextFast(sprintf("%2.1f",alpha_deg));
 	p_pfd.alpha_tape.setTranslation (120, 200 + 9.5 * alpha_deg);
 
 	# H tape
@@ -1776,7 +1903,7 @@ var PFD_addpage_p_pfd = func(device)
 		var H_miles = altitude / 6076.1154;
 		var tape_offset = (H_miles - 70.0) * 10.0;
 		if (tape_offset<0.0) {tape_offset = 0.0;}
-		p_pfd.H_display_text.setText(sprintf("%3.1f",H_miles)~"M");
+		p_pfd.H_display_text.setTextFast(sprintf("%3.1f",H_miles)~"M");
 		p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 		p_pfd.H_tape.labels_upper_2k.setVisible(0);
@@ -1794,7 +1921,7 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		var tape_offset = (altitude - 100000.0)/50000.0 * 50.0;
 		if (tape_offset<0.0) {tape_offset = 0.0;}
-		p_pfd.H_display_text.setText(sprintf("%3.0f",altitude/1000)~"k");
+		p_pfd.H_display_text.setTextFast(sprintf("%3.0f",altitude/1000)~"k");
 		p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 		p_pfd.H_tape.labels_upper_2k.setVisible(0);
@@ -1812,7 +1939,7 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		var tape_offset = (altitude - 30000.0)/1000.0 * 10.0;
 		if (tape_offset<0.0) {tape_offset = 0.0;}
-		p_pfd.H_display_text.setText(sprintf("%4.0f",altitude));
+		p_pfd.H_display_text.setTextFast(sprintf("%4.0f",altitude));
 		p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 		p_pfd.H_tape.labels_upper_2k.setVisible(0);
@@ -1830,7 +1957,7 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		var tape_offset = (altitude - 2000.0)/1000.0 * 50.0;
 		if (tape_offset<0.0) {tape_offset = 0.0;}
-		p_pfd.H_display_text.setText(sprintf("%4.0f",altitude));
+		p_pfd.H_display_text.setTextFast(sprintf("%4.0f",altitude));
 		p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 		p_pfd.H_tape.labels_upper_2k.setVisible(0);
@@ -1848,7 +1975,7 @@ var PFD_addpage_p_pfd = func(device)
 		{
 		var tape_offset = altitude/100.0 * 50.0;
 		if (tape_offset<0.0) {tape_offset = 0.0;}
-		p_pfd.H_display_text.setText(sprintf("%4.0f",altitude));
+		p_pfd.H_display_text.setTextFast(sprintf("%4.0f",altitude));
 		p_pfd.H_tape.setTranslation (400, 200 + tape_offset);
 
 		p_pfd.H_tape.labels_upper_2k.setVisible(1);
@@ -1870,14 +1997,14 @@ var PFD_addpage_p_pfd = func(device)
 
 	var tape_offset = SpaceShuttle.clamp(vspeed, -2900.0, 2900.0) * 0.6;
 	p_pfd.Hdot_tape.setTranslation (450, 200 + tape_offset);
-	p_pfd.Hdot_display_text.setText(sprintf("%4.0f",vspeed));
+	p_pfd.Hdot_display_text.setTextFast(sprintf("%4.0f",vspeed));
 
 	# accelerometer needle
 
 	var acc_needle_rot = acceleration * 45.0 * math.pi/180.0;
 
 	p_pfd.acc_needle.setRotation(acc_needle_rot);
-	p_pfd.acc_display_text.setText(sprintf("%1.1f",acceleration)~"g");
+	p_pfd.acc_display_text.setTextFast(sprintf("%1.1f",acceleration)~"g");
 
 	# glideslope needle
 
@@ -1890,15 +2017,16 @@ var PFD_addpage_p_pfd = func(device)
 	# numerical values
 
 	if (altitude < 200000.0)
-       		{p_pfd.beta.setText(sprintf("%1.1f",beta_deg));}
+       		{p_pfd.beta.updateText(sprintf("%1.1f",beta_deg));}
 	else
-		{p_pfd.beta.setText("");}
+		{p_pfd.beta.updateText(""); }
 
-        p_pfd.keas.setText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
+        p_pfd.keas.updateText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
 
-	p_pfd.r.setText(sprintf("%d", roll));
-	p_pfd.p.setText(sprintf("%d", pitch));
-	p_pfd.y.setText(sprintf("%d", yaw));
+
+	p_pfd.r.setTextFast(sprintf("%d", roll_adi));
+	p_pfd.p.setTextFast(sprintf("%d", pitch_adi));
+	p_pfd.y.setTextFast(sprintf("%d", yaw_adi));
 	p_pfd.dInc_display_text.setText(sprintf("%2.2f", Delta_inc));
 	#p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f", getprop("/fdm/jsbsim/systems/taem-guidance/distance-to-runway-nm")));
 	p_pfd.dist_to_rwy_display_text.setText(sprintf("%3.1f",rwy_distance));
@@ -1909,13 +2037,13 @@ var PFD_addpage_p_pfd = func(device)
 
 	# mode texts
 
-	p_pfd.dap.setText(dap_text);
-    	p_pfd.throt.setText(throt_text);
-	p_pfd.label_throt.setText(throt_label_text);
-	p_pfd.dist_to_rwy_label.setText(landing_site_text);
-	p_pfd.MM.setText(sprintf("%d", major_mode)~mm_appendix);
-	p_pfd.att.setText(adi_att_string);
-	p_pfd.acc_label.setText(acc_label_text);
+	p_pfd.dap.updateText(dap_text);
+    	p_pfd.throt.updateText(throt_text);
+	p_pfd.label_throt.updateText(throt_label_text);
+	p_pfd.dist_to_rwy_label.updateText(landing_site_text);
+	p_pfd.MM.updateText(sprintf("%d", major_mode)~mm_appendix);
+	p_pfd.att.updateText(adi_att_string);
+	p_pfd.acc_label.updateText(acc_label_text);
 	
 
     };
@@ -1973,11 +2101,41 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	# group for dynamically re-drawn inner part
 
+
+
+	# ADI sphere grid	
+
+	p_pfd_orbit.adi_sphere_bg = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.15,0.15,0.15)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
+	p_pfd_orbit.adi_sphere_bg.max_pts = 0;
+
+	p_pfd_orbit.adi_sphere_bg_bright = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setColorFill(0.3,0.3,0.3)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
+	p_pfd_orbit.adi_sphere_bg_bright.max_pts = 0;
+
+	p_pfd_orbit.adi_sphere = device.ADI.createChild("path")
+        .setStrokeLineWidth(1)
+	.setTranslation (255, 175)
+        .setColor(1,1,1);
+
 	p_pfd_orbit.adi_inner = device.ADI.createChild("group");
+	p_pfd_orbit.adi_inner.setTranslation(255, 175);
+
+	p_pfd_orbit.adi_sphere.max_pts = 0;
 
 	# draw the fixed elements
 
 	# ADI ################################################
+
+
 
 	# upper compass rose
 
@@ -2232,14 +2390,22 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 		{
 			
+		var up_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
 
-		if ((getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag") > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+		if ((up_mnvr_flag > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
 			{
 			yaw_error = -getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
 			pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
-			roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");
+
+			
+			if (up_mnvr_flag < 3)
+				{roll_error = -getprop("/fdm/jsbsim/systems/ap/track/roll-error-deg");}
+			else
+				{roll_error = 0.0;}
 			}
 		}
+
+
 
 
 
@@ -2253,34 +2419,26 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	# draw
 
-	var adi_sphere_bg = p_pfd_orbit.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-	.setColorFill(0.15,0.15,0.15)
-        .setColor(1,1,1);
-
-	var adi_sphere_bg_bright = p_pfd_orbit.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-	.setColorFill(0.3,0.3,0.3)
-        .setColor(1,1,1);
-
-	var adi_sphere = p_pfd_orbit.adi_inner.createChild("path")
-        .setStrokeLineWidth(1)
-        .setColor(1,1,1);
-
 	# projection vecs for labels
 	var p_vecs = SpaceShuttle.projection_vecs(-pitch_adi, yaw_adi, -roll_adi);
 
 	# ADI sphere
 	var data = SpaceShuttle.draw_circle(0.75*95, 30);
-	pfd_segment_draw(data,adi_sphere_bg);
+	update_plot_data (p_pfd_orbit.adi_sphere_bg, data);
 
 	data = SpaceShuttle.draw_adi_bg(pitch_adi, yaw_adi, roll_adi);
-	pfd_segment_draw(data,adi_sphere_bg_bright);
+	update_plot_data (p_pfd_orbit.adi_sphere_bg_bright, data);
 
 	if (getprop("/fdm/jsbsim/systems/adi/quality-level") > 0)
 		{
-		draw_adi_sphere(adi_sphere, p_vecs);
+		update_adi_sphere(p_pfd_orbit.adi_sphere, p_vecs);
+		p_pfd_orbit.adi_sphere.setVisible(1);
 		}
+	else
+		{
+		p_pfd_orbit.adi_sphere.setVisible(0);
+		}
+
 
 	draw_sphere_labels(p_pfd_orbit.adi_inner, p_vecs, pitch_adi, yaw_adi, roll_adi);
 	
@@ -2328,7 +2486,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	p_pfd_orbit.adi_yaw_rate_needle.setTranslation(255 -13.0 * yaw_rate * 5.0/adi_rate_range, 280.0);
 
 
-	p_pfd_orbit.adi_inner.setTranslation(255,175);
+
 	device.ADI.setScale (1.3);
 	device.ADI.setTranslation (-76.5, 40.0);
 
@@ -2376,6 +2534,141 @@ var pfd_segment_draw = func (data, plot) {
 
 
 }
+
+
+var segment_append = func (draw, data) {
+
+var n = size(data);
+
+if (n==0) {return draw;}
+
+# make sure the first point is always marked as MOVE TO
+data[0][2] = 0;
+
+for (var i=0; i<n; i=i+1)
+	{
+	append(draw, data[i]);
+	}
+
+return draw;
+}
+
+var update_plot_data = func (group, draw_raw) {
+
+var draw = [];
+var cmd = [];
+
+
+
+var n_cur = size(draw_raw);
+
+
+draw_raw[0][2] = 0;
+
+#var n_move = 0;
+#var n_draw = 0;
+
+var move_flag = 0;
+
+var move_buffer_coord = [0,0];
+
+for (var i=0; i< n_cur; i=i+1)
+	{
+
+
+	if (draw_raw[i][2] == 1)
+		{
+		if (move_flag == 1)
+			{
+			append(cmd, canvas.Path.VG_MOVE_TO);
+			append(draw, move_buffer_coord[0], move_buffer_coord[1]);
+			#n_move = n_move + 1;
+			}
+		append(cmd, canvas.Path.VG_LINE_TO);
+		append(draw, draw_raw[i][0], draw_raw[i][1]);
+		#n_draw = n_draw + 1;
+		move_flag = 0;
+		}
+	else
+		{
+		move_buffer_coord[0] = draw_raw[i][0];
+		move_buffer_coord[1] = draw_raw[i][1];
+		move_flag = 1;
+		}
+	
+	}
+
+n_cur = size(cmd);
+var n_max = group.max_pts;
+
+if (n_cur < 0.8 * n_max) # we likely used the quality slider and want to wipe
+	{
+	group._node.removeChildren("coord");
+	group._node.removeChildren("cmd");
+	group.max_pts = 0;
+	n_max = n_cur;
+	print("Node wipe!");
+	}
+
+var n = n_max;
+if (n_cur > n_max)
+	{
+	n = n_cur;
+	group.max_pts = n_cur;
+	}
+
+
+if (n_cur == 0) 
+	{
+	group.setVisible(0);
+	return;
+	}
+else
+	{
+	group.setVisible(1);
+	}
+
+#print ("Draw: ", n_draw, " move: ", n_move);
+
+# below is a fast workaround for the low performing canvas API
+# should a fast method become available in the API, simply uncomment the
+# setData method instead and end the routing afterwards
+
+#group.setData(cmd, draw);
+
+var index = 0;
+var index1 = 0;
+var path = group._node.getPath();
+
+#print (path);
+
+
+
+var cmd_string = path~"/cmd";
+var coord_string = path~"/coord";
+
+for (var i=0; i< n_max; i=i+1)
+	{
+	index = 2.0 * i;
+	index1 = index + 1;
+	if (i < n_cur)
+		{
+		setprop(cmd_string,i, cmd[i]);
+		setprop(coord_string, index, draw[index]);
+		setprop(coord_string, index1, draw[index1]);
+		}
+	else
+		{
+		setprop(cmd_string,i, canvas.Path.VG_MOVE_TO);
+		setprop(coord_string, index, 0);
+		setprop(coord_string, index1, 0);
+		}
+
+	}
+
+group.max_pts = n_cur;
+}
+
 
 var place_compass_label = func (group, text, angle, radius, flag, xoffset, yoffset) {
 
@@ -2942,27 +3235,33 @@ else if (cycle == 4)
 
 var draw_adi_sphere = func (group, p_vecs) {
 
-#var meridian_res = 60;
-#var circle_res = 90;
 
 var meridian_res = 30;
 var circle_res = 30;
 
-
-
-
 var quality_level = getprop("/fdm/jsbsim/systems/adi/quality-level");
+
 
 
 if (quality_level == 1)
 	{
 	meridian_res = 20;
 	circle_res = 20;
+	setprop("/sim/config/shuttle/center-cull-level", 1);
+	}
+else if (quality_level == 3)
+	{
+	setprop("/sim/config/shuttle/center-cull-level", 2);
 	}
 else if (quality_level == 4)
 	{
 	meridian_res = 60;
 	circle_res = 60;
+	setprop("/sim/config/shuttle/center-cull-level", 2);
+	}
+else	
+	{
+	setprop("/sim/config/shuttle/center-cull-level", 1);
 	}
 
 
@@ -2986,7 +3285,6 @@ data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
 
-
 data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
@@ -2999,10 +3297,10 @@ pfd_segment_draw(data, group);
 data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
 pfd_segment_draw(data, group);
 
-data = SpaceShuttle.draw_coord_circle(85.0, int(0.3 * circle_res), p_vecs );
+data = SpaceShuttle.draw_coord_circle(85.0, int(circle_res), p_vecs );
 pfd_segment_draw(data, group);
 
-data = SpaceShuttle.draw_coord_circle(-85.0, int (0.3 * circle_res), p_vecs );
+data = SpaceShuttle.draw_coord_circle(-85.0, int (circle_res), p_vecs );
 pfd_segment_draw(data, group);
 
 if (quality_level > 2)
@@ -3024,4 +3322,98 @@ if (quality_level > 2)
 
 
 }
+
+
+var update_adi_sphere = func (group, p_vecs) {
+
+
+var meridian_res = 30;
+var circle_res = 30;
+
+var quality_level = getprop("/fdm/jsbsim/systems/adi/quality-level");
+
+if (quality_level == 1)
+	{
+	meridian_res = 20;
+	circle_res = 20;
+	setprop("/sim/config/shuttle/center-cull-level", 1);
+	}
+else if (quality_level == 3)
+	{
+	setprop("/sim/config/shuttle/center-cull-level", 2);
+	}
+else if (quality_level == 4)
+	{
+	meridian_res = 60;
+	circle_res = 60;
+	setprop("/sim/config/shuttle/center-cull-level", 2);
+	}
+else	
+	{
+	setprop("/sim/config/shuttle/center-cull-level", 1);
+	}
+
+
+var data = [];
+var draw_raw = [];
+var draw_raw1 = [];
+
+
+for (var i = 0; i<12; i=i+1)
+	{
+	data = SpaceShuttle.draw_meridian(i * 30.0, meridian_res, p_vecs );
+	draw_raw = segment_append (draw_raw, data);
+
+	if (quality_level > 2)
+		{
+		data = SpaceShuttle.draw_meridian_ladder(i * 30.0 + 15.0, 5, p_vecs );
+		draw_raw = segment_append (draw_raw, data);
+		}
+	}
+
+
+
+data = SpaceShuttle.draw_coord_circle(0.0, circle_res, p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+
+data = SpaceShuttle.draw_coord_circle(30.0, circle_res, p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+data = SpaceShuttle.draw_coord_circle(-30.0, circle_res, p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+data = SpaceShuttle.draw_coord_circle(60.0, circle_res, p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+data = SpaceShuttle.draw_coord_circle(-60.0, circle_res, p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+data = SpaceShuttle.draw_coord_circle(85.0, int(circle_res), p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+data = SpaceShuttle.draw_coord_circle(-85.0, int (circle_res), p_vecs );
+draw_raw = segment_append (draw_raw, data);
+
+if (quality_level > 2)
+	{
+	data = SpaceShuttle.draw_circle_ladder(-15.0, 12, p_vecs );
+	draw_raw = segment_append (draw_raw, data);
+
+	data = SpaceShuttle.draw_circle_ladder(15.0, 12, p_vecs );
+	draw_raw = segment_append (draw_raw, data);
+
+	data = SpaceShuttle.draw_circle_ladder(45.0, 12, p_vecs );
+	draw_raw = segment_append (draw_raw, data);
+
+	data = SpaceShuttle.draw_circle_ladder(-45.0, 12, p_vecs );
+	draw_raw = segment_append (draw_raw, data);
+	}
+
+update_plot_data (group, draw_raw);
+
+
+
+}
+
 

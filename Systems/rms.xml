@@ -220,6 +220,7 @@
 			</test>
 		</switch>
 
+
 		<switch name="systems/rms/retention-2-powered">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -228,11 +229,27 @@
 			</test>
 		</switch>
 
+		<switch name="systems/rms/pb-mechanical-power">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-mechanical-sys1-pwr == 1
+				systems/electrical/ac/voltage GT 115.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/mechanical/pb-mechanical-sys2-pwr == 1
+				systems/electrical/ac[1]/voltage GT 115.0
+			</test>
+		</switch>
+
 		<switch name="systems/rms/retention-powered">
 			<default value="0.0"/>
-			<test logic="OR" value="1.0">
+			<test logic="AND" value="1.0">
 				systems/rms/retention-1-powered == 1
+				systems/rms/pb-mechanical-power == 1
+			</test>
+			<test logic="AND" value="1.0">
 				systems/rms/retention-2-powered == 1
+				systems/rms/pb-mechanical-power == 1
 			</test>
 		</switch>
 

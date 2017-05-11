@@ -193,7 +193,6 @@
         <max>1</max>
         <step>1</step>
         <live>true</live>
-	<enabled>false</enabled>
         <property>/sim/config/shuttle/detailed-flightdeck</property>
         <binding>
             <command>dialog-apply</command>
@@ -234,6 +233,19 @@
               <object-name>srb-shake</object-name>
           </binding>
         </checkbox>
+
+    <!--<checkbox>
+        <name>hud-filter</name>
+ 	<row>6</row>
+        <col>2</col>
+          <property>/sim/config/shuttle/hud-filter</property>
+          <label>HUD effect</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>hud-filter</object-name>
+          </binding>
+        </checkbox>-->
 
   </group>
 	
@@ -312,7 +324,7 @@
     	</text>
 
    	<combo>
-       		 <row>4</row>
+       		 <row>3</row>
         	 <col>1</col>
         	 <name>PL-selection</name>
         	 <halign>left</halign>
@@ -331,6 +343,19 @@
                     	<script>SpaceShuttle.update_payload_selection()</script>
 		</binding>
       	</combo>
+
+    <checkbox>
+        <name>loose-items</name>
+ 	<row>4</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/loose-items</property>
+          <label>allow/stow loose items</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>loose-items</object-name>
+          </binding>
+        </checkbox>
 
 </group>
 
@@ -434,10 +459,6 @@
 		<legend>Close</legend>
 		<default>true</default>
 		<key>Esc</key>
-		<binding>
-			<command>nasal</command>
-                    	<script>SpaceShuttle.apply_failure_scenario()</script>
-		</binding>
 		<binding>
 			<command>dialog-close</command>
 		</binding>

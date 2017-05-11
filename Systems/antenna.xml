@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+
+<system>
+
+	<channel name="S-band PM and FM antenna hardware" execrate="4">
+
+		<switch name="systems/antenna/s-pm-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-power-sel-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-power-sel-switch == -1
+				systems/electrical/ac[1]/voltage  GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-pm-pwr-amp-tgt-1">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-standby-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-operate-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-pm-pwr-amp-tgt-2">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-standby-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-operate-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<kinematic name="systems/antenna/s-pm-pwr-amp-filement1-heated">
+			<input>systems/antenna/s-pm-pwr-amp-tgt-1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>140.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/antenna/s-pm-pwr-amp-filement2-heated">
+			<input>systems/antenna/s-pm-pwr-amp-tgt-2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>140.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<switch name="systems/antenna/s-pm-preamplifier-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-sel-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamp-sel-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-pm-xpndr-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/xpndr-sel-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/xpndr-sel-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+
+		<switch name="systems/antenna/s-pm-power-amp-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-pwr-amp-filement1-heated == 1
+				systems/antenna/s-pm-preamp-operate-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-pwr-amp-filement2-heated == 1
+				systems/antenna/s-pm-preamp-operate-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+
+		<switch name="systems/antenna/s-pm-sys1-amp-power-demand-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.075">
+				systems/antenna/s-pm-pwr-amp-filement1-heated == 1
+				systems/antenna/s-pm-preamp-operate-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-pm-sys2-amp-power-demand-kW">
+			<default value="0.0"/>
+			<test logic="AND" value="0.075">
+				systems/antenna/s-pm-pwr-amp-filement2-heated == 1
+				systems/antenna/s-pm-preamp-operate-switch == -1
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-pm-preamp-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-pm-preamplifier-operational == 1
+				systems/antenna/s-pm-power-amp-operational == 1
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/s-fm-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-fm-power-sel-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/s-fm-power-sel-switch == -1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/antenna/uhf-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/antenna/uhf-string-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+				systems/antenna/uhf-sel-switch NE 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/antenna/uhf-string-switch == 0
+				systems/electrical/ac[1]/voltage  GT 110.0
+				systems/antenna/uhf-sel-switch NE 1
+			</test>
+		</switch>
+
+	</channel>
+
+</system>

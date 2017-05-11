@@ -73,15 +73,15 @@
 
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/fc1-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/electrical/fc1-condition</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/fc2-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/electrical/fc2-condition</property>
     </signal>
 	<signal>
         <type>float</type>
-        <property type="string">/fdm/jsbsim/systems/failures/fc3-condition</property>
+        <property type="string">/fdm/jsbsim/systems/failures/electrical/fc3-condition</property>
     </signal>
 
 	<signal>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+
+  <altimeter>
+    <name>altimeter</name>
+    <number>0</number>
+    <static-pressure>/systems/static/pressure-inhg</static-pressure>
+    <quantum>0</quantum>
+    <tau>0</tau>
+  </altimeter>
+
+  <tacan>
+    <name>tacan</name>
+    <number>0</number>
+  </tacan>
+
+
+</PropertyList>

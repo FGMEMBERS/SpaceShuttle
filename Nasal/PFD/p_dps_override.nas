@@ -120,18 +120,11 @@ var PFD_addpage_p_dps_override = func(device)
     
     # blank unsupported functions
         p_dps_override.etsep_auto.setText(sprintf(""));
-        p_dps_override.adta_l1.setText(sprintf(""));
-        p_dps_override.adta_l3.setText(sprintf(""));
-        p_dps_override.adta_r2.setText(sprintf(""));
-        p_dps_override.adta_r4.setText(sprintf(""));
     
         p_dps_override.elev_auto.setText(sprintf("*"));
         p_dps_override.elev_fixed.setText(sprintf(""));
         p_dps_override.filter_nom.setText(sprintf("*"));
         p_dps_override.filter_alt.setText(sprintf(""));
-        p_dps_override.atmo_nom.setText(sprintf("*"));
-        p_dps_override.atmo_npole.setText(sprintf(""));
-        p_dps_override.atmo_spole.setText(sprintf(""));
     
         p_dps_override.imu1s.setText(sprintf(""));
         p_dps_override.imu2s.setText(sprintf(""));
@@ -159,7 +152,7 @@ var PFD_addpage_p_dps_override = func(device)
         p_dps_override.roll_auto.setText(sprintf(""));
         p_dps_override.wrap_mode.setText(sprintf(""));
     
-    # blank ADTA which isn't shown in OPS 1 
+    	# blank ADTA which isn't shown in OPS 1 
         p_dps_override.adta_h1.setText(sprintf(""));
         p_dps_override.adta_h2.setText(sprintf(""));
         p_dps_override.adta_h3.setText(sprintf(""));
@@ -204,39 +197,103 @@ var PFD_addpage_p_dps_override = func(device)
     
         if ((ops == 3) or (ops == 6))
         {
-            p_dps_override.adta_h1.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-alt-ft")));
-            p_dps_override.adta_h2.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-alt-ft")));
-            p_dps_override.adta_h3.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-alt-ft")));
-            p_dps_override.adta_h4.setText(sprintf("%6.0f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-alt-ft")));
+
+		var alt_raw = getprop("/fdm/jsbsim/systems/navigation/air-data-alt-ft-raw");
+		var mach_raw = getprop("/fdm/jsbsim/systems/navigation/air-data-mach-raw");
+		var aoa_raw = getprop("/fdm/jsbsim/systems/navigation/air-data-alpha-raw");
+	
+		var alt1 = SpaceShuttle.air_data_system.adta[0].indicated_alt(alt_raw);
+		var alt2 = SpaceShuttle.air_data_system.adta[1].indicated_alt(alt_raw);
+		var alt3 = SpaceShuttle.air_data_system.adta[2].indicated_alt(alt_raw);
+		var alt4 = SpaceShuttle.air_data_system.adta[3].indicated_alt(alt_raw);
+		
+		var mach1 = SpaceShuttle.air_data_system.adta[0].indicated_mach(mach_raw);
+		var mach2 = SpaceShuttle.air_data_system.adta[1].indicated_mach(mach_raw);
+		var mach3 = SpaceShuttle.air_data_system.adta[2].indicated_mach(mach_raw);
+		var mach4 = SpaceShuttle.air_data_system.adta[3].indicated_mach(mach_raw);
     
-            p_dps_override.adta_M1.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-mach")));
-            p_dps_override.adta_M2.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-mach")));
-            p_dps_override.adta_M3.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-mach")));
-            p_dps_override.adta_M4.setText(sprintf("%1.2f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-mach")));
+		var alpha1 = SpaceShuttle.air_data_system.adta[0].indicated_aoa(aoa_raw);
+		var alpha2 = SpaceShuttle.air_data_system.adta[1].indicated_aoa(aoa_raw);
+		var alpha3 = SpaceShuttle.air_data_system.adta[2].indicated_aoa(aoa_raw);
+		var alpha4 = SpaceShuttle.air_data_system.adta[3].indicated_aoa(aoa_raw);
     
-            p_dps_override.adta_a1.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-1-alpha")));
-            p_dps_override.adta_a2.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-2-alpha")));
-            p_dps_override.adta_a3.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-left-3-alpha")));
-            p_dps_override.adta_a4.setText(sprintf("%+2.1f", getprop("/fdm/jsbsim/systems/navigation/air-data-right-4-alpha")));
+		if (SpaceShuttle.air_data_system.adta[0].operational == 1)
+			{		
+			p_dps_override.adta_h1.setText(sprintf("%6.0f", alt1));
+		    	p_dps_override.adta_M1.setText(sprintf("%1.2f", mach1));
+			p_dps_override.adta_a1.setText(sprintf("%+2.1f", alpha1));
+			}
+		else
+			{
+			p_dps_override.adta_h1.setText("");
+		    	p_dps_override.adta_M1.setText("");
+			p_dps_override.adta_a1.setText("");
+			}
+
+		if (SpaceShuttle.air_data_system.adta[1].operational == 1)
+			{
+			p_dps_override.adta_h2.setText(sprintf("%6.0f", alt2));
+		    	p_dps_override.adta_M2.setText(sprintf("%1.2f", mach2));
+			p_dps_override.adta_a2.setText(sprintf("%+2.1f", alpha2));
+			}
+		else
+			{
+			p_dps_override.adta_h2.setText("");
+		    	p_dps_override.adta_M2.setText("");
+			p_dps_override.adta_a2.setText("");
+			}
+
+		if (SpaceShuttle.air_data_system.adta[2].operational == 1)
+			{
+			p_dps_override.adta_h3.setText(sprintf("%6.0f", alt3));
+		    	p_dps_override.adta_M3.setText(sprintf("%1.2f", mach3));
+			p_dps_override.adta_a3.setText(sprintf("%+2.1f", alpha3));
+			}
+		else
+			{
+			p_dps_override.adta_h3.setText("");
+		    	p_dps_override.adta_M3.setText("");
+			p_dps_override.adta_a3.setText("");
+			}
+
+		if (SpaceShuttle.air_data_system.adta[3].operational == 1)
+			{
+			p_dps_override.adta_h4.setText(sprintf("%6.0f", alt4));
+		    	p_dps_override.adta_M4.setText(sprintf("%1.2f", mach4));
+			p_dps_override.adta_a4.setText(sprintf("%+2.1f", alpha4));
+			}
+		else
+			{
+			p_dps_override.adta_h4.setText("");
+		    	p_dps_override.adta_M4.setText("");
+			p_dps_override.adta_a4.setText("");
+			}
         }
     
         symbol = "";
-        if (getprop("/fdm/jsbsim/systems/navigation/air-data-1-deselect-cmd") == 1){symbol = "*";}
+        if (SpaceShuttle.air_data_system.adta[0].deselected == 1){symbol = "*";}
         p_dps_override.adta_des1.setText( symbol );
     
     
         symbol = "";
-        if (getprop("/fdm/jsbsim/systems/navigation/air-data-2-deselect-cmd") == 1){symbol = "*";}
+        if (SpaceShuttle.air_data_system.adta[1].deselected == 1){symbol = "*";}
         p_dps_override.adta_des2.setText( symbol ); 
     
         symbol = "";
-        if (getprop("/fdm/jsbsim/systems/navigation/air-data-3-deselect-cmd") == 1){symbol = "*";}
+        if (SpaceShuttle.air_data_system.adta[2].deselected == 1){symbol = "*";}
         p_dps_override.adta_des3.setText( symbol );
     
         symbol = "";
-        if (getprop("/fdm/jsbsim/systems/navigation/air-data-4-deselect-cmd") == 1){symbol = "*";}
+        if (SpaceShuttle.air_data_system.adta[3].deselected == 1){symbol = "*";}
         p_dps_override.adta_des4.setText( symbol );
     
+
+        p_dps_override.adta_l1.setText(SpaceShuttle.air_data_system.adta[0].status_string());
+        p_dps_override.adta_l3.setText(SpaceShuttle.air_data_system.adta[2].status_string());
+        p_dps_override.adta_r2.setText(SpaceShuttle.air_data_system.adta[1].status_string());
+        p_dps_override.adta_r4.setText(SpaceShuttle.air_data_system.adta[3].status_string());
+
+
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd") == 1){symbol = "ENA";}
         p_dps_override.arcsdump.setText( symbol );
@@ -315,6 +372,18 @@ var PFD_addpage_p_dps_override = func(device)
         if (getprop("/fdm/jsbsim/systems/mechanical/vdoor-pos") == 0.0) {symbol ="CL";}
         p_dps_override.vdoor_close_stat.setText( symbol ); 
     
+	symbol = "";
+	if (SpaceShuttle.area_nav_set.drag_h_atm_model == 0) {symbol= "*";}
+        p_dps_override.atmo_nom.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.area_nav_set.drag_h_atm_model == 1) {symbol= "*";}
+         p_dps_override.atmo_npole.setText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.area_nav_set.drag_h_atm_model == 2) {symbol= "*";}
+        p_dps_override.atmo_spole.setText(symbol);
+
         if (ops == 3)
         {
             symbol = "INH";

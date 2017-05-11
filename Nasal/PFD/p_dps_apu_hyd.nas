@@ -229,9 +229,22 @@ var PFD_addpage_p_dps_apu_hyd = func(device)
         p_dps_apu_hyd.vlv_b_2.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[1]/fuel-valve-status"))));
         p_dps_apu_hyd.vlv_b_3.setText(sprintf("  %s", valve_status_to_string(getprop("/fdm/jsbsim/systems/apu/apu[2]/fuel-valve-status"))));
     
-        p_dps_apu_hyd.oil_t_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"))));
-        p_dps_apu_hyd.oil_t_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-in-T-K"))));
-        p_dps_apu_hyd.oil_t_3.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-in-T-K"))));
+
+	var oil_T1 = K_to_F(getprop("/fdm/jsbsim/systems/apu/apu/oil-in-T-K"));
+	if (math.abs(getprop("/fdm/jsbsim/systems/apu/apu/lube-line-heater-status")) == 1)
+		{if (oil_T1 < 57.0) {oil_T1 = 57.0;}}
+
+	var oil_T2 = K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[1]/oil-in-T-K"));
+	if (math.abs(getprop("/fdm/jsbsim/systems/apu/apu[1]/lube-line-heater-status")) == 1)
+		{if (oil_T2 < 58.0) {oil_T2 = 58.0;}}
+
+	var oil_T3 = K_to_F(getprop("/fdm/jsbsim/systems/apu/apu[2]/oil-in-T-K"));
+	if (math.abs(getprop("/fdm/jsbsim/systems/apu/apu[2]/lube-line-heater-status")) == 1)
+		{if (oil_T3 < 60.0) {oil_T3 = 60.0;}}
+
+        p_dps_apu_hyd.oil_t_1.setText(sprintf("%4.0f", oil_T1));
+        p_dps_apu_hyd.oil_t_2.setText(sprintf("%4.0f", oil_T2));
+        p_dps_apu_hyd.oil_t_3.setText(sprintf("%4.0f", oil_T3));
     
         p_dps_apu_hyd.oil_outt_1.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu1-temperature-K"))));
         p_dps_apu_hyd.oil_outt_2.setText(sprintf("%4.0f", K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/apu2-temperature-K"))));

@@ -38,19 +38,75 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/atcs/freon-pump-1-ac1-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/atcs/freon-pump-1-status</property>
+				<value>0.0</value>
+				</max>
+				<value>0.2</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/freon-pump-1-ac2-power-kW">
+		<function>
+			<product>
+				<min>
+				<property>systems/atcs/freon-pump-1-status</property>
+				<value>0.0</value>
+				</min>
+				<value>-0.2</value>
+			</product>
+		</function>
+		</fcs_function>
+
 		<switch name="systems/atcs/freon-pump-1-active">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/electrical/ac/voltage GT 110.0
 				systems/atcs/freon-pump-1-status == 1
 			</test>
+			<test logic="AND" value="-1.0">
+				systems/electrical/ac[1]/voltage GT 110.0
+				systems/atcs/freon-pump-1-status == -1
+			</test>
 		</switch>
+
+		<fcs_function name="systems/atcs/freon-pump-2-ac3-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/atcs/freon-pump-2-status</property>
+				<value>0.0</value>
+				</max>
+				<value>0.2</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/freon-pump-2-ac1-power-kW">
+		<function>
+			<product>
+				<min>
+				<property>systems/atcs/freon-pump-2-status</property>
+				<value>0.0</value>
+				</min>
+				<value>-0.2</value>
+			</product>
+		</function>
+		</fcs_function>
 
 		<switch name="systems/atcs/freon-pump-2-active">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
-				systems/electrical/total-available-power-kW GT 0.0
+				systems/electrical/ac[2]/voltage GT 110.0
 				systems/atcs/freon-pump-2-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/ac/voltage GT 110.0
+				systems/atcs/freon-pump-2-status == -1
 			</test>
 		</switch>
 
@@ -150,6 +206,7 @@
 				systems/atcs/fes-controller-active == 1
 				systems/electrical/total-available-power-kW GT 0.0
 				propulsion/tank[19]/contents-lbs GT 0
+				/position/altitude-ft GT 100000.0
 			</test>
 		</switch>
 
@@ -209,6 +266,257 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/atcs/nh3-boiler-A-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/nh3-controller-A-switch == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/atcs/nh3-controller-A-switch == -1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/nh3-boiler-B-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/atcs/nh3-controller-B-switch == 1
+				propulsion/tank[25]/contents-lbs GT 0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/nh3-controller-B-switch == -1
+				propulsion/tank[25]/contents-lbs GT 0
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/nh3-boiler-active">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/atcs/nh3-boiler-A-active == 1
+				systems/atcs/nh3-boiler-B-active == 1
+			</test>
+		</switch>
+
+
+
+		<fcs_function name="systems/atcs/nh3-heat-dump-capacity">
+		<function>
+			<product>
+				<property>systems/atcs/nh3-boiler-active</property>
+				<value>15000.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/nh3-consumption-lbs">
+		<function>
+			<product>
+				<property>systems/atcs/nh3-boiler-active</property>
+				<value>-0.054</value>
+			</product>
+		</function>
+		<output>propulsion/tank[25]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
+	</channel>
+
+
+	<channel name="FES duct and feedline heaters">
+
+		<switch name="systems/atcs/fes-topping-duct-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/topping-duct-heater-switch == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/topping-duct-heater-switch == 2
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/topping-duct-heater-switch == 2
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/topping-duct-heater-switch == 3
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/atcs/topping-duct-heater-switch == 4
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/fes-hiload-duct-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/hiload-duct-heater-switch == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/hiload-duct-heater-switch == 2
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/hiload-duct-heater-switch == 2
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/hiload-duct-heater-switch == 3
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/atcs/hiload-duct-heater-switch == 4
+			</test>
+		</switch>
+
+
+		<switch name="systems/atcs/fes-topping-left-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/ac/voltage GT 110.0
+				systems/atcs/fes-heater-left-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/ac[1]/voltage GT 110.0
+				systems/atcs/fes-heater-left-status == -1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/fes-left-heater-A-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/atcs/fes-heater-left-status</property>
+				<value>0.0</value>
+				</max>
+				<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-left-heater-B-power-kW">
+		<function>
+			<product>
+				<min>
+				<property>systems/atcs/fes-heater-left-status</property>
+				<value>0.0</value>
+				</min>
+				<value>-0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/atcs/fes-topping-right-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/ac[1]/voltage GT 110.0
+				systems/atcs/fes-heater-right-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/ac[2]/voltage GT 110.0
+				systems/atcs/fes-heater-right-status == -1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/atcs/fes-right-heater-B-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/atcs/fes-heater-right-status</property>
+				<value>0.0</value>
+				</max>
+				<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-right-heater-C-power-kW">
+		<function>
+			<product>
+				<min>
+				<property>systems/atcs/fes-heater-right-status</property>
+				<value>0.0</value>
+				</min>
+				<value>-0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/atcs/fes-feedline-A-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/fes-fdln-A-heater-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/atcs/fes-fdln-A-heater-status == -1
+			</test>
+		</switch>
+
+		<switch name="systems/atcs/fes-feedline-B-heater-active">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/atcs/fes-fdln-B-heater-status == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/electrical/bus/voltage GT 26.0
+				systems/atcs/fes-fdln-B-heater-status == -1
+			</test>
+		</switch>
+
+
+		<fcs_function name="systems/atcs/fes-feedline-A-power-kW">
+		<function>
+			<sum>
+			<product>
+				<max>
+					<value>0.0</value>
+					<property>systems/atcs/fes-fdln-A-heater-status</property>
+				</max>
+				<value>0.15</value>
+			</product>
+			<product>
+				<min>
+					<value>0.0</value>
+					<property>systems/atcs/fes-fdln-B-heater-status</property>
+				</min>
+				<value>-0.15</value>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-feedline-B-power-kW">
+		<function>
+			<product>
+				<min>
+					<value>0.0</value>
+					<property>systems/atcs/fes-fdln-A-heater-status</property>
+				</min>
+				<value>-0.15</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/atcs/fes-feedline-C-power-kW">
+		<function>
+			<product>
+				<max>
+					<value>0.0</value>
+					<property>systems/atcs/fes-fdln-B-heater-status</property>
+				</max>
+				<value>0.15</value>
+			</product>
+		</function>
+		</fcs_function>
 
 	</channel>
 </system>

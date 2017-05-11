@@ -48,7 +48,16 @@
         </binding>
 	<binding>
 		<command>nasal</command>
-		<script>SpaceShuttle.antenna_manager.set_function(getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function"));</script>
+		<script>
+			SpaceShuttle.antenna_manager.set_function(getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function"));
+			if (SpaceShuttle.antenna_manager.function == "COMM")
+				{setprop("/controls/shuttle/ku-mode", -1);}	
+			else if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE")
+				{setprop("/controls/shuttle/ku-mode", 0);}
+			if (SpaceShuttle.antenna_manager.function == "RDR COOP")
+				{setprop("/controls/shuttle/ku-mode", 1);}
+
+		</script>
 	</binding>
       </combo>
 
@@ -77,11 +86,179 @@
         </binding>
 	<binding>
 		<command>nasal</command>
-		<script>SpaceShuttle.antenna_manager.rr_mode = getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/function");</script>
+		<script>
+			SpaceShuttle.antenna_manager.rr_mode = getprop("/sim/gui/dialogs/SpaceShuttle/ku-antenna/control");
+			if (SpaceShuttle.antenna_manager.rr_mode == "GPC")
+				{setprop("/controls/shuttle/ku-function", 0);}
+			else if (SpaceShuttle.antenna_manager.rr_mode == "GPC DESIG")
+				{setprop("/controls/shuttle/ku-function", 1);}
+			else if (SpaceShuttle.antenna_manager.rr_mode == "AUTO TRACK")
+				{setprop("/controls/shuttle/ku-function", 2);}
+			else if (SpaceShuttle.antenna_manager.rr_mode == "MAN SLEW")
+				{setprop("/controls/shuttle/ku-function", 3);}
+
+			if ((SpaceShuttle.antenna_manager.rr_mode == "AUTO TRACK") or (SpaceShuttle.antenna_manager.rr_mode == "MAN SLEW"))
+				{
+				SpaceShuttle.ku_antenna_hold();
+				}
+
+		</script>
 	</binding>
       </combo>
 
         </group>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<group>
+ 	<layout>table</layout>
+
+	<text>
+      	 <label>Manual slew</label>
+         <halign>left</halign>
+         <row>0</row>
+         <col>0</col>
+        </text>
+
+    <text>
+      <label>left</label>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>slew-az-switch</name>
+      <row>1</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/antenna/ku-antenna-slew-azimuth-cmd</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>slew-az-switch</object-name>
+      </binding>
+	<binding>
+		<command>nasal</command>
+		<script>
+			if (SpaceShuttle.ku_antenna_slew_flag == 0) {SpaceShuttle.ku_antenna_slew_loop();}
+		</script>
+	</binding>
+    </slider>
+
+    <text>
+      <label>right</label>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+    <text>
+      <label>down</label>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <name>slew-el-switch</name>
+      <row>2</row>
+      <col>1</col>
+      <min>-1</min>
+      <max>1</max>
+      <step>1</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/antenna/ku-antenna-slew-elevation-cmd</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>slew-el-switch</object-name>
+      </binding>
+	<binding>
+		<command>nasal</command>
+		<script>
+			if (SpaceShuttle.ku_antenna_slew_flag == 0) {SpaceShuttle.ku_antenna_slew_loop();}
+		</script>
+	</binding>
+    </slider>
+
+    <text>
+      <label>up</label>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+   </group>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<text>
+		<label>S antenna settings</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<group>
+ 	<layout>table</layout>
+
+	<text>
+      	 <label>Mode:</label>
+         <halign>left</halign>
+         <row>1</row>
+         <col>0</col>
+        </text>
+
+   	<combo>
+  	<row>1</row>
+        <col>1</col>
+        <name>s-mode</name>
+        <halign>left</halign>
+        <stretch>true</stretch>
+        <pref-width>200</pref-width>
+        <property>/sim/gui/dialogs/SpaceShuttle/S-antenna/mode</property>
+	<value>S-HI</value>
+	<value>S-LO</value>
+	<value>SGLS</value>
+	<value>TDRS</value>
+        <binding>
+          <command>dialog-apply</command>
+          <object-name>s-mode</object-name>
+        </binding>
+	<binding>
+		<command>nasal</command>
+		<script>
+			SpaceShuttle.antenna_manager.mode = getprop("/sim/gui/dialogs/SpaceShuttle/S-antenna/mode");
+			if (SpaceShuttle.antenna_manager.mode == "SGLS")
+				{setprop("/fdm/jsbsim/systems/antenna/s-pm-mode-selection-switch", 0);}
+			else if (SpaceShuttle.antenna_manager.mode == "S-LO")
+				{setprop("/fdm/jsbsim/systems/antenna/s-pm-mode-selection-switch", 1);}
+			else if (SpaceShuttle.antenna_manager.mode == "S-HI")
+				{setprop("/fdm/jsbsim/systems/antenna/s-pm-mode-selection-switch", 2);}
+			else if (SpaceShuttle.antenna_manager.mode == "TDRS")
+				{setprop("/fdm/jsbsim/systems/antenna/s-pm-mode-selection-switch", 3);}
+		</script>
+	</binding>
+      </combo>
+	
+
+	</group>
+
 
 	<empty>
 		<pref-height>12</pref-height>
@@ -97,10 +274,6 @@
 		<legend>Close</legend>
 		<default>true</default>
 		<key>Esc</key>
-		<binding>
-			<command>nasal</command>
-                    	<script>SpaceShuttle.apply_failure_scenario()</script>
-		</binding>
 		<binding>
 			<command>dialog-close</command>
 		</binding>

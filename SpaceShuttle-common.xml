@@ -3,7 +3,6 @@
 <PropertyList>
 
 
-
  <fdm>
   <jsbsim>
    <accelerations>
@@ -12,6 +11,7 @@
    <fcs>
     <controller-power-plt type="int">1</controller-power-plt>
     <controller-power-cdr type="int">1</controller-power-cdr>
+    <controller-power-aft type="int">1</controller-power-aft>
     <elevator-cmd-norm-css type="double">0</elevator-cmd-norm-css>
     <rudder-cmd-norm-css type="double">0</rudder-cmd-norm-css>
     <aileron-cmd-norm-css type="double">0</aileron-cmd-norm-css>
@@ -21,6 +21,7 @@
    </simulation>
    <systems>
     <thermal>
+	<temperature-norm type="double">1.0</temperature-norm>
 	<nose-temperature-K type="double">0.0</nose-temperature-K>
 	<plasma-ambience-red type="double">0.0</plasma-ambience-red>
 	<plasma-ambience-green type="double">0.0</plasma-ambience-green>
@@ -33,6 +34,7 @@
        <arm-contingency type="int">0</arm-contingency>
        <arm-bailout type="int">0</arm-bailout>
        <abort-mode type="int">0</abort-mode>
+       <arm-serc type="int">0</arm-serc>
        <oms-abort-tgt-id type="int">0</oms-abort-tgt-id>
        <engine-fail-time type="double">-1.0</engine-fail-time>
        <engine2-fail-time type="double">-1.0</engine2-fail-time>
@@ -47,6 +49,8 @@
        <ato-v-mssn-cntn type="double">12000.0</ato-v-mssn-cntn>
        <ato-v-lin type="double">11500.0</ato-v-lin>
        <ato-v-zero type="double">18000.0</ato-v-zero>
+       <abort-cmd type="int">0</abort-cmd>
+       <abort-cmd-ss type="int">0</abort-cmd-ss>
     </abort>
     <adi>
        <toggle-switch type="int">0</toggle-switch>
@@ -54,10 +58,15 @@
        <quality-level type="int">3</quality-level>
        <rate-range-select type="int">1</rate-range-select>
        <error-range-select type="int">1</error-range-select>
+       <hsi-source-select type="int">0</hsi-source-select>
+       <hsi-unit-select type="int">2</hsi-unit-select>
+       <att-ref type="int">0</att-ref>
+       <att-ref-ss type="int">0</att-ref-ss>
     </adi>
     <ap>
        <alpha-hold-mode type="int">0</alpha-hold-mode>
        <alpha-controller-elevator-cmd-norm type="double">0.0</alpha-controller-elevator-cmd-norm>
+       <auto-entry-active type="int">0</auto-entry-active>
        <auto-grtls-rcs-pitch-active type="int">0</auto-grtls-rcs-pitch-active>
        <auto-grtls-rcs-roll-active type="int">0</auto-grtls-rcs-roll-active>
        <auto-contingency-roll-active type="int">0</auto-contingency-roll-active>
@@ -120,6 +129,7 @@
 	  <taem-transit-init type="int">0</taem-transit-init>
 	  <drag-management-init type="int">0</drag-management-init>
 	  <low-energy-logic type="int">0</low-energy-logic>
+	  <entry-controller-aileron-cmd-norm type="double">0</entry-controller-aileron-cmd-norm>
        </entry>
        <launch>
 	  <autolaunch-master type="int">0</autolaunch-master>
@@ -131,6 +141,7 @@
           <course-vector type="double" n="1">-1.0</course-vector>
           <course-vector type="double" n="2">0.0</course-vector>
 	  <launch-azimuth type="double">0.0</launch-azimuth>
+	  <cross-track type="double">0.0</cross-track>
 	  <pitch-target type="double">90.0</pitch-target>
 	  <pitch-max-rate-norm type="double">0.1</pitch-max-rate-norm>
 	  <inclination-target type="double">28.7</inclination-target>
@@ -202,6 +213,9 @@
 	  <target-trd n="0" type="double">0.0</target-trd>
 	  <target-trd n="1" type="double">1.0</target-trd>
 	  <target-trd n="2" type="double">0.0</target-trd>
+	  <roll-error-deg type="double">0.0</roll-error-deg>
+	  <yaw-error-deg type="double">0.0</yaw-error-deg>
+	  <pitch-error-deg type="double">0.0</pitch-error-deg>
      </track>
      <ops201>
         <mnvr-yaw type="double">0.0</mnvr-yaw>
@@ -214,6 +228,10 @@
         <trk-ra type="double">0.0</trk-ra>
         <trk-dec type="double">0.0</trk-dec>
         <mnvr-future-flag type="int">0</mnvr-future-flag>
+	<mon-axis type="int">1</mon-axis>
+	<error-option type="int">0</error-option>
+	<flash-ra-dec type="int">0</flash-ra-dec>
+	<flash-lat-lon type="int">0</flash-lat-lon>
      </ops201>
      <oms-plan>
         <burn-mode type="int">1</burn-mode>
@@ -234,6 +252,11 @@
         <dvx type="double">0.0</dvx>
         <dvy type="double">0.0</dvy>
         <dvz type="double">0.0</dvz>
+	<c1 type="double">0.0</c1>
+	<c2 type="double">0.0</c2>
+	<ht type="double">0.0</ht>
+	<theta-t type="double">0.0</theta-t>
+	<prplt type="double">0.0</prplt>
         <dvtot type="double">0.0</dvtot>
         <tv-roll type="double">180.0</tv-roll>
         <burn-solution-flag type="int">0</burn-solution-flag>
@@ -296,6 +319,24 @@
 	<mnvr-n type="int">0</mnvr-n>
     </orbit-tgt>
     </ap>
+    <antenna>
+	<s-pm-power-sel-switch type="int">1</s-pm-power-sel-switch>
+	<s-pm-preamp-sel-switch type="int">1</s-pm-preamp-sel-switch>
+	<s-pm-preamp-standby-switch type="int">1</s-pm-preamp-standby-switch>
+	<s-pm-preamp-operate-switch type="int">1</s-pm-preamp-operate-switch>
+	<s-pm-mode-selection-switch type="int">2</s-pm-mode-selection-switch>
+	<s-fm-power-sel-switch type="int">1</s-fm-power-sel-switch>
+	<s-fm-data-source-switch type="int">0</s-fm-data-source-switch>
+	<xpndr-sel-switch type="int">1</xpndr-sel-switch>
+	<uhf-sel-switch type="int">1</uhf-sel-switch>
+	<uhf-freq-switch type="int">1</uhf-freq-switch>
+	<uhf-string-switch type="int">1</uhf-string-switch>
+    	<ku-antenna-slew-elevation-cmd type="int">0</ku-antenna-slew-elevation-cmd>
+    	<ku-antenna-slew-azimuth-cmd type="int">0</ku-antenna-slew-azimuth-cmd>
+	<ku-antenna-tracking type="int">0</ku-antenna-tracking>
+    	<ku-antenna-search-switch type="int">0</ku-antenna-search-switch>
+	<ku-antenna-searching type="int">0</ku-antenna-searching>
+    </antenna>
     <dps>
 	<command-string type="string"></command-string>
 	<command-string n="1" type="string"></command-string>
@@ -327,6 +368,20 @@
     	<crtr-sel type="int">1</crtr-sel>
     </dps>
     <eclss>
+     <gauges>
+
+<!--remove after gauges are finished-->
+<test-value type="double">0</test-value>
+<test-factor type="double">0</test-factor>
+
+	<air-temp-switch type="int">0</air-temp-switch>
+	<h2o-loop-switch type="int">0</h2o-loop-switch>
+	<freon-loop-switch type="int">0</freon-loop-switch>
+	<ppo2-sensor-switch type="int">0</ppo2-sensor-switch>
+	<flow-meter-switch type="int">0</flow-meter-switch>
+	<cryo-tank-switch type="int">0</cryo-tank-switch>
+	<cryo-tank-temp-sensor-switch type="int">0</cryo-tank-temp-sensor-switch>
+     </gauges>
      <avbay>
 	<fan-A-switch type="int">1</fan-A-switch>
 	<fan-B-switch type="int">0</fan-B-switch>
@@ -424,6 +479,7 @@
       <sense-X type="int">1</sense-X>
       <sense-minus-X type="int">0</sense-minus-X>
       <sense-minus-Z type="int">0</sense-minus-Z>
+      <sense-switch type="int">0</sense-switch>
       <rcs-inactive type="double">1.0</rcs-inactive>
       <rcs-use-pulse type="int">1</rcs-use-pulse>
       <speedbrake-cmd-norm type="double">0.0</speedbrake-cmd-norm>
@@ -450,12 +506,16 @@
        <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
        <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
        <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
+       <hyd-circ-pump-pwr-sel type="int">1</hyd-circ-pump-pwr-sel>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
        <boiler-heater-status type="int">0</boiler-heater-status>
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+       <lube-line-heater-status type="int">1</lube-line-heater-status>
+       <tank-heater-A-status type="int">1</tank-heater-A-status>
+       <tank-heater-B-status type="int">1</tank-heater-B-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
        <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
@@ -474,12 +534,16 @@
        <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
        <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
        <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
+       <hyd-circ-pump-pwr-sel type="int">1</hyd-circ-pump-pwr-sel>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
        <boiler-heater-status type="int">0</boiler-heater-status>
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+       <lube-line-heater-status type="int">1</lube-line-heater-status>
+       <tank-heater-A-status type="int">1</tank-heater-A-status>
+       <tank-heater-B-status type="int">1</tank-heater-B-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
        <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
@@ -498,12 +562,16 @@
        <hyd-circ-pump-cmd type="int">-1</hyd-circ-pump-cmd>
        <hyd-circ-pump-cmd-dlg type="int">0</hyd-circ-pump-cmd-dlg>
        <hyd-circ-pump-cmd-gpc type="int">0</hyd-circ-pump-cmd-gpc>
+       <hyd-circ-pump-pwr-sel type="int">1</hyd-circ-pump-pwr-sel>
        <tvc-isolation-valve-status type="int">1</tvc-isolation-valve-status>
        <boiler-N2-valve-status type="int">0</boiler-N2-valve-status>
        <boiler-power-status type="int">0</boiler-power-status>
        <boiler-heater-status type="int">0</boiler-heater-status>
        <gg-bed-heater-status type="int">1</gg-bed-heater-status>
        <fuel-pump-heater-status type="int">1</fuel-pump-heater-status>
+       <lube-line-heater-status type="int">1</lube-line-heater-status>
+       <tank-heater-A-status type="int">1</tank-heater-A-status>
+       <tank-heater-B-status type="int">1</tank-heater-B-status>
        <gg-bed-T-K type="double">370.0</gg-bed-T-K>
        <circ-pressure-factor type="double">0.3</circ-pressure-factor>
        <temp-equalization-factor type="double">1.0</temp-equalization-factor>
@@ -526,6 +594,12 @@
       <fes-heater-left-status type="int">0</fes-heater-left-status>
       <fes-heater-right-status type="int">0</fes-heater-right-status>
       <fes-heater-hiload-status type="int">0</fes-heater-hiload-status>
+      <fes-fdln-A-heater-status type="int">1</fes-fdln-A-heater-status>
+      <fes-fdln-B-heater-status type="int">-1</fes-fdln-B-heater-status>
+      <topping-duct-heater-switch type="int">0</topping-duct-heater-switch>
+      <hiload-duct-heater-switch type="int">0</hiload-duct-heater-switch>
+      <nh3-controller-A-switch type="int">0</nh3-controller-A-switch>
+      <nh3-controller-B-switch type="int">0</nh3-controller-B-switch>
      </atcs>
      <cws>
       <jet-fail-f1 type="int">0</jet-fail-f1>
@@ -543,6 +617,7 @@
       <jet-fail-l3 type="int">0</jet-fail-l3>
       <jet-fail-l4 type="int">0</jet-fail-l4>
       <jet-fail-l5 type="int">0</jet-fail-l5>
+      <air-data type="int">0</air-data>
       <not-active-placeholder type="int">0</not-active-placeholder>
      </cws>
      <electrical>
@@ -603,6 +678,18 @@
 	<voltage type="double">30.0</voltage>
 	<tie-switch type="int">0</tie-switch>
       </bus>
+      <ess>
+	<ess-power-fc-switch type="int">1</ess-power-fc-switch>
+	<ess-power-buses-switch type="int">1</ess-power-buses-switch>
+      </ess>
+      <ess n="1">
+	<ess-power-fc-switch type="int">1</ess-power-fc-switch>
+	<ess-power-buses-switch type="int">1</ess-power-buses-switch>
+      </ess>
+      <ess n="2">
+	<ess-power-fc-switch type="int">1</ess-power-fc-switch>
+	<ess-power-buses-switch type="int">1</ess-power-buses-switch>
+      </ess>
       <ties>
 	<demand-tie-ABC-kW type="double">0.0</demand-tie-ABC-kW>
 	<demand-tie-AB-kW type="double">0.0</demand-tie-AB-kW>
@@ -612,6 +699,8 @@
       <gauges>
 	<ac-selector-knob type="int">0</ac-selector-knob>
 	<dc-selector-knob type="int">0</dc-selector-knob>
+	<fc-stack-selector-switch type="int">0</fc-stack-selector-switch>
+	
       </gauges>
       <init-electrical-on type="double">12.0</init-electrical-on>
       <h2o-line-heater-switch type="int">0</h2o-line-heater-switch>
@@ -632,6 +721,8 @@
         <C5-pwr-switch type="int">1</C5-pwr-switch>
         <R1-pwr-switch type="int">1</R1-pwr-switch>
         <R2-pwr-switch type="int">1</R2-pwr-switch>
+        <A6-pwr-switch type="int">1</A6-pwr-switch>      
+	<R11-pwr-switch type="int">1</R11-pwr-switch>
 	<CDR1-power-demand-kW type="double">0.035</CDR1-power-demand-kW>
 	<CDR2-power-demand-kW type="double">0.035</CDR2-power-demand-kW>
 	<CRT1-power-demand-kW type="double">0.035</CRT1-power-demand-kW>
@@ -641,6 +732,8 @@
 	<PLT2-power-demand-kW type="double">0.035</PLT2-power-demand-kW>
 	<MFD1-power-demand-kW type="double">0.035</MFD1-power-demand-kW>
 	<MFD2-power-demand-kW type="double">0.035</MFD2-power-demand-kW>
+	<CRT4-power-demand-kW type="double">0.035</CRT4-power-demand-kW>
+	<AFD1-power-demand-kW type="double">0.035</AFD1-power-demand-kW>
       </display>
      </electrical>
      <landing>
@@ -665,13 +758,15 @@
       <cockpit-ambience-g type="float">0.025</cockpit-ambience-g>
       <cockpit-ambience-b type="float">0.025</cockpit-ambience-b>
       <console-eff-norm type="float">0.7</console-eff-norm>
-      <event-time-intensity type="float">1</event-time-intensity>
+      <console-eff-numeric-intensity type="float">1</console-eff-numeric-intensity>
+      <console-eff-aft-numeric-intensity type="float">1</console-eff-aft-numeric-intensity>
       <console-eff-norm-panel-left type="float">1.0</console-eff-norm-panel-left>
       <console-eff-norm-panel-right type="float">1.0</console-eff-norm-panel-right>
       <console-eff-norm-panel-center type="float">1.0</console-eff-norm-panel-center>
       <console-eff-norm-overhead-left type="float">1.0</console-eff-norm-overhead-left>
       <console-eff-norm-overhead-right type="float">1.0</console-eff-norm-overhead-right>
       <console-eff-norm-instrument-right type="float">1.0</console-eff-norm-instrument-right>
+      <console-eff-norm-instrument-overhead type="float">1.0</console-eff-norm-instrument-overhead>
       <console-eff-norm-aft-panel-center type="float">1.0</console-eff-norm-aft-panel-center>
       <console-eff-norm-aft-panel-right type="float">1.0</console-eff-norm-aft-panel-right>
       <console-eff-norm-aft-instrument-center type="float">1.0</console-eff-norm-aft-instrument-center>
@@ -721,6 +816,12 @@
         <grain-wall type="int">600</grain-wall>
         <grain-window type="int">400</grain-window>
      </grain>
+     <hud>
+      <declutter-level type="int">0</declutter-level>
+      <mode-switch-cdr type="int">1</mode-switch-cdr>
+      <mode-switch-plt type="int">1</mode-switch-plt>	
+      <guidance-string type="string"></guidance-string>
+     </hud>
      <mechanical>
       <et-umbilical-door-mode type="int">0</et-umbilical-door-mode>
       <et-door-cl-latch-cmd type="int">1</et-door-cl-latch-cmd>
@@ -762,6 +863,8 @@
       <pb-door-software-bypass type="int">0</pb-door-software-bypass>
       <pb-door-software-switch type="int">-2</pb-door-software-switch>
       <pb-door-init-open type="int">0</pb-door-init-open>
+      <pb-mechanical-sys1-pwr type="int">0</pb-mechanical-sys1-pwr>
+      <pb-mechanical-sys2-pwr type="int">0</pb-mechanical-sys2-pwr>
       <ku-antenna-heater-cb type="int">0</ku-antenna-heater-cb>
       <ku-antenna-elec-cb type="int">0</ku-antenna-elec-cb>
       <ku-antenna-cable-heater-cb type="int">0</ku-antenna-cable-heater-cb>
@@ -773,6 +876,7 @@
       <ku-antenna-jett-B-cb type="int">0</ku-antenna-jett-B-cb>
       <ku-antenna-jett-switch type="int">0</ku-antenna-jett-switch>
       <ku-antenna-pos type="double">0.0</ku-antenna-pos>
+      <ku-antenna-attached type="double">1.0</ku-antenna-attached>
       <star-tracker-sys1-switch type="int">0</star-tracker-sys1-switch>
       <star-tracker-sys2-switch type="int">0</star-tracker-sys2-switch>
       <star-tracker-y-switch type="int">0</star-tracker-y-switch>
@@ -833,16 +937,25 @@
      <navigation>
       <air-data-deploy-left-switch type="int">0</air-data-deploy-left-switch>
       <air-data-deploy-right-switch type="int">0</air-data-deploy-right-switch>
-      <air-data-stow-left-switch type="int">0</air-data-stow-left-switch>
-      <air-data-stow-right-switch type="int">0</air-data-stow-right-switch>
+      <air-data-stow-left-switch type="int">1</air-data-stow-left-switch>
+      <air-data-stow-right-switch type="int">1</air-data-stow-right-switch>
       <air-data-left-pos type="double">0.0</air-data-left-pos>
       <air-data-right-pos type="double">0.0</air-data-right-pos>
-      <air-data-1-deselect-cmd type="int">0</air-data-1-deselect-cmd>
-      <air-data-2-deselect-cmd type="int">0</air-data-2-deselect-cmd>
-      <air-data-3-deselect-cmd type="int">0</air-data-3-deselect-cmd>
-      <air-data-4-deselect-cmd type="int">0</air-data-4-deselect-cmd>
-      <radar-altimeter-1-switch type="int">1</radar-altimeter-1-switch>
-      <radar-altimeter-2-switch type="int">1</radar-altimeter-2-switch>
+      <radar-altimeter-1-power type="int">1</radar-altimeter-1-power>
+      <radar-altimeter-2-power type="int">1</radar-altimeter-2-power>
+      <rdr-altm type="int">0</rdr-altm>
+      <tacan-sys1-switch type="int">3</tacan-sys1-switch>
+      <tacan-sys2-switch type="int">3</tacan-sys2-switch>
+      <tacan-sys3-switch type="int">3</tacan-sys3-switch>
+      <gps-power-switch type="int">1</gps-power-switch>
+      <gps-preamp-1-switch type="int">1</gps-preamp-1-switch>
+      <gps-preamp-2-switch type="int">1</gps-preamp-2-switch>
+      <mls-sys1-switch type="int">1</mls-sys1-switch>
+      <mls-sys2-switch type="int">1</mls-sys2-switch>
+      <mls-sys3-switch type="int">1</mls-sys3-switch>
+      <mls-channel-set-pos1 type="int">7</mls-channel-set-pos1>
+      <mls-channel-set-pos2 type="int">7</mls-channel-set-pos2>
+      <mls-channel-set-pos3 type="int">7</mls-channel-set-pos3>
       <gps-1-select type="int">1</gps-1-select>
       <gps-2-select type="int">1</gps-2-select>
       <gps-3-select type="int">1</gps-3-select>
@@ -861,10 +974,6 @@
 	  <quality-v type="double">0.1</quality-v>
 	  <quality-ang type="double">0.02</quality-ang>
 	</error-star-tracker>
-	<error-tacan>
-	  <quality-pos type="double">0.0</quality-pos>
-	  <quality-ang type="double">0.0</quality-ang>
-	</error-tacan>
 	<error-coas>
 	  <pitch-deg type="double">0.0</pitch-deg>
 	  <yaw-deg type="double">0.0</yaw-deg>
@@ -873,9 +982,6 @@
 	  <quality-v type="double">0.3</quality-v>
 	  <quality-ang type="double">0.2</quality-ang>
 	</error-coas>
-	<error-adta>
-	  <quality-pos type="double">0.0</quality-pos>
-	</error-adta>
 	<error-drag-h>
 	  <quality-pos type="double">0.0</quality-pos>
 	</error-drag-h>
@@ -905,6 +1011,9 @@
 	  <vz-m_s type="double">0.0</vz-m_s>
 	  <v-m_s type="double">0.0</v-m_s>
 	  <pos-m type="double">0.0</pos-m>
+	  <latitude-deg type="double">0.0</latitude-deg>
+	  <longitude-deg type="double">0.0</longitude-deg>
+	  <altitude-ft type="double">0.0</altitude-ft>
 	</error-prop>
 	<error-tgt>
 	  <pitch-deg type="double">0.0</pitch-deg>
@@ -982,6 +1091,10 @@
       <gimbal-left-sec-selected type="int">0</gimbal-left-sec-selected>
       <gimbal-right-pri-selected type="int">1</gimbal-right-pri-selected>
       <gimbal-right-sec-selected type="int">0</gimbal-right-sec-selected>
+      <gauges>
+	<tank-selector-switch type="int">0</tank-selector-switch>
+	<pressure-selector-switch type="int">0</pressure-selector-switch>
+      </gauges>
      </oms-hardware>
      <propellant>
       <LO2-inboard-status type="int">0</LO2-inboard-status>
@@ -1154,8 +1267,10 @@
       <heater-right-A-status type="int">0</heater-right-A-status>
       <heater-right-B-status type="int">0</heater-right-B-status>
 
+      <!-- we have a three-way switch here -->
       <heater-fwd-A-status type="int">0</heater-fwd-A-status>
       <heater-fwd-B-status type="int">0</heater-fwd-B-status>
+      <heater-fwd-status type="int">0</heater-fwd-status>
 
       <heater-fwd-1-status type="int">0</heater-fwd-1-status>
       <heater-fwd-2-status type="int">0</heater-fwd-2-status>
@@ -1257,6 +1372,9 @@
       <joint-selection-string type="string">SHOULDER YAW</joint-selection-string>
       <drive-selection-mode type="int">1</drive-selection-mode>
       <drive-selection-string type="string">SINGLE</drive-selection-string>
+      <drive-selection-switch type="int">10</drive-selection-switch>
+      <drive-selection-actual type="int">10</drive-selection-actual>
+      <auto-sequence-slot type="int">0</auto-sequence-slot>
       <parameter-selection-string type="string">TEST</parameter-selection-string>
       <payload-selection-string type="string">Payload 1</payload-selection-string>
       <direct-drive-switch type="int">0</direct-drive-switch>
@@ -1333,10 +1451,12 @@
       <thermal>
         <port-heater-A-switch type="int">0</port-heater-A-switch>
         <port-heater-B-switch type="int">0</port-heater-B-switch>
-	<heater-A-power-demand-kW type="double">0.0</heater-A-power-demand-kW>
-	<heater-B-power-demand-kW type="double">0.0</heater-B-power-demand-kW>
-	<joint-temp-K type="double">270.0</joint-temp-K>
+	    <heater-A-power-demand-kW type="double">0.0</heater-A-power-demand-kW>
+	    <heater-B-power-demand-kW type="double">0.0</heater-B-power-demand-kW>
+	    <joint-temp-K type="double">270.0</joint-temp-K>
       </thermal>
+        <drive-sel-exe type="int">0</drive-sel-exe>
+        <drive-sel-exe-ss type="int">0</drive-sel-exe-ss>
      </rms>
      <taem-guidance>
       <approach-mode-string type="string">OVHD</approach-mode-string>
@@ -1359,6 +1479,15 @@
       <energy-ratio type="double">0.0</energy-ratio>
       <dH-equiv-ft type="double">0.0</dH-equiv-ft>
      </taem-guidance>
+     <approach-guidance>
+      <vertical-aim-angle-deg type="double">0.0</vertical-aim-angle-deg>
+      <vertical-threshold-angle-deg type="double">0.0</vertical-threshold-angle-deg>
+      <horizontal-aim-angle-deg type="double">0.0</horizontal-aim-angle-deg>
+      <horizontal-threshold-angle-deg type="double">0.0</horizontal-threshold-angle-deg>
+      <glideslope type="double">17.0</glideslope>
+      <aim-point-string type="string">NOM</aim-point-string>
+      <speedbrake-mode-string type="string">NOM</speedbrake-mode-string>
+     </approach-guidance>
      <thermal-distribution>
       <freon-loop-switch type="double">0.4</freon-loop-switch>
       <water-loop-switch type="int">1</water-loop-switch>
@@ -1391,6 +1520,7 @@
      <timer>
       <time-display-flag type="int">0</time-display-flag>
       <MET-string type="string">000/00:00:00</MET-string>
+      <MET-timer-string type="string">00:00:00:00</MET-timer-string>
       <delta-GMT-days type="int">0</delta-GMT-days>
       <delta-GMT-hours type="int">0</delta-GMT-hours>
       <delta-GMT-minutes type="int">0</delta-GMT-minutes>
@@ -1450,6 +1580,42 @@
      </timer>
      <various>
       <debris-separation-target type="double">0.0</debris-separation-target>
+      <ssme-flame-r-low-target type="double">0.8</ssme-flame-r-low-target>
+      <ssme-flame-g-low-target type="double">0.25</ssme-flame-g-low-target>
+      <ssme-flame-b-low-target type="double">0.2</ssme-flame-b-low-target>
+      <ssme-flame-r-high-target type="double">1.0</ssme-flame-r-high-target>
+      <ssme-flame-g-high-target type="double">0.4</ssme-flame-g-high-target>
+      <ssme-flame-b-high-target type="double">0.2</ssme-flame-b-high-target>
+      <ssme-flame-r-base-target type="double">1.0</ssme-flame-r-base-target>
+      <ssme-flame-g-base-target type="double">0.4</ssme-flame-g-base-target>
+      <ssme-flame-b-base-target type="double">0.2</ssme-flame-b-base-target>
+      <ssme-ignition-density-target type="double">0.0</ssme-ignition-density-target>
+      <ssme-noise-strength-target type="double">0.7</ssme-noise-strength-target>
+      <ssme-flame-base-density-target type="double">0.0</ssme-flame-base-density-target>
+      <ssme-flame-r-low-target1 type="double">0.8</ssme-flame-r-low-target1>
+      <ssme-flame-g-low-target1 type="double">0.25</ssme-flame-g-low-target1>
+      <ssme-flame-b-low-target1 type="double">0.2</ssme-flame-b-low-target1>
+      <ssme-flame-r-high-target1 type="double">1.0</ssme-flame-r-high-target1>
+      <ssme-flame-g-high-target1 type="double">0.4</ssme-flame-g-high-target1>
+      <ssme-flame-b-high-target1 type="double">0.2</ssme-flame-b-high-target1>
+      <ssme-flame-r-base-target1 type="double">1.0</ssme-flame-r-base-target1>
+      <ssme-flame-g-base-target1 type="double">0.4</ssme-flame-g-base-target1>
+      <ssme-flame-b-base-target1 type="double">0.2</ssme-flame-b-base-target1>
+      <ssme-ignition-density-target1 type="double">0.0</ssme-ignition-density-target1>
+      <ssme-noise-strength-target1 type="double">0.7</ssme-noise-strength-target1>
+      <ssme-flame-base-density-target1 type="double">0.0</ssme-flame-base-density-target1>
+      <ssme-flame-r-low-target2 type="double">0.8</ssme-flame-r-low-target2>
+      <ssme-flame-g-low-target2 type="double">0.25</ssme-flame-g-low-target2>
+      <ssme-flame-b-low-target2 type="double">0.2</ssme-flame-b-low-target2>
+      <ssme-flame-r-high-target2 type="double">1.0</ssme-flame-r-high-target2>
+      <ssme-flame-g-high-target2 type="double">0.4</ssme-flame-g-high-target2>
+      <ssme-flame-b-high-target2 type="double">0.2</ssme-flame-b-high-target2>
+      <ssme-flame-r-base-target2 type="double">1.0</ssme-flame-r-base-target2>
+      <ssme-flame-g-base-target2 type="double">0.4</ssme-flame-g-base-target2>
+      <ssme-flame-b-base-target2 type="double">0.2</ssme-flame-b-base-target2>
+      <ssme-ignition-density-target2 type="double">0.0</ssme-ignition-density-target2>
+      <ssme-noise-strength-target2 type="double">0.7</ssme-noise-strength-target2>
+      <ssme-flame-base-density-target2 type="double">0.0</ssme-flame-base-density-target2>
      </various>
      <vectoring>
       <ssme-repos-enable type="int">1</ssme-repos-enable>
@@ -1458,12 +1624,31 @@
    </jsbsim>
   </fdm>
 
+  <instrumentation>
+     <comm>
+       <serviceable type="bool">false</serviceable>
+     </comm>
+     <comm n="1">
+       <serviceable type="bool">false</serviceable>
+     </comm>
+  </instrumentation>
+
  <mission>
    <filename type="string">mission.xml</filename>
  </mission>
 
+ <mission-control include="mission_control.xml"/>
+
+
   <controls>
+   <gear>
+     <gear-down-cmd type="double">0</gear-down-cmd>
+   </gear>
    <shuttle>
+    <Hud-cover-cmd-show type="bool">true</Hud-cover-cmd-show>
+    <Hud-cover-plt-show type="bool">true</Hud-cover-plt-show>
+    <ku-function type="int">0</ku-function>
+    <ku-mode type="int">-1</ku-mode>
     <external-fuel-tank type="int">1</external-fuel-tank>
     <solid-rocket-boosters type="int">1</solid-rocket-boosters>
     <parachute type="int">0</parachute>
@@ -1471,6 +1656,13 @@
     <drag-chute-deploy type="int">0</drag-chute-deploy>
     <drag-chute-jettison type="int">0</drag-chute-jettison>
     <drag-chute-deploy-timer type="double">0.0</drag-chute-deploy-timer>
+    <drag-chute-jettison-timer type="double">0.0</drag-chute-jettison-timer>
+    <drag-chute-string type="string">in</drag-chute-string>
+    <drag-chute-fold type="float">0.0</drag-chute-fold>
+    <drag-chute-bend type="float">0.0</drag-chute-bend>
+    <drag-chute-slant type="float">0.0</drag-chute-slant>
+    <drag-chute-dist type="float">0.0</drag-chute-dist>
+    <drag-chute-down type="float">0.0</drag-chute-down>
     <button_bf_mode type="int">0</button_bf_mode>
     <man-sb-thrust-select type="int">0</man-sb-thrust-select>
     <man-sb-thrust-norm type="int">0</man-sb-thrust-norm>
@@ -1479,9 +1671,9 @@
     <gear-string type="string">up</gear-string>
     <speedbrake-string type="string">in</speedbrake-string>
     <speedbrake type="double">0.0</speedbrake>
-    <drag-chute-string type="string">in</drag-chute-string>
     <SRB-static-model type="bool">true</SRB-static-model>	    
     <ET-static-model type="bool">true</ET-static-model>
+    <spark-flag type="bool">false</spark-flag>
     <SRB-sound-veto type="bool">false</SRB-sound-veto>
     <ET-sound-veto type="bool">false</ET-sound-veto>
     <etsep-in-progress type="int">0</etsep-in-progress>
@@ -1490,6 +1682,7 @@
     <ku-antenna-alpha-deg type="double">0.0</ku-antenna-alpha-deg>
     <ku-antenna-beta-deg-cmd type="double">0.0</ku-antenna-beta-deg-cmd>
     <ku-antenna-alpha-deg-cmd type="double">0.0</ku-antenna-alpha-deg-cmd>
+    <ku-antenna-slew-rate-degs type="double">5.0</ku-antenna-slew-rate-degs>
     <srb-separation-mode type="bool">false</srb-separation-mode>
     <srb-separation type="bool">false</srb-separation>
     <et-separation-mode type="bool">false</et-separation-mode>
@@ -1512,9 +1705,6 @@
     </ISS>
    </shuttle>
 
-   <lighting>
-    <nav-lights type="bool">1</nav-lights>
-   </lighting>
 
    <armament>
     <trigger type="int">0</trigger>
@@ -1551,14 +1741,6 @@
    </engines>
   </controls>
 
-  <instrumentation>
-   <doors>
-    <door1>
-     <position-norm type="float">1</position-norm>
-    </door1>
-   </doors>
-   <robotarm-norm type="float">0</robotarm-norm>
-  </instrumentation>
   
   <!-- create the node at startup, will be overwritten later -->
   <position>
@@ -1580,13 +1762,13 @@
 
       <!-- geometry-based lighting effect -->
  
-      <geo-red type="double">0.0</geo-red>  
-      <geo-green type="double">0.0</geo-green>          
-      <geo-blue type="double">0.0</geo-blue> 
-      <geo-srb-red type="double">0.0</geo-srb-red>  
-      <geo-srb-green type="double">0.0</geo-srb-green>          
-      <geo-srb-blue type="double">0.0</geo-srb-blue>
-      <geo-ambience type="double">0.0</geo-ambience> 
+      <geo-red type="float">0.0</geo-red>  
+      <geo-green type="float">0.0</geo-green>          
+      <geo-blue type="float">0.0</geo-blue> 
+      <geo-srb-red type="float">0.0</geo-srb-red>  
+      <geo-srb-green type="float">0.0</geo-srb-green>          
+      <geo-srb-blue type="float">0.0</geo-srb-blue>
+      <geo-ambience type="float">0.0</geo-ambience> 
       <geo-x type="double">0.0</geo-x>
       <geo-y type="double">0.0</geo-y>
       <geo-z type="double">0.0</geo-z>
@@ -1605,6 +1787,13 @@
       <payload-z type="double">0.0</payload-z>
       <payload-r type="double">0.0</payload-r>
       <payload-ambience type="double">0.0</payload-ambience>
+
+      <!-- interior ambience in space corrections -->
+
+      <interior-ambience-force type="float">0.0</interior-ambience-force>
+      <interior-ambience-red type="float">0.0</interior-ambience-red>
+      <interior-ambience-green type="float">0.0</interior-ambience-green>
+      <interior-ambience-blue type="float">0.0</interior-ambience-blue>
     </effects>
  </lighting>
 
@@ -1617,7 +1806,7 @@
    <rating>
     <FDM type="int">4</FDM>
     <systems type="int">5</systems>
-    <cockpit type="int">4</cockpit>
+    <cockpit type="int">5</cockpit>
     <model type="int">4</model>
    </rating>
    <tags>
@@ -1633,6 +1822,14 @@
      <tag>rocket</tag>
      <tag>3-engine</tag>
    </tags>
+
+    <!-- disable most generic  instruments, the Shuttle has its own -->
+
+    <instrumentation>
+      <path>Aircraft/SpaceShuttle/Systems/shuttle-instruments.xml</path>
+    </instrumentation>
+
+
 
    <!-- only SSME can be throttled initially, later throttle control is transferred to OMS -->
    <input>
@@ -1681,7 +1878,6 @@
     <generic>
      <float n="1" alias="/engines/engine[3]/thrust_lb" />
      <float n="2" alias="/engines/engine[1]/thrust_lb" />
-     <float n="3" alias="/instrumentation/doors/door1/position-norm" />
      <float n="4" alias="/consumables/fuel/tank/level-lbs" />
      <float n="5" alias="/consumables/fuel/tank[1]/level-lbs" />
      <float n="6" alias="/consumables/fuel/tank[2]/level-lbs" />
@@ -1692,17 +1888,13 @@
      <float n="11" alias="/consumables/fuel/tank[4]/level-lbs" />
      <float n="12" alias="/engines/engine[0]/thrust_lb" />
      <float n="13" alias="/velocities/mach" />
-     <!--<float n="14" alias="/engines/engine[8]/thrust_lb" />-->
      <float n="15" alias="/engines/engine[9]/thrust_lb" />
      <float n="16" alias="/engines/engine[10]/thrust_lb" />
      <float n="17" alias="/engines/engine[11]/thrust_lb" />
      <float n="18" alias="/engines/engine[2]/thrust_lb" />
-     <float n="19" alias="/instrumentation/robotarm-norm" />
      <float n="0" alias="/gear/gear/rollspeed-ms" />
 
      <int type="int" n="3" alias="/controls/shuttle/parachute"/>
-     <int type="int" n="4" alias="/controls/shuttle/EMU"/>
-     <int type="int" n="5" alias="/controls/shuttle/EMU"/>
      <int type="int" n="6" alias="/controls/shuttle/external-fuel-tank"/>
      <int type="int" n="7" alias="/controls/shuttle/solid-rocket-boosters"/>
      <int type="int" n="8" alias="/controls/lighting/nav-lights"/>
@@ -1731,6 +1923,8 @@
         <mode7 type="int">10</mode7>
         <mode8 type="int">10</mode8>
         <mode9 type="int">10</mode9>
+        <mode10 type="int">10</mode10>
+        <mode11 type="int">10</mode11>
         <button-pressed1 type="int">0</button-pressed1>
         <button-pressed2 type="int">0</button-pressed2>
         <button-pressed3 type="int">0</button-pressed3>
@@ -1740,6 +1934,7 @@
         <button-pressed7 type="int">0</button-pressed7>
         <button-pressed8 type="int">0</button-pressed8>
         <button-pressed9 type="int">0</button-pressed9>
+        <button-pressed10 type="int">0</button-pressed10>
       </PFD>
      </controls>
      <lighting>
@@ -1781,6 +1976,7 @@
         <R2-covers-visible type="bool">true</R2-covers-visible>
         <O7-covers-visible type="bool">true</O7-covers-visible>
         <O8-covers-visible type="bool">true</O8-covers-visible>
+        <A1-covers-visible type="bool">true</A1-covers-visible>
      </cover>
     </panel>
    </model>
@@ -1800,21 +1996,11 @@
     <internal archive="y">true</internal>
     <config>
      <x-offset-m archive="y" type="double">-0.6 </x-offset-m>
-     <y-offset-m archive="y" type="double">-0.17</y-offset-m>
+     <y-offset-m archive="y" type="double">-0.13</y-offset-m>
      <z-offset-m archive="y" type="double">-11.6</z-offset-m>
      <default-field-of-view-deg>75</default-field-of-view-deg>
      <limits>
       <enabled type="bool">false</enabled>
-      <!--<left>
-       <heading-max-deg type="double">140</heading-max-deg>
-       <x-offset-max-m type="double">0.20</x-offset-max-m>
-       <x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
-      </left>
-      <right>
-       <heading-max-deg type="double">140</heading-max-deg>
-       <x-offset-max-m type="double">0.20</x-offset-max-m>
-       <x-offset-threshold-deg type="double">25</x-offset-threshold-deg>
-      </right>-->
      </limits>
     </config>
    </view>
@@ -1870,15 +2056,15 @@
     </config>
    </view>
 
-   <view n="104">
+   <!--<view n="104">
     <name>Forward Panels Left</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
     <config>
      <from-model type="bool">true</from-model>
-     <x-offset-m archive="y" type="double"> -0.5</x-offset-m> <!--y-->
-     <y-offset-m archive="y" type="double"> -0.45</y-offset-m> <!--z-->
-     <z-offset-m archive="y" type="double">-12.1 </z-offset-m> <!--x-->
+     <x-offset-m archive="y" type="double"> -0.5</x-offset-m> 
+     <y-offset-m archive="y" type="double"> -0.45</y-offset-m> 
+     <z-offset-m archive="y" type="double">-12.1 </z-offset-m> 
      <heading-offset-deg archive="y" type="double">95.0</heading-offset-deg>
      <pitch-offset-deg archive="y" type="double">-25.0</pitch-offset-deg>
     </config>
@@ -1896,16 +2082,16 @@
      <heading-offset-deg archive="y" type="double">-95.0</heading-offset-deg>
      <pitch-offset-deg archive="y" type="double">-25.0</pitch-offset-deg>
     </config>
-   </view>
+   </view>-->
 
-   <view n="106">
+   <view n="104">
     <name>Pilot</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
     <config>
      <from-model type="bool">true</from-model>
-     <x-offset-m archive="y" type="double">  0.62</x-offset-m>
-     <y-offset-m archive="y" type="double"> -0.17</y-offset-m>
+     <x-offset-m archive="y" type="double">  0.7</x-offset-m>
+     <y-offset-m archive="y" type="double"> -0.13</y-offset-m>
      <z-offset-m archive="y" type="double">-11.7 </z-offset-m>
     </config>
    </view>
@@ -1943,7 +2129,7 @@
        </binding>
       </item>
       <item>
-       <label>Ku antenna</label>
+       <label>Communication</label>
        <binding>
         <command>nasal</command>
         <script>SpaceShuttle.ku_dlg.open()</script>
@@ -2022,13 +2208,6 @@
        <binding>
         <command>nasal</command>
         <script>SpaceShuttle.temperature_dlg.open()</script>
-       </binding>
-      </item>
-      <item>
-       <label>Trajectory Map</label>
-       <binding>
-        <command>nasal</command>
-        <script>SpaceShuttle.create_map()</script>
        </binding>
       </item>
       <item>
@@ -2247,6 +2426,32 @@
       </item>
      </menu>
 
+     <menu n="55">
+      <label>Mission Control</label>
+
+      <item>
+       <label>MCC status</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.mcc_status_dlg.open()</script>
+       </binding>
+      </item>
+      <item>
+       <label>MCC communication</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.mcc_comm_dlg.open()</script>
+       </binding>
+      </item>
+      <item>
+       <label>Trajectory Map</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.create_map()</script>
+       </binding>
+      </item>
+     </menu>
+
 
     </default>
    </menubar>
@@ -2272,7 +2477,7 @@
     </key>
 
     <key>
-     <name>c</name>
+     <name>Shift-c</name>
      <desc>deploy drag chute</desc>
     </key>
     <key>
@@ -2332,6 +2537,10 @@
      <desc>Initiate spacewalk (from EVA view)</desc>
     </key>
     <key>
+     <name>Shift-h</name>
+     <desc>Cycle HUD declutter level</desc>
+    </key>
+    <key>
      <name>s</name>
      <desc>deploy speed brake</desc>
     </key>
@@ -2387,10 +2596,12 @@ In addition, there are in-sim checklists available to guide you through specific
 
 Note that devlopment is ongoing and not all features are documented.
 
+
     </text>
    </help>
 
    <systems>
+    <path>Aircraft/SpaceShuttle/Systems/shuttle-generic-systems.xml</path>
     <property-rule n="100"> 
      <name>ssme-flame-computation</name> 	
      <path>Systems/ssme-flame-computation.xml</path>  
@@ -2407,13 +2618,19 @@ Note that devlopment is ongoing and not all features are documented.
      <approach-and-landing-test-config type="int">0</approach-and-landing-test-config>
      <thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
      <place-gantry type="int">0</place-gantry>
+     <mdu-groups type="int">4</mdu-groups>
      <mdu-update-speed type="int">1</mdu-update-speed>
+     <center-cull-level type="int">1</center-cull-level>
      <ET-config type="string">super lightweight</ET-config>
      <TC-config type="string">none</TC-config>
      <PL-selection type="string">none</PL-selection>
      <PL-selection-flag type="int">0</PL-selection-flag>
      <detailed-flightdeck type="int">0</detailed-flightdeck>
      <srb-shake type="int">0</srb-shake>
+     <loose-items type="int">0</loose-items>
+     <show-floating-scom type="int">0</show-floating-scom>
+     <!--<hud-filter type="int">0</hud-filter>-->
+     <font-selection type="int">0</font-selection>
      <rendering>
       <use-earthview type="int" userarchive="y">0</use-earthview>
       <earthview-transition-alt-ft type="double">85000.0</earthview-transition-alt-ft>
@@ -2454,15 +2671,18 @@ Note that devlopment is ongoing and not all features are documented.
     <path>/sim/model/panel/cover/R2-covers-visible</path>
     <path>/sim/model/panel/cover/O7-covers-visible</path>
     <path>/sim/model/panel/cover/O8-covers-visible</path>
+    <path>/sim/model/panel/cover/A1-covers-visible</path>
     <path>/sim/config/shuttle/mdu-update-speed</path>
     <path>/fdm/jsbsim/systems/adi/quality-level</path>
     <path>/sim/config/shuttle/detailed-flightdeck</path>
     <path>/sim/config/shuttle/srb-shake</path>
+    <path>/sim/config/shuttle/hud-filter</path>
     <path>/sim/config/shuttle/place-gantry</path>
   </aircraft-data>
 
 
  </sim>
+
 
 
  <save>
@@ -2611,6 +2831,15 @@ Note that devlopment is ongoing and not all features are documented.
     </binding>
    </key>
 
+   <key n="72">
+    <name>Shift+h</name>
+    <desc>Cycle declutter</desc>
+    <binding>
+     <command>nasal</command>
+     <script>SpaceShuttle.declutter()</script>
+    </binding>
+   </key>
+
    <key n="73">
     <name>Shift+i</name>
     <desc>Ignition</desc>
@@ -2755,6 +2984,8 @@ Note that devlopment is ongoing and not all features are documented.
    <file>Aircraft/SpaceShuttle/Nasal/light_manager.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/orbital_dap_selection.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/liveries.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/mcc.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/zero_g.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
   </SpaceShuttle>

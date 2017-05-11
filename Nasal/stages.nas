@@ -21,8 +21,230 @@ var abort_region_flag = 0;
 
 settimer(func {setprop("/fdm/jsbsim/systems/electrical/init-electrical-on", 0.0);}, 30.0);
 
-var ignition = func{
+
+var ignition = func {
+
+setprop("/controls/shuttle/spark-flag", 1);
+
+settimer( func {setprop("/controls/shuttle/spark-flag", 0);} , 2.5);
+
+
+settimer (pre_ignition, 2.0);
+
+settimer (full_ignition, 5.8);
+
+}
+
+# pre-ignition governs the flame appearance during engine ramp-up
+
+var pre_ignition = func {
+
+# first engine
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target", 0.5);
+
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target", 0.2);
+
+# second engine
+
+settimer(func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target2", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target2", 0.5);
+
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target2", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target2", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target2", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target2", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target2", 0.2);
+
+}, 0.4);
+
+# third engine
+
+settimer(func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target1", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target1", 0.5);
+
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target1", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target1", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target1", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target1", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target1", 0.2);
+
+}, 0.8);
+
+
+# density rampup
+
+settimer (func {setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target", 0.5);}, 0.5);
+settimer (func {setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target2", 0.5);}, 0.9);
+settimer (func {setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target1", 0.5);}, 1.3);
+
+
+# first engine final
+
+settimer(func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target", 0.4);
+
+}, 2.0);
+
+# second engine final
+
+settimer(func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target2", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target2", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target2", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target2", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target2", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target2", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target2", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target2", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target2", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target2", 0.4);
+
+}, 2.4);
+
+# third engine final
+
+settimer(func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target1", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target1", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target1", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target1", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target1", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target1", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target1", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target1", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target1", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target1", 0.4);
+
+}, 2.8);
+
+#settimer (reset_flame, 8.0);
+
+}
+
+
+var reset_flame = func {
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target", 0.7);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target1", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target1", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target1", 0.7);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target1", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target1", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target1", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target1", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target1", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target2", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target2", 0.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target2", 0.7);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target2", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target2", 0.2);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target2", 0.8);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target2", 0.25);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target2", 0.2);
+
+
+}
+
+
+
+
+
+
+
+# full ignition does the FDM-relevant tasks for engine ignition
+
+var full_ignition = func{
     launch_loop_flag = 0;
+
+    setprop("/sim/config/shuttle/prelaunch-flag", 0);
 
     setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 1);
     setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 1);
@@ -62,7 +284,7 @@ SRB_burn_timer = getprop("/sim/time/elapsed-sec");
 setprop("/consumables/fuel/tank[17]/level-lbs", 600.0);
 setprop("/consumables/fuel/tank[18]/level-lbs",4800.0);
 
-settimer(SRB_ignite, 3.0);
+settimer(SRB_ignite, 1.0);
 settimer(gear_up, 5.0);
 	
 launch_loop_flag = 1;
@@ -305,9 +527,12 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 
 	}
 	
+
+
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 settimer(SpaceShuttle.cloud_illumination, 0.2);
 settimer(SpaceShuttle.update_ascent_predictors, 0.4);
+settimer(SpaceShuttle.update_timers, 0.4);
 settimer(SpaceShuttle.contingency_abort_region_2eo, 0.6);
 settimer(SpaceShuttle.cws_inspect, 0.8);
 
@@ -364,6 +589,10 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (
 	setprop("/local-weather/lightning/model-index", -1);
 
 
+	# store launch site information for PEG-4 in case we don't launch from KSC
+
+	SpaceShuttle.peg4_refloc.set_latlon(getprop("/position/latitude-deg"), getprop("/position/longitude-deg"));
+
 	# if we have liftoff, switch autolaunch on if configured
 	
 	if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
@@ -377,6 +606,8 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (
 		{
 		srb_view_shake_loop();
 		}
+
+
 
 	}
 else
@@ -414,8 +645,8 @@ if (view == "Cockpit View")
 	}
 else if (view == "Pilot")
 	{
-	setprop("/sim/current-view/x-offset-m", 0.62 + 0.006 * (rand() - 0.5));
-	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/x-offset-m", 0.7 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.13 + 0.006 * (rand() - 0.5));
 	setprop("/sim/current-view/z-offset-m", -11.7 + 0.006 * (rand() - 0.5));
 	}
 
@@ -598,11 +829,13 @@ setprop("/fdm/jsbsim/systems/dps/major-mode", 103);
 # switch SERC on if we have just one engine at this point
 
 var n_eng_operational = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+var arm_serc = getprop("/fdm/jsbsim/systems/abort/arm-serc");
 
-if (n_eng_operational < 2)
+if ((n_eng_operational < 2) or (arm_serc == 1))
 	{
 	setprop("/fdm/jsbsim/systems/fcs/control-mode",13);
 	setprop("/controls/shuttle/control-system-string", "SERC");
+	setprop("/fdm/jsbsim/systems/abort/arm-serc",0);
 	}
 
 settimer(SRB_separation_motor_off, 1.2);
@@ -746,8 +979,7 @@ launch_message_flag = 5;
 SpaceShuttle.traj_display_flag = 3;
 
 # start main orbital loop
-settimer(orbital_loop,2.0);
-
+#orbital_loop_init();
 
 }
 
@@ -835,9 +1067,9 @@ SpaceShuttle.traj_display_flag = 3;
 
 #settimer(control_to_rcs, 2.0);
 
-
 # start main orbital loop
-settimer(orbital_loop,2.0);
+orbital_loop_init();
+
 }
 
 var control_to_rcs = func {
@@ -910,8 +1142,24 @@ SpaceShuttle.init_rms();
 # OMS engine ignition and de-orbit
 #########################################################################################
 
+var orbital_loop_running = 0;
+
+var orbital_loop_init = func {
+
+if (orbital_loop_running == 1) {return;}
+else
+	{
+	orbital_loop_running = 1;
+	orbital_loop();
+	}
+
+}
+
+
 var orbital_loop = func {
 
+
+#print ("Orbital loop running!");
 
 var thrust_OMS1 = getprop("/engines/engine[5]/thrust_lb");
 var thrust_OMS2 = getprop("/engines/engine[6]/thrust_lb");
@@ -1089,7 +1337,7 @@ else
 
 var deorbit_loop = func {
 
-
+#print("Deorbit loop running...");
 
 var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 
@@ -1136,6 +1384,13 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 	{
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 1);
 	}
+
+# in the late entry phase, check whether we pick up TACAN signals
+
+SpaceShuttle.area_nav_set.update_entry();
+
+
+
 
 # determine whether we have reached TAEM interface
 # we may reach it under guidance, then it's best driven by distance
@@ -1212,6 +1467,8 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 
 SpaceShuttle.check_limits_entry();
 
+settimer(SpaceShuttle.update_sv_errors_entry, 0.1);
+settimer(SpaceShuttle.update_timers, 0.4);
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 1))
 	{
@@ -1232,6 +1489,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ", getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps"), " ", getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/fdm/jsbsim/velocities/v-down-fps"));
 
 settimer(SpaceShuttle.adjust_effect_colors, 0.2);
+settimer(SpaceShuttle.cws_inspect, 0.3);
 
 settimer(deorbit_loop,1.0);
 }
@@ -1245,6 +1503,7 @@ var gear_arm_message_flag = 0;
 
 var glide_loop = func {
 
+#print ("Glide loop running...");
 
 SpaceShuttle.update_entry_guidance();
 
@@ -1289,6 +1548,19 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	}
 
 
+# check for TACAN or MLS signals
+
+SpaceShuttle.area_nav_set.update_taem();
+
+# update the state vector error set
+
+settimer(SpaceShuttle.update_sv_errors_entry, 0.1);
+
+# run CWS checks
+
+settimer(SpaceShuttle.cws_inspect, 0.2);
+
+settimer(SpaceShuttle.update_timers, 0.4);
 
 # some log output
 # print(getprop("/sim/time/elapsed-sec"), " ", getprop("/position/altitude-ft"), " ",  getprop("/fdm/jsbsim/position/distance-from-start-mag-mt"), " ", getprop("/velocities/equivalent-kt"), " ", getprop("/fdm/jsbsim/aero/qbar-psf"));
@@ -1521,10 +1793,47 @@ settimer( func {setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-complete"
 
 var arm_gear = func {
 
-setprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd", 1);
-setprop("/controls/shuttle/gear-string", "armed");
+var state = getprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd");
+var deploy = getprop("/fdm/jsbsim/gear/gear-pos-norm");
+
+if (state == 0)
+	{
+	setprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd", 1);
+	setprop("/controls/shuttle/gear-string", "armed");
+	}
+else if (deploy == 0)
+	{
+	setprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd", 0);
+	setprop("/controls/shuttle/gear-string", "up");
+	}
+}
+
+
+var gear_down = func {
+
+var arm = getprop("/fdm/jsbsim/systems/landing/landing-gear-arm-cmd");
+var state = getprop("/controls/gear/gear-down-cmd");
+
+if ((arm == 1) and (state == 1))
+	{
+	setprop("/controls/gear/gear-down", 1);
+	}
 
 }
+
+
+
+# HUD declutter
+
+var declutter = func {
+
+var dclt = getprop("/fdm/jsbsim/systems/hud/declutter-level");
+dclt = dclt + 1;
+if (dclt > 3) {dclt = 0;}
+setprop("//fdm/jsbsim/systems/hud/declutter-level", dclt);
+
+}
+
 
 # cutoff switches for SSME
 
@@ -1532,6 +1841,8 @@ var ssme_cutoff = func (n) {
 #print ("Engine ", n, " cutoff command received!");
 
 setprop("/fdm/jsbsim/systems/mps/engine["~n~"]/run-cmd", 0);
+
+
 
 }
 
@@ -1555,12 +1866,31 @@ var ssme_lockup = func (n) {
     setprop("/sim/input/selected/engine["~n~"]",0);
 }
 
+# drag chute management - deployment and jettison animation
+
+
 var arm_drag_chute = func {
-    setprop("/controls/shuttle/drag-chute-arm", 1);
+
+    var state = getprop("/controls/shuttle/drag-chute-arm");
+    
+    if (state == 0) {state = 1;}
+    else {state = 0;}
+
+    setprop("/controls/shuttle/drag-chute-arm", state);
 }
 
 var jettison_drag_chute = func {
+
+    # don't jettison undeployed chute
+    if (getprop("/controls/shuttle/drag-chute-deploy-timer") == 0) {return;}
+
+    # don't jettison jettisoned chute
+
+    if (getprop("/controls/shuttle/drag-chute-jettison") == 1) {return;}
+
     setprop("/controls/shuttle/drag-chute-jettison", 1);
+    setprop("/controls/shuttle/drag-chute-string", "jettisoned");
+    drag_chute_jettison_animation(0.0);
 }
 
 var deploy_chute = func {
@@ -1587,15 +1917,28 @@ var deploy_chute = func {
             SpaceShuttle.check_limits_touchdown();
             if (getprop("/fdm/jsbsim/systems/failures/drag-chute-condition") == 0.0) {
                 setprop("/controls/shuttle/drag-chute-jettison", 1);
+		drag_chute_jettison_animation(0.0);
             }
     }
 
-    if (current_state == 1){
-        setprop("/controls/shuttle/parachute",2);
-    }
+    # automatically open chute to full after 3.5 seconds
+
+    settimer( open_chute_full, 3.5);
+
 
     setprop("/controls/shuttle/drag-chute-string", "deployed");
 }
+
+
+var open_chute_full = func {
+
+	if (getprop("/controls/shuttle/drag-chute-jettison") == 0)
+		{
+        	setprop("/controls/shuttle/parachute",2);
+		}
+
+}
+
 
 var chuteDeployTime = 0;
 var chute_deploy_animation = func {
@@ -1613,11 +1956,86 @@ setlistener("/controls/shuttle/drag-chute-deploy", func {
     chute_deploy_timer.start();
 });
 
-setlistener("/controls/shuttle/drag-chute-jettison", func {
-    chute_deploy_timer.stop();
-    setprop("/controls/shuttle/drag-chute-deploy-timer", 0);
-    chuteDeployTime = 0;
-});
+
+
+
+var drag_chute_jettison_animation = func (time) {
+
+var dt = getprop("/sim/time/delta-sec");
+time = time + dt;
+
+# horizontal motion
+
+var x = 0.0;
+
+if (time > 2.0)
+	{x = -16.0 + 20.0 * time;}
+else
+	{x = 2.0 * time + 5.0 * time * time;}
+
+
+setprop("/controls/shuttle/drag-chute-dist",x);
+
+# vertical motion
+
+var y = 0.0;
+if (time > 5.0)
+	{
+	y = -2.5 + 0.6 * (time-5.0) * (time-5.0);
+	}
+else 	
+	{
+	y = -0.2 * time;
+	}
+if (y > 12.5) {y=12.5;}
+
+setprop("/controls/shuttle/drag-chute-down",y);
+
+# fold
+
+var f = 0.5 * time;
+if (f> 1.0) {f = 1.0;}
+if (time > 9.5)
+	{f = 0.25 + 1.5 + (time-9.5);}
+if (time > 6.0)
+	{
+ 	f = f -0.3* (time-7.0); 
+	if (f<0.1) {f=0.1;}
+	}
+setprop("/controls/shuttle/drag-chute-fold", f);
+
+# rotate
+
+var r = (time - 2.0) * 18.0;
+if (r>90.0) {r=90.0;}
+if (r<0.0) {r=0.0;}
+setprop("/controls/shuttle/drag-chute-slant", r);
+
+# bend
+
+var b = 0;
+if (time > 7.5)
+	{b = 0;}
+else if (time >6.0)
+	{b = 0.75 - 0.5 * (time - 6.0);} 
+else if (time > 4.5) 
+	{b = (time - 4.5) * 0.5;}
+else {b=0;}	
+
+setprop("/controls/shuttle/drag-chute-bend", b);
+
+if (time > 10.0) 
+	{
+	print("Exiting...");
+	settimer (func { setprop("/controls/shuttle/drag-chute-deploy-timer", 0); }, 0.5);
+	return;
+	}
+
+setprop("/test/timer", time);
+
+settimer( func{ drag_chute_jettison_animation (time); }, 0);
+
+}
 
 
 #########################################################
@@ -1633,6 +2051,7 @@ slowdown_loop_flag = 1;
 slowdown_loop();
 
 setprop("/controls/shuttle/speedbrake", 1);
+setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", 1);
 setprop("/controls/shuttle/speedbrake-string", "out");
 
 
@@ -1802,6 +2221,43 @@ setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", 1);
 
 }
 
+var engine_controllers_off = func {
+
+setprop("/fdm/jsbsim/systems/mps/engine/controller-A-power-switch-status", 0);
+setprop("/fdm/jsbsim/systems/mps/engine/controller-B-power-switch-status", 0);
+
+setprop("/fdm/jsbsim/systems/mps/engine[1]/controller-A-power-switch-status", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[1]/controller-B-power-switch-status", 0);
+
+setprop("/fdm/jsbsim/systems/mps/engine[2]/controller-A-power-switch-status", 0);
+setprop("/fdm/jsbsim/systems/mps/engine[2]/controller-B-power-switch-status", 0);
+}
+
+
+var area_nav_on = func {
+
+setprop("/fdm/jsbsim/systems/navigation/air-data-deploy-left-switch", 1);
+setprop("/fdm/jsbsim/systems/navigation/air-data-deploy-right-switch", 1);
+
+setprop("/fdm/jsbsim/systems/navigation/tacan-sys1-switch", 1);
+setprop("/fdm/jsbsim/systems/navigation/tacan-sys2-switch", 1);
+setprop("/fdm/jsbsim/systems/navigation/tacan-sys3-switch", 1);
+
+setprop("/fdm/jsbsim/systems/navigation/mls-sys1-switch", 1);
+setprop("/fdm/jsbsim/systems/navigation/mls-sys2-switch", 1);
+setprop("/fdm/jsbsim/systems/navigation/mls-sys3-switch", 1);
+}
+
+var star_tracker_active = func {
+
+setprop("/fdm/jsbsim/systems/mechanical/star-tracker-sys1-switch", 1);
+
+setprop("/fdm/jsbsim/systems/mechanical/star-tracker-y-switch", 1);
+setprop("/fdm/jsbsim/systems/mechanical/star-tracker-z-switch", 1);
+
+}
+
+
 ##############################################################################
 # the set_speed function initializes the shuttle to proper orbital/suborbital
 # velocity and at the right locations for TAEM and final based on the selected
@@ -1829,6 +2285,11 @@ if (stage == 0)
 	setprop("/position/latitude-deg", getprop("/sim/presets/latitude-deg"));
 	setprop("/position/longitude-deg", getprop("/sim/presets/longitude-deg"));
 	setprop("/orientation/pitch-deg", 90.0);
+	setprop("/orientation/heading-deg", getprop("/sim/presets/heading-deg"));
+	setprop("/orientation/roll-deg", 0.0);
+	setprop("/velocities/uBody-fps", 0.0);
+	setprop("/velocities/vBody-fps", 0.0);
+	setprop("/velocities/wBody-fps", 0.0);
 	#hydraulics_on();
 	
 	settimer( func SpaceShuttle.light_manager.set_theme("PAD"), 5.0);
@@ -1847,6 +2308,12 @@ if (stage == 1)
 	setprop("/velocities/uBody-fps", 26100.0 - rotation_boost);
 
 	SpaceShuttle.fill_traj2_data();
+
+	# start main orbital loop
+	orbital_loop();
+
+	# adjust mission time
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", 520);
 
 	# test de-orbit parameters
 	#setprop("/position/altitude-ft", 850000.0);
@@ -1874,17 +2341,24 @@ if (stage == 2)
 	setprop("/velocities/wBody-fps", 300.0);
 	setprop("/velocities/uBody-fps", 25000.0 - rotation_boost);
 
+	# adjust mission time
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", 700000);
 
 	hydraulics_on();
 	et_umbilical_door_close();
 	thermal_control_on();
+	engine_controllers_off();
+
+	
 	SpaceShuttle.traj_display_flag = 3;
 	SpaceShuttle.fill_entry1_data();
 	settimer( func {
 			setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 			setprop("/controls/shuttle/control-system-string", "Aerojet");
 			}, 2.0);
-	#deorbit_loop();	
+	SpaceShuttle.area_nav_set.init();
+
+	deorbit_loop();	
 
 	}
 
@@ -1898,6 +2372,13 @@ if (stage == 3)
 	var m_to_lat = 1.0/lat_to_m;
 
 	var heading = getprop("/orientation/heading-deg");
+
+	if (getprop("/sim/presets/TAEM-approach-course-deg") != nil)	
+		{
+		heading = getprop("/sim/presets/TAEM-approach-course-deg");
+		setprop("/orientation/heading-deg", heading);
+		}
+
 	var place_dir = heading + 180.0;
 	if (place_dir > 360.0) {place_dir = place_dir-360.0;}
 	place_dir = place_dir * math.pi/180.0;
@@ -1938,7 +2419,19 @@ if (stage == 3)
 	#MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_dps_hsit);
 	#MEDS_PLT2.dps_page_flag = 1;
 
-	#setprop("/fdm/jsbsim/systems/dps/spec", 50);
+	engine_controllers_off();
+	area_nav_on();
+	
+	# suppress TACAN incorporation message
+	SpaceShuttle.cws_msg_hash.nav_edit_tac = 1;
+	SpaceShuttle.cws_msg_hash.nav_edit_alt = 1;
+
+	# adjust mission time
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", 701800);
+
+	# start main control loop
+	glide_loop();	
+
 	}
 
 if (stage == 4) 
@@ -1964,6 +2457,42 @@ if (stage == 4)
 	var place_lon = getprop("/position/longitude-deg") + m_to_lon * place_x;
 	var place_alt_correct = getprop("/position/altitude-ft") - getprop("/position/altitude-agl-ft");
 
+	# suppress TACAN incorporation message
+	SpaceShuttle.cws_msg_hash.nav_edit_tac = 1;
+	SpaceShuttle.cws_msg_hash.nav_edit_alt = 1;
+
+	# if we recognze the airport, we can start guidance
+	
+	var airport = getprop("/sim/presets/airport-id");
+
+
+	if (airport == "KTTS")
+		{
+		SpaceShuttle.update_site_by_index(1);
+		if (abs(heading - 150.0) < 20.0) 
+			{SpaceShuttle.update_runway_by_flag(0);}
+		else
+			{SpaceShuttle.update_runway_by_flag(1);}
+		SpaceShuttle.compute_entry_guidance_target();
+		}
+	else if (airport == "KVBG")
+		{
+		SpaceShuttle.update_site_by_index(2);
+		if (abs(heading - 150.0) < 20.0) 
+			{SpaceShuttle.update_runway_by_flag(0);}
+		else
+			{SpaceShuttle.update_runway_by_flag(1);}
+		SpaceShuttle.compute_entry_guidance_target();
+		}
+	else if (airport == "KEDW")
+		{
+		SpaceShuttle.update_site_by_index(3);
+		SpaceShuttle.update_runway_by_flag(1);
+		SpaceShuttle.compute_entry_guidance_target();
+		}
+		
+
+
 	#print (place_lat, " ",place_lon);
 
 	setprop("/position/latitude-deg", place_lat); 
@@ -1979,8 +2508,16 @@ if (stage == 4)
 
 	#setprop("/velocities/uBody-fps", 8000.0);
 	#setprop("/velocities/wBody-fps", -900.0);
-	
 
+	engine_controllers_off();
+	area_nav_on();	
+
+	# adjust mission time
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", 702000);
+
+
+	# start main control loop
+	glide_loop();
 	
 	}
 
@@ -2010,6 +2547,17 @@ if (stage == 5)
 
 	setprop("/velocities/uBody-fps",900.0);
 	setprop("/velocities/wBody-fps", 60.0);
+
+	# suppress TACAN incorporation message
+	SpaceShuttle.cws_msg_hash.nav_edit_tac = 1;
+	SpaceShuttle.cws_msg_hash.nav_edit_alt = 1;
+
+	engine_controllers_off();
+	area_nav_on();	
+
+
+	# start main control loop
+	glide_loop();
 	}
 
 if (stage == 6) 
@@ -2028,6 +2576,14 @@ if (stage == 6)
 	hydraulic_circulation_on();
 	radiator_activate();
 	thermal_control_on();
+	engine_controllers_off();	
+	star_tracker_active();
+
+	# adjust mission time
+	setprop("/fdm/jsbsim/systems/timer/delta-MET", 200000);
+
+	# start main control loop
+	orbital_loop();
 
 	}
 

@@ -2,7 +2,7 @@
 
 # coordinate transformation routines and pointing guidance vectors 
 # for the Space Shuttle orbital maneuvering
-# Thorsten Renk 2015
+# Thorsten Renk 2015-2017
 
 var tracking_loop_flag = 0;
 
@@ -146,6 +146,74 @@ setprop("/fdm/jsbsim/systems/pointing/inertial/delta-lon-rad", -D_lon * math.pi/
 
 }
 
+
+##################################################
+# general helper functions spherical trigonometry
+##################################################
+
+var sgeo_ERAD = 6378138.12;		
+var sgeo_D2R = 0.0174532;
+var sgeo_R2D = 57.29578;
+
+
+var sgeo_move_circle = func (course, dist, pos) {
+
+course *= sgeo_D2R;
+dist /= sgeo_ERAD;
+		
+if (dist < 0.0) 
+	{
+	dist = abs(dist);
+	course = course - math.pi;		
+	}
+
+var lat1 = sgeo_D2R * pos.lat();
+var lon1 = sgeo_D2R * pos.lon();
+
+var lat2 =  math.asin(math.sin(lat1) * math.cos(dist) + math.cos(lat1) * math.sin(dist) * math.cos(course));
+
+var lon2 = lon1 + math.atan2(math.sin(course) * math.sin(dist) * math.cos(lat1), math.cos(dist)- math.sin(lat1) * math.sin(lat2));
+
+
+lat2 *= sgeo_R2D;
+lon2 *= sgeo_R2D;
+
+lon2 = geo.normdeg180(lon2);
+
+pos.set_latlon(lat2, lon2);
+
+}
+
+
+var sgeo_forward_azimuth = func (pos1, pos2) {
+
+var delta_lon = sgeo_D2R * (pos2.lon() - pos1.lon());
+
+var lat1 = sgeo_D2R * pos1.lat();
+var lat2 = sgeo_D2R * pos2.lat();
+
+var bearing = math.atan2(math.sin(delta_lon) * math.cos(lat2), math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(delta_lon));
+
+bearing *= sgeo_R2D;
+
+return geo.normdeg(bearing);
+}
+
+
+var sgeo_crosstrack = func (course1, course2, dist) {
+
+course1 *= sgeo_D2R;
+course2 *= sgeo_D2R;
+
+dist /= sgeo_ERAD;
+
+return math.asin( math.sin(dist) * math.sin(course1 - course2)) * sgeo_ERAD;
+} 
+
+
+
+
+
 ##################################################
 # general helper functions for time
 ##################################################
@@ -211,6 +279,32 @@ return days~"/"~hours~":"~minutes~":"~seconds;
 }
 
 
+var seconds_to_timer_string = func (time) {
+
+var int_time = int(time);
+
+var days = int(time / 86400);
+int_time = int_time - days * 86400;
+
+if (days < 10) {days = "0"~days;}
+
+var hours = int(int_time/3600);
+int_time = int_time - hours * 3600;
+
+if (hours < 10) {hours = "0"~hours;}
+
+var minutes = int(int_time/60);
+int_time = int_time - minutes * 60;
+
+if (minutes < 10) {minutes = "0"~minutes;}
+
+var seconds = int_time;
+if (seconds < 10) {seconds = "0"~seconds;}
+
+
+return days~":"~hours~":"~minutes~":"~seconds;
+}
+
 
 ######################################
 # general helper function to get pitch 
@@ -226,7 +320,10 @@ vec[0] = vec[0]/norm;
 vec[1] = vec[1]/norm;
 vec[2] = vec[2]/norm;
 
-var pitch = math.asin(vec[2]);
+
+# this should not be necessary, but the numerics bitches
+var pitch = 0.0;
+if (math.abs(vec[2]) > 0.001) {pitch = math.asin(vec[2]);}
 
 var norm2 = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
 var yaw_pos = math.acos(vec[0]/norm2);
@@ -286,11 +383,11 @@ var vtransform_body_inertial = func (vec) {
 
 # body axis vectors in inertial coords
 
-var body_x = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]")];
+var body_x = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-x[2]")];
 
-var body_y = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]")];
+var body_y = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-y[2]")];
 
-var body_z = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]")];
+var body_z = [getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/body-z[2]")];
 
 var vec1 = scalar_product(vec[0], body_x);
 var vec2 = scalar_product(vec[1], body_y);
@@ -312,6 +409,21 @@ var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
 
 var tmp1 = math.cos(s_ang) * vec[0] - math.sin(s_ang) * vec[1];
 var tmp2 = math.sin(s_ang) * vec[0] + math.cos(s_ang) * vec[1];
+
+vec[0] = tmp1;
+vec[1] = tmp2;
+
+return vec;
+}
+
+var vtransform_fixed_inertial_world = func (vec) {
+
+#  sidereal fixed inertial coordinates to FG world coordinates
+
+var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
+
+var tmp1 = math.cos(s_ang) * vec[0] + math.sin(s_ang) * vec[1];
+var tmp2 = -math.sin(s_ang) * vec[0] + math.cos(s_ang) * vec[1];
 
 vec[0] = tmp1;
 vec[1] = tmp2;
@@ -417,11 +529,35 @@ setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", inertial_vec[2]);
 # tracking preparation calculations
 ######################################
 
+var convert_ra_dec_vector = func (ra, dec) {
+
+var ra_rad = (ra -6.704)/12.0 * math.pi;
+var dec_rad = dec/180.0 * math.pi;
+
+var x = math.cos(dec_rad) * math.cos(ra_rad);
+var y = math.cos(dec_rad) * math.sin(ra_rad);
+var z = math.sin(dec_rad);
+
+print("Fixed vector: ", x, " ", y, " ", z);
+
+# this is a fixed inertial vector, so we rotate to a pointing vector in JSBSim inertial
+
+var vec = [x,y,z];
+
+vtransform_fixed_inertial_world(vec); 
+
+
+
+print("JSBSim vector: ", vec[0], " ", vec[1], " ", vec[2]);
+
+return vec;
+
+}
+
+
+
 var create_trk_vector = func {
 
-var lat = getprop("/fdm/jsbsim/systems/ap/ops201/trk-lat");
-var lon = getprop("/fdm/jsbsim/systems/ap/ops201/trk-lon");
-var alt = getprop("/fdm/jsbsim/systems/ap/ops201/trk-alt");
 
 var target_id = getprop("/fdm/jsbsim/systems/ap/ops201/tgt-id");
 
@@ -434,7 +570,7 @@ if (target_id == 2) # we track the center of Earth, omicron zero point is celest
 	setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", 0);
 	setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", 1);
 	}
-if (target_id == 3) # we track an earth-relative target specified by items 11 to 13
+else if (target_id == 3) # we track an earth-relative target specified by items 11 to 13
 	{
 	var lat =  getprop("/fdm/jsbsim/systems/ap/ops201/trk-lat");
  	var lon =  getprop("/fdm/jsbsim/systems/ap/ops201/trk-lon");
@@ -448,7 +584,7 @@ if (target_id == 3) # we track an earth-relative target specified by items 11 to
 	setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", 0);
 	setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", 1);
 	}
-if (target_id == 4) # we track the Sun, omicron zero point is the celestial north pole
+else if (target_id == 4) # we track the Sun, omicron zero point is the celestial north pole
 	{
 	settimer(func {tracking_loop_flag = 1; tracking_loop_sun();}, 0.2);
 
@@ -458,13 +594,34 @@ if (target_id == 4) # we track the Sun, omicron zero point is the celestial nort
 
 	}
 
+else if ((target_id == 5) or (target_id > 10)) # we track a celestial target with right ascension and declination given
+	{
+	var ra = getprop("/fdm/jsbsim/systems/ap/ops201/trk-ra");
+	var dec = getprop("/fdm/jsbsim/systems/ap/ops201/trk-dec");
+
+	var vec = convert_ra_dec_vector(ra, dec);
+
+	setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", vec[0]);
+	setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", vec[1]);
+	setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", vec[2]);
+
+	var vec2 = [0,0,1];
+
+	vec2 = orthonormalize(vec, vec2);
+
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", vec2[0]);
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", vec2[1]);
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", vec2[2]);
+	}
+
+
 }
 
 ######################################
 # OMS burn preparation computations
 ######################################
 
-var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0, rei: 0.0};
+var oms_burn_target = {tig: 0.0, apoapsis:0.0, periapsis: 0.0, rei: 0.0, mark: 0};
 
 var create_oms_burn_vector = func {
 
@@ -498,7 +655,7 @@ else if (burn_mode == 4)
 var acceleration = thrust_lb/weight_lb;
 
 var burn_time_s = dvtot/(acceleration * 32.17405);
-
+burn_time_s *= 0.99; # better to err on the short side
 
 var seconds = math.mod(int(burn_time_s), 60);
 var minutes = int (burn_time_s/60.0);
@@ -603,28 +760,15 @@ var radial = [x, y, z];
 
 prograde = normalize(prograde);
 radial = normalize(radial);
+var radial_up = radial;
+
 radial = orthonormalize(prograde, radial);
 
+var normal = cross_product (prograde, radial);
 
 
-# now correct for the about 11.5 deg offset of the OMS thrust axis
-
-var sinOffset = 0.1976515;
-var cosOffset = 0.9802723;
-
-if (oms_burn_target.tx > 0.0) {sinOffset = -sinOffset;}
-
-var prograde_rot = add_vector(scalar_product(cosOffset,prograde),  scalar_product(sinOffset, radial));
-var radial_rot = add_vector(scalar_product(-sinOffset,prograde),  scalar_product(cosOffset, radial));
-
-radial = radial_rot;
-prograde = prograde_rot;
-
-var normal = cross_product(prograde, radial);
 
 # now get the inertial velocity change components for the burn taget
-
-
 
 var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
 var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];
@@ -655,14 +799,14 @@ oms_burn_target.periapsis = periapsis_nm;
 
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
-if (major_mode == 3)
+if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 	{
 	var rei = SpaceShuttle.get_rei(r,v);
 
-	# correct REI for finite burn duration
-	var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
+	# correct REI for empirics
 
-	oms_burn_target.rei = rei - rei_correction;
+	var rei_correction = 250.0;
+	oms_burn_target.rei = rei + rei_correction;
 	}
 
 # start the tracking loop to maneuver into burn attitude
@@ -835,70 +979,79 @@ var prograde = [getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[0]"),get
 
 var radial = [getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]")];
 
-#var normal = [getprop("/fdm/jsbsim/systems/pointing/inertial/normal[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/normal[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/normal[2]")];
+var radial_up = radial;
+
 
 # prograde and radial don't really form an ON system for eccentric orbits, so we correct that
 # we need exact prograde orientation so we tilt the radial base vector for pointing
 
-#var corr_angle = prograde[0] * radial[0] + prograde[1] * radial[1] + prograde[2] * radial[2];
-
-#radial[0] = radial[0] - prograde[0] * corr_angle;
-#radial[1] = radial[1] - prograde[1] * corr_angle;
-#radial[2] = radial[2] - prograde[2] * corr_angle;
-
-#var radial_norm = math.sqrt(radial[0] * radial[0] + radial[1] * radial[1] + radial[2] * radial[2]);
-#radial[0] = radial[0]/radial_norm;
-#radial[1] = radial[1]/radial_norm;
-#radial[2] = radial[2]/radial_norm;
-
 prograde = normalize(prograde);
 radial = orthonormalize(prograde, radial);
 
-
-# now correct for the about 11.5 deg offset of the OMS thrust axis
-
-var sinOffset = 0.1976515;
-var cosOffset = 0.9802723;
-
-if (tx > 0.0) {sinOffset = -sinOffset;}
-
-var prograde_rot = add_vector(scalar_product(cosOffset,prograde),  scalar_product(sinOffset, radial));
-var radial_rot = add_vector(scalar_product(-sinOffset,prograde),  scalar_product(cosOffset, radial));
-
-radial = radial_rot;
-prograde = prograde_rot;
-
 var normal = cross_product (prograde, radial);
 
-#var normal = [0,0,0];
+# vtgt is used to predict the apses, so it uses a pure LVLH system
 
-#normal[0] = prograde[1] * radial[2] - prograde[2] * radial[1];
-#normal[1] = prograde[2] * radial[0] - prograde[0] * radial[2];
-#normal[2] = prograde[0] * radial[1] - prograde[1] * radial[0];
+var vtgt0 = tx * prograde[0] + ty * normal[0] + tz * radial[0];
+var vtgt1 = tx * prograde[1] + ty * normal[1] + tz * radial[1];
+var vtgt2 = tx * prograde[2] + ty * normal[2] + tz * radial[2];
 
-var tgt0 = tx * prograde[0] + ty * normal[0] + tz * radial[0];
-var tgt1 = tx * prograde[1] + ty * normal[1] + tz * radial[1];
-var tgt2 = tx * prograde[2] + ty * normal[2] + tz * radial[2];
+# the orientation however has to be done taking the 11.4 deg
+# thrust axis offset of the OMS into account
 
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", tgt0);
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", tgt1);
-setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", tgt2);
+# first we need pitch, yaw and roll of the thrust axis
 
-var orientation = get_pitch_yaw([tgt0, tgt1, tgt2]);
+var py = get_pitch_yaw ([tx, ty, tz]);
+var tv_roll = getprop("/fdm/jsbsim/systems/ap/oms-plan/tv-roll");
+var tv_pitch = py[0] * sgeo_R2D;
+var tv_yaw = py[1] * sgeo_R2D;
 
-var sec = SpaceShuttle.orientTaitBryan([-radial[0], -radial[1], -radial[2]], orientation[1], orientation[0],0.0);
+# then we correct for the 11.4 deg offset - in heads-up attitude that is upward pitch
 
-sec = orthonormalize([tgt0, tgt1, tgt2], sec);
+var tv_pitch = tv_pitch + 11.4 * math.cos(tv_roll * sgeo_D2R);
+var tv_yaw = tv_yaw + 11.4 * math.sin(tv_roll * sgeo_D2R);
 
-setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", sec[0]);
-setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", sec[1]);
-setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", sec[2]);
+#print("TV PYR: ",tv_pitch, " ", tv_yaw , " ", tv_roll);
 
-var trd = cross_product([tgt0, tgt1, tgt2], sec);
+# now we construct the components of the body axis pointing vector
 
-setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", trd[0]);
-setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", trd[1]);
-setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", trd[2]);
+var tv_pointing_body = SpaceShuttle.orientTaitBryan([1,0,0], tv_yaw , tv_pitch, tv_roll);
+
+#print("TV pointing body: ", tv_pointing_body[0], " ", tv_pointing_body[1], " ", tv_pointing_body[2]);
+#print("Norm: ", norm(tv_pointing_body));
+
+
+var tv_secondary_body = SpaceShuttle.orientTaitBryan([0,1,0], tv_yaw , tv_pitch, tv_roll );
+
+# multiplying the components with the inertial system results in the pointing vector
+
+var prograde_rot = scalar_product(tv_pointing_body[0], prograde);
+prograde_rot = add_vector(prograde_rot, scalar_product(tv_pointing_body[1], normal) );
+prograde_rot = add_vector(prograde_rot, scalar_product(tv_pointing_body[2], radial) );
+
+var normal_rot = scalar_product(tv_secondary_body[0], prograde);
+normal_rot = add_vector(normal_rot, scalar_product(tv_secondary_body[1], normal) );
+normal_rot = add_vector(normal_rot, scalar_product(tv_secondary_body[2], radial) );
+
+prograde = prograde_rot;
+normal = normal_rot;
+radial = cross_product (prograde, normal);
+
+
+
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", prograde[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", prograde[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", prograde[2]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", -radial[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", -radial[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", -radial[2]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", normal[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", normal[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", normal[2]);
+
 
 # now we compute apoapsis and periapsis if the burn were right now
 
@@ -912,7 +1065,7 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps"), getprop("/fdm/jsbsim/velocities/eci-y-fps"), getprop("/fdm/jsbsim/velocities/eci-z-fps")];
 	
 
-		var dv = scalar_product(dvtot, [tgt0, tgt1, tgt2]);
+		var dv = scalar_product(dvtot, [vtgt0, vtgt1, vtgt2]);
 
 		v = add_vector(v, dv);
 
@@ -927,10 +1080,10 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 		if (ops == 3)
 			{
 			var rei = SpaceShuttle.get_rei(r,v);
-			# correct REI for finite burn duration
-			var rei_correction = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s") * 0.1875;
-
-			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei - rei_correction);
+			# correct REI for empirics
+		
+			var rei_correction = 250.0;
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei + rei_correction);
 			}
 
 		
@@ -984,6 +1137,7 @@ if (tig - MET < 0.0) # if we're at or past ignition time, we go
 		setprop("/controls/engines/engine[6]/throttle", 1.0);
 
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
+
 		}
 	else if (burn_mode == 2)
 		{
@@ -1013,6 +1167,11 @@ if (tig - MET < 0.0) # if we're at or past ignition time, we go
 		setprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited", 1);
 		}
 	# start the burn
+
+
+	oms_burn_target.mark = getprop("/sim/time/elapsed-sec");
+	oms_burn_target.tgo = time;
+		
 	oms_burn(time);
 		
 	}
@@ -1038,6 +1197,9 @@ setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
 setprop("/controls/engines/engine[5]/throttle", 0.0);
 setprop("/controls/engines/engine[6]/throttle", 0.0);
 
+oms_burn_target.mar = 0.0;
+
+
 # null burn targets
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", 0);
@@ -1058,6 +1220,7 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-y", 0.0);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/vgo-z", 0.0);
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 0);
+
 
 # remove N2 for purging
 
@@ -1101,8 +1264,16 @@ var oms_burn = func (time) {
 
 if (time < 0.5) {oms_burn_stop(); return;}
 
-setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", seconds_to_stringMS(time));
-print("OMS burn for ", time, " seconds");
+
+# the 1 second timer is too inaccurate, thus we need a framerate-independent timer
+var t_remaining = oms_burn_target.tgo - int(getprop("/sim/time/elapsed-sec") - oms_burn_target.mark);
+
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-string", seconds_to_stringMS(t_remaining));
+print("OMS burn for ", t_remaining, " seconds");
+
+if (t_remaining < 0.5)  {oms_burn_stop(); return;}
+
 
 var acc_x = getprop("/fdm/jsbsim/systems/navigation/acceleration-x");
 var acc_y = getprop("/fdm/jsbsim/systems/navigation/acceleration-y");

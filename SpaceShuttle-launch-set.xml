@@ -13,6 +13,11 @@
   <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-launch-splash.png</splash-texture>
   </startup>
+  <config>
+    <shuttle>
+      <prelaunch-flag type="int">1</prelaunch-flag>
+    </shuttle>
+  </config>
 </sim>
 
 <fdm>

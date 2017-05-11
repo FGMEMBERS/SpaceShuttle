@@ -208,27 +208,30 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 	var voltage_mainA = getprop("/fdm/jsbsim/systems/electrical/bus/voltage");
 	var voltage_mainB = getprop("/fdm/jsbsim/systems/electrical/bus[1]/voltage");
 	var voltage_mainC = getprop("/fdm/jsbsim/systems/electrical/bus[2]/voltage");
-	var voltage_essential = getprop("/fdm/jsbsim/systems/electrical/essential-bus/voltage");
+
+	var voltage_essential1 = getprop("/fdm/jsbsim/systems/electrical/ess/voltage");
+	var voltage_essential2 = getprop("/fdm/jsbsim/systems/electrical/ess[1]/voltage");
+	var voltage_essential3 = getprop("/fdm/jsbsim/systems/electrical/ess[2]/voltage");
        
 	p_dps_sm_sys_summ1.volts_mn1.setText(sprintf("%2.1f", voltage_mainA ));
 	p_dps_sm_sys_summ1.volts_mn2.setText(sprintf("%2.1f", voltage_mainB ));
 	p_dps_sm_sys_summ1.volts_mn3.setText(sprintf("%2.1f", voltage_mainC ));
 
-    	p_dps_sm_sys_summ1.volts_ess1.setText(sprintf("%2.1f", voltage_essential ));
-    	p_dps_sm_sys_summ1.volts_ess2.setText(sprintf("%2.1f", voltage_essential ));
-    	p_dps_sm_sys_summ1.volts_ess3.setText(sprintf("%2.1f", voltage_essential ));
+    	p_dps_sm_sys_summ1.volts_ess1.setText(sprintf("%2.1f", voltage_essential1 ));
+    	p_dps_sm_sys_summ1.volts_ess2.setText(sprintf("%2.1f", voltage_essential2 ));
+    	p_dps_sm_sys_summ1.volts_ess3.setText(sprintf("%2.1f", voltage_essential3 ));
 
-	p_dps_sm_sys_summ1.volts_cntl1_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl1_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl1_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl1_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl1_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl1_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
-	p_dps_sm_sys_summ1.volts_cntl2_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl2_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl2_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl2_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl2_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl2_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
-	p_dps_sm_sys_summ1.volts_cntl3_1.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl3_2.setText(sprintf("%2.1f", voltage_essential * 0.991));
-	p_dps_sm_sys_summ1.volts_cntl3_3.setText(sprintf("%2.1f", voltage_essential * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl3_1.setText(sprintf("%2.1f", voltage_essential1 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl3_2.setText(sprintf("%2.1f", voltage_essential2 * 0.991));
+	p_dps_sm_sys_summ1.volts_cntl3_3.setText(sprintf("%2.1f", voltage_essential3 * 0.991));
 
 	var voltage_ac1 = getprop("/fdm/jsbsim/systems/electrical/ac/voltage");
 	var voltage_ac2 = getprop("/fdm/jsbsim/systems/electrical/ac[1]/voltage");

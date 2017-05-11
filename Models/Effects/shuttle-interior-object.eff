@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+    <name>Effects/shuttle-interior-object</name>
+    <inherits-from>Aircraft/SpaceShuttle/Effects/model-interior-object</inherits-from>
+    <parameters>
+        <texture n="4">
+          <type>cubemap</type>
+          <images>
+              <positive-x>Aircraft/SpaceShuttle/Models/Effects/Interior/0004.png</positive-x>      <!-- px (tail) rotate 90 deg from N or S to W -->
+              <negative-x>Aircraft/SpaceShuttle/Models/Effects/Interior/0002.png</negative-x>      <!-- nx (nose) rotate 90 deg from N or S to E -->
+              <positive-y>Aircraft/SpaceShuttle/Models/Effects/Interior/0001.png</positive-y>      <!-- py (starboard/right) from N do not rotate -->
+              <negative-y>Aircraft/SpaceShuttle/Models/Effects/Interior/0003.png</negative-y>      <!-- ny (port/left) from N rotate 180 deg to S -->
+              <positive-z>Aircraft/SpaceShuttle/Models/Effects/Interior/0006.png</positive-z>      <!-- pz (top) rotate 90 deg from N or S to W -->
+              <negative-z>Aircraft/SpaceShuttle/Models/Effects/Interior/0005.png</negative-z>      <!-- nz (bottom) rotate 90 deg from N or S to W -->
+          </images>
+        </texture>
+
+        <!-- the cube center must be the same as the camera x,y,z in blend -->
+        <opacity-cube-center type="vec3d" n="0"> -11.58088 0.0 -0.44123</opacity-cube-center>
+        <opacity-cube-scale type="vec3d" n="0"> 1.5 0.5 0.7</opacity-cube-scale>
+        <opacity-cube-angle type="float">0.0</opacity-cube-angle>
+
+        <residual-ambience-r type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-r</use></residual-ambience-r>
+        <residual-ambience-g type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-g</use></residual-ambience-g>
+        <residual-ambience-b type="float"><use>/fdm/jsbsim/systems/light/cockpit-ambience-b</use></residual-ambience-b>
+        <ra-irradiance-map-type type="int">2</ra-irradiance-map-type>
+        <ra-irradiance-map-strength type="float">0.5</ra-irradiance-map-strength>
+        <irradiance-map-type type="int">2</irradiance-map-type>
+        <!--<irradiance-map-strength type="float">0.7</irradiance-map-strength>-->
+        <irradiance-map-strength type="float"><use>/fdm/jsbsim/systems/light/ambient/map-strength</use></irradiance-map-strength>
+        <light-filter-one type="vec3d">0.5 0.5 0.5</light-filter-one>
+        <light-filter-two type="vec3d">0.9 0.2 0.2</light-filter-two>
+        <light-radius type="float">15</light-radius>
+        
+        <lightmap-enabled type="int">0</lightmap-enabled>
+        <lightmap-multi type="int">0</lightmap-multi>
+
+	<pitch><use>/controls/shuttle/scom/pitch</use></pitch>
+	<roll><use>/controls/shuttle/scom/roll</use></roll>
+
+	<geo_light_x type="float">0.0</geo_light_x>
+	<geo_light_y type="float">0.0</geo_light_y>
+	<geo_light_z type="float">1.0</geo_light_z>
+	<geo_light_r type="float"><use>/fdm/jsbsim/systems/light/ambient/sum-artlight-norm</use></geo_light_r>
+	<geo_light_g type="float"><use>/fdm/jsbsim/systems/light/ambient/sum-artlight-norm</use></geo_light_g>
+	<geo_light_b type="float"><use>/fdm/jsbsim/systems/light/ambient/sum-artlight-norm</use></geo_light_b>
+	<geo_ambience type="float">0.5</geo_ambience>
+
+
+        
+    </parameters>
+
+
+</PropertyList>

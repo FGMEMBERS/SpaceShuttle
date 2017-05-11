@@ -4,7 +4,7 @@
     <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-detailed</inherits-from>
       <parameters>
         <grain-texture-enabled type="int">1</grain-texture-enabled>
-        <grain-magnification type="float"><use>/fdm/jsbsim/systems/grain/grain-framing</use></grain-magnification>
+        <grain-magnification type="float"><use>/fdm/jsbsim/systems/grain/grain-roof</use></grain-magnification>
         <texture n="7">
             <image>Aircraft/SpaceShuttle/Models/Effects/Interior/framing_texture.png</image>
             <type>2d</type>

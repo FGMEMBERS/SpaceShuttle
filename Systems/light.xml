@@ -6,7 +6,7 @@
 
 
 <system>
-	<channel name="Payload bay floodlights">
+	<channel name="Payload bay floodlights" execrate="4">
 
 		<switch name="systems/light/powered">
 			<default  value="0"/>
@@ -196,7 +196,7 @@
 	</channel>
 
 
-    <channel name="Cabin lighting">
+    <channel name="Cabin lighting" execrate="4">
 
         <fcs_function name="systems/light/cabinlight1-norm-tied">
             <function>
@@ -327,10 +327,21 @@
                 </product>
             </function>
 		</fcs_function>
-        <fcs_function name="systems/light/event-time-norm-tied">
+        <fcs_function name="systems/light/console-eff-numeric-norm-tied">
             <function>
                 <product>
-                    <property>systems/light/event-time-intensity</property>
+                    <property>systems/light/console-eff-numeric-intensity</property>
+                    <quotient>
+                        <property>systems/light/console-eff-norm</property>
+                        <value>0.7</value>
+                    </quotient>
+                </product>
+            </function>
+		</fcs_function>
+		<fcs_function name="systems/light/console-eff-aft-numeric-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-aft-numeric-intensity</property>
                     <quotient>
                         <property>systems/light/console-eff-norm</property>
                         <value>0.7</value>
@@ -426,6 +437,14 @@
             </function>
 		</fcs_function>
 
+		<fcs_function name="systems/light/console-eff-instrument-overhead-norm-tied">
+            <function>
+                <product>
+                    <property>systems/light/console-eff-norm-instrument-overhead</property>
+                    <property>systems/light/console-eff-norm</property>
+                </product>
+            </function>
+		</fcs_function>
 
 		<fcs_function name="systems/light/cabin-light-power-demand-kW">
 		<function>
@@ -480,6 +499,337 @@
 		</fcs_function>
 
         
+	</channel>
+
+	<!-- this takes care of the fact that there's no ambient light from all directions -->
+	<!-- in space, but rather only Earth below provides bluish light -->
+	<!-- and the rest of the interior ambience is reflected light in the cabin -->
+	
+
+	<channel name="Ambient light model in space" execrate="4">
+
+
+		
+		<fcs_function name="systems/light/ambient/sun-dot-x-raw">
+		<function>
+			<sum>
+				<product>
+					<property>/ephemeris/sun/local/x</property>
+					<property>systems/pointing/world/body-x</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/y</property>
+					<property>systems/pointing/world/body-x[1]</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/z</property>
+					<property>systems/pointing/world/body-x[2]</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sun-dot-x-pos">
+		<function>
+			<max>
+				<property>systems/light/ambient/sun-dot-x-raw</property>
+				<value>0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sun-dot-x-neg">
+		<function>
+			<max>
+				<product>
+				<property>systems/light/ambient/sun-dot-x-raw</property>
+				<property>systems/mechanical/pb-door-left-pos</property>
+				<value>-1</value>
+				</product>
+				<value>0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/light/ambient/sun-dot-y">
+		<function>
+			<abs>
+			<sum>
+				<product>
+					<property>/ephemeris/sun/local/x</property>
+					<property>systems/pointing/world/body-y</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/y</property>
+					<property>systems/pointing/world/body-y[1]</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/z</property>
+					<property>systems/pointing/world/body-y[2]</property>
+				</product>
+			</sum>
+			</abs>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sun-dot-z">
+		<function>
+			<max>
+			<sum>
+				<product>
+					<property>/ephemeris/sun/local/x</property>
+					<property>systems/pointing/world/body-z</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/y</property>
+					<property>systems/pointing/world/body-z[1]</property>
+				</product>
+				<product>
+					<property>/ephemeris/sun/local/z</property>
+					<property>systems/pointing/world/body-z[2]</property>
+				</product>
+			</sum>
+			<value>0.0</value>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-sunlight">
+		<function>
+			<sum>
+				<property>systems/light/ambient/sun-dot-x-pos</property>
+				<product>
+					<property>systems/light/ambient/sun-dot-y</property>
+					<value>0.8</value>
+				</product>
+				<product>
+					<property>systems/light/ambient/sun-dot-z</property>
+					<value>0.6</value>
+				</product>
+				<product>
+					<property>systems/light/ambient/sun-dot-x-neg</property>
+					<value>0.6</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-sunlight-filtered">
+		<function>
+			<table>
+        		<independentVar lookup="row">systems/light/ambient/sum-sunlight</independentVar>
+        		<tableData>
+				0	0.4
+				0.5	0.8
+				0.75	0.9
+				1.0	1.0
+        		</tableData>
+      			</table>	
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-earthlight">
+		<function>
+			<product>
+			<property>/rendering/scene/diffuse/red</property>
+			<sum>
+				<sqrt>
+				<max>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<value>0.0</value>
+				</max>
+				</sqrt>
+				<sqrt>
+				<max>
+					<product>
+					<property>systems/pointing/lvlh/body-x[2]</property>
+					<value>-0.6</value>
+					</product>
+					<value>0.0</value>
+				</max>
+				</sqrt>
+				<product>
+					<sqrt>
+					<abs>	
+					<property>systems/pointing/lvlh/body-y[2]</property>
+					</abs>
+					</sqrt>
+					<value>0.8</value>
+				</product>
+				<product>
+					<sqrt>
+					<max>	
+					<property>systems/pointing/lvlh/body-z[2]</property>
+					<value>0.0</value>
+					</max>
+					</sqrt>
+					<value>0.6</value>
+				</product>
+			</sum>
+			<table>
+        		<independentVar lookup="row">systems/light/ambient/sum-sunlight-filtered</independentVar>
+        		<tableData>
+				0.4	1.0
+				0.6	0.7
+				0.8	0.4
+				1.0	0.3
+        		</tableData>
+      			</table>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-artlight-raw">
+		<function>
+			<sum>
+				<product>
+					<sum>
+						<property>systems/light/cabinlight1-norm-tied</property>
+						<property>systems/light/cabinlight2-norm-tied</property>
+					</sum>
+				<value>0.2</value>
+				</product>
+				<product>
+					<sum>
+						<property>systems/light/cabinlight3-norm-tied</property>
+						<property>systems/light/cabinlight4-norm-tied</property>
+						<property>systems/light/cabinlight5-norm-tied</property>
+						<property>systems/light/cabinlight8-norm-tied</property>
+						<property>systems/light/cabinlight9-norm-tied</property>
+						<property>systems/light/cabinlight10-norm-tied</property>
+						<property>systems/light/cabinlight11-norm-tied</property>
+					</sum>
+				<value>1.0</value>
+				</product>
+				<product>
+					<sum>
+
+						<property>systems/light/cabinlight6-norm-tied</property>
+						<property>systems/light/cabinlight7-norm-tied</property>
+					</sum>
+				<value>0.6</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-artlight">
+		<function>
+			<table>
+        		<independentVar lookup="row">systems/light/ambient/sum-artlight-raw</independentVar>
+        		<tableData>
+				0.0	0.0
+				1.0	0.38
+				2.0	0.60
+				3.0	0.76
+				4.0	0.88
+				5.18	1.0
+        		</tableData>
+      			</table>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-whitelight">
+		<function>
+			<sum>
+				<property>systems/light/ambient/sum-artlight</property>
+				<product>
+					<property>/rendering/scene/diffuse/red</property>
+					<property>systems/light/ambient/sum-sunlight-filtered</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/sum-whitelight-filtered">
+		<function>
+			<table>
+        		<independentVar lookup="row">systems/light/ambient/sum-whitelight</independentVar>
+        		<tableData>
+				0.0	0.0	
+				0.5	0.43
+				1.0	0.68
+				1.5	0.86
+				2.0	1.0
+        		</tableData>
+      			</table>
+		</function>
+		</fcs_function>
+
+
+
+		<fcs_function name="systems/light/ambient/red-tied">
+		<function>
+			<sum>
+				<product>
+					<property>systems/light/ambient/sum-whitelight-filtered</property>
+					<value>0.4</value>
+				</product>
+				<product>
+					<property>systems/light/ambient/sum-earthlight</property>
+					<value>0.1</value>
+				</product>
+
+			</sum>
+
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/green-tied">
+		<function>
+			<sum>
+				<product>
+					<property>systems/light/ambient/sum-whitelight-filtered</property>
+					<value>0.4</value>
+				</product>
+				<product>
+					<property>systems/light/ambient/sum-earthlight</property>
+					<value>0.15</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/blue-tied">
+		<function>
+			<sum>
+				<product>
+					<property>systems/light/ambient/sum-whitelight-filtered</property>
+					<value>0.4</value>
+				</product>
+				<product>
+					<property>systems/light/ambient/sum-earthlight</property>
+					<value>0.2</value>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/mix-factor-tied">
+		<function>
+			<difference>
+				<value>1.0</value>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+			</difference>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/light/ambient/map-strength-tied">
+		<function>
+			<difference>
+				<value>0.7</value>
+				<product>
+					<property>systems/light/ambient/sum-artlight</property>
+					<value>0.4</value>
+				</product>
+			</difference>
+		</function>
+		</fcs_function>
+
 	</channel>
 
 </system>

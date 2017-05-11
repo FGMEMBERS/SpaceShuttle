@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="FC 1">
+	<channel name="FC 1" execrate="4">
 
 		<switch name="systems/electrical/fc/fc-ready-to-start">
 			<default value="0.0"/>
@@ -48,7 +48,7 @@
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc/fc-ready-for-load</property>
-				<property>systems//failures/fc1-condition</property>
+				<property>systems//failures/electrical/fc1-condition</property>
 				<property>systems/electrical/fc/fc-efficiency</property>
 			</product>
 			<property>systems/electrical/init-electrical-on</property>
@@ -79,7 +79,7 @@
         		</tableData>
       		</table>
 		<property>systems/electrical/fc/fc-ready-for-load</property>
-		<property>systems/failures/fc1-condition</property>
+		<property>systems/failures/electrical/fc1-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -158,7 +158,7 @@
 	</channel>
 
 
-	<channel name="FC 2">
+	<channel name="FC 2" execrate="4">
 
 		<switch name="systems/electrical/fc[1]/fc-ready-to-start">
 			<default value="0.0"/>
@@ -204,7 +204,7 @@
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[1]/fc-ready-for-load</property>
-				<property>systems/failures/fc2-condition</property>
+				<property>systems/failures/electrical/fc2-condition</property>
 				<property>systems/electrical/fc[1]/fc-efficiency</property>
 			</product>
 			<property>systems/electrical/init-electrical-on</property>
@@ -235,7 +235,7 @@
         		</tableData>
       		</table>
 		<property>systems/electrical/fc[1]/fc-ready-for-load</property>
-		<property>systems/failures/fc2-condition</property>
+		<property>systems/failures/electrical/fc2-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -310,7 +310,7 @@
 
 	</channel>
 
-	<channel name="FC 3">
+	<channel name="FC 3" execrate="4">
 
 		<switch name="systems/electrical/fc[2]/fc-ready-to-start">
 			<default value="0.0"/>
@@ -357,7 +357,7 @@
 			<product>
 				<value>12.0</value>
 				<property>systems/electrical/fc[2]/fc-ready-for-load</property>
-				<property>systems/failures/fc3-condition</property>
+				<property>systems/failures/electrical/fc3-condition</property>
 				<property>systems/electrical/fc[2]/fc-efficiency</property>
 			</product>
 			<property>systems/electrical/init-electrical-on</property>
@@ -388,7 +388,7 @@
         		</tableData>
       		</table>
 		<property>systems/electrical/fc[2]/fc-ready-for-load</property>
-		<property>systems/failures/fc3-condition</property>
+		<property>systems/failures/electrical/fc3-condition</property>
 		</product>
 		</function>
 		</fcs_function>
@@ -463,7 +463,7 @@
 
 	</channel>
 
-	<channel name="Line heater switches and temperatures">
+	<channel name="Line heater switches and temperatures" execrate="4">
 
 		<fcs_function name="systems/electrical/h2o-line-heater-power-kW">
 		<function>
@@ -549,7 +549,7 @@
       <h2o-relief-heater-switch type="int">0</h2o-relief-heater-switch>
       <purge-heater-switch type="int">0</purge-heater-switch>
 
-	<channel name="Bus 1">
+	<channel name="Bus 1" execrate="4">
 
 		<fcs_function name="systems/electrical/bus/max-power-output-kW">
 		<function>	
@@ -600,7 +600,7 @@
 
 	</channel>
 
-	<channel name="Bus 2">
+	<channel name="Bus 2" execrate="4">
 
 		<fcs_function name="systems/electrical/bus[1]/max-power-output-kW">
 		<function>	
@@ -652,7 +652,7 @@
 
 	</channel>
 
-	<channel name="Bus 3">
+	<channel name="Bus 3" execrate="4">
 
 		<fcs_function name="systems/electrical/bus[2]/max-power-output-kW">
 		<function>	
@@ -705,7 +705,7 @@
 	</channel>
 
 
-	<channel name="Total available and requested power">
+	<channel name="Total available and requested power" execrate="4">
 
 		<!-- the requested power is distributed as follows -->
 
@@ -737,31 +737,70 @@
 
 		<fcs_function name="systems/electrical/generic-power-demand-kW">
 		<function>
-			<value>7.2</value>
+			<value>6.4</value>
 		</function>
 		</fcs_function>
 
-		<summer name="systems/electrical/ac/power-demand-kW">
+		<summer name="systems/electrical/ac/sum-power-demand-kW">
+			<input>systems/failures/circuits/ac1-power-loss-kW</input>
 			<input>systems/mps/engine[2]/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[1]/controller-B-power-demand-kW</input>
 			<input>systems/electrical/fc/pump-power-consumption-kW</input>
 			<input>systems/mechanical/pb-door-sys1-power-demand-kW</input>
+			<input>systems/atcs/freon-pump-1-ac1-power-kW</input>
+			<input>systems/atcs/freon-pump-2-ac1-power-kW</input>
+			<input>systems/antenna/s-pm-sys1-amp-power-demand-kW</input>
 		</summer>
 
-		<summer name="systems/electrical/ac[1]/power-demand-kW">
+		<fcs_function name="systems/electrical/ac/power-demand-kW">
+		<function>
+			<product>
+				<property>systems/electrical/ac/sum-power-demand-kW</property>
+				<property>systems/electrical/ac/inverter-power-switch</property>
+				<property>systems/electrical/ac/inv-ac-switch</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<summer name="systems/electrical/ac[1]/sum-power-demand-kW">
+			<input>systems/failures/circuits/ac2-power-loss-kW</input>
 			<input>systems/mps/engine/controller-A-power-demand-kW</input>
 			<input>systems/mps/engine[2]/controller-B-power-demand-kW</input>
 			<input>systems/electrical/fc[1]/pump-power-consumption-kW</input>
 			<input>systems/mechanical/pb-door-sys2-power-demand-kW</input>
 			<input>systems/eclss/cabin/fan-B-power-demand-kW</input>
+			<input>systems/atcs/freon-pump-1-ac2-power-kW</input>
+			<input>systems/antenna/s-pm-sys2-amp-power-demand-kW</input>
 		</summer>
 
-		<summer name="systems/electrical/ac[2]/power-demand-kW">
+		<fcs_function name="systems/electrical/ac[1]/power-demand-kW">
+		<function>
+			<product>
+				<property>systems/electrical/ac[1]/sum-power-demand-kW</property>
+				<property>systems/electrical/ac[1]/inverter-power-switch</property>
+				<property>systems/electrical/ac[1]/inv-ac-switch</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<summer name="systems/electrical/ac[2]/sum-power-demand-kW">
+			<input>systems/failures/circuits/ac3-power-loss-kW</input>
 			<input>systems/mps/engine/controller-B-power-demand-kW</input>
 			<input>systems/mps/engine[1]/controller-A-power-demand-kW</input>
 			<input>systems/electrical/fc[2]/pump-power-consumption-kW</input>
 			<input>systems/eclss/cabin/fan-A-power-demand-kW</input>
+			<input>systems/atcs/freon-pump-2-ac3-power-kW</input>
 		</summer>
+
+		<fcs_function name="systems/electrical/ac[2]/power-demand-kW">
+		<function>
+			<product>
+				<property>systems/electrical/ac[2]/sum-power-demand-kW</property>
+				<property>systems/electrical/ac[2]/inverter-power-switch</property>
+				<property>systems/electrical/ac[2]/inv-ac-switch</property>
+			</product>
+		</function>
+		</fcs_function>
 
 		<summer name="systems/electrical/shared-AB-power-demand-kW">
 			<input>systems/rcs-hardware/heater-fwd-power-kW</input>
@@ -780,6 +819,9 @@
 			<input>systems/oms-hardware/heater-left-power-kW</input>
 			<input>systems/oms-hardware/heater-right-power-kW</input>
 			<input>systems/oms-hardware/heater-crossfeed-power-kW</input>
+			<input>systems/apu/apu/heater-tank-power-kW</input>
+			<input>systems/apu/apu[1]/heater-tank-power-kW</input>
+			<input>systems/apu/apu[2]/heater-tank-power-kW</input>
 			<input>systems/electrical/h2o-line-heater-power-kW</input>
 			<input>systems/electrical/h2o-relief-heater-power-kW</input>
 			<input>systems/electrical/purge-heater-power-kW</input>
@@ -825,33 +867,49 @@
 		
 		<summer name="systems/electrical/bus/power-demand-kW-nominal">
 			<input>systems/electrical/individual-AB-power-demand-kW</input>
-			<input>systems/electrical/ac/power-demand-kW</input>
-			<input>systems/apu/apu/hyd-circ-pump-power-kW</input>
+			<input>systems/electrical/ac/power-demand-kW</input>	
+			<input>systems/failures/circuits/mn-A-power-loss-kW</input>
+			<input>systems/apu/apu/hyd-circ-pump-power-A-kW</input>
+			<input>systems/apu/apu[2]/hyd-circ-pump-power-A-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
 			<input>systems/electrical/display/CRT1-power-demand-kW</input>
 			<input>systems/electrical/display/MFD2-power-demand-kW</input>
 			<input>systems/electrical/display/PLT1-power-demand-kW</input>
 			<input>systems/rms/thermal/heater-A-power-demand-kW</input>
+			<input>systems/atcs/fes-left-heater-A-power-kW</input>
+			<input>systems/atcs/fes-feedline-A-power-kW</input>
+			<input>systems/navigation/tacan1-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[1]/power-demand-kW-nominal">
 			<input>systems/electrical/individual-AB-power-demand-kW</input>
 			<input>systems/electrical/ac[1]/power-demand-kW</input>
-			<input>systems/apu/apu[1]/hyd-circ-pump-power-kW</input>
+			<input>systems/failures/circuits/mn-B-power-loss-kW</input>
+			<input>systems/apu/apu/hyd-circ-pump-power-B-kW</input>
+			<input>systems/apu/apu[1]/hyd-circ-pump-power-B-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
 			<input>systems/electrical/display/CRT2-power-demand-kW</input>
 			<input>systems/electrical/display/CDR2-power-demand-kW</input>
 			<input>systems/electrical/display/MFD1-power-demand-kW</input>
 			<input>systems/rms/thermal/heater-B-power-demand-kW</input>
+			<input>systems/atcs/fes-left-heater-B-power-kW</input>
+			<input>systems/atcs/fes-right-heater-B-power-kW</input>	
+			<input>systems/atcs/fes-feedline-B-power-kW</input>
+			<input>systems/navigation/tacan2-power-demand-kW</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[2]/power-demand-kW-nominal">
 			<input>systems/electrical/ac[2]/power-demand-kW</input>
-			<input>systems/apu/apu[2]/hyd-circ-pump-power-kW</input>
+			<input>systems/failures/circuits/mn-C-power-loss-kW</input>
+			<input>systems/apu/apu[1]/hyd-circ-pump-power-C-kW</input>
+			<input>systems/apu/apu[2]/hyd-circ-pump-power-C-kW</input>
 			<input>systems/electrical/individual-power-demand-kW</input>
 			<input>systems/electrical/display/CRT3-power-demand-kW</input>
 			<input>systems/electrical/display/CDR1-power-demand-kW</input>
 			<input>systems/electrical/display/PLT2-power-demand-kW</input>
+			<input>systems/atcs/fes-right-heater-C-power-kW</input>
+			<input>systems/atcs/fes-feedline-C-power-kW</input>
+			<input>systems/navigation/tacan3-power-demand-kW</input>
 		</summer>
 
 		<fcs_function name="systems/electrical/total-power-demand-kW">
@@ -882,7 +940,7 @@
 
 
 
-	<channel name="Bus ties and corresponding voltages">
+	<channel name="Bus ties and corresponding voltages" execrate="4">
 
 		<switch name="systems/electrical/ties/tie-AB">
 			<default value="0.0"/>
@@ -1235,12 +1293,67 @@
 		</switch>
 
 
-		<fcs_function name="systems/electrical/essential-bus/voltage">
+		<!--<fcs_function name="systems/electrical/essential-bus/voltage">
 		<function>
 			<max>
 				<property>systems/electrical/bus/voltage</property>
 				<property>systems/electrical/bus[1]/voltage</property>
 				<property>systems/electrical/bus[2]/voltage</property>
+			</max>
+		</function>
+		</fcs_function>-->
+
+
+		<fcs_function name="systems/electrical/ess/voltage">
+		<function>
+			<max>
+				<product>
+					<property>systems/electrical/fc/voltage</property>
+					<property>systems/electrical/ess/ess-power-fc-switch</property>
+				</product>
+				<product>
+					<property>systems/electrical/ess/ess-power-buses-switch</property>
+					<max>
+					<property>systems/electrical/bus[1]/voltage</property>
+					<property>systems/electrical/bus[2]/voltage</property>
+					</max>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/ess[1]/voltage">
+		<function>
+			<max>
+				<product>
+					<property>systems/electrical/fc[1]/voltage</property>
+					<property>systems/electrical/ess[1]/ess-power-fc-switch</property>
+				</product>
+				<product>
+					<property>systems/electrical/ess[1]/ess-power-buses-switch</property>
+					<max>
+					<property>systems/electrical/bus/voltage</property>
+					<property>systems/electrical/bus[2]/voltage</property>
+					</max>
+				</product>
+			</max>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/electrical/ess[2]/voltage">
+		<function>
+			<max>
+				<product>
+					<property>systems/electrical/fc[2]/voltage</property>
+					<property>systems/electrical/ess[2]/ess-power-fc-switch</property>
+				</product>
+				<product>
+					<property>systems/electrical/ess[2]/ess-power-buses-switch</property>
+					<max>
+					<property>systems/electrical/bus/voltage</property>
+					<property>systems/electrical/bus[1]/voltage</property>
+					</max>
+				</product>
 			</max>
 		</function>
 		</fcs_function>
@@ -1302,7 +1415,7 @@
 	</channel>
 
 
-	<channel name="Voltage and curent gauges">
+	<channel name="Voltage and curent gauges" execrate="8">
 
 
 		<switch name="systems/electrical/gauges/ac-voltage-displayed">
@@ -1341,9 +1454,13 @@
 
 		<switch name="systems/electrical/gauges/dc-voltage-displayed">
 			<default value="0.0"/>
-			<test logic="OR" value="systems/electrical/essential-bus/voltage">
+			<test  value="systems/electrical/ess/voltage">
 				systems/electrical/gauges/dc-selector-knob == 0
+			</test>
+			<test  value="systems/electrical/ess[1]/voltage">
 				systems/electrical/gauges/dc-selector-knob == 1
+			</test>
+			<test  value="systems/electrical/ess[2]/voltage">
 				systems/electrical/gauges/dc-selector-knob == 2
 			</test>
 			<test  value="systems/electrical/bus/voltage">
@@ -1434,8 +1551,21 @@
 			</test>
 		</switch>
 
+		<switch name="systems/electrical/gauges/fc-stack-T-display-K">
+			<default  value="0.0"/>
+			<test  value="systems/electrical/fc/stack-temperature-K">
+				systems/electrical/gauges/fc-stack-selector-switch == 0
+			</test>
+			<test  value="systems/electrical/fc[1]/stack-temperature-K">
+				systems/electrical/gauges/fc-stack-selector-switch == 1
+			</test>
+			<test  value="systems/electrical/fc[2]/stack-temperature-K">
+				systems/electrical/gauges/fc-stack-selector-switch == 2
+			</test>
+		</switch>
 
 	</channel>
+
 
 
 </system>

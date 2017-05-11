@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="Gear and tire damage simulation">
+	<channel name="Gear and tire damage simulation" execrate="8">
 
 	<!-- rolling friction adjustments for blown tires -->
 
@@ -141,7 +141,7 @@
 
 	</channel>
 
-	<channel name="Hydraulic brake and steering failures">
+	<channel name="Hydraulic brake and steering failures" execrate="8">
 
 		<switch name="systems/failures/brake-sys1-operational">
 			<default value="0.0"/>
@@ -215,6 +215,119 @@
 			</test>
 			<output>gear/unit[2]/static_friction_coeff</output>
 		</switch>
+
+	</channel>
+
+	<channel name="Electrical bus shorts" execrate="8">
+		
+		<fcs_function name="systems/failures/circuits/mn-A-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/main-A-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/failures/circuits/mn-B-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/main-B-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/failures/circuits/mn-C-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/main-C-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/failures/circuits/ac1-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/ac1-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/failures/circuits/ac2-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/ac2-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/failures/circuits/ac3-power-loss-kW">
+		<function>
+			<product>
+				<difference>
+				<quotient>
+					<value>1</value>
+					<sum>
+						<property>systems/failures/electrical/ac3-condition</property>
+						<value>0.1</value>
+					</sum>
+				</quotient>
+				<value>0.909</value>
+				</difference>
+			<value>10.0</value>
+			</product>
+		</function>
+		</fcs_function>
 
 	</channel>
 

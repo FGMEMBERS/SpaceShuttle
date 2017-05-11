@@ -2,10 +2,10 @@
 <PropertyList>
 
     <name>procedural-light-right-glare</name>
-    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/procedural-light-incandescent</inherits-from>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/procedural-light-incandescent-yellow</inherits-from>
 
     <parameters>
-        <intensity_scale type="float"><use>/fdm/jsbsim/systems/light/cabinlight2-norm</use></intensity_scale>
+        <intensity_scale type="float"><use>/fdm/jsbsim/systems/light/cabinlight2-proc</use></intensity_scale>
     </parameters>
 
 

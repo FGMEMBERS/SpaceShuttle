@@ -22,7 +22,7 @@
 
 <animation>
 <type>select</type>
-<object-name>srb</object-name>
+<object-name>srb.layer1</object-name>
 <condition>
 	<not>
 		<property>/controls/shuttle/SRB-static-model</property>

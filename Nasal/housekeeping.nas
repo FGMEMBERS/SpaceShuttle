@@ -1,6 +1,6 @@
 
 # housekeeping tasks for the Space Shuttle
-# Thorsten Renk 2015 - 2016
+# Thorsten Renk 2015 - 2017
 
 #########################################################################################
 # Fuel dump is done after MECO to remove leftover LO2 and LH2 from the feed lines
@@ -364,7 +364,7 @@ if (stage == 0)
 	{
 	# first open latch gangs 5-8 and 9-12
 	print("PBD open stage 0");
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0.5);
+	#setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0.5);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl5-8-latch-cmd", 1);
 	setprop("/fdm/jsbsim/systems/mechanical/pb-door-cl9-12-latch-cmd", 1);
 	settimer( func{ payload_bay_door_open_auto (1);}, 24.0);
@@ -415,7 +415,7 @@ if (stage == 5)
 if (stage == 6)
 	{
 	print("PBD opening finished.");
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 1);
+	#setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 1);
 	}
 }
 
@@ -485,7 +485,7 @@ if (stage == 5)
 if (stage == 6)
 	{
 	print("PBD closing finished.");
-	setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0);
+	#setprop("/fdm/jsbsim/systems/mechanical/pb-door-indicator", 0);
 	}
 
 }
@@ -496,63 +496,59 @@ if (stage == 6)
 # Ku antenna pointing
 #########################################################################################
 
-var ku_antenna_point = func (azimuth, elevation) {
 
-# check whether the antenna is deployed
 
-if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") < 1.0)
-	{return;}
+var ku_antenna_slew_flag = 0;
 
-# check whether we have controller power, electricity and heater
 
-if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 0)
-	{return;}
+var ku_antenna_slew_loop = func () {
 
-# convert Shuttle body relative azimuth and elevation to antenna angles
+ku_antenna_slew_flag = 1;
 
-var alpha = azimuth + 200.0;
-if (alpha > 360.0) {alpha = alpha - 360.0;}
+if ((antenna_manager.rr_mode != "MAN SLEW") and (antenna_manager.rr_mode != "AUTO TRACK")) { ku_antenna_slew_flag = 0; return;}
 
-var beta = -22.36 * math.sin((alpha +6.57) * math.pi/180.0);
+var elevation = SpaceShuttle.antenna_manager.ku_elevation;
+var azimuth = SpaceShuttle.antenna_manager.ku_azimuth;
 
-beta = beta + elevation;
+var vcommand = getprop("/fdm/jsbsim/systems/antenna/ku-antenna-slew-elevation-cmd");
+var hcommand = getprop("/fdm/jsbsim/systems/antenna/ku-antenna-slew-azimuth-cmd");
 
-setprop("/controls/shuttle/ku-antenna-alpha-deg-cmd", alpha);
-setprop("/controls/shuttle/ku-antenna-beta-deg-cmd", beta);
+if ((vcommand == 0) and (hcommand == 0)) {ku_antenna_slew_flag = 0;  return;}
+
+# we slew by just commanding the angle a bit further than the value
+
+
+antenna_manager.ku_antenna_point (azimuth + hcommand, elevation + vcommand);
+	
+
+
+#print ("Slew loop!");
+
+settimer (ku_antenna_slew_loop, 0);
+}
+
+var ku_antenna_hold = func () {
+
+var elevation = SpaceShuttle.antenna_manager.ku_elevation;
+var azimuth = SpaceShuttle.antenna_manager.ku_azimuth;
+
+antenna_manager.ku_antenna_point (azimuth, elevation);
 
 }
 
-
-var ku_antenna_track_TDRS = func (index) {
-
-var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(index);
-
-antenna_manager.ku_azimuth =  angles[1];
-antenna_manager.ku_elevation = angles[0];
-
-ku_antenna_point (angles[1], angles[0]);
-
-}
-
-var ku_antenna_track_target = func (coord) {
-
-var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord);
-
-antenna_manager.ku_azimuth =  angles[1];
-antenna_manager.ku_elevation = angles[0];
-
-ku_antenna_point (angles[1], angles[0]);
-
-}
 
 var antenna_manager = {
 
 	quadrant : "",
+	selected_quadrant: "GPC",
 	hemisphere : "LO",
 	station : "",
 	mode : "S-HI",
+	mode_fm: "S-HI",
 	rr_mode : "GPC",
 	function: "COMM",
+	gpc_io: 1,
+
 	tgt_acquired : 0,
 	TDRS_view_array : [0,0,0,0,0,0],
 	TDRS_A : 0,
@@ -563,56 +559,411 @@ var antenna_manager = {
 	TDRS_ku_tgt : 0,
 	ku_azimuth : 0.0,
 	ku_elevation: 0.0,
+	ku_azimuth_cmd: 0.0,
+	ku_elevation_cmd: 0.0,
+	ku_azimuth_tgt_real: 0.0,
+	ku_elevation_tgt_real: 0.0,
+	ku_antenna_slew_flag: 0,
 	ku_inertial_azimuth: 0.0,
 	ku_inertial_elevation: 0.0,
 	ku_inertial_azimuth_last: 0.0,
 	ku_inertial_elevation_last: 0.0,
 	ku_inertial_azimuth_rate : 0.0,
 	ku_inertial_elevation_rate : 0.0,
+
+	ku_search_flag: 0,
+	ku_search_center_az: 0,
+	ku_search_center_el: 0,
+	ku_search_cur_az: 0,
+	ku_search_cur_el: 0,
+	ku_seach_param: 0,
+
 	rr_target: {},
 	rr_target_available: 0,
 	rvdz_data: 0,
 
+	s_link: 0,
+	sfm_link: 0,
+	ku_link: 0,
+	comlink: 0,
+	telemetry: 0,
+	comlink_rate: 0,
+	telemetry_rate: 0,
+	signal_strength_s: 0,
+	preamp_gain_s: 0,
+
+	s_pm_operational: 0,
+	s_fm_operational: 0,
+	preamp_operational: 0,
+	ku_operational: 1,
+
 	set_function: func (function) {	
 		me.function = function;
 	},
+
+	set_quadrant: func (quadrant) {
+
+		me.selected_quadrant = quadrant;
+		#print("S-band quadrant", me.selected_quadrant);
+	},
+	
 
 	set_rr_target: func (coord) {
 		me.rr_target = coord;
 		me.rr_target_available = 1;
 	},
 
+	ku_antenna_search_init: func {
+
+		me.ku_search_center_az = me.ku_azimuth;
+		me.ku_search_center_el = me.ku_elevation;
+		me.ku_search_param = 0;
+		me.ku_search_cur_az = me.ku_azimuth;
+		me.ku_search_cur_el = me.ku_elevation;
+		me.ku_search_flag = 1;
+		print("Initiating Ku antenna search pattern");
+
+	},
+
+	ku_antenna_search_end: func {
+
+
+		me.ku_search_flag = 0;
+		print("Ending Ku antenna search pattern");
+	},
+
+
+	ku_antenna_search: func {
+
+		me.ku_search_param = me.ku_search_param + 0.05;
+
+		if (me.ku_search_param == 10.0) {me.ku_antenna_search_end(); return;}
+
+		var radius = me.ku_search_param * 3.0;
+		var angle = me.ku_search_param * 2.0 * math.pi;
+
+		me.ku_search_cur_el = me.ku_search_center_el + radius * math.cos(angle);
+		me.ku_search_cur_az = me.ku_search_center_az + radius * math.sin(angle);
+
+		#print("Searching...");
+		#print(" Parameter: ", me.ku_search_param);
+		#print("Azimuth: ", me.ku_search_cur_az, " Elevation: ", me.ku_search_cur_el);
+
+	},
+	
+
+
+	ku_antenna_point: func (azimuth, elevation) {
+
+		# check whether the antenna is deployed
+
+		if (me.ku_operational == 0) {return;}
+
+
+		# update commanded position for slew
+
+		me.ku_elevation_cmd = elevation;
+		me.ku_azimuth_cmd = azimuth;
+
+		# convert Shuttle body relative azimuth and elevation to antenna angles
+
+		var alpha = azimuth + 200.0;
+		if (alpha > 360.0) {alpha = alpha - 360.0;}
+
+		var beta = -22.36 * math.sin((alpha +6.57) * math.pi/180.0);
+
+		beta = beta + elevation;
+
+		setprop("/controls/shuttle/ku-antenna-alpha-deg-cmd", alpha);
+		setprop("/controls/shuttle/ku-antenna-beta-deg-cmd", beta);
+
+	},
+
+	ku_antenna_get_angles : func {
+
+		# get current angles and store in hash
+
+		var alpha_cur = getprop("/controls/shuttle/ku-antenna-alpha-deg");
+		var beta_cur = getprop("/controls/shuttle/ku-antenna-beta-deg");
+
+		var azimuth = alpha_cur - 200.0;
+		if (azimuth < 0.0) {azimuth = azimuth + 360.0;}
+
+		var elevation = beta_cur + 22.36 * math.sin((alpha_cur +6.57) * math.pi/180.0);
+
+		me.ku_azimuth = azimuth;
+		me.ku_elevation = elevation;
+
+	},
+
+	ku_antenna_track_TDRS : func (index) {
+
+		var no_gpc_tracking = 0;
+
+		if ((me.gpc_io == 0) and (me.rr_mode != "AUTO TRACK")) {no_gpc_tracking = 1;}
+
+		var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(index);
+
+		# if we're on target, the antenna compensates for attitude errors in tracking modes
+		# if we're not it can't
+		
+		if ((me.tgt_acquired == 1) and ((me.rr_mode == "GPC") or (me.rr_mode == "AUTO TRACK")))
+			{
+			if (no_gpc_tracking == 0)
+				{
+				me.ku_azimuth_cmd =  angles[1];
+				me.ku_elevation_cmd = angles[0];
+				}
+			}
+		else
+			{
+			if (no_gpc_tracking == 0)
+				{
+				me.ku_azimuth_cmd =  angles[3];
+				me.ku_elevation_cmd = angles[2];
+				}
+			}
+		
+		me.ku_azimuth_tgt_real = angles[1];
+		me.ku_elevation_tgt_real = angles[0];
+
+		#print ("TDRS tracking angles");
+		#print ("Real: ", angles[1], " ", angles[0]);
+		#print ("GPC : ", angles[3], " ", angles[2]);
+
+		me.ku_antenna_point (me.ku_azimuth_cmd, me.ku_elevation_cmd);
+
+	},
+
+	ku_antenna_track_target : func (coord) {
+
+		var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord);
+
+		me.ku_azimuth_cmd =  angles[1];
+		me.ku_elevation_cmd = angles[0];
+
+		ku_antenna_point (angles[1], angles[0]);
+
+	},
+
+	comlink_establish: func (system) {
+
+		if (system == "S")
+			{
+			if (me.s_link == 0)
+				{
+				me.s_link = 1;
+				print ("S-band communication link established");
+				me.comlink_rate = me.comlink_rate + 72.0; 
+				me.telemetry_rate = me.telemetry_rate + 0.192;
+				setprop("/mission-control/status/uplink-data-rate-kbps", me.comlink_rate);
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			}
+		else if (system == "Ku")
+			{
+			if ((me.ku_link == 0) and (me.ku_operational == 1))
+				{
+				me.ku_link = 1;
+				print ("Ku-band communication link established");
+				me.comlink_rate = me.comlink_rate + 256.0; 
+				me.telemetry_rate = me.telemetry_rate + 50.0; 
+				setprop("/mission-control/status/uplink-data-rate-kbps", me.comlink_rate);
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			else if (me.ku_operational == 0)
+				{
+				me.comlink_remove("Ku");
+				}
+
+			}
+		else if (system == "S-FM")
+			{
+			if (me.sfm_link == 0)
+				{
+				me.sfm_link = 1;
+				print ("S-band FM downlink established");
+				me.telemetry_rate = me.telemetry_rate + 1.0;
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			}
+
+		if ((me.s_link == 1) or (me.ku_link == 1) or (me.sfm_link == 1))
+			{
+			if ((me.comlink == 0) and ((me.ku_link == 1) or (me.s_link == 1)))
+				{
+				me.comlink = 1;
+				setprop("/mission-control/status/comlink", 1);
+
+				}
+			if (me.telemetry == 0)
+				{
+				me.telemetry = 1;
+				setprop("/mission-control/status/telemetry", 1);
+				}
+
+			}
+	},
+
+	comlink_remove: func (system) {
+		
+		if (system == "S")
+			{
+			if (me.s_link == 1)
+				{
+				me.s_link = 0;
+				print ("S-band communication link lost");
+				me.comlink_rate = me.comlink_rate - 72.0; 
+				me.telemetry_rate = me.telemetry_rate - 0.192;
+				setprop("/mission-control/status/uplink-data-rate-kbps", me.comlink_rate);
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			}
+		else if (system == "Ku")
+			{
+			if (me.ku_link == 1)
+				{
+				me.ku_link = 0;
+				print ("Ku-band communication link lost");
+				me.comlink_rate = me.comlink_rate - 256.0;
+				me.telemetry_rate = me.telemetry_rate - 50.0; 
+				setprop("/mission-control/status/uplink-data-rate-kbps", me.comlink_rate);
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			}
+		else if (system == "S-FM")
+			{
+			if (me.sfm_link == 1)
+				{
+				me.sfm_link = 0;
+				print ("S-band FM downlink lost");
+				me.telemetry_rate = me.telemetry_rate - 1.0;
+				setprop("/mission-control/status/downlink-data-rate-mbps", me.telemetry_rate);
+				}
+			}
+
+
+		if ((me.s_link == 0) and (me.ku_link == 0))
+			{
+			if (me.comlink == 1)
+				{
+				me.comlink = 0;
+				setprop("/mission-control/status/comlink", 0);
+				}
+			if ((me.telemetry == 1) and (me.sfm_link == 0))
+				{
+				me.telemetry = 0;
+				setprop("/mission-control/status/telemetry", 0);
+				}
+			}
+
+
+
+
+
+	
+
+	},
+
+	update_status: func {
+
+		me.s_pm_operational = getprop("/fdm/jsbsim/systems/antenna/s-pm-operational");
+		me.s_fm_operational = getprop("/fdm/jsbsim/systems/antenna/s-fm-operational");
+		me.preamp_operational = getprop("/fdm/jsbsim/systems/antenna/s-pm-preamp-operational");
+		me.ku_operational = getprop("fdm/jsbsim/systems/mechanical/ku-antenna-operational");
+
+	},
+
+
+
 	run: func {
 
-	# check the closest ground station
+	# update operational status of antennas
 
-	if ((me.mode == "S-HI") or (me.mode == "S-LO"))
+	me.update_status();
+
+	# find the closest ground station
+
+	var shuttle_pos = geo.aircraft_position();
+
+	if (((me.mode == "S-HI") or (me.mode == "TDRS")) and (me.preamp_operational == 1))
+		{me.preamp_gain_s = 2.5;}
+	else
+		{me.preamp_gain_s = 0.0;}
+
+	var gs_index = SpaceShuttle.com_find_nearest_station(me.mode, shuttle_pos);
+	var los = SpaceShuttle.com_check_LOS_to_station(gs_index, shuttle_pos);
+
+	# we need to re-do this for the S-band FM antenna because the PM antenna may be set to TDRS
+
+	var gs_index_fm = SpaceShuttle.com_find_nearest_station(me.mode_fm, shuttle_pos); 
+	var los_fm = SpaceShuttle.com_check_LOS_to_station(gs_index_fm, shuttle_pos);
+
+	if ((me.mode == "S-HI") or (me.mode == "S-LO") or (me.mode == "SGLS"))
 		{
-		var gs_index = SpaceShuttle.com_find_nearest_station(me.mode);
-		var los = SpaceShuttle.com_check_LOS_to_station(gs_index);
-		if (los == 1)
+			
+		if ((los == 1) and (me.s_pm_operational == 1))
 			{
-			me.quadrant = com_get_S_quadrant(gs_index);
-			me.station = SpaceShuttle.com_ground_site_array[gs_index].string;
+
+			var required_quadrant = com_get_S_quadrant(gs_index, 0, shuttle_pos);
+
+			#print("Required: ", required_quadrant, " selected: ", me.selected_quadrant);
+			if (me.selected_quadrant == "GPC")
+				{me.quadrant = required_quadrant;}
+			else
+				{
+				if (me.selected_quadrant == required_quadrant)
+					{me.quadrant = required_quadrant;}
+				else
+					{me.quadrant = "";}
+				}
+
+			if (me.quadrant == required_quadrant)
+				{
+				me.signal_strength_s = SpaceShuttle.com_get_signal_strength(shuttle_pos,SpaceShuttle.com_ground_site_array[gs_index].coord, me.preamp_gain_s); 
+				me.station = SpaceShuttle.com_ground_site_array[gs_index].string;
+				me.comlink_establish("S");
+				}
+			else
+				{
+				me.signal_strength_s = 0.0;
+				me.comlink_remove("S");
+				me.station = "";
+				}
 			}
 		else
 			{	
 			me.quadrant = "";
 			me.station = "";
+			me.comlink_remove("S");
+			me.signal_strength_s = 0.0;
 			}
 		}
 
-	# get the FM hemisphere
+	# get the S-FM hemisphere, S-FM only ever utilizes ground stations
 
-	me.hemisphere = SpaceShuttle.com_get_S_hemisphere();
+	if ((los_fm == 1) and (me.s_fm_operational == 1))
+		{
+		me.hemisphere = SpaceShuttle.com_get_S_hemisphere();
+		me.comlink_establish("S-FM");
+		}
+	else
+		{
+		me.hemisphere = "";
+		me.comlink_remove("S-FM");
+		}
+		
+	
 	
 	# see which TDRS are in view
 
 	for (var i=0; i <6; i=i+1)
 		{
-		me.TDRS_view_array[i] = SpaceShuttle.com_check_LOS_to_TDRS(i);
+		me.TDRS_view_array[i] = SpaceShuttle.com_check_LOS_to_TDRS(i, shuttle_pos);
 
 		}
+
+	
 
 	# decide which TDRS we want to track
 
@@ -645,35 +996,173 @@ var antenna_manager = {
 			if (me.TDRS_view_array[track_index] == 1) {break;}
 			}
 		}
+
+	if (me.mode == "TDRS")   # S-band PM connects to TDRS
+		{
+		var required_quadrant = com_get_S_quadrant(track_index, 1, shuttle_pos);
+
+		if (me.selected_quadrant == "GPC")
+				{me.quadrant = required_quadrant;}
+			else
+				{
+				if (me.selected_quadrant == required_quadrant)
+					{me.quadrant = required_quadrant;}
+				else
+					{me.quadrant = "";}
+				}
+
+			if ((me.quadrant == required_quadrant) and (me.preamp_operational == 1))
+				{
+				me.station = "";
+				me.comlink_establish("S");
+				me.signal_strength_s = SpaceShuttle.com_get_signal_strength(shuttle_pos,SpaceShuttle.com_TDRS_array[track_index].coord, me.preamp_gain_s); 
+				}
+			else
+				{
+				me.comlink_remove("S");
+				me.station = "";
+				me.signal_strength_s = 0.0;
+				}
+		}
+
+
 	me.TDRS_ku_track = track_index +1;
 
-	if (me.function == "COMM") 
-		{ku_antenna_track_TDRS (track_index);}
+	var do_tracking = 0;
+
+	if ((me.rr_mode == "GPC") or (me.rr_mode == "GPC DESIG")) {do_tracking = 1;}
+	if ((me.rr_mode == "AUTO TRACK") and (me.tgt_acquired == 1)) {do_tracking = 1;}
+
+	if (me.ku_search_flag == 1) {do_tracking = 0;}
+
+	if ((me.function == "COMM") and (do_tracking == 1))
+		{me.ku_antenna_track_TDRS (track_index);}
+	else if ((me.function == "COMM") and (me.ku_search_flag == 1))
+		{
+		me.ku_antenna_search();
+		me.ku_azimuth_cmd = me.ku_search_cur_az;		
+		me.ku_elevation_cmd = me.ku_search_cur_el;
+		me.ku_antenna_point (me.ku_azimuth_cmd, me.ku_elevation_cmd);
+		}
 	
 
-	# check whether antenna is in position already
-	var ku_beta_act = getprop("/controls/shuttle/ku-antenna-beta-deg");
-	var ku_beta_cmd = getprop("/controls/shuttle/ku-antenna-beta-deg-cmd");
+	if (me.function != "COMM")
+		{
+		me.tgt_acquired = 0;
+		me.comlink_remove("Ku");
+		}
 
-	var ku_alpha_act = getprop("/controls/shuttle/ku-antenna-alpha-deg");
-	var ku_alpha_cmd = getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd");
+	me.ku_antenna_get_angles();
+
+	# check whether antenna is on target 
+
+	if (do_tracking == 1)
+	{
+		
+
+		var delta_az = math.abs(me.ku_azimuth_tgt_real - me.ku_azimuth);
+		var delta_el = math.abs(me.ku_elevation_tgt_real - me.ku_elevation);
+
+		#print ("Actual: ", me.ku_azimuth, " ", me.ku_elevation);
+		#print ("Command: ", me.ku_azimuth_cmd, " ", me.ku_elevation_cmd);
+		#print ("Real: ", me.ku_azimuth_tgt_real, " ", me.ku_elevation_tgt_real);
+
+		#print ("Delta az: ", delta_az, " Delta el: ", delta_el);
 
 
-	var delta_alpha = math.abs(ku_alpha_act - ku_alpha_cmd);
-	var delta_beta = math.abs(ku_beta_act - ku_beta_cmd);
+		if ((delta_az < 1.5) and (delta_el < 1.5))
+			{
+			me.tgt_acquired = 1;
+			if (me.function == "COMM")		
+				{
+				me.comlink_establish("Ku");
+				}
+			}
+		else
+			{
+			me.tgt_acquired = 0;
+			if (me.function == "COMM")		
+				{
+				me.comlink_remove("Ku");
+				}
+			}
 
 
-	if ((delta_alpha < 1.5) and (delta_beta < 1.5))
-		{me.tgt_acquired = 1;}
-	else
-		{me.tgt_acquired = 0;}
+
+	}
+	else if ((me.rr_mode == "MAN SLEW") or ((me.rr_mode == "AUTO TRACK") and (me.tgt_acquired == 0))) # we need to check against all TDRS positions
+	{
+		
+		var flag = 0;
+
+		for (var i=0; i<6; i=i+1)
+			{
+			if ((me.TDRS_view_array[i] == 1) and (flag == 0))
+				{
+				var angles = SpaceShuttle.com_get_TDRS_azimuth_elevation(i);
+
+				var delta_az = math.abs(me.ku_azimuth - angles[1]);
+				var delta_el = math.abs(me.ku_elevation - angles[0]);
+
+				#print (delta_az, " ", delta_el);
+
+				if ((delta_az < 1.5) and (delta_el < 1.5))
+					{
+					flag = 1;
+					}
+
+				}
+			}
+		me.tgt_acquired = flag;
+
+		if (me.tgt_acquired == 1)
+			{
+			if (me.function == "COMM")		
+				{
+				me.comlink_establish("Ku");
+				me.ku_search_flag = 0;
+				}
+
+			}
+
+		else if (me.tgt_acquired == 0)
+			{
+			if (me.function == "COMM")		
+				{
+				me.comlink_remove("Ku");
+				}
+
+			}
+	
+
+	}
 
 
-	if ((me.TDRS_view_array[track_index] == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1) and (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos") == 1.0) and (me.tgt_acquired == 1))
+	if ((me.TDRS_view_array[track_index] == 1) and (me.ku_operational == 1) and (me.tgt_acquired == 1))
 		{me.TDRS_ku_tgt = 1;}
 	else
 		{me.TDRS_ku_tgt = 0;}
 
+
+	# update the talkbacks
+
+	if ((do_tracking == 1) and (me.TDRS_ku_tgt == 1))
+		{
+		setprop("/fdm/jsbsim/systems/antenna/ku-antenna-tracking", 1);
+		}	
+	else
+		{
+		setprop("/fdm/jsbsim/systems/antenna/ku-antenna-tracking", 0);
+		}
+
+	if (me.ku_search_flag == 1)
+		{
+		setprop("/fdm/jsbsim/systems/antenna/ku-antenna-searching", 1);
+		}
+	else
+		{
+		setprop("/fdm/jsbsim/systems/antenna/ku-antenna-searching", 0);
+		}
 	
 	# compute inertial attitude change rate if antenna is on target
 
@@ -718,6 +1207,9 @@ var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
 var MET_string = SpaceShuttle.seconds_to_stringDHMS (MET);
 setprop("/fdm/jsbsim/systems/timer/MET-string", MET_string);
+
+var MET_timer_string = SpaceShuttle.seconds_to_timer_string (MET);
+setprop("/fdm/jsbsim/systems/timer/MET-timer-string", MET_timer_string);
 
 var GMT_string =  "000/"~getprop("/sim/time/gmt-string");
 setprop("/fdm/jsbsim/systems/timer/GMT-string", GMT_string);
@@ -1137,10 +1629,12 @@ var ev_timer =
                 "name": designation,
                     "size": [256,256], 
                     "view": [256,256],                        
-                    "mipmapping": 1     
+                    "mipmapping": 0     
                     });
 	dev_canvas.addPlacement({"node": model_element});
 	dev_canvas.setColorBackground(0,0,0,0);
+
+	obj._canvas = dev_canvas;
 
 	var root = dev_canvas.createGroup();
 
@@ -1224,9 +1718,190 @@ var ev_timer =
 
 };
 
+var ev_timer = ev_timer.new("EventTimerF7", "event-time-glass");
+ev_timer._canvas.addPlacement({"node": "A4-event-time-glass"});
 
-var ev_timer_F7 = ev_timer.new("EventTimerF7", "event-time-glass");
 
+var met_timer =
+{
+
+    new : func(designation, model_element)
+    {
+        var obj = {parents : [met_timer] };
+        obj.designation = designation;
+        obj.model_element = model_element;
+
+        var dev_canvas= canvas.new({
+                "name": designation,
+                    "size": [128,128], 
+                    "view": [128,128],                        
+                    "mipmapping": 0     
+                    });
+	dev_canvas.addPlacement({"node": model_element});
+	dev_canvas.setColorBackground(0,0,0,0);
+
+	obj._canvas = dev_canvas;
+
+	var root = dev_canvas.createGroup();
+
+	obj.time_string = root.createChild("text")
+      	.setText("00:00:00:00")
+        .setColor(1,0.5,0.1)
+	.setFontSize(16)
+	.setScale(1.1,4)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(65, 100);
+
+    	return obj;
+    },
+
+    display : func 
+    {
+
+	var string =  getprop("/fdm/jsbsim/systems/timer/MET-timer-string");
+	me.time_string.setText(string);
+    },
+
+    update: func 
+    {
+
+	me.display();
+
+	settimer (func me.update(), 1.0);
+    },
+
+};
+
+
+var met_timer = met_timer.new("METTimerA4", "A4-mission-time-glass");
+met_timer._canvas.addPlacement({"node": "O3-event-time-glass"});
+met_timer.update();
+
+
+var rms_indicator =
+{
+
+    new : func(designation, model_element, parameter)
+    {
+        var obj = {parents : [rms_indicator] };
+        obj.designation = designation;
+        obj.model_element = model_element;
+	obj.parameter = parameter;
+
+        var dev_canvas= canvas.new({
+                "name": designation,
+                    "size": [128,128], 
+                    "view": [128,128],                        
+                    "mipmapping": 0     
+                    });
+	dev_canvas.addPlacement({"node": model_element});
+	dev_canvas.setColorBackground(0,0,0,0);
+
+	obj._canvas = dev_canvas;
+
+	var root = dev_canvas.createGroup();
+
+	obj.string = root.createChild("text")
+      	.setText("0.00")
+        .setColor(1,0.5,0.1)
+	.setFontSize(30)
+	.setScale(1,3)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(65, 105);
+
+	obj.string.enableUpdate();
+
+    	return obj;
+    },
+
+    display : func 
+    {
+
+	var string =  sprintf("%3.2f", getprop("/fdm/jsbsim/systems/rms/"~me.parameter));
+	me.string.updateText(string);
+    },
+
+    update: func 
+    {
+
+	me.display();
+	settimer (func me.update(), 0.1);
+    },
+
+};
+
+var rms_x = rms_indicator.new("RMS_X", "pos-att-ind1-glass", "show-x");
+var rms_y = rms_indicator.new("RMS_X", "pos-att-ind2-glass", "show-y");
+var rms_z = rms_indicator.new("RMS_X", "pos-att-ind3-glass", "show-z");
+
+rms_x.update();
+rms_y.update();
+rms_z.update();
+
+
+var oms_indicator =
+{
+
+    new : func(designation, model_element, parameter)
+    {
+        var obj = {parents : [oms_indicator] };
+        obj.designation = designation;
+        obj.model_element = model_element;
+	obj.parameter = parameter;
+
+        var dev_canvas= canvas.new({
+                "name": designation,
+                    "size": [128,128], 
+                    "view": [128,128],                        
+                    "mipmapping": 0     
+                    });
+	dev_canvas.addPlacement({"node": model_element});
+	dev_canvas.setColorBackground(0,0,0,0);
+
+	obj._canvas = dev_canvas;
+
+	var root = dev_canvas.createGroup();
+
+	obj.string = root.createChild("text")
+      	.setText("0.00")
+        .setColor(1,0.5,0.1)
+	.setFontSize(30)
+	.setScale(2,2.5)
+	.setFont("DSEG/DSEG7/Classic-MINI/DSEG7ClassicMini-Bold.ttf")
+	.setAlignment("center-bottom")
+	.setTranslation(60, 105);
+
+	obj.string.enableUpdate();
+
+    	return obj;
+    },
+
+    display : func 
+    {
+
+	var string =  sprintf("%3.0f", getprop("/fdm/jsbsim/systems/oms-hardware/gauges/"~me.parameter));
+	me.string.updateText(string);
+    },
+
+    update: func 
+    {
+
+	me.display();
+	settimer (func me.update(), 0.1);
+    },
+
+};
+
+
+var oms_rcs_left = oms_indicator.new("OMS/RCS_Left", "display-qty-left", "display-qty-left");
+var oms_rcs_fwd = oms_indicator.new("OMS/RCS_Fwd", "display-qty-fwd", "display-qty-fwd");
+var oms_rcs_right = oms_indicator.new("OMS/RCS_Right", "display-qty-right", "display-qty-right");
+
+oms_rcs_left.update();
+oms_rcs_fwd.update();
+oms_rcs_right.update();
 
 #########################################################################################
 # condition manager to check long-term deterioration of fuel cells, hydraulics,...
@@ -1243,7 +1918,8 @@ var condition_manager = {
 
 	fuel_cell_deterioration_rate:  0.00001, # some 12 hours half life
 	hyd_pressure_loss_rate: 0.0001, 
-	hyd_pressure_gain_rate: 0.005, 
+	#hyd_pressure_loss_rate: 0.001, 
+	hyd_pressure_gain_rate: 0.01,  
 	hyd_temp_cooling_rate: 0.0001,
 	hyd_temp_eq_rate: 0.001, 
 
@@ -1398,7 +2074,7 @@ var condition_manager = {
 		if ((me.hyd3_pressure < 0.94) and (getprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd") == 0) and (n_pumps_active == 0))
 			{
 			setprop("/fdm/jsbsim/systems/apu/apu[2]/hyd-circ-pump-cmd-gpc", 1);
-			me.pump3_status = 1.16;
+			me.pump3_status = 1;
 			}
 		else 
 			{
@@ -1541,6 +2217,7 @@ else if (desig == "C4") {MDU_index = 5;}
 else if (desig == "C5") {MDU_index = 6;}
 else if (desig == "R1") {MDU_index = 7;}
 else if (desig == "R2") {MDU_index = 8;}
+else if (desig == "A6") {MDU_index = 9;}
 
 var power_switch_state = getprop("/fdm/jsbsim/systems/electrical/display/"~desig~"-pwr-switch");
 var mdu = SpaceShuttle.MDU_array[MDU_index];
@@ -1583,3 +2260,9 @@ setlistener("/sim/model/shuttle/controls/PFD/mode8", func {set_MDU_power("R1");}
 
 setlistener("/fdm/jsbsim/systems/electrical/display/R2-pwr-switch", func {set_MDU_power("R2");}, 0,0);
 setlistener("/sim/model/shuttle/controls/PFD/mode9", func {set_MDU_power("R2");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/A6-pwr-switch", func {set_MDU_power("A6");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode10", func {set_MDU_power("A6");}, 0,0);
+
+setlistener("/fdm/jsbsim/systems/electrical/display/R11-pwr-switch", func {set_MDU_power("R11");}, 0,0);
+setlistener("/sim/model/shuttle/controls/PFD/mode11", func {set_MDU_power("R11");}, 0,0);

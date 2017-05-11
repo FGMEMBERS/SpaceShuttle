@@ -6,7 +6,7 @@
 
  <filter>
    <type>gain</type>
-   <gain>1.0</gain>
+   <gain>1.4</gain>
    <input>/fdm/jsbsim/systems/light/cabinlight1-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/cabinlight1-norm</output>
  </filter>
@@ -14,8 +14,22 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight1-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight1-proc</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.4</gain>
    <input>/fdm/jsbsim/systems/light/cabinlight2-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/cabinlight2-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight2-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight2-proc</output>
  </filter>
 
  <filter>
@@ -62,9 +76,23 @@
 
  <filter>
    <type>gain</type>
+   <gain>1.2</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight6-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight6-proc</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/cabinlight7-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/cabinlight7-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.2</gain>
+   <input>/fdm/jsbsim/systems/light/cabinlight7-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/cabinlight7-proc</output>
  </filter>
 
  <filter>
@@ -144,6 +172,7 @@
    <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</output>
  </filter>
 
+
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
@@ -168,8 +197,15 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
-   <input>/fdm/jsbsim/systems/light/event-time-norm-tied</input>
-   <output>/fdm/jsbsim/systems/light/event-time-norm</output>
+   <input>/fdm/jsbsim/systems/light/console-eff-numeric-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-numeric-norm</output>
+ </filter>
+
+<filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-aft-numeric-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-aft-numeric-norm</output>
  </filter>
 
  <filter>
@@ -185,5 +221,69 @@
    <input>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/console-eff-instrument-right-norm</output>
  </filter>
+
+  <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/console-eff-instrument-overhead-norm-tied</input>
+   <output>/fdm/jsbsim/systems/light/console-eff-instrument-overhead-norm</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/hud-dim-cmd</input>
+   <output>/fdm/jsbsim/systems/light/hud-dim-cdr-out</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/hud-dim-plt</input>
+   <output>/fdm/jsbsim/systems/light/hud-dim-plt-out</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/red-tied</input>
+   <output>/fdm/jsbsim/systems/light/ambient/red</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/blue-tied</input>
+   <output>/fdm/jsbsim/systems/light/ambient/blue</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/green-tied</input>
+   <output>/fdm/jsbsim/systems/light/ambient/green</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/mix-factor-tied</input>
+   <output>/fdm/jsbsim/systems/light/ambient/mix-factor</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/map-strength-tied</input>
+   <output>/fdm/jsbsim/systems/light/ambient/map-strength</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/light/ambient/sum-artlight</input>
+   <output>/fdm/jsbsim/systems/light/ambient/sum-artlight-norm</output>
+ </filter>
+
 
  </PropertyList>

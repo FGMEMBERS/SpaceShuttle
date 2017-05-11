@@ -25,6 +25,8 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect9"));
     append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect6"));
     append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect7"));
+    append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect18"));
+    append(p_meds_maint.mdu_rect, device.svg.getElementById("p_meds_maint_rect19"));
 
     p_meds_maint.mdu_reconf = [];
     append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf1"));
@@ -36,6 +38,8 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf9"));
     append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf6"));
     append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf7"));
+    append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf18"));
+    append(p_meds_maint.mdu_reconf, device.svg.getElementById("p_meds_maint_reconf19"));
 
     p_meds_maint.mdu_bite = [];
     append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite1"));
@@ -47,6 +51,8 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite9"));
     append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite6"));
     append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite7"));
+    append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite18"));
+    append(p_meds_maint.mdu_bite, device.svg.getElementById("p_meds_maint_bite19"));
 
     p_meds_maint.mdu_fc = [];
     append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc1"));
@@ -58,6 +64,10 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc9"));
     append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc6"));
     append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc7"));
+    append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc18"));
+    append(p_meds_maint.mdu_fc, device.svg.getElementById("p_meds_maint_fc19"));
+
+
 
     p_meds_maint.mdu_cst = [];
     append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst1"));
@@ -69,7 +79,9 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst9"));
     append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst6"));
     append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst7"));
-    
+    append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst18"));
+    append(p_meds_maint.mdu_cst, device.svg.getElementById("p_meds_maint_cst19"));
+
 
     p_meds_maint.idp_rect = [];
     append(p_meds_maint.idp_rect, device.svg.getElementById("p_meds_maint_rect10"));
@@ -108,7 +120,6 @@ var PFD_addpage_p_meds_maint = func(device)
     append(p_meds_maint.adc_cst, device.svg.getElementById("p_meds_maint_cst17"));
    
 
-    p_meds_maint.rect18 = device.svg.getElementById("p_meds_maint_rect18");
 
 
 
@@ -149,6 +160,13 @@ var PFD_addpage_p_meds_maint = func(device)
 		p_meds_maint.idp_rect[1].set("fill", "none");
 		p_meds_maint.idp_rect[2].setColorFill (0.2, 0.2, 0.6);
 		p_meds_maint.idp_rect[3].set("fill", "none");
+		}
+	else if (port == 4)
+		{
+		p_meds_maint.idp_rect[0].set("fill", "none");
+		p_meds_maint.idp_rect[1].set("fill", "none");
+		p_meds_maint.idp_rect[2].set("fill", "none");
+		p_meds_maint.idp_rect[3].setColorFill (0.2, 0.2, 0.6);
 		}
 
 	for (var i=0; i< size(MDU_array); i=i+1)  

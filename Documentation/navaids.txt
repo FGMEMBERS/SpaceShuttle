@@ -1,0 +1,22 @@
+
+MLS channels:
+
+Kennedy Space Center 	KSC15	8
+			KSC33	6
+
+Vandenberg AFB		VBG12	8
+			VBG30	6
+
+Edwards AFB		EDW06	8
+			EDW30	6
+
+White Sands		NOR14	6
+			NOR32	6
+
+Moron AFB		MRN20	6
+
+Zaragoza AFB		ZZA30	6
+
+Istres Le Tube		FMI33	6
+
+

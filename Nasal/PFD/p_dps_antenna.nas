@@ -39,12 +39,26 @@ var PFD_addpage_p_dps_antenna = func(device)
     p_dps_antenna.view5 = device.svg.getElementById("p_dps_antenna_view5");
     p_dps_antenna.view6 = device.svg.getElementById("p_dps_antenna_view6");
 
+    p_dps_antenna.view1.enableUpdate(); 
+    p_dps_antenna.view2.enableUpdate();
+    p_dps_antenna.view3.enableUpdate();
+    p_dps_antenna.view4.enableUpdate();
+    p_dps_antenna.view5.enableUpdate();
+    p_dps_antenna.view6.enableUpdate();
+
     p_dps_antenna.tgt_a1 = device.svg.getElementById("p_dps_antenna_tgt_a1");
     p_dps_antenna.tgt_a2 = device.svg.getElementById("p_dps_antenna_tgt_a2");
     p_dps_antenna.tgt_a3 = device.svg.getElementById("p_dps_antenna_tgt_a3");
     p_dps_antenna.tgt_a4 = device.svg.getElementById("p_dps_antenna_tgt_a4");
     p_dps_antenna.tgt_a5 = device.svg.getElementById("p_dps_antenna_tgt_a5");
     p_dps_antenna.tgt_a6 = device.svg.getElementById("p_dps_antenna_tgt_a6");
+
+    p_dps_antenna.tgt_a1.enableUpdate(); 
+    p_dps_antenna.tgt_a2.enableUpdate(); 
+    p_dps_antenna.tgt_a3.enableUpdate(); 
+    p_dps_antenna.tgt_a4.enableUpdate(); 
+    p_dps_antenna.tgt_a5.enableUpdate(); 
+    p_dps_antenna.tgt_a6.enableUpdate(); 
 
     p_dps_antenna.tgt_b1 = device.svg.getElementById("p_dps_antenna_tgt_b1");
     p_dps_antenna.tgt_b2 = device.svg.getElementById("p_dps_antenna_tgt_b2");
@@ -53,12 +67,26 @@ var PFD_addpage_p_dps_antenna = func(device)
     p_dps_antenna.tgt_b5 = device.svg.getElementById("p_dps_antenna_tgt_b5");
     p_dps_antenna.tgt_b6 = device.svg.getElementById("p_dps_antenna_tgt_b6");
 
+    p_dps_antenna.tgt_b1.enableUpdate(); 
+    p_dps_antenna.tgt_b2.enableUpdate(); 
+    p_dps_antenna.tgt_b3.enableUpdate(); 
+    p_dps_antenna.tgt_b4.enableUpdate(); 
+    p_dps_antenna.tgt_b5.enableUpdate(); 
+    p_dps_antenna.tgt_b6.enableUpdate(); 
+
     p_dps_antenna.gpck1 = device.svg.getElementById("p_dps_antenna_gpck1");
     p_dps_antenna.gpck2 = device.svg.getElementById("p_dps_antenna_gpck2");
     p_dps_antenna.gpck3 = device.svg.getElementById("p_dps_antenna_gpck3");
     p_dps_antenna.gpck4 = device.svg.getElementById("p_dps_antenna_gpck4");
     p_dps_antenna.gpck5 = device.svg.getElementById("p_dps_antenna_gpck5");
     p_dps_antenna.gpck6 = device.svg.getElementById("p_dps_antenna_gpck6");
+
+    p_dps_antenna.gpck1.enableUpdate();
+    p_dps_antenna.gpck2.enableUpdate();
+    p_dps_antenna.gpck3.enableUpdate();
+    p_dps_antenna.gpck4.enableUpdate();
+    p_dps_antenna.gpck5.enableUpdate();
+    p_dps_antenna.gpck6.enableUpdate();
 
     p_dps_antenna.gpcs1 = device.svg.getElementById("p_dps_antenna_gpcs1");
     p_dps_antenna.gpcs2 = device.svg.getElementById("p_dps_antenna_gpcs2");
@@ -73,11 +101,26 @@ var PFD_addpage_p_dps_antenna = func(device)
     p_dps_antenna.tdrs_s_a_pri = device.svg.getElementById("p_dps_antenna_tdrs_s_a_pri");
     p_dps_antenna.tdrs_s_b_pri = device.svg.getElementById("p_dps_antenna_tdrs_s_b_pri");
 
+    p_dps_antenna.tdrs_ku_a_pri.enableUpdate();
+    p_dps_antenna.tdrs_ku_b_pri.enableUpdate();
+    p_dps_antenna.tdrs_s_a_pri.enableUpdate();
+    p_dps_antenna.tdrs_s_b_pri.enableUpdate();
+
     p_dps_antenna.rdr_rng_auto = device.svg.getElementById("p_dps_antenna_rdr_rng_auto");
     p_dps_antenna.rdr_rng_min = device.svg.getElementById("p_dps_antenna_rdr_rng_min");
 
     p_dps_antenna.tdrs_ku = device.svg.getElementById("p_dps_antenna_tdrs_ku");
     p_dps_antenna.pos_marker = device.svg.getElementById("p_dps_antenna_pos_marker");
+
+    p_dps_antenna.tdrs_ku.enableUpdate();
+
+    p_dps_antenna.ant_elec = device.svg.getElementById("p_dps_antenna_ant_elec");
+    p_dps_antenna.ku_ss = device.svg.getElementById("p_dps_antenna_ku_ss");
+    p_dps_antenna.s_ss = device.svg.getElementById("p_dps_antenna_s_ss");
+
+    p_dps_antenna.ku_io_reset = device.svg.getElementById("p_dps_antenna_ku_io_reset");
+    p_dps_antenna.ku_self_test = device.svg.getElementById("p_dps_antenna_ku_self_test");
+
 
     p_dps_antenna.ondisplay = func
     {
@@ -100,8 +143,13 @@ var PFD_addpage_p_dps_antenna = func(device)
 	p_dps_antenna.gpc_ptg_inh.setText("");
 	p_dps_antenna.gpc_ptg_ovrd.setText("");
 
+	p_dps_antenna.ku_self_test.setText("");
+
 	p_dps_antenna.rdr_rng_auto.setText("*");
 	p_dps_antenna.rdr_rng_min.setText("");
+
+	p_dps_antenna.ant_elec.setText("1");
+ 	p_dps_antenna.ku_ss.setText("2.23");
 
         device.DPS_menu_title.setText("ANTENNA");
         device.MEDS_menu_title.setText("       DPS MENU");
@@ -116,24 +164,30 @@ var PFD_addpage_p_dps_antenna = func(device)
     p_dps_antenna.update = func
     {
 
-	var antenna_deploy = getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-pos");
-
 	p_dps_antenna.stdn.setText(SpaceShuttle.antenna_manager.station); 
 	p_dps_antenna.mode.setText(SpaceShuttle.antenna_manager.mode); 
 
 	p_dps_antenna.ant_pm.setText(SpaceShuttle.antenna_manager.quadrant); 
 	p_dps_antenna.ant_fm.setText(SpaceShuttle.antenna_manager.hemisphere); 
 
-	p_dps_antenna.el_act.setText(sprintf("%+2.1f", getprop("/controls/shuttle/ku-antenna-beta-deg")));
-	p_dps_antenna.az_act.setText(sprintf("%+3.1f", getprop("/controls/shuttle/ku-antenna-alpha-deg")));
-
-	p_dps_antenna.el_cmd.setText(sprintf("%+2.1f", getprop("/controls/shuttle/ku-antenna-beta-deg-cmd")));
-	p_dps_antenna.az_cmd.setText(sprintf("%+3.1f", getprop("/controls/shuttle/ku-antenna-alpha-deg-cmd")));
-
-	if (antenna_deploy == 1.0)
-		{p_dps_antenna.pos_marker.setVisible(1);}
+	if (SpaceShuttle.antenna_manager.ku_operational == 1)
+		{
+		p_dps_antenna.el_act.setText(sprintf("%+2.1f", SpaceShuttle.antenna_manager.ku_elevation));
+		p_dps_antenna.az_act.setText(sprintf("%+3.1f", SpaceShuttle.antenna_manager.ku_azimuth));
+		p_dps_antenna.pos_marker.setVisible(1);
+		}
 	else
-		{p_dps_antenna.pos_marker.setVisible(0);}
+		{
+		p_dps_antenna.el_act.setText("");
+		p_dps_antenna.az_act.setText("");
+		p_dps_antenna.pos_marker.setVisible(0);
+		}
+	
+
+	p_dps_antenna.el_cmd.setText(sprintf("%+2.1f", SpaceShuttle.antenna_manager.ku_elevation_cmd));
+	p_dps_antenna.az_cmd.setText(sprintf("%+3.1f", SpaceShuttle.antenna_manager.ku_azimuth_cmd));
+
+
 
 	
 
@@ -146,126 +200,134 @@ var PFD_addpage_p_dps_antenna = func(device)
 
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[0] == 1)
-		{p_dps_antenna.view1.setText("*");}
+		{p_dps_antenna.view1.updateText("*");}
 	else
-		{p_dps_antenna.view1.setText("");}
+		{p_dps_antenna.view1.updateText("");}
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[1] == 1)
-		{p_dps_antenna.view2.setText("*");}
+		{p_dps_antenna.view2.updateText("*");}
 	else
-		{p_dps_antenna.view2.setText("");}
+		{p_dps_antenna.view2.updateText("");}
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[2] == 1)
-		{p_dps_antenna.view3.setText("*");}
+		{p_dps_antenna.view3.updateText("*");}
 	else
-		{p_dps_antenna.view3.setText("");}
+		{p_dps_antenna.view3.updateText("");}
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[3] == 1)
-		{p_dps_antenna.view4.setText("*");}
+		{p_dps_antenna.view4.updateText("*");}
 	else
-		{p_dps_antenna.view4.setText("");}
+		{p_dps_antenna.view4.updateText("");}
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[4] == 1)
-		{p_dps_antenna.view5.setText("*");}
+		{p_dps_antenna.view5.updateText("*");}
 	else
-		{p_dps_antenna.view5.setText("");}
+		{p_dps_antenna.view5.updateText("");}
 
 	if (SpaceShuttle.antenna_manager.TDRS_view_array[5] == 1)
-		{p_dps_antenna.view6.setText("*");}
+		{p_dps_antenna.view6.updateText("*");}
 	else
-		{p_dps_antenna.view6.setText("");}
+		{p_dps_antenna.view6.updateText("");}
 
 	var string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 1) {string = "*";}
-	p_dps_antenna.tgt_a1.setText(string);
+	p_dps_antenna.tgt_a1.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 2) {string = "*";}
-	p_dps_antenna.tgt_a2.setText(string);
+	p_dps_antenna.tgt_a2.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 3) {string = "*";}
-	p_dps_antenna.tgt_a3.setText(string);
+	p_dps_antenna.tgt_a3.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 4) {string = "*";}
-	p_dps_antenna.tgt_a4.setText(string);
+	p_dps_antenna.tgt_a4.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 5) {string = "*";}
-	p_dps_antenna.tgt_a5.setText(string);
+	p_dps_antenna.tgt_a5.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_A == 6) {string = "*";}
-	p_dps_antenna.tgt_a6.setText(string);
+	p_dps_antenna.tgt_a6.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 1) {string = "*";}
-	p_dps_antenna.tgt_b1.setText(string);
+	p_dps_antenna.tgt_b1.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 2) {string = "*";}
-	p_dps_antenna.tgt_b2.setText(string);
+	p_dps_antenna.tgt_b2.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 3) {string = "*";}
-	p_dps_antenna.tgt_b3.setText(string);
+	p_dps_antenna.tgt_b3.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 4) {string = "*";}
-	p_dps_antenna.tgt_b4.setText(string);
+	p_dps_antenna.tgt_b4.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 5) {string = "*";}
-	p_dps_antenna.tgt_b5.setText(string);
+	p_dps_antenna.tgt_b5.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_B == 6) {string = "*";}
-	p_dps_antenna.tgt_b6.setText(string);
+	p_dps_antenna.tgt_b6.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_primary == "A") {string = "*";}
- 	p_dps_antenna.tdrs_ku_a_pri.setText(string);
+ 	p_dps_antenna.tdrs_ku_a_pri.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_primary == "B") {string = "*";}
- 	p_dps_antenna.tdrs_ku_b_pri.setText(string);
+ 	p_dps_antenna.tdrs_ku_b_pri.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_s_primary == "A") {string = "*";}
- 	p_dps_antenna.tdrs_s_a_pri.setText(string);
+ 	p_dps_antenna.tdrs_s_a_pri.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_s_primary == "B") {string = "*";}
- 	p_dps_antenna.tdrs_s_b_pri.setText(string);
+ 	p_dps_antenna.tdrs_s_b_pri.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 1) {string = "*";}
-	p_dps_antenna.gpck1.setText(string);
+	p_dps_antenna.gpck1.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 2) {string = "*";}
-	p_dps_antenna.gpck2.setText(string);
+	p_dps_antenna.gpck2.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 3) {string = "*";}
-	p_dps_antenna.gpck3.setText(string);
+	p_dps_antenna.gpck3.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 4) {string = "*";}
-	p_dps_antenna.gpck4.setText(string);
+	p_dps_antenna.gpck4.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 5) {string = "*";}
-	p_dps_antenna.gpck5.setText(string);
+	p_dps_antenna.gpck5.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_track == 6) {string = "*";}
-	p_dps_antenna.gpck6.setText(string);
+	p_dps_antenna.gpck6.updateText(string);
 
 	string = "";
 	if (SpaceShuttle.antenna_manager.TDRS_ku_tgt == 1) {string = "TGT";}
-	p_dps_antenna.tdrs_ku.setText(string);
+	p_dps_antenna.tdrs_ku.updateText(string);
+
+	p_dps_antenna.s_ss.setText(sprintf("%1.2f", SpaceShuttle.antenna_manager.signal_strength_s));
+
+	p_dps_antenna.ku_ss.setText(sprintf("%1.2f", SpaceShuttle.antenna_manager.ku_operational * 2.3));
+
+	string = "*";
+	if (SpaceShuttle.antenna_manager.gpc_io == 0) {string = "M";}
+	p_dps_antenna.ku_io_reset.setText(string);
 
         device.update_common_DPS();
     }

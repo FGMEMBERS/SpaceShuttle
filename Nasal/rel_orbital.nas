@@ -619,8 +619,8 @@ setprop("/controls/shuttle/ku-ballistic/ku-antenna-beta-deg", beta);
 
 kuState = stateVector.new (kuCoord.x(),kuCoord.y(),kuCoord.z(),0,0,0,yaw, pitch - lon, roll);
 
-kuState.pitch_rate = 2.5;
-kuState.yaw_rate = 0.5;
+kuState.pitch_rate = 0.2;
+kuState.yaw_rate = 0.1;
 
 
 kuModel = place_model("ku-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/ku-antenna-disconnected.xml", kuCoord.lat(), kuCoord.lon(), kuCoord.alt() * m_to_ft, yaw,pitch,roll);
@@ -1155,7 +1155,7 @@ if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE")
 		SpaceShuttle.antenna_manager.set_rr_target(issCoord);
 			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
 				{
-				ku_antenna_track_target(issCoord);
+				SpaceShuttle.antenna_manager.ku_antenna_track_target(issCoord);
 				}		
 		}
 if (SpaceShuttle.star_tracker_array[0].mode == 2)

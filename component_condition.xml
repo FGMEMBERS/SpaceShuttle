@@ -27,6 +27,17 @@
 	<avbay3-fan-A-condition type="double">1.0</avbay3-fan-A-condition>
 	<avbay3-fan-B-condition type="double">1.0</avbay3-fan-B-condition>
 </eclss>
+<electrical>
+	<main-A-condition type="double">1.0</main-A-condition>
+	<main-B-condition type="double">1.0</main-B-condition>
+	<main-C-condition type="double">1.0</main-C-condition>
+	<ac1-condition type="double">1.0</ac1-condition>
+	<ac2-condition type="double">1.0</ac2-condition>
+	<ac3-condition type="double">1.0</ac3-condition>
+	<fc1-condition type="double">1.0</fc1-condition>
+	<fc2-condition type="double">1.0</fc2-condition>
+	<fc3-condition type="double">1.0</fc3-condition>
+</electrical>
 <gear>
 	<tire-nose-left-condition type="double">1.0</tire-nose-left-condition>
 	<tire-nose-right-condition type="double">1.0</tire-nose-right-condition>
@@ -125,9 +136,6 @@
 <hyd1-pump-condition type="double">1.0</hyd1-pump-condition>
 <hyd2-pump-condition type="double">1.0</hyd2-pump-condition>
 <hyd3-pump-condition type="double">1.0</hyd3-pump-condition>
-<fc1-condition type="double">1.0</fc1-condition>
-<fc2-condition type="double">1.0</fc2-condition>
-<fc3-condition type="double">1.0</fc3-condition>
 <fc1-coolant-pump-condition type="double">1.0</fc1-coolant-pump-condition>
 <fc2-coolant-pump-condition type="double">1.0</fc2-coolant-pump-condition>
 <fc3-coolant-pump-condition type="double">1.0</fc3-coolant-pump-condition>
@@ -153,10 +161,22 @@
 <floodlight-mid-condition type="double">1.0</floodlight-mid-condition>
 <floodlight-fwd-condition type="double">1.0</floodlight-fwd-condition>
 <payload-bay-switch-condition type="double">1.0</payload-bay-switch-condition> 
-<sensors>
+<navigation>
 	<star-tracker-Y-condition type="double">1.0</star-tracker-Y-condition>
 	<star-tracker-Z-condition type="double">1.0</star-tracker-Z-condition>
-</sensors>
+	<tacan-1-condition type="double">1.0</tacan-1-condition>
+	<tacan-2-condition type="double">1.0</tacan-2-condition>
+	<tacan-3-condition type="double">1.0</tacan-3-condition>
+	<air-data-probe-left-condition type="double">1.0</air-data-probe-left-condition>
+	<air-data-probe-right-condition type="double">1.0</air-data-probe-right-condition>
+	<air-data-pressure-left-condition type="double">1.0</air-data-pressure-left-condition>
+	<air-data-pressure-right-condition type="double">1.0</air-data-pressure-right-condition>
+	<adta-1-condition type="double">1.0</adta-1-condition>
+	<adta-2-condition type="double">1.0</adta-2-condition>
+	<adta-3-condition type="double">1.0</adta-3-condition>
+	<adta-4-condition type="double">1.0</adta-4-condition>
+	<gps-condition type="double">1.0</gps-condition>
+</navigation>
 <shuttle-destroyed type="bool">false</shuttle-destroyed>
 <shuttle-damaged type="bool">false</shuttle-damaged>
 

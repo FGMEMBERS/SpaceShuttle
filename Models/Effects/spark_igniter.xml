@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+
+<PropertyList>
+
+  <particlesystem>
+
+    <name>spark-igniter</name>
+	<texture>spark.png</texture>
+    <emissive>true</emissive>
+    <lighting>false</lighting>
+
+	<offsets>
+	   <x-m>0</x-m>
+	   <y-m>0</y-m>
+	   <z-m>0</z-m>
+	</offsets>
+
+
+    <attach>world</attach>
+
+    <placer>
+      <type>point</type>
+    </placer>
+
+    <shooter>
+      <theta-min-deg>5</theta-min-deg>
+      <theta-max-deg>-5</theta-max-deg>
+      <phi-min-deg>-10</phi-min-deg>
+      <phi-max-deg>10</phi-max-deg>
+      <speed-mps>
+        <value>20</value>
+        <spread>10</spread>
+      </speed-mps>
+      <rotation-speed>
+        <x-min-deg-sec>0</x-min-deg-sec>
+        <y-min-deg-sec>0</y-min-deg-sec>
+        <z-min-deg-sec>0</z-min-deg-sec>
+        <x-max-deg-sec>3600</x-max-deg-sec>
+        <y-max-deg-sec>3600</y-max-deg-sec>
+        <z-max-deg-sec>3600</z-max-deg-sec>
+      </rotation-speed>
+    </shooter>
+
+    <counter>
+      <particles-per-sec>
+        <value>200</value>
+        <spread>0</spread>
+      </particles-per-sec>
+    </counter>
+
+	<align>billboard</align>
+
+    <particle>
+      <start>
+        <color>
+          <red><value>   1.0 </value></red>
+          <green><value> 1.0 </value></green>
+          <blue><value>  0.8 </value></blue>
+          <alpha><value> 1.0 </value></alpha>
+        </color>
+        <size><value>    0.07 </value></size>
+      </start>
+
+      <end>
+        <color>
+          <red><value>   1.0 </value></red>
+          <green><value> 1.0 </value></green>
+          <blue><value>  0.5 </value></blue>
+          <alpha><value> 0.6 </value></alpha>
+        </color>
+        <size><value>    0.00025 </value></size>
+      </end>
+
+      <life-sec>
+        <value>0.5</value>
+      </life-sec>
+
+      <mass-kg>0.015</mass-kg>
+      <radius-m>0.01</radius-m>
+    </particle>
+
+    <program>
+      <fluid>air</fluid>
+      <gravity type="bool">true</gravity>
+      <wind type="bool">false</wind>
+    </program>
+
+  </particlesystem>
+
+</PropertyList>

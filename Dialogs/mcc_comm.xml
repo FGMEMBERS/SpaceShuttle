@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>mcc-communication</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Mission control communication</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+  
+    <text>
+      <label>Request</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  	<combo>
+       		 <row>0</row>
+        	 <col>1</col>
+        	 <name>mcc-request</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>400</pref-width>
+        	 <property>/mission-control/comm/request-string</property>
+		 <value>Delta state update</value>
+		 <value>Orbiter mass estimate</value>
+	  	 <value>Current position</value>
+		 <value>Landing site QNH</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>mcc-request</object-name>
+        	 </binding>
+      	</combo>
+
+	<button>
+       		<row>1</row>
+        	<col>1</col>
+		<legend>Send</legend>
+		<binding>
+			<command>nasal</command>
+			<script>
+				SpaceShuttle.mcc_request_parse();
+			</script>
+		</binding>
+	</button>
+
+
+</group>
+
+
+        <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

@@ -34,16 +34,19 @@
 # * p_dps_electric (DISP 67)
 # * p_dps_cryo (DISP 68)
 # * p_dps_fc (DISP 69)
+# * p_dps_comm (DISP 76)
 # * p_dps_sm_sys_summ1 (DISP 78)
 # * p_dps_sm_sys_summ2 (DISP 79)
 # * p_dps_apu_hyd (DISP 86)
 # * p_dps_hyd_thermal (DISP 87)
+# * p_dps_apu_thermal (DISP 88)
 # * p_dps_prplt_thermal (DISP 89)
 # * p_dps_pdrs_control (SPEC 94)
 # * p_dps_pdrs_override (SPEC 95)
 # * p_dps_pl_ret (DISP 97)
 # * p_dps_fault (DISP 99)
 # * p_dps_pdrs_status (DISP 169)
+
 
 # * p_pfd (MEDS PFD)
 # * p_pfd_orbit (MEDS ORBIT PFD)
@@ -69,11 +72,20 @@ var meds_b = 0.8;
 
 
 # the MDU update time is set from the dialogs
+# we call the update once to include auto-saved settings
 
 var MDU_update_time = 0.1;
 var MDU_update_number = 1;
 
+SpaceShuttle.update_MDU_speed();
+
+
 var num_menu_buttons = 6; # Number of menu buttons; starting from the bottom left then right, then top, then left.
+
+# font selection
+
+var font_option = getprop("/sim/config/shuttle/font-selection");
+
 
 #
 # Include all of the page definitions
@@ -94,6 +106,7 @@ io.include("p_dps_mnvr.nas");
 io.include("p_dps_univ_ptg.nas");
 io.include("p_dps_apu_hyd.nas");
 io.include("p_dps_hyd_thermal.nas");
+io.include("p_dps_apu_thermal.nas");
 io.include("p_dps_prplt_thermal.nas");
 io.include("p_dps_pl_bay.nas");
 io.include("p_dps_rel_nav.nas");
@@ -118,6 +131,7 @@ io.include("p_dps_gpc.nas");
 io.include("p_dps_memory.nas");
 io.include("p_dps_env.nas");
 io.include("p_dps_pdrs_status.nas");
+io.include("p_dps_comm.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -129,6 +143,19 @@ io.include("p_meds_autonomous.nas");
 #io.include("a_port_sel.nas");
 
 io.include("MFD_Generic.nas");
+
+
+# we can use this to read any other font
+
+var font_mapper = func(family, weight)
+{
+    if (font_option == 1)
+    	{return "SSU_Font_A_mod.ttf";}
+    else
+    	{return "LiberationFonts/LiberationMono-Bold.ttf";}
+};
+
+
 
 var MDU_Device =
 {
@@ -157,7 +184,7 @@ var MDU_Device =
         dev_canvas.setColorBackground(0,0,0, 0);
 # Create a group for the parsed elements
         obj.PFDsvg = dev_canvas.createGroup();
-        var pres = canvas.parsesvg(obj.PFDsvg, "Nasal/PFD/PFD.svg");
+        var pres = canvas.parsesvg(obj.PFDsvg, "Nasal/PFD/PFD.svg",  {'font-mapper': font_mapper});
 # Parse an SVG file and add the parsed elements to the given group
         printf("MEDS : %s Load SVG %s",designation,pres);
         obj.PFDsvg.setTranslation (20, 30);
@@ -422,6 +449,7 @@ var MDU_Device =
         me.PFD.p_dps_univ_ptg = PFD_addpage_p_dps_univ_ptg(me.PFD);
         me.PFD.p_dps_apu_hyd = PFD_addpage_p_dps_apu_hyd(me.PFD);
         me.PFD.p_dps_hyd_thermal = PFD_addpage_p_dps_hyd_thermal(me.PFD);
+        me.PFD.p_dps_apu_thermal = PFD_addpage_p_dps_apu_thermal(me.PFD);
         me.PFD.p_dps_prplt_thermal = PFD_addpage_p_dps_prplt_thermal(me.PFD);
         me.PFD.p_dps_pl_bay = PFD_addpage_p_dps_pl_bay(me.PFD);
         me.PFD.p_dps_override = PFD_addpage_p_dps_override(me.PFD);
@@ -446,6 +474,7 @@ var MDU_Device =
         me.PFD.p_dps_memory = PFD_addpage_p_dps_memory(me.PFD);
         me.PFD.p_dps_env = PFD_addpage_p_dps_env(me.PFD);
         me.PFD.p_dps_pdrs_status = PFD_addpage_p_dps_pdrs_status(me.PFD);
+        me.PFD.p_dps_comm = PFD_addpage_p_dps_comm(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -564,6 +593,9 @@ var MDU_Device =
 	me.PFD.DPS_menu_line_cdr.setColor(1,0.3,0.3);
 	me.PFD.DPS_menu_fault_line.setColor(1,0.3,0.3);
 
+	# render the MEDS part in a different font
+	# me.PFD.MEDS_menu_title.setFont("SSU_Font_B.ttf"); 
+
 
         me.setupMenus();
     },
@@ -660,6 +692,10 @@ var MDU_Device =
         me.PFD.p_dps_hyd_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_hyd_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
     
+        me.PFD.p_dps_apu_thermal.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_apu_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_apu_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
         me.PFD.p_dps_prplt_thermal.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_prplt_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_prplt_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
@@ -755,6 +791,10 @@ var MDU_Device =
       	me.PFD.p_dps_pdrs_status.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_dps_pdrs_status.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_pdrs_status.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+      	me.PFD.p_dps_comm.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_comm.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_comm.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
@@ -919,52 +959,76 @@ var MDU_Device =
 
 # the PFD object really should be called an MDU - we attach the port connections to the IDPs and the selection
 
+# all generated devices should be appended to the MDU array, then the parsers can do the appropriate
+# OPS transitions etc. on all MDUs connected to a given IDP
+#    
+# Select the appropriate default page on each device.
+# we only generate what the user requests 
+
 var MDU_array = [];
+
+var mdu_level = getprop("/sim/config/shuttle/mdu-groups");
 
 var MEDS_CDR1 =  MDU_Device.new("CDR1", "DisplayL1", 3, 1, 3, 1);
 var MEDS_CDR2 =  MDU_Device.new("CDR2", "DisplayL2", 1, 2, 1, 2);
 var MEDS_CRT1 =  MDU_Device.new("CRT1", "DisplayC1", 1, 1, 1, 3);
-var MEDS_MFD1 =  MDU_Device.new("MFD1", "DisplayC2", 2, 3, 2, 4);
-var MEDS_CRT3 =  MDU_Device.new("CRT3", "DisplayC3", 3, 3, 3, 5);
-var MEDS_CRT2 =  MDU_Device.new("CRT2", "DisplayC4", 2, 2, 2, 6);
-var MEDS_MFD2 =  MDU_Device.new("MFD2", "DisplayC5", 1, 3, 1, 7);
-var MEDS_PLT1 =  MDU_Device.new("PLT1", "DisplayR1", 2, 1, 2, 8);
-var MEDS_PLT2 =  MDU_Device.new("PLT2", "DisplayR2", 3, 2, 3, 9);
-
-# all generated devices should be appended to the MDU array, then the parsers can do the appropriate
-# OPS transitions etc. on all MDUs connected to a given IDP
-
 append(MDU_array, MEDS_CDR1);
 append(MDU_array, MEDS_CDR2);
 append(MDU_array, MEDS_CRT1);
-append(MDU_array, MEDS_MFD1);
-append(MDU_array, MEDS_CRT3);
-append(MDU_array, MEDS_CRT2);
-append(MDU_array, MEDS_MFD2);
-append(MDU_array, MEDS_PLT1);
-append(MDU_array, MEDS_PLT2);
-
-
-#    
-# Select the appropriate default page on each device.
 MEDS_CDR1.PFD.selectPage(MEDS_CDR1.PFD.p_pfd);
 MEDS_CDR1.PFD.dps_page_flag = 0;
 MEDS_CDR2.PFD.selectPage(MEDS_CDR2.PFD.p_meds_oms_mps);
 MEDS_CDR2.PFD.dps_page_flag = 0;
 MEDS_CRT1.PFD.selectPage(MEDS_CRT1.PFD.p_dps);
 MEDS_CRT1.PFD.dps_page_flag = 1;
-MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
-MEDS_MFD1.PFD.dps_page_flag = 0;
-MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
-MEDS_CRT3.PFD.dps_page_flag = 1;
-MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
-MEDS_CRT2.PFD.dps_page_flag = 1;
-MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
-MEDS_MFD2.PFD.dps_page_flag = 0;
-MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
-MEDS_PLT1.PFD.dps_page_flag = 0;
-MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
-MEDS_PLT2.dps_page_flag = 0;
+
+if (mdu_level > 1)
+	{
+	var MEDS_MFD1 =  MDU_Device.new("MFD1", "DisplayC2", 2, 3, 2, 4);
+	var MEDS_CRT3 =  MDU_Device.new("CRT3", "DisplayC3", 3, 3, 3, 5);
+	var MEDS_CRT2 =  MDU_Device.new("CRT2", "DisplayC4", 2, 2, 2, 6);
+	append(MDU_array, MEDS_MFD1);
+	append(MDU_array, MEDS_CRT3);
+	append(MDU_array, MEDS_CRT2);
+	MEDS_MFD1.PFD.selectPage(MEDS_MFD1.PFD.p_meds_spi);
+	MEDS_MFD1.PFD.dps_page_flag = 0;
+	MEDS_CRT3.PFD.selectPage(MEDS_CRT3.PFD.p_dps);
+	MEDS_CRT3.PFD.dps_page_flag = 1;
+	MEDS_CRT2.PFD.selectPage(MEDS_CRT2.PFD.p_dps);
+	MEDS_CRT2.PFD.dps_page_flag = 1;
+	}
+if (mdu_level > 2)
+	{
+	var MEDS_MFD2 =  MDU_Device.new("MFD2", "DisplayC5", 1, 3, 1, 7);
+	var MEDS_PLT1 =  MDU_Device.new("PLT1", "DisplayR1", 2, 1, 2, 8);
+	var MEDS_PLT2 =  MDU_Device.new("PLT2", "DisplayR2", 3, 2, 3, 9);
+	append(MDU_array, MEDS_MFD2);
+	append(MDU_array, MEDS_PLT1);
+	append(MDU_array, MEDS_PLT2);
+	MEDS_MFD2.PFD.selectPage(MEDS_MFD2.PFD.p_meds_apu);
+	MEDS_MFD2.PFD.dps_page_flag = 0;
+	MEDS_PLT1.PFD.selectPage(MEDS_PLT1.PFD.p_meds_oms_mps);
+	MEDS_PLT1.PFD.dps_page_flag = 0;
+	MEDS_PLT2.PFD.selectPage(MEDS_PLT2.PFD.p_pfd);
+	MEDS_PLT2.dps_page_flag = 0;
+	}
+if (mdu_level > 3)
+	{
+	var MEDS_CRT4 =  MDU_Device.new("CRT4", "DisplayA6", 4, 4, 4, 10);
+	var MEDS_AFD1 =  MDU_Device.new("AFD1", "DisplayR11", 4, 2, 4, 11);
+	append(MDU_array, MEDS_CRT4);
+	append(MDU_array, MEDS_AFD1);
+	MEDS_CRT4.PFD.selectPage(MEDS_CRT4.PFD.p_dps);
+	MEDS_CRT4.dps_page_flag = 1;
+	MEDS_AFD1.PFD.selectPage(MEDS_AFD1.PFD.p_dps);
+	MEDS_AFD1.dps_page_flag = 1;
+	}
+
+
+
+
+
+
     
 
 var frame_device_update_id = 0;
@@ -989,6 +1053,7 @@ var rtExec_loop = func
 
     	frame_device_update_id = frame_device_update_id+1;
 	}
+	
     
 
     settimer(rtExec_loop, MDU_update_time);	 # set from the options dialog, defaults to 0.11

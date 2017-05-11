@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>ssme-flame</name>
+  <inherits-from>Effects/thrust-flame</inherits-from>
+  <parameters>
+    <flame_radius_fraction type="float">0.133</flame_radius_fraction>
+    <flame_color_low_r><use>/sim/systems/various/ssme-flame-r-low1</use></flame_color_low_r>
+    <flame_color_low_g><use>/sim/systems/various/ssme-flame-g-low1</use></flame_color_low_g>
+    <flame_color_low_b><use>/sim/systems/various/ssme-flame-b-low1</use></flame_color_low_b>
+    <flame_color_high_r><use>/sim/systems/various/ssme-flame-r-high1</use></flame_color_high_r>
+    <flame_color_high_g><use>/sim/systems/various/ssme-flame-g-high1</use></flame_color_high_g>
+    <flame_color_high_b><use>/sim/systems/various/ssme-flame-b-high1</use></flame_color_high_b>
+    <base_flame_r type="float"><use>/sim/systems/various/ssme-flame-r-base1</use></base_flame_r>
+    <base_flame_g type="float"><use>/sim/systems/various/ssme-flame-g-base1</use></base_flame_g>
+    <base_flame_b type="float"><use>/sim/systems/various/ssme-flame-b-base1</use></base_flame_b>
+    <use_shocks type="int">1</use_shocks>
+    <use_noise type="int">1</use_noise>
+    <random_seed type="float">2.0</random_seed>
+    <thrust_collimation><use>/sim/systems/various/ssme-flame-collimation</use></thrust_collimation>   
+    <thrust_density><use>/sim/systems/various/ssme-flame-density1</use></thrust_density>
+    <base_flame_density type="float"><use>/sim/systems/various/ssme-flame-base-density1</use></base_flame_density>
+    <shock_frequency><use>/sim/systems/various/ssme-flame-shock-frequency1</use></shock_frequency>
+    <noise_scale>0.1</noise_scale>
+    <noise_strength><use>/sim/systems/various/ssme-noise-strength1</use></noise_strength>
+  </parameters>
+</PropertyList>

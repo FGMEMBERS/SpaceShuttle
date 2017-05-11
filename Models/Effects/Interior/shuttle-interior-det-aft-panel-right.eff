@@ -2,7 +2,7 @@
 
 <PropertyList>
     <name>Effects/shuttle-interior-det-aft-panel-right</name>
-    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det</inherits-from>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-detailed</inherits-from>
     <parameters>
         <implicit-lightmap-enabled type="int">1</implicit-lightmap-enabled>
         <implicit-lightmap-tag-color type="vec3d">1.0 1.0 1.0</implicit-lightmap-tag-color>

@@ -14,6 +14,7 @@ var qbar_warn = 0;
 var droop_warn = 0;
 var gear_extension_warn = 0;
 var Nx_warn = 0;
+var Nz_warn = 0;
 var CBW_warn = 0;
 var tailscrape_warn = 0;
 var chute_warn = 0;
@@ -289,7 +290,7 @@ if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
 
 
 
-if ((T > 2900.0) and (TPS_warn == 1))
+if ((T > 3100.0) and (TPS_warn == 1))
 	{
 	setprop("/sim/messages/copilot", "Thermal protection system failure!");
 	fail_flag = 1;
@@ -301,7 +302,7 @@ if ((T > 2900.0) and (TPS_warn == 1))
 		}
 
 	}
-else if ((T > 2800.0) and (TPS_warn == 0))
+else if ((T > 3050.0) and (TPS_warn == 0))
 	{
 	setprop("/sim/messages/copilot", "Heat shield temperature too high!");
 	TPS_warn = 1;
@@ -372,7 +373,27 @@ else if ((T_apu > 415.0) and (apu_heat_warn == 0))
 	}
 
 
+# Nz testing for pullout 
 
+var Nz = getprop("/fdm/jsbsim/accelerations/Nz");
+
+if (Nz > 5.5)
+	{
+	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	fail_flag = 1;
+	
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_wing_fail();
+		}
+	
+	}
+else if ((Nz > 3.9) and (Nz_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "g-force exceeds safe limits!");
+	Nz_warn = 1;
+	settimer(func {Nz_warn = 0;}, 10.0);
+	}
 
 
 if (limit_simulation_mode ==2)
@@ -478,8 +499,7 @@ else if ((T_apu > 410.0) and (apu_heat_warn == 0))
 
 # qbar larger than a Mach-dependent limit will lead to actuator stall, stall itself is 
 # implemented FDM-side
-# during final approach we go close to qbar limit, but actuator stall isn't an issue
-# hence we don't issue a warning
+
 
 var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 var qbar_limit = getprop("/fdm/jsbsim/systems/various/qbar-limit-entry");
@@ -491,6 +511,30 @@ if ((qbar > qbar_limit) and (qbar_warn == 0) and (mach > 1.0))
 	qbar_warn = 1;
 	settimer(func {qbar_warn = 0;}, 10.0);
 	}
+
+
+# Nz testing for pullout 
+
+var Nz = getprop("/fdm/jsbsim/accelerations/Nz");
+
+if (Nz > 5.5) 
+	{
+	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	fail_flag = 1;
+	
+	if (limit_simulation_mode == 1)
+		{
+		SpaceShuttle.orbiter_wing_fail();
+		}
+	
+	}
+else if ((Nz > 3.9) and (Nz_warn == 0))
+	{
+	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits!");
+	Nz_warn = 1;
+	settimer(func {Nz_warn = 0;}, 10.0);
+	}
+
 
 
 if (limit_simulation_mode == 2)
@@ -575,6 +619,18 @@ if ((airspeed > 230.0) and (getprop("/controls/shuttle/parachute") >0 ) and (chu
 	
 	if (limit_simulation_mode == 1) {SpaceShuttle.fail_chute_pin();}	
 	
+	}
+
+# drag chute should be jettisoned at around 60 kt to avoid engine bell damage
+
+var chute_out = getprop("/controls/shuttle/parachute");
+var chute_state = getprop("/controls/shuttle/drag-chute-jettison");
+
+if ((chute_out > 0) and (chute_state == 0) and (airspeed < 20.0))
+	{
+	setprop("/sim/messages/copilot", "Engine damaged by drag chute!");
+	SpaceShuttle.jettison_drag_chute();
+	fail_flag = 1;
 	}
 
 

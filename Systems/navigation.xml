@@ -2,21 +2,152 @@
 
 <system>
 
-	<channel name="Radar altimeter">
+	<channel name="Radar altimeter" execrate="4">
 
 		<switch name="systems/navigation/radar-alt-available">
 			<default value="0.0"/>
-			<test logic="OR" value="1.0">
-				systems/navigation/radar-altimeter-1-switch == 1
-				systems/navigation/radar-altimeter-2-switch == 1
+			<test logic="AND" value="1.0">
+				systems/navigation/rdr-altm == 1
+				systems/navigation/radar-altimeter-1-power == 1
+				systems/electrical/bus/voltage GT 26.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/rdr-altm == 0
+				systems/navigation/radar-altimeter-2-power == 1
+				systems/electrical/bus[1]/voltage GT 26.0
 			</test>
 		</switch>
 	
 		<sensor name="systems/navigation/radar-alt-ft">
-			<input>/position/altitude-agl-ft</input>
+			<input>position/h-agl-ft</input>
 			<lag>0.1</lag>
 			<noise variation="PERCENT" distribution="GAUSSIAN">0.01</noise>
+			<output>systems/navigation/radar-altitude-ft</output>
 		</sensor>
+	</channel>
+
+	<channel name="TACAN receivers" execrate="4">
+
+		<switch name="systems/navigation/tacan/operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/navigation/tacan-sys1-switch GT 0
+				systems/electrical/bus/voltage GT 26.0
+				systems/failures/navigation/tacan-1-condition GT 0
+			</test>
+		</switch>
+
+		<switch name="systems/navigation/tacan[1]/operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/navigation/tacan-sys2-switch GT 0
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/failures/navigation/tacan-2-condition GT 0
+			</test>
+		</switch>
+
+		<switch name="systems/navigation/tacan[2]/operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/navigation/tacan-sys3-switch GT 0
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/failures/navigation/tacan-3-condition GT 0
+			</test>
+		</switch>
+
+		<switch name="systems/navigation/tacan-available">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/navigation/tacan/operational == 1
+				systems/navigation/tacan[1]/operational == 1
+				systems/navigation/tacan[2]/operational == 1
+			</test>
+		</switch>
+
+
+		<fcs_function name="systems/navigation/tacan1-power-demand-kW">
+		<function>
+			<product>
+				<property>systems/navigation/tacan-sys1-switch</property>
+				<value>0.050</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/tacan2-power-demand-kW">
+		<function>
+			<product>
+				<property>systems/navigation/tacan-sys2-switch</property>
+				<value>0.050</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/tacan3-power-demand-kW">
+		<function>
+			<product>
+				<property>systems/navigation/tacan-sys3-switch</property>
+				<value>0.050</value>
+			</product>
+		</function>
+		</fcs_function>
+		
+	</channel>
+
+	<channel name="MLS receivers" execrate="4">
+
+		<switch name="systems/navigation/mls-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/navigation/mls-sys1-switch == 1
+				systems/electrical/bus/voltage GT 26.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/mls-sys2-switch == 1
+				systems/electrical/bus[1]/voltage GT 26.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/mls-sys3-switch == 1
+				systems/electrical/bus[2]/voltage GT 26.0
+			</test>
+		</switch>
+		
+	</channel>
+
+	<channel name="GPS unit" execrate="4">
+
+		<switch name="systems/navigation/gps-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/navigation/gps-power-switch == 1
+				systems/navigation/gps-preamp-1-switch == 1
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/electrical/bus/voltage GT 26.0
+				systems/failures/navigation/gps-condition == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/gps-power-switch == -1
+				systems/navigation/gps-preamp-1-switch == -1
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/failures/navigation/gps-condition == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/gps-power-switch == 1
+				systems/navigation/gps-preamp-2-switch == 1
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/electrical/bus[2]/voltage GT 26.0
+				systems/failures/navigation/gps-condition == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/navigation/gps-power-switch == 1
+				systems/navigation/gps-preamp-2-switch == -1
+				systems/electrical/bus[1]/voltage GT 26.0
+				systems/electrical/bus/voltage GT 26.0
+				systems/failures/navigation/gps-condition == 1
+			</test>
+		</switch>
+		
 	</channel>
 
 	<channel name="Air data probes">
@@ -47,7 +178,7 @@
 			</test>
 		</switch>
 
-		<kinematic name="systems/navigation/air-data-left-pos">
+		<kinematic name="systems/navigation/air-data-left-pos-kin">
 			<input>systems/navigation/air-data-left-target</input>
 			<traverse>
 				<setting>
@@ -61,7 +192,7 @@
 			</traverse>
 		</kinematic>
 
-		<kinematic name="systems/navigation/air-data-right-pos">
+		<kinematic name="systems/navigation/air-data-right-pos-kin">
 			<input>systems/navigation/air-data-right-target</input>
 			<traverse>
 				<setting>
@@ -74,6 +205,24 @@
 				</setting>
 			</traverse>
 		</kinematic>
+
+		<fcs_function name="systems/navigation/air-data-left-pos">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-left-pos-kin</property>
+				<property>systems/failures/navigation/air-data-probe-left-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/air-data-right-pos">
+		<function>
+			<product>
+				<property>systems/navigation/air-data-right-pos-kin</property>
+				<property>systems/failures/navigation/air-data-probe-right-condition</property>
+			</product>
+		</function>
+		</fcs_function>
 
 		<switch name="systems/navigation/air-data-left-deployed">
 			<default value="0"/>
@@ -89,8 +238,36 @@
 			</test>
 		</switch>
 
+		<switch name="systems/navigation/air-data-available">
+			<default value="0"/>
+			<test  value="1.0">
+				systems/navigation/air-data-left-deployed == 1.0
+			</test>
+			<test  value="1.0">
+				systems/navigation/air-data-right-deployed == 1.0
+			</test>
+		</switch>
+
+		<sensor name="systems/navigation/air-data-alt-ft-raw">
+			<input>/position/altitude-ft</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-alpha-raw">
+			<input>aero/alpha-deg</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
+		<sensor name="systems/navigation/air-data-mach-raw">
+			<input>velocities/mach</input>
+			<lag>0.3</lag>
+			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
+		</sensor>
+
 	
-		<sensor name="systems/navigation/air-data-left-1-alt-ft-raw">
+		<!--<sensor name="systems/navigation/air-data-left-1-alt-ft-raw">
 			<input>/position/altitude-ft</input>
 			<lag>0.3</lag>
 			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
@@ -268,7 +445,7 @@
 				<property>systems/navigation/air-data-right-4-alpha-raw</property>
 			</product>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
 
 	</channel>
@@ -453,6 +630,43 @@
 			</test>
 
 		</switch>
+
+
+		<fcs_function name="systems/navigation/state-vector/latitude-deg">
+		<function>
+			<sum>
+				<property>/position/latitude-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/latitude-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/longitude-deg">
+		<function>
+			<sum>
+				<property>/position/longitude-deg</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/longitude-deg</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/altitude-ft">
+		<function>
+			<sum>
+				<property>/position/altitude-ft</property>
+				<product>
+					<property>systems/navigation/state-vector/error-prop/altitude-ft</property>
+					<property>systems/navigation/state-vector/use-realistic-sv</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
 
 	</channel>
 

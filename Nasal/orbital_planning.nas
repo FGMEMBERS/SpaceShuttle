@@ -28,6 +28,18 @@ var target_reference_anomaly = 0.0;
 var target_reference_time = 0.0;
 
 
+############################################################
+# PEG-4 reference location
+############################################################ 
+
+# this is initialized to KSC, but gets overwritten
+# at engine ignition when you launch elsewhere
+
+var peg4_refloc = geo.Coord.new();
+peg4_refloc.set_latlon(28.63, -80.70);
+
+
+
 
 ############################################################
 # prediction of apoapsis and periapsis for PEG 7 burn target
@@ -181,12 +193,23 @@ var compute_interface = func (x, v, R) {
 
 var elements = get_orbital_elements(x, v);
 
+
+
 var f = elements[0] * elements[1]; # distance of focal point from center
 
 var a = elements[0]; # semimajor
-var b = a * math.sqrt(1.0 - elements[1] * elements[1]); # semiminor
+var b = a * math.sqrt(1.0 - elements[1] * elements[1]); # semiminor, 1-epsilon**2
 
 #print ("epsilon: ", elements[1]);
+
+var periapsis = (1.0 - elements[1]) * a;
+
+if (periapsis > R) 
+	{
+	print ("Periapsis: ", periapsis, " Radius: ", R);
+	print ("Not a de-orbit solution!");
+	return -1;
+	}
 
 var A = (1.0 - (b*b) / (a*a)); # term 1 in quadratic equation
 var B = (-2.0 * f); # term 2 in quadratic equation
@@ -198,7 +221,12 @@ var x = 1/(2.0 * A) * (-B - math.sqrt(B*B - 4.0 * A * C));
 #print ("Semimajor: ", a, " Semiminor: ", b, " Radius: ", R);
 #print ("x: ", x);
 
-var y = math.sqrt((1.0 - (x*x)/(a*a)) * b*b);
+var arg = (1.0 - (x*x)/(a*a)) * b*b;
+if (arg < 0.0) {return -1;}
+
+var y = math.sqrt(arg);
+
+#var y = math.sqrt((1.0 - (x*x)/(a*a)) * b*b);
 
 
 #print ("y: ", y);
@@ -207,6 +235,8 @@ var ang = math.atan2(y,x);
 var true_anomaly = 2.0 * math.pi - elements[5];
 
 var ang_to_go = true_anomaly - ang;
+
+#print ("Ang: ", ang, " TA: ", true_anomaly, " ang to go: ", ang_to_go);
 
 return ang_to_go;
 
@@ -221,6 +251,18 @@ return ang_to_go;
 ############################################################
 # prediction of REI (range entry interface-landing site)
 ############################################################
+
+
+var test_rei = func (factor) {
+
+var x = [getprop("/fdm/jsbsim/position/eci-x-ft"), getprop("/fdm/jsbsim/position/eci-y-ft"), getprop("/fdm/jsbsim/position/eci-z-ft")];
+
+var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * factor, getprop("/fdm/jsbsim/velocities/eci-y-fps") * factor, getprop("/fdm/jsbsim/velocities/eci-z-fps") * factor];
+
+get_rei(x,v);
+
+
+}
 
 var get_rei = func (x, v){
 
@@ -239,7 +281,11 @@ var R = 400000.0 * 0.3048 + 6370.0 * 1000;
 #print ("x: ", x[0], " ", x[1], " ", x[2]);
 #print ("v: ", v[0], " ", v[1], " ", v[2]);
 
+
 var ang_to_go =  compute_interface (x, v, R);
+
+if (ang_to_go < 0.0) # we're seeing a periapsis above interface
+	{return 0;}
 
 var dist_to_go = 6370.0 * 1000.0 * ang_to_go;
 
@@ -250,7 +296,8 @@ shuttle_pos.set_alt(0);
 
 var course = getprop("/fdm/jsbsim/velocities/course-deg");
 
-shuttle_pos.apply_course_distance(course, dist_to_go);
+#shuttle_pos.apply_course_distance(course, dist_to_go);
+SpaceShuttle.sgeo_move_circle (course, dist_to_go, shuttle_pos);
 
 var rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
 
@@ -259,13 +306,18 @@ var rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
 # we computed for a spherical Earth, now we know latitude, so we can do an iteration
 # for a better intersection point
 
-R = geoid_radius(shuttle_pos.lat());
+R = geoid_radius(shuttle_pos.lat()) + 400000.0 * 0.3048;
 ang_to_go =  compute_interface (x, v, R);
 var dist_to_go = 6370.0 * 1000.0 * ang_to_go;
 
 shuttle_pos = geo.aircraft_position();
 shuttle_pos.set_alt(0);
-shuttle_pos.apply_course_distance(course, dist_to_go);
+#shuttle_pos.apply_course_distance(course, dist_to_go);
+SpaceShuttle.sgeo_move_circle (course, dist_to_go, shuttle_pos);
+
+#print ("Course: ", course, " distance [km]: ", dist_to_go/1000.0 );
+
+#print ("REI geoid lat: ", shuttle_pos.lat(), " lon: ", shuttle_pos.lon());
 
 # correct for Earth's rotation during coast to interface
 # note that sign is flipped with respect to co-orbiting objects
@@ -275,6 +327,12 @@ var time_to_go = dist_to_go / 0.3048 / 25000.0;
 #print ("time_to_go: ", time_to_go);
 var delta_lon = SpaceShuttle.earth_rotation_deg_s * time_to_go;
 shuttle_pos.set_lon(shuttle_pos.lon() + delta_lon);
+
+
+#print ("REI g-rot lat: ", shuttle_pos.lat(), " lon: ", shuttle_pos.lon());
+#print ("Site lat     : ", landing_site.lat(), " lon: ", landing_site.lon());
+
+
 
 rei = shuttle_pos.distance_to(landing_site)/1000.0 * 0.539956803456;
 
@@ -1301,3 +1359,55 @@ setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dvz", 0.0);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s", 0.0);
 setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string", 0.0);
 }
+
+############################################################
+# PEG-4 targeting routines
+############################################################
+
+var compute_peg4_tgt_location = func (theta_t, HT) {
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+# no PEG-4 available in OPS 2 or 6
+if ((ops == 2) or (ops == 6)) {return;} 
+
+var shuttle_pos = geo.aircraft_position();
+
+var shuttle_course = 0.0;
+
+# in OPS 1, theta-t is mesured away from the launch site
+# in OPS 3, theta-1 is from TIG to EI
+
+var peg4_tgt = geo.Coord.new();
+
+if (ops == 1)
+	{
+	shuttle_course = peg4_refloc.course_to(shuttle_pos);
+	peg4_tgt.set_latlon(peg4_refloc.lat(), peg4_refloc.lon());
+	}
+if (ops == 3) 
+	{
+	shuttle_course = getprop("/fdm/jsbsim/velocities/course-deg");
+	peg4_tgt.set_latlon(shuttle_pos.lat(), shuttle_pos.lon());
+	}
+
+# it's not quite clear what the reference for HT actually is - mean altitude or geoid altitude
+
+var ang_to_meters = math.pi / 180.0 * 6370.0 * 1000.0;
+#peg4_tgt.apply_course_distance(shuttle_course, theta_t * ang_to_meters);
+SpaceShuttle.sgeo_move_circle (shuttle_course, theta_t * ang_to_meters, peg4_tgt);
+peg4_tgt.set_alt(HT * 1852.0);
+
+
+#var sv = SpaceShuttle.normalize(shuttle_pos.xyz());
+#var rv = SpaceShuttle.normalize(peg4_tgt.xyz());
+
+#var theta_raw = math.acos(SpaceShuttle.dot_product(sv, rv));
+
+#print ("Theta-t: ", theta_raw * 180.0/math.pi);
+
+}
+
+
+#
+#geoid_radius

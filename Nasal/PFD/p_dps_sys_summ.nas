@@ -82,9 +82,14 @@ var PFD_addpage_p_dps_sys_summ = func(device)
     p_dps_sys_summ.imu = device.svg.getElementById("p_dps_sys_summ_imu");
     p_dps_sys_summ.acc = device.svg.getElementById("p_dps_sys_summ_acc");
     p_dps_sys_summ.rga = device.svg.getElementById("p_dps_sys_summ_rga");
-    p_dps_sys_summ.tac = device.svg.getElementById("p_dps_sys_summ_tac");
+    p_dps_sys_summ.tac1 = device.svg.getElementById("p_dps_sys_summ_tac1");
+    p_dps_sys_summ.tac2 = device.svg.getElementById("p_dps_sys_summ_tac2");
+    p_dps_sys_summ.tac3 = device.svg.getElementById("p_dps_sys_summ_tac3");
     p_dps_sys_summ.mls = device.svg.getElementById("p_dps_sys_summ_mls");
-    p_dps_sys_summ.adta = device.svg.getElementById("p_dps_sys_summ_adta");
+    p_dps_sys_summ.adta1 = device.svg.getElementById("p_dps_sys_summ_adta1");
+    p_dps_sys_summ.adta2 = device.svg.getElementById("p_dps_sys_summ_adta2");
+    p_dps_sys_summ.adta3 = device.svg.getElementById("p_dps_sys_summ_adta3");
+    p_dps_sys_summ.adta4 = device.svg.getElementById("p_dps_sys_summ_adta4");
     
     
     
@@ -120,9 +125,8 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         p_dps_sys_summ.imu.setText(sprintf(""));
         p_dps_sys_summ.acc.setText(sprintf(""));
         p_dps_sys_summ.rga.setText(sprintf(""));
-        p_dps_sys_summ.tac.setText(sprintf(""));
         p_dps_sys_summ.mls.setText(sprintf(""));
-        p_dps_sys_summ.adta.setText(sprintf(""));
+
     }
     
     p_dps_sys_summ.update = func
@@ -162,6 +166,8 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         p_dps_sys_summ.f3_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-3-status")));
         p_dps_sys_summ.f4_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-4-status")));
         p_dps_sys_summ.f5_vlv.setText( valve_status_to_string(getprop("/fdm/jsbsim/systems/rcs-hardware/mfold-fwd-rcs-valve-5-status")));
+
+
     
         p_dps_sys_summ.f1_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f1")));
         p_dps_sys_summ.f2_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f2")));
@@ -183,6 +189,43 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         p_dps_sys_summ.pos_spdbrk.setText(sprintf("%2.1f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
         p_dps_sys_summ.pos_bdyflp.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/bodyflap-pos-rad")));
         p_dps_sys_summ.pos_ail.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/left-aileron-pos-rad")));
+
+	# TACAN, MLS and air data are only processed in final phases
+        var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	
+	if ((mm == 304) or (mm = 305) or (mm = 602) or (mm = 603))
+		{
+		var string = SpaceShuttle.tacan_system.receiver[0].get_status_string();
+		p_dps_sys_summ.tac1.setText(string);
+
+		string = SpaceShuttle.tacan_system.receiver[1].get_status_string();
+		p_dps_sys_summ.tac2.setText(string);
+
+		string = SpaceShuttle.tacan_system.receiver[2].get_status_string();
+		p_dps_sys_summ.tac3.setText(string);
+
+		string = SpaceShuttle.air_data_system.adta[0].status_string();
+	        p_dps_sys_summ.adta1.setText(string);
+
+		string = SpaceShuttle.air_data_system.adta[1].status_string();
+	        p_dps_sys_summ.adta2.setText(string);
+
+		string = SpaceShuttle.air_data_system.adta[2].status_string();
+	        p_dps_sys_summ.adta3.setText(string);
+
+		string = SpaceShuttle.air_data_system.adta[3].status_string();
+	        p_dps_sys_summ.adta4.setText(string);
+		}
+	else
+		{
+		p_dps_sys_summ.tac1.setText("");
+		p_dps_sys_summ.tac2.setText("");
+		p_dps_sys_summ.tac3.setText("");
+	        p_dps_sys_summ.adta1.setText("");
+	        p_dps_sys_summ.adta2.setText("");
+	        p_dps_sys_summ.adta3.setText("");
+	        p_dps_sys_summ.adta4.setText("");
+		}
     }
     
     

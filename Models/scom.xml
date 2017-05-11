@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>book.ac</path>
+    <nopreview/>
+
+   <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-interior-object</inherits-from>
+	<object-name>back</object-name>
+	<object-name>board</object-name>
+	<object-name>bracket</object-name>
+	<object-name>flagCZ</object-name>
+	<object-name>flagES</object-name>
+	<object-name>flagGB</object-name>
+	<object-name>flagGER</object-name>
+	<object-name>flagITA</object-name>
+	<object-name>flagPOR</object-name>
+	<object-name>pages</object-name>
+	<object-name>pages.001</object-name>
+	<object-name>saddle</object-name>
+    </effect>
+
+ <animation>
+  <type>rotate</type>
+  <property>controls/shuttle/scom/roll</property>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <property>controls/shuttle/scom/pitch</property>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>rotate</type>
+  <property>controls/shuttle/scom/yaw</property>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <property>controls/shuttle/scom/x</property>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <property>controls/shuttle/scom/y</property>
+  <axis>
+   <x>0</x>
+   <y>1</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>translate</type>
+  <property>controls/shuttle/scom/z</property>
+  <axis>
+   <x>0</x>
+   <y>0</y>
+   <z>1</z>
+  </axis>
+ </animation>
+
+
+
+ <animation>
+  <object-name>pages.001</object-name>
+  <type>select</type>
+  <condition>
+   <greater-than>
+    <value>0</value>
+    <value>25</value>
+   </greater-than>
+  </condition>
+ </animation>
+
+
+</PropertyList>

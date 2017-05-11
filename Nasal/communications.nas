@@ -121,14 +121,13 @@ append(com_ground_site_array, ground_site14);
 
 # find the closest ground station ########################################
 
-var com_find_nearest_station = func (mode) {
+var com_find_nearest_station = func (mode, shuttle_pos) {
 
 var compare_string = "SGLS";
 
 if ((mode == "S-HI") or (mode == "S-LO"))
 	{compare_string = "STDN";}
 
-var shuttle_pos = geo.aircraft_position();
 
 var d = 10000000.0;
 var index = -1;
@@ -155,9 +154,8 @@ return index;
 
 # check line of sight to ground station ########################################
 
-var com_check_LOS_to_station = func (index) {
+var com_check_LOS_to_station = func (index, shuttle_pos) {
 
-var shuttle_pos = geo.aircraft_position();
 
 var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048; 
 var alt = shuttle_pos.alt();
@@ -176,10 +174,16 @@ else
 
 # determine which quadrant antenna is used ########################################
 
-var com_get_S_quadrant = func (index) {
+var com_get_S_quadrant = func (index, flag, shuttle_pos) {
 
-var shuttle_pos = geo.aircraft_position();
+
 var ground_pos = com_ground_site_array[index].coord;
+
+if (flag == 1) 
+	{
+	ground_pos = com_TDRS_array[index].coord; 
+	}
+	
 
 # body axis upward pointing vector in FG world coords
 
@@ -288,9 +292,8 @@ append(com_TDRS_array, tdrs7);
 
 # check line of sight to satellite ########################################
 
-var com_check_LOS_to_TDRS = func (index) {
+var com_check_LOS_to_TDRS = func (index, shuttle_pos) {
 
-var shuttle_pos = geo.aircraft_position();
 
 var radius = getprop("/fdm/jsbsim/ic/sea-level-radius-ft") * 0.3048; 
 var alt = shuttle_pos.alt();
@@ -335,6 +338,7 @@ var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("
 
 var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]")];
 
+
 # pointing vector  in world coordinates
 
 var shuttle_world = shuttle_pos.xyz();
@@ -354,8 +358,35 @@ var angles = SpaceShuttle.get_pitch_yaw(pointer_body);
 angles[0] = angles[0] * 180.0/math.pi;
 angles[1] = angles[1] * 180.0/math.pi;
 
+# now compute the pointing vector known to the GPC, i.e. with attitude errors
+
+var pe = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg");
+var ye = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg");
+var re = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg");
+
+var pointer_gpc_body = orientTaitBryan (pointer_body, ye, pe, re);
+var angles_gpc = SpaceShuttle.get_pitch_yaw(pointer_gpc_body);
+
+angles_gpc[0] = angles_gpc[0] * 180.0/math.pi;
+angles_gpc[1] = angles_gpc[1] * 180.0/math.pi;
+
+append(angles, angles_gpc[0]);
+append(angles, angles_gpc[1]);
+
 return angles;
 
+
+}
+
+var com_get_signal_strength = func (shuttle_pos, tgt_pos, preamp_gain) {
+
+var dist = shuttle_pos.direct_distance_to(tgt_pos) / 10000.0;
+
+var value =  0.5 * (16.0 + math.ln(1.0/(dist * dist))) + preamp_gain;
+
+value = SpaceShuttle.clamp(value, 0.0, 5.0);
+
+return value;
 
 }
 

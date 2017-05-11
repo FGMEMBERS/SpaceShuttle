@@ -9,7 +9,15 @@ var aux_flag = 0;
 
 var auto_launch_loop = func {
 
+var shuttle_pos = geo.aircraft_position();
 
+var actual_course = SpaceShuttle.peg4_refloc.course_to(shuttle_pos);
+var dist = SpaceShuttle.peg4_refloc.distance_to(shuttle_pos);
+var launch_azimuth = getprop("/fdm/jsbsim/systems/ap/launch/launch-azimuth");
+
+var xtrack = SpaceShuttle.sgeo_crosstrack(actual_course, launch_azimuth, dist)  * 0.0005399568;
+
+setprop("/fdm/jsbsim/systems/ap/launch/cross-track", xtrack);
 
 if (auto_launch_stage == 0)
 	{
@@ -169,7 +177,19 @@ else if (auto_launch_stage == 4)
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
 		{
-		var current_throttle = getprop("/controls/engines/engine[0]/throttle");
+
+		# an engine can be in electric lockup, so we may need to look at more engines
+		# to determine current throttle value
+
+		var current_throttle = 1; 
+
+		if (SpaceShuttle.failure_cmd.ssme1 == 1)
+			{current_throttle = getprop("/controls/engines/engine[0]/throttle");}
+		else if (SpaceShuttle.failure_cmd.ssme2 == 1)
+			{current_throttle = getprop("/controls/engines/engine[1]/throttle");}
+		else
+			{current_throttle = getprop("/controls/engines/engine[2]/throttle");}
+
 		var new_throttle = current_throttle * 0.99;
 
 		#if (new_throttle < 0.61) {new_throttle = 0.61;}
@@ -241,6 +261,10 @@ else if (auto_launch_stage == 4)
 
 		settimer( external_tank_separate, 20.0);
 
+		# start main orbital loop
+		orbital_loop_init();
+		#settimer(orbital_loop,1.0);
+
 		SpaceShuttle.mission_post_meco();	
 
 		return;
@@ -270,7 +294,18 @@ if (auto_launch_stage == 3)
 	payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
 
 	var geo_factor = math.sin(heading) * math.cos(lat);
-	setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 35.0 + 12.0 * payload_factor) + 12.0 - 15.0 * geo_factor;
+
+	# during the ballistic ascent, pitch target depends on number of good engines
+	# to allow 3 engine TAL
+
+	var pitch_tgt = 35.0 + 12.0 * payload_factor + 12.0 - 15.0 * geo_factor;
+
+	var num_engines = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+	if (num_engines == 3) 
+		{pitch_tgt = 5.0 + 5.0 * payload_factor + 4.0 - 6.0 * geo_factor;}
+
+	setprop("/fdm/jsbsim/systems/ap/launch/pitch-target",pitch_tgt) ;
+
 	}
 
 auto_TAL_loop();
@@ -317,9 +352,16 @@ if (auto_launch_stage == 3)
 	setprop("/fdm/jsbsim/systems/ap/launch/distance-ballistic-km", dist_ballistic/1000.0);
 	setprop("/fdm/jsbsim/systems/ap/launch/distance-site-km", dist/1000.0);
 
+	# during the ballistic ascent, pitch target depends on number of good engines
+	# to allow 3 engine TAL
+
+	var num_engines = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+	var pitch_tgt = 30.0;
+	if (num_engines == 3) {pitch_tgt = 10.0;}
+
 	if (((getprop("/fdm/jsbsim/velocities/v-down-fps") > -500.0) or (getprop("/position/altitude-ft") > 508530.0)) and (aux_flag == 0))
 		{
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 30.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", pitch_tgt);
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.1);
 		aux_flag = 1;
 		}
@@ -345,14 +387,33 @@ else if (auto_launch_stage == 4)
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
 		{
-		var current_throttle = getprop("/controls/engines/engine[0]/throttle");
+
+
+		# an engine can be in electric lockup, so we may need to look at more engines
+		# to determine current throttle value
+
+		var current_throttle = 1; 
+
+		if (SpaceShuttle.failure_cmd.ssme1 == 1)
+			{current_throttle = getprop("/controls/engines/engine[0]/throttle");}
+		else if (SpaceShuttle.failure_cmd.ssme2 == 1)
+			{current_throttle = getprop("/controls/engines/engine[1]/throttle");}
+		else
+			{current_throttle = getprop("/controls/engines/engine[2]/throttle");}
+
 		var new_throttle = current_throttle * 0.99;
 
-		if (new_throttle < 0.61) {new_throttle = 0.61;}
+		#if (new_throttle < 0.61) {new_throttle = 0.61;}
 
-		setprop("/controls/engines/engine[0]/throttle", new_throttle);
-		setprop("/controls/engines/engine[1]/throttle", new_throttle);
-		setprop("/controls/engines/engine[2]/throttle", new_throttle);
+		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+			{
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", new_throttle);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", new_throttle);}
+			}
 
 		}
 
@@ -399,13 +460,22 @@ else if (auto_launch_stage == 4)
 	if (dist_ballistic >  (dist - 700000.0))
 		{
 
-		setprop("/controls/engines/engine[0]/throttle", 0.0);
-		setprop("/controls/engines/engine[1]/throttle", 0.0);
-		setprop("/controls/engines/engine[2]/throttle", 0.0);
 
-	    	setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
-    		setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
-    		setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+			{	
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", 0.0);}
+
+	    		setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
+    			setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
+    			setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
+			}
+
 
 		print ("MECO - auto-TAL guidance signing off!");
 		print ("Have a good entry and remember to close umbilical doors!");

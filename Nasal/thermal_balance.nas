@@ -478,6 +478,10 @@ thermal_array[10].transfer[0].capacity = capacity;
 
 var adjust_freon = func {
 
+# the interior temperature is the mean we have to adjust
+# assume that the radiator, evaporator and boiler temperatures in nominal are related by a fixed offset
+# i.e. regulating to 293 K interior temperature equals 275 K evap. out T
+
 var T_target = getprop("/fdm/jsbsim/systems/thermal-distribution/interior-set-temperature-K");
 
 var T = thermal_array[10].temperature;
@@ -600,12 +604,12 @@ var rad_dump_capacity = getprop("/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity
 thermal_array[11].area = 41.5 * rad_dump_capacity / 17900.0;
 
 var fes_sink = getprop("/fdm/jsbsim/systems/atcs/fes-heat-dump-capacity");
+var nh3_sink = getprop("/fdm/jsbsim/systems/atcs/nh3-heat-dump-capacity");
 
-thermal_array[11].sink = fes_sink * state;
+thermal_array[11].sink = fes_sink * state + nh3_sink * state;
 }
 
-#setlistener("/fdm/jsbsim/systems/thermal-distribution/water-loop-switch", func { water_loop_manager();},0,0);
-#setlistener("/fdm/jsbsim/systems/thermal-distribution/freon-loop-switch", func { freon_loop_manager();},0,0);
+
 
 # automatically run the loop at startup
 

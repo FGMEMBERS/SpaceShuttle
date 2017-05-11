@@ -1156,6 +1156,69 @@
     </item>
 
 
+    <item>
+      <name>Area Navigation</name>
+    </item>
+
+    <item>
+      <name>TACAN receivers</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys1-switch</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys2-switch</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys3-switch</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>MLS receivers</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys1-switch</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys2-switch</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys3-switch</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>Radar altimeters</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/radar-altimeter-1-power</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>/fdm/jsbsim/systems/navigation/radar-altimeter-2-power</property>
+          <value>0</value>
+        </equals>
+	</and>
+      </condition>     
+    </item>
+
 
   </checklist>
 
@@ -1179,6 +1242,81 @@
 	</equals>
       </condition>
     </item>
+
+   <item>
+      <name>Thermal management to flash evaporators</name>
+    </item>
+
+    <item>
+      <name>set flash evaporator controllers to</name>
+      <value>ON</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-A-status</property>
+	    <value>1</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-B-status</property>
+	    <value>1</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/fes-controller-sec-status</property>
+	    <value>1</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set radiator valves from AUTO to</name>
+      <value>BYPASS</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-1-status</property>
+	    <value>1</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/flow-bypass-2-status</property>
+	    <value>1</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+    <item>
+      <name>set radiator controllers to</name>
+      <value>OFF</value>
+      <condition>
+	<and>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>0</value>
+	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>0</value>
+	  </equals>
+	</and>
+      </condition>
+    </item>
+
+
+
+
+
+    <item>
+      <name>verify freon cooling loop operations</name>
+      <value>NOMINAL</value>
+      <condition>
+	<greater-than>
+	  <property>/fdm/jsbsim/systems/atcs/fes-heat-dump-capacity</property>
+	  <value>0.0</value>
+	</greater-than>
+      </condition>
+    </item>
+
 
     <item>
       <name>Close Payload Bay doors</name>
@@ -1220,6 +1358,11 @@
 	 <value>0</value>
 	</equals>
       </condition>
+    </item>
+
+    <item>
+      <name>payload bay floodlights</name>
+      <value>OFF</value>
     </item>
 
     <item>
@@ -1277,6 +1420,73 @@
       </condition>
     </item>
 
+    <item>
+      <name>Area Navigation</name>
+    </item>
+
+    <item>
+      <name>TACAN receivers</name>
+      <value>GPC</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys1-switch</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys2-switch</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/tacan-sys3-switch</property>
+          <value>0</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>MLS receivers</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys1-switch</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys2-switch</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/mls-sys3-switch</property>
+          <value>0</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
+
+    <item>
+      <name>MLS channel selector</name>
+      <value>as required for landing site</value>
+    </item>
+
+    <item>
+      <name>Radar altimeters</name>
+      <value>ON</value>
+      <condition>
+	<and>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/radar-altimeter-1-power</property>
+          <value>0</value>
+        </greater-than>
+        <greater-than>
+          <property>/fdm/jsbsim/systems/navigation/radar-altimeter-2-power</property>
+          <value>0</value>
+        </greater-than>
+	</and>
+      </condition>     
+    </item>
 
 
 
@@ -1359,6 +1569,7 @@
 	</and>
       </condition>
     </item>
+   
 
     <item>
       <name>Pre-start procedures for single APU</name>

@@ -701,7 +701,7 @@
 
 	</channel>
 
-	<channel name="OMS thermal control">
+	<channel name="OMS thermal control" execrate="4">
 
 		<fcs_function name="systems/oms-hardware/heater-left-power-kW">
 		<function>
@@ -775,6 +775,284 @@
 			</test>
 		</switch>
 
+	</channel>
+
+	<channel name="Cockpit gauges propellant" execrate="8">
+
+		<!-- left tanks -->
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-oxid-left-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[8]/contents-lbs</property>
+				<value>14.770</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-fuel-left-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[9]/contents-lbs</property>
+				<value>9.280</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/oms-oxid-left-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[4]/contents-lbs</property>
+				<value>77.730</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/oms-fuel-left-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[5]/contents-lbs</property>
+				<value>47.180</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/min-propellant-left-percent">
+		<function>
+			<min>
+				<property>systems/oms-hardware/gauges/rcs-fuel-left-percent</property>
+				<property>systems/oms-hardware/gauges/rcs-oxid-left-percent</property>
+				<property>systems/oms-hardware/gauges/oms-fuel-left-percent</property>
+				<property>systems/oms-hardware/gauges/oms-oxid-left-percent</property>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/gauges/display-qty-left">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/rcs-oxid-left-percent"> <!-- RCS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 0
+			</test>
+			<test value="systems/oms-hardware/gauges/rcs-fuel-left-percent"> <!-- RCS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/gauges/min-propellant-left-percent"> <!-- MIN -->
+				systems/oms-hardware/gauges/tank-selector-switch == 2
+			</test>
+			<test value="systems/oms-hardware/gauges/oms-oxid-left-percent"> <!-- OMS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 3
+			</test>
+			<test value="systems/oms-hardware/gauges/oms-fuel-left-percent"> <!-- OMS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 4
+			</test>
+		</switch>
+
+		<!-- right tanks -->
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-oxid-right-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[10]/contents-lbs</property>
+				<value>14.770</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-fuel-right-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[11]/contents-lbs</property>
+				<value>9.280</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/oms-oxid-right-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[6]/contents-lbs</property>
+				<value>77.730</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/oms-fuel-right-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[7]/contents-lbs</property>
+				<value>47.180</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/min-propellant-right-percent">
+		<function>
+			<min>
+				<property>systems/oms-hardware/gauges/rcs-fuel-right-percent</property>
+				<property>systems/oms-hardware/gauges/rcs-oxid-right-percent</property>
+				<property>systems/oms-hardware/gauges/oms-fuel-right-percent</property>
+				<property>systems/oms-hardware/gauges/oms-oxid-right-percent</property>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/gauges/display-qty-right">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/rcs-oxid-right-percent"> <!-- RCS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 0
+			</test>
+			<test value="systems/oms-hardware/gauges/rcs-fuel-right-percent"> <!-- RCS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/gauges/min-propellant-right-percent"> <!-- MIN -->
+				systems/oms-hardware/gauges/tank-selector-switch == 2
+			</test>
+			<test value="systems/oms-hardware/gauges/oms-oxid-right-percent"> <!-- OMS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 3
+			</test>
+			<test value="systems/oms-hardware/gauges/oms-fuel-right-percent"> <!-- OMS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 4
+			</test>
+		</switch>
+
+
+		<!-- forward tanks -->
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-oxid-fwd-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[12]/contents-lbs</property>
+				<value>14.770</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/rcs-fuel-fwd-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[13]/contents-lbs</property>
+				<value>9.280</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/min-propellant-fwd-percent">
+		<function>
+			<min>
+				<property>systems/oms-hardware/gauges/rcs-fuel-fwd-percent</property>
+				<property>systems/oms-hardware/gauges/rcs-oxid-fwd-percent</property>
+			</min>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/gauges/display-qty-fwd">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/rcs-oxid-fwd-percent"> <!-- RCS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 0
+			</test>
+			<test value="systems/oms-hardware/gauges/rcs-fuel-fwd-percent"> <!-- RCS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/gauges/min-propellant-fwd-percent"> <!-- MIN -->
+				systems/oms-hardware/gauges/tank-selector-switch == 2
+			</test>
+		</switch>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+		<function>
+			<property>systems/rcs-hardware/helium-left-rcs-pressure-psia</property>
+			<value>0.1</value>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+		<function>
+			<property>systems/rcs-hardware/helium-right-rcs-pressure-psia</property>
+			<value>0.1</value>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+		<function>
+			<property>systems/rcs-hardware/helium-fwd-rcs-pressure-psia</property>
+			<value>0.1</value>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/oms-hardware/gauges/display-press-left-oxid">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/tanks-left-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/gauges/display-press-left-fuel">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/tanks-left-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/gauges/display-press-fwd-oxid">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/gauges/display-press-fwd-fuel">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/gauges/display-press-right-oxid">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/tanks-right-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/gauges/display-press-right-fuel">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+				systems/oms-hardware/gauges/pressure-selector-switch == 0
+			</test>
+			<test value="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/tanks-right-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
+			</test>
+		</switch>
+
+	
 	</channel>
 
 </system>

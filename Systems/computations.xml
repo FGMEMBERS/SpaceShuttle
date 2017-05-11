@@ -2,7 +2,6 @@
 
 <system>
 	<channel name="Auxiliary computations">
-
 		<fcs_function name="accelerations/a-pilot-ft_sec2">
 		<function>
 		<pow>
@@ -56,7 +55,7 @@
 		</fcs_function>
 
 		<!-- this is a parametrization agreeing roughly with Shuttle, Blackbird and Concorde numbers -->
-		<fcs_function name="systems/thermal/nose-temperature-K">
+		<fcs_function name="systems/thermal/nose-temperature1-K">
 		<function>	
 			<product>
 			<pow>
@@ -100,6 +99,41 @@
 		</function>
 		</fcs_function>
 
+
+		<!-- parametrization based on Columbia in-situ data -->
+		<!-- this predicts a steady-state temperature of 602 F for the SR-71 at 85.000 ft and Mach 3.2 -->
+		<!-- and 409 F for the Concorde at 54.000 ft at Mach 2.04  which is in the right ballpark -->
+		<!-- once a convective cooling term is included -->
+
+		<fcs_function name="systems/thermal/nose-temperature-K">
+		<function>	
+			<product>
+				<property>systems/thermal/temperature-norm</property>
+				<value>1675.0</value>
+				<pow>
+					<property>velocities/mach</property>
+					<value>1.5</value>
+				</pow>
+				<pow>
+					<property>atmosphere/rho-slugs_ft3</property>
+					<value>0.3</value>
+				</pow>
+				<table>
+				<!-- the energy transfer coeff from the shockwave is AoA dependent-->
+				<independentVar lookup="row">aero/alpha-rad</independentVar>
+				<tableData>
+					0.0	1.3
+					0.2	1.1
+					0.4	1.05
+					0.7	1.0
+					0.8	1.05
+					0.9	1.1
+					1.0	1.3
+				</tableData>
+			</table>
+			</product>
+		</function>
+		</fcs_function>
 
 
 		<fcs_function name="systems/thermal/nose-temperature-F">
@@ -275,39 +309,7 @@
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/various/ssme-flame-collimation">
-		<function>
-			<sum>
-			<value>0.15</value>
-			<product>
-				<value>0.4</value>
-				<difference>
-				<value>1.0</value>
-				<quotient>
-					<property>/environment/pressure-inhg</property>
-					<property>/environment/pressure-sea-level-inhg</property>
-				</quotient>
-				</difference>
-			</product>
-			</sum>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/various/ssme-flame-density">
-		<function>
-		<product>
-			<value>0.2</value>
-			<quotient>
-			<max>
-				<property>propulsion/engine[0]/thrust-lbs</property>
-				<property>propulsion/engine[1]/thrust-lbs</property>
-				<property>propulsion/engine[2]/thrust-lbs</property>
-			</max>
-			<value>510000.0</value>
-			</quotient>
-		</product>
-		</function>			
-		</fcs_function>
+		
 
 
 		<fcs_function name="systems/various/oms-flame-density">
@@ -356,6 +358,23 @@
 				</min>
 			</product>
 		</function>			
+		</fcs_function>
+
+	<!-- force on the drag chute -->
+
+		<fcs_function name="systems/various/drag-chute-force-norm">
+		<function>
+			<table>
+		 		<independentVar lookup="row">/velocities/airspeed-kt</independentVar>
+                  		<tableData>
+					20.0	0.5
+					60.0	0.7	
+					130.0	1.0
+					230.0	2.0		
+					250.0	2.0
+                  		</tableData>
+         		</table>
+		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/various/oms-fuel-fraction">
@@ -490,13 +509,23 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/various/SSME-base-volume">
+		<function>
+			<max>
+				<property>/engines/engine[0]/thrust_lb</property>
+				<property>/engines/engine[1]/thrust_lb</property>
+				<property>/engines/engine[2]/thrust_lb</property>
+			</max>
+		</function>
+		</fcs_function>
 		
 		<fcs_function name="systems/various/SSME-external-volume">
 		<function>
 			<product>
 				<min>
 				<product>
-				<property>/engines/engine[0]/thrust_lb</property>
+				<property>systems/various/SSME-base-volume</property>
 				<value>0.01</value>
 				</product>
 				<value>1.0</value>
@@ -585,6 +614,663 @@
 			<kd> 1.0</kd>
 			<output>accelerations/hdotdot-ft_s2</output>
   		</pid>
-		
+
 	</channel>
+
+	<channel name="SSME flame visuals" execrate="2">
+
+		<fcs_function name="systems/various/ssme-flame-collimation">
+		<function>
+			<sum>
+			<value>0.15</value>
+			<product>
+				<value>0.4</value>
+				<difference>
+				<value>1.0</value>
+				<quotient>
+					<property>/environment/pressure-inhg</property>
+					<property>/environment/pressure-sea-level-inhg</property>
+				</quotient>
+				</difference>
+			</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-ignition-density">
+			<input>systems/various/ssme-ignition-density-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-density">
+		<function>
+		<max>
+		<product>
+			<value>0.1</value>
+			<quotient>
+			<max>
+				<!--<property>propulsion/engine[0]/thrust-lbs</property>-->
+				<property>propulsion/engine[1]/thrust-lbs</property>
+				<!--<property>propulsion/engine[2]/thrust-lbs</property>-->
+			</max>
+			<value>510000.0</value>
+			</quotient>
+		</product>
+		<property>systems/various/ssme-ignition-density</property>
+		</max>
+		</function>			
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-ignition-density1">
+			<input>systems/various/ssme-ignition-density-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-density1">
+		<function>
+		<max>
+		<product>
+			<value>0.1</value>
+			<quotient>
+			<max>
+				<property>propulsion/engine[2]/thrust-lbs</property>
+			</max>
+			<value>510000.0</value>
+			</quotient>
+		</product>
+		<property>systems/various/ssme-ignition-density1</property>
+		</max>
+		</function>			
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-ignition-density2">
+			<input>systems/various/ssme-ignition-density-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-density2">
+		<function>
+		<max>
+		<product>
+			<value>0.1</value>
+			<quotient>
+			<max>
+				<property>propulsion/engine[0]/thrust-lbs</property>
+			</max>
+			<value>510000.0</value>
+			</quotient>
+		</product>
+		<property>systems/various/ssme-ignition-density2</property>
+		</max>
+		</function>			
+		</fcs_function>
+
+
+	</channel>
+
+
+	<channel name="SSME ignition visuals" execrate="2" execute="/sim/config/shuttle/prelaunch-flag">
+
+
+
+		<kinematic name="systems/various/ssme-flame-base-density">
+			<input>systems/various/ssme-flame-base-density-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-shock-frequency">
+		<function>
+			<sum>
+				<value>0.1</value>
+				<product>
+				<value>0.5</value>
+				<property>systems/various/ssme-flame-base-density</property>
+				</product>
+			</sum>
+			<!--<difference>
+				<value>1.5</value>
+				<product>
+				<property>systems/various/ssme-flame-base-density</property>
+				<value>0.5</value>
+				</product>
+			</difference>-->
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-noise-strength">
+			<input>systems/various/ssme-noise-strength-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+
+
+		<kinematic name="systems/various/ssme-flame-r-low">
+			<input>systems/various/ssme-flame-r-low-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-low">
+			<input>systems/various/ssme-flame-g-low-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-low">
+			<input>systems/various/ssme-flame-b-low-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-high">
+			<input>systems/various/ssme-flame-r-high-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-high">
+			<input>systems/various/ssme-flame-g-high-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-high">
+			<input>systems/various/ssme-flame-b-high-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-base">
+			<input>systems/various/ssme-flame-r-base-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-base">
+			<input>systems/various/ssme-flame-g-base-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-base">
+			<input>systems/various/ssme-flame-b-base-target</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<!-- again for center engine -->
+
+		<kinematic name="systems/various/ssme-flame-base-density1">
+			<input>systems/various/ssme-flame-base-density-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-shock-frequency1">
+		<function>
+			<!--<difference>
+				<value>1.5</value>
+				<product>
+				<property>systems/various/ssme-flame-base-density1</property>
+				<value>0.5</value>
+				</product>
+			</difference>-->
+			<sum>
+				<value>0.1</value>
+				<product>
+				<value>0.5</value>
+				<property>systems/various/ssme-flame-base-density1</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-noise-strength1">
+			<input>systems/various/ssme-noise-strength-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+
+
+
+		<kinematic name="systems/various/ssme-flame-r-low1">
+			<input>systems/various/ssme-flame-r-low-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-low1">
+			<input>systems/various/ssme-flame-g-low-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-low1">
+			<input>systems/various/ssme-flame-b-low-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-high1">
+			<input>systems/various/ssme-flame-r-high-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-high1">
+			<input>systems/various/ssme-flame-g-high-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-high1">
+			<input>systems/various/ssme-flame-b-high-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-base1">
+			<input>systems/various/ssme-flame-r-base-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-base1">
+			<input>systems/various/ssme-flame-g-base-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-base1">
+			<input>systems/various/ssme-flame-b-base-target1</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+	<!-- again for left engine -->
+
+		<kinematic name="systems/various/ssme-flame-base-density2">
+			<input>systems/various/ssme-flame-base-density-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<fcs_function name="systems/various/ssme-flame-shock-frequency2">
+		<function>
+			<!--<difference>
+				<value>1.5</value>
+				<product>
+				<property>systems/various/ssme-flame-base-density2</property>
+				<value>0.5</value>
+				</product>
+			</difference>-->
+			<sum>
+				<value>0.1</value>
+				<product>
+				<value>0.5</value>
+				<property>systems/various/ssme-flame-base-density2</property>
+				</product>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<kinematic name="systems/various/ssme-noise-strength2">
+			<input>systems/various/ssme-noise-strength-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>2.0</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+
+		<kinematic name="systems/various/ssme-flame-r-low2">
+			<input>systems/various/ssme-flame-r-low-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-low2">
+			<input>systems/various/ssme-flame-g-low-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-low2">
+			<input>systems/various/ssme-flame-b-low-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-high2">
+			<input>systems/various/ssme-flame-r-high-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-high2">
+			<input>systems/various/ssme-flame-g-high-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-high2">
+			<input>systems/various/ssme-flame-b-high-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-r-base2">
+			<input>systems/various/ssme-flame-r-base-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-g-base2">
+			<input>systems/various/ssme-flame-g-base-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+		<kinematic name="systems/various/ssme-flame-b-base2">
+			<input>systems/various/ssme-flame-b-base-target2</input>
+			<traverse>
+				<setting>
+					<position>0.0</position>
+					<time>0.0</time>
+				</setting>
+				<setting>
+					<position>1.0</position>
+					<time>1.5</time>
+				</setting>
+			</traverse>
+		</kinematic>
+
+	</channel>
+
 </system>

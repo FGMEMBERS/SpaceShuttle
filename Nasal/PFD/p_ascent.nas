@@ -182,18 +182,29 @@ var PFD_addpage_p_ascent = func(device)
 	else
 		{p_ascent.abort.setText("");}
 
+	var arm_serc = getprop("/fdm/jsbsim/systems/abort/arm-serc");
 	var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 
-	if (control_mode == 13)
-    		{
+	if ((arm_serc == 1) or (control_mode == 13))
+		{
 		p_ascent.serc.setText("*");
-    		p_ascent.serc_on.setText("ON");
 		}
 	else
 		{
 		p_ascent.serc.setText("");
+		}
+
+
+	if (control_mode == 13)
+    		{
+    		p_ascent.serc_on.setText("ON");
+		}
+	else
+		{
     		p_ascent.serc_on.setText("");
 		}
+
+
 	
         if (major_mode == 103)
     	{

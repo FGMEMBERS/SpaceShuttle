@@ -2102,6 +2102,19 @@
      <priority>2</priority>
    </tank>
 
+<!-- 2 NH3 tanks for the ammonia boiler system --> 
+
+  <tank type="FUEL" number="25">
+     <location unit="M">
+       <x> 0.00 </x>
+       <y> 0.00 </y>
+       <z> -3.60 </z>
+     </location>
+     <capacity unit="LBS"> 98.00 </capacity>
+     <contents unit="LBS"> 98.00 </contents>
+     <priority>2</priority>
+   </tank>
+
 
  </propulsion>
 
@@ -2175,12 +2188,12 @@
 	<default value="0.0"/>
 	<test logic="AND" value="1.0">
 		fcs/controller-power-plt == 1
-		/sim/current-view/view-number == 13
+		/sim/current-view/view-number == 12
 		systems/failures/rhc-plt-condition == 1
 	</test>
 	<test logic="AND" value="1.0">
 		fcs/controller-power-cdr == 1
-		/sim/current-view/view-number NE 13
+		/sim/current-view/view-number NE 12
 		systems/failures/rhc-cdr-condition == 1
 	</test>
  </switch>
@@ -2652,7 +2665,8 @@
 			<property>systems/fcs/airfoil-rate-control</property>	
 		</difference>
 		<sum>
-		<property>fcs/aileron-cmd-norm-css</property>
+		<property>fcs/aileron-ap-cmd-merge</property>
+		<!--<property>fcs/aileron-cmd-norm-css</property>-->
 		<property>fcs/roll-damper-cmd-norm</property>
 		</sum>
 	</product>
@@ -3290,7 +3304,7 @@
 
   <function name="aero/coefficient/CLtest">
 	<product>
-	<sum>
+		<sum>
 			<value>-0.053</value>
 			<product>
 				<value>2.73</value>
@@ -3321,7 +3335,7 @@
 
  
   <function name="aero/coefficient/CDtest">
-  <product>
+  	<product>
         	
     		<sum>
 			<value>0.01</value>
@@ -3390,10 +3404,12 @@
       <table>
         <independentVar lookup="row">position/h-agl-ft</independentVar>
          <tableData>
-           13.0		1.25
-	   20.0		1.10
-	   30.0		1.05
-	   40.0		1.00
+           13.0		1.30
+	   20.0		1.25
+	   30.0		1.15
+	   40.0		1.07
+	   50.0		1.02
+	   60.0		1.00
          </tableData>
       </table>
    </function>
@@ -3509,6 +3525,10 @@
      			<property>fcs/parachute_reef_pos_norm</property>
      			<value>0.25</value>
 			<property>systems/failures/drag-chute-condition</property>
+			<difference>
+				<value>1.0</value>
+				<property>/controls/shuttle/drag-chute-jettison</property>
+			</difference>
     			</product>
    	</function>
 
@@ -4298,6 +4318,7 @@
  <system file="ground_effects"></system>
  <system file="autopilot"></system>
  <system file="navigation"></system>
+ <system file="antenna"></system>
  <system file="light"></system>
 
 </fdm_config>

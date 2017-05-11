@@ -2,7 +2,7 @@
 # SpaceShuttle PFD Page include:
 #        Page: p_helper
 # Description: helper functions converting properties to display items
-#      Author: Thorsten Renk, 2015
+#      Author: Thorsten Renk, 2015-2017
 #---------------------------------------
 
 var valve_status_to_string = func (status)
@@ -190,6 +190,24 @@ if (spec == 0) {return "   ";}
 else if (spec == 3) {return "000";}
 else if (spec < 10) {return "00"~spec;}
 else if (spec < 100) {return "0"~spec;}
+
+}
+
+
+# the general idea of the update function is that the function can be called inside update
+# loops but performs a (relatively expensive) property write only if the value passed actually
+# changed - this ought to improve performance for status labels which change only rarely
+
+var updateText = func (element, text)
+{
+
+if (text == element.lasttext)
+	{return;}
+
+#print ("Element update!");
+
+element.lasttext = text;
+element.setText(text);
 
 }
 

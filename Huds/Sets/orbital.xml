@@ -34,7 +34,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -76,7 +76,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -113,7 +113,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -150,7 +150,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -182,7 +182,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -215,7 +215,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -247,7 +247,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -279,7 +279,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -307,7 +307,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -336,7 +336,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -365,7 +365,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -396,7 +396,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -424,7 +424,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -469,7 +469,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -513,7 +513,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -560,7 +560,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -605,7 +605,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -647,7 +647,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -681,7 +681,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -713,7 +713,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -745,7 +745,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -778,7 +778,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -810,7 +810,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -842,7 +842,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -880,7 +880,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -913,7 +913,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -963,7 +963,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -1004,7 +1004,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1037,7 +1037,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -1069,7 +1069,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -1109,7 +1109,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1149,7 +1149,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1181,7 +1181,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>		
 			</and>
@@ -1217,7 +1217,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>	
 			</and>
@@ -1254,7 +1254,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1287,7 +1287,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1310,7 +1310,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1335,7 +1335,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1360,7 +1360,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1385,7 +1385,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1410,7 +1410,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1435,7 +1435,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1460,7 +1460,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1488,7 +1488,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1513,7 +1513,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1538,7 +1538,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1563,7 +1563,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1588,7 +1588,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1613,7 +1613,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>
@@ -1638,7 +1638,7 @@
 			<not>
 				<equals>
 				<property>/sim/current-view/view-number</property>
-				<value>13</value>
+				<value>12</value>
 				</equals>
 			</not>
 			</and>

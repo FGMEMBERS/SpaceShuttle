@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="APU 1">
+	<channel name="APU 1" execrate="4">
 
 		<switch name="systems/apu/apu/apu-fuel-available">
 			<default value="0.0"/>
@@ -162,8 +162,10 @@
 		<fcs_function name="systems/apu/apu/apu-heat-load">
 		<function>
 			<product>
-				<value>108170.0</value>
+				<!--<value>108170.0</value>-->
+				<value>86000.0</value>
 				<property>systems/apu/apu/apu-rpm-fraction</property>
+				<property>systems/apu/apu/apu-fuel-drain-factor</property>
 				<property>systems/apu/apu/apu-fuel-drain-factor</property>
 			</product>
 		</function>
@@ -188,16 +190,31 @@
 
 		<switch name="systems/apu/apu/hyd-circ-pump">
 			<default value="0.0"/>
-			<test value="1.0">
+			<test logic="AND" value="1.0">
 				systems/apu/apu/hyd-circ-pump-cmd == 1
 				systems/apu/apu/hyd-pump-rpm == 0.0
 				systems/electrical/bus/voltage GT 24.0
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 1
 			</test>
-			<test value="1.0">
+			<test logic="AND" value="1.0">
 				systems/apu/apu/hyd-circ-pump-cmd == 0
 				systems/apu/apu/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu/hyd-pump-rpm == 0.0
 				systems/electrical/bus/voltage GT 24.0
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 1
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/hyd-circ-pump-cmd == 1
+				systems/apu/apu/hyd-pump-rpm == 0.0
+				systems/electrical/bus[1]/voltage GT 24.0
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/hyd-circ-pump-cmd == 0
+				systems/apu/apu/hyd-circ-pump-cmd-gpc == 1
+				systems/apu/apu/hyd-pump-rpm == 0.0
+				systems/electrical/bus[1]/voltage GT 24.0
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 0
 			</test>
 		</switch>
 
@@ -236,12 +253,26 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/apu/apu/hyd-circ-pump-power-A-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu/hyd-circ-pump-power-kW">
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu/hyd-circ-pump-power-B-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu/hyd-circ-pump-power-kW">
+				systems/apu/apu/hyd-circ-pump-pwr-sel == 0
+			</test>
+		</switch>
+
 
 
 	</channel>
 
 
-<channel name="APU 2">
+	<channel name="APU 2" execrate="4">
 
 		<switch name="systems/apu/apu[1]/apu-fuel-available">
 			<default value="0.0"/>
@@ -401,8 +432,10 @@
 		<fcs_function name="systems/apu/apu[1]/apu-heat-load">
 		<function>
 			<product>
-				<value>108170.0</value>
+				<!--<value>108170.0</value>-->
+				<value>86000.0</value>
 				<property>systems/apu/apu[1]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[1]/apu-fuel-drain-factor</property>
 				<property>systems/apu/apu[1]/apu-fuel-drain-factor</property>
 			</product>
 		</function>
@@ -431,12 +464,27 @@
 				systems/apu/apu[1]/hyd-circ-pump-cmd == 1
 				systems/apu/apu[1]/hyd-pump-rpm == 0.0
 				systems/electrical/bus[1]/voltage GT 24.0
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 1
 			</test>
 			<test value="1.0">
 				systems/apu/apu[1]/hyd-circ-pump-cmd == 0
 				systems/apu/apu[1]/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu[1]/hyd-pump-rpm == 0.0
 				systems/electrical/bus[1]/voltage GT 24.0
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 1
+			</test>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[2]/voltage GT 24.0
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 0
+			</test>
+			<test value="1.0">
+				systems/apu/apu[1]/hyd-circ-pump-cmd == 0
+				systems/apu/apu[1]/hyd-circ-pump-cmd-gpc == 1
+				systems/apu/apu[1]/hyd-pump-rpm == 0.0
+				systems/electrical/bus[2]/voltage GT 24.0
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 0
 			</test>
 		</switch>
 
@@ -474,11 +522,25 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/apu/apu[1]/hyd-circ-pump-power-B-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu[1]/hyd-circ-pump-power-kW">
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[1]/hyd-circ-pump-power-C-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu[1]/hyd-circ-pump-power-kW">
+				systems/apu/apu[1]/hyd-circ-pump-pwr-sel == 0
+			</test>
+		</switch>
+
 
 
 	</channel>
 
-	<channel name="APU 3">
+	<channel name="APU 3" execrate="4">
 
 		<switch name="systems/apu/apu[2]/apu-fuel-available">
 			<default value="0.0"/>
@@ -638,8 +700,10 @@
 		<fcs_function name="systems/apu/apu[2]/apu-heat-load">
 		<function>
 			<product>
-				<value>108170.0</value>
+				<!--<value>108170.0</value>-->
+				<value>86000.0</value>
 				<property>systems/apu/apu[2]/apu-rpm-fraction</property>
+				<property>systems/apu/apu[2]/apu-fuel-drain-factor</property>
 				<property>systems/apu/apu[2]/apu-fuel-drain-factor</property>
 			</product>
 		</function>
@@ -668,12 +732,27 @@
 				systems/apu/apu[2]/hyd-circ-pump-cmd == 1
 				systems/apu/apu[2]/hyd-pump-rpm == 0.0
 				systems/electrical/bus[2]/voltage GT 24.0
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 1
 			</test>
 			<test value="1.0">
 				systems/apu/apu[2]/hyd-circ-pump-cmd == 0
 				systems/apu/apu[2]/hyd-circ-pump-cmd-gpc == 1
 				systems/apu/apu[2]/hyd-pump-rpm == 0.0
 				systems/electrical/bus[2]/voltage GT 24.0
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 1
+			</test>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-circ-pump-cmd == 1
+				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+				systems/electrical/bus/voltage GT 24.0
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 0
+			</test>
+			<test value="1.0">
+				systems/apu/apu[2]/hyd-circ-pump-cmd == 0
+				systems/apu/apu[2]/hyd-circ-pump-cmd-gpc == 1
+				systems/apu/apu[2]/hyd-pump-rpm == 0.0
+				systems/electrical/bus/voltage GT 24.0
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 0
 			</test>
 		</switch>
 
@@ -711,11 +790,24 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/apu/apu[2]/hyd-circ-pump-power-C-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu[2]/hyd-circ-pump-power-kW">
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 1
+			</test>
+		</switch>
+
+		<switch name="systems/apu/apu[2]/hyd-circ-pump-power-A-kW">
+			<default value="0.0"/>
+			<test value="systems/apu/apu[2]/hyd-circ-pump-power-kW">
+				systems/apu/apu[2]/hyd-circ-pump-pwr-sel == 0
+			</test>
+		</switch>
 
 
 	</channel>
 
-	<channel name="Water Spray Boiler 1">
+	<channel name="Water Spray Boiler 1" execrate="4">
 
 		<switch name="systems/apu/apu/water-spray-boiler-active">
 			<default value="0.0"/>
@@ -750,7 +842,7 @@
 
 	</channel>
 
-	<channel name="Water Spray Boiler 2">
+	<channel name="Water Spray Boiler 2" execrate="4">
 
 		<switch name="systems/apu/apu[1]/water-spray-boiler-active">
 			<default value="0.0"/>
@@ -785,7 +877,7 @@
 
 	</channel>
 
-	<channel name="Water Spray Boiler 3">
+	<channel name="Water Spray Boiler 3" execrate="4">
 
 		<switch name="systems/apu/apu[2]/water-spray-boiler-active">
 			<default value="0.0"/>
@@ -820,7 +912,7 @@
 
 	</channel>
 
-	<channel name="Hydraulics status">
+	<channel name="Hydraulics status" execrate="4">
 	
 		<switch name="systems/apu/hyd-1-pressurized">
 			<default value="0.0"/>
@@ -828,6 +920,7 @@
 				systems/apu/apu/hyd-pressure-psia GT 2400
 				systems/apu/apu/hyd-pressure-factor GT 0.8
 				systems/apu/apu/hyd-circ-pump == 0
+				systems/apu/apu/apu-rpm-target GT 0.5
 			</test>
 		</switch>
 
@@ -837,6 +930,7 @@
 				systems/apu/apu[1]/hyd-pressure-psia GT 2400
 				systems/apu/apu[1]/hyd-pressure-factor GT 0.8
 				systems/apu/apu[1]/hyd-circ-pump == 0
+				systems/apu/apu[1]/apu-rpm-target GT 0.5
 			</test>
 		</switch>
 
@@ -846,6 +940,7 @@
 				systems/apu/apu[2]/hyd-pressure-psia GT 2400
 				systems/apu/apu[2]/hyd-pressure-factor GT 0.8
 				systems/apu/apu[2]/hyd-circ-pump == 0
+				systems/apu/apu[2]/apu-rpm-target GT 0.5
 			</test>
 		</switch>
 
@@ -878,8 +973,86 @@
 	</channel>
 
 
+	<channel name="APU heater elements" execrate="4">
 
-	<channel name="APU and hydraulics detailed temperature and pressure readings">
+		<fcs_function name="systems/apu/apu/heater-tank-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu/tank-heater-A-status</property>
+				<property>systems/apu/apu/tank-heater-B-status</property>
+				</max>
+				<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu/heater-tank-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/tank-heater-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu/tank-heater-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[1]/heater-tank-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu[1]/tank-heater-A-status</property>
+				<property>systems/apu/apu[1]/tank-heater-B-status</property>
+				</max>
+				<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[1]/heater-tank-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/tank-heater-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[1]/tank-heater-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/apu/apu[2]/heater-tank-power-kW">
+		<function>
+			<product>
+				<max>
+				<property>systems/apu/apu[2]/tank-heater-A-status</property>
+				<property>systems/apu/apu[2]/tank-heater-B-status</property>
+				</max>
+				<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/apu/apu[2]/heater-tank-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/tank-heater-A-status == 1
+				systems/electrical/bus/voltage GT 24.0
+			</test>
+			<test logic="AND" value="1.0">
+				systems/apu/apu[2]/tank-heater-B-status == 1
+				systems/electrical/bus[1]/voltage GT 24.0
+			</test>
+		</switch>
+
+
+	</channel>
+
+
+
+	<channel name="APU and hydraulics detailed temperature and pressure readings" execrate="4">
 
 	<fcs_function name="systems/apu/apu/egt-K">
 	<function>
@@ -1194,8 +1367,8 @@
 	</function>
 	</fcs_function>
 	
-
-
 	</channel>
+
+
 
 </system>

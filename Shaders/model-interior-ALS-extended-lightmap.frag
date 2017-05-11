@@ -207,15 +207,6 @@ void main()
 
     fragColor = color * texel + specular;
 
-   // implicit lightmap - the user gets to select a color which is then made emissive
-
-   if (implicit_lightmap_enabled == 1)
-	{
-	float cdiff = (length(texel.rgb - tag_color));
-	float enhance = 1.0 - smoothstep(threshold_low, threshold_high, cdiff); 
-	fragColor.rgb = fragColor.rgb + enhance * emit_color * emit_intensity;
-	}
-
    // explicit lightmap
 
     vec3 lightmapcolor = vec3(0.0, 0.0, 0.0);
@@ -258,6 +249,19 @@ void main()
 		{
                 lightmapcolor = lightmapTexel.rgb * lightmap_r_color * lightmapFactor.r;
             	}
+
+
+   // implicit lightmap - the user gets to select a color which is then made emissive
+
+   if (implicit_lightmap_enabled == 1)
+	{
+	float cdiff = (length(texel.rgb - tag_color));
+	float enhance = 1.0 - smoothstep(threshold_low, threshold_high, cdiff); 
+	enhance *= (1.0 - length(lightmapcolor.rgb)/1.73);
+	fragColor.rgb = fragColor.rgb + enhance * emit_color * emit_intensity;
+	}
+
+
        fragColor.rgb = max(fragColor.rgb, lightmapcolor.rgb * gl_FrontMaterial.diffuse.rgb * smoothstep(0.0, 1.0, texel.rgb*.5 + lightmapcolor.rgb*.5));
 	}
 

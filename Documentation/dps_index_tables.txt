@@ -26,6 +26,7 @@ Index	Name				status
  9	Le Tube				TAL
 10	(Ben Guerir)			(TAL, does not exist in FG scenery)
 11	Bermuda				emergency landing site
+12	Halifax				emergency landing site
 30 	Easter Island			TAL for Vandenberg launches, never used in reality
 
 
@@ -45,6 +46,9 @@ Index 	 star
  15 	 Betelgeuse 
  16 	 Procyon 
  17 	 Spica
+ 18	 Antares
+ 19	 Canopus
+ 20	 Sirius
 
 Abort burn targets
 ==================

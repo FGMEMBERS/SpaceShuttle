@@ -14,6 +14,11 @@
   <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-glide-splash.png</splash-texture>
   </startup>
+  <config>
+    <shuttle>
+      <prelaunch-flag type="int">0</prelaunch-flag>
+    </shuttle>
+  </config>
 </sim>
 
 <fdm>

@@ -219,7 +219,7 @@ var nbat = {
 	mm_area_sm: 1,
 	mm_area_gnc: 1,
 
-	crt: [1,2,3,0],
+	crt: [1,2,3,2],
 
 	gpc: [1,1,1,1,10],
 
@@ -235,7 +235,7 @@ var nbat = {
 	g1_pl2: 0,
 	g1_mm1: 1,
 	g1_mm2: 2,
-	g1_crt: [1,2,3,0],
+	g1_crt: [1,2,3,2],
 	g1_gpc: [1,1,1,1,10],
 
 	g2_string1: 1,
@@ -248,7 +248,7 @@ var nbat = {
 	g2_pl2: 2,
 	g2_mm1: 1,
 	g2_mm2: 2,
-	g2_crt: [1,2,3,0],
+	g2_crt: [1,2,3,2],
 	g2_gpc: [2,2,2,4,10],
 
 	g3_string1: 1,
@@ -261,7 +261,7 @@ var nbat = {
 	g3_pl2: 0,
 	g3_mm1: 1,
 	g3_mm2: 2,
-	g3_crt: [1,2,3,0],
+	g3_crt: [1,2,3,4],
 	g3_gpc: [3,3,3,3,10],
 
 	edited_mcc: 0,
