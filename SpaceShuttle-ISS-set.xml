@@ -10,9 +10,16 @@
 	<altitude-ft>1500000.0</altitude-ft>
 	<stage type="int">6</stage>
   </presets>
-  <startup>
+  <!--<startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-orbit-splash.png</splash-texture>
-  </startup>
+  </startup>-->
+ <previews>
+      <preview>
+        <type>exterior</type>
+        <splash type="bool">true</splash>
+        <path>Pics/iss-splash01.png</path>
+      </preview>
+  </previews>
   <config>
     <shuttle>
       <prelaunch-flag type="int">0</prelaunch-flag>

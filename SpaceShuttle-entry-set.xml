@@ -4,15 +4,22 @@
 
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
-  <description>NASA Space Shuttle Atlantis (re-entry)</description>
+  <description>NASA Space Shuttle Atlantis on re-entry</description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>400000.0</altitude-ft>
 	<stage type="int">2</stage>
   </presets>
-  <startup>
+  <!--<startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-entry-splash.png</splash-texture>
-  </startup>
+  </startup>-->
+ <previews>
+      <preview>
+        <type>exterior</type>
+        <splash type="bool">true</splash>
+        <path>Pics/entry-splash01.png</path>
+      </preview>
+  </previews>
   <config>
     <shuttle>
       <prelaunch-flag type="int">0</prelaunch-flag>

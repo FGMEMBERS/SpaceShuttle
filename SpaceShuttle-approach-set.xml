@@ -11,9 +11,16 @@
 	<pitch-deg>-5.0</pitch-deg>	
 	<stage type="int">4</stage>
   </presets>
-  <startup>
+  <!--<startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-approach-splash.png</splash-texture>
-  </startup>
+  </startup>-->
+ <previews>
+      <preview>
+        <type>exterior</type>
+        <splash type="bool">true</splash>
+        <path>Pics/approach-splash01.png</path>
+      </preview>
+  </previews>
   <config>
     <shuttle>
       <prelaunch-flag type="int">1</prelaunch-flag>
