@@ -218,6 +218,12 @@ return math.asin( math.sin(dist) * math.sin(course1 - course2)) * sgeo_ERAD;
 # general helper functions for time
 ##################################################
 
+
+var get_MET = func {
+
+return getprop("/sim/time/elapsed-sec") + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+}
+
 var seconds_to_stringMS = func (time) {
 
 var seconds = math.mod(int(time), 60);
@@ -752,6 +758,10 @@ var vz = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz")/0.3048
 var r = [x,y,z];
 var v = [vx, vy, vz];
 
+
+#print("Extrapolated state pos: ", x, " ", y, " ", z); 
+#print("Extrapolated state vel: ", vx, " ", vy, " ", vz); 
+
 # construct prograde/radial/normal coordinate system for this state vector
 
 
@@ -760,7 +770,6 @@ var radial = [x, y, z];
 
 prograde = normalize(prograde);
 radial = normalize(radial);
-var radial_up = radial;
 
 radial = orthonormalize(prograde, radial);
 
@@ -805,7 +814,7 @@ if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 
 	# correct REI for empirics
 
-	var rei_correction = 250.0;
+	var rei_correction = 375.0 + 3.6556 * periapsis_nm;
 	oms_burn_target.rei = rei + rei_correction;
 	}
 
@@ -1082,7 +1091,7 @@ if (getprop("/fdm/jsbsim/systems/ap/oms-plan/oms-ignited") == 0) # we update the
 			var rei = SpaceShuttle.get_rei(r,v);
 			# correct REI for empirics
 		
-			var rei_correction = 250.0;
+			var rei_correction = 375.0 + 3.6556 * periapsis_nm;
 			setprop("/fdm/jsbsim/systems/ap/oms-plan/rei-nm", rei + rei_correction);
 			}
 

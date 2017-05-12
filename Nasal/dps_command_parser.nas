@@ -3571,10 +3571,19 @@ if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_
 	{
 	if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 		{
+        	var MET = SpaceShuttle.get_MET();
+        	var exec_timer_flag = 0;
+    
+        	if (SpaceShuttle.oms_burn_target.tig - MET < 15.0)
+    			{
+            		exec_timer_flag = 1;
+    			}
+
+
 		var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
 		var attitude_flag = getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
 		
-		if ((burn_plan == 1) and (attitude_flag == 1))
+		if ((burn_plan == 1) and (attitude_flag == 1) and (exec_timer_flag == 1))
 			{
 			print("Starting OMS burn!");
 			var burn_time = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s");

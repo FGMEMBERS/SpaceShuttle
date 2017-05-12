@@ -1310,7 +1310,7 @@
 		<switch name="systems/ap/entry/drag-management-init">
 			<default value="0"/>
 			<test value="1">
-				aero/qbar-psf GT 40.0
+				aero/qbar-psf GT 15.0
 			</test>
 		</switch>
 

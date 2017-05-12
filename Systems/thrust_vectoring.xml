@@ -1234,10 +1234,7 @@
 
 	</channel>
 
-
-	<channel name="OMS dual engine TVC">
-
-	<!-- engines can be gimbaled to 7 deg (0.12 rad) yaw and 6 deg  (0.10 rad) pitch from their zero position-->
+	<channel name="OMS mode management">
 
 		<switch name="systems/vectoring/OMS-rate-master">
 			<default value="0.0"/>
@@ -1253,6 +1250,14 @@
 				systems/fcs/control-mode == 11
 			</test>
 		</switch>
+	
+	</channel>
+
+	<channel name="OMS dual engine TVC" execute="systems/vectoring/OMS-rate-master">
+
+	<!-- engines can be gimbaled to 7 deg (0.12 rad) yaw and 6 deg  (0.10 rad) pitch from their zero position-->
+
+
 
 		<fcs_function name="systems/vectoring/OMS-elevator-cmd-norm">
 		<function>
@@ -1315,6 +1320,7 @@
 				<product>
   					<property>systems/vectoring/OMS-elevator-cmd-norm</property>
 					<value>-0.02</value>
+					<property>systems/vectoring/OMS-rate-master</property>
 				</product>
 			</difference>
 		</function>
@@ -1327,6 +1333,7 @@
 				<product>
   					<property>systems/vectoring/OMS-aileron-cmd-norm</property>
 					<value>0.06</value>
+					<property>systems/vectoring/OMS-rate-master</property>
 				</product>
 			</difference>
 		</function>
@@ -1339,6 +1346,7 @@
 				<product>
   					<property>systems/vectoring/OMS-rudder-cmd-norm</property>
 					<value>-0.02</value>
+					<property>systems/vectoring/OMS-rate-master</property>
 				</product>
 			</difference>
 		</function>
