@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on TAEM</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. In the Terminal Area Energy Management (TAEM) phase, the Shuttle is at about 80.000 ft some 60 miles to the landing site at around Mach 3, ready for its last six minutes of flight as a glider.
+  </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>83000.0</altitude-ft>

@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis on final</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. This mission phase finds the Shuttle at 12.000 ft in final approach to the runway with about a minute of flight to go to touchdown.
+  </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>11000.0</altitude-ft>

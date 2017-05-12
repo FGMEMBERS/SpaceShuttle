@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in orbit</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. In this mission phase, the Shuttle is on the periapsis of an eccentric orbit right after main engine cutoff and needs to be prepared for orbital insertion next.
+  </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>500000.0</altitude-ft>

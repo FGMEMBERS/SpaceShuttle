@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in a free-fly test</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. Prior to the spaceflight program, NASA conducted a series of free-fly tests with the Shuttle dropped from the back of a 747 at about 36.000 ft - this scenario simulates such a test with the altitude worth about five minutes of flight.
+  </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>36000.0</altitude-ft>

@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis in launch position</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. In this mission phase, the Shuttle is on the pad, about five minutes to launch, ready to go into space.
+  </long-description>
   <presets>
 	<altitude-ft>10000.0</altitude-ft>	
 	<pitch-deg>90.0</pitch-deg>

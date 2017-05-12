@@ -5,6 +5,9 @@
 <PropertyList include="SpaceShuttle-common.xml">
 <sim>
   <description>NASA Space Shuttle Atlantis approaching ISS</description>
+  <long-description>
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. This mission phase puts the Shuttle into a 320 km orbit in the vicinity of ISS with all systems configured for orbital operations.
+  </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
 	<altitude-ft>1500000.0</altitude-ft>
