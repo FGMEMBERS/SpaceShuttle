@@ -23,7 +23,7 @@ var PFD_addpage_p_entry = func(device)
     p_entry.ail_trim = device.svg.getElementById("p_entry_ail_trim");     
     p_entry.rud_trim = device.svg.getElementById("p_entry_rud_trim"); 
     p_entry.low_energy = device.svg.getElementById("p_entry_low_energy");
-    p_entry.loe_label_bright = device.svg.getElementById("p_entry_loe_label_bright");
+    p_entry.loe_label = device.svg.getElementById("p_entry_loe_label");
                        
 
     p_entry.alabel1 = device.svg.getElementById("p_entry_alabel1");
@@ -33,6 +33,13 @@ var PFD_addpage_p_entry = func(device)
     p_entry.alabel5 = device.svg.getElementById("p_entry_alabel5");
     p_entry.alabel6 = device.svg.getElementById("p_entry_alabel6");
 
+    p_entry.pass = device.svg.getElementById("p_entry_pass");
+    p_entry.bfs = device.svg.getElementById("p_entry_bfs");
+
+    p_entry.bfs_roll_error = device.svg.getElementById("p_entry_bfs_roll_error");
+    p_entry.bfs_pitch_error = device.svg.getElementById("p_entry_bfs_pitch_error");
+    p_entry.bfs_yaw_error = device.svg.getElementById("p_entry_bfs_yaw_error");
+
     p_entry.ondisplay = func
     {
         # called once whenever this page goes on display
@@ -40,12 +47,27 @@ var PFD_addpage_p_entry = func(device)
         p_entry.bias.setText("+00");
         device.MEDS_menu_title.setText("       DPS MENU");
 
+	p_entry.major_func = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
+
+	# switch BFS elements on and PASS elements off if we run BFS
+
+	if (p_entry.major_func == 4)
+		{
+		p_entry.pass.setVisible(0);
+		p_entry.bfs.setVisible(1);
+		}
+	else
+		{
+		p_entry.pass.setVisible(1);
+		p_entry.bfs.setVisible(0);
+		}
+
+
 	# draw defaults
 
 	p_entry.ny_trim.setText("0.000");
 	p_entry.ail_trim.setText("0.0");
 	p_entry.rud_trim.setText("0.0");
-	p_entry.loe_label_bright.setVisible(0);
 
 	# acquire the symbols we'd like to draw
 
@@ -172,6 +194,10 @@ var PFD_addpage_p_entry = func(device)
         SpaceShuttle.ascent_traj_update_set();
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	if (SpaceShuttle.bfs_in_control == 1)
+		{
+		major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+		}
     
 	var alpha_max = 50.0;
 	var alpha_min = 25.0;
@@ -298,18 +324,44 @@ var PFD_addpage_p_entry = func(device)
 	p_entry.hdot_ref.setText(sprintf("%+3.0f", vspeed_ref));
 	p_entry.ny.setText(sprintf("%1.3f", getprop("/fdm/jsbsim/accelerations/Ny")));
 
-	var low_energy = getprop("/fdm/jsbsim/systems/ap/entry/low-energy-logic");
+	if (p_entry.major_func == 4) # we drive the BFS-specific items
+		{
+		if (SpaceShuttle.bfs_in_control == 0)
+			{
+		
+			var roll = getprop("/orientation/roll-deg");
+			var roll_error = roll - getprop("/fdm/jsbsim/systems/ap/entry/bank-angle-target-deg");
+			var pitch_error = getprop("/fdm/jsbsim/systems/ap/alpha-error") * 180.0/math.pi;
+			var yaw_error = getprop("/fdm/jsbsim/aero/beta-deg");
 
-	if (low_energy == 0) 
-		{
-		p_entry.low_energy.setText("INH");
-		p_entry.loe_label_bright.setVisible(0);
+			p_entry.bfs_roll_error.setText(sprintf("%3.0f", roll_error));
+			p_entry.bfs_pitch_error.setText(sprintf("%3.0f", pitch_error));
+			p_entry.bfs_yaw_error.setText(sprintf("%3.0f", yaw_error));
+
+			}
+		else
+			{
+			p_entry.bfs.setVisible(0);
+			}
+
 		}
-	else 
+	else # we drive PASS
 		{
-		p_entry.low_energy.setText("ENA");
-		p_entry.loe_label_bright.setVisible(1);
+		var low_energy = getprop("/fdm/jsbsim/systems/ap/entry/low-energy-logic");
+
+		if (low_energy == 0) 
+			{
+			p_entry.low_energy.setText("INH");
+			p_entry.loe_label.setColor(dps_r, dps_g, dps_b);
+			}
+		else 
+			{
+			p_entry.low_energy.setText("ENA");
+			p_entry.loe_label.setColor(0.8, 0.8, 0.4);
+			}	
 		}
+	
+
 
     };
     

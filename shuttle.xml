@@ -2249,6 +2249,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/carrier/connected == 1
 			</test>
 		<output>fcs/airfoil-factor-pitch-base</output>
    </switch>
@@ -2527,6 +2528,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/carrier/connected == 1
 			</test>
 		<output>fcs/airfoil-factor-roll-base</output>
 		</switch>
@@ -2562,6 +2564,10 @@
 		   		20.0	    1.00
         			</tableData>
       			</table>
+			<!--<difference>
+				<value>1.0</value>
+				<property>systems/fcs/no-y-jet</property>
+			</difference>-->
 		</product>
 		<value>1.0</value>
 		</min>
@@ -2618,29 +2624,27 @@
    </function>
    </fcs_function>
 
+  <!-- LO GAIN roll assisted by yaw jets -->
 
-   <fcs_function name="fcs/roll-error">
+   <fcs_function name="fcs/roll-error-std">
 	 <function>
-		<product>
 	 	<difference>
-			<property>velocities/p-rad_sec</property>
 			<product>
 				<property>fcs/aileron-ap-cmd-merge</property>
 				<value>0.5</value>
 			</product>
+			<property>velocities/p-rad_sec</property>
 		</difference>
-		<value>-1</value>
-		</product>
 	</function>
   </fcs_function>
 
   <deadband name="fcs/roll-PID-trigger">
-	<input>fcs/roll-error</input>
+	<input>fcs/roll-error-std</input>
 	<width>0.2</width>
   </deadband>
 
-  <pid name="fcs/roll-controller">
-	<input>fcs/roll-error</input>
+  <pid name="fcs/roll-controller-std">
+	<input>fcs/roll-error-std</input>
 	<kp> 20.0 </kp>
 	<ki> 3.0 </ki>
 	<kd> 15.0</kd>
@@ -2651,6 +2655,128 @@
 	</clipto>
 	<output>fcs/roll-controller-out</output>
   </pid>
+
+  <!-- NO Y JET roll via adverse yaw -->
+
+
+  <fcs_function name="fcs/no-y-jet-roll-rate-error-raw">
+  <function>
+	<difference>
+	<product>
+		<property>fcs/aileron-ap-cmd-merge</property>
+		<value>0.015</value>
+	</product>
+	<property>velocities/p-rad_sec</property>
+	</difference>
+  </function>
+  </fcs_function>
+
+  <deadband name="fcs/no-y-jet-roll-rate-error">
+	<input>fcs/no-y-jet-roll-rate-error-raw</input>
+	<width>0.001</width>
+  </deadband>
+
+   <switch name="fcs/no-y-jet-beta-tgt-raw">
+	<default value="0.0"/>
+	<test value="-1.0">
+		fcs/no-y-jet-roll-rate-error GT 0.004
+	</test>
+	<test value="1.0">
+		fcs/no-y-jet-roll-rate-error LT -0.004
+	</test>
+	<test value="-0.5">
+		fcs/no-y-jet-roll-rate-error GT 0
+	</test>
+	<test value="0.5">
+		fcs/no-y-jet-roll-rate-error LT 0
+	</test>
+   </switch>
+
+   <kinematic name="fcs/no-y-jet-beta-tgt">
+	<input>fcs/no-y-jet-beta-tgt-raw</input>
+	<traverse>
+		<setting>
+			<position>-1.0</position>
+			<time>0</time>
+		</setting>
+		<setting>
+			<position>1.0</position>
+			<time>7.0</time>
+		</setting>
+		</traverse>
+   </kinematic>
+
+   <!--<fcs_function name="fcs/no-y-jet-beta-tgt">
+   <function>
+	<product>
+		<property>fcs/no-y-jet-beta-tgt-kin</property>
+		<value>2.0</value>
+	</product>
+   </function>
+   </fcs_function>-->
+
+  
+
+
+  <fcs_function name="fcs/no-y-jet-beta-error">
+  <function>
+	<difference>
+		<property>fcs/no-y-jet-beta-tgt</property>
+		<property>aero/beta-deg</property>
+		<!--<property>fcs/aileron-ap-cmd-merge</property>-->
+	</difference>
+  </function>
+  </fcs_function>
+
+  <fcs_function name="fcs/no-y-jet-beta-rate-cmd">
+  <function>
+	<min>
+	<max>
+ 	<product>
+		<value>0.1</value>
+		<property>fcs/no-y-jet-beta-error</property>
+	</product>
+	<value>-5.0</value>
+	</max>
+	<value>5.0</value>
+	</min>
+  </function>
+  </fcs_function>
+
+   <fcs_function name="fcs/no-y-jet-roll-error">
+	 <function>
+		<product>
+	 	<difference>
+			<property>velocities/p-rad_sec</property>
+			<property>fcs/no-y-jet-beta-rate-cmd</property>
+		</difference>
+		<value>-3.0</value>
+		</product>
+	</function>
+  </fcs_function>
+
+
+
+  <pid name="fcs/no-y-jet-roll-controller">
+	<input>fcs/no-y-jet-roll-error</input>
+	<kp> 5.0 </kp>
+	<ki> 0.0 </ki>
+	<kd> 0.0</kd>
+	<clipto>
+		<min> -1.0 </min>
+        	<max>  1.0 </max>
+	</clipto>
+	<output>fcs/no-y-jet-roll-controller-out</output>
+  </pid>
+
+  <!-- merging the roll control modes -->
+
+   <switch name="fcs/roll-controller">
+	<default value="fcs/roll-controller-std"/>
+	<test value="fcs/no-y-jet-roll-controller">
+		systems/fcs/no-y-jet == 1
+	</test>
+   </switch>
 
   <fcs_function name="fcs/roll-command">
   <function>
@@ -2853,6 +2979,7 @@
 				systems/fcs/control-mode == 26
 				systems/fcs/control-mode == 27
 				systems/fcs/control-mode == 28
+				systems/carrier/connected == 1
 			</test>
 		<output>fcs/airfoil-factor-yaw-base</output>
     </switch>
@@ -4293,6 +4420,182 @@
     </direction>
   </force>
 
+  <!-- Carrier aircraft -->
+
+  <force name="carrier_fwd_x" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-fwd-x-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> -15.00 </x>
+	<y> 0.00 </y>
+	<z> -6.87 </z>
+    </location>
+    <direction>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_fwd_y" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-fwd-y-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> -15.00 </x>
+	<y> 0.00 </y>
+	<z> -6.87 </z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_fwd_z" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-fwd-z-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> -15.00 </x>
+	<y> 0.00 </y>
+	<z> -6.87 </z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </direction>
+  </force>
+
+  <force name="carrier_left_x" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-left-x-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> -4.2 </y>
+	<z>-7.97 </z>
+    </location>
+    <direction>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_left_y" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-left-y-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> -4.2 </y>
+	<z>-7.97 </z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_left_z" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-left-z-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> -4.2 </y>
+	<z>-7.97 </z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </direction>
+  </force>
+
+  <force name="carrier_right_x" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-right-x-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> 4.2 </y>
+	<z>-7.97 </z>		
+    </location>
+    <direction>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_right_y" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-right-y-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> 4.2 </y>
+	<z>-7.97 </z>		
+    </location>
+    <direction>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </direction>
+  </force>
+
+  <force name="carrier_right_z" frame="BODY">
+    <function>
+	<product>
+      		<property>systems/carrier/force-right-z-lb</property>
+		<property>systems/carrier/connected</property>
+	</product>
+    </function>
+    <location unit="M">
+	<x> 3.60 </x>
+	<y> 4.2 </y>
+	<z>-7.97 </z>		
+    </location>
+    <direction>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </direction>
+  </force>
+
+
+
+
 
  </external_reactions> 
 
@@ -4320,5 +4623,6 @@
  <system file="navigation"></system>
  <system file="antenna"></system>
  <system file="light"></system>
+ <system file="carrier"></system>
 
 </fdm_config>

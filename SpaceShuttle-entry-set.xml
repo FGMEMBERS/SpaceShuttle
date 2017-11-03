@@ -13,9 +13,9 @@
 	<altitude-ft>400000.0</altitude-ft>
 	<stage type="int">2</stage>
   </presets>
-  <!--<startup>
+  <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-entry-splash.png</splash-texture>
-  </startup>-->
+  </startup>
  <previews>
       <preview>
         <type>exterior</type>
@@ -36,6 +36,8 @@
 	   <dps>
 		<ops type="int">3</ops>
 		<major-mode type="int">304</major-mode>
+		<ops-bfs type="int">3</ops-bfs>
+		<major-mode-bfs type="int">304</major-mode-bfs>
 	   </dps>
 	</systems>
    </jsbsim>

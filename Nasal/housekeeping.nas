@@ -67,7 +67,8 @@ var fuel_dump_start = func {
 
 if (propellant_dump_completed == 1)
 	{
-	setprop("/sim/messages/copilot", "No helium left for a second dump.");
+	#setprop("/sim/messages/copilot", "No helium left for a second dump.");
+	SpaceShuttle.callout.make("No helium left for a second dump.", "help");
 	return;
 	}
 
@@ -78,7 +79,8 @@ var manifold_open = getprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status")
 
 if ((helium_pressurized == 0) or (manifold_open == 0))
 	{
-	setprop("/sim/messages/copilot", "Unable to initiate LO2 dump without helium pressure.");
+	#setprop("/sim/messages/copilot", "Unable to initiate LO2 dump without helium pressure.");
+	SpaceShuttle.callout.make("Unable to initiate LO2 dump without helium pressure.", "help");
 	return;
 	}
 
@@ -90,7 +92,8 @@ var n_LO2_prevalves = get_num_LO2_prevalves();
 
 if (n_LO2_prevalves == 0)
 	{
-	setprop("/sim/messages/copilot", "Unable to initiate LO2 dump with prevalves closed.");
+	#setprop("/sim/messages/copilot", "Unable to initiate LO2 dump with prevalves closed.");
+	SpaceShuttle.callout.make("Unable to initiate LO2 dump with prevalves closed.", "help");
 	return;
 	}
 
@@ -111,7 +114,8 @@ if (counter == 120)
 	setprop("/fdm/jsbsim/systems/mps/propellant-dump-cmd",0);
 	setprop("/fdm/jsbsim/propulsion/tank[17]/external-flow-rate-pps", 0.0);
 	setprop("/fdm/jsbsim/propulsion/tank[18]/external-flow-rate-pps", 0.0);
-	setprop("/sim/messages/copilot", "Propellant dump completed.");
+	#setprop("/sim/messages/copilot", "Propellant dump completed.");
+	SpaceShuttle.callout.make("Propellant dump completed.", "info");
 	setprop("/fdm/jsbsim/systems/mps/propellant-dump-density", 0.0);
 	propellant_dump_completed = 1;
 	return;
@@ -1189,7 +1193,9 @@ var update_sensors = func {
 SpaceShuttle.star_tracker_array[0].run();
 SpaceShuttle.star_tracker_array[1].run();
 
-SpaceShuttle.apply_star_tracker_filter();
+SpaceShuttle.imu_system.run();
+
+#SpaceShuttle.apply_star_tracker_filter();
 
 }
 

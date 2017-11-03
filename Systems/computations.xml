@@ -122,10 +122,11 @@
 				<!-- the energy transfer coeff from the shockwave is AoA dependent-->
 				<independentVar lookup="row">aero/alpha-rad</independentVar>
 				<tableData>
-					0.0	1.3
-					0.2	1.1
-					0.4	1.05
-					0.7	1.0
+					0.4	1.3
+					0.5	1.1
+					0.6	1.05
+					0.65	1.0
+					0.75	1.0
 					0.8	1.05
 					0.9	1.1
 					1.0	1.3
@@ -134,6 +135,29 @@
 			</product>
 		</function>
 		</fcs_function>
+
+		<fcs_function name="systems/thermal/thermal-stress-arg">
+		<function>
+			<quotient>
+				<max>
+				<difference>
+					<property>systems/thermal/nose-temperature-K</property>
+					<value>1500.0</value>
+				</difference>
+				<value>0.0</value>
+				</max>
+			<value>40000.0</value>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<pid name="systems/thermal/thermal-stress-integrated">
+			<input>systems/thermal/thermal-stress-arg</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<output>systems/thermal/thermal-stress</output>
+  		</pid>
 
 
 		<fcs_function name="systems/thermal/nose-temperature-F">
@@ -510,12 +534,23 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/various/SSME-rampup-volume">
+		<function>
+			<product>
+				<value>510000.0</value>
+				<property>/sim/config/shuttle/prelaunch-flag</property>
+				<property>systems/various/ssme-flame-density</property>
+			</product>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/various/SSME-base-volume">
 		<function>
 			<max>
 				<property>/engines/engine[0]/thrust_lb</property>
 				<property>/engines/engine[1]/thrust_lb</property>
 				<property>/engines/engine[2]/thrust_lb</property>
+				<property>systems/various/SSME-rampup-volume</property>
 			</max>
 		</function>
 		</fcs_function>

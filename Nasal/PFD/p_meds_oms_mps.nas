@@ -313,14 +313,14 @@ var PFD_addpage_p_meds_oms_mps = func(device)
 
 
 
-	var eng_mnf_LO2 = 43.0;
-	var eng_mnf_LH2 = 53.0;
+	var eng_mnf_LO2 = getprop("/fdm/jsbsim/systems/mps/lo2-manifold-pressure-psia");
+	var eng_mnf_LH2 = getprop("/fdm/jsbsim/systems/mps/lh2-manifold-pressure-psia");
 
 	p_meds_oms_mps.LH2.updateText(sprintf("%3.0f", eng_mnf_LH2));
 	p_meds_oms_mps.LO2.updateText(sprintf("%3.0f", eng_mnf_LO2));
 
 	eng_mnf_LO2 = eng_mnf_LO2 / 300;
-	eng_mnf_LH2 = eng_mnf_LH2 / 300;
+	eng_mnf_LH2 = eng_mnf_LH2 / 100;
 
 	p_meds_oms_mps.tape_LO2.setScale(1.0, eng_mnf_LO2);
 	p_meds_oms_mps.tape_LO2.setTranslation(0.0, (1.0-eng_mnf_LO2) * (49.0 + 384.0));

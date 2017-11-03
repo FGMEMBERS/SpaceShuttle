@@ -877,19 +877,42 @@ var HUD_DataProvider  = {
 	new : func (){
 		var obj = {parents : [HUD_DataProvider] };
 
+		# store references to the node we poll 
+
+		obj.nd_ref_IAS = props.globals.getNode("/fdm/jsbsim/velocities/ve-kts", 1);
+		obj.nd_ref_Nz = props.globals.getNode("/fdm/jsbsim/accelerations/Nz", 1);
+		obj.nd_ref_alpha = props.globals.getNode("/fdm/jsbsim/aero/alpha-deg", 1);
+		obj.nd_ref_beta = props.globals.getNode("/fdm/jsbsim/aero/beta-deg", 1);
+		obj.nd_ref_radar_alt_available = props.globals.getNode("/fdm/jsbsim/systems/navigation/radar-alt-available", 1);
+		obj.nd_ref_alt_agl_ft = props.globals.getNode("/position/altitude-agl-ft", 1);
+		obj.nd_ref_alt =  props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/altitude-ft", 1);
+		obj.nd_ref_pitch = props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg", 1);
+		obj.nd_ref_roll = props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/roll-deg", 1);
+		obj.nd_ref_channel_pitch =  props.globals.getNode("/fdm/jsbsim/systems/ap/automatic-pitch-control", 1);
+		obj.nd_ref_channel_roll =  props.globals.getNode("/fdm/jsbsim/systems/ap/automatic-roll-control", 1);
+		obj.nd_ref_sb_pos =  props.globals.getNode("/fdm/jsbsim/fcs/speedbrake-pos-norm", 1);
+		obj.nd_ref_sb_cmd =  props.globals.getNode("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", 1);
+		obj.nd_ref_bank_error =  props.globals.getNode("/fdm/jsbsim/systems/ap/taem/bank-error", 1);
+		obj.nd_ref_vspeed_error =  props.globals.getNode("/fdm/jsbsim/systems/ap/taem/vspeed-error", 1);
+
         return obj;
     },
     update : func() {
 
-	me.IAS = getprop("/fdm/jsbsim/velocities/ve-kts");
-        me.Nz = getprop("/fdm/jsbsim/accelerations/Nz");
-        me.alpha = getprop ("fdm/jsbsim/aero/alpha-deg");
-        me.beta = getprop ("fdm/jsbsim/aero/beta-deg");
+
+
+	me.IAS = me.nd_ref_IAS.getValue();
+	me.Nz = me.nd_ref_Nz.getValue();
+	me.alpha = me.nd_ref_alpha.getValue();
+	me.beta = me.nd_ref_beta.getValue();
+
 
 	# if available, use radar altitude below 5000 ft
 
-	me.radar_alt_available = getprop("/fdm/jsbsim/systems/navigation/radar-alt-available");
-	me.alt_agl_ft = getprop("/position/altitude-agl-ft");
+
+	me.radar_alt_available = me.nd_ref_radar_alt_available.getValue();
+	me.alt_agl_ft = me.nd_ref_alt_agl_ft.getValue();
+
 	me.radar_flag = "";
 
 	if ((me.radar_alt_available == 1) and (me.alt_agl_ft < 5000.0))
@@ -899,11 +922,14 @@ var HUD_DataProvider  = {
 		}	
 	else
 		{
-       	 	me.altitude_ft =  getprop ("/fdm/jsbsim/systems/navigation/state-vector/altitude-ft");
+		me.altitude_ft =  me.nd_ref_alt.getValue();
 		}
 
-	me.pitch = getprop("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg");
-	me.roll =  getprop("/fdm/jsbsim/systems/navigation/state-vector/roll-deg");
+
+
+	me.pitch = me.nd_ref_pitch.getValue();
+	me.roll = me.nd_ref_roll.getValue();
+
 	me.vAngle = SpaceShuttle.HUD_data_set.vangle_aim;
 	me.vTAngle = SpaceShuttle.HUD_data_set.vangle_threshold;
 	me.hAngle  = SpaceShuttle.HUD_data_set.hangle_aim;
@@ -924,14 +950,21 @@ var HUD_DataProvider  = {
 	me.g_vangle = SpaceShuttle.HUD_data_set.vangle_guidance;
 	me.g_fangle = (me.altitude_ft - 2000.0)/ 250.0;
 
-	var channel_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
-	var channel_roll = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
 
-	me.sb_pos = getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm");
-	me.sb_cmd = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+	var channel_pitch = me.nd_ref_channel_pitch.getValue();
+	var channel_roll = me.nd_ref_channel_roll.getValue();
 
-	me.bank_error = getprop("/fdm/jsbsim/systems/ap/taem/bank-error") * 50.0;
-	me.pitch_error = getprop("/fdm/jsbsim/systems/ap/taem/vspeed-error") * 50.0;
+	#me.sb_pos = getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm");
+	#me.sb_cmd = getprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm");
+
+	me.sb_pos = me.nd_ref_sb_pos.getValue();
+	me.sb_cmd = me.nd_ref_sb_cmd.getValue();
+
+	#me.bank_error = getprop("/fdm/jsbsim/systems/ap/taem/bank-error") * 50.0;
+	#me.pitch_error = getprop("/fdm/jsbsim/systems/ap/taem/vspeed-error") * 50.0;
+
+	me.bank_error = me.nd_ref_bank_error.getValue() * 50.0;
+	me.pitch_error = me.nd_ref_vspeed_error.getValue() * 50.0;
 
 	me.bank_error = SpaceShuttle.clamp(me.bank_error, -30.0, 30.0);
 	me.pitch_error = SpaceShuttle.clamp(me.pitch_error, -30.0, 30.0);

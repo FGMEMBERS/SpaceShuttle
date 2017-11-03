@@ -143,7 +143,12 @@ var PFD_addpage_p_dps_mnvr = func(device)
     p_dps_mnvr.ondisplay = func
     {
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");    
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");  
+
+	if (SpaceShuttle.idp_array[device.port_selected-1].get_major_function() == 4)  
+		{
+		major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+		}
 
         var string1 = "";
     

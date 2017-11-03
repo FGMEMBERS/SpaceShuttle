@@ -131,6 +131,23 @@
             <object-name>panel-A1</object-name>
         </binding>
     </checkbox>
+
+    <checkbox>
+        <name>panel-A7</name>
+        <row>8</row>
+        <col>1</col>
+        <halign>left</halign>
+        <label>Panel A7</label>
+        <property>/sim/model/panel/cover/A7-covers-visible</property>
+        <live>true</live>
+        <enable>
+            <property>/sim/config/shuttle/detailed-flightdeck</property>
+        </enable>
+        <binding>
+            <command>dialog-apply</command>
+            <object-name>panel-A7</object-name>
+        </binding>
+    </checkbox>
   </group>
 
     <empty>

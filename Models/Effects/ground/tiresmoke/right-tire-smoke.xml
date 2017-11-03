@@ -3,9 +3,7 @@
 <PropertyList>
 
   <params>
-    <right_tire_smoke_ground_effect>
-	  <property>/fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt-actual</property>
-    </right_tire_smoke_ground_effect>
+    <right_tire_smoke_ground_effect>fdm/jsbsim/ground/right-tire-smoke-ground-effect-speed-kt-actual</right_tire_smoke_ground_effect>
   </params>
 
   <particlesystem>
@@ -15,14 +13,14 @@
     <emissive>false</emissive>
     <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
     <condition>
-	    <property alias="/params/right_tire_smoke_ground_effect/property"/>
+      <property alias="/params/right_tire_smoke_ground_effect"/>
     </condition>
 
     <attach>world</attach>

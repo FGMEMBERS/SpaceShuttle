@@ -26,9 +26,12 @@ if (flyout_active == 1)
 		{
 		if (auto_throttle == 1)
 			{			
-			setprop("/controls/engines/engine[0]/throttle", 1.0);
-			setprop("/controls/engines/engine[1]/throttle", 1.0);
-			setprop("/controls/engines/engine[2]/throttle", 1.0);
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", 1.0);}
 			}
 		}
 
@@ -38,19 +41,25 @@ if (flyout_active == 1)
 		if (alt > 500000.0)
 			{
 			if (auto_throttle == 1)
-				{			
-				setprop("/controls/engines/engine[0]/throttle", 0.0);
-				setprop("/controls/engines/engine[1]/throttle", 0.0);
-				setprop("/controls/engines/engine[2]/throttle", 0.0);
+				{	
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)		
+					{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", 0.0);}
 				}
 			}
 		else if (alt > 410000.0)
 			{
 			if (auto_throttle == 1)
 				{
-				setprop("/controls/engines/engine[0]/throttle", 0.4);
-				setprop("/controls/engines/engine[1]/throttle", 0.4);
-				setprop("/controls/engines/engine[2]/throttle", 0.4);
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)
+					{setprop("/controls/engines/engine[0]/throttle", 0.4);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", 0.4);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", 0.4);}
 				}
 			}
 		}
@@ -60,9 +69,12 @@ if (powered_pitch_around == 1)
 	{
 	if (auto_throttle == 1)
 		{	
-		setprop("/controls/engines/engine[0]/throttle", 1.0);
-		setprop("/controls/engines/engine[1]/throttle", 1.0);
-		setprop("/controls/engines/engine[2]/throttle", 1.0);
+		if (SpaceShuttle.failure_cmd.ssme1 == 1)
+			{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+		if (SpaceShuttle.failure_cmd.ssme2 == 1)
+			{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+		if (SpaceShuttle.failure_cmd.ssme3 == 1)
+			{setprop("/controls/engines/engine[2]/throttle", 1.0);}
 		}
 	}
 
@@ -90,20 +102,24 @@ if (flyback_active == 1)
 		var dist_error = tgt_site_distance - site_distance;
 
 		meco_speed_bias = dist_error * -20.0;
-		meco_speed_bias = SpaceShuttle.clamp(meco_speed_bias, -300.0, 300.0);
+		meco_speed_bias = SpaceShuttle.clamp(meco_speed_bias, -800.0, 800.0);
 
 		}
 
 
 	if ((fuel_percent < 10.0) and (site_rel_speed < -6800.0 + meco_speed_bias))
 		{
-		setprop("/sim/messages/copilot", "Pitchdown!");
+		#setprop("/sim/messages/copilot", "Pitchdown!");
+		SpaceShuttle.callout.make("Pitchdown!", "help");
 
 		if (auto_throttle == 1)
 			{	
-			setprop("/controls/engines/engine[0]/throttle", 0.0);
-			setprop("/controls/engines/engine[1]/throttle", 0.0);
-			setprop("/controls/engines/engine[2]/throttle", 0.0);
+			if (SpaceShuttle.failure_cmd.ssme1 == 1)
+				{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme2 == 1)
+				{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+			if (SpaceShuttle.failure_cmd.ssme3 == 1)
+				{setprop("/controls/engines/engine[2]/throttle", 0.0);}
 			}
 		setprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active",1);
 		}
@@ -124,7 +140,8 @@ if (powered_pitchdown_active == 1)
 
 			#print("MECO in 2 seconds");
 			settimer( func {
-				setprop("/sim/messages/copilot", "MECO!");
+				#setprop("/sim/messages/copilot", "MECO!");
+				SpaceShuttle.callout.make("MECO!", "info");
 				rtls_init_meco(); }, 2.0);
 
 			return;
@@ -146,6 +163,8 @@ settimer(prtls_loop, 0.2);
 
 var rtls_init_meco = func {
 
+
+
 setprop("/controls/engines/engine[0]/throttle", 0.0);
 setprop("/controls/engines/engine[1]/throttle", 0.0);
 setprop("/controls/engines/engine[2]/throttle", 0.0);
@@ -154,6 +173,7 @@ setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
+setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",1);
 
 
 # activate DAP A to get rates nulled
@@ -176,7 +196,8 @@ SpaceShuttle.ops_transition_auto("p_vert_sit");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
 setprop("/controls/shuttle/control-system-string", "Aerojet");
 
-setprop("/sim/messages/copilot", "Pitch to alpha recovery!");
+#setprop("/sim/messages/copilot", "Pitch to alpha recovery!");
+SpaceShuttle.callout.make("Pitch to alpha recovery!", "help");
 
 # close umbilical door
 

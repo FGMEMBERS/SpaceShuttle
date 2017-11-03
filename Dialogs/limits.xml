@@ -94,6 +94,7 @@
 		 <value>none</value>
 		 <value>ascent single engine failure</value>
 		 <value>ascent single engine lockup</value>
+		 <value>PASS failure</value>
 		 <value>off attitude</value>
 		 <value>RCS failure</value>
 		 <value>hydraulic failure</value>

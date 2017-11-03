@@ -169,7 +169,7 @@ var PFD_addpage_p_dps_univ_ptg = func(device)
                 tgt_roll = tgt_roll + 180.0;
                 tgt_pitch =  tgt_pitch + 90.0;
     		}
-            if (tgt_yaw > 360.0) {tgt_yaw = tgt+yaw - 360.0;}
+            if (tgt_yaw > 360.0) {tgt_yaw = tgt_yaw - 360.0;}
             if (tgt_pitch > 90.0) {tgt_pitch = 180.0 - tgt_pitch;} 
     	}
     

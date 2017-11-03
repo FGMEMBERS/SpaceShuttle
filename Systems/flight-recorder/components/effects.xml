@@ -3,6 +3,10 @@
 <PropertyList>
 
     <signal>
+        <type>float</type>
+        <property type="string">/velocities/groundspeed-kt</property>
+    </signal>
+    <signal>
         <type>int</type>
         <property type="string">/controls/shuttle/parachute</property> 
     </signal>
@@ -37,6 +41,31 @@
     <signal>
         <type>float</type>
         <property type="string">/fdm/jsbsim/gear/gear-pos-norm</property>
+    </signal>
+
+    <signal>
+        <type>int</type>
+        <property type="string">/gear/gear[0]/tyre-smoke</property>
+    </signal>
+    <signal>
+        <type>int</type>
+        <property type="string">/gear/gear[1]/tyre-smoke</property>
+    </signal>
+    <signal>
+        <type>int</type>
+        <property type="string">/gear/gear[2]/tyre-smoke</property>
+    </signal>
+    <signal>
+        <type>bool</type>
+        <property type="string">/gear/gear[%i]/spray</property>
+    </signal>
+    <signal>
+        <type>float</type>
+        <property type="string">/gear/gear[%i]/sprayspeed-ms</property>
+    </signal>
+    <signal>
+        <type>int</type>
+        <property type="string">/fdm/jsbsim/ground/rolling_friction-factor</property>
     </signal>
 
     <!--  Off road tire smoke -->

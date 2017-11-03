@@ -32,7 +32,11 @@ var PFD_addpage_p_dps_rtls = func(device)
     p_dps_rtls.arm = device.svg.getElementById("p_dps_rtls_arm");
 
     p_dps_rtls.abort_region = device.svg.getElementById("p_dps_rtls_2EO_abort_region");
-	
+    p_dps_rtls.abort_region_3eo = device.svg.getElementById("p_dps_rtls_3EO_abort_region");
+
+    p_dps_rtls.abort_region.enableUpdate();
+    p_dps_rtls.abort_region_3eo.enableUpdate();
+
     p_dps_rtls.engine1_fail_vi = device.svg.getElementById("p_dps_rtls_engine1_fail_vi");
     p_dps_rtls.engine2_fail_vi = device.svg.getElementById("p_dps_rtls_engine2_fail_vi");
     
@@ -183,8 +187,8 @@ var PFD_addpage_p_dps_rtls = func(device)
 	else	
 		{p_dps_rtls.yaw_steer.setText("INH");}
 
-	p_dps_rtls.abort_region.setText(getprop("/fdm/jsbsim/systems/abort/contingency-abort-region"));
-	
+	p_dps_rtls.abort_region.updateText(getprop("/fdm/jsbsim/systems/abort/contingency-abort-region"));
+	p_dps_rtls.abort_region_3eo.updateText(getprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo"));
 	
 	p_dps_rtls.engine1_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine-fail-string"));
 	p_dps_rtls.engine2_fail_vi.setText(getprop("/fdm/jsbsim/systems/abort/engine2-fail-string"));
@@ -195,10 +199,17 @@ var PFD_addpage_p_dps_rtls = func(device)
 	else
 		{p_dps_rtls.arm.setText("");}
 
-	if (getprop("/fdm/jsbsim/systems/abort/abort-mode") > 4)
+	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+
+	if ((abort_mode > 4) and (abort_mode < 10))
 		{
 		p_dps_rtls.abort.setText("*");
 		p_dps_rtls.abort_region.setColor(0.8, 0.8, 0.4);
+		}
+	else if (abort_mode > 9)	
+		{
+		p_dps_rtls.abort.setText("");
+		p_dps_rtls.abort_region_3eo.setColor(0.8, 0.8, 0.4);
 		}
 	else
 		{p_dps_rtls.abort.setText("");}

@@ -2,7 +2,7 @@
 # SpaceShuttle PFD Page include:
 #        Page: p_dps
 # Description: the dps dispatching page - this isn't a real page
-#      Author: Thorsten Renk, 2015
+#      Author: Thorsten Renk, 2015-2017
 #---------------------------------------
 
 var PFD_addpage_p_dps = func(device)
@@ -23,8 +23,18 @@ print("DPS update ",device.designation);
     
         var port = device.port_selected;
         var major_function = SpaceShuttle.idp_array[port-1].get_major_function();
+	var major_function_bfs = SpaceShuttle.idp_array[port-1].get_bfs_major_function();
 
-        if (major_function == 1)
+    # check what software the controlling GPC is running
+
+	var gpc = SpaceShuttle.gpc_array[SpaceShuttle.nbat.crt[port-1]-1];
+
+	if ((gpc.ops == 0) and (gpc.operational == 1))
+	{
+			device.selectPage(device.p_dps_memory);
+	}
+
+        else if (major_function == 1)
         {
             var ops = getprop("/fdm/jsbsim/systems/dps/ops");
             var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
@@ -79,14 +89,70 @@ print("DPS update ",device.designation);
     
     	}
         else if (major_function == 2)
-    		{
+    	{
 	        var major_mode_sm = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
 		
 		if (major_mode_sm == 201)
 	        	{device.selectPage(device.p_dps_antenna);}
 		else	
 			{device.selectPage(device.p_dps_pl_bay);}
-    		}
+    	}
+
+        else if (major_function == 4)
+        {
+            var ops = getprop("/fdm/jsbsim/systems/dps/ops-bfs");
+            var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+
+
+		if (major_function_bfs == 1)
+		{
+		if (ops == 0)
+			{
+			device.selectPage(device.p_dps_memory);
+			}
+ 		else if (ops == 1)
+			{
+			if ((major_mode == 101) or (major_mode == 102))
+	    		    	{
+				SpaceShuttle.traj_display_flag = 1;
+				device.selectPage(device.p_ascent);
+				}
+			else if (major_mode == 103)
+	    		    	{
+				SpaceShuttle.traj_display_flag = 2;
+				device.selectPage(device.p_ascent);
+				}
+			else
+				{device.selectPage(device.p_dps_mnvr);}
+			}
+		else if (ops == 3)
+			{
+			if (major_mode == 304)
+	    		    	{
+				device.selectPage(device.p_entry);		
+				}
+			else if (major_mode == 305)
+				{
+				device.selectPage(device.p_vert_sit);
+				}
+			else 
+				{device.selectPage(device.p_dps_mnvr);}
+			}
+ 		else if (ops == 6)
+			{
+			if (major_mode == 601)
+		            	{device.selectPage(device.p_dps_rtls);}
+			else 
+			 	{device.selectPage(device.p_vert_sit);}
+			}
+		}
+		else 
+		{
+		device.selectPage(device.p_dps_bfs_thermal);
+
+		}
+
+	}
 	
 
  

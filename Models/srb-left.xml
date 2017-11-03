@@ -34,7 +34,7 @@
 <model>
    <path>Aircraft/SpaceShuttle/Models/Effects/SRB_flame.xml</path>
     <offsets>
-		 <x-m>-14.5</x-m>
+		 <x-m>-18.5</x-m>
 		 <y-m>0</y-m>
 		 <z-m>0</z-m>
 		 <pitch-deg>180</pitch-deg>

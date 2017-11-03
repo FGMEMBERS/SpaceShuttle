@@ -305,6 +305,41 @@
 
 	</channel>
 
+	<channel name="IMU fans" execrate="8">
+
+		<switch name="systems/eclss/avbay/imu-fan-A-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/imu-fan-A-switch == 1
+				systems/electrical/ac/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/imu-fan-B-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/imu-fan-B-switch == 1
+				systems/electrical/ac[1]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<switch name="systems/eclss/avbay/imu-fan-C-operational">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/eclss/avbay/imu-fan-C-switch == 1
+				systems/electrical/ac[2]/voltage GT 110.0
+			</test>
+		</switch>
+
+		<summer name="systems/eclss/avbay/num-imu-fans-operational">
+			<input>systems/eclss/avbay/imu-fan-A-operational</input>
+			<input>systems/eclss/avbay/imu-fan-B-operational</input>
+			<input>systems/eclss/avbay/imu-fan-C-operational</input>
+		</summer>
+
+	</channel>
+
+
 	<channel name="Oxygen system" execrate="4">
 
 		<switch name="systems/eclss/oxygen/direct-oxygen-available">

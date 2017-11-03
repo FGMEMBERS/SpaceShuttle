@@ -8,7 +8,7 @@ In reality, these numbers are i-loaded for a specific mission, in FG they are ha
 Landing, TAL and contingency sites
 ==================================
 
-Landing sites are chosen in SPEC 50 as ITEM 41. There are regular landing sites, TAL sites and contingency landing sites available.
+Landing sites are chosen in SPEC 50 as ITEM 41. There are regular landing sites, TAL sites, contingency abort landing and emergency landing sites available.
 
 
 Currently implemented are
@@ -25,9 +25,18 @@ Index	Name				status
  8 	Moron Airbase			TAL
  9	Le Tube				TAL
 10	(Ben Guerir)			(TAL, does not exist in FG scenery)
-11	Bermuda				emergency landing site
-12	Halifax				emergency landing site
+11	Bermuda				abort landing site
+12	Halifax				east coast abort landing site
+13	Wilmington			east coast abort landing site
+14	Atlantic City			east coast abort landing site
+15 	Myrtle Beach			east coast abort landing site
+16	Gander				east coast abort landing site
+17	Pease				east coast abort landing site
 30 	Easter Island			TAL for Vandenberg launches, never used in reality
+32	Diego Garcia			emergency landing site
+33	Honolulu Intl. Airport		emergency landing site
+34	Keflavik Intl. Airport		emergency landing site
+35	Andersen Air Force Base	Guam	emergency landing site	
 
 
 Stars available for COAS

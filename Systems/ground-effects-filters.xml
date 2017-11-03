@@ -39,7 +39,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 	
-	<filter>
+	  <filter>
         <name>Right Tail Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -57,7 +57,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Left Wing Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -75,7 +75,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Right Wing Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -93,7 +93,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Nose Gear Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -111,7 +111,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Port Gear Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -129,7 +129,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Stbd Gear Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -147,7 +147,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Nose Tire Smoke Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -165,7 +165,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Left Tire Smoke Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -183,7 +183,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Right Tire Smoke Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -201,7 +201,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Nose Touchdown Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -219,7 +219,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Left Touchdown Ground Effect</name>
         <type>gain</type>
         <enable>
@@ -237,7 +237,7 @@ Under the GPL. Used by shadows under ALS -->
         </output>
     </filter>
 
-	<filter>
+	  <filter>
         <name>Right Touchdown Ground Effect</name>
         <type>gain</type>
         <enable>

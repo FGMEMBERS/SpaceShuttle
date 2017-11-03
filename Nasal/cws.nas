@@ -20,12 +20,17 @@ fhep : 0, fpop : 0, fleak : 0, lhep: 0, lpop: 0, lleak: 0, rhep: 0, rpop: 0, rle
 omslg : 0, omsrg : 0, omslqty : 0, omsrqty : 0, omslpc : 0, omsrpc : 0, omsltkp: 0, omsrtkp: 0,
 acvolt : 0,
 rm_fail_tac: 0, rm_dlm_tac: 0, nav_edit_tac: 0, probes: 0, nav_edit_alt: 0, rm_fail_adta: 0, rm_dlma_adta: 0,
+rm_fail_imu: 0, rm_dlma_imu: 0,
+ssme_fail_l: 0, ssme_fail_c: 0, ssme_fail_r: 0, mps_hyd_l: 0, mps_hyd_c: 0, mps_hyd_r: 0,
+mps_elec_l: 0, mps_elec_c: 0, mps_elec_r: 0, et_sep_inh: 0,
+
+no_y_jet_switchover: 0,
 };
 
 
 var meds_msg_hash = {
-io : [0,0,0,0,0,0,0,0,0],
-port_change: [0,0,0,0,0,0,0,0,0],
+io : [0,0,0,0,0,0,0,0,0,0,0],
+port_change: [0,0,0,0,0,0,0,0,0,0,0],
 poll: [0,0,0,0],
 };
 
@@ -552,7 +557,28 @@ if (math.abs(loxidizer - lpropellant) > 0.095) # we have a leak
 	}
 
 
-		
+# automatic switch to NO Y JET in case of multiple yaw jet failures
+
+if ((l1l + l2l + l3l + l4l) < 2.0)
+	{
+	if (cws_msg_hash.no_y_jet_switchover == 0)
+		{
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+		var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
+		var switch = getprop("/fdm/jsbsim/systems/fcs/entry-mode-switch");
+		var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+		if ((ops ==3) and (qbar > 10.0) and (switch == 0) and (mach > 3.5))		
+			{
+			setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 0);
+			setprop("/fdm/jsbsim/systems/fcs/no-y-jet", 1);
+			print("Switching entry mode to NO Y JET"); 
+			cws_msg_hash.no_y_jet_switchover = 1;
+			}
+		}
+
+	}
+
 
 }  		
 
@@ -746,6 +772,29 @@ if (math.abs(roxidizer - rpropellant) > 0.095) # we have a leak
 	}
 
 
+# automatic switch to NO Y JET in case of multiple yaw jet failures
+
+if ((r1r + r2r + r3r + r4r) < 2.0)
+	{
+	if (cws_msg_hash.no_y_jet_switchover == 0)
+		{
+		var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+		var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
+		var switch = getprop("/fdm/jsbsim/systems/fcs/entry-mode-switch");
+		var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+		if ((ops ==3) and (qbar > 10.0) and (switch == 0) and (mach > 3.5))		
+			{
+			setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 0);
+			setprop("/fdm/jsbsim/systems/fcs/no-y-jet", 1);
+			print("Switching entry mode to NO Y JET"); 
+			cws_msg_hash.no_y_jet_switchover = 1;
+			}
+		}
+
+	}
+
+
 }  		
 
 
@@ -930,6 +979,37 @@ if (((voltage_ac1 < 115.0) or (voltage_ac2 < 115.0) or (voltage_ac3 < 115.0)) an
 var cws_inspect_nav = func {
 
 
+if ((SpaceShuttle.imu_system.imu[0].soft_failed == 1) or (SpaceShuttle.imu_system.imu[1].soft_failed == 1) or (SpaceShuttle.imu_system.imu[2].soft_failed == 1))
+	{
+	if (cws_msg_hash.rm_fail_imu == 0)
+		{
+		var string = "G51";
+		if (getprop("/fdm/jsbsim/systems/dps/ops") == 2)
+			{
+			string = "G21";
+			}
+
+		create_fault_message(string~" RM FAIL IMU ", 1, 2);	
+		cws_msg_hash.rm_fail_imu = 1;
+		}
+	}
+
+if ((SpaceShuttle.imu_system.imu[0].dilemma == 1) or (SpaceShuttle.imu_system.imu[1].dilemma == 1) or (SpaceShuttle.imu_system.imu[2].dilemma == 1))
+	{
+	if (cws_msg_hash.rm_dlma_imu == 0)
+		{
+		var string = "G51";
+		if (getprop("/fdm/jsbsim/systems/dps/ops") == 2)
+			{
+			string = "G21";
+			}
+
+		create_fault_message(string~" RM DLMA IMU ", 1, 2);	
+		cws_msg_hash.rm_dlma_imu = 1;
+		}
+	}
+
+
 var mm =  getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 if ((mm != 304) and (mm != 305) and (mm != 602) and (mm != 603)) {return;}
@@ -1011,6 +1091,109 @@ if ((SpaceShuttle.air_data_system.adta[0].dilemma == 1) or (SpaceShuttle.air_dat
 		create_fault_message("G51 RM DLMA ADTA", 1, 2);	
 		cws_msg_hash.rm_dlma_adta = 1;
 		}
+	}
+
+
+
+
+
+}
+
+
+
+#################################################
+# CWS checks of MPS
+#################################################
+
+var cws_inspect_mps = func {
+
+if (getprop("/fdm/jsbsim/systems/mps/engine/electric-lockup") == 1)
+	{
+	if (cws_msg_hash.mps_elec_l == 0)
+		{
+		create_fault_message("    MPS ELEC L  ", 1, 2);	
+		cws_msg_hash.mps_elec_l = 1;
+		}
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[1]/electric-lockup") == 1)
+	{
+	if (cws_msg_hash.mps_elec_r == 0)
+		{
+		create_fault_message("    MPS ELEC R  ", 1, 2);	
+		cws_msg_hash.mps_elec_r = 1;
+		}
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[2]/electric-lockup") == 1)
+	{
+	if (cws_msg_hash.mps_elec_c == 0)
+		{
+		create_fault_message("    MPS ELEC C  ", 1, 2);	
+		cws_msg_hash.mps_elec_c = 1;
+		}
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine/hydraulic-power") == 0)
+	{
+	if (cws_msg_hash.mps_hyd_l == 0)
+		{
+		create_fault_message("    MPS HYD L   ", 1, 2);	
+		cws_msg_hash.mps_hyd_l = 1;
+		}
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[1]/hydraulic-power") == 0)
+	{
+	if (cws_msg_hash.mps_hyd_r == 0)
+		{
+		create_fault_message("    MPS HYD R   ", 1, 2);	
+		cws_msg_hash.mps_hyd_r = 1;
+		}
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[2]/hydraulic-power") == 0)
+	{
+	if (cws_msg_hash.mps_hyd_c == 0)
+		{
+		create_fault_message("    MPS HYD C   ", 1, 2);	
+		cws_msg_hash.mps_hyd_c = 1;
+		}
+	}
+
+
+# don't notify engine shutdown after regular MECO or if we don't know MECO
+
+if (getprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition") == 1) {return;}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine/engine-operational") == 0)
+	{
+	if (cws_msg_hash.ssme_fail_l == 0)
+		{
+		create_fault_message("    SSME FAIL L ", 1, 2);	
+		cws_msg_hash.ssme_fail_l = 1;
+		}
+
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[1]/engine-operational") == 0)
+	{
+	if (cws_msg_hash.ssme_fail_r == 0)
+		{
+		create_fault_message("    SSME FAIL R ", 1, 2);	
+		cws_msg_hash.ssme_fail_r = 1;
+		}
+
+	}
+
+if (getprop("/fdm/jsbsim/systems/mps/engine[2]/engine-operational") == 0)
+	{
+	if (cws_msg_hash.ssme_fail_c == 0)
+		{
+		create_fault_message("    SSME FAIL C ", 1, 2);	
+		cws_msg_hash.ssme_fail_c = 1;
+		}
+
 	}
 
 
@@ -1145,5 +1328,50 @@ cws_msg_hash.nav_edit_tac = 0;
 cws_msg_hash.nav_edit_alt = 0;
 cws_msg_hash.rm_fail_adta = 0;
 cws_msg_hash.rm_dlma_adta = 0;
+cws_msg_hash.rm_fail_imu = 0;
+cws_msg_hash.rm_dlma_imu = 0;
 
 }
+
+
+var io_reset_bfs = func {
+
+setprop("/fdm/jsbsim/systems/dps/bfs/bfs-transient-error", 0);
+
+if (SpaceShuttle.bfs_in_control == 1)
+	{
+	setprop("/fdm/jsbsim/systems/dps/bfs/bfc-light-status",1);
+	}
+else
+	{
+	setprop("/fdm/jsbsim/systems/dps/bfs/bfc-light-status",0);
+	}
+
+}
+
+
+#################################################
+# BFS/PASS discrepancies
+#################################################
+
+
+var compare_bfs_pass = func {
+
+if (SpaceShuttle.bfs_in_control == 1) {return;}
+
+var error_pitch = getprop("/fdm/jsbsim/systems/navigation/state-vector/pass/error-pitch");
+var error_roll = getprop("/fdm/jsbsim/systems/navigation/state-vector/pass/error-roll");
+var error_yaw = getprop("/fdm/jsbsim/systems/navigation/state-vector/pass/error-yaw");
+var transient_error = 0;
+
+if (SpaceShuttle.dps_simulation_detail_level == 1)
+	{transient_error = getprop("/fdm/jsbsim/systems/dps/bfs/bfs-transient-error");}
+
+if ((math.abs(error_pitch) > 0.0) or (math.abs(error_roll) > 0.0) or (math.abs(error_yaw) > 0.0) or (transient_error == 1))
+	{
+	SpaceShuttle.toggle_property("/fdm/jsbsim/systems/dps/bfs/bfc-light-status");
+	}
+}
+
+
+

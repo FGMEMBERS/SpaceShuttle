@@ -1,0 +1,824 @@
+<?xml version="1.0"?>
+
+<system>
+
+<channel name="Carrier aircraft position interpolation">
+
+	<fcs_function name="systems/carrier/delta-t">
+	<function>
+		<difference>
+			<property>simulation/sim-time-sec</property>
+			<property>systems/carrier/mark-t</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-x-fwd-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-x-fwd</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vx-fwd</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-y-fwd-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-y-fwd</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vy-fwd</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-z-fwd-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-z-fwd</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vz-fwd</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-x-left-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-x-left</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vx-left</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-y-left-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-y-left</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vy-left</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-z-left-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-z-left</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vz-left</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-x-right-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-x-right</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vx-right</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-y-right-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-y-right</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vy-right</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/interpolated-z-right-ft">
+	<function>
+		<sum>
+			<property>systems/carrier/mark-z-right</property>
+			<product>
+				<property>systems/carrier/delta-t</property>
+				<property>systems/carrier/mark-vz-right</property>
+			</product>
+		</sum>
+	</function>
+	</fcs_function>
+
+</channel>
+
+<channel name="Attachment forces" execute="systems/carrier/connected">
+
+	<!-- forward attachment -->
+
+	<fcs_function name="systems/carrier/eci-x-fwd-ft">
+	<function>
+			<sum>
+			<property>position/eci-x-ft</property>
+			<product>
+				<value>49.213</value>
+				<property>systems/pointing/inertial/body-x[0]</property>
+			</product>
+			<product>
+				<value>-26.539</value>
+				<property>systems/pointing/inertial/body-z[0]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-x-fwd-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-x-fwd-ft</property>
+			<property>systems/carrier/eci-x-fwd-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-y-fwd-ft">
+	<function>
+			<sum>
+			<property>position/eci-y-ft</property>
+			<product>
+				<value>49.213</value>
+				<property>systems/pointing/inertial/body-x[1]</property>
+			</product>
+			<product>
+				<value>-26.539</value>
+				<property>systems/pointing/inertial/body-z[1]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-y-fwd-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-y-fwd-ft</property>
+			<property>systems/carrier/eci-y-fwd-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-z-fwd-ft">
+	<function>
+			<sum>
+			<property>position/eci-z-ft</property>
+			<product>
+				<value>49.213</value>
+				<property>systems/pointing/inertial/body-x[2]</property>
+			</product>
+			<product>
+				<value>-26.539</value>
+				<property>systems/pointing/inertial/body-z[2]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-z-fwd-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-z-fwd-ft</property>
+			<property>systems/carrier/eci-z-fwd-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+
+	<deadband name="systems/carrier/force-fwd-eci-x-trigger">
+		<input>systems/carrier/delta-x-fwd-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-fwd-eci-y-trigger">
+		<input>systems/carrier/delta-y-fwd-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-fwd-eci-z-trigger">
+		<input>systems/carrier/delta-z-fwd-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+  	<pid name="systems/carrier/force-fwd-eci-x-lb">
+	<input>systems/carrier/delta-x-fwd-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-fwd-eci-x-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-fwd-eci-y-lb">
+	<input>systems/carrier/delta-y-fwd-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-fwd-eci-y-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-fwd-eci-z-lb">
+	<input>systems/carrier/delta-z-fwd-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-fwd-eci-z-trigger</trigger>
+ 	</pid>
+
+	<fcs_function name="systems/carrier/force-fwd-x-lb">
+	<function>
+		<min>
+		<max>
+			<product>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<property>systems/carrier/force-fwd-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[1]</property>
+				<property>systems/carrier/force-fwd-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[2]</property>
+				<property>systems/carrier/force-fwd-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-1.0</value>
+			</product>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-fwd-y-lb">
+	<function>
+		<min>
+		<max>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-y[0]</property>
+				<property>systems/carrier/force-fwd-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[1]</property>
+				<property>systems/carrier/force-fwd-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[2]</property>
+				<property>systems/carrier/force-fwd-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-fwd-z-lb">
+	<function>
+		<min>
+		<max>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-z[0]</property>
+				<property>systems/carrier/force-fwd-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[1]</property>
+				<property>systems/carrier/force-fwd-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[2]</property>
+				<property>systems/carrier/force-fwd-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+
+	<!-- left attachment -->
+
+	<fcs_function name="systems/carrier/eci-x-left-ft">
+	<function>
+			<sum>
+			<property>position/eci-x-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[0]</property>
+			</product>
+			<product>
+				<value>-13.779</value>
+				<property>systems/pointing/inertial/body-y[0]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[0]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-x-left-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-x-left-ft</property>
+			<property>systems/carrier/eci-x-left-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-y-left-ft">
+	<function>
+			<sum>
+			<property>position/eci-y-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[1]</property>
+			</product>
+			<product>
+				<value>-13.779</value>
+				<property>systems/pointing/inertial/body-y[1]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[1]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-y-left-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-y-left-ft</property>
+			<property>systems/carrier/eci-y-left-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-z-left-ft">
+	<function>
+			<sum>
+			<property>position/eci-z-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[2]</property>
+			</product>
+			<product>
+				<value>-13.779</value>
+				<property>systems/pointing/inertial/body-y[2]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[2]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-z-left-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-z-left-ft</property>
+			<property>systems/carrier/eci-z-left-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+
+	<deadband name="systems/carrier/force-left-eci-x-trigger">
+		<input>systems/carrier/delta-x-left-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-left-eci-y-trigger">
+		<input>systems/carrier/delta-y-left-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-left-eci-z-trigger">
+		<input>systems/carrier/delta-z-left-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+  	<pid name="systems/carrier/force-left-eci-x-lb">
+	<input>systems/carrier/delta-x-left-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-left-eci-x-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-left-eci-y-lb">
+	<input>systems/carrier/delta-y-left-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-left-eci-x-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-left-eci-z-lb">
+	<input>systems/carrier/delta-z-left-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-left-eci-x-trigger</trigger>
+ 	</pid>
+
+	<fcs_function name="systems/carrier/force-left-x-lb">
+	<function>
+		<min>
+		<max>
+			<product>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<property>systems/carrier/force-left-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[1]</property>
+				<property>systems/carrier/force-left-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[2]</property>
+				<property>systems/carrier/force-left-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-1.0</value>
+			</product>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-left-y-lb">
+	<function>
+		<min>
+		<max>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-y[0]</property>
+				<property>systems/carrier/force-left-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[1]</property>
+				<property>systems/carrier/force-left-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[2]</property>
+				<property>systems/carrier/force-left-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-left-z-lb">
+	<function>
+		<min>
+		<max>
+			<product>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-z[0]</property>
+				<property>systems/carrier/force-left-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[1]</property>
+				<property>systems/carrier/force-left-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[2]</property>
+				<property>systems/carrier/force-left-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>2.0</value>
+			</product>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<!-- right attachment -->
+
+	<fcs_function name="systems/carrier/eci-x-right-ft">
+	<function>
+			<sum>
+			<property>position/eci-x-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[0]</property>
+			</product>
+			<product>
+				<value>13.779</value>
+				<property>systems/pointing/inertial/body-y[0]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[0]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-x-right-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-x-right-ft</property>
+			<property>systems/carrier/eci-x-right-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-y-right-ft">
+	<function>
+			<sum>
+			<property>position/eci-y-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[1]</property>
+			</product>
+			<product>
+				<value>13.779</value>
+				<property>systems/pointing/inertial/body-y[1]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[1]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-y-right-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-y-right-ft</property>
+			<property>systems/carrier/eci-y-right-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/eci-z-right-ft">
+	<function>
+			<sum>
+			<property>position/eci-z-ft</property>
+			<product>
+				<value>-11.811</value>
+				<property>systems/pointing/inertial/body-x[2]</property>
+			</product>
+			<product>
+				<value>13.779</value>
+				<property>systems/pointing/inertial/body-y[2]</property>
+			</product>
+			<product>
+				<value>-26.148</value>
+				<property>systems/pointing/inertial/body-z[2]</property>
+			</product>
+			</sum>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/delta-z-right-ft">
+	<function>
+		<difference>
+			<property>systems/carrier/interpolated-z-right-ft</property>
+			<property>systems/carrier/eci-z-right-ft</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+
+
+	<deadband name="systems/carrier/force-right-eci-x-trigger">
+		<input>systems/carrier/delta-x-right-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-right-eci-y-trigger">
+		<input>systems/carrier/delta-y-right-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+	<deadband name="systems/carrier/force-right-eci-z-trigger">
+		<input>systems/carrier/delta-z-right-ft</input>
+		<width>1.5</width>
+	</deadband>
+
+
+  	<pid name="systems/carrier/force-right-eci-x-lb">
+	<input>systems/carrier/delta-x-right-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-right-eci-x-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-right-eci-y-lb">
+	<input>systems/carrier/delta-y-right-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-right-eci-x-trigger</trigger>
+ 	</pid>
+
+  	<pid name="systems/carrier/force-right-eci-z-lb">
+	<input>systems/carrier/delta-z-right-ft</input>
+		<kp> -55000.0 </kp>
+		<ki> -10000.0 </ki>
+		<kd> -20000.0</kd>
+		<trigger>systems/carrier/force-right-eci-x-trigger</trigger>
+ 	</pid>
+
+	<fcs_function name="systems/carrier/force-right-x-lb">
+	<function>
+		<min>
+		<max>	
+			<product>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-x[0]</property>
+				<property>systems/carrier/force-right-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[1]</property>
+				<property>systems/carrier/force-right-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-x[2]</property>
+				<property>systems/carrier/force-right-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-1.0</value>
+			</product>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-right-y-lb">
+	<function>
+		<min>
+		<max>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-y[0]</property>
+				<property>systems/carrier/force-right-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[1]</property>
+				<property>systems/carrier/force-right-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-y[2]</property>
+				<property>systems/carrier/force-right-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="systems/carrier/force-right-z-lb">
+	<function>
+		<min>	
+		<max>
+			<product>
+			<sum>
+			<product>
+				<property>systems/pointing/inertial/body-z[0]</property>
+				<property>systems/carrier/force-right-eci-x-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[1]</property>
+				<property>systems/carrier/force-right-eci-y-lb</property>
+			</product>
+			<product>
+				<property>systems/pointing/inertial/body-z[2]</property>
+				<property>systems/carrier/force-right-eci-z-lb</property>
+			</product>
+			</sum>
+			<value>2.0</value>
+			</product>
+			<value>-250000.0</value>
+		</max>
+		<value>250000.0</value>
+		</min>
+	</function>
+	</fcs_function>
+
+
+</channel>
+
+<channel name="Diagnostics" execute="systems/carrier/connected">
+
+	<fcs_function name="diagnostics/roll-balance">
+	<function>
+		<difference>
+			<property>systems/carrier/force-right-z-lb</property>
+			<property>systems/carrier/force-left-z-lb</property>
+		</difference>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="diagnostics/error-fwd-ft">
+	<function>
+		<sqrt>
+		<sum>
+		<product>
+			<property>systems/carrier/delta-x-fwd-ft</property>
+			<property>systems/carrier/delta-x-fwd-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-y-fwd-ft</property>
+			<property>systems/carrier/delta-y-fwd-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-z-fwd-ft</property>
+			<property>systems/carrier/delta-z-fwd-ft</property>
+		</product>
+		</sum>
+		</sqrt>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="diagnostics/error-left-ft">
+	<function>
+		<sqrt>
+		<sum>
+		<product>
+			<property>systems/carrier/delta-x-left-ft</property>
+			<property>systems/carrier/delta-x-left-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-y-left-ft</property>
+			<property>systems/carrier/delta-y-left-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-z-left-ft</property>
+			<property>systems/carrier/delta-z-left-ft</property>
+		</product>
+		</sum>
+		</sqrt>
+	</function>
+	</fcs_function>
+
+	<fcs_function name="diagnostics/error-right-ft">
+	<function>
+		<sqrt>
+		<sum>
+		<product>
+			<property>systems/carrier/delta-x-right-ft</property>
+			<property>systems/carrier/delta-x-right-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-y-right-ft</property>
+			<property>systems/carrier/delta-y-right-ft</property>
+		</product>
+		<product>
+			<property>systems/carrier/delta-z-right-ft</property>
+			<property>systems/carrier/delta-z-right-ft</property>
+		</product>
+		</sum>
+		</sqrt>
+	</function>
+	</fcs_function>
+
+</channel>
+</system>

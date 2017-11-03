@@ -332,13 +332,21 @@ var pitch = 0.0;
 if (math.abs(vec[2]) > 0.001) {pitch = math.asin(vec[2]);}
 
 var norm2 = math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
-var yaw_pos = math.acos(vec[0]/norm2);
+
+var yaw_pos = 0.0;
+
+if (norm2 > 0.0)
+	{
+	var arg = vec[0]/norm2;
+	arg = clamp(arg, -1.0, 1.0);
+	yaw_pos = math.acos(arg);
+	}
 
 var yaw = yaw_pos;
 
-if (vec[1] < 0.0) {yaw = math.pi - yaw_pos;}
+if (vec[1] < 0.0) {yaw = 2.0 * math.pi - yaw_pos;}
 
-#print("p: ", pitch * 180/math.pi, "y: ", yaw * 180/math.pi);
+#print("p: ", pitch * 180/math.pi, " y: ", yaw * 180/math.pi);
 
 return [pitch, yaw];
 
@@ -694,9 +702,11 @@ if (tig > MET) # the burn is in the future, need to extrapolate state vector
 	{
 	setprop("/fdm/jsbsim/systems/ap/oms-plan/apoapsis-nm", 0.0);
 	setprop("/fdm/jsbsim/systems/ap/oms-plan/periapsis-nm", 0.0);
+	oms_burn_target.time_to_burn = tig - MET;
 	oms_future_burn_start(tig - MET);
 	return;
 	}
+
 
 settimer(func {tracking_loop_flag = 1; oms_burn_loop(tx, ty, tz, dvtot);}, 0.2);
 
@@ -810,12 +820,19 @@ var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 	{
+	#print("Extrapolated state reduced vel: ", v[0], " ", v[1], " ", v[2]); 
 	var rei = SpaceShuttle.get_rei(r,v);
 
-	# correct REI for empirics
+	# correct REI for empirics and time to interface
 
 	var rei_correction = 375.0 + 3.6556 * periapsis_nm;
-	oms_burn_target.rei = rei + rei_correction;
+	rei_correction = rei_correction - oms_burn_target.time_to_burn * norm([vx,vy,vz]) * 0.000164578833693;
+	# also Earth rotates while we coast, this is very naive
+
+	var lat = getprop("/position/latitude-deg");
+	var rot_correction =  math.cos(math.pi * lat/180.0) * 465.0 * oms_burn_target.time_to_burn * 0.000539956803456;
+
+	oms_burn_target.rei = rei + rei_correction + rot_correction;
 	}
 
 # start the tracking loop to maneuver into burn attitude
@@ -832,10 +849,11 @@ var tracking_loop_earth = func {
 
 if (tracking_loop_flag == 0) {return;}
 
-print("Tracking..");
+#print("Tracking..");
 
 var radial = [-getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"), -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"), -getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]")];
 
+radial = normalize(radial); 
 
 setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", radial[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", radial[1]);
@@ -965,7 +983,7 @@ setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", second[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", second[1]);
 setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", second[2]);
 
-var third = cross_product(radial, second);
+var third = cross_product(track_vec, second);
 
 setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", third[0]);
 setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", third[1]);

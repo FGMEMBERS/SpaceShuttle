@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<PropertyList> 
+
+    <path>JT9D7.ac</path>
+
+ <!-- ENGINES -->
+
+ <animation>
+  <type>spin</type>
+  <object-name>pin_0</object-name>
+  <object-name>blades_0</object-name>
+  <factor>67</factor>
+  <property>/fdm/jsbsim/systems/carrier/engines-n1</property>
+  <center>
+   <x-m>9.67936</x-m>
+   <y-m>-21.3732</y-m>
+   <z-m>-2.04284</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+		
+
+ <animation>
+  <type>spin</type>
+  <object-name>pin_1</object-name>
+  <object-name>blades_1</object-name>
+  <factor>67</factor>
+  <property>/fdm/jsbsim/systems/carrier/engines-n1</property>
+  <center>
+   <x-m>0.467683</x-m>
+   <y-m>-12.0977</y-m>
+   <z-m>-2.93892</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+
+ <animation>
+  <type>spin</type>
+  <object-name>pin_2</object-name>
+  <object-name>blades_2</object-name>
+  <factor>67</factor>
+  <property>/fdm/jsbsim/systems/carrier/engines-n1</property>
+  <center>
+   <x-m>0.467683</x-m>
+   <y-m>12.0977</y-m>
+   <z-m>-2.93892</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+		
+
+ <animation>
+  <type>spin</type>
+  <object-name>pin_3</object-name>
+  <object-name>blades_3</object-name>
+  <factor>67</factor>
+  <property>/fdm/jsbsim/systems/carrier/engines-n1</property>
+  <center>
+   <x-m>9.67936</x-m>
+   <y-m> 21.3732</y-m>
+   <z-m>-2.04284</z-m>
+  </center>
+  <axis>
+   <x>1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+ </animation>
+ 
+ 
+ 
+
+</PropertyList>

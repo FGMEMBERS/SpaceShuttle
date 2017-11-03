@@ -17,6 +17,7 @@
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">6</tal-site-index>
   <rtls-site-index type="int">1</rtls-site-index>
+  <roll-to-heads-up type="bool">false</roll-to-heads-up>
 </launch>
 
 <abort>

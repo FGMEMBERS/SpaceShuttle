@@ -266,186 +266,6 @@
 			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
 		</sensor>
 
-	
-		<!--<sensor name="systems/navigation/air-data-left-1-alt-ft-raw">
-			<input>/position/altitude-ft</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-left-3-alt-ft-raw">
-			<input>/position/altitude-ft</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-2-alt-ft-raw">
-			<input>/position/altitude-ft</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-4-alt-ft-raw">
-			<input>/position/altitude-ft</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-left-1-mach-raw">
-			<input>velocities/mach</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-left-3-mach-raw">
-			<input>velocities/mach</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-2-mach-raw">
-			<input>velocities/mach</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-4-mach-raw">
-			<input>velocities/mach</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-left-1-alpha-raw">
-			<input>aero/alpha-deg</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-left-3-alpha-raw">
-			<input>aero/alpha-deg</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-2-alpha-raw">
-			<input>aero/alpha-deg</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<sensor name="systems/navigation/air-data-right-4-alpha-raw">
-			<input>aero/alpha-deg</input>
-			<lag>0.3</lag>
-			<noise variation="PERCENT" distribution="GAUSSIAN">0.0001</noise>
-		</sensor>
-
-		<fcs_function name="systems/navigation/air-data-left-1-alt-ft">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-1-alt-ft-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-left-3-alt-ft">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-3-alt-ft-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-2-alt-ft">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-2-alt-ft-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-4-alt-ft">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-4-alt-ft-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-left-1-mach">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-1-mach-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-left-3-mach">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-3-mach-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-2-mach">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-2-mach-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-4-mach">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-4-mach-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-left-1-alpha">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-1-alpha-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-left-3-alpha">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-left-deployed</property>
-				<property>systems/navigation/air-data-left-3-alpha-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-2-alpha">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-2-alpha-raw</property>
-			</product>
-		</function>
-		</fcs_function>
-
-		<fcs_function name="systems/navigation/air-data-right-4-alpha">
-		<function>
-			<product>
-				<property>systems/navigation/air-data-right-deployed</property>
-				<property>systems/navigation/air-data-right-4-alpha-raw</property>
-			</product>
-		</function>
-		</fcs_function>-->
 
 
 	</channel>
@@ -506,6 +326,65 @@
 
 	</channel>
 
+	<channel name="PASS computation failures">
+		
+		<actuator name="systems/navigation/state-vector/pass/error-pitch">
+			<input>systems/dps/pass/error-pitch</input>
+			<rate_limit>0.5</rate_limit>
+		</actuator>
+
+		<actuator name="systems/navigation/state-vector/pass/error-yaw">
+			<input>systems/dps/pass/error-yaw</input>
+			<rate_limit>0.5</rate_limit>
+		</actuator>
+
+		<actuator name="systems/navigation/state-vector/pass/error-roll">
+			<input>systems/dps/pass/error-roll</input>
+			<rate_limit>0.5</rate_limit>
+		</actuator>
+
+	</channel>
+
+	<channel name="Merged computation errors">
+	
+		<fcs_function name="systems/navigation/state-vector/merge/error-pitch-dps">
+		<function>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/dps/bfs-in-control</property>
+				</difference>
+				<property>systems/navigation/state-vector/pass/error-pitch</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/error-yaw-dps">
+		<function>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/dps/bfs-in-control</property>
+				</difference>
+				<property>systems/navigation/state-vector/pass/error-yaw</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/navigation/state-vector/merge/error-roll-dps">
+		<function>
+			<product>
+				<difference>
+					<value>1.0</value>
+					<property>systems/dps/bfs-in-control</property>
+				</difference>
+				<property>systems/navigation/state-vector/pass/error-roll</property>
+			</product>
+		</function>
+		</fcs_function>
+
+	</channel>
+
 	<channel name="State vector">
 
 		<fcs_function name="systems/navigation/state-vector/merge/pitch-deg-A">
@@ -516,6 +395,7 @@
 					<property>systems/navigation/state-vector/error-prop/pitch-deg</property>
 					<property>systems/navigation/state-vector/use-realistic-sv</property>
 				</product>
+				<property>systems/navigation/state-vector/merge/error-pitch-dps</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -557,6 +437,7 @@
 					<property>systems/navigation/state-vector/error-prop/yaw-deg</property>
 					<property>systems/navigation/state-vector/use-realistic-sv</property>
 				</product>
+				<property>systems/navigation/state-vector/merge/error-yaw-dps</property>
 			</sum>
 		</function>
 		</fcs_function>
@@ -598,6 +479,7 @@
 					<property>systems/navigation/state-vector/error-prop/roll-deg</property>
 					<property>systems/navigation/state-vector/use-realistic-sv</property>
 				</product>
+				<property>systems/navigation/state-vector/merge/error-roll-dps</property>
 			</sum>
 		</function>
 		</fcs_function>

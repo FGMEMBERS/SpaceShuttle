@@ -17,6 +17,7 @@ Interior cockpit 3d model:
 * original by Chris Kuhn 
 * adapted for this project by Richard Harrison with permission from Chris Kuhn
 * photo textures based on the panoramas of Jon Brack http://www.jonbrack360.com/shuttle/ 
+* animated and modified by Wayne Bragg
 
 Effects and Shaders:
 
@@ -35,3 +36,7 @@ Sounds:
 Alternative MDU fonts:
 
 *  created by the SSU Team, adapted from Orbiter SSU project under LGPL
+
+Carrier aircraft 3d model:
+
+* Grupo FGBr, Martien van der Plas (SCA conversion), adapted by Jorge Pareja under GPL

@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="Active Thermal Management System">
+	<channel name="Active Thermal Management System" execrate="4">
 
 
 		<switch name="systems/atcs/water-pump-1-active">
@@ -196,6 +196,8 @@
 			<test logic="OR" value="1.0">
 				systems/atcs/fes-controller-A-status == 1
 				systems/atcs/fes-controller-B-status == 1
+				systems/atcs/fes-controller-A-status == -1
+				systems/atcs/fes-controller-B-status == -1
 				systems/atcs/fes-controller-sec-status == 1
 			</test>
 		</switch>
@@ -325,7 +327,7 @@
 	</channel>
 
 
-	<channel name="FES duct and feedline heaters">
+	<channel name="FES duct and feedline heaters" execrate="8">
 
 		<switch name="systems/atcs/fes-topping-duct-heater-active">
 			<default value="0.0"/>

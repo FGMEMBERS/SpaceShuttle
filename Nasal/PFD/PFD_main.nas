@@ -20,6 +20,7 @@
 # * p_dps_time (SPEC 2)
 # * p_dps_gpc (DISP 6)
 # * p_dps_dap (SPEC 20)
+# * p_dps_imu_align (SPEC 21)
 # * p_dps_strk (SPEC 22)
 # * p_dps_rcs (SPEC 23)
 # * p_dps_rm_orbit (SPEC 25)
@@ -47,6 +48,9 @@
 # * p_dps_fault (DISP 99)
 # * p_dps_pdrs_status (DISP 169)
 
+# * p_dps_bfs_thermal (BFS OPS 0)
+# * p_dps_bfs_sys_summ1 (BFS DISP 18)
+# * p_dps_bfs_override (BFS SPEC 51)
 
 # * p_pfd (MEDS PFD)
 # * p_pfd_orbit (MEDS ORBIT PFD)
@@ -132,6 +136,10 @@ io.include("p_dps_memory.nas");
 io.include("p_dps_env.nas");
 io.include("p_dps_pdrs_status.nas");
 io.include("p_dps_comm.nas");
+io.include("p_dps_imu_align.nas");
+io.include("p_dps_bfs_thermal.nas");
+io.include("p_dps_bfs_sys_summ1.nas");
+io.include("p_dps_bfs_override.nas");
 
 io.include("p_meds_oms_mps.nas");
 io.include("p_meds_apu.nas");
@@ -203,6 +211,7 @@ var MDU_Device =
         obj.PFD.designation = designation;
 	obj.PFD.polling_status = 1;
 	obj.PFD.autonomous = 0;
+	obj.PFD.sys_software_load_flag = 0;
 	obj.PFD.last_page = nil;
         obj.mdu_device_status = 10;
 	obj.operational = 1;
@@ -279,8 +288,9 @@ var MDU_Device =
             me.DPS_menu_title.setText("");
             me.DPS_menu_fault_line.setText("");
             me.DPS_menu_scratch_line.setText("");
-            me.DPS_menu_gpc_driver.setText("");
-	    me.DPS_menu_idp.setText("");
+            me.DPS_menu_gpc_driver.updateText("");
+            me.DPS_menu_bfs.updateText("");
+	    me.DPS_menu_idp.updateText("");
 	    me.DPS_menu_line1.setVisible(0);
 	    me.DPS_menu_line2.setVisible(0);
 	    me.DPS_menu_line3.setVisible(0);
@@ -333,6 +343,10 @@ var MDU_Device =
             var port = me.port_selected;
             var idp_index = port - 1;
 
+
+
+            me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
+
 	    if (me.polling_status == 0)
 		{
 	    	me.DPS_menu_cross1.setVisible(1);
@@ -368,22 +382,48 @@ var MDU_Device =
 
             me.DPS_menu_time.setText(time_string);
             me.DPS_menu_crt_time.setText(getprop("/fdm/jsbsim/systems/timer/CRT-string"));
-            me.DPS_menu_scratch_line.setText(getprop("/fdm/jsbsim/systems/dps/command-string", idp_index));
 
-	    if (SpaceShuttle.idp_array[idp_index].get_major_function() == 1)
+	    var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+	    if (major_function == 1)
             	{
 		var gpc_driver = SpaceShuttle.nbat.crt[idp_index];
-		me.DPS_menu_gpc_driver.setText(sprintf("%d",gpc_driver));
+		me.DPS_menu_gpc_driver.updateText(sprintf("%d",gpc_driver));
+	    	me.DPS_menu_bfs.updateText("");
 
 		}
-	    else
-		{me.DPS_menu_gpc_driver.setText("4");}
+	    else if (major_function == 2)
+		{
+		var gpc_driver = SpaceShuttle.nbat.what_gpc_provides("SM");
 
-	    me.DPS_menu_idp.setText(sprintf("%1.0f",port));
+		if (gpc_driver == -1) # we're either in OPS 0 and trying to boot or don't have SM
+			{
+			gpc_driver = SpaceShuttle.nbat.crt[idp_index];
+			}
+
+		me.DPS_menu_gpc_driver.updateText(sprintf("%d", gpc_driver));
+	    	me.DPS_menu_bfs.updateText("");
+		}
+	   else if ((major_function == 4))
+		{
+		var gpc_driver = SpaceShuttle.nbat.what_gpc_provides("BFS");
+
+		if (gpc_driver == -1) # we're either in OPS 0 and trying to boot or don't have SM
+			{
+			gpc_driver = SpaceShuttle.nbat.crt[idp_index];
+			}
+
+		me.DPS_menu_gpc_driver.updateText(sprintf("%d", gpc_driver));
+	    	me.DPS_menu_bfs.updateText("BFS");
+		}
+
+	    me.DPS_menu_idp.updateText(sprintf("%1.0f",port));
 	    me.DPS_menu_line1.setVisible(1);
 	    me.DPS_menu_line2.setVisible(1);
 	    me.DPS_menu_line3.setVisible(1);
 	    me.DPS_menu_line4.setVisible(1);
+
+
 
 	    if (SpaceShuttle.kb_array[0].get_idp() == port)
 		{
@@ -405,10 +445,11 @@ var MDU_Device =
 
             var fault_string = getprop("/fdm/jsbsim/systems/dps/error-string");
 
+
             if (SpaceShuttle.cws_last_message_acknowledge == 1)
-            {
+            	{
                 if (me.DPS_menu_blink == 0) {fault_string = "";}
-            }
+            	}
             me.DPS_menu_fault_line.setText(fault_string);
 
 
@@ -424,7 +465,6 @@ var MDU_Device =
 	    me.MEDS_fault_message.setText(fault_string);
 
 
-#setprop("/fdm/jsbsim/systems/dps/dps-page-flag", 1);
         };
         obj.addPages();
         return obj;
@@ -475,6 +515,10 @@ var MDU_Device =
         me.PFD.p_dps_env = PFD_addpage_p_dps_env(me.PFD);
         me.PFD.p_dps_pdrs_status = PFD_addpage_p_dps_pdrs_status(me.PFD);
         me.PFD.p_dps_comm = PFD_addpage_p_dps_comm(me.PFD);
+        me.PFD.p_dps_imu_align = PFD_addpage_p_dps_imu_align(me.PFD);
+        me.PFD.p_dps_bfs_thermal = PFD_addpage_p_dps_bfs_thermal(me.PFD);
+        me.PFD.p_dps_bfs_sys_summ1 = PFD_addpage_p_dps_bfs_sys_summ1(me.PFD);
+        me.PFD.p_dps_bfs_override = PFD_addpage_p_dps_bfs_override(me.PFD);
 
         me.PFD.p_meds_oms_mps = PFD_addpage_p_meds_oms_mps(me.PFD);
         me.PFD.p_meds_apu = PFD_addpage_p_meds_apu(me.PFD);
@@ -553,6 +597,7 @@ var MDU_Device =
         me.PFD.DPS_menu_scratch_line = me.PFD.svg.getElementById("dps_menu_scratch_line");
         me.PFD.DPS_menu_gpc_driver = me.PFD.svg.getElementById("dps_menu_gpc_driver");
         me.PFD.DPS_menu_idp = me.PFD.svg.getElementById("dps_menu_idp");
+        me.PFD.DPS_menu_bfs = me.PFD.svg.getElementById("dps_menu_bfs");
         me.PFD.DPS_menu_line1 = me.PFD.svg.getElementById("dps_menu_line1");
         me.PFD.DPS_menu_line2 = me.PFD.svg.getElementById("dps_menu_line2");
         me.PFD.DPS_menu_line3 = me.PFD.svg.getElementById("dps_menu_line3");
@@ -562,6 +607,10 @@ var MDU_Device =
         me.PFD.DPS_menu_cross1 = me.PFD.svg.getElementById("dps_menu_cross1");
         me.PFD.DPS_menu_cross2 = me.PFD.svg.getElementById("dps_menu_cross2");
         me.PFD.DPS_menu_blink = 1;
+
+	me.PFD.DPS_menu_idp.enableUpdate();
+	me.PFD.DPS_menu_bfs.enableUpdate();
+	me.PFD.DPS_menu_gpc_driver.enableUpdate();
 
 	me.PFD.MEDS_primary_port = me.PFD.svg.getElementById("meds_menu_primary_port");
 	me.PFD.MEDS_secondary_port = me.PFD.svg.getElementById("meds_menu_secondary_port");
@@ -592,6 +641,7 @@ var MDU_Device =
 	me.PFD.DPS_menu_line_plt.setColor(1,1,0.3);
 	me.PFD.DPS_menu_line_cdr.setColor(1,0.3,0.3);
 	me.PFD.DPS_menu_fault_line.setColor(1,0.3,0.3);
+	me.PFD.DPS_menu_bfs.setColor(0.8, 0.8, 0.4);
 
 	# render the MEDS part in a different font
 	# me.PFD.MEDS_menu_title.setFont("SSU_Font_B.ttf"); 
@@ -796,6 +846,22 @@ var MDU_Device =
         me.PFD.p_dps_comm.addMenuAction(4, "MSG RST", "meds_fault_clear");
         me.PFD.p_dps_comm.addMenuAction(5, "MSG ACK", "meds_fault_ack");
 
+      	me.PFD.p_dps_imu_align.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_imu_align.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_imu_align.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+      	me.PFD.p_dps_bfs_thermal.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_bfs_thermal.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_bfs_thermal.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+      	me.PFD.p_dps_bfs_sys_summ1.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_bfs_sys_summ1.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_bfs_sys_summ1.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
+      	me.PFD.p_dps_bfs_override.addMenuItem(0, "UP", me.PFD.p_main);
+        me.PFD.p_dps_bfs_override.addMenuAction(4, "MSG RST", "meds_fault_clear");
+        me.PFD.p_dps_bfs_override.addMenuAction(5, "MSG ACK", "meds_fault_ack");
+
         me.PFD.p_meds_oms_mps.addMenuItem(0, "UP", me.PFD.p_main);
         me.PFD.p_meds_oms_mps.addMenuItem(1, "OMS", me.PFD.p_meds_oms_mps);
         me.PFD.p_meds_oms_mps.addMenuItem(2, "APU", me.PFD.p_meds_apu);
@@ -878,10 +944,51 @@ var MDU_Device =
 
 		var is_available = SpaceShuttle.gpc_check_available(major_function);
 
-		if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0))
+
+		var crt_num = SpaceShuttle.nbat.crt[idp_index];
+		var gpc_num = SpaceShuttle.nbat.crt[idp_index]-1;
+
+		if ((major_function == "SM") and (is_available == 1))
+			{
+			gpc_num = SpaceShuttle.nbat.what_gpc_provides("SM")-1;
+			}
+
+		var gpc = SpaceShuttle.gpc_array[gpc_num];
+
+		if  ((gpc.ops == 0) and (gpc.operational == 1))
+			{
+			me.PFD.polling_status = 1;
+
+			if (major_function == "BFS")
+				{
+				print ("Select BFS page in OPS 0");
+				gpc.ops = 10;
+				if (SpaceShuttle.idp_array[idp_index].bfs_major_function_string == "GNC")
+					{me.PFD.selectPage(me.PFD.p_dps_memory);}
+				else
+					{me.PFD.selectPage(me.PFD.p_dps_bfs_thermal);}
+				}
+
+			else if (me.PFD.sys_software_load_flag == 0)
+				{
+				print ("Select PASS page in OPS 0");
+				me.PFD.selectPage(me.PFD.p_dps_memory);
+				me.PFD.sys_software_load_flag = 1;
+				}
+			}
+
+		else if ((is_available == 0) or (SpaceShuttle.nbat.crt[idp_index] == 0))
 			{
 			me.PFD.polling_status = 0;
 			me.PFD.update_common_DPS();
+			#print("Failing 1");
+			return;
+			}
+		else if (gpc.operational == 0)
+			{
+			me.PFD.polling_status = 0;
+			me.PFD.update_common_DPS();
+			#print("Failing 2");
 			return;
 			}
 		else

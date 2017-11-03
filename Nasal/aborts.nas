@@ -9,24 +9,43 @@
 # 3: ATO
 # 4: AOA
 
-# 5: Contingency BLUE
-# 6: Continegncy GREEN
+# 5: Contingency BLUE 2EO
+# 6: Continegncy GREEN 2EO
+# 7: Contingency YELLOW 2EO
 
 # batch calls for RTLS abort ###############################################
 
 var init_rtls = func {
 
-
-if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
+if (SpaceShuttle.bfs_in_control == 0)
 	{
-	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
-	setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
-	setprop("/controls/shuttle/hud-mode",2);
-	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
-	setprop("/fdm/jsbsim/systems/dps/ops", 6);
-	SpaceShuttle.ops_transition_auto("p_dps_rtls");
-	SpaceShuttle.prtls_loop();
+	if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
+		{
+		setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+		setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
+		setprop("/controls/shuttle/hud-mode",2);
+		setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+		setprop("/fdm/jsbsim/systems/dps/ops", 6);
+		SpaceShuttle.ops_transition_auto("p_dps_rtls");
+		SpaceShuttle.dk_listen_major_mode_transition(601);
+		SpaceShuttle.prtls_loop();
+		}
 	}
+else
+	{
+	if (getprop("/fdm/jsbsim/systems/dps/ops-bfs") == 1)
+		{
+		setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+		setprop("/fdm/jsbsim/systems/abort/abort-mode", 1);
+		setprop("/controls/shuttle/hud-mode",2);
+		setprop("/fdm/jsbsim/systems/dps/major-mode-bfs", 601);
+		setprop("/fdm/jsbsim/systems/dps/ops-bfs", 6);
+		SpaceShuttle.ops_transition_auto("p_dps_rtls");
+		SpaceShuttle.prtls_loop();
+		}
+	}
+
+SpaceShuttle.entry_guidance_available = 1;
 
 }
 
@@ -76,7 +95,7 @@ if (getprop("/fdm/jsbsim/systems/dps/ops") == 1)
 	SpaceShuttle.toggle_oms_fuel_dump();
 
 	}
-# ATO selection in OPS 6 activates the bailout AP
+# ATO selection in OPS 3 or 6 activates the bailout AP
 
 else if ((getprop("/fdm/jsbsim/systems/dps/ops") == 6) or (getprop("/fdm/jsbsim/systems/dps/ops") == 3)) 
 	{
@@ -87,6 +106,8 @@ else if ((getprop("/fdm/jsbsim/systems/dps/ops") == 6) or (getprop("/fdm/jsbsim/
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 	var mach = getprop("/fdm/jsbsim/velocities/mach");
 
+	print("Trying to activate bailout AP...");
+
 	if (((major_mode == 603) or (major_mode == 305)) and (mode_pitch == 1) and (mode_roll == 1))
 		{
 	
@@ -96,10 +117,15 @@ else if ((getprop("/fdm/jsbsim/systems/dps/ops") == 6) or (getprop("/fdm/jsbsim/
 
 			# auto TAEM may be off at this point, so we need to switch it on otherwise the AP won't work
 
+			print("...bailout armed.");
 			setprop("/fdm/jsbsim/systems/ap/taem/auto-taem-master", 1);
 			}
 		}
 
+	}
+	else
+	{
+	print ("...bailout arm failed");
 	}
 
 

@@ -1130,6 +1130,10 @@
 			<test value="systems/ap/contingency/roll-cmd">
 				systems/ap/auto-contingency-roll-active == 1
 			</test>
+			<test logic="OR" value="systems/ap/launch/roll-cmd">
+				systems/ap/auto-stage4-serc-roll-active == 1
+				systems/ap/auto-stage4-TAL-serc-roll-active == 1
+			</test>
 		</switch>
 
 

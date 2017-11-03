@@ -90,6 +90,8 @@ var PFD_addpage_p_dps_sys_summ = func(device)
     p_dps_sys_summ.adta2 = device.svg.getElementById("p_dps_sys_summ_adta2");
     p_dps_sys_summ.adta3 = device.svg.getElementById("p_dps_sys_summ_adta3");
     p_dps_sys_summ.adta4 = device.svg.getElementById("p_dps_sys_summ_adta4");
+
+    p_dps_sys_summ.imu.enableUpdate();
     
     
     
@@ -122,7 +124,6 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         p_dps_sys_summ.mdm_fa.setText(sprintf(""));
     
         p_dps_sys_summ.fcs_ch.setText(sprintf(""));
-        p_dps_sys_summ.imu.setText(sprintf(""));
         p_dps_sys_summ.acc.setText(sprintf(""));
         p_dps_sys_summ.rga.setText(sprintf(""));
         p_dps_sys_summ.mls.setText(sprintf(""));
@@ -175,20 +176,31 @@ var PFD_addpage_p_dps_sys_summ = func(device)
         p_dps_sys_summ.f4_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f4")));
         p_dps_sys_summ.f5_fail.setText( jet_status_to_string(getprop("/fdm/jsbsim/systems/cws/jet-fail-f5")));
     
-        p_dps_sys_summ.pos_l_ob.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg")));
-        p_dps_sys_summ.pos_l_ib.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg")));
-        p_dps_sys_summ.pos_r_ob.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg"))); 
-        p_dps_sys_summ.pos_r_ib.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg")));
+	var lob = getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg");
+	var lib = getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg");
+	var rob = getprop("/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg");
+	var rib = getprop("/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg");
+
+        p_dps_sys_summ.pos_l_ob.setText(sprintf("%2.1f", lob));
+        p_dps_sys_summ.pos_l_ib.setText(sprintf("%2.1f", lib));
+        p_dps_sys_summ.pos_r_ob.setText(sprintf("%2.1f", rob)); 
+        p_dps_sys_summ.pos_r_ib.setText(sprintf("%2.1f", rib));
     
-        p_dps_sys_summ.mom_l_ob.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/outboard-elevon-left-pos-deg"))));
-        p_dps_sys_summ.mom_l_ib.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/inboard-elevon-left-pos-deg"))));
-        p_dps_sys_summ.mom_r_ob.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/outboard-elevon-right-pos-deg"))));
-        p_dps_sys_summ.mom_r_ib.setText(sprintf("%2.1f", elevon_norm(getprop("/fdm/jsbsim/fcs/inboard-elevon-right-pos-deg"))));
+        p_dps_sys_summ.mom_l_ob.setText(sprintf("%2.1f", elevon_norm(lob)));
+        p_dps_sys_summ.mom_l_ib.setText(sprintf("%2.1f", elevon_norm(lib)));
+        p_dps_sys_summ.mom_r_ob.setText(sprintf("%2.1f", elevon_norm(rob)));
+        p_dps_sys_summ.mom_r_ib.setText(sprintf("%2.1f", elevon_norm(rib)));
     
         p_dps_sys_summ.pos_rud.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/rudder-pos-rad")));
         p_dps_sys_summ.pos_spdbrk.setText(sprintf("%2.1f", 100.0 * getprop("/fdm/jsbsim/fcs/speedbrake-pos-norm")));
         p_dps_sys_summ.pos_bdyflp.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/bodyflap-pos-rad")));
         p_dps_sys_summ.pos_ail.setText(sprintf("%2.1f", 57.2974 * getprop("/fdm/jsbsim/fcs/left-aileron-pos-rad")));
+
+	var imu_string = SpaceShuttle.imu_system.imu[0].get_status_symbol();
+	imu_string = imu_string~" "~SpaceShuttle.imu_system.imu[1].get_status_symbol();
+	imu_string = imu_string~" "~SpaceShuttle.imu_system.imu[2].get_status_symbol();
+
+        p_dps_sys_summ.imu.updateText(imu_string);
 
 	# TACAN, MLS and air data are only processed in final phases
         var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");

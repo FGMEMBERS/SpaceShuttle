@@ -737,7 +737,7 @@
 
 		<fcs_function name="systems/electrical/generic-power-demand-kW">
 		<function>
-			<value>6.4</value>
+			<value>5.64</value>
 		</function>
 		</fcs_function>
 
@@ -848,6 +848,9 @@
 			<input>systems/dps/gpc3-power-demand-kW</input>
 			<input>systems/dps/gpc4-power-demand-kW</input>
 			<input>systems/dps/gpc5-power-demand-kW</input>
+			<input>systems/navigation/imu1-power-demand-kW</input>
+			<input>systems/navigation/imu2-power-demand-kW</input>
+			<input>systems/navigation/imu3-power-demand-kW</input>
 			<input>systems/apu/apu/controller-power-demand-kW</input>
 			<input>systems/apu/apu[1]/controller-power-demand-kW</input>
 			<input>systems/apu/apu[2]/controller-power-demand-kW</input>
@@ -879,6 +882,7 @@
 			<input>systems/atcs/fes-left-heater-A-power-kW</input>
 			<input>systems/atcs/fes-feedline-A-power-kW</input>
 			<input>systems/navigation/tacan1-power-demand-kW</input>
+			<input>systems/dps/idp-power-demand-kW[0]</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[1]/power-demand-kW-nominal">
@@ -896,6 +900,7 @@
 			<input>systems/atcs/fes-right-heater-B-power-kW</input>	
 			<input>systems/atcs/fes-feedline-B-power-kW</input>
 			<input>systems/navigation/tacan2-power-demand-kW</input>
+			<input>systems/dps/idp-power-demand-kW[1]</input>
 		</summer>
 
 		<summer name="systems/electrical/bus[2]/power-demand-kW-nominal">
@@ -910,6 +915,8 @@
 			<input>systems/atcs/fes-right-heater-C-power-kW</input>
 			<input>systems/atcs/fes-feedline-C-power-kW</input>
 			<input>systems/navigation/tacan3-power-demand-kW</input>
+			<input>systems/dps/idp-power-demand-kW[2]</input>
+			<input>systems/dps/idp-power-demand-kW[3]</input>
 		</summer>
 
 		<fcs_function name="systems/electrical/total-power-demand-kW">

@@ -41,6 +41,8 @@
         	 <property>/mission-control/comm/request-string</property>
 		 <value>Delta state update</value>
 		 <value>Orbiter mass estimate</value>
+		 <value>Orbiter trim</value>
+		 <value>De-orbit solution</value>
 	  	 <value>Current position</value>
 		 <value>Landing site QNH</value>
         	 <binding>

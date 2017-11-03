@@ -13,9 +13,9 @@
 	<altitude-ft>1500000.0</altitude-ft>
 	<stage type="int">6</stage>
   </presets>
-  <!--<startup>
+  <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-orbit-splash.png</splash-texture>
-  </startup>-->
+  </startup>
  <previews>
       <preview>
         <type>exterior</type>
@@ -28,6 +28,53 @@
       <prelaunch-flag type="int">0</prelaunch-flag>
     </shuttle>
   </config>
+  <menubar>
+     <default>
+	<menu n="51">
+	      <label>Payload Operations</label>
+
+	      <item>
+	       <label>Payload bay floodlights</label>
+	       <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.pb_floodlight_dlg.open()</script>
+	       </binding>
+	      </item>
+
+	      <item>
+	       <label>RMS arm deployment</label>
+	       <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.rms_deploy_dlg.open()</script>
+	       </binding>
+	      </item>
+
+	      <item>
+	       <label>RMS arm operation</label>
+	       <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.rms_operation_dlg.open()</script>
+	       </binding>
+	      </item>
+
+	      <item>
+	       <label>Payload retention</label>
+	       <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.pl_retention_dlg.open()</script>
+	       </binding>
+	      </item>
+
+	      <item>
+	       <label>RMS Pyro</label>
+	       <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.rms_pyro_dlg.open()</script>
+	       </binding>
+	      </item>
+	     </menu>
+     </default>
+  </menubar>
 </sim>
 
 <fdm>
@@ -36,6 +83,8 @@
 	   <dps>
 		<ops type="int">2</ops>
 		<major-mode type="int">201</major-mode>
+		<ops-bfs type="int">1</ops-bfs>
+		<major-mode-bfs type="int">104</major-mode-bfs>
 	   </dps>
 	</systems>
    </jsbsim>

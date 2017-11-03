@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+  <name>sca-main</name>
+  <inherits-from>Effects/model-combined</inherits-from>
+   
+  <parameters>
+	<reflection-enabled type="int">1</reflection-enabled>
+	<reflection-type type="int">1</reflection-type>
+	<reflection-fresnel-factor type="float">0.5</reflection-fresnel-factor>
+  </parameters>
+
+
+</PropertyList>

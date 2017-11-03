@@ -253,6 +253,10 @@ else if (scenario_ID == 2)
 	{
 	init_one_engine_failure();
 	}
+else if (scenario_ID == 3)
+	{
+	init_pass_failure();
+	}
 else if (scenario_ID == 20)
 	{
 	init_alignment_error();
@@ -314,6 +318,7 @@ else if (scenario_ID == 35)
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 1.0 + 5.0 * rand());
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 0.0);
 		setprop("/fdm/jsbsim/systems/failures/navigation/adta-3-condition", 0.8);
+		setprop("/fdm/jsbsim/systems/failures/navigation/imu-2-condition", 0.3);
 		}
 	else if (rn < 0.4)
 		{
@@ -334,12 +339,15 @@ else if (scenario_ID == 35)
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 0.0);
 		setprop("/fdm/jsbsim/systems/failures/navigation/adta-1-condition", 0.0);
 		setprop("/fdm/jsbsim/systems/failures/navigation/adta-3-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/imu-2-condition", 0.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/imu-1-condition", 0.1);
 		}
 	else 
 		{
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-1-condition", 4.0 + rand() * 4.0);
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-2-condition", 2.0 + rand() * 6.0);
 		setprop("/fdm/jsbsim/systems/failures/navigation/tacan-3-condition", 1.0 + rand() * 8.0);
+		setprop("/fdm/jsbsim/systems/failures/navigation/imu-3-condition", 0.5);
 
 		if (rand() > 0.5)	
 			{
@@ -379,9 +387,41 @@ for (var i =0; i<3; i=i+1)
 var init_alignment_error = func {
 
 
-setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", 10.0 * (rand() - 0.5));
-setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", 10.0 * (rand() - 0.5));
-setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 * (rand() - 0.5));
+#setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", 10.0 * (rand() - 0.5));
+#setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", 10.0 * (rand() - 0.5));
+#setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", 10.0 * (rand() - 0.5));
+
+var rn = rand();
+
+if (rn < 0.3)
+	{
+	for (var i = 0; i< SpaceShuttle.imu_system.num_units; i=i+1)
+		{
+		SpaceShuttle.imu_system.imu[i].pitch_error = 4.0 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].yaw_error = 4.0 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].roll_error = 4.0 * (rand() - 0.5);
+		}
+	}
+else if (rn < 0.6)
+	{
+		var i = 0;
+		if (rand() < 0.3) {i=1;}
+		else {i=2;}
+
+		SpaceShuttle.imu_system.imu[i].pitch_error = 4.0 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].yaw_error = 4.0 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].roll_error = 4.0 * (rand() - 0.5);
+	}
+else
+	{
+	for (var i = 0; i< SpaceShuttle.imu_system.num_units; i=i+1)
+		{
+		SpaceShuttle.imu_system.imu[i].pitch_error = 0.8 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].yaw_error = 0.8 * (rand() - 0.5);
+		SpaceShuttle.imu_system.imu[i].roll_error = 0.8 * (rand() - 0.5);
+		}
+	}
+
 
 }
 
@@ -476,6 +516,23 @@ else # AC bus
 	else
 		{setprop("/fdm/jsbsim/systems/failures/electrical/ac3-condition", rn_severity);}
 	}
+
+}
+
+var init_pass_failure = func {
+
+var rn = rand();
+
+var scale = 0.0;
+
+if (rn < 0.3) {scale = 5.0;}
+else if (rn < 0.7) {scale = 15.0;}
+else {scale = 60.0;}
+
+
+setprop("/fdm/jsbsim/systems/dps/pass/error-pitch", (2.0 * rand() - 0.5) * scale);
+setprop("/fdm/jsbsim/systems/dps/pass/error-yaw", (2.0 * rand() - 0.5) * scale);
+setprop("/fdm/jsbsim/systems/dps/pass/error-roll", (2.0 * rand() - 0.5) * scale);
 
 }
 

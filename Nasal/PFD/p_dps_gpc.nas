@@ -177,6 +177,7 @@ var PFD_addpage_p_dps_gpc = func(device)
 		p_dps_gpc.crt3[i].setText(gpc.crt3);
 		p_dps_gpc.crt4[i].setText(gpc.crt4);
 
+
 		}
     
         device.update_common_DPS();

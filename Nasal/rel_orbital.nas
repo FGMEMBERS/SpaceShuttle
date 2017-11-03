@@ -495,15 +495,20 @@ var vzoffset = 0.0;
 
 # now we always push the the orbiter away from the tank
 
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+#var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",26);
 setprop("/controls/flight/elevator", 1);
 
+# a TAL targets a higher separation burn
+var sep_burn_time = 5.0;
+
+if (getprop("/fdm/jsbsim/systems/abort/abort-mode") == 2)
+	{sep_burn_time = 10.0;}
 
 settimer( func{
 	controls.centerFlightControls();
 	SpaceShuttle.control_to_rcs();
-	}, 5.0);
+	}, sep_burn_time);
 
 
 
@@ -1002,6 +1007,7 @@ settimer(func {
 
 var undock_iss = func  {
 
+
 if (getprop("/controls/shuttle/ISS/docking-flag") == 0)
 	{return;}
 
@@ -1057,7 +1063,7 @@ var vzoffset = 0.0;
 
 # now we push the the orbiter away 
 
-var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+#var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
 setprop("/controls/flight/elevator", -1.0);
 

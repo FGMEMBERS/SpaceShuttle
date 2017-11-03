@@ -145,10 +145,19 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
         device.DPS_menu_title.setText("SM SYS SUMM 1");
         device.MEDS_menu_title.setText("       DPS MENU");
     
-        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
-	var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
-	var spec_string = assemble_spec_string(spec);
-    
+	p_dps_sm_sys_summ1.major_function = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
+
+	if (p_dps_sm_sys_summ1.major_function == 4)
+		{
+		var major_mode = "0001";
+		var spec = getprop("/fdm/jsbsim/systems/dps/spec-bfs");
+		}
+	else
+		{
+		var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+		var spec =  getprop("/fdm/jsbsim/systems/dps/spec-sm");
+		}
+    	var spec_string = assemble_spec_string(spec);
         var ops_string = major_mode~"1/"~spec_string~"/078";  
     
         device.DPS_menu_ops.setText(ops_string);
@@ -387,15 +396,15 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 	# IMU fans
 
 	var sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch") == 0){sym = "";}
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-operational") == 0){sym = "";}
 	p_dps_sm_sys_summ1.imu_A.setText(sym);
 
 	sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch") == 0){sym = "";}
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-operational") == 0){sym = "";}
 	p_dps_sm_sys_summ1.imu_B.setText(sym);
 
 	sym = "*";
-	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch") == 0){sym = "";}
+	if (getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-operational") == 0){sym = "";}
 	p_dps_sm_sys_summ1.imu_C.setText(sym);
 
 	# cabin fan dp

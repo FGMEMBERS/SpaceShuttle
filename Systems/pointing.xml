@@ -1428,6 +1428,8 @@
 	<function>
 		<product>
 		<acos>
+			<min>
+			<max>
 			<sum>
 				<product>
 					<property>systems/ap/track/target-sec[0]</property>
@@ -1442,6 +1444,10 @@
 					<property>systems/pointing/inertial/attitude/tgt-roll-ref[2]</property>
 				</product>
 			</sum>
+			<value>-1.0</value>
+			</max>
+			<value>1.0</value>
+			</min>
 		</acos>
 		<property>systems/pointing/inertial/attitude/tgt-roll-sign</property>
 		</product>

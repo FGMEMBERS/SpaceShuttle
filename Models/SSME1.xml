@@ -82,10 +82,16 @@
            <pitch-deg>-90</pitch-deg>
   	</offsets>
 	 <condition>
+		<and>
 		<equals>
 			<property>/sim/config/shuttle/prelaunch-flag</property>
 			<value>1</value>
 		</equals>
+		<equals>
+			<property>/fdm/jsbsim/systems/various/ssme-ignition-density-target</property>
+			<value>0.0</value>
+		</equals>
+		</and>
 	 </condition>
   </model>
 

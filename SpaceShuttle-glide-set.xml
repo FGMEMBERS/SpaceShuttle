@@ -6,22 +6,33 @@
 <sim>
   <description>NASA Space Shuttle Atlantis in a free-fly test</description>
   <long-description>
-     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. Prior to the spaceflight program, NASA conducted a series of free-fly tests with the Shuttle dropped from the back of a 747 at about 36.000 ft - this scenario simulates such a test with the altitude worth about five minutes of flight.
+     The Space Shuttle was a partially re-usable low orbit spacecraft operated by NASA from 1981 to 2011. Prior to the spaceflight program, NASA conducted a series of free-fly tests with the Shuttle dropped from the back of a 747  - this scenario simulates such a test with the altitude worth about five minutes of flight.
   </long-description>
   <variant-of>SpaceShuttle-launch</variant-of>
   <presets>
-	<altitude-ft>36000.0</altitude-ft>
-	<pitch-deg>-10.0</pitch-deg>	
+	<altitude-ft>10000.0</altitude-ft>
+	<pitch-deg>-10.0</pitch-deg>
+	<airspeed-kt>200</airspeed-kt>	
 	<stage type="int">5</stage>
   </presets>
-  <!--<startup>
+  <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-glide-splash.png</splash-texture>
-  </startup>-->
+  </startup>
  <previews>
       <preview>
         <type>exterior</type>
         <splash type="bool">true</splash>
         <path>Pics/approach-splash01.png</path>
+      </preview>
+      <preview>
+        <type>exterior</type>
+        <splash type="bool">true</splash>
+        <path>Pics/glide-splash01.jpg</path>
+      </preview>
+      <preview>
+        <type>exterior</type>
+        <splash type="bool">true</splash>
+        <path>Pics/glide-splash02.jpg</path>
       </preview>
   </previews>
   <config>
@@ -29,7 +40,23 @@
       <prelaunch-flag type="int">0</prelaunch-flag>
     </shuttle>
   </config>
+  <menubar>
+    <default>
+     <menu n="51">
+      <label>Carrier Aircraft</label>
+
+      <item>
+       <label>Controls</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.carrier_dlg.open()</script>
+       </binding>
+      </item>
+    </menu>
+    </default>
+  </menubar>
 </sim>
+
 
 <fdm>
    <jsbsim>
@@ -37,9 +64,12 @@
 	   <dps>
 		<ops type="int">3</ops>
 		<major-mode type="int">305</major-mode>
+		<ops-bfs type="int">3</ops-bfs>
+		<major-mode-bfs type="int">305</major-mode-bfs>
 	   </dps>
 	</systems>
    </jsbsim>
 </fdm>
+
 
 </PropertyList>

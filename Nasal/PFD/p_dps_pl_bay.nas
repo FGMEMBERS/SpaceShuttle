@@ -89,8 +89,15 @@ var PFD_addpage_p_dps_pl_bay = func(device)
         device.MEDS_menu_title.setText("       DPS MENU");
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+	var major_function = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
     
         var ops_string = major_mode~"1/   /";
+
+	if (major_function == 4)
+		{
+		ops_string = "0001/063/";
+		}
+
         device.DPS_menu_ops.setText(ops_string);
     
     # blank autosequence failures as they're not yet supported

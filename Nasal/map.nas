@@ -6,9 +6,11 @@ var sym_EI = {};
 var sym_oTgt = {};
 
 var graph = {};
+var ecal_graph = {};
 var radius = {};
 var samples = [];
 var history = [];
+var ecal_history = [];
 var tgt_history = [];
 var track_prediction = [];
 var EI_location = [];
@@ -16,6 +18,9 @@ var EI_flag = 0;
 
 var update_loop_flag = 0;
 
+
+var sym_shuttle_ecal = {};
+var sym_landing_site_ecal = {};
 
 var lat_to_m = 110952.0; # latitude degrees to meters
 var m_to_lat = 9.01290648208234e-06; # meters to latitude degrees
@@ -78,8 +83,7 @@ var child=root.createChild("image")
                                    .setTranslation(0,0)
                                    .setSize(800,400);
 sym_shuttle = mapCanvas.createGroup();
-#canvas.parsesvg(sym_shuttle, "/Nasal/canvas/map/Images/boeingAirplane.svg");
-#sym_shuttle.setScale(0.2);
+
 
 
 var data = SpaceShuttle.draw_shuttle_top();
@@ -354,13 +358,24 @@ var lon = getprop("/position/longitude-deg");
 var x =  lon_to_x(lon);
 var y =  lat_to_y(lat);
 
+var x1 = ecal_lon_to_x (lon);
+var y1 = ecal_lat_to_y (lat);
+
 for (var i = 0; i < 350; i = i+1)
 	{
 	var set = [x,y];
 	append(history,set);
+
+	}
+
+for (var i = 0; i< 150; i=i+1)
+	{
+	var set1 = [x1, y1];
+	append(ecal_history, set1);
 	}
 
 history_update();
+ecal_history_update();
 
 }
 
@@ -387,6 +402,7 @@ var history_update = func {
 
 history = delete_from_vector(history,0);
 
+
 var lat = getprop("/position/latitude-deg");
 var lon = getprop("/position/longitude-deg");
 var x =  lon_to_x(lon);
@@ -408,6 +424,36 @@ if (SpaceShuttle.n_orbital_targets > 0)
 	}
 
 settimer(history_update, 30.0);
+}
+
+var ecal_history_update = func {
+
+var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+#print ("MM: ", mm);
+
+if ((mm == 101) or (mm == 102) or (mm == 103) or (mm == 601) or (mm == 602))
+	{
+	ecal_history = delete_from_vector(ecal_history,0);
+
+	var lat = getprop("/position/latitude-deg");
+	var lon = getprop("/position/longitude-deg");
+
+
+
+	var x = ecal_lon_to_x (lon);
+	var y = ecal_lat_to_y (lat);
+
+	append(ecal_history, [x, y]);
+
+	#print ("Loop running");
+	}
+else
+	{
+	return;
+	}
+
+settimer(ecal_history_update, 10.0);
 }
 
 
@@ -632,3 +678,129 @@ for (var i = 0; i<40; i = i+1)
 
 settimer(history_init,1.0);
 
+##############################################################
+# map of ECAL sites
+##############################################################
+
+var ecal_update_loop_flag = 0;
+
+
+var ecal_lat_to_y = func (lat) {
+
+
+return 512.0 -  (lat - 22.0) /33.0 * 512.0 + 10.0;
+
+}
+
+var ecal_lon_to_x = func (lon) {
+
+return (lon + 83.0)/33.4 * 512 + 25.0;
+
+}
+
+
+var create_ecal_map = func {
+
+var window = canvas.Window.new([512,512],"dialog").set("title", "ECAL Site Map");
+
+# we need to explicitly re-define this to get a handle to stop the update loop
+# upon closing the window
+
+window.del = func()
+{
+  #print("Cleaning up...\n");
+  ecal_update_loop_flag = 0;
+  call(canvas.Window.del, [], me);
+};
+
+
+var mapCanvas = window.createCanvas().set("background", canvas.style.getColor("bg_color"));
+
+var root = mapCanvas.createGroup();
+
+
+var path = "Aircraft/SpaceShuttle/Dialogs/ECAL_Sites.png";
+var child=root.createChild("image")
+                                   .setFile( path )
+                                   .setTranslation(0,0)
+                                   .setSize(512,512);
+sym_shuttle_ecal = mapCanvas.createGroup();
+
+
+sym_landing_site_ecal = mapCanvas.createGroup();
+canvas.parsesvg(sym_landing_site_ecal, "/gui/dialogs/images/ndb_symbol.svg");
+sym_landing_site_ecal.setScale(0.6);
+sym_landing_site_ecal.setColor(1,0,0);
+
+ecal_graph = root.createChild("group");
+
+
+var data = SpaceShuttle.draw_shuttle_top();
+
+	 sym_shuttle_plot = sym_shuttle_ecal.createChild("path", "shuttle")
+        .setStrokeLineWidth(0.25)
+        .setColor(1.0, 1.0, 1.0)
+	.moveTo(data[0][0], data[0][1]);
+
+	for (var i = 0; (i< size(data)-1); i=i+1)
+        	{
+		var set = data[i+1]; 
+		sym_shuttle_plot.lineTo(set[0], set[1]);
+		}
+sym_shuttle_ecal.setScale(5.0);
+
+ecal_update_loop_flag = 1;
+ecal_map_update();
+
+}
+
+var ecal_map_update = func {
+
+if (ecal_update_loop_flag == 0) {return;}
+
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+
+if ((ops == 2) or (ops == 3)) {return;}
+
+var lat = getprop("/position/latitude-deg");
+var lon = getprop("/position/longitude-deg");
+
+
+var x =  ecal_lon_to_x(lon);
+var y =  ecal_lat_to_y(lat);
+
+
+var heading = getprop("/orientation/heading-deg") * 3.1415/180.0;
+
+#print (x,y);
+
+sym_shuttle_ecal.setTranslation(x,y);
+sym_shuttle_ecal.setRotation(heading);
+
+
+x = ecal_lon_to_x(landing_site.lon()) - 15.0;
+y = ecal_lat_to_y(landing_site.lat()) - 15.0;
+
+sym_landing_site_ecal.setTranslation(x,y);
+
+ecal_graph.removeAllChildren();
+
+
+
+var plot = ecal_graph.createChild("path", "data")
+                                   .setStrokeLineWidth(2)
+                                   .setColor(1,0,0)
+                                   .moveTo(ecal_history[0][0],ecal_history[0][1]); 
+
+		
+for (var i = 1; i< (size(ecal_history)-1); i=i+1)
+	{
+	var set = ecal_history[i+1];
+	plot.lineTo(set[0], set[1]);
+				
+	}
+
+
+settimer (ecal_map_update, 1.0);
+
+}

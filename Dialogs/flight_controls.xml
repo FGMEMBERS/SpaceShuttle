@@ -283,6 +283,106 @@
 
   </group>
 
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+  <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Entry mode</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+  <radio>
+      <row>1</row>
+      <col>1</col>
+      <label>AUTO</label>
+      <halign>left</halign>
+      <name>auto</name>
+      <property>/fdm/jsbsim/systems/fcs/entry-mode-auto</property>
+      <live>true</live>
+      <binding>
+	 <command>nasal</command>
+          <script>
+		var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+		if (mach > 3.5)
+			{
+			setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 1);
+			setprop("/fdm/jsbsim/systems/fcs/no-y-jet", 0);
+			}
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-switch", 0);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-auto", 1);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-lo-gain", 0);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-no-y-jet", 0);
+	  </script>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>2</col>
+      <label>LO GAIN</label>
+      <halign>left</halign>
+      <name>logain</name>
+      <property>/fdm/jsbsim/systems/fcs/entry-mode-lo-gain</property>
+      <live>true</live>
+      <binding>
+	 <command>nasal</command>
+          <script>
+		var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+		if (mach > 3.5)
+			{
+			setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 1);
+			setprop("/fdm/jsbsim/systems/fcs/no-y-jet", 0);
+			}
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-switch", 1);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-auto", 0);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-lo-gain", 1);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-no-y-jet", 0);
+	  </script>
+      </binding>
+    </radio>
+
+  <radio>
+      <row>1</row>
+      <col>3</col>
+      <label>NO Y JET</label>
+      <halign>left</halign>
+      <name>noyjet</name>
+      <property>/fdm/jsbsim/systems/fcs/entry-mode-no-y-jet</property>
+      <live>true</live>
+      <binding>
+	 <command>nasal</command>
+         <script>
+		var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+		if (mach > 3.5)
+			{
+			setprop("/fdm/jsbsim/systems/fcs/rcs-yaw-mode", 0);
+			setprop("/fdm/jsbsim/systems/fcs/no-y-jet", 1);
+			}
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-switch", 2);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-auto", 0);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-lo-gain", 0);
+		setprop("/fdm/jsbsim/systems/fcs/entry-mode-no-y-jet", 1);
+	 </script>
+      </binding>
+    </radio>
+
+  </group>
+
 
 
 	<empty>

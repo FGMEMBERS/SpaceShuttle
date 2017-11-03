@@ -4,26 +4,25 @@
 
   <params>
     <right_touchdown_ground_effect>
-	  <!--property>/gear/gear[2]/tyre-smoke</property-->
-	  <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
+      <property>/fdm/jsbsim/ground/right-touchdown-ground-effect-speed-kt-actual</property>
     </right_touchdown_ground_effect>
   </params>
 
   <particlesystem>
 
     <name>right-touchdown-vortex</name>
-    <texture>Effects/ground/touchdown/tyresmoke.png</texture>
+    <texture>tyresmoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
     <condition>
-        <property alias="/params/right_touchdown_ground_effect/property"/>
+      <property alias="/params/right_touchdown_ground_effect/property"/>
     </condition>
 
     <attach>world</attach>
@@ -238,8 +237,8 @@
 
     <counter>
       <particles-per-sec>
-        <value>450</value>
-        <spread>0</spread>
+        <value>650</value>
+        <spread>200</spread>
       </particles-per-sec>
     </counter>
 
@@ -251,18 +250,18 @@
           <red><value>   0.95 </value></red>
           <green><value> 0.95 </value></green>
           <blue><value>  0.95 </value></blue>
-          <alpha><value> 0.05 </value></alpha>
+          <alpha><value> 0.2  </value></alpha>
         </color>
-        <size><value> 0.7 </value></size>
+        <size><value> 0.5 </value></size>
       </start>
       <end>
         <color>
           <red><value>   1.000 </value></red>
           <green><value> 1.000 </value></green>
           <blue><value>  1.000 </value></blue>
-          <alpha><value> 0.020 </value></alpha>
+          <alpha><value> 0.02  </value></alpha>
         </color>
-        <size><value> 3 </value></size>
+        <size><value> 4 </value></size>
       </end>
       <life-sec><value> 1.9 </value></life-sec>
       <mass-kg>  0.025 </mass-kg>

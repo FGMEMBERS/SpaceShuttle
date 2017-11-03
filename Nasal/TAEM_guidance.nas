@@ -592,7 +592,8 @@ var pos = geo.aircraft_position();
 
 if (pos.distance_to(TAEM_threshold) > 200000.0)
 	{
-	setprop("/sim/messages/copilot", "No TAEM guidance to site possible.");
+	#setprop("/sim/messages/copilot", "No TAEM guidance to site possible.");
+	SpaceShuttle.callout.make("No TAEM guidance to site possible.", "help");
 	return;
 	}
 
@@ -813,7 +814,8 @@ if (stage == 0) # glide to WP 1
 	if (dist < 1.0) {
 			print("Waypoint 1 reached!"); 	stage = stage + 1;
 			var turn_direction = TAEM_WP_1.turn_direction;
-			setprop("/sim/messages/copilot", "Turn "~turn_direction~" into HAC!");
+			#setprop("/sim/messages/copilot", "Turn "~turn_direction~" into HAC!");
+			SpaceShuttle.callout.make("Turn "~turn_direction~" into HAC!", "help");
 			TAEM_guidance_phase = 2;
 	
 			if (turn_direction == "right")
@@ -861,7 +863,8 @@ else if (stage == 1) # turn around HAC
 		{
 		TAEM_guidance_phase = 3;
 		print("TAEM guidance finished.");
-		setprop("/sim/messages/copilot", "Take CSS and turn into final!");
+		#setprop("/sim/messages/copilot", "Take CSS and turn into final!");
+		SpaceShuttle.callout.make("Take CSS and turn into final!", "help");
 		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 0.0);
 		setprop("/fdm/jsbsim/systems/ap/taem/hac-turn-init", 0);
 		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init", 0);
@@ -941,7 +944,8 @@ if ((dH_equiv_ft > 10000.0) and (TAEM_guidance_phase == 1))
 			{
 			if (getprop("/fdm/jsbsim/systems/ap/taem/set-bank-target") == -30.0)
 				{
-				setprop("/sim/messages/copilot", "S-turn reversal!");
+				#setprop("/sim/messages/copilot", "S-turn reversal!");
+				SpaceShuttle.callout.make("S-turn reversal!", "info");
 				}
 
 			setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);
@@ -951,7 +955,8 @@ if ((dH_equiv_ft > 10000.0) and (TAEM_guidance_phase == 1))
 			{
 			if (getprop("/fdm/jsbsim/systems/ap/taem/set-bank-target") == 30.0)
 				{
-				setprop("/sim/messages/copilot", "S-turn reversal!");
+				#setprop("/sim/messages/copilot", "S-turn reversal!");
+				SpaceShuttle.callout.make("S-turn reversal!", "info");
 				}
 			setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", -30.0);
 			}
@@ -960,7 +965,8 @@ if ((dH_equiv_ft > 10000.0) and (TAEM_guidance_phase == 1))
 	else
 		{
 		setprop("/fdm/jsbsim/systems/ap/taem/set-bank-target", 30.0);
-		setprop("/sim/messages/copilot", "Initiating S-turn to deplete energy!");
+		#setprop("/sim/messages/copilot", "Initiating S-turn to deplete energy!");
+		SpaceShuttle.callout.make("Initiating S-turn to deplete energy!", "info");
 		setprop("/fdm/jsbsim/systems/ap/taem/s-turn-init",1);
 	
 		}	
@@ -1432,6 +1438,86 @@ else if (site_string == "Halifax")
 		}
 	TAEM_threshold.rwy_length = 3200.0;
 	}
+else if (site_string == "Wilmington")
+	{
+	if (runway_string == "06")
+		{
+		TAEM_threshold.set_latlon(34.263878,-77.90763);
+		TAEM_threshold.heading = 48.5;
+		TAEM_threshold.elevation = 25.0;
+		}
+	else if (runway_string == "24")
+		{
+		TAEM_threshold.set_latlon(34.274647,-77.89300);
+		TAEM_threshold.heading = 228.5;
+		TAEM_threshold.elevation = 25.0;
+		}
+	TAEM_threshold.rwy_length = 2440.0;
+	}
+else if (site_string == "Atlantic City")
+	{
+	if (runway_string == "13")
+		{
+		TAEM_threshold.set_latlon(39.463004,-74.587947);
+		TAEM_threshold.heading = 118.0;
+		TAEM_threshold.elevation = 60.0;
+		}
+	else if (runway_string == "31")
+		{
+		TAEM_threshold.set_latlon(39.452876,-74.563379);
+		TAEM_threshold.heading = 298.0;
+		TAEM_threshold.elevation = 60.0;
+		}
+	TAEM_threshold.rwy_length = 3048.0;
+	}
+else if (site_string == "Myrtle Beach")
+	{
+	if (runway_string == "18")
+		{
+		TAEM_threshold.set_latlon(33.68989,-78.9308498);
+		TAEM_threshold.heading = 169.0;
+		TAEM_threshold.elevation = 30.0;
+		}
+	else if (runway_string == "36")
+		{
+		TAEM_threshold.set_latlon(33.669623,-78.9258308);
+		TAEM_threshold.heading = 349.0;
+		TAEM_threshold.elevation = 30.0;
+		}
+	TAEM_threshold.rwy_length = 2897.0;
+	}
+else if (site_string == "Gander")
+	{
+	if (runway_string == "03")
+		{
+		TAEM_threshold.set_latlon(48.922472, -54.567853);
+		TAEM_threshold.heading = 11.0;
+		TAEM_threshold.elevation = 420.0;
+		}
+	else if (runway_string == "21")
+		{
+		TAEM_threshold.set_latlon(48.946827, -54.560682);
+		TAEM_threshold.heading = 191.0;
+		TAEM_threshold.elevation = 450.0;
+		}
+	TAEM_threshold.rwy_length = 3109.0;
+	}
+else if (site_string == "Pease")
+	{
+	if (runway_string == "16")
+		{
+		TAEM_threshold.set_latlon(43.0870822, -70.83065635);
+		TAEM_threshold.heading = 149.0;
+		TAEM_threshold.elevation = 100.0;
+		}
+	else if (runway_string == "34")
+		{
+		TAEM_threshold.set_latlon(43.0671732, -70.814452883);
+		TAEM_threshold.heading = 329.0;
+		TAEM_threshold.elevation = 70.0;
+		}
+	TAEM_threshold.rwy_length = 3451.0;
+	}
 else if (site_string == "Easter Island")
 	{
 	if (runway_string == "10")
@@ -1448,10 +1534,75 @@ else if (site_string == "Easter Island")
 		}
 	TAEM_threshold.rwy_length = 3318.0;
 	}
+else if (site_string == "Diego Garcia")
+	{
+	if (runway_string == "13")
+		{
+		TAEM_threshold.set_latlon(-7.30548,72.39848);
+		TAEM_threshold.heading = 121.5;
+		TAEM_threshold.elevation = 5.0;
+		}
+	else if (runway_string == "31")
+		{
+		TAEM_threshold.set_latlon(-7.320205,72.42238);
+		TAEM_threshold.heading = 301.5;
+		TAEM_threshold.elevation = 10.0;
+		}
+	TAEM_threshold.rwy_length = 3659.0;
+	}
+else if (site_string == "Honolulu")
+	{
+	if (runway_string == "08")
+		{
+		TAEM_threshold.set_latlon(21.3068015,-157.942542);
+		TAEM_threshold.heading = 90;
+		TAEM_threshold.elevation = 0.0;
+		}
+	else if (runway_string == "26")
+		{
+		TAEM_threshold.set_latlon(21.3067945,-157.914083);
+		TAEM_threshold.heading = 270.0;
+		TAEM_threshold.elevation = 0.0;
+		}
+	TAEM_threshold.rwy_length = 3753.0;
+	}
+else if (site_string == "Keflavik")
+	{
+	if (runway_string == "10")
+		{
+		TAEM_threshold.set_latlon(63.985050, -22.648608);
+		TAEM_threshold.heading = 90;
+		TAEM_threshold.elevation = 110.0;
+		}
+	else if (runway_string == "28")
+		{
+		TAEM_threshold.set_latlon(63.9850472, -22.5986417);
+		TAEM_threshold.heading = 270.0;
+		TAEM_threshold.elevation = 175.0;
+		}
+	TAEM_threshold.rwy_length = 3753.0;
+	}
+else if (site_string == "Andersen Air Force Base")
+	{
+	if (runway_string == "06")
+		{
+		TAEM_threshold.set_latlon(13.5765189, 144.91921413);
+		TAEM_threshold.heading = 66.0;
+		TAEM_threshold.elevation = 540.0;
+		}
+	else if (runway_string == "24")
+		{
+		TAEM_threshold.set_latlon(13.58715568, 144.9434987);
+		TAEM_threshold.heading = 246.0;
+		TAEM_threshold.elevation = 590.0;
+		}
+	TAEM_threshold.rwy_length = 3409.0;
+	}
 
 else
 	{
-	setprop("/sim/messages/copilot", "No TAEM guidance data to site available.");
+	#setprop("/sim/messages/copilot", "No TAEM guidance data to site available.");
+	SpaceShuttle.callout.make("No TAEM guidance data to site available.", "help");
 	TAEM_threshold.set_lat(0.0);
 	TAEM_threshold.set_lon(0.0);
 	}

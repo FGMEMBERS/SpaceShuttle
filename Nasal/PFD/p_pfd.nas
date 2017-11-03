@@ -33,6 +33,8 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.r.enableFast();
     p_pfd.p.enableFast();
     p_pfd.y.enableFast();
+
+
     
     p_pfd.dap = device.svg.getElementById("p_pfd_dap");
     p_pfd.dap.enableUpdate();
@@ -51,6 +53,60 @@ var PFD_addpage_p_pfd = func(device)
 
     p_pfd.menu_item = device.svg.getElementById("MI_1"); 
     p_pfd.menu_item_frame = device.svg.getElementById("MI_1_frame"); 
+
+
+    # references to property nodes for improved performance of getter methods
+
+    p_pfd.nd_ref_pitch = props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg", 1);
+    p_pfd.nd_ref_yaw = props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/yaw-deg", 1);
+    p_pfd.nd_ref_roll = props.globals.getNode("/fdm/jsbsim/systems/navigation/state-vector/roll-deg", 1);
+
+    p_pfd.nd_ref_pitch_inrtl = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg", 1);
+    p_pfd.nd_ref_yaw_inrtl = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg", 1);
+    p_pfd.nd_ref_roll_inrtl = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg", 1);
+
+    p_pfd.nd_ref_p_rad_s = props.globals.getNode("/fdm/jsbsim/velocities/p-rad_sec", 1);
+    p_pfd.nd_ref_q_rad_s = props.globals.getNode("/fdm/jsbsim/velocities/q-rad_sec", 1);
+    p_pfd.nd_ref_r_rad_s = props.globals.getNode("/fdm/jsbsim/velocities/r-rad_sec", 1);
+
+    p_pfd.nd_ref_sid_ang_rad = props.globals.getNode("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad", 1);
+
+    p_pfd.nd_ref_course_deg = props.globals.getNode("/fdm/jsbsim/velocities/course-deg", 1);
+    p_pfd.nd_ref_groundtrack_course_deg = props.globals.getNode("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg", 1);
+
+    p_pfd.nd_ref_beta_deg = props.globals.getNode("/fdm/jsbsim/aero/beta-deg", 1);
+    p_pfd.nd_ref_alpha_deg = props.globals.getNode("/fdm/jsbsim/aero/alpha-deg", 1);
+
+    p_pfd.nd_ref_major_mode = props.globals.getNode("/fdm/jsbsim/systems/dps/major-mode", 1);
+    p_pfd.nd_ref_major_mode_bfs = props.globals.getNode("/fdm/jsbsim/systems/dps/major-mode-bfs", 1);
+    p_pfd.nd_ref_abort_mode = props.globals.getNode("/fdm/jsbsim/systems/abort/abort-mode", 1);
+
+    p_pfd.nd_ref_adi_att_sel = props.globals.getNode("/fdm/jsbsim/systems/adi/attitude-select", 1);
+    p_pfd.nd_ref_adi_rate_range_sel = props.globals.getNode("/fdm/jsbsim/systems/adi/rate-range-select", 1);
+    p_pfd.nd_ref_adi_err_sel = props.globals.getNode("/fdm/jsbsim/systems/adi/error-range-select", 1);
+
+    p_pfd.nd_ref_autolaunch_master = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/autolaunch-master", 1);
+    p_pfd.nd_ref_launch_stage = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/stage", 1);
+    p_pfd.nd_ref_auto_pitch = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/autolaunch-pitch-channel", 1);
+    p_pfd.nd_ref_auto_roll = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/autolaunch-roll-yaw-channel", 1);
+    p_pfd.nd_ref_auto_sb = props.globals.getNode("/fdm/jsbsim/systems/ap/automatic-sb-control", 1);
+
+    p_pfd.nd_ref_orbital_dap_auto = props.globals.getNode("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
+    p_pfd.nd_ref_up_mnvr_flag = props.globals.getNode("/fdm/jsbsim/systems/ap/up-mnvr-flag", 1);
+    p_pfd.nd_ref_oms_mnvr_flag = props.globals.getNode("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 1);
+
+    p_pfd.nd_ref_altitude = props.globals.getNode("/position/altitude-ft", 1);
+
+    p_pfd.nd_ref_acceleration = props.globals.getNode("/fdm/jsbsim/accelerations/a-pilot-ft_sec2", 1);
+    p_pfd.nd_ref_Nz = props.globals.getNode("/fdm/jsbsim/accelerations/Nz", 1);
+
+
+    p_pfd.nd_ref_tgt_inc = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/inclination-target", 1);
+    p_pfd.nd_ref_current_inc = props.globals.getNode("/fdm/jsbsim/systems/orbital/inclination-deg", 1);
+
+    p_pfd.nd_ref_rem_dist = props.globals.getNode("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", 1);
+    p_pfd.nd_ref_hsi_source = props.globals.getNode("/fdm/jsbsim/systems/adi/hsi-source-select", 1);
+
 
     p_pfd.ondisplay = func
     {
@@ -96,6 +152,8 @@ var PFD_addpage_p_pfd = func(device)
         .setColor(1,1,1);
 
 	p_pfd.adi_sphere_bg.max_pts = 0;
+	p_pfd.adi_sphere_bg.coord_nd_ref_array = [];
+	p_pfd.adi_sphere_bg.cmd_nd_ref_array = [];
 
 	p_pfd.adi_sphere_bg_bright = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
@@ -104,6 +162,8 @@ var PFD_addpage_p_pfd = func(device)
         .setColor(1,1,1);
 
 	p_pfd.adi_sphere_bg_bright.max_pts = 0;
+	p_pfd.adi_sphere_bg_bright.coord_nd_ref_array = [];
+	p_pfd.adi_sphere_bg_bright.cmd_nd_ref_array = [];
 
 	p_pfd.adi_sphere = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
@@ -111,7 +171,8 @@ var PFD_addpage_p_pfd = func(device)
         .setColor(1,1,1);
 
 	p_pfd.adi_sphere.max_pts = 0;
-
+	p_pfd.adi_sphere.coord_nd_ref_array = [];
+	p_pfd.adi_sphere.cmd_nd_ref_array = [];
 
 	# group for dynamically re-drawn labels
 
@@ -1262,29 +1323,53 @@ var PFD_addpage_p_pfd = func(device)
 
 	# get mission-specific parameters and manage devices #########################################
 
-	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+
+    	var major_mode = p_pfd.nd_ref_major_mode.getValue();
+
+	if (SpaceShuttle.bfs_in_control == 1)
+		{
+    		major_mode = p_pfd.nd_ref_major_mode_bfs.getValue();
+		}
+
 	var mm_appendix = "";
+    	var abort_mode = p_pfd.nd_ref_abort_mode.getValue();
 
-	var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
 
-	var pitch = getprop("/orientation/pitch-deg");
-	var yaw = getprop("/orientation/heading-deg");
-	var roll = getprop("/orientation/roll-deg");
-	var course = getprop("/fdm/jsbsim/velocities/course-deg");
+	#var pitch = getprop("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg");
+	#var yaw = getprop("/fdm/jsbsim/systems/navigation/state-vector/yaw-deg");
+	#var roll = getprop("/fdm/jsbsim/systems/navigation/state-vector/roll-deg");
+
+    	var pitch = p_pfd.nd_ref_pitch.getValue();
+	var yaw =  p_pfd.nd_ref_yaw.getValue();
+    	var roll = p_pfd.nd_ref_roll.getValue();
+
+	#var course = getprop("/fdm/jsbsim/velocities/course-deg");
+	var course = p_pfd.nd_ref_course_deg.getValue();
 	
 
-	var beta_deg = getprop("/fdm/jsbsim/aero/beta-deg");
-	var alpha_deg = getprop("/fdm/jsbsim/aero/alpha-deg");
+	#var beta_deg = getprop("/fdm/jsbsim/aero/beta-deg");
+	#var alpha_deg = getprop("/fdm/jsbsim/aero/alpha-deg");
+
+    	var beta_deg = p_pfd.nd_ref_beta_deg.getValue();
+    	var alpha_deg = p_pfd.nd_ref_alpha_deg.getValue();
+
+
+
+	#var adi_att_selection = getprop("/fdm/jsbsim/systems/adi/attitude-select");
+	var adi_att_selection =  p_pfd.nd_ref_adi_att_sel.getValue();
+
+	var adi_att_string = "LVLH";
+
+	#var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
+	#var adi_error_selection = getprop("/fdm/jsbsim/systems/adi/error-range-select");
+
+	var adi_rate_selection = p_pfd.nd_ref_adi_rate_range_sel.getValue();
+    	var adi_error_selection = p_pfd.nd_ref_adi_err_sel.getValue();
 
 	var pitch_adi = pitch;
 	var yaw_adi = yaw;
 	var roll_adi = roll;
-
-	var adi_att_selection = getprop("/fdm/jsbsim/systems/adi/attitude-select");
-	var adi_att_string = "LVLH";
-
-	var adi_rate_selection = getprop("/fdm/jsbsim/systems/adi/rate-range-select");
-	var adi_error_selection = getprop("/fdm/jsbsim/systems/adi/error-range-select");
 
 	var adi_rate_range = 5.0;
 	var adi_error_range = 5.0;
@@ -1313,15 +1398,34 @@ var PFD_addpage_p_pfd = func(device)
 			}
 		else
 			{
-			pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
-			yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
-			roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+			#pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+			#yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg");
+			#roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+
+    			pitch_adi = p_pfd.nd_ref_pitch_inrtl.getValue();
+    			yaw_adi = p_pfd.nd_ref_yaw_inrtl.getValue();
+    			roll_adi = -p_pfd.nd_ref_roll_inrtl.getValue();
+
 			adi_att_string = "INRTL";
 			}
 		}
 	else if (adi_att_selection == -1)
 		{
 		adi_att_string = "REF";
+		if ((major_mode == 201) or (major_mode == 202))
+			{
+			#var sid_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad") * 180.0/math.pi;
+			#pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+			#yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg") + sid_ang - 260.0;
+			#roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+
+
+   			var sid_ang = p_pfd.nd_ref_sid_ang_rad.getValue() * 180.0/math.pi;
+    			pitch_adi = p_pfd.nd_ref_pitch_inrtl.getValue();
+    			yaw_adi = p_pfd.nd_ref_yaw_inrtl.getValue()  + sid_ang - 260.0;
+			roll_adi =  -p_pfd.nd_ref_roll_inrtl.getValue();
+			yaw_adi = geo.normdeg(yaw_adi);
+			}
 		}
 	else
 		{
@@ -1333,10 +1437,11 @@ var PFD_addpage_p_pfd = func(device)
 
 		}
 
-	var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+	#var launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
+	#var altitude = getprop("/position/altitude-ft");
 
-	var altitude = getprop("/position/altitude-ft");
-
+    	var launch_stage = p_pfd.nd_ref_launch_stage.getValue();
+    	var altitude = p_pfd.nd_ref_altitude.getValue();
 
 
 	var pitch_error = 0.0;
@@ -1394,7 +1499,8 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.dist_to_rwy.setVisible(0);
 
 		throt_label_text = "Throt:";
-		acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+		#acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+		acceleration = p_pfd.nd_ref_acceleration.getValue() * 0.03108095;
 
 		if (abort_mode == 3)
 			{mm_appendix = "ATO";}
@@ -1404,10 +1510,14 @@ var PFD_addpage_p_pfd = func(device)
 
 
 
-		if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
+		#if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
+		if (p_pfd.nd_ref_autolaunch_master.getValue() == 1)
 			{
-			var auto_pitch = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-pitch-channel");
-			var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-roll-yaw-channel");
+			#var auto_pitch = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-pitch-channel");
+			#var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-roll-yaw-channel");
+
+    			var auto_pitch = p_pfd.nd_ref_auto_pitch.getValue();
+    			var auto_roll_yaw = p_pfd.nd_ref_auto_roll.getValue();
 
 			throt_text = "Auto";
 		
@@ -1423,10 +1533,15 @@ var PFD_addpage_p_pfd = func(device)
 
 
 
-		var tgt_inc = getprop("/fdm/jsbsim/systems/ap/launch/inclination-target");
-		var current_inc = getprop("/fdm/jsbsim/systems/orbital/inclination-deg");
+		#var tgt_inc = getprop("/fdm/jsbsim/systems/ap/launch/inclination-target");
+		#var current_inc = getprop("/fdm/jsbsim/systems/orbital/inclination-deg");
 
-		var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+    		var tgt_inc = p_pfd.nd_ref_tgt_inc.getValue();
+    		var current_inc = p_pfd.nd_ref_current_inc.getValue();
+
+		#var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+		var groundtrack_course_deg = p_pfd.nd_ref_groundtrack_course_deg.getValue();
+
 		var inertial_course_deg = yaw + beta_deg;
 
 		bearing_earthrel = groundtrack_course_deg - yaw;
@@ -1478,15 +1593,19 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.course_arrow.setVisible(0);	
 
 	
-		if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
+		#if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
+		if (p_pfd.nd_ref_orbital_dap_auto.getValue() == 1)
 			{dap_text = "Auto";}
 		else
 			{dap_text = "INRTL";}
 	
 
-		var up_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+		#var up_mnvr_flag = getprop("/fdm/jsbsim/systems/ap/up-mnvr-flag");
+    		var up_mnvr_flag = p_pfd.nd_ref_up_mnvr_flag.getValue();
 
-		if ((up_mnvr_flag > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+		#if ((up_mnvr_flag > 0) or (getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag") > 0))
+		if ((up_mnvr_flag > 0) or (p_pfd.nd_ref_oms_mnvr_flag.getValue() > 0))
+
 			{
 			yaw_error = -getprop("/fdm/jsbsim/systems/ap/track/yaw-error-deg");
 			pitch_error = getprop("/fdm/jsbsim/systems/ap/track/pitch-error-deg");
@@ -1519,7 +1638,9 @@ var PFD_addpage_p_pfd = func(device)
 
 		throt_label_text = "SB:";
 
-		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+		#if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+		if (p_pfd.nd_ref_auto_sb.getValue() == 1)
+
 			{throt_text = "Auto";}
 		else	
 			{throt_text = "Man";}
@@ -1528,7 +1649,8 @@ var PFD_addpage_p_pfd = func(device)
 
 		if (abort_mode == 2) {mm_appendix = "T";}
 
-		acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
+		#acceleration = getprop("/fdm/jsbsim/accelerations/Nz");
+		acceleration = p_pfd.nd_ref_Nz.getValue();
 
 
 		if (major_mode == 304)
@@ -1543,10 +1665,15 @@ var PFD_addpage_p_pfd = func(device)
 
 			if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") >0)
 				{
-				var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
-				var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
+				#var auto_pitch = getprop("/fdm/jsbsim/systems/ap/automatic-pitch-control");
+				#var auto_roll_yaw = getprop("/fdm/jsbsim/systems/ap/automatic-roll-control");
+
+				var auto_pitch = p_pfd.nd_ref_auto_pitch.getValue();
+				var auto_roll_yaw = p_pfd.nd_ref_auto_roll.getValue();
+
 				if ((auto_pitch == 1) and (auto_roll_yaw == 1)) {dap_text = "Auto";}
-				rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+				#rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+				rwy_distance = p_pfd.nd_ref_rem_dist.getValue();
 
 				}
 
@@ -1563,7 +1690,8 @@ var PFD_addpage_p_pfd = func(device)
 			p_pfd.bearing_HAC_H.setVisible(1);
 			p_pfd.bearing_HAC_C.setVisible(1);
 	
-			var hsi_source = getprop("/fdm/jsbsim/systems/adi/hsi-source-select");
+			#var hsi_source = getprop("/fdm/jsbsim/systems/adi/hsi-source-select");
+			var hsi_source = p_pfd.nd_ref_hsi_source.getValue();
 			
 			var pos = {};
 
@@ -1677,7 +1805,8 @@ var PFD_addpage_p_pfd = func(device)
 
 			acc_label_text = "Accel";
 			throt_label_text = "Throt:";
-			acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+			#acceleration = getprop("/fdm/jsbsim/accelerations/a-pilot-ft_sec2") * 0.03108095;
+			acceleration = p_pfd.nd_ref_acceleration.getValue() * 0.03108095;
 
 			if (getprop("/fdm/jsbsim/systems/ap/automatic-throttle-control") == 1)
 				{throt_text = "Auto";}
@@ -1687,7 +1816,8 @@ var PFD_addpage_p_pfd = func(device)
 
 			var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
 			bearing_earthrel = groundtrack_course_deg;
-			rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+			#rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+			rwy_distance = p_pfd.nd_ref_rem_dist.getValue();
 			
 			bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
 			delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
@@ -1717,7 +1847,8 @@ var PFD_addpage_p_pfd = func(device)
 				p_pfd.bearing_rwy_tail.setVisible(1);
 
 				v_acc_needle_offset = -SpaceShuttle.clamp(getprop("/fdm/jsbsim/accelerations/hdotdot-ft_s2"),-10.0, 10.0) * 5.5;
-				rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+				#rwy_distance = getprop("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm");
+				rwy_distance = p_pfd.nd_ref_rem_dist.getValue();
 				bearing_rwy = getprop("/fdm/jsbsim/systems/entry_guidance/target-azimuth-deg");
 				delta_az = getprop("/fdm/jsbsim/systems/entry_guidance/delta-azimuth-deg");
 				}
@@ -1853,15 +1984,18 @@ var PFD_addpage_p_pfd = func(device)
 	var s_adi_rate_range = sprintf("%d", adi_rate_range);
 
 
-	var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
+	#var roll_rate = getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957;
+	var roll_rate = p_pfd.nd_ref_p_rad_s.getValue() * 57.2957;
 	roll_rate = SpaceShuttle.clamp(roll_rate, -adi_rate_range, adi_rate_range);
 	p_pfd.adi_roll_rate_needle.setTranslation(255 - 13.0 * roll_rate * 5.0/adi_rate_range, 70);
 
-	var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+	#var pitch_rate = getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957;
+ 	var pitch_rate = p_pfd.nd_ref_q_rad_s.getValue() * 57.2957 ;
 	pitch_rate = SpaceShuttle.clamp(pitch_rate, -adi_rate_range, adi_rate_range);
 	p_pfd.adi_pitch_rate_needle.setTranslation(360, 175 + 13.0 * pitch_rate * 5.0/adi_rate_range);
 
-	var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
+	#var yaw_rate = getprop("/fdm/jsbsim/velocities/r-rad_sec") * 57.2957;
+	var yaw_rate =  p_pfd.nd_ref_r_rad_s.getValue() * 57.2957;
 	yaw_rate = SpaceShuttle.clamp(yaw_rate, -adi_rate_range, adi_rate_range);
 	p_pfd.adi_yaw_rate_needle.setTranslation(255 -13.0 * yaw_rate * 5.0/adi_rate_range, 280.0);
 
@@ -2023,8 +2157,17 @@ var PFD_addpage_p_pfd = func(device)
 
         p_pfd.keas.updateText(sprintf("%3.0f",getprop("/velocities/equivalent-kt")));
 
+	var roll_alphanum = roll_adi;
 
-	p_pfd.r.setTextFast(sprintf("%d", roll_adi));
+	if (adi_att_selection == -1)
+		{
+		if ((major_mode == 201) or (major_mode == 202))
+			{
+			roll_alphanum = geo.normdeg180(roll_adi + 90.0);
+			}
+		}
+
+	p_pfd.r.setTextFast(sprintf("%d", roll_alphanum));
 	p_pfd.p.setTextFast(sprintf("%d", pitch_adi));
 	p_pfd.y.setTextFast(sprintf("%d", yaw_adi));
 	p_pfd.dInc_display_text.setText(sprintf("%2.2f", Delta_inc));
@@ -2070,6 +2213,10 @@ var PFD_addpage_p_pfd_orbit = func(device)
     p_pfd_orbit.p = device.svg.getElementById("p_pfd_orbit_p");
     p_pfd_orbit.y = device.svg.getElementById("p_pfd_orbit_y");
 
+    p_pfd_orbit.label_r = device.svg.getElementById("p_pfd_orbit_label_r");
+    p_pfd_orbit.label_p = device.svg.getElementById("p_pfd_orbit_label_p");
+    p_pfd_orbit.label_y = device.svg.getElementById("p_pfd_orbit_label_y");
+
     p_pfd_orbit.menu_item = device.svg.getElementById("MI_2"); 
     p_pfd_orbit.menu_item_frame = device.svg.getElementById("MI_2_frame"); 
     
@@ -2112,6 +2259,8 @@ var PFD_addpage_p_pfd_orbit = func(device)
         .setColor(1,1,1);
 
 	p_pfd_orbit.adi_sphere_bg.max_pts = 0;
+	p_pfd_orbit.adi_sphere_bg.coord_nd_ref_array = [];
+	p_pfd_orbit.adi_sphere_bg.cmd_nd_ref_array = [];
 
 	p_pfd_orbit.adi_sphere_bg_bright = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
@@ -2120,6 +2269,8 @@ var PFD_addpage_p_pfd_orbit = func(device)
         .setColor(1,1,1);
 
 	p_pfd_orbit.adi_sphere_bg_bright.max_pts = 0;
+	p_pfd_orbit.adi_sphere_bg_bright.coord_nd_ref_array = [];
+	p_pfd_orbit.adi_sphere_bg_bright.cmd_nd_ref_array = [];
 
 	p_pfd_orbit.adi_sphere = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
@@ -2130,6 +2281,8 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	p_pfd_orbit.adi_inner.setTranslation(255, 175);
 
 	p_pfd_orbit.adi_sphere.max_pts = 0;
+	p_pfd_orbit.adi_sphere.coord_nd_ref_array = [];
+	p_pfd_orbit.adi_sphere.cmd_nd_ref_array = [];
 
 	# draw the fixed elements
 
@@ -2305,6 +2458,27 @@ var PFD_addpage_p_pfd_orbit = func(device)
 		{p_pfd_orbit.adi_yaw_rate_needle.lineTo(data[i+1][0], data[i+1][1]);}
 	
 
+	device.ADI.setScale (1.7);
+	#device.ADI.setTranslation (-76.5, 40.0);
+	device.ADI.setTranslation (-190.0, -50.0);
+
+	p_pfd_orbit.label_r.setFontSize(22);
+	p_pfd_orbit.label_p.setFontSize(22);
+	p_pfd_orbit.label_y.setFontSize(22);
+
+	p_pfd_orbit.r.setFontSize(20);
+	p_pfd_orbit.p.setFontSize(20);
+	p_pfd_orbit.y.setFontSize(20);
+
+	p_pfd_orbit.label_r.setTranslation(50.0, -50.0);
+	p_pfd_orbit.r.setTranslation(55.0, -50.0);
+
+	p_pfd_orbit.label_p.setTranslation(50.0, -50.0);
+	p_pfd_orbit.p.setTranslation(55.0, -50.0);
+
+	p_pfd_orbit.label_y.setTranslation(50.0, -50.0);
+	p_pfd_orbit.y.setTranslation(55.0, -50.0);
+
 
 
 
@@ -2317,6 +2491,11 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	device.ADI.removeAllChildren();
 	device.ADI.setScale(1.0);
 	device.ADI.setTranslation (0, 0);
+
+	#p_pfd_orbit.label_r.setFontSize(14);
+	#p_pfd_orbit.label_p.setFontSize(14);
+	#p_pfd_orbit.label_y.setFontSize(14);
+
 
         p_pfd_orbit.menu_item.setColor(meds_r, meds_g, meds_b);
 	p_pfd_orbit.menu_item_frame.setColor(meds_r, meds_g, meds_b);
@@ -2334,9 +2513,13 @@ var PFD_addpage_p_pfd_orbit = func(device)
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
 
-	var pitch = getprop("/orientation/pitch-deg");
-	var yaw = getprop("/orientation/heading-deg");
-	var roll = getprop("/orientation/roll-deg");
+	#var pitch = getprop("/orientation/pitch-deg");
+	#var yaw = getprop("/orientation/heading-deg");
+	#var roll = getprop("/orientation/roll-deg");
+
+	var pitch = getprop("/fdm/jsbsim/systems/navigation/state-vector/pitch-deg");
+	var yaw = getprop("/fdm/jsbsim/systems/navigation/state-vector/yaw-deg");
+	var roll = getprop("/fdm/jsbsim/systems/navigation/state-vector/roll-deg");
 
 	var pitch_adi = pitch;
 	var yaw_adi = yaw;
@@ -2353,6 +2536,19 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 			
 		}
+	else if (adi_att_selection == -1)
+		{
+		if ((major_mode == 201) or (major_mode == 202))
+			{
+			var sid_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad") * 180.0/math.pi;
+			pitch_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/pitch-deg");
+			yaw_adi = getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/yaw-deg") + sid_ang - 260.0;
+			roll_adi = -getprop("/fdm/jsbsim/systems/pointing/inertial/attitude/roll-deg");
+
+			yaw_adi = geo.normdeg(yaw_adi);
+			}
+		}
+
 	else
 		{
 		yaw_adi = yaw - getprop("/fdm/jsbsim/velocities/course-deg");
@@ -2487,12 +2683,22 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 
 
-	device.ADI.setScale (1.3);
-	device.ADI.setTranslation (-76.5, 40.0);
+
 
 	# numerical pitch, yaw and roll readouts
 
-	p_pfd_orbit.r.setText(sprintf("%d", roll_adi));
+	var roll_alphanum = roll_adi;
+
+	if (adi_att_selection == -1)
+		{
+		if ((major_mode == 201) or (major_mode == 202))
+			{
+			roll_alphanum = geo.normdeg180(roll_adi + 90.0);
+			}
+		}
+
+
+	p_pfd_orbit.r.setText(sprintf("%d", roll_alphanum));
 	p_pfd_orbit.p.setText(sprintf("%d", pitch_adi));
 	p_pfd_orbit.y.setText(sprintf("%d", yaw_adi));
 
@@ -2634,7 +2840,98 @@ else
 # should a fast method become available in the API, simply uncomment the
 # setData method instead and end the routing afterwards
 
-#group.setData(cmd, draw);
+#
+
+
+
+
+var adi_update_method = getprop("/fdm/jsbsim/systems/adi/update-method");
+
+if (adi_update_method == 0)
+{
+
+# canvas-native setData method
+
+#print ("Native");
+group.setData(cmd, draw);
+}
+else if (adi_update_method == 1)
+{
+
+# use an array with node-references to speed up property I/O for the ADI
+
+#print ("New");
+
+var index = 0;
+var index1 = 0;
+
+var n_written = size(group.cmd_nd_ref_array);
+
+var path = group._node.getPath();
+
+
+var cmd_string = path~"/cmd";
+var coord_string = path~"/coord";
+
+for (var i=0; i< n_max; i=i+1)
+	{
+	index = 2.0 * i;
+	index1 = index + 1;
+	if ((i < n_written) and (i < n_cur))
+		{
+		group.cmd_nd_ref_array[i].setValue(cmd[i]);
+		group.coord_nd_ref_array[index].setValue(draw[index]);
+		group.coord_nd_ref_array[index1].setValue(draw[index1]);
+		}
+	else if (i < n_cur)
+		{
+		var cmd_ref = props.globals.getNode(cmd_string~"["~i~"]", 1);
+		append(group.cmd_nd_ref_array, cmd_ref);
+		cmd_ref.setValue(cmd[i]);
+
+		var coord_ref = props.globals.getNode(coord_string~"["~index~"]", 1);
+		append(group.coord_nd_ref_array, coord_ref);
+		coord_ref.setValue(draw[index]);
+
+		var coord_ref1 = props.globals.getNode(coord_string~"["~index1~"]", 1);
+		append(group.coord_nd_ref_array, coord_ref1);
+		coord_ref1.setValue(draw[index1]);
+
+		#print("Creating");
+		}
+	else if (i< n_written)
+		{
+		group.cmd_nd_ref_array[i].setValue(canvas.Path.VG_MOVE_TO);
+		group.coord_nd_ref_array[index].setValue(0);
+		group.coord_nd_ref_array[index1].setValue(0);
+		}
+	else
+		{
+		var cmd_ref = props.globals.getNode(cmd_string~"["~i~"]", 1);
+		append(group.cmd_nd_ref_array, cmd_ref);
+		cmd_ref.setValue(canvas.Path.VG_MOVE_TO);
+
+		var coord_ref = props.globals.getNode(coord_string~"["~index~"]", 1);
+		append(group.coord_nd_ref_array, coord_ref);
+		coord_ref.setValue(0);
+
+		var coord_ref1 = props.globals.getNode(coord_string~"["~index1~"]", 1);
+		append(group.coord_nd_ref_array, coord_ref1);
+		coord_ref1.setValue(0);
+		}
+
+	}
+
+group.max_pts = n_cur;
+
+
+}
+else
+{
+
+#print ("Old");
+
+# old-style method with setprop
 
 var index = 0;
 var index1 = 0;
@@ -2667,6 +2964,8 @@ for (var i=0; i< n_max; i=i+1)
 	}
 
 group.max_pts = n_cur;
+}
+
 }
 
 

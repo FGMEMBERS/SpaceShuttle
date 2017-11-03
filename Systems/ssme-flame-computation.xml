@@ -315,6 +315,13 @@
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
+   <input>/fdm/jsbsim/systems/thermal/nose-temperature-K</input>
+   <output>/sim/systems/various/nose-temperature-K</output>
+ </filter>
+
+ <filter>
+   <type>gain</type>
+   <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/payload-bay-flood-intensity</input>
    <output>/sim/systems/various/payload-bay-flood-intensity</output>
  </filter>

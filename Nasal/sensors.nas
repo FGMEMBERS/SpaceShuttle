@@ -1,6 +1,6 @@
 # simulation of Space Shuttle sensor information which doesn't need to be 
 # available at FDM rate
-# Thorsten Renk 2016
+# Thorsten Renk 2016-2017
 
 
 ###############################################################################
@@ -61,10 +61,45 @@ var star_tracker = {
 
 	},
 
+	self_test: func {
+
+		me.shutter = "CL";
+
+		settimer( func {
+			me.star_in_view = 1;
+			me.failure = "BITE";
+		}, 1.0);
+
+		settimer( func {
+			me.star_in_view = 0;
+			me.failure = "";
+			me.shutter = "OP";
+			if (me.operational == 1)
+				{me.status = "ST PASS";}
+			else
+				{me.status = "ST FAIL";}
+
+
+		}, 12.0);
+
+		settimer( func {
+
+			me.set_mode(4);
+
+		}, 20.0);
+
+
+
+
+
+	},
+
 
 	run: func () {
 
 	if (me.operational == 0) {return;}
+
+	if (me.mode == 0)  {return;}
 
 	var rate_q = math.abs(getprop("/fdm/jsbsim/velocities/q-rad_sec") * 57.2957);
 	var rate_p = math.abs(getprop("/fdm/jsbsim/velocities/p-rad_sec") * 57.2957);
@@ -258,13 +293,49 @@ var star_table = {
 	time_stamp: [0.0, 0.0, 0.0],
 	sel: [0,0,0],
 	init_flag: 0,
+	num_selected: 0,
+	num_total: 0,
 
+	select: func (i) {
+
+		if (me.num_total < i) {return;}
+		
+		var state = me.sel[i-1];
+		if ((state == 0) and (me.num_selected < 2))
+			{
+			state = 1;
+			me.num_selected = me.num_selected + 1;
+			}
+		else if (state == 1)
+			{
+			state = 0;
+			me.num_selected = me.num_selected - 1;
+			}
+		else
+			{
+			return;
+			}	
+
+
+		me.sel[i-1] = state;
+		#print (me.num_selected, " stars selected");	
+
+		if (me.num_selected == 2)
+			{
+			imu_system.align_enable = 1;
+			}		
+
+	},
+	
 
 	insert: func (track_ID, pointing) {
 
 		me.sel[0] = 0;
 		me.sel[1] = 0;
 		me.sel[2] = 0;
+
+		me.num_selected = 0;
+		imu_system.align_enable = 0;
 
 		# convert pointing vec to inertial
 
@@ -314,6 +385,9 @@ var star_table = {
 
 		me.ang_err[0] =  getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
 
+		me.num_total = me.num_total + 1;
+		if (me.num_total > 3) {me.num_total = 3;}
+
 
 	},
 
@@ -322,7 +396,13 @@ var star_table = {
 		me.track_ID[0] = 0;
 		me.track_ID[1] = 0;
 		me.track_ID[2] = 0;
+		me.sel[0] = 0;
+		me.sel[1] = 0;
+		me.sel[2] = 0;
+		me.num_selected = 0;
+		me.num_total = 0;
 		me.init_flag = 0;
+		imu_system.align_enable = 0;
 
 
 	},
@@ -353,11 +433,12 @@ var coas = {
 	mark_quality: [0.0, 0.0],
 	loop_flag: 0,
 	filter_quality: 1.0,
+	filter_error: 0.0,
 
 	set_id: func (value) {
 
 	if (value == 0) {me.stop(); return;}
-	if ((value > 17) or (value < 11)) {return;} # we can only enter IDs in the explicit table
+	if ((value > 20) or (value < 11)) {return;} # we can only enter IDs in the explicit table
 	me.reqd_id = value;
 	me.star_index = me.reqd_id - 11;
 
@@ -384,6 +465,7 @@ var coas = {
 	stop: func () {
 
 	me.loop_flag = 0;
+	print("COAS loop ends.");
 
 	},
 
@@ -411,7 +493,7 @@ var coas = {
 			print ("COAS: combined quality: ", combined_quality);
 
 			var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
-
+			me.filter_error = combined_quality;
 			me.filter_quality = combined_quality/current_error;
 
 			me.Dbias_x = current_error * ((1.0 - me.filter_quality) + me.filter_quality * 2.0 * (rand() - 0.5));
@@ -435,8 +517,29 @@ var coas = {
 
 	update_state: func () {
 		
-		var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
-		SpaceShuttle.update_orb_sv(1000.0, 1000.0, me.filter_quality * current_error);
+		#var current_error = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg");
+		#SpaceShuttle.update_orb_sv(1000.0, 1000.0, me.filter_quality * current_error);
+
+		# call an IMU matrix alignment on all units
+
+		imu_system.calib_error_pitch = 2.0 * (rand() - 0.5) * me.filter_error;
+		imu_system.calib_error_yaw = 2.0 * (rand() - 0.5) * me.filter_error;
+		imu_system.calib_error_roll = 2.0 * (rand() - 0.5) * me.filter_error;
+
+		imu_system.imu[0].sel_for_alignment = 1;
+		imu_system.imu[1].sel_for_alignment = 1;
+		imu_system.imu[2].sel_for_alignment = 1;
+
+		imu_system.matrix_align();
+	
+		imu_system.imu[0].sel_for_alignment = 0;
+		imu_system.imu[1].sel_for_alignment = 0;
+		imu_system.imu[2].sel_for_alignment = 0;
+
+		imu_system.calib_error_pitch = 0.0;
+		imu_system.calib_error_yaw = 0.0;
+		imu_system.calib_error_roll = 0.0;
+
 		me.clear_table();
 
 	},
@@ -877,6 +980,680 @@ var mls_system = {
 
 mls_system.init();
 
+
+###############################################################################
+# IMU system
+###############################################################################
+
+var imu_unit = {
+
+	new: func (index) {
+		var i = {parents: [imu_unit] };
+		
+		i.index = index;
+		i.operational = 1;
+		i.drift_rate = 0.000066; # 0.24 deg/h
+		i.damage_drift = 0.0;
+		i.thermal_drift = 0.0;
+		i.mode = "OPER";
+		i.temperature = 150.0;
+		i.temp_string = "OK";
+		i.pitch_error = 0.0;
+		i.yaw_error = 0.0;
+		i.roll_error = 0.0;
+		i.acc_error_x = 0.0;
+		i.acc_error_y = 0.0;
+		i.acc_error_z = 0.0;
+		i.status_string = "";
+		i.deselected = 0;
+		i.condition = 1.0;
+		i.powered = 1;
+		i.sel_for_alignment = 0;
+		i.delta_roll = 0.0;
+		i.delta_pitch = 0.0;
+		i.delta_yaw = 0.0;
+		i.dilemma = 0;
+		i.soft_failed = 0;
+
+		return i;
+	},
+
+
+	switch_mode: func (mode) {
+		me.mode = mode;
+
+		if (me.mode == "STBY")
+			{
+			me.operational = 0;
+			setprop("/fdm/jsbsim/systems/navigation/imu"~(me.index+1)~"-power-demand-kW", 0.05);
+			}	
+		else if ((me.powered == 1) and (me.condition > 0.0))
+			{
+			me.operational = 1;
+			setprop("/fdm/jsbsim/systems/navigation/imu"~(me.index+1)~"-power-demand-kW", 0.22);
+			}	
+
+
+	},
+
+
+	switch_power: func (power) {
+
+		me.powered = power;
+
+		if (me.powered == 0)
+			{	
+			me.operational = 0;
+			me.status_string = "OFF";
+			setprop("/fdm/jsbsim/systems/navigation/imu"~(me.index+1)~"-power-demand-kW", 0.0);
+			}
+
+
+	},
+
+	drift: func {
+
+		var drift = me.drift_rate + me.damage_drift + me.thermal_drift;			
+
+		me.pitch_error = me.pitch_error +  drift * 2.0 * (rand() - 0.5);
+		me.yaw_error = me.yaw_error +  drift * 2.0 * (rand() - 0.5);
+		me.roll_error = me.roll_error +  drift * 2.0 * (rand() - 0.5);
+
+	},
+
+	update_status : func {
+
+		me.condition  = getprop("/fdm/jsbsim/systems/failures/navigation/imu-"~(me.index+1)~"-condition");
+
+		if (me.condition == 0)
+			{	
+			me.operational = 0;
+			me.status_string = "BITE";
+			}
+		else 
+			{
+			me.damage_drift = (1.0 - me.condition) * 0.0025;
+			}
+
+	},
+
+	thermal_evolution: func {
+
+
+		var num_fans = getprop("/fdm/jsbsim/systems/eclss/avbay/num-imu-fans-operational");
+
+		me.temperature = me.temperature - math.sqrt(num_fans);
+		
+		if (me.powered == 1)
+			{
+			if (me.mode == "OPER")
+				{me.temperature = me.temperature + 1.0;}
+			else
+				{me.temperature = me.temperature + 0.5;}
+			}
+
+		if (me.temperature < 141.0)
+			{
+			me.temperature = 141.0;
+			}
+		else if (me.temperature > 180.0)
+			{
+			me.temperature = 180.0;
+			}
+
+		if (me.temperature > 156.5)
+			{
+			me.temp_string = "HI";
+			me.thermal_drift = 0.0001 * (me.temperature - 156.5); 
+			}
+		else if (me.temperature == 141.0)
+			{
+			me.temp_string = "LO";
+			me.thermal_drift = 0.0;
+			}
+		else
+			{
+			me.temp_string = "OK";
+			me.thermal_drift = 0.0;
+			}
+	
+
+	},
+
+
+	get_status_symbol : func {
+
+		if ((me.powered == 0) or (me.condition == 0)) 
+			{
+			return "M";
+			}
+		else if (me.deselected == 1)
+			{
+			return "↓";
+			}
+		else if (me.dilemma == 1)
+			{
+			return "?";
+			}
+		else 
+			{
+			return " ";
+			}
+
+	},
+
+};
+
+
+
+
+var imu_system = {
+
+	num_units : 3,
+	num_cand : 3,
+	first_functional: 0,
+	alignment_method: 0, # 0: star tracker 1: IMU/IMU 2: matrix
+	reference_imu: 0,
+	current_error_pitch: 0.0,
+	current_error_yaw: 0.0,
+	current_error_roll: 0.0,
+	calib_error_pitch: 0.0,
+	calib_error_yaw: 0.0,
+	calib_error_roll: 0.0,
+	deselect_threshold_3: 0.4,
+	deselect_threshold_2: 0.8,
+	attitude_source: 1,
+	align_enable: 0,
+	align_in_progress: 0,
+	perfect_navigation: 0,
+	
+
+	counter: 0,
+	
+
+	init: func {
+
+		me.imu = [];
+		for (var i = 0; i< me.num_units; i=i+1)
+			{
+			var iu = imu_unit.new(i);
+			append(me.imu, iu);
+			}
+
+	},
+
+	imu_drift: func {
+
+		if (me.perfect_navigation == 1) {return;}
+
+		for (var i = 0; i< me.num_units; i=i+1)
+			{
+			me.imu[i].drift();
+			}
+
+	},
+	
+
+	update_deltas: func {
+
+		for (var i = 0; i < me.num_units; i=i+1)
+			{
+			if (me.imu[i].operational == 1)
+				{
+				if (me.alignment_method == 1)
+					{
+					me.imu[i].delta_pitch = me.imu[me.reference_imu-1].pitch_error - me.imu[i].pitch_error;
+					me.imu[i].delta_yaw = me.imu[me.reference_imu-1].yaw_error - me.imu[i].yaw_error;
+					me.imu[i].delta_roll = me.imu[me.reference_imu-1].roll_error - me.imu[i].roll_error;
+					}
+				else
+					{
+					me.imu[i].delta_pitch = me.calib_error_pitch - me.imu[i].pitch_error;
+					me.imu[i].delta_yaw = me.calib_error_yaw - me.imu[i].yaw_error;
+					me.imu[i].delta_roll = me.calib_error_roll - me.imu[i].roll_error;
+					}
+				}
+			}
+
+
+	},
+
+	
+	star_align: func {
+
+		var terminate_flag = 0;
+		var num_processed = 0;
+
+		for (var i = 0; i < me.num_units; i=i+1)
+			{
+
+			if ((me.imu[i].operational == 1) and (me.imu[i].sel_for_alignment))
+				{
+				num_processed = num_processed + 1;
+				
+				var current_error = me.calib_error_pitch - me.imu[i].pitch_error;
+
+				if (current_error > 0.007)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].pitch_error = me.calib_error_pitch;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				current_error = me.calib_error_yaw - me.imu[i].yaw_error;
+
+				if (current_error > 0.007)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].yaw_error = me.calib_error_yaw;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				current_error = me.calib_error_roll - me.imu[i].roll_error;
+
+
+				if (current_error > 0.007)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].roll_error = me.calib_error_roll;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				}
+			}
+
+
+		if (terminate_flag == (num_processed * 3))
+			{
+			me.align_in_progress = 0;
+			print ("IMU alignment finished");
+			star_table.clear();
+			}
+
+		me.update_deltas();
+
+
+			
+
+	},
+
+	imu_imu_align: func {
+
+		var terminate_flag = 0;
+		var num_processed = 0;
+
+		for (var i = 0; i < me.num_units; i=i+1)
+			{
+
+			if ((me.imu[i].operational == 1) and (me.imu[i].sel_for_alignment))
+				{
+				num_processed = num_processed + 1;
+				
+				var current_error = me.imu[me.reference_imu-1].pitch_error - me.imu[i].pitch_error;
+
+				if (current_error > 1.2)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error + 1.2;
+					}
+				else if (current_error < -1.2)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error - 1.2;
+					}
+				else if (current_error > 0.007)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].pitch_error = me.imu[i].pitch_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].pitch_error = me.imu[me.reference_imu-1].pitch_error;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				current_error = me.imu[me.reference_imu-1].yaw_error - me.imu[i].yaw_error;
+
+				if (current_error > 1.2)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error + 1.2;
+					}
+				else if (current_error < -1.2)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error - 1.2;
+					}
+				else if (current_error > 0.007)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].yaw_error = me.imu[i].yaw_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].yaw_error = me.imu[me.reference_imu-1].yaw_error;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				current_error = me.imu[me.reference_imu-1].roll_error - me.imu[i].roll_error;
+
+				if (current_error > 1.2)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error + 1.2;
+					}
+				else if (current_error < -1.2)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error - 1.2;
+					}
+				else if (current_error > 0.007)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error + 0.007;
+					}
+				else if (current_error < -0.007)
+					{
+					me.imu[i].roll_error = me.imu[i].roll_error - 0.007;
+					}
+				else
+					{
+					me.imu[i].roll_error = me.imu[me.reference_imu-1].roll_error;
+					terminate_flag = terminate_flag + 1;
+					}
+
+				}
+			}
+
+
+		if (terminate_flag == (num_processed * 3))
+			{
+			me.align_in_progress = 0;
+			print ("IMU alignment finished");
+			}
+
+		me.update_deltas();
+
+
+			
+
+	},
+
+
+	matrix_align: func {
+
+
+		for (var i = 0; i < me.num_units; i=i+1)
+			{
+
+			if ((me.imu[i].operational == 1) and (me.imu[i].sel_for_alignment))
+				{
+
+				me.imu[i].pitch_error = me.calib_error_pitch;
+				me.imu[i].yaw_error = me.calib_error_yaw;
+				me.imu[i].roll_error = me.calib_error_roll;
+				}
+			}
+
+
+		me.align_in_progress = 0;
+		print ("IMU alignment finished");
+			
+
+		me.update_deltas();
+
+
+	},
+
+	candidate_selection: func {
+		me.num_cand = 0;
+		me.first_functional = -1;
+		for (var i = 0; i< me.num_units; i=i+1)
+			{
+			if ((me.imu[i].operational == 1) and (me.imu[i].deselected == 0))
+				{
+				me.num_cand = me.num_cand + 1;
+				if (me.first_functional == -1)
+					{me.first_functional = i;}
+				}
+			}
+		if (me.num_cand == 1)
+			{
+			for (var i = 0; i< me.num_units; i=i+1)
+				{
+				me.imu[i].dilemma = 0;
+				}
+			}
+
+	},
+
+	
+	redundancy_management_lowlevel: func (data) {
+
+		if (me.num_cand == 3) #mid-value selection
+			{
+			var diff = [];
+
+			append(diff,SpaceShuttle.norm(SpaceShuttle.subtract_vector(data[0], data[1])));
+			append(diff,SpaceShuttle.norm(SpaceShuttle.subtract_vector(data[0], data[2])));
+			append(diff,SpaceShuttle.norm(SpaceShuttle.subtract_vector(data[1], data[2])));
+
+			#append(diff, math.abs(data[0] - data[1]));
+			#append(diff, math.abs(data[0] - data[2]));
+			#append(diff, math.abs(data[1] - data[2]));
+
+			if ((diff[0] > me.deselect_threshold_3) and (diff[1] > me.deselect_threshold_3))
+				{
+				me.imu[0].deselected = 1;
+				me.imu[0].soft_failed = 1;
+				}
+			else if ((diff[0] > me.deselect_threshold_3) and (diff[2] > me.deselect_threshold_3))
+				{
+				me.imu[1].deselected = 1;
+				me.imu[1].soft_failed = 1;
+				}
+			else if ((diff[1] > me.deselect_threshold_3) and (diff[2] > me.deselect_threshold_3))
+				{
+				me.imu[2].deselected = 1;
+				me.imu[2].soft_failed = 1;
+				}
+
+
+
+			if ((diff[0] > diff[1]) and (diff[0] > diff[2]))
+				{
+				me.attitude_source = 2;
+				}
+			else if ((diff[1] > diff[0]) and (diff[1] > diff[2]))
+				{
+				me.attitude_source = 1;
+				}
+			else 
+				{
+				me.attitude_source = 0;
+				}
+
+			}
+		else if (me.num_cand == 2)
+			{
+			#var diff = math.abs(data[0] - data[1]);
+			var diff = SpaceShuttle.norm(SpaceShuttle.subtract_vector(data[0], data[1]));
+
+			if (diff > me.deselect_threshold_2)
+				{
+				for (var i = 0; i< me.num_units; i=i+1)
+					{
+					if ((me.imu[i].deselected == 0) and (me.imu[i].operational == 1))
+						{me.imu[i].dilemma = 1;}
+					}
+				
+				}
+
+			me.attitude_source = me.first_functional;
+			}
+		else if (me.num_cand == 1)
+			{
+			me.attitude_source = me.first_functional;
+			}
+		else
+			{
+			me.attitude_source = 0;
+			}
+
+	},
+
+	redundancy_management: func {
+
+
+		var error_vec = [];
+
+		for (var i = 0; i< me.num_units; i=i+1)
+			{
+			if ((me.imu[i].deselected == 0) and (me.imu[i].operational == 1))
+			{
+			append(error_vec, [me.imu[i].pitch_error, me.imu[i].yaw_error, me.imu[i].roll_error]);	
+			}
+			}
+		me.redundancy_management_lowlevel(error_vec);
+
+		#print ("Attitude source: ", me.attitude_source);
+			
+
+		
+	},
+
+	update_temperatures: func {
+
+		for (var i = 0; i< me.num_units; i=i+1)
+			{
+			me.imu[i].thermal_evolution();
+			}
+		#print ("IMU temperatures: ", me.imu[0].temperature, " ", me.imu[1].temperature, " ", me.imu[2].temperature);
+	
+
+	},
+
+	update_sv_errors: func {
+
+		var pe = me.imu[me.attitude_source].pitch_error;
+		setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/pitch-deg", pe );
+
+		var ye = me.imu[me.attitude_source].yaw_error;
+		setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/yaw-deg", ye );
+
+		var re = me.imu[me.attitude_source].roll_error;
+		setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/roll-deg", re );
+
+		setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/angle-deg", 0.333* (math.abs(pe) + math.abs(ye) + math.abs(re)));
+
+	},
+
+
+
+	run: func {
+
+		me.counter = me.counter + 1;
+
+		if (me.counter == 10)
+			{
+			me.update_temperatures();
+			}
+
+		else if (me.counter == 20)
+			{	
+			me.imu_drift();
+			}
+		else if (me.counter == 30)
+			{
+			me.candidate_selection();
+			me.redundancy_management();
+			}
+		else if (me.counter == 40)
+			{
+			me.update_sv_errors();
+			}
+		else if (me.counter == 60) 
+			{
+			me.counter = 0;
+			me.update_deltas();
+			}
+ 		
+		me.imu_drift();			
+
+
+		if (me.align_in_progress == 1)
+			{
+			if (me.alignment_method == 0)
+				{
+				me.star_align();
+				}
+			else if (me.alignment_method == 1)
+				{
+				me.imu_imu_align();
+				}
+			else if (me.alignment_method == 2)
+				{
+				me.matrix_align();
+				}
+			}
+
+	},
+
+	list: func {
+
+		print("IMU 1 errors");
+		print("Pitch: ", me.imu[0].pitch_error);
+		print("Yaw: ", me.imu[0].yaw_error);
+		print("Roll: ", me.imu[0].roll_error);
+
+		print("IMU 2 errors");
+		print("Pitch: ", me.imu[1].pitch_error);
+		print("Yaw: ", me.imu[1].yaw_error);
+		print("Roll: ", me.imu[1].roll_error);
+
+		print("IMU 3 errors");
+		print("Pitch: ", me.imu[2].pitch_error);
+		print("Yaw: ", me.imu[2].yaw_error);
+		print("Roll: ", me.imu[2].roll_error);
+
+		print("");
+		print("Attitude source: ", me.attitude_source + 1);
+
+		print("");
+		print("Des: ", me.imu[0].deselected, " ", me.imu[1].deselected, " ", me.imu[2].deselected);
+		
+
+	},
+
+
+};
+
+imu_system.init();
+
+setlistener("/fdm/jsbsim/systems/failures/navigation/imu-1-condition", func () { imu_system.imu[0].update_status();});
+setlistener("/fdm/jsbsim/systems/failures/navigation/imu-2-condition", func () { imu_system.imu[1].update_status();});
+setlistener("/fdm/jsbsim/systems/failures/navigation/imu-3-condition", func () { imu_system.imu[2].update_status();});
+
 ###############################################################################
 # Air data system
 ###############################################################################
@@ -1026,6 +1803,16 @@ var air_data_system = {
 			}
 
 	},
+
+	
+	update_adta_status : func {
+		for (var i=0; i< 4; i=i+1)
+			{ 
+			me.adta[i].update_status();
+			}
+
+	},
+	
 
 	apply_probe_damage : func (p_index, fact) {
 
@@ -1264,6 +2051,7 @@ var air_data_system = {
 };
 
 air_data_system.init();
+air_data_system.update_adta_status();
 
 setlistener("/fdm/jsbsim/systems/failures/navigation/air-data-pressure-left-condition", func (n) { air_data_system.apply_probe_damage(0, n.getValue());});
 setlistener("/fdm/jsbsim/systems/failures/navigation/air-data-pressure-right-condition", func (n)  { air_data_system.apply_probe_damage(1, n.getValue());});

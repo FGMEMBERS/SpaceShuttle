@@ -94,9 +94,23 @@ var PFD_addpage_p_dps_memory = func(device)
     {
         device.DPS_menu_title.setText("GPC MEMORY");
         device.MEDS_menu_title.setText("       DPS MENU");
-   
-        var ops_string = "0001/000/";
-        device.DPS_menu_ops.setText(ops_string);
+
+        var port = device.port_selected;
+	var gpc = SpaceShuttle.gpc_array[SpaceShuttle.nbat.crt[port-1]-1];   
+
+
+	if (gpc.ops == 0)
+		{        
+		device.DPS_menu_ops.setText("0001/   /");
+		}
+	else
+		{
+	        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+        	var ops_string = major_mode~"1/000/";
+		device.DPS_menu_ops.setText(ops_string);
+		}
+
+
 
 	# set options not yet implemented to defaults
 
@@ -276,6 +290,37 @@ var PFD_addpage_p_dps_memory = func(device)
 
     		p_dps_memory.mm1.setText(sprintf("%d", SpaceShuttle.nbat.g3_mm1));
     		p_dps_memory.mm2.setText(sprintf("%d", SpaceShuttle.nbat.g3_mm2));
+		}
+	else if (mcc == 4)
+		{
+		if (SpaceShuttle.nbat.g4_gpc[0] == mcc) {p_dps_memory.gpc1.setText("1");} 
+		else {p_dps_memory.gpc1.setText("0");} 
+		if (SpaceShuttle.nbat.g4_gpc[1] == mcc) {p_dps_memory.gpc2.setText("2");}
+		else {p_dps_memory.gpc2.setText("0");}
+		if (SpaceShuttle.nbat.g4_gpc[2] == mcc) {p_dps_memory.gpc3.setText("3");}
+		else {p_dps_memory.gpc3.setText("0");}
+		if (SpaceShuttle.nbat.g4_gpc[3] == mcc) {p_dps_memory.gpc4.setText("4");}
+		else {p_dps_memory.gpc4.setText("0");}
+		if (SpaceShuttle.nbat.g4_gpc[4] == mcc) {p_dps_memory.gpc5.setText("5");}
+		else {p_dps_memory.gpc5.setText("0");}
+
+		p_dps_memory.string1.setText(sprintf("%d", SpaceShuttle.nbat.g4_string1));
+		p_dps_memory.string2.setText(sprintf("%d", SpaceShuttle.nbat.g4_string2));
+		p_dps_memory.string3.setText(sprintf("%d", SpaceShuttle.nbat.g4_string3));
+		p_dps_memory.string4.setText(sprintf("%d", SpaceShuttle.nbat.g4_string4));
+
+		p_dps_memory.launch1.setText(sprintf("%d", SpaceShuttle.nbat.g4_launch1));
+		p_dps_memory.launch2.setText(sprintf("%d", SpaceShuttle.nbat.g4_launch2));
+
+		p_dps_memory.pl12.setText(sprintf("%d", SpaceShuttle.nbat.g4_pl1));
+
+		p_dps_memory.crt1.setText(sprintf("%d", SpaceShuttle.nbat.g4_crt[0]));
+		p_dps_memory.crt2.setText(sprintf("%d", SpaceShuttle.nbat.g4_crt[1]));
+		p_dps_memory.crt3.setText(sprintf("%d", SpaceShuttle.nbat.g4_crt[2]));
+		p_dps_memory.crt4.setText(sprintf("%d", SpaceShuttle.nbat.g4_crt[3]));
+
+    		p_dps_memory.mm1.setText(sprintf("%d", SpaceShuttle.nbat.g4_mm1));
+    		p_dps_memory.mm2.setText(sprintf("%d", SpaceShuttle.nbat.g4_mm2));
 		}
 	else 
 		{

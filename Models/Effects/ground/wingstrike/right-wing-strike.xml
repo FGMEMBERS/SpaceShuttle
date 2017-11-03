@@ -4,29 +4,28 @@
 
   <params>
     <right_wing_ground_effect_speed_kt>
-	    <!--property>sim/multiplay/generic/float[11]</property-->
-		<property>/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt-actual</property>
-	</right_wing_ground_effect_speed_kt>
+      <property>/fdm/jsbsim/ground/right-wing-ground-effect-speed-kt-actual</property>
+    </right_wing_ground_effect_speed_kt>
   </params>
 
   <particlesystem>
 
     <name>right-wing-strike-spark</name>
-	<texture>Effects/ground/wingstrike/spark.png</texture>
+    <texture>spark.png</texture>
     <emissive>true</emissive>
-    <lighting>true</lighting>
+    <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
-	<condition>
-	    <greater-than>
-            <property alias="/params/right_wing_ground_effect_speed_kt/property"/>
-            <value>5</value>
-        </greater-than>
+    <condition>
+      <greater-than>
+        <property alias="/params/right_wing_ground_effect_speed_kt/property"/>
+        <value>5</value>
+      </greater-than>
     </condition>
 
     <attach>world</attach>
@@ -103,21 +102,21 @@
   <particlesystem>
 
     <name>right-wing-strike-smoke</name>
-	<texture>Effects/ground/wingstrike/tyresmoke.png</texture>
+    <texture>tyresmoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
     <condition>
-	    <greater-than>
-            <property alias="/params/right_wing_ground_effect_speed_kt/property"/>
-            <value>5</value>
-        </greater-than>
+      <greater-than>
+        <property alias="/params/right_wing_ground_effect_speed_kt/property"/>
+        <value>5</value>
+      </greater-than>
     </condition>
 
     <attach>world</attach>

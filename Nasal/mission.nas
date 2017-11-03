@@ -102,6 +102,11 @@ if (getprop("/mission/launch/section-defined") and (stage == 0))
 	var rtls_site_index = getprop("/mission/launch/rtls-site-index");
 	SpaceShuttle.update_site_by_index(rtls_site_index);
 
+	# set roll to heads up
+
+	var rthu_flag = getprop("/mission/launch/roll-to-heads-up");
+	setprop("/fdm/jsbsim/systems/ap/launch/rthu-enable", rthu_flag);
+
 	}
 
 # aborts
@@ -291,19 +296,26 @@ if (getprop("/mission/orbital-targets/section-defined"))
 }
 
 
+var mission_automatic_mps_dump = func {
+
+	setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 1);
+	setprop("/fdm/jsbsim/systems/propellant/LH2-inboard-status", 1);
+	setprop("/fdm/jsbsim/systems/propellant/LH2-outboard-status", 1);
+		
+	settimer( func {SpaceShuttle.fuel_dump_start();}, 20.0);
+
+	settimer( func {setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 0);}, 130.0);
+
+}
+
+
 var mission_post_meco = func {
 
 if (getprop("/mission/post-meco/section-defined"))
 	{
 	if (getprop("/mission/post-meco/automatic-fuel-dump"))
 		{
-		setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 1);
-		setprop("/fdm/jsbsim/systems/propellant/LH2-inboard-status", 1);
-		setprop("/fdm/jsbsim/systems/propellant/LH2-outboard-status", 1);
-		
-		settimer( func {SpaceShuttle.fuel_dump_start();}, 20.0);
-
-		settimer( func {setprop("/fdm/jsbsim/systems/mps/LO2-manifold-valve-status", 0);}, 130.0);
+		mission_automatic_mps_dump ();
 		}
 
 	if (getprop("/mission/post-meco/auto-oms1-burn"))
@@ -350,6 +362,19 @@ if (getprop("/mission/entry/section-defined"))
 	{ 
 	var landing_site_index = getprop("/mission/entry/landing-site-index");
 	SpaceShuttle.update_site_by_index(landing_site_index);
+	}
+
+}
+
+
+var mission_post_meco_TAL = func {
+
+if (getprop("/mission/post-meco/section-defined"))
+	{
+	if (getprop("/mission/post-meco/automatic-fuel-dump"))
+		{
+		mission_automatic_mps_dump ();
+		}
 	}
 
 }

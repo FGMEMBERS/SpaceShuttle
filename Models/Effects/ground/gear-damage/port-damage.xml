@@ -4,7 +4,7 @@
 
   <params>
     <port_damage_ground_effect_speed_kt>
-	  <property>/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt-actual</property>
+	    <property>/fdm/jsbsim/ground/port-damage-ground-effect-speed-kt-actual</property>
     </port_damage_ground_effect_speed_kt>
   </params>
  
@@ -96,7 +96,7 @@
     <name>port-gear-spark</name>
 	<texture>spark.png</texture>
     <emissive>true</emissive>
-    <lighting>true</lighting>
+    <lighting>false</lighting>
 
 	<offsets>
 	   <x-m>0</x-m>

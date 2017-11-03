@@ -21,6 +21,11 @@ var PFD_addpage_p_vert_sit = func(device)
     p_vert_sit.bailout = device.svg.getElementById("p_vert_sit_bailout");    
     p_vert_sit.ecal = device.svg.getElementById("p_vert_sit_ecal");    
 
+    p_vert_sit.bfs = device.svg.getElementById("p_vert_sit_bfs");    
+    p_vert_sit.bfs_roll_error = device.svg.getElementById("p_vert_sit_bfs_roll_error");    
+    p_vert_sit.bfs_pitch_error = device.svg.getElementById("p_vert_sit_bfs_pitch_error");    
+    p_vert_sit.bfs_yaw_error = device.svg.getElementById("p_vert_sit_bfs_yaw_error");    
+
     p_vert_sit.blink = 0;
 
     p_vert_sit.ondisplay = func
@@ -37,6 +42,22 @@ var PFD_addpage_p_vert_sit = func(device)
         device.DPS_menu_title.setText(sprintf("%s","VERT SIT 1"));
 
 	p_vert_sit.bailout.setVisible(0);
+
+	p_vert_sit.major_func = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
+
+	# switch BFS elements on and PASS elements off if we run BFS
+
+	if (p_vert_sit.major_func == 4)
+		{
+		p_vert_sit.bfs.setVisible(1);
+		}
+	else
+		{
+		p_vert_sit.bfs.setVisible(0);
+		}
+	p_vert_sit.bfs_roll_error.setText("0");
+	p_vert_sit.bfs_pitch_error.setText("0");
+	p_vert_sit.bfs_yaw_error.setText("0");
 
 
 	if ((major_mode == 602) or (major_mode == 603))
@@ -290,11 +311,35 @@ var PFD_addpage_p_vert_sit2 = func(device)
 
     p_vert_sit2.bailout = device.svg.getElementById("p_vert_sit2_bailout");
 
+    p_vert_sit2.bfs = device.svg.getElementById("p_vert_sit2_bfs"); 
+    p_vert_sit2.bfs_roll_error = device.svg.getElementById("p_vert_sit2_bfs_roll_error");    
+    p_vert_sit2.bfs_pitch_error = device.svg.getElementById("p_vert_sit2_bfs_pitch_error");    
+    p_vert_sit2.bfs_yaw_error = device.svg.getElementById("p_vert_sit2_bfs_yaw_error");     
+
     p_vert_sit2.blink = 0;
+    p_vert_sit2.bout_blink = 0;
     
     
     p_vert_sit2.ondisplay = func
     {
+	p_vert_sit2.major_func = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
+
+	# switch BFS elements on and PASS elements off if we run BFS
+
+	if (p_vert_sit2.major_func == 4)
+		{
+		p_vert_sit2.bfs.setVisible(1);
+		}
+	else
+		{
+		p_vert_sit2.bfs.setVisible(0);
+		}
+
+	p_vert_sit2.bfs_roll_error.setText("0");
+	p_vert_sit2.bfs_pitch_error.setText("0");
+	p_vert_sit2.bfs_yaw_error.setText("0");
+
+
         SpaceShuttle.fill_vert_sit2_nom_data();
         SpaceShuttle.fill_vert_sit2_SB_data();
         SpaceShuttle.fill_vert_sit2_maxLD_data();
@@ -305,7 +350,7 @@ var PFD_addpage_p_vert_sit2 = func(device)
         device.DPS_menu_title.setText("VERT SIT 2");
 
 	p_vert_sit2.bailout.setVisible(0);
-	p_vert_sit2.bailout.setColor(0.8, 0.8, 0.4);
+	#p_vert_sit2.bailout.setColor(0.8, 0.8, 0.4);
 
 	if ((major_mode == 602) or (major_mode == 603))
 		{
@@ -474,15 +519,15 @@ var PFD_addpage_p_vert_sit2 = func(device)
 		}
 	else if (bailout_arm == 1)
 		{
-		if (p_vert_sit2.blink == 1)
+		if (p_vert_sit2.bout_blink == 1)
 			{
 			p_vert_sit2.bailout.setVisible(1);
-			p_vert_sit2.blink = 0;
+			p_vert_sit2.bout_blink = 0;
 			}
 		else
 			{
 			p_vert_sit2.bailout.setVisible(0);
-			p_vert_sit2.blink = 1;
+			p_vert_sit2.bout_blink = 1;
 			}
 		}
 		

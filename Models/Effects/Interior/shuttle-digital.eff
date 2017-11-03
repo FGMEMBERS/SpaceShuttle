@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PropertyList>
+    <name>Effects/shuttle-digital</name>
+    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-display</inherits-from>
+    <parameters>
+	<sample-res>0.006</sample-res>
+    </parameters>
+</PropertyList>

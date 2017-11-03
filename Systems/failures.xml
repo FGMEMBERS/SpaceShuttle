@@ -78,7 +78,8 @@
 	<!-- contact point position adjustment for damaged gear struts and blown tire-->
 
 		<switch name="systems/failures/gearstrut-nose-position">
-			<default value="gear/unit[0]/z-position"/>
+			<!--<default value="gear/unit[0]/z-position"/>-->
+			<default value="-270.47244"/>
 				<test value="-265">
 					systems/failures/tire-nose-condition LT 0.5
 					systems/failures/gear/gearstrut-nose-condition GT 0.0
@@ -90,7 +91,8 @@
 		</switch>
 
 		<switch name="systems/failures/gearstrut-left-position">
-			<default value="gear/unit[1]/z-position"/>
+			<!--<default value="gear/unit[1]/z-position"/>-->
+			<default value="-313.779528"/>
 				<test value="-309">
 					systems/failures/tire-left-condition LT 0.5
 					systems/failures/gear/gearstrut-left-condition GT 0.0
@@ -102,7 +104,8 @@
 		</switch>
 
 		<switch name="systems/failures/gearstrut-right-position">
-			<default value="gear/unit[2]/z-position"/>
+			<!--<default value="gear/unit[2]/z-position"/>-->
+			<default value="-313.779528"/>
 				<test value="-309">
 					systems/failures/tire-right-condition LT 0.5
 					systems/failures/gear/gearstrut-right-condition GT 0.0

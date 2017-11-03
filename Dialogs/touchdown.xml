@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>touchdown</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Approach trainer</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+  <group>
+  <layout>table</layout>
+
+	<text>
+      		<label>Touchdown</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>Vertical speed</label>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>12345678</label>
+      		<format>%.f fps</format>
+      		<live>true</live>
+      		<property>/sim/approach-trainer/touchdown-vspeed</property>
+      		<halign>left</halign>
+      		<row>1</row>
+     	 	<col>1</col>
+    	</text>
+
+
+	<text>
+      		<label>Airspeed</label>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>12345678</label>
+      		<format>%.f kt</format>
+      		<live>true</live>
+      		<property>/sim/approach-trainer/touchdown-hspeed</property>
+      		<halign>left</halign>
+      		<row>2</row>
+     	 	<col>1</col>
+    	</text>
+
+
+	<text>
+      		<label>Roll distance</label>
+      		<halign>left</halign>
+      		<row>3</row>
+     	 	<col>0</col>
+    	</text>
+
+	<text>
+      		<label>12345678</label>
+      		<format>%.f ft</format>
+      		<live>true</live>
+      		<property>/sim/approach-trainer/rollout-distance</property>
+      		<halign>left</halign>
+      		<row>3</row>
+     	 	<col>1</col>
+    	</text>
+
+
+  </group>
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+
+  <group>
+  <layout>table</layout>
+
+	<text>
+      		<label>Gear status</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+        <text>
+      		<label>okay</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-nose-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			</and>
+      		</visible>
+      		<row>1</row>
+      		<col>2</col>
+      		<color>
+			<red>0.2</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>tire</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-nose-condition</property>
+	  		<value>0.0</value>
+			</equals>
+			</and>
+      		</visible>
+      		<row>1</row>
+      		<col>2</col>
+      		<color>
+			<red>1.0</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>broken</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition</property>
+	  		<value>0.0</value>
+			</equals>
+      		</visible>
+      		<row>1</row>
+      		<col>2</col>
+      		<color>
+			<red>1.0</red>
+			<green>0.2</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>okay</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-left-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			</and>
+      		</visible>
+      		<row>2</row>
+      		<col>1</col>
+      		<color>
+			<red>0.2</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>tire</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-left-condition</property>
+	  		<value>0.0</value>
+			</equals>
+			</and>
+      		</visible>
+      		<row>2</row>
+      		<col>1</col>
+      		<color>
+			<red>1.0</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>broken</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition</property>
+	  		<value>0.0</value>
+			</equals>
+      		</visible>
+      		<row>2</row>
+      		<col>1</col>
+      		<color>
+			<red>1.0</red>
+			<green>0.2</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>okay</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-right-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			</and>
+      		</visible>
+      		<row>2</row>
+      		<col>3</col>
+      		<color>
+			<red>0.2</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>tire</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<and>
+			<greater-than>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
+	  		<value>0.0</value>
+			</greater-than>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/tire-right-condition</property>
+	  		<value>0.0</value>
+			</equals>
+			</and>
+      		</visible>
+      		<row>2</row>
+      		<col>3</col>
+      		<color>
+			<red>1.0</red>
+			<green>1.0</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+        <text>
+      		<label>broken</label>   
+      		<halign>left</halign>   
+      		<visible>
+			<equals>
+      	  		<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
+	  		<value>0.0</value>
+			</equals>
+      		</visible>
+      		<row>2</row>
+      		<col>3</col>
+      		<color>
+			<red>1.0</red>
+			<green>0.2</green>
+			<blue>0.2</blue>
+      		</color>
+        </text>
+
+  </group>
+
+
+
+
+	<empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+
+
+ <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Retry the approach?</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+	<button>
+		<legend>Retry</legend>
+		<default>true</default>
+      		<row>1</row>
+     	 	<col>0</col>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.approach.reset()</script>
+		</binding>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+	<button>
+		<legend>End</legend>
+      		<row>1</row>
+     	 	<col>1</col>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+ </group>
+
+</PropertyList>

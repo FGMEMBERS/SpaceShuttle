@@ -5,6 +5,36 @@
   <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
 
   <parameters>
+
+	<reflection-enabled type="int">1</reflection-enabled>
+	<reflection-correction type="float">-0.1</reflection-correction>
+	<reflect-map-enabled type="int">1</reflect-map-enabled>
+	<reflection-fresnel-factor type="float">0.0</reflection-fresnel-factor>
+	<reflection-type type="int">1</reflection-type>
+	<reflection-dynamic type="int">1</reflection-dynamic>
+	<texture n="4">
+		<image>Aircraft/SpaceShuttle/Models/reflectmap.png</image>
+		<type>2d</type>
+		<filter>linear-mipmap-linear</filter>
+		<wrap-s>clamp</wrap-s>
+		<wrap-t>clamp</wrap-t>
+		<internal-format>normalized</internal-format>
+	</texture>
+		<!-- Reflection environment -->
+	<texture n="5">
+		<type>cubemap</type>
+		<images>
+			<positive-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nx.png</positive-x>
+			<negative-x>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_px.png</negative-x>
+			<positive-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_ny.png</positive-y>
+			<negative-y>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_py.png</negative-y>
+			<positive-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_nz.png</positive-z>
+			<negative-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_pz.png</negative-z>
+		</images>
+	</texture>
+
+
+
 	<geo_light_r type="float"><use>/lighting/effects/geo-red</use></geo_light_r>
 	<geo_light_g type="float"><use>/lighting/effects/geo-green</use></geo_light_g>
 	<geo_light_b type="float"><use>/lighting/effects/geo-blue</use></geo_light_b>

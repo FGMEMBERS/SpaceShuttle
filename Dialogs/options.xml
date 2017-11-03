@@ -103,21 +103,63 @@
     	</text>
 
 	<text>
-      		<label>MDU update speed</label>
+      		<label>DPS realism</label>
       		<halign>left</halign>
       		<row>3</row>
      	 	<col>0</col>
     	</text>
 	<text>
-      		<label>slow</label>
+      		<label>simplified</label>
       		<halign>center</halign>
       		<row>3</row>
      	 	<col>1</col>
     	</text>
 
        <slider>
-      		<name>mdu-update-speed-switch</name>
+      		<name>avionics-switch</name>
       		<row>3</row>
+      		<col>2</col>
+      		<min>0</min>
+      		<max>1</max>
+      		<step>1</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/dps-detail-level</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>avionics-switch</object-name>
+     		</binding>
+     		<binding>
+        		<command>nasal</command>
+			<script>
+				SpaceShuttle.dps_simulation_detail_level = getprop("/sim/config/shuttle/dps-detail-level");
+			</script>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>realistic</label>
+      		<halign>center</halign>
+      		<row>3</row>
+     	 	<col>3</col>
+    	</text>
+
+
+	<text>
+      		<label>MDU update speed</label>
+      		<halign>left</halign>
+      		<row>4</row>
+     	 	<col>0</col>
+    	</text>
+	<text>
+      		<label>slow</label>
+      		<halign>center</halign>
+      		<row>4</row>
+     	 	<col>1</col>
+    	</text>
+
+       <slider>
+      		<name>mdu-update-speed-switch</name>
+      		<row>4</row>
       		<col>2</col>
       		<min>0</min>
       		<max>3</max>
@@ -133,26 +175,26 @@
 	<text>
       		<label>fast</label>
       		<halign>center</halign>
-      		<row>3</row>
+      		<row>4</row>
      	 	<col>3</col>
     	</text>
 
 	<text>
       		<label>ADI ball detail</label>
       		<halign>left</halign>
-      		<row>4</row>
+      		<row>5</row>
      	 	<col>0</col>
     	</text>
 	<text>
       		<label>low</label>
       		<halign>center</halign>
-      		<row>4</row>
+      		<row>5</row>
      	 	<col>1</col>
     	</text>
 
        <slider>
       		<name>adi-quality-switch</name>
-      		<row>4</row>
+      		<row>5</row>
       		<col>2</col>
       		<min>0</min>
       		<max>4</max>
@@ -168,26 +210,26 @@
 	<text>
       		<label>high</label>
       		<halign>center</halign>
-      		<row>4</row>
+      		<row>5</row>
      	 	<col>3</col>
     	</text>
 
     <text>
         <label>Cockpit detail</label>
         <halign>left</halign>
-        <row>5</row>
+        <row>6</row>
         <col>0</col>
     </text>
     <text>
         <label>default</label>
         <halign>center</halign>
-        <row>5</row>
+        <row>6</row>
         <col>1</col>
     </text>
 
     <slider>
         <name>cockpit-detail-switch</name>
-        <row>5</row>
+        <row>6</row>
         <col>2</col>
         <min>0</min>
         <max>1</max>
@@ -203,14 +245,15 @@
     <text>
         <label>high</label>
         <halign>center</halign>
-        <row>5</row>
+        <row>6</row>
         <col>3</col>
     </text>
 
 
     <checkbox>
         <name>place-gantry</name>
- 	<row>6</row>
+      	<halign>left</halign>
+ 	<row>7</row>
         <col>0</col>
           <property>/sim/config/shuttle/place-gantry</property>
           <label>Show launch gantry</label>
@@ -223,7 +266,8 @@
 
     <checkbox>
         <name>srb-shake</name>
- 	<row>6</row>
+      	<halign>left</halign>
+ 	<row>7</row>
         <col>1</col>
           <property>/sim/config/shuttle/srb-shake</property>
           <label>SRBs shake view</label>
@@ -246,6 +290,126 @@
               <object-name>hud-filter</object-name>
           </binding>
         </checkbox>-->
+
+      <checkbox>
+        <name>display-effect</name>
+      	<halign>left</halign>
+ 	<row>8</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/display-effect</property>
+          <label>Enhanced displays</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>display-effect</object-name>
+          </binding>
+        </checkbox>
+
+  </group>
+
+        <empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+  <group>
+ <layout>table</layout>
+
+	<text>
+      		<label>Voice callouts</label>
+      		<halign>left</halign>
+      		<row>0</row>
+     	 	<col>0</col>
+    	</text>
+
+      <checkbox>
+        <name>callout-help</name>
+      	<halign>left</halign>
+ 	<row>1</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/callouts/help</property>
+          <label>help</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-help</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+        <name>callout-info</name>
+      	<halign>left</halign>
+ 	<row>1</row>
+        <col>1</col>
+          <property>/sim/config/shuttle/callouts/info</property>
+          <label>info</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-info</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+        <name>callout-real</name>
+      	<halign>left</halign>
+ 	<row>1</row>
+        <col>2</col>
+          <property>/sim/config/shuttle/callouts/real</property>
+          <label>real</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-real</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+        <name>callout-limit</name>
+      	<halign>left</halign>
+ 	<row>2</row>
+        <col>0</col>
+          <property>/sim/config/shuttle/callouts/limit</property>
+          <label>limits</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-limit</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+        <name>callout-failure</name>
+      	<halign>left</halign>
+ 	<row>2</row>
+        <col>1</col>
+          <property>/sim/config/shuttle/callouts/failure</property>
+          <label>failures</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-failure</object-name>
+          </binding>
+        </checkbox>
+
+      <checkbox>
+        <name>callout-essential</name>
+      	<halign>left</halign>
+ 	<row>2</row>
+        <col>2</col>
+          <property>/sim/config/shuttle/callouts/essential</property>
+          <label>essential</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>callout-essential</object-name>
+          </binding>
+        </checkbox>
 
   </group>
 	

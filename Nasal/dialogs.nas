@@ -30,6 +30,8 @@ var scenario_string_bad_state_vector = "The navigation state of the Shuttle is b
 
 var scenario_string_navigation_problems = "After an avionics bay fire, there's damage to the navigation aids. Expect part of the equipment to be non-functioning or showing wrong data - you may need to solve dilemmas or fly by visual cues.";
 
+var scenario_string_pass_failure = "The primary avionics software system (PASS) experiences a software bug that makes the state vector compute wrong. You need to engage the backup flight system (BFS) to save the Shuttle.";
+
 var propellant_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/propellant/dialog","Aircraft/SpaceShuttle/Dialogs/propellant.xml");
 
 var entry_guidance_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/entry_guidance/dialog","Aircraft/SpaceShuttle/Dialogs/entry_guidance.xml");
@@ -87,6 +89,10 @@ var save_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/save/dialog","Aircr
 var mcc_status_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mcc-status/dialog","Aircraft/SpaceShuttle/Dialogs/mcc_status.xml");
 
 var mcc_comm_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/mcc-comm/dialog","Aircraft/SpaceShuttle/Dialogs/mcc_comm.xml");
+
+var touchdown_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/touchdown/dialog","Aircraft/SpaceShuttle/Dialogs/touchdown.xml");
+
+var carrier_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/carrier/dialog","Aircraft/SpaceShuttle/Dialogs/carrier_controls.xml");
 
 var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
@@ -160,6 +166,11 @@ else if (scenario_string == "ascent single engine lockup")
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_single_engine_lockup);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 2);
 	}
+else if (scenario_string == "PASS failure")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_pass_failure);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 3);
+	}
 else if (scenario_string == "off attitude")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_attitude);
@@ -170,7 +181,7 @@ else if (scenario_string == "RCS failure")
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_rcs);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 21);
 	}
-else if (scenario_string = "electric failure")
+else if (scenario_string == "electric failure")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_electric_failure);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 22);
@@ -264,11 +275,57 @@ else if (site_string == "Halifax")
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "05");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "23");}
 	}
+else if (site_string == "Wilmington")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "24");}
+	}
+else if (site_string == "Atlantic City")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "13");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "31");}
+	}
+else if (site_string == "Myrtle Beach")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "18");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "36");}
+	}
+else if (site_string == "Gander")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "03");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "21");}
+	}
+else if (site_string == "Pease")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "16");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "34");}
+	}
 else if (site_string == "Easter Island")
 	{
 	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "10");}
 	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "28");}
 	}
+else if (site_string == "Diego Garcia")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "13");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "31");}
+	}
+else if (site_string == "Honolulu")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "08");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "26");}
+	}
+else if (site_string == "Keflavik")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "10");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "28");}
+	}
+else if (site_string == "Andersen Air Force Base")
+	{
+	if (flag == 0) {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");}
+	else {setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "24");}
+	}
+
 }
 
 var update_runway = func {
@@ -333,12 +390,58 @@ else if (site_string == "Halifax")
 	if (runway_string == "05"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
+else if (site_string == "Wilmington")
+	{
+	if (runway_string == "06"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Atlantic City")
+	{
+	if (runway_string == "13"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Myrtle Beach")
+	{
+	if (runway_string == "18"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Gander")
+	{
+	if (runway_string == "03"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Pease")
+	{
+	if (runway_string == "16"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
 else if (site_string == "Easter Island")
 	{
 	if (runway_string == "10"){SpaceShuttle.landing_site.rwy_sel = 0;}
 	else {SpaceShuttle.landing_site.rwy_sel = 1;}
 	}
+else if (site_string == "Diego Garcia")
+	{
+	if (runway_string == "13"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Honolulu")
+	{
+	if (runway_string == "08"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Keflavik")
+	{
+	if (runway_string == "10"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
+else if (site_string == "Andersen Air Force Base")
+	{
+	if (runway_string == "06"){SpaceShuttle.landing_site.rwy_sel = 0;}
+	else {SpaceShuttle.landing_site.rwy_sel = 1;}
+	}
 }
+
 
 
 var update_site_by_index = func (index) {
@@ -387,9 +490,45 @@ else if (index == 12)
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Halifax");
 	}
+else if (index == 13)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Wilmington");
+	}
+else if (index == 14)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Atlantic City");
+	}
+else if (index == 15)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Myrtle Beach");
+	}
+else if (index == 16)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Gander");
+	}
+else if (index == 17)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Pease");
+	}
 else if (index == 30)
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Easter Island");
+	}
+else if (index == 32)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Diego Garcia");
+	}
+else if (index == 33)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Honolulu");
+	}
+else if (index == 34)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Keflavik");
+	}
+else if (index == 35)
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Andersen Air Force Base");
 	}
 
 update_site();
@@ -552,6 +691,71 @@ else if (site_string == "Halifax")
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 12;
 	}
+else if (site_string == "Wilmington")
+	{
+	lat = 34.272;
+	lon = -77.896;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "24");
+	rwy_pri = "ILM06";
+	rwy_sec = "ILM24";
+	tacan = "117";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 13;
+	}
+else if (site_string == "Atlantic City")
+	{
+	lat = 39.454;
+	lon = -74.568;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "13");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "13");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "31");
+	rwy_pri = "ACY13";
+	rwy_sec = "ACY31";
+	tacan = "081";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 14;
+	}
+else if (site_string == "Myrtle Beach")
+	{
+	lat = 33.675;
+	lon = -78.926;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "18");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "18");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "36");
+	rwy_pri = "MYR18";
+	rwy_sec = "MYR36";
+	tacan = "117";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 15;
+	}
+else if (site_string == "Gander")
+	{
+	lat = 48.947;
+	lon = -54.560;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "03");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "03");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "21");
+	rwy_pri = "YQX03";
+	rwy_sec = "YQX21";
+	tacan = "074";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 16;
+	}
+else if (site_string == "Pease")
+	{
+	lat = 43.0742;
+	lon = -70.820;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "16");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "16");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "34");
+	rwy_pri = "PSM16";
+	rwy_sec = "PSM34";
+	tacan = "118";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 17;
+	}
 else if (site_string == "Easter Island")
 	{
 	lat = -27.165;
@@ -563,6 +767,58 @@ else if (site_string == "Easter Island")
 	rwy_sec = "IPC28";
         gui.dialog_update("entry_guidance", "runway-selection");
 	index = 30;
+	}
+else if (site_string == "Diego Garcia")
+	{
+	lat = -7.313;
+	lon = 72.411;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "13");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "13");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "31");
+	rwy_pri = "JDG13";
+	rwy_sec = "JDG31";
+	tacan = "057";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 32;
+	}
+else if (site_string == "Honolulu")
+	{
+	lat = 21.307;
+	lon = -157.929;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "08");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "08");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "26");
+	rwy_pri = "HNL08R";
+	rwy_sec = "HNL26L";
+	tacan = "095";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 33;
+	}
+else if (site_string == "Keflavik")
+	{
+	lat = 63.985;
+	lon = -22.618;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "10");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "10");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "28");
+	rwy_pri = "IKF10";
+	rwy_sec = "IKF28";
+	tacan = "057";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 34;
+	}
+else if (site_string == "Andersen Air Force Base")
+	{
+	lat = 13.584;
+	lon = 144.934;
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value", "06");
+	setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/available-runways/value[1]", "24");
+	rwy_pri = "UAM06";
+	rwy_sec = "UAM24";
+	tacan = "078";
+        gui.dialog_update("entry_guidance", "runway-selection");
+	index = 35;
 	}
 
 setprop("/fdm/jsbsim/systems/taem-guidance/approach-mode-string", "OVHD");
@@ -591,10 +847,12 @@ if (getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode") == 0)
 if (mode_string == "normal")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 1);
+	SpaceShuttle.entry_guidance_available = 1;
 	}
 else if (mode_string == "TAL")
 	{
 	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode", 2);
+	SpaceShuttle.entry_guidance_available = 1;
 	}
 else if (mode_string == "RTLS")
 	{

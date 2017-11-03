@@ -13,6 +13,21 @@
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior</inherits-from>
     </effect>-->
 
+
+    <!-- digital readouts -->
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-digital</inherits-from>
+	<object-name>O3-event-time-glass</object-name>
+    </effect>
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-digital2</inherits-from>
+        <object-name>display-qty-left</object-name>
+        <object-name>display-qty-fwd</object-name>
+        <object-name>display-qty-right</object-name>
+    </effect>
+
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-panel-center</inherits-from>
@@ -180,13 +195,33 @@
         <object-name>O6-fasteners</object-name>
         <object-name>O6-guards</object-name>
         <!-- Panel O6 "Talkbacks" -->
-	    <object-name>O6-talkback-base</object-name>
+        <object-name>O6-talkback-base</object-name>
         <object-name>st-doory-pos-op</object-name>
         <object-name>st-doorz-pos-op</object-name>
         <object-name>st-doory-pos-cl</object-name>
         <object-name>st-doorz-pos-cl</object-name>
         <object-name>st-doory-pos-bp</object-name>
         <object-name>st-doorz-pos-bp</object-name>
+        <object-name>gpc-output1-bp</object-name>
+        <object-name>gpc-output2-bp</object-name>
+        <object-name>gpc-output3-bp</object-name>
+        <object-name>gpc-output4-bp</object-name>
+        <object-name>gpc-output5-bp</object-name>
+        <object-name>gpc-output1-gry</object-name>
+        <object-name>gpc-output2-gry</object-name>
+        <object-name>gpc-output3-gry</object-name>
+        <object-name>gpc-output4-gry</object-name>
+        <object-name>gpc-output5-gry</object-name>
+        <object-name>gpc-mode1-hlt</object-name>
+        <object-name>gpc-mode2-hlt</object-name>
+        <object-name>gpc-mode3-hlt</object-name>
+        <object-name>gpc-mode4-hlt</object-name>
+        <object-name>gpc-mode5-hlt</object-name>
+        <object-name>gpc-mode1-run</object-name>
+        <object-name>gpc-mode2-run</object-name>
+        <object-name>gpc-mode3-run</object-name>
+        <object-name>gpc-mode4-run</object-name>
+        <object-name>gpc-mode5-run</object-name>
         <object-name>O6-panel</object-name>
         <object-name>O6-knobs</object-name>
         <!-- Panel O6 "Switches" -->
@@ -197,10 +232,35 @@
         <object-name>st-pwr-y</object-name>
         <object-name>st-pwr-z</object-name>
         <object-name>st-door-ctrl-sys1</object-name>
-        <object-name>st-door-ctrl-sys1</object-name>
+        <object-name>st-door-ctrl-sys2</object-name>
+        <object-name>gpc-pwr1</object-name>
+        <object-name>gpc-pwr2</object-name>
+        <object-name>gpc-pwr3</object-name>
+        <object-name>gpc-pwr4</object-name>
+        <object-name>gpc-pwr5</object-name>
+        <object-name>gpc-bus1</object-name>
+        <object-name>gpc-bus2</object-name>
+        <object-name>gpc-bus3</object-name>
+        <object-name>gpc-bus4</object-name>
+        <object-name>gpc-bus5</object-name>
+        <object-name>gpc-mode1</object-name>
+        <object-name>gpc-mode2</object-name>
+        <object-name>gpc-mode3</object-name>
+        <object-name>gpc-mode4</object-name>
+        <object-name>gpc-mode5</object-name>
         <!-- Panel O6 "Covers" -->
-        <object-name>cover-st-ctrl-sys1</object-name>
-        <object-name>cover-st-ctrl-sys2</object-name>
+        <object-name>st-ctrl-sys1-cvr</object-name>
+        <object-name>st-ctrl-sys2-cvr</object-name>
+        <object-name>gpc-pwr1-cvr</object-name>
+        <object-name>gpc-pwr2-cvr</object-name>
+        <object-name>gpc-pwr3-cvr</object-name>
+        <object-name>gpc-pwr4-cvr</object-name>
+        <object-name>gpc-pwr5-cvr</object-name>
+        <object-name>gpc-bus1-cvr</object-name>
+        <object-name>gpc-bus2-cvr</object-name>
+        <object-name>gpc-bus3-cvr</object-name>
+        <object-name>gpc-bus4-cvr</object-name>
+        <object-name>gpc-bus5-cvr</object-name>
 	    <!-- Panel O13 -->
         <object-name>O13-base</object-name>
         <object-name>O13-fasteners</object-name>
@@ -222,11 +282,11 @@
         <object-name>O3-fasteners</object-name>
         <object-name>O3-guards</object-name>
         <object-name>O3-panel</object-name>
-        <object-name>O3-event-time-glass</object-name>
+        <!--<object-name>O3-event-time-glass</object-name>-->
         <object-name>O3-event-time-glass-bg</object-name>
-        <object-name>display-qty-left</object-name>
+        <!--<object-name>display-qty-left</object-name>
         <object-name>display-qty-fwd</object-name>
-        <object-name>display-qty-right</object-name>
+        <object-name>display-qty-right</object-name>-->
         <object-name>display-qty-left-bg</object-name>
         <object-name>display-qty-fwd-bg</object-name>
         <object-name>display-qty-right-bg</object-name>
@@ -400,10 +460,18 @@
         <object-name>A7U-panel</object-name>
         <object-name>A7L-panel</object-name>
         <object-name>A7-covers</object-name>
-        <object-name>A7-switches</object-name>
+        <object-name>A7-switches-base</object-name>
         <object-name>A7-base</object-name>
         <object-name>A7-fasteners</object-name>
         <object-name>A7-guards</object-name>
+		<object-name>pb-flood-aft-p</object-name>
+		<object-name>pb-flood-aft-sb</object-name>
+		<object-name>pb-flood-mid-p</object-name>
+		<object-name>pb-flood-mid-sb</object-name>
+		<object-name>pb-flood-fwd-p</object-name>
+		<object-name>pb-flood-fwd-sb</object-name>
+		<object-name>pb-flood-fwd-bh</object-name>
+		<object-name>pb-flood-docking</object-name>
         <!-- Panel A11 -->
         <object-name>A11-fasteners</object-name>
         <object-name>A11-connectors</object-name>
@@ -454,7 +522,7 @@
         <object-name>A14-covers</object-name>
         <object-name>A14-switches-base</object-name>
         <object-name>osm-heat-lp-a</object-name>
-        <object-name>osm-heat-lp-b</object-name>shuttle-interior-aft-panel-right
+        <object-name>osm-heat-lp-b</object-name>
         <object-name>osm-heat-rp-a</object-name>
         <object-name>osm-heat-rp-b</object-name>
         <object-name>osm-cover-lp-a</object-name>
@@ -2302,6 +2370,409 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel A7                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- Payload Bay Aft SB Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-aft-sb</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-star-aft-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.43418</x-m>
+            <y-m>  0.1932 </y-m>
+            <z-m> -0.1106 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-aft-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.43418, -0.1932, -0.1106)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-aft-sb</tooltip-id>
+                <label>Aft Stbd Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-aft-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Mid SB Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-mid-sb</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-star-mid-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.45037</x-m>
+            <y-m>  0.1932 </y-m>
+            <z-m> -0.15744 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-mid-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.45037, -0.1932, -0.15744)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-mid-sb</tooltip-id>
+                <label>Mid Stbd Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-mid-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Fwd SB Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-fwd-sb</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-star-fwd-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.46766</x-m>
+            <y-m>  0.1932 </y-m>
+            <z-m> -0.20747</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-fwd-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.46766, -0.1932, -0.20747)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-fwd-sb</tooltip-id>
+                <label>Fwd Stbd Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-star-fwd-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Docking Bright Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-docking</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-docking-bright-switch</property>
+        <factor>30</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.48249</x-m>
+            <y-m>  0.1932 </y-m>
+            <z-m> -0.2504</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-docking-bright-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>2</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.48249, -0.1932, -0.2504)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-docking</tooltip-id>
+                <label>Docking Bright Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-docking-bright-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'Dim', 'Bright'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Payload Bay Aft Port Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-aft-p</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-port-aft-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.43418 </x-m>
+            <y-m>  0.15468 </y-m>
+            <z-m> -0.1106  </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-aft-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.43418, -0.15468, -0.1106)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-aft-p</tooltip-id>
+                <label>Aft Port Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-aft-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Mid Port Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-mid-p</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-port-mid-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.45037</x-m>
+            <y-m>  0.15468 </y-m>
+            <z-m> -0.15744 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-mid-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.45037, -0.15468, -0.15744)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-mid-p</tooltip-id>
+                <label>Mid Port Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-mid-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Fwd Port Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-fwd-p</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.46766</x-m>
+            <y-m>  0.15468 </y-m>
+            <z-m> -0.20747</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.46766, -0.15468, -0.20747)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-fwd-p</tooltip-id>
+                <label>Fwd Port Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+	<!-- Payload Bay Fwd BHD Flood Light "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>pb-flood-fwd-bh</object-name>
+        <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-bhd-switch</property>
+        <factor>60</factor>
+        <offset-deg>-20</offset-deg>
+        <center>
+            <x-m>-10.48249</x-m>
+            <y-m>  0.15468</y-m>
+            <z-m> -0.2504 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-bhd-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -10.48249, -0.15468, -0.2504)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>pb-flood-fwd-bh</tooltip-id>
+                <label>Fwd BHD Flood: %s</label>
+                <property>/fdm/jsbsim/systems/light/pb-flood-port-fwd-bhd-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- A7 Remove Covers -->
+    <animation>
+        <type>pick</type>
+        <object-name>A7-covers</object-name>
+        <property>/sim/model/panel/cover/A7-covers-visible</property>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/sim/model/panel/cover/A7-covers-visible</property>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>remove-covers</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/A7-covers-visible</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>A7-covers</object-name>
+        <condition>
+            <property>/sim/model/panel/cover/A7-covers-visible</property>
+        </condition>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel A12                                                           -->
     <!-- ******************************************************************* -->
 
@@ -3415,7 +3886,7 @@
         </hovered>
     </animation>
 
-    <!-- Forward RCS Jett Heater 1 "switch"-->
+    <!-- Forward RCS Jet Heater 1 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>fwd-rcs-jett-heat-1</object-name>
@@ -3450,7 +3921,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>fwd-rcs-jett-heat-1</tooltip-id>
-                <label>Forward RCS Jett Heater 1: %s</label>
+                <label>Forward RCS Jet Heater 1: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-1-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3461,7 +3932,7 @@
         </hovered>
     </animation>
 
-    <!-- Forward RCS Jett Heater 2 "switch"-->
+    <!-- Forward RCS Jet Heater 2 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>fwd-rcs-jett-heat-2</object-name>
@@ -3496,7 +3967,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>fwd-rcs-jett-heat-2</tooltip-id>
-                <label>Forward RCS Jett Heater 2: %s</label>
+                <label>Forward RCS Jet Heater 2: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-2-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3507,7 +3978,7 @@
         </hovered>
     </animation>
 
-    <!-- Forward RCS Jett Heater 3 "switch"-->
+    <!-- Forward RCS Jet Heater 3 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>fwd-rcs-jett-heat-3</object-name>
@@ -3542,7 +4013,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>fwd-rcs-jett-heat-3</tooltip-id>
-                <label>Forward RCS Jett Heater 3: %s</label>
+                <label>Forward RCS Jet Heater 3: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-3-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3553,7 +4024,7 @@
         </hovered>
     </animation>
 
-    <!-- Forward RCS Jett Heater 4 "switch"-->
+    <!-- Forward RCS Jet Heater 4 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>fwd-rcs-jett-heat-4</object-name>
@@ -3588,7 +4059,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>fwd-rcs-jett-heat-4</tooltip-id>
-                <label>Forward RCS Jett Heater 4: %s</label>
+                <label>Forward RCS Jet Heater 4: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-4-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3634,7 +4105,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>fwd-rcs-jett-heat-5</tooltip-id>
-                <label>Forward RCS Jett Heater 5: %s</label>
+                <label>Forward RCS Jet Heater 5: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-fwd-5-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3645,7 +4116,7 @@
         </hovered>
     </animation>
 
-    <!-- Pod RCS Jett Heater 1 "switch"-->
+    <!-- Pod RCS Jet Heater 1 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>pod-rcs-jett-heat-1</object-name>
@@ -3680,7 +4151,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>pod-rcs-jett-heat-1</tooltip-id>
-                <label>Pod RCS Jett Heater 1: %s</label>
+                <label>Pod RCS Jet Heater 1: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-1-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3691,7 +4162,7 @@
         </hovered>
     </animation>
 
-    <!-- Pod RCS Jett Heater 2 "switch"-->
+    <!-- Pod RCS Jet Heater 2 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>pod-rcs-jett-heat-2</object-name>
@@ -3726,7 +4197,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>pod-rcs-jett-heat-2</tooltip-id>
-                <label>Pod RCS Jett Heater 2: %s</label>
+                <label>Pod RCS Jet Heater 2: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-2-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3737,7 +4208,7 @@
         </hovered>
     </animation>
 
-    <!-- Pod RCS Jett Heater 3 "switch"-->
+    <!-- Pod RCS Jet Heater 3 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>pod-rcs-jett-heat-3</object-name>
@@ -3772,7 +4243,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>pod-rcs-jett-heat-3</tooltip-id>
-                <label>Pod RCS Jett Heater 3: %s</label>
+                <label>Pod RCS Jet Heater 3: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-3-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3783,7 +4254,7 @@
         </hovered>
     </animation>
 
-    <!-- Pod RCS Jett Heater 4 "switch"-->
+    <!-- Pod RCS Jet Heater 4 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>pod-rcs-jett-heat-4</object-name>
@@ -3818,7 +4289,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>pod-rcs-jett-heat-4</tooltip-id>
-                <label>Pod RCS Jett Heater 4: %s</label>
+                <label>Pod RCS Jet Heater 4: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-4-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3829,7 +4300,7 @@
         </hovered>
     </animation>
 
-    <!-- Pod RCS Jett Heater 5 "switch"-->
+    <!-- Pod RCS Jet Heater 5 "switch"-->
     <animation>
         <type>knob</type>
         <object-name>pod-rcs-jett-heat-5</object-name>
@@ -3864,7 +4335,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>pod-rcs-jett-heat-5</tooltip-id>
-                <label>Pod RCS Jett Heater 5: %s</label>
+                <label>Pod RCS Jet Heater 5: %s</label>
                 <property>/fdm/jsbsim/systems/rcs-hardware/heater-pod-5-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -5989,11 +6460,1018 @@
         </hovered>
     </animation>
 
+    <!-- GPC 1 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr1</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc1-power-switch</property>
+        <factor>-90</factor>
+        <offset-deg>40</offset-deg>
+        <center>
+            <x-m>-11.96645</x-m>
+            <y-m> -0.4806</y-m>
+            <z-m>  0.29473</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc1-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.96645, 0.4806, 0.29473)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var power = getprop("/fdm/jsbsim/systems/dps/gpc1-power-switch");
+			SpaceShuttle.gpc_array[0].set_power(power);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr1</tooltip-id>
+                <label>GPC 1 Power: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc1-power-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 2 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr2</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc2-power-switch</property>
+        <factor>-90</factor>
+        <offset-deg>40</offset-deg>
+        <center>
+            <x-m>-11.96645</x-m>
+            <y-m> -0.4442</y-m>
+            <z-m>  0.29473</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc2-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.96645, 0.4442, 0.29473)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var power = getprop("/fdm/jsbsim/systems/dps/gpc2-power-switch");
+			SpaceShuttle.gpc_array[1].set_power(power);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr2</tooltip-id>
+                <label>GPC 2 Power: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc2-power-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 3 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr3</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc3-power-switch</property>
+        <factor>-90</factor>
+        <offset-deg>40</offset-deg>
+        <center>
+            <x-m>-11.96645</x-m>
+            <y-m> -0.40779</y-m>
+            <z-m>  0.29473</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc3-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.96645, 0.40779, 0.29473)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var power = getprop("/fdm/jsbsim/systems/dps/gpc3-power-switch");
+			SpaceShuttle.gpc_array[2].set_power(power);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr3</tooltip-id>
+                <label>GPC 3 Power: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc3-power-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 4 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr4</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc4-power-switch</property>
+        <factor>-90</factor>
+        <offset-deg>40</offset-deg>
+        <center>
+            <x-m>-11.96645</x-m>
+            <y-m> -0.37138</y-m>
+            <z-m>  0.29473</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc4-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.96645, 0.37138, 0.29473)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var power = getprop("/fdm/jsbsim/systems/dps/gpc4-power-switch");
+			SpaceShuttle.gpc_array[3].set_power(power);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr4</tooltip-id>
+                <label>GPC 4 Power: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc4-power-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 5 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr5</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc5-power-switch</property>
+        <factor>-90</factor>
+        <offset-deg>40</offset-deg>
+        <center>
+            <x-m>-11.96645</x-m>
+            <y-m> -0.33418</y-m>
+            <z-m>  0.29473</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc5-power-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.96645, 0.33418, 0.29473)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var power = getprop("/fdm/jsbsim/systems/dps/gpc5-power-switch");
+			SpaceShuttle.gpc_array[4].set_power(power);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr5</tooltip-id>
+                <label>GPC 5 Power: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc5-power-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 1 Bus "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus1</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc1-bus-switch</property>
+        <factor>-45</factor>
+        <offset-deg>-15</offset-deg>
+        <center>
+            <x-m>-12.06372</x-m>
+            <y-m> -0.4806</y-m>
+            <z-m>  0.27129</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc1-bus-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.06372, 0.4806, 0.27129)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var output = getprop("/fdm/jsbsim/systems/dps/gpc1-bus-switch");
+			SpaceShuttle.gpc_array[0].set_output(output);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus1</tooltip-id>
+                <label>GPC 1 Bus: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc1-bus-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Normal', 'Backup', 'Terminate'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 2 Bus "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus2</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc2-bus-switch</property>
+        <factor>-45</factor>
+        <offset-deg>-15</offset-deg>
+        <center>
+            <x-m>-12.06372</x-m>
+            <y-m> -0.4442</y-m>
+            <z-m>  0.27129</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc2-bus-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.06372, 0.4442, 0.27129)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var output = getprop("/fdm/jsbsim/systems/dps/gpc2-bus-switch");
+			SpaceShuttle.gpc_array[1].set_output(output);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus2</tooltip-id>
+                <label>GPC 2 Bus: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc2-bus-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Normal', 'Backup', 'Terminate'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 3 Bus "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus3</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc3-bus-switch</property>
+        <factor>-45</factor>
+        <offset-deg>-15</offset-deg>
+        <center>
+            <x-m>-12.06372</x-m>
+            <y-m> -0.40887</y-m>
+            <z-m>  0.27129</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc3-bus-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.06372, 0.40887, 0.27129)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var output = getprop("/fdm/jsbsim/systems/dps/gpc3-bus-switch");
+			SpaceShuttle.gpc_array[2].set_output(output);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus3</tooltip-id>
+                <label>GPC 3 Bus: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc3-bus-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Normal', 'Backup', 'Terminate'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 4 Bus "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus4</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc4-bus-switch</property>
+        <factor>-45</factor>
+        <offset-deg>-15</offset-deg>
+        <center>
+            <x-m>-12.06372</x-m>
+            <y-m> -0.37138</y-m>
+            <z-m>  0.27129</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc4-bus-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.06372, 0.37138, 0.27129)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var output = getprop("/fdm/jsbsim/systems/dps/gpc4-bus-switch");
+			SpaceShuttle.gpc_array[3].set_output(output);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus4</tooltip-id>
+                <label>GPC 4 Bus: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc4-bus-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Normal', 'Backup', 'Terminate'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 5 Bus "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus5</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc5-bus-switch</property>
+        <factor>-45</factor>
+        <offset-deg>-15</offset-deg>
+        <center>
+            <x-m>-12.06372</x-m>
+            <y-m> -0.33418</y-m>
+            <z-m>  0.27129</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc5-bus-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.06372, 0.33418, 0.27129)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var output = getprop("/fdm/jsbsim/systems/dps/gpc5-bus-switch");
+			SpaceShuttle.gpc_array[4].set_output(output);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus5</tooltip-id>
+                <label>GPC 5 Bus: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc5-bus-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Normal', 'Backup', 'Terminate'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 1 Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-mode1</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc1-mode-switch</property>
+        <factor>-45</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.21306</x-m>
+            <y-m> -0.47474</y-m>
+            <z-m>  0.23651</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc1-mode-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.21306, 0.47474, 0.23651)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var mode = getprop("/fdm/jsbsim/systems/dps/gpc1-mode-switch");
+			SpaceShuttle.gpc_array[0].set_mode(mode+1);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-mode1</tooltip-id>
+                <label>GPC 1 Mode: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc1-mode-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Standby', 'Run', 'Halt'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 2 Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-mode2</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc2-mode-switch</property>
+        <factor>-45</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.21306</x-m>
+            <y-m> -0.4405</y-m>
+            <z-m>  0.23651</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc2-mode-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.21306, 0.4405, 0.23651)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var mode = getprop("/fdm/jsbsim/systems/dps/gpc2-mode-switch");
+			SpaceShuttle.gpc_array[1].set_mode(mode+1);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-mode2</tooltip-id>
+                <label>GPC 2 Mode: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc2-mode-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Standby', 'Run', 'Halt'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 3 Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-mode3</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc3-mode-switch</property>
+        <factor>-45</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.21306</x-m>
+            <y-m> -0.40678</y-m>
+            <z-m>  0.23651</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc3-mode-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.21306, 0.40678, 0.23651)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var mode = getprop("/fdm/jsbsim/systems/dps/gpc3-mode-switch");
+			SpaceShuttle.gpc_array[2].set_mode(mode+1);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-mode3</tooltip-id>
+                <label>GPC 3 Mode: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc3-mode-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Standby', 'Run', 'Halt'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 4 Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-mode4</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc4-mode-switch</property>
+        <factor>-45</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.21306</x-m>
+            <y-m> -0.37306</y-m>
+            <z-m>  0.23651</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc4-mode-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.21306, 0.37306, 0.23651)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var mode = getprop("/fdm/jsbsim/systems/dps/gpc4-mode-switch");
+			SpaceShuttle.gpc_array[3].set_mode(mode+1);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-mode4</tooltip-id>
+                <label>GPC 4 Mode: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc4-mode-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Standby', 'Run', 'Halt'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 5 Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-mode5</object-name>
+        <property>/fdm/jsbsim/systems/dps/gpc5-mode-switch</property>
+        <factor>-45</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.21306</x-m>
+            <y-m> -0.33855</y-m>
+            <z-m>  0.23651</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/dps/gpc5-mode-switch</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.21306, 0.33855, 0.23651)</script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			var mode = getprop("/fdm/jsbsim/systems/dps/gpc5-mode-switch");
+			SpaceShuttle.gpc_array[4].set_mode(mode+1);
+		</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-mode5</tooltip-id>
+                <label>GPC 5 Mode: %s</label>
+                <property>/fdm/jsbsim/systems/dps/gpc5-mode-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Standby', 'Run', 'Halt'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC 1 Output "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output1-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc1-bus-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output1-gry</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc1-bus-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 2 Output "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output2-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc2-bus-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output2-gry</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc2-bus-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 3 Output "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output3-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc3-bus-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output3-gry</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc3-bus-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 4 Output "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output4-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc4-bus-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output4-gry</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc4-bus-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 5 Output "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output5-bp</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc5-bus-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-output5-gry</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc5-bus-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- GPC 1 Mode "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode1-hlt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc1-mode-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode1-run</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc1-mode-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 2 Mode "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode2-hlt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc2-mode-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode2-run</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc2-mode-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 3 Mode "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode3-hlt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc3-mode-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode3-run</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc3-mode-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 4 Mode "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode4-hlt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc4-mode-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode4-run</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc4-mode-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+    <!-- GPC 5 Mode "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode5-hlt</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc5-mode-talkback</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>gpc-mode5-run</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/dps/gpc5-mode-talkback</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Star Tracker Door Control System 1 "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>cover-st-ctrl-sys1</object-name>
-        <property>/sim/model/panel/cover/cover-st-ctrl-sys1</property>
+        <object-name>st-ctrl-sys1-cvr</object-name>
+        <property>/sim/model/panel/cover/st-ctrl-sys1-cvr</property>
         <factor>-90</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -6009,7 +7487,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/cover-st-ctrl-sys1</property>
+                <property>/sim/model/panel/cover/st-ctrl-sys1-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -6023,9 +7501,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>cover-st-ctrl-sys1</tooltip-id>
+                <tooltip-id>st-ctrl-sys1-cvr</tooltip-id>
                 <label>Star Tracker Door Control Cover: %s</label>
-                <property>/sim/model/panel/cover/cover-st-ctrl-sys1</property>
+                <property>/sim/model/panel/cover/st-ctrl-sys1-cvr</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -6038,8 +7516,8 @@
     <!-- Star Tracker Door Control System 2 "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>cover-st-ctrl-sys2</object-name>
-        <property>/sim/model/panel/cover/cover-st-ctrl-sys2</property>
+        <object-name>st-ctrl-sys2-cvr</object-name>
+        <property>/sim/model/panel/cover/st-ctrl-sys2-cvr</property>
         <factor>-90</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -6055,7 +7533,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/cover-st-ctrl-sys2</property>
+                <property>/sim/model/panel/cover/st-ctrl-sys2-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -6069,9 +7547,461 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>cover-st-ctrl-sys2</tooltip-id>
+                <tooltip-id>st-ctrl-sys2-cvr</tooltip-id>
                 <label>Star Tracker Door Control Cover: %s</label>
-                <property>/sim/model/panel/cover/cover-st-ctrl-sys2</property>
+                <property>/sim/model/panel/cover/st-ctrl-sys2-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC Power 1 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr1-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-pwr1-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94281</x-m>
+            <y-m> -0.4806</y-m>
+            <z-m>  0.30542</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-pwr1-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.94281, 0.4806, 0.30542)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr1-cvr</tooltip-id>
+                <label>GPC Power 1 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-pwr1-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Power 2 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr2-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-pwr2-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94281</x-m>
+            <y-m> -0.4442</y-m>
+            <z-m>  0.30542</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-pwr2-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.94281, 0.4442, 0.30542)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr2-cvr</tooltip-id>
+                <label>GPC Power 2 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-pwr2-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Power 3 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr3-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-pwr3-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94281</x-m>
+            <y-m> -0.40779</y-m>
+            <z-m>  0.30542</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-pwr3-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.94281, 0.40779, 0.30542)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr3-cvr</tooltip-id>
+                <label>GPC Power 3 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-pwr3-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Power 4 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr4-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-pwr4-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94281</x-m>
+            <y-m> -0.37138</y-m>
+            <z-m>  0.30542</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-pwr4-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.94281, 0.37138, 0.30542)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr4-cvr</tooltip-id>
+                <label>GPC Power 4 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-pwr4-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Power 5 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-pwr5-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-pwr5-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-11.94281</x-m>
+            <y-m> -0.33418</y-m>
+            <z-m>  0.30542</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-pwr5-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.94281, 0.33418, 0.30542)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-pwr5-cvr</tooltip-id>
+                <label>GPC Power 5 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-pwr5-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- GPC Bus 1 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus1-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-bus1-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.04011</x-m>
+            <y-m> -0.48081</y-m>
+            <z-m>  0.28198</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-bus1-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.04011, 0.48081, 0.28198)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus1-cvr</tooltip-id>
+                <label>GPC Bus 1 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-bus1-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Bus 2 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus2-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-bus2-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.04009</x-m>
+            <y-m> -0.4442</y-m>
+            <z-m>  0.28198</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-bus2-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.04009, 0.4442, 0.28198)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus2-cvr</tooltip-id>
+                <label>GPC Bus 2 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-bus2-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Bus 3 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus3-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-bus3-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.04009</x-m>
+            <y-m> -0.40779</y-m>
+            <z-m>  0.28198</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-bus3-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.04009, 0.40779, 0.28198)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus3-cvr</tooltip-id>
+                <label>GPC Bus 3 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-bus3-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Bus 4 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus4-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-bus4-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.04009</x-m>
+            <y-m> -0.37138</y-m>
+            <z-m>  0.28198</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-bus4-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.04009, 0.37138, 0.28198)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus4-cvr</tooltip-id>
+                <label>GPC Bus 4 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-bus4-cvr</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Closed', 'Open'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+    <!-- GPC Bus 5 "cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>gpc-bus5-cvr</object-name>
+        <property>/sim/model/panel/cover/gpc-bus5-cvr</property>
+        <factor>-90</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.04009</x-m>
+            <y-m> -0.33418</y-m>
+            <z-m>  0.28198</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/gpc-bus5-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.04009, 0.33418, 0.28198)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>gpc-bus5-cvr</tooltip-id>
+                <label>GPC Bus 5 Cover: %s</label>
+                <property>/sim/model/panel/cover/gpc-bus5-cvr</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -9454,8 +11384,8 @@
         <type>knob</type>
         <object-name>crt4-maj-func</object-name>
         <property>/fdm/jsbsim/systems/dps/idp-function-switch[3]</property>
-        <factor>-45</factor>
-        <offset-deg>75</offset-deg>
+        <factor>45</factor>
+        <offset-deg>-60</offset-deg>
         <center>
             <x-m>-11.4359</x-m>
             <y-m>  1.0556</y-m>
@@ -9489,7 +11419,7 @@
                 <property>/fdm/jsbsim/systems/dps/idp-function-switch[3]</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['PL', 'SM', 'GNC'];
+                    var modes = ['PL', 'GNC', 'SM'];
                     return modes[arg[0]];
                 </script>
             </binding>

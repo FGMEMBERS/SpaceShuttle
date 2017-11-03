@@ -37,18 +37,18 @@ adapted and extended by Thorsten Renk 2015-16
 			<min>0.0</min>
 			<max>1.0</max>
 		</pitch>
-	<condition>
-         <and>             
-			<less-than>
-               <property>/position/altitude-agl-ft</property>
-               <value>1000</value>
-            </less-than>
-			<not>
-				<property>/sim/current-view/internal</property>
-			</not>
-         </and>
+		<condition>
+		     <and>
+				<less-than>
+		           <property>/position/altitude-agl-ft</property>
+		           <value>1000</value>
+		        </less-than>
+				<not>
+					<property>/sim/current-view/internal</property>
+				</not>
+		     </and>
         </condition>
-	<delay-sec>1</delay-sec>
+		<delay-sec>1</delay-sec>
 	</wind> 
 
 	<!-- dynamical pressure consists of two components - a low rumble for turbulence and a generic wind -->
@@ -218,7 +218,6 @@ adapted and extended by Thorsten Renk 2015-16
 	<booster>
 		<name>booster</name>
 		<mode>looped</mode>
-		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>-->
 		<path>Aircraft/SpaceShuttle/Sounds/real_launch.wav</path>
 		<condition>
 			<and>
@@ -245,7 +244,6 @@ adapted and extended by Thorsten Renk 2015-16
 	<booster-external>
 		<name>booster-external</name>
 		<mode>looped</mode>
-		<!--<path>Aircraft/SpaceShuttle/Sounds/Vostok-1-Stage-1-2-Engines-Internal.wav</path>-->
 		<path>Aircraft/SpaceShuttle/Sounds/real_launch.wav</path>
 		<condition>
 			<and>
@@ -275,7 +273,6 @@ adapted and extended by Thorsten Renk 2015-16
 	<main>
 		<name>main</name>
 		<mode>looped</mode>
-		<!--<path>Sounds/rumble.wav</path>-->
 		<path>Sounds/exhaust_loop.wav</path>
 		<condition>
 			<property>/sim/current-view/internal</property>
@@ -296,7 +293,6 @@ adapted and extended by Thorsten Renk 2015-16
 		<main-external>
 		<name>main-external</name>
 		<mode>looped</mode>
-		<!--<path>Sounds/rumble.wav</path>-->
 		<path>Sounds/exhaust_loop.wav</path>
 		<condition>
 		    <not>
@@ -334,6 +330,7 @@ adapted and extended by Thorsten Renk 2015-16
 			<not>
 			  <property>/controls/shuttle/SRB-sound-veto</property>
 			</not>
+			<property>/sim/current-view/internal</property>
 			</and>
 		  </condition>
 		  <volume>
@@ -344,7 +341,7 @@ adapted and extended by Thorsten Renk 2015-16
 		</volume>
 	</booster-separation>
 	
-		<!-- External Tank separation-->
+	<!-- External Tank separation-->
 	
 	<tank-separation>
 		<name>tank-separation</name>
@@ -374,7 +371,7 @@ adapted and extended by Thorsten Renk 2015-16
 		</volume>
 	</tank-separation>
 
-        	<!-- OMS Main  -->
+    <!-- OMS Main  -->
 	
 	<OMS>
 		<name>OMS</name>
@@ -382,10 +379,16 @@ adapted and extended by Thorsten Renk 2015-16
 		<path>Aircraft/SpaceShuttle/Sounds/rumble.wav</path>		
 		  <condition>
 			<and>
-		    <greater-than>
-			<property>/engines/engine[5]/thrust_lb</property>
-			<value>0</value>
-		    </greater-than>
+			<or>
+			    <greater-than>
+				<property>/engines/engine[5]/thrust_lb</property>
+				<value>0</value>
+			    </greater-than>
+			    <greater-than>
+				<property>/engines/engine[6]/thrust_lb</property>
+				<value>0</value>
+			    </greater-than>
+			</or>
 			<property>/sim/current-view/internal</property>
 			</and>
 		  </condition>
@@ -394,10 +397,9 @@ adapted and extended by Thorsten Renk 2015-16
 			<max>0.6</max>
 		</volume>
 	</OMS>
-	
-	
 
 	<!-- RCS engine firings are only audible from the nose module and from inside -->
+
 	<RCS>
 		<name>RCS</name>
 		<mode>looped</mode>
@@ -563,8 +565,6 @@ adapted and extended by Thorsten Renk 2015-16
 		</pitch>
 	</RCS1>
 
-	
-	
 	<!-- doors  -->
 
 	<doors>
@@ -623,7 +623,6 @@ adapted and extended by Thorsten Renk 2015-16
 		</volume>
 	</gears>
 
-	
 	<!-- Touchdown  -->
 
 	<touchdown>
@@ -638,7 +637,7 @@ adapted and extended by Thorsten Renk 2015-16
                </greater-than>
                <less-than>
                 <property>velocities/vertical-speed-fps</property>
-		<value>-0.1</value>
+				<value>-0.1</value>
                </less-than>
 				<or>
 					<and>
@@ -787,10 +786,9 @@ adapted and extended by Thorsten Renk 2015-16
 	    <max>1.0</max>
           </volume>          
         </rumble>
-		
-		
+
 	<!-- orbiter breakup -->
-	
+
 	<explosion>
         <name>explosion</name>
 		<mode>once</mode>
@@ -822,28 +820,46 @@ adapted and extended by Thorsten Renk 2015-16
             <property>/sim/model/shuttle/sound/click-avionics</property>
         </condition>
         <position>
-            <x>-11.8375</x>
-            <y>  1.353 </y>
-            <z> -0.6376</z>
+            <x><property>/sim/model/shuttle/sound/click-pos-x</property></x>
+            <y><property>/sim/model/shuttle/sound/click-pos-y</property></y>
+            <z><property>/sim/model/shuttle/sound/click-pos-z</property></z>
         </position>
-        <reference-dist>0.2</reference-dist>
+        <reference-dist>.02</reference-dist>
         <max-dist>5.0</max-dist>
     </switch>
 
-    <!-- Button click sound -->
+
+    <!-- Button down sound -->
     <switch>
-        <name>click-button-switch</name>
+        <name>click-button-down-switch</name>
         <mode>once</mode>
-        <path>Sounds/button_press2.wav</path>
+        <path>Sounds/button_down.wav</path>
         <condition>
-            <property>/sim/model/shuttle/sound/click-button</property>
+            <property>/sim/model/shuttle/sound/click-button-down</property>
         </condition>
         <position>
-            <x>-11.8375</x>
-            <y>  1.353 </y>
-            <z> -0.6376</z>
+            <x><property>/sim/model/shuttle/sound/click-pos-x</property></x>
+            <y><property>/sim/model/shuttle/sound/click-pos-y</property></y>
+            <z><property>/sim/model/shuttle/sound/click-pos-z</property></z>
         </position>
-        <reference-dist>0.2</reference-dist>
+        <reference-dist>.02</reference-dist>
+        <max-dist>5.0</max-dist>
+    </switch>
+
+    <!-- Button up sound -->
+    <switch>
+        <name>click-button-up-switch</name>
+        <mode>once</mode>
+        <path>Sounds/button_up.wav</path>
+        <condition>
+            <property>/sim/model/shuttle/sound/click-button-up</property>
+        </condition>
+        <position>
+            <x><property>/sim/model/shuttle/sound/click-pos-x</property></x>
+            <y><property>/sim/model/shuttle/sound/click-pos-y</property></y>
+            <z><property>/sim/model/shuttle/sound/click-pos-z</property></z>
+        </position>
+        <reference-dist>.02</reference-dist>
         <max-dist>5.0</max-dist>
     </switch>
 
@@ -856,11 +872,11 @@ adapted and extended by Thorsten Renk 2015-16
             <property>/sim/model/shuttle/sound/click-cover</property>
         </condition>
         <position>
-            <x>-11.8375</x>
-            <y>  1.353 </y>
-            <z> -0.6376</z>
+            <x><property>/sim/model/shuttle/sound/click-pos-x</property></x>
+            <y><property>/sim/model/shuttle/sound/click-pos-y</property></y>
+            <z><property>/sim/model/shuttle/sound/click-pos-z</property></z>
         </position>
-        <reference-dist>0.2</reference-dist>
+        <reference-dist>.02</reference-dist>
         <max-dist>5.0</max-dist>
     </switch>
 
@@ -873,11 +889,11 @@ adapted and extended by Thorsten Renk 2015-16
             <property>/sim/model/shuttle/sound/click-knob</property>
         </condition>
         <position>
-            <x>-11.8375</x>
-            <y>  1.353 </y>
-            <z> -0.6376</z>
+            <x><property>/sim/model/shuttle/sound/click-pos-x</property></x>
+            <y><property>/sim/model/shuttle/sound/click-pos-y</property></y>
+            <z><property>/sim/model/shuttle/sound/click-pos-z</property></z>
         </position>
-        <reference-dist>0.2</reference-dist>
+        <reference-dist>.02</reference-dist>
         <max-dist>5.0</max-dist>
     </switch>
 

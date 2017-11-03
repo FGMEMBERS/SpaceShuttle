@@ -2,6 +2,11 @@
 # contingency-abort relevant high level routines for the Space Shuttle
 # Thorsten Renk 2016
 
+
+###########################################
+# two engine out contingency 
+###########################################
+
 var contingency_abort_region_2eo = func {
 
 
@@ -42,12 +47,15 @@ else # we're on TAL or nominal uphill
 
 	if ((abort_region == "BLUE") and (hdot > -hdot_limit) and (SRB_status == 0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "GREEN");}
-	else if ((abort_region == "GREEN") and (vi > 11000.0))
+	else if ((abort_region == "GREEN") and (vi > 12800.0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region", "");}
 	}
 
 
 }
+
+
+
 
 var contingency_abort_init = func {
 
@@ -173,6 +181,8 @@ setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
+setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",1);
+
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
 settimer( force_external_tank_separate, 1.0);
@@ -231,6 +241,8 @@ setprop("/controls/engines/engine[2]/throttle", 0.0);
 setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
+
+setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",1);
 
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
@@ -292,6 +304,8 @@ setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
+setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",1);
+
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
 settimer( force_external_tank_separate, 0.5);
@@ -351,9 +365,160 @@ setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", 0);
 setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", 0);
 
+setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",1);
+
 setprop("/fdm/jsbsim/systems/fcs/control-mode",20);
 
 settimer( force_external_tank_separate, 0.5);
 
 settimer( SpaceShuttle.rtls_transit_glide, 7.0);
+}
+
+
+
+###########################################
+# three engine out contingency 
+###########################################
+
+
+var contingency_abort_region_3eo = func {
+
+
+var abort_mode = getprop("/fdm/jsbsim/systems/abort/abort-mode");
+var contingency_arm = getprop("/fdm/jsbsim/systems/abort/arm-contingency");
+
+if (abort_mode > 9) # we are on a 3EO contingency abort, don't update
+	{
+	return;
+	}
+
+var SRB_status = getprop("/controls/shuttle/SRB-static-model");
+var abort_region = getprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo");
+var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
+
+
+if (guidance_mode == 3) # we're on RTLS
+	{
+	var eas = getprop("/velocities/equivalent-kt");
+	var picthdown = getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active");
+
+	if ((abort_region == "GREEN") and (eas > 9.0))
+		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "ORANGE");}
+	else if ((abort_region == "ORANGE") and (eas > 25))
+		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "YELLOW");}
+	else if ((abort_region == "YELLOW") and (pitchdown_active == 1))
+		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "RED");}
+
+	}
+else # we're on TAL or nominal uphill
+	{
+
+	var vi = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
+
+	if ((abort_region == "BLUE") and  (SRB_status == 0))
+		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "GREEN");}
+	else if ((abort_region == "GREEN") and (vi > 18400.0))
+		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "");}
+	}
+
+
+}
+
+
+var contingency_abort_init_3eo = func {
+
+var abort_region = getprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo");
+
+
+if  (abort_region == "") 
+	{
+	print ("No contingency abort situation!");
+	return;
+	}
+if (SpaceShuttle.bfs_in_control == 1)
+	{
+	print ("No contingency abort software in BFS!");
+	return;
+	}
+
+
+if (abort_region == "GREEN") 
+	{
+	setprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode",3);
+	setprop("/fdm/jsbsim/systems/abort/abort-mode", 11);
+	setprop("/controls/shuttle/hud-mode",2);
+	setprop("/fdm/jsbsim/systems/dps/major-mode", 601);
+	setprop("/fdm/jsbsim/systems/dps/ops", 6);
+	SpaceShuttle.ops_transition_auto("p_dps_rtls");
+
+	settimer( force_external_tank_separate, 0.5);
+
+	settimer( move_to_entry_attitude, 10.0);
+
+	# initialize OMS  dump
+
+	#setprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd",0);
+	#setprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd",1);
+	#setprop("/fdm/jsbsim/systems/oms/oms-dump-cmd", 0);
+	#SpaceShuttle.toggle_oms_fuel_dump();
+
+	contingency_green_loop_3eo();
+	}
+
+}
+
+var contingency_green_loop_3eo = func {
+
+var attitude_flag =  getprop("/fdm/jsbsim/systems/ap/track/in-attitude");
+
+if (attitude_flag == 1)
+	{
+	settimer( SpaceShuttle.rtls_transit_glide, 3.0);
+	return;
+	}
+
+
+settimer (contingency_green_loop_3eo, 1.0);
+}
+
+
+var move_to_entry_attitude = func {
+
+
+var prograde = [getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/prograde[2]")];
+
+var radial = [getprop("/fdm/jsbsim/systems/pointing/inertial/radial[0]"),getprop("/fdm/jsbsim/systems/pointing/inertial/radial[1]"), getprop("/fdm/jsbsim/systems/pointing/inertial/radial[2]")];
+
+
+# tilt prograde vector to align with horizon
+
+radial = normalize(radial);
+prograde = orthonormalize(radial, prograde);
+
+var normal = cross_product (prograde, radial);
+
+# set the tracking vectors
+
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", prograde[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", prograde[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", prograde[2]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", radial[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", radial[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", radial[2]);
+
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", normal[0]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", normal[1]);
+setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", normal[2]);
+
+# switch DAP on
+
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 1);
+setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+
+setprop("/fdm/jsbsim/systems/fcs/control-mode", 20);
+setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 1);
+
 }

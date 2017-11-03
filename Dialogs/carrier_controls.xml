@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<name>carrier_controls</name>
+	<layout>vbox</layout>
+	<default-padding>1</default-padding>
+	<modal>false</modal>
+	<width>500</width>
+
+	<empty>
+		<pref-height>6</pref-height>
+	</empty>
+
+	<text>
+		<label>Carrier Aircraft Control</label>
+	</text>
+
+	<empty>
+		<pref-height>4</pref-height>
+	</empty>
+
+	<hrule/>
+
+ <group>
+    <layout>table</layout>
+  
+   	<button>
+		<legend> left </legend>
+       		<row>0</row>
+        	<col>0</col>
+		<binding>
+			<command>nasal</command>
+			<script>SpaceShuttle.carrier_aircraft.change_bank_tgt(-1.0);
+			</script>
+		</binding>
+	</button>
+
+   	<button>
+		<legend> right </legend>
+       		<row>0</row>
+        	<col>2</col>
+		<binding>
+			<command>nasal</command>
+			<script>SpaceShuttle.carrier_aircraft.change_bank_tgt(1.0);
+			</script>
+		</binding>
+	</button>
+
+   	<button>
+		<legend>init pitchdown</legend>
+       		<row>1</row>
+        	<col>1</col>
+		<binding>
+			<command>nasal</command>
+			<script>SpaceShuttle.carrier_aircraft.carrier_pitch_target = -2.0;
+			</script>
+		</binding>
+	</button>
+
+
+</group>
+
+
+        <empty>
+		<pref-height>12</pref-height>
+	</empty>
+
+	<hrule/>
+
+	<empty>
+		<pref-height>20</pref-height>
+	</empty>
+
+	<button>
+		<legend>Close</legend>
+		<default>true</default>
+		<key>Esc</key>
+		<binding>
+			<command>dialog-close</command>
+		</binding>
+	</button>
+
+</PropertyList>

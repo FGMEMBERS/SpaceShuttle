@@ -227,17 +227,17 @@ var PFD_addpage_p_dps_env = func(device)
 
 	# IMU fans
 
-	var imu_A = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-switch");
+	var imu_A = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-A-operational");
 	var sym = "*";
 	if (imu_A == 0){sym = "";}
 	p_dps_env.imu_fan_A.setText(sym);
 
-	var imu_B = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-switch");
+	var imu_B = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-B-operational");
 	sym = "*";
 	if (imu_B == 0){sym = "";}
 	p_dps_env.imu_fan_B.setText(sym);
 
-	var imu_C = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-switch");
+	var imu_C = getprop("/fdm/jsbsim/systems/eclss/avbay/imu-fan-C-operational");
 	sym = "*";
 	if (imu_C == 0){sym = "";}
 	p_dps_env.imu_fan_C.setText(sym);

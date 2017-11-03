@@ -4,7 +4,7 @@
 
   <params>
     <nose_damage_ground_effect_speed_kt>
-	  <property>/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt-actual</property>
+      <property>/fdm/jsbsim/ground/nose-damage-ground-effect-speed-kt-actual</property>
     </nose_damage_ground_effect_speed_kt>
   </params>
 
@@ -15,14 +15,14 @@
     <emissive>false</emissive>
     <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
     <condition>
-        <property alias="/params/nose_damage_ground_effect_speed_kt/property"/>
+      <property alias="/params/nose_damage_ground_effect_speed_kt/property"/>
     </condition>
 
     <attach>world</attach>

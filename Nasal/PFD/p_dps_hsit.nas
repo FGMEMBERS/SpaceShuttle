@@ -161,16 +161,45 @@ var PFD_addpage_p_dps_hsit = func(device)
 
     p_dps_hsit.MLS = device.svg.getElementById("p_dps_hsit_MLS");
 
+    p_dps_hsit.pass = device.svg.getElementById("p_dps_hsit_pass");
+    p_dps_hsit.bfs = device.svg.getElementById("p_dps_hsit_bfs");
+
+    p_dps_hsit.bfs_gps_az = device.svg.getElementById("p_dps_hsit_bfs_gps_az");
+    p_dps_hsit.bfs_gps_rng = device.svg.getElementById("p_dps_hsit_bfs_gps_rng");
+
 
 
     p_dps_hsit.ondisplay = func
     {
         device.DPS_menu_title.setText("HORIZ SIT");
         device.MEDS_menu_title.setText("       DPS MENU");
+
+	p_dps_hsit.major_func = SpaceShuttle.idp_array[device.port_selected-1].get_major_function();
+
+	# switch BFS elements on and PASS elements off if we run BFS
+
+	if (p_dps_hsit.major_func == 4)
+		{
+		p_dps_hsit.pass.setVisible(0);
+		p_dps_hsit.bfs.setVisible(1);
+		}
+	else
+		{
+		p_dps_hsit.pass.setVisible(1);
+		p_dps_hsit.bfs.setVisible(0);
+		}
+
     
         var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+	if (SpaceShuttle.idp_array[device.port_selected-1].get_major_function() == 4)
+		{
+		major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+		}
     
         var ops_string = major_mode~"1/050/";
+
+
         device.DPS_menu_ops.setText(ops_string);
 
 	p_dps_hsit.MLS.setVisible(0);
@@ -517,6 +546,8 @@ var PFD_addpage_p_dps_hsit = func(device)
 			{
 	  		p_dps_hsit.gps_s_rn.setText(sprintf("%+3.2f",range));
 	    		p_dps_hsit.gps_az.setText(sprintf("%+3.2f", course_disp));
+	    		p_dps_hsit.bfs_gps_az.setText(sprintf("%+3.2f", course_disp));
+	    		p_dps_hsit.bfs_gps_rng.setText(sprintf("%3.2f", range));
 			p_dps_hsit.gps_h.setText(sprintf("%3.1f", altitude_above_site));
 
 
@@ -526,6 +557,8 @@ var PFD_addpage_p_dps_hsit = func(device)
 	  		p_dps_hsit.gps_s_rn.setText("");
 	    		p_dps_hsit.gps_az.setText("");
 			p_dps_hsit.gps_h.setText("");
+	    		p_dps_hsit.bfs_gps_az.setText("");
+	    		p_dps_hsit.bfs_gps_rng.setText("");
 			}
 
 
@@ -600,6 +633,8 @@ var PFD_addpage_p_dps_hsit = func(device)
   		p_dps_hsit.gps_s_rn.setText("");
     		p_dps_hsit.gps_az.setText("");
 		p_dps_hsit.gps_h.setText("");
+    		p_dps_hsit.bfs_gps_az.setText("");
+    		p_dps_hsit.bfs_gps_rng.setText("");
 
 
 		}

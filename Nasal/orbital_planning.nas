@@ -259,9 +259,8 @@ var x = [getprop("/fdm/jsbsim/position/eci-x-ft"), getprop("/fdm/jsbsim/position
 
 var v = [getprop("/fdm/jsbsim/velocities/eci-x-fps") * factor, getprop("/fdm/jsbsim/velocities/eci-y-fps") * factor, getprop("/fdm/jsbsim/velocities/eci-z-fps") * factor];
 
-get_rei(x,v);
 
-
+return get_rei(x,v);
 }
 
 var get_rei = func (x, v){

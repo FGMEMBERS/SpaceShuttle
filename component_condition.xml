@@ -176,7 +176,17 @@
 	<adta-3-condition type="double">1.0</adta-3-condition>
 	<adta-4-condition type="double">1.0</adta-4-condition>
 	<gps-condition type="double">1.0</gps-condition>
+	<imu-1-condition type="double">1.0</imu-1-condition>
+	<imu-2-condition type="double">1.0</imu-2-condition>
+	<imu-3-condition type="double">1.0</imu-3-condition>
 </navigation>
+<dps>
+	<gpc-1-condition type="double">1.0</gpc-1-condition>
+	<gpc-2-condition type="double">1.0</gpc-2-condition>
+	<gpc-3-condition type="double">1.0</gpc-3-condition>
+	<gpc-4-condition type="double">1.0</gpc-4-condition>
+	<gpc-5-condition type="double">1.0</gpc-5-condition>
+</dps>
 <shuttle-destroyed type="bool">false</shuttle-destroyed>
 <shuttle-damaged type="bool">false</shuttle-damaged>
 

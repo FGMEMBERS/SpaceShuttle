@@ -218,6 +218,40 @@
 			</test>
 		</switch>
 
+		<switch name="systems/cws/mps-hw">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/mps/helium/reg-pressure-psia LT 680.0
+				systems/mps/helium[1]/reg-pressure-psia LT 680.0
+				systems/mps/helium[2]/reg-pressure-psia LT 680.0
+				systems/mps/helium/reg-pressure-psia GT 810.0
+				systems/mps/helium[1]/reg-pressure-psia GT 810.0
+				systems/mps/helium[2]/reg-pressure-psia GT 810.0
+				systems/mps/helium/pressure-psia LT 1150.0
+				systems/mps/helium[1]/pressure-psia LT 1150.0
+				systems/mps/helium[2]/pressure-psia LT 1150.0
+				systems/mps/helium[3]/pressure-psia LT 1150.0
+				systems/mps/lh2-manifold-pressure-psia GT 65.0
+				systems/mps/lo2-manifold-pressure-psia GT 249.0
+			</test>
+		</switch>
+
+		<switch name="systems/cws/mps-mm">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/dps/major-mode == 102
+				systems/dps/major-mode == 103
+			</test>
+		</switch>
+
+		<switch name="systems/cws/mps">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/cws/mps-hw == 1
+				systems/cws/mps-mm == 1
+			</test>
+		</switch>
+
 		<switch name="systems/cws/backup-cw">
 			<default value="0.0"/>
 			<test logic="OR" value="1.0">
@@ -233,6 +267,12 @@
 				systems/electrical/ac/voltage LT 115.0
 				systems/electrical/ac[1]/voltage LT 115.0
 				systems/electrical/ac[2]/voltage LT 115.0
+				systems/mps/helium/pressure-psia LT 1150.0
+				systems/mps/helium[1]/pressure-psia LT 1150.0
+				systems/mps/helium[2]/pressure-psia LT 1150.0
+				systems/mps/helium[3]/pressure-psia LT 1150.0
+				systems/mps/lh2-manifold-pressure-psia GT 65
+				systems/mps/lo2-manifold-pressure-psia GT 249
 			</test>
 		</switch>
 

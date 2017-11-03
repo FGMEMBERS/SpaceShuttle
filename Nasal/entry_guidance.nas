@@ -66,6 +66,11 @@ var update_entry_guidance =  func {
 var pos = geo.aircraft_position();
 var mm = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
+if (SpaceShuttle.bfs_in_control == 1)
+	{
+	mm = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+	}
+
 var course = pos.course_to(landing_site);
 var v_eci = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps");
 var distance = pos.distance_to(landing_site);

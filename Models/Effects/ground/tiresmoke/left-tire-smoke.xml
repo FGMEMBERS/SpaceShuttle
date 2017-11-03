@@ -3,26 +3,24 @@
 <PropertyList>
 
   <params>
-    <left_tire_smoke_ground_effect>
-	  <property>/fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt-actual</property>
-    </left_tire_smoke_ground_effect>
+    <left_tire_smoke_ground_effect>fdm/jsbsim/ground/left-tire-smoke-ground-effect-speed-kt-actual</left_tire_smoke_ground_effect>
   </params>
 
   <particlesystem>
 
-    <name>leftt-tire-smoke</name>
+    <name>left-tire-smoke</name>
     <texture>tyresmoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
 
-	<offsets>
-	   <x-m>0</x-m>
-	   <y-m>0</y-m>
-	   <z-m>0</z-m>
-	</offsets>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </offsets>
 
     <condition>
-        <property alias="/params/left_tire_smoke_ground_effect/property"/>
+      <property alias="/params/left_tire_smoke_ground_effect"/>
     </condition>
 
     <attach>world</attach>

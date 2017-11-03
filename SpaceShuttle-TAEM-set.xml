@@ -14,9 +14,9 @@
 	<pitch-deg>3.0</pitch-deg>	
 	<stage type="int">3</stage>
   </presets>
-  <!--<startup>
+  <startup>
     <splash-texture>Aircraft/SpaceShuttle/SpaceShuttle-TAEM-splash.png</splash-texture>
-  </startup>-->
+  </startup>
  <previews>
       <preview>
         <type>exterior</type>
@@ -37,6 +37,8 @@
 	   <dps>
 		<ops type="int">3</ops>
 		<major-mode type="int">305</major-mode>
+		<ops-bfs type="int">3</ops-bfs>
+		<major-mode-bfs type="int">305</major-mode-bfs>
 	   </dps>
 	</systems>
    </jsbsim>

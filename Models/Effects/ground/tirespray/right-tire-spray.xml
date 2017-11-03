@@ -2,19 +2,15 @@
 
 <PropertyList>
 
-    <!--params>
-        <right_tire_spray_speed>
-			<property>/gear/gear[2]/sprayspeed-ms</property>
-		</right_tire_spray_speed>
-        <right_tire_spray_density>
-			<property>/gear/gear[2]/spray-density</property>
-		</right_tire_spray_density>
-    </params-->
+    <params>
+        <right_tire_spray_speed>gear/gear[2]/sprayspeed-ms</right_tire_spray_speed>
+        <right_tire_spray_density>gear/gear[2]/spray-density</right_tire_spray_density>
+    </params>
 
 	<particlesystem>
 
 		<name>right-tire-spray</name>
-		<texture>Effects/ground/tirespray/smoke.png</texture>
+		<texture>smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 
@@ -24,17 +20,16 @@
 			<z-m>0</z-m>
 		</offsets>
 
-		<condition>
-            <greater-than>
-			    <!--property alias="/params/right_tire_spray_density"/-->
-				<property>/gear/gear[2]/spray-density</property>
-                <value>0.0</value>
-            </greater-than>
-			<equals>
-				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
-				<value>1</value>
-			</equals>
-		</condition>
+    <condition>
+      <greater-than>
+        <property alias="/params/right_tire_spray_density"/>
+        <value>0.0</value>
+      </greater-than>
+      <equals>
+        <property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
+        <value>1</value>
+      </equals>
+    </condition>
 
 		<attach>world</attach>
 
@@ -63,9 +58,8 @@
 			<phi-min-deg>-5</phi-min-deg>
 			<phi-max-deg>5</phi-max-deg>
 			<speed-mps>
-			    <!--property alias="/params/right_tire_spray_speed"/-->
-				<property>/gear/gear[2]/sprayspeed-ms</property>
-				<spread>20</spread>
+        <property alias="/params/right_tire_spray_speed"/>
+        <spread>20</spread>
 			</speed-mps>
 			<rotation-speed>
 				<x-max-deg-sec>15</x-max-deg-sec>
@@ -79,10 +73,9 @@
 
 		<counter>
 			<particles-per-sec>
-			    <!--property alias="/params/right_tire_spray_density"/-->
-				<property>/gear/gear[2]/spray-density</property>
-				<factor>2.5</factor>
-				<spread>100</spread>
+        <property alias="/params/right_tire_spray_density"/>
+        <factor>2.5</factor>
+        <spread>100</spread>
 			</particles-per-sec>
         </counter>
 

@@ -53,7 +53,8 @@ var qbar = getprop("/fdm/jsbsim/aero/qbar-psf");
 
 if ((qbar > 819.0) and (qbar_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Dynamical pressure exceeds limits!");
+	#setprop("/sim/messages/copilot", "Dynamical pressure exceeds limits!");
+	SpaceShuttle.callout.make("Dynamical pressure exceeds limits!", "failure");
 	fail_flag = 1;
 	qbar_warn = 2;
 
@@ -65,7 +66,8 @@ if ((qbar > 819.0) and (qbar_warn == 1))
 	}
 else if ((qbar > 800.0) and (qbar_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Dynamical pressure approaching limit! Throttle down!");
+	#setprop("/sim/messages/copilot", "Dynamical pressure approaching limit! Throttle down!");
+	SpaceShuttle.callout.make("Dynamical pressure approaching limit! Throttle down!", "limit");
 	qbar_warn = 1;
 	settimer(func {qbar_warn = 0;}, 10.0);
 	}
@@ -79,7 +81,8 @@ if (v_inertial > 12000.0)
 	{
 	if (altitude < 265000.0)
 		{
-		setprop("/sim/messages/copilot", "ET heat load exceeds limits!");
+		#setprop("/sim/messages/copilot", "ET heat load exceeds limits!");
+		SpaceShuttle.callout.make("ET heat load exceeds limits!", "failure");
 		fail_flag = 1;
 
 		if (limit_simulation_mode == 1)
@@ -89,7 +92,8 @@ if (v_inertial > 12000.0)
 		}
 	else if ((altitude < 300000.0) and(droop_warn == 0))
 		{
-		setprop("/sim/messages/copilot", "Dangerous heat load on ET - raise ascent trajectory!");
+		#setprop("/sim/messages/copilot", "Dangerous heat load on ET - raise ascent trajectory!");
+		SpaceShuttle.callout.make("Dangerous heat load on ET - raise ascent trajectory!", "limit");
 		droop_warn = 1;
 		settimer(func {droop_warn = 0;}, 10.0);
 		}
@@ -105,7 +109,8 @@ var Nx = getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm");
 
 if (((Nx > 3.9) or (Nx < -0.5)) and (agl_altitude > 100)) 
 	{
-	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	#setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	SpaceShuttle.callout.make("Orbiter structural limits exceeded!", "failure");
 	fail_flag = 1;
 	
 	if (limit_simulation_mode == 1)
@@ -116,7 +121,8 @@ if (((Nx > 3.9) or (Nx < -0.5)) and (agl_altitude > 100))
 	}
 else if (((Nx > 3.19) or (Nx < -0.1)) and (Nx_warn == 0) and (agl_altitude > 100))
 	{
-	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
+	#setprop("/sim/messages/copilot", "Acceleration exceeds safe limits! Throttle down!");
+	SpaceShuttle.callout.make("Acceleration exceeds safe limits! Throttle down!", "limit");
 	Nx_warn = 1;
 	settimer(func {Nx_warn = 0;}, 10.0);
 	}
@@ -128,7 +134,8 @@ var CBW = getprop("/fdm/jsbsim/systems/various/wing-bending-moment");
 
 if ((math.abs(CBW) > 2458000.0) and (CBW_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Wing bending moment exceeds limits!");
+	#setprop("/sim/messages/copilot", "Wing bending moment exceeds limits!");
+	SpaceShuttle.callout.make("Wing bending moment exceeds limits!", "failure");
 	fail_flag = 1;
 	CBW_warn = 2;
 
@@ -140,7 +147,8 @@ if ((math.abs(CBW) > 2458000.0) and (CBW_warn == 1))
 	}
 else if ((math.abs(CBW) > 2000000.0) and (CBW_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Wing bending moment approaches safety limits! Watch AoA!");
+	#setprop("/sim/messages/copilot", "Wing bending moment approaches safety limits! Watch AoA!");
+	SpaceShuttle.callout.make("Wing bending moment approaches safety limits! Watch AoA!", "limit");
 	CBW_warn = 1;
 	settimer(func {CBW_warn = 0;}, 10.0);
 	}
@@ -158,6 +166,8 @@ if (limit_simulation_mode ==2)
 		}	
 
 	}
+
+SpaceShuttle.gpc_manager.check_output();
 
 
 # check for pre-defined failures
@@ -183,7 +193,8 @@ var T = getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperature-K
 
 if ((T > 335.0) and (avionics_bay_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Total avionics failure!");
+	#setprop("/sim/messages/copilot", "Total avionics failure!");
+	SpaceShuttle.callout.make("Total avionics failure!", "failure");
 	fail_flag = 1;
 	avionics_bay_heat_warn = 2;
 
@@ -195,7 +206,8 @@ if ((T > 335.0) and (avionics_bay_heat_warn == 1))
 	}
 else if ((T > 328.0) and (avionics_bay_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	#setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	SpaceShuttle.callout.make("Avionics bay overheating - check thermal management!", "limit");
 	avionics_bay_heat_warn = 1;
 	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
 	}
@@ -218,7 +230,8 @@ if (T3 > T) {T = T3;}
 
 if ((T > 425.0) and (apu_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "APU damage!");
+	#setprop("/sim/messages/copilot", "APU damage!");
+	SpaceShuttle.callout.make("APU damage!", "failure");
 	fail_flag = 1;
 	apu_heat_warn = 2;
 	settimer( func {apu_heat_warn = 0;}, 20.0);
@@ -236,7 +249,8 @@ if ((T > 425.0) and (apu_heat_warn == 1))
 	}
 else if ((T > 415.0) and (apu_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	#setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	SpaceShuttle.callout.make("APU overheating - activate spray boilers!", "limit");
 	apu_heat_warn = 1;
 	settimer(func {apu_heat_warn = 0;}, 60.0);
 	}
@@ -252,6 +266,8 @@ if (limit_simulation_mode ==2)
 		}	
 
 	}
+
+SpaceShuttle.gpc_manager.check_output();
 
 # check for pre-defined failures
 
@@ -276,7 +292,8 @@ var PB_door_state = getprop("/fdm/jsbsim/systems/mechanical/pb-door-left-animati
 
 if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
 	{
-	setprop("/sim/messages/copilot", "Thermal protection failure!");
+	#setprop("/sim/messages/copilot", "Thermal protection failure!");
+	SpaceShuttle.callout.make("Thermal protection failure!", "failure");
 	fail_flag = 1;
 	TPS_ET_warn = 2;
 
@@ -287,12 +304,12 @@ if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
 
 	}
 
+var T_stress = getprop("/fdm/jsbsim/systems/thermal/thermal-stress");
 
 
-
-if ((T > 3100.0) and (TPS_warn == 1))
+if ((T_stress > 1.0) and (TPS_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Thermal protection system failure!");
+	SpaceShuttle.callout.make("Thermal protection failure!", "failure");
 	fail_flag = 1;
 	TPS_warn = 2;
 
@@ -304,7 +321,8 @@ if ((T > 3100.0) and (TPS_warn == 1))
 	}
 else if ((T > 3050.0) and (TPS_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Heat shield temperature too high!");
+	#setprop("/sim/messages/copilot", "Heat shield temperature too high!");
+	SpaceShuttle.callout.make("Heat shield temperature too high!", "limit");
 	TPS_warn = 1;
 	settimer(func {if (TPS_warn < 2) {TPS_warn = 0;}}, 10.0);
 	}
@@ -316,7 +334,8 @@ var T_av = getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperatur
 
 if ((T_av > 335.0) and (avionics_bay_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Total avionics failure!");
+	#setprop("/sim/messages/copilot", "Total avionics failure!");
+	SpaceShuttle.callout.make("Total avionics failure!", "failure");
 	fail_flag = 1;
 	avionics_bay_heat_warn = 2;
 
@@ -328,7 +347,8 @@ if ((T_av > 335.0) and (avionics_bay_heat_warn == 1))
 	}
 else if ((T_av > 328.0) and (avionics_bay_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	#setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	SpaceShuttle.callout.make("Avionics bay overheating - check thermal management!", "limit");
 	avionics_bay_heat_warn = 1;
 	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
 	}
@@ -349,7 +369,8 @@ if (T3 > T_apu) {T_apu = T3;}
 
 if ((T_apu > 425.0) and (apu_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "APU damage!");
+	#setprop("/sim/messages/copilot", "APU damage!");
+	SpaceShuttle.callout.make("APU damage!", "failure");
 	fail_flag = 1;
 	apu_heat_warn = 2;
 	settimer( func {apu_heat_warn = 0;}, 20.0);
@@ -367,7 +388,8 @@ if ((T_apu > 425.0) and (apu_heat_warn == 1))
 	}
 else if ((T_apu > 415.0) and (apu_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	#setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	SpaceShuttle.callout.make("APU overheating - activate spray boilers!", "limit");
 	apu_heat_warn = 1;
 	settimer(func {apu_heat_warn = 0;}, 60.0);
 	}
@@ -379,7 +401,8 @@ var Nz = getprop("/fdm/jsbsim/accelerations/Nz");
 
 if (Nz > 5.5)
 	{
-	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	#setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	SpaceShuttle.callout.make("Orbiter structural limits exceeded!", "failure");
 	fail_flag = 1;
 	
 	if (limit_simulation_mode == 1)
@@ -390,7 +413,8 @@ if (Nz > 5.5)
 	}
 else if ((Nz > 3.9) and (Nz_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "g-force exceeds safe limits!");
+	#setprop("/sim/messages/copilot", "g-force exceeds safe limits!");
+	SpaceShuttle.callout.make("g-force exceeds safe limits!", "limit");
 	Nz_warn = 1;
 	settimer(func {Nz_warn = 0;}, 10.0);
 	}
@@ -406,6 +430,8 @@ if (limit_simulation_mode ==2)
 		}	
 
 	}
+
+SpaceShuttle.gpc_manager.check_output();
 
 # check for pre-defined failures
 
@@ -429,7 +455,8 @@ var keas = getprop("/velocities/equivalent-kt");
 
 if ((getprop("/controls/gear/gear-down") == 1) and (keas > 312))
 	{
-	setprop("/sim/messages/copilot", "Gear extended above maximum speed!");
+	#setprop("/sim/messages/copilot", "Gear extended above maximum speed!");
+	SpaceShuttle.callout.make("Gear extended above maximum speed!", "limit");
 	fail_flag = 1;
 	}
 
@@ -440,7 +467,8 @@ var T_av = getprop("/fdm/jsbsim/systems/thermal-distribution/avionics-temperatur
 
 if ((T_av > 335.0) and (avionics_bay_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Total avionics failure!");
+	#setprop("/sim/messages/copilot", "Total avionics failure!");
+	SpaceShuttle.callout.make("Total avionics failure!", "failure");
 	fail_flag = 1;
 	avionics_bay_heat_warn = 2;
 
@@ -452,7 +480,8 @@ if ((T_av > 335.0) and (avionics_bay_heat_warn == 1))
 	}
 else if ((T_av > 328.0) and (avionics_bay_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	#setprop("/sim/messages/copilot", "Avionics bay overheating - check thermal management!");
+	SpaceShuttle.callout.make("Avionics bay overheating - check thermal management!", "limit");
 	avionics_bay_heat_warn = 1;
 	settimer(func {avionics_bay_heat_warn = 0;}, 60.0);
 	}
@@ -473,7 +502,8 @@ if (T3 > T_apu) {T_apu = T3;}
 
 if ((T_apu > 425.0) and (apu_heat_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "APU damage!");
+	#setprop("/sim/messages/copilot", "APU damage!");
+	SpaceShuttle.callout.make("APU damage!", "failure");
 	fail_flag = 1;
 	apu_heat_warn = 2;
 	settimer( func {apu_heat_warn = 0;}, 20.0);
@@ -491,7 +521,8 @@ if ((T_apu > 425.0) and (apu_heat_warn == 1))
 	}
 else if ((T_apu > 410.0) and (apu_heat_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	#setprop("/sim/messages/copilot", "APU overheating - activate spray boilers!");
+	SpaceShuttle.callout.make("APU overheating - activate spray boilers!", "limit");
 	apu_heat_warn = 1;
 	settimer(func {apu_heat_warn = 0;}, 60.0);
 	}
@@ -507,7 +538,8 @@ var mach = getprop("/velocities/mach");
 
 if ((qbar > qbar_limit) and (qbar_warn == 0) and (mach > 1.0))
 	{
-	setprop("/sim/messages/copilot", "Dynamical pressure approaching limit! Pull up!");
+	#setprop("/sim/messages/copilot", "Dynamical pressure approaching limit! Pull up!");
+	SpaceShuttle.callout.make("Dynamical pressure approaching limit! Pull up!", "limit");
 	qbar_warn = 1;
 	settimer(func {qbar_warn = 0;}, 10.0);
 	}
@@ -519,7 +551,8 @@ var Nz = getprop("/fdm/jsbsim/accelerations/Nz");
 
 if (Nz > 5.5) 
 	{
-	setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	#setprop("/sim/messages/copilot", "Orbiter structural limits exceeded!");
+	SpaceShuttle.callout.make("Orbiter structural limits exceeded!", "failure");
 	fail_flag = 1;
 	
 	if (limit_simulation_mode == 1)
@@ -530,7 +563,8 @@ if (Nz > 5.5)
 	}
 else if ((Nz > 3.9) and (Nz_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Acceleration exceeds safe limits!");
+	#setprop("/sim/messages/copilot", "Acceleration exceeds safe limits!");
+	SpaceShuttle.callout.make("Acceleration exceeds safe limits!", "limit");
 	Nz_warn = 1;
 	settimer(func {Nz_warn = 0;}, 10.0);
 	}
@@ -547,6 +581,8 @@ if (limit_simulation_mode == 2)
 		}	
 
 	}
+
+SpaceShuttle.gpc_manager.check_output();
 
 # check for pre-defined failures
 
@@ -574,13 +610,15 @@ var vspeed = getprop("/velocities/vertical-speed-fps");
 
 if ((pitch > 15.0) and (tailscrape_warn == 1))
 	{
-	setprop("/sim/messages/copilot", "Tailscrape!");
+	#setprop("/sim/messages/copilot", "Tailscrape!");
+	SpaceShuttle.callout.make("Tailscrape!", "failure");
 	tailscrape_warn = 2;
 	fail_flag = 1;
 	}
 else if ((pitch > 14.0) and (tailscrape_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Beware of tailscrape - nose down!");
+	#setprop("/sim/messages/copilot", "Beware of tailscrape - nose down!");
+	SpaceShuttle.callout.make("Beware of tailscrape - nose down!", "limit");
 	tailscrape_warn = 1;
 	settimer(func {qbar_warn = 0;}, 10.0);
 	}
@@ -591,7 +629,10 @@ else if ((pitch > 14.0) and (tailscrape_warn == 0))
 if (vspeed < -9.0) 
 	{
 	if (vspeed_warn == 0)
-		{setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");}
+		{
+		#setprop("/sim/messages/copilot", "Vertical speed exceeds touchdown limits!");
+		SpaceShuttle.callout.make("Vertical speed exceeds touchdown limits!", "failure");
+		}
 	vspeed_warn = 1;
 	fail_flag = 1;
 	#print("vspeed: ", vspeed);
@@ -604,7 +645,8 @@ if (vspeed < -9.0)
 
 if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
 	{
-	setprop("/sim/messages/copilot", "Derotation exceeds nose wheel structural limits!");
+	#setprop("/sim/messages/copilot", "Derotation exceeds nose wheel structural limits!");
+	SpaceShuttle.callout.make("Derotation exceeds nose wheel structural limits!", "failure");
 	fail_flag = 1;
 	}
 
@@ -613,7 +655,8 @@ if ((pitch_rate < -2.0) and (getprop("/gear/gear[0]/wow") == 1))
 
 if ((airspeed > 230.0) and (getprop("/controls/shuttle/parachute") >0 ) and (chute_warn == 0))
 	{
-	setprop("/sim/messages/copilot", "Above drag chute deployment speed!");
+	#setprop("/sim/messages/copilot", "Above drag chute deployment speed!");
+	SpaceShuttle.callout.make("Above drag chute deployment speed!", "failure");
 	fail_flag = 1;
 	chute_warn = 1;
 	
@@ -628,7 +671,8 @@ var chute_state = getprop("/controls/shuttle/drag-chute-jettison");
 
 if ((chute_out > 0) and (chute_state == 0) and (airspeed < 20.0))
 	{
-	setprop("/sim/messages/copilot", "Engine damaged by drag chute!");
+	#setprop("/sim/messages/copilot", "Engine damaged by drag chute!");
+	SpaceShuttle.callout.make("Engine damaged by drag chute!", "failure");
 	SpaceShuttle.jettison_drag_chute();
 	fail_flag = 1;
 	}

@@ -18,6 +18,15 @@
         </emission>
     </animation>
 
+  <!-- payload bay door reflections -->
+
+    <animation>
+        <type>material</type>
+        <object-name>payload-bay-door-left</object-name>
+        <object-name>payload-bay-door-right</object-name>
+        <shininess>100.0</shininess>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Cockpit                                                             -->
     <!-- ******************************************************************* -->
@@ -105,6 +114,25 @@
 		</equals>
  	</condition>
   </model>
+
+
+<!-- carrier aircraft -->
+
+    <model>
+        <path>Aircraft/SpaceShuttle/Models/SCA/747-123-SCAlite.xml</path>
+        <offsets>
+            <x-m> -30.5 </x-m>
+            <y-m> 0 </y-m>
+            <z-m> -11.2 </z-m>
+	     <pitch-deg>-2.5</pitch-deg>
+        </offsets>
+        <condition>
+        <equals>
+                <property>/fdm/jsbsim/systems/carrier/connected</property>
+                <value>1</value>
+        </equals>
+        </condition>
+    </model>
 
 <!-- OMS thruster exhaust and rear RCS modules -->
 
@@ -1166,14 +1194,13 @@
     <object-name>fwd_window_assembly</object-name>
     <object-name>roof_assembly</object-name>
     <object-name>backwall</object-name>
+    <object-name>payload-bay</object-name>
     <object-name>payload-bay-door-left</object-name>
     <object-name>payload-bay-door-right</object-name>
     <object-name>inboard-elevon-left</object-name>
     <object-name>outboard-elevon-left</object-name>
     <object-name>spaceshutt_spstob_3</object-name>
     <object-name>spaceshutt_spstob_eal</object-name>
-    <!--object-name>spaceshutt_spstob_2</object-name>
-    <object-name>spaceshutt_spstob_4</object-name-->
     <object-name>SpeedBrakeL</object-name>
     <object-name>SpeedBrakeR</object-name>
     <object-name>BodyFlap</object-name>
@@ -1189,6 +1216,8 @@
     <object-name>Arm</object-name>
     <object-name>Gimbal.Alpha</object-name>
     <object-name>Gimbal.Beta</object-name>
+	<object-name>AirDataProbeL</object-name>
+	<object-name>AirDataProbeR</object-name>
     <condition>
         <and>
            <equals>
@@ -1253,6 +1282,36 @@
 	 </offsets>
   </model>-->
 
+<!-- Air data probes -->
+
+<animation>
+	<object-name>AirDataProbeL</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/navigation/air-data-left-pos</property>
+	<factor>180</factor>
+	<axis>
+	    <x1-m>-17.35445 </x1-m>
+	    <y1-m> -1.16345 </y1-m>
+	    <z1-m> -3.92923 </z1-m>
+	    <x2-m>-17.35354 </x2-m>
+	    <y2-m> -1.1642  </y2-m>
+	    <z2-m> -3.93849 </z2-m>
+	</axis>
+</animation>
+<animation>
+	<object-name>AirDataProbeR</object-name>
+	<type>rotate</type>
+	<property>/fdm/jsbsim/systems/navigation/air-data-right-pos</property>
+	<factor>-180</factor>
+	<axis>
+	    <x1-m>-17.35436 </x1-m>
+	    <y1-m>  1.16514 </y1-m>
+	    <z1-m> -3.93    </z1-m>
+	    <x2-m>-17.35401 </x2-m>
+	    <y2-m>  1.16544 </y2-m>
+	    <z2-m> -3.93932 </z2-m>
+	</axis>
+</animation>
 
 <!-- Ku-band antenna -->
 
@@ -1435,20 +1494,26 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[15]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[16]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[14]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[15]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[16]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[14]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1464,16 +1529,22 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[17]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[19]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[17]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[19]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
  <model>
@@ -1487,16 +1558,22 @@
 		 <yaw-deg>0</yaw-deg>
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[18]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[20]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[18]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[20]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1512,16 +1589,22 @@
 
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[10]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[11]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[10]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[11]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1535,19 +1618,24 @@
 		 <z-m>-3.0</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>90.0</roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[12]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[13]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[12]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[13]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1563,20 +1651,26 @@
 
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[7]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[8]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[9]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[7]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[8]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[9]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
     
@@ -1592,24 +1686,30 @@
 
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[25]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[26]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[27]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[28]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[25]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[26]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[27]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[28]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1622,23 +1722,28 @@
 		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[33]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[34]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[35]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[33]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[34]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[35]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1651,23 +1756,28 @@
 		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[39]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[40]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[41]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[39]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[40]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[41]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1680,16 +1790,22 @@
 		 <z-m>-0.2</z-m>
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[23]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[24]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[23]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[24]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1703,27 +1819,32 @@
 		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg>90.0</roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[29]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[30]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[31]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[32]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[29]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[30]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[31]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[32]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1736,23 +1857,28 @@
 		 <z-m>-0.2</z-m>
 		 <pitch-deg>-90.0</pitch-deg>
 		 <roll-deg></roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[36]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[37]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[38]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[36]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[37]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[38]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1765,23 +1891,28 @@
 		 <z-m>-0.2</z-m>
 		 <pitch-deg>90.0</pitch-deg>
 		 <roll-deg></roll-deg>
-
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[42]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[43]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[44]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[42]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[43]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[44]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1795,16 +1926,22 @@
 
 	 </offsets>	
 	<condition>
+	  <and>
 		<or>
-		<greater-than>
-		<property>/engines/engine[21]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
-		<greater-than>
-		<property>/engines/engine[22]/thrust_lb</property>
- 		<value>0</value>
- 		</greater-than>
+			<greater-than>
+				<property>/engines/engine[21]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
+			<greater-than>
+				<property>/engines/engine[22]/thrust_lb</property>
+				<value>0</value>
+			</greater-than>
 		</or>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1819,10 +1956,16 @@
 		 <roll-deg>0</roll-deg>
 	 </offsets>
 	<condition>
+	  <and>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[5]/thrust-lbs</property>
- 		<value>0</value>
- 		</greater-than>
+			<property>/fdm/jsbsim/propulsion/engine[5]/thrust-lbs</property>
+			<value>0</value>
+		</greater-than>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -1839,10 +1982,16 @@
 		 <roll-deg>0</roll-deg>
 	 </offsets>	
 	<condition>
+	  <and>
 		<greater-than>
-		<property>/fdm/jsbsim/propulsion/engine[6]/thrust-lbs</property>
- 		<value>0</value>
+			<property>/fdm/jsbsim/propulsion/engine[6]/thrust-lbs</property>
+			<value>0</value>
  		</greater-than>
+		<equals>
+		   <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+		   <value>0</value>
+		</equals>
+	  </and>
 	</condition>
   </model>
 
@@ -2089,9 +2238,12 @@
      <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
      <value>0</value>
     </equals>
+	<equals>
+       <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+       <value>0</value>
+    </equals>
    </and>
   </condition>
-
  </model>
  <model>
   <name>left-strake-vortex</name>
@@ -2111,6 +2263,10 @@
      <property>velocities/airspeed-kt</property>
      <value>180</value>
     </greater-than>
+	<equals>
+       <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+       <value>0</value>
+    </equals>
    </and>
   </condition>
  </model>
@@ -2149,6 +2305,10 @@
 			<property>/consumables/fuel/tank[0]/level-norm</property>
 			<value>0.0</value>
 		</greater-than>
+		<equals>
+			<property>/config/shuttle/prelaunch-flag</property>
+			<value>1</value>
+		</equals>
 		</and>
 	 </condition>
   </model>
@@ -2172,6 +2332,10 @@
 			<property>/consumables/fuel/tank[0]/level-norm</property>
 			<value>0.0</value>
 		</greater-than>
+		<equals>
+			<property>/config/shuttle/prelaunch-flag</property>
+			<value>1</value>
+		</equals>
 		</and>
 	 </condition>
   </model>
@@ -2320,29 +2484,32 @@
 
 	<!-- touchdown tire smoke -->
 	<model>
+    <object-name>nose-touchdown-vortex</object-name>
 		<path>Effects/ground/touchdown/nose-touchdown-smoke.xml</path>
 		<offsets>
 		  <x-m> -16.22 </x-m>
-		  <y-m>  0.00 </y-m>
-		  <z-m> -6.3 </z-m>
+		  <y-m>   0.00 </y-m>
+		  <z-m>  -6.3  </z-m>
 		</offsets>
 	</model>
 
 	<model>
+    <object-name>left-touchdown-vortex</object-name>
 		<path>Effects/ground/touchdown/left-touchdown-smoke.xml</path>
 		<offsets>
-		  <x-m> 4.95 </x-m>
+		  <x-m>  4.95 </x-m>
 		  <y-m> -3.44 </y-m>
 		  <z-m> -7.97 </z-m>
 		</offsets>
 	</model>
 
 	<model>
+    <object-name>right-touchdown-vortex</object-name>
 		<path>Effects/ground/touchdown/right-touchdown-smoke.xml</path>
 		<offsets>
-		  <x-m>4.05</x-m>
-		  <y-m>3.44</y-m>
-		  <z-m>-7.97</z-m>
+		  <x-m>  4.05 </x-m>
+		  <y-m>  3.44 </y-m>
+		  <z-m> -7.97 </z-m>
 		</offsets>
 	</model>
 
@@ -2352,8 +2519,8 @@
 		<path>Effects/ground/tirespray/nose-tire-spray.xml</path>
 		<offsets>
 		  <x-m> -16.22 </x-m>
-		  <y-m>  0.00 </y-m>
-		  <z-m> -6.87 </z-m>
+		  <y-m>   0.00 </y-m>
+		  <z-m>  -6.87 </z-m>
 		</offsets>
 	</model>
 
@@ -2419,22 +2586,12 @@
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-main</inherits-from>
  <!--<object-name>fuselage</object-name>-->
- <object-name>inboard-elevon-left</object-name>
- <object-name>inboard-elevon-right</object-name>
- <object-name>outboard-elevon-left</object-name>
- <object-name>outboard-elevon-right</object-name>
  <object-name>spaceshutt_spstob_3</object-name>
  <object-name>spaceshutt_spstob_eal</object-name>
- <!--object-name>spaceshutt_spstob_2</object-name>
- <object-name>spaceshutt_spstob_4</object-name-->
  <object-name>SpeedBrakeL</object-name>
  <object-name>SpeedBrakeR</object-name>
- <object-name>BodyFlap</object-name>
- <object-name>heatshield</object-name>
- <object-name>GearDoorR</object-name>
- <object-name>GearDoorL</object-name>
- <object-name>NoseDoorR</object-name>
- <object-name>NoseDoorL</object-name>
+ <object-name>AirDataProbeL</object-name>
+ <object-name>AirDataProbeR</object-name>
 </effect>
 
 <effect>
@@ -2446,7 +2603,22 @@
 
 <effect>
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay</inherits-from>
+ <object-name>payload-bay</object-name>
+</effect>
+
+<effect>
+ <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-heatshield</inherits-from>
+ <object-name>heatshield</object-name>
  <object-name>fuselage</object-name>
+ <object-name>GearDoorR</object-name>
+ <object-name>GearDoorL</object-name>
+ <object-name>NoseDoorR</object-name>
+ <object-name>NoseDoorL</object-name>
+ <object-name>inboard-elevon-left</object-name>
+ <object-name>inboard-elevon-right</object-name>
+ <object-name>outboard-elevon-left</object-name>
+ <object-name>outboard-elevon-right</object-name>
+ <object-name>BodyFlap</object-name>
 </effect>
 
 <effect>

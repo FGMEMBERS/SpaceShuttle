@@ -170,6 +170,7 @@ if (mcc == 1) {return "1(G1)";}
 else if (mcc == 2) {return "2(G2)";}
 else if (mcc == 3) {return "3(G3)";}
 else if (mcc == 4) {return "4(S2)";}
+else if (mcc == 10) {return "BFS";}
 else {return "";}
 
 }
@@ -180,6 +181,7 @@ if (mcc == 1) {return "G1";}
 else if (mcc == 2) {return "G2";}
 else if (mcc == 3) {return "G3";}
 else if (mcc == 4) {return "S2";}
+else if (mcc == 10) {return "BFS";}
 else {return "";}
 
 }

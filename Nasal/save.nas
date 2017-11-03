@@ -1,6 +1,6 @@
-# write the Shuttle state to auto-saved properties
-# and resume from those
-# Thorsten Renk 2016
+# write the Shuttle state to file
+# and resume 
+# Thorsten Renk 2016 - 2017
 
 var save_state = func {
 
@@ -98,6 +98,15 @@ setprop("/save/throttle[1]", throttle1);
 var throttle2 = getprop("/controls/engines/engine[2]/throttle");
 setprop("/save/throttle[2]", throttle2);
 
+var run0 = getprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd");
+setprop("/save/engine-run[0]", run0);
+
+var run1 = getprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd");
+setprop("/save/engine-run[1]", run1);
+
+var run2 = getprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd");
+setprop("/save/engine-run[2]", run2);
+
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
 
@@ -142,6 +151,18 @@ if (getprop("/fdm/jsbsim/systems/atcs/rad-heat-dump-capacity") > 0.0)
 
 setprop("/save/radiator-state", radiator_state);
 
+var hydraulics_state = getprop("/fdm/jsbsim/systems/apu/hyd-pressure-available");
+setprop("/save/hydraulics-state", hydraulics_state);
+
+# assume that if TACAN is on, the whole area nav set is on
+var area_nav_state = getprop("/fdm/jsbsim/systems/navigation/tacan-sys1-switch");
+if (area_nav_state > 0) {area_nav_state = 1;}
+setprop("/save/area-nav-state", area_nav_state);
+
+var air_data_state = getprop("/fdm/jsbsim/systems/navigation/air-data-deploy-left-switch");
+if (air_data_state > 0) {air_data_state = 1;}
+setprop("/save/air-data-state", air_data_state);
+
 
 var control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
 var control_string = getprop("/controls/shuttle/control-system-string");
@@ -167,6 +188,10 @@ setprop("/save/css-roll", css_roll);
 var ops = getprop("/fdm/jsbsim/systems/dps/ops");
 var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 var major_mode_sm = getprop("/fdm/jsbsim/systems/dps/major-mode-sm");
+
+var ops_bfs = getprop("/fdm/jsbsim/systems/dps/ops-bfs");
+var major_mode_bfs = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+
 var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
 var landing_site = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site");
 var runway = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
@@ -174,6 +199,8 @@ var runway = getprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway");
 setprop("/save/ops", ops);
 setprop("/save/major-mode", major_mode);
 setprop("/save/major-mode-sm", major_mode_sm);
+setprop("/save/ops-bfs", ops_bfs);
+setprop("/save/major-mode-bfs", major_mode_bfs);
 setprop("/save/control-string", control_string);
 setprop("/save/guidance-mode", guidance_mode);
 setprop("/save/landing-site", landing_site);
@@ -185,6 +212,76 @@ setprop("/save/auto-launch", auto_launch);
 
 var auto_launch_stage = getprop("/fdm/jsbsim/systems/ap/launch/stage");
 setprop("/save/auto-launch-stage", auto_launch_stage);
+
+# IDP settings
+
+var idp1_function_switch = getprop("/fdm/jsbsim/systems/dps/idp-function-switch[0]");
+setprop("/save/idp1-switch-pos", idp1_function_switch);
+setprop("/save/idp1-bfs-major-function", SpaceShuttle.idp_array[0].bfs_major_function);
+
+var idp2_function_switch = getprop("/fdm/jsbsim/systems/dps/idp-function-switch[1]");
+setprop("/save/idp2-switch-pos", idp2_function_switch);
+setprop("/save/idp2-bfs-major-function", SpaceShuttle.idp_array[1].bfs_major_function);
+
+var idp3_function_switch = getprop("/fdm/jsbsim/systems/dps/idp-function-switch[2]");
+setprop("/save/idp3-switch-pos", idp3_function_switch);
+setprop("/save/idp3-bfs-major-function", SpaceShuttle.idp_array[2].bfs_major_function);
+
+var idp4_function_switch = getprop("/fdm/jsbsim/systems/dps/idp-function-switch[3]");
+setprop("/save/idp4-switch-pos", idp4_function_switch);
+setprop("/save/idp4-bfs-major-function", SpaceShuttle.idp_array[3].bfs_major_function);
+
+# GPC config
+
+setprop("/save/gpc1-mcc", SpaceShuttle.gpc_array[0].mcc);
+setprop("/save/gpc2-mcc", SpaceShuttle.gpc_array[1].mcc);
+setprop("/save/gpc3-mcc", SpaceShuttle.gpc_array[2].mcc);
+setprop("/save/gpc4-mcc", SpaceShuttle.gpc_array[3].mcc);
+setprop("/save/gpc5-mcc", SpaceShuttle.gpc_array[4].mcc);
+
+setprop("/save/gpc1-mode", SpaceShuttle.gpc_array[0].mode);
+setprop("/save/gpc2-mode", SpaceShuttle.gpc_array[1].mode);
+setprop("/save/gpc3-mode", SpaceShuttle.gpc_array[2].mode);
+setprop("/save/gpc4-mode", SpaceShuttle.gpc_array[3].mode);
+setprop("/save/gpc5-mode", SpaceShuttle.gpc_array[4].mode);
+
+var gpc1_mode_switch = getprop("/fdm/jsbsim/systems/dps/gpc1-mode-switch");
+var gpc2_mode_switch = getprop("/fdm/jsbsim/systems/dps/gpc2-mode-switch");
+var gpc3_mode_switch = getprop("/fdm/jsbsim/systems/dps/gpc3-mode-switch");
+var gpc4_mode_switch = getprop("/fdm/jsbsim/systems/dps/gpc4-mode-switch");
+var gpc5_mode_switch = getprop("/fdm/jsbsim/systems/dps/gpc5-mode-switch");
+
+setprop("/save/gpc1-mode-switch", gpc1_mode_switch);
+setprop("/save/gpc2-mode-switch", gpc2_mode_switch);
+setprop("/save/gpc3-mode-switch", gpc3_mode_switch);
+setprop("/save/gpc4-mode-switch", gpc4_mode_switch);
+setprop("/save/gpc5-mode-switch", gpc5_mode_switch);
+
+setprop("/save/nbat-string1", SpaceShuttle.nbat.string1_gnc);
+setprop("/save/nbat-string2", SpaceShuttle.nbat.string2_gnc);
+setprop("/save/nbat-string3", SpaceShuttle.nbat.string3_gnc);
+setprop("/save/nbat-string4", SpaceShuttle.nbat.string4_gnc);
+
+setprop("/save/nbat-launch1", SpaceShuttle.nbat.launch1);
+setprop("/save/nbat-launch2", SpaceShuttle.nbat.launch2);
+
+setprop("/save/nbat-pl1", SpaceShuttle.nbat.pl1);
+setprop("/save/nbat-pl2", SpaceShuttle.nbat.pl2);
+
+setprop("/save/nbat-mm1", SpaceShuttle.nbat.mm1);
+setprop("/save/nbat-mm2", SpaceShuttle.nbat.mm2);
+
+setprop("/save/nbat-crt1", SpaceShuttle.nbat.crt[0]);
+setprop("/save/nbat-crt2", SpaceShuttle.nbat.crt[1]);
+setprop("/save/nbat-crt3", SpaceShuttle.nbat.crt[2]);
+setprop("/save/nbat-crt4", SpaceShuttle.nbat.crt[3]);
+
+setprop("/save/nbat-crt-sm1", SpaceShuttle.nbat.crt_sm[0]);
+setprop("/save/nbat-crt-sm2", SpaceShuttle.nbat.crt_sm[1]);
+setprop("/save/nbat-crt-sm3", SpaceShuttle.nbat.crt_sm[2]);
+setprop("/save/nbat-crt-sm4", SpaceShuttle.nbat.crt_sm[3]);
+
+setprop("/save/bfs-in-control", SpaceShuttle.bfs_in_control);
 
 # thermal distribution
 
@@ -293,6 +390,62 @@ io.read_properties(path, readNode);
 
 var resume_state = func {
 
+# just in case disable prelaunch flag
+# with a delay to allow flame visuals to adjust
+
+settimer ( func {setprop("/sim/config/shuttle/prelaunch-flag", 0);}, 3.0);
+
+# set SSME flame colors to ignited state
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target", 0.4);
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target2", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target2", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target2", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target2", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target2", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target2", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target2", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target2", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target2", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target2", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target2", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target2", 0.4);
+
+setprop("/fdm/jsbsim/systems/various/ssme-ignition-density-target1", 0.1);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-base-density-target1", 2.0);
+setprop("/fdm/jsbsim/systems/various/ssme-noise-strength-target1", 0.15);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-base-target1", 0.9);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-base-target1", 1.0);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-base-target1", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-high-target1", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-high-target1", 0.7);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-high-target1", 1.0);
+
+setprop("/fdm/jsbsim/systems/various/ssme-flame-r-low-target1", 0.6);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-g-low-target1", 0.4);
+setprop("/fdm/jsbsim/systems/various/ssme-flame-b-low-target1", 0.4);
+
+# state vector resume
 
 var lat = getprop("/save/latitude-deg");
 setprop("/position/latitude-deg", lat);
@@ -379,14 +532,8 @@ var tank19 = getprop("/save/tank19-level-lbs");
 setprop("/consumables/fuel/tank[18]/level-lbs", tank19);
 
 
-var throttle0 = getprop("/save/throttle[0]");
-setprop("/controls/engines/engine[0]/throttle", throttle0);
 
-var throttle1 = getprop("/save/throttle[1]");
-setprop("/controls/engines/engine[1]/throttle", throttle1);
 
-var throttle2 = getprop("/save/throttle[2]");
-setprop("/controls/engines/engine[2]/throttle", throttle2);
 
 
 var elapsed = getprop("/sim/time/elapsed-sec");
@@ -432,7 +579,43 @@ if (getprop("/save/umbilical-state") == 1)
 if (getprop("/save/radiator-state") == 1)
 	{
 	SpaceShuttle.radiator_activate();
+	SpaceShuttle.thermal_control_on();
 	}
+
+if (getprop("/save/hydraulics-state") == 1)
+	{
+	SpaceShuttle.hydraulics_on();
+	}
+
+if (getprop("/save/area-nav-state") == 1)
+	{
+	SpaceShuttle.area_nav_on();
+	}
+if (getprop("/save/air-data-state") == 1)
+	{
+	SpaceShuttle.air_data_on();
+	}
+
+
+var throttle0 = getprop("/save/throttle[0]");
+setprop("/controls/engines/engine[0]/throttle", throttle0);
+
+var throttle1 = getprop("/save/throttle[1]");
+setprop("/controls/engines/engine[1]/throttle", throttle1);
+
+var throttle2 = getprop("/save/throttle[2]");
+setprop("/controls/engines/engine[2]/throttle", throttle2);
+
+var run0 = getprop("/save/engine-run[0]");
+setprop("/fdm/jsbsim/systems/mps/engine[0]/run-cmd", run0);
+
+var run1 = getprop("/save/engine-run[1]");
+setprop("/fdm/jsbsim/systems/mps/engine[1]/run-cmd", run1);
+
+var run2 = getprop("/save/engine-run[2]");
+setprop("/fdm/jsbsim/systems/mps/engine[2]/run-cmd", run2);
+
+
 
 var control_mode = getprop("/save/control-mode");
 var orbital_dap_sel = getprop("/save/orbital-dap-sel");
@@ -504,14 +687,114 @@ var ops = getprop("/save/ops");
 var major_mode = getprop("/save/major-mode");
 var major_mode_sm = getprop("/save/major-mode-sm");
 
+var ops_bfs = getprop("/save/ops-bfs");
+var major_mode_bfs = getprop("/save/major-mode-bfs");
+
+
+
 setprop("/fdm/jsbsim/systems/dps/ops", ops);
 setprop("/fdm/jsbsim/systems/dps/major-mode", major_mode);
 setprop("/fdm/jsbsim/systems/dps/major-mode-sm", major_mode_sm);
 
+setprop("/fdm/jsbsim/systems/dps/ops-bfs", ops_bfs);
+setprop("/fdm/jsbsim/systems/dps/major-mode-bfs", major_mode_bfs);
+
+
+
+# IDP settings
+
+var idp1_function_switch = getprop("/save/idp1-switch-pos");
+var idp1_major_function_bfs = getprop("/save/idp1-bfs-major-function");
+
+setprop("/fdm/jsbsim/systems/dps/idp-function-switch[0]", idp1_function_switch);
+SpaceShuttle.idp_array[0].set_bfs_major_function(idp1_major_function_bfs);
+
+var idp2_function_switch = getprop("/save/idp2-switch-pos");
+var idp2_major_function_bfs = getprop("/save/idp2-bfs-major-function");
+
+setprop("/fdm/jsbsim/systems/dps/idp-function-switch[1]", idp2_function_switch);
+SpaceShuttle.idp_array[1].set_bfs_major_function(idp2_major_function_bfs);
+
+var idp3_function_switch = getprop("/save/idp3-switch-pos");
+var idp3_major_function_bfs = getprop("/save/idp3-bfs-major-function");
+
+setprop("/fdm/jsbsim/systems/dps/idp-function-switch[2]", idp3_function_switch);
+SpaceShuttle.idp_array[2].set_bfs_major_function(idp3_major_function_bfs);
+
+var idp4_function_switch = getprop("/save/idp4-switch-pos");
+var idp4_major_function_bfs = getprop("/save/idp4-bfs-major-function");
+
+setprop("/fdm/jsbsim/systems/dps/idp-function-switch[3]", idp4_function_switch);
+SpaceShuttle.idp_array[3].set_bfs_major_function(idp4_major_function_bfs);
+
+# GPC config
+
+SpaceShuttle.gpc_array[0].set_memory(getprop("/save/gpc1-mcc"));
+SpaceShuttle.gpc_array[1].set_memory(getprop("/save/gpc2-mcc"));
+SpaceShuttle.gpc_array[2].set_memory(getprop("/save/gpc3-mcc"));
+SpaceShuttle.gpc_array[3].set_memory(getprop("/save/gpc4-mcc"));
+SpaceShuttle.gpc_array[4].set_memory(getprop("/save/gpc5-mcc"));
+
+SpaceShuttle.gpc_array[0].set_mode(getprop("/save/gpc1-mode"));
+SpaceShuttle.gpc_array[1].set_mode(getprop("/save/gpc2-mode"));
+SpaceShuttle.gpc_array[2].set_mode(getprop("/save/gpc3-mode"));
+SpaceShuttle.gpc_array[3].set_mode(getprop("/save/gpc4-mode"));
+SpaceShuttle.gpc_array[4].set_mode(getprop("/save/gpc5-mode"));
+
+var gpc1_mode_switch = getprop("/save/gpc1-mode-switch");
+var gpc2_mode_switch = getprop("/save/gpc2-mode-switch");
+var gpc3_mode_switch = getprop("/save/gpc3-mode-switch");
+var gpc4_mode_switch = getprop("/save/gpc4-mode-switch");
+var gpc5_mode_switch = getprop("/save/gpc5-mode-switch");
+
+setprop("/fdm/jsbsim/systems/dps/gpc1-mode-switch", gpc1_mode_switch);
+setprop("/fdm/jsbsim/systems/dps/gpc2-mode-switch", gpc2_mode_switch);
+setprop("/fdm/jsbsim/systems/dps/gpc3-mode-switch", gpc3_mode_switch);
+setprop("/fdm/jsbsim/systems/dps/gpc4-mode-switch", gpc4_mode_switch);
+setprop("/fdm/jsbsim/systems/dps/gpc5-mode-switch", gpc5_mode_switch);
+
+SpaceShuttle.nbat.string1 = getprop("/save/nbat-string1");
+SpaceShuttle.nbat.string2 = getprop("/save/nbat-string2");
+SpaceShuttle.nbat.string3 = getprop("/save/nbat-string3");
+SpaceShuttle.nbat.string4 = getprop("/save/nbat-string4");
+
+
+SpaceShuttle.nbat.launch1 = getprop("/save/nbat-launch1");
+SpaceShuttle.nbat.launch2 = getprop("/save/nbat-launch2");
+
+SpaceShuttle.nbat.pl1 = getprop("/save/nbat-pl1");
+SpaceShuttle.nbat.pl2 = getprop("/save/nbat-pl2");
+
+SpaceShuttle.nbat.pl1 = getprop("/save/nbat-mm1");
+SpaceShuttle.nbat.pl2 = getprop("/save/nbat-mm2");
+
+SpaceShuttle.nbat.crt[0] = getprop("/save/nbat-crt1");
+SpaceShuttle.nbat.crt[1] = getprop("/save/nbat-crt2");
+SpaceShuttle.nbat.crt[2] = getprop("/save/nbat-crt3");
+SpaceShuttle.nbat.crt[3] = getprop("/save/nbat-crt4");
+
+SpaceShuttle.nbat.crt_sm[0] = getprop("/save/nbat-crt-sm1");
+SpaceShuttle.nbat.crt_sm[1] = getprop("/save/nbat-crt-sm2");
+SpaceShuttle.nbat.crt_sm[2] = getprop("/save/nbat-crt-sm3");
+SpaceShuttle.nbat.crt_sm[3] = getprop("/save/nbat-crt-sm4");
+
+SpaceShuttle.nbat.ops = ops;
+
+SpaceShuttle.nbat.init_string();
+
+if (getprop("/save/bfs-in-control") == 1)
+	{
+	major_mode = major_mode_bfs;
+	SpaceShuttle.bfs_takeover();
+	}
+
+
+# launch guidance
+
 var auto_launch = getprop("/save/auto-launch");
 setprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master", auto_launch);
 
-var auto_launch_laststage = getprop("//save/auto-launch-stage");
+var auto_launch_laststage = getprop("/save/auto-launch-stage");
 setprop("/fdm/jsbsim/systems/ap/launch/stage", auto_launch_laststage);
 
 
@@ -590,6 +873,8 @@ else if (major_mode == 603)
 		SpaceShuttle.ops_transition_auto("p_vert_sit");
 		SpaceShuttle.compute_TAEM_guidance_targets();
 		}
+
+
 
 # thermal distribution
 

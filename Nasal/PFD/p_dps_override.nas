@@ -43,19 +43,34 @@ var PFD_addpage_p_dps_override = func(device)
     
     p_dps_override.arcsdump =  device.svg.getElementById("p_dps_override_arcsdump");
     p_dps_override.frcsdump =  device.svg.getElementById("p_dps_override_frcsdump");
-    
     p_dps_override.frcs_ttg =  device.svg.getElementById("p_dps_override_frcs_ttg");
     p_dps_override.arcs_ttg =  device.svg.getElementById("p_dps_override_arcs_ttg");
     
+    p_dps_override.arcsdump.enableUpdate();
+    p_dps_override.frcsdump.enableUpdate();
+    p_dps_override.frcs_ttg.enableUpdate();
+    p_dps_override.arcs_ttg.enableUpdate();
+
     p_dps_override.icnct1 =  device.svg.getElementById("p_dps_override_icnct1");
     p_dps_override.icnct2 =  device.svg.getElementById("p_dps_override_icnct2");
+
+    p_dps_override.icnct1.enableUpdate();
+    p_dps_override.icnct2.enableUpdate();
+    
+
     
     p_dps_override.omsdump_arm =  device.svg.getElementById("p_dps_override_omsdump_arm");
     p_dps_override.omsdump_start =  device.svg.getElementById("p_dps_override_omsdump_start");
     p_dps_override.omsdump_stop =  device.svg.getElementById("p_dps_override_omsdump_stop");
     p_dps_override.omsdump_qty =  device.svg.getElementById("p_dps_override_omsdump_qty");
     p_dps_override.omsdump_ttg =  device.svg.getElementById("p_dps_override_omsdump_ttg");
-    
+
+    p_dps_override.omsdump_arm.enableUpdate();
+    p_dps_override.omsdump_start.enableUpdate();
+    p_dps_override.omsdump_stop.enableUpdate();
+    p_dps_override.omsdump_qty.enableUpdate();
+    p_dps_override.omsdump_ttg.enableUpdate();
+
     p_dps_override.tal =  device.svg.getElementById("p_dps_override_tal");
     p_dps_override.ato =  device.svg.getElementById("p_dps_override_ato");
     p_dps_override.abort =  device.svg.getElementById("p_dps_override_abort");
@@ -83,6 +98,20 @@ var PFD_addpage_p_dps_override = func(device)
     p_dps_override.imu1des =  device.svg.getElementById("p_dps_override_imu1des");
     p_dps_override.imu2des =  device.svg.getElementById("p_dps_override_imu2des");
     p_dps_override.imu3des =  device.svg.getElementById("p_dps_override_imu3des");
+
+    p_dps_override.imu1des.enableUpdate();
+    p_dps_override.imu2des.enableUpdate();
+    p_dps_override.imu3des.enableUpdate();
+
+    p_dps_override.imu1s.enableUpdate();
+    p_dps_override.imu2s.enableUpdate();
+    p_dps_override.imu3s.enableUpdate();
+
+    p_dps_override.imu1stat.enableUpdate();
+    p_dps_override.imu2stat.enableUpdate();
+    p_dps_override.imu3stat.enableUpdate();
+
+    p_dps_override.imu1att.enableUpdate();
     
     p_dps_override.prl_sys1 =  device.svg.getElementById("p_dps_override_prl_sys1");
     p_dps_override.prl_sys2 =  device.svg.getElementById("p_dps_override_prl_sys2");
@@ -98,13 +127,16 @@ var PFD_addpage_p_dps_override = func(device)
     p_dps_override.roll_auto =  device.svg.getElementById("p_dps_override_roll_auto");
     p_dps_override.wrap_mode =  device.svg.getElementById("p_dps_override_wrap_mode");
     
+    p_dps_override.roll_mode.enableUpdate();
+    p_dps_override.roll_auto.enableUpdate();
+
     p_dps_override.vdoor_open =  device.svg.getElementById("p_dps_override_vdoor_open");
     p_dps_override.vdoor_open_stat =  device.svg.getElementById("p_dps_override_vdoor_open_stat");
     p_dps_override.vdoor_close =  device.svg.getElementById("p_dps_override_vdoor_close");
     p_dps_override.vdoor_close_stat =  device.svg.getElementById("p_dps_override_vdoor_close_stat");
     
     p_dps_override.ssme_repos =  device.svg.getElementById("p_dps_override_ssme_repos");
-    
+    p_dps_override.ssme_repos.enableUpdate();
     
     
     
@@ -126,17 +158,8 @@ var PFD_addpage_p_dps_override = func(device)
         p_dps_override.filter_nom.setText(sprintf("*"));
         p_dps_override.filter_alt.setText(sprintf(""));
     
-        p_dps_override.imu1s.setText(sprintf(""));
-        p_dps_override.imu2s.setText(sprintf(""));
-        p_dps_override.imu3s.setText(sprintf(""));
-        p_dps_override.imu1stat.setText(sprintf(""));
-        p_dps_override.imu2stat.setText(sprintf(""));
-        p_dps_override.imu3stat.setText(sprintf(""));
-        p_dps_override.imu1att.setText(sprintf("1"));
         p_dps_override.imu2att.setText(sprintf(""));
-        p_dps_override.imu1des.setText(sprintf(""));
-        p_dps_override.imu2des.setText(sprintf(""));
-        p_dps_override.imu3des.setText(sprintf(""));
+
     
         p_dps_override.prl_sys1.setText(sprintf(""));
         p_dps_override.prl_sys2.setText(sprintf(""));
@@ -148,9 +171,9 @@ var PFD_addpage_p_dps_override = func(device)
         p_dps_override.prl2_des.setText(sprintf(""));
         p_dps_override.prl3_des.setText(sprintf(""));
     
-        p_dps_override.roll_mode.setText(sprintf("AUTO"));
-        p_dps_override.roll_auto.setText(sprintf(""));
-        p_dps_override.wrap_mode.setText(sprintf(""));
+        #p_dps_override.roll_mode.setText(sprintf("AUTO"));
+        #p_dps_override.roll_auto.setText(sprintf(""));
+        p_dps_override.wrap_mode.setText(sprintf("INH"));
     
     	# blank ADTA which isn't shown in OPS 1 
         p_dps_override.adta_h1.setText(sprintf(""));
@@ -168,7 +191,7 @@ var PFD_addpage_p_dps_override = func(device)
         p_dps_override.adta_a3.setText(sprintf(""));
         p_dps_override.adta_a4.setText(sprintf(""));
     
-        p_dps_override.ssme_repos.setText(sprintf("")); 
+        p_dps_override.ssme_repos.updateText(sprintf("")); 
     }
     
     p_dps_override.update = func
@@ -190,7 +213,32 @@ var PFD_addpage_p_dps_override = func(device)
             symbol = "*";
     	}
         p_dps_override.umb_cl.setText( symbol );
+
+
+    # IMU system
+
+	symbol = "";
+	if (SpaceShuttle.imu_system.imu[0].deselected == 1) {symbol = "*";}
+        p_dps_override.imu1des.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.imu_system.imu[1].deselected == 1) {symbol = "*";}
+        p_dps_override.imu2des.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.imu_system.imu[2].deselected == 1) {symbol = "*";}
+        p_dps_override.imu3des.updateText(symbol);
+
+        p_dps_override.imu1s.updateText(SpaceShuttle.imu_system.imu[0].get_status_symbol());
+        p_dps_override.imu2s.updateText(SpaceShuttle.imu_system.imu[1].get_status_symbol());
+        p_dps_override.imu3s.updateText(SpaceShuttle.imu_system.imu[2].get_status_symbol());
+
+	p_dps_override.imu1stat.updateText(SpaceShuttle.imu_system.imu[0].status_string);
+    	p_dps_override.imu2stat.updateText(SpaceShuttle.imu_system.imu[1].status_string);
+    	p_dps_override.imu3stat.updateText(SpaceShuttle.imu_system.imu[2].status_string);
     
+        p_dps_override.imu1att.updateText(sprintf("%d", SpaceShuttle.imu_system.attitude_source+1));
+
     # ADTA is shown only in OPS 3 or 6
     
         var ops = getprop("/fdm/jsbsim/systems/dps/ops");
@@ -270,6 +318,20 @@ var PFD_addpage_p_dps_override = func(device)
 			}
         }
     
+	var roll_mode = getprop("/fdm/jsbsim/systems/fcs/entry-mode-switch");
+	
+	if (roll_mode == 0)
+		{symbol = "AUTO";}
+	else if (roll_mode == 1)
+		{symbol = "L GAIN";}
+	else 
+		{symbol = "NO YJET";}
+	p_dps_override.roll_mode.updateText(symbol);
+
+	symbol = "";
+	if (getprop("/fdm/jsbsim/systems/fcs/entry-mode-sw-auto-switch") == 1){symbol = "*";}
+	p_dps_override.roll_auto.updateText(symbol);
+
         symbol = "";
         if (SpaceShuttle.air_data_system.adta[0].deselected == 1){symbol = "*";}
         p_dps_override.adta_des1.setText( symbol );
@@ -296,39 +358,39 @@ var PFD_addpage_p_dps_override = func(device)
 
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/rcs/aft-dump-arm-cmd") == 1){symbol = "ENA";}
-        p_dps_override.arcsdump.setText( symbol );
+        p_dps_override.arcsdump.updateText( symbol );
     
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/rcs/fwd-dump-arm-cmd") == 1){symbol = "ENA";}
-        p_dps_override.frcsdump.setText( symbol );
+        p_dps_override.frcsdump.updateText( symbol );
     
-        p_dps_override.frcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s")));
-        p_dps_override.arcs_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s")));
+        p_dps_override.frcs_ttg.updateText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/fwd-dump-time-s")));
+        p_dps_override.arcs_ttg.updateText(sprintf("%d", getprop("/fdm/jsbsim/systems/rcs/aft-dump-time-s")));
     
     
         symbol = "INH";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-cmd") == 1){symbol = "ENA";}
-        p_dps_override.icnct1.setText( symbol );
+        p_dps_override.icnct1.updateText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-interconnect-complete") == 1){symbol = "CPLT";}
-        p_dps_override.icnct2.setText( symbol );
+        p_dps_override.icnct2.updateText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-arm-cmd") == 1){symbol = "*";}
-        p_dps_override.omsdump_arm.setText( symbol );
+        p_dps_override.omsdump_arm.updateText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 1){symbol = "*";}
-        p_dps_override.omsdump_start.setText( symbol );
+        p_dps_override.omsdump_start.updateText( symbol );
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 0){symbol = "*";}
-        p_dps_override.omsdump_stop.setText( symbol );
+        p_dps_override.omsdump_stop.updateText( symbol );
     
     
-        p_dps_override.omsdump_qty.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-qty")));
-        p_dps_override.omsdump_ttg.setText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s")));
+        p_dps_override.omsdump_qty.updateText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-qty")));
+        p_dps_override.omsdump_ttg.updateText(sprintf("%d", getprop("/fdm/jsbsim/systems/oms/oms-dump-ttg-s")));
     
         symbol = "";
         if (getprop("/fdm/jsbsim/systems/abort/arm-tal") == 1) {symbol ="*";}
@@ -388,7 +450,7 @@ var PFD_addpage_p_dps_override = func(device)
         {
             symbol = "INH";
             if (getprop("/fdm/jsbsim/systems/vectoring/ssme-repos-enable") == 1) {symbol ="ENA";}
-            p_dps_override.ssme_repos.setText( symbol ); 
+            p_dps_override.ssme_repos.updateText( symbol ); 
         }
     
         device.update_common_DPS();
