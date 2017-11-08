@@ -431,6 +431,10 @@ var area_nav_set = {
 		me.accuracy_alt = 5.0 * 0.3085 ;
 		me.acc_z = 5.0;
 		me.offset_z = 0.0;
+		me.offset_x = 0.0;
+		me.offset_y = 0.0;
+		me.offset_lat = 0.0;
+		me.offset_lon = 0.0;
 
 		me.MLS_processing = 1;
 

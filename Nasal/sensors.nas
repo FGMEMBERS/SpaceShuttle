@@ -946,7 +946,7 @@ var mls_receiver = {
 	new: func (index) {
 	 	var m = { parents: [mls_receiver] };
 		m.index = index;
-		m.channel = 7;
+		m.channel = 8;
 		return m;
 		},
 
