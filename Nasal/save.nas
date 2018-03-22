@@ -954,8 +954,12 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	var alt = getprop("/position/altitude-ft");
 	if (alt > SpaceShuttle.earthview_transition_alt)
 		{
-		if (getprop("/sim/gui/dialogs/metar/mode/local-weather") == 1)
-			{local_weather.clear_all();}
+		if (getprop("/nasal/local-weather/enabled") == 1)
+			{
+			local_weather.clear_all();
+			setprop("/environment/visibility-m", 80000.0);
+			}
+		
 		earthview.start();
 		}
 
