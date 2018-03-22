@@ -559,11 +559,10 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	var alt = getprop("/position/altitude-ft");
 	if (alt > SpaceShuttle.earthview_transition_alt)
 		{
-		if (getprop("/nasal/local-weather/enabled") == 1)
-			{settimer ( func {
-					local_weather.clear_all();
-					setprop("/environment/visibility-m", 80000.0);
-					}, 1.0);}
+		if (getprop("/nasal/local_weather/enabled") == 1)
+			{
+			local_weather.clear_all();
+			}
 		earthview.start();
 		}
 
@@ -1573,7 +1572,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 		{
 		earthview.stop();
 
-		if (getprop("/nasal/local-weather/enabled") == 1)
+		if (getprop("/nasal/local_weather/enabled") == 1)
 			{local_weather.set_tile();}
 		}
 
@@ -1640,7 +1639,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 		{
 		earthview.stop();
 
-		if (getprop("/nasal/local-weather/enabled") == 1)
+		if (getprop("/nasal/local_weather/enabled") == 1)
 			{local_weather.set_tile();}
 		}
 
@@ -3211,8 +3210,14 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	var alt = getprop("/position/altitude-ft");
 	if (alt > SpaceShuttle.earthview_transition_alt)
 		{
-		if (getprop("/nasal/local-weather/enabled") == 1)
-			{local_weather.clear_all();}
+		if (getprop("/nasal/local_weather/enabled") == 1)
+			{
+			print ("Earthview startup, disable Advanced Weather");
+			settimer ( func {
+			local_weather.clear_all();
+			setprop("/environment/visibility-m", 80000.0);
+			}, 5.0);
+			}
 		earthview.start();
 		}
 
