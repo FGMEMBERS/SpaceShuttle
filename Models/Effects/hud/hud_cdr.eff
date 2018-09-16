@@ -13,6 +13,7 @@
 		<internal-format>normalized</internal-format>
 	</texture>
 	<hud-brightness><use>/fdm/jsbsim/systems/light/hud-dim-cdr-out</use></hud-brightness>
+	<rnorm>0.0</rnorm>
 </parameters>
 
 </PropertyList>

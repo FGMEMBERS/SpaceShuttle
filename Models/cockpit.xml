@@ -10,7 +10,7 @@
 
     <!-- grain -->
     <effect>
-        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro</inherits-from>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/velcro-geo</inherits-from>
         <object-name>velcro</object-name>
     </effect>
     <effect>
@@ -55,6 +55,7 @@
         <object-name>backup</object-name>
         <object-name>panel-fasteners</object-name>
         <object-name>abort_cmd</object-name>
+        <object-name>speakers</object-name>
     </effect>
 
     <!-- displays -->
@@ -71,6 +72,8 @@
         <object-name>DisplayR1</object-name>
         <object-name>DisplayR2</object-name>
     </effect>
+
+
 
     <!-- digital readouts -->
 
@@ -1392,6 +1395,30 @@
             <blue>1.0</blue>
             <factor-prop>/fdm/jsbsim/systems/light/console-eff-aft-numeric-norm</factor-prop>
         </emission>
+    </animation>
+
+
+
+    <animation>
+        <type>select</type>
+        <object-name>A4-event-time-glass</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-aft</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>A4-mission-time-glass</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-aft</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
     </animation>
 
     <!-- Yellow lights -->
@@ -5396,6 +5423,17 @@
         </emission>
     </animation>
 
+    <animation>
+        <type>select</type>
+        <object-name>event-time-glass</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-fwd</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
     <!-- Main Engine Status  "Lights" -->
     <animation>
         <type>select</type>
@@ -8109,7 +8147,7 @@
                         {
                             setprop("/fdm/jsbsim/systems/rms/drive-sel-exe", 1);
                             setprop("/fdm/jsbsim/systems/rms/drive-sel-exe-ss", 1);
-                            SpaceShuttle.update_rms_drive_selection();
+                            SpaceShuttle.update_rms_drive_selection_hw();
                             SpaceShuttle.click("button-down", -10.45084, -0.28244, -0.18052);
                         }
                 </script>
@@ -32005,10 +32043,16 @@
    <type>select</type>
    <object-name>plasma_screen</object-name>
    <condition>
+		<and>
 		<equals>
 			<property>/sim/current-view/internal</property>
 			<value>1</value>
 		</equals>
+		<equals>
+			<property>/sim/rendering/shaders/skydome</property>
+			<value>1</value>
+		</equals>
+		</and>
 	</condition>
  </animation>
 

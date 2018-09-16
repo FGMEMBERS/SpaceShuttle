@@ -145,12 +145,24 @@
         <object-name>right-tank-isol-fuel-cvr</object-name>
         <object-name>right-tank-isol-oxid-cvr</object-name>
         <!-- Panel O15 -->
-        <object-name>O15-breakers</object-name>
         <object-name>O15-panel</object-name>
-        <object-name>O15-switches</object-name>
         <object-name>O15-base</object-name>
         <object-name>O15-fasteners</object-name>
         <object-name>O15-guards</object-name>
+        <object-name>O15-breakers-base</object-name>
+        <object-name>O15-switches-base</object-name>
+        <!-- Panel O15 "Switches"-->
+        <object-name>imu2-pwr</object-name>
+        <object-name>fc2cntlr-pwr</object-name>
+        <!-- Panel O15 "Breakers"-->
+        <object-name>radar-alt2-bkr</object-name>
+        <object-name>adta2-bkr</object-name>
+        <object-name>mls2-bkr</object-name>
+        <object-name>tacan2-bkr</object-name>
+        <object-name>star-trkr-y-bkr</object-name>
+        <object-name>dragchutesys2-bkr</object-name>
+        <object-name>eventtmrfwd-bkr</object-name>
+        <object-name>missiontmraft-bkr</object-name>
         <!-- Panel O19 -->
         <object-name>O19-base</object-name>
     </effect>
@@ -271,9 +283,21 @@
         <object-name>O14-base</object-name>
         <object-name>O14-fasteners</object-name>
         <object-name>O14-guards</object-name>
-        <object-name>O14-panel</object-name>a
-	    <object-name>O14-breakers</object-name>
-        <object-name>O14-switches</object-name>
+        <object-name>O14-panel</object-name>
+        <object-name>O14-breakers-base</object-name>
+        <object-name>O14-switches-base</object-name>
+        <!-- Panel O14 "Switches"-->
+        <object-name>imu1-pwr</object-name>
+        <object-name>fc1cntlr-pwr</object-name>
+        <!-- Panel O14 "Breakers"-->
+        <object-name>radar-alt1-bkr</object-name>
+        <object-name>adta1-bkr</object-name>
+        <object-name>mls1-bkr</object-name>
+        <object-name>tacan1-bkr</object-name>
+        <object-name>star-trkr-z-bkr</object-name>
+        <object-name>eventtmraft-bkr</object-name>
+        <object-name>missiontmrfwd-bkr</object-name>
+        <object-name>nosewheelstr-bkr</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-right</inherits-from>
@@ -360,8 +384,19 @@
 	    <object-name>O16-base</object-name>
 	    <object-name>O16-fasteners</object-name>
 	    <object-name>O16-guards</object-name>
-	    <object-name>O16-switches</object-name>
         <object-name>O16-panel</object-name>
+        <object-name>O16-breakers-base</object-name>
+        <object-name>O16-switches-base</object-name>
+        <!-- Panel O16 "Switches"-->
+        <object-name>imu3-pwr</object-name>
+        <object-name>fc3cntlr-pwr</object-name>
+        <!-- Panel O16 "Breakers"-->
+        <object-name>adta3-bkr</object-name>
+        <object-name>adta4-bkr</object-name>
+        <object-name>mls3-bkr</object-name>
+        <object-name>tacan3-bkr</object-name>
+        <object-name>dragchutesys1-bkr</object-name>
+        <object-name>rmsomsprpltqty-bkr</object-name>
 	    <!-- Panel O17 -->
 	    <object-name>O17-base</object-name>
 	    <object-name>O17-fasteners</object-name>
@@ -648,6 +683,17 @@
         </emission>
     </animation>
 
+    <animation>
+        <type>select</type>
+        <object-name>O3-event-time-glass</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-fwd</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+
    <!-- OMS Propellent Quantity display -->
     <animation>
         <object-name>display-qty-left</object-name>
@@ -665,6 +711,19 @@
             <blue>1.0</blue>
             <factor-prop>/fdm/jsbsim/systems/light/console-eff-numeric-norm</factor-prop>
         </emission>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>display-qty-left</object-name>
+        <object-name>display-qty-fwd</object-name>
+        <object-name>display-qty-right</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/circuit-breakers/rms-oms-qty-gauge</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
     </animation>
 
     <!-- ******************************************************************* -->
@@ -722,7 +781,7 @@
                 <property>/fdm/jsbsim/systems/antenna/ku-antenna-slew-azimuth-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['Netral', 'Right', 'Left'];
+                    var modes = ['Neutral', 'Right', 'Left'];
                     return modes[arg[0]];
                 </script>
             </binding>
@@ -780,7 +839,7 @@
                 <property>/fdm/jsbsim/systems/antenna/ku-antenna-slew-elevation-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = ['Netral', 'Up', 'Down'];
+                    var modes = ['Neutral', 'Up', 'Down'];
                     return modes[arg[0]];
                 </script>
             </binding>
@@ -3645,7 +3704,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-heat-lp-a</tooltip-id>
-                <label>OSM Heater Left Pod A: %s</label>
+                <label>Heater Left Pod A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-left-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3691,7 +3750,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-heat-lp-b</tooltip-id>
-                <label>OSM Heater Left Pod B: %s</label>
+                <label>Heater Left Pod B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-left-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3737,7 +3796,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-heat-rp-a</tooltip-id>
-                <label>OSM Heater Right Pod A: %s</label>
+                <label>Heater Right Pod A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-right-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3783,7 +3842,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-heat-rp-b</tooltip-id>
-                <label>OSM Heater Right Pod B: %s</label>
+                <label>Heater Right Pod B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-right-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3829,7 +3888,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cf-lines-a</tooltip-id>
-                <label>OSM Crossfeed Lines A: %s</label>
+                <label>OMS Crossfeed Lines A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -3875,7 +3934,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cf-lines-b</tooltip-id>
-                <label>OSM Crossfeed Lines B: %s</label>
+                <label>OMS Crossfeed Lines B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -4769,7 +4828,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cover-lp-a</tooltip-id>
-                <label>OSM Cover Left Pod A: %s</label>
+                <label>OMS Cover Left Pod A: %s</label>
                 <property>/sim/model/panel/cover/osm-cover-lp-a</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -4815,7 +4874,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cover-lp-b</tooltip-id>
-                <label>OSM Cover Left Pod B: %s</label>
+                <label>OMS Cover Left Pod B: %s</label>
                 <property>/sim/model/panel/cover/osm-cover-lp-b</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -4861,7 +4920,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cover-rp-a</tooltip-id>
-                <label>OSM Cover Right Pod A: %s</label>
+                <label>OMS Cover Right Pod A: %s</label>
                 <property>/sim/model/panel/cover/osm-cover-rp-a</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -4907,7 +4966,7 @@
             <binding>
                 <command>set-tooltip</command>
                 <tooltip-id>osm-cover-rp-b</tooltip-id>
-                <label>OSM Cover Right Pod B: %s</label>
+                <label>OMS Cover Right Pod B: %s</label>
                 <property>/sim/model/panel/cover/osm-cover-rp-b</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -11327,6 +11386,1158 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel O14                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- IMU 1 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>imu1-pwr</object-name>
+        <property>/fdm/jsbsim/systems/navigation/imu1-switch</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.18509</x-m>
+            <y-m>-0.59293 </y-m>
+            <z-m> 0.38465 </z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/navigation/imu1-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.18509, -0.59293, 0.38465)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>imu1-pwr</tooltip-id>
+                <label>IMU 1 Power: %s</label>
+                <property>/fdm/jsbsim/systems/navigation/imu1-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC1 Controller Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fc1cntlr-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc/fc-controller-power-ovhd</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.18492</x-m>
+            <y-m> -0.55453</y-m>
+            <z-m>  0.38464</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc/fc-controller-power-ovhd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.18492, -0.55453, 0.38464)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc1-cntlr-pwr</tooltip-id>
+                <label>FC1 Cntlr Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc/fc-controller-power-ovhd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Breakers -->
+
+    <!-- Radar Alt 1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>radar-alt1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>radar-alt1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44058, -0.65983, 0.38389)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>radar-alt1-bkr</tooltip-id>
+                <label>Radar Alt 1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- MLS 1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>mls1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/mls1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>mls1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44058, -0.62993, 0.38389)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>mls1-bkr</tooltip-id>
+                <label>MLS 1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ADTA 1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>adta1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/adta1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>adta1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44058, -0.59919, 0.38389)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>adta1-bkr</tooltip-id>
+                <label>ADTA 1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- TACAN 1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>tacan1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/tacan1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>tacan1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.32471, -0.65983, 0.38389)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tacan1-bkr</tooltip-id>
+                <label>TACAN 1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Star Tracker Z "Breaker" (NOT CODED) -->
+    <!--animation>
+        <type>translate</type>
+        <object-name>star-trkr-z-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-z-bkr</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>star-trkr-z-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-z-bkr</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44058, -0.56628, 0.38389)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>star-trkr-z-bkr</tooltip-id>
+                <label>Star Tracker Z Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-z-bkr</property>
+            </binding>
+        </hovered>
+    </animation-->
+
+    <!-- Event Timer AFT "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>eventtmraft-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-aft</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>eventtmraft-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-aft</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.26794, -0.36995, 0.38027)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>eventtmraft-bkr</tooltip-id>
+                <label>Event Timer Aft Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-aft</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Mission Timer FWD "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>missiontmrfwd-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-fwd</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>missiontmrfwd-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-fwd</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.26782, -0.40428, 0.38046)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>missiontmraft-bkr</tooltip-id>
+                <label>Mission Timer Fwd Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-fwd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Nose Wheel Steering "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>nosewheelstr-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/nose-wheel</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>nosewheelstr-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/nose-wheel</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44514, -0.37067, 0.37892)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>nosewheelstr-bkr</tooltip-id>
+                <label>Nose Wheel Steering Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/nose-wheel</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O15                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- IMU 2 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>imu2-pwr</object-name>
+        <property>/fdm/jsbsim/systems/navigation/imu2-switch</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.20297</x-m>
+            <y-m> -0.03657</y-m>
+            <z-m>  0.38979</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/navigation/imu2-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.20297, -0.03657, 0.38979)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>imu2-pwr</tooltip-id>
+                <label>IMU 2 Power: %s</label>
+                <property>/fdm/jsbsim/systems/navigation/imu2-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC2 Controller Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fc2cntlr-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-controller-power-ovhd</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.20306</x-m>
+            <y-m>  0.00118</y-m>
+            <z-m>  0.39164</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-controller-power-ovhd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.20306, 0.00118, 0.39164)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc2-cntlr-pwr</tooltip-id>
+                <label>FC2 Cntlr Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc[1]/fc-controller-power-ovhd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Breakers -->
+
+    <!-- Radar Alt 2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>radar-alt2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>radar-alt2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45262, -0.13627, 0.3909)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>radar-alt2-bkr</tooltip-id>
+                <label>Radar Alt 2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/radar-alt2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- MLS 2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>mls2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/mls2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>mls2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45262, -0.1052, 0.39224)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>mls2-bkr</tooltip-id>
+                <label>MLS 2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ADTA 2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>adta2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/adta2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>adta2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45262, -0.0751, 0.3909)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>adta2-bkr</tooltip-id>
+                <label>ADTA 2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- TACAN 2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>tacan2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/tacan2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>tacan2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.34084, -0.13698, 0.3909)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tacan2-bkr</tooltip-id>
+                <label>TACAN 2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Star Tracker Y "Breaker" (NOT CODED) -->
+    <!--animation>
+        <type>translate</type>
+        <object-name>star-trkr-y-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-y-bkr</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>star-trkr-y-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-y-bkr</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45262, -0.04644, 0.39224)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>star-trkr-y-bkr</tooltip-id>
+                <label>Star Tracker Y Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/star-trkr-y-bkr</property>
+            </binding>
+        </hovered>
+    </animation-->
+
+    <!-- Event Timer FWD "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>eventtmrfwd-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-fwd</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>eventtmrfwd-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-fwd</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.28619, 0.1407, 0.38741)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>eventtmrfwd-bkr</tooltip-id>
+                <label>Event Timer Fwd Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/event-timer-fwd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Mission Timer AFT "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>missiontmraft-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-aft</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>missiontmraft-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-aft</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.28625, 0.10685, 0.38912)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>missiontmraft-bkr</tooltip-id>
+                <label>Mission Timer Aft Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mission-timer-aft</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Drag Chute Sys2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>dragchutesys2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>dragchutesys2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45694, 0.13644, 0.38861)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>dragchutesys2-bkr</tooltip-id>
+                <label>Drag Chute Sys2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O16                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- IMU 3 Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>imu3-pwr</object-name>
+        <property>/fdm/jsbsim/systems/navigation/imu3-switch</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.18201</x-m>
+            <y-m>  0.3763 </y-m>
+            <z-m>  0.38788</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/navigation/imu3-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.18201, 0.3763, 0.38788)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>imu3-pwr</tooltip-id>
+                <label>IMU 3 Power: %s</label>
+                <property>/fdm/jsbsim/systems/navigation/imu3-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- FC3 Controller Power "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fc3cntlr-pwr</object-name>
+        <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-controller-power-ovhd</property>
+        <factor>-70</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.18201</x-m>
+            <y-m>  0.41463</y-m>
+            <z-m>  0.38788</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-controller-power-ovhd</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.18201, 0.41463, 0.38788)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fc3-cntlr-pwr</tooltip-id>
+                <label>FC3 Cntlr Power: %s</label>
+                <property>/fdm/jsbsim/systems/electrical/fc[2]/fc-controller-power-ovhd</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Off', 'On'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- Breakers -->
+
+    <!-- MLS 3 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>mls3-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/mls3</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>mls3-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls3</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44883, 0.32864, 0.39208)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>mls3-bkr</tooltip-id>
+                <label>MLS 3 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/mls3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ADTA 3 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>adta3-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/adta3</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>adta3-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta3</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44814, 0.35853, 0.39424)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>adta3-bkr</tooltip-id>
+                <label>ADTA 3 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ADTA 4 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>adta4-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/adta4</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>adta4-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta4</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.44883, 0.39042, 0.39208)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>adta4-bkr</tooltip-id>
+                <label>ADTA 4 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/adta4</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- TACAN 3 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>tacan3-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/tacan3</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>tacan3-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan3</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.33111, 0.29438, 0.39208)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>tacan3-bkr</tooltip-id>
+                <label>TACAN 3 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/tacan3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- RMS/OMS Prplt Qty Gauge "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>rmsomsprpltqty-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/rms-oms-qty-gauge</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>rmsomsprpltqty-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/rms-oms-qty-gauge</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45331, 0.51385, 0.38661)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>rmsomsprpltqty-bkr</tooltip-id>
+                <label>RMS/OMS Prplt Qty Gauge Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/rms-oms-qty-gauge</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Drag Chute Sys1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>dragchutesys1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>dragchutesys1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.45325, 0.55207, 0.38574)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>dragchutesys1-bkr</tooltip-id>
+                <label>Drag Chute Sys1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel R11                                                           -->
     <!-- ******************************************************************* -->
 
@@ -11502,14 +12713,14 @@
                 <max>1</max>
                 <wrap>false</wrap>
             </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
 	    <binding>
 	        <command>nasal</command>
                 <script>SpaceShuttle.fuel_cell_purge_manage(0)</script>
 	    </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics")</script>
+            </binding>
         </action>
         <hovered>
           <binding>

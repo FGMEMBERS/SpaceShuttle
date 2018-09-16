@@ -128,6 +128,7 @@
         </texture>
 
 	<sample-res>0.0017</sample-res>
+	<dirt-factor><use>/sim/config/shuttle/dust-level</use></dirt-factor>
 
     </parameters>
 

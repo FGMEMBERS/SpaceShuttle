@@ -140,6 +140,17 @@
     <path>Aircraft/SpaceShuttle/Models/OMSPods.xml</path>
   </model>
 
+<!-- outer cockpit glass, inward-facing -->
+
+ <model>
+   <path>Aircraft/SpaceShuttle/Models/cockpit_glass_outer.xml</path>
+       <offsets>
+            <x-m> 0.01 </x-m>
+            <y-m> 0 </y-m>
+            <z-m> 0 </z-m>
+        </offsets>
+ </model>
+
 <!-- TDRS -->
 
 
@@ -435,6 +446,14 @@
 				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>1</value>
 			</equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>1</value>
+            </not-equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>1</value>
+            </not-equals>
 		</and>
 	</condition>
  </animation>
@@ -449,6 +468,14 @@
 				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>1</value>
 			</equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>1</value>
+            </not-equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>1</value>
+            </not-equals>
 		</and>
 	</condition>
  </animation>
@@ -533,6 +560,14 @@
 				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>0</value>
 			</equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>1</value>
+            </not-equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>1</value>
+            </not-equals>
 		</and>
 	</condition>
  </animation>
@@ -551,6 +586,14 @@
 				<property>/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition</property>
 				<value>0</value>
 			</equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-damaged</property>
+               <value>1</value>
+            </not-equals>
+            <not-equals>
+               <property>/fdm/jsbsim/systems/failures/shuttle-destroyed</property>
+               <value>1</value>
+            </not-equals>
 		</and>
 	</condition>
  </animation>
@@ -1193,7 +1236,6 @@
     <type>select</type>
     <object-name>fwd_window_assembly</object-name>
     <object-name>roof_assembly</object-name>
-    <object-name>backwall</object-name>
     <object-name>payload-bay</object-name>
     <object-name>payload-bay-door-left</object-name>
     <object-name>payload-bay-door-right</object-name>
@@ -2630,6 +2672,8 @@
  <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-payload-bay-door-right</inherits-from>
  <object-name>payload-bay-door-right</object-name>
 </effect>
+
+
 
  <!--effect>
   <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/flashlight</inherits-from>
