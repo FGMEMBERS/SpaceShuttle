@@ -305,6 +305,68 @@
           </binding>
         </checkbox>
 
+       <checkbox>
+        <name>velcro-effect</name>
+      	<halign>left</halign>
+ 	<row>8</row>
+        <col>1</col>
+          <property>/sim/config/shuttle/velcro-effect</property>
+          <label>Velcro visuals</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>velcro-effect</object-name>
+          </binding>
+        </checkbox>
+
+	<text>
+      		<label>Display dust level</label>
+      		<halign>left</halign>
+      		<row>9</row>
+     	 	<col>0</col>
+      		<enable>
+       		<property>/sim/config/shuttle/display-effect</property>
+      		</enable>
+    	</text>
+	<text>
+      		<label>clean</label>
+      		<halign>center</halign>
+      		<row>9</row>
+     	 	<col>1</col>
+      		<enable>
+       		<property>/sim/config/shuttle/display-effect</property>
+      		</enable>
+    	</text>
+
+       <slider>
+      		<name>dust-switch</name>
+      		<row>9</row>
+      		<col>2</col>
+      		<enable>
+       		<property>/sim/config/shuttle/display-effect</property>
+      		</enable>
+      		<min>0</min>
+      		<max>3</max>
+      		<step>0.2</step>
+      		<live>true</live>
+      		<property>/sim/config/shuttle/dust-level</property>
+      		<binding>
+        		<command>dialog-apply</command>
+        		<object-name>dust-switch</object-name>
+     		</binding>
+    	</slider>
+
+	<text>
+      		<label>dirty</label>
+      		<enable>
+       		<property>/sim/config/shuttle/display-effect</property>
+      		</enable>
+      		<halign>center</halign>
+      		<row>9</row>
+     	 	<col>3</col>
+    	</text>
+
+
   </group>
 
         <empty>

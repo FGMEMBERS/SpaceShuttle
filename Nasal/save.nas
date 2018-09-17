@@ -312,17 +312,17 @@ var heater_fwd_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status
 setprop("/save/heater-fwd-A", heater_fwd_A);
 setprop("/save/heater-fwd-B", heater_fwd_B);
 
-var heater_left_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status");
-var heater_left_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status");
+#var heater_left_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status");
+#var heater_left_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status");
 
-setprop("/save/heater-left-A", heater_left_A);
-setprop("/save/heater-left-B", heater_left_B);
+#setprop("/save/heater-left-A", heater_left_A);
+#setprop("/save/heater-left-B", heater_left_B);
 
-var heater_right_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status");
-var heater_right_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status");
+#var heater_right_A = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status");
+#var heater_right_B = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status");
 
-setprop("/save/heater-right-A", heater_right_A);
-setprop("/save/heater-right-B", heater_right_B);
+#setprop("/save/heater-right-A", heater_right_A);
+#setprop("/save/heater-right-B", heater_right_B);
 
 var heater_oms_left_A = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-A-status");
 var heater_oms_left_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-B-status");
@@ -358,13 +358,9 @@ var description = getprop("/sim/gui/dialogs/SpaceShuttle/save/description");
 setprop("/save/description", description);
 setprop("/save/timestring", timestring);
 
-
-
 # now try to save it to a specified file
 
 #var filename = "save1.xml";
-
-
 
 var filename = getprop("/sim/gui/dialogs/SpaceShuttle/save/filename");
 var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
@@ -379,12 +375,10 @@ print("Current state written to ", filename, " !");
 
 var read_state_from_file = func (filename) {
 
-var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
-var readNode = props.globals.getNode("/save", 0);
+    var path = getprop("/sim/fg-home") ~ "/aircraft-data/SpaceShuttleSave/"~filename;
+    var readNode = props.globals.getNode("/save", 0);
 
-io.read_properties(path, readNode);
-
-
+    io.read_properties(path, readNode);
 
 }
 
@@ -917,17 +911,17 @@ var heater_fwd_B = getprop("/save/heater-fwd-B");
 setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-A-status", heater_fwd_A);
 setprop("/fdm/jsbsim/systems/rcs-hardware/heater-fwd-B-status", heater_fwd_B);
 
-var heater_left_A = getprop("/save/heater-left-A");
-var heater_left_B = getprop("/save/heater-left-B");
+#var heater_left_A = getprop("/save/heater-left-A");
+#var heater_left_B = getprop("/save/heater-left-B");
 
-setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status", heater_left_A);
-setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", heater_left_B);
+#setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status", heater_left_A);
+#setprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status", heater_left_B);
 
-var heater_right_A = getprop("/save/heater-right-A");
-var heater_right_B = getprop("/save/heater-right-B");
+#var heater_right_A = getprop("/save/heater-right-A");
+#var heater_right_B = getprop("/save/heater-right-B");
 
-setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status", heater_right_A);
-setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", heater_right_B);
+#setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status", heater_right_A);
+#setprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status", heater_right_B);
 
 var heater_oms_left_A = getprop("/save/heater-oms-left-A");
 var heater_oms_left_B = getprop("/save/heater-oms-left-B");
@@ -959,7 +953,6 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 			local_weather.clear_all();
 			setprop("/environment/visibility-m", 80000.0);
 			}
-		
 		earthview.start();
 		}
 

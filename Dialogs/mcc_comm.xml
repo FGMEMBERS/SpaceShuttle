@@ -66,6 +66,155 @@
 
 </group>
 
+ <group>
+    <layout>table</layout>
+
+    <text>
+      <label>Export state vector</label>
+      <halign>left</halign>
+      <row>0</row>
+      <col>0</col>
+    </text>
+
+    <text>
+      <label>x</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>1</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-x</property>
+    </text> 
+
+    <text>
+      <label>y</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>2</col>
+    </text>
+
+   <text>
+      <row>1</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-y</property>
+    </text> 
+
+    <text>
+      <label>z</label>
+      <halign>left</halign>
+      <row>1</row>
+      <col>4</col>
+    </text>
+
+   <text>
+      <row>1</row>
+      <col>5</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-z</property>
+    </text>
+
+
+   <text>
+      <label>vx</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>2</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-vx</property>
+    </text> 
+
+    <text>
+      <label>vy</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>2</col>
+    </text>
+
+   <text>
+      <row>2</row>
+      <col>3</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-vy</property>
+    </text> 
+
+    <text>
+      <label>vz</label>
+      <halign>left</halign>
+      <row>2</row>
+      <col>4</col>
+    </text>
+
+   <text>
+      <row>2</row>
+      <col>5</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-vz</property>
+    </text>
+
+    <text>
+      <label>timestamp</label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>0</col>
+    </text>
+
+   <text>
+      <row>3</row>
+      <col>1</col>
+      <halign>center</halign>
+      <label>12345678</label>
+      <format>%d </format>
+      <live>true</live>
+      <property>/mission-control/comm/statevec-time</property>
+    </text> 
+
+	<button>
+       		<row>4</row>
+        	<col>2</col>
+		<legend>Mark</legend>
+		<binding>
+			<command>nasal</command>
+			<script>
+				setprop("/mission-control/comm/statevec-x",getprop("/fdm/jsbsim/position/eci-x-ft"));
+				setprop("/mission-control/comm/statevec-y",getprop("/fdm/jsbsim/position/eci-y-ft"));
+				setprop("/mission-control/comm/statevec-z",getprop("/fdm/jsbsim/position/eci-z-ft"));
+				setprop("/mission-control/comm/statevec-vx",getprop("/fdm/jsbsim/velocities/eci-x-fps"));
+				setprop("/mission-control/comm/statevec-vy",getprop("/fdm/jsbsim/velocities/eci-y-fps"));
+				setprop("/mission-control/comm/statevec-vz",getprop("/fdm/jsbsim/velocities/eci-z-fps"));
+				setprop("/mission-control/comm/statevec-time",getprop("/sim/time/elapsed-sec"));
+			</script>
+		</binding>
+	</button>
+
+</group>
 
         <empty>
 		<pref-height>12</pref-height>

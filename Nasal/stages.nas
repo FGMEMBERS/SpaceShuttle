@@ -560,9 +560,7 @@ if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 
 	if (alt > SpaceShuttle.earthview_transition_alt)
 		{
 		if (getprop("/nasal/local_weather/enabled") == 1)
-			{
-			local_weather.clear_all();
-			}
+			{local_weather.clear_all();}
 		earthview.start();
 		}
 
@@ -635,10 +633,25 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (
 	setprop("/environment/lightning/flash", 2);
 	setprop("/local-weather/lightning/model-index", -1);
 
+	# set rain splash vector
+
+	setprop("/environment/aircraft-effects/splash-vector-x", 2.0);
+	setprop("/environment/aircraft-effects/splash-vector-z", -0.5);
+
 
 	# store launch site information for PEG-4 in case we don't launch from KSC
 
 	SpaceShuttle.peg4_refloc.set_latlon(getprop("/position/latitude-deg"), getprop("/position/longitude-deg"));
+	SpaceShuttle.peg4_refloc.active_flag = 1;
+
+	# create the shifted reference location for targeting into a different plane
+
+	
+	SpaceShuttle.xtrack_refloc.set_latlon(SpaceShuttle.peg4_refloc.lat(), SpaceShuttle.peg4_refloc.lon() + getprop("/fdm/jsbsim/systems/ap/launch/asc-nd-lon-bias"));
+
+
+
+	#SpaceShuttle.targeting_manager.set_launch_site(0.0, getprop("/position/latitude-deg"), getprop("/position/longitude-deg"));
 
 	# if we have liftoff, switch autolaunch on if configured
 	# notify CWS that we have guidance and want to message every engine shutdown prior to MECO
@@ -1082,6 +1095,14 @@ if ((math.abs(pitch_rate) > 0.013089) or (math.abs(roll_rate) > 0.02181 ) or (ma
 	return;
 	}
 
+# ET sep is a good time to determine the velocity vector from the launch site for PEG-4 targeting
+
+var elapsed = getprop("/sim/time/elapsed-sec");
+var MET = elapsed + getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+SpaceShuttle.targeting_manager.set_launch_site(MET, SpaceShuttle.peg4_refloc.lat(), SpaceShuttle.peg4_refloc.lon());
+
+
 force_external_tank_separate();
 
 }
@@ -1163,11 +1184,25 @@ if ((stage == 3) or (stage ==4) or (stage == 5)){return;}
 
 if (stage == 6)
 	{
-	SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");
+	if (SpaceShuttle.bfs_in_control == 1)
+		{
+		SpaceShuttle.orbital_dap_manager.load_dap("BFS");
+		}
+	else
+		{
+		SpaceShuttle.orbital_dap_manager.load_dap("ORBIT");
+		}
 	}
 else
 	{
-	SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");
+	if (SpaceShuttle.bfs_in_control == 1)
+		{
+		SpaceShuttle.orbital_dap_manager.load_dap("BFS");
+		}
+	else
+		{
+		SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");
+		}
 	}
 #setprop("/sim/messages/copilot", "Control switched to RCS.");
 SpaceShuttle.callout.make("Control switched to RCS.", "info");
@@ -1179,8 +1214,8 @@ setprop("/sim/input/selected/engine[0]",0);
 setprop("/sim/input/selected/engine[1]",0);
 setprop("/sim/input/selected/engine[2]",0);
 
-setprop("/sim/input/selected/engine[5]",1);
-setprop("/sim/input/selected/engine[6]",1);
+setprop("/sim/input/selected/engine[5]",0);
+setprop("/sim/input/selected/engine[6]",0);
 
 }
 
@@ -1304,7 +1339,17 @@ settimer(SpaceShuttle.update_sv_errors, 0.4);
 settimer(SpaceShuttle.update_sensors, 0.5);
 settimer(SpaceShuttle.compare_bfs_pass, 0.7);
 
+# some log output
+
 #print(getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048, " ", getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048);
+
+#var xtmp = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+#var ytmp = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+#var ztmp = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+#var rtmp = math.sqrt(xtmp * xtmp + ytmp * ytmp + ztmp * ztmp);
+
+#print (getprop("/sim/time/elapsed-sec"), " ",rtmp);
 
 settimer(orbital_loop, 1.0);
 }
@@ -2004,6 +2049,15 @@ var jettison_drag_chute = func {
 
 var deploy_chute = func {
 
+    var state_sys1 = getprop("/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys1");
+    var state_sys2 = getprop("/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys2");
+
+    if ((state_sys1 == 0) and (state_sys2 == 0))
+	{
+	SpaceShuttle.callout.make("Drag chute is not powered!", "help");
+	return;
+	}
+
     var wheels_down = 0;
     if (getprop("/fdm/jsbsim/gear/unit[1]/WOW") and getprop("/fdm/jsbsim/gear/unit[2]/WOW")) {
         wheels_down = 1;
@@ -2214,6 +2268,13 @@ foreach (g; SpaceShuttle.gpc_array)
 setprop("/fdm/jsbsim/systems/dps/bfs-in-control", 1);
 SpaceShuttle.bfs_in_control = 1;
 
+var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+
+if ((major_mode == 104) or (major_mode == 105) or (major_mode == 201) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+	{
+	SpaceShuttle.orbital_dap_manager.load_dap("BFS");
+	}
+
 setprop("/fdm/jsbsim/systems/dps/bfs/bfc-light-status",1);
 
 print ("Backup flight system in control!");
@@ -2308,6 +2369,7 @@ if (SpaceShuttle.dps_simulation_detail_level == 1)
 
 setprop("/fdm/jsbsim/systems/dps/bfs-in-control", 0);
 SpaceShuttle.bfs_in_control = 0;
+SpaceShuttle.orbital_dap_manager.load_dap("TRANSITION");
 
 setprop("/fdm/jsbsim/systems/dps/bfs/bfc-light-status",0);
 setprop("/fdm/jsbsim/systems/dps/bfs/bfs-transient-error", 1);
@@ -2363,6 +2425,7 @@ setprop("/fdm/jsbsim/systems/fcs/speedbrake-cmd-norm", 1);
 setprop("/controls/shuttle/speedbrake-string", "out");
 
 
+
 }
 
 var slowdown_loop = func {
@@ -2382,6 +2445,9 @@ if ((getprop("/gear/gear[1]/rollspeed-ms") < 0.1) and (getprop("/velocities/grou
 		controls.centerFlightControls();
 		SpaceShuttle.touchdown_dlg.open();
 		}
+
+	setprop("/environment/aircraft-effects/splash-vector-x", -0.1);
+	setprop("/environment/aircraft-effects/splash-vector-z", -1.0);
 
 	#setprop("/sim/messages/copilot", "Wheels stop!");
 	SpaceShuttle.callout.make("Wheels stop!", "real");
@@ -2623,6 +2689,10 @@ var set_speed = func {
 
 var stage = getprop("/sim/presets/stage");
 
+setprop("/environment/aircraft-effects/splash-vector-x", 1.0);
+setprop("/environment/aircraft-effects/splash-vector-y", 0.0);
+setprop("/environment/aircraft-effects/splash-vector-z", 0.0);
+
 if (stage == 0)
 	{
 	var alt = getprop("/position/altitude-ft");
@@ -2674,6 +2744,15 @@ if (stage == 1)
 
 	# area nav is on during launch
 	area_nav_on();
+
+	# if PEG-4 is to be used, we need to construct a fake launch site 
+
+	var site_pos = geo.aircraft_position();
+	site_pos.apply_course_distance(-getprop("/orientation/heading-deg"), 1600000.0);
+
+
+	SpaceShuttle.peg4_refloc.set_latlon(site_pos.lat(), site_pos.lon());
+	SpaceShuttle.peg4_refloc.active_flag = 1;
 
 	# test de-orbit parameters
 	#setprop("/position/altitude-ft", 850000.0);
@@ -2824,259 +2903,10 @@ if (stage == 4)
 	SpaceShuttle.cws_msg_hash.nav_edit_tac = 1;
 	SpaceShuttle.cws_msg_hash.nav_edit_alt = 1;
 
-	# if we recognze the airport, we can start guidance
-	
-	var airport = getprop("/sim/presets/airport-id");
 
 
-	if (airport == "KTTS")
-		{
-		SpaceShuttle.update_site_by_index(1);
-		if (abs(heading - 150.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KTTS loaded");
-		}
-	else if (airport == "KVBG")
-		{
-		SpaceShuttle.update_site_by_index(2);
-		if (abs(heading - 150.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KVBG loaded");
-		}
-	else if (airport == "TXKF")
-		{
-		SpaceShuttle.update_site_by_index(11);
-		if (abs(heading - 120.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for TXKF loaded");
-
-		}
-	else if (airport == "LFMI")
-		{
-		SpaceShuttle.update_site_by_index(9);
-		if (abs(heading - 150.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for LFMI loaded");
-
-		}
-	else if (airport == "GBYD")
-		{
-		SpaceShuttle.update_site_by_index(7);
-		if (abs(heading - 140.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for GBYD loaded");
-
-		}
-	else if (airport == "LEZG")
-		{
-		SpaceShuttle.update_site_by_index(5);
-		if (abs(heading - 120.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for LEZG loaded");
-
-		}
-	else if (airport == "EGVA")
-		{
-		SpaceShuttle.update_site_by_index(6);
-		if (abs(heading - 90.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for EGVA loaded");
-
-		}
-	else if (airport == "LEMO")
-		{
-		SpaceShuttle.update_site_by_index(8);
-		if (abs(heading - 20.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for LEMO loaded");
-
-		}
-	else if (airport == "CYHZ")
-		{
-		SpaceShuttle.update_site_by_index(12);
-		if (abs(heading - 50.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for CYHZ loaded");
-
-		}
-	else if (airport == "KILM")
-		{
-		SpaceShuttle.update_site_by_index(13);
-		if (abs(heading - 50.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KILM loaded");
-
-		}
-	else if (airport == "KACY")
-		{
-		SpaceShuttle.update_site_by_index(14);
-		if (abs(heading - 130.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KACY loaded");
-		}
-	else if (airport == "KMYR")
-		{
-		SpaceShuttle.update_site_by_index(15);
-		if (abs(heading - 180.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KMYR loaded");
-		}
-	else if (airport == "KPSM")
-		{
-		SpaceShuttle.update_site_by_index(17);
-		if (abs(heading - 150.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KPSM loaded");
-		}
-	else if (airport == "CYQX")
-		{
-		SpaceShuttle.update_site_by_index(16);
-		#print ("Heading: ", heading);
-		if (abs(heading - 10.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for CYQX loaded");
-		}
-	else if (airport == "SCIP")
-		{
-		SpaceShuttle.update_site_by_index(30);
-		if (abs(heading - 100.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for SCIP loaded");
-
-		}
-	else if (airport == "FJDG")
-		{
-		SpaceShuttle.update_site_by_index(32);
-		if (abs(heading - 120.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for FJDG loaded");
-
-		}
-	else if (airport == "PHNL")
-		{
-		SpaceShuttle.update_site_by_index(33);
-		if (abs(heading - 80.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for PHNL loaded");
-		}
-	else if (airport == "BIKF")
-		{
-		SpaceShuttle.update_site_by_index(34);
-		if (abs(heading - 90.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for BIKF loaded");
-		}
-	else if (airport == "PGUA")
-		{
-		SpaceShuttle.update_site_by_index(35);
-		if (abs(heading - 60.0) < 20.0) 
-			{SpaceShuttle.update_runway_by_flag(0);}
-		else
-			{SpaceShuttle.update_runway_by_flag(1);}
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for PGUA loaded");
-		}
-	else if (airport == "KEDW")
-		{
-		SpaceShuttle.update_site_by_index(3);
-		SpaceShuttle.update_runway_by_flag(1);
-		SpaceShuttle.TAEM_loop_running = 1;
-		SpaceShuttle.compute_entry_guidance_target();
-		settimer (func {SpaceShuttle.TAEM_guidance_loop(1, 0.0); }, 1.0);
-		print("Automatic approach guidance for KEDW loaded");
-		}
+	# automatically set up guidance when available
+	io.include("automatic_approach_setup.nas");
 		
 
 
@@ -3198,6 +3028,11 @@ SpaceShuttle.init_keyboards();
 
 # switch long term component simulation on
 SpaceShuttle.condition_manager.start();
+
+# trim the OMS engines to their zero pos
+
+setprop("/fdm/jsbsim/systems/vectoring/OMS-trim-flag",1);
+settimer ( func {setprop("/fdm/jsbsim/systems/vectoring/OMS-trim-flag",0);}, 10.0);
 
 
 SpaceShuttle.nbat.select_ops(getprop("/fdm/jsbsim/systems/dps/ops"));

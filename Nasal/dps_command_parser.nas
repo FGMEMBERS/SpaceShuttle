@@ -777,6 +777,10 @@ var ops_transition = func (idp_index, page_id) {
 
 var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
 
+# any transition closes down burn acceleration counting
+setprop("/fdm/jsbsim/systems/navigation/acc-int-flag", 0);
+SpaceShuttle.oms_burn_tgt_reset();
+
 if (major_function == 1)
 	{
 	var ops = getprop("/fdm/jsbsim/systems/dps/ops");
@@ -814,7 +818,14 @@ if (major_function == 1)
 
 var major_mode_transition = func (idp_index, page_id) {
 
+
     var major_function = SpaceShuttle.idp_array[idp_index].get_major_function();
+
+
+# any transition closes down burn acceleration counting
+
+setprop("/fdm/jsbsim/systems/navigation/acc-int-flag", 0);
+SpaceShuttle.oms_burn_tgt_reset();
 
 # we now switch over all screens on IDPs showing the same major function which are in dps mode
 # if they're not showing SPEC or DISP
@@ -1003,6 +1014,10 @@ else if (major_mode == 601)
 
 if (page_id == "") {return;}
 
+# any transition closes down burn acceleration counting
+setprop("/fdm/jsbsim/systems/navigation/acc-int-flag", 0);
+SpaceShuttle.oms_burn_tgt_reset();
+
 setprop("/fdm/jsbsim/systems/dps/major-mode-bfs", major_mode);
 
 # we now switch over all screens which show BFS
@@ -1030,6 +1045,27 @@ if (state == 0) {state = 1;} else {state = 0;}
 
 setprop(node, state);
 }
+
+
+
+var blank_peg7 = func {
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", 0.0);
+}
+
+var blank_peg4 = func {
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t",0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", 0.0);
+setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", 0.0);
+
+SpaceShuttle.oms_burn_target.peg4 = 0;
+}
+
 
 #####################################################################
 # The command parser
@@ -1775,6 +1811,7 @@ if ((header == "OPS") and (end =="PRO"))
 		else
 			{
 			setprop("/fdm/jsbsim/systems/dps/ops", 3);
+			setprop("/fdm/jsbsim/systems/dps/ops-bfs", 3);
 			setprop("/fdm/jsbsim/systems/dps/major-mode", 301);
 			ops_transition(idp_index, "p_dps_mnvr");
 			foreach (I; SpaceShuttle.idp_array)
@@ -1794,6 +1831,25 @@ if ((header == "OPS") and (end =="PRO"))
 				SpaceShuttle.entry_guidance_available = 1;
 				}
 			dk_listen_major_mode_transition(301);
+
+
+			# if we are on a TAL, the system automatically advances to 304
+
+			if (getprop("/fdm/jsbsim/systems/abort/abort-mode") == 2)
+				{
+
+				settimer( func {
+				SpaceShuttle.traj_display_flag = 3;
+				SpaceShuttle.fill_entry1_data();
+				setprop("/fdm/jsbsim/systems/dps/major-mode", 304);
+				setprop("/fdm/jsbsim/systems/fcs/control-mode",29);
+				setprop("/controls/shuttle/control-system-string", "Aerojet");
+				major_mode_transition(idp_index, "p_entry");
+				dk_listen_major_mode_transition(304);
+
+					}, 1.0);
+				}
+			
 			}
 
 		valid_flag = 1;
@@ -1995,35 +2051,102 @@ if ((header == "ITEM") and (end == "EXEC"))
 			valid_flag = 1;
 			}
 		else if (item == 14)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", num(value)); valid_flag = 1;}
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			if ((ops == 1) or (ops == 3))
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", num(value)); 
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+				blank_peg7(); 
+				valid_flag = 1;
+				}
+			}
 		else if (item == 15)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", num(value)); valid_flag = 1;}
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			if ((ops == 1) or (ops == 3))
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", num(value)); 
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1); 
+				blank_peg7(); 
+				valid_flag = 1;
+				}
+			}
 		else if (item == 16)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", num(value)); valid_flag = 1;}
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			if ((ops == 1) or (ops == 3))
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", num(value)); 
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1); 
+				blank_peg7(); 
+				valid_flag = 1;
+				}
+			}
 		else if (item == 17)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t", num(value)); valid_flag = 1;}
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			if ((ops == 1) or (ops == 3))
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t", num(value)); 
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1); 
+				blank_peg7(); 
+				valid_flag = 1;
+				}
+			}
 		else if (item == 18)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", num(value)); valid_flag = 1;}
+			{
+			var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+			if (ops == 3)
+				{
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", num(value)); 
+				blank_peg7(); 
+				valid_flag = 1;
+				}
+			}
 		else if (item == 19)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); valid_flag = 1;}
+			{	
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); 
+			blank_peg4(); 
+			valid_flag = 1;
+			}
 		else if (item == 20)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy",num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy",num(value)); 
+			blank_peg4(); 			
+			valid_flag = 1;
+			}
 		else if (item == 21)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz",num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz",num(value)); 
+			valid_flag = 1;
+			blank_peg4(); 
+			}
 		else if (item == 22)
 			{
 			var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
-			if (burn_plan == 0)
+			var peg4_entered = getprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered");
+
+			if ((burn_plan == 0) and (peg4_entered == 0))
 				{
 				SpaceShuttle.create_oms_burn_vector();
-				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 2);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+				}
+			else if ((burn_plan == 0) and (peg4_entered == 1))
+				{
+				SpaceShuttle.create_oms_burn_vector_peg4();
 				}
 			else
 				{
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 0); 
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				SpaceShuttle.oms_burn_target.peg4 = 0;
+				setprop("/fdm/jsbsim/systems/navigation/acc-int-flag", 0);
+				SpaceShuttle.oms_burn_tgt_reset();
 				}
 			SpaceShuttle.tracking_loop_flag = 0;
 			valid_flag = 1;
@@ -2040,7 +2163,7 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
 
 			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
-			if (flag == 0) {flag = 1;} else {flag =0;}
+			if ((flag == 0) or (flag == 2)) {flag = 1;} else {flag =0;}
 			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag);
 			valid_flag = 1;
 			}
@@ -4661,14 +4784,14 @@ if ((header == "SPEC") and (end =="PRO"))
 		}
 	}
 
-# special situation - the exec key being used to fire the OMS burn or to cycle through the ENTRY TRAJ displays
+# special situation - the exec key being used to fire the OMS burn 
 
 
 
 if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 	{
 	var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
-	if ((major_mode == 104) or (major_mode == 105) or (major_mode == 106) or (major_mode == 202) or (major_mode == 301) or (major_mode == 302) or (major_mode == 303))
+	if ((major_mode == 104) or (major_mode == 105)  or (major_mode == 202)  or (major_mode == 302) )
 		{
         	var MET = SpaceShuttle.get_MET();
         	var exec_timer_flag = 0;
@@ -4689,11 +4812,12 @@ if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 			print("Burn time ", burn_time, " s");
 			SpaceShuttle.oms_burn_start(burn_time);
 			setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 1);
+			setprop("/fdm/jsbsim/systems/vectoring/OMS-trim-flag", 1);
 			valid_flag = 1;
 			}
 		}	
 
-	else if (major_mode == 304)
+	else if (major_mode == 904)
 		{
 		SpaceShuttle.traj_display_flag = SpaceShuttle.traj_display_flag+1;
 		if (SpaceShuttle.traj_display_flag > 7) {SpaceShuttle.traj_display_flag = 3;}
@@ -4724,6 +4848,43 @@ if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 		}
 	}
 
+# special situation - PRO used to cycle through the ENTRY TRAJ displays
+
+if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " PRO")
+	{
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+	if (major_mode == 304)
+		{
+		SpaceShuttle.traj_display_flag = SpaceShuttle.traj_display_flag+1;
+		if (SpaceShuttle.traj_display_flag > 7) {SpaceShuttle.traj_display_flag = 3;}
+
+		if (SpaceShuttle.traj_display_flag == 3)
+			{
+			fill_entry1_data();
+			}
+		else if (SpaceShuttle.traj_display_flag == 4)
+			{
+			fill_entry2_data();
+			}
+		else if (SpaceShuttle.traj_display_flag == 5)
+			{
+			fill_entry3_data();
+			}
+		else if (SpaceShuttle.traj_display_flag == 6)
+			{
+			fill_entry4_data();
+			}
+		else if (SpaceShuttle.traj_display_flag == 7)
+			{
+			fill_entry5_data();
+			}
+
+		page_select(idp_index, "p_entry");
+		valid_flag = 1;
+		}
+
+
+	}
 
 length_body = 0;
 length_value = 0;
@@ -5756,8 +5917,6 @@ if ((header == "ITEM") and (end == "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",3); valid_flag = 1;}
 		else if (item == 4)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-mode",4); valid_flag = 1;}
-		else if (item == 5)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/tv-roll",num(value)); valid_flag = 1;}
 		else if (item == 6)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/trim-pitch",num(value)); valid_flag = 1;}
 		else if (item == 7)
@@ -5791,15 +5950,34 @@ if ((header == "ITEM") and (end == "EXEC"))
 			valid_flag = 1;
 			}
 		else if (item == 14)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", num(value)); 
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+			valid_flag = 1;
+			}
 		else if (item == 15)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", num(value)); 
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+			valid_flag = 1;
+			}
 		else if (item == 16)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", num(value)); 
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+			valid_flag = 1;
+			}
 		else if (item == 17)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t", num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t", num(value)); 
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+			valid_flag = 1;
+			}
 		else if (item == 18)
-			{setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", num(value)); valid_flag = 1;}
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", num(value)); 
+			valid_flag = 1;
+			}
 		else if (item == 19)
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx",num(value)); valid_flag = 1;}
 		else if (item == 20)
@@ -5808,19 +5986,32 @@ if ((header == "ITEM") and (end == "EXEC"))
 			{setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz",num(value)); valid_flag = 1;}
 		else if (item == 22)
 			{
+
+
 			var burn_plan = getprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available");
-			if (burn_plan == 0)
+			var peg4_entered = getprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered");
+
+			if ((burn_plan == 0) and (peg4_entered == 0))
 				{
 				SpaceShuttle.create_oms_burn_vector();
-				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 2);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+				}
+			else if ((burn_plan == 0) and (peg4_entered == 1))
+				{
+				SpaceShuttle.create_oms_burn_vector_peg4();
 				}
 			else
 				{
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 0);
 				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 0); 
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				setprop("/fdm/jsbsim/systems/navigation/acc-int-flag", 0);
+				SpaceShuttle.oms_burn_tgt_reset();
 				}
+
 			SpaceShuttle.tracking_loop_flag = 0;
 			valid_flag = 1;
 			}
@@ -5829,15 +6020,6 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
 			SpaceShuttle.update_start_count(2);
 			SpaceShuttle.blank_start_at();
-			valid_flag = 1;
-			}
-		else if (item == 27)
-			{
-			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
-
-			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
-			if (flag == 0) {flag = 1;} else {flag =0;}
-			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag);
 			valid_flag = 1;
 			}
 		else if (item == 28)
@@ -5878,9 +6060,12 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		else if (item == 34)
 			{
-			setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 1);
-			settimer(func{ setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 0);}, 15.0);
-			valid_flag = 1;
+			if (SpaceShuttle.bfs_in_control == 1)
+				{
+				setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 1);
+				settimer(func{ setprop("/fdm/jsbsim/systems/oms-hardware/gimbal-chk-cmd", 0);}, 15.0);
+				valid_flag = 1;
+				}
 			}
 		else if (item == 35)
 			{
@@ -6666,10 +6851,20 @@ if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 			print("Burn time ", burn_time, " s");
 			SpaceShuttle.oms_burn_start(burn_time);
 			setprop("/fdm/jsbsim/systems/ap/oms-plan/exec-cmd", 1);
+			setprop("/fdm/jsbsim/systems/vectoring/OMS-trim-flag", 1);
 			valid_flag = 1;
 			}
 		}
-	else if (major_mode == 304)
+
+	}
+
+
+# special situation - PRO used to cycle through the ENTRY TRAJ displays
+
+if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " PRO")
+	{
+        var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+	if (major_mode == 304)
 		{
 		SpaceShuttle.traj_display_flag = SpaceShuttle.traj_display_flag+1;
 		if (SpaceShuttle.traj_display_flag > 7) {SpaceShuttle.traj_display_flag = 3;}
@@ -6698,8 +6893,9 @@ if (getprop("/fdm/jsbsim/systems/dps/command-string["~idp_index~"]") == " EXEC")
 		page_select(idp_index, "p_entry");
 		valid_flag = 1;
 		}
-	}
 
+
+	}
 
 
 wipe_scratch_buffer(idp_index);

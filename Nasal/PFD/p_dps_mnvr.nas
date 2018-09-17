@@ -203,10 +203,10 @@ var PFD_addpage_p_dps_mnvr = func(device)
         device.update_common_DPS();
     
     
-        p_dps_mnvr.oms_pitch_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/pitch-angle-rad") * 57.297));
-        p_dps_mnvr.oms_pitch_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/pitch-angle-rad") * 57.297));
-        p_dps_mnvr.oms_yaw_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/yaw-angle-rad") * 57.297));
-        p_dps_mnvr.oms_yaw_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/yaw-angle-rad") * 57.297));
+        p_dps_mnvr.oms_pitch_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/pitch-angle-rad") * 57.297 + 11.7));
+        p_dps_mnvr.oms_pitch_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/pitch-angle-rad") * 57.297 + 11.7));
+        p_dps_mnvr.oms_yaw_left.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[5]/yaw-angle-rad") * 57.297 - 5.7));
+        p_dps_mnvr.oms_yaw_right.setText(sprintf("%1.1f",getprop("/fdm/jsbsim/propulsion/engine[6]/yaw-angle-rad") * 57.297 + 5.7));
     
         p_dps_mnvr.current_apoapsis.updateText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/apoapsis-km")/1.853));
         p_dps_mnvr.current_periapsis.updateText(sprintf("%3.0f",getprop("/fdm/jsbsim/systems/orbital/periapsis-km")/1.853));
@@ -340,7 +340,11 @@ var PFD_addpage_p_dps_mnvr = func(device)
     
     
         p_dps_mnvr.mnvr.updateText(oms_mnvr_text);
-        p_dps_mnvr.active_dap.updateText(dap_text);
+
+	if (SpaceShuttle.bfs_in_control == 0)
+        	{p_dps_mnvr.active_dap.updateText(dap_text);}
+	else
+		{p_dps_mnvr.active_dap.updateText("");}
 
 
 

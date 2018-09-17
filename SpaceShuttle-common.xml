@@ -148,9 +148,13 @@
           <course-vector type="double" n="2">0.0</course-vector>
 	  <launch-azimuth type="double">0.0</launch-azimuth>
 	  <cross-track type="double">0.0</cross-track>
+	  <cross-track-approach-speed type="double">0.0</cross-track-approach-speed>
 	  <pitch-target type="double">90.0</pitch-target>
 	  <pitch-max-rate-norm type="double">0.1</pitch-max-rate-norm>
 	  <inclination-target type="double">28.7</inclination-target>
+	  <asc-node-lon-tgt-flag type="int">0</asc-node-lon-tgt-flag>
+	  <asc-node-lon-tgt type="double">0.0</asc-node-lon-tgt>
+	  <asc-nd-lon-bias type="double">0.0</asc-nd-lon-bias>
 	  <course-target type="double">90.0</course-target>
 	  <hdot-target type="double">0.0</hdot-target>
 	  <apoapsis-target type="double">320.0</apoapsis-target>
@@ -269,6 +273,7 @@
 	<ht type="double">0.0</ht>
 	<theta-t type="double">0.0</theta-t>
 	<prplt type="double">0.0</prplt>
+	<peg4-entered type="int">0</peg4-entered>
         <dvtot type="double">0.0</dvtot>
         <tv-roll type="double">180.0</tv-roll>
         <burn-solution-flag type="int">0</burn-solution-flag>
@@ -349,6 +354,7 @@
     	<ku-antenna-search-switch type="int">0</ku-antenna-search-switch>
 	<ku-antenna-searching type="int">0</ku-antenna-searching>
     </antenna>
+    <circuit-breakers include="circuit_breakers.xml"/>
     <carrier>
      	<mark-x-fwd type="double">0.0</mark-x-fwd>
      	<mark-y-fwd type="double">0.0</mark-y-fwd>
@@ -707,6 +713,7 @@
        <reactant-valve-status type="int">1</reactant-valve-status>
        <fc-start-cmd type="int">1</fc-start-cmd>
        <fc-controller-power type="int">1</fc-controller-power>
+       <fc-controller-power-ovhd type="int">1</fc-controller-power-ovhd>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
        <purge-valve-status type="int">0</purge-valve-status>
@@ -715,6 +722,7 @@
        <reactant-valve-status type="int">1</reactant-valve-status>
        <fc-start-cmd type="int">1</fc-start-cmd>
        <fc-controller-power type="int">1</fc-controller-power>
+       <fc-controller-power-ovhd type="int">1</fc-controller-power-ovhd>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
        <purge-valve-status type="int">0</purge-valve-status>
@@ -723,6 +731,7 @@
        <reactant-valve-status type="int">1</reactant-valve-status>
        <fc-start-cmd type="int">1</fc-start-cmd>
        <fc-controller-power type="int">1</fc-controller-power>
+       <fc-controller-power-ovhd type="int">1</fc-controller-power-ovhd>
        <bus-connector-status type="int">1</bus-connector-status>
        <fc-efficiency type="double">1.0</fc-efficiency>
        <purge-valve-status type="int">0</purge-valve-status>
@@ -894,7 +903,6 @@
         <grain-framing type="int">300</grain-framing>
         <grain-floor type="int">150</grain-floor>
         <grain-roof type="int">1100</grain-roof>
-        <grain-backwall type="int">300</grain-backwall>
         <grain-wall type="int">600</grain-wall>
         <grain-window type="int">400</grain-window>
      </grain>
@@ -1044,6 +1052,13 @@
       <imu1-power-demand-kW type="double">0.22</imu1-power-demand-kW>
       <imu2-power-demand-kW type="double">0.22</imu2-power-demand-kW>
       <imu3-power-demand-kW type="double">0.22</imu3-power-demand-kW>
+      <imu1-switch type="double">1.0</imu1-switch>
+      <imu2-switch type="double">1.0</imu2-switch>
+      <imu3-switch type="double">1.0</imu3-switch>
+      <acc-int-flag type="int">0</acc-int-flag>
+      <dvx type="double">0.0</dvx>
+      <dvy type="double">0.0</dvy>
+      <dvz type="double">0.0</dvz>
       <orbital-tgt>
 	<tgt-id type="int">0</tgt-id>
       </orbital-tgt>
@@ -1349,11 +1364,11 @@
       <crossfeed-right-rcs-valve-12-status type="int">0</crossfeed-right-rcs-valve-12-status>	
       <crossfeed-right-rcs-valve-345-status type="int">0</crossfeed-right-rcs-valve-345-status>	      
 
-      <heater-left-A-status type="int">0</heater-left-A-status>
+      <!--<heater-left-A-status type="int">0</heater-left-A-status>
       <heater-left-B-status type="int">0</heater-left-B-status>
 
       <heater-right-A-status type="int">0</heater-right-A-status>
-      <heater-right-B-status type="int">0</heater-right-B-status>
+      <heater-right-B-status type="int">0</heater-right-B-status>-->
 
       <!-- we have a three-way switch here -->
       <heater-fwd-A-status type="int">0</heater-fwd-A-status>
@@ -1707,6 +1722,7 @@
      </various>
      <vectoring>
       <ssme-repos-enable type="int">1</ssme-repos-enable>
+      <OMS-trim-flag type="int">0</OMS-trim-flag>
      </vectoring>
     </systems>
    </jsbsim>
@@ -2428,6 +2444,13 @@
        </binding>
       </item>
       <item>
+       <label>OMS propellant flow (new)</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.cdlg_oms_propellant.init()</script>
+       </binding>
+      </item>
+      <item>
        <label>RCS and OMS thermal control</label>
        <binding>
         <command>nasal</command>
@@ -2471,7 +2494,8 @@
        <label>Orbiter Temperature Distribution</label>
        <binding>
         <command>nasal</command>
-        <script>SpaceShuttle.temperature_dlg.open()</script>
+        <!--<script>SpaceShuttle.temperature_dlg.open()</script>-->
+	<script>SpaceShuttle.cdlg_temperature.init()</script>
        </binding>
       </item>
       <item>
@@ -2529,6 +2553,14 @@
        <binding>
         <command>nasal</command>
         <script>SpaceShuttle.dps_keyboard_dlg.open()</script>
+       </binding>
+      </item>
+
+      <item>
+       <label>Keyboard (new)</label>
+       <binding>
+        <command>nasal</command>
+        <script>SpaceShuttle.cdlg_keyboard.init()</script>
        </binding>
       </item>
 
@@ -2864,6 +2896,8 @@ Note that devlopment is ongoing and not all features are documented.
      <thermal-system-computation-speed type="int">0</thermal-system-computation-speed>
      <place-gantry type="int">0</place-gantry>
      <display-effect type="int">0</display-effect>
+     <dust-level type="float">3.0</dust-level>
+     <velcro-effect type="int">0</velcro-effect>
      <mdu-groups type="int">4</mdu-groups>
      <mdu-update-speed type="int">1</mdu-update-speed>
      <dps-detail-level type="int">0</dps-detail-level>
@@ -2934,6 +2968,8 @@ Note that devlopment is ongoing and not all features are documented.
     <path>/sim/config/shuttle/hud-filter</path>
     <path>/sim/config/shuttle/place-gantry</path>
     <path>/sim/config/shuttle/display-effect</path>
+    <path>/sim/config/shuttle/dust-level</path>
+    <path>/sim/config/shuttle/velcro-effect</path>
     <path>/sim/config/shuttle/callouts/info</path>
     <path>/sim/config/shuttle/callouts/help</path>
     <path>/sim/config/shuttle/callouts/limit</path>
@@ -2977,11 +3013,13 @@ Note that devlopment is ongoing and not all features are documented.
 
  <nasal>
   <SpaceShuttle>	
-   <file>Aircraft/SpaceShuttle/Nasal/canvas_draw.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/canvas/canvas_draw.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/callouts.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/rel_orbital.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/orbital_planning.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/orbital_targeting.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/coordinates.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/oms_burn_logic.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/state_vector.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/vertical_traj.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/stages.nas</file>
@@ -3015,8 +3053,10 @@ Note that devlopment is ongoing and not all features are documented.
    <file>Aircraft/SpaceShuttle/Nasal/zero_g.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/carrier.nas</file>
    <file>Aircraft/SpaceShuttle/Nasal/approach_trainer.nas</file>
+   <file>Aircraft/SpaceShuttle/Nasal/leakage.nas</file>
    <file>Nasal/PFD/PFD_main.nas</file>
    <file>Nasal/HUD/HUD_main.nas</file>
+   <file>Nasal/canvas/canvas_dialogs.nas</file>
   </SpaceShuttle>
   <tyresmoke>
    <file>Nasal/tyresmoke.nas</file>

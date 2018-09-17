@@ -165,36 +165,37 @@
 		</binding>
 	</button>
 
-	<nasal>
-		<open>
-			var read_description = func {
+    <nasal>
+        <open>
+            var read_description = func {
 
-				setprop("/save/description", "");
+                setprop("/save/description", "");
+                setprop("/save/timestring", "");
 
-				var string = "";
-				var sel_slot = getprop("/sim/gui/dialogs/SpaceShuttle/save/selected");
+                var string = "";
+                var sel_slot = getprop("/sim/gui/dialogs/SpaceShuttle/save/selected");
 
-				if (sel_slot == "Slot 1") {string = "save1.xml";}
-				else if (sel_slot == "Slot 2") {string = "save2.xml";}
-				else if (sel_slot == "Slot 3") {string = "save3.xml";}
-				else if (sel_slot == "Slot 4") {string = "save4.xml";}
-				else if (sel_slot == "Slot 5") {string = "save5.xml";}
-			
+                if (sel_slot == "Slot 1") {string = "save1.xml";}
+                else if (sel_slot == "Slot 2") {string = "save2.xml";}
+                else if (sel_slot == "Slot 3") {string = "save3.xml";}
+                else if (sel_slot == "Slot 4") {string = "save4.xml";}
+                else if (sel_slot == "Slot 5") {string = "save5.xml";}
 
-				SpaceShuttle.read_state_from_file(string);
 
-				var description = getprop("/save/description");
-				var timestamp = getprop("/save/timestring");
+                SpaceShuttle.read_state_from_file(string);
 
-			
-				setprop("/sim/gui/dialogs/SpaceShuttle/save/description", description);
-				setprop("/sim/gui/dialogs/SpaceShuttle/save/timestamp", timestamp);
-				setprop("/sim/gui/dialogs/SpaceShuttle/save/filename", string);
-			
-			}
-		</open>
+                var description = getprop("/save/description");
+                var timestamp = getprop("/save/timestring");
 
-	</nasal>
+
+                setprop("/sim/gui/dialogs/SpaceShuttle/save/description", description);
+                setprop("/sim/gui/dialogs/SpaceShuttle/save/timestamp", timestamp);
+                setprop("/sim/gui/dialogs/SpaceShuttle/save/filename", string);
+
+            }
+        </open>
+
+    </nasal>
 
 
 

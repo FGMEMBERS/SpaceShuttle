@@ -98,7 +98,8 @@
 		 <value>off attitude</value>
 		 <value>RCS failure</value>
 		 <value>hydraulic failure</value>
-		 <value>electric failure</value>		
+		 <value>electric failure</value>
+		 <value>propellant leak</value>				
 		 <value>bad state vector at TAEM</value>
 		 <value>navigation problems</value>
 		 <value>stuck speedbrake</value>

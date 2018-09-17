@@ -5,7 +5,16 @@
   <inherits-from>Effects/model-interior-extended</inherits-from>
 
   <parameters>
+	<texture n="17">
+			<type>2d</type>
+			<filter>linear-mipmap-linear</filter>
+			<wrap-s>clamp</wrap-s>
+			<wrap-t>clamp</wrap-t>
+			<internal-format>normalized</internal-format>
+			<image>Aircraft/SpaceShuttle/Models/Effects/Interior/dust-effect-overlay.png</image>
+	</texture>
 	<sample-res>0.0</sample-res>
+	<dirt-factor>3.0</dirt-factor>
 	<!--<disp-brightness><use>/test/disp-brightness</use></disp-brightness>
 	<sample-far><use>/test/sample-far</use></sample-far>
 	<fade0><use>/test/fade0</use></fade0>
@@ -70,6 +79,14 @@
         <filter><use>texture[0]/filter</use></filter>
         <wrap-s><use>texture[0]/wrap-s</use></wrap-s>
         <wrap-t><use>texture[0]/wrap-t</use></wrap-t>
+      </texture-unit>
+      <texture-unit>
+        <unit>2</unit>
+        <type><use>texture[17]/type</use></type>
+        <image><use>texture[17]/image</use></image>
+        <filter><use>texture[17]/filter</use></filter>
+        <wrap-s><use>texture[17]/wrap-s</use></wrap-s>
+        <wrap-t><use>texture[17]/wrap-t</use></wrap-t>
       </texture-unit>
       <texture-unit>
         <unit>3</unit>
@@ -232,6 +249,11 @@
         <name>emit_intensity</name>
         <type>float</type>
         <value><use>implicit-lightmap-intensity</use></value>
+     </uniform>
+    <uniform>
+        <name>dirt_factor</name>
+        <type>float</type>
+        <value><use>dirt-factor</use></value>
      </uniform>
      <uniform>
         <name>view_pitch_offset</name>
@@ -493,6 +515,11 @@
         <name>texture</name>
         <type>sampler-2d</type>
         <value type="int">0</value>
+      </uniform>
+      <uniform>
+        <name>dust_texture</name>
+        <type>sampler-2d</type>
+        <value type="int">2</value>
       </uniform>
       <uniform>
         <name>lightmap_texture</name>

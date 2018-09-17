@@ -133,16 +133,80 @@
       </binding>
     </radio>
 
+    <checkbox>
+        <name>off-plane</name>
+ 	<row>3</row>
+        <col>0</col>
+          <property>/fdm/jsbsim/systems/ap/launch/asc-node-lon-tgt-flag</property>
+          <label>enable experimental off-plane targeting</label>
+          <live>true</live>
+ 	  <binding>
+              <command>dialog-apply</command>
+              <object-name>off-plane</object-name>
+          </binding>
+    </checkbox>
+
+    <text>
+      <label>Asc. nd. lon. </label>
+      <halign>left</halign>
+      <row>3</row>
+      <col>1</col>
+    </text>
+
+    <text>
+      <row>3</row>
+      <col>2</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.2f deg</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/ap/launch/asc-nd-lon-tgt</property>
+    </text>
+
+    <text>
+      <label>Asc. nd. lon. offset</label>
+      <halign>left</halign>
+      <row>4</row>
+      <col>0</col>
+    </text>
+
+    <slider>
+      <enable><property>/fdm/jsbsim/systems/ap/launch/asc-node-lon-tgt-flag</property></enable>
+      <name>tgt-asc-nd</name>
+      <row>4</row>
+      <col>1</col>
+      <min>-1.0</min>
+      <max>1.0</max>
+      <step>0.01</step>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/ap/launch/asc-nd-lon-bias</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>tgt-asc-nd</object-name>
+      </binding>
+    </slider>
+
+    <text>
+      <enable><property>/fdm/jsbsim/systems/ap/launch/asc-node-lon-tgt-flag</property></enable>
+      <row>4</row>
+      <col>2</col>
+      <halign>left</halign>
+      <label>12345678</label>
+      <format>%.2f deg</format>
+      <live>true</live>
+      <property>/fdm/jsbsim/systems/ap/launch/asc-nd-lon-bias</property>
+    </text> 
+
    <text>
       <label>Target apoapsis</label>
       <halign>left</halign>
-      <row>3</row>
+      <row>5</row>
       <col>0</col>
     </text>
 
     <slider>
       <name>tgt-apoapsis</name>
-      <row>3</row>
+      <row>5</row>
       <col>1</col>
       <min>100.0</min>
       <max>350.0</max>
@@ -156,7 +220,7 @@
     </slider>
 
     <text>
-      <row>3</row>
+      <row>5</row>
       <col>2</col>
       <halign>left</halign>
       <label>12345678</label>
@@ -166,7 +230,7 @@
     </text> 
 
     <button>
-      <row>4</row>
+      <row>6</row>
       <col>0</col>
        <legend>Activate</legend>
        <visible>
@@ -184,7 +248,7 @@
     </button>
 
     <button>
-      <row>4</row>
+      <row>6</row>
       <col>0</col>
        <legend>Cancel</legend>
        <visible>
@@ -210,7 +274,7 @@
 	  </equals>
        </visible>
       <halign>left</halign>
-      <row>4</row>
+      <row>6</row>
       <col>1</col>
     </text>
 

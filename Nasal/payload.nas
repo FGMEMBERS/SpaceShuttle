@@ -442,4 +442,4 @@ pdrs_auto_seq_manager.append_sequence_array(b);
 #pdrs_auto_seq_manager.assign_slot(0,0);
 }
 
-add_test_seq();
+#add_test_seq();

@@ -107,6 +107,8 @@ var PFD_addpage_p_pfd = func(device)
     p_pfd.nd_ref_rem_dist = props.globals.getNode("/fdm/jsbsim/systems/entry_guidance/remaining-distance-nm", 1);
     p_pfd.nd_ref_hsi_source = props.globals.getNode("/fdm/jsbsim/systems/adi/hsi-source-select", 1);
 
+    p_pfd.nd_ref_xtrk = props.globals.getNode("/fdm/jsbsim/systems/ap/launch/cross-track", 1);
+
 
     p_pfd.ondisplay = func
     {
@@ -1531,15 +1533,10 @@ var PFD_addpage_p_pfd = func(device)
 		if ((launch_stage > 0) and (launch_stage < 5) and (altitude > 500.0)) # we have launch guidance
 		{
 
-
-
-		#var tgt_inc = getprop("/fdm/jsbsim/systems/ap/launch/inclination-target");
-		#var current_inc = getprop("/fdm/jsbsim/systems/orbital/inclination-deg");
-
     		var tgt_inc = p_pfd.nd_ref_tgt_inc.getValue();
     		var current_inc = p_pfd.nd_ref_current_inc.getValue();
 
-		#var groundtrack_course_deg = getprop("/fdm/jsbsim/systems/entry_guidance/groundtrack-course-deg");
+
 		var groundtrack_course_deg = p_pfd.nd_ref_groundtrack_course_deg.getValue();
 
 		var inertial_course_deg = yaw + beta_deg;
@@ -1551,7 +1548,7 @@ var PFD_addpage_p_pfd = func(device)
 
 		hsi_course = Delta_inc;
 
-		p_pfd.xtrk_display_text.setText(sprintf("%2.1f", getprop("/fdm/jsbsim/systems/ap/launch/cross-track")));
+		p_pfd.xtrk_display_text.setText(sprintf("%2.1f", p_pfd.nd_ref_xtrk.getValue() - SpaceShuttle.xtrack_refloc.correction ));
 
 		if (launch_stage == 1)
 			{
@@ -1592,8 +1589,6 @@ var PFD_addpage_p_pfd = func(device)
 		p_pfd.cdi_dots.setVisible(0);
 		p_pfd.course_arrow.setVisible(0);	
 
-	
-		#if (getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto") == 1)
 		if (p_pfd.nd_ref_orbital_dap_auto.getValue() == 1)
 			{dap_text = "Auto";}
 		else
@@ -2021,6 +2016,13 @@ var PFD_addpage_p_pfd = func(device)
 	# KEAS /Mach tape
 
 	var mach = getprop("/fdm/jsbsim/velocities/mach");
+
+	if (major_mode == 103)
+		{
+		mach = getprop("/fdm/jsbsim/velocities/eci-velocity-mag-fps") / 1000.0;
+		}
+
+
 	p_pfd.keas_tape.setTranslation (70, 200 - 5400 + 381.0 * mach);       
 	p_pfd.keas_display_text.setTextFast(sprintf("%2.1f",mach));
 

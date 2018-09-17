@@ -16,7 +16,9 @@
 
 	<!-- the OMS maneuver uses oms-mnvr-flag instead, modes are -->
 
+
 	<!-- 1: BURN ATT (maneuver to burn attitude) -->
+	<!-- 2: BURN ATT ERR (compute errors without automatic maneuvering commands -->
 	<!-- 0: CNCL (cancel manever)-->
 
 	<!-- For track and rotation, the body vector can be defined as body-vector-selection -->
@@ -570,7 +572,7 @@
 		<switch name="systems/ap/track/roll-db-correction">
 		<default value="0.0"/>
 			<test value="0.12">
-				systems/ap/oms-mnvr-flag == 1
+				systems/ap/oms-mnvr-flag GT 0
 			</test>
 		</switch>
 
@@ -3263,12 +3265,33 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/ap/launch/stage2-tgt-azimuth">
+		<function>
+			<sum>
+			<property>systems/ap/launch/launch-azimuth</property>
+			<max>			
+			<min>
+			<product>
+				<property>systems/ap/launch/cross-track</property>
+				<value>-2.0</value>
+				<property>systems/ap/launch/asc-node-lon-tgt-flag</property>
+			</product>
+			<value>20.0</value>
+			</min>
+			<value>-20.0</value>
+			</max>			
+			</sum>
+		</function>
+		</fcs_function>
+		
+
 		<fcs_function name="systems/ap/launch/stage2-yaw-error">
 		<function>
 			<product>
 			<difference>
 				<property>/orientation/heading-deg</property>
-				<property>systems/ap/launch/launch-azimuth</property>
+				<!--<property>systems/ap/launch/launch-azimuth</property>-->
+				<property>systems/ap/launch/stage2-tgt-azimuth</property>
 			</difference>
 			<table>
         			<independentVar lookup="row">/orientation/pitch-deg</independentVar>
@@ -3469,12 +3492,94 @@
 		</pid>
 
 
-		<fcs_function name="systems/ap/launch/stage3-yaw-error">
+		<fcs_function name="systems/ap/launch/stage3-yaw-error-inc">
 		<function>
 			<difference>
 				<property>systems/ap/launch/stage3-beta-pid</property>
 				<property>aero/beta-deg</property>
 			</difference>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage3-xtrack-approach-tgt">
+		<function>
+			<table>
+        		<independentVar lookup="row">systems/ap/launch/cross-track</independentVar>
+         		<tableData>
+				-15.0	-0.2
+				-5.0	-0.08
+				-1.0	-0.04
+				0.0	0.0
+				1.0	0.04
+				5.0	0.08
+				15.0	0.2
+       			</tableData>
+    			</table>			
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-xtrack-approach-error">
+		<function>
+			<difference>
+				<property>systems/ap/launch/stage3-xtrack-approach-tgt</property>
+				<property>systems/ap/launch/cross-track-approach-speed</property>
+			</difference>
+		</function>
+		</fcs_function>
+		
+
+		<fcs_function name="systems/ap/launch/stage3-tgt-azimuth">
+		<function>
+			<sum>
+				<property>systems/ap/launch/launch-azimuth</property>
+				<table>
+        			<independentVar lookup="row">systems/ap/launch/stage3-xtrack-approach-error</independentVar>
+         			<tableData>
+      					-0.2	45.0
+					-0.1	30.0
+					-0.05	15.0
+					-0.02	5.0
+					0.0	0.0
+					0.02	-5.0
+					0.05	-15.0
+					0.1	-25.0
+					0.2	-30.0
+       				 </tableData>
+    				</table>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/ap/launch/stage3-yaw-error-dl">
+		<function>
+			<product>
+			<difference>
+				<property>systems/ap/launch/stage3-tgt-azimuth</property>
+				<property>/orientation/heading-deg</property>
+			</difference>
+			<value>20.0</value>
+			<table>
+        			<independentVar lookup="row">velocities/mach</independentVar>
+         			<tableData>
+					0.0	1.0
+      					6.5	1.0
+					7.0	0.0
+					25.0	0.0	
+       				</tableData>
+    			</table>
+			<property>systems/ap/launch/asc-node-lon-tgt-flag</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		<fcs_function name="systems/ap/launch/stage3-yaw-error">
+		<function>
+			<sum>
+				<property>systems/ap/launch/stage3-yaw-error-inc</property>
+				<property>systems/ap/launch/stage3-yaw-error-dl</property>
+			</sum>
 		</function>
 		</fcs_function>
 

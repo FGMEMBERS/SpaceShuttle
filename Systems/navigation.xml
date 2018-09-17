@@ -9,11 +9,13 @@
 			<test logic="AND" value="1.0">
 				systems/navigation/rdr-altm == 1
 				systems/navigation/radar-altimeter-1-power == 1
+				systems/circuit-breakers/radar-alt1 == 1
 				systems/electrical/bus/voltage GT 26.0
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/rdr-altm == 0
 				systems/navigation/radar-altimeter-2-power == 1
+				systems/circuit-breakers/radar-alt2 == 1
 				systems/electrical/bus[1]/voltage GT 26.0
 			</test>
 		</switch>
@@ -34,6 +36,7 @@
 				systems/navigation/tacan-sys1-switch GT 0
 				systems/electrical/bus/voltage GT 26.0
 				systems/failures/navigation/tacan-1-condition GT 0
+				systems/circuit-breakers/tacan1 == 1
 			</test>
 		</switch>
 
@@ -43,6 +46,7 @@
 				systems/navigation/tacan-sys2-switch GT 0
 				systems/electrical/bus[1]/voltage GT 26.0
 				systems/failures/navigation/tacan-2-condition GT 0
+				systems/circuit-breakers/tacan2 == 1
 			</test>
 		</switch>
 
@@ -52,6 +56,7 @@
 				systems/navigation/tacan-sys3-switch GT 0
 				systems/electrical/bus[2]/voltage GT 26.0
 				systems/failures/navigation/tacan-3-condition GT 0
+				systems/circuit-breakers/tacan3 == 1
 			</test>
 		</switch>
 
@@ -101,14 +106,17 @@
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys1-switch == 1
 				systems/electrical/bus/voltage GT 26.0
+				systems/circuit-breakers/mls1 == 1
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys2-switch == 1
 				systems/electrical/bus[1]/voltage GT 26.0
+				systems/circuit-breakers/mls2 == 1
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys3-switch == 1
 				systems/electrical/bus[2]/voltage GT 26.0
+				systems/circuit-breakers/mls3 == 1
 			</test>
 		</switch>
 		
@@ -323,6 +331,35 @@
   			<noise variation="PERCENT" distribution="GAUSSIAN"> 0.01 </noise>
 			<output>systems/navigation/acceleration-z</output>
 		</accelerometer>
+
+	</channel>
+
+
+	<channel name="Integrated accelerations" execute="systems/navigation/acc-int-flag">
+
+		<pid name="systems/navigation/int-acc-x">
+			<input>systems/navigation/acceleration-x</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<output>systems/navigation/dvx</output>
+  		</pid>
+
+		<pid name="systems/navigation/int-acc-y">
+			<input>systems/navigation/acceleration-y</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<output>systems/navigation/dvy</output>
+  		</pid>
+
+		<pid name="systems/navigation/int-acc-z">
+			<input>systems/navigation/acceleration-z</input>
+			<kp> 0.0 </kp>
+			<ki> 1.0 </ki>
+			<kd> 0.0</kd>
+			<output>systems/navigation/dvz</output>
+  		</pid>
 
 	</channel>
 

@@ -1006,6 +1006,8 @@ if ((SpaceShuttle.imu_system.imu[0].dilemma == 1) or (SpaceShuttle.imu_system.im
 
 		create_fault_message(string~" RM DLMA IMU ", 1, 2);	
 		cws_msg_hash.rm_dlma_imu = 1;
+
+		SpaceShuttle.orbital_dap_manager.load_dap("IMU_FAIL");
 		}
 	}
 

@@ -1,5 +1,5 @@
 # orbital DAP selection scheme for the Space Shuttle
-# Thorsten Renk 2016
+# Thorsten Renk 2016-2018
 
 
 var orbital_dap_manager = {
@@ -11,6 +11,9 @@ var orbital_dap_manager = {
 	selected_jets: "PRI",
 	selected_z_mode: "NORM",
 	selected_device: "RHC",
+	imu_fail_mode: 0,
+	bfs_engage_mode: 0,
+	imu_fail_mode: 0,
 
 
 	dap_select: func (dap) {
@@ -177,6 +180,18 @@ var orbital_dap_manager = {
 
 		me.get_state();
 
+		if (me.bfs_engage_mode == 1)
+			{
+			print ("BFS does not support control mode selection");
+			return;
+			}
+
+		if (me.imu_fail_mode == 1)
+			{
+			print ("Rate holding modes do not work without IMU signals");
+			return;
+			}
+
 		if ((me.major_mode != 201) and (me.major_mode != 202) and ((mode == "LVLH") or (mode == "FREE")))
 			{
 			print("Control mode ", mode ," is only supported in OPS 2");
@@ -286,6 +301,31 @@ var orbital_dap_manager = {
 
 		me.get_state();
 
+		if (me.bfs_engage_mode == 1)	
+			{
+			if (mode == "DISC")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse", 0);
+				}
+			else if (mode == "PULSE")
+				{
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse", 1);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc", 0);
+				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse", 1);
+				}
+			
+			return;
+			}
+
+
 		if ((me.major_mode != 201) and (me.major_mode != 202))
 			{
 			print("Axis rate selection is only supported in OPS 2");
@@ -293,7 +333,7 @@ var orbital_dap_manager = {
 			}
 
 
-		if (mode == "DISC")
+		if ((mode == "DISC") and (me.imu_fail_mode == 0))
 			{
 			if (axis == "PITCH")
 				{
@@ -310,6 +350,11 @@ var orbital_dap_manager = {
 				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc", 1);
 				setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse", 0);
 				}
+			}
+		else if ((mode == "DISC") and (me.imu_fail_mode == 1))
+			{
+			print ("Rate holding modes do not work without IMU signals");
+			return;
 			}
 		else if (mode == "PULSE")
 			{
@@ -456,6 +501,12 @@ var orbital_dap_manager = {
 
 	toggle_input_device: func {
 
+		# take care of the fact that we might try to operate the RMS arm
+		if (getprop("/fdm/jsbsim/systems/fcs/rms-control-veto") == 0)
+			{
+			me.input_device_toggle_rms();
+			return;
+			}
 
 		if (me.selected_device == "RHC")
 			{
@@ -468,7 +519,35 @@ var orbital_dap_manager = {
 
 	},
 
+
+	input_device_toggle_rms: func {
+
+
+		if (getprop("/fdm/jsbsim/systems/rms/drive-selection-mode") == 2)
+			{
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 3);
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-string", "ORB UNL P/Y/R");
+			setprop("/sim/messages/copilot", "RMS rotation");
+			}
+		else
+			{
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-mode", 2);
+			setprop("/fdm/jsbsim/systems/rms/drive-selection-string", "ORB UNL X/Y/Z");
+			setprop("/sim/messages/copilot", "RMS translation");
+			}
+
+
+	},
+
+	get_input_device: func {
+
+		return me.input_device_select;		
+
+	},
+
 	input_device_select: func (device) {
+
+
 
 		me.get_state();
 
@@ -586,30 +665,51 @@ var orbital_dap_manager = {
 
 	get_state: func {
 
-		me.fcs_control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-		me.major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
+		if (me.bfs_engage_mode == 0)
+		{
+			me.fcs_control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+			me.major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode");
 
-		var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
-		var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
-		var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
-		var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
+			var orbital_dap_inertial = getprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial");
+			var orbital_dap_free = getprop("/fdm/jsbsim/systems/ap/orbital-dap-free");
+			var orbital_dap_lvlh = getprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh");
+			var orbital_dap_auto = getprop("/fdm/jsbsim/systems/ap/orbital-dap-auto");
 
-		if (orbital_dap_inertial == 1) {me.attitude_mode = "INRTL";}
-		else if (orbital_dap_free == 1) {me.attitude_mode = "FREE";}
-		else if (orbital_dap_lvlh == 1) {me.attitude_mode = "LVLH";}
-		else if (orbital_dap_auto == 1) {me.attitude_mode = "AUTO";}
+			if (orbital_dap_inertial == 1) {me.attitude_mode = "INRTL";}
+			else if (orbital_dap_free == 1) {me.attitude_mode = "FREE";}
+			else if (orbital_dap_lvlh == 1) {me.attitude_mode = "LVLH";}
+			else if (orbital_dap_auto == 1) {me.attitude_mode = "AUTO";}
 
-		var dap_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select");
-		if (dap_selection == 1) {me.selected_dap = "B";}
-		else {me.selected_dap = "A";}
+			var dap_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select");
+			if (dap_selection == 1) {me.selected_dap = "B";}
+			else {me.selected_dap = "A";}
 
-		var jet_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select");
-		if (jet_selection == 1) {me.selected_jets = "VRN";}
-		else {me.selected_jets = "PRI";}
+			var jet_selection = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select");
+			if (jet_selection == 1) {me.selected_jets = "VRN";}
+			else {me.selected_jets = "PRI";}
 
-		var z_mode = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select");
-		if (z_mode == 1) {me.selected_z_mode = "LOW";}
-		else {me.selected_z_mode = "NORM";}
+			var z_mode = getprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/zlow-select");
+			if (z_mode == 1) {me.selected_z_mode = "LOW";}
+			else {me.selected_z_mode = "NORM";}
+		}
+		else
+		{
+
+			me.fcs_control_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
+			me.major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
+
+			var orbital_dap_inertial = 1;
+			var orbital_dap_free = 0;
+			var orbital_dap_lvlh = 0;
+			var orbital_dap_auto = 0;
+
+			me.attitude_mode = "INRTL";
+			me.selected_dap = "A";
+			me.selected_jets = "PRI";
+			me.selected_z_mode = "NORM";
+
+
+		}
 
 	},
 
@@ -619,6 +719,9 @@ var orbital_dap_manager = {
 
 		if (dap == "TRANSITION")
 			{
+			me.bfs_engage_mode = 0;
+			me.imu_fail_mode = 0;
+
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
@@ -659,6 +762,9 @@ var orbital_dap_manager = {
 			}
 		else if (dap == "ORBIT")
 			{
+			me.bfs_engage_mode = 0;
+			me.imu_fail_mode = 0;
+
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
@@ -697,8 +803,97 @@ var orbital_dap_manager = {
 
 			me.set_fcs_control_mode(20);
 			}
+		else if (dap == "BFS")
+			{
+			me.bfs_engage_mode = 1;
+			me.imu_fail_mode = 0;
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
+
+			me.attitude_mode = "INRTL";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select",0);
+
+			me.selected_dap = "A";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select",0);
+
+			me.selected_jets = "PRI";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
+			me.set_fcs_control_mode(20);
+			}
+		else if (dap == "IMU_FAIL")
+			{
+			me.bfs_engage_mode = 0;
+			me.imu_fail_mode = 1;
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
+
+			me.attitude_mode = "FREE";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-a-select",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/dap-b-select",0);
+
+			me.selected_dap = "A";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/pri-select",1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/alt-select",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/vrn-select",0);
+
+			me.selected_jets = "PRI";
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-r-pulse",1);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-p-pulse",1);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-disc",0);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/rot-y-pulse",1);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-x-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-y-pulse", 0);
+
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-norm", 1);
+			setprop("/fdm/jsbsim/systems/ap/orbital-dap-buttons/trans-z-pulse", 0);
+
+			me.set_fcs_control_mode(1);
+			}
 		else if (dap == "NONE")
 			{
+			me.bfs_engage_mode = 0;
+			me.imu_fail_mode = 0;
+
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
 			setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
@@ -743,6 +938,8 @@ var orbital_dap_manager = {
 	
 	set_fcs_control_mode: func (mode) {
 
+
+
 		me.fcs_control_mode = mode;
 		setprop("/fdm/jsbsim/systems/fcs/control-mode", mode);
 
@@ -774,6 +971,12 @@ var orbital_dap_manager = {
 			{
 			control_mode_string = control_mode_string~" LVLH";
 			}
+		
+		if (me.bfs_engage_mode == 1)
+			{
+			control_mode_string = control_mode_string~" BFS";
+			}
+
 
 		setprop("/controls/shuttle/control-system-string", control_mode_string);
 

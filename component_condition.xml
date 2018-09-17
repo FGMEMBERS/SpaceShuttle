@@ -127,6 +127,18 @@
 	<rcs-left-fuel-line-condition type="double">1.0</rcs-left-fuel-line-condition>
 	<rcs-right-fuel-line-condition type="double">1.0</rcs-right-fuel-line-condition>
 </rcs>
+<leakage>
+	<oms-left-oxidizer-leak-flow type="double">0.0</oms-left-oxidizer-leak-flow>
+	<oms-left-fuel-leak-flow type="double">0.0</oms-left-fuel-leak-flow>
+	<oms-right-oxidizer-leak-flow type="double">0.0</oms-right-oxidizer-leak-flow>
+	<oms-right-fuel-leak-flow type="double">0.0</oms-right-fuel-leak-flow>
+	<rcs-left-oxidizer-leak-flow type="double">0.0</rcs-left-oxidizer-leak-flow>
+	<rcs-left-fuel-leak-flow type="double">0.0</rcs-left-fuel-leak-flow>
+	<rcs-right-oxidizer-leak-flow type="double">0.0</rcs-right-oxidizer-leak-flow>
+	<rcs-right-fuel-leak-flow type="double">0.0</rcs-right-fuel-leak-flow>
+	<rcs-fwd-oxidizer-leak-flow type="double">0.0</rcs-fwd-oxidizer-leak-flow>
+	<rcs-fwd-fuel-leak-flow type="double">0.0</rcs-fwd-fuel-leak-flow>
+</leakage>
 <apu1-condition type="double">1.0</apu1-condition>
 <apu2-condition type="double">1.0</apu2-condition>
 <apu3-condition type="double">1.0</apu3-condition>

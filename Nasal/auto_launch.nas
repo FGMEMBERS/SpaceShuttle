@@ -6,18 +6,43 @@ var auto_launch_stage = 0;
 var auto_launch_timer = 0.0;
 var aux_flag = 0;
 
+var xtrack_refloc = geo.Coord.new();
+xtrack_refloc.last_xtrack = 0.0;
+xtrack_refloc.correction = 0.0;
+
+
+xtrack_refloc.approach_speed = 0.0;
+xtrack_refloc.last_app_speed = 0.0;
+xtrack_refloc.buffer = 0.0;
 
 var auto_launch_loop = func {
 
 var shuttle_pos = geo.aircraft_position();
 
-var actual_course = SpaceShuttle.peg4_refloc.course_to(shuttle_pos);
-var dist = SpaceShuttle.peg4_refloc.distance_to(shuttle_pos);
+#var actual_course = SpaceShuttle.peg4_refloc.course_to(shuttle_pos);
+#var dist = SpaceShuttle.peg4_refloc.distance_to(shuttle_pos);
+
+var actual_course = SpaceShuttle.xtrack_refloc.course_to(shuttle_pos);
+var dist = SpaceShuttle.xtrack_refloc.distance_to(shuttle_pos);
+
 var launch_azimuth = getprop("/fdm/jsbsim/systems/ap/launch/launch-azimuth");
 
 var xtrack = SpaceShuttle.sgeo_crosstrack(actual_course, launch_azimuth, dist)  * 0.0005399568;
 
+# compute speed by a running average
+
+xtrack_refloc.approach_speed = (xtrack_refloc.last_xtrack - xtrack)/ 0.1; # using loop time constant
+xtrack_refloc.buffer = (xtrack_refloc.approach_speed + xtrack_refloc.last_app_speed)/2.0;
+xtrack_refloc.last_app_speed = xtrack_refloc.approach_speed;
+xtrack_refloc.approach_speed = xtrack_refloc.buffer;
+
+
+
+xtrack_refloc.last_xtrack = xtrack;
+
+
 setprop("/fdm/jsbsim/systems/ap/launch/cross-track", xtrack);
+setprop("/fdm/jsbsim/systems/ap/launch/cross-track-approach-speed", xtrack_refloc.approach_speed);
 
 if (auto_launch_stage == 0)
 	{
@@ -121,6 +146,9 @@ else if (auto_launch_stage == 2)
 	if (getprop("/controls/shuttle/SRB-static-model") == 0)
 		{
 		auto_launch_stage = 3;
+	
+		meco_time.init(26000.0);	
+
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 3);
 		var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
 		payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
@@ -149,6 +177,8 @@ else if (auto_launch_stage == 3)
 		auto_TAL_init();
 		return;
 		}
+
+	meco_time.run();
 
 	var alt = getprop("/position/altitude-ft");
 
@@ -202,6 +232,7 @@ else if (auto_launch_stage == 4)
 	var mach = getprop("/fdm/jsbsim/velocities/mach");
 
 	droop_guidance.run (alt);
+	meco_time.run();
 
 	if ((alt < 420000.0) and (mach < 23.0))
 		{
@@ -219,6 +250,8 @@ else if (auto_launch_stage == 4)
 	
 	if (getprop("/fdm/jsbsim/accelerations/n-pilot-x-norm") > 2.85)
 		{
+
+		SpaceShuttle.meco_time.set_mode(1);
 
 		# an engine can be in electric lockup, so we may need to look at more engines
 		# to determine current throttle value
@@ -302,6 +335,8 @@ else if (auto_launch_stage == 4)
 	if (getprop("/fdm/jsbsim/systems/orbital/apoapsis-km") > getprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target"))
 		{
 
+		SpaceShuttle.meco_time.set_mode(2);
+
 		if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
 			{	
 			if (SpaceShuttle.failure_cmd.ssme1 == 1)
@@ -348,7 +383,11 @@ else if (auto_launch_stage == 4)
 			SpaceShuttle.ops_transition_auto("p_dps_mnvr");
 			}, 23.0);
 
-		settimer( external_tank_separate, 20.0);
+		settimer( func {
+			external_tank_separate();
+			mission_auto_OMS1();
+
+			}, 20.0);
 
 		# start main orbital loop
 		orbital_loop_init();
@@ -826,5 +865,107 @@ var droop_guidance = {
 
 };
 
+var meco_time = {
 
+	
+	time_to_meco: 0.0,
+	inertial_target: 0.0,
+	counter: 0,
+	mode: 0,
+	delta_met: 0,
+
+
+	init: func (inertial_target) {
+
+		me.nd_ref_v_inrtl = props.globals.getNode("/fdm/jsbsim/velocities/eci-velocity-mag-fps", 1);
+		me.nd_ref_thrust1 = props.globals.getNode("/fdm/jsbsim/propulsion/engine[0]/thrust-lbs", 1);
+		me.nd_ref_thrust2 = props.globals.getNode("/fdm/jsbsim/propulsion/engine[1]/thrust-lbs", 1);
+		me.nd_ref_thrust3 = props.globals.getNode("/fdm/jsbsim/propulsion/engine[2]/thrust-lbs", 1);
+		me.nd_ref_mass = props.globals.getNode("/fdm/jsbsim/inertia/weight-lbs", 1);
+
+		me.inertial_target = inertial_target * 0.3048;
+
+		me.delta_met = getprop("/fdm/jsbsim/systems/timer/delta-MET");
+
+	},
+	
+	run: func {
+
+		if (me.mode == 2) {return;}
+
+
+		# don't need to execute in every guidance cycle
+		if (me.counter == 5) 
+			{me.counter = 0;}
+		else
+			{
+			me.counter = me.counter + 1;
+			return;
+			}		
+			
+		var n_engines = getprop("/fdm/jsbsim/systems/mps/number-engines-operational");
+
+		var T = me.nd_ref_thrust1.getValue();
+		T = T + me.nd_ref_thrust2.getValue();
+		T = T + me.nd_ref_thrust3.getValue();
+
+		var throttle_setting = T/(n_engines * 509002.0);
+
+		var M = me.nd_ref_mass.getValue();
+
+		var a0 = T/M;
+		a0 = a0 * 9.81;
+
+		# to SI units
+		M = M * 0.45359237;
+		T = T * 4.44822161526;
+
+		#print ("Current acceleration: ", a0/9.81, " g");
+		#print ("Current mass:" , M, " kg");
+		#print ("Current thrust:", T, " N");
+
+		var mdot = 1313.5 * throttle_setting;
+
+		var v0 = me.nd_ref_v_inrtl.getValue() * 0.3048;
+
+		var t_3g = 0.0;
+		var v_3g = v0;
+
+		if (me.mode == 0)
+			{
+			t_3g = (29.43 * M - T) / (29.43 * mdot );
+			v_3g = v0 + 4434.12 * math.ln(M/(M - mdot * t_3g));
+			}
+
+		#print ("Time to throttling: ", t_3g, " s");
+		#print ("Inertial velocity at throttling: ", v_3g, " m/s");
+
+		me.time_to_meco = t_3g + (me.inertial_target - v_3g) / 29.43;
+
+		#print ("Time to MECO: ", me.time_to_meco, " s");
+
+		
+
+	},
+
+
+	set_mode: func (mode) {
+
+		me.mode = mode;
+
+	},
+
+	get_mode: func () {
+
+		return me.mode;
+
+	},
+
+	get: func () {
+
+		return me.time_to_meco + me.delta_met;
+	},
+
+
+};
 

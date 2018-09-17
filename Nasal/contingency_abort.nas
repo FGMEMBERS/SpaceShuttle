@@ -400,7 +400,7 @@ var guidance_mode = getprop("/fdm/jsbsim/systems/entry_guidance/guidance-mode");
 if (guidance_mode == 3) # we're on RTLS
 	{
 	var eas = getprop("/velocities/equivalent-kt");
-	var picthdown = getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active");
+	var pitchdown_active = getprop("/fdm/jsbsim/systems/ap/rtls/powered-pitchdown-active");
 
 	if ((abort_region == "GREEN") and (eas > 9.0))
 		{setprop("/fdm/jsbsim/systems/abort/contingency-abort-region-3eo", "ORANGE");}

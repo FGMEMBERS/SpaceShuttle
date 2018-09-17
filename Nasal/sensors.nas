@@ -1007,6 +1007,7 @@ var imu_unit = {
 		i.status_string = "";
 		i.deselected = 0;
 		i.condition = 1.0;
+		i.switch_status = 1.0;
 		i.powered = 1;
 		i.sel_for_alignment = 0;
 		i.delta_roll = 0.0;
@@ -1064,8 +1065,9 @@ var imu_unit = {
 	update_status : func {
 
 		me.condition  = getprop("/fdm/jsbsim/systems/failures/navigation/imu-"~(me.index+1)~"-condition");
+		me.switch_status  = getprop("/fdm/jsbsim/systems/navigation/imu"~(me.index+1)~"-switch");
 
-		if (me.condition == 0)
+		if ((me.condition == 0) or (me.switch == 0))
 			{	
 			me.operational = 0;
 			me.status_string = "BITE";
@@ -1654,6 +1656,11 @@ setlistener("/fdm/jsbsim/systems/failures/navigation/imu-1-condition", func () {
 setlistener("/fdm/jsbsim/systems/failures/navigation/imu-2-condition", func () { imu_system.imu[1].update_status();});
 setlistener("/fdm/jsbsim/systems/failures/navigation/imu-3-condition", func () { imu_system.imu[2].update_status();});
 
+setlistener("/fdm/jsbsim/systems/navigation/imu1-switch", func () {imu_system.imu[0].switch_power(getprop("/fdm/jsbsim/systems/navigation/imu1-switch"));});
+setlistener("/fdm/jsbsim/systems/navigation/imu2-switch", func () {imu_system.imu[1].switch_power(getprop("/fdm/jsbsim/systems/navigation/imu2-switch"));});
+setlistener("/fdm/jsbsim/systems/navigation/imu3-switch", func () {imu_system.imu[2].switch_power(getprop("/fdm/jsbsim/systems/navigation/imu3-switch"));});
+
+
 ###############################################################################
 # Air data system
 ###############################################################################
@@ -1674,6 +1681,7 @@ var adta_unit = {
 		a.pressure_fail = 0;
 		a.operational = 1;
 		a.condition = 1.0;
+		a.circuit_breaker = 1.0;
 		a.deselected = 0;
 		a.dilemma = 0;
 		a.soft_failed = 0;
@@ -1717,6 +1725,9 @@ var adta_unit = {
 		me.condition = getprop("/fdm/jsbsim/systems/failures/navigation/adta-"~iref~"-condition");
 
 		if (me.condition == 0) {flag = 0;}
+
+		me.circuit_breaker = getprop("/fdm/jsbsim/systems/circuit-breakers/adta"~iref);
+		if (me.circuit_breaker == 0) {flag = 0;}
 
 		me.operational = flag;
 

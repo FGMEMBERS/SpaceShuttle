@@ -423,8 +423,8 @@ var compute_sys_temperatures = func {
 
 var heater_OMS_left = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-operational");
 var heater_OMS_right = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-operational");
-var heater_RCS_left = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-operational");
-var heater_RCS_right = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-operational");
+var heater_RCS_left = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-operational");
+var heater_RCS_right = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-operational");
 var heater_Xfeed = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-operational");
 
 T_left = thermal_array[6].temperature;

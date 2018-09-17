@@ -32,12 +32,16 @@ Index	Name				status
 15 	Myrtle Beach			east coast abort landing site
 16	Gander				east coast abort landing site
 17	Pease				east coast abort landing site
+18 	Oceana Naval Air Station	east coast abort landing site
 30 	Easter Island			TAL for Vandenberg launches, never used in reality
 32	Diego Garcia			emergency landing site
 33	Honolulu Intl. Airport		emergency landing site
 34	Keflavik Intl. Airport		emergency landing site
 35	Andersen Air Force Base	Guam	emergency landing site	
-
+36	Amilcar Cabral Intl. Airport	emergency landing site
+37 	Ascension Island RAF		emergency landing site
+38	Wake Island			emergency landing site
+39	Lajes Air Base			emergency landing site
 
 Stars available for COAS
 ========================

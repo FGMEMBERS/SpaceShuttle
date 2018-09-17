@@ -37,6 +37,7 @@ var target_reference_time = 0.0;
 
 var peg4_refloc = geo.Coord.new();
 peg4_refloc.set_latlon(28.63, -80.70);
+peg4_refloc.active_flag = 0;
 
 
 

@@ -1291,42 +1291,68 @@
 
 		<fcs_function name="systems/rcs-hardware/fuel-left-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/rcs-left-fuel-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[9]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/oxidizer-left-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/rcs-left-oxidizer-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[8]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/fuel-right-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/rcs-hardware/fuel-left-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/fuel-right-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/rcs-right-fuel-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[11]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/rcs-hardware/oxidizer-right-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/rcs-hardware/oxidizer-left-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/oxidizer-right-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/rcs-right-oxidizer-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[10]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/fuel-fwd-correction">
+		<function>
+			<property>systems/failures/leakage/rcs-fwd-fuel-leak-flow</property>
+		</function>
+		<output>propulsion/tank[13]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/rcs-hardware/oxidizer-fwd-correction">
+		<function>
+			<property>systems/failures/leakage/rcs-fwd-oxidizer-leak-flow</property>
+		</function>
+		<output>propulsion/tank[12]/external-flow-rate-pps</output>
 		</fcs_function>
 
 
@@ -2917,7 +2943,7 @@
 			</test>
 		</switch>
 
-		<fcs_function name="systems/rcs-hardware/heater-left-power-kW">
+		<!--<fcs_function name="systems/rcs-hardware/heater-left-power-kW">
 		<function>
 			<product>
 				<max>
@@ -2927,9 +2953,9 @@
 				<value>0.18</value>
 			</product>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
-		<switch name="systems/rcs-hardware/heater-left-operational">
+		<!--<switch name="systems/rcs-hardware/heater-left-operational">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rcs-hardware/heater-left-A-status == 1
@@ -2939,9 +2965,9 @@
 				systems/rcs-hardware/heater-left-B-status == 1
 				systems/electrical/bus[1]/voltage GT 24.0
 			</test>
-		</switch>
+		</switch>-->
 
-		<fcs_function name="systems/rcs-hardware/heater-right-power-kW">
+		<!--<fcs_function name="systems/rcs-hardware/heater-right-power-kW">
 		<function>
 			<product>
 				<max>
@@ -2951,9 +2977,9 @@
 				<value>0.18</value>
 			</product>
 		</function>
-		</fcs_function>
+		</fcs_function>-->
 
-		<switch name="systems/rcs-hardware/heater-right-operational">
+		<!--<switch name="systems/rcs-hardware/heater-right-operational">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
 				systems/rcs-hardware/heater-right-A-status == 1
@@ -2963,7 +2989,7 @@
 				systems/rcs-hardware/heater-right-B-status == 1
 				systems/electrical/bus[1]/voltage GT 24.0
 			</test>
-		</switch>
+		</switch>-->
 
 		<fcs_function name="systems/rcs-hardware/heater-fwd-1-power-kW">
 		<function>

@@ -1630,6 +1630,7 @@ var ev_timer =
 	obj.count_flag = 0;
 	obj.count_mode = "DOWN";
 	obj.set_time = 0;
+	obj.power = 1;
 
         var dev_canvas= canvas.new({
                 "name": designation,
@@ -1721,11 +1722,27 @@ var ev_timer =
 	me.time = SpaceShuttle.clamp(me.time, 0, 3600);
     },
 
+    set_power: func (power)
+    {
+	if (power == 1)
+		{
+		me.time_string.setVisible(1);
+		}
+	else
+		{
+		me.time_string.setVisible(0);
+		}
+
+    },
+
 
 };
 
 var ev_timer = ev_timer.new("EventTimerF7", "event-time-glass");
 ev_timer._canvas.addPlacement({"node": "A4-event-time-glass"});
+
+#setlistener("/fdm/jsbsim/systems/circuit-breakers/event-timer-fwd", func (n) { ev_timer.set_power(n.getValue());});
+
 
 
 var met_timer =
@@ -1777,6 +1794,19 @@ var met_timer =
 	settimer (func me.update(), 1.0);
     },
 
+    set_power: func (power)
+    {
+	if (power == 1)
+		{
+		me.time_string.setVisible(1);
+		}
+	else
+		{
+		me.time_string.setVisible(0);
+		}
+
+    },
+
 };
 
 
@@ -1784,6 +1814,7 @@ var met_timer = met_timer.new("METTimerA4", "A4-mission-time-glass");
 met_timer._canvas.addPlacement({"node": "O3-event-time-glass"});
 met_timer.update();
 
+#setlistener("/fdm/jsbsim/systems/circuit-breakers/mission-timer-fwd", func (n) { met_timer.set_power(n.getValue());});
 
 var rms_indicator =
 {

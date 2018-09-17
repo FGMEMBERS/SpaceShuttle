@@ -72,6 +72,12 @@ var PFD_addpage_p_ascent = func(device)
 
     p_ascent.droop_engaged.setColor(0.8, 0.8, 0.4);
 
+    p_ascent.tmeco_txt = device.svg.getElementById("p_ascent_tmeco_txt");
+    p_ascent.tmeco = device.svg.getElementById("p_ascent_tmeco");
+
+    p_ascent.tmeco_txt.enableUpdate();
+    p_ascent.tmeco.enableUpdate();
+
     p_ascent.pass = device.svg.getElementById("p_ascent_pass");
     p_ascent.bfs = device.svg.getElementById("p_ascent_bfs");
 
@@ -231,6 +237,9 @@ var PFD_addpage_p_ascent = func(device)
     	p_ascent.droop_alt.updateText("");
     	p_ascent.droop_engaged.updateText("");
 
+    	p_ascent.tmeco_txt.updateText("");
+    	p_ascent.tmeco.updateText("");
+
     }
     
     p_ascent.offdisplay = func
@@ -342,6 +351,13 @@ var PFD_addpage_p_ascent = func(device)
 	    p_ascent.vco_marker.setVisible(1);
 	    p_ascent.vcoscale_co.setVisible(1);
 	    p_ascent.vcoscale_labelco.setVisible(1);
+
+	    p_ascent.tmeco_txt.updateText("TMECO");
+	    var tmeco = getprop("/sim/time/elapsed-sec");
+	    tmeco = tmeco + SpaceShuttle.meco_time.get();
+
+	    if (SpaceShuttle.meco_time.get_mode() < 2)
+	    	{p_ascent.tmeco.updateText(seconds_to_stringMS(tmeco));}
 
 
 

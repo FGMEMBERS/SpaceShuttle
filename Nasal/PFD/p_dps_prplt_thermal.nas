@@ -205,11 +205,11 @@ var PFD_addpage_p_dps_prplt_thermal = func(device)
 	# left and right RCS thermal control
 
 	T_left = T_left_raw;
-	var heater_RCS_left = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-left-operational");
+	var heater_RCS_left = getprop("/fdm/jsbsim/systems/oms-hardware/heater-left-operational");
 	if ((T_left < 57.0) and (heater_RCS_left == 1)) {T_left = 65.0;}
 
 	T_right = T_right_raw;
-	var heater_RCS_right = getprop("/fdm/jsbsim/systems/rcs-hardware/heater-right-operational");
+	var heater_RCS_right = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-operational");
 	if ((T_right < 57.0) and (heater_RCS_right == 1)) {T_right = 65.0;}
 
     	p_dps_prplt_thermal.manf1_ox_l.setText(sprintf("%d", int(T_left)+1)); 

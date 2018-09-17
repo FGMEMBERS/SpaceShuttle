@@ -875,21 +875,21 @@
 		</or>
 		<or>
 		<equals>
-		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-A-status</property>
+		  <property>/fdm/jsbsim/systems/oms-hardware/heater-left-A-status</property>
 		  <value>1</value>
 		</equals>
 		<equals>
-		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-left-B-status</property>
+		  <property>/fdm/jsbsim/systems/oms-hardware/heater-left-B-status</property>
 		  <value>1</value>
 		</equals>
 		</or>
 		<or>
 		<equals>
-		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-A-status</property>
+		  <property>/fdm/jsbsim/systems/oms-hardware/heater-right-A-status</property>
 		  <value>1</value>
 		</equals>
 		<equals>
-		  <property>/fdm/jsbsim/systems/rcs-hardware/heater-right-B-status</property>
+		  <property>/fdm/jsbsim/systems/oms-hardware/heater-right-B-status</property>
 		  <value>1</value>
 		</equals>
 		</or>

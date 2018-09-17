@@ -524,44 +524,56 @@
 
 		<fcs_function name="systems/oms-hardware/fuel-left-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/fuel-oms-left-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/oms-left-fuel-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[5]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/fuel-right-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/fuel-oms-right-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/oms-right-fuel-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[7]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/oxidizer-left-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/oxidizer-oms-left-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/oms-left-oxidizer-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[4]/external-flow-rate-pps</output>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/oxidizer-right-crossfeed-correction">
 		<function>
+			<sum>
 			<difference>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
 				<property>systems/rcs-hardware/oxidizer-oms-right-crossfeed-drain-pps</property>
 			</difference>
+			<property>systems/failures/leakage/oms-right-oxidizer-leak-flow</property>
+			</sum>
 		</function>
 		<output>propulsion/tank[6]/external-flow-rate-pps</output>
 		</fcs_function>

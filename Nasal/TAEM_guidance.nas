@@ -431,8 +431,6 @@ var area_nav_set = {
 		me.accuracy_alt = 5.0 * 0.3085 ;
 		me.acc_z = 5.0;
 		me.offset_z = 0.0;
-		me.offset_x = 0.0;
-		me.offset_y = 0.0;
 		me.offset_lat = 0.0;
 		me.offset_lon = 0.0;
 
@@ -1260,6 +1258,7 @@ if (site_string == "Kennedy Space Center")
 		TAEM_threshold.elevation = 0.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 4572.0;
 	TAEM_threshold.MLS_available = 1;
 	}
@@ -1279,6 +1278,7 @@ else if (site_string == "Vandenberg Air Force Base")
 		TAEM_threshold.elevation = 362.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 4572.0;
 	TAEM_threshold.MLS_available = 1;
 	}
@@ -1286,22 +1286,23 @@ else if (site_string == "Edwards Air Force Base")
 	{
 	if (runway_string == "06")
 		{
-		TAEM_threshold.set_latlon(34.9498,-117.8608);
+		TAEM_threshold.set_latlon(34.9497,-117.8608);
 		TAEM_threshold.heading = 64.5;
 		TAEM_threshold.elevation = 2280.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
 	else if (runway_string == "24")
 		{
-		TAEM_threshold.set_latlon(34.9655,-117.8200);
+		TAEM_threshold.set_latlon(34.961,-117.8310);
 		TAEM_threshold.heading = 244.5;
 		TAEM_threshold.elevation = 2280.0;
 		TAEM_threshold.MLS_channel = 8;
 		}
-	TAEM_threshold.rwy_length = 4572.0;
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 5572.0;
 	TAEM_threshold.MLS_available = 1;
 	}
-else if (site_string == "White Sands Space Harbour")
+else if (site_string == "White Sands Space Harbor")
 	{
 	if (runway_string == "14")
 		{
@@ -1317,9 +1318,10 @@ else if (site_string == "White Sands Space Harbour")
 		TAEM_threshold.elevation = 4450.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.MLS_available = 1;
 	TAEM_threshold.rwy_length = 4572.0;
-	TAEM_threshold.MLS_available = 0;
+	#TAEM_threshold.MLS_available = 0;
 	}
 else if (site_string == "Zaragoza Airport")
 	{
@@ -1337,6 +1339,7 @@ else if (site_string == "Zaragoza Airport")
 		TAEM_threshold.elevation = 866.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3718.0;
 	TAEM_threshold.MLS_available = 1;
 	}
@@ -1354,6 +1357,7 @@ else if (site_string == "RAF Fairford")
 		TAEM_threshold.heading = 267.0;
 		TAEM_threshold.elevation = 256.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3045.0;
 	}
 else if (site_string == "Banjul International Airport")
@@ -1370,6 +1374,7 @@ else if (site_string == "Banjul International Airport")
 		TAEM_threshold.heading = 131.0;
 		TAEM_threshold.elevation = 102.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3600.0;
 	}
 else if (site_string == "Moron Air Base")
@@ -1388,6 +1393,7 @@ else if (site_string == "Moron Air Base")
 		TAEM_threshold.elevation = 280.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3597.0;
 	TAEM_threshold.MLS_available = 1;
 	}
@@ -1407,6 +1413,7 @@ else if (site_string == "Le Tube")
 		TAEM_threshold.elevation = 80.0;
 		TAEM_threshold.MLS_channel = 6;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 5000.0;
 	TAEM_threshold.MLS_available = 1;
 	}
@@ -1424,6 +1431,7 @@ else if (site_string == "Bermuda")
 		TAEM_threshold.heading = 282.0;
 		TAEM_threshold.elevation = 25.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 2947.0;
 	}
 else if (site_string == "Halifax")
@@ -1440,6 +1448,7 @@ else if (site_string == "Halifax")
 		TAEM_threshold.heading = 215.0;
 		TAEM_threshold.elevation = 460.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3200.0;
 	}
 else if (site_string == "Wilmington")
@@ -1456,6 +1465,7 @@ else if (site_string == "Wilmington")
 		TAEM_threshold.heading = 228.5;
 		TAEM_threshold.elevation = 25.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 2440.0;
 	}
 else if (site_string == "Atlantic City")
@@ -1472,6 +1482,7 @@ else if (site_string == "Atlantic City")
 		TAEM_threshold.heading = 298.0;
 		TAEM_threshold.elevation = 60.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3048.0;
 	}
 else if (site_string == "Myrtle Beach")
@@ -1488,6 +1499,7 @@ else if (site_string == "Myrtle Beach")
 		TAEM_threshold.heading = 349.0;
 		TAEM_threshold.elevation = 30.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 2897.0;
 	}
 else if (site_string == "Gander")
@@ -1504,6 +1516,7 @@ else if (site_string == "Gander")
 		TAEM_threshold.heading = 191.0;
 		TAEM_threshold.elevation = 450.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3109.0;
 	}
 else if (site_string == "Pease")
@@ -1520,7 +1533,25 @@ else if (site_string == "Pease")
 		TAEM_threshold.heading = 329.0;
 		TAEM_threshold.elevation = 70.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3451.0;
+	}
+else if (site_string == "Oceana NAS")
+	{
+	if (runway_string == "05")
+		{
+		TAEM_threshold.set_latlon(36.807229, -76.04794);
+		TAEM_threshold.heading = 42.0;
+		TAEM_threshold.elevation = 23.0;
+		}
+	else if (runway_string == "23")
+		{
+		TAEM_threshold.set_latlon(36.827660, -76.024951);
+		TAEM_threshold.heading = 222.0;
+		TAEM_threshold.elevation = 23.0;
+		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 3651.0;
 	}
 else if (site_string == "Easter Island")
 	{
@@ -1536,6 +1567,7 @@ else if (site_string == "Easter Island")
 		TAEM_threshold.heading = 297.0;
 		TAEM_threshold.elevation = 224.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3318.0;
 	}
 else if (site_string == "Diego Garcia")
@@ -1552,6 +1584,7 @@ else if (site_string == "Diego Garcia")
 		TAEM_threshold.heading = 301.5;
 		TAEM_threshold.elevation = 10.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3659.0;
 	}
 else if (site_string == "Honolulu")
@@ -1568,6 +1601,7 @@ else if (site_string == "Honolulu")
 		TAEM_threshold.heading = 270.0;
 		TAEM_threshold.elevation = 0.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3753.0;
 	}
 else if (site_string == "Keflavik")
@@ -1584,6 +1618,7 @@ else if (site_string == "Keflavik")
 		TAEM_threshold.heading = 270.0;
 		TAEM_threshold.elevation = 175.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3753.0;
 	}
 else if (site_string == "Andersen Air Force Base")
@@ -1600,7 +1635,76 @@ else if (site_string == "Andersen Air Force Base")
 		TAEM_threshold.heading = 246.0;
 		TAEM_threshold.elevation = 590.0;
 		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
 	TAEM_threshold.rwy_length = 3409.0;
+	}
+else if (site_string == "Amilcar Cabral")
+	{
+	if (runway_string == "01")
+		{
+		TAEM_threshold.set_latlon(16.72694, -22.94886);
+		TAEM_threshold.heading = 0.0;
+		TAEM_threshold.elevation = 185.0;
+		}
+	else if (runway_string == "19")
+		{
+		TAEM_threshold.set_latlon(16.745990, -22.9489702);
+		TAEM_threshold.heading = 180.0;
+		TAEM_threshold.elevation = 178.0;
+		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 3272.0;
+	}
+else if (site_string == "Ascension")
+	{
+	if (runway_string == "13")
+		{
+		TAEM_threshold.set_latlon(-7.96408717, -14.4046994);
+		TAEM_threshold.heading = 117.0;
+		TAEM_threshold.elevation = 277.0;
+		}
+	else if (runway_string == "31")
+		{
+		TAEM_threshold.set_latlon(-7.9751031, -14.382679);
+		TAEM_threshold.heading = 297.0;
+		TAEM_threshold.elevation = 243.0;
+		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 3054.0;
+	}
+else if (site_string == "Wake Island")
+	{
+	if (runway_string == "10")
+		{
+		TAEM_threshold.set_latlon(19.2844870, 166.6243612);
+		TAEM_threshold.heading = 102.0;
+		TAEM_threshold.elevation = 20.0;
+		}
+	else if (runway_string == "28")
+		{
+		TAEM_threshold.set_latlon(19.27952525, 166.649126);
+		TAEM_threshold.heading = 282.0;
+		TAEM_threshold.elevation = 35.0;
+		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 3000.0;
+	}
+else if (site_string == "Lajes Air Base")
+	{
+	if (runway_string == "15")
+		{
+		TAEM_threshold.set_latlon(38.77373704, -27.103272055);
+		TAEM_threshold.heading = 141.0;
+		TAEM_threshold.elevation = 170.0;
+		}
+	else if (runway_string == "33")
+		{
+		TAEM_threshold.set_latlon(38.75501808, -27.08362772);
+		TAEM_threshold.heading = 321.0;
+		TAEM_threshold.elevation = 187.0;
+		}
+	TAEM_threshold.set_alt(TAEM_threshold.elevation * 0.3048);
+	TAEM_threshold.rwy_length = 3314.0;
 	}
 
 else

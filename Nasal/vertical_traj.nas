@@ -20,20 +20,7 @@ var ascent_predictors = [[0.0, 0.0, 0.0], [0.0,0.0, 0.0]];
 
 
 
-var create_MDU_clone = func (index) {
 
-if (index == 0) {string = "CDR1";}
-else if (index == 1) {string = "CDR2";}
-else if (index == 2) {string = "CRT1";}
-else if (index == 3) {string = "MFD1";}
-
-var window = canvas.Window.new([512,512],"dialog").set("title", string);
-#var window = canvas.Window.new([800,800],"dialog").set("title", string);
-
-var canvas_clone = SpaceShuttle.MDU_array[index].PFD._canvas;
-window.setCanvas(canvas_clone);
-
-}
 
 
 

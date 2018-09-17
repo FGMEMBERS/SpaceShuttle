@@ -269,6 +269,10 @@ else if (scenario_ID == 22)
 	{
 	init_electrical_failure();
 	}
+else if (scenario_ID == 23)
+	{
+	init_propellant_leak();
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;
@@ -448,28 +452,40 @@ if (rn_type > 0.5) {fail_arg = 2;}
 
 if (rn_loc > 0.66)
 	{
-	if (rn_thruster > 0.6)
+	if (rn_thruster > 0.8)
 		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F3L-condition", fail_arg);}	
-	else if (rn_loc > 0.3)
-		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition", fail_arg);}	
+	else if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F4D-condition", fail_arg);}
+	else if (rn_thruster > 0.4)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F1U-condition", fail_arg);}
+	else if (rn_thruster > 0.2)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2R-condition", fail_arg);}	
 	else 	
 		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-F2F-condition", fail_arg);}	
 	}
 else if (rn_loc > 0.36)
 	{
-	if (rn_thruster > 0.6)
+	if (rn_thruster > 0.8)
 		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1A-condition", fail_arg);}	
-	else if (rn_loc > 0.3)
-		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition", fail_arg);}	
+	else if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L4L-condition", fail_arg);}
+	else if (rn_thruster > 0.4)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L2U-condition", fail_arg);}
+	else if (rn_thruster > 0.2)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L3D-condition", fail_arg);}	
 	else 	
-		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1U-condition", fail_arg);}	
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-L1L-condition", fail_arg);}	
 	}
 else 
 	{
-	if (rn_thruster > 0.6)
+	if (rn_thruster > 0.8)
 		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R4R-condition", fail_arg);}	
-	else if (rn_loc > 0.3)
-		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition", fail_arg);}	
+	else if (rn_thruster > 0.6)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R2D-condition", fail_arg);}
+	else if (rn_thruster > 0.4)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1R-condition", fail_arg);}
+	else if (rn_thruster > 0.2)
+		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R3A-condition", fail_arg);}	
 	else 	
 		{setprop("/fdm/jsbsim/systems/failures/rcs/rcs-R1U-condition", fail_arg);}	
 	}
@@ -518,6 +534,88 @@ else # AC bus
 	}
 
 }
+
+
+var init_propellant_leak = func {
+
+var rn_loc = rand();
+var rn_point = rand();
+var rn_flow = rand() * -1.0;
+
+if (rn_loc > 0.8) # fwd RCS
+	{
+	if (rn_point > 0.8)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-fwd-fuel-manifold-12", rn_flow);
+		}	
+	else if (rn_point > 0.6)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-fwd-fuel-manifold-4", rn_flow);
+		}	
+	else if (rn_point > 0.4)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-fwd-fuel-tank", rn_flow);
+		}
+	else if (rn_point > 0.2)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-fwd-oxidizer-manifold-345", rn_flow);
+		}
+	else
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-fwd-oxidizer-manifold-1", rn_flow);
+		}
+
+	}
+else if (rn_loc > 0.4)
+	{
+	if (rn_point > 0.8)
+		{
+		SpaceShuttle.leakage_manager.add_leak("OMS-left-fuel-manifold", rn_flow);
+		}	
+	else if (rn_point > 0.6)
+		{
+		SpaceShuttle.leakage_manager.add_leak("OMS-left-oxidizer-manifold", rn_flow);
+		}	
+	else if (rn_point > 0.4)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-left-fuel-manifold-12", rn_flow);
+		}
+	else if (rn_point > 0.2)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-left-oxidizer-manifold-345", rn_flow);
+		}
+	else
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-left-oxidizer-manifold-4", rn_flow);
+		}
+	}
+else
+	{
+	if (rn_point > 0.8)
+		{
+		SpaceShuttle.leakage_manager.add_leak("OMS-right-fuel-manifold", rn_flow);
+		}	
+	else if (rn_point > 0.6)
+		{
+		SpaceShuttle.leakage_manager.add_leak("OMS-right-oxidizer-tank", rn_flow);
+		}	
+	else if (rn_point > 0.4)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-right-fuel-manifold-345", rn_flow);
+		}
+	else if (rn_point > 0.2)
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-right-oxidizer-manifold-1", rn_flow);
+		}
+	else
+		{
+		SpaceShuttle.leakage_manager.add_leak("RCS-right-oxidizer-manifold-5", rn_flow);
+		}
+	}
+
+
+}
+
 
 var init_pass_failure = func {
 

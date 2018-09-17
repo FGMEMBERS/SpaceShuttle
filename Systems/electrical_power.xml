@@ -9,6 +9,7 @@
 			<test logic="AND" value="1.0">
 				systems/electrical/fc/reactant-valve-status == 1
 				systems/electrical/fc/fc-controller-power == 1
+				systems/electrical/fc/fc-controller-power-ovhd == 1
 			</test>
 		</switch>
 
@@ -165,6 +166,7 @@
 			<test logic="AND" value="1.0">
 				systems/electrical/fc[1]/reactant-valve-status == 1
 				systems/electrical/fc[1]/fc-controller-power == 1
+				systems/electrical/fc[1]/fc-controller-power-ovhd == 1
 			</test>
 		</switch>
 
@@ -317,6 +319,7 @@
 			<test logic="AND" value="1.0">
 				systems/electrical/fc[2]/reactant-valve-status == 1
 				systems/electrical/fc[2]/fc-controller-power == 1
+				systems/electrical/fc[2]/fc-controller-power-ovhd == 1
 			</test>
 		</switch>
 
@@ -804,8 +807,8 @@
 
 		<summer name="systems/electrical/shared-AB-power-demand-kW">
 			<input>systems/rcs-hardware/heater-fwd-power-kW</input>
-			<input>systems/rcs-hardware/heater-left-power-kW</input>
-			<input>systems/rcs-hardware/heater-right-power-kW</input>
+			<!--<input>systems/rcs-hardware/heater-left-power-kW</input>
+			<input>systems/rcs-hardware/heater-right-power-kW</input>-->
 			<input>systems/rcs-hardware/heater-fwd-1-power-kW</input>
 			<input>systems/rcs-hardware/heater-fwd-2-power-kW</input>
 			<input>systems/rcs-hardware/heater-fwd-3-power-kW</input>

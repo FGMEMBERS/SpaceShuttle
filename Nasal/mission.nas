@@ -293,6 +293,51 @@ if (getprop("/mission/orbital-targets/section-defined"))
 
 	}
 
+# PDRS auto sequences
+
+if (getprop("/mission/rms-auto-sequences/section-defined"))
+	{
+	var num_sequences = getprop("/mission/rms-auto-sequences/num-sequences");
+
+	#print ("Reading in ", num_sequences, " RMS auto sequence(s)...");
+
+	for (var i=0; i<num_sequences; i=i+1)
+		{
+		var num_points = getprop("/mission/rms-auto-sequences/sequence["~i~"]/num-points");
+
+		#print ("Sequence ", i, " with ", num_points, " points.");
+
+		var a = [];
+
+		for (var j=0; j< num_points; j=j+1)
+			{
+			#print ("Processing point ", j, "...");
+
+			var path = "/mission/rms-auto-sequences/sequence["~i~"]/point["~j~"]/";
+
+			var x = getprop(path~"x");
+			var y = getprop(path~"y");
+			var z = getprop(path~"z");
+			var pitch = getprop(path~"pitch");
+			var yaw = getprop(path~"yaw");
+			var roll = getprop(path~"roll");
+			var delay = getprop(path~"delay");
+
+			#print ("x: ", x, " y:", y, " z: ", z);
+	
+			var p = SpaceShuttle.pdrs_auto_seq_point.new(x,y,z,pitch,yaw,roll,delay);
+			append(a, p);
+
+			}
+
+		SpaceShuttle.pdrs_auto_seq_manager.append_sequence_array(a);
+
+		}
+	
+
+	}
+
+
 }
 
 
@@ -318,41 +363,10 @@ if (getprop("/mission/post-meco/section-defined"))
 		mission_automatic_mps_dump ();
 		}
 
-	if (getprop("/mission/post-meco/auto-oms1-burn"))
-		{
+	
 
 
-		var dvx = getprop("/mission/post-meco/oms1-dvx");
-		var dvy = getprop("/mission/post-meco/oms1-dvy");
-		var dvz = getprop("/mission/post-meco/oms1-dvz");
 
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx);
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy);
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz);
-
-		var orbiter_weight = getprop("/mission/post-meco/orbiter-weight");
-		setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", orbiter_weight);
-		#setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", getprop("/fdm/jsbsim/inertia/weight-lbs"));
-
-
-		# burn plan needs to be computed a frame later to pick up the properties
-		settimer( func {
-			SpaceShuttle.create_oms_burn_vector();
-			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
-			setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
-			setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
-			SpaceShuttle.tracking_loop_flag = 0; }, 0.2);
-
-
-		# wait for fuel dump to finish before we start the OMS maneuver
-		settimer(func {
-			SpaceShuttle.orbital_dap_manager.control_select("AUTO");
-			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
-			var flag = getprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag");
-			if (flag == 0) {flag = 1;} else {flag =0;}
-			setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", flag); } , 140.0);
-
-		}
 
 	}
 
@@ -365,6 +379,83 @@ if (getprop("/mission/entry/section-defined"))
 	}
 
 }
+
+
+
+var mission_auto_OMS1 = func {
+
+if (getprop("/mission/post-meco/section-defined"))
+	{
+
+if (getprop("/mission/post-meco/auto-oms1-burn"))
+		{
+
+		var orbiter_weight = getprop("/mission/post-meco/orbiter-weight");
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/weight", orbiter_weight);
+
+		if (getprop("/mission/launch/section-defined") and getprop("/mission/launch/roll-to-heads-up"))
+			{
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/tv-roll", 0);
+			}
+
+		var tig_s = getprop("/mission/post-meco/oms1-tig-s");
+		setprop("/fdm/jsbsim/systems/timer/count-to-seconds", tig_s); 
+
+		var tig_m = int (tig_s/60.0);
+		tig_s = tig_s - tig_m * 60.0;
+
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-minutes", tig_m);
+		setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-seconds", tig_s);
+		SpaceShuttle.set_oms_mnvr_timer();
+
+
+		SpaceShuttle.update_start_count(2);
+		SpaceShuttle.blank_start_at();
+
+
+		if (getprop("/mission/post-meco/auto-oms1-burn-peg4"))
+			{
+			var thetaT = getprop("/mission/post-meco/oms1-theta-T");
+			var H =  getprop("/mission/post-meco/oms1-H");
+
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/ht", H);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t", thetaT);
+
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 1);
+
+
+			settimer( func {
+			SpaceShuttle.create_oms_burn_vector_peg4();
+
+				},  0.2);
+			}
+		else
+			{
+
+			var dvx = getprop("/mission/post-meco/oms1-dvx");
+			var dvy = getprop("/mission/post-meco/oms1-dvy");
+			var dvz = getprop("/mission/post-meco/oms1-dvz");
+
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvx", dvx);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvy", dvy);
+			setprop("/fdm/jsbsim/systems/ap/oms-plan/dvz", dvz);
+
+			# burn plan needs to be computed a frame later to pick up the properties
+			settimer( func {
+				SpaceShuttle.create_oms_burn_vector();
+				setprop("/fdm/jsbsim/systems/ap/oms-mnvr-flag", 0);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/burn-plan-available", 1);
+				setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
+				SpaceShuttle.tracking_loop_flag = 0; }, 0.2);
+			}			
+		
+		}
+
+	}
+
+
+}
+
 
 
 var mission_post_meco_TAL = func {

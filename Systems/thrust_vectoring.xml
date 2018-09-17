@@ -1241,8 +1241,18 @@
 			<test logic="OR" value="1.0">
 				systems/fcs/control-mode == 11
 				systems/fcs/control-mode == 12
+				systems/oms/oms-dump-cmd == 1
 			</test>
 		</switch>
+
+		<switch name="systems/vectoring/OMS-trim-on">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/vectoring/OMS-rate-master == 0
+				systems/vectoring/OMS-trim-flag == 1
+			</test>
+		</switch>
+
 
 		<switch name="systems/vectoring/OMS-roll-control">
 			<default value="0.0"/>
@@ -1460,7 +1470,7 @@
         			<!--<min> -0.122 </min>
         			<max>  0.122 </max>-->
 				<min> -0.026 </min>
-        			<max>  0.218</max>
+        			<max>  0.221</max>
       			</clipto>
 			<output>propulsion/engine[5]/yaw-angle-rad-sum</output>
    		</summer>
@@ -1471,7 +1481,7 @@
       			<clipto>
         			<!--<min> -0.122 </min>
         			<max>  0.122 </max>-->
-        			<min> -0.218 </min>
+        			<min> -0.221 </min>
         			<max>  0.026 </max>
       			</clipto>
 			<output>propulsion/engine[6]/yaw-angle-rad-sum</output>
@@ -1548,6 +1558,67 @@
 			<output>propulsion/engine[6]/yaw-angle-rad-cmd</output>
 		</fcs_function>
 
+	</channel>
+
+	<channel name="OMS trim" execute="systems/vectoring/OMS-trim-on">
+
+		<fcs_function name="systems/vectoring/OMS-trim-pitch">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/ap/oms-plan/trim-pitch</property>
+				<value>11.7</value>
+			</difference>
+			<value>	0.01745277777</value>
+			</product>
+		</function>
+      		<clipto>
+        		<min> -0.325 </min>
+        		<max> -0.115 </max>
+      		</clipto>
+		<output>propulsion/engine[5]/pitch-angle-rad-cmd</output>
+		<output>propulsion/engine[6]/pitch-angle-rad-cmd</output>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-1-trim-yaw">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/ap/oms-plan/trim-yaw-left</property>
+				<value>-5.7</value>
+			</difference>
+			<value>	0.01745277777</value>
+			</product>
+		</function>
+      		<clipto>
+			<min> -0.026 </min>
+        		<max>  0.221</max>
+      		</clipto>
+		<output>propulsion/engine[5]/yaw-angle-rad-cmd</output>
+		</fcs_function>
+
+		<fcs_function name="systems/vectoring/OMS-2-trim-yaw">
+		<function>	
+			<product>
+			<difference>
+				<property>systems/ap/oms-plan/trim-yaw-right</property>
+				<value>5.7</value>
+			</difference>
+			<value>	0.01745277777</value>
+			</product>
+		</function>
+      		<clipto>
+        		<min> -0.221 </min>
+        		<max>  0.026 </max>
+      		</clipto>
+		<output>propulsion/engine[6]/yaw-angle-rad-cmd</output>
+		</fcs_function>
+
+
+	</channel>
+	
+	<channel name="OMS gimbal actual movement">
+
 		<kinematic name="fcs/pitch-OMS-1-kin">
 			<input>propulsion/engine[5]/pitch-angle-rad-cmd</input>
 			<traverse>
@@ -1557,7 +1628,7 @@
 				</setting>
 				<setting>
 					<position>1.0</position>
-					<time>3.0</time>
+					<time>50.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[5]/pitch-angle-rad</output>
@@ -1572,7 +1643,7 @@
 				</setting>
 				<setting>
 					<position>1.0</position>
-					<time>3.0</time>
+					<time>50.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[6]/pitch-angle-rad</output>
@@ -1587,7 +1658,7 @@
 				</setting>
 				<setting>
 					<position>1.0</position>
-					<time>3.0</time>
+					<time>50.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[5]/yaw-angle-rad</output>
@@ -1602,7 +1673,7 @@
 				</setting>
 				<setting>
 					<position>1.0</position>
-					<time>3.0</time>
+					<time>50.0</time>
 				</setting>
 				</traverse>
 			<output>propulsion/engine[6]/yaw-angle-rad</output>

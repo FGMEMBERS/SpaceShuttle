@@ -17,7 +17,7 @@
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">7</tal-site-index>
   <rtls-site-index type="int">1</rtls-site-index>
-  <roll-to-heads-up type="bool">false</roll-to-heads-up>
+  <roll-to-heads-up type="bool">true</roll-to-heads-up>
 </launch>
 
 <abort>
@@ -30,12 +30,16 @@
 </abort>
 
 <post-meco>
-  <section-defined type="bool">false</section-defined>
+  <section-defined type="bool">true</section-defined>
   <automatic-fuel-dump type="bool">true</automatic-fuel-dump>
-  <auto-oms1-burn type="bool">true</auto-oms1-burn>
+  <auto-oms1-burn type="bool">false</auto-oms1-burn>
+  <auto-oms1-burn-peg4 type="bool">false</auto-oms1-burn-peg4>
   <oms1-dvx type="double">80.0</oms1-dvx>
   <oms1-dvy type="double">0.0</oms1-dvy>
   <oms1-dvz type="double">0.0</oms1-dvz>
+  <oms1-theta-T type="double">207.0</oms1-theta-T>
+  <oms1-H type="double">185.0</oms1-H>
+  <oms1-tig-s type="double">690.0</oms1-tig-s>
   <orbiter-weight type="double">411468.0</orbiter-weight>
 </post-meco>
 
@@ -107,5 +111,50 @@
   <node-lon-deg type="double">5.07</node-lon-deg>
   <anomaly-deg type="double">0.9</anomaly-deg>
 </orbital-targets>
+
+
+<rms-auto-sequences>
+  <section-defined type="bool">true</section-defined>
+  <num-sequences type="int">1</num-sequences>
+  <sequence>
+	<num-points type="int">4</num-points>
+	<point>
+		<x type="double">12.0</x>
+		<y type="double">2.0</y>
+		<z type="double">0.0</z>
+		<pitch type="double">0.0</pitch>
+		<yaw type="double">0.0</yaw>
+		<roll type="double">0.0</roll>
+		<delay type="double">0.0</delay>
+	</point>
+	<point n="1">
+		<x type="double">10.0</x>
+		<y type="double">2.0</y>
+		<z type="double">0.0</z>
+		<pitch type="double">0.0</pitch>
+		<yaw type="double">0.0</yaw>
+		<roll type="double">0.0</roll>
+		<delay type="double">0.0</delay>
+	</point>
+	<point n="2">
+		<x type="double">10.0</x>
+		<y type="double">2.0</y>
+		<z type="double">0.0</z>
+		<pitch type="double">3.0</pitch>
+		<yaw type="double">0.0</yaw>
+		<roll type="double">0.0</roll>
+		<delay type="double">0.0</delay>
+	</point>
+	<point n="3">
+		<x type="double">13.0</x>
+		<y type="double">1.0</y>
+		<z type="double">0.0</z>
+		<pitch type="double">0.0</pitch>
+		<yaw type="double">0.0</yaw>
+		<roll type="double">0.0</roll>
+		<delay type="double">0.0</delay>
+	</point>
+  </sequence>
+</rms-auto-sequences>
 
 </PropertyList>

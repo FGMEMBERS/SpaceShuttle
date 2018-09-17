@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<PropertyList>
+  <adta1 type="int">1</adta1>
+  <adta2 type="int">1</adta2>
+  <adta3 type="int">1</adta3>
+  <adta4 type="int">1</adta4>
+  <mls1 type="int">1</mls1>
+  <mls2 type="int">1</mls2>
+  <mls3 type="int">1</mls3>
+  <tacan1 type="int">1</tacan1>
+  <tacan2 type="int">1</tacan2>
+  <tacan3 type="int">1</tacan3>
+  <radar-alt1 type="int">1</radar-alt1>
+  <radar-alt2 type="int">1</radar-alt2>
+  <star-trk-y type="int">1</star-trk-y>
+  <star-trk-z type="int">1</star-trk-z>
+  <drag-chute-sys1 type="int">1</drag-chute-sys1>
+  <drag-chute-sys2 type="int">1</drag-chute-sys2>
+  <mission-timer-fwd type="int">1</mission-timer-fwd>
+  <mission-timer-aft type="int">1</mission-timer-aft>
+  <event-timer-aft type="int">1</event-timer-aft>
+  <event-timer-fwd type="int">1</event-timer-fwd>
+  <drag-chute-sys1 type="int">1</drag-chute-sys1>
+  <drag-chute-sys2 type="int">1</drag-chute-sys2>
+  <nose-wheel type="int">1</nose-wheel>
+  <rms-oms-qty-gauge type="int">1</rms-oms-qty-gauge>
+</PropertyList>

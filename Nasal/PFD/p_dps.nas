@@ -103,7 +103,6 @@ print("DPS update ",device.designation);
             var ops = getprop("/fdm/jsbsim/systems/dps/ops-bfs");
             var major_mode = getprop("/fdm/jsbsim/systems/dps/major-mode-bfs");
 
-
 		if (major_function_bfs == 1)
 		{
 		if (ops == 0)

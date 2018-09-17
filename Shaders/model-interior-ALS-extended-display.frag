@@ -9,6 +9,7 @@ varying vec3 relPos;
 
 
 uniform sampler2D texture;
+uniform sampler2D dust_texture;
 uniform sampler2D lightmap_texture;
 uniform sampler2D lightmap2_texture;
 uniform sampler2D lightmap3_texture;
@@ -34,6 +35,7 @@ uniform float threshold_low;
 uniform float threshold_high;
 uniform float emit_intensity;
 uniform float light_radius;
+uniform float dirt_factor;
 uniform float lightmap_r_factor;
 uniform float lightmap_g_factor;
 uniform float lightmap_b_factor;
@@ -320,6 +322,7 @@ void main()
         }
 
 
+
     fragColor = color * texel + specular;
 
    // explicit lightmap
@@ -380,9 +383,19 @@ void main()
        fragColor.rgb = max(fragColor.rgb, lightmapcolor.rgb * gl_FrontMaterial.diffuse.rgb * smoothstep(0.0, 1.0, texel.rgb*.5 + lightmapcolor.rgb*.5));
 	}
 
+   // add visible dust for glancing sun angle
+
+    vec4 dustTexel = texture2D(dust_texture, gl_TexCoord[0].st);
+    dustTexel.rgb *= diffuse.rgb;
+    dustTexel.a = clamp(dustTexel.a * dirt_factor * (1.0 - 0.4 * max(0.0,NdotL)) * (length(opacity.rgb)/1.76),0.0,1.0); 
+    fragColor.rgb =  mix(fragColor.rgb, dustTexel.rgb,  dustTexel.a );
+    fragColor.a = max(fragColor.a, dustTexel.a);
+
+
 fragColor.rgb = filter_combined(fragColor.rgb);
 
 gl_FragColor = fragColor;
+//gl_FragColor = dustTexel;
 //gl_FragColor = vec4 (1.0, 0.0, 0.0, 1.0);
 
 
