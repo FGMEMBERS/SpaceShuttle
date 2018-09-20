@@ -2153,10 +2153,15 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		else if (item == 23)
 			{
-			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
-			SpaceShuttle.update_start_count(2);
-			SpaceShuttle.blank_start_at();
-			valid_flag = 1;
+			var MET = SpaceShuttle.get_MET();
+
+			if (SpaceShuttle.oms_burn_target.tig > MET)
+				{
+				setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
+				SpaceShuttle.update_start_count(2);
+				SpaceShuttle.blank_start_at();
+				valid_flag = 1;
+				}
 			}
 		else if (item == 27)
 			{
@@ -6017,10 +6022,14 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		else if (item == 23)
 			{
-			setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
-			SpaceShuttle.update_start_count(2);
-			SpaceShuttle.blank_start_at();
-			valid_flag = 1;
+			var MET = SpaceShuttle.get_MET();
+			if (SpaceShuttle.oms_burn_target.tig > MET)
+				{
+				setprop("/fdm/jsbsim/systems/timer/count-to-seconds", SpaceShuttle.oms_burn_target.tig); 
+				SpaceShuttle.update_start_count(2);
+				SpaceShuttle.blank_start_at();
+				valid_flag = 1;
+				}
 			}
 		else if (item == 28)
 			{
