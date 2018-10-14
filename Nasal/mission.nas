@@ -66,6 +66,8 @@ if (getprop("/mission/launch/section-defined") and (stage == 0))
 
 	# set the menu items - the listener calls the computation of launch azimuth
 
+	setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles", tgt_apoapsis);
+
 	if (getprop("/mission/launch/select-north"))
 		{
 		setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/select-north", 1);
@@ -80,7 +82,7 @@ if (getprop("/mission/launch/section-defined") and (stage == 0))
 	var raw = (tgt_inclination - lat)/(90.0 - lat);
 
 	setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/inclination", raw);
-	setprop("/sim/gui/dialogs/SpaceShuttle/auto_launch/apoapsis-target-miles", tgt_apoapsis);
+
 
 	# auto-launch guidance and autopilot on
 

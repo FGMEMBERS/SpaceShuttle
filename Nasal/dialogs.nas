@@ -1408,6 +1408,8 @@ apoapsis_target = apoapsis_target * 1.852;
 
 setprop("/fdm/jsbsim/systems/ap/launch/apoapsis-target", apoapsis_target);
 
+#print ("Apoapsis target in km is now: ", apoapsis_target);
+
 }
 
 # the ascending node longitude moves with Earth's rotation

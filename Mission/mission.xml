@@ -13,7 +13,7 @@
 <launch>
   <section-defined type="bool">true</section-defined>
   <target-inclination type="double">32.5</target-inclination>
-  <target-apoapsis-miles type="double">90.0</target-apoapsis-miles>
+  <target-apoapsis-miles type="double">170.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">7</tal-site-index>
   <rtls-site-index type="int">1</rtls-site-index>
