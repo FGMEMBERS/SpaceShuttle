@@ -972,22 +972,28 @@
 
 		<fcs_function name="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
 		<function>
+			<product>
 			<property>systems/rcs-hardware/helium-left-rcs-pressure-psia</property>
 			<value>0.1</value>
+			</product>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
 		<function>
+			<product>
 			<property>systems/rcs-hardware/helium-right-rcs-pressure-psia</property>
 			<value>0.1</value>
+			</product>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
 		<function>
+			<product>
 			<property>systems/rcs-hardware/helium-fwd-rcs-pressure-psia</property>
 			<value>0.1</value>
+			</product>
 		</function>
 		</fcs_function>
 
