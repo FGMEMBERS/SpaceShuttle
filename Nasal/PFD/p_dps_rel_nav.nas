@@ -17,9 +17,14 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.ku_ant_enable = device.svg.getElementById("p_dps_rel_ku_ant_ena");
     p_dps_rel_nav.meas_enable = device.svg.getElementById("p_dps_rel_nav_meas_ena");
 
+    p_dps_rel_nav.rndz_nav_enable.enableUpdate();
+    p_dps_rel_nav.ku_ant_enable.enableUpdate();
+    p_dps_rel_nav.meas_enable.enableUpdate();
+
     p_dps_rel_nav.sv_sel = device.svg.getElementById("p_dps_rel_nav_sv_sel");
     p_dps_rel_nav.avg_g = device.svg.getElementById("p_dps_rel_nav_avg_g");
 
+    p_dps_rel_nav.sv_sel.enableUpdate();
 	
     p_dps_rel_nav.rng_prop = device.svg.getElementById("p_dps_rel_nav_rng_prop");
     p_dps_rel_nav.rdot_prop = device.svg.getElementById("p_dps_rel_nav_rdot_prop");
@@ -33,6 +38,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.s_trk = device.svg.getElementById("p_dps_rel_nav_s_trk");
     p_dps_rel_nav.rr = device.svg.getElementById("p_dps_rel_nav_rr");
     p_dps_rel_nav.coas = device.svg.getElementById("p_dps_rel_nav_coas");
+
+    p_dps_rel_nav.s_trk.enableUpdate();
+    p_dps_rel_nav.rr.enableUpdate();
+    p_dps_rel_nav.coas.enableUpdate();
 
     p_dps_rel_nav.rr_mode = device.svg.getElementById("p_dps_rel_nav_rr_mode");
 
@@ -74,6 +83,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.rng_inh = device.svg.getElementById("p_dps_rel_nav_rng_inh");
     p_dps_rel_nav.rng_aut = device.svg.getElementById("p_dps_rel_nav_rng_aut");
 
+    p_dps_rel_nav.rng_for.enableUpdate();
+    p_dps_rel_nav.rng_inh.enableUpdate();
+    p_dps_rel_nav.rng_aut.enableUpdate();
+
     p_dps_rel_nav.rdot_resid = device.svg.getElementById("p_dps_rel_nav_rdot_resid");
     p_dps_rel_nav.rdot_ratio = device.svg.getElementById("p_dps_rel_nav_rdot_ratio");
     p_dps_rel_nav.rdot_acpt = device.svg.getElementById("p_dps_rel_nav_rdot_acpt");
@@ -82,6 +95,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.rdot_inh = device.svg.getElementById("p_dps_rel_nav_rdot_inh");
     p_dps_rel_nav.rdot_aut = device.svg.getElementById("p_dps_rel_nav_rdot_aut");
 
+    p_dps_rel_nav.rdot_for.enableUpdate();
+    p_dps_rel_nav.rdot_inh.enableUpdate();
+    p_dps_rel_nav.rdot_aut.enableUpdate();
+
     p_dps_rel_nav.vely_resid = device.svg.getElementById("p_dps_rel_nav_vely_resid");
     p_dps_rel_nav.vely_ratio = device.svg.getElementById("p_dps_rel_nav_vely_ratio");
     p_dps_rel_nav.vely_acpt = device.svg.getElementById("p_dps_rel_nav_vely_acpt");
@@ -89,6 +106,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.vely_for = device.svg.getElementById("p_dps_rel_nav_vely_for");
     p_dps_rel_nav.vely_inh = device.svg.getElementById("p_dps_rel_nav_vely_inh");
     p_dps_rel_nav.vely_aut = device.svg.getElementById("p_dps_rel_nav_vely_aut");
+
+    p_dps_rel_nav.vely_for.enableUpdate();
+    p_dps_rel_nav.vely_inh.enableUpdate();
+    p_dps_rel_nav.vely_aut.enableUpdate();
 
 
     p_dps_rel_nav.hazx_ratio = device.svg.getElementById("p_dps_rel_nav_hazx_ratio");
@@ -100,6 +121,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.gps_for = device.svg.getElementById("p_dps_rel_nav_gps_for");
     p_dps_rel_nav.gps_aut = device.svg.getElementById("p_dps_rel_nav_gps_aut");
 
+    p_dps_rel_nav.gps_inh.enableUpdate();
+    p_dps_rel_nav.gps_for.enableUpdate();
+    p_dps_rel_nav.gps_aut.enableUpdate();
+
     p_dps_rel_nav.node = device.svg.getElementById("p_dps_rel_nav_node");
 
     p_dps_rel_nav.sv_trans_pos = device.svg.getElementById("p_dps_rel_nav_sv_trans_pos");
@@ -107,6 +132,9 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
     p_dps_rel_nav.stat1 = device.svg.getElementById("p_dps_rel_nav_stat1");
     p_dps_rel_nav.stat2 = device.svg.getElementById("p_dps_rel_nav_stat2");
+
+    p_dps_rel_nav.stat1.enableUpdate();
+    p_dps_rel_nav.stat2.enableUpdate();
 
     p_dps_rel_nav.gps1_resid = device.svg.getElementById("p_dps_rel_nav_gps1_resid");
     p_dps_rel_nav.gps2_resid = device.svg.getElementById("p_dps_rel_nav_gps2_resid");
@@ -121,6 +149,29 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.stat_x = device.svg.getElementById("p_dps_rel_nav_stat_x");
     p_dps_rel_nav.stat_y = device.svg.getElementById("p_dps_rel_nav_stat_y");
 
+    p_dps_rel_nav.nd_ref_ku_enable = props.globals.getNode("/fdm/jsbsim/systems/rendezvous/ku-enable", 1);
+    p_dps_rel_nav.nd_ref_pitch = props.globals.getNode("/orientation/pitch-deg", 1);
+    p_dps_rel_nav.nd_ref_body_vector = props.globals.getNode("/fdm/jsbsim/systems/ap/track/body-vector-selection", 1);
+
+    p_dps_rel_nav.nd_ref_normal0 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/normal[0]", 1);
+    p_dps_rel_nav.nd_ref_normal1 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/normal[1]", 1);
+    p_dps_rel_nav.nd_ref_normal2 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/normal[2]", 1);
+
+    p_dps_rel_nav.nd_ref_prograde0 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/prograde[0]", 1);
+    p_dps_rel_nav.nd_ref_prograde1 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/prograde[1]", 1);
+    p_dps_rel_nav.nd_ref_prograde2 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/prograde[2]", 1);
+
+    p_dps_rel_nav.nd_ref_radial0 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/radial[0]", 1);
+    p_dps_rel_nav.nd_ref_radial1 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/radial[1]", 1);
+    p_dps_rel_nav.nd_ref_radial2 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/radial[2]", 1);
+
+    p_dps_rel_nav.nd_ref_body_x0 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-x[0]", 1);
+    p_dps_rel_nav.nd_ref_body_x1 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-x[1]", 1);
+    p_dps_rel_nav.nd_ref_body_x2 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-x[2]", 1);
+
+    p_dps_rel_nav.nd_ref_body_z0 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-z[0]", 1);
+    p_dps_rel_nav.nd_ref_body_z1 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-z[1]", 1);
+    p_dps_rel_nav.nd_ref_body_z2 = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/body-z[2]", 1);
 
     p_dps_rel_nav.ondisplay = func
     {
@@ -148,28 +199,12 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	p_dps_rel_nav.gps_3s_p.setText("250");
 	p_dps_rel_nav.rng_acpt.setText("");
     	p_dps_rel_nav.rng_rej.setText("");
-    	p_dps_rel_nav.rng_for.setText("");
-    	p_dps_rel_nav.rng_inh.setText("*");
-    	p_dps_rel_nav.rng_aut.setText("");
 	p_dps_rel_nav.rdot_acpt.setText("");
     	p_dps_rel_nav.rdot_rej.setText("");
-    	p_dps_rel_nav.rdot_for.setText("");
-    	p_dps_rel_nav.rdot_inh.setText("*");
-    	p_dps_rel_nav.rdot_aut.setText("");
 	p_dps_rel_nav.vely_acpt.setText("");
     	p_dps_rel_nav.vely_rej.setText("");
-    	p_dps_rel_nav.vely_for.setText("");
-    	p_dps_rel_nav.vely_inh.setText("*");
-    	p_dps_rel_nav.vely_aut.setText("");
-    	p_dps_rel_nav.gps_inh.setText("*");
-    	p_dps_rel_nav.gps_for.setText("");
-    	p_dps_rel_nav.gps_aut.setText("");
 	p_dps_rel_nav.hazx_acpt.setText("");
     	p_dps_rel_nav.hazx_rej.setText("");
-   	p_dps_rel_nav.gps1_resid.setText("");
-    	p_dps_rel_nav.gps2_resid.setText("");
-    	p_dps_rel_nav.gps1_ratio.setText("");
-    	p_dps_rel_nav.gps2_ratio.setText("");
    	p_dps_rel_nav.gps1_x.setText("");
    	p_dps_rel_nav.gps2_x.setText("");
 	p_dps_rel_nav.stat_x.setText("");
@@ -179,61 +214,92 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     p_dps_rel_nav.update = func
     {
 
-	var rel_nav_enable = getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable");
-	var angle_sensor_selection = getprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection");
-	var disp_sv_selection = getprop("/fdm/jsbsim/systems/rendezvous/sv-select");
 
 	var symbol = "*";
-	if (rel_nav_enable == 0)
+	if (SpaceShuttle.proximity_manager.rel_nav_enable == 0)
 		{symbol = "";}
-	p_dps_rel_nav.rndz_nav_enable.setText(symbol);
+	p_dps_rel_nav.rndz_nav_enable.updateText(symbol);
 
 	var meas_enable = getprop("/fdm/jsbsim/systems/rendezvous/meas-enable");
 
 	symbol = "*";
 	if (meas_enable == 0)
 		{symbol = "";}
-	p_dps_rel_nav.meas_enable.setText(symbol);
+	p_dps_rel_nav.meas_enable.updateText(symbol);
 
 	# true, propagated and filtered properties
 
-	var range = getprop("/fdm/jsbsim/systems/rendezvous/target/distance-m");
-	var range_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/distance-prop-m");
 
-	var rdot = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s");
-	var rdot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s");
+	var range = SpaceShuttle.proximity_manager.distance;
+	var range_prop = range + SpaceShuttle.proximity_manager.distance_error;
+	var range_filtered = range + SpaceShuttle.proximity_manager.distance_error_filtered;
+	var range_sensed = SpaceShuttle.proximity_manager.distance_sensed;
+	
+	var rdot = SpaceShuttle.proximity_manager.ddot;
+	var rdot_prop = rdot + SpaceShuttle.proximity_manager.error_rdot;
+	var rdot_filtered = rdot + SpaceShuttle.proximity_manager.error_rdot_filtered;
 
-	var Y = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-m");
-	var Y_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m");
+	var Y = SpaceShuttle.proximity_manager.target_prox_y;
+	var Y_prop = Y + SpaceShuttle.proximity_manager.error_y;
+	var Y_filtered = Y + SpaceShuttle.proximity_manager.error_y_filtered;
 
-	var Ydot = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s");
-	var Ydot_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s");
+	var Ydot = SpaceShuttle.proximity_manager.target_prox_vy;
+	var Ydot_prop = Ydot;
+	var Ydot_filtered = Ydot;
 
-	var theta = getprop("/fdm/jsbsim/systems/rendezvous/target/theta");
-	var theta_prop = getprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop");
+	#var theta =  p_dps_rel_nav.nd_ref_pitch.getValue();
+	var bv_selection = p_dps_rel_nav.nd_ref_body_vector.getValue();
 
-	var filter_quality_pos = SpaceShuttle.get_filter_quality_pos();
-	var filter_quality_v = SpaceShuttle.get_filter_quality_v();
+	var theta = 0.0;
+
+	if (SpaceShuttle.proximity_manager.rel_nav_enable == 1)
+		{
+
+
+		var body_full = [];
+
+		if (bv_selection == 1)
+			{
+			body_full = [p_dps_rel_nav.nd_ref_body_x0.getValue(), p_dps_rel_nav.nd_ref_body_x1.getValue(), p_dps_rel_nav.nd_ref_body_x2.getValue()];
+			}
+		else if (bv_selection == 2)
+			{
+			body_full = [-p_dps_rel_nav.nd_ref_body_x0.getValue(), -p_dps_rel_nav.nd_ref_body_x1.getValue(), -p_dps_rel_nav.nd_ref_body_x2.getValue()];
+			}
+		else if (bv_selection == 3)
+			{
+			body_full = [p_dps_rel_nav.nd_ref_body_z0.getValue(), p_dps_rel_nav.nd_ref_body_z1.getValue(), p_dps_rel_nav.nd_ref_body_z2.getValue()];
+			}
+
+		var normal = [p_dps_rel_nav.nd_ref_normal0.getValue(),p_dps_rel_nav.nd_ref_normal1.getValue(),p_dps_rel_nav.nd_ref_normal2.getValue()];
+
+		var body_projected = SpaceShuttle.subtract_vector(body_full, SpaceShuttle.scalar_product(SpaceShuttle.dot_product(body_full, normal), normal));
+		body_projected = SpaceShuttle.normalize (body_projected);
+
+		var prograde = [p_dps_rel_nav.nd_ref_prograde0.getValue(),p_dps_rel_nav.nd_ref_prograde1.getValue(),p_dps_rel_nav.nd_ref_prograde2.getValue()];
+
+		var radial = [p_dps_rel_nav.nd_ref_radial0.getValue(),p_dps_rel_nav.nd_ref_radial1.getValue(),p_dps_rel_nav.nd_ref_radial2.getValue()];
+
+		theta = 180.0/ math.pi * math.acos(SpaceShuttle.clamp(SpaceShuttle.dot_product(body_projected, prograde),-1.0, 1.0));
+
+		if (SpaceShuttle.dot_product(body_projected, radial) < 0.0) {theta = - theta;}
+
+
+
+		theta = geo.normdeg(theta);
+		}
+
+	var theta_prop = theta;
+	var theta_filtered = theta;
+
+	
 
 	var filter_quality_ang = 1.0;
-	if (angle_sensor_selection == 0)
-		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-star-tracker/quality-ang");}
-	else if (angle_sensor_selection == 1)
-		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/quality-ang");}
-	else if (angle_sensor_selection == 2)
-		{filter_quality_ang  = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-coas/quality-ang");}
-
-	var range_filtered = filter_quality_pos * range_prop + (1.0 - filter_quality_pos) * range;
-	var rdot_filtered = filter_quality_v * rdot_prop + (1.0 - filter_quality_v) * rdot;
-
-	var Y_filtered = filter_quality_pos * Y_prop + (1.0 - filter_quality_pos) * Y;
-	var Ydot_filtered = filter_quality_v * Ydot_prop + (1.0 - filter_quality_v) * Ydot;
-
-	var theta_filtered = filter_quality_ang * theta_prop + (1.0 - filter_quality_ang) * theta;
+	
 
 	# if RNDZ NAV is not enabled, the properties are blanked
 
-	if (rel_nav_enable == 0)
+	if (SpaceShuttle.proximity_manager.rel_nav_enable == 0)
 		{
  		p_dps_rel_nav.rng_prop.setText("");
     		p_dps_rel_nav.rdot_prop.setText("");
@@ -242,10 +308,11 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     		p_dps_rel_nav.ydot_prop.setText("");
 		p_dps_rel_nav.sv_trans_vel.setText("");
 		p_dps_rel_nav.sv_trans_pos.setText("");
+		p_dps_rel_nav.node.setText("");
 		}
 	else 
 		{
-		if (disp_sv_selection == 0)
+		if (SpaceShuttle.proximity_manager.sv_selection == 0)
 			{
 			p_dps_rel_nav.rng_prop.setText(sprintf("%4.3f", range_prop / 1000. / 0.3048));
 			p_dps_rel_nav.rdot_prop.setText(sprintf("%+4.2f", rdot_prop / 0.3048));
@@ -262,20 +329,27 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     			p_dps_rel_nav.ydot_prop.setText(sprintf("%+3.1f", Ydot_filtered / 0.3048));
 			}
 
-		var ver = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
-		var v_fltr_minus_prop =  ver - getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/rdot-m_s");
+		p_dps_rel_nav.node.setText(SpaceShuttle.proximity_manager.node_crossing_time_string_short);
 
-		p_dps_rel_nav.sv_trans_vel.setText(sprintf("%2.2f", v_fltr_minus_prop));
+		var pos_fltr_minus_prop = math.abs(range_prop - range_filtered);
+		var v_fltr_minus_prop = math.abs(rdot_prop - rdot_filtered);
 
-		var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
-		var pos_fltr_minus_prop = pos_e;
+		#var ver = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/v-m_s");
+		#var v_fltr_minus_prop =  ver - getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rr/rdot-m_s");
+
+		p_dps_rel_nav.sv_trans_vel.setText(sprintf("%2.2f", v_fltr_minus_prop / 0.3048));
+
+		#var pos_e = getprop("/fdm/jsbsim/systems/navigation/state-vector/error-rndz/pos-m");
+
+		#var pos_fltr_minus_prop = pos_e;
 		p_dps_rel_nav.sv_trans_pos.setText(sprintf("%2.2f", pos_fltr_minus_prop / 1000. /0.3048));
 		}
 
 	# unless the antenna is tracking, the RR properties are blanked
 
 	var antenna_func = SpaceShuttle.antenna_manager.function;
-	var ku_enable = getprop("/fdm/jsbsim/systems/rendezvous/ku-enable");
+	#var ku_enable = getprop("/fdm/jsbsim/systems/rendezvous/ku-enable");
+	var ku_enable = p_dps_rel_nav.nd_ref_ku_enable.getValue();
 	var tgt_acquired = SpaceShuttle.antenna_manager.tgt_acquired;
 
 	if (antenna_func == "COMM")
@@ -286,11 +360,11 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	symbol = "*";
 	if (ku_enable == 0)
 		{symbol = "";}
-	p_dps_rel_nav.ku_ant_enable.setText(symbol);
+	p_dps_rel_nav.ku_ant_enable.updateText(symbol);
 
-	var rr_active = 1;
 
-	if ((antenna_func == "COMM") or (ku_enable == 0) or (tgt_acquired == 0))
+
+	if ((antenna_func == "COMM") or (ku_enable == 0))
 		{
 		p_dps_rel_nav.rng_ku.setText("");
 		p_dps_rel_nav.rdot_ku.setText("");
@@ -298,7 +372,18 @@ var PFD_addpage_p_dps_rel_nav = func(device)
     		p_dps_rel_nav.az_ku.setText("");
     		p_dps_rel_nav.omega_p_ku.setText("");
     		p_dps_rel_nav.omega_r_ku.setText("");
-		rr_active = 0;
+		}
+	else if	((tgt_acquired == 0) or (range > 46000.0))	
+		{
+		var ku_elevation_body = antenna_manager.ku_elevation;
+		var ku_azimuth_body = antenna_manager.ku_azimuth;
+
+		p_dps_rel_nav.rng_ku.setText("");
+		p_dps_rel_nav.rdot_ku.setText("");
+		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_body));
+    		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_body));
+    		p_dps_rel_nav.omega_p_ku.setText("");
+    		p_dps_rel_nav.omega_r_ku.setText("");
 		}
 	else
 		{
@@ -320,10 +405,10 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 		omega_p_ku = SpaceShuttle.clamp(omega_p_ku, -99.0, 99.0);
 		omega_r_ku = SpaceShuttle.clamp(omega_r_ku, -99.0, 99.0);
 
-		p_dps_rel_nav.rng_ku.setText(sprintf("%4.3f", range / 1000. / 0.3048));
+		p_dps_rel_nav.rng_ku.setText(sprintf("%4.3f", range_sensed / 1000. / 0.3048));
 		p_dps_rel_nav.rdot_ku.setText(sprintf("%+4.2f", rdot / 0.3048));
-		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_inertial));
-    		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_inertial));
+		p_dps_rel_nav.el_ku.setText(sprintf("%3.1f", ku_elevation_body));
+    		p_dps_rel_nav.az_ku.setText(sprintf("%3.1f", ku_azimuth_body));
 
 		p_dps_rel_nav.omega_p_ku.setText(sprintf("%2.1f", omega_p_ku));
 		p_dps_rel_nav.omega_r_ku.setText(sprintf("%2.1f", omega_r_ku));
@@ -343,8 +428,8 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 
 	var text = "PROP";
-	if (disp_sv_selection == 1) {text = "FLTR";}
-	p_dps_rel_nav.sv_sel.setText(text);
+	if (SpaceShuttle.proximity_manager.sv_selection == 1) {text = "FLTR";}
+	p_dps_rel_nav.sv_sel.updateText(text);
 
 	text = "ORB";
 	if (getprop("/fdm/jsbsim/systems/rendezvous/filter-update") == 1) {text = "TGT";}
@@ -353,16 +438,16 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 
 	symbol = "";
-	if (angle_sensor_selection == 0) {symbol = "*";}
-	p_dps_rel_nav.s_trk.setText(symbol);
+	if (SpaceShuttle.proximity_manager.angle_sensor_selection == 0) {symbol = "*";}
+	p_dps_rel_nav.s_trk.updateText(symbol);
 
 	symbol = "";
-	if (angle_sensor_selection == 1) {symbol = "*";}
-	p_dps_rel_nav.rr.setText(symbol);
+	if (SpaceShuttle.proximity_manager.angle_sensor_selection == 1) {symbol = "*";}
+	p_dps_rel_nav.rr.updateText(symbol);
 
 	symbol = "";
-	if (angle_sensor_selection == 2) {symbol = "*";}
-	p_dps_rel_nav.coas.setText(symbol);
+	if (SpaceShuttle.proximity_manager.angle_sensor_selection == 2) {symbol = "*";}
+	p_dps_rel_nav.coas.updateText(symbol);
 
 	
 
@@ -373,7 +458,7 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 	var yaw_error_filtered = filter_quality_ang * yaw_error_prop;
 
 	# residuals and filters are only shown with REL NAV enabled
-	if (rel_nav_enable == 0)
+	if (SpaceShuttle.proximity_manager.rel_nav_enable == 0)
 		{
 		p_dps_rel_nav.vely_resid.setText("");
 		p_dps_rel_nav.vely_ratio.setText("");
@@ -386,25 +471,64 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 		p_dps_rel_nav.rdot_resid.setText("");
 		p_dps_rel_nav.rdot_ratio.setText("");
+
+   		p_dps_rel_nav.gps1_resid.setText("");
+    		p_dps_rel_nav.gps2_resid.setText("");
+    		p_dps_rel_nav.gps1_ratio.setText("");
+    		p_dps_rel_nav.gps2_ratio.setText("");
 		}
 	else
 		{
-		p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f", pitch_error_prop - pitch_error_filtered  ));
-		p_dps_rel_nav.vely_ratio.setText(sprintf("%1.1f", ((pitch_error_prop - pitch_error_filtered) + 1.0) / 1.0  ));
 
-		p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f", yaw_error_prop - yaw_error_filtered ));
-		p_dps_rel_nav.hazx_ratio.setText(sprintf("%1.1f", ((yaw_error_prop - yaw_error_filtered) + 1.0) / 1.0  ));
+		if (SpaceShuttle.proximity_manager.ang_data_good == 1)
+			{
+			p_dps_rel_nav.vely_resid.setText(sprintf("%+1.2f",  SpaceShuttle.proximity_manager.y_resid  ));
+			p_dps_rel_nav.vely_ratio.setText(sprintf("%1.1f",  SpaceShuttle.proximity_manager.y_ratio  ));
 
-		p_dps_rel_nav.rng_resid.setText(sprintf("%+2.2f", (range - range_prop) / 1000. / 0.3048));
-		p_dps_rel_nav.rng_ratio.setText(sprintf("%1.1f", (range / range_prop) ));
+			p_dps_rel_nav.hazx_resid.setText(sprintf("%+1.2f",  SpaceShuttle.proximity_manager.z_resid ));
+			p_dps_rel_nav.hazx_ratio.setText(sprintf("%1.1f",  SpaceShuttle.proximity_manager.z_ratio ));
+			}
+		else
+			{
+			p_dps_rel_nav.vely_resid.setText("");
+			p_dps_rel_nav.vely_ratio.setText("");
 
-		p_dps_rel_nav.rdot_resid.setText(sprintf("%+2.2f", (rdot - rdot_prop) / 0.3048));
-		p_dps_rel_nav.rdot_ratio.setText(sprintf("%1.1f", (rdot / rdot_prop) ));
+			p_dps_rel_nav.hazx_resid.setText("");
+			p_dps_rel_nav.hazx_ratio.setText("");
+			}
+
+		if (SpaceShuttle.proximity_manager.rr_data_good == 1)
+			{
+			p_dps_rel_nav.rng_resid.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.rng_resid));
+			p_dps_rel_nav.rng_ratio.setText(sprintf("%1.1f", SpaceShuttle.proximity_manager.rng_ratio ));
+
+			p_dps_rel_nav.rdot_resid.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.rdot_resid));
+			p_dps_rel_nav.rdot_ratio.setText(sprintf("%1.1f", SpaceShuttle.proximity_manager.rdot_ratio ));
+
+			}
+		else
+			{
+			p_dps_rel_nav.rng_resid.setText("");
+			p_dps_rel_nav.rng_ratio.setText("");
+
+			p_dps_rel_nav.rdot_resid.setText("");
+			p_dps_rel_nav.rdot_ratio.setText("");
+			}
+
+
+  		p_dps_rel_nav.gps1_resid.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.gps_p_resid));
+    		p_dps_rel_nav.gps2_resid.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.gps_v_resid));
+    		p_dps_rel_nav.gps1_ratio.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.gps_p_ratio));
+    		p_dps_rel_nav.gps2_ratio.setText(sprintf("%+2.2f", SpaceShuttle.proximity_manager.gps_v_ratio));
 
 		}
 
-	var update_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos");
-	var update_vel = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel");
+	#var update_pos = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-pos");
+	#var update_vel = getprop("/fdm/jsbsim/systems/navigation/state-vector/update-vel");
+
+	var update_pos = math.sqrt( math.pow(SpaceShuttle.proximity_manager.update_x,2.0) + math.pow(SpaceShuttle.proximity_manager.update_y,2.0) + math.pow(SpaceShuttle.proximity_manager.update_z,2.0));
+
+	var update_vel = SpaceShuttle.proximity_manager.update_rdot;
 
 	p_dps_rel_nav.update_pos.setText(sprintf("%2.2f", update_pos / 1000. / 0.3048));
 	p_dps_rel_nav.update_vel.setText(sprintf("%2.2f", update_vel / 0.3048));
@@ -424,24 +548,78 @@ var PFD_addpage_p_dps_rel_nav = func(device)
 
 	if (selected_tracker > -1)
 		{
-		p_dps_rel_nav.stat2.setText(SpaceShuttle.star_tracker_array[selected_tracker].failure);
-		p_dps_rel_nav.stat1.setText(SpaceShuttle.star_tracker_array[selected_tracker].status);
+		p_dps_rel_nav.stat2.updateText(SpaceShuttle.star_tracker_array[selected_tracker].failure);
+		p_dps_rel_nav.stat1.updateText(SpaceShuttle.star_tracker_array[selected_tracker].status);
+
+		if ((selected_tracker == 1) and (SpaceShuttle.star_tracker_array[1].status == ""))
+			{
+			p_dps_rel_nav.stat_x.setText(sprintf("%2.1f", SpaceShuttle.star_tracker_array[1].offset_angle_x * 180/math.pi));
+			p_dps_rel_nav.stat_y.setText(sprintf("%2.1f", SpaceShuttle.star_tracker_array[1].offset_angle_y * 180/math.pi));
+			}
+		else
+			{
+			p_dps_rel_nav.stat_x.setText("");
+			p_dps_rel_nav.stat_y.setText("");
+			}
 		}
 	else
 		{
-		p_dps_rel_nav.stat2.setText("");
-		p_dps_rel_nav.stat1.setText("");
+		p_dps_rel_nav.stat2.updateText("");
+		p_dps_rel_nav.stat1.updateText("");
+		p_dps_rel_nav.stat_x.setText("");
+		p_dps_rel_nav.stat_y.setText("");
 		}
 
-	if (getprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id") > 0)
-		{
-		var node_time = SpaceShuttle.time_to_node(oTgt.l_vec);
-		p_dps_rel_nav.node.setText(SpaceShuttle.seconds_to_stringHMS(node_time));
-		}
-	else
-		{
-		p_dps_rel_nav.node.setText("00:00:00");
-		}
+
+	# AUT, INH and FOR controls
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rng_aut == 1) {symbol = "*";}
+    	p_dps_rel_nav.rng_aut.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rng_inh == 1) {symbol = "*";}
+    	p_dps_rel_nav.rng_inh.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rng_for == 1) {symbol = "*";}
+    	p_dps_rel_nav.rng_for.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rdot_aut == 1) {symbol = "*";}
+    	p_dps_rel_nav.rdot_aut.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rdot_inh == 1) {symbol = "*";}
+    	p_dps_rel_nav.rdot_inh.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.rdot_for == 1) {symbol = "*";}
+    	p_dps_rel_nav.rdot_for.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.y_aut == 1) {symbol = "*";}
+    	p_dps_rel_nav.vely_aut.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.y_inh == 1) {symbol = "*";}
+    	p_dps_rel_nav.vely_inh.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.y_for == 1) {symbol = "*";}
+    	p_dps_rel_nav.vely_for.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.gps_aut == 1) {symbol = "*";}
+    	p_dps_rel_nav.gps_aut.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.gps_inh == 1) {symbol = "*";}
+    	p_dps_rel_nav.gps_inh.updateText(symbol);
+
+	symbol = "";
+	if (SpaceShuttle.proximity_manager.gps_for == 1) {symbol = "*";}
+    	p_dps_rel_nav.gps_for.updateText(symbol);
 
 
 

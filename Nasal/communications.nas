@@ -317,26 +317,26 @@ var com_get_TDRS_azimuth_elevation = func (index) {
 
 
 var tdrs_pos = com_TDRS_array[index].coord;
+var shuttle_pos = geo.aircraft_position();
 
-return com_get_pointing_azimuth_elevation(tdrs_pos);
+return com_get_pointing_azimuth_elevation(tdrs_pos, shuttle_pos);
 }
 
 
-var com_get_pointing_azimuth_elevation  = func (coord) {
+var com_get_pointing_azimuth_elevation  = func (coord, shuttle_pos) {
 
-var shuttle_pos = geo.aircraft_position();
 
 # body axis upward pointing vector in FG world coords
 
-var body_z = [getprop("/fdm/jsbsim/systems/pointing/world/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]")];
+var body_z = [getprop("/fdm/jsbsim/systems/pointing/world/body-z[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
 
 # body axis right pointing vector in FG world coords
 
-var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]")];
+var body_y = [getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-y[2]")];
 
 # body axis forward pointing vector in FG world coords
 
-var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]")];
+var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
 
 
 # pointing vector  in world coordinates
@@ -344,7 +344,11 @@ var body_x = [getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]"), getprop("
 var shuttle_world = shuttle_pos.xyz();
 var tgt_world = coord.xyz();
 
+
+
 var pointer = SpaceShuttle.normalize(SpaceShuttle.subtract_vector(tgt_world, shuttle_world));
+
+
 
 # get the components of the pointing vector in body coordinates
 
@@ -353,10 +357,15 @@ var pointer_by = SpaceShuttle.dot_product(body_y, pointer);
 var pointer_bz = SpaceShuttle.dot_product(body_z, pointer);
 
 var pointer_body = [pointer_bx, pointer_by, pointer_bz];
+
+
+
 var angles = SpaceShuttle.get_pitch_yaw(pointer_body);
 
 angles[0] = angles[0] * 180.0/math.pi;
 angles[1] = angles[1] * 180.0/math.pi;
+
+#print ("Angles: ", angles[0], " ", angles[1]);
 
 # now compute the pointing vector known to the GPC, i.e. with attitude errors
 

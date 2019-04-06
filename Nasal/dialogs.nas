@@ -27,6 +27,8 @@ var scenario_string_electric_failure = "There's a major problem with the electri
 
 var scenario_string_propellant_leakage = "There's a leak somewhere in the propellant distribution system, rapidly depleting available propellant. You need to isolate it and decide whether to continue the mission or whether to do an emergency de-orbit.";
 
+var scenario_string_avionics_bay_fire = "A fire has started in one of the avionics bays and is starting to spread. Smoke is developing, and the fire needs to be quickly brought under control before the avionics is gone.";
+
 var scenario_string_tire_failure = "The right gear tire is damaged. Anticipate to use rudder upon touchdown to correct and use elevons to reduce load on the damaged gear during coast.";
 
 var scenario_string_bad_state_vector = "The navigation state of the Shuttle is bad during entry - expect that guidance and HUD symbols are to some degree misleading until you update the state vector.";
@@ -99,6 +101,8 @@ var carrier_dlg = gui.Dialog.new("/sim/gui/dialogs/SpaceShuttle/carrier/dialog",
 
 var earthview_flag = getprop("/sim/config/shuttle/rendering/use-earthview");
 var earthview_transition_alt = getprop("/sim/config/shuttle/rendering/earthview-transition-alt-ft");
+var orbital_target_lod = getprop("/sim/config/shuttle/rendering/orbital-target-lod-m");
+
 
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/site", "Vandenberg Air Force Base");
 setprop("/sim/gui/dialogs/SpaceShuttle/entry_guidance/runway", "12");
@@ -194,6 +198,11 @@ else if (scenario_string == "propellant leak")
 	{
 	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_propellant_leakage);
 	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 23);
+	}
+else if (scenario_string == "avionics bay fire")
+	{
+	setprop("/sim/gui/dialogs/SpaceShuttle/limits/failure-scenario-description", scenario_string_avionics_bay_fire);
+	setprop("/fdm/jsbsim/systems/failures/failure-scenario-ID", 24);
 	}
 else if (scenario_string == "stuck speedbrake")
 	{
@@ -1276,6 +1285,80 @@ setprop("/fdm/jsbsim/systems/rms/drive-selection-string", drive_string);
 }
 
 
+var predict_asc_nd_lon = func (inc) {
+
+# interpolation of measured empirics
+
+#print ("Numerical interpolation!");
+
+var data = [];
+
+var point = [28.6, 191.4];
+append(data, point);
+
+point = [29.41,207.16];
+append(data, point);
+
+point = [30.24,213.52];
+append(data, point);
+
+point = [31.87, 221.41];
+append(data, point);
+
+point = [32.5,223.57];
+append(data, point);
+
+point = [35.15,	231.03];
+append(data, point);
+
+point = [37.6,236.73];
+append(data, point);
+
+point = [38.42,238.26];
+append(data, point);
+
+point = [40.06,241.11];
+append(data, point);
+
+point = [42.52,	244.99];
+append(data, point);
+
+point = [43.44,246.22];
+append(data, point);
+
+point = [46.61, 250.38];
+append(data, point);
+
+point = [50.7,254.9];
+append(data, point);
+
+point = [56.43,260.05];
+append(data, point);
+
+point = [60.53,263.09];
+append(data, point);
+
+point = [71.17,270.43];
+append(data, point);
+
+point = [76.90,273.72];
+append(data, point);
+
+
+for (var i=1; i< size(data); i=i+1)
+	{
+	if (inc < data[i][0])
+		{
+		return data[i-1][1] + (inc - data[i-1][0])/(data[i][0] - data[i-1][0]) * (data[i][1] - data[i-1][1]);
+		}
+
+	}
+
+
+
+}
+
+
 var update_entry_guidance_target = func {
 
 
@@ -1358,11 +1441,23 @@ print ("Assumed xtrack deviation: ", xtrack_refloc.correction);
 
 
 var asc_nd_lon_bias = getprop("/fdm/jsbsim/systems/ap/launch/asc-nd-lon-bias");
-var asc_nd_lon_tgt = 191.4 + 19.868685 * math.pow((inc - lat), 0.369777) + asc_nd_lon_bias - 0.25; # empirics for KSC
+
+var asc_nd_lon_tgt = 0;
+
+if ((inc > 28.6) and (inc <76.9))
+	{
+ 	asc_nd_lon_tgt = predict_asc_nd_lon(inc);
+	}
+else
+	{
+	asc_nd_lon_tgt = 191.4 + 19.868685 * math.pow((inc - lat), 0.369777) + asc_nd_lon_bias - 0.25; # empirics for KSC
+	}
+
+
 
 asc_nd_lon_tgt += lon + 80.68; # shift for launches not from KSC
 
-var elapsed = getprop("/sim/time/elapsed-sec");
+var elapsed = getprop("/sim/time/elapsed-sec") - 100.0; # empirics is measured for 100 s
 asc_nd_lon_tgt += elapsed/60. * 0.25;
 
 setprop("/fdm/jsbsim/systems/ap/launch/asc-nd-lon-tgt", asc_nd_lon_tgt);

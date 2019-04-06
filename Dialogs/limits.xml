@@ -99,7 +99,8 @@
 		 <value>RCS failure</value>
 		 <value>hydraulic failure</value>
 		 <value>electric failure</value>
-		 <value>propellant leak</value>				
+		 <value>propellant leak</value>	
+		 <value>avionics bay fire</value>							
 		 <value>bad state vector at TAEM</value>
 		 <value>navigation problems</value>
 		 <value>stuck speedbrake</value>

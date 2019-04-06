@@ -32,9 +32,16 @@
 			<negative-z>Aircraft/Generic/Effects/CubeMaps/fair-sky/fair-sky_pz.png</negative-z>
 		</images>
 	</texture>
-
-
-
+  <grain-texture-enabled type="int">2</grain-texture-enabled>
+  <grain-magnification type="float"><use>/environment/aircraft-effects/exterior-plasma-burn</use></grain-magnification>
+  <texture n="7">
+    <image>Models/Effects/plasma-burn_texture.png</image>
+    <type>2d</type>
+    <filter>linear-mipmap-linear</filter>
+    <wrap-s>repeat</wrap-s>
+    <wrap-t>repeat</wrap-t>
+    <internal-format>normalized</internal-format>
+  </texture>
 	<geo_light_r type="float"><use>/lighting/effects/geo-red</use></geo_light_r>
 	<geo_light_g type="float"><use>/lighting/effects/geo-green</use></geo_light_g>
 	<geo_light_b type="float"><use>/lighting/effects/geo-blue</use></geo_light_b>

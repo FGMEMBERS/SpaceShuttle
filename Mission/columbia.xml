@@ -8,6 +8,7 @@
   <payload-explicit type="bool">false</payload-explicit>
   <payload type="string">TDRS demo</payload>
   <payload-weight-lbs>15000.0</payload-weight-lbs>
+  <oms-kit type="string">none</oms-kit>
 </configuration>
 
 <launch>
@@ -18,6 +19,14 @@
   <tal-site-index type="int">6</tal-site-index>
   <rtls-site-index type="int">1</rtls-site-index>
   <roll-to-heads-up type="bool">false</roll-to-heads-up>
+  <throttle-down-time-s type="double">18.0</throttle-down-time-s>
+  <throttle-up-time-s type="double">42.0</throttle-up-time-s>
+  <throttle-down-to-percent type="double">67.0</throttle-down-to-percent>
+  <oms-assist-burn type="bool">false</oms-assist-burn>
+  <oms-assist-duration-s type="double">0</oms-assist-duration-s>
+  <srb-climbout-ang-bias-deg type="double">0.0</srb-climbout-ang-bias-deg>
+  <ballistic-climb-ang-bias-deg type="double">0.0</ballistic-climb-ang-bias-deg>
+  <trajectory-loft-ft type="double">0.0</trajectory-loft-ft>
 </launch>
 
 <abort>

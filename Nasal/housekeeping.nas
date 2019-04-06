@@ -739,14 +739,17 @@ var antenna_manager = {
 
 	},
 
-	ku_antenna_track_target : func (coord) {
+	ku_antenna_track_target : func (coord, shuttle_coord) {
 
-		var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord);
+		var angles = SpaceShuttle.com_get_pointing_azimuth_elevation(coord, shuttle_coord);
 
 		me.ku_azimuth_cmd =  angles[1];
 		me.ku_elevation_cmd = angles[0];
 
-		ku_antenna_point (angles[1], angles[0]);
+		me.ku_azimuth_tgt_real = angles[1];
+		me.ku_elevation_tgt_real = angles[0];
+
+		me.ku_antenna_point (angles[1], angles[0]);
 
 	},
 
@@ -879,12 +882,30 @@ var antenna_manager = {
 	},
 
 
+	check_stow: func {
+
+		if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-target") < 1.0)
+			{
+			
+			if (getprop("/fdm/jsbsim/systems/mechanical/ku-antenna-ready") == 1)
+				{
+				setprop("/controls/shuttle/ku-antenna-alpha-deg-cmd", 0.0);
+				setprop("/controls/shuttle/ku-antenna-beta-deg-cmd", 0.0);
+				}
+			}
+
+	},
+
 
 	run: func {
 
 	# update operational status of antennas
 
 	me.update_status();
+
+	# check for stwo command received
+
+	me.check_stow();
 
 	# find the closest ground station
 
@@ -1447,6 +1468,41 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/tig-string", timer_string);
 
 }
 
+
+var set_lambert_tig1_timer = func {
+
+var days = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-d");
+var hours = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-h");
+var minutes = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-m");
+var seconds = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s");
+
+var timer_seconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig", timer_seconds);
+
+var timer_string = seconds_to_stringDHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-string", timer_string);
+
+}
+
+var set_lambert_tig2_timer = func {
+
+var days = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-d");
+var hours = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-h");
+var minutes = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-m");
+var seconds = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s");
+
+var timer_seconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig", timer_seconds);
+
+var timer_string = seconds_to_stringDHMS(timer_seconds);
+
+setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-string", timer_string);
+
+}
+
 var update_CRT_timer = func {
 
 var hours = getprop("/fdm/jsbsim/systems/timer/crt-timer-hours");
@@ -1959,6 +2015,7 @@ var condition_manager = {
 	hyd_pressure_gain_rate: 0.01,  
 	hyd_temp_cooling_rate: 0.0001,
 	hyd_temp_eq_rate: 0.001, 
+	smoke_removal_factor: 0.995,
 
 	# internal copies for logging
 
@@ -1995,6 +2052,20 @@ var condition_manager = {
 	},
 
 	update: func {
+
+
+		# smoke removal by filters
+
+		SpaceShuttle.fire_sim.smoke_avbay1 *= me.smoke_removal_factor;
+		SpaceShuttle.fire_sim.smoke_avbay2 *= me.smoke_removal_factor;
+		SpaceShuttle.fire_sim.smoke_avbay3 *= me.smoke_removal_factor;
+		SpaceShuttle.fire_sim.smoke_cabin *= me.smoke_removal_factor;
+		SpaceShuttle.fire_sim.smoke_flightdeck *= me.smoke_removal_factor;
+
+		# trip alarm if smoke is detected
+
+		
+
 
 		# fuel cell efficiency
 

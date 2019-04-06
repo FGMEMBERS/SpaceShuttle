@@ -10,12 +10,14 @@
 				systems/navigation/rdr-altm == 1
 				systems/navigation/radar-altimeter-1-power == 1
 				systems/circuit-breakers/radar-alt1 == 1
+				systems/failures/navigation/radar-alt-1-condition GT 0
 				systems/electrical/bus/voltage GT 26.0
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/rdr-altm == 0
 				systems/navigation/radar-altimeter-2-power == 1
 				systems/circuit-breakers/radar-alt2 == 1
+				systems/failures/navigation/radar-alt-2-condition GT 0
 				systems/electrical/bus[1]/voltage GT 26.0
 			</test>
 		</switch>
@@ -106,16 +108,19 @@
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys1-switch == 1
 				systems/electrical/bus/voltage GT 26.0
+				systems/failures/navigation/mls-1-condition GT 0
 				systems/circuit-breakers/mls1 == 1
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys2-switch == 1
 				systems/electrical/bus[1]/voltage GT 26.0
+				systems/failures/navigation/mls-2-condition GT 0
 				systems/circuit-breakers/mls2 == 1
 			</test>
 			<test logic="AND" value="1.0">
 				systems/navigation/mls-sys3-switch == 1
 				systems/electrical/bus[2]/voltage GT 26.0
+				systems/failures/navigation/mls-3-condition GT 0
 				systems/circuit-breakers/mls3 == 1
 			</test>
 		</switch>

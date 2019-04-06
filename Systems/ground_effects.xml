@@ -193,6 +193,36 @@
     </function>
   </fcs_function>
 
+  <switch name="fuselage-plasma-burn">
+    <output>/environment/aircraft-effects/exterior-plasma-burn</output>
+    <default value="0"/>
+
+    <test logic="AND" value=".01">
+      systems/thermal/thermal-stress GT .014
+      systems/thermal/thermal-stress LT .7
+    </test>
+
+    <test logic="AND" value=".0125">
+      systems/thermal/thermal-stress GT .6
+      systems/thermal/thermal-stress LT .7
+    </test>
+
+    <test logic="AND" value=".015">
+      systems/thermal/thermal-stress GT .7
+      systems/thermal/thermal-stress LT .8
+    </test>
+
+    <test logic="AND" value=".0175">
+      systems/thermal/thermal-stress GT .8
+      systems/thermal/thermal-stress LT .9
+    </test>
+
+    <test logic="AND" value=".02">
+      systems/thermal/thermal-stress GT .9
+      systems/thermal/thermal-stress LT 1.1
+    </test>
+  </switch>
+
  </channel>
 
 </system>

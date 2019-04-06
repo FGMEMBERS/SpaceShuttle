@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+  
+	<path>airlock_module.ac</path>
+
+
+  <!--animation>
+    	<type>material</type>
+   	<emission>
+      		<factor-prop>/fdm/jsbsim/systems/light/airlock-flood-intensity</factor-prop>
+      		<red>   0.45 </red>
+      		<green> 0.45 </green>
+		<blue>  0.45 </blue>
+    	</emission>
+  </animation-->
+
+ 
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/PayloadBay/Airlock-Module/airlock-module</inherits-from>
+        <object-name>spaceshutt_spstob_eal</object-name>
+    </effect>
+
+</PropertyList>

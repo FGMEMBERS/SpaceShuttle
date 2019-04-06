@@ -1,0 +1,274 @@
+
+##################
+# Switch requests
+##################
+
+
+##################
+# Canvas spaces
+##################
+
+##################
+# Analogue gauges
+##################
+
+######################################
+QUESTIONS
+#######################
+
+
+
+
+######################################
+DUMMY SWITCHES and NOT CODED
+(search "CODED" in xml file)
+#######################
+
+R13 - 
+object-name 
+  pb-door-pwr-sys1
+  pb-door-pwr-sys2
+property
+  /fdm/jsbsim/systems/mechanical/pb-door-sys1-pwr
+  /fdm/jsbsim/systems/mechanical/pb-door-sys2-pwr
+mapping
+     0: Off
+     1: On
+
+F6 - HSI Mode switch
+F8 - HSI Mode switch
+property
+    /fdm/jsbsim/systems/adi/hsi-mode-select
+mapping
+     0: TAEM
+     1: ENTRY
+    -1: APPROACH
+
+L1 - "many" switches
+R1 - "many" switches
+
+A1 - Encription Power "Cover"
+switch cover animation example
+
+O14 Breakers
+* Star Tracker Z Breaker
+- property
+	/fdm/jsbsim/systems/circuit-breakers/star-trkr-z-brk
+-mapping 
+	0: OFF
+	1: ON
+
+O15 Breakers
+* Star Tracker Y Breaker
+- property
+	/fdm/jsbsim/systems/circuit-breakers/star-trkr-y-brk
+-mapping 
+	0: OFF
+	1: ON
+
+######################################
+FINISHED
+########################
+
+Panel F7 
+
+Blue SM ALERT light
+property
+	/fdm/jsbsim/systems/cws/sm-alert-on
+
+mapping 
+	0: (dark)
+	1: (illuminated)
+
+Panel O14 
+
+FIRE SUPPR BAY 3 circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay3
+mapping
+	0: OFF
+	1: ON
+
+SMOKE DETN BAY 2A/3B circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-2A3B
+mapping
+	0: OFF
+	1: ON
+
+SMOKE DETNL/R FLT DK circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/smoke-detn-lr-flt-dk
+mapping
+	0: OFF
+	1: ON
+
+Panel O15
+
+FIRE SUPPR BAY 1 circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay1
+mapping
+	0: OFF
+	1: ON
+
+SMOKE DETN BAY 1B/3A circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1B3A
+mapping
+	0: OFF
+	1: ON
+
+Panel O16
+
+FIRE SUPPR BAY 2 circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay2
+mapping
+	0: OFF
+	1: ON
+
+SMOKE DETN BAY 1A/2B circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1A2B
+mapping
+	0: OFF
+	1: ON
+
+SMOKE DETN CABIN circuit breaker
+property
+	/fdm/jsbsim/systems/circuit-breakers/smoke-detn-cabin
+mapping
+	0: OFF
+	1: ON
+
+Panel L1
+
+FIRE SUPPRESSION AV BAY 1 SWITCH
+property
+	/fdm/jsbsim/systems/fire-suppression/avbay-1-arm-switch
+mapping
+	0: SAFE
+	1: ARM
+
+FIRE SUPPRESSION AV BAY 2 SWITCH
+property
+	/fdm/jsbsim/systems/fire-suppression/avbay-2-arm-switch
+mapping
+	0: SAFE
+	1: ARM
+
+FIRE SUPPRESSION AV BAY 3 SWITCH
+property
+	/fdm/jsbsim/systems/fire-suppression/avbay-3-arm-switch
+mapping
+	0: SAFE
+	1: ARM
+
+FIRE SUPPRESSION AVBAY 1 AGENT DISCHARGE pushbutton/talkback
+property (for TB)
+	/fdm/jsbsim/systems/fire-suppression/avbay-1-discharge
+mapping
+	0: off
+	1: on
+
+(the button command will be a Nasal binding for a system not yet written)
+
+
+FIRE SUPPRESSION AVBAY 2 AGENT DISCHARGE pushbutton/talkback
+property (for TB)
+	/fdm/jsbsim/systems/fire-suppression/avbay-2-discharge
+mapping
+	0: off
+	1: on
+
+(the button command will be a Nasal binding for a system not yet written)
+
+FIRE SUPPRESSION AVBAY 3 AGENT DISCHARGE pushbutton/talkback
+property (for TB)
+	/fdm/jsbsim/systems/fire-suppression/avbay-3-discharge
+mapping
+	0: off
+	1: on
+
+(the button command will be a Nasal binding for a system not yet written)
+
+red SMOKE DETECTION LIGHT CABIN
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-cabin-light-l
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT PAYLOAD
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-payload-light-r
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT L FLT DECK
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-l
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT R FLT DECK
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-r
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT AV BAY 1 A
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-l
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT AV BAY 1 B
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-r
+mapping
+	0: off
+	1: on
+red SMOKE DETECTION LIGHT AV BAY 2 A
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay-light-l
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT AV BAY 2 B
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-r
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT AV BAY 3 A
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-l
+mapping
+	0: off
+	1: on
+
+red SMOKE DETECTION LIGHT AV BAY 3 B
+property
+	/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-r
+mapping
+	0: off
+	1: on
+
+spring-loaded switch SENSOR RESET
+property
+	/fdm/jsbsim/systems/fire-suppression/sensor-reset-cmd
+mapping
+	0: neutral
+	1: SENSOR RESET
+
+(the switch in addition needs a Nasal binding to a system not yet written)
+
+#######################################

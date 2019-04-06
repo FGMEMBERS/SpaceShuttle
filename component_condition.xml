@@ -69,6 +69,7 @@
 	<oms2-n2-condition type="double">1.0</oms2-n2-condition>
 	<oms-he-left-condition type="double">1.0</oms-he-left-condition>
 	<oms-he-right-condition type="double">1.0</oms-he-right-condition>
+	<oms-he-kit-condition type="double">1.0</oms-he-kit-condition>
 	<oms-left-fuel-line-condition type="double">1.0</oms-left-fuel-line-condition>
 	<oms-right-fuel-line-condition type="double">1.0</oms-right-fuel-line-condition>
 </oms>
@@ -132,6 +133,8 @@
 	<oms-left-fuel-leak-flow type="double">0.0</oms-left-fuel-leak-flow>
 	<oms-right-oxidizer-leak-flow type="double">0.0</oms-right-oxidizer-leak-flow>
 	<oms-right-fuel-leak-flow type="double">0.0</oms-right-fuel-leak-flow>
+	<oms-kit-oxidizer-leak-flow type="double">0.0</oms-kit-oxidizer-leak-flow>
+	<oms-kit-fuel-leak-flow type="double">0.0</oms-kit-fuel-leak-flow>
 	<rcs-left-oxidizer-leak-flow type="double">0.0</rcs-left-oxidizer-leak-flow>
 	<rcs-left-fuel-leak-flow type="double">0.0</rcs-left-fuel-leak-flow>
 	<rcs-right-oxidizer-leak-flow type="double">0.0</rcs-right-oxidizer-leak-flow>
@@ -179,6 +182,11 @@
 	<tacan-1-condition type="double">1.0</tacan-1-condition>
 	<tacan-2-condition type="double">1.0</tacan-2-condition>
 	<tacan-3-condition type="double">1.0</tacan-3-condition>
+	<mls-1-condition type="double">1.0</mls-1-condition>
+	<mls-2-condition type="double">1.0</mls-2-condition>
+	<mls-3-condition type="double">1.0</mls-3-condition>
+	<radar-alt-1-condition type="double">1.0</radar-alt-1-condition>
+	<radar-alt-2-condition type="double">1.0</radar-alt-2-condition>
 	<air-data-probe-left-condition type="double">1.0</air-data-probe-left-condition>
 	<air-data-probe-right-condition type="double">1.0</air-data-probe-right-condition>
 	<air-data-pressure-left-condition type="double">1.0</air-data-pressure-left-condition>

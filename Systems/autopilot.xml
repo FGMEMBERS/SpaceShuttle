@@ -439,7 +439,13 @@
 		<function>
 			<product>
 				<asin>
+					<min>
+					<max>
 					<property>systems/ap/track/pitch-error</property>
+					<value>-1.0</value>
+					</max>
+					<value>1.0</value>
+					</min>
 				</asin>
 				<value>57.2974</value>
 			</product>
@@ -1528,6 +1534,36 @@
 		</function>
 		</fcs_function>
 
+		<switch name="systems/ap/entry/low-e-phugoid-trigger">
+			<default value="0.0"/>
+			<test value="1.0">
+				accelerations/hdotdot-ft_s2 GT 0.0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/ap/entry/low-e-alpha-rad">
+		<function>
+			<product>
+			<table>
+        		<independentVar lookup="row">velocities/mach</independentVar>
+        		<tableData>
+				 3.0	0.0
+				 4.0	1.0
+				 5.0	8.0
+          	 		 10.0	5.0
+				 15.0	3.0
+				 18.0	0.0	
+        		</tableData>
+      			</table>
+			<value>-0.0174532925194</value>
+			<property>systems/ap/entry/low-e-phugoid-trigger</property>
+			</product>
+		</function>
+		</fcs_function>
+
+
+		
+
 		<fcs_function name="systems/ap/entry/fast-drag-dalpha-rad">
 		<function>
 			<sum>
@@ -1542,6 +1578,10 @@
 			</product>
 			<product>
 				<value>-0.05235987</value>
+				<property>systems/ap/entry/low-energy-logic</property>
+			</product>
+			<product>
+				<property>systems/ap/entry/low-e-alpha-rad</property>
 				<property>systems/ap/entry/low-energy-logic</property>
 			</product>
 			</sum>

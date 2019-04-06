@@ -658,6 +658,15 @@ if ((thrust1 > 400000.0) and (thrust2 > 400000.0) and (thrust3 > 400000.0) and (
 	
 	if (getprop("/fdm/jsbsim/systems/ap/launch/autolaunch-master") == 1)
 		{
+
+		SpaceShuttle.auto_launch_throttle_down = getprop("/fdm/jsbsim/systems/ap/launch/throttle-down-time-s");
+		SpaceShuttle.auto_launch_throttle_up = getprop("/fdm/jsbsim/systems/ap/launch/throttle-up-time-s");
+		SpaceShuttle.auto_launch_throttle_to = getprop("/fdm/jsbsim/systems/ap/launch/throttle-down-to-fraction");
+
+		SpaceShuttle.auto_launch_traj_loft = getprop("/fdm/jsbsim/systems/ap/launch/trajectory-loft-ft");
+		SpaceShuttle.auto_launch_srb_climbout_bias = getprop("/fdm/jsbsim/systems/ap/launch/srb-climbout-bias-deg");
+		SpaceShuttle.auto_launch_mps_climbout_bias = getprop("/fdm/jsbsim/systems/ap/launch/mps-climbout-bias-deg");
+
 		SpaceShuttle.auto_launch_loop();
    		setprop("/fdm/jsbsim/systems/ap/launch/regular-meco-condition",0);
 		}
@@ -703,14 +712,14 @@ if (SRB_message_flag == 2)
 if (view == "Cockpit View")
 	{
 	setprop("/sim/current-view/x-offset-m", -0.6 + 0.006 * (rand() - 0.5));
-	setprop("/sim/current-view/y-offset-m", -0.17 + 0.006 * (rand() - 0.5));
-	setprop("/sim/current-view/z-offset-m", -11.6 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/y-offset-m", -0.13 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.85 + 0.006 * (rand() - 0.5));
 	}
 else if (view == "Pilot")
 	{
 	setprop("/sim/current-view/x-offset-m", 0.7 + 0.006 * (rand() - 0.5));
 	setprop("/sim/current-view/y-offset-m", -0.13 + 0.006 * (rand() - 0.5));
-	setprop("/sim/current-view/z-offset-m", -11.7 + 0.006 * (rand() - 0.5));
+	setprop("/sim/current-view/z-offset-m", -11.85 + 0.006 * (rand() - 0.5));
 	}
 
 settimer(srb_view_shake_loop, 0.0);
@@ -1338,6 +1347,7 @@ settimer(SpaceShuttle.adjust_effect_colors, 0.2);
 settimer(SpaceShuttle.update_sv_errors, 0.4);
 settimer(SpaceShuttle.update_sensors, 0.5);
 settimer(SpaceShuttle.compare_bfs_pass, 0.7);
+settimer(func {SpaceShuttle.proximity_manager.check_distance();}, 0.8);
 
 # some log output
 
@@ -1525,7 +1535,7 @@ if (getprop("/fdm/jsbsim/velocities/vtrue-fps") < 2400.0)
 SpaceShuttle.area_nav_set.update_entry();
 
 
-
+var altitude = getprop("/position/altitude-ft");
 
 # determine whether we have reached TAEM interface
 # we may reach it under guidance, then it's best driven by distance
@@ -1534,7 +1544,21 @@ SpaceShuttle.area_nav_set.update_entry();
 
 var Nz_hold = getprop("/fdm/jsbsim/systems/ap/grtls/Nz-hold-active");
 
-if (((getprop("/position/altitude-ft") < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (Nz_hold == 0) )
+if (altitude > 400000.0)
+	{
+	# we may be heading back into space
+
+	if ( getprop("/fdm/jsbsim/velocities/v-down-fps") < -10)
+		{
+		#print("Back into orbit!");
+		orbital_loop();
+		return;		
+
+		}
+	}
+
+
+if (((altitude < 85000.0) or (getprop("/fdm/jsbsim/velocities/mach") <2.5)) and (deorbit_stage_flag == 3) and (Nz_hold == 0) )
 	{
 	#setprop("/sim/messages/copilot", "TAEM interface reached.");
 	SpaceShuttle.callout.make("TAEM interface reached.", "info");
@@ -3000,7 +3024,7 @@ if (stage == 6)
 	var rotation_boost = 1579.0 * math.cos(latitude) * math.sin(heading);
 
 	setprop("/position/altitude-ft", 1050000.0);
-	setprop("/velocities/uBody-fps", 25300.0 - rotation_boost);
+	setprop("/velocities/uBody-fps", 25270.0 - rotation_boost);
 	setprop("/velocities/wBody-fps", 175.0);
 
 	hydraulic_circulation_on();
@@ -3014,6 +3038,9 @@ if (stage == 6)
 
 	# adjust mission time
 	setprop("/fdm/jsbsim/systems/timer/delta-MET", 200000);
+
+	# show MET
+	setprop("/fdm/jsbsim/systems/timer/time-display-flag", 1);
 
 	# start main control loop
 	orbital_loop();
@@ -3255,7 +3282,37 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 	setprop("/consumables/fuel/tank[3]/level-lbs",0.0);
 
 	et_umbilical_door_close();
-	settimer(SpaceShuttle.init_iss, 5.0);
+	#settimer(SpaceShuttle.init_iss, 5.0);
+
+	var prox_x = getprop("/sim/presets/ISS-prox-x");
+	var prox_y = getprop("/sim/presets/ISS-prox-y");
+	var prox_z = getprop("/sim/presets/ISS-prox-z");
+
+	if ((math.abs(prox_x) > 0.0) or (math.abs(prox_y) > 0.0) or (math.abs(prox_z) > 0.0))
+		{
+		settimer( func {
+			SpaceShuttle.iss_manager.init(prox_x, prox_y, prox_z, 0.0, 0.0, 0.0); 
+			SpaceShuttle.proximity_manager.iss_model = 1;
+			
+			# watchdog code in case ISS terminates due to loading delay
+			
+			settimer ( func {
+					if (SpaceShuttle.proximity_manager.iss_model == 0)
+						{
+						print ("ISS re-initialization.");
+						SpaceShuttle.iss_manager.init(prox_x, prox_y, prox_z, 0.0, 0.0, 0.0); 
+						SpaceShuttle.proximity_manager.iss_model = 1;
+						}
+					else		
+						{
+						print ("ISS initialized okay.");
+						}
+			
+				}, 10.0);
+
+			}, 5.0);
+		
+		}
 
 	setprop("/fdm/jsbsim/systems/mechanical/vdoor-cmd", 0);
 
@@ -3271,3 +3328,5 @@ if (getprop("/sim/presets/stage") == 6) # we're in high orbit
 
 
 	}
+
+

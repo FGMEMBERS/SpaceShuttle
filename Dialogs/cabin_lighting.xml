@@ -182,6 +182,37 @@
     </slider>
 
     <text>
+      <label>Emergency Flashlight</label>
+      <row>1</row>
+      <col>3</col>
+      <halign>left</halign>
+    </text>
+    <slider>
+        <name>brightness-num</name>
+        <row>2</row>
+        <col>3</col>
+        <halign>left</halign>
+        <min>0.0</min>
+        <max>2.0</max>
+        <step>1</step>
+        <live>true</live>
+        <property>/sim/rendering/als-secondary-lights/use-flashlight</property>
+        <binding>
+            <command>nasal</command>
+            <script>
+                if (getprop("/sim/rendering/shaders/skydome")) {
+                    var old_value = getprop("/sim/rendering/als-secondary-lights/use-flashlight");
+                    var new_value = math.mod(old_value + 1, 3);
+                    setprop("/sim/rendering/als-secondary-lights/use-flashlight", new_value);
+                }
+                else {
+                    gui.popupTip("Enable ALS for ALS Flashlight", 4);
+                }
+            </script>
+        </binding>
+    </slider>
+
+    <text>
       <label>Overheads</label>
       <row>3</row>
       <col>0</col>

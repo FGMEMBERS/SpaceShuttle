@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <path>coas.ac</path>
+    <nopreview/>
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-interior-object</inherits-from>
+        <object-name>coasfor</object-name>
+        <object-name>coasaft</object-name>
+        <object-name>coasaft-reticle-intensity</object-name>
+        <object-name>coasfor-reticle-intensity</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/hud/hud_coas</inherits-from>
+        <object-name>coasglassfor</object-name>
+        <object-name>coasglassaft</object-name>
+    </effect>
+
+    <animation>
+        <type>select</type>
+        <object-name>coasfor</object-name>
+        <object-name>coasglassfor</object-name>
+        <condition>
+            <property>/sim/config/shuttle/show-coas-for</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>coasaft</object-name>
+        <object-name>coasglassaft</object-name>
+        <condition>
+            <property>/sim/config/shuttle/show-coas-aft</property>
+        </condition>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>coas-light-increase</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    SpaceShuttle.coas_device.increase_brightness();
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-coas-brt</tooltip-id>
+                <label>Increase Reticle Brightness</label>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>coas-light-decrease</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    SpaceShuttle.coas_device.decrease_brightness();
+                </script>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("knob")</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-coas-dim</tooltip-id>
+                <label>Decrease Reticle Brightness</label>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>pick</type>
+        <object-name>coasglassfor</object-name>
+        <object-name>coasglassaft</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    SpaceShuttle.coas_device.toggle_filter();
+                </script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>hud-coas-filter</tooltip-id>
+                <label>Toggle Daylight Filter</label>
+            </binding>
+        </hovered>
+    </animation>
+
+
+    <animation>
+        <type>rotate</type>
+        <object-name>coasaft-reticle-intensity</object-name>
+        <property>/fdm/jsbsim/systems/light/hud-dim-coas-out</property>
+        <factor>90</factor>
+        <axis>
+            <x1-m>-10.82281</x1-m>
+            <y1-m>  0.06302</y1-m>
+            <z1-m>  0.45279</z1-m>
+            <x2-m>-10.82421</x2-m>
+            <y2-m>  0.0628 </y2-m>
+            <z2-m>  0.45528</z2-m>
+        </axis>
+    </animation>
+
+    <animation>
+        <type>rotate</type>
+        <object-name>coasfor-reticle-intensity</object-name>
+        <property>/fdm/jsbsim/systems/light/hud-dim-coas-out</property>
+        <factor>90</factor>
+        <axis>
+            <x1-m>-12.33632</x1-m>
+            <y1-m> -0.76175</y1-m>
+            <z1-m>  0.0284 </z1-m>
+            <x2-m>-12.33868</x2-m>
+            <y2-m> -0.76315</y2-m>
+            <z2-m>  0.02921</z2-m>
+        </axis>
+    </animation>
+
+    <animation>
+        <object-name>coasglassfor</object-name>
+        <object-name>coasglassaft</object-name>
+        <type>material</type>
+        <condition>
+            <not>
+                <property>/sim/rendering/rembrandt/enabled</property>
+            </not>
+        </condition>
+        <emission>
+            <red>  1.0</red>
+            <green>1.0</green>
+            <blue> 1.0</blue>
+            <!--<factor-prop>/fdm/jsbsim/systems/light/hud-light-cmd-norm</factor-prop>-->
+        </emission>
+	<diffuse>
+            <red>  0.0</red>
+            <green>0.0</green>
+            <blue> 0.0</blue>
+	</diffuse>
+	<ambient>
+            <red>  0.0</red>
+            <green>0.0</green>
+            <blue> 0.0</blue>
+	</ambient>
+	<specular>
+            <red>  0.0</red>
+            <green>0.0</green>
+            <blue> 0.0</blue>
+	</specular>
+    </animation>
+
+</PropertyList>

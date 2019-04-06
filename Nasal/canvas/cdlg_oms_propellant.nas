@@ -79,6 +79,28 @@ var cdlg_oms_propellant = {
 			setprop("/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status", state);
 			 };
 
+		# kit isolation A
+
+		me.switch_kit_isolation_A = cdlg_widget_img_stack.new(me.root, stack, 50, 50);
+		me.switch_kit_isolation_A.setTranslation(57,438);
+		me.switch_kit_isolation_A.f = func 
+			{
+			var state = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status", state);
+			 };
+
+		# kit isolation B
+
+		me.switch_kit_isolation_B = cdlg_widget_img_stack.new(me.root, stack, 50, 50);
+		me.switch_kit_isolation_B.setTranslation(134,438);
+		me.switch_kit_isolation_B.f = func 
+			{
+			var state = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status", state);
+			 };
+
 
 		# left crossfeed A
 
@@ -170,6 +192,29 @@ var cdlg_oms_propellant = {
 			setprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status", state);
 			 };
 
+		# kit He isolation A
+
+		me.switch_kit_He_isolation_A = cdlg_widget_img_stack.new(me.root, stack, 50, 50);
+		me.switch_kit_He_isolation_A.setTranslation(55,99);
+		me.switch_kit_He_isolation_A.f = func 
+			{
+			var state = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status", state);
+			 };
+
+		# kit He isolation B
+
+		me.switch_kit_He_isolation_B = cdlg_widget_img_stack.new(me.root, stack, 50, 50);
+		me.switch_kit_He_isolation_B.setTranslation(138,98);
+		me.switch_kit_He_isolation_B.f = func 
+			{
+			var state = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status");
+			if (state == 0) {state = 1;} else {state = 0;}
+			setprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status", state);
+			 };
+
+
 
 		setsize(stack, 0);
 		append(stack, "Aircraft/SpaceShuttle/Dialogs/oms_talkback_cl.png");
@@ -194,6 +239,17 @@ var cdlg_oms_propellant = {
 
 		me.tb_right_isolation_B = cdlg_widget_img_stack.new(me.root, stack, 40, 40, 2);
 		me.tb_right_isolation_B.setTranslation(466,345);
+
+
+		# kit isolation A talkback
+
+		me.tb_kit_isolation_A = cdlg_widget_img_stack.new(me.root, stack, 40, 40, 2);
+		me.tb_kit_isolation_A.setTranslation(73,342);
+
+		# kit isolation B talkback
+
+		me.tb_kit_isolation_B = cdlg_widget_img_stack.new(me.root, stack, 40, 40, 2);
+		me.tb_kit_isolation_B.setTranslation(141,342);
 
 		# left crossfeed A talkback
 
@@ -244,6 +300,15 @@ var cdlg_oms_propellant = {
 		me.switch_right_isolation_B.set_index (right_isolation_B);
 		me.tb_right_isolation_B.set_index (right_isolation_B);
 
+		var kit_isolation_A = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status");
+		var kit_isolation_B = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status");
+
+		me.switch_kit_isolation_A.set_index (kit_isolation_A);
+		me.tb_kit_isolation_A.set_index (kit_isolation_A);
+
+		me.switch_kit_isolation_B.set_index (kit_isolation_B);
+		me.tb_kit_isolation_B.set_index (kit_isolation_B);
+
 		var left_crossfeed_A = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status");
 		var left_crossfeed_B = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status");
 		
@@ -272,6 +337,12 @@ var cdlg_oms_propellant = {
 
 		me.switch_right_He_isolation_A.set_index(right_helium_A);
 		me.switch_right_He_isolation_B.set_index(right_helium_B);
+
+		var kit_helium_A = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status");
+		var kit_helium_B = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status");
+
+		me.switch_kit_He_isolation_A.set_index(kit_helium_A);
+		me.switch_kit_He_isolation_B.set_index(kit_helium_B);
 
 		settimer (func {me.update();}, 0.1);		
 

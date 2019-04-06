@@ -273,6 +273,22 @@ else if (scenario_ID == 23)
 	{
 	init_propellant_leak();
 	}
+else if (scenario_ID == 24)
+	{
+	var rn = rand();
+	if (rn < 0.333)
+		{
+		SpaceShuttle.fire_sim.start_fire("avbay1");
+		}
+	else if (rn < 0.666)
+		{
+		SpaceShuttle.fire_sim.start_fire("avbay2");
+		}
+	else
+		{
+		SpaceShuttle.fire_sim.start_fire("avbay3");
+		}
+	}
 else if (scenario_ID == 31)
 	{
 	failure_cmd.speedbrake = 0.3;

@@ -1,5 +1,5 @@
 # orbital targeting for the Space Shuttle
-# Thorsten Renk 2017-2018
+# Thorsten Renk 2017-2019
 
 # class doing numerical PEG-4 and rendezvous fits
 
@@ -82,6 +82,56 @@ var targeting_manager = {
 	ls_unit_vx: 0.0,
 	ls_unit_vy: 1.0,
 	ls_unit_vz: 0.0,
+
+	# Rendezvous target state vector
+
+	target_pos: [0.0, 0.0, 0.0],
+	target_vel: [0.0, 0.0, 0.0],
+	target_offset: [0.0, 0.0, 0.0],
+	tpnorm: [0.0, 0.0, 0.0],
+	rt: 0.0,
+
+	target_prox_x: 0.0,
+	target_prox_y: 0.0,
+	target_prox_z: 0.0,
+
+	target_prox_vx: 0.0,
+	target_prox_vy: 0.0,
+	target_prox_vz: 0.0,
+
+	target_ref_x: 0.0,
+	target_ref_y: 0.0,
+	target_ref_z: 0.0,
+
+	target_ref_vx: 0.0,
+	target_ref_vy: 0.0,
+	target_ref_vz: 0.0,
+
+
+	# Lambert fit parameters
+
+	tig2: 0.0,
+	dvx2: 0.0,
+	dvy2: 0.0,
+	dvz2: 0.0,
+	tig2_real: 0.0,
+
+	lambert_set: 0,
+	lambert_fit_converged: 0,
+	lambert_initialized: 0,
+	lambert_fit_iterations: 0,
+	lambert_transfer_angle: 0.0,
+	lambert_cw_flag: 0.0,
+
+
+	# condition search parameters
+
+	search_set: 0,
+	search_type: 0,
+	search_check_every: 100,
+	search_counter: 0,
+	search_y_last: 0,
+
 
 	# analytical orbital elements
 
@@ -191,10 +241,79 @@ var targeting_manager = {
 
 	},
 
+	set_lambert: func (tig1, tig2, offset_x, offset_y, offset_z) {
+
+		me.tig = tig1;
+		me.tig2 = tig2;
+		me.target_offset[0] = offset_x;
+		me.target_offset[1] = offset_y;
+		me.target_offset[2] = offset_z;
+
+		me.lambert_set = 1;
+
+	},
+	
+
+	set_target_state: func (x, y, z, vx, vy, vz) {
+
+		me.target_pos[0] = x;
+		me.target_pos[1] = y;
+		me.target_pos[2] = z;
+
+		me.target_vel[0] = vx;
+		me.target_vel[1] = vy;
+		me.target_vel[2] = vz;
+
+	},
+
+	# this is a break of encapsulation as it requires to access the target API directly, yet good for performance
+
+	advance_target: func {
+
+		var tgt_pos = SpaceShuttle.oTgt.get_inertial_pos_at_time(me.t_offset + me.t);
+		var tgt_vel = SpaceShuttle.oTgt.get_inertial_speed_at_time(me.t_offset + me.t);
+
+		me.set_target_state(tgt_pos[0], tgt_pos[1], tgt_pos[2], tgt_vel[0], tgt_vel[1], tgt_vel[2]);
+
+	},
+
+	set_proximity_reference: func (x, y, z, vx, vy, vz) {
+
+		me.target_ref_x = x;
+		me.target_ref_y = y;
+		me.target_ref_z = z;
+
+		me.target_ref_vx = vx;
+		me.target_ref_vy = vy;
+		me.target_ref_vz = vz;
+	
+
+	},
+
+	mark_proximity_reference: func {
+
+
+		me.target_ref_x = me.target_prox_x;
+		me.target_ref_y = me.target_prox_y;
+		me.target_ref_z = me.target_prox_z;
+
+		me.target_ref_vx = me.target_prox_vx;
+		me.target_ref_vy = me.target_prox_vy;
+		me.target_ref_vz = me.target_prox_vz;
+
+	},
+	
+
 
 	set_acceleration: func (acc) {
 
 		me.burn_acc = acc;
+	},
+
+	set_evolution_time: func (time) {
+		
+		me.max_evolution_time = time;
+
 	},
 
 
@@ -294,6 +413,10 @@ var targeting_manager = {
 
 	},
 
+	
+
+
+
 	check_signflip: func (arg, lastarg) {
 
 		if ((arg > 0.0) and (lastarg < 0.0))
@@ -313,6 +436,41 @@ var targeting_manager = {
 		return arg;
 	},
 
+
+
+
+
+
+	check_search_condition: func {
+
+
+		if (me.search_type == 1) # node intersection with orbital target
+			{
+			me.advance_target();
+
+			me.compute_geometry();
+			me.compute_proximity();
+			#me.list_proximity();
+			
+			if (math.abs(me.search_y_last) > 0.0) 
+				{
+				var value = me.check_signflip (me.target_prox_y, me.search_y_last);
+				me.search_y_last = me.target_prox_y;
+
+				#print ("Signflip check: ", (1 - value));
+
+				return (1 - value);
+				}
+			else
+				{
+				me.search_y_last = me.target_prox_y;
+				return 1;
+				}
+			}
+
+	},
+
+
 	
 	check_condition: func {
 
@@ -324,6 +482,29 @@ var targeting_manager = {
 
 		if (me.burn_on == 1) 
 			{return 1;}
+
+		if (me.lambert_set == 1)
+			{
+			if (me.t > me.tig2)
+				{return 0;}
+			}
+
+		if (me.search_set == 1)
+			{	
+			if (me.search_counter == me.search_check_every)			
+				{
+				me.search_counter = 0;
+				return me.check_search_condition();
+				}
+			else
+				{
+				me.search_counter += 1;
+				return 1;
+				}
+
+			}
+		
+
 
 		if (me.peg4_fit_strategy == 0)
 			{
@@ -435,6 +616,7 @@ var targeting_manager = {
 
 			}
 
+
 	},
 
 
@@ -533,7 +715,7 @@ var targeting_manager = {
 
 		if (me.fit_verbose == 1)
 			{
-			print ("Initial guess: ");
+			print ("PEG-4 Initial guess: ");
 			print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
 			}
 
@@ -673,9 +855,8 @@ var targeting_manager = {
 
 				print ("New burn parameters: ");
 				print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
-				me.peg4_fit_iterations += 1;
-
 				}
+				me.peg4_fit_iterations += 1;
 
 
 
@@ -687,6 +868,210 @@ var targeting_manager = {
 
 
 	},
+
+
+	lambert_guess_initial: func {
+
+		me.compute_elements();
+		me.compute_proximity();
+		me.list_proximity();
+
+		var orbital_period = 2.0 * math.pi * math.sqrt(math.pow(me.semimajor,3.0)/me.GM);
+		me.lambert_transfer_angle = 2.0 * math.pi * (me.tig2 - me.tig)/orbital_period;
+
+
+		var x_error = me.target_prox_x - me.target_offset[0];
+		var y_error = me.target_prox_y - me.target_offset[1];
+		var z_error = me.target_prox_z - me.target_offset[2];
+
+
+		var dx = - z_error / 2500.0;
+		var dy = 0.0;
+		var dz = x_error / 4000.0; 
+
+		me.set_peg7(dx, dy, dz, me.tig);
+
+		if (me.fit_verbose == 1)
+			{
+			print ("Lambert transfer angle is: ", me.lambert_transfer_angle * 180.0/math.pi, " degrees.");
+	
+			print ("Lambert burn 1 initial guess: ");
+			print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
+			}
+
+
+		me.lambert_initialized = 1;
+
+	},
+
+
+	cw_guess_initial: func {
+
+
+		me.compute_geometry();
+		me.compute_proximity();
+		me.compute_proximity_v();
+		me.list_proximity();
+
+
+		var x_error = me.target_prox_x - me.target_offset[0];
+		var y_error = me.target_prox_y - me.target_offset[1];
+		var z_error = me.target_prox_z - me.target_offset[2];
+
+		var delta_t = me.tig2 - me.tig;
+
+		var dx = (me.target_offset[0] - me.target_ref_x)/ delta_t - me.target_ref_vx;
+		var dy = (me.target_offset[1] - me.target_ref_y)/ delta_t - me.target_ref_vy;
+		var dz = (me.target_offset[2] - me.target_ref_z)/ delta_t - me.target_ref_vz;
+
+		dx = -dx;
+
+		me.set_peg7(dx, dy, dz, me.tig);
+
+		if (me.fit_verbose == 1)
+			{
+	
+			print ("CW burn 1 initial guess: ");
+			print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
+			}
+
+
+		me.lambert_initialized = 1;
+
+	},
+
+
+	lambert_improve: func () {
+
+		me.compute_proximity();
+		me.list_proximity();
+
+		var x_error = me.target_prox_x - me.target_offset[0];
+		var y_error = me.target_prox_y - me.target_offset[1];
+		var z_error = me.target_prox_z - me.target_offset[2];
+
+		if ((me.lambert_transfer_angle > 0.95 * math.pi) and (me.lambert_transfer_angle < 1.05 * math.pi))
+			{
+			y_error = 0.0;
+			}
+		
+		var error_margin = 50.0;
+		if (me.lambert_fit_iterations > 20) {error_margin = 100.0;}
+		else if (me.lambert_fit_iterations > 40) {error_margin = 200.0;}
+
+
+		if ((math.abs(x_error) < error_margin) and (math.abs(y_error) < error_margin) and (math.abs(z_error) <error_margin))
+			{
+			print ("Fit converged.");
+			me.lambert_fit_converged = 1;
+			
+			me.compute_proximity_v();
+
+			me.dvx2 = me.target_prox_vx;
+			me.dvy2 = me.target_prox_vy;
+			me.dvz2 = me.target_prox_vz;
+
+			var vtot = math.sqrt(math.pow(me.dvx2, 2.0) + math.pow(me.dvy2, 2.0) + math.pow(me.dvz2,2.0));
+			var tshift  = 0.5 * vtot/me.burn_acc;
+
+			me.tig2_real = me.tig2 - tshift;
+			}
+
+		else
+			{
+
+			var y_gain = 0.0012;
+			if (math.abs(y_error) > 0.0) {y_gain *= 1.0/math.sin(me.lambert_transfer_angle);}
+			me.dvx -= z_error / 6000.0;
+			me.dvy -= y_gain * y_error;
+			me.dvz -= x_error/4000.0; 
+
+			me.dvtot = math.sqrt(me.dvx * me.dvx + me.dvy * me.dvy + me.dvz * me.dvz);
+			me.fvx = me.dvx / me.dvtot;
+			me.fvy = me.dvy / me.dvtot;
+			me.fvz = me.dvz / me.dvtot;
+
+			if (me.fit_verbose == 1)
+				{
+				print ("Fit unconverged, in iteration ", me.lambert_fit_iterations, " current errors:");
+				print ("x: ", x_error);
+				print ("y: ", y_error);
+				print ("z: ", z_error);
+
+				print ("New burn parameters: ");
+				print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
+				}
+			me.lambert_fit_iterations += 1;
+
+			}
+
+
+	},
+
+
+	cw_improve: func () {
+
+		me.compute_geometry();
+		me.compute_proximity();
+		me.list_proximity();
+
+		var x_error = me.target_prox_x - me.target_offset[0];
+		var y_error = me.target_prox_y - me.target_offset[1];
+		var z_error = me.target_prox_z - me.target_offset[2];
+
+
+
+		if ((math.abs(x_error) < 5.0) and (math.abs(y_error) < 5.0) and (math.abs(z_error) < 5.0))
+			{
+			print ("Fit converged.");
+			me.lambert_fit_converged = 1;
+			
+			me.compute_proximity_v();
+
+			me.dvx2 = me.target_prox_vx;
+			me.dvy2 = me.target_prox_vy;
+			me.dvz2 = me.target_prox_vz;
+
+			var vtot = math.sqrt(math.pow(me.dvx2, 2.0) + math.pow(me.dvy2, 2.0) + math.pow(me.dvz2,2.0));
+			var tshift  = 0.5 * vtot/me.burn_acc;
+
+			me.tig2_real = me.tig2 - tshift;
+			}
+
+		else
+			{
+
+			var delta_t = (me.tig2 - me.tig);
+
+			var gain = 1.0;
+			if (me.lambert_fit_iterations > 25) {gain = 0.5;}
+
+			me.dvx += x_error * gain * 0.2/ delta_t - z_error * gain * 0.05/delta_t;
+			me.dvy -= y_error * 0.2/ delta_t;
+			me.dvz -= z_error * gain * 0.4 / delta_t + x_error * gain * 0.1/delta_t;
+
+			me.dvtot = math.sqrt(me.dvx * me.dvx + me.dvy * me.dvy + me.dvz * me.dvz);
+			me.fvx = me.dvx / me.dvtot;
+			me.fvy = me.dvy / me.dvtot;
+			me.fvz = me.dvz / me.dvtot;
+
+			if (me.fit_verbose == 1)
+				{
+				print ("Fit unconverged, in iteration ", me.lambert_fit_iterations, " current errors:");
+				print ("x: ", x_error);
+				print ("y: ", y_error);
+				print ("z: ", z_error);
+
+				print ("New burn parameters: ");
+				print ("Dx: ", me.dvx, " Dy: ", me.dvy, " Dz: ", me.dvz);
+				}
+			me.lambert_fit_iterations += 1;
+
+			}
+
+
+	},
+
 
 	reset_state: func {
 
@@ -761,6 +1146,77 @@ var targeting_manager = {
 
 	},
 
+	compute_proximity: func {
+
+
+
+		me.nnorm = SpaceShuttle.normalize(SpaceShuttle.cross_product(me.pnorm, me.vnorm));
+		me.rt = me.norm(me.target_pos);
+		me.tpnorm[0] = me.target_pos[0]/me.rt;
+		me.tpnorm[1] = me.target_pos[1]/me.rt;
+		me.tpnorm[2] = me.target_pos[2]/me.rt;
+
+		#print ("Pnorm deltas: ");
+		#print ("x: ", me.pnorm[0] - me.tpnorm[0]);
+		#print ("y: ", me.pnorm[1] - me.tpnorm[1]);
+		#print ("z: ", me.pnorm[2] - me.tpnorm[2]);
+
+		var ang_xt = 0.5 * math.pi - math.acos(SpaceShuttle.dot_product(me.tpnorm, me.nnorm));
+		var delta_ang = math.acos(SpaceShuttle.dot_product(me.pnorm, me.tpnorm));
+
+		#print ("Ang XT: ", ang_xt, " delta ang: ", delta_ang);
+	
+		var ang = math.acos(math.cos(delta_ang) / math.cos(ang_xt));
+		var sign = 1.0;
+		
+		if (((me.target_pos[0] - me.pos[0]) * me.vnorm[0] + (me.target_pos[1] - me.pos[1]) * me.vnorm[1] + (me.target_pos[2] - me.pos[2]) * me.vnorm[2]) < 0.0)
+			{
+			sign = -1.0;
+			}
+
+		me.target_prox_x = sign * ang * me.r;
+		me.target_prox_y = ang_xt * me.r;
+		me.target_prox_z = me.r - me.rt;
+
+
+	},
+
+	compute_proximity_v: func {
+
+
+		#print ("TGT vel[0]: ", me.target_vel[0], " "vel[0]: ", me.vel[0], " vnorm[0]: ", me.vnorm[0]);
+
+		me.target_prox_vx = (me.target_vel[0] - me.vel[0]) * me.vnorm[0];
+		me.target_prox_vx += (me.target_vel[1] - me.vel[1]) * me.vnorm[1];
+		me.target_prox_vx += (me.target_vel[2] - me.vel[2]) * me.vnorm[2];
+
+		me.nnorm = SpaceShuttle.cross_product(me.pnorm, me.vnorm);
+
+		me.target_prox_vy = (me.target_vel[0] - me.vel[0]) * me.nnorm[0];
+		me.target_prox_vy += (me.target_vel[1] - me.vel[1]) * me.nnorm[1];
+		me.target_prox_vy += (me.target_vel[2] - me.vel[2]) * me.nnorm[2];
+
+		me.rt = me.norm(me.target_pos);
+		me.tpnorm[0] = me.target_pos[0]/me.rt;
+		me.tpnorm[1] = me.target_pos[1]/me.rt;
+		me.tpnorm[2] = me.target_pos[2]/me.rt;
+
+		# in a curvilinear coordinate system, this is a non-local quantity
+
+		me.target_prox_vz = me.target_vel[0] * me.tpnorm[0] - me.vel[0] * me.pnorm[0];
+		me.target_prox_vz += me.target_vel[1] * me.tpnorm[1] - me.vel[1] * me.pnorm[1];
+		me.target_prox_vz += me.target_vel[2] * me.tpnorm[2] - me.vel[2] * me.pnorm[2];
+
+
+		# finally we need to add in the geometrical effect of orbiting lower at the same inertial speed
+
+		var v = SpaceShuttle.norm([me.target_vel[0], me.target_vel[1], me.target_vel[2]]);
+		var prox_vx_geo = v * (1.0 - me.rt / (me.rt + me.target_prox_z));
+
+		me.target_prox_vx += prox_vx_geo;
+		#me.target_prox_vz += prox_vx_geo/6.1;
+	},
+
 
 
 	compute_geometry: func{
@@ -820,7 +1276,7 @@ var targeting_manager = {
 				me.t_stored = me.t; 
 				}
 
-			if (me.peg4_initialized == 0) {me.peg4_guess_initial();}
+			if ((me.peg4_initialized == 0) and (me.peg4_set == 1)) {me.peg4_guess_initial();}
 
 			if (me.burn_verbose == 1)
 				{print ("Burn ignition, time is now ", me.t);}
@@ -906,11 +1362,23 @@ var targeting_manager = {
 
 	evolve: func (t) {
 
+		#var counter = 0;
 
 		while ((me.t < t) and (me.check_condition() == 1))
 			{
 			me.do_timestep();
+
+			#if (counter == 0)
+			#	{print (SpaceShuttle.norm(me.pos) - me.R_eq);}
+			
+			#counter += 1;
+			#if (counter == 100) {counter = 0;}
+
+
 			}
+
+			print ("t: ", t, " me.t ", me.t);
+			print ("condition: ", me.check_condition());
 
 		if ((me.t > t) and (me.fit_verbose == 1)) {print ("Evolution time overrun!");}
 		me.evaluate_evolution();
@@ -922,24 +1390,75 @@ var targeting_manager = {
 	evaluate_evolution: func {
 
 
-		if (me.peg4_set == 1)
+		if (me.lambert_set == 1)
+			{
+			if (me.lambert_initialized == 0)
+				{
+				print ("Lambert dry run done!");
+				print ("T is now: ", me.t);
+				me.compute_proximity();
+				if (me.lambert_cw_flag == 0)
+					{me.lambert_guess_initial();}
+				else
+					{me.cw_guess_initial(); }
+				me.reset_state();
+				me.evolve(me.max_evolution_time);
+				return;
+				}
+			else if (me.lambert_initialized == 1)
+				{
+				me.compute_proximity();
+				if (me.lambert_cw_flag == 0)
+					{me.lambert_improve();}
+				else
+					{me.cw_improve();}
+
+				}
+			}
+
+
+		else if (me.peg4_set == 1)
 			{
 			me.compute_peg4();
 			me.peg4_improve();
 			}
 
-		if ((me.evolution_finished == 0) and (((me.peg4_set == 1) and (me.peg4_fit_converged == 1)) or (me.peg4_set == 0)))
+
+		if ( (me.evolution_finished == 0) and (((me.peg4_set == 1) and (me.peg4_fit_converged == 1)) or ((me.lambert_set == 1) and (me.lambert_fit_converged == 1))) or ((me.peg4_set == 0) and (me.lambert_set == 0)))
 			{
 			me.evolution_finished = 1;
 			print ("Evolution ends!");
 			me.list_peg7();
+
+			if (me.lambert_fit_converged == 1)
+				{
+				me.list_lambert2();
+				}
 			}
 
-		else
+		else 
 			{
-			if (me.peg4_fit_iterations > 30)
+			if ((me.peg4_fit_iterations > 30) or (me.lambert_fit_iterations > 50))
 				{
-				print("Fit remains unconverged after ", me.peg4_fit_iterations, " iterations - aborting");
+				var num_iterations = math.max (me.peg4_fit_iterations, me.lambert_fit_iterations);
+
+				print("Fit remains unconverged after ", num_iterations, " iterations - aborting");
+
+				if (me.lambert_fit_iterations > 50) # solution might be okay still, compute Tig2
+					{
+					print("Computing tentative TIG 2 parameters anyway.");
+					me.compute_proximity_v();
+
+					me.dvx2 = me.target_prox_vx;
+					me.dvy2 = me.target_prox_vy;
+					me.dvz2 = me.target_prox_vz;
+
+					var vtot = math.sqrt(math.pow(me.dvx2, 2.0) + math.pow(me.dvy2, 2.0) + math.pow(me.dvz2,2.0));
+					var tshift  = 0.5 * vtot/me.burn_acc;
+
+					me.tig2_real = me.tig2 - tshift;
+					}
+
 				me.evolution_finished = 1;
 				}
 			else
@@ -964,8 +1483,20 @@ var targeting_manager = {
 		me.peg4_fit_strategy = -1;
 		me.peg4_set = 0;
 		me.peg4_initialized = 0;
+		me.lambert_set = 0;
+		me.lambert_initialized = 0;
+		me.lambert_fit_iterations = 0;
+		me.lambert_fit_converged = 0;
+		me.lambert_cw_flag = 0;
+		me.search_set = 0;
+		me.search_type = 0;
+		me.search_counter = 0;
+		me.search_check_every = 100;
+		me.search_y_last = 0;
 		me.hypothetical_mode = 0;
+		me.max_evolution_time = 8000.0;
 
+		
 		me.evolution_finished = 0;
 
 		me.running = 0;
@@ -983,6 +1514,8 @@ var targeting_manager = {
 		me.dvtot = 0.0;
 	
 		me.t = 0.0;
+
+		me.set_peg7(0.0, 0.0,0.0, 12000.0);
 
 
 	},
@@ -1020,6 +1553,7 @@ var targeting_manager = {
 			print ("t: ", me.t);
 			print ("Current position: ");
 			print ("lat: ", me.get_latitude(), " lon: ", me.get_longitude());
+			print ("");
 	},
 
 
@@ -1027,10 +1561,11 @@ var targeting_manager = {
 			print ("Targeted PEG-4 parameters: ");
 			print ("thetaT: ", me.peg4_thetaT, " H: ", me.peg4_H);
 			print ("c1: ", me.peg4_c1, " c2: ", me.peg4_c2);
-
+			print ("");
 			print ("Current PEG-4 parameters: ");
 			print ("thetaT: ", me.peg4_thetaT_act, " H: ", me.peg4_H_act);
 			print ("vspeed: ", me.peg4_vspeed_act, " hspeed: ", me.peg4_hspeed_act);
+			print ("");
 
 	},
 
@@ -1038,6 +1573,15 @@ var targeting_manager = {
 			print ("PEG-7 burn parameters: ");
 			print ("DX: ", me.dvx, " DY: ", me.dvy, " DZ: ", me.dvz);
 			print ("Ignition time: ", me.tig);
+			print ("");
+
+	},
+
+	list_lambert2: func {
+			print ("Lambert2 PEG-7 burn parameters: ");
+			print ("DX: ", me.dvx2, " DY: ", me.dvy2, " DZ: ", me.dvz2);
+			print ("Ignition time: ", me.tig2_real);
+			print ("");
 
 	},
 
@@ -1050,25 +1594,53 @@ var targeting_manager = {
 			print ("Lon. asc. node [deg]: ", me.lon_asc_node);
 			print ("Arg. of PA [deg]:     ", me.periapsis_arg);
 			print ("True anomaly:         ", me.true_anomaly);
+			print ("");
 	
+	},
+
+	list_proximity: func {
+
+			print ("Proximity coordinates:");
+			print ("x: ", me.target_prox_x);
+			print ("y: ", me.target_prox_y);
+			print ("z: ", me.target_prox_z);
+			print ("");
+
+	},
+
+	list_proximity_v: func {
+
+			print ("Proximity velocities:");
+			print ("vx: ", me.target_prox_vx);
+			print ("vy: ", me.target_prox_vy);
+			print ("vz: ", me.target_prox_vz);
+			print ("");
+
 	},
 
 
 
 	test_suite: func {
 
-		me.pos[0] = 18343282 * 0.3048;
-		me.pos[1] = -2905821 * 0.3048;
-		me.pos[2] = 10652517 * 0.3048;
+		me.pos[0] = 2986801.3;
+		me.pos[1] = 77297.27;
+		me.pos[2] = -5964502;
 
-		me.vel[0] = 4337 * 0.3048;
-		me.vel[1] = 25721 * 0.3048;
-		me.vel[2] = -111 * 0.3048;
+		me.vel[0] = -40.08346;
+		me.vel[1] = 7729.3816;
+		me.vel[2] = 80.048704;
+
+		me.parameter_reset();
+
+
+		me.set_target_state( -2824427.3,  -2248618.3, 5629994 , 1146.6913, -7261.9162, -2326.473);
+
+
 
 		me.compute_geometry();
 
 		me.t_offset = 0.0;
-		me.t = 540.0;
+		me.t = 0.0;
 	
 		me.set_acceleration(0.51);
 
@@ -1080,13 +1652,16 @@ var targeting_manager = {
 		me.compute_elements();
 		me.list_elements();
 
-		me.set_peg4(334.0 * 1852.0, 350.0, 0.0, 0.0, 3000.0);
+		#me.set_peg4(334.0 * 1852.0, 350.0, 0.0, 0.0, 3000.0);
 		#me.set_peg7(-279.9 * 0.3048, 0.0, 3.23 * 0.3048, 874.0);
+		me.set_lambert(100.0, 3000.0, 0.0, 0.0, 0.0);
 
-		me.set_launch_site(540.0, 28.973, -26.483);
+		#me.set_launch_site(540.0, 28.973, -26.483);
 
 		me.holding_loop();
 		me.evolve(me.max_evolution_time);
+		#me.evolve(2810);
+		#me.list_statevec();
 		#thread.newthread ( func {me.evolve(me.max_evolution_time);});
 
 	},

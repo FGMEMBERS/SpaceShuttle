@@ -8,3 +8,8 @@ launch02.dat 		Launch of a Shuttle with full payload and standard weight tank
 
 entry01.dat		Entry aiming at maintaining hdot ~ 50 m/s
 entry02.dat 		Entry aiming at maintaining hdot ~ 100 m/s
+
+
+FDM Milestone 10:
+
+srb_loft01.dat		Vspeed at separation (m/s) and stage-2 peak alt (ft) as function of pitch bias  

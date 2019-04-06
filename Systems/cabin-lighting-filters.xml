@@ -130,6 +130,13 @@
    <output>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</output>
  </filter>
 
+  <filter>
+    <type>gain</type>
+    <gain>.65</gain>
+    <input>/fdm/jsbsim/systems/light/console-eff-panel-right-norm-tied</input>
+    <output>/fdm/jsbsim/systems/light/console-eff-panel-right-proc</output>
+  </filter>
+
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
@@ -137,12 +144,26 @@
    <output>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</output>
  </filter>
 
+  <filter>
+    <type>gain</type>
+    <gain>.65</gain>
+    <input>/fdm/jsbsim/systems/light/console-eff-panel-left-norm-tied</input>
+    <output>/fdm/jsbsim/systems/light/console-eff-panel-left-proc</output>
+  </filter>
+
  <filter>
    <type>gain</type>
    <gain>1.0</gain>
    <input>/fdm/jsbsim/systems/light/console-eff-panel-center-norm-tied</input>
    <output>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</output>
  </filter>
+
+  <filter>
+    <type>gain</type>
+    <gain>.65</gain>
+    <input>/fdm/jsbsim/systems/light/console-eff-panel-center-norm-tied</input>
+    <output>/fdm/jsbsim/systems/light/console-eff-panel-center-proc</output>
+  </filter>
 
  <filter>
    <type>gain</type>
@@ -172,6 +193,12 @@
    <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</output>
  </filter>
 
+  <filter>
+    <type>gain</type>
+    <gain>.65</gain>
+    <input>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm-tied</input>
+    <output>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-proc</output>
+  </filter>
 
  <filter>
    <type>gain</type>

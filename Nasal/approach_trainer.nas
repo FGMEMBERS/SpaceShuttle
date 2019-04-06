@@ -21,6 +21,8 @@ var approach = {
 		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-nose-condition", 1.0);
 		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-left-condition", 1.0);
 		setprop("/fdm/jsbsim/systems/failures/gear/gearstrut-right-condition", 1.0);
+		setprop("/fdm/jsbsim/systems/failures/shuttle-damaged", 0.0);
+
 		}, 0.5);
 
 		# repack chute

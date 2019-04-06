@@ -15,8 +15,10 @@ io.include("cdlg_propellant.nas");
 io.include("cdlg_temperature.nas");
 io.include("cdlg_keypad.nas");
 io.include("cdlg_oms_propellant.nas");
-
-
+io.include("cdlg_traj_map.nas");
+io.include("cdlg_rendezvous.nas");
+io.include("cdlg_orbital_dap.nas");
+io.include("cdlg_shuttle_view_manager.nas");
 
 
 
@@ -116,3 +118,28 @@ return;
 
 
 }
+
+
+var cdlg_HUD_clone = {
+	
+	clickspots: [],
+
+	init: func () {
+
+		me.string = "HUD";
+
+		var window = canvas.Window.new([1184,864],"dialog").set("title", me.string);
+
+		var canvas_clone = SpaceShuttle.CommanderHUD.canvas;
+		window.setCanvas(canvas_clone);
+
+	
+
+
+
+	},
+
+
+
+};
+

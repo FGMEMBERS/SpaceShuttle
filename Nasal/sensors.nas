@@ -18,6 +18,8 @@ var star_tracker = {
 	s.pointing_vec = pointing_vec;	
 	s.world_pointing_vec = [0.0, 0.0, 0.0];
 	s.world_pointing_vec_last = [0.0, 0.0, 0.0];
+	s.world_pointing_x_vec = [0.0, 0.0, 0.0];
+	s.world_pointing_y_vec = [0.0, 0.0, 0.0];
 	s.mode = 1;
 	s.failure = "";
 	s.status = "";
@@ -26,7 +28,10 @@ var star_tracker = {
 	s.operational = 1;
 	s.threshold = 3;
 	s.target = geo.Coord.new();
-	s.target_available = 0;
+	s.target_available = 0;	
+	s.target_acquired = 0;
+	s.offset_angle_x = 0;
+	s.offset_angle_y = 0;
 	s.cycle = 0;
 	s.star_in_view = 0;
 	s.star_ID = 0;
@@ -36,7 +41,15 @@ var star_tracker = {
 	set_mode: func (mode) {
 	if (me.operational == 0) {return;}
 	me.mode = mode;
-	if ((mode == 2) or (mode == 3) or (mode == 4)) {me.star_in_view = 0;}
+	if ((mode == 2) or (mode == 3) or (mode == 4)) 
+		{
+		me.star_in_view = 0;
+		me.target_acquired = 0;
+		}
+	else if (mode == 1)
+		{
+		me.target_acquired = 0;
+		}
 	
 	},
 
@@ -144,6 +157,16 @@ var star_tracker = {
 		me.world_pointing_vec[0] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[0]");
 		me.world_pointing_vec[1] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]");
 		me.world_pointing_vec[2] = getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]");
+
+		me.world_pointing_x_vec[0] = getprop("/fdm/jsbsim/systems/pointing/world/body-x[0]");
+		me.world_pointing_x_vec[1] = getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]");
+		me.world_pointing_x_vec[2] = getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]");
+
+
+		me.world_pointing_y_vec[0] = getprop("/fdm/jsbsim/systems/pointing/world/body-y[0]");
+		me.world_pointing_y_vec[1] = getprop("/fdm/jsbsim/systems/pointing/world/body-y[1]");
+		me.world_pointing_y_vec[2] = getprop("/fdm/jsbsim/systems/pointing/world/body-y[2]");
+
 		}
 	else if (me.designation == "-Y")
 		{
@@ -169,23 +192,68 @@ var star_tracker = {
 
 	if (me.mode == 2)
 		{
-		var spos = geo.aircraft_position();
-		
+		var spos = geo.aircraft_position();	
+	
 		var world_rel_vec = [me.target.x() - spos.x(), me.target.y() - spos.y(), me.target.z() - spos.z()];
 		world_rel_vec = SpaceShuttle.normalize(world_rel_vec);
+
+		#print ("Star shuttle: ", spos.x(), " ",spos.y(), " ", spos.z());
+		#print ("Star target: ", me.target.x(), " ",me.target.y(), " ", me.target.z());
+		#print ("Star pointer: ", world_rel_vec[0], " ", world_rel_vec[1], " ", world_rel_vec[2]);
+
 		var angle_to_tgt = SpaceShuttle.dot_product(me.world_pointing_vec, world_rel_vec);
 
 		#print(angle_to_tgt);
 		
 		if (angle_to_tgt < 0.96)
+		#if (angle_to_tgt < 0.0)
 			{
 			me.status = "OUT FOV";
+			me.target_acquired = 0;
 			return;
 			}
+		else if (me.designation == "-Z") 
+			{
+		
+			var relative_projected =  SpaceShuttle.subtract_vector(world_rel_vec, SpaceShuttle.scalar_product( SpaceShuttle.dot_product(me.world_pointing_x_vec, world_rel_vec), me.world_pointing_x_vec));
+			relative_projected = SpaceShuttle.normalize(relative_projected);
+
+			var ang_arg = SpaceShuttle.dot_product(relative_projected, me.world_pointing_vec);
+			
+			if (ang_arg > 1.0) {ang_arg = 1.0;}
+
+			me.offset_angle_y = math.acos(ang_arg);
+			angle_to_tgt = math.acos(angle_to_tgt);
+
+
+
+			me.offset_angle_x = math.sqrt(math.pow(angle_to_tgt,2.0) - math.pow(me.offset_angle_y, 2.0));
+
+			if (SpaceShuttle.dot_product(me.world_pointing_y_vec, world_rel_vec) < 0.0)
+				{
+				me.offset_angle_y = - me.offset_angle_y;
+				}
+
+			if (SpaceShuttle.dot_product(me.world_pointing_x_vec, world_rel_vec) < 0.0)
+				{
+				me.offset_angle_x = - me.offset_angle_x;
+				}
+
+			}
+		
+		# check whether target is visible
+
+		if (getprop("/sim/time/sun-angle-rad") < 1.9)
+			{me.target_acquired = 1;}
+		else
+			{me.target_acquired = 0;}
 
 		}
 	else if (me.mode == 1) # star tracking
 		{
+
+
+
 		# we track every 30 seconds and check if FOV has changed
 		# if so, we throw dice whether we see a star
 		if (me.cycle == 30) {me.cycle = 0; return;}
@@ -587,6 +655,9 @@ foreach (s; coas_star_table)
 		{
 		print("COAS: Star ", s.designation, " found.");
 		}
+	# floating point accuracy may wrongly render the dot product > 1
+	
+	if (diff_angle > 1.0) {diff_angle = 1.0;}
 
 	if ((coas.reqd_id > 0) and(s.designation == coas_star_table[coas.star_index].designation))
 			{

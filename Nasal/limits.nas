@@ -307,7 +307,7 @@ if ((T > 1000) and (ET_door_state == 0) and (PB_door_state ==0))
 var T_stress = getprop("/fdm/jsbsim/systems/thermal/thermal-stress");
 
 
-if ((T_stress > 1.0) and (TPS_warn == 1))
+if ((T_stress > 1.1) and (TPS_warn == 1))
 	{
 	SpaceShuttle.callout.make("Thermal protection failure!", "failure");
 	fail_flag = 1;

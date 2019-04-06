@@ -565,6 +565,86 @@ adapted and extended by Thorsten Renk 2015-16
 		</pitch>
 	</RCS1>
 
+    <!-- Class 1 Alarm  -->
+	
+	<Class1>
+		<name>Class1</name>
+		<mode>looped</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/class_1_klaxon.wav</path>		
+		  <condition>
+			<and>
+			<property>/fdm/jsbsim/systems/cws/class-1-sound-on</property>
+			<property>/sim/current-view/internal</property>
+			</and>
+		  </condition>
+		  <volume>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.6</factor>
+			<min>0.0</min>
+			<max>0.6</max>
+		 </volume>
+	</Class1>
+
+    <!-- Fire  Alarm  -->
+	
+	<FireAlarm>
+		<name>FireAlarm</name>
+		<mode>looped</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/class_1_siren.wav</path>		
+		  <condition>
+			<and>
+			<property>/fdm/jsbsim/systems/cws/fire-alarm-sound-on</property>
+			<property>/sim/current-view/internal</property>
+			</and>
+		  </condition>
+		  <volume>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>1.0</factor>
+			<min>0.0</min>
+			<max>1.0</max>
+		 </volume>
+	</FireAlarm>
+
+    <!-- Class 2 Alarm  -->
+
+	<Class2>
+		<name>Class2</name>
+		<mode>looped</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/class_2_alarm.wav</path>		
+		  <condition>
+			<and>
+			<property>/fdm/jsbsim/systems/cws/class-2-sound-on</property>
+			<property>/sim/current-view/internal</property>
+			</and>
+		  </condition>
+		  <volume>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.6</factor>
+			<min>0.0</min>
+			<max>0.6</max>
+		</volume>
+	</Class2>
+
+    <!-- SM alert  -->
+
+	<SMAlert>
+		<name>SMAlert</name>
+		<mode>once</mode>
+		<path>Aircraft/SpaceShuttle/Sounds/class_3_sm_alert.wav</path>		
+		  <condition>
+			<and>
+			<property>/fdm/jsbsim/systems/cws/sm-alert-on</property>
+			<property>/sim/current-view/internal</property>
+			</and>
+		  </condition>
+		  <volume>
+			<property>/fdm/jsbsim/systems/various/cabin-sound-transmission</property>
+			<factor>0.6</factor>
+			<min>0.0</min>
+			<max>0.6</max>
+		</volume>
+	</SMAlert>
+
 	<!-- doors  -->
 
 	<doors>

@@ -117,7 +117,7 @@ var cdlg_propellant = {
 		if (event == "click")
 			{
 			
-			if (system < 5)
+			if (system < 6)
 				{
 				me.init_secondary_dlg(system);
 				}
@@ -281,6 +281,16 @@ var cdlg_propellant = {
 		me.right_oms_label = cdlg_widget_property_label.new(me.root, "100%", text_color, outer_color, fill_color);
 		me.right_oms_label.setTranslation(370.0, 458.5);
 
+
+		me.kit_oms = cdlg_widget_tank.new(me.root, 40, outer_color, fill_color);
+		me.kit_oms.setTranslation(215,350);
+
+		me.kit_oms_text = cdlg_widget_property_label.new(me.root, "OMS kit", text_color, outer_color, fill_color);
+		me.kit_oms_text.setTranslation(215, 300);
+
+		me.kit_oms_label = cdlg_widget_property_label.new(me.root, "100%", text_color, outer_color, fill_color);
+		me.kit_oms_label.setTranslation(215.0, 420.0);
+
 		# RCS tanks
 	
 		me.left_rcs = cdlg_widget_tank.new(me.root, 20, outer_color, fill_color);
@@ -341,6 +351,10 @@ var cdlg_propellant = {
 		me.cs_fwd_rcs = cdlg_clickspot.new(280.0, 100.0, 20.0, 20.0, 1, "circle");
 		append(me.clickspots, me.cs_fwd_rcs);
 
+		me.cs_kit_oms = cdlg_clickspot.new(215.0, 350.0, 40.0, 40.0, 1, "circle");
+		append(me.clickspots, me.cs_kit_oms);
+
+
 		me.update_flag = 1;
 		me.update_orbit_dlg();
 
@@ -349,6 +363,7 @@ var cdlg_propellant = {
 
 		me.left_oms.setContextHelp(me.process_context_help);
 		me.right_oms.setContextHelp(me.process_context_help);
+		me.kit_oms.setContextHelp(me.process_context_help);
 		me.left_rcs.setContextHelp(me.process_context_help);
 		me.right_rcs.setContextHelp(me.process_context_help);
 		me.fwd_rcs.setContextHelp(me.process_context_help);
@@ -364,6 +379,9 @@ var cdlg_propellant = {
 
 		if (me.update_flag == 0) {return;}
 
+		var oms_kit = getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed");
+		var oms_kit_num_tanks = getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks");
+
 		var content_oms_left_ox = getprop("/consumables/fuel/tank[4]/level-lbs")/7773.0;
 		var content_oms_left_fu = getprop("/consumables/fuel/tank[5]/level-lbs")/4718.0;
 		var content_oms_left = math.min(content_oms_left_ox, content_oms_left_fu);
@@ -372,11 +390,33 @@ var cdlg_propellant = {
 		var content_oms_right_fu = getprop("/consumables/fuel/tank[7]/level-lbs")/4718.0;
 		var content_oms_right = math.min(content_oms_right_ox, content_oms_right_fu);
 
+
 		me.left_oms.setPercentage(content_oms_left);
 		me.right_oms.setPercentage(content_oms_right);
 
+
 		me.left_oms_label.updateText(int (content_oms_left * 100.0) ~"%");
 		me.right_oms_label.updateText(int (content_oms_right * 100.0) ~"%");
+
+		if (oms_kit == 1)
+			{
+			var content_oms_kit_ox = getprop("/consumables/fuel/tank[26]/level-lbs")/(7773.0 * oms_kit_num_tanks);
+			var content_oms_kit_fu = getprop("/consumables/fuel/tank[27]/level-lbs")/(4718.0 * oms_kit_num_tanks);
+			var content_oms_kit = math.min(content_oms_kit_ox, content_oms_kit_fu);
+			me.kit_oms.setPercentage(content_oms_kit);
+			me.kit_oms.setVisible(1);
+			me.kit_oms_label.updateText(int (content_oms_kit * 100.0) ~"%");
+			me.kit_oms_label.setVisible(1);
+			me.kit_oms_text.setVisible(1);
+			}
+		else
+			{
+			me.kit_oms.setVisible(0);
+			me.kit_oms_label.setVisible(0);
+			me.kit_oms_text.setVisible(0);
+			}
+
+
 
 
 		var content_rcs_left_ox = getprop("/consumables/fuel/tank[8]/level-lbs")/1477.0;
@@ -439,6 +479,12 @@ var cdlg_propellant = {
 		else if (system == 4)
 			{
 			title = "Forward RCS propellant";
+			}
+		else if (system == 5)
+			{
+			if (getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed") == 0) {return;}
+
+			title = "OMS kit propellant";
 			}
 
 		#SpaceShuttle.cdlg_propellant.child_open_flag = 1;
@@ -535,7 +581,7 @@ var cdlg_propellant = {
 
 
 
-		if ((system == 0) or (system == 1) or (system == 2) or (system == 3) or (system == 4))
+		if ((system == 0) or (system == 1) or (system == 2) or (system == 3) or (system == 4) or (system == 5))
 			{
 			me.oxidizer_text_type.setText("nitrogen tetroxide");
 			me.fuel_text_type.setText("monomethyl hydrazine");
@@ -651,6 +697,24 @@ var cdlg_propellant = {
 			pressure_oxidizer = getprop("/fdm/jsbsim/systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia");
 			pressure_fuel = pressure_oxidizer;
 			}
+		else if (system == 5)
+			{
+
+			var oms_kit_num_tanks = getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks");
+
+			content_oxidizer = getprop("/consumables/fuel/tank[26]/level-lbs");
+			content_fuel = getprop("/consumables/fuel/tank[27]/level-lbs");
+			fraction_oxidizer = content_oxidizer/(7773.0 * oms_kit_num_tanks);
+			fraction_fuel = content_fuel/(4718.0 * oms_kit_num_tanks);
+
+			pressure_oxidizer = getprop("/fdm/jsbsim/systems/oms-hardware/tanks-kit-oms-blowdown-psia");
+			pressure_fuel = getprop("/fdm/jsbsim/systems/oms-hardware/tanks-kit-oms-blowdown-psia");
+
+			temp_oxidizer = SpaceShuttle.K_to_F(getprop("/fdm/jsbsim/systems/thermal-distribution/right-pod-temperature-K"));
+			var heater_OMS_right = getprop("/fdm/jsbsim/systems/oms-hardware/heater-right-operational");
+			if ((temp_oxidizer < 57.0) and (heater_OMS_right == 1)) {temp_oxidizer = 65.0;}
+			temp_fuel = temp_oxidizer;
+			}
 
 
 		me.oxidizer.setPercentage(fraction_oxidizer);
@@ -674,6 +738,8 @@ var cdlg_propellant = {
 
 	set_fuel_fraction  : func (system, tank, fraction) {
  
+		if (fraction < 0.0) {fraction = 0.0;}
+
 		if (system == 0)
 			{
 			if (tank == 0)
@@ -739,6 +805,21 @@ var cdlg_propellant = {
 				setprop("/consumables/fuel/tank[13]/level-lbs", value);
 				}
 			}
+		else if (system == 5)
+			{
+			var oms_kit_num_tanks = getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks");
+
+			if (tank == 0)
+				{
+				var value = fraction * 7773.0 * oms_kit_num_tanks;
+				setprop("/consumables/fuel/tank[26]/level-lbs", value);
+				}
+			else if (tank == 1)
+				{
+				var value = fraction * 4718.0 * oms_kit_num_tanks;
+				setprop("/consumables/fuel/tank[27]/level-lbs", value);
+				}
+			}
 	},
 	
 	get_fuel_fraction  : func (system, tank) {
@@ -796,6 +877,18 @@ var cdlg_propellant = {
 			else if (tank == 1)
 				{
 				return getprop("/consumables/fuel/tank[13]/level-lbs")/928.0;
+				}
+			}
+		else if (system == 5)
+			{
+			var oms_kit_num_tanks = getprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks");
+			if (tank == 0)
+				{
+				return getprop("/consumables/fuel/tank[26]/level-lbs")/(7773.0 * oms_kit_num_tanks);
+				}
+			else if (tank == 1)
+				{
+				return getprop("/consumables/fuel/tank[27]/level-lbs")/(4718.0 * oms_kit_num_tanks);
 				}
 			}
 	},

@@ -28,6 +28,7 @@ var rmsModel = {};
 var issState = {};
 var issCoord = {};
 var issModel = {};
+var issInitialState = [0,0,0,0,0,0];
 
 var eva_loop_flag = 0;
 var tank_loop_flag = 0;
@@ -65,6 +66,7 @@ var stateVector = {
 		s.yaw_rate = 0.0;
 		s.pitch_rate = 0.0;
 		s.roll_rate = 0.0;
+		s.lvlh_flag = 0;
 		return s;
 	},
 	update: func (ax, ay, az, a_yaw, a_pitch, a_roll, dt = nil) {
@@ -346,6 +348,15 @@ var get_force = func (objState, shuttleCoord) {
 var G = [objState.x, objState.y, objState.z]; 
 var Gnorm = math.sqrt(math.pow(G[0],2.0) + math.pow(G[1],2.0) + math.pow(G[2],2.0));
 var g = getprop("/fdm/jsbsim/accelerations/gravity-ft_sec2") * 0.3048 * 1.00015;
+var hnorm = SpaceShuttle.norm([shuttleCoord.x(), shuttleCoord.y(), shuttleCoord.z()]);
+
+#g *=  (1.0/math.pow(hnorm,2.0)) /  (1.0/math.pow(Gnorm,2.0));
+
+#var hdiff = hnorm - Gnorm;
+#var corr = (hdiff / 600.) * 0.0025;
+#print ("hdiff: ", hdiff, "corr: ", corr);
+#g += corr;
+
 G[0] = -G[0]/Gnorm * g;
 G[1] = -G[1]/Gnorm * g;
 G[2] = -G[2]/Gnorm * g;
@@ -379,10 +390,12 @@ var groundtrack_orig = getprop("/controls/shuttle/"~objString~"/groundtrack-orig
 
 var yaw_correction = groundtrack - groundtrack_orig;
 
+
+
 setprop("/controls/shuttle/"~objString~"/latitude-deg", objCoord.lat());
 setprop("/controls/shuttle/"~objString~"/longitude-deg", objCoord.lon());
 setprop("/controls/shuttle/"~objString~"/elevation-ft", objCoord.alt() * m_to_ft);
-setprop("/controls/shuttle/"~objString~"/pitch-deg", objState.pitch + lon);
+setprop("/controls/shuttle/"~objString~"/pitch-deg", objState.pitch + lon * (1-objState.lvlh_flag));
 setprop("/controls/shuttle/"~objString~"/heading-deg", objState.yaw + yaw_correction);
 
 }
@@ -628,7 +641,7 @@ kuState.pitch_rate = 0.2;
 kuState.yaw_rate = 0.1;
 
 
-kuModel = place_model("ku-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/ku-antenna-disconnected.xml", kuCoord.lat(), kuCoord.lon(), kuCoord.alt() * m_to_ft, yaw,pitch,roll);
+kuModel = place_model("ku-ballistic", "Aircraft/SpaceShuttle/Models/PayloadBay/KU-Antenna/ku-antenna-disconnected.xml", kuCoord.lat(), kuCoord.lon(), kuCoord.alt() * m_to_ft, yaw,pitch,roll);
 
 # seems we need small offsets in velocity to get a small separation velocity
 # this looks odd but the error we need to correct is actually a function
@@ -956,54 +969,692 @@ if (rms_loop_flag >0 ) {settimer(func {update_rms(delta_lon); },0.0);}
 
 
 
+
+
 ###########################################################################
-# ISS simulation control routines
+# class to manage ISS as numerical simulation at close range
+#
 ###########################################################################
 
-
-### init ISS in the distance ###
-
-var init_iss = func  {
+var iss_manager = {
 
 
-var pitch = getprop("/orientation/pitch-deg");
-var yaw = getprop("/orientation/heading-deg");
-var roll = getprop("/orientation/roll-deg");
+	state: {},
+	coord: {},
+	shuttleCoord: {},
+	dockingCollarCoord: {},	
+	refCoord: {},
+	issModel: {},
+	issInitialState: [0,0,0,0,0,0],
+	offset_vec: [0,0,0],
+
+	bearing: 0.0,
+	distance: 0.0,
+	hdistance: 0.0,
+	prox_x: 0.0,
+	prox_y: 0.0,
+	prox_z: 0.0,
+	prox_vx: 0.0,
+	prox_vy: 0.0,
+	prox_vz: 0.0,
+	prox_x_last: 0.0,
+	prox_y_last: 0.0,
+	prox_z_last: 0.0,
+	distance_last: 0.0,
+	rdot: 0.0,
+
+	dt: 0.0,	
+	delta_lon: 0.0,
+
+	docking_collar_dist: 0.0,
+	docking_collar_dist_last: 0.0,
+	dcbearing: 0.0,
+	dchdistance: 0.0,
+	dcprox_x: 0.0,
+	dcprox_y: 0.0,
+	dcprox_z: 0.0,
+	ddot: 0.0,
+	y: 0.0, 
+	y_last: 0.0,
+	ydot: 0.0,
+	theta: 0.0,
+
+	crash_force_z: 0.0,
+
+	loop_flag: 0,
+	placement_flag: 0,
+	sensor_flag: 0,
+	proximity_request: 0,
+	tracking_request: 0,
 
 
-issCoord = geo.aircraft_position() ;
-
-issCoord.set_lon (issCoord.lon() + 0.001);
-
-issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, 90.0, 0.0 , 0.0);
-
-var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
-
-issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch,roll);
-
-setprop("/controls/shuttle/ISS/groundtrack-orig-deg", 90.0);
+	init : func (prox_x, prox_y, prox_z, dvx, dvy, dvz)  {
 
 
-var lat = getprop("/position/latitude-deg") * math.pi/180.0;
-var lon = getprop("/position/longitude-deg") * math.pi/180.0;
-var dt = getprop("/sim/time/delta-sec");
+		me.coord = geo.aircraft_position() ;
+		me.coord.set_alt( me.coord.alt() - prox_z);
 
-var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
-var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
-var vzoffset = 0.0;
+		var course = getprop("/fdm/jsbsim/velocities/course-deg");
+		me.coord.apply_course_distance(course, prox_x);
+
+		if (prox_y > 0) {course = course + 90.0;}
+		else {course = course - 90.0;}
+		me.coord.apply_course_distance(course, math.abs(prox_y));
+
+		me.state = stateVector.new (me.coord.x(),me.coord.y(),me.coord.z(),0,0,0,  0.0, 0.0 , 0.0);
+		me.state.lvlh_flag = 1;
+
+		me.issInitialState = [prox_x, prox_y, prox_z, dvx, dvy, dvz];
+
+		var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
+
+		me.issModel = place_model("ISS", model_path, me.coord.lat(), me.coord.lon(), me.coord.alt() * m_to_ft, course,0.0,0.0);
+
+
+		var test_coord = geo.aircraft_position();
+		print ("Distance at placement: ", test_coord.direct_distance_to(me.coord));
+
+		var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+		var lon = getprop("/position/longitude-deg") * math.pi/180.0;
+		var dt = getprop("/sim/time/delta-sec");
+
+		var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+		var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+		var vzoffset = 0.0;
+
+
+		me.delta_lon = 0.0;
+
+		settimer(func { 
+				me.state.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+				me.state.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+				me.state.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+				me.loop_flag = 1;
+				me.placement_flag = 1;
+				me.update(); },0);
+	},
+
+
+	update: func () {
+
+		me.shuttleCoord = geo.aircraft_position();
+		me.dt = getprop("/sim/time/delta-sec");
+
+
+		me.delta_lon = me.delta_lon + me.dt * earth_rotation_deg_s * 1.0039;
+
+		var F = get_force (me.state, me.shuttleCoord);
+
+		me.state.update(F[0], F[1], F[2], 0.0,0.0,0.0);
+		me.coord.set_xyz(me.state.x, me.state.y, me.state.z);
+		me.coord.set_lon(me.coord.lon() - me.delta_lon);
+
+
+		if (me.loop_flag < 3)
+			{
+			me.manage_initial_placement();
+			}
+
+		set_coords("ISS", me.coord, me.state);
+
+		me.compute_proximity();
+		me.set_sensor_tracking();
+		me.compute_relative_coordinates();
+
+		if (me.proximity_request == 1) {me.provide_proximity();}
+		if (me.sensor_flag == 1) {me.compute_sensor_data();}
+		if (me.tracking_request == 1) {me.provide_tracking();}
 
 
 
-settimer(func { 
-		issState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
-		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
-		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
-		iss_loop_flag = 1;
-		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 1); },0);
-}
+
+		if (me.distance > 1.2 * SpaceShuttle.orbital_target_lod)  {me.unload();}
+		if (me.docking_collar_dist < 3.0) {me.check_crash();}
+			else {me.unset_crash();	}	
+		if (me.docking_collar_dist < 0.4) {me.dock();}
 
 
-### init ISS undocking from the Shuttle ###
+		if (me.loop_flag >0 ) 
+			{
+			settimer(func {me.update(); },0.0);
+			}
+
+
+
+	},
+
+	compute_proximity: func {
+
+		if (me.distance > 10.0)
+			{
+			me.refCoord = geo.Coord.new(me.shuttleCoord);
+			}
+		else
+			{
+			me.compute_docking_collar();
+			me.refCoord = geo.Coord.new(me.dockingCollarCoord);
+			}
+
+		me.bearing = me.refCoord.course_to(me.coord);
+		me.hdistance = me.refCoord.distance_to(me.coord);
+		me.distance = me.refCoord.direct_distance_to(me.coord);
+		me.prox_z = me.refCoord.alt() - me.coord.alt();
+		var ground_course = getprop("/fdm/jsbsim/velocities/course-deg");
+		me.prox_x = me.hdistance * math.cos((me.bearing - ground_course) * math.pi/180.0);
+		me.prox_y = me.hdistance * math.sin((me.bearing - ground_course) * math.pi/180.0);
+
+		me.prox_vx = (me.prox_x - me.prox_x_last)/me.dt;
+		me.prox_vy = (me.prox_y - me.prox_y_last)/me.dt;
+		me.prox_vz = (me.prox_z - me.prox_z_last)/me.dt;
+
+		me.rdot = (me.distance - me.distance_last)/me.dt;
+
+		me.prox_x_last = me.prox_x;
+		me.prox_y_last = me.prox_y;
+		me.prox_z_last = me.prox_z;
+
+		me.distance_last = me.distance;
+
+
+	},	
+
+	list_proximity: func {
+
+		print ("ISS proximity coordinates: ");
+		print ("x: ", me.prox_x);
+		print ("y: ", me.prox_y);
+		print ("z: ", me.prox_z);
+		print ("r: ", me.distance);
+
+	},
+
+	list_proximity_v: func {
+
+		print ("ISS proximity velocities: ");
+		print ("vx: ", me.prox_vx);
+		print ("vy: ", me.prox_vy);
+		print ("vz: ", me.prox_vz);
+		print ("vr: ", me.rdot);
+
+	},
+
+	provide_proximity: func {
+
+		if (me.distance > 10.0)
+			{
+			SpaceShuttle.proximity_manager.target_prox_x = me.prox_x;
+			SpaceShuttle.proximity_manager.target_prox_y = me.prox_y;
+			SpaceShuttle.proximity_manager.target_prox_z = me.prox_z;
+			}
+		else	
+			{
+			SpaceShuttle.proximity_manager.target_prox_x = me.dcprox_x;
+			SpaceShuttle.proximity_manager.target_prox_y = me.dcprox_y;
+			SpaceShuttle.proximity_manager.target_prox_z = me.dcprox_z;
+			}
+
+		SpaceShuttle.proximity_manager.target_prox_vx = me.prox_vx;
+		SpaceShuttle.proximity_manager.target_prox_vy = me.prox_vy;
+		SpaceShuttle.proximity_manager.target_prox_vz = me.prox_vz;
+
+		me.proximity_request = 0;
+
+	},
+
+	request_proximity: func {
+		
+		me.proximity_request = 1;
+
+	},
+
+	
+	provide_tracking: func {
+
+		# provides tracking vectors for UNIV PTG
+
+
+		var shuttle_pos_inertial = geo.Coord.new(me.shuttleCoord);
+		var tgt_pos_inertial = geo.Coord.new(me.coord);
+
+		# go to inertial coordinates
+
+		var angle = -getprop("/fdm/jsbsim/systems/pointing/inertial/ecf-to-eci-rad-alt") * 180.0/math.pi;
+
+
+		shuttle_pos_inertial.set_lon(shuttle_pos_inertial.lon() - angle);
+		tgt_pos_inertial.set_lon(tgt_pos_inertial.lon() - angle);
+
+		# pointing vector  in inertial coordinates
+
+		var shuttle_inertial = shuttle_pos_inertial.xyz();
+		var tgt_inertial = tgt_pos_inertial.xyz();
+
+		var pointer = SpaceShuttle.normalize(SpaceShuttle.subtract_vector(tgt_inertial, shuttle_inertial));
+
+
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", pointer[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", pointer[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", pointer[2]);
+
+		var body_vec_selection = getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection");
+
+		var ref_vector = [];
+
+		if (body_vec_selection == 1)
+			{
+			ref_vec = [0.0, 0.0, 1.0];
+			}
+		else if (body_vec_selection == 2)
+			{
+			ref_vec = [0.0, 0.0, -1.0];
+			}
+		else if (body_vec_selection == 3)
+			{
+			ref_vec = [0.0, 0.0, 1.0];
+			}
+
+		var second = SpaceShuttle.orthonormalize(pointer, [0.0, 0.0, 1.0]);
+
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", second[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", second[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", second[2]);
+
+		var third = SpaceShuttle.cross_product(pointer, second);
+
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", third[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", third[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", third[2]);
+
+
+		me.tracking_request = 0;
+
+	},
+
+
+	request_tracking: func {
+
+		me.tracking_request = 1;
+
+	},
+
+	
+	set_sensor_tracking: func {
+
+
+		if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
+			{
+
+
+
+			SpaceShuttle.antenna_manager.set_rr_target(me.coord);
+			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
+				{
+				SpaceShuttle.antenna_manager.ku_antenna_track_target(me.coord, me.shuttleCoord);
+				}		
+			}
+		if (SpaceShuttle.star_tracker_array[0].mode == 2)
+			{
+			SpaceShuttle.star_tracker_array[0].set_target(me.coord);
+			}
+
+		if (SpaceShuttle.star_tracker_array[1].mode == 2)
+			{
+			SpaceShuttle.star_tracker_array[1].set_target(me.coord);
+			}
+
+	},
+
+	compute_tracking: func {
+
+
+	},
+
+	compute_docking_collar: func {
+
+
+		var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+		var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+
+		var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
+
+		me.dockingCollarCoord = geo.Coord.new(me.shuttleCoord);
+
+		me.dockingCollarCoord.set_xyz (me.shuttleCoord.x() + dockingCollarOffset[0],me.shuttleCoord.y() + dockingCollarOffset[1],me.shuttleCoord.z() + dockingCollarOffset[2]);
+
+	},
+
+
+	compute_relative_coordinates: func {
+
+
+
+
+		var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+		me.compute_docking_collar();
+
+
+		me.docking_collar_dist = me.dockingCollarCoord.direct_distance_to(me.coord);
+		me.ddot = (me.docking_collar_dist - me.docking_collar_dist_last)/me.dt;
+		me.docking_collar_dist_last = me.docking_collar_dist;
+
+		me.dcbearing = me.dockingCollarCoord.course_to(me.coord);
+		me.dchdistance = me.dockingCollarCoord.distance_to(me.coord);
+		me.dcprox_z = me.dockingCollarCoord.alt() - me.coord.alt();
+		var ground_course = getprop("/fdm/jsbsim/velocities/course-deg");
+		me.dcprox_x = me.dchdistance * math.cos((me.dcbearing - ground_course) * math.pi/180.0);
+		me.dcprox_y = me.dchdistance * math.sin((me.dcbearing - ground_course) * math.pi/180.0);
+
+
+		setprop("/fdm/jsbsim/systems/rendezvous/target/distance-m", me.docking_collar_dist);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s", me.ddot);
+
+		var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
+		var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
+		var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
+
+		var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, iss_roll);
+
+		var lat_to_m = 110952.0;
+		var lon_to_m  = math.cos(me.coord.lat()*math.pi/180.0) * lat_to_m;
+
+		var x_lvlh = (me.coord.lon() - me.dockingCollarCoord.lon()) * lon_to_m;
+		var y_lvlh = (me.coord.lat() - me.dockingCollarCoord.lat()) * lat_to_m;
+		var z_lvlh = (me.coord.alt() - me.dockingCollarCoord.alt());
+
+		var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
+
+
+		me.y = -SpaceShuttle.dot_product(y_vec, rel_vec);
+		me.ydot = (me.y - me.y_last)/me.dt;
+		me.y_last = me.y;
+		me.theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
+
+		setprop("/fdm/jsbsim/systems/rendezvous/target/Y-m",me.y);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s",me.ydot);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/theta",me.theta);
+
+
+		setprop("/fdm/jsbsim/systems/rendezvous/target/distance-prop-m", me.docking_collar_dist);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s", me.ddot);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m",me.y);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s",me.ydot);
+		setprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop",me.theta);
+	},
+
+
+	check_crash: func {
+
+
+		if (me.y < 0.0)
+			{
+			me.crash_force_z = -me.y * 10000.0;
+			}
+		else 
+			{
+			me.crash_force_z = 0.0;
+			}
+		setprop("/fdm/jsbsim/systems/docking/crash-force-z", me.crash_force_z);		
+
+
+	},
+
+	unset_crash: func {
+
+		if (me.crash_force_z == 0.0) {return;}
+		else
+			{
+			me.crash_force_z = 0.0;
+			setprop("/fdm/jsbsim/systems/docking/crash-force-z", 0.0);	
+			}
+
+	},
+
+
+	unload: func {
+
+		print ("ISS explicit simulation ends");
+		me.issModel.remove();
+		me.loop_flag = 0;
+		proximity_manager.iss_model = 0;
+	},
+
+
+	manage_initial_placement: func {
+
+		if (me.loop_flag ==1)
+			{
+			me.offset_vec = [me.coord.x()-me.shuttleCoord.x(), me.coord.y()-me.shuttleCoord.y(),me.coord.z()-me.shuttleCoord.z()];
+			}
+		if (me.loop_flag == 2)
+			{
+			var offset1_vec = [me.coord.x()-me.shuttleCoord.x(), me.coord.y()-me.shuttleCoord.y(),me.coord.z()-me.shuttleCoord.z()];
+			var v_offset_vec = [(offset1_vec[0] - me.offset_vec[0]) / me.dt, (offset1_vec[1] - me.offset_vec[1]) / me.dt, (offset1_vec[2] - me.offset_vec[2]) / me.dt];
+		
+
+
+			me.state = compute_state_correction  (me.state, me.coord, me.shuttleCoord, v_offset_vec, me.delta_lon);
+			if (me.placement_flag == 1)
+				{
+				var iss_placement = geo.Coord.new();
+				iss_placement.set_xyz (me.state.x, me.state.y, me.state.z);
+
+				var prox_x = me.issInitialState[0];
+				var prox_y = me.issInitialState[1];
+				var prox_z = me.issInitialState[2];	
+
+				print ("Coordinate differences proximity:");
+				print (prox_x, " ", prox_y, " ", prox_z);		
+
+				print ("ISS alt2 before: ", iss_placement.alt(), " prox_z: ", prox_z); 
+			
+				iss_placement.set_alt( me.coord.alt() - prox_z);
+
+				var course = getprop("/fdm/jsbsim/velocities/course-deg");
+				iss_placement.apply_course_distance(course, prox_x);
+
+				if (prox_y > 0) {course = course + 90.0;}
+				else {course = course - 90.0;}
+				iss_placement.apply_course_distance(course, math.abs(prox_y));
+			
+				print ("ISS alt2 aft: ", iss_placement.alt()); 
+
+
+				me.state.x = iss_placement.x();
+				me.state.y = iss_placement.y();
+				me.state.z = iss_placement.z();
+
+
+				me.state.vx+= me.issInitialState[3];
+				me.state.vy+= me.issInitialState[4];
+				me.state.vz+= me.issInitialState[5];
+
+				# need a distance-dependent down
+
+				var norm_tmp = math.sqrt(me.state.x * me.state.x + me.state.y * me.state.y + me.state.z * me.state.z);
+				var down = [-me.state.x/norm_tmp, -me.state.y/norm_tmp, -me.state.z/norm_tmp];
+
+				var hdist = prox_x; #math.sqrt(prox_x * prox_x + prox_z * prox_z);
+
+
+				me.state.vx += down[0]*6.0 * hdist/5000.0 * 0.96;
+				me.state.vy += down[1]*6.0 * hdist/5000.0 * 0.96;
+				me.state.vz += down[2]*6.0 * hdist/5000.0 * 0.96;
+
+
+				}
+			else if (me.placement_flag == 2)
+				{
+				var iss_placement = geo.Coord.new();
+				iss_placement.set_xyz (me.state.x, me.state.y, me.state.z);
+
+				var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+				var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+				var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+				var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(-8.1, shuttleWorldX), SpaceShuttle.scalar_product(1.0, shuttleWorldZ));
+
+				iss_placement.set_x( iss_placement.x() - dockingCollarOffset[0]); 
+				iss_placement.set_y( iss_placement.y() - dockingCollarOffset[1]); 
+				iss_placement.set_z( iss_placement.z() - dockingCollarOffset[2]); 
+
+				me.state.x = iss_placement.x();
+				me.state.y = iss_placement.y();
+				me.state.z = iss_placement.z();
+				}
+				}
+		me.loop_flag = me.loop_flag + 1;
+			
+
+
+
+
+		},
+
+
+	dock: func {
+
+
+		if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (me.theta < 15.0))
+			{
+			setprop("/sim/messages/copilot", "Successful ISS docking!");
+
+			setprop("/controls/shuttle/ISS/docking-flag", 1);
+			setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 924740.0);
+			controls.centerFlightControls();
+
+			me.prox_x = 0.0;
+			me.prox_y = 0.0;
+			me.prox_z = 0.0;
+		
+			me.prox_vx = 0.0;
+			me.prox_vy = 0.0;
+			me.prox_vz = 0.0;
+
+			me.distance = 0.0;
+			me.distance_last = 0.0;
+
+			me.delta_lon  = 0.0;
+
+			SpaceShuttle.orbital_dap_manager.control_select("FREE");
+			me.issModel.remove();
+			me.loop_flag = 0;
+
+			var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
+			var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
+			var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
+
+			var x1_vec = orientTaitBryan([1.0, 0.0,0.0], iss_yaw, iss_pitch, iss_roll);
+			var x2_vec = orientTaitBryan([0.0, 1.0, 0.0], iss_yaw, iss_pitch, iss_roll);
+
+			var shuttleLVLHX = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[2]")];
+
+			var shuttleLVLHY = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[2]")];
+
+			var omega = 180/math.pi * math.acos(SpaceShuttle.dot_product(shuttleLVLHX, x1_vec));
+		
+			if (SpaceShuttle.dot_product(shuttleLVLHY, x2_vec) < 0.0)
+				{
+				omega = - omega;
+				}
+			setprop("/controls/shuttle/ISS/rel-heading-deg", -omega); 
+			}
+
+
+		},
+
+	undock: func {
+
+
+
+		setprop("/controls/shuttle/ISS/docking-flag", 0);
+		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 0.0);
+		
+		SpaceShuttle.orbital_dap_manager.control_select("INRTL");
+
+		# prevent immediate triggering of the docking condition
+		setprop("/controls/shuttle/ISS/docking-veto", 1);
+		settimer (func { setprop("/controls/shuttle/ISS/docking-veto", 0);}, 10.0);
+
+		var pitch = getprop("/orientation/pitch-deg");
+		var yaw = getprop("/orientation/heading-deg");
+		var roll = getprop("/orientation/roll-deg");
+		var lon_deg = getprop("/position/longitude-deg");
+
+		me.delta_lon  = 0.0;
+		me.coord = geo.aircraft_position();
+
+		# correct for docking collar position
+
+		var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
+
+		var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
+
+		var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
+
+		var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
+
+		me.coord.set_x( me.coord.x() - dockingCollarOffset[0]); 
+		me.coord.set_y( me.coord.y() - dockingCollarOffset[1]); 
+		me.coord.set_z( me.coord.z() - dockingCollarOffset[2]); 
+
+		me.state = stateVector.new (me.coord.x(),me.coord.y(),me.coord.z(),0,0,0, yaw, pitch - lon_deg , roll);
+
+
+
+		var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
+
+		me.issModel = place_model("ISS", model_path, me.coord.lat(), me.coord.lon(), me.coord.alt() * m_to_ft, yaw,pitch -lon_deg,roll);
+
+		var test_coord = geo.aircraft_position();
+		print ("Distance at placement: ", test_coord.direct_distance_to(me.coord));
+
+
+
+		var lat = getprop("/position/latitude-deg") * math.pi/180.0;
+		var lon = lon_deg * math.pi/180.0;
+		var dt = getprop("/sim/time/delta-sec");
+
+		var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
+		var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
+		var vzoffset = 0.0;
+
+		SpaceShuttle.proximity_manager.iss_model = 1;
+
+
+		# now we push the the orbiter away 
+
+		setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
+		setprop("/controls/flight/elevator", -1.0);
+
+
+		settimer( func{
+			controls.centerFlightControls();
+			SpaceShuttle.control_to_rcs();
+			}, 3.0);
+
+
+		settimer(func { 
+				me.state.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
+				me.state.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
+				me.state.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
+				me.placement_flag = 2;
+				me.loop_flag = 1;
+				me.update(); },0);
+
+		},
+
+
+
+
+
+
+};
+
 
 var undock_iss = func  {
 
@@ -1011,301 +1662,930 @@ var undock_iss = func  {
 if (getprop("/controls/shuttle/ISS/docking-flag") == 0)
 	{return;}
 
-setprop("/controls/shuttle/ISS/docking-flag", 0);
-setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 0.0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 1);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 0);
-SpaceShuttle.switch_orbital_dap(1);
-
-# prevent immediate triggering of the docking condition
-setprop("/controls/shuttle/ISS/docking-veto", 1);
-settimer (func { setprop("/controls/shuttle/ISS/docking-veto", 0);}, 10.0);
-
-var pitch = getprop("/orientation/pitch-deg");
-var yaw = getprop("/orientation/heading-deg");
-var roll = getprop("/orientation/roll-deg");
-var lon_deg = getprop("/position/longitude-deg");
-
-issCoord = geo.aircraft_position();
-
-# correct for docking collar position
-
-var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
-
-var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
-
-var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
-
-var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
-
-issCoord.set_x( issCoord.x() - dockingCollarOffset[0]); 
-issCoord.set_y( issCoord.y() - dockingCollarOffset[1]); 
-issCoord.set_z( issCoord.z() - dockingCollarOffset[2]); 
-
-issState = stateVector.new (issCoord.x(),issCoord.y(),issCoord.z(),0,0,0, yaw, pitch - lon_deg , roll);
-
-var model_path = "Aircraft/SpaceShuttle/Models/ISS/ISS_free.xml";
-
-issModel = place_model("ISS", model_path, issCoord.lat(), issCoord.lon(), issCoord.alt() * m_to_ft, yaw,pitch -lon_deg,roll);
-
-
-
-var lat = getprop("/position/latitude-deg") * math.pi/180.0;
-var lon = lon_deg * math.pi/180.0;
-var dt = getprop("/sim/time/delta-sec");
-
-var vxoffset = 3.5 * math.cos(lon) * math.pow(dt/0.05,3.0);
-var vyoffset = 3.5 * math.sin(lon) * math.pow(dt/0.05,3.0);
-var vzoffset = 0.0;
-
-
-# now we push the the orbiter away 
-
-#var current_mode = getprop("/fdm/jsbsim/systems/fcs/control-mode");
-setprop("/fdm/jsbsim/systems/fcs/control-mode",28);
-setprop("/controls/flight/elevator", -1.0);
-
-
-settimer( func{
-	controls.centerFlightControls();
-	SpaceShuttle.control_to_rcs();
-	}, 3.0);
-
-
-settimer(func { 
-		issState.vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * ft_to_m + vxoffset;
-		issState.vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * ft_to_m + vyoffset;
-		issState.vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * ft_to_m + vzoffset;
-		iss_loop_flag = 1;
-		update_iss(0.0 , 0.0, 0.0, 0.0, 0.0, 2); },0);
+iss_manager.undock();
 }
 
 
-### manage ISS in undocked state ###
+###########################################################################
+# class to manage the handover between orbital object as coordinate positions
+# and numerical simulations
+# as well as sensor readings 
+###########################################################################
 
-var update_iss = func (delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag) {
-
-var shuttleCoord = geo.aircraft_position();
-var dt = getprop("/sim/time/delta-sec");
 
 
-delta_lon = delta_lon + dt * earth_rotation_deg_s * 1.004;
+var proximity_manager = {
 
-var F = get_force (issState, shuttleCoord);
+	shuttle_pos: [0.0, 0.0, 0.0],
+	shuttle_vel: [0.0, 0.0, 0.0],
+	delta_v: [0.0, 0.0, 0.0],
+	tgt_pos: [0.0, 0.0, 0.0],
+	tgt_vel: [0.0, 0.0, 0.0],
+	distance: 0.0,
+	distance_last: 0.0,
+	distance_prop: 0.0,
+	distance_error: 0.0,
+	distance_filtered: 0.0,
+	distance_error_filtered: 0.0,
+	distance_cand: 0.0,
+	distance_error_cand: 0.0,
+	distance_sensed: 0.0,
 
-issState.update(F[0], F[1], F[2], 0.0,0.0,0.0);
-issCoord.set_xyz(issState.x, issState.y, issState.z);
-issCoord.set_lon(issCoord.lon() - delta_lon);
+	timestamp: -0.1,
+	time: 0.0,
+	ddot: 0.0,
+	ddot_last: 0.0,
+	ddot_strikes: 0,
+	iss_model: 0,
 
-if (iss_loop_flag < 3)
-	{
-	if (iss_loop_flag ==1)
-		{
-		offset_vec_iss = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
-		}
-	if (iss_loop_flag == 2)
-		{
-		var offset1_vec = [issCoord.x()-shuttleCoord.x(), issCoord.y()-shuttleCoord.y(),issCoord.z()-shuttleCoord.z()];
-		var v_offset_vec = [(offset1_vec[0] - offset_vec_iss[0]) / dt, (offset1_vec[1] - offset_vec_iss[1]) / dt, (offset1_vec[2] - offset_vec_iss[2]) / dt];
+	target_prox_x: 0.0,
+	target_prox_y: 0.0,
+	target_prox_z: 0.0,
+
+	target_prox_vx: 0.0,
+	target_prox_vy: 0.0,
+	target_prox_vz: 0.0,
+	
+	tpnorm: [0.0, 0.0, 0.0],
+	pnorm: [0.0, 0.0, 0.0],
+	vnorm: [0.0, 0.0, 0.0],
+	tvnorm: [0.0, 0.0, 0.0],
+	nnorm: [0.0, 0.0, 0.0],
+	tnnorm: [0.0, 0.0, 0.0],
+
+	perfect_navigation: 0,
+
+	error_x: 0.0,
+	error_y: 0.0,
+	error_z: 0.0,
+
+	error_amp_x: 0.0,
+	error_amp_y: 0.0,
+	error_amp_z: 0.0,
+
+	error_x_filtered: 0.0,
+	error_y_filtered: 0.0,
+	error_z_filtered: 0.0,
+
+	error_x_cand: 0.0,
+	error_y_cand: 0.0,
+	error_z_cand: 0.0,
+
+	update_x: 0.0,
+	update_y: 0.0,
+	update_z: 0.0,
+	update_rdot: 0.0,
+
+	error_d_factor: 0.0,
+	error_d_rr: 0.0,
+	error_rdot: 0.0,
+	error_rdot_cand: 0.0,
+	error_rdot_filtered: 0.0,
+
+	angle_sensor_selection: 0,
+	sv_selection: 0,
+	rel_nav_enable: 0,
+
+	rng_ratio: 0.0,
+	rng_resid: 0.0,
+	rng_aut: 0,
+	rng_inh: 1,
+	rng_for: 0,
+
+	rdot_ratio: 0.0,
+	rdot_resid: 0.0,
+	rdot_aut: 0,
+	rdot_inh: 1,
+	rdot_for: 0,
+
+	y_ratio: 0.0,
+	y_resid: 0.0,
+	y_aut: 0,
+	y_inh: 1,
+	y_for: 0,
+
+	z_ratio: 0.0,
+	z_resid: 0.0,
+
+	gps_p_ratio: 0.0,
+	gps_p_resid: 0.0,
+	gps_v_ratio: 0.0,
+	gps_v_resid: 0.0,
+	gps_aut: 0,
+	gps_inh: 1,
+	gps_for: 0,
+
+	rr_data_good: 0,
+	ang_data_good: 0,
+
+	
+	r: 0.0,
+	rt: 0.0,
+	v: 0.0,
+	vt: 0.0,
+
+	history_available: 0,
+	history_counter: 0,
+	history_reset: 0,
+	prox_history: [],
+	plot_scale: 500,
+
+
+	node_crossing_time: 0,
+	node_crossing_time_string: "",
+	node_crossing_time_string_short: "",
+	node_crossing_burn_time: 0,
+	node_crossing_burn_time_string: "",	
+	node_crossing_burn_time_string_short: "",	
+	node_crossing_counter: 0,
+	node_crossing_check_veto: 0,	
+	node_crossing_dy: 0,
+
+	shuttleCoord: {},
+	tgtCoord: {},
+
+
+	init: func {
+
+
+   		me.nd_ref_true_anomaly = props.globals.getNode("/fdm/jsbsim/systems/orbital/true-anomaly-rad", 1);
+   		me.nd_ref_orbital_period = props.globals.getNode("/fdm/jsbsim/systems/orbital/orbital-period-s", 1);
+		me.nd_ref_trafo_angle = props.globals.getNode("/fdm/jsbsim/systems/pointing/inertial/ecf-to-eci-rad-alt", 1);
+
+		me.error_init();
+
+	},
+
+
+	check_distance: func {
+
+		if (SpaceShuttle.n_orbital_targets == 0) {return;} 
+
+		me.shuttle_pos[0] = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+		me.shuttle_pos[1] = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+		me.shuttle_pos[2] = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+
+		me.tgt_pos = SpaceShuttle.oTgt.get_inertial_pos();
+
+
+		var difference = SpaceShuttle.subtract_vector(me.shuttle_pos, me.tgt_pos);
+
+		me.distance = SpaceShuttle.norm(difference);
+
 		
+		#print ("Distance to ISS: ", me.distance);
 
 
-		issState = compute_state_correction  (issState, issCoord, shuttleCoord, v_offset_vec, delta_lon);
-		if (placement_flag == 1)
+
+		var met = SpaceShuttle.get_MET();
+		if ((met > me.node_crossing_time) and (me.node_crossing_check_veto == 0))
 			{
-			var iss_placement = geo.Coord.new();
-			iss_placement.set_xyz (issState.x, issState.y, issState.z);
-			iss_placement.set_lon (iss_placement.lon() + 0.005);
-			issState.x = iss_placement.x();
-			issState.y = iss_placement.y();
-			issState.z = iss_placement.z();
+			me.node_crossing_check_veto = 1;
+			me.force_node_check();
+			settimer (func {me.node_crossing_check_veto = 0;}, 10.0);
 			}
-		else if (placement_flag == 2)
+
+
+		if (getprop("/controls/shuttle/ISS/docking-flag") == 1)
 			{
-			var iss_placement = geo.Coord.new();
-			iss_placement.set_xyz (issState.x, issState.y, issState.z);
-
-			var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
-
-			var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
-
-			var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
-
-			var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(-8.1, shuttleWorldX), SpaceShuttle.scalar_product(1.0, shuttleWorldZ));
-
-			iss_placement.set_x( iss_placement.x() - dockingCollarOffset[0]); 
-			iss_placement.set_y( iss_placement.y() - dockingCollarOffset[1]); 
-			iss_placement.set_z( iss_placement.z() - dockingCollarOffset[2]); 
-
-			issState.x = iss_placement.x();
-			issState.y = iss_placement.y();
-			issState.z = iss_placement.z();
+			me.iss_model = 1;
 			}
-		}
-	iss_loop_flag = iss_loop_flag + 1;
-
-	}
 
 
-set_coords("ISS", issCoord, issState);
+		if ((me.distance <  SpaceShuttle.orbital_target_lod) or (me.iss_model == 1))
+			{
+			#me.do_history();
+			me.history_available = 0;
+			}
+		else if (me.distance < 100000.0)
+			{
+			me.do_history();
+			me.set_sensor_tracking();
+			me.history_available = 1;
+			me.plot_scale = 100;
+			}
+		else if (me.distance < 500000.0)
+			{
+			me.do_history();
+			me.history_available = 1;
+			me.plot_scale = 500;
+			}
+		else
+			{
+			me.plot_scale = 500;
+			me.history_available = 0;
+			}
 
-# we have to do the antenna tracking here rather than in the antenna manager, because
-# the antenna manager might run outside a frame, in which case the coordinate is displaced
-# leading to odd tracking angles for the antenna
+		if (me.history_reset == 1)
+			{
+			me.compute_proximity();
+			#print ("Resetting history!");
+			
+			setsize(me.prox_history, 0);
+			for (var i = 0; i< 60; i=i+1)
+				{
+				append(me.prox_history, [me.target_prox_x, me.target_prox_z]);
+				}
+			me.history_reset = 0;
+		
+			}
 
 
-if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
-		{
-		SpaceShuttle.antenna_manager.set_rr_target(issCoord);
+		if ((me.distance <  SpaceShuttle.orbital_target_lod) and (me.iss_model == 0)) 
+			{
+			me.compute_proximity();
+			me.compute_vdiff();
+			
+			SpaceShuttle.iss_manager.init(me.target_prox_x, me.target_prox_y, me.target_prox_z, me.delta_v[0],me.delta_v[1],me.delta_v[2]);
+			me.iss_model = 1;
+			print ("Placing ISS model!");
+			}
+		else if (me.iss_model == 1)
+			{
+			SpaceShuttle.iss_manager.request_proximity();
+			me.distance = math.sqrt(math.pow(me.target_prox_x,2.0) + math.pow(me.target_prox_y,2.0) + math.pow(me.target_prox_z,2.0));
+
+			# propagated distance and error
+			me.distance_prop = math.sqrt(math.pow((me.target_prox_x + me.error_x),2.0) + math.pow((me.target_prox_y + me.error_y),2.0) + math.pow((me.target_prox_z + me.error_z),2.0));
+			me.distance_error = me.distance_prop - me.distance;
+
+			# filtered distance candidate and error
+			me.distance_cand = math.sqrt(math.pow((me.target_prox_x + me.error_x_cand),2.0) + math.pow((me.target_prox_y + me.error_y_cand),2.0) + math.pow((me.target_prox_z + me.error_z_cand),2.0));
+			me.distance_error_cand = me.distance_cand - me.distance;
+
+			me.distance_filtered = math.sqrt(math.pow((me.target_prox_x + me.error_x_filtered),2.0) + math.pow((me.target_prox_y + me.error_y_filtered),2.0) + math.pow((me.target_prox_z + me.error_z_filtered),2.0));
+			me.distance_error_filtered = me.distance_filtered - me.distance;
+
+			me.distance_sensed = me.distance + me.error_d_rr;
+
+
+
+			if (me.distance < 20.0) 
+				{me.plot_scale = 0.01;} 
+			else {me.plot_scale = 10;}
+			}
+
+		# compute ddot from the distance measure we've used, either to coordinate pos or full 3d model
+
+		me.time = getprop("/sim/time/elapsed-sec");
+		me.ddot = (me.distance - me.distance_last)/ (me.time - me.timestamp);
+
+		# filter out jitter
+		if ((math.abs(me.ddot_last - me.ddot) > 50.0) and (me.ddot_strikes < 3))
+			{
+			me.ddot = me.ddot_last;	
+			me.ddot_strikes += 1;
+			}		
+		else
+			{
+			me.ddot_last = me.ddot;
+			me.ddot_strikes = 0;
+			}
+
+		me.timestamp = me.time;
+		me.distance_last = me.distance;
+
+		me.check_node();
+
+		if (me.rel_nav_enable == 1)
+			{
+			me.error_propagate();
+			me.error_filter();
+			}
+
+
+	},
+
+	do_history: func {
+
+		if ((me.history_counter == 0) and (me.history_available == 0))
+			{
+
+			me.compute_proximity();
+			#print ("History init!");
+
+			# propagated distance
+			me.distance_prop = math.sqrt(math.pow((me.target_prox_x + me.error_x),2.0) + math.pow((me.target_prox_y + me.error_y),2.0) + math.pow((me.target_prox_z + me.error_z),2.0));
+			me.distance_error = me.distance_prop - me.distance;
+
+			# filtered distance candidate and error
+			me.distance_cand = math.sqrt(math.pow((me.target_prox_x + me.error_x_cand),2.0) + math.pow((me.target_prox_y + me.error_y_cand),2.0) + math.pow((me.target_prox_z + me.error_z_cand),2.0));
+			me.distance_error_cand = me.distance_cand - me.distance;
+
+			me.distance_filtered = math.sqrt(math.pow((me.target_prox_x + me.error_x_filtered),2.0) + math.pow((me.target_prox_y + me.error_y_filtered),2.0) + math.pow((me.target_prox_z + me.error_z_filtered),2.0));
+			me.distance_error_filtered = me.distance_filtered - me.distance;
+
+			me.distance_sensed = me.distance + me.error_d_rr;
+
+			setsize(me.prox_history, 0);
+			for (var i = 0; i< 60; i=i+1)
+				{
+				append(me.prox_history, [me.target_prox_x, me.target_prox_z]);
+				}
+			me.history_available = 1;
+			}
+		else if ((me.history_counter == 0) and (me.history_available == 1))
+			{
+			me.compute_proximity();
+
+			# propagated distance
+
+			me.distance_prop = math.sqrt(math.pow((me.target_prox_x + me.error_x),2.0) + math.pow((me.target_prox_y + me.error_y),2.0) + math.pow((me.target_prox_z + me.error_z),2.0));
+			me.distance_error = me.distance_prop - me.distance;
+
+			# filtered distance candidate and error
+			me.distance_cand = math.sqrt(math.pow((me.target_prox_x + me.error_x_cand),2.0) + math.pow((me.target_prox_y + me.error_y_cand),2.0) + math.pow((me.target_prox_z + me.error_z_cand),2.0));
+			me.distance_error_cand = me.distance_cand - me.distance;
+
+			me.distance_filtered = math.sqrt(math.pow((me.target_prox_x + me.error_x_filtered),2.0) + math.pow((me.target_prox_y + me.error_y_filtered),2.0) + math.pow((me.target_prox_z + me.error_z_filtered),2.0));
+			me.distance_error_filtered = me.distance_filtered - me.distance;
+
+			me.distance_sensed = me.distance + me.error_d_rr;
+
+			#print ("x: ", me.target_prox_x, " y:", me.target_prox_z);
+			me.prox_history = SpaceShuttle.delete_from_vector(me.prox_history,0);
+			append(me.prox_history, [me.target_prox_x, me.target_prox_z]);
+			}
+
+		var h_interval = 60;
+		if (me.plot_scale == 500)
+			{
+			h_interval = 180.0;
+			}
+
+
+		me.history_counter +=1;
+		if (me.history_counter > (h_interval-1) ) {me.history_counter = 0;}
+
+	},
+
+
+	check_node: func {
+
+		if (SpaceShuttle.lambert_manager.pa_ready == 1)
+			{
+
+			me.node_crossing_time = SpaceShuttle.lambert_manager.pa_time;
+			me.node_crossing_burn_time = SpaceShuttle.lambert_manager.pa_tig;
+
+			me.node_crossing_time_string = SpaceShuttle.seconds_to_stringDHMS(me.node_crossing_time);
+			me.node_crossing_burn_time_string = SpaceShuttle.seconds_to_stringDHMS(me.node_crossing_burn_time);
+			
+			me.node_crossing_time_string_short = substr(me.node_crossing_time_string, 4);
+			me.node_crossing_burn_time_string_short = substr(me.node_crossing_burn_time_string, 4);
+			
+			me.node_crossing_dy = SpaceShuttle.lambert_manager.pa_dvy;
+
+			SpaceShuttle.lambert_manager.pa_ready = 0;
+			}
+
+
+		if (me.node_crossing_counter == 0)
+			{
+			SpaceShuttle.lambert_manager.pa_search_init();
+			}
+		
+		me.node_crossing_counter +=1;
+		if (me.node_crossing_counter == 300)
+			{
+			me.node_crossing_counter = 0;
+			}
+
+	},
+
+	force_node_check: func {
+
+			me.node_crossing_counter = 0;
+
+	},
+
+	compute_proximity: func {
+
+		me.shuttle_vel[0] = getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048;
+		me.shuttle_vel[1] = getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048;
+		me.shuttle_vel[2] = getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048;
+
+		me.v = SpaceShuttle.norm(me.shuttle_vel);
+		me.vnorm[0] = me.shuttle_vel[0] / me.v;
+		me.vnorm[1] = me.shuttle_vel[1] / me.v;
+		me.vnorm[2] = me.shuttle_vel[2] / me.v;
+
+		me.r = SpaceShuttle.norm(me.shuttle_pos);
+		me.pnorm[0] = me.shuttle_pos[0]/me.r;
+		me.pnorm[1] = me.shuttle_pos[1]/me.r;
+		me.pnorm[2] = me.shuttle_pos[2]/me.r;
+		
+		me.nnorm = SpaceShuttle.cross_product(me.pnorm, me.vnorm);
+
+		me.rt = SpaceShuttle.norm(me.tgt_pos);
+		me.tpnorm[0] = me.tgt_pos[0]/me.rt;
+		me.tpnorm[1] = me.tgt_pos[1]/me.rt;
+		me.tpnorm[2] = me.tgt_pos[2]/me.rt;
+
+		me.tgt_vel = SpaceShuttle.oTgt.get_inertial_speed();
+
+		me.vt = SpaceShuttle.norm(me.tgt_vel);
+		me.tvnorm[0] = me.tgt_vel[0]/me.vt;
+		me.tvnorm[1] = me.tgt_vel[1]/me.vt;
+		me.tvnorm[2] = me.tgt_vel[2]/me.vt;
+
+		me.tnnorm = SpaceShuttle.cross_product(me.tpnorm, me.tvnorm);
+
+
+		var ang_xt = 0.5 * math.pi - math.acos(SpaceShuttle.dot_product(me.tpnorm, me.nnorm));
+		var delta_ang = math.acos(SpaceShuttle.dot_product(me.pnorm, me.tpnorm));
+	
+		var ang = math.acos(math.cos(delta_ang) / math.cos(ang_xt));
+		var sign = 1.0;
+		
+		if (((me.tgt_pos[0] - me.shuttle_pos[0]) * me.vnorm[0] + (me.tgt_pos[1] - me.shuttle_pos[1]) * me.vnorm[1] + (me.tgt_pos[2] - me.shuttle_pos[2]) * me.vnorm[2]) < 0.0)
+			{
+			sign = -1.0;
+			}
+
+		me.target_prox_x = sign * ang * me.r;
+		me.target_prox_y = -ang_xt * me.r;
+		me.target_prox_z = me.r - me.rt;
+
+		me.tgt_vel = SpaceShuttle.oTgt.get_inertial_speed();
+
+
+		me.target_prox_vx = me.tgt_vel[0] * me.tvnorm[0] - me.shuttle_vel[0] * me.vnorm[0];
+		me.target_prox_vx += me.tgt_vel[1] * me.tvnorm[1] - me.shuttle_vel[1] * me.vnorm[1];
+		me.target_prox_vx += me.tgt_vel[2] * me.tvnorm[2] - me.shuttle_vel[2] * me.vnorm[2];
+
+		me.target_prox_vy = me.tgt_vel[0] * me.nnorm[0] - me.shuttle_vel[0] * me.nnorm[0];
+		me.target_prox_vy += me.tgt_vel[1] * me.nnorm[1] - me.shuttle_vel[1] * me.nnorm[1];
+		me.target_prox_vy += me.tgt_vel[2] * me.nnorm[2] - me.shuttle_vel[2] * me.nnorm[2];
+
+		me.target_prox_vz = me.tgt_vel[0] * me.tpnorm[0] - me.shuttle_vel[0] * me.pnorm[0];
+		me.target_prox_vz += me.tgt_vel[1] * me.tpnorm[1] - me.shuttle_vel[1] * me.pnorm[1];
+		me.target_prox_vz += me.tgt_vel[2] * me.tpnorm[2] - me.shuttle_vel[2] * me.pnorm[2];
+
+
+
+	},
+
+	list_proximity: func {
+
+
+		print ("Position:");
+		print ("x: ", me.target_prox_x);
+		print ("y: ", me.target_prox_y);
+		print ("z: ", me.target_prox_z);
+		print ("");
+		print ("Velocity:");
+		print ("vx: ", me.target_prox_vx);
+		print ("vy: ", me.target_prox_vy);
+		print ("vz: ", me.target_prox_vz);
+
+	},
+
+
+	set_sensor_tracking: func {
+
+	
+		if ((SpaceShuttle.antenna_manager.function == "RDR PASSIVE") or (SpaceShuttle.star_tracker_array[0].mode == 2) or (SpaceShuttle.star_tracker_array[1].mode == 2))
+			{
+
+			me.tgtCoord = geo.Coord.new();
+			me.tgtCoord.set_xyz(me.tgt_pos[0], me.tgt_pos[1], me.tgt_pos[2]);
+
+			me.shuttleCoord = geo.Coord.new();
+			me.shuttleCoord.set_xyz(me.shuttle_pos[0], me.shuttle_pos[1], me.shuttle_pos[2]);
+
+			var angle = me.nd_ref_trafo_angle.getValue() * 180.0/math.pi;
+			#var angle = getprop("/fdm/jsbsim/systems/pointing/inertial/ecf-to-eci-rad-alt") * 180.0/math.pi;
+			
+			# transform from inertial to world			
+
+			me.shuttleCoord.set_lon(me.shuttleCoord.lon() - angle);
+			me.tgtCoord.set_lon(me.tgtCoord.lon() - angle);
+
+			#var test_coord = geo.aircraft_position();
+
+			#var bearing = me.shuttleCoord.course_to(me.tgtCoord);
+			#print ("Bearing", bearing);
+
+			#print ("Shuttle: ");
+			#print (me.shuttleCoord.x(), " ", me.shuttleCoord.y(), " ", me.shuttleCoord.z());
+			#print ("Direct:  ");
+			#print (test_coord.x(), " ", test_coord.y(), " ", test_coord.z());
+			}		
+
+
+		if (SpaceShuttle.antenna_manager.function == "RDR PASSIVE") 
+			{
+			
+
+			SpaceShuttle.antenna_manager.set_rr_target(me.tgtCoord);
 			if ((SpaceShuttle.antenna_manager.rr_target_available == 1) and (SpaceShuttle.antenna_manager.rvdz_data == 1))
 				{
-				SpaceShuttle.antenna_manager.ku_antenna_track_target(issCoord);
+				SpaceShuttle.antenna_manager.ku_antenna_track_target(me.tgtCoord, me.shuttleCoord);
 				}		
-		}
-if (SpaceShuttle.star_tracker_array[0].mode == 2)
-	{
-	SpaceShuttle.star_tracker_array[0].set_target(issCoord);
-	}
-
-if (SpaceShuttle.star_tracker_array[1].mode == 2)
-{
-	SpaceShuttle.star_tracker_array[1].set_target(issCoord);
-	}
-
-
-
-# check docking conditions
-# we need to do this for the docking collar, so we need its position in FG world
-# coordinates
-# we also need LVLH coordinates for the Y vector and theta
-# since FG manages attitude in LVLH pitch, yaw and roll
-# (basically this is a mess)
-
-var shuttleWorldX = [getprop("/fdm/jsbsim/systems/pointing/world/body-x"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-x[2]")];
-
-var shuttleWorldZ = [getprop("/fdm/jsbsim/systems/pointing/world/body-z"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[1]"), getprop("/fdm/jsbsim/systems/pointing/world/body-z[2]")];
-
-var shuttleLVLHZ = [-getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[1]"), -getprop("/fdm/jsbsim/systems/pointing/lvlh/body-z[2]")];
-
-var dockingCollarOffset = SpaceShuttle.add_vector(SpaceShuttle.scalar_product(8.1, shuttleWorldX), SpaceShuttle.scalar_product(-1.0, shuttleWorldZ));
-
-shuttleCoord.set_x (shuttleCoord.x() + dockingCollarOffset[0]);
-shuttleCoord.set_y (shuttleCoord.y() + dockingCollarOffset[1]);
-shuttleCoord.set_z (shuttleCoord.z() + dockingCollarOffset[2]);
-
-var dist = shuttleCoord.distance_to(issCoord);
-var ddot = (dist - d_last)/dt;
-d_last = dist;
-
-setprop("/fdm/jsbsim/systems/rendezvous/target/distance-m", dist);
-setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-m_s", ddot);
-
-var iss_roll = getprop("/controls/shuttle/ISS/roll-deg");
-var iss_pitch = getprop("/controls/shuttle/ISS/pitch-deg");
-var iss_yaw = getprop("/controls/shuttle/ISS/heading-deg");
-
-var y_vec = orientTaitBryan([0.0, 0.0,-1.0], iss_yaw, iss_pitch, iss_roll);
-
-var lat_to_m = 110952.0;
-var lon_to_m  = math.cos(issCoord.lat()*math.pi/180.0) * lat_to_m;
-
-var x_lvlh = (issCoord.lon() - shuttleCoord.lon()) * lon_to_m;
-var y_lvlh = (issCoord.lat() - shuttleCoord.lat()) * lat_to_m;
-var z_lvlh = (issCoord.alt() - shuttleCoord.alt());
-
-var rel_vec = [x_lvlh, y_lvlh, z_lvlh];
-
-
-var y = -SpaceShuttle.dot_product(y_vec, rel_vec);
-var ydot = (y - y_last)/dt;
-y_last = y;
-var theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
-
-setprop("/fdm/jsbsim/systems/rendezvous/target/Y-m",y);
-setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-m_s",ydot);
-setprop("/fdm/jsbsim/systems/rendezvous/target/theta",theta);
-
-
-
-
-if (dist > 5000.0) 
-	{
-	print ("ISS explicit simulation ends");
-	issModel.remove();
-	iss_loop_flag = 0;
-	}
-
-if (dist < 0.4)
-	{
-	
-	if ((getprop("/controls/shuttle/ISS/docking-veto") == 0) and (theta < 15.0))
-		{
-		setprop("/sim/messages/copilot", "Successful ISS docking!");
-
-		setprop("/controls/shuttle/ISS/docking-flag", 1);
-		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[6]", 924740.0);
-		controls.centerFlightControls();
-		setprop("/fdm/jsbsim/systems/ap/orbital-dap-inertial", 0);
-		setprop("/fdm/jsbsim/systems/ap/orbital-dap-auto", 0);
-		setprop("/fdm/jsbsim/systems/ap/orbital-dap-lvlh", 0);
-		setprop("/fdm/jsbsim/systems/ap/orbital-dap-free", 1);
-		SpaceShuttle.switch_orbital_dap(4);
-		issModel.remove();
-		iss_loop_flag = 0;
-
-		var x1_vec = orientTaitBryan([1.0, 0.0,0.0], iss_yaw, iss_pitch, iss_roll);
-		var x2_vec = orientTaitBryan([0.0, 1.0, 0.0], iss_yaw, iss_pitch, iss_roll);
-
-		var shuttleLVLHX = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-x[2]")];
-
-		var shuttleLVLHY = [getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[1]"), getprop("/fdm/jsbsim/systems/pointing/lvlh/body-y[2]")];
-
-		var omega = 180/math.pi * math.acos(SpaceShuttle.dot_product(shuttleLVLHX, x1_vec));
-		
-		if (SpaceShuttle.dot_product(shuttleLVLHY, x2_vec) < 0.0)
-			{
-			omega = - omega;
 			}
-		setprop("/controls/shuttle/ISS/rel-heading-deg", -omega); 
-		}
+		if (SpaceShuttle.star_tracker_array[0].mode == 2)
+			{
+			SpaceShuttle.star_tracker_array[0].set_target(me.tgtCoord);
+			}
 
-	}
+		if (SpaceShuttle.star_tracker_array[1].mode == 2)
+			{
+			SpaceShuttle.star_tracker_array[1].set_target(me.tgtCoord);
+			}
 
-
-
-# in addition to the real docking parameters (which we have to use to evaluate docking)
-# we have to generate the displayed ones repeating the computation with the
-# ISS coordinates plus errors
-
-issCoord = SpaceShuttle.blur_tgt_coord(issCoord);
-dist = shuttleCoord.distance_to(issCoord);
-ddot = (dist - d_disp_last)/dt;
-d_disp_last = dist;
-
-setprop("/fdm/jsbsim/systems/rendezvous/target/distance-prop-m", dist);
-setprop("/fdm/jsbsim/systems/rendezvous/target/ddot-prop-m_s", ddot);
-
-x_lvlh = (issCoord.lon() - shuttleCoord.lon()) * lon_to_m;
-y_lvlh = (issCoord.lat() - shuttleCoord.lat()) * lat_to_m;
-z_lvlh = (issCoord.alt() - shuttleCoord.alt());
-
-rel_vec = [x_lvlh, y_lvlh, z_lvlh];
-
-y = -SpaceShuttle.dot_product(y_vec, rel_vec);
-ydot = (y - y_disp_last)/dt;
-y_disp_last = y;
-theta = 180.0/math.pi * math.acos(SpaceShuttle.dot_product(y_vec, shuttleLVLHZ));
-
-setprop("/fdm/jsbsim/systems/rendezvous/target/Y-prop-m",y);
-setprop("/fdm/jsbsim/systems/rendezvous/target/Ydot-prop-m_s",ydot);
-setprop("/fdm/jsbsim/systems/rendezvous/target/theta-prop",theta);
+	},
 
 
-if (iss_loop_flag >0 ) {settimer(func {update_iss(delta_lon, d_last, d_disp_last, y_last, y_disp_last, placement_flag); },0.0);}
-}
 
+	compute_vdiff : func {
+
+		me.delta_v = [0,0,0];
+
+
+		me.list_proximity();
+		
+		me.delta_v[0] = me.target_prox_vx * me.tvnorm[0] + me.target_prox_vy * me.tnnorm[0]  + me.target_prox_vz * me.tpnorm[0];
+		me.delta_v[1] = me.target_prox_vy * me.tvnorm[1] + me.target_prox_vy * me.tnnorm[1]  + me.target_prox_vz * me.tpnorm[1];
+		me.delta_v[2] = me.target_prox_vx * me.tvnorm[2] + me.target_prox_vy * me.tnnorm[2]  + me.target_prox_vz * me.tpnorm[2];
+
+
+
+		print ("Velocity differences proximity: ");
+		print (me.target_prox_vx, " ", me.target_prox_vy, " ", me.target_prox_vz);
+		print ("Velocity differences inertial: ");
+		print (me.delta_v[0], " ", me.delta_v[1], " ", me.delta_v[2]);
+
+
+		#me.shuttle_vel[0] = getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048;
+		#me.shuttle_vel[1] = getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048;
+		#me.shuttle_vel[2] = getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048;
+
+		#me.tgt_vel = SpaceShuttle.oTgt.get_inertial_speed();
+
+		#me.delta_v[0] = me.tgt_vel[0] - me.shuttle_vel[0];
+		#me.delta_v[1] = me.tgt_vel[1] - me.shuttle_vel[1];
+		#me.delta_v[2] = me.tgt_vel[2] - me.shuttle_vel[2];
+
+		#print ("Velocity differences direct: ");
+		#print (me.delta_v[0], " ", me.delta_v[1], " ", me.delta_v[2]);
+		
+		
+	},
+
+
+	provide_tracking: func {
+
+		# provides tracking vectors for UNIV PTG
+
+
+
+		# pointing vector  in inertial coordinates
+
+		var shuttle_inertial = [me.shuttle_pos[0], me.shuttle_pos[1], me.shuttle_pos[2]];
+		var tgt_inertial = [me.tgt_pos[0], me.tgt_pos[1], me.tgt_pos[2]];
+
+		var pointer = SpaceShuttle.normalize(SpaceShuttle.subtract_vector(tgt_inertial, shuttle_inertial));
+		
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[0]", pointer[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[1]", pointer[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-vector[2]", pointer[2]);
+
+		var body_vec_selection = getprop("/fdm/jsbsim/systems/ap/track/body-vector-selection");
+
+		var ref_vector = [];
+
+		if (body_vec_selection == 1)
+			{
+			ref_vec = [0.0, 0.0, 1.0];
+			}
+		else if (body_vec_selection == 2)
+			{
+			ref_vec = [0.0, 0.0, -1.0];
+			}
+		else if (body_vec_selection == 3)
+			{
+			ref_vec = [0.0, 0.0, 1.0];
+			}
+
+		var second = SpaceShuttle.orthonormalize(pointer, [0.0, 0.0, 1.0]);
+
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", second[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", second[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", second[2]);
+
+		var third = SpaceShuttle.cross_product(pointer, second);
+
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[0]", third[0]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[1]", third[1]);
+		setprop("/fdm/jsbsim/systems/ap/track/target-trd[2]", third[2]);
+
+
+	},
+
+
+
+	error_init: func {
+
+		me.perfect_navigation = 1 - getprop("/fdm/jsbsim/systems/navigation/state-vector/use-realistic-sv");
+
+		me.error_amp_x = (rand() - 0.5) * 500.0;
+		me.error_amp_y = (rand() - 0.5) * 500.0;
+		me.error_amp_z = (rand() - 0.5) * 500.0;
+
+		me.error_phase_xz = rand() * 2.0 * math.pi;
+		me.error_phase_y = rand() * 2.0 * math.pi;
+
+		var true_anomaly_rad = getprop("/fdm/jsbsim/systems/orbital/true-anomaly-rad");
+
+		me.error_x = math.sin(true_anomaly_rad + me.error_phase_xz) * me.error_amp_x * (1-me.perfect_navigation);
+		me.error_z = math.cos(true_anomaly_rad + me.error_phase_xz) * me.error_amp_z * (1-me.perfect_navigation);
+		me.error_y = math.sin(true_anomaly_rad + me.error_phase_y) * me.error_amp_y * (1-me.perfect_navigation);
+
+		me.error_x_filtered = me.error_x;
+		me.error_y_filtered = me.error_y;
+		me.error_z_filtered = me.error_z;
+
+		me.error_x_cand = me.error_x;
+		me.error_y_cand = me.error_y;
+		me.error_z_cand = me.error_z;
+
+		me.error_d_factor = (rand() - 0.5) * 0.02;
+
+	},
+
+	error_propagate: func {
+
+		#var true_anomaly_rad = getprop("/fdm/jsbsim/systems/orbital/true-anomaly-rad");
+		#var period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
+
+		var true_anomaly_rad = me.nd_ref_true_anomaly.getValue();
+		var period = me.nd_ref_orbital_period.getValue();
+
+		me.error_x = math.sin(true_anomaly_rad + me.error_phase_xz) * me.error_amp_x * (1-me.perfect_navigation);
+		me.error_z = math.cos(true_anomaly_rad + me.error_phase_xz) * me.error_amp_z * (1-me.perfect_navigation);
+		me.error_y = math.sin(true_anomaly_rad + me.error_phase_y) * me.error_amp_y * (1-me.perfect_navigation);
+
+		me.error_d_rr = me.distance * me.error_d_factor * (1-me.perfect_navigation);
+
+		me.error_rdot = -math.cos(true_anomaly_rad + me.error_phase_xz) * me.error_amp_x * (1-me.perfect_navigation) * 2.0 * math.pi/period;
+
+	},
+
+	error_filter: func {
+
+
+		me.ang_data_good = 0;
+		me.rr_data_good = 1;
+		if (SpaceShuttle.antenna_manager.tgt_acquired == 0) {me.rr_data_good = 0;}
+		else if (me.distance > 46000.0) {me.rr_data_good = 0;}
+		else if (SpaceShuttle.antenna_manager.function == "COMM") {me.rr_data_good = 0;}
+		
+		#print ("RR working flag: ", me.rr_data_good);
+
+
+		if (me.angle_sensor_selection == 0) # star tracker
+			{
+			
+			if ((SpaceShuttle.star_tracker_array[0].target_acquired == 1) or  (SpaceShuttle.star_tracker_array[1].target_acquired == 1))
+			
+				{			
+				var ang_res = me.distance * 0.00029; 
+				
+				me.ang_data_good = 1;
+
+				
+				if (me.error_y > ang_res)
+					{
+					me.error_y_cand = ang_res;
+					}
+				else if (me.error_y < -ang_res)
+					{
+					me.error_y_cand = -ang_res;
+					}
+				else
+					{
+					me.error_y_cand = me.error_y;
+					}
+
+				if (me.error_z > ang_res)
+					{
+					me.error_z_cand = ang_res;
+					}
+				else if (me.error_z < -ang_res)
+					{
+					me.error_z_cand = -ang_res;
+					}
+				else
+					{
+					me.error_z_cand = me.error_z;
+					}
+
+				#print ("Star tracker tracking target!");	
+				#print ("Ang res: ", ang_res);
+				#print ("Y:", me.error_y, " ", me.error_y_cand);	
+				#print ("Z:", me.error_z, " ", me.error_z_cand);	
+				}				
+	
+			}
+		else if (me.angle_sensor_selection == 1) # radar ranger
+			{
+			if (me.rr_data_good == 1)
+				{
+
+				me.ang_data_good = 1;
+				var ang_res = me.distance * 0.0053; 
+
+				if (me.error_y > ang_res)
+					{
+					me.error_y_cand = ang_res;
+					}
+				else if (me.error_y < -ang_res)
+					{
+					me.error_y_cand = -ang_res;
+					}
+				else
+					{
+					me.error_y_cand = me.error_y;
+					}
+
+				if (me.error_z > ang_res)
+					{
+					me.error_z_cand = ang_res;
+					}
+				else if (me.error_z < -ang_res)
+					{
+					me.error_z_cand = -ang_res;
+					}
+				else 
+					{
+					me.error_z_cand = me.error_z;
+					}
+
+				#print ("RR tracking target!");	
+				#print ("Ang res: ", ang_res);
+				#print ("Distance: ", me.distance);
+				#print ("Y:", me.error_y, " ", me.error_y_cand);	
+				#print ("Z:", me.error_z, " ", me.error_z_cand);
+			
+
+				}
+
+
+			}
+
+		if (me.rr_data_good == 1)
+			{
+			var dist_resolution = me.distance * 0.01;
+			if (dist_resolution < 25.0) {dist_resolution = 25.0;}
+
+			var rate_resolution = 0.6 * 0.3048;
+	
+			if (me.error_x > dist_resolution)
+				{
+				me.error_x_cand = dist_resolution;
+				}
+			else if (me.error_x < -dist_resolution)
+				{
+				me.error_x_cand = -dist_resolution;
+				}
+			else 
+				{
+				me.error_x_cand = me.error_x;
+				}
+
+			if (me.error_rdot > rate_resolution)
+				{
+				me.error_rdot_cand = rate_resolution;
+				}
+			else if (me.error_rdot < -rate_resolution)
+				{
+				me.error_rdot_cand = -rate_resolution;
+				}
+			else 
+				{
+				me.error_rdot_cand = me.error_rdot;
+				}
+
+
+				#print ("Dist res: ", dist_resolution);
+				#print ("X:", me.error_x, " ", me.error_x_cand);
+				#print ("rdot: ", me.error_rdot, " ", me.error_rdot_cand);
+			}
+
+
+		me.rng_resid = math.abs(me.distance_prop - me.distance_cand)/0.3048/1000.;
+		me.rng_ratio = me.rng_resid / (me.distance/0.3048/1000. * 0.1);
+
+		me.rdot_resid = math.abs(me.error_rdot - me.error_rdot_cand)/0.3048;
+		me.rdot_ratio = me.rdot_resid/(me.distance/6000.0 * 0.05);
+
+		me.y_resid = math.abs(me.error_y - me.error_y_cand)/ me.distance * 180.0/math.pi;
+		me.y_ratio = me.y_resid/1.0;
+
+		me.z_resid = math.abs(me.error_z - me.error_z_cand)/ me.distance * 180.0/math.pi;
+		me.z_ratio = me.z_resid/1.0;
+
+		me.gps_p_resid = math.abs(me.distance_prop - me.distance)/0.3048/1000.;
+		me.gps_p_ratio = me.gps_p_resid/ (me.distance * 0.1);
+
+		me.gps_v_resid = 0.01;
+		me.gps_v_ratio = me.rdot_resid/0.05;
+
+		if (me.rng_aut == 1)
+			{
+			if (me.rng_ratio < 1.0)
+				{
+				me.update_x = math.abs(me.error_x_filtered - me.error_x_cand);
+				me.error_x_filtered = me.error_x_cand;
+				}
+			}
+		else if (me.rng_for == 1)
+			{
+			me.update_x = math.abs(me.error_x_filtered - me.error_x_cand);
+			me.error_x_filtered = me.error_x_cand;
+			settimer( func {me.rng_for = 0; me.rng_aut = 1;}, 2.0);
+			}
+		else
+			{
+			me.error_x_filtered = me.error_x;
+			}
+
+		if (me.y_aut == 1)
+			{
+			if (me.y_ratio < 1.0)
+				{
+				me.update_y = math.abs(me.error_y_filtered - me.error_y_cand);
+				me.update_z = math.abs(me.error_z_filtered - me.error_z_cand);
+				me.error_y_filtered = me.error_y_cand;
+				me.error_z_filtered = me.error_z_cand;
+				}
+
+			}
+		else if (me.y_for == 1)
+			{
+			me.update_y = math.abs(me.error_y_filtered - me.error_y_cand);
+			me.update_z = math.abs(me.error_z_filtered - me.error_z_cand);
+			me.error_y_filtered = me.error_y_cand;
+			me.error_z_filtered = me.error_z_cand;
+			settimer( func {me.y_for = 0; me.y_aut = 1;}, 2.0);
+			}
+		else
+			{
+			me.error_y_filtered = me.error_y;
+			me.error_z_filtered = me.error_z;
+			}
+
+		if (me.rdot_aut == 1)
+			{
+			if (me.rdot_ratio < 1.0)
+				{
+				me.update_rdot = math.abs(me.error_rdot_filtered - me.error_rdot_cand);
+				me.error_rdot_filtered = me.error_rdot_cand;
+				}
+
+			}
+		else if (me.rdot_for == 1)
+			{
+			me.error_rdot_filtered = me.error_rdot_cand;
+			settimer( func {me.rdot_for = 0; me.rdot_aut = 1;}, 2.0);
+			}
+		else
+			{
+			me.error_rdot_filtered = me.error_rdot;
+			}
+
+		#print ("Filtering: ");
+		#print ("x:", me.error_x, " ", me.error_x_cand, " ", me.error_x_filtered);	
+		#print ("Y:", me.error_y, " ", me.error_y_cand, " ", me.error_y_filtered);	
+		#print ("Z:", me.error_z, " ", me.error_z_cand, " ", me.error_z_filtered);
+		#print ("RNG data: ", me.rr_data_good, " ANG data: ", me.ang_data_good);
+
+
+	},
+
+	transfer_fltr_to_prop: func {
+
+		var true_anomaly_rad = me.nd_ref_true_anomaly.getValue();
+
+		var sin_arg_xz =  math.sin(true_anomaly_rad + me.error_phase_xz);
+		if (sin_arg_xz == 0.0) {sin_arg_xz = 0.001;}
+
+		var sin_arg_y =  math.sin(true_anomaly_rad + me.error_phase_y);
+		if (sin_arg_y == 0.0) {sin_arg_y = 0.001;}	
+
+		me.error_amp_x = me.error_x_filtered / sin_arg_xz;
+		me.error_amp_y = me.error_y_filtered / sin_arg_y;
+		me.error_amp_z = me.error_z_filtered / sin_arg_xz;
+
+	},
+
+
+
+
+};
+
+proximity_manager.init();
 
 
 

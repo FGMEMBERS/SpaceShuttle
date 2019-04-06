@@ -1,5 +1,16 @@
 # entry guidance computer for the Space Shuttle
 
+
+
+# we ought to have an organized collection of site data, not everything scattered across the dialogs
+
+io.include("landing_sites.nas");
+
+
+
+####
+
+
 var landing_site = geo.Coord.new();
 landing_site.index = 0;
 landing_site.rwy_pri = "";

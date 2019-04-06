@@ -89,6 +89,12 @@ setprop("/save/tank18-level-lbs", tank18);
 var tank19 = getprop("/consumables/fuel/tank[18]/level-lbs");
 setprop("/save/tank19-level-lbs", tank19);
 
+var tank20 = getprop("/consumables/fuel/tank[26]/level-lbs");
+setprop("/save/tank20-level-lbs", tank20);
+
+var tank21 = getprop("/consumables/fuel/tank[27]/level-lbs");
+setprop("/save/tank21-level-lbs", tank21);
+
 var throttle0 = getprop("/controls/engines/engine[0]/throttle");
 setprop("/save/throttle[0]", throttle0);
 
@@ -153,6 +159,14 @@ setprop("/save/radiator-state", radiator_state);
 
 var hydraulics_state = getprop("/fdm/jsbsim/systems/apu/hyd-pressure-available");
 setprop("/save/hydraulics-state", hydraulics_state);
+
+
+# OMS kit
+
+var oms_kit_cfg = getprop("/sim/config/shuttle/OMS-kit-config");
+setprop("/save/OMS-kit-config", oms_kit_cfg);
+
+
 
 # assume that if TACAN is on, the whole area nav set is on
 var area_nav_state = getprop("/fdm/jsbsim/systems/navigation/tacan-sys1-switch");
@@ -283,6 +297,8 @@ setprop("/save/nbat-crt-sm4", SpaceShuttle.nbat.crt_sm[3]);
 
 setprop("/save/bfs-in-control", SpaceShuttle.bfs_in_control);
 
+
+
 # thermal distribution
 
 var n = size (SpaceShuttle.thermal_array);
@@ -342,6 +358,82 @@ var heater_xfeed_B = getprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-
 setprop("/save/heater-oms-xfeed-A", heater_oms_left_A);
 setprop("/save/heater-oms-xfeed-B", heater_oms_left_B);
 
+
+# propellant valve configuration
+
+var helium_left_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status");
+var helium_left_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status");
+
+setprop("/save/valve-helium-left-oms-A", helium_left_oms_A);
+setprop("/save/valve-helium-left-oms-B", helium_left_oms_B);
+
+var helium_right_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status");
+var helium_right_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status");
+
+setprop("/save/valve-helium-right-oms-A", helium_right_oms_A);
+setprop("/save/valve-helium-right-oms-B", helium_right_oms_B);
+
+var helium_kit_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status");
+var helium_kit_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status");
+
+setprop("/save/valve-helium-kit-oms-A", helium_kit_oms_A);
+setprop("/save/valve-helium-kit-oms-B", helium_kit_oms_B);
+
+var tank_left_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status");
+var tank_left_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status");
+
+setprop("/save/valve-tank-left-oms-A", tank_left_oms_A);
+setprop("/save/valve-tank-left-oms-B", tank_left_oms_B);
+
+var tank_right_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status");
+var tank_right_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status");
+
+setprop("/save/valve-tank-right-oms-A", tank_right_oms_A);
+setprop("/save/valve-tank-right-oms-B", tank_right_oms_B);
+
+var tank_kit_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status");
+var tank_kit_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status");
+
+setprop("/save/valve-tank-kit-oms-A", tank_kit_oms_A);
+setprop("/save/valve-tank-kit-oms-B", tank_kit_oms_B);
+
+var xfeed_left_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status");
+var xfeed_left_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status");
+
+setprop("/save/valve-xfeed-left-oms-A", xfeed_left_oms_A);
+setprop("/save/valve-xfeed-left-oms-B", xfeed_left_oms_B);
+
+var xfeed_right_oms_A = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status");
+var xfeed_right_oms_B = getprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status");
+
+setprop("/save/valve-xfeed-right-oms-A", xfeed_right_oms_A);
+setprop("/save/valve-xfeed-right-oms-B", xfeed_right_oms_B);
+
+
+# the orbital target
+
+if (SpaceShuttle.n_orbital_targets > 0)
+	{
+
+	setprop("/save/otgt-elapsed-time", elapsed);
+
+	var anomaly = SpaceShuttle.oTgt.anomaly_rad;
+	setprop("/save/otgt-anomaly", anomaly);
+
+	var initial_nl_rad = SpaceShuttle.oTgt.initial_nl_rad;
+	setprop("/save/otgt-initial-node-lon", initial_nl_rad);
+
+	var initial_anomaly_rad = SpaceShuttle.oTgt.initial_anomaly_rad;
+	setprop("/save/otgt-initial-anomaly", initial_anomaly_rad);
+
+	var node_lon = SpaceShuttle.oTgt.node_longitude;
+	setprop("/save/otgt-node-lon", node_lon);
+
+	var delta_lon = SpaceShuttle.oTgt.delta_lon;
+	setprop("/save/otgt-delta-lon", delta_lon);
+	}
+
+
 # the scenario description
 
 var timestring = getprop("/sim/time/real/year");
@@ -381,6 +473,11 @@ var read_state_from_file = func (filename) {
     io.read_properties(path, readNode);
 
 }
+
+
+
+
+
 
 var resume_state = func {
 
@@ -527,9 +624,6 @@ setprop("/consumables/fuel/tank[18]/level-lbs", tank19);
 
 
 
-
-
-
 var elapsed = getprop("/sim/time/elapsed-sec");
 var MET = getprop("/save/MET");
 
@@ -589,6 +683,22 @@ if (getprop("/save/air-data-state") == 1)
 	{
 	SpaceShuttle.air_data_on();
 	}
+
+
+# OMS kit
+
+var oms_kit_cfg = getprop("/save/OMS-kit-config");
+setprop("/sim/config/shuttle/OMS-kit-config", oms_kit_cfg);
+
+SpaceShuttle.update_oms_kit_selection();
+
+var tank20 = getprop("/save/tank20-level-lbs");
+setprop("/consumables/fuel/tank[26]/level-lbs", tank20);
+
+var tank21 = getprop("/save/tank21-level-lbs");
+setprop("/consumables/fuel/tank[27]/level-lbs", tank21);
+
+# throttles for powered flight
 
 
 var throttle0 = getprop("/save/throttle[0]");
@@ -941,6 +1051,98 @@ var heater_xfeed_B = getprop("/save/heater-oms-xfeed-B");
 setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status", heater_xfeed_A);
 setprop("/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status", heater_xfeed_B);
 
+
+
+# propellant valve configuration
+
+var helium_left_oms_A = getprop("/save/valve-helium-left-oms-A");
+var helium_left_oms_B = getprop("/save/valve-helium-left-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-A-status", helium_left_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-left-oms-valve-B-status", helium_left_oms_B);
+
+var helium_right_oms_A = getprop("/save/valve-helium-right-oms-A");
+var helium_right_oms_B = getprop("/save/valve-helium-right-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-A-status", helium_right_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-right-oms-valve-B-status", helium_right_oms_B);
+
+var helium_kit_oms_A = getprop("/save/valve-helium-kit-oms-A");
+var helium_kit_oms_B = getprop("/save/valve-helium-kit-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status", helium_kit_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status", helium_kit_oms_B);
+
+var tank_left_oms_A = getprop("/save/valve-tank-left-oms-A");
+var tank_left_oms_B = getprop("/save/valve-tank-left-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status", tank_left_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status", tank_left_oms_B);
+
+var tank_right_oms_A = getprop("/save/valve-tank-right-oms-A");
+var tank_right_oms_B = getprop("/save/valve-tank-right-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-A-status", tank_right_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-right-oms-valve-B-status", tank_right_oms_B);
+
+var tank_kit_oms_A = getprop("/save/valve-tank-kit-oms-A");
+var tank_kit_oms_B = getprop("/save/valve-tank-kit-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status", tank_kit_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status", tank_kit_oms_B);
+
+var xfeed_left_oms_A = getprop("/save/valve-xfeed-left-oms-A");
+var xfeed_left_oms_B = getprop("/save/valve-xfeed-left-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-A-status", xfeed_left_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-left-oms-valve-B-status", xfeed_left_oms_B);
+
+var xfeed_right_oms_A = getprop("/save/valve-xfeed-right-oms-A");
+var xfeed_right_oms_B = getprop("/save/valve-xfeed-right-oms-B");
+
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-A-status", xfeed_right_oms_A);
+setprop("/fdm/jsbsim/systems/oms-hardware/crossfeed-right-oms-valve-B-status", xfeed_right_oms_B);
+
+
+
+# the orbital target
+
+if (SpaceShuttle.n_orbital_targets > 0)
+	{
+	var elapsed_time = getprop("/save/otgt-elapsed-time");
+	var delta_time = elapsed - elapsed_time;
+
+	SpaceShuttle.oTgt.delta_time = delta_time;
+
+	var anomaly = getprop("/save/otgt-anomaly");
+	SpaceShuttle.oTgt.anomaly_rad = anomaly;
+
+	var initial_nl_rad = getprop("/save/otgt-initial-node-lon");
+	SpaceShuttle.oTgt.initial_nl_rad = initial_nl_rad + delta_time  * 0.00417807416313755 * math.pi/180.0;
+
+	#print ("New initial NL should be:");
+	#print (initial_nl_rad + delta_time  * 0.00417807416313755 * math.pi/180.0);
+	
+
+	var initial_anomaly_rad = getprop("/save/otgt-initial-anomaly");
+	SpaceShuttle.oTgt.initial_anomaly_rad = initial_anomaly_rad;
+
+	var delta_lon = getprop("/save/otgt-delta-lon");
+	SpaceShuttle.oTgt.delta_lon = 0.0; # this is covered by the shift in node lognitude
+
+	var node_lon = getprop("/save/otgt-node-lon");
+	SpaceShuttle.oTgt.node_longitude = node_lon + delta_time * 0.00417807416313755;
+
+	#print ("Delta lon, node lon");
+	#print (delta_lon, " ", node_lon);
+
+	SpaceShuttle.proximity_manager.history_available = 0;
+	}
+
+
+
+
+
 # automatically switch Earthview on if the user has this selected
 
 if ((SpaceShuttle.earthview_flag == 1) and (earthview.earthview_running_flag == 0))
@@ -964,3 +1166,5 @@ SpaceShuttle.light_manager.set_theme("CLEAR");
 
 print("State resumed!");
 }
+
+

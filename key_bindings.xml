@@ -86,7 +86,7 @@
     <desc>Cutoff switch engine 1</desc>
     <binding>
      <command>nasal</command>
-     <script>SpaceShuttle.ssme_cutoff(2)</script>
+     <script>SpaceShuttle.ssme_cutoff(2);</script>
     </binding>
    </key>
 
@@ -95,12 +95,24 @@
     <desc>Undock</desc>
     <binding>
      <command>nasal</command>
-     <script>SpaceShuttle.undock_iss()</script>
+     <script>SpaceShuttle.undock_iss();</script>
     </binding>
    </key>
 
+
+   <key n="22">
+    <name>Ctrl+v</name>
+    <desc>Shuttle View Manager</desc>
+    <binding>
+     <command>property-assign</command>
+     <property>/controls/shuttle/view-manager-flag</property>
+     <value type="int">1</value>
+    </binding>
+   </key>
+
+
    <key n="23">
-    <name>Control+w</name>
+    <name>Ctrl+w</name>
     <desc>Cutoff switch engine 2</desc>
     <binding>
      <command>nasal</command>
@@ -248,6 +260,7 @@
     </binding>
    </key>
 
-  </keyboard>
+</keyboard>
+
 
 </PropertyList>

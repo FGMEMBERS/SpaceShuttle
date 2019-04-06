@@ -139,6 +139,58 @@ else if (payload_string == "SPARTAN-201")
 
 }
 
+
+# OMS kit install
+
+var update_oms_kit_selection = func () {
+
+var cfg = getprop("/sim/config/shuttle/OMS-kit-config");
+
+var num_tanks = 0;
+
+if (cfg == "OMS kit 500 fps") {num_tanks = 1;} 
+else if (cfg == "OMS kit 1000 fps") {num_tanks = 2;} 
+else if (cfg == "OMS kit 1500 fps") {num_tanks = 3;} 
+
+if (num_tanks == 0)
+	{
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed", 0);
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks", 0);
+	setprop("/consumables/fuel/tank[26]/level-lbs", 0.0);
+	setprop("/consumables/fuel/tank[27]/level-lbs", 0.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 0.0);
+	} 
+else if (num_tanks == 1)
+	{
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed", 1);
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks", 1);
+	setprop("/consumables/fuel/tank[26]/level-lbs", 7773.0);
+	setprop("/consumables/fuel/tank[27]/level-lbs", 4718.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 3378.0);
+	}
+else if (num_tanks == 2)
+	{
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed", 1);
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks", 2);
+	setprop("/consumables/fuel/tank[26]/level-lbs", 15546.0);
+	setprop("/consumables/fuel/tank[27]/level-lbs", 9436.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 4355.0);
+	}
+else if (num_tanks == 3)
+	{
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-installed", 1);
+	setprop("/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks", 3);
+	setprop("/consumables/fuel/tank[26]/level-lbs", 23319.0);
+	setprop("/consumables/fuel/tank[27]/level-lbs", 14154.0);
+	setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[7]", 5657.0);
+	}
+
+
+}
+
+
+
+
 # checks the reach limit of the RMS arm for an operator-specified command - very simplistic still
 
 var check_rms_reach_limit = func {

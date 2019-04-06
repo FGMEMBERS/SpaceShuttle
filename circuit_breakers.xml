@@ -25,4 +25,13 @@
   <drag-chute-sys2 type="int">1</drag-chute-sys2>
   <nose-wheel type="int">1</nose-wheel>
   <rms-oms-qty-gauge type="int">1</rms-oms-qty-gauge>
+  <fire-suppr-bay1 type="int">1</fire-suppr-bay1>
+  <fire-suppr-bay2 type="int">1</fire-suppr-bay2>
+  <fire-suppr-bay3 type="int">1</fire-suppr-bay3>
+  <smoke-detn-lr-flt-dk type="int">1</smoke-detn-lr-flt-dk>
+  <smoke-detn-cabin type="int">1</smoke-detn-cabin>
+  <smoke-detn-bay-2A3B type="int">1</smoke-detn-bay-2A3B>
+  <smoke-detn-bay-1B3A type="int">1</smoke-detn-bay-1B3A>
+  <smoke-detn-bay-1A2B type="int">1</smoke-detn-bay-1A2B>
+  <coas type="int">1</coas>
 </PropertyList>

@@ -109,6 +109,38 @@ if (getprop("/mission/launch/section-defined") and (stage == 0))
 	var rthu_flag = getprop("/mission/launch/roll-to-heads-up");
 	setprop("/fdm/jsbsim/systems/ap/launch/rthu-enable", rthu_flag);
 
+	# set early ascent throttle times and level
+
+	var throttle_down_time = getprop("/mission/launch/throttle-down-time-s");
+	setprop("/fdm/jsbsim/systems/ap/launch/throttle-down-time-s", throttle_down_time);
+
+	var throttle_up_time = getprop("/mission/launch/throttle-up-time-s");
+	setprop("/fdm/jsbsim/systems/ap/launch/throttle-up-time-s", throttle_up_time);
+
+	var throttle_down_to = (getprop("/mission/launch/throttle-down-to-percent") - 67.0)/33.0;
+	if (throttle_down_to < 0.0) {throttle_down_to = 0.0;}
+
+	setprop("/fdm/jsbsim/systems/ap/launch/throttle-down-to-fraction", throttle_down_to);
+
+	# set OMS assist
+
+	var oms_assist = getprop("/mission/launch/oms-assist-burn");
+	setprop("/fdm/jsbsim/systems/ap/launch/oms-assist-burn", oms_assist);
+
+	var oms_assist_duration_s = getprop("/mission/launch/oms-assist-duration-s");
+	setprop("/fdm/jsbsim/systems/ap/launch/oms-assist-duration-s", oms_assist_duration_s);
+
+	# set trajectory loft
+
+	var srb_climbout_bias = getprop("/mission/launch/srb-climbout-ang-bias-deg");
+	var mps_climbout_bias = getprop("/mission/launch/ballistic-climb-ang-bias-deg");
+
+	setprop("/fdm/jsbsim/systems/ap/launch/srb-climbout-bias-deg", srb_climbout_bias);
+	setprop("/fdm/jsbsim/systems/ap/launch/mps-climbout-bias-deg", mps_climbout_bias);
+
+	var trajectory_loft = getprop("/mission/launch/trajectory-loft-ft");
+	setprop("/fdm/jsbsim/systems/ap/launch/trajectory-loft-ft", trajectory_loft);
+
 	}
 
 # aborts
@@ -149,6 +181,14 @@ if (getprop("/mission/configuration/section-defined"))
 		var payload_weight = getprop("/mission/configuration/payload-weight-lbs");
 		setprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]", payload_weight);
 		}
+
+	
+
+	var oms_kit = getprop("/mission/configuration/oms-kit");
+
+	setprop("/sim/config/shuttle/OMS-kit-config", oms_kit);
+	SpaceShuttle.update_oms_kit_selection();
+	
 
 	}
 
@@ -207,8 +247,8 @@ if (getprop("/mission/dap/section-defined"))
 	par = getprop("/mission/dap/dap-A-VRN-rot-pls");
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-VRN-rot-pls", par);
 
-	par = getprop("/mission/dap/dap-B-VRN-rot-pl");
-	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pl", par);
+	par = getprop("/mission/dap/dap-B-VRN-rot-pls");
+	setprop("/fdm/jsbsim/systems/ap/spec20/dap-B-VRN-rot-pls", par);
 
 	par = getprop("/mission/dap/dap-A-PRI-comp");
 	setprop("/fdm/jsbsim/systems/ap/spec20/dap-A-PRI-comp", par);

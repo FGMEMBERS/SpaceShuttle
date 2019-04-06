@@ -68,7 +68,7 @@
 				systems/electrical/ac/voltage GT 110.0
 				systems/atcs/freon-pump-1-status == 1
 			</test>
-			<test logic="AND" value="-1.0">
+			<test logic="AND" value="1.0">
 				systems/electrical/ac[1]/voltage GT 110.0
 				systems/atcs/freon-pump-1-status == -1
 			</test>
@@ -150,9 +150,22 @@
 
 		<switch name="systems/atcs/rad-controller-active">
 			<default value="0.0"/>
-			<test logic="OR" value="1.0">
+			<test logic="AND" value="1.0">
 				systems/atcs/rad-controller-1-status == 1
+				systems/electrical/ac[1]/voltage GT 115
+			</test>
+			<test logic="AND" value="1.0">
 				systems/atcs/rad-controller-2-status == 1
+				systems/electrical/ac[2]/voltage GT 115
+			
+			</test>
+			<test logic="AND" value="1.0">
+				systems/atcs/rad-controller-1-status == -1
+				systems/electrical/ac[0]/voltage GT 115
+			</test>
+			<test logic="AND" value="1.0">
+				systems/atcs/rad-controller-2-status == -1
+				systems/electrical/ac[0]/voltage GT 115
 			</test>
 		</switch>
 

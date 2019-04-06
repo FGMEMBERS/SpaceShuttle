@@ -1,0 +1,9 @@
+# empty Shuttle from KSC launching into 32.5 deg inclination
+# bias angle - vspeed - peak alt
+
+-2.0	885	421600
+0.0	906 	439800
+2.0	921	452400
+3.0	926	457800
+4.0	935	465400
+5.0	943 	474100

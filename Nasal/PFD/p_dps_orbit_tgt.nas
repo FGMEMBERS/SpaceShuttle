@@ -110,11 +110,11 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
 	p_dps_orbit_tgt.pred_match.setText(sprintf("%7.0f", pred_match));
 
 	var symbol = "";
-	if (getprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t1") == 1){symbol = "*";}
+	if (SpaceShuttle.lambert_manager.t1_in_progress == 1){symbol = "*";}
 	p_dps_orbit_tgt.comp_t1.setText(symbol);
 
 	symbol = "";
-	if (getprop("/fdm/jsbsim/systems/ap/orbit-tgt/computation-t2") == 1){symbol = "*";}
+	if (SpaceShuttle.lambert_manager.t2_in_progress == 1){symbol = "*";}
 	p_dps_orbit_tgt.comp_t2.setText(symbol);
 	
 
@@ -132,7 +132,7 @@ var PFD_addpage_p_dps_orbit_tgt = func(device)
 	p_dps_orbit_tgt.t2_dy.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy")));
 	p_dps_orbit_tgt.t2_dz.setText(sprintf("%+3.2f", getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz")));
 
-	var t2_dt = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s") -  getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s") ;
+	var t2_dt = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig") -  getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig") ;
 	if (t2_dt < 0.0) {t2_dt = 0.0;}
 
 	p_dps_orbit_tgt.t2_dt.setText(sprintf("%+3.2f", t2_dt / 60.0));

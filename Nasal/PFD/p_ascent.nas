@@ -465,7 +465,8 @@ var PFD_addpage_p_ascent = func(device)
     
         var velocity = SpaceShuttle.ascent_traj_update_velocity();
         var altitude = getprop("/position/altitude-ft");
-        
+	if (major_mode == 103) {altitude = altitude - SpaceShuttle.auto_launch_traj_loft;  }      
+
 	var vfrac = (velocity - 25000.0)/1000.0;
 	if (vfrac < 0) {vfrac = 0.0;}
 
@@ -478,19 +479,24 @@ var PFD_addpage_p_ascent = func(device)
 
 	velocity = SpaceShuttle.ascent_predictors[0][0];
 	altitude = SpaceShuttle.ascent_predictors[0][1];
+	if (major_mode == 103) {altitude = altitude - SpaceShuttle.auto_launch_traj_loft; }       
 
 	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
 	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 
 	p_ascent.pred1.setTranslation(x + rightshift,y + downshift);
 
-	velocity = SpaceShuttle.ascent_predictors[1][0];
-	altitude = SpaceShuttle.ascent_predictors[1][1];
+	if (major_mode == 103)
+		{
+		velocity = SpaceShuttle.ascent_predictors[1][0];
+		altitude = SpaceShuttle.ascent_predictors[1][1];
+		 altitude = altitude - SpaceShuttle.auto_launch_traj_loft;        
 
-	x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
-	y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
+		x = SpaceShuttle.parameter_to_x(velocity, SpaceShuttle.traj_display_flag);
+		y = SpaceShuttle.parameter_to_y(altitude, SpaceShuttle.traj_display_flag);
 
-	p_ascent.pred2.setTranslation(x + rightshift,y + downshift);
+		p_ascent.pred2.setTranslation(x + rightshift,y + downshift);
+		}
 
 
 	if (p_ascent.major_func == 4) # we drive BFS specific items

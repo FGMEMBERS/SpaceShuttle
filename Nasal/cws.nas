@@ -58,6 +58,9 @@ if (inspection_group == 5)
 if (inspection_group == 6)
 	{cws_inspect_nav();}
 
+if (inspection_group == 8)
+	{SpaceShuttle.master_alarm_mngr.inspect();}
+
 
 inspection_group = inspection_group + 1;
 if (inspection_group == 10) {inspection_group = 0;}
@@ -1292,6 +1295,7 @@ var time_string = getprop("/sim/time/gmt-string");
 var backup_marker = " ";
 if (class == 2) {backup_marker = "*";}
 
+
 var msg_string = sys_string~"     "~" "~backup_marker~" "~gpc_id~" "~time_string;
 var msg_string_long = sys_string~"     "~"    "~backup_marker~"      "~gpc_id~" 000/"~time_string;
 
@@ -1299,6 +1303,7 @@ insert_fault_message_long(msg_string_long);
 append(cws_message_array, msg_string);
 
 setprop("/fdm/jsbsim/systems/dps/error-string", msg_string);
+setprop("/fdm/jsbsim/systems/cws/sm-alert-on", 1);
 cws_last_message_acknowledge = 1;
 
 }
@@ -1376,4 +1381,594 @@ if ((math.abs(error_pitch) > 0.0) or (math.abs(error_roll) > 0.0) or (math.abs(e
 }
 
 
+#################################################
+# Master Alarm
+#################################################
 
+
+var master_alarm_mngr = {
+
+	# 0: no issue 1: light and alarm on 2: light on, alarm tone ended
+
+	left_oms_flag: 0,
+	right_oms_flag: 0,
+	kit_oms_flag: 0,
+	oms_tvc_flag: 0,
+	fwd_rcs_flag: 0,
+	left_rcs_flag: 0,
+	right_rcs_flag: 0,
+	fc_stack_temp_flag: 0,
+	fc_pump_flag: 0,
+	fc_reac_flag: 0,
+	main_bus_undervolt_flag: 0,
+	ac_voltage_flag: 0,
+	h2o_loop_flag: 0,
+	freon_loop_flag: 0,
+	cabin_atm_flag: 0,
+	avbay_cabin_air_flag: 0,
+	hyd_press_flag: 0,
+	apu_overspeed_flag: 0,
+	apu_underspeed_flag: 0,
+	apu_temp_flag: 0,	
+	mps_flag: 0,
+	depressurize_flag: 0,
+	smoke_flag: 0,
+
+
+	mode: 0, # -1: ASCENT 0: NORM 1: ACK
+
+
+	init: func {
+		
+		me.nd_ref_left_oms = props.globals.getNode("/fdm/jsbsim/systems/cws/left-oms", 1);
+		me.nd_ref_right_oms = props.globals.getNode("/fdm/jsbsim/systems/cws/right-oms", 1);
+		me.nd_ref_kit_oms = props.globals.getNode("/fdm/jsbsim/systems/cws/kit-oms", 1);
+		me.nd_ref_oms_tvc = props.globals.getNode("/fdm/jsbsim/systems/cws/oms-tvc", 1);
+		me.nd_ref_fwd_rcs = props.globals.getNode("/fdm/jsbsim/systems/cws/fwd-rcs", 1);
+		me.nd_ref_left_rcs = props.globals.getNode("/fdm/jsbsim/systems/cws/left-rcs", 1);
+		me.nd_ref_right_rcs = props.globals.getNode("/fdm/jsbsim/systems/cws/right-rcs", 1);
+		me.nd_ref_fuel_cell_stack_temp = props.globals.getNode("/fdm/jsbsim/systems/cws/fuel-cell-stack-temp", 1);
+		me.nd_ref_fuel_cell_pump = props.globals.getNode("/fdm/jsbsim/systems/cws/fuel-cell-pump", 1);
+		me.nd_ref_fuel_cell_reac = props.globals.getNode("/fdm/jsbsim/systems/cws/fuel-cell-reac", 1);
+		me.nd_ref_main_bus_undervolt = props.globals.getNode("/fdm/jsbsim/systems/cws/main-bus-undervolt", 1);
+		me.nd_ref_ac_voltage = props.globals.getNode("/fdm/jsbsim/systems/cws/ac-voltage", 1);
+		me.nd_ref_h2o_loop = props.globals.getNode("/fdm/jsbsim/systems/cws/h2o-loop", 1);
+		me.nd_ref_freon_loop = props.globals.getNode("/fdm/jsbsim/systems/cws/freon-loop", 1);
+		me.nd_ref_cabin_atm = props.globals.getNode("/fdm/jsbsim/systems/cws/cabin-atm", 1);
+		me.nd_ref_avbay_cabin_air = props.globals.getNode("/fdm/jsbsim/systems/cws/avbay-cabin-air", 1);
+		me.nd_ref_hyd_press = props.globals.getNode("/fdm/jsbsim/systems/cws/hyd-press", 1);
+		me.nd_ref_apu_overspeed = props.globals.getNode("/fdm/jsbsim/systems/cws/apu-overspeed", 1);
+		me.nd_ref_apu_underspeed = props.globals.getNode("/fdm/jsbsim/systems/cws/apu-underspeed", 1);
+		me.nd_ref_apu_temp = props.globals.getNode("/fdm/jsbsim/systems/cws/apu-temp", 1);
+		me.nd_ref_mps = props.globals.getNode("/fdm/jsbsim/systems/cws/mps", 1);
+		me.nd_ref_depressurize = props.globals.getNode("/fdm/jsbsim/systems/cws/emergency-depressurization", 1);
+		},
+
+
+	inspect: func {
+
+
+		var flag = 0;
+
+		# left OMS
+		if (me.nd_ref_left_oms.getValue() == 1) 
+			{
+			if (me.left_oms_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.left_oms_flag = 1;
+				}
+			}
+		else
+			{
+			me.left_oms_flag = 0;
+			}
+
+		# right OMS
+		if (me.nd_ref_right_oms.getValue() == 1) 
+			{
+			if (me.right_oms_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.right_oms_flag = 1;
+				}
+			}
+		else
+			{
+			me.right_oms_flag = 0;
+			}
+
+		#  OMS KIT
+		if (me.nd_ref_kit_oms.getValue() == 1) 
+			{
+			if (me.kit_oms_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.kit_oms_flag = 1;
+				}
+			}
+		else
+			{
+			me.kit_oms_flag = 0;
+			}
+
+		# OMS TVC
+		if (me.nd_ref_oms_tvc.getValue() == 1) 
+			{
+			if (me.oms_tvc_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.oms_tvc_flag = 1;
+				}
+			}
+		else
+			{
+			me.oms_tvc_flag = 0;
+			}
+
+		# FWD RCS
+
+		if (me.nd_ref_fwd_rcs.getValue() == 1) 
+			{
+			if (me.fwd_rcs_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.fwd_rcs_flag = 1;
+				}
+			}
+		else
+			{
+			me.fwd_rcs_flag = 0;
+			}
+
+		# LEFT RCS
+
+		if (me.nd_ref_left_rcs.getValue() == 1) 
+			{
+			if (me.left_rcs_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.left_rcs_flag = 1;
+				}
+			}
+		else
+			{
+			me.left_rcs_flag = 0;
+			}
+
+		# RIGHT RCS
+
+		if (me.nd_ref_right_rcs.getValue() == 1) 
+			{
+			if (me.right_rcs_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.right_rcs_flag = 1;
+				}
+			}
+		else
+			{
+			me.right_rcs_flag = 0;
+			}
+
+		# FUEL CELL STACK TEMP
+
+		if (me.nd_ref_fuel_cell_stack_temp.getValue() == 1) 
+			{
+			if (me.fc_stack_temp_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.fc_stack_temp_flag = 1;
+				}
+			}
+		else
+			{
+			me.fc_stack_temp_flag = 0;
+			}
+
+		# FUEL CELL PUMP
+
+		if (me.nd_ref_fuel_cell_pump.getValue() == 1) 
+			{
+			if (me.fc_pump_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.fc_pump_flag = 1;
+				}
+			}
+		else
+			{
+			me.fc_pump_flag = 0;
+			}
+
+		# FUEL CELL REACTANT
+
+		if (me.nd_ref_fuel_cell_reac.getValue() == 1) 
+			{
+			if (me.fc_reac_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.fc_reac_flag = 1;
+				}
+			}
+		else
+			{
+			me.fc_reac_flag = 0;
+			}
+
+		# MAIN BUS UNDERVOLT
+
+		if (me.nd_ref_main_bus_undervolt.getValue() == 1) 
+			{
+			if (me.main_bus_undervolt_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.main_bus_undervolt_flag = 1;
+				}
+			}
+		else
+			{
+			me.main_bus_undervolt_flag = 0;
+			}
+
+		# AC VOLTAGE
+
+		if (me.nd_ref_ac_voltage.getValue() == 1) 
+			{
+			if (me.ac_voltage_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.ac_voltage_flag = 1;
+				}
+			}
+		else
+			{
+			me.ac_voltage_flag = 0;
+			}
+
+		# H2O LOOP
+
+		if (me.nd_ref_h2o_loop.getValue() == 1) 
+			{
+			if (me.h2o_loop_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.h2o_loop_flag = 1;
+				}
+			}
+		else
+			{
+			me.h2o_loop_flag = 0;
+			}
+
+		# FREON LOOP
+
+		if (me.nd_ref_freon_loop.getValue() == 1) 
+			{
+			if (me.freon_loop_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.freon_loop_flag = 1;
+				}
+			}
+		else
+			{
+			me.freon_loop_flag = 0;
+			}
+
+		# CABIN ATM
+
+		if (me.nd_ref_cabin_atm.getValue() == 1) 
+			{
+			if (me.cabin_atm_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.cabin_atm_flag = 1;
+				}
+			}
+		else
+			{
+			me.cabin_atm_flag = 0;
+			}
+
+		# AVBAY CABIN AIR
+
+		if (me.nd_ref_avbay_cabin_air.getValue() == 1) 
+			{
+			if (me.avbay_cabin_air_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.avbay_cabin_air_flag = 1;
+				}
+			}
+		else
+			{
+			me.avbay_cabin_air_flag = 0;
+			}
+
+		# HYD PRESS
+
+		if (me.nd_ref_hyd_press.getValue() == 1) 
+			{
+			if (me.hyd_press_flag == 0)
+				{
+				#me.set_class2_alarm();
+				me.hyd_press_flag = 1;
+				}
+			}
+		else
+			{
+			me.hyd_press_flag = 0;
+			}
+
+		# APU OVERSPEED
+
+		if (me.nd_ref_apu_overspeed.getValue() == 1) 
+			{
+			if (me.apu_overspeed_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.apu_overspeed_flag = 1;
+				}
+			}
+		else
+			{
+			me.apu_overspeed_flag = 0;
+			}
+
+		# APU UNDERSPEED
+
+		if (me.nd_ref_apu_underspeed.getValue() == 1) 
+			{
+			if (me.apu_underspeed_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.apu_underspeed_flag = 1;
+				}
+			}
+		else
+			{
+			me.apu_underspeed_flag = 0;
+			}
+
+		# APU TEMP
+
+		if (me.nd_ref_apu_temp.getValue() == 1) 
+			{
+			if (me.apu_temp_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.apu_temp_flag = 1;
+				}
+			}
+		else
+			{
+			me.apu_temp_flag = 0;
+			}
+
+		# MPS
+
+		if (me.nd_ref_mps.getValue() == 1) 
+			{
+			if (me.mps_flag == 0)
+				{
+				me.set_class2_alarm();
+				me.mps_flag = 1;
+				}
+			}
+		else
+			{
+			me.mps_flag = 0;
+			}
+
+		# EMERGENCY DEPRESSURIZATION
+
+		if (me.nd_ref_depressurize.getValue() == 1) 
+			{
+			if (me.depressurize_flag == 0)
+				{
+				me.set_class1_alarm();
+				me.depressurize_flag = 1;
+				}
+			}
+		else
+			{
+			me.depressurize_flag = 0;
+			}
+
+
+		# SMOKE DETECTION
+
+		if (SpaceShuttle.fire_sim.smoke_avbay1 > 2.0)
+			{	
+			if (me.smoke_flag == 0)
+				{
+				me.set_fire_alarm("avbay1");
+				me.smoke_flag = 1;
+				}
+
+			}
+		else if (SpaceShuttle.fire_sim.smoke_avbay2 > 2.0)
+			{	
+			if (me.smoke_flag == 0)
+				{
+				me.set_fire_alarm("avbay2");
+				me.smoke_flag = 1;
+				}
+
+			}
+		if (SpaceShuttle.fire_sim.smoke_avbay3 > 2.0)
+			{	
+			if (me.smoke_flag == 0)
+				{
+				me.set_fire_alarm("avbay3");
+				me.smoke_flag = 1;
+				}
+
+			}
+
+
+
+
+
+
+
+	},
+
+
+	set_fire_alarm: func (location) {
+
+
+		var cb_avbay_1A2B = getprop("/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1A2B");
+		var cb_avbay_1B3A = getprop("/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1B3A");
+		var cb_avbay_2A3B = getprop("/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-2A3B");
+
+
+
+		if (location == "avbay1")
+			{
+			if ((cb_avbay_1A2B == 0) and (cb_avbay_1B3A == 0)) {return;}
+			}
+		else if (location == "avbay2")
+			{
+			if ((cb_avbay_1A2B == 0) and (cb_avbay_2A3B == 0)) {return;}
+			}
+		else if (location == "avbay3")
+			{
+			if ((cb_avbay_1B3A == 0) and (cb_avbay_2A3B == 0)) {return;}
+			}
+
+
+		if (me.mode > -1)
+			{setprop("/fdm/jsbsim/systems/cws/master-alarm-cdr-on", 1);}
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-plt-on", 1);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-aft-on", 1);
+
+		setprop("/fdm/jsbsim/systems/cws/fire-alarm-sound-on", 1);
+
+		if (location == "avbay1")
+			{
+			if (cb_avbay_1A2B == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-l",1);
+				}
+			if (cb_avbay_1B3A == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-r",1);
+				}
+			}
+
+		else if (location == "avbay2")
+			{
+			if (cb_avbay_2A3B == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-l",1);	
+				}
+			if (cb_avbay_1A2B == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-r",1);
+				}
+			}
+		else if (location == "avbay3")
+			{
+			if (cb_avbay_1B3A == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-l",1);
+				}
+			if (cb_avbay_2A3B == 1)
+				{
+				setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-r",1);
+				}
+			}
+
+	},
+
+
+	set_class1_alarm: func {
+
+
+		if (me.mode > -1)
+			{setprop("/fdm/jsbsim/systems/cws/master-alarm-cdr-on", 1);}
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-plt-on", 1);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-aft-on", 1);
+
+		setprop("/fdm/jsbsim/systems/cws/class-1-sound-on", 1);
+
+	},
+
+	set_class2_alarm: func {
+
+		if (me.mode > -1)
+			{setprop("/fdm/jsbsim/systems/cws/master-alarm-cdr-on", 1);}
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-plt-on", 1);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-aft-on", 1);
+
+		setprop("/fdm/jsbsim/systems/cws/class-2-sound-on", 1);
+
+	},
+
+
+	set_mode: func (mode) {
+
+		me.mode = mode;
+
+		if (me.mode == -1)
+			{
+			setprop("/fdm/jsbsim/systems/cws/master-alarm-cdr-on", 0);
+			}
+
+	},
+
+	unset_alarm: func {
+
+		setprop("/fdm/jsbsim/systems/cws/class-1-sound-on", 0);
+		setprop("/fdm/jsbsim/systems/cws/class-2-sound-on", 0);
+		setprop("/fdm/jsbsim/systems/cws/fire-alarm-sound-on", 0);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-cdr-on", 0);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-plt-on", 0);
+		setprop("/fdm/jsbsim/systems/cws/master-alarm-aft-on", 0);
+
+		if (me.left_oms_flag == 1) {me.left_oms_flag = 2;}
+		if (me.right_oms_flag == 1) {me.right_oms_flag = 2;}
+		if (me.kit_oms_flag == 1) {me.kit_oms_flag = 2;}
+		if (me.oms_tvc_flag == 1) {me.oms_tvc_flag = 2;}
+		if (me.fwd_rcs_flag == 1) {me.fwd_rcs_flag = 2;}
+		if (me.left_rcs_flag == 1) {me.left_rcs_flag = 2;}
+		if (me.right_rcs_flag == 1) {me.right_rcs_flag = 2;}
+		if (me.fc_stack_temp_flag == 1) {me.fc_stack_temp_flag = 2;}
+		if (me.fc_pump_flag == 1) {me.fc_pump_flag = 2;}
+		if (me.fc_reac_flag == 1) {me.fc_reac_flag = 2;}
+		if (me.main_bus_undervolt_flag == 1) {me.main_bus_undervolt_flag = 2;}
+		if (me.ac_voltage_flag == 1) {me.ac_voltage_flag = 2;}
+		if (me.h2o_loop_flag == 1) {me.h2o_loop_flag = 2;}
+		if (me.freon_loop_flag == 1) {me.freon_loop_flag = 2;}
+		if (me.cabin_atm_flag == 1) {me.cabin_atm_flag = 2;}
+		if (me.avbay_cabin_air_flag == 1) {me.avbay_cabin_air_flag = 2;}
+		if (me.hyd_press_flag == 1) {me.hyd_press_flag = 2;}
+		if (me.apu_overspeed_flag == 1) {me.apu_overspeed_flag = 2;}
+		if (me.apu_underspeed_flag == 1) {me.apu_underspeed_flag = 2;}
+		if (me.apu_temp_flag == 1) {me.apu_temp_flag = 2;}
+		if (me.mps_flag == 1) {me.mps_flag = 2;}
+		if (me.depressurize_flag == 1) {me.depressurize_flag = 2;}
+
+	},
+
+	unlock_smoke_detection: func {
+
+		print ("Resetting smoke detector");
+
+		me.smoke_flag = 0;
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-l",0);	
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-r",0);	
+
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-l",0);	
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-r",0);
+
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-l",0);	
+		setprop("/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-r",0);		
+	},
+	
+
+};
+
+master_alarm_mngr.init();

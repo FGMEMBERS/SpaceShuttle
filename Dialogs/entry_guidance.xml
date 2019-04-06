@@ -253,7 +253,7 @@
 
 	<hrule/>
 
-   <group>
+   <!--<group>
      <layout>table</layout>
 
  <text>
@@ -305,7 +305,7 @@
 
 	<empty>
 		<pref-height>20</pref-height>
-	</empty>
+	</empty>-->
 
 <group>
     <layout>table</layout>

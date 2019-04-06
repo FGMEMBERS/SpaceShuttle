@@ -8,16 +8,25 @@
   <payload-explicit type="bool">false</payload-explicit>
   <payload type="string">TDRS demo</payload>
   <payload-weight-lbs>5000.0</payload-weight-lbs>
+  <oms-kit type="string">OMS kit 500 fps</oms-kit>
 </configuration>
 
 <launch>
   <section-defined type="bool">true</section-defined>
-  <target-inclination type="double">32.5</target-inclination>
+  <target-inclination type="double">51.64</target-inclination>
   <target-apoapsis-miles type="double">170.0</target-apoapsis-miles>
   <select-north type="bool">true</select-north>
   <tal-site-index type="int">7</tal-site-index>
   <rtls-site-index type="int">1</rtls-site-index>
   <roll-to-heads-up type="bool">true</roll-to-heads-up>
+  <throttle-down-time-s type="double">18.0</throttle-down-time-s>
+  <throttle-up-time-s type="double">42.0</throttle-up-time-s>
+  <throttle-down-to-percent type="double">67.0</throttle-down-to-percent>
+  <oms-assist-burn type="bool">false</oms-assist-burn>
+  <oms-assist-duration-s type="double">0.0</oms-assist-duration-s>
+  <srb-climbout-ang-bias-deg type="double">0.0</srb-climbout-ang-bias-deg>
+  <ballistic-climb-ang-bias-deg type="double">0.0</ballistic-climb-ang-bias-deg>
+  <trajectory-loft-ft type="double">0.0</trajectory-loft-ft>
 </launch>
 
 <abort>
@@ -106,10 +115,16 @@
   <section-defined type="bool">true</section-defined>
 
   <object-label type="string">ISS</object-label>
-  <inclination-deg type="double">42.76</inclination-deg>
-  <alt-km type="double">280.0</alt-km>
+  <!--<inclination-deg type="double">42.76</inclination-deg>
+  <alt-km type="double">340.0</alt-km>
   <node-lon-deg type="double">5.07</node-lon-deg>
-  <anomaly-deg type="double">0.9</anomaly-deg>
+  <anomaly-deg type="double">1.0</anomaly-deg>-->
+
+  <!-- target reachable by immediate launch-->
+ <inclination-deg type="double">51.64</inclination-deg>
+ <alt-km type="double">329.0</alt-km>
+ <node-lon-deg type="double">255.8</node-lon-deg>
+ <anomaly-deg type="double">30.</anomaly-deg>
 </orbital-targets>
 
 

@@ -436,6 +436,11 @@ var vtransform_fixed_inertial_world = func (vec) {
 
 var s_ang = getprop("/fdm/jsbsim/systems/pointing/sidereal/sidereal-angle-rad");
 
+# however, we need the angle for the beginning of the current FG session where the inertial system is fixed
+
+var s_ang_corr = 2.0 * math.pi * getprop("/sim/time/elapsed-sec")/ 86400.0;
+s_ang = s_ang - s_ang_corr;
+
 var tmp1 = math.cos(s_ang) * vec[0] + math.sin(s_ang) * vec[1];
 var tmp2 = -math.sin(s_ang) * vec[0] + math.cos(s_ang) * vec[1];
 
@@ -552,7 +557,7 @@ var x = math.cos(dec_rad) * math.cos(ra_rad);
 var y = math.cos(dec_rad) * math.sin(ra_rad);
 var z = math.sin(dec_rad);
 
-print("Fixed vector: ", x, " ", y, " ", z);
+#print("Fixed vector: ", x, " ", y, " ", z);
 
 # this is a fixed inertial vector, so we rotate to a pointing vector in JSBSim inertial
 
@@ -562,7 +567,7 @@ vtransform_fixed_inertial_world(vec);
 
 
 
-print("JSBSim vector: ", vec[0], " ", vec[1], " ", vec[2]);
+#print("JSBSim vector: ", vec[0], " ", vec[1], " ", vec[2]);
 
 return vec;
 
@@ -575,7 +580,18 @@ var create_trk_vector = func {
 
 var target_id = getprop("/fdm/jsbsim/systems/ap/ops201/tgt-id");
 
-if (target_id == 2) # we track the center of Earth, omicron zero point is celestial north pole
+if (target_id == 1) # we track an orbiting vehicle, make omicron point the celestial north pole
+	{
+	#if (SpaceShuttle.proximity_manager.iss_model == 0) {return;}
+	
+	settimer(func {tracking_loop_flag = 1; tracking_loop_otgt();}, 0.2);
+
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[0]", 0);
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[1]", 0);
+	setprop("/fdm/jsbsim/systems/ap/track/target-sec[2]", 1);
+	}
+
+else if (target_id == 2) # we track the center of Earth, omicron zero point is celestial north pole
 	{
 	
 	settimer(func {tracking_loop_flag = 1; tracking_loop_earth();}, 0.2);
@@ -632,6 +648,25 @@ else if ((target_id == 5) or (target_id > 10)) # we track a celestial target wit
 }
 
 
+######################################
+# loop to track an orbital target
+######################################
+
+var tracking_loop_otgt = func {
+
+if (tracking_loop_flag == 0) {return;}
+if (SpaceShuttle.proximity_manager.iss_model == 0) 
+	{
+	SpaceShuttle.proximity_manager.provide_tracking();
+	}
+else
+
+	{
+	SpaceShuttle.iss_manager.request_tracking();
+	}
+
+settimer(tracking_loop_otgt, 1.0);
+}
 
 ######################################
 # loop to track the center of Earth

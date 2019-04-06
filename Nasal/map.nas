@@ -258,7 +258,7 @@ if (getprop("/fdm/jsbsim/velocities/v-east-fps") <0.0)
 var plot = graph.createChild("path", "data")
                                    .setStrokeLineWidth(2)
                                    .setColor(0,0,1)
-                                   .moveTo(history[0][0],history[0][1]); 
+                                   .moveTo(lon_to_x(history[0][0]),lat_to_y(history[0][1])); 
 
 		
 
@@ -355,8 +355,8 @@ var history_init = func {
 
 var lat = getprop("/position/latitude-deg");
 var lon = getprop("/position/longitude-deg");
-var x =  lon_to_x(lon);
-var y =  lat_to_y(lat);
+var x =  lon;
+var y =  lat;
 
 var x1 = ecal_lon_to_x (lon);
 var y1 = ecal_lat_to_y (lat);
@@ -405,8 +405,8 @@ history = delete_from_vector(history,0);
 
 var lat = getprop("/position/latitude-deg");
 var lon = getprop("/position/longitude-deg");
-var x =  lon_to_x(lon);
-var y =  lat_to_y(lat);
+var x =  lon;
+var y =  lat;
 
 append(history, [x,y]);
 
@@ -417,8 +417,8 @@ if (SpaceShuttle.n_orbital_targets > 0)
 	var lla = SpaceShuttle.oTgt.get_latlonalt();
 	lat = lla[0];
 	lon = lla[1];
-	x =  lon_to_x(lon);
-	y =  lat_to_y(lat);
+	x =  lon;
+	y =  lat;
 
 	append(tgt_history, [x,y]);
 	}

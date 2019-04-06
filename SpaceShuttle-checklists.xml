@@ -955,14 +955,26 @@
       <value>ON</value>
       <condition>
 	<and>
+	  <or>
 	  <equals>
 	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
 	    <value>1</value>
 	  </equals>
 	  <equals>
 	    <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
+	    <value>-1</value>
+	  </equals>
+	  </or>
+	  <or>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
 	    <value>1</value>
 	  </equals>
+	  <equals>
+	    <property>/fdm/jsbsim/systems/atcs/rad-controller-2-status</property>
+	    <value>-1</value>
+	  </equals>
+	  </or>
 	</and>
       </condition>
     </item>

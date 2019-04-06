@@ -116,6 +116,15 @@
                 	<z> 20.0 </z>
             	</location>
 	</pointmass>
+	<pointmass name="OMS kit dry">
+		<weight unit="LBS"> 0.0</weight>
+	 	<location name="POINTMASS" unit="M">
+                	<x> 11.0 </x>
+                	<y>  0.0 </y>
+                	<z> -1.5 </z>
+            	</location>
+	</pointmass>
+
  </mass_balance>
 
 
@@ -589,6 +598,8 @@
      <contents unit="LBS"> 4718.00 </contents>
      <priority>2</priority>
   </tank>
+
+
 
 
  
@@ -2114,6 +2125,31 @@
      <contents unit="LBS"> 98.00 </contents>
      <priority>2</priority>
    </tank>
+
+
+ <!-- OMS kit tanks-->
+
+  <tank type="OXIDIZER" number="26">
+     <location unit="M">
+       <x> 11.00 </x>
+       <y> 0.0 </y>
+       <z> -1.5 </z>
+     </location>
+     <capacity unit="LBS"> 23319.00 </capacity>
+     <contents unit="LBS"> 0.00 </contents>
+     <priority>2</priority>
+  </tank>
+
+  <tank type="FUEL" number="27">
+     <location unit="M">
+       <x> 11.00 </x>
+       <y> 0.00 </y>
+       <z> -1.5 </z>
+     </location>
+     <capacity unit="LBS"> 14154.00 </capacity>
+     <contents unit="LBS"> 0.00 </contents>
+     <priority>2</priority>
+  </tank>
 
 
  </propulsion>
@@ -4417,6 +4453,25 @@
       <x>-1</x>
       <y>0</y>
       <z>0</z>
+    </direction>
+  </force>
+
+
+  <!-- failed docking crash force -->
+
+  <force name="docking_resistance" frame="BODY">
+    <function>
+      		<property>systems/docking/crash-force-z</property>
+    </function>
+    <location unit="M">
+	<x> -8.10 </x>
+	<y> 0.00 </y>
+	<z> -1.0 </z>
+    </location>
+    <direction>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
     </direction>
   </force>
 

@@ -14,6 +14,8 @@
 # that JSBSim does not assume a Newtonian pointmass Earth
 # what we do is an approximation still...
 
+# note: This is corrected in the orbital targeting class which uses J3 gravity like JSBSim
+
 var GM = 398759391386476.0; 
 #var GM =  398600441800000.0;
 
@@ -108,7 +110,6 @@ var time_to_node = func (L2) {
 
 var L1 = [getprop("/fdm/jsbsim/systems/orbital/plane-x"), getprop("/fdm/jsbsim/systems/orbital/plane-y"), getprop("/fdm/jsbsim/systems/orbital/plane-z")];
 
-
 L1 = SpaceShuttle.normalize(L1);
 
 var pointing_vec_1 = SpaceShuttle.cross_product(L1, L2);
@@ -145,14 +146,14 @@ else
 
 #if (P1dotV > 0.0) {print ("Using P1");} else {print("Using P2");}
 
-var ang = math.acos(PdotR);
+var ang = math.abs(math.acos(PdotR));
 
 var orbital_period = getprop("/fdm/jsbsim/systems/orbital/orbital-period-s");
 var time = ang/(2.0 * math.pi) * orbital_period;
 
 #print("Ang: ", ang, " Time: ",time );
 
-
+return time;
 
 }
 

@@ -295,6 +295,7 @@ var key_msg_reset = func (kb_id) {
 
 SpaceShuttle.cws_last_message_acknowledge = 0;
 setprop("/fdm/jsbsim/systems/dps/error-string", "");
+setprop("/fdm/jsbsim/systems/cws/sm-alert-on", 0);
 }
 
 # FAULT SUMM key #######################################################
@@ -1062,6 +1063,8 @@ setprop("/fdm/jsbsim/systems/ap/oms-plan/theta-t",0.0);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/c1", 0.0);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/c2", 0.0);
 setprop("/fdm/jsbsim/systems/ap/oms-plan/prplt", 0.0);
+
+setprop("/fdm/jsbsim/systems/ap/oms-plan/peg4-entered", 0); 
 
 SpaceShuttle.oms_burn_target.peg4 = 0;
 }
@@ -2363,8 +2366,13 @@ if ((header == "ITEM") and (end == "EXEC"))
 			}
 		else if (item == 14)
 			{
-			setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", int(value)); 
-			valid_flag = 1;
+			var bv_sel = int(value);
+
+			if ((bv_sel == 1) or (bv_sel == 2) or (bv_sel ==3))
+				{
+				setprop("/fdm/jsbsim/systems/ap/track/body-vector-selection", bv_sel);
+				valid_flag = 1;
+				} 
 			}
 		else if (item == 17)
 			{setprop("/fdm/jsbsim/systems/ap/track/trk-om", num(value)); valid_flag = 1;}
@@ -3767,6 +3775,7 @@ if ((header == "ITEM") and (end == "EXEC"))
 			var state = getprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable");
 			if (state == 0) {state = 1;} else {state = 0;}
 			setprop("/fdm/jsbsim/systems/rendezvous/rel-nav-enable", state);
+			SpaceShuttle.proximity_manager.rel_nav_enable = state;
 			antenna_manager.rvdz_data = state;
 			valid_flag =1;
 			}
@@ -3789,21 +3798,26 @@ if ((header == "ITEM") and (end == "EXEC"))
 			var state = getprop("/fdm/jsbsim/systems/rendezvous/sv-select");
 			if (state == 0) {state = 1;} else {state = 0;}
 			setprop("/fdm/jsbsim/systems/rendezvous/sv-select", state);
+			SpaceShuttle.proximity_manager.sv_selection = state;
 			valid_flag =1;
 			}
 		else if (item == 8)
 			{
-			var update_tgt = getprop("/fdm/jsbsim/systems/rendezvous/filter-update");
-			if (update_tgt == 1) # update target SV
-				{
-				SpaceShuttle.filter_to_prop_tgt();
-				valid_flag = 1;		
-				}
-			else 
-				{
-				SpaceShuttle.filter_to_prop_orb();
-				valid_flag = 1;	
-				}
+
+			SpaceShuttle.proximity_manager.transfer_fltr_to_prop();
+			valid_flag = 1;
+
+			#var update_tgt = getprop("/fdm/jsbsim/systems/rendezvous/filter-update");
+			#if (update_tgt == 1) # update target SV
+			#	{
+			#	SpaceShuttle.filter_to_prop_tgt();
+			#	valid_flag = 1;		
+			#	}
+			#else 
+			#	{
+			#	SpaceShuttle.filter_to_prop_orb();
+			#	valid_flag = 1;	
+			#	}
 
 
 			}
@@ -3833,16 +3847,19 @@ if ((header == "ITEM") and (end == "EXEC"))
 		else if (item == 12)
 			{
 			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 0);
+			SpaceShuttle.proximity_manager.angle_sensor_selection = 0;
 			valid_flag =1;
 			}
 		else if (item == 13)
 			{
 			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 1);
+			SpaceShuttle.proximity_manager.angle_sensor_selection = 1;
 			valid_flag =1;
 			}
 		else if (item == 14)
 			{
 			setprop("/fdm/jsbsim/systems/rendezvous/angle-sensor-selection", 2);
+			SpaceShuttle.proximity_manager.angle_sensor_selection = 2;
 			valid_flag =1;
 			}
 		else if (item == 15)
@@ -3854,6 +3871,78 @@ if ((header == "ITEM") and (end == "EXEC"))
 				setprop("/fdm/jsbsim/systems/rendezvous/filter-update", state);
 				valid_flag =1;
 				}
+			}
+		else if (item == 17)
+			{
+			SpaceShuttle.proximity_manager.rng_aut = 1;
+			SpaceShuttle.proximity_manager.rng_inh = 0;			
+			SpaceShuttle.proximity_manager.rng_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			SpaceShuttle.proximity_manager.rng_aut = 0;
+			SpaceShuttle.proximity_manager.rng_inh = 1;			
+			SpaceShuttle.proximity_manager.rng_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			SpaceShuttle.proximity_manager.rng_aut = 0;
+			SpaceShuttle.proximity_manager.rng_inh = 0;			
+			SpaceShuttle.proximity_manager.rng_for = 1;						
+
+			valid_flag = 1;
+			}
+		else if (item == 20)
+			{
+			SpaceShuttle.proximity_manager.rdot_aut = 1;
+			SpaceShuttle.proximity_manager.rdot_inh = 0;			
+			SpaceShuttle.proximity_manager.rdot_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 21)
+			{
+			SpaceShuttle.proximity_manager.rdot_aut = 0;
+			SpaceShuttle.proximity_manager.rdot_inh = 1;			
+			SpaceShuttle.proximity_manager.rdot_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 22)
+			{
+			SpaceShuttle.proximity_manager.rdot_aut = 0;
+			SpaceShuttle.proximity_manager.rdot_inh = 0;			
+			SpaceShuttle.proximity_manager.rdot_for = 1;						
+
+			valid_flag = 1;
+			}
+		else if (item == 23)
+			{
+			SpaceShuttle.proximity_manager.y_aut = 1;
+			SpaceShuttle.proximity_manager.y_inh = 0;			
+			SpaceShuttle.proximity_manager.y_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 24)
+			{
+			SpaceShuttle.proximity_manager.y_aut = 0;
+			SpaceShuttle.proximity_manager.y_inh = 1;			
+			SpaceShuttle.proximity_manager.y_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 25)
+			{
+			SpaceShuttle.proximity_manager.y_aut = 0;
+			SpaceShuttle.proximity_manager.y_inh = 0;			
+			SpaceShuttle.proximity_manager.y_for = 1;						
+
+			valid_flag = 1;
 			}
 
 		else if (item == 31)
@@ -3877,6 +3966,30 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/navigation/gps-3-select", state);
 			valid_flag =1;
 			}
+		else if (item == 42)
+			{
+			SpaceShuttle.proximity_manager.gps_aut = 1;
+			SpaceShuttle.proximity_manager.gps_inh = 0;			
+			SpaceShuttle.proximity_manager.gps_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 43)
+			{
+			SpaceShuttle.proximity_manager.gps_aut = 0;
+			SpaceShuttle.proximity_manager.gps_inh = 1;			
+			SpaceShuttle.proximity_manager.gps_for = 0;						
+
+			valid_flag = 1;
+			}
+		else if (item == 44)
+			{
+			SpaceShuttle.proximity_manager.gps_aut = 0;
+			SpaceShuttle.proximity_manager.gps_inh = 0;			
+			SpaceShuttle.proximity_manager.gps_for = 1;						
+
+			valid_flag = 1;
+			}
 		}
 
 	if (spec == 34)
@@ -3886,15 +3999,114 @@ if ((header == "ITEM") and (end == "EXEC"))
 			setprop("/fdm/jsbsim/systems/navigation/orbital-tgt/tgt-id", int(value));
 			valid_flag = 1;
 			}
+		else if (item == 2)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-d", int(value));
+			SpaceShuttle.set_lambert_tig1_timer();
+			valid_flag = 1;
+			}
+		else if (item == 3)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-h", int(value));
+			SpaceShuttle.set_lambert_tig1_timer();
+			valid_flag = 1;
+			}
+		else if (item == 4)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-m", int(value));
+			SpaceShuttle.set_lambert_tig1_timer();
+			valid_flag = 1;
+			}
+		else if (item == 5)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig-s",value);
+			SpaceShuttle.set_lambert_tig1_timer();
+			valid_flag = 1;
+			}
+		else if (item == 13)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-d", int(value));
+			SpaceShuttle.set_lambert_tig2_timer();
+			valid_flag = 1;
+			}
+		else if (item == 14)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-h", int(value));
+			SpaceShuttle.set_lambert_tig2_timer();
+			valid_flag = 1;
+			}
+		else if (item == 15)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-m", int(value));
+			SpaceShuttle.set_lambert_tig2_timer();
+			valid_flag = 1;
+			}
+		else if (item == 16)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s",value);
+			SpaceShuttle.set_lambert_tig2_timer();
+			valid_flag = 1;
+			}
+		else if (item == 17)
+			{
+			var tig = getprop("/fdm/jsbsim/systems/ap/orbit-tgt/t1-tig");
+			tig += (value * 60.0);
+			print ("tig is now: ", tig);
+			var tig_d = int (tig/86400.0);
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-d", tig_d);
+			tig -= tig_d * 86400;
+			print ("tig is now: ", tig);
+			var tig_h = int (tig/3600.0);
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-h", tig_h);
+			tig -= tig_h * 3600;
+			print ("tig is now: ", tig);
+			var tig_m = int (tig/60.0);
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-m", tig_m);
+			tig -= tig_m * 60;
+			print ("tig is now: ", tig);
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-tig-s", tig);
+			SpaceShuttle.set_lambert_tig2_timer();
+			valid_flag = 1;
+			}
+		else if (item == 18)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dx",value);
+			valid_flag = 1;
+			}
+		else if (item == 19)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dy",value);
+			valid_flag = 1;
+			}
+		else if (item == 20)
+			{
+			setprop("/fdm/jsbsim/systems/ap/orbit-tgt/t2-dz",value);
+			valid_flag = 1;
+			}
 		else if (item == 25)
 			{
-			SpaceShuttle.copy_t2_to_t1();
+			#SpaceShuttle.copy_t2_to_t1();
 			valid_flag = 1;
 			}	
 		else if (item == 28)
 			{
-			SpaceShuttle.orbital_tgt_compute_t1();
+			if (SpaceShuttle.proximity_manager.iss_model == 0)
+				{SpaceShuttle.lambert_manager.compute_to_t1();}
+			else
+				{SpaceShuttle.lambert_manager.cw_target_to_t1();}
 			valid_flag =1;
+			}
+		else if (item == 29)
+			{
+
+			if (SpaceShuttle.lambert_manager.t1_in_progress == 0)
+				{
+				SpaceShuttle.lambert_manager.t2_in_progress = 1;
+				settimer ( func {
+					SpaceShuttle.lambert_manager.show_t2();
+					}, 2.0);
+				valid_flag =1;
+				}
 			}
 		}
 

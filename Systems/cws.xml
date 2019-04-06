@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="CWS flag generation">
+	<channel name="CWS flag generation" execrate="8">
 
 		<switch name="systems/cws/internal/left-oms-firing-fail">
 			<default value="0.0"/>
@@ -37,6 +37,18 @@
 				systems/oms-hardware/tanks-right-oms-pressure-psia GT 288
 				systems/oms-hardware/tanks-right-oms-pressure-psia LT 232
 				systems/cws/internal/right-oms-firing-fail == 1
+			</test>
+		</switch>
+
+		<switch name="systems/cws/kit-oms">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">				
+				systems/oms-hardware/tanks-kit-oms-pressure-psia GT 288
+				systems/oms-hardware/oms-kit-installed == 1
+			</test>
+			<test logic="AND" value="1.0">				
+				systems/oms-hardware/tanks-kit-oms-pressure-psia LT 232
+				systems/oms-hardware/oms-kit-installed == 1
 			</test>
 		</switch>
 
@@ -133,10 +145,6 @@
 
 		<switch name="systems/cws/freon-loop">
 			<default value="0.0"/>
-			<!--<test logic="AND" value="1.0">
-				systems/dps/ops == 2
-				systems/thermal-distribution/freon-out-temperature-K LT 273.26
-			</test>-->
 			<test logic="AND" value="1.0">
 				systems/dps/ops == 2
 				systems/thermal-distribution/freon-out-temperature-K GT 291.37
@@ -144,6 +152,9 @@
 			<test logic="AND" value="1.0">
 				systems/dps/ops == 1
 				systems/thermal-distribution/freon-out-temperature-K GT 319.0
+			</test>
+			<test value="1.0">
+				systems/atcs/freon-flow-active == 0
 			</test>
 
 		</switch>
@@ -273,6 +284,29 @@
 				systems/mps/helium[3]/pressure-psia LT 1150.0
 				systems/mps/lh2-manifold-pressure-psia GT 65
 				systems/mps/lo2-manifold-pressure-psia GT 249
+			</test>
+		</switch>
+
+		<switch name="systems/cws/emergency-depressurization">
+			<default value="0.0"/>
+			<test value="1.0">
+				systems/eclss/cabin/air-pressure-change LT -0.0013333
+			</test>
+		</switch>
+
+		<switch name="systems/cws/cw-test">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				/controls/shuttle/button_master-alarm_pbs-ss == 1
+				systems/cws/cw-mode == 1
+			</test>
+			<test logic="AND" value="1.0">
+				/controls/shuttle/button_master-alarm_cmd-ss == 1
+				systems/cws/cw-mode == 1
+			</test>
+			<test logic="AND" value="1.0">
+				/controls/shuttle/button_master-alarm_plt-ss == 1
+				systems/cws/cw-mode == 1
 			</test>
 		</switch>
 

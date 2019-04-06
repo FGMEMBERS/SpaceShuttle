@@ -73,8 +73,6 @@
         <object-name>DisplayR2</object-name>
     </effect>
 
-
-
     <!-- digital readouts -->
 
     <effect>
@@ -155,6 +153,12 @@
         <object-name>imu-fan-c</object-name>
         <object-name>top-evap-heat</object-name>
         <object-name>hiload-evap-heat</object-name>
+        <object-name>fire-sup-av-bay1</object-name>
+        <object-name>fire-sup-av-bay2</object-name>
+        <object-name>fire-sup-av-bay3</object-name>
+        <object-name>avbay-1-discharge</object-name>
+        <object-name>avbay-2-discharge</object-name>
+        <object-name>avbay-3-discharge</object-name>
         <!-- Panel L1 talkbacks -->
         <object-name>fc0-reac-base</object-name>
         <object-name>fc1-reac-base</object-name>
@@ -223,10 +227,6 @@
         <object-name>rad-bypass-vlv-mode2</object-name>
         <object-name>smoke-detector-circut-test</object-name>
         <object-name>smoke-detector-sensor</object-name>
-        <object-name>fire-sup-av-bay1</object-name>
-        <object-name>fire-sup-av-bay2</object-name>
-        <object-name>fire-sup-av-bay3</object-name>
-        <object-name>fs-bays-safe-bg</object-name>
         <object-name>man-sb-thrust-sel-cmd</object-name>
         <object-name>man-sb-thrust-sel-plt</object-name>
         <object-name>man-sb-thrust-cmd</object-name>
@@ -303,6 +303,7 @@
 		<object-name>button_roll-yaw_auto_cmd</object-name>
 		<object-name>button_chute_arm_cmd</object-name>
 		<object-name>button_chute_dpy_cmd</object-name>
+        <object-name>button_master-alarm_cmd</object-name>
         <!--Panel F5 fixings -->
         <object-name>F5-panel</object-name>
         <object-name>F5-fasteners</object-name>
@@ -587,6 +588,7 @@
 		<object-name>button_roll-yaw_css_plt</object-name>
 		<object-name>button_roll-yaw_auto_plt</object-name>
 		<object-name>button_chute_jett_plt</object-name>
+		<object-name>button_master-alarm_plt</object-name>
         <!-- Panel F8 switches -->
         <object-name>air-data-plt</object-name>
         <object-name>adi-rate-plt</object-name>
@@ -725,19 +727,8 @@
         <object-name>aft-light-fixture</object-name>
         <object-name>aft-left-light-fixture</object-name>
         <object-name>aft-right-light-fixture</object-name>
-        <!--<object-name>HUDImage1</object-name>
-        <object-name>HUDImage2</object-name>-->
         <object-name>HudLeft</object-name>
         <object-name>HudRight</object-name>
-        <!--<object-name>DisplayC1</object-name>
-        <object-name>DisplayC2</object-name>
-        <object-name>DisplayC3</object-name>
-        <object-name>DisplayC4</object-name>
-        <object-name>DisplayC5</object-name>
-        <object-name>DisplayL1</object-name>
-        <object-name>DisplayL2</object-name>
-        <object-name>DisplayR1</object-name>
-        <object-name>DisplayR2</object-name>-->
         <object-name>DisplayC1bg</object-name>
         <object-name>DisplayC2bg</object-name>
         <object-name>DisplayC3bg</object-name>
@@ -750,9 +741,6 @@
         <!-- Misc -->
         <object-name>air-data</object-name>
         <object-name>rdr-altm-plt</object-name>
-        <!-- RHC -->
-        <object-name>joystick</object-name>
-        <object-name>joystick-base</object-name>
         <!-- MFD's -->
         <object-name>MFD1_B1</object-name>
         <object-name>MFD1_B2</object-name>
@@ -937,8 +925,8 @@
         <object-name>payload-safing3</object-name>
         <object-name>payload-safing4</object-name>
         <object-name>payload-safing5</object-name>
-        <object-name>osm-eng-right</object-name>
-        <object-name>osm-eng-left</object-name>
+        <object-name>oms-eng-right</object-name>
+        <object-name>oms-eng-left</object-name>
         <object-name>oi-pcmmu-pwr</object-name>
         <object-name>oi-pcmmu-format</object-name>
         <object-name>main-eng-limit-shut-dn</object-name>
@@ -1024,7 +1012,7 @@
 		<object-name>button-cmd-mm-pitch-pulse</object-name>
 		<object-name>button-cmd-mm-yaw-pulse</object-name>
         <!-- Panel C3 covers -->
-        <object-name>osm-arm-cvr</object-name>
+        <object-name>oms-arm-cvr</object-name>
         <object-name>air-data-probe-cvr</object-name>
         <object-name>srb-sep-cvr</object-name>
         <object-name>main-eng-sd-left-cvr</object-name>
@@ -1082,7 +1070,6 @@
         <object-name>F7-panel</object-name>
         <object-name>F7-fasteners</object-name>
         <object-name>F7-guards</object-name>
-        <!--<object-name>event-time-glass</object-name>-->
         <object-name>event-time-glass-bg</object-name>
         <!-- Panel C2 talkbacks -->
         <object-name>timer-set-pos1</object-name>
@@ -1091,6 +1078,32 @@
         <object-name>timer-set-pos4</object-name>
         <!-- Panel C3 talkbacks base-->
         <object-name>C3-buttons-base</object-name>
+    </effect>
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-left</inherits-from>
+        <!-- Panel O1 -->
+        <object-name>O1-coas-panel</object-name>
+        <object-name>O1-coas-fasteners</object-name>
+        <object-name>O1-coas-guards</object-name>
+        <object-name>O1-coas-base</object-name>
+        <object-name>O1-connector-closed</object-name>
+        <object-name>O1-connector-open</object-name>
+        <object-name>coas-pwr-for</object-name>
+        <object-name>coasmountfor</object-name>
+    </effect>
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-panel-center</inherits-from>
+        <!-- Panel O19 -->
+        <object-name>O19-coas-panel</object-name>
+        <object-name>O19-fasteners</object-name>
+        <object-name>O19-guards</object-name>
+        <object-name>O19-base</object-name>
+        <object-name>O19-switches</object-name>
+        <object-name>O19-connectors</object-name>
+        <object-name>O19-coasconnector</object-name>
+        <object-name>coas-pwr-aft</object-name>
+        <object-name>coasmountaft</object-name>
     </effect>
 
     <effect>
@@ -1185,8 +1198,8 @@
         <object-name>button_label_mm_roll_pulse.001</object-name>
         <object-name>button_label_mm_pitch_pulse.001</object-name>
         <object-name>button_label_mm_yaw_pulse.001</object-name>
-        <!-- Panel A7 -->
-        <object-name>A7-button</object-name>
+        <!-- Panel A7 buttons -->
+        <object-name>button_master-alarm_pbs</object-name>
         <!-- Panel A7U -->
         <object-name>A7U-rhc</object-name>
         <object-name>A7U-rhc-button</object-name>
@@ -1397,8 +1410,6 @@
         </emission>
     </animation>
 
-
-
     <animation>
         <type>select</type>
         <object-name>A4-event-time-glass</object-name>
@@ -1461,12 +1472,10 @@
         <object-name>cw-light-o2heater-temp</object-name>
         <object-name>cw-light-ac-voltage</object-name>
         <object-name>cw-light-ac-overload</object-name>
-        <object-name>cw-light-freon-loop</object-name>
         <object-name>cw-light-av-bay-cabin-air</object-name>
         <object-name>cw-light-imu</object-name>
-        <object-name>cw-light-fwd-rcs</object-name>
         <object-name>cw-light-rcs-jet</object-name>
-        <object-name>cw-light-h20-loop</object-name>
+        <object-name>cw-light-h2o-loop</object-name>
         <object-name>cw-light-rga-accel</object-name>
         <object-name>cw-light-gpc</object-name>
         <object-name>cw-light-oms-kit</object-name>
@@ -1503,6 +1512,7 @@
         <object-name>cw-light-fuel-cell-reac</object-name>
         <object-name>cw-light-cabin-atm</object-name>
         <object-name>cw-light-main-bus-undervolt</object-name>
+        <object-name>cw-light-freon-loop</object-name>
         <object-name>cw-light-fwd-rcs</object-name>
         <object-name>cw-light-air-data</object-name>
         <object-name>cw-light-left-rcs</object-name>
@@ -1510,10 +1520,10 @@
         <object-name>cw-light-left-rhc</object-name>
         <object-name>cw-light-right-aft-rhc</object-name>
         <object-name>cw-light-left-oms</object-name>
-        <object-name>cw-light-right-osm</object-name>
+        <object-name>cw-light-right-oms</object-name>
         <object-name>cw-light-payload-warning</object-name>
         <object-name>cw-light-fcs-saturation</object-name>
-        <object-name>cw-light-osm-tvc</object-name>
+        <object-name>cw-light-oms-tvc</object-name>
         <object-name>cw-light-mps</object-name>
         <object-name>cw-light-backup-cw-alarm</object-name>
         <!-- Panel A8 -->
@@ -1528,6 +1538,26 @@
             <green>0.05</green>
             <blue>0.05</blue>
             <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
+        <!-- Panel L1 -->
+        <object-name>sd-cabin-light-l</object-name>
+        <object-name>sd-payload-light-r</object-name>
+        <object-name>sd-flightdeck-light-l</object-name>
+        <object-name>sd-flightdeck-light-r</object-name>
+        <object-name>sd-avbay1-light-l</object-name>
+        <object-name>sd-avbay1-light-r</object-name>
+        <object-name>sd-avbay2-light-l</object-name>
+        <object-name>sd-avbay2-light-r</object-name>
+        <object-name>sd-avbay3-light-l</object-name>
+        <object-name>sd-avbay3-light-r</object-name>
+        <emission>
+            <red>1</red>
+            <green>0.05</green>
+            <blue>0.05</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</factor-prop>
         </emission>
     </animation>
 
@@ -1555,6 +1585,156 @@
         </emission>
     </animation>
 
+    <!-- Blue lights -->
+    <animation>
+        <type>material</type>
+        <!-- Panel F7 -->
+        <object-name>sm-alert-b</object-name>
+        <emission>
+            <red>0.05</red>
+            <green>0.05</green>
+            <blue>1</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
+        </emission>
+    </animation>
+
+    <!-- Master Alarm -->
+
+    <!-- Panel F2 -->
+    <animation>
+        <type>textranslate</type>
+        <object-name>button_master-alarm_cmd</object-name>
+        <property>/fdm/jsbsim/systems/cws/master-alarm-cdr-on</property>
+        <bias>0.0</bias>
+        <factor>0.037</factor>
+        <step>1</step>
+        <axis>
+            <x> 8.828175</x>
+            <y>-0.040968</y>
+        </axis>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>button_master-alarm_cmd</object-name>
+        <emission>
+            <red>0.5</red>
+            <green>0.25</green>
+            <blue>0.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</factor-prop>
+        </emission>
+    </animation>
+    <model>
+        <name>proc_button_master-alarm_cmd</name>
+        <path>Effects/procedural_light_button_master-alarm_cmd.xml</path>
+        <offsets>
+            <x-m>-12.35   </x-m>
+            <y-m> -0.79834</y-m>
+            <z-m> -0.334  </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/cws/master-alarm-cdr-on</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <!-- Panel F4 -->
+    <animation>
+        <type>textranslate</type>
+        <object-name>button_master-alarm_plt</object-name>
+        <property>/fdm/jsbsim/systems/cws/master-alarm-plt-on</property>
+        <bias>0.0</bias>
+        <factor>0.037</factor>
+        <step>1</step>
+        <axis>
+            <x> 8.828175</x>
+            <y>-0.040968</y>
+        </axis>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>button_master-alarm_plt</object-name>
+        <emission>
+            <red>0.5</red>
+            <green>0.25</green>
+            <blue>0.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-right-norm</factor-prop>
+        </emission>
+    </animation>
+    <model>
+        <name>proc_button_master-alarm_plt</name>
+        <path>Effects/procedural_light_button_master-alarm_plt.xml</path>
+        <offsets>
+            <x-m>-12.348  </x-m>
+            <y-m>  0.88053</y-m>
+            <z-m> -0.338  </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/cws/master-alarm-plt-on</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <!-- Panel A7 -->
+    <animation>
+        <type>textranslate</type>
+        <object-name>button_master-alarm_pbs</object-name>
+        <property>/fdm/jsbsim/systems/cws/master-alarm-aft-on</property>
+        <bias>0.0</bias>
+        <factor>0.037</factor>
+        <step>1</step>
+        <axis>
+            <x> 8.828175</x>
+            <y>-0.040968</y>
+        </axis>
+    </animation>
+    <animation>
+        <type>material</type>
+        <object-name>button_master-alarm_pbs</object-name>
+        <emission>
+            <red>0.5</red>
+            <green>0.25</green>
+            <blue>0.0</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</factor-prop>
+        </emission>
+    </animation>
+    <model>
+        <name>proc_button_master-alarm_pbs</name>
+        <path>Effects/procedural_light_button_master-alarm_pbs.xml</path>
+        <offsets>
+            <x-m>-10.4109 </x-m>
+            <y-m>  0.18829</y-m>
+            <z-m> -0.05   </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/cws/master-alarm-aft-on</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
     <!-- White button lights -->
     <animation>
         <type>material</type>
@@ -1569,13 +1749,17 @@
         <object-name>button_light_bf_man_cmd</object-name>
         <object-name>button_light_sb_auto_cmd</object-name>
         <object-name>button_light_sb_man_cmd</object-name>
-        <!-- Panel F2 talkback lights-->
+        <!-- Panel F2 talkback lights -->
         <object-name>indicator_light_rcs_roll_l_cmd</object-name>
         <object-name>indicator_light_rcs_roll_r_cmd</object-name>
         <object-name>indicator_light_rcs_pitch_u_cmd</object-name>
         <object-name>indicator_light_rcs_pitch_d_cmd</object-name>
         <object-name>indicator_light_rcs_yaw_l_cmd</object-name>
         <object-name>indicator_light_rcs_yaw_r_cmd</object-name>
+        <!-- Panel L1 talkback lights -->
+        <object-name>button_light_avbay-1-discharge</object-name>
+        <object-name>button_light_avbay-2-discharge</object-name>
+        <object-name>button_light_avbay-3-discharge</object-name>
         <emission>
             <red>1.0</red>
             <green>0.576</green>
@@ -1673,6 +1857,15 @@
         <object-name>button_main_eng_sd_left</object-name>
         <object-name>button_main_eng_sd_center</object-name>
         <object-name>button_main_eng_sd_right</object-name>
+        <emission>
+            <red>1.0</red>
+            <green>0.576</green>
+            <blue>0.161</blue>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
+        </emission>
+    </animation>
+    <animation>
+        <type>material</type>
         <!-- Panel A8 -->
         <object-name>mode-sel-rotory-a</object-name>
         <object-name>mode-sel-rotory-a.001</object-name>
@@ -1690,7 +1883,7 @@
             <red>1.0</red>
             <green>0.576</green>
             <blue>0.161</blue>
-            <factor-prop>/fdm/jsbsim/systems/light/console-eff-panel-center-norm</factor-prop>
+            <factor-prop>/fdm/jsbsim/systems/light/console-eff-aft-panel-center-norm</factor-prop>
         </emission>
     </animation>
 
@@ -5457,6 +5650,37 @@
 	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-left-r</name>
+        <path>Effects/procedural_light_mes-left-r.xml</path>
+        <offsets>
+            <x-m>-12.39 </x-m>
+            <y-m>  0.043</y-m>
+            <z-m> -0.75 </z-m>
+        </offsets>
+        <condition>
+            <and>
+              <or>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[0]/engine-operational</property>
+                  <value>0</value>
+                </equals>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[0]/run-cmd</property>
+                  <value>0.0</value>
+                </equals>
+              </or>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <animation>
         <type>select</type>
@@ -5480,12 +5704,43 @@
 	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-ctr-r</name>
+        <path>Effects/procedural_light_mes-ctr-r.xml</path>
+        <offsets>
+            <x-m>-12.396</x-m>
+            <y-m>  0.080</y-m>
+            <z-m> -0.739</z-m>
+        </offsets>
+        <condition>
+            <and>
+              <or>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[2]/engine-operational</property>
+                  <value>0</value>
+                </equals>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[2]/run-cmd</property>
+                  <value>0.0</value>
+                </equals>
+              </or>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <animation>
         <type>select</type>
         <object-name>mes-right-r</object-name>
         <condition>
-	    <and>
+	        <and>
             <or>
                 <equals>
                     <property>/fdm/jsbsim/systems/mps/engine[1]/engine-operational</property>
@@ -5503,6 +5758,37 @@
  	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-right-r</name>
+        <path>Effects/procedural_light_mes-right-r.xml</path>
+        <offsets>
+            <x-m>-12.39 </x-m>
+            <y-m>  0.113</y-m>
+            <z-m> -0.75 </z-m>
+        </offsets>
+        <condition>
+            <and>
+              <or>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[1]/engine-operational</property>
+                  <value>0</value>
+                </equals>
+                <equals>
+                  <property>/fdm/jsbsim/systems/mps/engine[1]/run-cmd</property>
+                  <value>0.0</value>
+                </equals>
+              </or>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <animation>
         <type>select</type>
@@ -5520,6 +5806,31 @@
 	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-left-y</name>
+        <path>Effects/procedural_light_mes-left-y.xml</path>
+        <offsets>
+            <x-m>-12.387</x-m>
+            <y-m>  0.043</y-m>
+            <z-m> -0.757</z-m>
+        </offsets>
+        <condition>
+            <and>
+              <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[0]/lockup</property>
+                <value>1</value>
+              </equals>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <animation>
         <type>select</type>
@@ -5537,6 +5848,31 @@
 	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-ctr-y</name>
+        <path>Effects/procedural_light_mes-ctr-y.xml</path>
+        <offsets>
+            <x-m>-12.391</x-m>
+            <y-m>  0.080</y-m>
+            <z-m> -0.746</z-m>
+        </offsets>
+        <condition>
+            <and>
+              <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[2]/lockup</property>
+                <value>1</value>
+              </equals>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <animation>
         <type>select</type>
@@ -5554,280 +5890,1535 @@
 	    </and>
         </condition>
     </animation>
+    <model>
+        <name>proc_light_mes-right-y</name>
+        <path>Effects/procedural_light_mes-right-y.xml</path>
+        <offsets>
+            <x-m>-12.387</x-m>
+            <y-m>  0.113</y-m>
+            <z-m> -0.757</z-m>
+        </offsets>
+        <condition>
+            <and>
+              <equals>
+                <property>/fdm/jsbsim/systems/mps/engine[1]/lockup</property>
+                <value>1</value>
+              </equals>
+              <equals>
+                <property>/controls/shuttle/ET-static-model</property>
+                <value>1</value>
+              </equals>
+              <greater-than>
+                  <property>/sim/rendering/shaders/model</property>
+                  <value>1</value>
+              </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <!-- "SM Alert BLUE Light -->
+    <animation>
+      <type>select</type>
+      <object-name>sm-alert-b</object-name>
+      <condition>
+        <equals>
+          <property>/fdm/jsbsim/systems/cws/sm-alert-on</property>
+          <value>1</value>
+        </equals>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sm-alert-b</name>
+        <path>Effects/procedural_light_sm-alert-b.xml</path>
+        <offsets>
+            <x-m>-12.379   </x-m>
+            <y-m>  0.045</y-m>
+            <z-m> -0.785  </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/cws/sm-alert-on</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
 
     <!-- Main Buss Undervolt  "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-main-bus-undervolt</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-main-bus-undervolt</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/main-bus-undervolt</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-main-bus-undervolt</name>
+      <path>Effects/procedural_light_cw-light-main-bus-undervolt.xml</path>
+      <offsets>
+          <x-m>-12.485</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.418</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/main-bus-undervolt</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Left OMS "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-left-oms</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-left-oms</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/left-oms</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-left-oms</name>
+      <path>Effects/procedural_light_cw-light-left-oms.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.449</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/left-oms</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Right OMS  "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-right-oms</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-right-oms</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/right-oms</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-right-oms</name>
+      <path>Effects/procedural_light_cw-light-right-oms.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.449</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/right-oms</property>
                 <value>1</value>
-            </equals>
-        </condition>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- OMS KIT  "CW Red Light" -->
+    <animation>
+      <type>select</type>
+      <object-name>cw-light-oms-kit</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/kit-oms</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
     </animation>
+    <model>
+      <name>proc_light_cw-light-oms-kit</name>
+      <path>Effects/procedural_light_cw-light-oms-kit.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.458</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/oms-kit</property>
+                <value>1</value>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- OMS TVC "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-osm-tvc</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-oms-tvc</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/oms-tvc</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-oms-tvc</name>
+      <path>Effects/procedural_light_cw-light-oms-tvc.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.458</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/oms-tvc</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Fwd RCS "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-fwd-rcs</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-fwd-rcs</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/fwd-rcs</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-fwd-rcs</name>
+      <path>Effects/procedural_light_cw-light-fwd-rcs.xml</path>
+      <offsets>
+          <x-m>-12.483</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.430</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/fwd-rcs</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Left RCS "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-left-rcs</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-left-rcs</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/left-rcs</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-left-rcs</name>
+      <path>Effects/procedural_light_cw-light-left-rcs.xml</path>
+      <offsets>
+          <x-m>-12.478</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.439</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/left-rcs</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Right RCS "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-right-rcs</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-right-rcs</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/right-rcs</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-right-rcs</name>
+      <path>Effects/procedural_light_cw-light-right-rcs.xml</path>
+      <offsets>
+          <x-m>-12.478</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.439</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/right-rcs</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!--FC Reac "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-fuel-cell-reac</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-fuel-cell-reac</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/fuel-cell-reac</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-fuel-cell-reac</name>
+      <path>Effects/procedural_light_cw-light-fuel-cell-reac.xml</path>
+      <offsets>
+          <x-m>-12.489</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.411</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/fuel-cell-reac</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- Backup CW Alarm "CW Red Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-backup-cw-alarm</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-backup-cw-alarm</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/backup-cw</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-backup-cw-alarm</name>
+      <path>Effects/procedural_light_cw-light-backup-cw-alarm.xml</path>
+      <offsets>
+          <x-m>-12.469</x-m>
+          <y-m> -0.022</y-m>
+          <z-m> -0.474</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/backup-cw</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- FC Stack Temp "CW Yellow Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-fuel-cell-stack-temp</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-fuel-cell-stack-temp</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/fuel-cell-stack-temp</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-fuel-cell-stack-temp</name>
+      <path>Effects/procedural_light_cw-light-fuel-cell-stack-temp.xml</path>
+      <offsets>
+          <x-m>-12.489</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.411</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/fuel-cell-stack-temp</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- FC Pump "CW Yellow Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-fuel-cell-pump</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-fuel-cell-pump</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/fuel-cell-pump</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-fuel-cell-pump</name>
+      <path>Effects/procedural_light_cw-light-fuel-cell-pump.xml</path>
+      <offsets>
+          <x-m>-12.489</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.411</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/fuel-cell-pump</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- AC Voltage "CW Yellow Light" -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-ac-voltage</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-ac-voltage</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/ac-voltage</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-ac-voltage</name>
+      <path>Effects/procedural_light_cw-light-ac-voltage.xml</path>
+      <offsets>
+          <x-m>-12.485</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.421</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/ac-voltage</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- H2O loop "CW Yellow Light -->
-
+    <!-- H2O Loop "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-h20-loop</object-name>
-        <condition>
-            <equals>
+    <type>select</type>
+    <object-name>cw-light-h2o-loop</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/h2o-loop</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-h2o-loop</name>
+      <path>Effects/procedural_light_cw-light-h2o-loop.xml</path>
+      <offsets>
+          <x-m>-12.478  </x-m>
+          <y-m> -0.02241</y-m>
+          <z-m> -0.437  </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/h2o-loop</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- freon loop "CW Red Light -->
-
+    <!-- Freon Loop "CW Red Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-freon-loop</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-freon-loop</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/freon-loop</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-freon-loop</name>
+      <path>Effects/procedural_light_cw-light-freon-loop.xml</path>
+      <offsets>
+          <x-m>-12.48   </x-m>
+          <y-m> -0.02187</y-m>
+          <z-m> -0.427  </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/freon-loop</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- cabin atmosphere "CW Red Light -->
-
+    <!-- Cabin Atmosphere "CW Red Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-cabin-atm</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-cabin-atm</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cabin-atm</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-cabin-atm</name>
+      <path>Effects/procedural_light_cw-light-cabin-atm.xml</path>
+      <offsets>
+          <x-m>-12.485</x-m>
+          <y-m> -0.022</y-m>
+          <z-m> -0.418</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/cabin-atm</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- av bay cabin air "CW Yellow Light -->
-
+    <!-- AV Bay Cabin Air "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-av-bay-cabin-air</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-av-bay-cabin-air</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/avbay-cabin-air</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-av-bay-cabin-air</name>
+      <path>Effects/procedural_light_cw-light-av-bay-cabin-air.xml</path>
+      <offsets>
+          <x-m>-12.481</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.428</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/avbay-cabin-air</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- hyd press "CW Yellow Light -->
-
+    <!-- HYD Press "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-hyd-press</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-hyd-press</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/hyd-press</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-hyd-press</name>
+      <path>Effects/procedural_light_cw-light-hyd-press.xml</path>
+      <offsets>
+          <x-m>-12.468</x-m>
+          <y-m>  0.105</y-m>
+          <z-m> -0.476</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/hyd-press</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- APU temp "CW Yellow Light -->
-
+    <!-- APU Temp "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-apu-temp</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-apu-temp</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/apu-temp</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-apu-temp</name>
+      <path>Effects/procedural_light_cw-light-apu-temp.xml</path>
+      <offsets>
+          <x-m>-12.467</x-m>
+          <y-m>  0.012</y-m>
+          <z-m> -0.476</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/apu-temp</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- APU overspeed "CW Yellow Light -->
-
+    <!-- APU Overspeed "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-apu-overspeed</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-apu-overspeed</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/apu-overspeed</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-apu-overspeed</name>
+      <path>Effects/procedural_light_cw-light-apu-overspeed.xml</path>
+      <offsets>
+          <x-m>-12.469</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.476</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/apu-overspeed</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- APU underspeed "CW Yellow Light -->
-
+    <!-- APU Underspeed "CW Yellow Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-apu-underspeed</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-apu-underspeed</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/apu-underspeed</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-apu-underspeed</name>
+      <path>Effects/procedural_light_cw-light-apu-underspeed.xml</path>
+      <offsets>
+          <x-m>-12.469</x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.476</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/apu-underspeed</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
-    <!-- Air data "CW RED Light -->
-
+    <!-- Air Data "CW RED Light -->
     <animation>
-        <type>select</type>
-        <object-name>cw-light-air-data</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-air-data</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/air-data</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-air-data</name>
+      <path>Effects/procedural_light_cw-light-air-data.xml</path>
+      <offsets>
+          <x-m>-12.478</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.437</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/air-data</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- MPS "CW RED Light -->
-
     <animation>
-        <type>select</type>
-        <object-name>cw-light-mps</object-name>
-        <condition>
-            <equals>
+      <type>select</type>
+      <object-name>cw-light-mps</object-name>
+      <condition>
+        <or>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/mps</property>
+            <value>1</value>
+          </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
+        </or>
+      </condition>
+    </animation>
+    <model>
+      <name>proc_light_cw-light-mps</name>
+      <path>Effects/procedural_light_cw-light-mps.xml</path>
+      <offsets>
+          <x-m>-12.471 </x-m>
+          <y-m>  0.076</y-m>
+          <z-m> -0.467 </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
                 <property>/fdm/jsbsim/systems/cws/mps</property>
                 <value>1</value>
-            </equals>
-        </condition>
-    </animation>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- O2 Press "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-o2press</name>
+      <path>Effects/procedural_light_cw-light-o2press.xml</path>
+      <offsets>
+          <x-m>-12.489</x-m>
+          <y-m> -0.022</y-m>
+          <z-m> -0.411</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/o2press</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- Payload Warning "CW RED Light -->
+    <model>
+      <name>proc_light_cw-light-payload-warning</name>
+      <path>Effects/procedural_light_cw-light-payload-warning.xml</path>
+      <offsets>
+          <x-m>-12.474  </x-m>
+          <y-m> -0.02117</y-m>
+          <z-m> -0.456  </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/payload-warning</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- Payload Caution "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-payload-caution</name>
+      <path>Effects/procedural_light_cw-light-payload-caution.xml</path>
+      <offsets>
+          <x-m>-12.471 </x-m>
+          <y-m> -0.0213</y-m>
+          <z-m> -0.465 </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/payload-warning</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- H2Press "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-h2press</name>
+      <path>Effects/procedural_light_cw-light-h2press.xml</path>
+      <offsets>
+          <x-m>-12.489</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.411</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/h2press</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- O2 Heater Temp "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-o2heater-temp</name>
+      <path>Effects/procedural_light_cw-light-o2heater-temp.xml</path>
+      <offsets>
+          <x-m>-12.485</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.418</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/o2heater-temp</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+
+    <!-- RGA Accel "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-rga-accel</name>
+      <path>Effects/procedural_light_cw-light-rga-accel.xml</path>
+      <offsets>
+          <x-m>-12.478</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.437</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/rga-accel</property>
+                <value>1</value>
+              </equals>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            </or>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- Left RHC "CW RED Light -->
+    <model>
+      <name>proc_light_cw-light-left-rhc</name>
+      <path>Effects/procedural_light_cw-light-left-rhc.xml</path>
+      <offsets>
+          <x-m>-12.476</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.447</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/left-rhc</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- GPC "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-gpc</name>
+      <path>Effects/procedural_light_cw-light-gpc.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.458</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/gpc</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- Primary CW "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-primary-cw</name>
+      <path>Effects/procedural_light_cw-light-primary-cw.xml</path>
+      <offsets>
+          <x-m>-12.471 </x-m>
+          <y-m>  0.011</y-m>
+          <z-m> -0.466 </z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/primary-cw</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- IMU "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-imu</name>
+      <path>Effects/procedural_light_cw-light-imu.xml</path>
+      <offsets>
+          <x-m>-12.483</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.430</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/imu</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- Right Aft RHC "CW RED Light -->
+    <model>
+      <name>proc_light_cw-light-right-aft-rhc</name>
+      <path>Effects/procedural_light_cw-light-right-aft-rhc.xml</path>
+      <offsets>
+          <x-m>-12.476</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.447</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/right-aft-rhc</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- FCS Saturation "CW RED Light -->
+    <model>
+      <name>proc_light_cw-light-fcs-saturation</name>
+      <path>Effects/procedural_light_cw-light-fcs-saturation.xml</path>
+      <offsets>
+          <x-m>-12.474</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.456</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/fcs-saturation</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- FCS Channel "CW YELLOW Light -->
+    <model>
+      <name>proc_light_cw-light-fcs-channel</name>
+      <path>Effects/procedural_light_cw-light-fcs-channel.xml</path>
+      <offsets>
+          <x-m>-12.471</x-m>
+          <y-m>  0.043</y-m>
+          <z-m> -0.467</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/fcs-channel</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- AC Overload "CW Yellow Light" -->
+    <model>
+      <name>proc_light_cw-light-ac-overload</name>
+      <path>Effects/procedural_light_cw-light-ac-overload.xml</path>
+      <offsets>
+          <x-m>-12.485</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.421</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/ac-overload</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+    <!-- RCS Jet "CW Yellow Light" -->
+    <model>
+      <name>proc_light_cw-light-rcs-jet</name>
+      <path>Effects/procedural_light_cw-light-rcs-jet.xml</path>
+      <offsets>
+          <x-m>-12.483</x-m>
+          <y-m>  0.106</y-m>
+          <z-m> -0.430</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <!--or>
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/rcs-jet</property>
+                <value>1</value>
+              </equals-->
+              <equals>
+                <property>/fdm/jsbsim/systems/cws/cw-test</property>
+                <value>1</value>
+              </equals>
+            <!--/or-->
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- CWS  "Lights" -->
     <animation>
@@ -5840,10 +7431,10 @@
         <!--<object-name>cw-light-av-bay-cabin-air</object-name>-->
         <object-name>cw-light-imu</object-name>
         <object-name>cw-light-rcs-jet</object-name>
-        <!--<object-name>cw-light-h20-loop</object-name>-->
+        <!--<object-name>cw-light-h2o-loop</object-name>-->
         <object-name>cw-light-rga-accel</object-name>
         <object-name>cw-light-gpc</object-name>
-        <object-name>cw-light-oms-kit</object-name>
+        <!--<object-name>cw-light-oms-kit</object-name>-->
         <object-name>cw-light-payload-caution</object-name>
         <object-name>cw-light-primary-cw</object-name>
         <object-name>cw-light-fcs-channel</object-name>
@@ -5859,10 +7450,10 @@
         <object-name>cw-light-fcs-saturation</object-name>
         <!--<object-name>cw-light-mps</object-name>-->
         <condition>
-            <equals>
-                <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
-                <value>1</value>
-            </equals>
+          <equals>
+            <property>/fdm/jsbsim/systems/cws/cw-test</property>
+            <value>1</value>
+          </equals>
         </condition>
     </animation>
 
@@ -7502,6 +9093,55 @@
     </animation>
 
     <!-- ******************************************************************* -->
+    <!-- Panel A7                                                            -->
+    <!-- ******************************************************************* -->
+
+    <!-- Payload Bay Station Master Alarm Reset "Button" -->
+    <animation>
+      <type>slider</type>
+      <object-name>button_master-alarm_pbs</object-name>
+      <property>/controls/shuttle/button_master-alarm_pbs-ss</property>
+      <factor>0.002</factor>
+      <axis>
+        <x>1</x>
+        <y>0</y>
+        <z>0</z>
+      </axis>
+      <action>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_pbs-ss") == 0)
+            {
+              setprop("/controls/shuttle/button_master-alarm_pbs-ss", 1);
+              SpaceShuttle.click("avionics");
+            }
+          </script>
+        </binding>
+      </action>
+      <release>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_pbs-ss") == 1)
+            {
+              SpaceShuttle.master_alarm_mngr.unset_alarm();
+              SpaceShuttle.click("avionics");
+              setprop("/controls/shuttle/button_master-alarm_pbs-ss", 0);
+            }
+          </script>
+        </binding>
+      </release>
+      <hovered>
+        <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>master-alarm-pbs</tooltip-id>
+        <label>Press to Turn off Alarm</label>
+        </binding>
+      </hovered>
+    </animation>
+
+    <!-- ******************************************************************* -->
     <!-- Panel A8                                                            -->
     <!-- ******************************************************************* -->
 
@@ -7527,6 +9167,241 @@
         </condition>
     </animation>
 
+    <model>
+      <name>proc_light_cw-light-rms-red-a</name>
+      <path>Effects/procedural_light_cw-light-rms-red-a.xml</path>
+      <offsets>
+          <x-m>-10.428</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.095</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-red-a.001</name>
+      <path>Effects/procedural_light_cw-light-rms-red-a.001.xml</path>
+      <offsets>
+          <x-m>-10.431</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.103</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-red-a.002</name>
+      <path>Effects/procedural_light_cw-light-rms-red-a.002.xml</path>
+      <offsets>
+          <x-m>-10.434</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.111</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.xml</path>
+      <offsets>
+          <x-m>-10.437</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.120</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a.001</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.001.xml</path>
+      <offsets>
+          <x-m>-10.440</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.129</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a.002</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.002.xml</path>
+      <offsets>
+          <x-m>-10.443</x-m>
+          <y-m> -0.403</y-m>
+          <z-m> -0.138</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+
+    <model>
+      <name>proc_light_cw-light-rms-red-a.005</name>
+      <path>Effects/procedural_light_cw-light-rms-red-a.005.xml</path>
+      <offsets>
+          <x-m>-10.428</x-m>
+          <y-m> -0.431</y-m>
+          <z-m> -0.095</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-red-a.004</name>
+      <path>Effects/procedural_light_cw-light-rms-red-a.004.xml</path>
+      <offsets>
+          <x-m>-10.431</x-m>
+          <y-m> -0.431</y-m>
+          <z-m> -0.103</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a.005</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.005.xml</path>
+      <offsets>
+          <x-m>-10.437</x-m>
+          <y-m> -0.431</y-m>
+          <z-m> -0.120</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a.004</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.004.xml</path>
+      <offsets>
+          <x-m>-10.440</x-m>
+          <y-m> -0.431</y-m>
+          <z-m> -0.129</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+    <model>
+      <name>proc_light_cw-light-rms-yellow-a.003</name>
+      <path>Effects/procedural_light_cw-light-rms-yellow-a.003.xml</path>
+      <offsets>
+          <x-m>-10.443</x-m>
+          <y-m> -0.431</y-m>
+          <z-m> -0.138</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
+
     <!-- RMS Master Alarm  "Light" -->
     <animation>
         <type>select</type>
@@ -7538,6 +9413,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_rms-master-alarm</name>
+      <path>Effects/procedural_light_rms-master-alarm.xml</path>
+      <offsets>
+          <x-m>-10.453</x-m>
+          <y-m> -0.419</y-m>
+          <z-m> -0.170</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/cws/not-active-placeholder</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (2) Auto 1 "Light" -->
     <animation>
@@ -7550,6 +9446,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.407</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.034</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>2</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (3) Auto 2 "Light" -->
     <animation>
@@ -7562,6 +9479,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.001</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.410</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.042</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>3</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (4) Auto 3 "Light" -->
     <animation>
@@ -7574,6 +9512,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.002</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.413</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.050</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>4</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (5) Auto 4 "Light" -->
     <animation>
@@ -7586,6 +9545,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.003</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.416</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.059</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>5</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (1) OPR CMD "Light" -->
     <animation>
@@ -7598,6 +9578,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.004</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.419</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.068</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>1</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (0) Test "Light" -->
     <animation>
@@ -7610,6 +9611,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.005</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.422</x-m>
+          <y-m> -0.265</y-m>
+          <z-m> -0.077</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>0</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (11) Direct "Light" -->
     <animation>
@@ -7622,6 +9644,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.006</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.422</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.077</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>11</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (10) Single "Light" -->
     <animation>
@@ -7634,6 +9677,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.007</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.419</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.068</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>10</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (9) Payload "Light" -->
     <animation>
@@ -7646,6 +9710,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.008</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.416</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.060</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>9</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (8) ORB LD "Light" -->
     <animation>
@@ -7658,6 +9743,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.009</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.413</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.051</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>8</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Mode Select (7) END EFF "Light" -->
     <animation>
@@ -7670,6 +9776,28 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.010</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.410</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.043</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>7</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
+
 
     <!-- RMS Mode Select (6) ORB UNL "Light" -->
     <animation>
@@ -7682,6 +9810,27 @@
             </equals>
         </condition>
     </animation>
+    <model>
+      <name>proc_light_mode-sel-rotory-a.011</name>
+      <path>Effects/procedural_light_mode-sel-rotory.xml</path>
+      <offsets>
+          <x-m>-10.407</x-m>
+          <y-m> -0.292</y-m>
+          <z-m> -0.035</z-m>
+      </offsets>
+      <condition>
+          <and>
+            <equals>
+              <property>/fdm/jsbsim/systems/rms/drive-selection-actual</property>
+              <value>6</value>
+            </equals>
+            <greater-than>
+                <property>/sim/rendering/shaders/model</property>
+                <value>1</value>
+            </greater-than>
+          </and>
+      </condition>
+    </model>
 
     <!-- RMS Power "Switch"-->
     <animation>
@@ -10900,7 +13049,7 @@
         <object-name>O6-light-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight6-mode</property>
         <factor>-45</factor>
-        <offset-deg>90</offset-deg>
+        <offset-deg>60</offset-deg>
         <center>
             <x-m>-11.8605</x-m>
             <y-m> -0.5276</y-m>
@@ -11035,7 +13184,7 @@
         <object-name>O6-light-glare-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight1-mode</property>
         <factor>-45</factor>
-        <offset-deg>90</offset-deg>
+        <offset-deg>60</offset-deg>
         <center>
             <x-m>-11.8605</x-m>
             <y-m> -0.6785</y-m>
@@ -11345,7 +13494,7 @@
         <object-name>O8-light-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight8-mode</property>
         <factor>-45</factor>
-        <offset-deg>90</offset-deg>
+        <offset-deg>60</offset-deg>
         <center>
             <x-m>-11.8571</x-m>
             <y-m> 0.4664</y-m>
@@ -11480,7 +13629,7 @@
         <object-name>O8-light-glare-switch</object-name>
         <property>/fdm/jsbsim/systems/light/cabinlight2-mode</property>
         <factor>-45</factor>
-        <offset-deg>90</offset-deg>
+        <offset-deg>60</offset-deg>
         <center>
             <x-m>-11.8574</x-m>
             <y-m> 0.6151 </y-m>
@@ -13567,10 +15716,10 @@
         </hovered>
     </animation>
 
-    <!--  Left OSM Engine Arm "Switch" -->
+    <!--  Left OMS Engine Arm "Switch" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-eng-left</object-name>
+        <object-name>oms-eng-left</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
         <factor>-35</factor>
         <offset-deg>30</offset-deg>
@@ -13597,7 +15746,7 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-            <!-- remove the following binding when OSM Arm cmd is properly mapped to arm = 2 and arm/press = 1 -->
+            <!-- remove the following binding when OMS Arm cmd is properly mapped to arm = 2 and arm/press = 1 -->
             <binding>
                 <command>nasal</command>
                 <script>
@@ -13609,8 +15758,8 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-eng-left</tooltip-id>
-                <label>Left OSM Engine Arm: %s</label>
+                <tooltip-id>oms-eng-left</tooltip-id>
+                <label>LefOMS Engine Arm: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/engine-left-arm-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -13621,10 +15770,10 @@
         </hovered>
     </animation>
 
-    <!--  Right OSM Engine Arm "Switch" -->
+    <!--  Right OMS Engine Arm "Switch" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-eng-right</object-name>
+        <object-name>oms-eng-right</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
         <factor>-35</factor>
         <offset-deg>30</offset-deg>
@@ -13651,7 +15800,7 @@
                 <command>nasal</command>
                 <script>SpaceShuttle.click("avionics")</script>
             </binding>
-            <!-- remove the following binding when OSM Arm cmd is properly mapped to arm = 2 and arm/press = 1 -->
+            <!-- remove the following binding when OMS Arm cmd is properly mapped to arm = 2 and arm/press = 1 -->
             <binding>
                 <command>nasal</command>
                 <script>
@@ -13663,8 +15812,8 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-eng-right</tooltip-id>
-                <label>Right OSM Engine Arm: %s</label>
+                <tooltip-id>oms-eng-right</tooltip-id>
+                <label>Right OMS Engine Arm: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/engine-right-arm-cmd</property>
                 <mapping>nasal</mapping>
                 <script>
@@ -15667,6 +17816,53 @@
         </hovered>
     </animation>
 
+    <!--  Caution and Warning Mode "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>caution-warning-mode</object-name>
+        <property>/fdm/jsbsim/systems/cws/cw-mode</property>
+        <factor>-35</factor>
+        <offset-deg>-5</offset-deg>
+        <center>
+            <x-m>-11.78006</x-m>
+            <y-m>  0.21978</y-m>
+            <z-m> -1.03008</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/cws/cw-mode</property>
+                <factor>1</factor>
+                <min>-1</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.78006, 0.21978, -1.03008);</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>cautio-warning-mode</tooltip-id>
+                <label>Caution and Warning Mode Select: %s</label>
+                <property>/fdm/jsbsim/systems/cws/cw-mode</property>
+                <mapping>nasal</mapping>
+                <script>
+                    #var modes = ['Ascent', 'Norm', 'Ack'];
+			var modes = ['Norm', 'Ack', 'Ascent'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- Main Engine Shutdown Left "Cover" -->
     <animation>
         <type>knob</type>
@@ -15913,17 +18109,17 @@
         </hovered>
     </animation>
 
-    <!-- OSM Arm "Cover" -->
+    <!-- OMS Arm "Cover" -->
     <animation>
         <type>pick</type>
-        <object-name>osm-arm-cvr</object-name>
-        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <object-name>oms-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/oms-arm-cvr</property>
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
             <binding>
                 <command>property-toggle</command>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <property>/sim/model/panel/cover/oms-arm-cvr</property>
             </binding>
             <binding>
                 <command>nasal</command>
@@ -15935,14 +18131,14 @@
                 <command>set-tooltip</command>
                 <tooltip-id>remove-covers</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <property>/sim/model/panel/cover/oms-arm-cvr</property>
             </binding>
         </hovered>
     </animation>
     <animation>
         <type>rotate</type>
-        <object-name>osm-arm-cvr</object-name>
-        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <object-name>oms-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/oms-arm-cvr</property>
         <factor>13</factor>
         <center>
             <x-m>-12.1139</x-m>
@@ -15957,8 +18153,8 @@
     </animation>
     <animation>
       <type>translate</type>
-      <object-name>osm-arm-cvr</object-name>
-      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <object-name>oms-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/oms-arm-cvr</property>
       <factor>0.0345</factor>
       <axis>
        <x> 1 </x>
@@ -15968,8 +18164,8 @@
     </animation>
     <animation>
       <type>translate</type>
-      <object-name>osm-arm-cvr</object-name>
-      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <object-name>oms-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/oms-arm-cvr</property>
       <factor>0.03588</factor>
       <axis>
        <x> 0 </x>
@@ -15979,8 +18175,8 @@
     </animation>
     <animation>
       <type>translate</type>
-      <object-name>osm-arm-cvr</object-name>
-      <property>/sim/model/panel/cover/osm-arm-cvr</property>
+      <object-name>oms-arm-cvr</object-name>
+      <property>/sim/model/panel/cover/oms-arm-cvr</property>
       <factor>0.00262</factor>
       <axis>
        <x> 0 </x>
@@ -15990,8 +18186,8 @@
     </animation>
     <!--animation>
         <type>knob</type>
-        <object-name>osm-arm-cvr</object-name>
-        <property>/sim/model/panel/cover/osm-arm-cvr</property>
+        <object-name>oms-arm-cvr</object-name>
+        <property>/sim/model/panel/cover/oms-arm-cvr</property>
         <factor>1</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -16007,7 +18203,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <property>/sim/model/panel/cover/oms-arm-cvr</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -16021,9 +18217,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-arm-cvr</tooltip-id>
+                <tooltip-id>oms-arm-cvr</tooltip-id>
                 <label>Remove Cover</label>
-                <property>/sim/model/panel/cover/osm-arm-cvr</property>
+                <property>/sim/model/panel/cover/oms-arm-cvr</property>
             </binding>
         </hovered>
     </animation-->
@@ -16031,7 +18227,7 @@
     <!-- C3 Remove Covers (GUI Only) -->
     <animation>
         <type>select</type>
-        <object-name>osm-arm-cvr</object-name>
+        <object-name>oms-arm-cvr</object-name>
         <object-name>air-data-probe-cvr</object-name>
         <condition>
             <property>/sim/model/panel/cover/C3-covers-visible</property>
@@ -16495,42 +18691,42 @@
 		    <z>0</z>
 		</axis>
 		<action>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_roll-yaw_css_cmd-ss") == 0)
-				{
-				    if (SpaceShuttle.bfs_in_control == 0)
-					    {
-					    setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
-					    setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
-					    }
-				    setprop("/controls/shuttle/button_roll-yaw_css_cmd-ss", 1);
-				    SpaceShuttle.click("avionics");
-				}
-			</script>
-		    </binding>
-		</action>
-		<release>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_roll-yaw_css_cmd-ss") == 1)
-				{
-					SpaceShuttle.click("avionics");
-				    setprop("/controls/shuttle/button_roll-yaw_css_cmd-ss", 0);
-				}
-			</script>
-		    </binding>
+      <binding>
+        <command>nasal</command>
+        <script>
+          if (getprop("/controls/shuttle/button_roll-yaw_css_cmd-ss") == 0)
+          {
+            if (SpaceShuttle.bfs_in_control == 0)
+            {
+              setprop("/fdm/jsbsim/systems/ap/css-roll-control", 1);
+              setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 0);
+            }
+            setprop("/controls/shuttle/button_roll-yaw_css_cmd-ss", 1);
+            SpaceShuttle.click("avionics");
+          }
+        </script>
+      </binding>
+    </action>
+    <release>
+      <binding>
+        <command>nasal</command>
+        <script>
+          if (getprop("/controls/shuttle/button_roll-yaw_css_cmd-ss") == 1)
+          {
+            SpaceShuttle.click("avionics");
+            setprop("/controls/shuttle/button_roll-yaw_css_cmd-ss", 0);
+          }
+        </script>
+      </binding>
 		</release>
 		<hovered>
-		    <binding>
-			<command>set-tooltip</command>
-			<tooltip-id>button_roll-yaw_css_cmd</tooltip-id>
-			<label>CSS Roll/Yaw: %s</label>
-			<mapping>on-off</mapping>
-			<property>/fdm/jsbsim/systems/ap/css-roll-control</property>
-		    </binding>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>button_roll-yaw_css_cmd</tooltip-id>
+        <label>CSS Roll/Yaw: %s</label>
+        <mapping>on-off</mapping>
+        <property>/fdm/jsbsim/systems/ap/css-roll-control</property>
+      </binding>
 		</hovered>
 	</animation>
 	<animation>
@@ -16544,56 +18740,56 @@
 		</condition>
 	</animation>
 
-	<animation>
-		<type>slider</type>
-		<object-name>button_roll-yaw_auto_cmd</object-name>
-		<object-name>button_light_roll-yaw_auto_cmd</object-name>
-		<property>/controls/shuttle/button_roll-yaw_auto_cmd-ss</property>
-		<factor>0.002</factor>
-		<axis>
-		    <x>-1</x>
-		    <y>0</y>
-		    <z>0</z>
-		</axis>
-		<action>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss") == 0)
-				{
-				    if (SpaceShuttle.bfs_in_control == 0)
-					{
-				    	setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 1);
-				    	setprop("/fdm/jsbsim/systems/ap/css-roll-control", 0);
-					}
-				    setprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss", 1);
-				    SpaceShuttle.click("avionics");
-				}
-			</script>
-		    </binding>
-		</action>
-		<release>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss") == 1)
-				{
-					SpaceShuttle.click("avionics");
-				    setprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss", 0);
-				}
-			</script>
-		    </binding>
-		</release>
-		<hovered>
-		    <binding>
-			<command>set-tooltip</command>
-			<tooltip-id>button_roll-yaw_auto_cmd</tooltip-id>
-			<label>Auto Roll/Yaw: %s</label>
-			<mapping>on-off</mapping>
-			<property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
-		    </binding>
-		</hovered>
-	</animation>
+<animation>
+  <type>slider</type>
+  <object-name>button_roll-yaw_auto_cmd</object-name>
+  <object-name>button_light_roll-yaw_auto_cmd</object-name>
+  <property>/controls/shuttle/button_roll-yaw_auto_cmd-ss</property>
+  <factor>0.002</factor>
+  <axis>
+    <x>-1</x>
+    <y>0</y>
+    <z>0</z>
+  </axis>
+  <action>
+    <binding>
+      <command>nasal</command>
+      <script>
+        if (getprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss") == 0)
+          {
+          if (SpaceShuttle.bfs_in_control == 0)
+          {
+            setprop("/fdm/jsbsim/systems/ap/automatic-roll-control", 1);
+            setprop("/fdm/jsbsim/systems/ap/css-roll-control", 0);
+          }
+          setprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss", 1);
+          SpaceShuttle.click("avionics");
+        }
+      </script>
+    </binding>
+  </action>
+  <release>
+    <binding>
+      <command>nasal</command>
+      <script>
+        if (getprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss") == 1)
+        {
+          SpaceShuttle.click("avionics");
+          setprop("/controls/shuttle/button_roll-yaw_auto_cmd-ss", 0);
+        }
+      </script>
+    </binding>
+  </release>
+  <hovered>
+    <binding>
+      <command>set-tooltip</command>
+      <tooltip-id>button_roll-yaw_auto_cmd</tooltip-id>
+      <label>Auto Roll/Yaw: %s</label>
+      <mapping>on-off</mapping>
+      <property>/fdm/jsbsim/systems/ap/automatic-roll-control</property>
+    </binding>
+  </hovered>
+</animation>
 	<animation>
 		<type>select</type>
 		<object-name>button_light_roll-yaw_auto_cmd</object-name>
@@ -16619,27 +18815,27 @@
 		</axis>
 		<action>
 		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_arm_cmd-ss") == 0)
-				{
-					SpaceShuttle.arm_drag_chute();
-				    setprop("/controls/shuttle/button_chute_arm_cmd-ss", 1);
-				    SpaceShuttle.click("avionics");
-				}
-			</script>
+			    <command>nasal</command>
+			    <script>
+			        if (getprop("/controls/shuttle/button_chute_arm_cmd-ss") == 0)
+				    {
+					    SpaceShuttle.arm_drag_chute();
+				        setprop("/controls/shuttle/button_chute_arm_cmd-ss", 1);
+				        SpaceShuttle.click("avionics");
+				    }
+			    </script>
 		    </binding>
 		</action>
 		<release>
 		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_arm_cmd-ss") == 1)
-				{
-					SpaceShuttle.click("avionics");
-				    setprop("/controls/shuttle/button_chute_arm_cmd-ss", 0);
-				}
-			</script>
+			    <command>nasal</command>
+			    <script>
+			        if (getprop("/controls/shuttle/button_chute_arm_cmd-ss") == 1)
+				    {
+					    SpaceShuttle.click("avionics");
+				        setprop("/controls/shuttle/button_chute_arm_cmd-ss", 0);
+				    }
+			    </script>
 		    </binding>
 		</release>
 		<hovered>
@@ -16663,52 +18859,52 @@
     </animation>
 
     <!-- Chute Deploy Commander "Button" -->
-	<animation>
-		<type>slider</type>
-		<object-name>button_chute_dpy_cmd</object-name>
-		<object-name>button_light_chute_dpy_cmd</object-name>
-		<property>/controls/shuttle/button_chute_dpy_cmd-ss</property>
-		<factor>0.002</factor>
-		<axis>
-		    <x>-1</x>
-		    <y>0</y>
-		    <z>0</z>
-		</axis>
-		<action>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_dpy_cmd-ss") == 0)
-				{
-					SpaceShuttle.deploy_chute();
-				    setprop("/controls/shuttle/button_chute_dpy_cmd-ss", 1);
-				    SpaceShuttle.click("avionics");
-				}
-			</script>
-		    </binding>
-		</action>
-		<release>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_dpy_cmd-ss") == 1)
-				{
-					SpaceShuttle.click("avionics");
-				    setprop("/controls/shuttle/button_chute_dpy_cmd-ss", 0);
-				}
-			</script>
-		    </binding>
-		</release>
-		<hovered>
-		    <binding>
-				<command>set-tooltip</command>
-                <tooltip-id>button_chute_dpy_cmd</tooltip-id>
-                <label>Deploy Drag Chute</label>
-                <property>button_chute_dpy_cmd</property>
-		    </binding>
-		</hovered>
-	</animation>
-	<animation>
+	  <animation>
+		  <type>slider</type>
+		  <object-name>button_chute_dpy_cmd</object-name>
+		  <object-name>button_light_chute_dpy_cmd</object-name>
+		  <property>/controls/shuttle/button_chute_dpy_cmd-ss</property>
+		  <factor>0.002</factor>
+		  <axis>
+		      <x>-1</x>
+		      <y>0</y>
+		      <z>0</z>
+		  </axis>
+		  <action>
+		      <binding>
+			      <command>nasal</command>
+			      <script>
+			          if (getprop("/controls/shuttle/button_chute_dpy_cmd-ss") == 0)
+				      {
+					      SpaceShuttle.deploy_chute();
+				          setprop("/controls/shuttle/button_chute_dpy_cmd-ss", 1);
+				          SpaceShuttle.click("avionics");
+				      }
+			      </script>
+		      </binding>
+		  </action>
+		  <release>
+		      <binding>
+			      <command>nasal</command>
+			      <script>
+			          if (getprop("/controls/shuttle/button_chute_dpy_cmd-ss") == 1)
+				      {
+					      SpaceShuttle.click("avionics");
+				          setprop("/controls/shuttle/button_chute_dpy_cmd-ss", 0);
+				      }
+			      </script>
+		      </binding>
+		  </release>
+		  <hovered>
+		      <binding>
+				  <command>set-tooltip</command>
+                  <tooltip-id>button_chute_dpy_cmd</tooltip-id>
+                  <label>Deploy Drag Chute</label>
+                  <property>button_chute_dpy_cmd</property>
+		      </binding>
+		  </hovered>
+	  </animation>
+	  <animation>
         <type>select</type>
         <object-name>button_light_chute_dpy_cmd</object-name>
         <condition>
@@ -16717,6 +18913,51 @@
                 <value>1</value>
             </equals>
         </condition>
+    </animation>
+
+    <!-- Commander Master Alarm Reset "Button" -->
+    <animation>
+      <type>slider</type>
+      <object-name>button_master-alarm_cmd</object-name>
+      <property>/controls/shuttle/button_master-alarm_cmd-ss</property>
+      <factor>0.002</factor>
+      <axis>
+        <x>-1</x>
+        <y> 0</y>
+        <z> 0</z>
+      </axis>
+      <action>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_cmd-ss") == 0)
+            {
+              setprop("/controls/shuttle/button_master-alarm_cmd-ss", 1);
+              SpaceShuttle.click("avionics");
+            }
+          </script>
+        </binding>
+      </action>
+      <release>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_cmd-ss") == 1)
+            {
+              SpaceShuttle.master_alarm_mngr.unset_alarm();
+              SpaceShuttle.click("avionics");
+              setprop("/controls/shuttle/button_master-alarm_cmd-ss", 0);
+            }
+          </script>
+        </binding>
+      </release>
+      <hovered>
+        <binding>
+          <command>set-tooltip</command>
+          <tooltip-id>master-alarm-cmd</tooltip-id>
+          <label>Press to Turn off Alarm</label>
+        </binding>
+      </hovered>
     </animation>
 
     <!-- Chute Arm Commander "Cover" -->
@@ -17499,60 +19740,105 @@
 	</animation>
 
     <!-- Chute Jettison Pilot "Button" -->
-	<animation>
-		<type>slider</type>
-		<object-name>button_chute_jett_plt</object-name>
-		<object-name>button_light_chute_jett_plt</object-name>
-		<property>/controls/shuttle/button_chute_jett_plt-ss</property>
-		<factor>0.002</factor>
-		<axis>
-		    <x>-1</x>
-		    <y>0</y>
-		    <z>0</z>
-		</axis>
-		<action>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_jett_plt-ss") == 0)
-				{
-					SpaceShuttle.jettison_drag_chute();
-				    setprop("/controls/shuttle/button_chute_jett_plt-ss", 1);
-				    SpaceShuttle.click("avionics");
-				}
-			</script>
-		    </binding>
-		</action>
-		<release>
-		    <binding>
-			<command>nasal</command>
-			<script>
-			    if (getprop("/controls/shuttle/button_chute_jett_plt-ss") == 1)
-				{
-					SpaceShuttle.click("avionics");
-				    setprop("/controls/shuttle/button_chute_jett_plt-ss", 0);
-				}
-			</script>
-		    </binding>
-		</release>
-		<hovered>
-		    <binding>
-				<command>set-tooltip</command>
-                <tooltip-id>button_chute_jett_plt</tooltip-id>
-                <label>Jettison Drag Chute</label>
-                <property>button_chute_jett_plt</property>
-		    </binding>
-		</hovered>
-	</animation>
-	<animation>
-        <type>select</type>
-        <object-name>button_light_chute_jett_plt</object-name>
-        <condition>
-            <equals>
-                <property>/controls/shuttle/drag-chute-jettison</property>
-                <value>1</value>
-            </equals>
-        </condition>
+    <animation>
+      <type>slider</type>
+      <object-name>button_chute_jett_plt</object-name>
+      <object-name>button_light_chute_jett_plt</object-name>
+      <property>/controls/shuttle/button_chute_jett_plt-ss</property>
+      <factor>0.002</factor>
+      <axis>
+        <x>-1</x>
+        <y>0</y>
+        <z>0</z>
+      </axis>
+      <action>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_chute_jett_plt-ss") == 0)
+            {
+              SpaceShuttle.jettison_drag_chute();
+              setprop("/controls/shuttle/button_chute_jett_plt-ss", 1);
+              SpaceShuttle.click("avionics");
+            }
+          </script>
+        </binding>
+      </action>
+      <release>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_chute_jett_plt-ss") == 1)
+            {
+              SpaceShuttle.click("avionics");
+              setprop("/controls/shuttle/button_chute_jett_plt-ss", 0);
+            }
+          </script>
+        </binding>
+      </release>
+      <hovered>
+        <binding>
+          <command>set-tooltip</command>
+          <tooltip-id>button_chute_jett_plt</tooltip-id>
+          <label>Jettison Drag Chute</label>
+          <property>button_chute_jett_plt</property>
+        </binding>
+      </hovered>
+    </animation>
+    <animation>
+      <type>select</type>
+      <object-name>button_light_chute_jett_plt</object-name>
+      <condition>
+        <equals>
+          <property>/controls/shuttle/drag-chute-jettison</property>
+          <value>1</value>
+        </equals>
+      </condition>
+    </animation>
+
+    <!-- Pilot Master Alarm Reset "Button" -->
+    <animation>
+      <type>slider</type>
+      <object-name>button_master-alarm_plt</object-name>
+      <property>/controls/shuttle/button_master-alarm_plt-ss</property>
+      <factor>0.002</factor>
+      <axis>
+        <x>-1</x>
+        <y>0</y>
+        <z>0</z>
+      </axis>
+      <action>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_plt-ss") == 0)
+            {
+              setprop("/controls/shuttle/button_master-alarm_plt-ss", 1);
+              SpaceShuttle.click("avionics");
+            }
+          </script>
+        </binding>
+      </action>
+      <release>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if (getprop("/controls/shuttle/button_master-alarm_plt-ss") == 1)
+            {
+              SpaceShuttle.master_alarm_mngr.unset_alarm();
+              SpaceShuttle.click("avionics");
+              setprop("/controls/shuttle/button_master-alarm_plt-ss", 0);
+            }
+          </script>
+        </binding>
+      </release>
+      <hovered>
+        <binding>
+          <command>set-tooltip</command>
+          <tooltip-id>master-alarm-plt</tooltip-id>
+          <label>Press to Turn off Alarm</label>
+        </binding>
+      </hovered>
     </animation>
 
     <!-- Chute Jettison Pilot "Cover" -->
@@ -18336,6 +20622,11 @@
                 <tooltip-id>hsi-unit-select-cmd</tooltip-id>
                 <label>HSI Unit Select: %s</label>
                 <property>/fdm/jsbsim/systems/adi/hsi-unit-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['3', '2', '1'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -19114,6 +21405,11 @@
                 <tooltip-id>hsi-unit-select-plt</tooltip-id>
                 <label>HSI Unit Select: %s</label>
                 <property>/fdm/jsbsim/systems/adi/hsi-unit-select</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['3', '2', '1'];
+                    return modes[arg[0]];
+                </script>
             </binding>
         </hovered>
     </animation>
@@ -19710,7 +22006,7 @@
                 <property>/fdm/jsbsim/systems/atcs/rad-controller-1-status</property>
                 <mapping>nasal</mapping>
                 <script>
-                    var modes = OFF', 'AUTO A', 'AUTO B'];
+                    var modes = ['OFF', 'AUTO A', 'AUTO B'];
                     return modes[arg[0]];
                 </script>
             </binding>
@@ -20909,6 +23205,845 @@
         </hovered>
     </animation>
 
+    <!-- Fire Sup AV Bay 1 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay1</object-name>
+        <property>/fdm/jsbsim/systems/fire-suppression/avbay-1-arm-switch</property>
+        <factor>35</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.3068</x-m>
+            <y-m> -1.1317</y-m>
+            <z-m> -0.6377</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-1-arm-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.30366, -1.1236, -0.64)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay1</tooltip-id>
+                <label>Fire Sup AV Bay 1: %s</label>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-1-arm-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Safe', 'Arm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Sup AV Bay 2 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay2</object-name>
+        <property>/fdm/jsbsim/systems/fire-suppression/avbay-2-arm-switch</property>
+        <factor>35</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.3325</x-m>
+            <y-m> -1.1243</y-m>
+            <z-m> -0.6381</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-2-arm-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.32929, -1.11619, -0.64034)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay2</tooltip-id>
+                <label>Fire Sup AV Bay 2: %s</label>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-2-arm-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Safe', 'Arm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Sup AV Bay 3 "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fire-sup-av-bay3</object-name>
+        <property>/fdm/jsbsim/systems/fire-suppression/avbay-3-arm-switch</property>
+        <factor>35</factor>
+        <offset-deg>10</offset-deg>
+        <center>
+            <x-m>-12.3587</x-m>
+            <y-m> -1.1147</y-m>
+            <z-m> -0.6379</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-3-arm-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.32929, -1.11619, -0.64034)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-sup-av-bay3</tooltip-id>
+                <label>Fire Sup AV Bay 3: %s</label>
+                <property>/fdm/jsbsim/systems/fire-suppression/avbay-3-arm-switch</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Safe', 'Arm'];
+                    return modes[arg[0]];
+                </script>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Discharge Fire Suppression AV Bay 1 "Button" -->
+    <animation>
+        <type>slider</type>
+        <object-name>avbay-1-discharge</object-name>
+        <object-name>button_light_avbay-1-discharge</object-name>
+        <property>/controls/shuttle/button_fire_supp_avbay1-ss</property>
+        <factor>0.002</factor>
+        <axis>
+            <x>-0.3</x>
+            <y>-1  </y>
+            <z> 0  </z>
+        </axis>
+        <action>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay1-ss") == 0)
+                        {
+                            setprop("/controls/shuttle/button_fire_supp_avbay1-ss", 1);
+			    SpaceShuttle.fire_sim.apply_halon("avbay1");
+                            #SpaceShuttle.fire_supp_avbay1("open");
+                            SpaceShuttle.click("button-down", -12.30372, -1.12408, -0.67517);
+                        }
+                </script>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay1-ss") == 1)
+                        {
+                            #SpaceShuttle.fire_supp_avbay1("close");
+                            SpaceShuttle.click("button-up", -12.30372, -1.12408, -0.67517);
+                            setprop("/controls/shuttle/button_fire_supp_avbay1-ss", 0);
+                        }
+                </script>
+            </binding>
+        </release>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>avbay-1-discharge</tooltip-id>
+                <label>Discharge Fire Suppression AVBay 1</label>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+      <type>select</type>
+      <object-name>button_light_avbay-1-discharge</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/avbay-1-discharge</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+  </animation>
+
+    <!-- Discharge Fire Suppression AV Bay 2 "Button" -->
+    <animation>
+        <type>slider</type>
+        <object-name>avbay-2-discharge</object-name>
+        <object-name>button_light_avbay-2-discharge</object-name>
+        <property>/controls/shuttle/button_fire_supp_avbay2-ss</property>
+        <factor>0.002</factor>
+        <axis>
+            <x>-0.3</x>
+            <y>-1  </y>
+            <z> 0  </z>
+        </axis>
+        <action>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay2-ss") == 0)
+                        {
+                            setprop("/controls/shuttle/button_fire_supp_avbay2-ss", 1);
+                            #SpaceShuttle.fire_supp_avbay1("open");
+			    SpaceShuttle.fire_sim.apply_halon("avbay2");
+                            SpaceShuttle.click("button-down", -12.30372, -1.12408, -0.67517);
+                        }
+                </script>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay2-ss") == 1)
+                        {
+                            #SpaceShuttle.fire_supp_avbay1("close");
+                            SpaceShuttle.click("button-up", -12.30372, -1.12408, -0.67517);
+                            setprop("/controls/shuttle/button_fire_supp_avbay2-ss", 0);
+                        }
+                </script>
+            </binding>
+        </release>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>avbay-2-discharge</tooltip-id>
+                <label>Discharge Fire Suppression AVBay 2</label>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+      <type>select</type>
+      <object-name>button_light_avbay-2-discharge</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/avbay-2-discharge</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+  </animation>
+
+    <!-- Discharge Fire Suppression AV Bay 3 "Button" -->
+    <animation>
+        <type>slider</type>
+        <object-name>avbay-3-discharge</object-name>
+        <object-name>button_light_avbay-3-discharge</object-name>
+        <property>/controls/shuttle/button_fire_supp_avbay3-ss</property>
+        <factor>0.002</factor>
+        <axis>
+            <x>-0.3</x>
+            <y>-1  </y>
+            <z> 0  </z>
+        </axis>
+        <action>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay3-ss") == 0)
+                        {
+                            setprop("/controls/shuttle/button_fire_supp_avbay3-ss", 1);
+                            #SpaceShuttle.fire_supp_avbay1("open");
+			    SpaceShuttle.fire_sim.apply_halon("avbay3");
+                            SpaceShuttle.click("button-down", -12.30372, -1.12408, -0.67517);
+                        }
+                </script>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>nasal</command>
+                <script>
+                    if (getprop("/controls/shuttle/button_fire_supp_avbay3-ss") == 1)
+                        {
+                            SpaceShuttle.click("button-up", -12.30372, -1.12408, -0.67517);
+                            #SpaceShuttle.fire_supp_avbay1("close");
+                            setprop("/controls/shuttle/button_fire_supp_avbay3-ss", 0);
+                        }
+                </script>
+            </binding>
+        </release>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>avbay-3-discharge</tooltip-id>
+                <label>Discharge Fire Suppression AVBay 3</label>
+            </binding>
+        </hovered>
+    </animation>
+    <animation>
+      <type>select</type>
+      <object-name>button_light_avbay-3-discharge</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/avbay-3-discharge</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+  </animation>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-cabin-light-l</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-cabin-light-l</property>
+            <value>1</value>
+          </equals>
+          <greater-than>
+              <property>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</property>
+              <value>0</value>
+          </greater-than>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-cabin-light-l</name>
+        <path>Effects/procedural_light_sd-cabin-light-l.xml</path>
+        <offsets>
+            <x-m>-12.302</x-m>
+            <y-m>-1.107 </y-m>
+            <z-m>-0.712 </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-cabin-light-l</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-payload-light-r</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-payload-light-r</property>
+            <value>1</value>
+          </equals>
+          <greater-than>
+              <property>/fdm/jsbsim/systems/light/console-eff-panel-left-norm</property>
+              <value>0</value>
+          </greater-than>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-payload-light-r</name>
+        <path>Effects/procedural_light_sd-payload-light-r.xml</path>
+        <offsets>
+            <x-m>-12.34</x-m>
+            <y-m>-1.096</y-m>
+            <z-m>-0.714</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-payload-light-r</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-flightdeck-light-l</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-l</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-flightdeck-light-l</name>
+        <path>Effects/procedural_light_sd-flightdeck-light-l.xml</path>
+        <offsets>
+            <x-m>-12.302</x-m>
+            <y-m>-1.106 </y-m>
+            <z-m>-0.724 </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-l</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-flightdeck-light-r</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-r</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-flightdeck-light-r</name>
+        <path>Effects/procedural_light_sd-flightdeck-light-r.xml</path>
+        <offsets>
+            <x-m>-12.34</x-m>
+            <y-m>-1.093</y-m>
+            <z-m>-0.724</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-flightdeck-light-r</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay1-light-l</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-l</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay1-light-l</name>
+        <path>Effects/procedural_light_sd-avbay1-light-l.xml</path>
+        <offsets>
+            <x-m>-12.302</x-m>
+            <y-m>-1.105 </y-m>
+            <z-m>-0.734 </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-l</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay1-light-r</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-r</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay1-light-r</name>
+        <path>Effects/procedural_light_sd-avbay1-light-r.xml</path>
+        <offsets>
+            <x-m>-12.34</x-m>
+            <y-m>-1.092</y-m>
+            <z-m>-0.734 </z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay1-light-r</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay2-light-l</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-l</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay2-light-l</name>
+        <path>Effects/procedural_light_sd-avbay2-light-l.xml</path>
+        <offsets>
+            <x-m>-12.302</x-m>
+            <y-m>-1.103 </y-m>
+            <z-m>-0.745</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-l</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay2-light-r</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-r</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay2-light-r</name>
+        <path>Effects/procedural_light_sd-avbay2-light-r.xml</path>
+        <offsets>
+            <x-m>-12.34</x-m>
+            <y-m>-1.091</y-m>
+            <z-m>-0.745</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay2-light-r</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay3-light-l</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-l</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay3-light-l</name>
+        <path>Effects/procedural_light_sd-avbay3-light-l.xml</path>
+        <offsets>
+            <x-m>-12.302</x-m>
+            <y-m>-1.102 </y-m>
+            <z-m>-0.755</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-l</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <animation>
+      <type>select</type>
+      <object-name>sd-avbay3-light-r</object-name>
+      <condition>
+        <and>
+          <equals>
+            <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-r</property>
+            <value>1</value>
+          </equals>
+        </and>
+      </condition>
+    </animation>
+    <model>
+        <name>proc_light_sd-avbay3-light-r</name>
+        <path>Effects/procedural_light_sd-avbay3-light-r.xml</path>
+        <offsets>
+            <x-m>-12.34</x-m>
+            <y-m>-1.090</y-m>
+            <z-m>-0.755</z-m>
+        </offsets>
+        <condition>
+            <and>
+                <greater-than>
+                    <property>/fdm/jsbsim/systems/fire-suppression/sd-avbay3-light-r</property>
+                    <value>0</value>
+                </greater-than>
+                <greater-than>
+                    <property>/sim/rendering/shaders/model</property>
+                    <value>1</value>
+                </greater-than>
+            </and>
+        </condition>
+    </model>
+
+    <!--Smoke Detector Sensor Reset "Spring Switch"-->
+    <animation>
+        <type>knob</type>
+        <object-name>sd-sensor-reset</object-name>
+        <property>/fdm/jsbsim/systems/fire-suppression/sensor-reset-cmd</property>
+        <factor>35</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.2942</x-m>
+            <y-m> -1.0921</y-m>
+            <z-m> -0.7942</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/fire-suppression/sensor-reset-cmd</property>
+                <step>1</step>
+                <min>0</min>
+                <max>1</max>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>
+			SpaceShuttle.master_alarm_mngr.unlock_smoke_detection();
+			SpaceShuttle.click("avionics", -12.29339, -1.08965, -0.79327)
+		</script>
+            </binding>
+        </action>
+        <release>
+            <binding>
+                <command>property-assign</command>
+                <property>/fdm/jsbsim/systems/fire-suppression/sensor-reset-cmd</property>
+                <value>0</value>
+            </binding>
+        </release>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>sd-sensor-reset</tooltip-id>
+                <label>Up to Reset</label>
+                <property>/fdm/jsbsim/systems/fire-suppression/sensor-reset-cmd</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Surppression AV Bay 1 "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fs-bay1-safe-cvr</object-name>
+        <property>/sim/model/panel/cover/fs-bay1-safe-cvr</property>
+        <factor>100</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.30454</x-m>
+            <y-m> -1.1273</y-m>
+            <z-m> -0.66196</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/fs-bay1-safe-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("cover", -12.30362, -1.12362, -0.67358)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fs-bay1-safe-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/fs-bay1-safe-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Surppression AV Bay 2 "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fs-bay2-safe-cvr</object-name>
+        <property>/sim/model/panel/cover/fs-bay2-safe-cvr</property>
+        <factor>100</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.33125</x-m>
+            <y-m> -1.11851</y-m>
+            <z-m> -0.66206</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/fs-bay2-safe-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("cover", -12.33032, -1.11483, -0.67358)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fs-bay2-safe-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/fs-bay2-safe-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Surppression AV Bay 3 "Cover" -->
+    <animation>
+        <type>knob</type>
+        <object-name>fs-bay3-safe-cvr</object-name>
+        <property>/sim/model/panel/cover/fs-bay3-safe-cvr</property>
+        <factor>100</factor>
+        <offset-deg>0</offset-deg>
+        <center>
+            <x-m>-12.35812</x-m>
+            <y-m> -1.10966</y-m>
+            <z-m> -0.66216</z-m>
+        </center>
+        <axis>
+            <x>1</x>
+            <y>-.3</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/sim/model/panel/cover/fs-bay3-safe-cvr</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("cover", -12.3572, -1.10598, -0.67358)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fs-bay3-safe-cvr</tooltip-id>
+                <label>Remove Cover</label>
+                <property>/sim/model/panel/cover/fs-bay3-safe-cvr</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Panel L1                                                             -->
     <!-- Un-coded switches and talkbacks                                      -->
@@ -21084,179 +24219,7 @@
         </condition>
     </animation>
 
-    <!-- Fire Sup AV Bay 1 "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>fire-sup-av-bay1</object-name>
-        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
-        <factor>-35</factor>
-        <offset-deg>45</offset-deg>
-        <center>
-            <x-m>-12.3068</x-m>
-            <y-m> -1.1317</y-m>
-            <z-m> -0.6377</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>-.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>fire-sup-av-bay1</tooltip-id>
-                <label>Fire Sup AV Bay 1: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay1</property>
-            </binding>
-        </hovered>
-    </animation>
 
-    <!-- Fire Sup AV Bay 2 "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>fire-sup-av-bay2</object-name>
-        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
-        <factor>-35</factor>
-        <offset-deg>45</offset-deg>
-        <center>
-            <x-m>-12.3325</x-m>
-            <y-m> -1.1243</y-m>
-            <z-m> -0.6381</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>-.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>fire-sup-av-bay2</tooltip-id>
-                <label>Fire Sup AV Bay 2: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay2</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!-- Fire Sup AV Bay 3 "Switch" -->
-    <animation>
-        <type>knob</type>
-        <object-name>fire-sup-av-bay3</object-name>
-        <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
-        <factor>-35</factor>
-        <offset-deg>45</offset-deg>
-        <center>
-            <x-m>-12.3587</x-m>
-            <y-m> -1.1147</y-m>
-            <z-m> -0.6379</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>-.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
-                <factor>1</factor>
-                <min>0</min>
-                <max>1</max>
-                <wrap>false</wrap>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>fire-sup-av-bay3</tooltip-id>
-                <label>Fire Sup AV Bay 3: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/switch/fire-sup-av-bay3</property>
-            </binding>
-        </hovered>
-    </animation>
-
-    <!--Smoke Detector Sensor Reset "Spring Switch"-->
-    <animation>
-        <type>knob</type>
-        <object-name>sd-sensor-reset</object-name>
-        <property>/fdm/jsbsim/systems/dummy/switch/sd-sensor-reset</property>
-        <factor>35</factor>
-        <offset-deg>0</offset-deg>
-        <center>
-            <x-m>-12.2942</x-m>
-            <y-m> -1.0921</y-m>
-            <z-m> -0.7942</z-m>
-        </center>
-        <axis>
-            <x>1</x>
-            <y>-.3</y>
-            <z>0</z>
-        </axis>
-        <action>
-            <binding>
-                <command>property-adjust</command>
-                <property>/fdm/jsbsim/systems/dummy/switch/sd-sensor-reset</property>
-                <step>1</step>
-                <min>0</min>
-                <max>1</max>
-            </binding>
-            <binding>
-                <command>nasal</command>
-                <script>SpaceShuttle.click("avionics")</script>
-            </binding>
-        </action>
-        <release>
-            <binding>
-                <command>property-assign</command>
-                <property>/fdm/jsbsim/systems/dummy/switch/sd-sensor-reset</property>
-                <value>0</value>
-            </binding>
-        </release>
-        <hovered>
-            <binding>
-                <command>set-tooltip</command>
-                <tooltip-id>sd-sensor-reset</tooltip-id>
-                <label>SDetect Sensor Reset: %s</label>
-                <mapping>on-off</mapping>
-                <property>/fdm/jsbsim/systems/dummy/switch/sd-sensor-reset</property>
-            </binding>
-        </hovered>
-    </animation>
 
     <!--Smoke Detector Circuit Test "Spring Switch"-->
     <animation>
@@ -23364,7 +26327,7 @@
 
     <!-- ******************************************************************* -->
     <!-- Panel R1                                                             -->
-    <!-- Un-coded switches and talkbacks                                                             -->
+    <!-- Un-coded switches and talkbacks                                      -->
     <!-- ******************************************************************* -->
 
     <!-- Control Bus Pwr MN A "Spring Switch"-->
@@ -29057,63 +32020,6 @@
         </condition>
     </animation>
 
- <!-- ******************************************************************* -->
- <!--  Commander RHC                                                      -->
- <!-- ******************************************************************* -->
- <!--model>
-  <path>RHC-cmdr.xml</path>
-  <offset>
-   <x-m> 0 </x-m>
-   <y-m> 0 </y-m>
-   <z-m> 0 </z-m>
-  </offset>
- </model-->
-
-  <animation>
-    <type>rotate</type>
-    <object-name>joystick</object-name>
-    <property>controls/flight/elevator</property>
-    <factor>4</factor> <!--  19 to 20 degrees -->
-    <center>
-      <x-m>-12.24572</x-m>
-      <y-m>-0.64122</y-m>
-      <z-m>-1.05351</z-m>
-    </center>
-    <axis>
-      <y>-1</y>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>joystick</object-name>
-    <property>controls/flight/aileron</property>
-    <factor>4</factor>
-    <center>
-      <x-m>-12.24572</x-m>
-      <y-m>-0.64122</y-m>
-      <z-m>-1.05351</z-m>
-    </center>
-    <axis>
-      <x>-1</x>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>joystick</object-name>
-    <property>controls/flight/rudder</property>
-    <factor>2</factor>
-    <center>
-      <x-m>-12.24572</x-m>
-      <y-m>-0.64122</y-m>
-      <z-m>-1.05351</z-m>
-    </center>
-    <axis>
-      <z>-1</z>
-    </axis>
-  </animation>
-
     <!-- Left Commander Keypad -->
 
     <animation>
@@ -32231,6 +35137,145 @@
         </condition>
     </model>
 
+    <model>
+        <path>coas.xml</path>
+        <name>coas</name>
+        <offsets>
+            <x-m>0.00</x-m>
+            <y-m>0.00</y-m>
+            <z-m>0.00</z-m>
+        </offsets>
+        <condition>
+            <or>
+		            <property>/sim/config/shuttle/show-coas-for</property>
+                <property>/sim/config/shuttle/show-coas-aft</property>
+            </or>
+        </condition>
+    </model>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O1                                                            -->
+    <!-- ******************************************************************* -->
+
+    <!-- COAS Power Forward "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>coas-pwr-for</object-name>
+        <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-fwd-switch</property>
+        <factor>-60</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-12.38284</x-m>
+            <y-m> -0.609  </y-m>
+            <z-m>  0.13698</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-fwd-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.38284, -0.609, 0.13698)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>coas-pwr-for</tooltip-id>
+                <label>Forward COAS Power: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-fwd-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>O1-connector-closed</object-name>
+        <condition>
+            <equals>
+                <property>/sim/config/shuttle/show-coas-for</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>O1-connector-open</object-name>
+        <condition>
+            <equals>
+                <property>/sim/config/shuttle/show-coas-for</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- ******************************************************************* -->
+    <!-- Panel O19                                                           -->
+    <!-- ******************************************************************* -->
+
+    <!-- COAS Power Aft "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>coas-pwr-aft</object-name>
+        <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-aft-switch</property>
+        <factor>-60</factor>
+        <offset-deg>20</offset-deg>
+        <center>
+            <x-m>-11.07411</x-m>
+            <y-m>  0.06407</y-m>
+            <z-m>  0.47582</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-aft-switch</property>
+                <factor>1</factor>
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.07411, 0.06407, 0.47582)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>coas-pwr-aft</tooltip-id>
+                <label>Aft COAS Power: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/electrical/hud/coas-pwr-aft-switch</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <animation>
+        <type>select</type>
+        <object-name>O19-coasconnector</object-name>
+        <condition>
+            <not>
+                <property>/sim/config/shuttle/show-coas-aft</property>
+            </not>
+        </condition>
+    </animation>
+
    <!--<model>
         <path>Effects/procedural_light.xml</path>
         <offsets>
@@ -32239,7 +35284,5 @@
             <z-m>   0.0 </z-m>
         </offsets>
     </model>-->
-  
-    
 
 </PropertyList>

@@ -97,19 +97,30 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
     p_dps_sm_sys_summ1.DVSS3_2 = device.svg.getElementById("p_dps_sm_sys_summ1_DVSS3_2");
     p_dps_sm_sys_summ1.DVSS3_3 = device.svg.getElementById("p_dps_sm_sys_summ1_DVSS3_3");
 
-    p_dps_sm_sys_summ1.cabin = device.svg.getElementById("p_dps_sm_sys_summ1_cabin");
+    p_dps_sm_sys_summ1.cabin = device.svg.getElementById("p_dps_sm_sys_summ1_cabin");   
+    p_dps_sm_sys_summ1.cabin.enableUpdate();
 
     p_dps_sm_sys_summ1.lr_1 = device.svg.getElementById("p_dps_sm_sys_summ1_lr_1");
     p_dps_sm_sys_summ1.lr_2 = device.svg.getElementById("p_dps_sm_sys_summ1_lr_2");
+    p_dps_sm_sys_summ1.lr_1.enableUpdate();
+    p_dps_sm_sys_summ1.lr_2.enableUpdate();
 
     p_dps_sm_sys_summ1.avbay1_1 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay1_1");
     p_dps_sm_sys_summ1.avbay1_2 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay1_2");
+    p_dps_sm_sys_summ1.avbay1_1.enableUpdate();
+    p_dps_sm_sys_summ1.avbay1_2.enableUpdate();
+
 
     p_dps_sm_sys_summ1.avbay2_1 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay2_1");
     p_dps_sm_sys_summ1.avbay2_2 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay2_2");
+    p_dps_sm_sys_summ1.avbay2_1.enableUpdate();
+    p_dps_sm_sys_summ1.avbay2_2.enableUpdate();
+
 
     p_dps_sm_sys_summ1.avbay3_1 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay3_1");
     p_dps_sm_sys_summ1.avbay3_2 = device.svg.getElementById("p_dps_sm_sys_summ1_avbay3_2");
+    p_dps_sm_sys_summ1.avbay3_1.enableUpdate();
+    p_dps_sm_sys_summ1.avbay3_2.enableUpdate();
 
     p_dps_sm_sys_summ1.press = device.svg.getElementById("p_dps_sm_sys_summ1_press");
     p_dps_sm_sys_summ1.dPdt = device.svg.getElementById("p_dps_sm_sys_summ1_dPdt");
@@ -164,19 +175,19 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
 
 	# set defaults for values not yet implemented
 
-   	p_dps_sm_sys_summ1.cabin.setText("0.0");
+   	#p_dps_sm_sys_summ1.cabin.setText("0.0");
 
-    	p_dps_sm_sys_summ1.lr_1.setText("0.0");
-    	p_dps_sm_sys_summ1.lr_2.setText("0.0");
+    	#p_dps_sm_sys_summ1.lr_1.setText("0.0");
+    	#p_dps_sm_sys_summ1.lr_2.setText("0.0");
 
-    	p_dps_sm_sys_summ1.avbay1_1.setText("0.0");
-    	p_dps_sm_sys_summ1.avbay1_2.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay1_1.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay1_2.setText("0.0");
 
-    	p_dps_sm_sys_summ1.avbay2_1.setText("0.0");
-    	p_dps_sm_sys_summ1.avbay2_2.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay2_1.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay2_2.setText("0.0");
 
-    	p_dps_sm_sys_summ1.avbay3_1.setText("0.0");
-    	p_dps_sm_sys_summ1.avbay3_2.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay3_1.setText("0.0");
+    	#p_dps_sm_sys_summ1.avbay3_2.setText("0.0");
 
 	p_dps_sm_sys_summ1.eq.setText("+.00");
 
@@ -185,7 +196,26 @@ var PFD_addpage_p_dps_sm_sys_summ1 = func(device)
     
     p_dps_sm_sys_summ1.update = func
     {
-    
+
+
+	# smoke detection
+
+   	p_dps_sm_sys_summ1.cabin.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_cabin + 0.1 ));
+
+    	p_dps_sm_sys_summ1.lr_1.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_flightdeck + 0.2 ));
+    	p_dps_sm_sys_summ1.lr_2.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_flightdeck ));
+
+    	p_dps_sm_sys_summ1.avbay1_1.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay1 + 0.2 ));
+    	p_dps_sm_sys_summ1.avbay1_2.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay1 + 0.1));
+
+    	p_dps_sm_sys_summ1.avbay2_1.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay2 + 0.1));
+    	p_dps_sm_sys_summ1.avbay2_2.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay2 + 0.1));
+
+    	p_dps_sm_sys_summ1.avbay3_1.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay3 ));
+    	p_dps_sm_sys_summ1.avbay3_2.updateText(sprintf("%2.1f", SpaceShuttle.fire_sim.smoke_avbay3 + 0.2));
+
+	# fuel cell voltages    
+
 	var fc_voltage1 = getprop("/fdm/jsbsim/systems/electrical/fc/voltage");
 	var fc_voltage2 = getprop("/fdm/jsbsim/systems/electrical/fc[1]/voltage");
 	var fc_voltage3 = getprop("/fdm/jsbsim/systems/electrical/fc[2]/voltage");

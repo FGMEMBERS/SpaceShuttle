@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+	<path>oms-kit.ac</path>
+
+    <effect>
+        <inherits-from>Aircraft/SpaceShuttle/Models/PayloadBay/OMS-KIT/oms-kit</inherits-from>
+        <object-name>oms-kit-structure</object-name>
+        <object-name>tanks-1</object-name>
+        <object-name>tanks-2</object-name>
+        <object-name>tanks-3</object-name>
+    </effect>
+
+    <animation>
+        <type>select</type>
+        <object-name>tanks-1</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks</property>
+                <value>0</value>
+            </greater-than>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>tanks-2</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks</property>
+                <value>1</value>
+            </greater-than>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>tanks-3</object-name>
+        <condition>
+            <greater-than>
+                <property>/fdm/jsbsim/systems/oms-hardware/oms-kit-num-tanks</property>
+                <value>2</value>
+            </greater-than>
+        </condition>
+    </animation>
+
+</PropertyList>
+
+
+

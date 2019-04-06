@@ -31,10 +31,31 @@
     <!-- implicit lighting -->
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-panel-center</inherits-from>
-	    <!-- Panels O2 -->
-	    <object-name>O2-base</object-name>
+	      <!-- RHC -->
+        <object-name>seat-cmd-joystick</object-name>
+        <object-name>seat-cmd-belt-buckle</object-name>
+        <object-name>seat-cmd-belt</object-name>
+        <object-name>seat-cmd-cushions</object-name>
+        <object-name>seat-cmd-fasteners</object-name>
+        <object-name>seat-cmd-frame</object-name>
+        <object-name>seat-cmd-joystick-ctrl</object-name>
+        <object-name>seat-cmd-joystick-button</object-name>
+        <object-name>seat-cmd-joystick-hat</object-name>
+        <object-name>seat-cmd-joystick-trigger</object-name>
+        <object-name>seat-plt-joystick</object-name>
+        <object-name>seat-plt-belt-buckle</object-name>
+        <object-name>seat-plt-belt</object-name>
+        <object-name>seat-plt-cushions</object-name>
+        <object-name>seat-plt-fasteners</object-name>
+        <object-name>seat-plt-frame</object-name>
+        <object-name>seat-plt-joystick-ctrl</object-name>
+        <object-name>seat-plt-joystick-button</object-name>
+        <object-name>seat-plt-joystick-hat</object-name>
+        <object-name>seat-plt-joystick-trigger</object-name>
+        <!-- Panels O2 -->
+        <object-name>O2-base</object-name>
         <object-name>O2-fasteners</object-name>
-	    <object-name>O2-guards</object-name>
+        <object-name>O2-guards</object-name>
         <object-name>O2-panel</object-name>
         <!-- Panel O2 "Knobs"-->
         <object-name>cyro-tank</object-name>
@@ -62,8 +83,8 @@
         <object-name>left-rcs-he-oxid</object-name>
         <object-name>left-rcs-he-fuel</object-name>
         <object-name>left-rcs-tank-isol-12</object-name>
-        <object-name>left-rcs-tank-isol-a345</object-name>
-        <object-name>left-rcs-tank-isol-b345</object-name>
+        <object-name>left-rcs-tank-isol-a-345</object-name>
+        <object-name>left-rcs-tank-isol-b-345</object-name>
         <object-name>left-rcs-man-isol-1</object-name>
         <object-name>left-rcs-man-isol-2</object-name>
         <object-name>left-rcs-man-isol-3</object-name>
@@ -81,8 +102,8 @@
         <object-name>right-rcs-cf-12</object-name>
         <object-name>right-rcs-cf-345</object-name>
         <object-name>right-rcs-tank-isol-12</object-name>
-        <object-name>right-rcs-tank-isol-a345</object-name>
-        <object-name>right-rcs-tank-isol-b345</object-name>
+        <object-name>right-rcs-tank-isol-a-345</object-name>
+        <object-name>right-rcs-tank-isol-b-345</object-name>
         <object-name>master-rcs-cf</object-name>
         <!-- Panel O7 "Talkbacks" -->
         <object-name>left-rcs-he-oxid-cl</object-name>
@@ -163,15 +184,13 @@
         <object-name>dragchutesys2-bkr</object-name>
         <object-name>eventtmrfwd-bkr</object-name>
         <object-name>missiontmraft-bkr</object-name>
-        <!-- Panel O19 -->
-        <object-name>O19-base</object-name>
+        <object-name>fire-suppr-bay1-bkr</object-name>
+        <object-name>smoke-detn-bay-1B3A-bkr</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-left</inherits-from>
         <!-- Panel O1 -->
-        <object-name>O1-connector</object-name>
 	    <object-name>O1-misc</object-name>
-	    <object-name>O1-base</object-name>
 	    <object-name>O1-fasteners</object-name>
 	    <object-name>O1-guards</object-name>
 	    <object-name>O1-panel</object-name>
@@ -179,7 +198,6 @@
         <object-name>air-tmp</object-name>
         <object-name>flow-meter</object-name>
         <!-- Panel O1 "Switches" -->
-	    <object-name>coas</object-name>
 	    <object-name>h2o-loop</object-name>
 	    <object-name>freon-loop</object-name>
 	    <object-name>ppo2-sensor</object-name>
@@ -298,6 +316,9 @@
         <object-name>eventtmraft-bkr</object-name>
         <object-name>missiontmrfwd-bkr</object-name>
         <object-name>nosewheelstr-bkr</object-name>
+        <object-name>fire-suppr-bay3-bkr</object-name>
+        <object-name>smoke-detn-bay-2A3B-bkr</object-name>
+        <object-name>smoke-detn-lr-flt-dk-bkr</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-overhead-right</inherits-from>
@@ -326,6 +347,10 @@
         <object-name>O8-guards</object-name>
 	    <object-name>O8-buttons</object-name>
         <!-- Panel O8 "Switches" -->
+        <object-name>oms-kit-he-pv-isol-a</object-name>
+        <object-name>oms-kit-he-pv-isol-b</object-name>
+        <object-name>oms-kit-tank-isol-a</object-name>
+        <object-name>oms-kit-tank-isol-b</object-name>
         <object-name>left-oms-cf-a</object-name>
         <object-name>left-oms-cf-b</object-name>
         <object-name>left-oms-he-pv-isol-a</object-name>
@@ -338,7 +363,6 @@
         <object-name>right-oms-he-pv-isol-b</object-name>
         <object-name>right-oms-tank-isol-a</object-name>
         <object-name>right-oms-tank-isol-b</object-name>
-        <object-name>oms-kit</object-name>
 	    <object-name>rad-alt1</object-name>
 	    <object-name>rad-alt2</object-name>
 	    <object-name>mls1</object-name>
@@ -351,6 +375,10 @@
         <object-name>channel3-set-up</object-name>
         <object-name>channel3-set-dn</object-name>
         <!-- Panel O8 "Talkbacks" -->
+        <object-name>oms-kit-tank-isol-a-cl</object-name>
+        <object-name>oms-kit-tank-isol-a-op</object-name>
+        <object-name>oms-kit-tank-isol-b-cl</object-name>
+        <object-name>oms-kit-tank-isol-b-op</object-name>
         <object-name>left-oms-tank-isol-a-op</object-name>
         <object-name>left-oms-tank-isol-a-cl</object-name>
         <object-name>left-oms-tank-isol-b-op</object-name>
@@ -370,7 +398,6 @@
         <object-name>channel-set-pos1</object-name>
         <object-name>channel-set-pos2</object-name>
         <object-name>channel-set-pos3</object-name>
-        <object-name>O8-talkback-bp</object-name>
 	    <!-- Panel O9 -->
         <object-name>O9-buttons</object-name>
         <object-name>O9-base</object-name>
@@ -397,18 +424,15 @@
         <object-name>tacan3-bkr</object-name>
         <object-name>dragchutesys1-bkr</object-name>
         <object-name>rmsomsprpltqty-bkr</object-name>
+        <object-name>fire-suppr-bay2-bkr</object-name>
+        <object-name>smoke-detn-bay-1A2B-bkr</object-name>
+        <object-name>smoke-detn-cabin-bkr</object-name>
 	    <!-- Panel O17 -->
 	    <object-name>O17-base</object-name>
 	    <object-name>O17-fasteners</object-name>
 	    <object-name>O17-guards</object-name>
 	    <object-name>O17-switches</object-name>
         <object-name>O17-panel</object-name>
-        <!-- Panel O19 -->
-        <object-name>O19-fasteners</object-name>
-        <object-name>O19-guards</object-name>
-        <object-name>O19-base</object-name>
-        <object-name>O19-switches</object-name>
-        <object-name>O19-connectors</object-name>
     </effect>
     <effect>
         <inherits-from>Aircraft/SpaceShuttle/Models/Effects/Interior/shuttle-interior-det-aft-panel-center</inherits-from>
@@ -556,16 +580,16 @@
         <object-name>A14-panel</object-name>
         <object-name>A14-covers</object-name>
         <object-name>A14-switches-base</object-name>
-        <object-name>osm-heat-lp-a</object-name>
-        <object-name>osm-heat-lp-b</object-name>
-        <object-name>osm-heat-rp-a</object-name>
-        <object-name>osm-heat-rp-b</object-name>
-        <object-name>osm-cover-lp-a</object-name>
-        <object-name>osm-cover-lp-b</object-name>
-        <object-name>osm-cover-rp-a</object-name>
-        <object-name>osm-cover-rp-b</object-name>
-        <object-name>osm-cf-lines-a</object-name>
-        <object-name>osm-cf-lines-b</object-name>
+        <object-name>oms-heat-lp-a</object-name>
+        <object-name>oms-heat-lp-b</object-name>
+        <object-name>oms-heat-rp-a</object-name>
+        <object-name>oms-heat-rp-b</object-name>
+        <object-name>oms-cover-lp-a</object-name>
+        <object-name>oms-cover-lp-b</object-name>
+        <object-name>oms-cover-rp-a</object-name>
+        <object-name>oms-cover-rp-b</object-name>
+        <object-name>oms-cf-lines-a</object-name>
+        <object-name>oms-cf-lines-b</object-name>
         <object-name>fwd-rcs-jett-heat-1</object-name>
         <object-name>fwd-rcs-jett-heat-2</object-name>
         <object-name>fwd-rcs-jett-heat-3</object-name>
@@ -725,6 +749,122 @@
             </greater-than>
         </condition>
     </animation>
+
+ <!-- ******************************************************************* -->
+ <!--  Commander RHC                                                      -->
+ <!-- ******************************************************************* -->
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-cmd-joystick</object-name>
+    <object-name>seat-cmd-joystick-button</object-name>
+    <object-name>seat-cmd-joystick-hat</object-name>
+    <object-name>seat-cmd-joystick-trigger</object-name>
+    <property>controls/flight/elevator</property>
+    <factor>4</factor> <!--  19 to 20 degrees -->
+    <center>
+      <x-m>-12.29615</x-m>
+      <y-m> -0.56079</y-m>
+      <z-m> -0.96624</z-m>
+    </center>
+    <axis>
+      <y>-1</y>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-cmd-joystick</object-name>
+    <object-name>seat-cmd-joystick-button</object-name>
+    <object-name>seat-cmd-joystick-hat</object-name>
+    <object-name>seat-cmd-joystick-trigger</object-name>
+    <property>controls/flight/aileron</property>
+    <factor>4</factor>
+    <center>
+      <x-m>-12.29615</x-m>
+      <y-m> -0.56079</y-m>
+      <z-m> -0.96624</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-cmd-joystick</object-name>
+    <object-name>seat-cmd-joystick-button</object-name>
+    <object-name>seat-cmd-joystick-hat</object-name>
+    <object-name>seat-cmd-joystick-trigger</object-name>
+    <property>controls/flight/rudder</property>
+    <factor>2</factor>
+    <center>
+      <x-m>-12.29615</x-m>
+      <y-m> -0.56079</y-m>
+      <z-m> -0.96624</z-m>
+    </center>
+    <axis>
+      <z>-1</z>
+    </axis>
+  </animation>
+
+ <!-- ******************************************************************* -->
+ <!--  Pilot RHC                                                      -->
+ <!-- ******************************************************************* -->
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-plt-joystick</object-name>
+    <object-name>seat-plt-joystick-button</object-name>
+    <object-name>seat-plt-joystick-hat</object-name>
+    <object-name>seat-plt-joystick-trigger</object-name>
+    <property>controls/flight/elevator</property>
+    <factor>4</factor> <!--  19 to 20 degrees -->
+    <center>
+      <x-m>-12.3388 </x-m>
+      <y-m>  0.61242</y-m>
+      <z-m> -0.97612</z-m>
+    </center>
+    <axis>
+      <y>-1</y>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-plt-joystick</object-name>
+    <object-name>seat-plt-joystick-button</object-name>
+    <object-name>seat-plt-joystick-hat</object-name>
+    <object-name>seat-plt-joystick-trigger</object-name>
+    <property>controls/flight/aileron</property>
+    <factor>4</factor>
+    <center>
+      <x-m>-12.3388 </x-m>
+      <y-m>  0.61242</y-m>
+      <z-m> -0.97612</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>seat-plt-joystick</object-name>
+    <object-name>seat-plt-joystick-button</object-name>
+    <object-name>seat-plt-joystick-hat</object-name>
+    <object-name>seat-plt-joystick-trigger</object-name>
+    <property>controls/flight/rudder</property>
+    <factor>2</factor>
+    <center>
+      <x-m>-12.3388 </x-m>
+      <y-m>  0.61242</y-m>
+      <z-m> -0.97612</z-m>
+    </center>
+    <axis>
+      <z>-1</z>
+    </axis>
+  </animation>
 
     <!-- ******************************************************************* -->
     <!-- Panel A1                                                            -->
@@ -3672,7 +3812,7 @@
     <!-- OMS Heater Left Pod A "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-heat-lp-a</object-name>
+        <object-name>oms-heat-lp-a</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-left-A-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3703,7 +3843,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-heat-lp-a</tooltip-id>
+                <tooltip-id>oms-heat-lp-a</tooltip-id>
                 <label>Heater Left Pod A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-left-A-status</property>
                 <mapping>nasal</mapping>
@@ -3718,7 +3858,7 @@
     <!-- OMS Heater Left Pod B "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-heat-lp-b</object-name>
+        <object-name>oms-heat-lp-b</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-left-B-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3749,7 +3889,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-heat-lp-b</tooltip-id>
+                <tooltip-id>oms-heat-lp-b</tooltip-id>
                 <label>Heater Left Pod B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-left-B-status</property>
                 <mapping>nasal</mapping>
@@ -3764,7 +3904,7 @@
     <!-- OMS Heater Right Pod A "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-heat-rp-a</object-name>
+        <object-name>oms-heat-rp-a</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-right-A-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3795,7 +3935,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-heat-rp-a</tooltip-id>
+                <tooltip-id>oms-heat-rp-a</tooltip-id>
                 <label>Heater Right Pod A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-right-A-status</property>
                 <mapping>nasal</mapping>
@@ -3810,7 +3950,7 @@
     <!-- OMS Heater Right Pod B "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-heat-rp-b</object-name>
+        <object-name>oms-heat-rp-b</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-right-B-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3841,7 +3981,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-heat-rp-b</tooltip-id>
+                <tooltip-id>oms-heat-rp-b</tooltip-id>
                 <label>Heater Right Pod B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-right-B-status</property>
                 <mapping>nasal</mapping>
@@ -3856,7 +3996,7 @@
     <!-- OMS Crossfeed Lines A "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-cf-lines-a</object-name>
+        <object-name>oms-cf-lines-a</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3887,7 +4027,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cf-lines-a</tooltip-id>
+                <tooltip-id>oms-cf-lines-a</tooltip-id>
                 <label>OMS Crossfeed Lines A: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-A-status</property>
                 <mapping>nasal</mapping>
@@ -3902,7 +4042,7 @@
     <!-- OMS Crossfeed Lines B "switch"-->
     <animation>
         <type>knob</type>
-        <object-name>osm-cf-lines-b</object-name>
+        <object-name>oms-cf-lines-b</object-name>
         <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status</property>
         <factor>90</factor>
         <offset-deg>-40</offset-deg>
@@ -3933,7 +4073,7 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cf-lines-b</tooltip-id>
+                <tooltip-id>oms-cf-lines-b</tooltip-id>
                 <label>OMS Crossfeed Lines B: %s</label>
                 <property>/fdm/jsbsim/systems/oms-hardware/heater-crossfeed-B-status</property>
                 <mapping>nasal</mapping>
@@ -4796,8 +4936,8 @@
     <!-- OMS Heater Left Pod A "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-cover-lp-a</object-name>
-        <property>/sim/model/panel/cover/osm-cover-lp-a</property>
+        <object-name>oms-cover-lp-a</object-name>
+        <property>/sim/model/panel/cover/oms-cover-lp-a</property>
         <factor>120</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -4813,7 +4953,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-cover-lp-a</property>
+                <property>/sim/model/panel/cover/oms-cover-lp-a</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4827,9 +4967,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cover-lp-a</tooltip-id>
+                <tooltip-id>oms-cover-lp-a</tooltip-id>
                 <label>OMS Cover Left Pod A: %s</label>
-                <property>/sim/model/panel/cover/osm-cover-lp-a</property>
+                <property>/sim/model/panel/cover/oms-cover-lp-a</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -4842,8 +4982,8 @@
     <!-- OMS Heater Left Pod B "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-cover-lp-b</object-name>
-        <property>/sim/model/panel/cover/osm-cover-lp-b</property>
+        <object-name>oms-cover-lp-b</object-name>
+        <property>/sim/model/panel/cover/oms-cover-lp-b</property>
         <factor>120</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -4859,7 +4999,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-cover-lp-b</property>
+                <property>/sim/model/panel/cover/oms-cover-lp-b</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4873,9 +5013,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cover-lp-b</tooltip-id>
+                <tooltip-id>oms-cover-lp-b</tooltip-id>
                 <label>OMS Cover Left Pod B: %s</label>
-                <property>/sim/model/panel/cover/osm-cover-lp-b</property>
+                <property>/sim/model/panel/cover/oms-cover-lp-b</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -4888,8 +5028,8 @@
     <!-- OMS Heater Right Pod A "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-cover-rp-a</object-name>
-        <property>/sim/model/panel/cover/osm-cover-rp-a</property>
+        <object-name>oms-cover-rp-a</object-name>
+        <property>/sim/model/panel/cover/oms-cover-rp-a</property>
         <factor>120</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -4905,7 +5045,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-cover-rp-a</property>
+                <property>/sim/model/panel/cover/oms-cover-rp-a</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4919,9 +5059,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cover-rp-a</tooltip-id>
+                <tooltip-id>oms-cover-rp-a</tooltip-id>
                 <label>OMS Cover Right Pod A: %s</label>
-                <property>/sim/model/panel/cover/osm-cover-rp-a</property>
+                <property>/sim/model/panel/cover/oms-cover-rp-a</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -4934,8 +5074,8 @@
     <!-- OMS Heater Right Pod B "cover" -->
     <animation>
         <type>knob</type>
-        <object-name>osm-cover-rp-b</object-name>
-        <property>/sim/model/panel/cover/osm-cover-rp-b</property>
+        <object-name>oms-cover-rp-b</object-name>
+        <property>/sim/model/panel/cover/oms-cover-rp-b</property>
         <factor>120</factor>
         <offset-deg>0</offset-deg>
         <center>
@@ -4951,7 +5091,7 @@
         <action>
             <binding>
                 <command>property-adjust</command>
-                <property>/sim/model/panel/cover/osm-cover-rp-b</property>
+                <property>/sim/model/panel/cover/oms-cover-rp-b</property>
                 <factor>1</factor>
                 <min>0</min>
                 <max>1</max>
@@ -4965,9 +5105,9 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>osm-cover-rp-b</tooltip-id>
+                <tooltip-id>oms-cover-rp-b</tooltip-id>
                 <label>OMS Cover Right Pod B: %s</label>
-                <property>/sim/model/panel/cover/osm-cover-rp-b</property>
+                <property>/sim/model/panel/cover/oms-cover-rp-b</property>
                 <mapping>nasal</mapping>
                 <script>
                     var modes = ['Closed', 'Open'];
@@ -10175,6 +10315,198 @@
         </hovered>
     </animation>
 
+    <!-- OMS Kit He Press/Vapor A "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>oms-kit-he-pv-isol-a</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.95174</x-m>
+            <y-m>  0.32726</y-m>
+            <z-m>  0.29717</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.95174, 0.32726, 0.29717)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>oms-kit-he-pv-isol-a</tooltip-id>
+                <label>OMS Kit He Valve A: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- OMS Kit He Press/Vapor B "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>oms-kit-he-pv-isol-b</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-11.95174</x-m>
+            <y-m>  0.3626</y-m>
+            <z-m>  0.29717</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.95174, 0.3626, 0.29717)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>oms-kit-he-pv-isol-a</tooltip-id>
+                <label>OMS Kit He Valve B: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/helium-kit-oms-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- OMS Kit Tank Iso A "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>oms-kit-tank-isol-a</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.11267</x-m>
+            <y-m>  0.32726</y-m>
+            <z-m>  0.2584</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.11267, 0.32726, 0.2584)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>oms-kit-tank-isol-a</tooltip-id>
+                <label>OMS Kit Tank Iso A: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
+    <!-- OMS Kit Tank Iso B "Switch" -->
+    <animation>
+        <type>knob</type>
+        <object-name>oms-kit-tank-isol-b</object-name>
+        <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status</property>
+        <factor>-75</factor>
+        <offset-deg>50</offset-deg>
+        <center>
+            <x-m>-12.11267</x-m>
+            <y-m>  0.3626</y-m>
+            <z-m>  0.2584</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>1</y>
+            <z>0</z>
+        </axis>
+        <action>
+            <binding>
+                <command>property-adjust</command>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status</property>
+                <factor>1</factor>
+                <!-- This should be a 3 stage swtch, GPC is not programed so it is bypassed -->
+                <min>0</min>
+                <max>1</max>
+                <wrap>false</wrap>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -12.11267, 0.3626, 0.2584)</script>
+            </binding>
+        </action>
+        <hovered>
+          <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>oms-kit-tank-isol-b</tooltip-id>
+                <label>OMS Kit Tank Iso B: %s</label>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status</property>
+                <mapping>nasal</mapping>
+                <script>
+                    var modes = ['Close', 'Open'];
+                    #var modes = ['Close', 'GPC', 'Open'];
+                    return modes[arg[0]];
+                </script>
+          </binding>
+        </hovered>
+    </animation>
+
     <!-- Left OMS He Press/Vapor A "Switch" -->
     <animation>
         <type>knob</type>
@@ -10607,6 +10939,50 @@
         </hovered>
     </animation>
 
+    <!-- OMS Kit Tank Iso A "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>oms-kit-tank-isol-a-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>oms-kit-tank-isol-a-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-A-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- OMS Kit Tank Iso B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>oms-kit-tank-isol-b-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>oms-kit-tank-isol-b-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-kit-oms-valve-B-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
     <!-- Left OMS Crossfeed B "Switch" -->
     <animation>
         <type>knob</type>
@@ -10719,7 +11095,49 @@
             <x>0</x>
             <y>1</y>
             <z>0</z>
-        </axis>
+        </axis>    <!-- Left OMS Tank Iso A "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-oms-tank-isol-a-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-oms-tank-isol-a-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-A-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
+
+    <!-- Left OMS Tank Iso B "Talkback" -->
+    <animation>
+        <type>select</type>
+        <object-name>left-oms-tank-isol-b-cl</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
+                <value>0</value>
+            </equals>
+        </condition>
+    </animation>
+    <animation>
+        <type>select</type>
+        <object-name>left-oms-tank-isol-b-op</object-name>
+        <condition>
+            <equals>
+                <property>/fdm/jsbsim/systems/oms-hardware/tank-left-oms-valve-B-status</property>
+                <value>1</value>
+            </equals>
+        </condition>
+    </animation>
         <action>
             <binding>
                 <command>property-adjust</command>
@@ -11795,6 +12213,123 @@
         </hovered>
     </animation>
 
+    <!-- Fire Supresser Bay 3 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>fire-suppr-bay3-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay3</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fire-suppr-bay3-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay3</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.32438, -0.50038, 0.37348)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-suppr-bay3-bkr</tooltip-id>
+                <label>Fire Supresser Bay 3 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay3</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Smoke Detection Bay 2A3B "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>smoke-detn-bay-2A3B-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-2A3B</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>smoke-detn-bay-2A3B-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-2A3B</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.32438, -0.50038, 0.37348)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>smoke-detn-bay-2A3B-bkr</tooltip-id>
+                <label>Smoke Detection Bay 2A3B Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-2A3B</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Smoke Detection Lower Flight Deck  "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>smoke-detn-lr-flt-dk-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-lr-flt-dk</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>smoke-detn-lr-flt-dk-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-lr-flt-dk</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.32438, -0.56628, 0.37348)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>smoke-detn-lr-flt-dk-bkr</tooltip-id>
+                <label>Smoke Detection Lower Flight Deck Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-lr-flt-dk</property>
+            </binding>
+        </hovered>
+    </animation>
+
     <!-- ******************************************************************* -->
     <!-- Panel O15                                                           -->
     <!-- ******************************************************************* -->
@@ -12045,6 +12580,84 @@
                 <label>TACAN 2 Breaker: %s</label>
                 <mapping>on-off</mapping>
                 <property>/fdm/jsbsim/systems/circuit-breakers/tacan2</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Smoke Detection Bay 1B/3A "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>smoke-detn-bay-1B3A-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1B3A</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>smoke-detn-bay-1B3A-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1B3A</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.34089, -0.07211, 0.38647)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>smoke-detn-bay-1B3A-bkr</tooltip-id>
+                <label>Smoke Detection Bay 1B/3A Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1B3A</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Suppression Bay 1 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>fire-suppr-bay1-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay1</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fire-suppr-bay1-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay1</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.34084, -0.04374, 0.38513)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-suppr-bay1-bkr</tooltip-id>
+                <label>Fire Suppression 1 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay1</property>
             </binding>
         </hovered>
     </animation>
@@ -12533,6 +13146,123 @@
                 <label>Drag Chute Sys1 Breaker: %s</label>
                 <mapping>on-off</mapping>
                 <property>/fdm/jsbsim/systems/circuit-breakers/drag-chute-sys1</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Smoke Detection Cabin "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>smoke-detn-cabin-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-cabin</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>smoke-detn-cabin-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-cabin</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.33085, 0.39215, 0.38098)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>smoke-detn-cabin-bkr</tooltip-id>
+                <label>Smoke Detection Cabin Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-cabin</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Smoke Detection Bay 1A/2B "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>smoke-detn-bay-1A2B-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1A2B</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>smoke-detn-bay-1A2B-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1A2B</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.3309, 0.42278, 0.38232)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>smoke-detn-bay-1A2B-bkr</tooltip-id>
+                <label>Smoke Detection Bay 1A/2B Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/smoke-detn-bay-1A2B</property>
+            </binding>
+        </hovered>
+    </animation>
+
+    <!-- Fire Suppression Bay 2 "Breaker" -->
+    <animation>
+        <type>translate</type>
+        <object-name>fire-suppr-bay2-bkr</object-name>
+        <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay2</property>
+        <factor>0.008</factor>
+        <axis>
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>1.0</z>
+        </axis>
+    </animation>
+    <animation>
+        <type>pick</type>
+        <object-name>fire-suppr-bay2-bkr</object-name>
+        <visible>true</visible>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-toggle</command>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay2</property>
+            </binding>
+            <binding>
+                <command>nasal</command>
+                <script>SpaceShuttle.click("avionics", -11.33085, 0.45347, 0.38098)</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>fire-suppr-bay2-bkr</tooltip-id>
+                <label>Fire Suppression 2 Breaker: %s</label>
+                <mapping>on-off</mapping>
+                <property>/fdm/jsbsim/systems/circuit-breakers/fire-suppr-bay2</property>
             </binding>
         </hovered>
     </animation>

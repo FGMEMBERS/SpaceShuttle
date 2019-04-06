@@ -599,6 +599,7 @@ for (var i = 0; i< SpaceShuttle.imu_system.num_units; i=i+1)
 	SpaceShuttle.imu_system.imu[i].roll_error = 0.0;
 	}
 
+
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vx-m_s", 0.0);
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vy-m_s", 0.0);
 setprop("/fdm/jsbsim/systems/navigation/state-vector/error-prop/vz-m_s", 0.0);
@@ -653,11 +654,13 @@ if (handling == 0)
 	{
 	perfect_nav_on();
 	SpaceShuttle.imu_system.perfect_navigation = 1;
+	SpaceShuttle.proximity_manager.perfect_navigation = 1;
 	print("Switching to perfect navigation state...");
 	}
 else
 	{
 	SpaceShuttle.imu_system.perfect_navigation = 0;
+	SpaceShuttle.proximity_manager.perfect_navigation = 0;
 	}
 }
 

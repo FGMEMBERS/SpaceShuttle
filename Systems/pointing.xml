@@ -908,11 +908,25 @@
 		</acos>
 	</function>
 	</fcs_function>
+
+
+	<fcs_function name="systems/pointing/inertial/ecf-to-eci-rad-alt">
+	<function>
+		<product>
+			<quotient>
+				<property>sim-time-sec</property>
+				<value>86164</value>
+			</quotient>
+			<value>6.283185307</value>
+		</product>
+	</function>
+	</fcs_function>
+
 	
 	<fcs_function name="systems/pointing/inertial/c">
 	<function>
 		<cos>
-			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
+			<property>systems/pointing/inertial/ecf-to-eci-rad-alt</property>
 		</cos>
 	</function>
 	</fcs_function>
@@ -920,7 +934,7 @@
 	<fcs_function name="systems/pointing/inertial/s">
 	<function>
 		<sin>
-			<property>systems/pointing/inertial/ecf-to-eci-rad</property>
+			<property>systems/pointing/inertial/ecf-to-eci-rad-alt</property>
 		</sin>
 	</function>
 	</fcs_function>
@@ -1192,11 +1206,9 @@
 
 	<fcs_function name="systems/pointing/inertial/attitude/roll-ref[2]">
 	<function>
-		<product>
-			<cos>
-				<property>systems/pointing/inertial/attitude/pitch-rad</property>
-			</cos>
-		</product>
+		<cos>
+			<property>systems/pointing/inertial/attitude/pitch-rad</property>
+		</cos>
 	</function>
 	</fcs_function>
 
@@ -1384,11 +1396,9 @@
 
 	<fcs_function name="systems/pointing/inertial/attitude/tgt-roll-ref[2]">
 	<function>
-		<product>
-			<cos>
-				<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
-			</cos>
-		</product>
+		<cos>
+			<property>systems/pointing/inertial/attitude/tgt-pitch-rad</property>
+		</cos>
 	</function>
 	</fcs_function>
 

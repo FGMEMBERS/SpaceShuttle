@@ -134,6 +134,7 @@ var cdlg_widget_tank = {
 			{wtk.fill.lineTo(data[i+1][0], data[i+1][1]);}
 
 
+		wtk.is_visible = 1;
 
 		return wtk;
 	},
@@ -142,6 +143,17 @@ var cdlg_widget_tank = {
 		me.graph.setTranslation(x,y);
 
 	},
+
+
+	setVisible: func (cmd) {
+
+
+		if (cmd == me.is_visible) {return;}
+		me.is_visible = cmd;
+		me.graph.setVisible(cmd);
+	
+	},
+
 
 	setPercentage: func (x) {
 
@@ -224,6 +236,7 @@ var cdlg_widget_property_label = {
 	pl.limit_upper = 1e6;
 	pl.limit_lower = -1e6;
 	pl.limit_violation = 0;
+	pl.is_visible = 1;
 
 	if (text_color == nil) {text_color = [0.0, 0.0, 0.0];}
 	pl.text_color = text_color;
@@ -296,6 +309,14 @@ var cdlg_widget_property_label = {
 	setTranslation: func (x,y) {
 		me.graph.setTranslation(x,y);
 
+	},
+
+	setVisible: func (cmd) {
+
+		if (cmd == me.is_visible) {return;}
+		me.is_visible = cmd;
+		me.graph.setVisible(cmd);
+	
 	},
 
 	updateText: func (text) {
@@ -586,6 +607,12 @@ var cdlg_widget_infobox = {
 
 	},
 
+	setVisible: func (flag) {
+
+		me.graph.setVisible(flag);
+
+	},
+
 
 	setText: func (i, text) {
 		
@@ -638,6 +665,237 @@ var cdlg_widget_infobox = {
 
 
 };
+
+
+# view ####################################################################
+
+
+var cdlg_widget_view_selector = {
+
+
+	new: func (root, view_vec, view_att, tgt_vec, width, title, corner_radius = 0.0, frame_color = nil, title_color = nil, title_fill = nil, field_dir = nil, field_offset_x = 0.0, field_offset_y = 0.0) {
+
+		var vs = { parents: [cdlg_widget_view_selector] };
+		
+		vs.width = width;
+		vs.title = title;
+
+		vs.view_vec = view_vec;
+		vs.view_att = view_att;
+		vs.tgt_vec = tgt_vec;
+
+		vs.type = "lookfrom";
+
+		if (title_color == nil) {title_color = [0.0, 0.0, 0.0];}
+		if (frame_color == nil) {frame_color = [0.0, 0.0, 0.0];}
+
+		if (field_dir == nil) {vs.draw_field = 0;}
+		else	{vs.draw_field = 1;}
+
+		vs.title_color = title_color;
+		if (size(title_fill) == 4)
+			{vs.title_fill =  title_fill;}
+		else
+			{vs.title_fill = [title_fill[0], title_fill[1], title_fill[2], 1.0];}
+		vs.frame_color = frame_color;
+		vs.num_lines = 0;
+
+		vs.font_size = 15;
+
+		vs.font_height = 25.0;
+
+		vs.height = (vs.num_lines + 1) * vs.font_height;
+		vs.corner_radius = corner_radius;
+
+
+		vs.graph = root.createChild("group", "view selector");
+
+
+
+		var data = [];
+		var point = [0.0, -0.7* vs.font_height]; append(data, point);
+
+		point = [vs.width * 0.5 - vs.corner_radius, - 0.7* vs.font_height]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.617, - 0.7* vs.font_height + vs.corner_radius * 0.076]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.293, - 0.7* vs.font_height + vs.corner_radius * 0.293]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.076, - 0.7* vs.font_height + vs.corner_radius * 0.617]; append(data, point);
+		point = [vs.width * 0.5, - 0.7* vs.font_height + vs.corner_radius]; append(data, point);
+
+		point = [vs.width * 0.5 , 0.3 * vs.font_height -vs.corner_radius]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.076, 0.3 * vs.font_height - vs.corner_radius * 0.617]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.293, 0.3 * vs.font_height - vs.corner_radius * 0.293]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius * 0.617, 0.3 * vs.font_height - vs.corner_radius * 0.076]; append(data, point);
+		point = [vs.width * 0.5 - vs.corner_radius, 0.3 * vs.font_height]; append(data, point);
+
+		point = [-vs.width * 0.5 + corner_radius, 0.3 * vs.font_height]; append(data, point);
+		point = [-vs.width * 0.5 + 0.617 * corner_radius, 0.3 * vs.font_height- vs.corner_radius * 0.076]; append(data, point);
+		point = [-vs.width * 0.5 + 0.293 * corner_radius, 0.3 * vs.font_height- vs.corner_radius * 0.293]; append(data, point);
+		point = [-vs.width * 0.5 + 0.076 * corner_radius, 0.3 * vs.font_height- vs.corner_radius * 0.617]; append(data, point);
+		point = [-vs.width * 0.5 , 0.3 * vs.font_height- vs.corner_radius]; append(data, point);
+
+		point = [-vs.width * 0.5, -0.7* vs.font_height + vs.corner_radius]; append(data, point);
+		point = [-vs.width * 0.5 + vs.corner_radius * 0.076, -0.7* vs.font_height + vs.corner_radius * 0.617]; append(data, point);
+		point = [-vs.width * 0.5 + vs.corner_radius * 0.293, -0.7* vs.font_height + vs.corner_radius * 0.293]; append(data, point);
+		point = [-vs.width * 0.5 + vs.corner_radius * 0.617, -0.7* vs.font_height + vs.corner_radius * 0.076]; append(data, point);
+		point = [-vs.width * 0.5 + vs.corner_radius, -0.7* vs.font_height]; append(data, point);
+		point = [0.0, - 0.7 * vs.font_height]; append(data, point);
+
+		vs.title_frame = vs.graph.createChild("path", "")
+		.setStrokeLineWidth(2)
+		.setColor(vs.frame_color)
+		.moveTo(data[0][0], data[0][1]);
+		for (var i = 0; (i< size(data)-1); i=i+1) 
+			{vs.title_frame.lineTo(data[i+1][0], data[i+1][1]);}
+
+		if (vs.title_fill != nil)
+			{
+			vs.title_frame.setColorFill(vs.title_fill);
+			}
+
+
+
+		var offset = me.getOffset(title);
+
+		vs.title_text = vs.graph.createChild("text")
+	      		.setText(title)
+			.setColor(title_color)
+			.setFontSize(15)
+			.setFont("LiberationFonts/LiberationSans-Bold.ttf")
+			.setAlignment("center-bottom")
+			.setTranslation(0, offset)
+			.setRotation(0.0);
+
+		# visual field indicator
+		
+		if (vs.draw_field == 1)
+			{
+			data = [];
+			point = [-8.0 , -35.0]; append(data, point);
+			point = [-20.0 , -70.0]; append(data, point);
+			point = [ 20.0 , -70.0]; append(data, point);
+			point = [ 8.0 , -35.0]; append(data, point);
+			point = [-8.0 , -35.0]; append(data, point);
+
+			vs.visual_field = vs.graph.createChild("path", "field")
+			.setStrokeLineWidth(2)
+			.setColor([vs.title_color[0], vs.title_color[1], vs.title_color[2], 0.5])
+			.moveTo(data[0][0], data[0][1]);
+			for (var i = 0; (i< size(data)-1); i=i+1) 
+				{vs.visual_field.lineTo(data[i+1][0], data[i+1][1]);}
+
+			vs.visual_field.setRotation(field_dir * math.pi/180.0);
+			vs.visual_field.setTranslation(field_offset_x, field_offset_y);
+
+			if (vs.title_fill != nil)
+				{
+				vs.visual_field.setColorFill([vs.title_fill[0], vs.title_fill[1], vs.title_fill[2], vs.title_fill[3] * 0.5]);
+				}
+
+			}
+
+
+		vs.graph.addEventListener("click", func() {
+			
+			vs.set_view();
+			
+		 	});
+		
+
+
+		return vs;
+
+	}, 
+
+	setTranslation: func (x,y) {
+
+		me.graph.setTranslation(x,y);
+
+	},
+
+	setType: func (type) {
+
+		me.type = type;
+
+	},
+
+	set_view: func {
+
+		var view_type = getprop("/sim/current-view/type");
+
+		if (view_type != me.type) {return;}
+
+		if (view_type == "lookfrom")
+			{
+			setprop("/sim/current-view/x-offset-m", me.view_vec[0]);
+			setprop("/sim/current-view/y-offset-m", me.view_vec[1]);
+			setprop("/sim/current-view/z-offset-m", me.view_vec[2]);
+
+			setprop("/sim/current-view/pitch-offset-deg", me.view_att[0]);
+			setprop("/sim/current-view/heading-offset-deg", me.view_att[1]);
+			setprop("/sim/current-view/roll-offset-deg", me.view_att[2]);
+			}
+		else
+			{
+			setprop("/sim/current-view/x-offset-m", me.view_vec[0]);
+			setprop("/sim/current-view/y-offset-m", me.view_vec[1]);
+			setprop("/sim/current-view/z-offset-m", me.view_vec[2]);
+
+			setprop("/sim/current-view/pitch-offset-deg", me.view_att[0]);
+			setprop("/sim/current-view/heading-offset-deg", me.view_att[1]);
+			setprop("/sim/current-view/roll-offset-deg", me.view_att[2]);
+
+			setprop("/sim/current-view/target-x-offset-m", me.tgt_vec[0]);
+			setprop("/sim/current-view/target-y-offset-m", me.tgt_vec[1]);
+			setprop("/sim/current-view/target-z-offset-m", me.tgt_vec[2]);
+			}
+		return;
+
+	},
+
+	setContextHelp: func (f) {
+
+			me.graph.addEventListener("mouseover", func(e) {
+			fgcommand("set-cursor", props.Node.new({'cursor':'left-right'}));
+			f("mouseover");
+		  	});
+
+			me.graph.addEventListener("mouseout", func(e) {
+			fgcommand("set-cursor", props.Node.new({'cursor':'inherit'}));
+			f("mouseout");
+		  	});
+
+
+
+	},
+
+	f: func {
+
+
+		return;
+
+	},
+
+
+
+	getOffset: func (string) {
+		var flag = 0;
+		for (var i = 0; i < utf8.size(string); i=i+1)
+			{
+			var char = utf8.strc(string, i);
+			#print (char);
+
+			if ((char == 112) or (char == 121) or (char == 106) or (char == 103) or (char == 113))
+				{
+				flag = 1; break;
+				}
+			}
+		if (flag == 1) {return 4.0;}
+		else {return 0.0;}
+	},
+
+
+};
+
 
 # image stack ##############################################################
 

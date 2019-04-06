@@ -17,7 +17,8 @@
   </animation>-->
 
 	 <effect>
-	    <inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-rms</inherits-from>
+	    <!--inherits-from>Aircraft/SpaceShuttle/Models/Effects/shuttle-rms</inherits-from-->
+        <inherits-from>Aircraft/SpaceShuttle/Models/PayloadBay/shuttle-rms</inherits-from>
 	    <object-name>rmsBase</object-name>
 	    <object-name>RMS.Shoulder.Yaw</object-name>
 	    <object-name>RMS.Shoulder.Pitch</object-name>

@@ -222,21 +222,38 @@ settimer(func {tracking_loop_flag = 1; oms_burn_loop(tx, ty, tz, dvtot);}, 0.2);
 
 var oms_future_burn_start = func (time) {
 
-var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
-var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
-var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
+#var x = getprop("/fdm/jsbsim/position/eci-x-ft") * 0.3048;
+#var y = getprop("/fdm/jsbsim/position/eci-y-ft") * 0.3048;
+#var z = getprop("/fdm/jsbsim/position/eci-z-ft") * 0.3048;
 
-var vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048;
-var vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048;
-var vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048;
+#var vx = getprop("/fdm/jsbsim/velocities/eci-x-fps") * 0.3048;
+#var vy = getprop("/fdm/jsbsim/velocities/eci-y-fps") * 0.3048;
+#var vz = getprop("/fdm/jsbsim/velocities/eci-z-fps") * 0.3048;
 
-var state_x = [x,y,z];
-var state_v = [vx, vy, vz];
+#var state_x = [x,y,z];
+#var state_v = [vx, vy, vz];
 
 setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 0);
 
-SpaceShuttle.state_extrapolate (state_x, state_v, 0.0, time);
+#SpaceShuttle.state_extrapolate (state_x, state_v, 0.0, time);
 
+var ops = getprop("/fdm/jsbsim/systems/dps/ops");
+var burn_time = getprop("/fdm/jsbsim/systems/ap/oms-plan/tgo-s");
+
+SpaceShuttle.targeting_manager.burn_verbose = 1;
+
+SpaceShuttle.targeting_manager.set_ops(ops);
+SpaceShuttle.targeting_manager.parameter_reset();
+SpaceShuttle.targeting_manager.set_evolution_time(time + burn_time + 10.0);
+SpaceShuttle.targeting_manager.capture_current();
+
+SpaceShuttle.targeting_manager.set_acceleration(0.51);
+SpaceShuttle.targeting_manager.set_peg7(oms_burn_target.tx * 0.3048 * oms_burn_target.dvtot ,oms_burn_target.ty * 0.3048 * oms_burn_target.dvtot ,oms_burn_target.tz * 0.3048 * oms_burn_target.dvtot, time);
+
+SpaceShuttle.targeting_manager.compute_elements();
+SpaceShuttle.targeting_manager.list_elements();
+
+SpaceShuttle.targeting_manager.start();
 
 oms_future_burn_hold();
 }
@@ -245,12 +262,17 @@ oms_future_burn_hold();
 
 var oms_future_burn_hold = func {
 
-var flag = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag");
+#var flag = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag");
+
+var flag = SpaceShuttle.targeting_manager.evolution_finished;
 
 print("Computing trajectory prediction...");
 
 if (flag == 1)
 	{
+	SpaceShuttle.targeting_manager.compute_elements();
+	SpaceShuttle.targeting_manager.list_elements();
+	setprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-flag", 1);
 	oms_future_burn_finished();
 	return;
 	}
@@ -263,16 +285,16 @@ var oms_future_burn_finished = func {
 
 # retrieve the state vector at ignition time
 
-var x = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-x")/0.3048;
-var y = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-y")/0.3048;
-var z = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-z")/0.3048;
+#var x = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-x")/0.3048;
+#var y = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-y")/0.3048;
+#var z = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-z")/0.3048;
 
-var vx = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vx")/0.3048;
-var vy = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy")/0.3048;
-var vz = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz")/0.3048;
+#var vx = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vx")/0.3048;
+#var vy = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vy")/0.3048;
+#var vz = getprop("/fdm/jsbsim/systems/ap/oms-plan/state-extrapolated-vz")/0.3048;
 
-var r = [x,y,z];
-var v = [vx, vy, vz];
+#var r = [x,y,z];
+#var v = [vx, vy, vz];
 
 
 #print("Extrapolated state pos: ", x, " ", y, " ", z); 
@@ -281,23 +303,23 @@ var v = [vx, vy, vz];
 # construct prograde/radial/normal coordinate system for this state vector
 
 
-var prograde = [vx, vy, vz];
-var radial = [x, y, z];
+#var prograde = [vx, vy, vz];
+#var radial = [x, y, z];
 
-prograde = normalize(prograde);
-radial = normalize(radial);
+#prograde = normalize(prograde);
+#radial = normalize(radial);
 
-radial = orthonormalize(prograde, radial);
+#radial = orthonormalize(prograde, radial);
 
-var normal = cross_product (prograde, radial);
+#var normal = cross_product (prograde, radial);
 
 
 
 # now get the inertial velocity change components for the burn taget
 
-var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
-var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];
-var tgt2 = oms_burn_target.tx * prograde[2] + oms_burn_target.ty * normal[2] + oms_burn_target.tz * radial[2];
+#var tgt0 = oms_burn_target.tx * prograde[0] + oms_burn_target.ty * normal[0] + oms_burn_target.tz * radial[0];
+#var tgt1 = oms_burn_target.tx * prograde[1] + oms_burn_target.ty * normal[1] + oms_burn_target.tz * radial[1];
+#var tgt2 = oms_burn_target.tx * prograde[2] + oms_burn_target.ty * normal[2] + oms_burn_target.tz * radial[2];
 
 #print("Target:");
 #print(tgt0, " ", tgt1, " ", tgt2);
@@ -305,13 +327,20 @@ var tgt2 = oms_burn_target.tx * prograde[2] + oms_burn_target.ty * normal[2] + o
 # add the burn target velocity components to the state vector
 
 
-var dv = scalar_product(oms_burn_target.dvtot, [tgt0, tgt1, tgt2]);
+#var dv = scalar_product(oms_burn_target.dvtot, [tgt0, tgt1, tgt2]);
 
-v = add_vector(v, dv);
+#v = add_vector(v, dv);
+
+
 
 # compute apoapsis and periapsis
 
-var apses = SpaceShuttle.compute_apses(r,v);
+#var apses = SpaceShuttle.compute_apses(r,v);
+
+var r = SpaceShuttle.scalar_product(1./0.3048, SpaceShuttle.targeting_manager.pos);
+var v = SpaceShuttle.scalar_product(1./0.3048, SpaceShuttle.targeting_manager.vel);
+
+var apses = SpaceShuttle.compute_apses(r, v);
 var sea_level_radius_ft = getprop("/fdm/jsbsim/ic/sea-level-radius-ft");
 
 var periapsis_nm = (apses[0] - sea_level_radius_ft)/ 6076.11548556;
@@ -335,7 +364,7 @@ if ((major_mode == 301) or (major_mode == 302) or (major_mode == 303))
 		# correct REI for empirics and time to interface
 
 		var rei_correction = 375.0 + 3.6556 * periapsis_nm;
-		rei_correction = rei_correction - oms_burn_target.time_to_burn * norm([vx,vy,vz]) * 0.000164578833693;
+		rei_correction = rei_correction - oms_burn_target.time_to_burn * norm(v) * 0.000164578833693;
 		# also Earth rotates while we coast, this is very naive
 
 		var lat = getprop("/position/latitude-deg");
@@ -375,6 +404,8 @@ prograde = normalize(prograde);
 radial = orthonormalize(prograde, radial);
 
 var normal = cross_product (prograde, radial);
+
+
 
 # vtgt is used to predict the apses, so it uses a pure LVLH system
 

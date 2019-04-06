@@ -6,6 +6,14 @@ var auto_launch_stage = 0;
 var auto_launch_timer = 0.0;
 var aux_flag = 0;
 
+var auto_launch_throttle_down = 18.0;
+var auto_launch_throttle_up = 42.0;
+var auto_launch_throttle_to = 0.0;
+
+var auto_launch_traj_loft = 0.0;
+var auto_launch_mps_climbout_bias = 0.0;
+var auto_launch_srb_climbout_bias = 0.0;
+
 var xtrack_refloc = geo.Coord.new();
 xtrack_refloc.last_xtrack = 0.0;
 xtrack_refloc.correction = 0.0;
@@ -57,35 +65,23 @@ if (auto_launch_stage == 0)
 	}
 else if (auto_launch_stage == 1)
 	{
-	# check for launch course reached, then initiate pitch down assuming we're high enough
 
-	if (math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01) 
-		{
-		auto_launch_stage = 2;
-		setprop("/fdm/jsbsim/systems/ap/launch/stage", 2);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 74.0);
-		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.2);
-		aux_flag = 0;
-		}
+	# enable throttling already during rotation to azimuth
 
-	
+	#print ("Auto launch timer: ", auto_launch_timer);
 
-	}
-else if (auto_launch_stage == 2)
-	{
-
-	if ((auto_launch_timer > 18.0) and (auto_launch_timer < 42.0))
+	if ((auto_launch_timer > auto_launch_throttle_down) and (auto_launch_timer < auto_launch_throttle_up))
 		{
 		if (aux_flag == 0)
 			{
 			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
 				{
 				if (SpaceShuttle.failure_cmd.ssme1 == 1)
-					{setprop("/controls/engines/engine[0]/throttle", 0.0);}
+					{setprop("/controls/engines/engine[0]/throttle", auto_launch_throttle_to);}
 				if (SpaceShuttle.failure_cmd.ssme2 == 1)
-					{setprop("/controls/engines/engine[1]/throttle", 0.0);}
+					{setprop("/controls/engines/engine[1]/throttle", auto_launch_throttle_to);}
 				if (SpaceShuttle.failure_cmd.ssme3 == 1)
-					{setprop("/controls/engines/engine[2]/throttle", 0.0);}
+					{setprop("/controls/engines/engine[2]/throttle", auto_launch_throttle_to);}
 				}
 			aux_flag = 1;
 			}
@@ -105,7 +101,7 @@ else if (auto_launch_stage == 2)
 			}
 
 		}
-	else if (auto_launch_timer > 42.0)
+	else if (auto_launch_timer > auto_launch_throttle_up)
 		{
 		if (aux_flag == 1)
 			{
@@ -123,7 +119,74 @@ else if (auto_launch_stage == 2)
 			}
 		}
 
-	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 620.0) and (auto_launch_timer > 42.0))
+
+	# check for launch course reached, then initiate pitch down assuming we're high enough
+
+	if (math.abs(getprop("/fdm/jsbsim/systems/ap/launch/stage1-course-error")) < 0.01) 
+		{
+		auto_launch_stage = 2;
+		setprop("/fdm/jsbsim/systems/ap/launch/stage", 2);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 74.0);
+		setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.2);
+		aux_flag = 0;
+		}
+
+	
+
+	}
+else if (auto_launch_stage == 2)
+	{
+
+	if ((auto_launch_timer > auto_launch_throttle_down) and (auto_launch_timer < auto_launch_throttle_up))
+		{
+		if (aux_flag == 0)
+			{
+			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+				{
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)
+					{setprop("/controls/engines/engine[0]/throttle", auto_launch_throttle_to);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", auto_launch_throttle_to);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", auto_launch_throttle_to);}
+				}
+			aux_flag = 1;
+			}
+		# throttle up if we lose an engine
+
+		if (getprop("/fdm/jsbsim/systems/mps/number-engines-operational") < 3.0) 
+			{
+			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+				{
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)
+					{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)
+					{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)
+					{setprop("/controls/engines/engine[2]/throttle", 1.0);}
+				}
+			}
+
+		}
+	else if (auto_launch_timer > auto_launch_throttle_up)
+		{
+		if (aux_flag == 1)
+			{
+		
+			if (getprop("/fdm/jsbsim/systems/ap/automatic-sb-control") == 1)
+				{
+				if (SpaceShuttle.failure_cmd.ssme1 == 1)			
+					{setprop("/controls/engines/engine[0]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme2 == 1)			
+					{setprop("/controls/engines/engine[1]/throttle", 1.0);}
+				if (SpaceShuttle.failure_cmd.ssme3 == 1)			
+					{setprop("/controls/engines/engine[2]/throttle", 1.0);}
+				}
+			aux_flag = 2;
+			}
+		}
+
+	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 620.0) and (auto_launch_timer > auto_launch_throttle_up))
 		{
 		if (aux_flag == 2)
 			{
@@ -133,17 +196,17 @@ else if (auto_launch_stage == 2)
 			}
 		}
 
-	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 510.0) and (auto_launch_timer > 42.0))
+	if ((getprop("/fdm/jsbsim/aero/qbar-psf") < 510.0) and (auto_launch_timer > auto_launch_throttle_up))
 		{
 		if (aux_flag == 3)
 			{
-			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 45.0);
+			setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", 45.0 + auto_launch_srb_climbout_bias);
 			setprop("/fdm/jsbsim/systems/ap/launch/pitch-max-rate-norm", 0.12);
 			aux_flag = 4;
 			}
 		}
 
-	if (getprop("/controls/shuttle/SRB-static-model") == 0)
+	if ((getprop("/controls/shuttle/SRB-static-model") == 0) and (getprop("/fdm/jsbsim/systems/failures/shuttle-destroyed") == 0))
 		{
 		auto_launch_stage = 3;
 	
@@ -152,6 +215,10 @@ else if (auto_launch_stage == 2)
 		setprop("/fdm/jsbsim/systems/ap/launch/stage", 3);
 		var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
 		payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
+		
+		# OMS kit
+		payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[27]/contents-lbs")/53700.0;
+		payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[26]/contents-lbs")/53700.0;
 
 		var throttle_factor = 10.0 * (getprop("/fdm/jsbsim/systems/throttle/throttle-factor") - 1.0);
 
@@ -159,9 +226,48 @@ else if (auto_launch_stage == 2)
 		var heading = getprop("/orientation/heading-deg") * math.pi/180.0;
 		var geo_factor = math.sin(heading) * math.cos(lat);
 
-		var pitch_target = 5.0 + 5.0 * payload_factor + 4.0 - 6.0 * geo_factor - 8.0 * throttle_factor;
+
+		var v_up_tgt = 920.0 + auto_launch_srb_climbout_bias * 8.0;
+
+		var delta_vspeed = (v_up_tgt - 42.0 * payload_factor) + 0.3048 * getprop("/fdm/jsbsim/velocities/v-down-fps");
+
+		var delta_alt = delta_vspeed * 895.0;
+		var loft_factor = delta_alt / 7000.0;
+
+		if (loft_factor > 5.0) {loft_factor = 5.0;}
+		if (loft_factor < -2.0) {loft_factor = -2.0;}
+
+		var pitch_target = 5.0 + 5.0 * payload_factor + 4.0 - 6.0 * geo_factor - 8.0 * throttle_factor + auto_launch_mps_climbout_bias + loft_factor;
 
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", pitch_target);
+
+		# fire an OMS assist burn if requested
+
+
+		if (getprop("/fdm/jsbsim/systems/ap/launch/oms-assist-burn") == 1)
+			{
+
+			var oms_assist_time = getprop("/fdm/jsbsim/systems/ap/launch/oms-assist-duration-s");
+
+			settimer ( func {
+
+				setprop("/controls/engines/engine[5]/throttle", 1.0);
+				setprop("/controls/engines/engine[6]/throttle", 1.0);
+
+				}, 10.0 );
+			
+
+			settimer ( func {
+
+ 				if (getprop("/fdm/jsbsim/systems/oms/oms-dump-cmd") == 1) {return;}
+
+				setprop("/controls/engines/engine[5]/throttle", 0.0);
+				setprop("/controls/engines/engine[6]/throttle", 0.0);
+
+				}, 10.0 + oms_assist_time );
+			}
+
+
 		aux_flag = 0;
 		}
 
@@ -183,10 +289,13 @@ else if (auto_launch_stage == 3)
 	var alt = getprop("/position/altitude-ft");
 
 
-	if (alt > 480000.0) # we're getting too high and need to pitch down
+	if (alt > 465000.0 + auto_launch_traj_loft) # we're getting too high and need to pitch down
 		{
 		var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
 		payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
+		# OMS kit
+		payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[27]/contents-lbs")/53700.0;
+		payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[26]/contents-lbs")/53700.0;
 
 		var lat = getprop("/position/latitude-deg") * math.pi/180.0;
 		var heading = getprop("/orientation/heading-deg") * math.pi/180.0;
@@ -194,7 +303,7 @@ else if (auto_launch_stage == 3)
 
 		var pitch_target = 5.0 + 5.0 * payload_factor + 4.0 - 6.0 * geo_factor;
 
-		var pitch_corr = (alt - 480000)/1000.0;
+		var pitch_corr = (alt - 465000 - auto_launch_traj_loft)/1000.0;
 
 		setprop("/fdm/jsbsim/systems/ap/launch/pitch-target", pitch_target - pitch_corr);
 		aux_flag = 2;
@@ -234,12 +343,12 @@ else if (auto_launch_stage == 4)
 	droop_guidance.run (alt);
 	meco_time.run();
 
-	if ((alt < 420000.0) and (mach < 23.0))
+	if ((alt < 420000.0 + auto_launch_traj_loft) and (mach < 23.0))
 		{
 		var hdot_tgt = 50.0 - (420000.0 - alt)/150.0;
 		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", hdot_tgt);
 		}
-	else if ((alt > 470000.0) and (mach < 23.0))
+	else if ((alt > 470000.0 + auto_launch_traj_loft) and (mach < 23.0))
 		{
 		var hdot_tgt = 50.0 + (alt - 470000.0)/150.0;
 		setprop("/fdm/jsbsim/systems/ap/launch/hdot-target", hdot_tgt);
@@ -419,6 +528,9 @@ if (auto_launch_stage == 3)
 
 	var payload_factor = getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[5]") /53700.00;
 	payload_factor =  payload_factor +  (getprop("/fdm/jsbsim/inertia/pointmass-weight-lbs[1]") - 29250.0) / 26850.00;
+	# OMS kit
+	payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[27]/contents-lbs")/53700.0;
+	payload_factor = payload_factor + getprop("/fdm/jsbsim/propulsion/tank[26]/contents-lbs")/53700.0;
 
 	var geo_factor = math.sin(heading) * math.cos(lat);
 

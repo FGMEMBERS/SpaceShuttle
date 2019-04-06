@@ -149,7 +149,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.adi_sphere_bg = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
-	.setColorFill(0.15,0.15,0.15)
+	.setColorFill(0.3,0.3,0.3)
 	.setTranslation (255, 175)
         .setColor(1,1,1);
 
@@ -159,7 +159,7 @@ var PFD_addpage_p_pfd = func(device)
 
 	p_pfd.adi_sphere_bg_bright = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
-	.setColorFill(0.3,0.3,0.3)
+	.setColorFill(0.15,0.15,0.15)
 	.setTranslation (255, 175)
         .setColor(1,1,1);
 
@@ -1549,6 +1549,7 @@ var PFD_addpage_p_pfd = func(device)
 		hsi_course = Delta_inc;
 
 		p_pfd.xtrk_display_text.setText(sprintf("%2.1f", p_pfd.nd_ref_xtrk.getValue() - SpaceShuttle.xtrack_refloc.correction ));
+		#p_pfd.xtrk_display_text.setText(sprintf("%2.1f", p_pfd.nd_ref_xtrk.getValue() ));
 
 		if (launch_stage == 1)
 			{
@@ -2256,7 +2257,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	p_pfd_orbit.adi_sphere_bg = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
-	.setColorFill(0.15,0.15,0.15)
+	.setColorFill(0.3,0.3,0.3)
 	.setTranslation (255, 175)
         .setColor(1,1,1);
 
@@ -2266,7 +2267,7 @@ var PFD_addpage_p_pfd_orbit = func(device)
 
 	p_pfd_orbit.adi_sphere_bg_bright = device.ADI.createChild("path")
         .setStrokeLineWidth(1)
-	.setColorFill(0.3,0.3,0.3)
+	.setColorFill(0.15,0.15,0.15)
 	.setTranslation (255, 175)
         .setColor(1,1,1);
 

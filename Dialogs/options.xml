@@ -570,9 +570,71 @@
 		</binding>
       	</combo>
 
+	<text>
+      		<label>OMS kit</label>
+      		<halign>left</halign>
+      		<row>4</row>
+     	 	<col>0</col>
+    	</text>
+
+
+
+   	<combo>
+       		 <row>4</row>
+        	 <col>1</col>
+        	 <name>OMS-kit</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/OMS-kit-config</property>
+		 <value>none</value>
+		 <value>OMS kit 500 fps</value>
+		 <value>OMS kit 1000 fps</value>
+		 <value>OMS kit 1500 fps</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>OMS-kit</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.update_oms_kit_selection()</script>
+		</binding>
+      	</combo>
+
+	<text>
+      		<label>COAS</label>
+      		<halign>left</halign>
+      		<row>5</row>
+     	 	<col>0</col>
+    	</text>
+
+   	<combo>
+       		 <row>5</row>
+        	 <col>1</col>
+        	 <name>COAS</name>
+        	 <halign>left</halign>
+        	 <stretch>true</stretch>
+        	 <pref-width>200</pref-width>
+        	 <property>/sim/config/shuttle/COAS-config</property>
+		 <value>none</value>
+		 <value>FWD</value>
+		 <value>AFT</value>
+        	 <binding>
+             	 	<command>dialog-apply</command>
+          	 	<object-name>COAS</object-name>
+        	 </binding>
+		<binding>
+			<command>nasal</command>
+                    	<script>SpaceShuttle.coas_device.check_mount()</script>
+		</binding>
+      	</combo>
+
+
+
+  
     <checkbox>
         <name>loose-items</name>
- 	<row>4</row>
+ 	<row>6</row>
         <col>0</col>
           <property>/sim/config/shuttle/loose-items</property>
           <label>allow/stow loose items</label>
@@ -664,6 +726,41 @@
       <format>%.f ft</format>
       <live>true</live>
       <property>/sim/config/shuttle/rendering/earthview-transition-alt-ft</property>
+    </text> 
+
+    <text>
+      	<label>orbital targets simulated in detail at</label>
+      	<halign>left</halign>
+      	<row>3</row>
+     	<col>0</col>
+    </text>
+
+    <slider>
+      <name>target-lod</name>
+      <row>3</row>
+      <col>1</col>
+      <min>1000.0</min>
+      <max>15000.0</max>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/orbital-target-lod-m</property>
+      <binding>
+        <command>dialog-apply</command>
+        <object-name>target-lod</object-name>
+      </binding>
+      <binding>
+		<command>nasal</command>
+		<script>SpaceShuttle.orbital_target_lod = getprop("/sim/config/shuttle/rendering/orbital-target-lod-m");</script>
+      </binding>
+    </slider>
+
+    <text>
+      <row>3</row>
+      <col>2</col>
+      <halign>right</halign>
+      <label>12345678</label>
+      <format>%.f m</format>
+      <live>true</live>
+      <property>/sim/config/shuttle/rendering/orbital-target-lod-m</property>
     </text> 
 
 

@@ -2,7 +2,7 @@
 
 <system>
 
-	<channel name="N2 system">
+	<channel name="N2 system" execrate="4">
 
 		<fcs_function name="systems/oms-hardware/n2-left-oms-pressure-psia">
 		<function>
@@ -70,7 +70,7 @@
 	</channel>
 
 
-	<channel name="OMS helium and propellant system">
+	<channel name="OMS helium and propellant system" execrate="4">
 
 		<!-- current fuel and oxidizer fractions in the tanks -->
 
@@ -121,6 +121,9 @@
 			</min>
 		</function>
 		</fcs_function>
+
+
+
 
 
 		<!-- Helium reservoir pressure -->
@@ -400,10 +403,172 @@
 
 	</channel>
 
+	<channel name="OMS kit Helium system" execute="systems/oms-hardware/oms-kit-installed" execrate="4">
 
+		<fcs_function name="systems/oms-hardware/kit-oms-fuel-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[27]/contents-lbs</property>
+				<product>
+				<value>4718.0</value>
+				<max>
+					<property>systems/oms-hardware/oms-kit-num-tanks</property>
+					<value>1.0</value>
+				</max>
+				</product>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/kit-oms-oxidizer-fraction">
+		<function>
+			<min>
+			<quotient>
+				<property>propulsion/tank[26]/contents-lbs</property>
+				<product>
+				<value>7773.0</value>
+				<max>
+					<property>systems/oms-hardware/oms-kit-num-tanks</property>
+					<value>1.0</value>
+				</max>				
+				</product>
+			</quotient>
+			<value>0.999</value>
+			</min>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/helium-kit-oms-pressure-psia">
+		<function>
+			<product>
+				<sum>
+					<value>805.0</value>
+					<product>
+						<sum>
+						<property>/fdm/jsbsim/systems/oms-hardware/kit-oms-fuel-fraction</property>
+						<property>/fdm/jsbsim/systems/oms-hardware/kit-oms-oxidizer-fraction</property>
+						</sum>
+						<value>0.5</value>
+						<value>2549.0</value>
+					</product>
+				</sum>
+				<property>/fdm/jsbsim/systems/failures/oms/oms-he-kit-condition</property>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/kit-oms-helium-valve-open">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/helium-kit-oms-valve-A-status == 1
+				systems/oms-hardware/helium-kit-oms-valve-B-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/helium-kit-oms-pressure-sh-psia">
+			<default value="systems/oms-hardware/helium-kit-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/helium-kit-oms-pressure-sh-psia">
+				systems/oms-hardware/kit-oms-helium-valve-open == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/oms-hardware/kit-oms-pressurized">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/kit-oms-helium-valve-open == 1
+				systems/oms-hardware/helium-kit-oms-pressure-psia GT 200.0
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/fuel-kit-oms-pressure-sample-hold-psia">
+			<default value="systems/oms-hardware/fuel-kit-oms-pressure-psia"/>
+			<test value="systems/oms-hardware/fuel-kit-oms-pressure-sample-hold-psia">
+				systems/oms-hardware/kit-oms-pressurized == 0
+			</test>
+		</switch>
+
+
+		<switch name="systems/oms-hardware/kit-oms-fuel-fraction-sample-hold">
+			<default value="systems/oms-hardware/kit-oms-fuel-fraction"/>
+			<test value="systems/oms-hardware/kit-oms-fuel-fraction-sample-hold">
+				systems/oms-hardware/kit-oms-pressurized == 0
+			</test>
+		</switch>
+
+		<fcs_function name="systems/oms-hardware/tanks-kit-oms-pressure-psia">
+		<function>
+			<min>
+				<value>255.0</value>
+				<property>systems/oms-hardware/helium-kit-oms-pressure-psia</property>
+			</min>
+		</function>
+		<output>systems/oms-hardware/oxidizer-kit-oms-pressure-psia</output>
+		<output>systems/oms-hardware/fuel-kit-oms-pressure-psia</output>
+		</fcs_function>
+
+
+		<fcs_function name="systems/oms-hardware/tanks-kit-oms-blowdown-psia">
+		<function>
+			<product>
+				<property>systems/oms-hardware/fuel-kit-oms-pressure-sample-hold-psia</property>
+				<quotient>
+				<difference>
+					<value>1.0</value>
+					<property>systems/oms-hardware/kit-oms-fuel-fraction-sample-hold</property>
+				</difference>
+				<difference>
+					<value>1.0</value>
+					<property>systems/oms-hardware/kit-oms-fuel-fraction</property>
+				</difference>
+				</quotient>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/kit-oms-blowdown-available-fuel-fraction">
+		<function>
+			<max>
+			<value>0.0</value>
+			<difference>
+			<property>systems/oms-hardware/kit-oms-fuel-fraction-sample-hold</property>
+			<product>
+				<value>0.65</value>
+				<difference>
+					<value>1.0</value>
+					<property>systems/oms-hardware/kit-oms-fuel-fraction-sample-hold</property>
+				</difference>
+			</product>
+			</difference>
+			</max>
+		</function>
+		</fcs_function>
+
+
+		<switch name="systems/oms-hardware/kit-oms-fuel-pressurized">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/kit-oms-pressurized == 1
+				systems/oms-hardware/kit-oms-blowdown-available-fuel-fraction LT systems/oms-hardware/kit-oms-fuel-fraction
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/kit-oms-fuel-available">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/kit-oms-fuel-pressurized == 1
+				systems/oms-hardware/kit-oms-fuel-fraction GT 0.01
+			</test>
+		</switch>
+
+
+	</channel>
 	
 
-	<channel name="OMS to OMS crossfeed">
+	<channel name="OMS to OMS crossfeed" execrate="4">
 
 	<!-- since JSBSim doesn't have a direct crossfeed ability, this is a bit hacky - it uses -->
 	<!-- the fact that the Shuttle never directly connects two tanks in a cross-feed -->
@@ -412,31 +577,41 @@
 
 		<fcs_function name="systems/oms-hardware/fuel-left-nominal-drain-pps">
 		<function>
-			<sum>
-				<property>propulsion/engine[5]/fuel-flow-rate-pps</property>
-			</sum>
+			<property>propulsion/engine[5]/fuel-flow-rate-pps</property>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/oxidizer-left-nominal-drain-pps">
 		<function>
-			<sum>
-				<property>propulsion/engine[5]/oxi-flow-rate-pps</property>
-			</sum>
+			<property>propulsion/engine[5]/oxi-flow-rate-pps</property>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/fuel-right-nominal-drain-pps">
 		<function>
-			<sum>
-				<property>propulsion/engine[6]/fuel-flow-rate-pps</property>
-			</sum>
+			<property>propulsion/engine[6]/fuel-flow-rate-pps</property>
 		</function>
 		</fcs_function>
 
 		<fcs_function name="systems/oms-hardware/oxidizer-right-nominal-drain-pps">
 		<function>
+			<property>propulsion/engine[6]/oxi-flow-rate-pps</property>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/fuel-both-nominal-drain-pps">
+		<function>
 			<sum>
+				<property>propulsion/engine[5]/fuel-flow-rate-pps</property>
+				<property>propulsion/engine[6]/fuel-flow-rate-pps</property>
+			</sum>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/oxidizer-both-nominal-drain-pps">
+		<function>
+			<sum>
+				<property>propulsion/engine[5]/oxi-flow-rate-pps</property>
 				<property>propulsion/engine[6]/oxi-flow-rate-pps</property>
 			</sum>
 		</function>
@@ -474,6 +649,14 @@
 			</test>
 		</switch>
 
+		<switch name="systems/oms-hardware/tank-kit-isolation-status">
+			<default value="0.0"/>
+			<test logic="OR" value="1.0">
+				systems/oms-hardware/tank-kit-oms-valve-A-status == 1
+				systems/oms-hardware/tank-kit-oms-valve-B-status == 1
+			</test>
+		</switch>
+
 		<switch name="systems/oms-hardware/left-to-right-crossfeed">
 			<default value="0.0"/>
 			<test logic="AND" value="1.0">
@@ -493,6 +676,39 @@
 				systems/oms-hardware/tank-right-isolation-status == 1
 			</test>
 		</switch>
+
+		<switch name="systems/oms-hardware/kit-to-left-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/oms-hardware/crossfeed-right-open == 0
+				systems/oms-hardware/tank-left-isolation-status == 0
+				systems/oms-hardware/tank-right-isolation-status == 1
+				systems/oms-hardware/tank-kit-isolation-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/kit-to-right-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 0
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/oms-hardware/tank-right-isolation-status == 0
+				systems/oms-hardware/tank-left-isolation-status == 1
+				systems/oms-hardware/tank-kit-isolation-status == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/kit-to-both-crossfeed">
+			<default value="0.0"/>
+			<test logic="AND" value="1.0">
+				systems/oms-hardware/crossfeed-left-open == 1
+				systems/oms-hardware/crossfeed-right-open == 1
+				systems/oms-hardware/tank-right-isolation-status == 0
+				systems/oms-hardware/tank-left-isolation-status == 0
+				systems/oms-hardware/tank-kit-isolation-status == 1
+			</test>
+		</switch>
 		
 		<switch name="systems/oms-hardware/fuel-left-crossfeed-drain-pps">
 			<default value="0.0"/>
@@ -505,6 +721,19 @@
 			<default value="0.0"/>
 			<test value="systems/oms-hardware/fuel-left-nominal-drain-pps">
 				systems/oms-hardware/right-to-left-crossfeed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/fuel-kit-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/fuel-left-nominal-drain-pps">
+				systems/oms-hardware/kit-to-left-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/fuel-right-nominal-drain-pps">
+				systems/oms-hardware/kit-to-right-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/fuel-both-nominal-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
 			</test>
 		</switch>
 
@@ -522,9 +751,83 @@
 			</test>
 		</switch>
 
+		<switch name="systems/oms-hardware/oxidizer-kit-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/oxidizer-left-nominal-drain-pps">
+				systems/oms-hardware/kit-to-left-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/oxidizer-right-nominal-drain-pps">
+				systems/oms-hardware/kit-to-right-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/oxidizer-both-nominal-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
+			</test>
+		</switch>
+
+		<fcs_function name="systems/oms-hardware/fuel-kit-half-crossfeed-drain-pps">
+		<function>
+			<product>
+			<property>systems/oms-hardware/fuel-kit-crossfeed-drain-pps</property>
+			<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/oxidizer-kit-half-crossfeed-drain-pps">
+		<function>
+			<product>
+			<property>systems/oms-hardware/oxidizer-kit-crossfeed-drain-pps</property>
+			<value>0.5</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<switch name="systems/oms-hardware/fuel-kit-left-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/fuel-kit-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-left-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/fuel-kit-half-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/oxidizer-kit-left-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/oxidizer-kit-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-left-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/oxidizer-kit-half-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/fuel-kit-right-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/fuel-kit-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-right-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/fuel-kit-half-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
+			</test>
+		</switch>
+
+		<switch name="systems/oms-hardware/oxidizer-kit-right-crossfeed-drain-pps">
+			<default value="0.0"/>
+			<test value="systems/oms-hardware/oxidizer-kit-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-right-crossfeed == 1
+			</test>
+			<test value="systems/oms-hardware/oxidizer-kit-half-crossfeed-drain-pps">
+				systems/oms-hardware/kit-to-both-crossfeed == 1
+			</test>
+		</switch>
+
+
+
 		<fcs_function name="systems/oms-hardware/fuel-left-crossfeed-correction">
 		<function>
 			<sum>
+			<property>systems/oms-hardware/fuel-kit-left-crossfeed-drain-pps</property>
 			<difference>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
@@ -539,6 +842,7 @@
 		<fcs_function name="systems/oms-hardware/fuel-right-crossfeed-correction">
 		<function>
 			<sum>
+			<property>systems/oms-hardware/fuel-kit-right-crossfeed-drain-pps</property>
 			<difference>
 				<property>systems/oms-hardware/fuel-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/fuel-right-crossfeed-drain-pps</property>
@@ -550,9 +854,28 @@
 		<output>propulsion/tank[7]/external-flow-rate-pps</output>
 		</fcs_function>
 
+		<fcs_function name="systems/oms-hardware/fuel-kit-crossfeed-correction">
+		<function>
+			<sum>
+			<product>
+				<property>systems/oms-hardware/fuel-kit-crossfeed-drain-pps</property>
+				<value>-1.0</value>
+			</product>
+			<product>
+				<property>systems/rcs-hardware/fuel-oms-kit-crossfeed-drain-pps</property>
+				<value>-1.0</value>
+			</product>
+			<property>systems/failures/leakage/oms-kit-fuel-leak-flow</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[27]/external-flow-rate-pps</output>
+		</fcs_function>
+
+
 		<fcs_function name="systems/oms-hardware/oxidizer-left-crossfeed-correction">
 		<function>
 			<sum>
+			<property>systems/oms-hardware/oxidizer-kit-left-crossfeed-drain-pps</property>
 			<difference>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
@@ -567,6 +890,7 @@
 		<fcs_function name="systems/oms-hardware/oxidizer-right-crossfeed-correction">
 		<function>
 			<sum>
+			<property>systems/oms-hardware/oxidizer-kit-right-crossfeed-drain-pps</property>
 			<difference>
 				<property>systems/oms-hardware/oxidizer-left-crossfeed-drain-pps</property>
 				<property>systems/oms-hardware/oxidizer-right-crossfeed-drain-pps</property>
@@ -576,6 +900,23 @@
 			</sum>
 		</function>
 		<output>propulsion/tank[6]/external-flow-rate-pps</output>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/oxidizer-kit-crossfeed-correction">
+		<function>
+			<sum>
+			<product>
+				<property>systems/oms-hardware/oxidizer-kit-crossfeed-drain-pps</property>
+				<value>-1.0</value>
+			</product>
+			<product>
+				<property>systems/rcs-hardware/oxidizer-oms-kit-crossfeed-drain-pps</property>
+				<value>-1.0</value>
+			</product>
+			<property>systems/failures/leakage/oms-kit-oxidizer-leak-flow</property>
+			</sum>
+		</function>
+		<output>propulsion/tank[26]/external-flow-rate-pps</output>
 		</fcs_function>
 
 
@@ -595,6 +936,14 @@
 					<product>
 					<property>systems/oms-hardware/right-to-left-crossfeed</property>
 					<property>systems/oms-hardware/right-oms-fuel-available</property>
+					</product>
+					<product>
+					<property>systems/oms-hardware/kit-to-left-crossfeed</property>
+					<property>systems/oms-hardware/kit-oms-fuel-available</property>	
+					</product>
+					<product>
+					<property>systems/oms-hardware/kit-to-both-crossfeed</property>
+					<property>systems/oms-hardware/kit-oms-fuel-available</property>	
 					</product>
 				</max>
 				<property>systems/failures/oms/oms-left-fuel-line-condition</property>
@@ -616,6 +965,14 @@
 					<property>systems/oms-hardware/left-to-right-crossfeed</property>
 					<property>systems/oms-hardware/left-oms-fuel-available</property>
 					</product>
+					<product>
+					<property>systems/oms-hardware/kit-to-right-crossfeed</property>
+					<property>systems/oms-hardware/kit-oms-fuel-available</property>	
+					</product>
+					<product>
+					<property>systems/oms-hardware/kit-to-both-crossfeed</property>
+					<property>systems/oms-hardware/kit-oms-fuel-available</property>	
+					</product>
 				</max>
 				<property>systems/failures/oms/oms-right-fuel-line-condition</property>
 			</product>
@@ -625,7 +982,7 @@
 
 	</channel>
 
-	<channel name="Chamber conditions">
+	<channel name="Chamber conditions" execrate="4">
 
 	<fcs_function name="systems/oms-hardware/chamber-left-inlet-fuel-pressure-psia">
 	<function>
@@ -948,6 +1305,36 @@
 		</function>
 		</fcs_function>
 
+		<fcs_function name="systems/oms-hardware/gauges/oms-oxid-kit-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[26]/contents-lbs</property>
+				<product>
+				<value>77.730</value>
+				<max>
+					<value>1.0</value>
+					<property>systems/oms-hardware/oms-kit-num-tanks</property>
+				</max>
+				</product>
+			</quotient>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/oms-fuel-kit-percent">
+		<function>
+			<quotient>
+				<property>propulsion/tank[27]/contents-lbs</property>
+				<product>
+				<value>47.180</value>
+				<max>
+					<value>1.0</value>
+					<property>systems/oms-hardware/oms-kit-num-tanks</property>
+				</max>
+				</product>
+			</quotient>
+		</function>
+		</fcs_function>
+
 		<fcs_function name="systems/oms-hardware/gauges/min-propellant-fwd-percent">
 		<function>
 			<min>
@@ -968,30 +1355,63 @@
 			<test value="systems/oms-hardware/gauges/min-propellant-fwd-percent"> <!-- MIN -->
 				systems/oms-hardware/gauges/tank-selector-switch == 2
 			</test>
+			<test value="systems/oms-hardware/gauges/oms-oxid-kit-percent"> <!-- OMS OXID -->
+				systems/oms-hardware/gauges/tank-selector-switch == 3
+			</test>
+			<test value="systems/oms-hardware/gauges/oms-fuel-kit-percent"> <!-- OMS FUEL -->
+				systems/oms-hardware/gauges/tank-selector-switch == 4
+			</test>
 		</switch>
 
-		<fcs_function name="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+		<fcs_function name="systems/oms-hardware/gauges/helium-left-rcs-pressure-1-scaled">
 		<function>
 			<product>
-			<property>systems/rcs-hardware/helium-left-rcs-pressure-psia</property>
+			<property>systems/rcs-hardware/helium-left-rcs-pressure-1-psia</property>
 			<value>0.1</value>
 			</product>
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+		<fcs_function name="systems/oms-hardware/gauges/helium-left-rcs-pressure-2-scaled">
 		<function>
 			<product>
-			<property>systems/rcs-hardware/helium-right-rcs-pressure-psia</property>
+			<property>systems/rcs-hardware/helium-left-rcs-pressure-2-psia</property>
 			<value>0.1</value>
 			</product>
 		</function>
 		</fcs_function>
 
-		<fcs_function name="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+		<fcs_function name="systems/oms-hardware/gauges/helium-right-rcs-pressure-1-scaled">
 		<function>
 			<product>
-			<property>systems/rcs-hardware/helium-fwd-rcs-pressure-psia</property>
+			<property>systems/rcs-hardware/helium-right-rcs-pressure-1-psia</property>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-right-rcs-pressure-2-scaled">
+		<function>
+			<product>
+			<property>systems/rcs-hardware/helium-right-rcs-pressure-2-psia</property>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-1-scaled">
+		<function>
+			<product>
+			<property>systems/rcs-hardware/helium-fwd-rcs-pressure-1-psia</property>
+			<value>0.1</value>
+			</product>
+		</function>
+		</fcs_function>
+
+		<fcs_function name="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-2-scaled">
+		<function>
+			<product>
+			<property>systems/rcs-hardware/helium-fwd-rcs-pressure-2-psia</property>
 			<value>0.1</value>
 			</product>
 		</function>
@@ -1000,7 +1420,7 @@
 
 		<switch name="systems/oms-hardware/gauges/display-press-left-oxid">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-2-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
@@ -1013,7 +1433,7 @@
 
 		<switch name="systems/oms-hardware/gauges/display-press-left-fuel">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-left-rcs-pressure-1-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-left-rcs-blowdown-psia">
@@ -1026,27 +1446,33 @@
 
 		<switch name="systems/oms-hardware/gauges/display-press-fwd-oxid">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-2-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
 				systems/oms-hardware/gauges/pressure-selector-switch == 1
+			</test>
+			<test value="systems/oms-hardware/tanks-kit-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
 			</test>
 		</switch>
 
 		<switch name="systems/oms-hardware/gauges/display-press-fwd-fuel">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-fwd-rcs-pressure-1-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-fwd-rcs-blowdown-psia">
 				systems/oms-hardware/gauges/pressure-selector-switch == 1
 			</test>
+			<test value="systems/oms-hardware/tanks-kit-oms-blowdown-psia">
+				systems/oms-hardware/gauges/pressure-selector-switch == 2
+			</test>
 		</switch>
 
 		<switch name="systems/oms-hardware/gauges/display-press-right-oxid">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-2-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
@@ -1059,7 +1485,7 @@
 
 		<switch name="systems/oms-hardware/gauges/display-press-right-fuel">
 			<default value="0.0"/>
-			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-scaled">
+			<test value="systems/oms-hardware/gauges/helium-right-rcs-pressure-1-scaled">
 				systems/oms-hardware/gauges/pressure-selector-switch == 0
 			</test>
 			<test value="systems/rcs-hardware/tanks-right-rcs-blowdown-psia">
